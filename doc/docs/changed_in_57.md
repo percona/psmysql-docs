@@ -12,7 +12,6 @@ the improvements found in Percona Server for MySQL 5.6.
 Some features that were present in Percona Server for MySQL 5.6 have been
 removed in Percona Server for MySQL 5.7. These are:
 
->
 * [Handlersocket](https://www.percona.com/doc/percona-server/5.6/performance/handlersocket.html)
     - This feature might be included in a future release if HandlerSocket
     starts supporting 5.7.
@@ -22,34 +21,28 @@ removed in Percona Server for MySQL 5.7. These are:
     - Instead of replica prefetching using the fake changes, a 5.7
     intra-schema parallel replication replica should be used.
 
-
 * `SHOW ENGINE INNODB STATUS` no longer prints the count of active
     Read-Only transactions.
-
 
 * [InnoDB redo log archiving](https://www.percona.com/doc/percona-server/5.6/management/log_archiving.html)
     has been removed due to lack of user uptake of the feature.
 
 ## Changes in Percona Server 5.6 features
 
->
 * The minor Percona Server for MySQL version number (“y” in “5.a.b-x.y”)
     has been dropped to simplify Percona Server for MySQL versioning.
 
-
 * Performance Schema memory instrumentation support has been added to the
+
     Audit Log Plugin, Metrics for scalability measurement, and PAM
     Authentication Plugin, and to the core server to track memory used by
     User Statistics, Per-query variable statement, XtraDB changed page
     tracking, and Thread Pool features.
 
-
 * Audit Log Plugin now produces diagnostics in a format consistent with
     the rest of the server.
 
-
 * The [performance_schema.metadata_locks](https://dev.mysql.com/doc/refman/5.7/en/metadata-locks-table.html) table now displays `backup` and `binlog` lock information too. The `object_type` column has two new valid values: `backup`, and `binlog`.
-
 
 * INFORMATION_SCHEMA.XTRADB_RSEG table schema has been changed to support
     new possible InnoDB page sizes. The `zip_size` column has been removed
@@ -60,7 +53,6 @@ removed in Percona Server for MySQL 5.7. These are:
     `READ_VIEW_UNDO_NUMBER` column, which was associated with unused code
     and always contained zero.
 
-
 * Interaction between `--hidden-` option modifier
     and [session_track_system_variables](http://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_session_track_system_variables)
     has been implemented as follows: any variables with `--hidden-`
@@ -69,18 +61,16 @@ removed in Percona Server for MySQL 5.7. These are:
     set `session_track_system_variables`, care must be taken if a variable
     contained in its default value (i.e. autocommit) is hidden.
 
-
 * Nested `SET STATEMENT ... FOR SET STATEMENT ... FOR ...` statements
+
    have a different effect in the innermost clause when the nested
     clauses set the same variables: in 5.6, the innermost assignment is effective, but, in 5.7, the outermost assignment is effective.
-
 
 * Utility user is treated as a `SUPER` user for the purposes
     of [offline mode](http://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_offline_mode):
     utility user connections are not dropped if server switches to offline
     mode and new utility user connections can be established to such
     server.
-
 
 * The server will abort startup with an error message if conflicting
     enforce_storage_engine and disabled_storage_engines option values are
@@ -97,22 +87,20 @@ Some Percona Server for MySQL 5.6 features have been replaced by similar or
 equivalent MySQL 5.7 features, so we now keep the MySQL 5.7 implementations
 in Percona Server for MySQL 5.7. These are:
 
-
 * [Lock-Free SHOW SLAVE STATUS NONBLOCKING](https://www.percona.com/doc/percona-server/5.6/reliability/show_slave_status_nolock.html)
     has been replaced by a
     regular `SHOW SLAVE STATUS` [implementation](http://dev.mysql.com/doc/refman/5.7/en/show-slave-status.html)
     . Oracle implementation forbids calling it from a stored function.
 
-
 * Behavior corresponding to slow_query_log_timestamp_precision set
+
     to `microsecond` is now the default, the variable itself and the
     behavior corresponding to the variable’s `second` value is removed.
 
-
 * Behavior corresponding to slow_query_log_timestamp_always set to `TRUE`
+
     is now the default, the variable itself and the behavior corresponding
     to the variable’s `FALSE` value is removed.
-
 
 * [Statement timeout feature](http://www.percona.com/doc/percona-server/5.6/management/statement_timeout.html)
     has been replaced by
@@ -123,8 +111,6 @@ in Percona Server for MySQL 5.7. These are:
     has been removed; the timeouts only apply
     for [read-only SELECT](http://dev.mysql.com/doc/refman/5.7/en/select.html)
     .
-
-
 * [Atomic write support on fusionIO devices](http://www.percona.com/doc/percona-server/5.6/performance/atomic_fio.html)
     with NVMFS has been replaced by Oracle implementation. It is no longer
     required to enable innodb_use_atomic_writes variable, and this variable
@@ -134,22 +120,18 @@ in Percona Server for MySQL 5.7. These are:
     to `O_DIRECT` if it has a different value. The user must set it
     to `O_DIRECT` explicitly, or atomic writes will not be enabled.
 
-
 * [Online GTID migration patch](http://www.percona.com/doc/percona-server/5.6/flexibility/online_gtid_deployment.html)
     has been replaced by an upstream
     variable [gtid_mode](http://dev.mysql.com/doc/refman/5.7/en/replication-options-gtids.html#option_mysqld_gtid-mode)
     made dynamic.
 
-
 * The [Error Code Compatibility](https://www.percona.com/doc/percona-server/5.6/reliability/error_pad.html) has been replaced by the multiple start-error-number directive in `sql/share/errmsg-utf8.txt` support.
-
 
 * [Ignoring missing tables in mysqldump](https://www.percona.com/doc/percona-server/5.6/flexibility mysqldump_ignore_create_error.html)
     with `--ignore-create-error` option has been replaced by the more
     general upstream
     option [–ignore-error](http://dev.mysql.com/doc/refman/5.7/en/mysqldump.html#option_mysqldump_ignore-error)
     option.
-
 
 * [innodb_log_block_size](https://www.percona.com/doc/percona-server/5.6/scalability/innodb_io.html#innodb_log_block_size)
     has been replaced
@@ -162,25 +144,20 @@ in Percona Server for MySQL 5.7. These are:
     from `my.cnf` configuration and removing the old logs and starting the
     service again before doing the upgrade.
 
-
 * [Extended secure-file-priv server option](https://www.percona.com/doc/percona-server/5.6/management/secure_file_priv_extended.html)
     , which was used to disable `LOAD DATA INFILE`, `SELECT INTO OUTFILE`
     statements, and `LOAD_FILE()` function completely, has been replaced by
     upstream introducing `NULL` as a possible value to this variable. To
     migrate, any value-less settings must be replaced by `NULL`.
 
-
 * [innodb_sched_priority_cleaner](https://www.percona.com/doc/percona-server/5.6/performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.html#innodb_sched_priority_cleaner)
     variable has been removed, as the effect of setting it to 39 (
     corresponding to nice value of -20), is now enabled by default.
-
 
 * [innodb_adaptive_hash_index_partitions](https://www.percona.com/doc/percona-server/5.6/scalability/innodb_adaptive_hash_index_partitions.html#innodb_adaptive_hash_index_partitions)
     has been replaced
     by [innodb_adaptive_hash_index_parts](https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_adaptive_hash_index_parts)
     .
-
-
 * In the default server setup (with InnoDB being the only one XA-capable
     storage engine), `--tc-heuristic-recover=COMMIT` is silently converted
     to `ROLLBACK`. If TokuDB or another XA-supporting 3rd party storage
@@ -191,7 +168,6 @@ in Percona Server for MySQL 5.7. These are:
     bug [#70860](http://bugs.mysql.com/bug.php?id=70860). Since Oracle
     fixed the same bug in 5.7, the default value is `OFF` now.
 
-
 * [innodb_log_checksum_algorithm](https://www.percona.com/doc/percona-server/5.6/scalability/innodb_io.html#innodb_log_checksum_algorithm)
     feature has been replaced
     by [innodb_log_checksums](http://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_checksums)
@@ -199,14 +175,12 @@ in Percona Server for MySQL 5.7. These are:
     innodb_log_checksum_algorithm to `crc32`, innodb_log_checksums should
     be set to `ON`, which is a default setting for this variable.
 
-
 * [innodb_buffer_pool_populate](https://www.percona.com/doc/percona-server/5.6/performance/innodb_numa_support.html#innodb_buffer_pool_populate)
     server option
     and [numa_interleave](https://www.percona.com/doc/percona-server/5.6/performance/innodb_numa_support.html#numa_interleave)  `mysql_safe.sh`
     option have been replaced
     by [innodb_numa_interleave](http://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_numa_interleave)
     server option. Note that flush_caches option still remains.
-
 
 * [Ability to change database for mysqlbinlog](https://www.percona.com/doc/percona-server/5.6/flexibility/mysqlbinlog_change_db.html)
     implementation has been replaced from MariaDB one with
@@ -217,8 +191,7 @@ in Percona Server for MySQL 5.7. These are:
     any `--rewrite-db='a->b,c->d'` occurrences must be replaced
     with `--rewrite-db='a->b' --rewrite-db='c->d'`. 2) Whitespace around
     database names is not ignored.
-
-
+    
 * [INFORMATION_SCHEMA.PROCESSLIST.TID column](https://www.percona.
     com/doc/percona-server/5.6/diagnostics/process_list.html) has been replaced
     by [PERFORMANCE_SCHEMA.THREADS.THREAD_OS_ID column](http://dev.mysql.com/doc/refman/5.7/en/threads-table.html)
@@ -226,34 +199,27 @@ in Percona Server for MySQL 5.7. These are:
     be `NULL`, whereas in the 5.6 implementation `TID` column showed
     either `NULL` or the assigned worker thread id at the moment.
 
-
 * [innodb_foreground_preflush server](https://www.percona.com/doc/percona-server/5.6/performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.html#innodb_foreground_preflush)
     variable has been removed as the upstream implemented a similar feature
     without a controlling option.
-
 
 * [Log All Client Commands (syslog)](http://www.percona.com/doc/percona-server/5.6/diagnostics/mysql_syslog.html)
     feature has been replaced by
     Oracle [mysql Logging](http://dev.mysql.com/doc/refman/5.7/en/mysql-logging.html)
     implementation.
 
-
 * Support
     for [Multiple user level locks per connection](https://www.percona.com/doc/percona-server/5.6/scalability/multiple_user_level_locks.html)
     has been replaced by Oracle implementation, which is based on the same
     contributed patch by *Kostja Osipov*.
-
 
 * [super-read-only option](https://www.percona.com/doc/percona-server/5.6/management/super_read_only.html)
     has been replaced by
     Oracle [super_read_only](http://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_super_read_only)
     variable implementation.
 
-
 * Mutex names in `SHOW ENGINE INNODB MUTEX` have been replaced by Oracle
     mutex name implementation.
-
-
 * Percona Server for MySQL now uses packaging similar to the upstream
     MySQL version. Most important change is that for *Debian*/*Ubuntu*
     upgrades you now need to run `mysql_upgrade` manually.
