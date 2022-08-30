@@ -1,4 +1,9 @@
-# Installing _Percona Server for MySQL_ from a Binary Tarball
+# Installing _Percona Server for MySQL_ 5.7 from a Binary Tarball
+
+!!! note
+
+    The following instructions install Percona Server for MySQL 5.7. 
+    The instructions to install [Percona Server for MySQL 8.0 are available at this location](https://docs.percona.com/percona-server/latest/installation.html#installing-percona-server-from-a-binary-tarball).
 
 In _Percona Server for MySQL_ 5.7.31-34 and later, the multiple binary 
 tarballs are replaced with the following:

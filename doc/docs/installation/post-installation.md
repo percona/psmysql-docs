@@ -1,6 +1,7 @@
-# Post-Installation
+# Post-Installation steps for Percona Server for MySQL 5.7
 
-After you have installed *Percona Server for MySQL*, you may need to do the following:
+
+After you have installed *Percona Server for MySQL* 5.7, you may need to do the following:
 
 | Task                                                                                      | Description                                                                                                                                               |
 |-------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
