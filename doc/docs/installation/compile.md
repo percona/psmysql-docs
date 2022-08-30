@@ -1,4 +1,4 @@
-# Compiling *Percona Server for MySQL* 5.7 from Source
+# Compiling Percona Server for MySQL 5.7 from Source
 
 !!! note
 

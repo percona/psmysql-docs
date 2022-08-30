@@ -1,5 +1,5 @@
 
-# Installing *Percona Server for MySQL* 5.7 from the Git Source Tree
+# Installing Percona Server for MySQL 5.7 from the Git Source Tree
 
 !!! note
 
@@ -12,7 +12,7 @@ from the source tree you must have `git` installed on your system.
 
 You can now fetch the latest *Percona Server for MySQL* 5.7 sources.
 
-```
+```shell
 $ git clone https://github.com/percona/percona-server.git
 $ cd percona-server
 $ git checkout 5.7
@@ -29,5 +29,5 @@ $ cmake .
 $ make dist
 ```
 
-Follow the instructions in Compiling Percona Server for MySQL from 
-Source.
+Follow the instructions in [Compiling Percona Server for MySQL from 
+Source](compile.md).

@@ -34,7 +34,7 @@ If the variable csv_mode is set to empty value (default) parsed data will look l
 
 If the variable csv_mode is set to `IETF_QUOTES` parsed data will look like as described in [CSV rules](http://en.wikipedia.org/wiki/Comma-separated_values#Basic_rules_and_examples):
 
-```
+```text
 "Great Artist","Old Album"
 "Great Artist","""Limited Edition"",Old Album"
 ```
@@ -43,8 +43,12 @@ Parsing the CSV file which has the proper quotes (shown in the previous example)
 
 With csv_mode set to empty value, parsed data will look like:
 
-```
+```sql
 > SELECT * FROM albums;
+```
+The output could be similar to the following:
+
+```text
 +--------------+--------------------+
 | artist       | album              |
 +--------------+--------------------+
@@ -58,11 +62,19 @@ With csv_mode set to `IETF_QUOTES` parsed data will look like:
 
 ```
 mysql> SET csv_mode = 'IETF_QUOTES';
+```
+The output could be similar to the following:
+
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
-```
+```sql
 > SELECT * FROM albums;
+```
+The output could be similar to the following:
+
+```text
 +--------------+-----------------------------+
 | artist       | album                       |
 +--------------+-----------------------------+
@@ -78,7 +90,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 ## System Variables
 
-### `csv_mode`
+### <a id="csv-mode" /> csv_mode
 
 | Option       | Description                                                                                                    |
 |------------------------------------|------------------------------------|

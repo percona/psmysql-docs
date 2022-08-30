@@ -1,4 +1,4 @@
-# *Percona Toolkit* UDFs
+# Percona Toolkit UDFs
 
 Three *Percona Toolkit* UDFs that provide faster checksums are provided:
 

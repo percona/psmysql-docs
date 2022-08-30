@@ -55,7 +55,7 @@ The output could be the following:
 
 ## System Variables
 
-### `max_binlog_files`
+### <a id="max-binglog-files" /> max_binlog_files
 
 | Option       | Description   |
 |--------------|---------------|
@@ -67,7 +67,7 @@ The output could be the following:
 | Default      | 0 (unlimited) |
 | Range        | 0-102400      |
 
-### `binlog_space_limit`
+### <a id="binglog-space-limit" /> binlog_space_limit
 
 | Option       | Description   |
 |--------------|---------------|
@@ -86,6 +86,6 @@ This option places an upper limit on the total size in bytes of all binary logs.
 When the limit is reached, oldest binary logs are purged until the total size is under the limit or only
 active log is remaining.
 
-**NOTE**: You should not set `--binlog-space-limit` to less or equal than the value of
-`--max-binlog-size` because after the max-binlog-size limit will be reached, logs will be
-rotated and immediately pruned by binlog-space-limit.
+!!! note
+
+    You should not set `--binlog-space-limit` to less or equal than the value of `--max-binlog-size` because after the max-binlog-size limit will be reached, logs will be rotated and immediately pruned by binlog-space-limit.

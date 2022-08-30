@@ -13,32 +13,14 @@ You can use *Percona-Toolkit*’s [pt-query-digest](http://www.percona.com/doc/p
 
 ### `log_slow_filter`
 
-| Option
 
- | Description
+| Option | Description |
+| --- | --- |
+| Command-line | Yes |
+| Config file | Yes |
+| Scope | Global, Session |
+| Dynamic | Yes |
 
- |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Command-line
-
-                                                              | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Config file
-
-                                                               | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Scope
-
-                                                                     | Global, Session
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| Dynamic
-
-                                                                   | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 Filters the slow log by the query’s execution plan. The value is a comma-delimited string, and can contain any combination of the following values:
 
 > 
@@ -75,87 +57,30 @@ For example, to log only queries that perform a full table scan, set the value t
 
 ### `log_slow_rate_type`
 
-| Option
+| Option | Description |
+| --- | --- |
+| Command-line | Yes |
+| Config file | Yes |
+| Scope | Global |
+| Dynamic | Yes |
+| Data type | Enumerated |
+| Default | session |
+| Range | session, query |
 
-                                                                    | Description
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Command-line
-
-                                                              | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Config file
-
-                                                               | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Scope
-
-                                                                     | Global
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| Dynamic
-
-                                                                   | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Data type
-
-                                                                 | Enumerated
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| Default
-
-                                                                   | `session`
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Range
-
-                                                                     | `session`, `query`
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 Specifies semantic of log_slow_rate_limit - `session` or `query`.
 
 ### `log_slow_rate_limit`
 
-| Option
 
-                                                                    | Description
+| Option | Description |
+| --- | --- |
+| Command-line | Yes |
+| Config file | Yes |
+| Scope | Global, session |
+| Dynamic | Yes |
+| Default | 1 |
+| Range | 1-1000 |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Command-line
-
-                                                              | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Config file
-
-                                                               | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Scope
-
-                                                                     | Global, session
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| Dynamic
-
-                                                                   | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Default
-
-                                                                   | 1
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| Range
-
-                                                                     | 1-1000
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 Behavior of this variable depends from log_slow_rate_type.
 
 Specifies that only a fraction of `session/query` should be logged. Logging is enabled for every nth `session/query`. By default, n is 1, so logging is enabled for every `session/query`. Please note: when log_slow_rate_type is `session` rate limiting is disabled for the replication thread.
@@ -187,47 +112,17 @@ Log_slow_rate_type: query  Log_slow_rate_limit: 10
 
 ### `log_slow_sp_statements`
 
-| Option
 
-                                                                    | Description
+| Option | Description |
+| --- | --- |
+| Command-line | Yes |
+| Config file | Yes |
+| Scope | Global |
+| Dynamic | Yes |
+| Data type | Boolean |
+| Default | TRUE |
+| Range | TRUE/FALSE |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Command-line
-
-                                                              | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Config file
-
-                                                               | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Scope
-
-                                                                     | Global
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| Dynamic
-
-                                                                   | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Data type
-
-                                                                 | Boolean
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Default
-
-                                                                   | TRUE
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| Range
-
-                                                                     | TRUE/FALSE
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 If `TRUE`, statements executed by stored procedures are logged to the slow if it is open.
 
 *Percona Server for MySQL* implemented improvements for logging of stored procedures to the slow query log:
@@ -243,7 +138,7 @@ If `TRUE`, statements executed by stored procedures are logged to the slow if it
 
 Example of the improved stored procedure slow query log entry:
 
-```
+```sql
 mysql> DELIMITER //
 mysql> CREATE PROCEDURE improved_sp_log()
        BEGIN
@@ -254,9 +149,9 @@ mysql> DELIMITER ;
 mysql> CALL improved_sp_log();
 ```
 
-When we check the slow query log after running the stored procedure ,with variable:log_slow_sp_statements set to `TRUE`, it should look like this:
+When we check the slow query log after running the stored procedure, with `log_slow_sp_statements` set to `TRUE`, it should look like this:
 
-```
+```text
 # Time: 150109 11:38:55
 # User@Host: root[root] @ localhost []
 # Thread_id: 40  Schema: world  Last_errno: 0  Killed: 0
@@ -283,7 +178,7 @@ If variable log_slow_sp_statements is set to `FALSE`:
 
 If we run the same stored procedure with the variable log_slow_sp_statements is set to `FALSE` slow query log should look like this:
 
-```
+```text
 # Time: 150109 11:51:42
 # User@Host: root[root] @ localhost []
 # Thread_id: 40  Schema: world  Last_errno: 0  Killed: 0
@@ -293,36 +188,19 @@ SET timestamp=1420804302;
 CALL improved_sp_log();
 ```
 
-**NOTE**: Support for logging stored procedures doesn’t involve triggers, so they won’t be logged even if this feature is enabled.
+!!! note
+
+    Support for logging stored procedures doesn’t involve triggers, so they won’t be logged even if this feature is enabled.
 
 ### `log_slow_verbosity`
 
-| Option
+| Option | Description |
+| --- | --- |
+| Command-line | Yes |
+| Config file | Yes |
+| Scope | Global, session |
+| Dynamic | Yes |
 
-                                                                    | Description
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Command-line
-
-                                                              | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Config file
-
-                                                               | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Scope
-
-                                                                     | Global, session
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| Dynamic
-
-                                                                   | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 Specifies how much information to include in your slow log. The value is a comma-delimited string, and can contain any combination of the following values:
 
 > 
@@ -363,37 +241,14 @@ For example, to enable microsecond query timing and InnoDB statistics, set this 
 
 ### `slow_query_log_use_global_control`
 
-| Option
+| Option | Description |
+| --- | --- |
+| Command-line | Yes |
+| Config file | Yes |
+| Scope | Global |
+| Dynamic | Yes |
+| Default | None |
 
-                                                                    | Description
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Command-line
-
-                                                              | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Config file
-
-                                                               | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Scope
-
-                                                                     | Global
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| Dynamic
-
-                                                                   | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Default
-
-                                                                   | None
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 Specifies which variables have global scope instead of local. For such variables, the global variable value is used in the current session, but without copying this value to the session value. Value is a “flag” variable - you can specify multiple values separated by commas
 
 > 
@@ -426,37 +281,15 @@ Specifies which variables have global scope instead of local. For such variables
 
 ### `slow_query_log_always_write_time`
 
-| Option
+| Option | Description |
+| --- | --- |
+| Command-line | Yes |
+| Config file | Yes |
+| Scope | Global |
+| Dynamic | Yes |
+| Default | 10 |
 
-                                                                    | Description
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Command-line
-
-                                                              | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Config file
-
-                                                               | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Scope
-
-                                                                     | Global
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| Dynamic
-
-                                                                   | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Default
-
-                                                                   | 10
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 This variable can be used to specify the query execution time after which the query will be written to the slow query log. It can be used to specify an additional execution time threshold for the slow query log, that, when exceeded, will cause a query to be logged unconditionally, that is, log_slow_rate_limit will not apply to it.
 
 ## Other Information
@@ -465,7 +298,7 @@ This variable can be used to specify the query execution time after which the qu
 
 The feature adds more information to the slow log output. Here is a sample log entry:
 
-```
+```text
 # Time: 130601  8:01:06.058915
 # User@Host: root[root] @ localhost []  Id:    42
 # Schema: imdb  Last_errno: 0  Killed: 0
@@ -479,7 +312,7 @@ SELECT id,title,production_year FROM title WHERE title = 'Bambi';
 
 Another example (log_slow_verbosity `=profiling`):
 
-```
+```text
 # Time: 130601  8:03:20.700441
 # User@Host: root[root] @ localhost []  Id:    43
 # Schema: imdb  Last_errno: 0  Killed: 0
@@ -506,49 +339,23 @@ Notice that the `Killed: \`\` keyword is followed by zero when the
 query successfully completes. If the query was killed, the \`\`Killed:`
 keyword is followed by a number other than zero:
 
-| Killed Numeric Code
 
-                                                       | Exception
+| Killed Numeric Code | Exception |
+| --- | --- |
+| 0 | NOT_KILLED |
+| 1 | KILL_BAD_DATA |
+| 1053 | ER_SERVER_SHUTDOWN (see MySQL Documentation) |
+| 1317 | ER_QUERY_INTERRUPTED (see MySQL Documentation) |
+| 3024 | ER_QUERY_TIMEOUT (see MySQL Documentation) |
+| Any other number | KILLED_NO_VALUE (Catches all other cases) |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0
-
-                                                                         | NOT_KILLED
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| 1
-
-                                                                         | KILL_BAD_DATA
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| 1053
-
-                                                                      | ER_SERVER_SHUTDOWN (see MySQL Documentation)
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| 1317
-
-                                                                      | ER_QUERY_INTERRUPTED (see MySQL Documentation)
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| 3024
-
-                                                                      | ER_QUERY_TIMEOUT (see MySQL Documentation)
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| Any other number
-
-                                                          | KILLED_NO_VALUE (Catches all other cases)
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 ### Connection and Schema Identifier
 
 Each slow log entry now contains a connection identifier, so you can trace all the queries coming from a single connection. This is the same value that is shown in the Id column in `SHOW FULL PROCESSLIST` or returned from the `CONNECTION_ID()` function.
 
 Each entry also contains a schema name, so you can trace all the queries whose default database was set to a particular schema.
 
-```
+```text
 # Id: 43  Schema: imdb
 ```
 
@@ -558,7 +365,7 @@ This is the original functionality offered by the `microslow` feature. `Query_ti
 
 The feature also adds information about how many rows were examined for `SELECT` queries, and how many were analyzed and affected for `UPDATE`, `DELETE`, and `INSERT` queries,
 
-```
+```text
 # Query_time: 0.962742  Lock_time: 0.000202  Rows_sent: 4  Rows_examined: 1543719  Rows_affected: 0
 ```
 
@@ -576,7 +383,7 @@ Values and context:
 
 The feature provides information about the amount of bytes sent for the result of the query and the number of temporary tables created for its execution - differentiated by whether they were created on memory or on disk - with the total number of bytes used by them.
 
-```
+```text
 # Bytes_sent: 8053  Tmp_tables: 1  Tmp_disk_tables: 0  Tmp_table_sizes: 950528
 ```
 
@@ -602,7 +409,7 @@ Values and context:
 
 Each query can be executed in various ways. For example, it may use indexes or do a full table scan, or a temporary table may be needed. These are the things that you can usually see by running `EXPLAIN` on the query. The feature will now allow you to see the most important facts about the execution in the log file.
 
-```
+```text
 # QC_Hit: No  Full_scan: Yes  Full_join: No  Tmp_table: No  Tmp_table_on_disk: No
 # Filesort: No  Filesort_on_disk: No  Merge_passes: 0
 ```
@@ -613,7 +420,7 @@ The values and their meanings are documented with the log_slow_filter option.
 
 The final part of the output is the InnoDB usage statistics. MySQL currently shows many per-session statistics for operations with `SHOW SESSION STATUS`, but that does not include those of InnoDB, which are always global and shared by all threads. This feature lets you see those values for a given query.
 
-```
+```text
 #   InnoDB_IO_r_ops: 6415  InnoDB_IO_r_bytes: 105103360  InnoDB_IO_r_wait: 0.001279
 #   InnoDB_rec_lock_wait: 0.000000  InnoDB_queue_wait: 0.000000
 #   InnoDB_pages_distinct: 6430

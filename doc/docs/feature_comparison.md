@@ -1,4 +1,4 @@
-# *Percona Server for MySQL* Feature Comparison
+# Percona Server for MySQL Feature Comparison
 
 *Percona Server for MySQL* is an enhanced drop-in replacement for MySQL. With *Percona Server for MySQL*,
 

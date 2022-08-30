@@ -4,29 +4,21 @@ MySQL has the concept of [options modifiers](http://dev.mysql.com/doc/refman/5.7
 
 Currently MySQL supports five existing option modifiers:
 
-    text
     * disable [disable-<option_name>] disables or ignores option_name.
-
 
     * enable [enable-<option_name>] enables option_name.
 
-
     * loose [loose-<option_name>] - mysqld will not exit with an error if it does not recognize option_name, but instead it will issue only a warning.
 
-
     * maximum [maximum-<option_name>=<value>] indicates that a client can not set the value of option_name greater than the limit specified. If the client does attempt to set the value of option_name greater than the limit, the option_name will simply be set to the defined limit. This option modifier does not work for non-numeric system variables.
-
 
     * skip [skip-<option_name>] skips or ignores option_name.
 
 In order to offer more control over option visibility, access and range limits, the following new option modifiers have been added by *Percona Server for MySQL*:
 
-    text
     * minimum [minimum-<option_name>=<value>] indicates that clients can not set the value of option_name to less than the limit specified. If the client does attempt to set the value of option_name lesser than the limit, the option_name will simply be set to the defined limit. This option modifier does not work for non-numeric system variables.
 
-
     * hidden [hidden-<option_name>=<TRUE/FALSE>] indicates that clients can not see or modify the value of option_name.
-
 
     * readonly [readonly-<option_name>=<TRUE/FALSE>] indicates that clients can see the value of option_name but can not modify the value.
 
@@ -43,8 +35,8 @@ Some of the option modifiers may be used together in the same option specificati
 
 ## Version Specific Information
 
-> 
-> * Percona Server for MySQL 5.7.10-1: Feature ported from *Percona Server for MySQL* 5.6
+
+* Percona Server for MySQL 5.7.10-1: Feature ported from *Percona Server for MySQL* 5.6
 
 ## Examples
 
@@ -59,7 +51,7 @@ Trying to set up bigger value will work correctly, but if we try to set it up wi
 Initial query_cache_size size:
 
 ```sql
-mysql> show variables like 'query_cache_size';
+mysql> SHOW variables LIKE 'query_cache_size';
 ```
 
 The output should be similar to the following:
@@ -76,7 +68,7 @@ The output should be similar to the following:
 Setting up bigger value:
 
 ```sql
-mysql> set global query_cache_size=16777216;
+mysql> SET global query_cache_size=16777216;
 ```
 
 The output should be similar to the following:
@@ -86,7 +78,7 @@ The output should be similar to the following:
 Query OK, 0 rows affected (0.00 sec)
 ```
 ```sql
-mysql> show variables like 'query_cache_size';
+mysql> SHOW variables LIKE 'query_cache_size';
 ```
 
 The output should be similar to the following:
@@ -103,7 +95,7 @@ The output should be similar to the following:
 Setting up smaller value:
 
 ```sql
-mysql> set global query_cache_size=1048576;
+mysql> SET global query_cache_size=1048576;
 ```
 
 The output should be similar to the following:
@@ -113,7 +105,7 @@ Query OK, 0 rows affected, 1 warning (0.00 sec)
 ```
 
 ```sql
-mysql> show warnings;
+mysql> SHOW warnings;
 ```
 
 The output should be similar to the following:
@@ -125,9 +117,10 @@ The output should be similar to the following:
 | Warning | 1292 | Truncated incorrect query_cache_size value: '1048576' |
 +---------+------+-------------------------------------------------------+
 1 row in set (0.00 sec)
+```
 
 ```sql
-mysql> show variables like 'query_cache_size';
+mysql> SHOW variables LIKE 'query_cache_size';
 ```
 
 The output should be similar to the following:
@@ -148,7 +141,7 @@ hidden-query_cache_size=1
 ```
 
 ```sql
-mysql> show variables like 'query_cache%';
+mysql> SHOW variables LIKE 'query_cache%';
 ```
 
 The output should be similar to the following:
@@ -175,7 +168,7 @@ readonly-query_cache_size=1
 Trying to change the variable value will result in error:
 
 ```sql
-mysql> show variables like 'query_cache%';
+mysql> SHOW variables LIKE 'query_cache%';
 ```
 
 The output should be similar to the following:
@@ -195,7 +188,7 @@ The output should be similar to the following:
 ```
 
 ```sql
-mysql> set global query_cache_size=16777216;
+mysql> SET global query_cache_size=16777216;
 ```
 
 The output should be similar to the following:

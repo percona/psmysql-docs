@@ -1,6 +1,8 @@
 # Expanded Fast Index Creation
 
-**NOTE**: This feature implementation is considered BETA quality.
+!!! note
+
+    This feature implementation is considered BETA quality.
 
 Percona has implemented several changes related to MySQL’s fast index creation feature. Fast index creation was implemented in MySQL as a way to speed up the process of adding or dropping indexes on tables with many rows.
 
@@ -58,7 +60,7 @@ There’s also a number of cases when this optimization is not applicable:
 
 ### System Variables
 
-### `expand_fast_index_creation`
+### <a id="expand-fast-index-creation" /> expand_fast_index_creation
 
 | Option       | Description  |
 |--------------|--------------|

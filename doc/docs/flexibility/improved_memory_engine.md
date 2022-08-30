@@ -1,4 +1,4 @@
-# `Improved MEMORY` Storage Engine
+# Improved MEMORY Storage Engine
 
 As of `MySQL` 5.5.15, a *Fixed Row Format* (`FRF`) is still being used in the `MEMORY` storage engine. The fixed row format imposes restrictions on the type of columns as it assigns on advance a limited amount of memory per row. This renders a `VARCHAR` field in a `CHAR` field in practice and makes impossible to have a `TEXT` or `BLOB` field with that engine implementation.
 

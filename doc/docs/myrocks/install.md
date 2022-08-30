@@ -22,16 +22,16 @@ It is recommended to install Percona software from official repositories:
 
     * For Debian or Ubuntu:
 
-```shell
-$ sudo apt install percona-server-rocksdb-5.7
-```
+    ```shell
+    $ sudo apt install percona-server-rocksdb-5.7
+    ```
 
 
     * For RHEL or CentOS:
 
-```shell
-$ sudo yum install Percona-Server-rocksdb-57.x86_64
-```
+    ```shell
+    $ sudo yum install Percona-Server-rocksdb-57.x86_64
+    ```
 
 After you install the Percona MyRocks package,
 you should see the following output:

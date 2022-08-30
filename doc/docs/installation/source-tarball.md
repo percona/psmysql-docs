@@ -1,4 +1,4 @@
-#Installing _Percona Server for MySQL_ 5.7 from a Source Tarball
+# Installing _Percona Server for MySQL_ 5.7 from a Source Tarball
 
 !!! note
 
@@ -19,6 +19,7 @@ The output lists the downloaded file:
 ```text
 ...
 Saving to: 'Percona-Server-5.7.38-41-rda46e5474f9-focal-x86_64-bundle.tar'
+...
 ```
 
 Extract the tar file:
@@ -40,5 +41,4 @@ percona-server-source-5.7_5.7.38-41-1.focal_amd64.deb
 percona-server-test-5.7_5.7.38-41-1.focal_amd64.deb
 percona-server-tokudb-5.7_5.7.38-41-1.focal_amd64.deb
 ```
-Follow the instructions in Compiling Percona Server for MySQL from 
-Source to complete the installation.
+Follow the instructions in [Compiling Percona Server for MySQL 5.7 from Source](compile.md) to complete the installation.

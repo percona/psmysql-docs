@@ -42,7 +42,7 @@ Small numbers look strange (i.e., don’t look like powers of 2), because we los
 
 For example, you may see:
 
-```
+```text
 +----------------+-------+------------+
 |      time      | count |    total   |
 +----------------+-------+------------|
@@ -89,25 +89,25 @@ Following SQL commands will be considered as `WRITE` queries and will be logged 
 
 In order to enable this feature you’ll need to install the necessary plugins:
 
-```
+```sql
 mysql> INSTALL PLUGIN QUERY_RESPONSE_TIME_AUDIT SONAME 'query_response_time.so';
 ```
 
 This plugin is used for gathering statistics.
 
-```
+```sql
 mysql> INSTALL PLUGIN QUERY_RESPONSE_TIME SONAME 'query_response_time.so';
 ```
 
 This plugin provides the interface (INFORMATION_SCHEMA.QUERY_RESPONSE_TIME) to output gathered statistics.
 
-```
+```sql
 mysql> INSTALL PLUGIN QUERY_RESPONSE_TIME_READ SONAME 'query_response_time.so';
 ```
 
 This plugin provides the interface (INFORMATION_SCHEMA.QUERY_RESPONSE_TIME_READ) to output gathered statistics.
 
-```
+```sql
 mysql> INSTALL PLUGIN QUERY_RESPONSE_TIME_WRITE SONAME 'query_response_time.so';
 ```
 
@@ -115,9 +115,13 @@ This plugin provides the interface (INFORMATION_SCHEMA.QUERY_RESPONSE_TIME_WRITE
 
 You can check if plugins are installed correctly by running:
 
-```
+```sql
 mysql> SHOW PLUGINS;
+```
 
+The output could be similar to the following:
+
+```text
 ...
 | QUERY_RESPONSE_TIME         | ACTIVE   | INFORMATION SCHEMA | query_response_time.so | GPL     |
 | QUERY_RESPONSE_TIME_AUDIT   | ACTIVE   | AUDIT              | query_response_time.so | GPL     |
@@ -130,13 +134,13 @@ mysql> SHOW PLUGINS;
 
 To start collecting query time metrics, query_response_time_stats should be enabled:
 
-```
+```sql
 SET GLOBAL query_response_time_stats = on;
 ```
 
 And to make it persistent, add the same to `my.cnf`:
 
-```
+```text
 [mysqld]
 query_response_time_stats = on
 ```
@@ -145,8 +149,13 @@ query_response_time_stats = on
 
 You can get the distribution using the query:
 
+```sql
+mysql> SELECT * from INFORMATION_SCHEMA.QUERY_RESPONSE_TIME;
 ```
-mysql> SELECT * from INFORMATION_SCHEMA.QUERY_RESPONSE_TIME
+
+The output could be similar to the following:
+
+```text
 time                   count   total
 0.000001               0       0.000000
 0.000010               0       0.000000
@@ -166,7 +175,7 @@ TOO LONG QUERY         0       0.000000
 
 You can write a complex query like:
 
-```
+```sql
 SELECT c.count, c.time,
 (SELECT SUM(a.count) FROM INFORMATION_SCHEMA.QUERY_RESPONSE_TIME as a WHERE a.count != 0) as query_count,
 (SELECT COUNT(*)     FROM INFORMATION_SCHEMA.QUERY_RESPONSE_TIME as b WHERE b.count != 0) as not_zero_region_count,
@@ -174,13 +183,15 @@ SELECT c.count, c.time,
 FROM INFORMATION_SCHEMA.QUERY_RESPONSE_TIME as c WHERE c.count > 0;
 ```
 
-**Note:** If query_response_time_stats is ON, the execution times for these two `SELECT` queries will also be collected.
+!!! note
+
+    If query_response_time_stats is ON, the execution times for these two `SELECT` queries will also be collected.
 
 ### FLUSH
 
 Flushing can be done by setting the query_response_time_flush to `ON` (or `1`):
 
-```
+```sql
 mysql> SET GLOBAL query_response_time_flush='ON';
 ```
 
@@ -192,7 +203,9 @@ mysql> SET GLOBAL query_response_time_flush='ON';
 
 > * Reads the value of query_response_time_range_base and uses it to set the range base for the table
 
-**Note:** The execution time for the `FLUSH` query will also be collected.
+!!! note
+
+    The execution time for the `FLUSH` query will also be collected.
 
 ### Stored procedures
 
@@ -212,95 +225,36 @@ Time is collected after query execution completes (before clearing data structur
 
 ### `query_response_time_flush`
 
-| Option
+| Option | Description |
+| --- | --- |
+| Command-line | Yes |
+| Config file | No |
+| Scope | Global |
+| Dynamic | No |
+| Data type | Boolean |
+| Default | OFF |
+| Range | OFF/ON |
 
- | Description
-
- |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |  |  |  |  |  |  |  |  |  |  |  |  |
-| Command-line
-
-                                                              | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Config file
-
-                                                               | No
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| Scope
-
-                                                                     | Global
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| Dynamic
-
-                                                                   | No
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| Data type
-
-                                                                 | Boolean
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Default
-
-                                                                   | OFF
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Range
-
-                                                                     | OFF/ON
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 Setting this variable to `ON` will flush the statistics and re-read the query_response_time_range_base.
 
 ### `query_response_time_range_base`
 
-| Option
+| Option | Description |
+| --- | --- |
+| Command-line | Yes |
+| Config file | Yes |
+| Scope | Global |
+| Dynamic | Yes |
+| Data type | Numeric |
+| Default | 10 |
+| Range | 2-1000 |
 
-                                                                    | Description
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Command-line
-
-                                                              | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Config file
-
-                                                               | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Scope
-
-                                                                     | Global
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| Dynamic
-
-                                                                   | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Data type
-
-                                                                 | Numeric
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Default
-
-                                                                   | 10
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| Range
-
-                                                                     | 2-1000
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 Sets up the logarithm base for the scale.
 
-**NOTE:** The variable takes effect only after this command has been executed:
+!!! note
+
+    The variable takes effect only after this command has been executed:
 
 ```
 mysql> SET GLOBAL query_response_time_flush=1;
@@ -308,92 +262,30 @@ mysql> SET GLOBAL query_response_time_flush=1;
 
 ### `query_response_time_stats`
 
-| Option
+| Option | Description |
+| --- | --- |
+| Command-line | Yes |
+| Config file | Yes |
+| Scope | Global |
+| Dynamic | Yes |
+| Data type | Boolean |
+| Default | OFF |
+| Range | ON/OFF |
 
-                                                                    | Description
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Command-line
-
-                                                              | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Config file
-
-                                                               | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Scope
-
-                                                                     | Global
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| Dynamic
-
-                                                                   | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Data type
-
-                                                                 | Boolean
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Default
-
-                                                                   | OFF
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Range
-
-                                                                     | ON/OFF
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 This global variable enables and disables collection of query times.
 
 ### `query_response_time_session_stats`
 
-| Option
+| Option | Description |
+| --- | --- |
+| Command-line | No |
+| Config file | No |
+| Scope | Session |
+| Dynamic | Yes |
+| Data type | Text |
+| Default | GLOBAL |
+| Range | ON/OFF/GLOBAL |
 
-                                                                    | Description
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Command-line
-
-                                                              | No
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| Config file
-
-                                                               | No
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| Scope
-
-                                                                     | Session
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Dynamic
-
-                                                                   | Yes
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Data type
-
-                                                                 | Text
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| Default
-
-                                                                   | GLOBAL
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| Range
-
-                                                                     | ON/OFF/GLOBAL
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 This variable enables and disables collection of query times on session level, thus
 customizing QRT behavior for individual connections. By default, its value is GLOBAL,
 which means that its value is taken from the query_response_time_stats variable.
@@ -402,70 +294,27 @@ which means that its value is taken from the query_response_time_stats variable.
 
 ### `INFORMATION_SCHEMA.QUERY_RESPONSE_TIME`
 
-| Column Name
 
-                                                               | Description
+| Column Name | Description |
+| --- | --- |
+| ‘VARCHAR TIME’ | ‘Interval range in which the query occurred’ |
+| ‘INT(11) COUNT’ | ‘Number of queries with execution times that fell into that interval’ |
+| ‘VARCHAR TOTAL’ | ‘Total execution time of the queries ‘ |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ‘VARCHAR TIME’
 
-                                                            | ‘Interval range in which the query occurred’
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| ‘INT(11) COUNT’
-
-                                                           | ‘Number of queries with execution times that fell into that interval’
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| ‘VARCHAR TOTAL’
-
-                                                           | ‘Total execution time of the queries ‘
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 ### `INFORMATION_SCHEMA.QUERY_RESPONSE_TIME_READ`
 
-| Column Name
 
-                                                               | Description
+| Column Name | Description |
+| --- | --- |
+| ‘VARCHAR TIME’ | ‘Interval range in which the query occurred’ |
+| ‘INT(11) COUNT’ | ‘Number of queries with execution times that fell into that interval’ |
+| ‘VARCHAR TOTAL’ | ‘Total execution time of the queries ‘ |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ‘VARCHAR TIME’
-
-                                                            | ‘Interval range in which the query occurred’
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| ‘INT(11) COUNT’
-
-                                                           | ‘Number of queries with execution times that fell into that interval’
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| ‘VARCHAR TOTAL’
-
-                                                           | ‘Total execution time of the queries ‘
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 ### `INFORMATION_SCHEMA.QUERY_RESPONSE_TIME_WRITE`
 
-| Column Name
-
-                                                               | Description
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ‘VARCHAR TIME’
-
-                                                            | ‘Interval range in which the query occurred’
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| ‘INT(11) COUNT’
-
-                                                           | ‘Number of queries with execution times that fell into that interval’
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| ‘VARCHAR TOTAL’
-
-                                                           | ‘Total execution time of the queries ‘
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Column Name | Description |
+| --- | --- |
+| ‘VARCHAR TIME’ | ‘Interval range in which the query occurred’ |
+| ‘INT(11) COUNT’ | ‘Number of queries with execution times that fell into that interval’ |
+| ‘VARCHAR TOTAL’ | ‘Total execution time of the queries ‘ |
