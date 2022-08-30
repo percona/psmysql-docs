@@ -1,5 +1,10 @@
 
-# Installing *Percona Server for MySQL* from the Git Source Tree
+# Installing *Percona Server for MySQL* 5.7 from the Git Source Tree
+
+!!! note
+
+    The following instructions install Percona Server for MySQL 5.7 from the Git Source tree. 
+    The instruction to install the [Percona Server for MySQL 8.0 from a Git Source tree are available in this location](https://docs.percona.com/percona-server/latest/installation.html#source-from-git).
 
 Percona uses the [GitHub](http://github.com/) revision
 control system for development. To build the latest *Percona Server for MySQL*

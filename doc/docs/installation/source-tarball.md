@@ -1,4 +1,9 @@
-#Installing _Percona Server for MySQL_ from a Source Tarball
+#Installing _Percona Server for MySQL_ 5.7 from a Source Tarball
+
+!!! note
+
+    The following instructions install Percona Server for MySQL 5.7 from a source tarball. 
+    The instructions to install [Percona Server for MySQL 8.0 from a source tarball are available at this location](https://docs.percona.com/percona-server/latest/installation.html#installing-from-source-tarball).
 
 
 Fetch and extract the source tarball from [Percona Downloads](https://www.percona.com/downloads/Percona-Server-5.7/LATEST/). The 

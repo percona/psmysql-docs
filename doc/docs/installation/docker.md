@@ -1,4 +1,10 @@
-# Running Percona Server in a Docker Container
+# Running Percona Server for MySQL 5.7 in a Docker Container
+
+!!! note
+
+    The following instructions run Percona Server for MySQL 5.7 in a Docker container. 
+    The instructions on how to run [Percona Server for MySQL 8.0 in a Docker container are available at this location](https://docs.percona.com/percona-server/latest/installation/docker.html).
+
 
 Docker images of Percona Server are hosted publicly on Docker Hub at
 [https://hub.docker.com/r/percona/percona-server/](https://hub.docker.com/r/percona/percona-server/).

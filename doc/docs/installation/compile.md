@@ -1,4 +1,9 @@
-# Compiling *Percona Server for MySQL* from Source
+# Compiling *Percona Server for MySQL* 5.7 from Source
+
+!!! note
+
+    The following instructions compile Percona Server for MySQL 5.7. 
+    The instructions on how to compile [Percona Server for MySQL 8.0 are available at this location](https://docs.percona.com/percona-server/latest/installation.html#compile-from-source).
 
 After either fetching the source repository or extracting a source tarball
 (from Percona or one you generated yourself), you must

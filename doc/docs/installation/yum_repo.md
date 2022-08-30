@@ -1,4 +1,9 @@
-# Installing Percona Server for MySQL on Red Hat Enterprise Linux and CentOS
+# Installing Percona Server for MySQL 5.7 on Red Hat Enterprise Linux and CentOS
+
+!!! note
+
+    The following instructions install Percona Server for MySQL 5.7 using the Yum repository. 
+    The instructions to install [Percona Server for MySQL 8.0 using the Yum repository are available at this location](https://docs.percona.com/percona-server/latest/installation/yum_repo.html).
 
 Ready-to-use packages are available from the Percona Server for MySQL software repositories and the [download page](http://www.percona.com/downloads/Percona-Server-5.7/). The Percona **yum** repository supports popular *RPM*-based operating systems, including the *Amazon Linux AMI*.
 
