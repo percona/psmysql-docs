@@ -12,6 +12,7 @@ Following guides describe the installation process for using the official Percon
 
 * [Installing Percona Server for MySQL on Red Hat Enterprise Linux and CentOS](installation/yum_repo.md)
 
+
 ## Building *Percona Server for MySQL* Debian/Ubuntu packages
 
 If you wish to build your own Percona Server Debian/Ubuntu (dpkg) packages,
@@ -48,6 +49,7 @@ $ dpkg-buildpackage -S
 
 Use `sbuild` to build the binary package in a `chroot`:
 
+
 ```shell
 $ sbuild -d sid percona-server-5.7_5.7.10_3-1.dsc
 ```
@@ -58,3 +60,4 @@ packages for all Debian and Ubuntu releases.
 !!! note
 
     The PAM Authentication Plugin is not built with the server by default. In order to build the Percona Server with the PAM plugin, add the  `-DWITH_PAM=ON` option.
+
