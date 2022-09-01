@@ -5,19 +5,8 @@ Developers use the stack trace in the debug process, either an interactive inves
 
 Implemented in *Percona Server for MySQL* 5.7.31-34, the stack trace adds the following:
 
-| Name
+| Name | Description |
+| --- | --- |
+| Prints binary BuildID | The Strip utility removes unneeded sections and debugging information to reduce the size. This method is standard with containers where the size of the image is essential. The BuildID lets you resolve the stack trace when the Strip utility removes the binary symbols table. |
+| Print the server version information | The version information establishes the starting point for analysis. Some applications, such as MySQL, only print this information to a log on startup, and when the crash occurs, the size of the log may be large, rotated, or truncated. |
 
- | Description
-
- |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| Prints binary BuildID
-
-                                                     | The Strip utility removes unneeded sections and debugging information to reduce the size. This method is standard with containers where the size of the image is essential. The BuildID lets you resolve the stack trace when the Strip utility removes the binary symbols table.
-
-                                                                                                                                                                                                                          |
-| Print the server version information
-
-                                      | The version information establishes the starting point for analysis. Some applications, such as MySQL, only print this information to a log on startup, and when the crash occurs, the size of the log may be large, rotated, or truncated.
-
-                                                                                                                                                                                                                                                                |

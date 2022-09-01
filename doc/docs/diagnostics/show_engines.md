@@ -2,10 +2,15 @@
 
 This feature changes the comment field displayed when the `SHOW STORAGE ENGINES` command is executed and XtraDB is the storage engine.
 
-Before the Change:
+Before the change:
 
-```
+```sql
 mysql> show storage engines;
+```
+
+The output could be similar to the following:
+
+```text
 +------------+---------+----------------------------------------------------------------+--------------+------+------------+
 | Engine     | Support | Comment                                                        | Transactions | XA   | Savepoints |
 +------------+---------+----------------------------------------------------------------+--------------+------+------------+
@@ -14,10 +19,15 @@ mysql> show storage engines;
 +------------+---------+----------------------------------------------------------------+--------------+------+------------+
 ```
 
-After the Change:
+After the change:
 
-```
+```sql
 mysql> show storage engines;
+```
+
+The output could be similar to the following:
+
+```text
 +------------+---------+----------------------------------------------------------------------------+--------------+------+------------+
 | Engine     | Support | Comment                                                                    | Transactions |   XA | Savepoints |
 +------------+---------+----------------------------------------------------------------------------+--------------+------+------------+

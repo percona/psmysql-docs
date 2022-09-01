@@ -15,7 +15,7 @@ In case user tries to enable enforce_storage_engine with engine that isn’t ava
 
 ## System Variables
 
-### `enforce_storage_engine`
+### <a id="enforce-storage-engine" /> enforce_storage_engine
 
 | Option       | Description |
 |--------------|-------------|

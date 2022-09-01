@@ -604,7 +604,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 ## System Variables
 
-### `audit_log_strategy`
+### <a id="audit-log-stragegy" /> audit_log_strategy
 
 |Option|Description|
 |--- |--- |
@@ -627,7 +627,7 @@ This variable is used to specify the audit log strategy, possible values are:
 
 This variable has effect only when audit_log_handler is set to `FILE`.
 
-### `audit_log_file`
+### <a id="audit-log-file" /> audit_log_file
 
 |Option|Description|
 |--- |--- |
@@ -639,7 +639,7 @@ This variable has effect only when audit_log_handler is set to `FILE`.
 
 This variable is used to specify the filename that’s going to store the audit log. It can contain the path relative to the datadir or absolute path.
 
-### `audit_log_flush`
+### <a id="audit-log-flush" /> audit_log_flush
 
 |Option|Description|
 |--- |--- |
@@ -651,7 +651,7 @@ This variable is used to specify the filename that’s going to store the audit 
 
 When this variable is set to `ON` log file will be closed and reopened. This can be used for manual log rotation.
 
-### `audit_log_buffer_size`
+### <a id="audit-log-buffer-size" /> audit_log_buffer_size
 
 |Option|Description|
 |--- |--- |
@@ -663,7 +663,7 @@ When this variable is set to `ON` log file will be closed and reopened. This can
 
 This variable can be used to specify the size of memory buffer used for logging, used when audit_log_strategy variable is set to `ASYNCHRONOUS` or `PERFORMANCE` values. This variable has effect only when audit_log_handler is set to `FILE`.
 
-### `audit_log_exclude_accounts`
+### <a id="audit-log-exclude-accounts" /> audit_log_exclude_accounts
 
 |Option|Description|
 |--- |--- |
@@ -677,7 +677,7 @@ separated list of accounts in form `user@host` or `'user'@'host'` (if user
 or host contains comma). If this variable is set, then
 audit_log_include_accounts must be unset, and vice versa.
 
-### `audit_log_exclude_commands`
+### <a id="audit-log-exclude-commands" /> audit_log_exclude_commands
 
 |Option|Description|
 |--- |--- |
@@ -689,7 +689,7 @@ audit_log_include_accounts must be unset, and vice versa.
 The variable has been implemented in Percona Server for MySQL 5.7.14-7. This variable is used to specify the list of commands for which Filtering by SQL command type is applied. The value can be `NULL` or
 comma separated list of commands. If this variable is set, then audit_log_include_commands must be unset, and vice versa.
 
-### `audit_log_exclude_databases`
+### <a id="audit-log-exclude-databases" /> audit_log_exclude_databases
 
 |Option|Description|
 |--- |--- |
@@ -702,7 +702,7 @@ The variable has been implemented in Percona Server for MySQL 5.7.14-7. This var
 comma separated list of commands. If this variable is set, then
 audit_log_include_databases must be unset, and vice versa.
 
-### `audit_log_format`
+### <a id="audit-log-format" /> audit_log_format
 
 |Option|Description|
 |--- |--- |
@@ -715,7 +715,7 @@ audit_log_include_databases must be unset, and vice versa.
 
 Implemented in Percona Server for MySQL 5.7.14-7.
 
-### `audit_log_include_accounts`
+### <a id="audit-log-include-accounts" /> audit_log_include_accounts
 
 |Option|Description|
 |--- |--- |
@@ -729,7 +729,7 @@ separated list of accounts in form `user@host` or `'user'@'host'` (if user
 or host contains comma). If this variable is set, then
 audit_log_exclude_accounts must be unset, and vice versa.
 
-### `audit_log_include_commands`
+### <a id="audit-log-include-commands" /> audit_log_include_commands
 
 |Option|Description|
 |--- |--- |
@@ -742,7 +742,7 @@ The variable has been implemented in Percona Server for MySQL 5.7.14-7. This var
 comma separated list of commands. If this variable is set, then
 audit_log_exclude_commands must be unset, and vice versa.
 
-### `audit_log_include_databases`
+### <a id="audit-log-include-databases" /> audit_log_include_databases
 
 |Option|Description|
 |--- |--- |
@@ -755,7 +755,7 @@ The variable has been implemented in Percona Server for MySQL 5.7.14-7. This var
 comma separated list of commands. If this variable is set, then
 audit_log_exclude_databases must be unset, and vice versa.
 
-### `audit_log_policy`
+### <a id="audit-log-policy" /> audit_log_policy
 
 |Option|Description|
 |--- |--- |
@@ -776,7 +776,7 @@ This variable is used to specify which events should be logged. Possible values 
 
 * `NONE` - no events will be logged
 
-### `audit_log_rotate_on_size`
+### <a id="audit-log-rotate-on-size" /> audit_log_rotate_on_size
 
 |Option|Description|
 |--- |--- |
@@ -793,7 +793,7 @@ the log file name upon rotation. For this variable to take effect, set the
 audit_log_handler variable to `FILE` and the
 audit_log_rotations variable to a value greater than zero.
 
-### `audit_log_rotations`
+### <a id="audit-log-rotations" /> audit_log_rotations
 
 |Option|Description|
 |--- |--- |
@@ -805,7 +805,7 @@ audit_log_rotations variable to a value greater than zero.
 
 This variable is used to specify how many log files should be kept when audit_log_rotate_on_size variable is set to non-zero value. This variable has effect only when audit_log_handler is set to `FILE`.
 
-### `audit_log_handler`
+### <a id="audit-log-handler" /> audit_log_handler
 
 |Option|Description|
 |--- |--- |
@@ -818,7 +818,7 @@ This variable is used to specify how many log files should be kept when audit_lo
 
 This variable is used to configure where the audit log will be written. If it is set to `FILE`, the log will be written into a file specified by audit_log_file variable. If it is set to `SYSLOG`, the audit log will be written to syslog.
 
-### `audit_log_syslog_ident`
+### <a id="audit-log-syslog-ident" /> audit_log_syslog_ident
 
 |Option|Description|
 |--- |--- |
@@ -830,7 +830,7 @@ This variable is used to configure where the audit log will be written. If it is
 
 This variable is used to specify the `ident` value for syslog. This variable has the same meaning as the appropriate parameter described in the [syslog(3) manual](http://linux.die.net/man/3/syslog).
 
-### `audit_log_syslog_facility`
+### <a id="audit-log-syslog-facility" /> audit_log_syslog_facility
 
 |Option|Description|
 |--- |--- |
@@ -842,7 +842,7 @@ This variable is used to specify the `ident` value for syslog. This variable has
 
 This variable is used to specify the `facility` value for syslog. This variable has the same meaning as the appropriate parameter described in the [syslog(3) manual](http://linux.die.net/man/3/syslog).
 
-### `audit_log_syslog_priority`
+### <a id="audit-log-syslog-priority" /> audit_log_syslog_priority
 
 |Option|Description|
 |--- |--- |
@@ -856,7 +856,7 @@ This variable is used to specify the `priority` value for syslog. This variable 
 
 ## Status Variables
 
-### `Audit_log_buffer_size_overflow`
+### <a id="audit-log-buffer-size-overflow" /> audit_log_buffer_size_overflow
 
 |Option|Description|
 |--- |--- |

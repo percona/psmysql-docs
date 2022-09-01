@@ -39,35 +39,35 @@ You should run the following steps with the `mysql` login.
 
 1. Navigate to the MySQL directory. The example uses the default location.
 
-```shell
-$ cd /usr/local/mysql
-```
+    ```shell
+    $ cd /usr/local/mysql
+    ```
 
 
 1. Create a directory for the MySQL files. The [secure_file_priv](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_secure_file_priv) uses the directory path as a value.
 
-```shell
-$ mkdir mydata
-```
+    ```shell
+    $ mkdir mydata
+    ```
 
-The `mysql` user account should have the `drwxr-x---` permissions.
-Four sections define the permissions; file or directory, User, Group, and Others.
+    The `mysql` user account should have the `drwxr-x---` permissions.
+    Four sections define the permissions; file or directory, User, Group, and Others.
 
-The first character designates if the permissions are for a file or directory. The first character is `d` for a directory.
+    The first character designates if the permissions are for a file or directory. The first character is `d` for a directory.
 
-The rest of the sections are specified in three-character sets.
+    The rest of the sections are specified in three-character sets.
 
-| Permission | User | Group | Other |
-|------------|------|-------|-------|
-| Read       | Yes  | Yes   | No    |
-| Write      | Yes  | No    | No    |
-| Execute    | Yes  | Yes   | No    |
+    | Permission | User | Group | Other |
+    |------------|------|-------|-------|
+    | Read       | Yes  | Yes   | No    |
+    | Write      | Yes  | No    | No    |
+    | Execute    | Yes  | Yes   | No    |
 
 1. Run the command to initialize the data directory.
 
-```shell
-$ bin/mysqld --initialize
-```
+    ```shell
+    $ bin/mysqld --initialize
+    ```
 ## Updating the `root` password
 
 The RedHat and derivative distributions set up a temporary password 
@@ -85,66 +85,73 @@ Follow this procedure to reset the root password:
 
 1. Stop MySQL.
 
-```shell
-$ sudo systemctl stop mysqld
-```
+    ```shell
+    $ sudo systemctl stop mysqld
+    ```
+    
 2. Set `--skip-grant-tables` as an environment option. This method lets 
    you specify the option without modifying configuration files.
 
-```shell
-$ sudo systemctl set-environment MYSQLD_OPTS="--skip-grant-tables 
---skip-networking"
-```
+    ```shell
+    $ sudo systemctl set-environment MYSQLD_OPTS="--skip-grant-tables 
+    --skip-networking"
+    ```
+    
 3. Restart MySQL to make the option change effective.
 
-```shell
-$ sudo systemctl restart mysqld
-```
+    ```shell
+    $ sudo systemctl restart mysqld
+    ```
+    
 4. Access MySQL as `root`.
 
-```shell
-$ mysql -u root
-```
+    ```shell
+    $ mysql -u root
+    ```
+    
 5. Change the root password.
 
-```sql
-mysql> FLUSH PRIVILEGES;
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY ('NewPassword');
-mysql> FLUSH PRIVILEGES;
-mysql> exit
-```
+    ```sql
+    mysql> FLUSH PRIVILEGES;
+    mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY ('NewPassword');
+    mysql> FLUSH PRIVILEGES;
+    mysql> exit
+    ```
+    
 6. Stop MySQL
 
-```shell
-$ sudo systemctl stop mysqld
-```
+    ```shell
+    $ sudo systemctl stop mysqld
+    ```
+    
 7. Reset the environment options.
 
-```shell
-$ sudo systemctl unset-environment MYSQLD_OPTS
-```
+    ```shell
+    $ sudo systemctl unset-environment MYSQLD_OPTS
+    ```
 
 8. Start MySQL
 
-```shell
-$ sudo systemctl start mysqld
-```
+    ```shell
+    $ sudo systemctl start mysqld
+    ```
+    
 9. Log in to MySQL using the root password.
 
-```shell
-$ mysql -u root -p
-```
+    ```shell
+    $ mysql -u root -p
+    ```
 
-**NOTE**: if you have trouble logging in after following the steps, 
-repeat the procedure but, instead of using the `ALTER USER` statement, 
-modify the `user` table.
+!!! note
 
-```sql
-mysql> UPDATE mysql.user SET authentication_string=PASSWORD
-('NewPassword'), password_expired='N' 
-WHERE User='root' AND Host='localhost';
-mysql>FLUSH PRIVILEGES;
-```
+    if you have trouble logging in after following the steps, repeat the procedure but, instead of using the `ALTER USER` statement, modify the `user` table.
+
+    ```sql
+    mysql> UPDATE mysql.user SET authentication_string=PASSWORD
+    ('NewPassword'), password_expired='N' 
+    WHERE User='root' AND Host='localhost';
+    mysql>FLUSH PRIVILEGES;
+    ```
 
 ## Securing the Installation
 

@@ -1,4 +1,4 @@
-# Installing *Percona Server for MySQL* 5.7
+# Installing Percona Server for MySQL 5.7
 
 Before installing, you might want to read the Percona Server for MySQL 5.7 Release notes.
 

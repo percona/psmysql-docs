@@ -1,4 +1,4 @@
-# Installing Percona Server for MySQL 5.7 on *Debian* and *Ubuntu*
+# Installing Percona Server for MySQL 5.7 on Debian and Ubuntu
 
 !!! note
 
@@ -32,25 +32,25 @@ The `libperconaserverclient20` package contains the client shared library. The `
 1. Update package repositories:
 
 ```shell
-sudo apt update
+$ sudo apt update
 ```
 
 2. Install `GnuPG`, the GNU Privacy Guard:
 
 ```shell
-sudo apt install gnupg2
+$ sudo apt install gnupg2
 ```
 
 3. Fetch the repository packages from Percona web:
 
 ```shell
-wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb
+$ wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb
 ```
 
 4. Install the downloaded package with **dpkg**. To do that, run the following commands as root or with **sudo**:
 
 ```shell
-sudo dpkg -i percona-release_latest.$(lsb_release -sc)_all.deb
+$ sudo dpkg -i percona-release_latest.$(lsb_release -sc)_all.deb
 ```
 
   Once you install this package, the Percona repositories should be added. You can check the repository setup in the `/etc/apt/sources.list.d/percona-original-release.list` file.
@@ -58,7 +58,7 @@ sudo dpkg -i percona-release_latest.$(lsb_release -sc)_all.deb
 5. Remember to update the local cache:
 
 ```shell
-sudo apt update
+$ sudo apt update
 ```
 
 Once you install this package the Percona repositories should be added. You can check the repository setup in the `/etc/apt/sources.list.d/percona-release.list` file.
@@ -66,7 +66,7 @@ Once you install this package the Percona repositories should be added. You can 
 6. After that you can install the server package:
 
 ```shell
-sudo apt install percona-server-server-5.7
+$ sudo apt install percona-server-server-5.7
 ```
 
 !!! note
@@ -80,9 +80,9 @@ For information on how to install and configure MyRocks, refer to the Percona My
 The Percona Server for MySQL distribution contains several useful User Defined Functions (UDF) from Percona Toolkit. After the installation completes, run the following commands to create these functions:
 
 ```shell
-mysql -e "CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME 'libfnv1a_udf.so'"
-mysql -e "CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME 'libfnv_udf.so'"
-mysql -e "CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME 'libmurmur_udf.so'"
+$ mysql -e "CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME 'libfnv1a_udf.so'"
+$ mysql -e "CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME 'libfnv_udf.so'"
+$ mysql -e "CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME 'libmurmur_udf.so'"
 ```
 
 For more details on the UDFs, see [Percona Toolkit UDFS](https://www.percona.com/doc/percona-server/5.7/management/udf_percona_toolkit.html).
@@ -93,7 +93,7 @@ Percona offers pre-release builds from the testing repository. To enable it, run
 **percona-release** with the `testing` argument. Run this command as root or by using the **sudo** command.
 
 ```shell
-sudo percona-release enable original testing
+$ sudo percona-release enable original testing
 ```
 
 ### Apt-Pinning the packages
@@ -117,13 +117,13 @@ $ wget https://www.percona.com/downloads/Percona-Server-5.7/Percona-Server-5.7.1
 You should then unpack the bundle to get the packages:
 
 ```shell
-tar xvf Percona-Server-5.7.10-3-r63dafaf-jessie-x86_64-bundle.tar
+$ tar xvf Percona-Server-5.7.10-3-r63dafaf-jessie-x86_64-bundle.tar
 ```
 
 After you unpack the bundle you should see the following packages:
 
 ```shell
-ls *.deb
+$ ls *.deb
 ```
 
 The output could be this:
@@ -143,7 +143,7 @@ percona-server-tokudb-5.7_5.7.10-3-1.jessie_amd64.deb
 Now you can install Percona Server for MySQL by running:
 
 ```shell
-sudo dpkg -i *.deb
+$ sudo dpkg -i *.deb
 ```
 
 This will install all the packages from the bundle. Another option is to download/specify only the packages you need for running Percona Server for MySQL installation (`libperconaserverclient20_5.7.10-3-1.jessie_amd64.deb`, `percona-server-client-5.7_5.7.10-3-1.jessie_amd64.deb`, `percona-server-common-5.7_5.7.10-3-1.jessie_amd64.deb`, and `percona-server-server-5.7_5.7.10-3-1.jessie_amd64.deb`. Optionally you can install `percona-server-tokudb-5.7_5.7.10-3-1.jessie_amd64.deb` if you want TokuDB storage engine).
@@ -334,10 +334,10 @@ $ sudo service mysql stop
     1. Purge the packages. This option deletes packages, configuration, and data files. The option does not delete any configuration or data files stored in your home directory. You may need to delete some files manually.
 
     ```shell
-    sudo apt purge 'percona-server*'
-    sudo apt autoremove -y
-    sudo apt autoclean
-    sudo rm -rf /etc/mysql
+    $ sudo apt purge 'percona-server*'
+    $ sudo apt autoremove -y
+    $ sudo apt autoclean
+    $ sudo rm -rf /etc/mysql
     ```
 
 !!! note
@@ -349,6 +349,5 @@ If you do not plan to upgrade, run the following commands to remove the data dir
 ```shell
 $ rm -rf /var/lib/mysql
 $ rm -rf /var/log/mysql
-
 $ sudo apt purge percona-server*
 ```
