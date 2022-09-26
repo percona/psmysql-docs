@@ -21,102 +21,102 @@ The features are listed within the following sections:
 ### Performance
 
 
-* Prefix Index Queries Optimization
+* [Prefix Index Queries Optimization](performance/prefix_index_queries_optimization.md#prefix-index-queries-optimization)
 
 
-* Multiple page asynchronous I/O requests
+* [Multiple page asynchronous I/O requests](performance/aio_page_requests.md#aio-page-requests)
 
 
-* Thread Pool
+* [Thread Pool](performance/threadpool.md#threadpool)
 
 
-* Priority refill for the buffer pool free list
+* [Priority refill for the buffer pool free list](performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.md#ps-buffer-pool-free-list-priority-refill)
 
 
-* Multi-threaded LRU flusher
+* [Multi-threaded LRU flusher](performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.md#lru-manager-threads)
 
 ### Flexibility
 
 
-* InnoDB Full-Text Search Improvements
+* [InnoDB Full-Text Search Improvements](flexibility/innodb_fts_improvements.md#innodb-fts-improvements)
 
 
-* Improved MEMORY Storage Engine
+* [Improved MEMORY Storage Engine](flexibility/improved_memory_engine.md#improved-memory-engine)
 
 
-* Extended mysqldump
+* [Extended mysqldump](flexibility/extended_mysqldump.md#extended-mysqldump)
 
 
-* Extended SELECT INTO OUTFILE/DUMPFILE
+* [Extended SELECT INTO OUTFILE/DUMPFILE](flexibility/extended_select_into_outfile.md#extended-select-into-outfile)
 
 
-* Support for PROXY protocol
+* [Support for PROXY protocol](flexibility/proxy_protocol_support.md#proxy-protocol-support)
 
 
-* Compressed columns with dictionaries
+* [Compressed columns with dictionaries](flexibility/compressed_columns.md#compressed-columns)
 
 ### Management
 
 
-* Percona Toolkit UDFs
+* [Percona Toolkit UDFs](management/udf_percona_toolkit.md#udf-percona-toolkit)
 
 
-* Kill Idle Transactions
+* [Kill Idle Transactions](management/kill_idle_trx.md)
 
 
-* XtraDB changed page tracking
+* [XtraDB changed page tracking](management/changed_page_tracking.md)
 
 
-* PAM Authentication Plugin
+* [PAM Authentication Plugin](management/pam_plugin.md)
 
 
-* Expanded Fast Index Creation
+* [Expanded Fast Index Creation](management/innodb_expanded_fast_index_creation.md)
 
 
-* Backup Locks
+* [Backup Locks](management/backup_locks.md)
 
 
-* Audit Log Plugin
+* [Audit Log Plugin](management/audit_log_plugin.md)
 
 
-* Start transaction with consistent snapshot
+* [Start transaction with consistent snapshot](management/start_transaction_with_consistent_snapshot.md)
 
 
-* Extended SHOW GRANTS
+* [Extended SHOW GRANTS](management/extended_show_grants.md)
 
 
-* Data at Rest Encryption
+* [Data at Rest Encryption](security/data-at-rest-encryption.md#data-at-rest-encryption)
 
 ### Reliability
 
 
-* Handle Corrupted Tables
+* [Handle Corrupted Tables](reliability/innodb_corrupt_table_action.md)
 
 
-* Too Many Connections Warning
+* [Too Many Connections Warning](reliability/log_connection_error.md)
 
 ### Diagnostics
 
 
-* User Statistics
+* [User Statistics](diagnostics/user_stats.md)
 
 
-* Slow Query Log
+* [Slow Query Log](diagnostics/slow_extended.md#slow-extended)
 
 
-* Show Storage Engines
+* [Show Storage Engines](diagnostics/show_engines.md)
 
 
-* Process List
+* [Process List](diagnostics/process_list.md)
 
 
-* INFORMATION_SCHEMA.[GLOBAL_]TEMP_TABLES
+* [INFORMATION_SCHEMA.[GLOBAL_]TEMP_TABLES](diagnostics/misc_info_schema_tables.md)
 
 
-* Thread Based Profiling
+* [Thread Based Profiling](diagnostics/thread_based_profiling.md)
 
 
-* InnoDB Page Fragmentation Counters
+* [InnoDB Page Fragmentation Counters](diagnostics/innodb_fragmentation_count.md)
 
 #### Features Removed from *Percona Server for MySQL* 8.0
 
@@ -205,6 +205,6 @@ which was an alias to the `kill_idle_trx` system variable
 
 * The TokuDB Storage Engine was [declared as deprecated](https://www.percona.com/doc/percona-server/8.0/release-notes/Percona-Server-8.0.13-3.html) in Percona Server for MySQL 8.0 and will be disabled in upcoming 8.0 versions.
 
-> We recommend migrating to the MyRocks Storage Engine.
+    We recommend migrating to the MyRocks Storage Engine.
 
-> For more information, see the Percona blog post: [Heads-Up: TokuDB Support Changes and Future Removal from Percona Server for MySQL 8.0](https://www.percona.com/blog/2021/05/21/tokudb-support-changes-and-future-removal-from-percona-server-for-mysql-8-0/).
+    For more information, see the Percona blog post: [Heads-Up: TokuDB Support Changes and Future Removal from Percona Server for MySQL 8.0](https://www.percona.com/blog/2021/05/21/tokudb-support-changes-and-future-removal-from-percona-server-for-mysql-8-0/).

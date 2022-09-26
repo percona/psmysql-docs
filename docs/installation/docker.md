@@ -1,4 +1,4 @@
-# Running *Percona Server for MySQL* in a Docker Container
+# Running Percona Server for MySQL in a Docker Container
 
  *Percona Server for MySQL* has an official Docker image hosted on [Docker Hub](https://hub.docker.com/r/percona/percona-server/). If you want the latest version, use the `latest` tag. You can reference a specific version using the [Docker tag filter for the 8.0 versions](https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name=8.0). 
 

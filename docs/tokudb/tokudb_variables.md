@@ -60,7 +60,7 @@ eliminating the need for complex and time consuming tuning in most cases.
 |[tokudb_enable_fast_update](#tokudbenablefastupdate)|Yes|Yes|Session, Global|Yes|
 |[tokudb_enable_fast_upsert](#tokudbenablefastupsert)|Yes|Yes|Session, Global|Yes|
 |[tokudb_enable_partial_eviction](#tokudbenablepartialeviction)|Yes|Yes|Global|No|
-|[tokudb_fanout](#tokudb_fanout) Global|Yes|
+|[tokudb_fanout](#tokudb_fanout) |Yes|Yes|Session, Global|Yes|
 |[tokudb_fs_reserve_percent](#tokudbfsreservepercent)|Yes|Yes|Global|No|
 |[tokudb_fsync_log_period](#tokudbfsynclogperiod)|Yes|Yes|Global|Yes|
 |[tokudb_hide_default_row_format](#tokudbhidedefaultrowformat)|Yes|Yes|Session, Global|Yes|
@@ -73,7 +73,7 @@ eliminating the need for complex and time consuming tuning in most cases.
 |[tokudb_log_dir](#tokudblogdir)|Yes|Yes|Global|No|
 |[tokudb_max_lock_memory](#tokudbmaxlockmemory)|Yes|Yes|Global|No|
 |[tokudb_optimize_index_fraction](#tokudboptimizeindexfraction)|Yes|Yes|Session, Global|Yes|
-|[tokudb_optimize_index_name](#tokudb_optimize_index_name) Global|Yes|
+|[tokudb_optimize_index_name](#tokudb_optimize_index_name)|Yes|Yes|Session, Global|Yes|
 |[tokudb_optimize_throttle](#tokudboptimizethrottle)|Yes|Yes|Session, Global|Yes|
 |[tokudb_pk_insert_mode](#tokudbpkinsertmode)|Yes|Yes|Session, Global|Yes|
 |[tokudb_prelock_empty](#tokudbprelockempty)|Yes|Yes|Session, Global|Yes|

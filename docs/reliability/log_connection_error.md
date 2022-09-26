@@ -4,4 +4,4 @@ If the [log_error_verbosity](https://dev.mysql.com/doc/refman/8.0/en/server-syst
 
 ## Version-Specific Information
 
-    * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
+* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.

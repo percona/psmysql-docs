@@ -1,4 +1,4 @@
-# Installing *Percona Server for MySQL* 8.0.29-21
+# Installing Percona Server for MySQL 8.0.29-21
 
 This page provides information on how you can install *Percona Server for MySQL*. The following options are available:
 

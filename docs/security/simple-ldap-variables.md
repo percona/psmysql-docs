@@ -102,6 +102,4 @@ If this variable is enabled, the plugin connects to the server with TLS.
 
 !!! admonition "See also"
 
-    .. seealso::
-
-[Simple LDAP Authentication](https://dev.mysql.com/doc/mysql-security-excerpt/8.0/en/ldap-pluggable-authentication.html#ldap-pluggable-authentication-usage-simple)
+    [Simple LDAP Authentication](https://dev.mysql.com/doc/mysql-security-excerpt/8.0/en/ldap-pluggable-authentication.html#ldap-pluggable-authentication-usage-simple)

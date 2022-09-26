@@ -289,8 +289,6 @@ The output is the following:
 +-----------------------------+
 ```
 
-
-
 ### Using Dictionaries to Generate Random Terms
 
 Use a selected dictionary to generate random terms. The dictionary must be loaded from a file with the following characteristics:
@@ -367,7 +365,7 @@ The output is the following:
 
 ```text
 +--------------------------------------------------+
-| gen_dictionary('trees')          |
+| gen_dictionary('trees')                          |
 +--------------------------------------------------+
 | Norway spruce                                    |
 +--------------------------------------------------+
@@ -403,7 +401,6 @@ The output is the following:
 | Dictionary load successfully                                                  |
 +-------------------------------------------------------------------------------+
 ```
-
 
 ### Uninstalling the plugin
 

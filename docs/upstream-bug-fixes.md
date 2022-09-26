@@ -1,4 +1,4 @@
-# List of upstream *MySQL* bugs fixed in *Percona Server for MySQL*  8.0
+# List of upstream MySQL bugs fixed in Percona Server for MySQL 8.0
 
 <table class="docutils align-default">
 <colgroup>

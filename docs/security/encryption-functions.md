@@ -21,7 +21,7 @@ The following table and sections describe the functions. For examples, see funct
 | [asymmetric_encrypt(algorithm, str, key_str)](#asymmetric_encryptalgorithm-str-key_str) |
 | [asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type)](#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type) |
 | [asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type)](#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type) |
-| [create_asymmetric_priv_key(algorithm, (key_len | dh_parameters))](#create_asymmetric_priv_keyalgorithm-key_len--dh_parameters)   |
+| [create_asymmetric_priv_key(algorithm, (key_len &#124; dh_parameters))](#create_asymmetric_priv_keyalgorithm-key_len--dh_parameters)   |
 | [create_asymmetric_pub_key(algorithm, priv_key_str)](#create_asymmetric_pub_keyalgorithm-priv_key_str)  |
 | [create_dh_parameters(key_len)](#create_dh_parameterskey_len)  |
 | [create_digest(digest_type, str)](#create_digestdigest_type-str)  |
@@ -170,9 +170,9 @@ The parameters are the following:
 
     * DSA - the minimum length is 1,024. The maximum length is 9,984.
 
-  !!! note 
+    !!! note 
  
-      The key length limits are defined by OpenSSL. To change the maximum key length, use either encryption_udf.rsa_bits_threshold or encryption_udf.dsa_bits_threshold.
+        The key length limits are defined by OpenSSL. To change the maximum key length, use either encryption_udf.rsa_bits_threshold or encryption_udf.dsa_bits_threshold.
 
 * dh_parameters - Diffie-Hellman (DH) parameters. Invoking create_dh_parameter creates the DH parameters.
 

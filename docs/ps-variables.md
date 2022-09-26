@@ -1,4 +1,4 @@
-# List of variables introduced in *Percona Server for MySQL* 8.0
+# List of variables introduced in Percona Server for MySQL 8.0
 
 ## System Variables
 
@@ -59,7 +59,7 @@
 | thread_pool_stall_limit | Yes | Yes | Global | No |
 | thread_statistics | Yes | Yes | Global | Yes |
 | tokudb_alter_print_error |  |  |  |  |
-| :ref:`tokudb_analyze_delete_fractionref |  |  |  |  |
+| tokudb_analyze_delete_fractionref |  |  |  |  |
 | tokudb_analyze_in_background | Yes | Yes | Both | Yes |
 | tokudb_analyze_mode | Yes | Yes | Both | Yes |
 | tokudb_analyze_throttle | Yes | Yes | Both | Yes |

@@ -14,10 +14,8 @@ tablespaces.
 
 The InnoDB tablespace encryption has the following components:
 
-
 * The database instance has a master key for tablespaces and a master key
 for binary log encryption.
-
 
 * Each tablespace has a tablespace key. The key is used to encrypt the
 Tablespace data pages. Encrypted tablespace keys are written on

@@ -1,4 +1,4 @@
-# Installing *Percona Server for MySQL* on Red Hat Enterprise Linux and CentOS
+# Installing Percona Server for MySQL on Red Hat Enterprise Linux and CentOS
 
 <!-- package name: percona-server-server-8.0.13-3.1.el7.x86_64.rpm -->
 Ready-to-use packages are available from the *Percona Server for MySQL* software

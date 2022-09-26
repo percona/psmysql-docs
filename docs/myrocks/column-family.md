@@ -1,4 +1,4 @@
-# *MyRocks* Column Families
+# MyRocks Column Families
 
 *MyRocks* stores all data in a single server instance as a collection of
 key-value pairs within the log structured merge tree data structure. This is a

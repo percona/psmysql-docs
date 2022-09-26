@@ -1,4 +1,4 @@
-# Installing *Percona Server for MySQL* on *Debian* and *Ubuntu*
+# Installing Percona Server for MySQL on Debian and Ubuntu
 
 Ready-to-use packages are available from the *Percona Server for MySQL* software
 repositories and the [Percona downloads](http://www.percona.com/downloads/Percona-Server-8.0/) page.

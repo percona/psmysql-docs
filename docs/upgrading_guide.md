@@ -1,4 +1,4 @@
-# *Percona Server for MySQL* In-Place Upgrading Guide: From 5.7 to 8.0
+# Percona Server for MySQL In-Place Upgrading Guide: From 5.7 to 8.0
 
 An in-place upgrade is performed by using existing data on the server and involves the following actions:
 
@@ -16,7 +16,7 @@ While an in-place upgrade may not be suitable for all environments, especially t
 The following list summarizes a number of the changes in the 8.0 series and has useful guides that can help you perform a smooth upgrade. We strongly recommend reading this information:
 
 
-* [Upgrading MySQL](http://dev.mysql.com/doc/refman/8.0/en/upgrading.html)
+* [Upgrading MySQL](https://dev.mysql.com/doc/refman/8.0/en/upgrading.html)
 
 
 * [Before You Begin](https://dev.mysql.com/doc/refman/8.0/en/upgrade-before-you-begin.html)

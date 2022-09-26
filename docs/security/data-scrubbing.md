@@ -30,9 +30,7 @@ Once enabled, data scrubbing works automatically on each tablespace.
 
 To enable data scrubbing, you must enable either one or both of the following variables:
 
-
 * innodb-background-scrub-data-uncompressed
-
 
 * innodb-background-scrub-data-compressed
 
