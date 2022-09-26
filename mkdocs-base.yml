@@ -1,0 +1,258 @@
+# MkDocs configuration for Netlify builds
+
+site_name: Percona Server for MySQL
+site_description: Documentation
+site_author: Percona LLC
+copyright: Percona LLC, &#169; 2022
+
+repo_name: percona/psmysql-docs
+repo_url: https://github.com/percona/psmysql-docs
+edit_uri: edit/8.0/docs/
+
+
+use_directory_urls: false
+
+# Theme for netlify testing
+theme:
+  name: material
+  logo: _static/percona-logo.svg
+  favicon: _static/percona_favicon.ico
+  custom_dir: _resource/overrides/
+  palette:
+
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: percona-light
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+# Theme features
+
+  features:
+    - search.highlight
+    - navigation.top
+    - content.tabs.link
+
+extra_css:
+  - https://unicons.iconscout.com/release/v3.0.3/css/line.css
+  - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css
+  - css/percona.css
+  - css/version-select.css
+
+extra_javascript:
+  - js/version-select.js
+
+markdown_extensions:
+  attr_list: {}
+  toc:
+    permalink: True
+    title: On this page
+  admonition: {}
+  footnotes: {}
+  def_list: {} # https://michelf.ca/projects/php-markdown/extra/#def-list
+  meta: {}
+  md_in_html: {}
+  smarty:
+      {smart_angled_quotes: true}
+  pymdownx.details: {}
+  pymdownx.mark: {}
+  pymdownx.smartsymbols: {}
+  pymdownx.tabbed: 
+      {alternate_style: true}
+  pymdownx.tilde: {}
+  pymdownx.superfences: {}
+  pymdownx.highlight:
+      linenums: false
+  pymdownx.inlinehilite: {}
+
+
+plugins:
+  search: {}
+  git-revision-date: {}
+  macros:
+      include_yaml:
+#        - 'variables.yml' # Use in markdown as '{{ VAR }}'
+# exclude: # Don't process these files
+#      glob:
+#         - file.md
+  with-pdf: # https://github.com/orzih/mkdocs-with-pdf
+          output_path: '_pdf/PerconaServer-8.0.pdf'
+          cover_title: 'Percona Server Documentation'
+          cover_subtitle: 8.0.29-21 (August 08, 2022)
+          author: 'Percona Technical Documentation Team'
+          cover_logo: docs/_static/percona-server-logo.jpg
+          debug_html: false
+          custom_template_path: _resource/templates
+          enabled_if_env: ENABLE_PDF_EXPORT
+  mike:
+      version_selector: true
+      css_dir: css
+      javascript_dir: js
+      canonical_version: null
+
+extra:
+  version: 
+    provider: mike
+
+nav:
+  - index.md
+  - Introduction:
+      - percona_xtradb.md
+      - ps-versions-comparison.md
+      - feature_comparison.md
+      - changed_in_version.md
+  - Installation:
+      - installation.md
+  - Post-installation:
+      - installation/post-installation.md
+  - In-place upgrades:
+      - upgrading_guide.md
+      - upgrading_using_percona_repos.md
+      - upgrading_tokudb_myrocks.md
+      - upgrading_using_standalone_packages.md
+  - Run in Docker:
+      - installation/docker.md
+  - Scalability improvements:
+      - scalability/innodb_io.md
+  - Performance improvements: 
+      - performance/adaptive_network_buffers.md
+      - performance/aio_page_requests.md
+      - performance/threadpool.md
+      - performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.md
+      - performance/prefix_index_queries_optimization.md
+      - performance/query_limit_records.md
+      - performance/jemalloc-profiling.md
+      - performance/procfs-plugin.md
+  - Flexibility improvements:
+      - flexibility/binlogging_replication_improvements.md
+      - flexibility/compressed_columns.md
+      - flexibility/extended_select_into_outfile.md
+      - flexibility/extended_set_var.md
+      - flexibility/improved_memory_engine.md
+      - flexibility/log_warnings_suppress.md
+      - flexibility/binlog_space.md
+      - flexibility/proxy_protocol_support.md
+      - flexibility/sequence_table.md
+      - flexibility/slowlog_rotation.md
+  - Reliability improvements:
+      - reliability/log_connection_error.md
+      - reliability/innodb_corrupt_table_action.md
+  - Management improvements:
+      - management/udf_percona_toolkit.md
+      - management/kill_idle_trx.md
+      - management/changed_page_tracking.md
+      - management/enforce_engine.md
+      - management/pam_plugin.md
+      - management/innodb_expanded_fast_index_creation.md
+      - management/backup_locks.md
+      - management/audit_log_plugin.md
+      - management/start_transaction_with_consistent_snapshot.md
+      - management/extended_show_grants.md
+      - management/utility_user.md
+  - Security:
+      - security/pam_plugin.md
+      - security/simple-ldap.md
+      - security/simple-ldap-variables.md
+      - security/selinux.md
+      - security/apparmor.md
+      - security/data-at-rest-encryption.md
+      - security/vault.md
+      - security/using-keyring-plugin.md
+      - security/using-kmip.md
+      - security/encryption-functions.md
+      - security/using-amz-kms.md
+      - security/rotating-master-key.md
+      - security/encrypting-tables.md
+      - security/encrypting-tablespaces.md
+      - security/encrypting-system-tablespace.md
+      - security/encrypting-temporary-files.md
+      - security/encrypting-binlogs.md
+      - security/encrypting-redo-log.md
+      - security/encrypting-undo-tablespace.md
+      - security/encrypting-threads.md
+      - encrypting-doublewrite-buffers.md
+      - security/verifying-encryption.md
+      - security/ssl-improvement.md
+      - security/data-masking.md
+      - security/system-variables.md
+  - Diagnostics improvements:
+      - diagnostics/user_stats.md
+      - diagnostics/slow_extended.md
+      - diagnostics/innodb_show_status.md
+      - diagnostics/show_engines.md
+      - diagnostics/process_list.md
+      - diagnostics/misc_info_schema_tables.md
+      - diagnostics/thread_based_profiling.md
+      - diagnostics/innodb_fragmentation_count.md
+      - diagnostics/stacktrace.md
+      - diagnostics/libcoredumper.md
+  - Percona MyRocks:
+      - myrocks/index.md
+      - myrocks/install.md
+      - myrocks/added-features.md
+      - myrocks/limitations.md
+      - myrocks/differences.md
+      - myrocks/information-schema-tables.md
+      - myrocks/variables.md
+      - myrocks/status_variables.md
+      - myrocks/gap_locks_detection.md
+      - myrocks/data_loading.md
+      - myrocks/zenfs.md
+  - TokuDB:
+      - tokudb/tokudb_intro.md
+      - tokudb/tokudb_installation.md
+      - tokudb/using_tokudb.md
+      - tokudb/fast_updates.md
+      - tokudb/tokudb_files_and_file_types.md
+      - tokudb/tokudb_file_management.md
+      - tokudb/tokudb_background_analyze_table.md
+      - tokudb/tokudb_variables.md
+      - tokudb/tokudb_status_variables.md
+      - tokudb/tokudb_fractal_tree_indexing.md
+      - tokudb/tokudb_troubleshooting.md
+      - tokudb/tokudb_performance_schema.md
+      - tokudb/tokudb_faq.md
+      - tokudb/removing_tokudb.md
+  - Release notes:
+      - release-notes/release-notes_index.md
+      - release-notes/8.0.29-21.md
+      - release-notes/Percona-Server-8.0.28-20.md
+      - release-notes/Percona-Server-8.0.28-19.md
+      - release-notes/Percona-Server-8.0.27-18.md
+      - release-notes/Percona-Server-8.0.26-17.md
+      - release-notes/Percona-Server-8.0.26-16.md
+      - release-notes/Percona-Server-8.0.25-15.md
+      - release-notes/Percona-Server-8.0.23-14.md
+      - release-notes/Percona-Server-8.0.22-13.md
+      - release-notes/Percona-Server-8.0.21-12.md
+      - release-notes/Percona-Server-8.0.20-11.md
+      - release-notes/Percona-Server-8.0.19-10.md
+      - release-notes/Percona-Server-8.0.18-9.md
+      - release-notes/Percona-Server-8.0.17-8.md
+      - release-notes/Percona-Server-8.0.16-7.md
+      - release-notes/Percona-Server-8.0.15-6.md
+      - release-notes/Percona-Server-8.0.15-5.md
+      - release-notes/Percona-Server-8.0.14.md
+      - release-notes/Percona-Server-8.0.13-4.md
+      - release-notes/Percona-Server-8.0.13-3.md
+      - release-notes/Percona-Server-8.0.12-2rc1.md
+  - References:
+      - upstream-bug-fixes.md
+      - ps-variables.md
+      - development.md
+      - trademark-policy.md
+      - index_info_schema_tables.md
+      - faq.md
+      - copyright.md
+      - glossary.md
+
+# - Version Selector: "../"
+
