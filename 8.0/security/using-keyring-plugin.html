@@ -1,0 +1,3272 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation">
+      
+      
+        <meta name="author" content="Percona LLC">
+      
+      
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/8.0/security/using-keyring-plugin.html">
+      
+      <link rel="icon" href="../_static/percona_favicon.ico">
+      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.3">
+    
+    
+      
+        <title>Using the Keyring Plugin - Percona Server for MySQL</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7a952b86.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.3/css/line.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="../css/percona.css">
+    
+      <link rel="stylesheet" href="../css/version-select.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script id="__analytics">function __md_analytics(){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-343802-3","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");ga("send","event","feedback","click",t,e),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){ga("send","pageview",e.pathname)})});var e=document.createElement("script");e.async=!0,e.src="https://www.google-analytics.com/analytics.js",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#using-the-keyring-plugin" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://percona.com/software/documentation" class="md-header__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
+      
+  <img src="../_static/percona-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis"><a href="https://www.percona.com/software/documentation">
+            Percona Product Documentation
+          </a></span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Using the Keyring Plugin
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/percona/psmysql-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/psmysql-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Percona Server for MySQL" class="md-nav__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
+      
+  <img src="../_static/percona-logo.svg" alt="logo">
+
+    </a>
+    Percona Server for MySQL
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/percona/psmysql-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/psmysql-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../percona_xtradb.html" class="md-nav__link">
+        The Percona XtraDB Storage Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ps-versions-comparison.html" class="md-nav__link">
+        List of features available in Percona Server for MySQL releases
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../feature_comparison.html" class="md-nav__link">
+        Percona Server for MySQL Feature Comparison
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changed_in_version.html" class="md-nav__link">
+        Changed in Percona Server 8.0
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Installation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        Installing Percona Server for MySQL 8.0.29-21
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Post-Installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Post-Installation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Post-Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/post-installation.html" class="md-nav__link">
+        Post-Installation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          In-place upgrades
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="In-place upgrades" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          In-place upgrades
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading_guide.html" class="md-nav__link">
+        Percona Server for MySQL In-Place Upgrading Guide: From 5.7 to 8.0
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading_using_percona_repos.html" class="md-nav__link">
+        Upgrading using the Percona repositories
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading_tokudb_myrocks.html" class="md-nav__link">
+        Upgrading from Systems that Use the MyRocks or TokuDB Storage Engine and Partitioned Tables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading_using_standalone_packages.html" class="md-nav__link">
+        Upgrading using Standalone Packages
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Run in Docker
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Run in Docker" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Run in Docker
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/docker.html" class="md-nav__link">
+        Running Percona Server for MySQL in a Docker Container
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/docker-config.html" class="md-nav__link">
+        Docker config
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Scalability Improvements
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Scalability Improvements" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Scalability Improvements
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scalability/innodb_io.html" class="md-nav__link">
+        Improved InnoDB I/O Scalability
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Performance Improvements
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Performance Improvements" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Performance Improvements
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/adaptive_network_buffers.html" class="md-nav__link">
+        Adaptive Network Buffers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/aio_page_requests.html" class="md-nav__link">
+        Multiple page asynchronous I/O requests
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/threadpool.html" class="md-nav__link">
+        Thread Pool
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.html" class="md-nav__link">
+        XtraDB Performance Improvements for I/O-Bound Highly-Concurrent Workloads
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/prefix_index_queries_optimization.html" class="md-nav__link">
+        Prefix Index Queries Optimization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/query_limit_records.html" class="md-nav__link">
+        Limiting the Estimation of Records in a Query
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/jemalloc-profiling.html" class="md-nav__link">
+        Jemalloc Memory Allocation Profiling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/procfs-plugin.html" class="md-nav__link">
+        The ProcFS plugin
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Flexibility Improvements
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Flexibility Improvements" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Flexibility Improvements
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/binlogging_replication_improvements.html" class="md-nav__link">
+        Binlogging and replication improvements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/compressed_columns.html" class="md-nav__link">
+        Compressed columns with dictionaries
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/extended_select_into_outfile.html" class="md-nav__link">
+        Extended SELECT INTO OUTFILE/DUMPFILE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/extended_set_var.html" class="md-nav__link">
+        Extended SET VAR Optimizer Hint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/improved_memory_engine.html" class="md-nav__link">
+        Improved MEMORY Storage Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/log_warnings_suppress.html" class="md-nav__link">
+        Suppress Warning Messages
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/binlog_space.html" class="md-nav__link">
+        Limiting the disk space used by binary log files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/proxy_protocol_support.html" class="md-nav__link">
+        Support for PROXY protocol
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/sequence_table.html" class="md-nav__link">
+        SEQUENCE_TABLE(n) Function
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/slowlog_rotation.html" class="md-nav__link">
+        Slow Query Log Rotation and Expiration
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          Reliability Improvements
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reliability Improvements" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          Reliability Improvements
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reliability/log_connection_error.html" class="md-nav__link">
+        Too Many Connections Warning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reliability/innodb_corrupt_table_action.html" class="md-nav__link">
+        Handle Corrupted Tables
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_11">
+          Management Improvements
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Management Improvements" data-md-level="1">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          Management Improvements
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/udf_percona_toolkit.html" class="md-nav__link">
+        Percona Toolkit UDFs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/kill_idle_trx.html" class="md-nav__link">
+        Kill Idle Transactions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/changed_page_tracking.html" class="md-nav__link">
+        XtraDB changed page tracking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/enforce_engine.html" class="md-nav__link">
+        Enforcing Storage Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/pam_plugin.html" class="md-nav__link">
+        PAM Authentication Plugin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/innodb_expanded_fast_index_creation.html" class="md-nav__link">
+        Expanded Fast Index Creation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/backup_locks.html" class="md-nav__link">
+        Backup Locks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/audit_log_plugin.html" class="md-nav__link">
+        Audit Log Plugin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/start_transaction_with_consistent_snapshot.html" class="md-nav__link">
+        Start transaction with consistent snapshot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/extended_show_grants.html" class="md-nav__link">
+        Extended SHOW GRANTS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/utility_user.html" class="md-nav__link">
+        Utility user
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_12">
+          Security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Security" data-md-level="1">
+        <label class="md-nav__title" for="__nav_12">
+          <span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pam_plugin.html" class="md-nav__link">
+        PAM Authentication Plugin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="simple-ldap.html" class="md-nav__link">
+        Using Simple LDAP Authentication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="simple-ldap-variables.html" class="md-nav__link">
+        Simple LDAP Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="selinux.html" class="md-nav__link">
+        Working with SELinux
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apparmor.html" class="md-nav__link">
+        Working with AppArmor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data-at-rest-encryption.html" class="md-nav__link">
+        Data at Rest Encryption
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vault.html" class="md-nav__link">
+        Information about HashiCorp Vault
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Using the Keyring Plugin
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="using-keyring-plugin.html" class="md-nav__link md-nav__link--active">
+        Using the Keyring Plugin
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#loading-the-keyring-plugin" class="md-nav__link">
+    Loading the Keyring Plugin
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secret_mount_point_version-information" class="md-nav__link">
+    secret_mount_point_version information
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrading-from-8022-13-or-earlier-to-8023-14-or-later" class="md-nav__link">
+    Upgrading from 8.0.22-13 or earlier to 8.0.23-14 or later
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrading-from-vault-secrets-engine-version-1-to-version-2" class="md-nav__link">
+    Upgrading from Vault Secrets Engine Version 1 to Version 2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kv-secret-engine-considerations-for-upgrading-from-57-to-80" class="md-nav__link">
+    KV Secret Engine considerations for upgrading from 5.7 to 8.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-variables" class="md-nav__link">
+    System Variables
+  </a>
+  
+    <nav class="md-nav" aria-label="System Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keyring_vault_config" class="md-nav__link">
+    keyring_vault_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keyring_vault_timeout" class="md-nav__link">
+    keyring_vault_timeout
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="using-kmip.html" class="md-nav__link">
+        Using the Key Management Interoperability Protocol (KMIP)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encryption-functions.html" class="md-nav__link">
+        Encryption functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="using-amz-kms.html" class="md-nav__link">
+        Using the Amazon Key Management Service (AWS KMS)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rotating-master-key.html" class="md-nav__link">
+        Rotating the Master Key
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypting-tables.html" class="md-nav__link">
+        Encrypting File-Per-Table Tablespace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypting-tablespaces.html" class="md-nav__link">
+        Encrypting a Schema or a General Tablespace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypting-system-tablespace.html" class="md-nav__link">
+        Encrypting the System Tablespace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypting-temporary-files.html" class="md-nav__link">
+        Encrypting Temporary Files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypting-binlogs.html" class="md-nav__link">
+        Encrypting Binary Log Files and Relay Log Files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypting-redo-log.html" class="md-nav__link">
+        Encrypting the Redo Log files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypting-undo-tablespace.html" class="md-nav__link">
+        Encrypting the Undo Tablespace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypting-threads.html" class="md-nav__link">
+        Working with Advanced Encryption Key Rotation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypting-doublewrite-buffers.html" class="md-nav__link">
+        Encrypting Doublewrite Buffers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verifying-encryption.html" class="md-nav__link">
+        Verifying the Encryption for Tables, Tablespaces, and Schemas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ssl-improvement.html" class="md-nav__link">
+        SSL Improvements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data-masking.html" class="md-nav__link">
+        Data Masking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system-variables.html" class="md-nav__link">
+        Server variables
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" type="checkbox" id="__nav_13" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_13">
+          Diagnostics Improvements
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Diagnostics Improvements" data-md-level="1">
+        <label class="md-nav__title" for="__nav_13">
+          <span class="md-nav__icon md-icon"></span>
+          Diagnostics Improvements
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/user_stats.html" class="md-nav__link">
+        User Statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/slow_extended.html" class="md-nav__link">
+        Slow Query Log
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/innodb_show_status.html" class="md-nav__link">
+        Extended Show Engine InnoDB Status
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/show_engines.html" class="md-nav__link">
+        Show Storage Engines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/process_list.html" class="md-nav__link">
+        Process List
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/misc_info_schema_tables.html" class="md-nav__link">
+        Misc. INFORMATION_SCHEMA Tables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/thread_based_profiling.html" class="md-nav__link">
+        Thread Based Profiling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/innodb_fragmentation_count.html" class="md-nav__link">
+        InnoDB Page Fragmentation Counters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/stacktrace.html" class="md-nav__link">
+        Stacktrace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/libcoredumper.html" class="md-nav__link">
+        Libcoredumper
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14" type="checkbox" id="__nav_14" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_14">
+          Percona MyRocks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Percona MyRocks" data-md-level="1">
+        <label class="md-nav__title" for="__nav_14">
+          <span class="md-nav__icon md-icon"></span>
+          Percona MyRocks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/index.html" class="md-nav__link">
+        Percona MyRocks Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/install.html" class="md-nav__link">
+        Percona MyRocks Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/added-features.html" class="md-nav__link">
+        Updated Supported Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/limitations.html" class="md-nav__link">
+        MyRocks Limitations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/differences.html" class="md-nav__link">
+        Differences between Percona MyRocks and Facebook MyRocks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/information-schema-tables.html" class="md-nav__link">
+        MyRocks Information Schema Tables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/variables.html" class="md-nav__link">
+        MyRocks Server Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/status_variables.html" class="md-nav__link">
+        MyRocks Status Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/gap_locks_detection.html" class="md-nav__link">
+        Gap locks detection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/data_loading.html" class="md-nav__link">
+        Data Loading
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/zenfs.html" class="md-nav__link">
+        Installing and configuring Percona Server for MySQL with ZenFS support
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_15" type="checkbox" id="__nav_15" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_15">
+          TokuDB
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="TokuDB" data-md-level="1">
+        <label class="md-nav__title" for="__nav_15">
+          <span class="md-nav__icon md-icon"></span>
+          TokuDB
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tokudb/tokudb_intro.html" class="md-nav__link">
+        TokuDB Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tokudb/tokudb_installation.html" class="md-nav__link">
+        TokuDB Installation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tokudb/using_tokudb.html" class="md-nav__link">
+        Using TokuDB
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tokudb/fast_updates.html" class="md-nav__link">
+        Fast Updates with TokuDB
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tokudb/tokudb_files_and_file_types.html" class="md-nav__link">
+        TokuDB files and file types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tokudb/tokudb_file_management.html" class="md-nav__link">
+        TokuDB file management
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tokudb/tokudb_background_analyze_table.html" class="md-nav__link">
+        TokuDB Background ANALYZE TABLE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tokudb/tokudb_variables.html" class="md-nav__link">
+        TokuDB Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tokudb/tokudb_status_variables.html" class="md-nav__link">
+        TokuDB Status Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tokudb/tokudb_fractal_tree_indexing.html" class="md-nav__link">
+        TokuDB Fractal Tree Indexing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tokudb/tokudb_troubleshooting.html" class="md-nav__link">
+        TokuDB Troubleshooting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tokudb/tokudb_performance_schema.html" class="md-nav__link">
+        TokuDB Performance Schema Integration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tokudb/tokudb_faq.html" class="md-nav__link">
+        Frequently Asked Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tokudb/removing_tokudb.html" class="md-nav__link">
+        Migrating and Removing the TokuDB storage engine
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_16" type="checkbox" id="__nav_16" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_16">
+          Release notes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Release notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_16">
+          <span class="md-nav__icon md-icon"></span>
+          Release notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/release-notes_index.html" class="md-nav__link">
+        Percona Server for MySQL 8.0 Release notes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/8.0.29-21.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.29-21 (2022-08-08)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.28-20.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.28-20 (2022-06-20)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.28-19.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.28-19 (2022-05-12)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.27-18.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.27-18 (2022-03-02)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.26-17.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.26-17 (2022-01-26)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.26-16.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.26-16 (2021-10-20)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.25-15.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.25-15 (2021-07-13)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.23-14.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.23-14 (2021-05-12)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.22-13.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.22-13 (2020-12-14)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.21-12.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.21-12 (2020-10-13)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.20-11.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.20-11 (2020-07-21)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.19-10.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.19-10 (2020-03-23)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.18-9.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.18-9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.17-8.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.17-8
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.16-7.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.16-7
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.15-6.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.15-6
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.15-5.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.15-5
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.14.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.14
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.13-4.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.13-4
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.13-3.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.13-3
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-8.0.12-2rc1.html" class="md-nav__link">
+        Percona Server for MySQL 8.0.12-2rc1
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_17" type="checkbox" id="__nav_17" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_17">
+          References
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="References" data-md-level="1">
+        <label class="md-nav__title" for="__nav_17">
+          <span class="md-nav__icon md-icon"></span>
+          References
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upstream-bug-fixes.html" class="md-nav__link">
+        List of upstream MySQL bugs fixed in Percona Server for MySQL 8.0
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ps-variables.html" class="md-nav__link">
+        List of variables introduced in Percona Server for MySQL 8.0
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development.html" class="md-nav__link">
+        Development of Percona Server for MySQL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../trademark-policy.html" class="md-nav__link">
+        Trademark Policy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index_info_schema_tables.html" class="md-nav__link">
+        Index of INFORMATION_SCHEMA Tables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        Frequently Asked Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../copyright.html" class="md-nav__link">
+        Copyright and Licensing Information
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+   <label class="md-nav__title" for="__drawer">
+    <a href="https://learn.percona.com/download-percona-server-8-0-manual" onclick="_gaq.push(['b._trackEvent', 'Percona Server', 'Download', 'Download Manual Percona Server']);" class="md-nav__link md-nav__link--active">
+      Download PDF
+    </a>
+  </label> 
+  </ul>
+</nav>
+
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#loading-the-keyring-plugin" class="md-nav__link">
+    Loading the Keyring Plugin
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secret_mount_point_version-information" class="md-nav__link">
+    secret_mount_point_version information
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrading-from-8022-13-or-earlier-to-8023-14-or-later" class="md-nav__link">
+    Upgrading from 8.0.22-13 or earlier to 8.0.23-14 or later
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrading-from-vault-secrets-engine-version-1-to-version-2" class="md-nav__link">
+    Upgrading from Vault Secrets Engine Version 1 to Version 2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kv-secret-engine-considerations-for-upgrading-from-57-to-80" class="md-nav__link">
+    KV Secret Engine considerations for upgrading from 5.7 to 8.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-variables" class="md-nav__link">
+    System Variables
+  </a>
+  
+    <nav class="md-nav" aria-label="System Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keyring_vault_config" class="md-nav__link">
+    keyring_vault_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keyring_vault_timeout" class="md-nav__link">
+    keyring_vault_timeout
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+                <!-- Edit button -->
+                
+                  <a
+                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/security/using-keyring-plugin.md"
+                    title="Edit this page"
+                    class="md-content__button md-icon"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+                  </a>
+                
+
+                <!--
+                  Hack: check whether the content contains a h1 headline. If it
+                  doesn't, the page title (or respectively site name) is used
+                  as the main headline.
+                -->
+                
+
+                <!-- Markdown content -->
+                <h1 id="using-the-keyring-plugin">Using the Keyring Plugin<a class="headerlink" href="#using-the-keyring-plugin" title="Permanent link">&para;</a></h1>
+<p><em>Percona Server for MySQL</em> may use either of the following plugins:</p>
+<ul>
+<li>
+<p>keyring_file stores the keyring data locally</p>
+</li>
+<li>
+<p>keyring_vault provides an interface for the database with a HashiCorp Vault
+server to store key and secure encryption keys.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>keyring_file</code> plugin should not be used for regulatory compliance.</p>
+</div>
+<p>To install the plugin, follow the <a href="https://dev.mysql.com/doc/refman/8.0/en/plugin-loading.html">installing and uninstalling plugins</a> instructions.</p>
+<h2 id="loading-the-keyring-plugin">Loading the Keyring Plugin<a class="headerlink" href="#loading-the-keyring-plugin" title="Permanent link">&para;</a></h2>
+<p>You should load the plugin at server startup with the <code>-early-plugin-load</code>
+option to enable keyrings.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Only one keyring plugin should be enabled at a time. Enabling multiple keyring plugins is not supported and may result in data loss.</p>
+</div>
+<p>We recommend the plugin should be loaded in the configuration file to facilitate
+recovery for encrypted tables. Also, the redo log and the undo log encryption cannot
+be used without <code>--early-plugin-load</code>. The normal plugin load happens too late
+in startup.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The keyring_vault extension, “.so” and the file location for the vault configuration should be changed to match your operating system’s extension and the file location in your operating system.</p>
+</div>
+<p>To use the keyring_vault, you can add this option to your configuration file:</p>
+<div class="highlight"><pre><span></span><code>[mysqld]
+early-plugin-load=&quot;keyring_vault=keyring_vault.so&quot;
+loose-keyring_vault_config=&quot;/home/mysql/keyring_vault.conf&quot;
+
+The keyring_vault extension, &quot;.so&quot; and the file location for the vault
+configuration should be changed to match your operating system&#39;s extension
+and operating system location.
+</code></pre></div>
+<p>You could also run the following command which loads the keyring_file plugin:</p>
+<div class="highlight"><pre><span></span><code>$ mysqld --early-plugin-load<span class="o">=</span><span class="s2">&quot;keyring_file=keyring_file.so&quot;</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If a server starts with different plugins loaded early, the <code>--early-plugin-load</code> option should contain the plugin names in a double-quoted list with each plugin name separated by a semicolon. The use of double quotes ensures the semicolons do not create issues when the list is executed in a script.</p>
+</div>
+<p>Apart from installing the plugin you also must set the
+keyring_vault_config variable to point to the keyring_vault
+configuration file.</p>
+<p>The keyring_vault_config file has the following information:</p>
+<ul>
+<li>
+<p><code>vault_url</code> - the Vault server address</p>
+</li>
+<li>
+<p><code>secret_mount_point</code> - the mount point name where the keyring_vault stores the keys.</p>
+</li>
+<li>
+<p><code>secret_mount_point_version</code> - the <code>KV Secrets Engine version (kv or kv-v2)</code> used. Implemented in <em>Percona Server for MySQL</em> 8.0.23-14.</p>
+</li>
+<li>
+<p><code>token</code> - a token generated by the Vault server</p>
+</li>
+<li>
+<p><code>vault_ca [optional]</code> - if the machine does not trust the Vault’s CA certificate, this variable points to the CA certificate used to sign the Vault’s certificates</p>
+</li>
+</ul>
+<p>This is an example of a configuration file:</p>
+<div class="highlight"><pre><span></span><code>vault_url = https://vault.public.com:8202
+secret_mount_point = secret
+secret_mount_point_version = AUTO
+token = 58a20c08-8001-fd5f-5192-7498a48eaf20
+vault_ca = /data/keyring_vault_confs/vault_ca.crt
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Each <code>secret_mount_point</code> must be used by only one server. If multiple servers use the same secret_mount_point, the behavior is unpredictable.</p>
+</div>
+<p>The first time a key is fetched from a keyring, the keyring_vault
+communicates with the Vault server to retrieve the key type and data.</p>
+<h2 id="secret_mount_point_version-information">secret_mount_point_version information<a class="headerlink" href="#secret_mount_point_version-information" title="Permanent link">&para;</a></h2>
+<p>Implemented in <em>Percona Server for MySQL</em> 8.0.23-14, the <code>secret_mount_point_version</code>
+can be either a <code>1</code>, <code>2</code>, <code>AUTO</code>, or the <code>secret_mount_point_version</code>
+parameter is not listed in the configuration file.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Works with <code>KV Secrets Engine - Version 1 (kv)</code>. When forming key operation URLs, the <code>secret_mount_point</code> is always used without any transformations. For example, to return a key named <code>skey</code>, the URL is <vault_url>/v1/<secret_mount_point>/skey</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Works with <code>KV Secrets Engine - Version 2 (kv)</code> The initialization logic splits the <code>secret_mount_point</code> parameter into two parts:<ul><li>The <code>mount_point_path</code> - the mount path under which the Vault Server secret was created</li><li>The <code>directory_path</code> - a virtual directory suffix that can be used to create virtual namespaces with the same real mount point</li></ul> For example, both the <code>mount_point_path</code> and the <code>directory_path</code> are needed to form key access URLs: <vault_url>/v1/&lt;mount_point_path/data/<directory_path>/skey</td>
+</tr>
+<tr>
+<td>AUTO</td>
+<td>An autodetection mechanism probes and determines if the secrets engine version is <code>kv</code> or <code>kv-v2</code> and based on the outcome will either use the <code>secret_mount_point</code> as is, or split the <code>secret_mount_point</code> into two parts.</td>
+</tr>
+<tr>
+<td>Not listed</td>
+<td>If the <code>secret_mount_point_version</code> is not listed in the configuration file, the behavior is the same as <code>AUTO</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>If you set the <code>secret_mount_point_version</code> to <code>2</code> but the path pointed
+by <code>secret_mount_point</code> is based on <code>KV Secrets Engine - Version 1 (kv)</code>,
+an error is reported and the plugin fails to initialize.</p>
+<p>If you set the <code>secret_mount_point_version</code> to <code>1</code> but the path pointed
+by <code>secret_mount_point</code> is based on <code>KV Secrets Engine -
+Version 2 (kv-v2)</code>, the plugin initialization succeeds but any MySQL
+keyring-related operations fail.</p>
+<h2 id="upgrading-from-8022-13-or-earlier-to-8023-14-or-later">Upgrading from 8.0.22-13 or earlier to 8.0.23-14 or later<a class="headerlink" href="#upgrading-from-8022-13-or-earlier-to-8023-14-or-later" title="Permanent link">&para;</a></h2>
+<p>The <code>keyring_vault</code> plugin configuration files created before
+<em>Percona Server for MySQL</em> 8.0.23-14 work only with <code>KV Secrets Engine -
+Version 1 (kv)</code> and do not have the <code>secret_mount_point_version</code>
+parameter. After the upgrade to 8.0.23-14 or later, the
+<code>secret_mount_point_version</code> is implicitly considered <code>AUTO</code> and the
+information is probed and the secrets engine version is determined to <code>1</code>.</p>
+<h2 id="upgrading-from-vault-secrets-engine-version-1-to-version-2">Upgrading from Vault Secrets Engine Version 1 to Version 2<a class="headerlink" href="#upgrading-from-vault-secrets-engine-version-1-to-version-2" title="Permanent link">&para;</a></h2>
+<p>You can upgrade from the Vault Secrets Engine Version 1 to Version 2.
+Use either of the following methods:</p>
+<ul>
+<li>
+<p>Set the <code>secret_mount_point_version</code> to <code>AUTO</code> or the variable is not set in the <code>keyring_vault</code> plugin configuration files in all Percona Servers. The <code>AUTO</code> value ensures the autodetection mechanism is invoked during the plugin initialization.</p>
+</li>
+<li>
+<p>Set the <code>secret_mount_point_version</code> to <code>2</code> to ensure that plugins do not initialize unless the <code>kv</code> to <code>kv-v2</code> upgrade completes.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>keyring_vault</code> plugin that works with <code>kv-v2</code> secret engines does not use the built-in key versioning capabilities. The keyring key versions are encoded into key names.</p>
+</div>
+<h2 id="kv-secret-engine-considerations-for-upgrading-from-57-to-80">KV Secret Engine considerations for upgrading from 5.7 to 8.0<a class="headerlink" href="#kv-secret-engine-considerations-for-upgrading-from-57-to-80" title="Permanent link">&para;</a></h2>
+<p>When you upgrade from <em>Percona Server for MySQL</em> 5.7.32 or older, you can only use
+<code>KV Secrets Engine 1 (kv)</code>. You can upgrade to any version of
+<em>Percona Server for MySQL</em> 8.0. Both the old <code>keyring_vault</code> plugin and new
+<code>keyring_vault</code> plugin work correctly with the existing Vault Server
+data under the existing <code>keyring_vault</code> plugin configuration file.</p>
+<p>If you upgrade from <em>Percona Server for MySQL</em> 5.7.33 or newer, you have the following options:</p>
+<ul>
+<li>
+<p>If you are using <code>KV Secrets Engine 1 (kv)</code> you can upgrade with any version of <em>Percona Server for MySQL</em> 8.0.</p>
+</li>
+<li>
+<p>If you are using <code>KV Secrets Engine 2 (kv-v2)</code> you can upgrade with <em>Percona Server for MySQL</em> 8.0.23 or newer. <em>Percona Server for MySQL</em> 8.0.23.14 is the first version of the 8.0 series which has the <code>keyring_vault</code> plugin that supports <code>kv-v2</code>.</p>
+</li>
+</ul>
+<p>A user-created key deletion is only possible with the use of the keyring_udf
+plugin and deletes the key from the in-memory hash map and the Vault server.
+You cannot delete system keys, such as the master key.</p>
+<p>This plugin supports the SQL interface for keyring key management described in
+<a href="https://dev.mysql.com/doc/refman/8.0/en/keyring-udfs-general-purpose.html">General-Purpose Keyring Key-Management Functions</a>
+manual.</p>
+<p>The plugin library contains keyring user-defined functions which allow
+access to the internal keyring service functions. To enable the functions, you
+must enable the <code>keyring_udf</code> plugin:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">keyring_udf</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;keyring_udf.so&#39;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>keyring_udf</code> plugin must be installed. Using the user-defined functions without the <code>keyring_udf</code> plugin generates an error.</p>
+</div>
+<p>You must also create keyring encryption user-defined functions.</p>
+<h2 id="system-variables">System Variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
+<h3 id="keyring_vault_config"><code>keyring_vault_config</code><a class="headerlink" href="#keyring_vault_config" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;keyring-vault-config</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Text</td>
+</tr>
+<tr>
+<td>Default</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>This variable is used to define the location of the keyring_vault_plugin
+configuration file.</p>
+<h3 id="keyring_vault_timeout"><code>keyring_vault_timeout</code><a class="headerlink" href="#keyring_vault_timeout" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;keyring-vault-timeout</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Numeric</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>15</td>
+</tr>
+</tbody>
+</table>
+<p>Set the duration in seconds for the Vault server connection timeout. The
+default value is <code>15</code>. The allowed range is from <code>0</code> to <code>86400</code>. The
+timeout can be also disabled to wait an infinite amount of time by setting
+this variable to <code>0</code>.</p>
+
+                
+<div class="md-relbar2__inner md-grid">
+<div class="md-content">
+  <article class="md-content__inner md-typeset" role="main">    
+    <h4>Contact Us </h4>
+       <p>For free technical help, visit the Percona <a class="reference external" href="https://forums.percona.com/c/mysql-mariadb/percona-server-for-mysql-8-0/20" target="_blank">Community Forum</a>.<br>
+        <p>To report bugs or submit feature requests, open a <a class="reference external" href="https://jira.percona.com/projects/PS/issues/" target="_blank">JIRA</a> ticket.<br>
+         <p>For paid <a class="reference external" href="https://www.percona.com/services/support"> support </a> and <a class="reference external" href="https://www.percona.com/services/managed-services"> managed </a> or <a class="reference external" href="https://www.percona.com/services/consulting">consulting services </a>, contact <a class="reference external" href="https://www.percona.com/about-percona/contact" target="_blank">Percona Sales</a>.</p>
+ </article>
+</div>
+</div>
+
+                <!-- Last update of source file -->
+                
+                  
+                    <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      2022-09-27
+    
+  </small>
+</div>
+                  
+                
+              
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="vault.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Information about HashiCorp Vault" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Information about HashiCorp Vault
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="using-kmip.html" class="md-footer__link md-footer__link--next" aria-label="Next: Using the Key Management Interoperability Protocol (KMIP)" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Using the Key Management Interoperability Protocol (KMIP)
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Percona LLC, &#169; 2022
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.37e9125f.min.js"></script>
+      
+        <script src="../js/version-select.js"></script>
+      
+    
+  </body>
+</html>
