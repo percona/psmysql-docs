@@ -1,4 +1,4 @@
-# Extended `mysqldump`
+# Extended mysqldump
 
 ## Backup Locks support
 

@@ -1,4 +1,4 @@
-# Extended `mysqlbinlog`
+# Extended mysqlbinlog
 
 *Percona Server for MySQL* has implemented compression support for
 **mysqlbinlog**. This is similar to support that both `mysql` and

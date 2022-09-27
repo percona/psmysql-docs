@@ -10,7 +10,7 @@ Support team members that they have customers who use *Percona Server for MySQL*
 ## Q: Will we have to *GPL* our whole application if we use *Percona Server for MySQL* with *XtraDB*?
 
 A: This is a common misconception about the *GPL*. We suggest reading the *Free
-Software Foundation* ‘s excellent reference material on the [GPL Version 2](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html), which is the license
+Software Foundation* ‘s excellent reference material on the [GPL Version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html), which is the license
 that applies to *MySQL* and therefore to *Percona Server for MySQL* with *XtraDB*. That
 document contains links to many other documents which should answer your
 questions. *Percona* is unable to give legal advice about the *GPL*.

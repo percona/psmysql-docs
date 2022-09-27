@@ -154,7 +154,9 @@ On RHEL 8 or compatible operating systems, use the following command as root:
 $ yum -y install policycoreutils-python-utils
 ```
 
-**NOTE**: You may need root privileges to run SELinux management commands.
+!!! note
+
+    You may need root privileges to run SELinux management commands.
 
 ## Switch the mode in the configuration file
 
@@ -204,7 +206,9 @@ or
 $ setenforce 1
 ```
 
-**NOTE**: The following `setenforce` parameters are available:
+!!! note
+
+    The following `setenforce` parameters are available:
 
 | setenforce parameters
 
@@ -371,24 +375,23 @@ The recommended solution is to set the proper labels. The following procedure as
 
 1. To change the SELinux context, use `semanage fcontext`. In this step, you define how SELinux deals with the custom paths:
 
-  ```shell
-  $ semanage fcontext -a -e /var/lib/mysql /var/lib/mysqlcustom
-  ```
+    ```shell
+    $ semanage fcontext -a -e /var/lib/mysql /var/lib/mysqlcustom
+    ```
 
-SELinux applies the same labeling schema, defined in the mysqld policy, for the `/var/lib/mysql` directory to the custom directory. Files created within the custom directory are labeled as if they were in `/var/lib/mysql`.
+    SELinux applies the same labeling schema, defined in the mysqld policy, for the `/var/lib/mysql` directory to the custom directory. Files created within the custom directory are labeled as if they were in `/var/lib/mysql`.
 
 2. To `restorecon` command applies the change.
 
-  ```
-  $ restorecon -R -v /var/lib/mysqlcustom
-  ```
-
+    ```
+    $ restorecon -R -v /var/lib/mysqlcustom
+    ```
 
 3. Restart the mysqld service:
 
-  ```
-  $ service mysqld start
-  ```
+    ```
+    $ service mysqld start
+    ```
 
 ## Set a Custom Log Location
 
@@ -451,58 +454,58 @@ To adjust the SELinux policy when a directory is shared, follow these steps:
 
 1. Create a local policy:
 
-  ```text
-  ausearch -c 'mysqld' --raw | audit2allow -M my-mysqld
-  ```
+    ```text
+    ausearch -c 'mysqld' --raw | audit2allow -M my-mysqld
+    ```
 
 2. This command generates the my-mysqld.te and the my-mysqld.pp files. The mysqld.te is the type enforcement policy file. The my-mysqld.pp is the policy module loaded as a binary file into the SELinux subsystem.
 
-An example of the my-myslqd.te file:
+    An example of the my-myslqd.te file:
 
-  ```text
-  module my-mysqld 1.0;
+    ```text
+    module my-mysqld 1.0;
 
-  require {
-      *type mysqld_t*;
-      type var_lib_t;
-      *type default_t*;
-      class file getattr;
-      *class dir write*;
-  }
+    require {
+        *type mysqld_t*;
+        type var_lib_t;
+        *type default_t*;
+        class file getattr;
+        *class dir write*;
+    }
 
-  #============= mysqld_t ==============
-  *allow mysqld_t default_t:dir write*;
-  allow mysqld_t var_lib_t:file getattr;
-  ```
+    #============= mysqld_t ==============
+    *allow mysqld_t default_t:dir write*;
+    allow mysqld_t var_lib_t:file getattr;
+    ```
 
-The policy contains rules for the custom data directory and the custom logs directory. We have set the proper labels for the data directory location, and applying this auto-generated policy would loosen our hardening by allowing mysqld to access `var_lib_t` tags.
+    The policy contains rules for the custom data directory and the custom logs directory. We have set the proper labels for the data directory location, and applying this auto-generated policy would loosen our hardening by allowing mysqld to access `var_lib_t` tags.
 
 3. SELinux-generated events are converted to rules. A generated policy may contain rules for recent violations and include unrelated rules. Unrelated rules are generated from actions, such as changing the data directory location, that are not related to the logs directory. Add the `--start` parameter to use log events after a specific time to filter out the unwanted events. This parameter captures events when the time stamp is equal to the specified time or later. SELinux generates a policy for the current actions.
 
-  ```text
-  $ ausearch --start 10:00:00 -c 'mysqld' --raw | audit2allow -M my-mysqld
-  ```
+    ```text
+    $ ausearch --start 10:00:00 -c 'mysqld' --raw | audit2allow -M my-mysqld
+    ```
 
 4. This policy allows mysqld writing into the tagged directories. Open the my_mysqld file:
 
-  ```
-  module my-mysqld 1.0;
+    ```
+    module my-mysqld 1.0;
 
-  require {
-      type mysqld_t;
-      type default_t;
-      class dir write;
-  }
+    require {
+        type mysqld_t;
+        type default_t;
+        class dir write;
+    }
 
-  #============= mysqld_t ==============
-  allow mysqld_t default_t:dir write;
-  ```
+    #============= mysqld_t ==============
+    allow mysqld_t default_t:dir write;
+    ```
 
 5. Install the SELinux policy module:
 
-  ```shell
-  $ semodule -i my-mysqld.pp
-  ```
+    ```shell
+    $ semodule -i my-mysqld.pp
+    ```
 
 Restart the service. If you have a failure, check the journal log and follow the same procedure.
 
@@ -510,100 +513,100 @@ If SELinux prevents mysql from creating a log file inside the directory. You can
 
 1. Unload the current local my-mysqld policy module:
 
-  ```shell
-  $ semodule -r my-mysqld
-  ```
+    ```shell
+    $ semodule -r my-mysqld
+    ```
 
 2. You can put a single domain into permissive mode. Other domains on the system to remain in enforcing mode. Use `semanage permissive` with the `-a` parameter to change mysqld_t to permissive mode:
 
-  ```shell
-  $ semanage permissive -a mysqld_t
-  ```
+    ```shell
+    $ semanage permissive -a mysqld_t
+    ```
 
 3. Verify the mode change:
 
-  ```shell
-  $ semdule -l | grep permissive
-  ```
-
-  The output could be:
-
-  ```text
-  ...
-  permissive_mysqld_t
-  ...
-  ```
+    ```shell
+    $ semdule -l | grep permissive
+    ```
+    
+    The output could be:
+    
+    ```text
+    ...
+    permissive_mysqld_t
+    ...
+    ```
 
 4. To make searching the log easier, return the time:
 
-  ```shell
-  $ date
-  ```
+    ```shell
+    $ date
+    ```
 
 5. Start the service.
 
-  ```shell
-  $ service mysqld start
-  ```
+    ```shell
+    $ service mysqld start
+    ```
 
 6. MySQL starts, and SELinux logs the violations in the journal log. Check the journal log:
 
-  ```shell
-  $ journalctl -xe
-  ```
+    ```shell
+    $ journalctl -xe
+    ```
 
 7. Stop the service:
 
-  ```shell
-  $ service mysqld stop
-  ```
+    ```shell
+    $ service mysqld stop
+    ```
 
 8. Generate a local mysqld policy, using the time returned from step 4:
 
-  ```shell
-  $ ausearch --start <date-c 'mysqld' --raw | audit2allow -M my-mysqld
-  ```
+    ```shell
+    $ ausearch --start <date-c 'mysqld' --raw | audit2allow -M my-mysqld
+    ```
 
 9. Review the policy (the policy you generate may be different):
 
-  ```shell
-  $ cat my-mysqld.te
-  ```
+    ```shell
+    $ cat my-mysqld.te
+    ```
 
-The output could be:
+    The output could be:
+    
+    ```text
+    module my-mysqld 1.0;
+    
+    require {
+    type default_t;
+        type mysqld_t;
+        class dir { add_name write };
+        class file { append create open };
+    }
 
-  ```text
-  module my-mysqld 1.0;
-
-  require {
-  type default_t;
-      type mysqld_t;
-      class dir { add_name write };
-      class file { append create open };
-  }
-
-  #============= mysqld_t ==============
-  allow mysqld_t default_t:dir { add_name write };
-  allow mysqld_t default_t:file { append create open };
-  ```
+    #============= mysqld_t ==============
+    allow mysqld_t default_t:dir { add_name write };
+    allow mysqld_t default_t:file { append create open };
+    ```
 
 10. Install the policy:
 
-  ```shell
-  $ semodule -i my-mysqld.pp
-  ```
+    ```shell
+    $ semodule -i my-mysqld.pp
+    ```
 
 11. Use `semanage permissive` with the `-d` parameter, which deletes the permissive domain for the service:
 
-  ```shell
-  $ semanage permissive -d mysqld_t
-  ```
+    ```shell
+    $ semanage permissive -d mysqld_t
+    ```
 
 12. Restart the service:
 
-  ```shell
-  $ service mysqld start
-  ```
+    ```shell
+    $ service mysqld start
+    ```
 
 !!! note
 

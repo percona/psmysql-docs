@@ -36,7 +36,7 @@ innodb_redo_log_encrypt are the following:
 
 !!! note
 
-   **The `keyring_key` value is in tech preview.**
+    **The `keyring_key` value is in tech preview.**
 
 For `innodb_redo_log_encrypt`, the “ON” value is a compatibility alias for
 master_key.

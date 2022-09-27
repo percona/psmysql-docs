@@ -92,55 +92,12 @@ Implemented in *Percona Server for MySQL* 8.0.23-14, the `secret_mount_point_ver
 can be either a `1`, `2`, `AUTO`, or the `secret_mount_point_version`
 parameter is not listed in the configuration file.
 
-<table class="colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 80%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Value</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>1</p></td>
-<td><p>Works with <code class="docutils literal notranslate"><span class="pre">KV</span<span class="pre">Secrets</span<span class="pre">Engine</span<span class="pre">-</span<span class="pre">Version</span<span class="pre">1</span<span class="pre">(kv)</span></code>. When forming key
-operation URLs, the <code class="docutils literal notranslate"><span class="pre">secret_mount_point</span></codeis always used without any
-transformations.</p>
-<p>For example, to return a key named <code class="docutils literal notranslate"><span class="pre">skey</span></code>, the URL is</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">vault_url</span><span class="o">&gt;/</span><span class="n">v1</span><span class="o">/&lt;</span><span class="n">secret_mount_point</span><span class="o">&gt;/</span><span class="n">skey</span>
-</pre></div>
-</div>
-</td>
-</tr>
-<tr class="row-odd"><td><p>2</p></td>
-<td><p>Works with <code class="docutils literal notranslate"><span class="pre">KV</span<span class="pre">Secrets</span<span class="pre">Engine</span<span class="pre">-</span<span class="pre">Version</span<span class="pre">2</span<span class="pre">(kv)</span></codeThe initialization
-logic splits the <code class="docutils literal notranslate"><span class="pre">secret_mount_point</span></codeparameter into two parts:</p>
-<ul class="simple">
-<li><p>The <code class="docutils literal notranslate"><span class="pre">mount_point_path</span></code- the mount path under which the Vault Server secret was created</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">directory_path</span></code- a virtual directory suffix that can be used to create virtual namespaces with the same real mount point</p></li>
-</ul>
-<p>For example, both the <code class="docutils literal notranslate"><span class="pre">mount_point_path</span></codeand the <code class="docutils literal notranslate"><span class="pre">directory_path</span></codeare needed to
-form key access URLs:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">vault_url</span><span class="o">&gt;/</span><span class="n">v1</span><span class="o">/&lt;</span><span class="n">mount_point_path</span><span class="o">/</span><span class="n">data</span><span class="o">/&lt;</span><span class="n">directory_path</span><span class="o">&gt;/</span><span class="n">skey</span>
-</pre></div>
-</div>
-</td>
-</tr>
-<tr class="row-even"><td><p>AUTO</p></td>
-<td><p>An autodetection mechanism probes and determines if the secrets engine
-version is <code class="docutils literal notranslate"><span class="pre">kv</span></codeor <code class="docutils literal notranslate"><span class="pre">kv-v2</span></codeand based on the outcome will either use
-the <code class="docutils literal notranslate"><span class="pre">secret_mount_point</span></codeas is, or split the <code class="docutils literal notranslate"><span class="pre">secret_mount_point</span></codeinto
-two parts.</p></td>
-</tr>
-<tr class="row-odd"><td><p>Not listed</p></td>
-<td><p>If the <code class="docutils literal notranslate"><span class="pre">secret_mount_point_version</span></codeis not listed in the configuration file, the behavior is the
-same as <code class="docutils literal notranslate"><span class="pre">AUTO</span></code>.</p></td>
-</tr>
-</tbody>
-</table>
-
-
+| Value            | Description                                          |       
+|----------------- | ---------------------------------------------------- | 
+| 1                | Works with `KV Secrets Engine - Version 1 (kv)`. When forming key operation URLs, the `secret_mount_point` is always used without any transformations. For example, to return a key named `skey`, the URL is <vault_url>/v1/<secret_mount_point>/skey  |
+| 2                | Works with `KV Secrets Engine - Version 2 (kv)` The initialization logic splits the `secret_mount_point` parameter into two parts:<ul><li>The `mount_point_path` - the mount path under which the Vault Server secret was created</li><li>The `directory_path` - a virtual directory suffix that can be used to create virtual namespaces with the same real mount point</li></ul> For example, both the `mount_point_path` and the `directory_path` are needed to form key access URLs: <vault_url>/v1/<mount_point_path/data/<directory_path>/skey |
+| AUTO | An autodetection mechanism probes and determines if the secrets engine version is `kv` or `kv-v2` and based on the outcome will either use the `secret_mount_point` as is, or split the `secret_mount_point` into two parts.|
+| Not listed| If the `secret_mount_point_version` is not listed in the configuration file, the behavior is the same as `AUTO`.|
 
 If you set the `secret_mount_point_version` to `2` but the path pointed
 by `secret_mount_point` is based on `KV Secrets Engine - Version 1 (kv)`,

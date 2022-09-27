@@ -1,4 +1,4 @@
-# List of features available in *Percona Server for MySQL* releases
+# List of features available in Percona Server for MySQL releases
 
 | Percona Server for MySQL 5.7                                              | Percona Server for MySQL 8.0                                              |
 |---------------------------------------------------------------------------|---------------------------------------------------------------------------|

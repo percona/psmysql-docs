@@ -1,4 +1,4 @@
-# Upgrading from Systems that Use the *MyRocks* or *TokuDB* Storage Engine and Partitioned Tables
+# Upgrading from Systems that Use the MyRocks or TokuDB Storage Engine and Partitioned Tables
 
 Due to the limitation imposed by *MySQL*, the storage engine provides support for partitioning. *MySQL* 8.0 only provides support for
 partitioned table for the *InnoDB* storage engine.

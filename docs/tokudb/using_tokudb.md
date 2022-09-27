@@ -17,9 +17,9 @@ such as covering and clustering indexes. It’s worth investing some time to
 optimize index definitions to get the best performance from *MySQL* and
 *TokuDB*. Here are some resources to get you started:
 
-* “Understanding Indexing” by Zardosht Kasheff ([video](http://vimeo.com/26454091))
+* “Understanding Indexing” by Zardosht Kasheff ([video](https://vimeo.com/26454091))
 
-* [Rule of Thumb for Choosing Column Order in Indexes](http://www.mysqlperformanceblog.com/2009/06/05/a-rule-of-thumb-for-choosing-column-order-in-indexes/)
+* [Rule of Thumb for Choosing Column Order in Indexes](https://www.mysqlperformanceblog.com/2009/06/05/a-rule-of-thumb-for-choosing-column-order-in-indexes/)
 
 * [Covering Indexes: Orders-of-Magnitude Improvements](https://www.percona.com/blog/2009/05/14/covering_indexes_orders_of_magnitude_improvements/)
 
@@ -233,8 +233,9 @@ Compression in *TokuDB* occurs on background threads, which means that high
 compression need not slow down your database. Indeed, in some settings, we’ve
 seen higher overall database performance with high compression.
 
-**NOTE**: We recommend that users use standard compression on machines with six or
-fewer cores, and high compression on machines with more than six cores.
+!!! note
+
+    We recommend that users use standard compression on machines with six or fewer cores, and high compression on machines with more than six cores.
 
 The ultimate choice depends on the particulars of how a database is used, and we
 recommend that users use the default settings unless they have profiled their
@@ -247,23 +248,16 @@ tokudb_row_format, the `QUICKLZ` compression algorithm is used.
 The row_format and tokudb_row_format variables accept
 the following values:
 
-| Value               | Description                                                                                                                                                           |
-|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| TOKUDB_DEFAULT      | Sets the compression to the default behavior. As of TokuDB 7.1.0, the
-default behavior is to compress using the zlib library. In the future
-this behavior may change. |
-| TOKUDB_FAST         | Sets the compression to use the quicklz library.                                                                                                                      |
-| TOKUDB_SMALL        | Sets the compression to use the lzma library.                                                                                                                         |
-| TOKUDB_ZLIB         | Compress using the zlib library, which provides mid-range compression and
-CPU utilization.                                                                            |
-| TOKUDB_QUICKLZ      | Compress using the quicklz library, which provides light compression and
-low CPU utilization.                                                                         |
-| TOKUDB_LZMA         | Compress using the lzma library, which provides the highest compression
-and high CPU utilization.                                                                     |
-| TOKUDB_SNAPPY       | This compression is using snappy
-library and aims for very high speeds and reasonable compression.                                                                    |
-| TOKUDB_UNCOMPRESSED | This setting turns off compression and is useful for tables with data
-that cannot be compressed.                                                                      |
+| Value  |   Description      |
+|---------------------|-------------------|
+| TOKUDB_DEFAULT      | Sets the compression to the default behavior. As of TokuDB 7.1.0, the default behavior is to compress using the zlib library. In the future this behavior may change. |
+| TOKUDB_FAST         | Sets the compression to use the quicklz library.    |
+| TOKUDB_SMALL        | Sets the compression to use the lzma library.       |
+| TOKUDB_ZLIB         | Compress using the zlib library, which provides mid-range compression and CPU utilization.      |
+| TOKUDB_QUICKLZ      | Compress using the quicklz library, which provides light compression and low CPU utilization.   |
+| TOKUDB_LZMA         | Compress using the lzma library, which provides the highest compression and high CPU utilization.     |
+| TOKUDB_SNAPPY       | This compression is using snappy library and aims for very high speeds and reasonable compression.   |
+| TOKUDB_UNCOMPRESSED | This setting turns off compression and is useful for tables with data that cannot be compressed.            |
 
 ## Read Free Replication
 
@@ -439,7 +433,7 @@ To convert an existing table to use the *TokuDB* engine, run `ALTER
 TABLE... ENGINE=TokuDB`. If you wish to load from a file, use `LOAD DATA
 INFILE` and not `mysqldump`. Using `mysqldump` will be much slower. To
 create a file that can be loaded with `LOAD DATA INFILE`, refer to the `INTO
-OUTFILE` option of the [SELECT Syntax](http://dev.mysql.com/doc/refman/8.0/en/select.html).
+OUTFILE` option of the [SELECT Syntax](https://dev.mysql.com/doc/refman/8.0/en/select.html).
 
 !!! note
 

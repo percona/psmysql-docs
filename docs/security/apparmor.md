@@ -6,12 +6,9 @@ AppArmor is path-based and restricts processes by using profiles. Each profile c
 
 A profile is in one of the following modes:
 
-
 * Enforce - the default setting, applications are prevented from taking actions restricted by the profile rules.
 
-
 * Complain - applications are allowed to take restricted actions, and the actions are logged.
-
 
 * Disabled - Applications are allowed to take restricted actions, and the actions are not logged.
 
@@ -149,81 +146,74 @@ AppArmor provides security and disabling the system is not recommened. If AppArm
 
 1. Check the status.
 
-```shell
-$ sudo apparmor_status
-```
+    ```shell
+    $ sudo apparmor_status
+    ```
 
+2. Stop and disable AppArmor.
 
-    1. Stop and disable AppArmor.
-
-```shell
-$ sudo systemctl stop apparmor
-$ sudo systemctl disable apparmor
-```
+    ```shell
+    $ sudo systemctl stop apparmor
+    $ sudo systemctl disable apparmor
+    ```
 
 ## Add the mysqld profile
 
 Add the mysqld profile with the following procedure:
 
-
 1. Download the current version of the AppArmor:
 
-```shell
-$ wget https://raw.githubusercontent.com/mysql/mysql-server/8.0/packaging/deb-in/extra/apparmor-profile
-```
+    ```shell
+    $ wget https://raw.githubusercontent.com/mysql/mysql-server/8.0/packaging/deb-in/extra/apparmor-profile
+    ```
 
-The output could be the following:
+   The output could be the following:
 
-```text
-...
-Saving to 'apparamor-profile`
-...
-```
-
+   ```text
+   ...
+   Saving to 'apparamor-profile`
+   ...
+   ```
 
 2. Move the file to /etc/apparmor.d/usr.sbin.mysqld
 
-```shell
-$ sudo mv apparmor-profile /etc/apparmor.d/usr.sbin.mysqld
-```
-
+    ```shell
+    $ sudo mv apparmor-profile /etc/apparmor.d/usr.sbin.mysqld
+    ```
 
 3. Create an empty file for editing:
 
-```shell
-$ sudo touch /etc/apparmor.d/local/usr.sbin.mysqld
-```
-
+    ```shell
+    $ sudo touch /etc/apparmor.d/local/usr.sbin.mysqld
+    ```
 
 4. Load the profile:
 
-```shell
-$ sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.sbin.mysqld
-```
-
+    ```shell
+    $ sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.sbin.mysqld
+    ```
 
 5. Restart *Percona Server for MySQL*:
 
-```shell
-$ sudo systemctl restart mysql
-```
-
+    ```shell
+    $ sudo systemctl restart mysql
+    ```
 
 6. Verify the profile status:
+ 
+    ```shell
+    $ sudo aa-status
+    ```
 
-```shell
-$ sudo aa-status
-```
+    The output could be the following:
 
-The output could be the following:
-
-```text
-...
-processes are in enforce mode
-...
-/usr/sbin/mysqld (100840)
-...
-```
+    ```text
+    ...
+    processes are in enforce mode
+    ...
+    /usr/sbin/mysqld (100840)
+    ...
+    ```
 
 ## Edit the mysqld profile
 
@@ -267,9 +257,7 @@ $ sudo systemctl mysql restart
 
 The restart fails because AppArmor has blocked access to the custom data directory location. To diagnose the issue, check the logs for the following:
 
-
 * ALLOWED - A log event when the profile is in complain mode and the action violates a policy.
-
 
 * DENIED - A log event when the profile is in enforce mode and the action is blocked.
 
