@@ -1,0 +1,4460 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation">
+      
+      
+        <meta name="author" content="Percona LLC">
+      
+      
+        <link rel="canonical" href="https://docs.percona.com/percona-server/5.7/5.7/tokudb/tokudb_troubleshooting.html">
+      
+      <link rel="icon" href="../_static/percona_favicon.ico">
+      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.3">
+    
+    
+      
+        <title>TokuDB Troubleshooting - Percona Server for MySQL</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7a952b86.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.3/css/line.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="../css/percona.css">
+    
+      <link rel="stylesheet" href="../css/version-select.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script id="__analytics">function __md_analytics(){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-343802-3","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");ga("send","event","feedback","click",t,e),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){ga("send","pageview",e.pathname)})});var e=document.createElement("script");e.async=!0,e.src="https://www.google-analytics.com/analytics.js",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tokudb-troubleshooting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://percona.com/software/documentation" class="md-header__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
+      
+  <img src="../_static/percona-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis"><a href="https://www.percona.com/software/documentation">
+            Percona Product Documentation
+          </a></span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TokuDB Troubleshooting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/percona/psmysql-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/psmysql-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Percona Server for MySQL" class="md-nav__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
+      
+  <img src="../_static/percona-logo.svg" alt="logo">
+
+    </a>
+    Percona Server for MySQL
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/percona/psmysql-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/psmysql-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Percona Server for MySQL 5.7 - Documentation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ps-versions-comparison.html" class="md-nav__link">
+        List of features available in Percona Server for MySQL releases
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../percona_xtradb.html" class="md-nav__link">
+        The Percona XtraDB Storage Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../feature_comparison.html" class="md-nav__link">
+        Percona Server for MySQL Feature Comparison
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changed_in_57.html" class="md-nav__link">
+        Changed in Percona Server 5.7
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Installation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        Installing Percona Server for MySQL 5.7
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/apt_repo.html" class="md-nav__link">
+        Installing Percona Server for MySQL 5.7 on Debian and Ubuntu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/yum_repo.html" class="md-nav__link">
+        Installing Percona Server for MySQL 5.7 on Red Hat Enterprise Linux and CentOS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/binary-tarball.html" class="md-nav__link">
+        Installing _Percona Server for MySQL_ 5.7 from a Binary Tarball
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/source-tarball.html" class="md-nav__link">
+        Installing _Percona Server for MySQL_ 5.7 from a Source Tarball
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/compile.html" class="md-nav__link">
+        Compiling Percona Server for MySQL 5.7 from Source
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/git-source-tree.html" class="md-nav__link">
+        Installing Percona Server for MySQL 5.7 from the Git Source Tree
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Running Docker
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Running Docker" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Running Docker
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/docker.html" class="md-nav__link">
+        Running Percona Server for MySQL 5.7 in a Docker Container
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Post-Installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Post-Installation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Post-Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/post-installation.html" class="md-nav__link">
+        Post-Installation steps for Percona Server for MySQL 5.7
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Diagnostics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Diagnostics" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Diagnostics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/user_stats.html" class="md-nav__link">
+        User Statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/slow_extended.html" class="md-nav__link">
+        Slow Query Log
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/innodb_show_status.html" class="md-nav__link">
+        Extended Show Engine InnoDB Status
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/show_engines.html" class="md-nav__link">
+        Show Storage Engines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/process_list.html" class="md-nav__link">
+        Process List
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/misc_info_schema_tables.html" class="md-nav__link">
+        Misc. INFORMATION_SCHEMA Tables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/thread_based_profiling.html" class="md-nav__link">
+        Thread Based Profiling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/scalability_metrics_plugin.html" class="md-nav__link">
+        Metrics for scalability measurement
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/response_time_distribution.html" class="md-nav__link">
+        Response Time Distribution
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/innodb_fragmentation_count.html" class="md-nav__link">
+        InnoDB Page Fragmentation Counters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/libcoredumper.html" class="md-nav__link">
+        Using libcoredumper
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/stacktrace.html" class="md-nav__link">
+        Stacktrace
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Flexibility
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Flexibility" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Flexibility
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/log_warnings_suppress.html" class="md-nav__link">
+        Suppress Warning Messages
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/improved_memory_engine.html" class="md-nav__link">
+        Improved MEMORY Storage Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/max_binlog_files.html" class="md-nav__link">
+        Restricting the number of binlog files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/extended_mysqldump.html" class="md-nav__link">
+        Extended mysqldump
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/extended_select_into_outfile.html" class="md-nav__link">
+        Extended SELECT INTO OUTFILE/DUMPFILE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/per_query_variable_statement.html" class="md-nav__link">
+        Per-query variable statement
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/extended_mysqlbinlog.html" class="md-nav__link">
+        Extended mysqlbinlog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/slowlog_rotation.html" class="md-nav__link">
+        Slow Query Log Rotation and Expiration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/csv_engine_mode.html" class="md-nav__link">
+        CSV engine mode for standard-compliant quote and comma parsing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/proxy_protocol_support.html" class="md-nav__link">
+        Support for PROXY protocol
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/per_session_server-id.html" class="md-nav__link">
+        Per-session server-id
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/compressed_columns.html" class="md-nav__link">
+        Compressed columns with dictionaries
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/innodb_fts_improvements.html" class="md-nav__link">
+        InnoDB Full-Text Search improvements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/binlogging_replication_improvements.html" class="md-nav__link">
+        Binlogging and replication improvements
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Management" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/udf_percona_toolkit.html" class="md-nav__link">
+        Percona Toolkit UDFs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/innodb_kill_idle_trx.html" class="md-nav__link">
+        Kill Idle Transactions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/enforce_engine.html" class="md-nav__link">
+        Enforcing Storage Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/expanded_program_option_modifiers.html" class="md-nav__link">
+        Expanded Program Option Modifiers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/changed_page_tracking.html" class="md-nav__link">
+        XtraDB changed page tracking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/innodb_expanded_fast_index_creation.html" class="md-nav__link">
+        Expanded Fast Index Creation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/backup_locks.html" class="md-nav__link">
+        Backup Locks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/audit_log_plugin.html" class="md-nav__link">
+        Audit Log Plugin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/start_transaction_with_consistent_snapshot.html" class="md-nav__link">
+        Start transaction with consistent snapshot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/extended_show_grants.html" class="md-nav__link">
+        Extended SHOW GRANTS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/utility_user.html" class="md-nav__link">
+        Utility user
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/ps-admin.html" class="md-nav__link">
+        PS-Admin script
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Percona MyRocks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Percona MyRocks" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Percona MyRocks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/index.html" class="md-nav__link">
+        Percona MyRocks Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/install.html" class="md-nav__link">
+        Percona MyRocks Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/limitations.html" class="md-nav__link">
+        MyRocks Limitations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/differences.html" class="md-nav__link">
+        Differences between Percona MyRocks and Facebook MyRocks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/variables.html" class="md-nav__link">
+        MyRocks Server Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/status_variables.html" class="md-nav__link">
+        MyRocks status variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/gap_locks_detection.html" class="md-nav__link">
+        Gap locks detection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/data_loading.html" class="md-nav__link">
+        Data Loading
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          Performance
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Performance" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          Performance
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/aio_page_requests.html" class="md-nav__link">
+        Multiple page asynchronous I/O requests
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/query_cache_enhance.html" class="md-nav__link">
+        Query Cache Enhancements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/query_limit_records.html" class="md-nav__link">
+        Limiting the Estimation of Records in a Query
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/innodb_numa_support.html" class="md-nav__link">
+        Improved NUMA support
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/threadpool.html" class="md-nav__link">
+        Thread Pool
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.html" class="md-nav__link">
+        XtraDB Performance Improvements for I/O-Bound Highly-Concurrent Workloads
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/prefix_index_queries_optimization.html" class="md-nav__link">
+        Prefix Index Queries Optimization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_11">
+          Reliability
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reliability" data-md-level="1">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          Reliability
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reliability/log_connection_error.html" class="md-nav__link">
+        Too Many Connections Warning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reliability/innodb_corrupt_table_action.html" class="md-nav__link">
+        Handle Corrupted Tables
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_12">
+          Scalability
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Scalability" data-md-level="1">
+        <label class="md-nav__title" for="__nav_12">
+          <span class="md-nav__icon md-icon"></span>
+          Scalability
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scalability/innodb_split_buf_pool_mutex.html" class="md-nav__link">
+        Improved Buffer Pool Scalability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scalability/innodb_io.html" class="md-nav__link">
+        Improved InnoDB I/O Scalability
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" type="checkbox" id="__nav_13" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_13">
+          Security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Security" data-md-level="1">
+        <label class="md-nav__title" for="__nav_13">
+          <span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/data-at-rest-encryption.html" class="md-nav__link">
+        Data at Rest Encryption
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/pam_plugin.html" class="md-nav__link">
+        PAM Authentication Plugin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/ssl-improvement.html" class="md-nav__link">
+        SSL Improvements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/data-masking.html" class="md-nav__link">
+        Data Masking
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14" type="checkbox" id="__nav_14" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_14">
+          TokuDB
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="TokuDB" data-md-level="1">
+        <label class="md-nav__title" for="__nav_14">
+          <span class="md-nav__icon md-icon"></span>
+          TokuDB
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_intro.html" class="md-nav__link">
+        TokuDB Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_installation.html" class="md-nav__link">
+        TokuDB Installation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="using_tokudb.html" class="md-nav__link">
+        Using TokuDB
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fast_updates.html" class="md-nav__link">
+        Fast Updates with TokuDB
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_files_and_file_types.html" class="md-nav__link">
+        TokuDB files and file types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_file_management.html" class="md-nav__link">
+        TokuDB file management
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_background_analyze_table.html" class="md-nav__link">
+        TokuDB Background ANALYZE TABLE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_variables.html" class="md-nav__link">
+        TokuDB Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_status_variables.html" class="md-nav__link">
+        TokuDB Status Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_fractal_tree_indexing.html" class="md-nav__link">
+        TokuDB Fractal Tree Indexing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          TokuDB Troubleshooting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="tokudb_troubleshooting.html" class="md-nav__link md-nav__link--active">
+        TokuDB Troubleshooting
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#known-issues" class="md-nav__link">
+    Known Issues
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lock-visualization-in-tokudb" class="md-nav__link">
+    Lock Visualization in TokuDB
+  </a>
+  
+    <nav class="md-nav" aria-label="Lock Visualization in TokuDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-tokudb_trx-table" class="md-nav__link">
+    The TOKUDB_TRX table
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tokudb_locks-table" class="md-nav__link">
+    The TOKUDB_LOCKS table
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tokudb_lock_waits-table" class="md-nav__link">
+    The TOKUDB_LOCK_WAITS table
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tokudb_lock_timeout_debug-session-variable" class="md-nav__link">
+    The tokudb_lock_timeout_debug session variable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tokudb_last_lock_timeout-session-variable" class="md-nav__link">
+    The tokudb_last_lock_timeout session variable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#engine-status" class="md-nav__link">
+    Engine Status
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_performance_schema.html" class="md-nav__link">
+        TokuDB Performance Schema Integration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="toku_backup.html" class="md-nav__link">
+        Percona TokuBackup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_faq.html" class="md-nav__link">
+        Frequently Asked Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="removing_tokudb.html" class="md-nav__link">
+        Removing TokuDB storage engine
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_15" type="checkbox" id="__nav_15" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_15">
+          Release notes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Release notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_15">
+          <span class="md-nav__icon md-icon"></span>
+          Release notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.39-42.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.39-42 (2022-08-15)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.38-41.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.38-41 (2022-06-02)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.37-40.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.37-40 (2022-03-31)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.36-39.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.36-39 (2021-12-22)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.35-38.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.35-38 (2021-08-18)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.34-37.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.34-37 (2021-05-26)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.33-36.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.33-36 (2021-03-02)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.32-35.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.32-35 (2020-11-24)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.31-34.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.31-34 (2020-08-24)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.30-33.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.30-33 ((2020-05-20)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.29-32.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.29-32 (2020-02-05)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.28-31.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.28-31 (2019-11-13)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.27-30.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.27-30 (2019-08-22)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.26-29.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.26-29 (2019-05-27)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.25-28.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.25-28 (2019-02-18)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.24-27.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.24-27 (2018-12-18)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.24-26.html" class="md-nav__link">
+        Percona Server 5.7.24-26 (2018-12-04)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.23-25.html" class="md-nav__link">
+        Percona Server 5.7.23-25 (2018-11-21)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.23-24.html" class="md-nav__link">
+        Percona Server 5.7.23-24 (2018-11-09)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.23-23.html" class="md-nav__link">
+        Percona Server 5.7.23-23 (2018-09-12)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.22-22.html" class="md-nav__link">
+        Percona Server 5.7.22-22 (2018-05-31)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.21-21.html" class="md-nav__link">
+        Percona Server 5.7.21-21 (2018-04-24)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.21-20.html" class="md-nav__link">
+        Percona Server 5.7.21-20 (2018-02-19)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.20-19.html" class="md-nav__link">
+        Percona Server 5.7.20-19 (2018-01-03)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.20-18.html" class="md-nav__link">
+        Percona Server 5.7.20-18 (2017-12-14)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.19-17.html" class="md-nav__link">
+        Percona Server 5.7.19-17 (2017-08-31)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.18-16.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.18-16 (2017-07-28)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.18-15.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.18-15 (2017-05-26)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.18-14.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.18-14 (2017-05-12)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.17-13.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.17-13 (2017-04-05)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.17-12.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.17-12 (2017-03-24)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.17-11.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.17-11 (2017-02-03)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.16-10.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.16-10 (2016-11-28)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.15-9.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.15-9 (2016-10-21)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.14-8.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.14-8 (2016-09-21)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.14-7.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.14-7 (2016-08-23)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.13-6.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.13-6 (2016-07-16)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.12-5.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.12-5 (2016-06-06)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.11-4.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.11-4 (2016-03-15)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.10-3.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.10-3 (2016-02-23)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.10-2.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.10-2 (2016-02-05)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.10-1.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.10-1 (2015-12-14)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_16" type="checkbox" id="__nav_16" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_16">
+          References
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="References" data-md-level="1">
+        <label class="md-nav__title" for="__nav_16">
+          <span class="md-nav__icon md-icon"></span>
+          References
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upstream-bug-fixes.html" class="md-nav__link">
+        List of upstream MySQL bugs fixed in Percona Server for MySQL  5.7
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ps-variables.html" class="md-nav__link">
+        List of variables introduced in Percona Server 5.7
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development.html" class="md-nav__link">
+        Development of Percona Server for MySQL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../trademark-policy.html" class="md-nav__link">
+        Trademark Policy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index_info_schema_tables.html" class="md-nav__link">
+        Index of INFORMATION_SCHEMA Tables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        Frequently Asked Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../copyright.html" class="md-nav__link">
+        Copyright and Licensing Information
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+   <label class="md-nav__title" for="__drawer">
+    <a href="https://learn.percona.com/download-percona-server-5-7-manual" onclick="_gaq.push(['b._trackEvent', 'Percona Server', 'Download', 'Download Manual Percona Server']);" class="md-nav__link md-nav__link--active">
+      Download PDF
+    </a>
+  </label> 
+  </ul>
+</nav>
+
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#known-issues" class="md-nav__link">
+    Known Issues
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lock-visualization-in-tokudb" class="md-nav__link">
+    Lock Visualization in TokuDB
+  </a>
+  
+    <nav class="md-nav" aria-label="Lock Visualization in TokuDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-tokudb_trx-table" class="md-nav__link">
+    The TOKUDB_TRX table
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tokudb_locks-table" class="md-nav__link">
+    The TOKUDB_LOCKS table
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tokudb_lock_waits-table" class="md-nav__link">
+    The TOKUDB_LOCK_WAITS table
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tokudb_lock_timeout_debug-session-variable" class="md-nav__link">
+    The tokudb_lock_timeout_debug session variable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tokudb_last_lock_timeout-session-variable" class="md-nav__link">
+    The tokudb_last_lock_timeout session variable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#engine-status" class="md-nav__link">
+    Engine Status
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+                <!-- Edit button -->
+                
+                  <a
+                    href="https://github.com/percona/psmysql-docs/edit/5.7/docs/tokudb/tokudb_troubleshooting.md"
+                    title="Edit this page"
+                    class="md-content__button md-icon"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+                  </a>
+                
+
+                <!--
+                  Hack: check whether the content contains a h1 headline. If it
+                  doesn't, the page title (or respectively site name) is used
+                  as the main headline.
+                -->
+                
+
+                <!-- Markdown content -->
+                <h1 id="tokudb-troubleshooting">TokuDB Troubleshooting<a class="headerlink" href="#tokudb-troubleshooting" title="Permanent link">&para;</a></h1>
+<h2 id="known-issues">Known Issues<a class="headerlink" href="#known-issues" title="Permanent link">&para;</a></h2>
+<p><strong>Replication and binary logging</strong>: TokuDB supports binary logging and replication, with one restriction. TokuDB does not implement a lock on the auto-increment function, so concurrent insert statements with one or more of the statements inserting multiple rows may result in a non-deterministic interleaving of the auto-increment values. When running replication with these concurrent inserts, the auto-increment values on the replica table may not match the auto-increment values on the source table. Note that this is only an issue with Statement Based Replication (SBR), and not Row Based Replication (RBR).</p>
+<p>For more information about auto-increment and replication, see the MySQL Reference Manual: <a href="http://dev.mysql.com/doc/refman/5.7/en/innodb-auto-increment-handling.html">AUTO_INCREMENT handling in InnoDB</a>.</p>
+<p>In addition, when using the <code>REPLACE INTO</code> or <code>INSERT IGNORE</code> on tables with no secondary indexes or tables where secondary indexes are subsets of the primary, the session variable tokudb_pk_insert_mode controls whether row based replication will work.</p>
+<p><strong>Uninformative error message</strong>: The <code>LOAD DATA INFILE</code> command can sometimes produce <code>ERROR 1030 (HY000): Got error 1 from storage engine</code>. The message should say that the error is caused by insufficient disk space for the temporary files created by the loader.</p>
+<p><strong>Transparent Huge Pages</strong>: TokuDB will refuse to start if transparent huge pages are enabled. Transparent huge page support can be disabled by issuing the following as root:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># echo never &gt; /sys/kernel/mm/redhat_transparent_hugepage/enabled</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Execute this command after every reboot because the default is <code>always</code>.</p>
+</div>
+<p><strong>XA behavior vs. InnoDB</strong>: InnoDB forces a deadlocked XA transaction to abort, TokuDB does not.</p>
+<p><strong>Disabling the unique checks</strong>: For tables with unique keys, every insertion
+into the table causes a lookup by key followed by an insertion, if the key is
+not in the table. This greatly limits insertion performance. If one knows by
+design that the rows being inserted into the table have unique keys, then one
+can disable the key lookup prior to insertion.</p>
+<p>If your primary key is an auto-increment key, and none of your secondary keys
+are declared to be unique, then setting <code>unique_checks=OFF</code> will provide
+limited performance gains. On the other hand, if your primary key has a lot of
+entropy (it looks random), or your secondary keys are declared unique and have
+a lot of entropy, then disabling unique checks can provide a significant
+performance boost.</p>
+<p>If unique_checks is disabled when the primary key is not unique,
+secondary indexes may become corrupted. In this case, the indexes should be
+dropped and rebuilt. This behavior differs from that of InnoDB, in which
+uniqueness is always checked on the primary key, and setting
+unique_checks to off turns off uniqueness checking on secondary
+indexes only. Turning off uniqueness checking on the primary key can provide
+large performance boosts, but it should only be done when the primary key is
+known to be unique.</p>
+<p><strong>Group Replication</strong>: TokuDB storage engine doesn’t support <a href="https://dev.mysql.com/doc/refman/5.7/en/group-replication.html">Group Replication</a>.</p>
+<h2 id="lock-visualization-in-tokudb">Lock Visualization in TokuDB<a class="headerlink" href="#lock-visualization-in-tokudb" title="Permanent link">&para;</a></h2>
+<p>TokuDB uses key range locks to implement serializable transactions, which are acquired as the transaction progresses. The locks are released when the transaction commits or aborts (this implements two phase locking).</p>
+<p>TokuDB stores these locks in a data structure called the lock tree. The lock tree stores the set of range locks granted to each transaction. In addition, the lock tree stores the set of locks that are not granted due to a conflict with locks granted to some other transaction. When these other transactions are retired, these pending lock requests are retried. If a pending lock request is not granted before the lock timer expires, then the lock request is aborted.</p>
+<p>Lock visualization in TokuDB exposes the state of the lock tree with tables in the information schema. We also provide a mechanism that may be used by a database client to retrieve details about lock conflicts that it encountered while executing a transaction.</p>
+<h3 id="the-tokudb_trx-table">The <code>TOKUDB_TRX</code> table<a class="headerlink" href="#the-tokudb_trx-table" title="Permanent link">&para;</a></h3>
+<p>The TOKUDB_TRX table in the <code>INFORMATION_SCHEMA</code> maps TokuDB transaction identifiers to MySQL client identifiers. This mapping allows one to associate a TokuDB transaction with a MySQL client operation.</p>
+<p>The following query returns the MySQL clients that have a live TokuDB transaction:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_TRX</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PROCESSLIST</span><span class="w"></span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">trx_mysql_thread_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<h3 id="the-tokudb_locks-table">The <code>TOKUDB_LOCKS</code> table<a class="headerlink" href="#the-tokudb_locks-table" title="Permanent link">&para;</a></h3>
+<p>The tokudb_locks table in the information schema contains the set of locks granted to TokuDB transactions.</p>
+<p>The following query returns all of the locks granted to some TokuDB transaction:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The following query returns the locks granted to some MySQL client:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PROCESSLIST</span><span class="w"></span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">locks_mysql_thread_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<h3 id="the-tokudb_lock_waits-table">The <code>TOKUDB_LOCK_WAITS</code> table<a class="headerlink" href="#the-tokudb_lock_waits-table" title="Permanent link">&para;</a></h3>
+<p>The tokudb_lock_waits table in the information schema contains the set of lock requests that are not granted due to a lock conflict with some other transaction.</p>
+<p>The following query returns the locks that are waiting to be granted due to a lock conflict with some other transaction:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCK_WAITS</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<h3 id="the-tokudb_lock_timeout_debug-session-variable">The tokudb_lock_timeout_debug session variable<a class="headerlink" href="#the-tokudb_lock_timeout_debug-session-variable" title="Permanent link">&para;</a></h3>
+<p>The tokudb_lock_timeout_debug session variable controls how lock timeouts and lock deadlocks seen by the database client are reported.</p>
+<p>The following values are available:</p>
+<ul>
+<li>
+<p><strong>0</strong></p>
+<p>No lock timeouts or lock deadlocks are reported.</p>
+</li>
+<li>
+<p><strong>1</strong></p>
+<p>A JSON document that describes the lock conflict is stored in the tokudb_last_lock_timeout session variable</p>
+</li>
+<li>
+<p><strong>2</strong></p>
+<p>A JSON document that describes the lock conflict is printed to the MySQL error log.</p>
+<p><em>Supported since 7.5.5</em>: In addition to the JSON document describing the lock conflict, the following lines are printed to the MySQL error log:</p>
+<ul>
+<li>
+<p>A line containing the blocked thread id and blocked SQL</p>
+</li>
+<li>
+<p>A line containing the blocking thread id and the blocking SQL.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>3</strong></p>
+<p>A JSON document that describes the lock conflict is stored in the tokudb_last_lock_timeout session variable and is printed to the MySQL error log.</p>
+<p><em>Supported since 7.5.5</em>: In addition to the JSON document describing the lock conflict, the following lines are printed to the MySQL error log:</p>
+<ul>
+<li>
+<p>A line containing the blocked thread id and blocked SQL</p>
+</li>
+<li>
+<p>A line containing the blocking thread id and the blocking SQL.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="the-tokudb_last_lock_timeout-session-variable">The tokudb_last_lock_timeout session variable<a class="headerlink" href="#the-tokudb_last_lock_timeout-session-variable" title="Permanent link">&para;</a></h3>
+<p>The tokudb_last_lock_timeout session variable contains a JSON document that describes the last lock conflict seen by the current MySQL client. It gets set when a blocked lock request times out or a lock deadlock is detected. The tokudb_lock_timeout_debug session variable should have bit <code>0</code> set (decimal <code>1</code>).</p>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<p>Suppose that we create a table with a single column that is the primary key.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">Create</span><span class="w"> </span><span class="k">Table</span><span class="p">:</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">‘</span><span class="k">table</span><span class="err">‘</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="err">‘</span><span class="n">id</span><span class="err">‘</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="err">‘</span><span class="n">id</span><span class="err">‘</span><span class="p">))</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">TokuDB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">latin1</span><span class="w"></span>
+</code></pre></div>
+<p>Suppose that we have 2 MySQL clients with ID’s 1 and 2 respectively. Suppose that MySQL client 1 inserts some values into <code>table</code>. TokuDB transaction 51 is created for the insert statement. Since autocommit is disabled, transaction 51 is still live after the insert statement completes, and we can query the tokudb_locks table in information schema to see the locks that are held by the transaction.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">AUTOCOMMIT</span><span class="o">=</span><span class="k">OFF</span><span class="p">;</span><span class="w"></span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">),(</span><span class="mi">10</span><span class="p">),(</span><span class="mi">100</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>The output could be:</p>
+<div class="highlight"><pre><span></span><code>Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The output could be:</p>
+<p><div class="highlight"><pre><span></span><code>+--------------+-----------------------+---------------+----------------+-----------------+--------------------+------------------+-----------------------------+
+| locks_trx_id | locks_mysql_thread_id | locks_dname   | locks_key_left | locks_key_right | locks_table_schema | locks_table_name | locks_table_dictionary_name |
++--------------+-----------------------+---------------+----------------+-----------------+--------------------+------------------+-----------------------------+
+|           51 |                     1 | ./test/t-main | 0001000000     | 0001000000      | test               | t                | main                        |
+|           51 |                     1 | ./test/t-main | 000a000000     | 000a000000      | test               | t                | main                        |
+|           51 |                     1 | ./test/t-main | 0064000000     | 0064000000      | test               | t                | main                        |
++--------------+-----------------------+---------------+----------------+-----------------+--------------------+------------------+-----------------------------+
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCK_WAITS</span><span class="p">;</span><span class="w"></span>
+</code></pre></div></p>
+<p>The output could be:</p>
+<div class="highlight"><pre><span></span><code>Empty set (0.00 sec)
+</code></pre></div>
+<p>The keys are currently hex dumped.</p>
+<p>Now we switch to the other MySQL client with ID 2.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">),(</span><span class="mi">20</span><span class="p">),(</span><span class="mi">100</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>The insert gets blocked since there is a conflict on the primary key with value 100.</p>
+<p>The granted TokuDB locks are:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The output could be:</p>
+<div class="highlight"><pre><span></span><code>+--------------+-----------------------+---------------+----------------+-----------------+--------------------+------------------+-----------------------------+
+| locks_trx_id | locks_mysql_thread_id | locks_dname   | locks_key_left | locks_key_right | locks_table_schema | locks_table_name | locks_table_dictionary_name |
++--------------+-----------------------+---------------+----------------+-----------------+--------------------+------------------+-----------------------------+
+|           51 |                     1 | ./test/t-main | 0001000000     | 0001000000      | test               | t                | main                        |
+|           51 |                     1 | ./test/t-main | 000a000000     | 000a000000      | test               | t                | main                        |
+|           51 |                     1 | ./test/t-main | 0064000000     | 0064000000      | test               | t                | main                        |
+|           51 |                     1 | ./test/t-main | 0002000000     | 0002000000      | test               | t                | main                        |
+|           51 |                     1 | ./test/t-main | 0014000000     | 0014000000      | test               | t                | main                        |
++--------------+-----------------------+---------------+----------------+-----------------+--------------------+------------------+-----------------------------+
+</code></pre></div>
+<p>The locks that are pending due to a conflict are:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCK_WAITS</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The output could be:</p>
+<div class="highlight"><pre><span></span><code>+-------------------+-----------------+------------------+---------------------+----------------------+-----------------------+--------------------+------------------+-----------------------------+
+| requesting_trx_id | blocking_trx_id | lock_waits_dname | lock_waits_key_left | lock_waits_key_right | lock_waits_start_time | locks_table_schema | locks_table_name | locks_table_dictionary_name |
++-------------------+-----------------+------------------+---------------------+----------------------+-----------------------+--------------------+------------------+-----------------------------+
+|                62 |              51 | ./test/t-main    | 0064000000          | 0064000000           |         1380656990910 | test               | t                | main                        |
++-------------------+-----------------+------------------+---------------------+----------------------+-----------------------+--------------------+------------------+-----------------------------+
+</code></pre></div>
+<p>Eventually, the lock for client 2 times out, and we can retrieve a JSON document that describes the conflict.</p>
+<div class="highlight"><pre><span></span><code>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">TOKUDB_LAST_LOCK_TIMEOUT</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The output could be:</p>
+<div class="highlight"><pre><span></span><code>+---------------------------------------------------------------------------------------------------------------+
+| @@tokudb_last_lock_timeout                                                                                    |
++---------------------------------------------------------------------------------------------------------------+
+| &quot;mysql_thread_id&quot;:2, &quot;dbname&quot;:&quot;./test/t-main&quot;, &quot;requesting_txnid&quot;:62, &quot;blocking_txnid&quot;:51, &quot;key&quot;:&quot;0064000000&quot; |
++---------------------------------------------------------------------------------------------------------------+
+
+ROLLBACK;
+</code></pre></div>
+<p>Since transaction 62 was rolled back, all of the locks taken by it are released.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The output could be:</p>
+<div class="highlight"><pre><span></span><code>+--------------+-----------------------+---------------+----------------+-----------------+--------------------+------------------+-----------------------------+
+| locks_trx_id | locks_mysql_thread_id | locks_dname   | locks_key_left | locks_key_right | locks_table_schema | locks_table_name | locks_table_dictionary_name |
++--------------+-----------------------+---------------+----------------+-----------------+--------------------+------------------+-----------------------------+
+|           51 |                     1 | ./test/t-main | 0001000000     | 0001000000      | test               | t                | main                        |
+|           51 |                     1 | ./test/t-main | 000a000000     | 000a000000      | test               | t                | main                        |
+|           51 |                     1 | ./test/t-main | 0064000000     | 0064000000      | test               | t                | main                        |
+|           51 |                     2 | ./test/t-main | 0002000000     | 0002000000      | test               | t                | main                        |
+|           51 |                     2 | ./test/t-main | 0014000000     | 0014000000      | test               | t                | main                        |
++--------------+-----------------------+---------------+----------------+-----------------+--------------------+------------------+-----------------------------+
+</code></pre></div>
+<h2 id="engine-status">Engine Status<a class="headerlink" href="#engine-status" title="Permanent link">&para;</a></h2>
+<p>Engine status provides details about the inner workings of TokuDB and can be
+useful in tuning your particular environment. The engine status can be
+determined by running the following command:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="n">tokudb</span><span class="w"> </span><span class="n">STATUS</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The following is a reference of table status statements:</p>
+<p><code>disk free space</code>:</p>
+<div class="highlight"><pre><span></span><code>This is a gross estimate of how much of your file system is available.
+Possible displays in this field are:
+
+
+* More than twice the reserve (“more than 10 percent of total file system
+space”)
+
+
+* Less than twice the reserve
+
+
+* Less than the reserve
+
+
+* File system is completely full
+</code></pre></div>
+<p><code>time of environment creation</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the time when the TokuDB storage engine was first started up.
+Normally, this is when `mysqld` was initially installed with TokuDB. If
+the environment was upgraded from TokuDB 4.x (4.2.0 or later), then this
+will be displayed as “Dec 31, 1969” on Linux hosts.
+</code></pre></div>
+<p><code>time of engine startup</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the time when the TokuDB storage engine started up. Normally, this
+is when `mysqld` started.
+</code></pre></div>
+<p><code>time now</code>:</p>
+<div class="highlight"><pre><span></span><code>Current date/time on server.
+</code></pre></div>
+<p><code>db opens</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of times an individual PerconaFT dictionary file was
+opened. This is a not a useful value for a regular user to use for any purpose
+due to layers of open/close caching on top.
+</code></pre></div>
+<p><code>db closes</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of times an individual PerconaFT dictionary file was
+closed. This is a not a useful value for a regular user to use for any purpose
+due to layers of open/close caching on top.
+</code></pre></div>
+<p><code>num open dbs now</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of currently open databases.
+</code></pre></div>
+<p><code>max open dbs</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the maximum number of concurrently opened databases.
+</code></pre></div>
+<p><code>period, in ms, that recovery log is automatically fsynced</code>:</p>
+<div class="highlight"><pre><span></span><code>`fsync()` frequency in milliseconds.
+</code></pre></div>
+<p><code>dictionary inserts</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of rows that have been inserted into all primary and
+secondary indexes combined, when those inserts have been done with a separate
+recovery log entry per index. For example, inserting a row into a table with
+one primary and two secondary indexes will increase this count by three, if
+the inserts were done with separate recovery log entries.
+</code></pre></div>
+<p><code>dictionary inserts fail</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of single-index insert operations that failed.
+</code></pre></div>
+<p><code>dictionary deletes</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of rows that have been deleted from all primary and
+secondary indexes combined, if those deletes have been done with a separate
+recovery log entry per index.
+</code></pre></div>
+<p><code>dictionary deletes fail</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of single-index delete operations that failed.
+</code></pre></div>
+<p><code>dictionary updates</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of rows that have been updated in all primary and
+secondary indexes combined, if those updates have been done with a separate
+recovery log entry per index.
+</code></pre></div>
+<p><code>dictionary updates fail</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of single-index update operations that failed.
+</code></pre></div>
+<p><code>dictionary broadcast updates</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of broadcast updates that have been successfully performed.
+A broadcast update is an update that affects all rows in a dictionary.
+</code></pre></div>
+<p><code>dictionary broadcast updates fail</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of broadcast updates that have failed.
+</code></pre></div>
+<p><code>dictionary multi inserts</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of rows that have been inserted into all primary and
+secondary indexes combined, when those inserts have been done with a single
+recovery log entry for the entire row. (For example, inserting a row into a
+table with one primary and two secondary indexes will normally increase this
+count by three).
+</code></pre></div>
+<p><code>dictionary multi inserts fail</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of multi-index insert operations that failed.
+</code></pre></div>
+<p><code>dictionary multi deletes</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of rows that have been deleted from all primary and
+secondary indexes combined, when those deletes have been done with a single
+recovery log entry for the entire row.
+</code></pre></div>
+<p><code>dictionary multi deletes fail</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of multi-index delete operations that failed.
+</code></pre></div>
+<p><code>dictionary updates multi</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of rows that have been updated in all primary and
+secondary indexes combined, if those updates have been done with a single
+recovery log entry for the entire row.
+</code></pre></div>
+<p><code>dictionary updates fail multi</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of multi-index update operations that failed.
+</code></pre></div>
+<p><code>le: max committed xr</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the maximum number of committed transaction records that were stored
+on disk in a new or modified row.
+</code></pre></div>
+<p><code>le: max provisional xr</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the maximum number of provisional transaction records that were stored
+on disk in a new or modified row.
+</code></pre></div>
+<p><code>le: expanded</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of times that an expanded memory mechanism was used to
+store a new or modified row on disk.
+</code></pre></div>
+<p><code>le: max memsize</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the maximum number of bytes that were stored on disk as a new or
+modified row. This is the maximum uncompressed size of any row stored in
+TokuDB that was created or modified since the server started.
+</code></pre></div>
+<p><code>le: size of leafentries before garbage collection (during message application)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of bytes of leaf nodes data before performing garbage collection
+for non-flush events.
+</code></pre></div>
+<p><code>le: size of leafentries after garbage collection (during message application)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of bytes of leaf nodes data after performing garbage collection
+for non-flush events.
+</code></pre></div>
+<p><code>le: size of leafentries before garbage collection (outside message application)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of bytes of leaf nodes data before performing garbage collection
+for flush events.
+</code></pre></div>
+<p><code>le: size of leafentries after garbage collection (outside message application)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of bytes of leaf nodes data after performing garbage collection
+for flush events.
+</code></pre></div>
+<p><code>checkpoint: period</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the interval in seconds between the end of an automatic checkpoint and
+the beginning of the next automatic checkpoint.
+</code></pre></div>
+<p><code>checkpoint: footprint</code>:</p>
+<div class="highlight"><pre><span></span><code>Where the database is in the checkpoint process.
+</code></pre></div>
+<p><code>checkpoint: last checkpoint began</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the time the last checkpoint began. If a checkpoint is currently in
+progress, then this time may be later than the time the last checkpoint
+completed.
+
+**NOTE**: If no checkpoint has ever taken place, then this value will be `Dec 31,
+1969` on Linux hosts.
+</code></pre></div>
+<p><code>checkpoint: last complete checkpoint began</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the time the last complete checkpoint started. Any data that changed
+after this time will not be captured in the checkpoint.
+</code></pre></div>
+<p><code>checkpoint: last complete checkpoint ended</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the time the last complete checkpoint ended.
+</code></pre></div>
+<p><code>checkpoint: time spent during checkpoint (begin and end phases)</code>:</p>
+<div class="highlight"><pre><span></span><code>Time (in seconds) required to complete all checkpoints.
+</code></pre></div>
+<p><code>checkpoint: time spent during last checkpoint (begin and end phases)</code>:</p>
+<div class="highlight"><pre><span></span><code>Time (in seconds) required to complete the last checkpoint.
+</code></pre></div>
+<p><code>checkpoint: last complete checkpoint LSN</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the Log Sequence Number of the last complete checkpoint.
+</code></pre></div>
+<p><code>checkpoint: checkpoints taken</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of complete checkpoints that have been taken.
+</code></pre></div>
+<p><code>checkpoint: checkpoints failed</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of checkpoints that have failed for any reason.
+</code></pre></div>
+<p><code>checkpoint: waiters now</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the current number of threads simultaneously waiting for the
+checkpoint-safe lock to perform a checkpoint.
+</code></pre></div>
+<p><code>checkpoint: waiters max</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the maximum number of threads ever simultaneously waiting for the
+checkpoint-safe lock to perform a checkpoint.
+</code></pre></div>
+<p><code>checkpoint: non-checkpoint client wait on mo lock</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of times a non-checkpoint client thread waited for the
+multi-operation lock.
+</code></pre></div>
+<p><code>checkpoint: non-checkpoint client wait on cs lock</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of times a non-checkpoint client thread waited for the
+checkpoint-safe lock.
+</code></pre></div>
+<p><code>checkpoint: checkpoint begin time</code>:</p>
+<div class="highlight"><pre><span></span><code>Cumulative time (in microseconds) required to mark all dirty nodes as
+pending a checkpoint.
+</code></pre></div>
+<p><code>checkpoint: long checkpoint begin time</code>:</p>
+<div class="highlight"><pre><span></span><code>The total time, in microseconds, of long checkpoint begins. A long checkpoint
+begin is one taking more than 1 second.
+</code></pre></div>
+<p><code>checkpoint: long checkpoint begin count</code>:</p>
+<div class="highlight"><pre><span></span><code>The total number of times a checkpoint begin took more than 1 second.
+</code></pre></div>
+<p><code>checkpoint: checkpoint end time</code>:</p>
+<div class="highlight"><pre><span></span><code>The time spent in checkpoint end operation in seconds.
+</code></pre></div>
+<p><code>checkpoint: long checkpoint end time</code>:</p>
+<div class="highlight"><pre><span></span><code>The time spent in checkpoint end operation in seconds.
+</code></pre></div>
+<p><code>checkpoint: long checkpoint end count</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the count of end_checkpoint operations that exceeded 1 minute.
+</code></pre></div>
+<p><code>cachetable: miss</code>:</p>
+<div class="highlight"><pre><span></span><code>This is a count of how many times the application was unable to access your
+data in the internal cache.
+</code></pre></div>
+<p><code>cachetable: miss time</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total time, in microseconds, of how long the database has had to
+wait for a disk read to complete.
+</code></pre></div>
+<p><code>cachetable: prefetches</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of times that a block of memory has been prefetched
+into the database’s cache. Data is prefetched when the database’s algorithms
+determine that a block of memory is likely to be accessed by the application.
+</code></pre></div>
+<p><code>cachetable: size current</code>:</p>
+<div class="highlight"><pre><span></span><code>This shows how much of the uncompressed data, in bytes, is currently in the
+database’s internal cache.
+</code></pre></div>
+<p><code>cachetable: size limit</code>:</p>
+<div class="highlight"><pre><span></span><code>This shows how much of the uncompressed data, in bytes, will fit in the
+database’s internal cache.
+</code></pre></div>
+<p><code>cachetable: size writing</code></p>
+<div class="highlight"><pre><span></span><code>This is the number of bytes that are currently queued up to be written to
+disk.
+</code></pre></div>
+<p><code>cachetable: size nonleaf</code>:</p>
+<div class="highlight"><pre><span></span><code>This shows the amount of memory, in bytes, the current set of non-leaf nodes
+occupy in the cache.
+</code></pre></div>
+<p><code>cachetable: size leaf</code>:</p>
+<div class="highlight"><pre><span></span><code>This shows the amount of memory, in bytes, the current set of (decompressed)
+leaf nodes occupy in the cache.
+</code></pre></div>
+<p><code>cachetable: size rollback</code>:</p>
+<div class="highlight"><pre><span></span><code>This shows the rollback nodes size, in bytes, in the cache.
+</code></pre></div>
+<p><code>cachetable: size cachepressure</code>:</p>
+<div class="highlight"><pre><span></span><code>This shows the number of bytes causing cache pressure (the sum of buffers and
+work done counters), helps to understand if cleaner threads are keeping up
+with workload. It should really be looked at as more of a value to use in a
+ratio of cache pressure / cache table size. The closer that ratio evaluates to
+1, the higher the cache pressure.
+</code></pre></div>
+<p><code>cachetable: size currently cloned data for checkpoint</code>:</p>
+<div class="highlight"><pre><span></span><code>Amount of memory, in bytes, currently used for cloned nodes. During the
+checkpoint operation, dirty nodes are cloned prior to
+serialization/compression, then written to disk. After which, the memory for
+the cloned block is returned for re-use.
+</code></pre></div>
+<p><code>cachetable: evictions</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of blocks evicted from cache.
+</code></pre></div>
+<p><code>cachetable: cleaner executions</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of times the cleaner thread loop has executed.
+</code></pre></div>
+<p><code>cachetable: cleaner period</code>:</p>
+<div class="highlight"><pre><span></span><code>TokuDB includes a cleaner thread that optimizes indexes in the background.
+This variable is the time, in seconds, between the completion of a group of
+cleaner operations and the beginning of the next group of cleaner operations.
+The cleaner operations run on a background thread performing work that does
+not need to be done on the client thread.
+</code></pre></div>
+<p><code>cachetable: cleaner iterations:</code></p>
+<div class="highlight"><pre><span></span><code>This is the number of cleaner operations that are performed every cleaner
+period.
+</code></pre></div>
+<p><code>cachetable: number of waits on cache pressure</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of times a thread was stalled due to cache pressure.
+</code></pre></div>
+<p><code>cachetable: time waiting on cache pressure</code>:</p>
+<div class="highlight"><pre><span></span><code>Total time, in microseconds, waiting on cache pressure to subside.
+</code></pre></div>
+<p><code>cachetable: number of long waits on cache pressure</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of times a thread was stalled for more than 1 second due to cache
+pressure.
+</code></pre></div>
+<p><code>cachetable: long time waiting on cache pressure</code>:</p>
+<div class="highlight"><pre><span></span><code>Total time, in microseconds, waiting on cache pressure to subside for more
+than 1 second.
+</code></pre></div>
+<p><code>cachetable: client pool: number of threads in pool</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of threads in the client thread pool.
+</code></pre></div>
+<p><code>cachetable: client pool: number of currently active threads in pool</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of currently active threads in the client thread pool.
+</code></pre></div>
+<p><code>cachetable: client pool: number of currently queued work items</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of currently queued work items in the client thread pool.
+</code></pre></div>
+<p><code>cachetable: client pool: largest number of queued work items</code>:</p>
+<div class="highlight"><pre><span></span><code>The largest number of queued work items in the client thread pool.
+</code></pre></div>
+<p><code>cachetable: client pool: total number of work items processed</code>:</p>
+<div class="highlight"><pre><span></span><code>The total number of work items processed in the client thread pool.
+</code></pre></div>
+<p><code>cachetable: client pool: total execution time of processing work items</code>:</p>
+<div class="highlight"><pre><span></span><code>The total execution time of processing work items in the client thread pool.
+</code></pre></div>
+<p><code>cachetable: cachetable pool: number of threads in pool</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of threads in the cachetable thread pool.
+</code></pre></div>
+<p><code>cachetable: cachetable pool: number of currently active threads in pool</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of currently active threads in the cachetable thread pool.
+</code></pre></div>
+<p><code>cachetable: cachetable pool: number of currently queued work items</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of currently queued work items in the cachetable thread pool.
+</code></pre></div>
+<p><code>cachetable: cachetable pool: largest number of queued work items</code>:</p>
+<div class="highlight"><pre><span></span><code>The largest number of queued work items in the cachetable thread pool.
+</code></pre></div>
+<p><code>cachetable: cachetable pool: total number of work items processed</code>:</p>
+<div class="highlight"><pre><span></span><code>The total number of work items processed in the cachetable thread pool.
+</code></pre></div>
+<p><code>cachetable: cachetable pool: total execution time of processing work items</code>:</p>
+<div class="highlight"><pre><span></span><code>The total execution time of processing work items in the cachetable thread
+pool.
+</code></pre></div>
+<p><code>cachetable: checkpoint pool: number of threads in pool</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of threads in the checkpoint thread pool.
+</code></pre></div>
+<p><code>cachetable: checkpoint pool: number of currently active threads in pool</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of currently active threads in the checkpoint thread pool.
+</code></pre></div>
+<p><code>cachetable: checkpoint pool: number of currently queued work items</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of currently queued work items in the checkpoint thread pool.
+</code></pre></div>
+<p><code>cachetable: checkpoint pool: largest number of queued work items</code>:</p>
+<div class="highlight"><pre><span></span><code>The largest number of queued work items in the checkpoint thread pool.
+</code></pre></div>
+<p><code>cachetable: checkpoint pool: total number of work items processed</code>:</p>
+<div class="highlight"><pre><span></span><code>The total number of work items processed in the checkpoint thread pool.
+</code></pre></div>
+<p><code>cachetable: checkpoint pool: total execution time of processing work items</code>:</p>
+<div class="highlight"><pre><span></span><code>The total execution time of processing work items in the checkpoint thread
+pool.
+</code></pre></div>
+<p><code>locktree: memory size</code>:</p>
+<div class="highlight"><pre><span></span><code>The amount of memory, in bytes, that the locktree is currently using.
+</code></pre></div>
+<p><code>locktree: memory size limit</code>:</p>
+<div class="highlight"><pre><span></span><code>The maximum amount of memory, in bytes, that the locktree is allowed to use.
+</code></pre></div>
+<p><code>locktree: number of times lock escalation ran</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times the locktree needed to run lock escalation to reduce its
+memory footprint.
+</code></pre></div>
+<p><code>locktree: time spent running escalation (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of seconds spent performing locktree escalation.
+</code></pre></div>
+<p><code>locktree: latest post-escalation memory size</code>:</p>
+<div class="highlight"><pre><span></span><code>Size of the locktree, in bytes, after most current locktree escalation.
+</code></pre></div>
+<p><code>locktree: number of locktrees open now</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of locktrees currently open.
+</code></pre></div>
+<p><code>locktree: number of pending lock requests</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of requests waiting for a lock grant.
+</code></pre></div>
+<p><code>locktree: number of locktrees eligible for the STO</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of locktrees eligible for “Single Transaction Optimizations”. `STO`
+optimization are behaviors that can happen within the locktree when there is
+exactly one transaction active within the locktree. This is a not a useful
+value for a regular user to use for any purpose.
+</code></pre></div>
+<p><code>locktree: number of times a locktree ended the STO early</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of times a “single transaction optimization” was ended early due
+to another trans- action starting.
+</code></pre></div>
+<p><code>locktree: time spent ending the STO early (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of seconds ending “Single Transaction Optimizations”. `STO`
+optimization are behaviors that can happen within the locktree when there is
+exactly one transaction active within the locktree. This is a not a useful
+value for a regular user to use for any purpose.
+</code></pre></div>
+<p><code>locktree: number of wait locks</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times that a lock request could not be acquired because of a
+conflict with some other transaction.
+</code></pre></div>
+<p><code>locktree: time waiting for locks</code>:</p>
+<div class="highlight"><pre><span></span><code>Total time, in microseconds, spend by some client waiting for a lock conflict
+to be resolved.
+</code></pre></div>
+<p><code>locktree: number of long wait locks</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of lock waits greater than 1 second in duration.
+</code></pre></div>
+<p><code>locktree: long time waiting for locks</code>:</p>
+<div class="highlight"><pre><span></span><code>Total time, in microseconds, of the long waits.
+</code></pre></div>
+<p><code>locktree: number of lock timeouts</code>:</p>
+<div class="highlight"><pre><span></span><code>Count of the number of times that a lock request timed out.
+</code></pre></div>
+<p><code>locktree: number of waits on lock escalation</code>:</p>
+<div class="highlight"><pre><span></span><code>When the sum of the sizes of locks taken reaches the lock tree limit, we run
+lock escalation on a background thread. The clients threads need to wait for
+escalation to consolidate locks and free up memory. This counter counts the
+number of times a client thread has to wait on lock escalation.
+</code></pre></div>
+<p><code>locktree: time waiting on lock escalation</code>:</p>
+<div class="highlight"><pre><span></span><code>Total time, in microseconds, that a client thread spent waiting for lock
+escalation to free up memory.
+</code></pre></div>
+<p><code>locktree: number of long waits on lock escalation</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times that a client thread had to wait on lock escalation and the
+wait time was greater than 1 second.
+</code></pre></div>
+<p><code>locktree: long time waiting on lock escalation</code>:</p>
+<div class="highlight"><pre><span></span><code>Total time, in microseconds, of the long waits for lock escalation to free up
+memory.
+</code></pre></div>
+<p><code>ft: dictionary updates</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of rows that have been updated in all primary and
+secondary indexes combined, if those updates have been done with a separate
+recovery log entry per index.
+</code></pre></div>
+<p><code>ft: dictionary broadcast updates</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of broadcast updates that have been successfully performed.
+A broadcast update is an update that affects all rows in a dictionary.
+</code></pre></div>
+<p><code>ft: descriptor set</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of time a descriptor was updated when the entire dictionary
+was updated (for example, when the schema has been changed).
+</code></pre></div>
+<p><code>ft: messages ignored by leaf due to msn</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of messages that were ignored by a leaf because it had already been
+applied.
+</code></pre></div>
+<p><code>ft: total search retries due to TRY AGAIN</code></p>
+<div class="highlight"><pre><span></span><code>Total number of search retries due to TRY AGAIN. Internal value that is no use
+to anyone other than a developer debugging a specific query/search issue.
+</code></pre></div>
+<p><code>ft: searches requiring more tries than the height of the tree</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of searches that required more tries than the height of the tree.
+</code></pre></div>
+<p><code>ft: searches requiring more tries than the height of the tree plus three</code></p>
+<div class="highlight"><pre><span></span><code>Number of searches that required more tries than the height of the tree plus
+three.
+</code></pre></div>
+<p><code>ft: leaf nodes flushed to disk (not for checkpoint)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of leaf nodes flushed to disk, not for checkpoint.
+</code></pre></div>
+<p><code>ft: leaf nodes flushed to disk (not for checkpoint) (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of bytes of leaf nodes flushed to disk, not for checkpoint.
+</code></pre></div>
+<p><code>ft: leaf nodes flushed to disk (not for checkpoint) (uncompressed bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of bytes of leaf nodes flushed to disk, not for checkpoint.
+</code></pre></div>
+<p><code>ft: leaf nodes flushed to disk (not for checkpoint) (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for IO when writing leaf nodes flushed to disk, not
+for checkpoint.
+</code></pre></div>
+<p><code>ft: nonleaf nodes flushed to disk (not for checkpoint)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of non-leaf nodes flushed to disk, not for checkpoint.
+</code></pre></div>
+<p><code>ft: nonleaf nodes flushed to disk (not for checkpoint) (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of bytes of non-leaf nodes flushed to disk, not for checkpoint.
+</code></pre></div>
+<p><code>ft: nonleaf nodes flushed to disk (not for checkpoint) (uncompressed bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of uncompressed bytes of non-leaf nodes flushed to disk, not for
+checkpoint.
+</code></pre></div>
+<p><code>ft: nonleaf nodes flushed to disk (not for checkpoint) (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for I/O when writing non-leaf nodes flushed to disk,
+not for checkpoint.
+</code></pre></div>
+<p><code>ft: leaf nodes flushed to disk (for checkpoint)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of leaf nodes flushed to disk for checkpoint.
+</code></pre></div>
+<p><code>ft: leaf nodes flushed to disk (for checkpoint) (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of bytes of leaf nodes flushed to disk for checkpoint.
+</code></pre></div>
+<p><code>ft: leaf nodes flushed to disk (for checkpoint) (uncompressed bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of uncompressed bytes of leaf nodes flushed to disk for checkpoint.
+</code></pre></div>
+<p><code>ft: leaf nodes flushed to disk (for checkpoint) (seconds)</code></p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for IO when writing leaf nodes flushed to disk for
+checkpoint.
+</code></pre></div>
+<p><code>ft: nonleaf nodes flushed to disk (for checkpoint)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of non-leaf nodes flushed to disk for checkpoint.
+</code></pre></div>
+<p><code>ft: nonleaf nodes flushed to disk (for checkpoint) (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of bytes of non-leaf nodes flushed to disk for checkpoint.
+</code></pre></div>
+<p><code>ft: nonleaf nodes flushed to disk (for checkpoint) (uncompressed bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of uncompressed bytes of non-leaf nodes flushed to disk for checkpoint.
+</code></pre></div>
+<p><code>ft: nonleaf nodes flushed to disk (for checkpoint) (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for IO when writing non-leaf nodes flushed to disk
+for checkpoint.
+</code></pre></div>
+<p><code>ft: uncompressed / compressed bytes written (leaf)</code>:</p>
+<div class="highlight"><pre><span></span><code>Ratio of uncompressed bytes (in-memory) to compressed bytes (on-disk) for leaf
+nodes.
+</code></pre></div>
+<p><code>ft: uncompressed / compressed bytes written (nonleaf)</code>:</p>
+<div class="highlight"><pre><span></span><code>Ratio of uncompressed bytes (in-memory) to compressed bytes (on-disk) for
+non-leaf nodes.
+</code></pre></div>
+<p><code>ft: uncompressed / compressed bytes written (overall)</code>:</p>
+<div class="highlight"><pre><span></span><code>Ratio of uncompressed bytes (in-memory) to compressed bytes (on-disk) for all
+nodes.
+</code></pre></div>
+<p><code>ft: nonleaf node partial evictions</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of times a partition of a non-leaf node was evicted from the cache.
+</code></pre></div>
+<p><code>ft: nonleaf node partial evictions (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of bytes freed by evicting partitions of non-leaf nodes from the
+cache.
+</code></pre></div>
+<p><code>ft: leaf node partial evictions</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of times a partition of a leaf node was evicted from the cache.
+</code></pre></div>
+<p><code>ft: leaf node partial evictions (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of bytes freed by evicting partitions of leaf nodes from the cache.
+</code></pre></div>
+<p><code>ft: leaf node full evictions</code></p>
+<div class="highlight"><pre><span></span><code>The number of times a full leaf node was evicted from the cache.
+</code></pre></div>
+<p><code>ft: leaf node full evictions (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of bytes freed by evicting full leaf nodes from the cache.
+</code></pre></div>
+<p><code>ft: nonleaf node full evictions (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of bytes freed by evicting full non-leaf nodes from the cache.
+</code></pre></div>
+<p><code>ft: nonleaf node full evictions</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of times a full non-leaf node was evicted from the cache.
+</code></pre></div>
+<p><code>ft: leaf nodes created</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of created leaf nodes .
+</code></pre></div>
+<p><code>ft: nonleaf nodes created</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of created non-leaf nodes.
+</code></pre></div>
+<p><code>ft: leaf nodes destroyed</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of destroyed leaf nodes.
+</code></pre></div>
+<p><code>ft: nonleaf nodes destroyed</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of destroyed non-leaf nodes.
+</code></pre></div>
+<p><code>ft: bytes of messages injected at root (all trees)</code>:</p>
+<div class="highlight"><pre><span></span><code>Amount of messages, in bytes, injected at root (for all trees).
+</code></pre></div>
+<p><code>ft: bytes of messages flushed from h1 nodes to leaves</code></p>
+<div class="highlight"><pre><span></span><code>Amount of messages, in bytes, flushed from `h1` nodes to leaves.
+</code></pre></div>
+<p><code>ft: bytes of messages currently in trees (estimate)</code>:</p>
+<div class="highlight"><pre><span></span><code>Amount of messages, in bytes, currently in trees (estimate).
+</code></pre></div>
+<p><code>ft: messages injected at root</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of messages injected at root node of a tree.
+</code></pre></div>
+<p><code>ft: broadcast messages injected at root</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of broadcast messages injected at root node of a tree.
+</code></pre></div>
+<p><code>ft: basements decompressed as a target of a query</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of basement nodes decompressed for queries.
+</code></pre></div>
+<p><code>ft: basements decompressed for prelocked range</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of basement nodes decompressed by queries aggressively.
+</code></pre></div>
+<p><code>ft: basements decompressed for prefetch</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of basement nodes decompressed by a prefetch thread.
+</code></pre></div>
+<p><code>ft: basements decompressed for write</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of basement nodes decompressed for writes.
+</code></pre></div>
+<p><code>ft: buffers decompressed as a target of a query</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of buffers decompressed for queries.
+</code></pre></div>
+<p><code>ft: buffers decompressed for prelocked range</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of buffers decompressed by queries aggressively.
+</code></pre></div>
+<p><code>ft: buffers decompressed for prefetch</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of buffers decompressed by a prefetch thread.
+</code></pre></div>
+<p><code>ft: buffers decompressed for write</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of buffers decompressed for writes.
+</code></pre></div>
+<p><code>ft: pivots fetched for query</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of pivot nodes fetched for queries.
+</code></pre></div>
+<p><code>ft: pivots fetched for query (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of bytes of pivot nodes fetched for queries.
+</code></pre></div>
+<p><code>ft: pivots fetched for query (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for I/O when fetching pivot nodes for queries.
+</code></pre></div>
+<p><code>ft: pivots fetched for prefetch</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of pivot nodes fetched by a prefetch thread.
+</code></pre></div>
+<p><code>ft: pivots fetched for prefetch (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of bytes of pivot nodes fetched by a prefetch thread.
+</code></pre></div>
+<p><code>ft: pivots fetched for prefetch (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number seconds waiting for I/O when fetching pivot nodes by a prefetch thread.
+</code></pre></div>
+<p><code>ft: pivots fetched for write</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of pivot nodes fetched for writes.
+</code></pre></div>
+<p><code>ft: pivots fetched for write (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of bytes of pivot nodes fetched for writes.
+</code></pre></div>
+<p><code>ft: pivots fetched for write (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for I/O when fetching pivot nodes for writes.
+</code></pre></div>
+<p><code>ft: basements fetched as a target of a query</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of basement nodes fetched from disk for queries.
+</code></pre></div>
+<p><code>ft: basements fetched as a target of a query (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of basement node bytes fetched from disk for queries.
+</code></pre></div>
+<p><code>ft: basements fetched as a target of a query (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for IO when fetching basement nodes from disk for
+queries.
+</code></pre></div>
+<p><code>ft: basements fetched for prelocked range</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of basement nodes fetched from disk aggressively.
+</code></pre></div>
+<p><code>ft: basements fetched for prelocked range (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of basement node bytes fetched from disk aggressively.
+</code></pre></div>
+<p><code>ft: basements fetched for prelocked range (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for I/O when fetching basement nodes from disk
+aggressively.
+</code></pre></div>
+<p><code>ft: basements fetched for prefetch</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of basement nodes fetched from disk by a prefetch thread.
+</code></pre></div>
+<p><code>ft: basements fetched for prefetch (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of basement node bytes fetched from disk by a prefetch thread.
+</code></pre></div>
+<p><code>ft: basements fetched for prefetch (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for I/O when fetching basement nodes from disk by a
+prefetch thread.
+</code></pre></div>
+<p><code>ft: basements fetched for write</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of basement nodes fetched from disk for writes.
+</code></pre></div>
+<p><code>ft: basements fetched for write (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of basement node bytes fetched from disk for writes.
+</code></pre></div>
+<p><code>ft: basements fetched for write (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for I/O when fetching basement nodes from disk for
+writes.
+</code></pre></div>
+<p><code>ft: buffers fetched as a target of a query</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of buffers fetched from disk for queries.
+</code></pre></div>
+<p><code>ft: buffers fetched as a target of a query (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of buffer bytes fetched from disk for queries.
+</code></pre></div>
+<p><code>ft: buffers fetched as a target of a query (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for I/O when fetching buffers from disk for queries.
+</code></pre></div>
+<p><code>ft: buffers fetched for prelocked range</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of buffers fetched from disk aggressively.
+</code></pre></div>
+<p><code>ft: buffers fetched for prelocked range (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of buffer bytes fetched from disk aggressively.
+</code></pre></div>
+<p><code>ft: buffers fetched for prelocked range (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for I/O when fetching buffers from disk
+aggressively.
+</code></pre></div>
+<p><code>ft: buffers fetched for prefetch</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of buffers fetched from disk by a prefetch thread.
+</code></pre></div>
+<p><code>ft: buffers fetched for prefetch (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of buffer bytes fetched from disk by a prefetch thread.
+</code></pre></div>
+<p><code>ft: buffers fetched for prefetch (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for I/O when fetching buffers from disk by a
+prefetch thread.
+</code></pre></div>
+<p><code>ft: buffers fetched for write</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of buffers fetched from disk for writes.
+</code></pre></div>
+<p><code>ft: buffers fetched for write (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of buffer bytes fetched from disk for writes.
+</code></pre></div>
+<p><code>ft: buffers fetched for write (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for I/O when fetching buffers from disk for writes.
+</code></pre></div>
+<p><code>ft: leaf compression to memory (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total time, in seconds, spent compressing leaf nodes.
+</code></pre></div>
+<p><code>ft: leaf serialization to memory (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total time, in seconds, spent serializing leaf nodes.
+</code></pre></div>
+<p><code>ft: leaf decompression to memory (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total time, in seconds, spent decompressing leaf nodes.
+</code></pre></div>
+<p><code>ft: leaf deserialization to memory (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total time, in seconds, spent deserializing leaf nodes.
+</code></pre></div>
+<p><code>ft: nonleaf compression to memory (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total time, in seconds, spent compressing non leaf nodes.
+</code></pre></div>
+<p><code>ft: nonleaf serialization to memory (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total time, in seconds, spent serializing non leaf nodes.
+</code></pre></div>
+<p><code>ft: nonleaf decompression to memory (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total time, in seconds, spent decompressing non leaf nodes.
+</code></pre></div>
+<p><code>ft: nonleaf deserialization to memory (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total time, in seconds, spent deserializing non leaf nodes.
+</code></pre></div>
+<p><code>ft: promotion: roots split</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times the root split during promotion.
+</code></pre></div>
+<p><code>ft: promotion: leaf roots injected into</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times a message stopped at a root with height `0`.
+</code></pre></div>
+<p><code>ft: promotion: h1 roots injected into</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times a message stopped at a root with height `1`.
+</code></pre></div>
+<p><code>ft: promotion: injections at depth 0</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times a message stopped at depth `0`.
+</code></pre></div>
+<p><code>ft: promotion: injections at depth 1</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times a message stopped at depth `1`.
+</code></pre></div>
+<p><code>ft: promotion: injections at depth 2</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times a message stopped at depth `2`.
+</code></pre></div>
+<p><code>ft: promotion: injections at depth 3</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times a message stopped at depth `3`.
+</code></pre></div>
+<p><code>ft: promotion: injections lower than depth 3</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times a message was promoted past depth `3`.
+</code></pre></div>
+<p><code>ft: promotion: stopped because of a nonempty buffer</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times a message stopped because it reached a nonempty buffer.
+</code></pre></div>
+<p><code>ft: promotion: stopped at height 1</code></p>
+<div class="highlight"><pre><span></span><code>Number of times a message stopped because it had reached height `1`.
+</code></pre></div>
+<p><code>ft: promotion: stopped because the child was locked or not at all in memory</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times promotion was stopped because the child node was locked or not
+at all in memory. This is a not a useful value for a regular user to use for
+any purpose.
+</code></pre></div>
+<p><code>ft: promotion: stopped because the child was not fully in memory</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times promotion was stopped because the child node was not at all in
+memory. This is a not a useful value for a normal user to use for any purpose.
+</code></pre></div>
+<p><code>ft: promotion: stopped anyway, after locking the child</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times a message stopped before a child which had been locked.
+</code></pre></div>
+<p><code>ft: basement nodes deserialized with fixed-keysize</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of basement nodes deserialized where all keys had the same size,
+leaving the basement in a format that is optimal for in-memory workloads.
+</code></pre></div>
+<p><code>ft: basement nodes deserialized with variable-keysize</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of basement nodes deserialized where all keys did not have the same
+size, and thus ineligible for an in-memory optimization.
+</code></pre></div>
+<p><code>ft: promotion: succeeded in using the rightmost leaf shortcut</code>:</p>
+<div class="highlight"><pre><span></span><code>Rightmost insertions used the rightmost-leaf pin path, meaning that the
+Fractal Tree index detected and properly optimized rightmost inserts.
+</code></pre></div>
+<p><code>ft: promotion: tried the rightmost leaf shortcut but failed (out-of-bounds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Rightmost insertions did not use the rightmost-leaf pin path, due to the
+insert not actually being into the rightmost leaf node.
+</code></pre></div>
+<p><code>ft: promotion: tried the rightmost leaf shortcut but failed (child reactive)</code>:</p>
+<div class="highlight"><pre><span></span><code>Rightmost insertions did not use the rightmost-leaf pin path, due to the
+leaf being too large (needed to split).
+</code></pre></div>
+<p><code>ft: cursor skipped deleted leaf entries</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of leaf entries skipped during search/scan because the result of
+message application and reconciliation of the leaf entry MVCC stack reveals
+that the leaf entry is deleted in the current transactions view. It is a good
+indicator that there might be excessive garbage in a tree if a range scan
+seems to take too long.
+</code></pre></div>
+<p><code>ft flusher: total nodes potentially flushed by cleaner thread</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of nodes whose buffers are potentially flushed by cleaner thread.
+</code></pre></div>
+<p><code>ft flusher: height-one nodes flushed by cleaner thread</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of nodes of height one whose message buffers are flushed by cleaner
+thread.
+</code></pre></div>
+<p><code>ft flusher: height-greater-than-one nodes flushed by cleaner thread</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of nodes of height &gt; 1 whose message buffers are flushed by cleaner
+thread.
+</code></pre></div>
+<p><code>ft flusher: nodes cleaned which had empty buffers</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of nodes that are selected by cleaner, but whose buffers are empty.
+</code></pre></div>
+<p><code>ft flusher: nodes dirtied by cleaner thread</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of nodes that are made dirty by the cleaner thread.
+</code></pre></div>
+<p><code>ft flusher: max bytes in a buffer flushed by cleaner thread</code>:</p>
+<div class="highlight"><pre><span></span><code>Max number of bytes in message buffer flushed by cleaner thread.
+</code></pre></div>
+<p><code>ft flusher: min bytes in a buffer flushed by cleaner thread</code>:</p>
+<div class="highlight"><pre><span></span><code>Min number of bytes in message buffer flushed by cleaner thread.
+</code></pre></div>
+<p><code>ft flusher: total bytes in buffers flushed by cleaner thread</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of bytes in message buffers flushed by cleaner thread.
+</code></pre></div>
+<p><code>ft flusher: max workdone in a buffer flushed by cleaner thread</code>:</p>
+<div class="highlight"><pre><span></span><code>Max workdone value of any message buffer flushed by cleaner thread.
+</code></pre></div>
+<p><code>ft flusher: min workdone in a buffer flushed by cleaner thread</code>:</p>
+<div class="highlight"><pre><span></span><code>Min workdone value of any message buffer flushed by cleaner thread.
+</code></pre></div>
+<p><code>ft flusher: total workdone in buffers flushed by cleaner thread</code>:</p>
+<div class="highlight"><pre><span></span><code>Total workdone value of message buffers flushed by cleaner thread.
+</code></pre></div>
+<p><code>ft flusher: times cleaner thread tries to merge a leaf</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of times the cleaner thread tries to merge a leaf.
+</code></pre></div>
+<p><code>ft flusher: cleaner thread leaf merges in progress</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of cleaner thread leaf merges in progress.
+</code></pre></div>
+<p><code>ft flusher: cleaner thread leaf merges successful</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of times the cleaner thread successfully merges a leaf.
+</code></pre></div>
+<p><code>ft flusher: nodes dirtied by cleaner thread leaf merges</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of nodes dirtied by the “flush from root” process to merge a leaf node.
+</code></pre></div>
+<p><code>ft flusher: total number of flushes done by flusher threads or cleaner threads</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of flushes done by flusher threads or cleaner threads.
+</code></pre></div>
+<p><code>ft flusher: number of in memory flushes</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of in-memory flushes.
+</code></pre></div>
+<p><code>ft flusher: number of flushes that read something off disk</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of flushes that had to read a child (or part) off disk.
+</code></pre></div>
+<p><code>ft flusher: number of flushes that triggered another flush in child</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of flushes that triggered another flush in the child.
+</code></pre></div>
+<p><code>ft flusher: number of flushes that triggered 1 cascading flush</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of flushes that triggered 1 cascading flush.
+</code></pre></div>
+<p><code>ft flusher: number of flushes that triggered 2 cascading flushes</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of flushes that triggered 2 cascading flushes.
+</code></pre></div>
+<p><code>ft flusher: number of flushes that triggered 3 cascading flushes:</code></p>
+<div class="highlight"><pre><span></span><code>Number of flushes that triggered 3 cascading flushes.
+</code></pre></div>
+<p><code>ft flusher: number of flushes that triggered 4 cascading flushes</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of flushes that triggered 4 cascading flushes.
+</code></pre></div>
+<p><code>ft flusher: number of flushes that triggered 5 cascading flushes</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of flushes that triggered 5 cascading flushes.
+</code></pre></div>
+<p><code>ft flusher: number of flushes that triggered over 5 cascading flushes</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of flushes that triggered more than 5 cascading flushes.
+</code></pre></div>
+<p><code>ft flusher: leaf node splits</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of leaf nodes split.
+</code></pre></div>
+<p><code>ft flusher: nonleaf node splits</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of non-leaf nodes split.
+</code></pre></div>
+<p><code>ft flusher: leaf node merges</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times leaf nodes are merged.
+</code></pre></div>
+<p><code>ft flusher: nonleaf node merges</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times non-leaf nodes are merged.
+</code></pre></div>
+<p><code>ft flusher: leaf node balances</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times a leaf node is balanced.
+</code></pre></div>
+<p><code>hot: operations ever started</code>:</p>
+<div class="highlight"><pre><span></span><code>This variable shows the number of hot operations started (`OPTIMIZE TABLE`).
+This is a not a useful value for a regular user to use for any purpose.
+</code></pre></div>
+<p><code>hot: operations successfully completed</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of hot operations that have successfully completed (`OPTIMIZE
+TABLE`). This is a not a useful value for a regular user to use for any
+purpose.
+</code></pre></div>
+<p><code>hot: operations aborted</code>:</p>
+<div class="highlight"><pre><span></span><code>The number of hot operations that have been aborted (`OPTIMIZE TABLE`).
+This is a not a useful value for a regular user to use for any purpose.
+</code></pre></div>
+<p><code>hot: max number of flushes from root ever required to optimize a tree</code>:</p>
+<div class="highlight"><pre><span></span><code>The maximum number of flushes from the root ever required to optimize a tree.
+</code></pre></div>
+<p><code>txn: begin</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of transactions that have been started.
+</code></pre></div>
+<p><code>txn: begin read only</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of read only transactions started.
+</code></pre></div>
+<p><code>txn: successful commits</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of transactions that have been committed.
+</code></pre></div>
+<p><code>txn: aborts</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of transactions that have been aborted.
+</code></pre></div>
+<p><code>logger: next LSN</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the next unassigned Log Sequence Number. It will be assigned to the
+next entry in the recovery log.
+</code></pre></div>
+<p><code>logger: writes</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times the logger has written to disk.
+</code></pre></div>
+<p><code>logger: writes (bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of bytes the logger has written to disk.
+</code></pre></div>
+<p><code>logger: writes (uncompressed bytes)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of uncompressed the logger has written to disk.
+</code></pre></div>
+<p><code>logger: writes (seconds)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of seconds waiting for I/O when writing logs to disk.
+</code></pre></div>
+<p><code>logger: number of long logger write operations</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times a logger write operation required 100ms or more.
+</code></pre></div>
+<p><code>indexer: number of indexers successfully created</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of times one of our internal objects, a indexer, has been
+created.
+</code></pre></div>
+<p><code>indexer: number of calls to toku_indexer_create_indexer() that failed</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of times a indexer was requested but could not be created.
+</code></pre></div>
+<p><code>indexer: number of calls to indexer-&gt;build() succeeded</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of times that indexes were created using a indexer.
+</code></pre></div>
+<p><code>indexer: number of calls to indexer-&gt;build() failed</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of times that indexes were unable to be created using a indexer
+</code></pre></div>
+<p><code>indexer: number of calls to indexer-&gt;close() that succeeded</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of indexers that successfully created the requested index(es).
+</code></pre></div>
+<p><code>indexer: number of calls to indexer-&gt;close() that failed</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of indexers that were unable to create the requested index(es).
+</code></pre></div>
+<p><code>indexer: number of calls to indexer-&gt;abort()</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of indexers that were aborted.
+</code></pre></div>
+<p><code>indexer: number of indexers currently in existence</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of indexers that currently exist.
+</code></pre></div>
+<p><code>indexer: max number of indexers that ever existed simultaneously</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the maximum number of indexers that ever existed simultaneously.
+</code></pre></div>
+<p><code>loader: number of loaders successfully created</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of times one of our internal objects, a loader, has been
+created.
+</code></pre></div>
+<p><code>loader: number of calls to toku_loader_create_loader() that failed</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of times a loader was requested but could not be created.
+</code></pre></div>
+<p><code>loader: number of calls to loader-&gt;put() succeeded</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of rows that were inserted using a loader.
+</code></pre></div>
+<p><code>loader: number of calls to loader-&gt;put() failed</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of rows that were unable to be inserted using a
+loader.
+</code></pre></div>
+<p><code>loader: number of calls to loader-&gt;close() that succeeded</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of loaders that successfully created the requested table.
+</code></pre></div>
+<p><code>loader: number of calls to loader-&gt;close() that failed</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of loaders that were unable to create the requested table.
+</code></pre></div>
+<p><code>loader: number of calls to loader-&gt;abort()</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of loaders that were aborted.
+</code></pre></div>
+<p><code>loader: number of loaders currently in existence</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of loaders that currently exist.
+</code></pre></div>
+<p><code>loader: max number of loaders that ever existed simultaneously</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the maximum number of loaders that ever existed simultaneously.
+</code></pre></div>
+<p><code>memory: number of malloc operations</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of calls to `malloc()`.
+</code></pre></div>
+<p><code>memory: number of free operations</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of calls to `free()`.
+</code></pre></div>
+<p><code>memory: number of realloc operations</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of calls to `realloc()`.
+</code></pre></div>
+<p><code>memory: number of malloc operations that failed</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of failed calls to `malloc()`.
+</code></pre></div>
+<p><code>memory: number of realloc operations that failed</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of failed calls to `realloc()`.
+</code></pre></div>
+<p><code>memory: number of bytes requested</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of bytes requested from memory allocator library.
+</code></pre></div>
+<p><code>memory: number of bytes freed</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of bytes allocated from memory allocation library that have been
+freed (used - freed = bytes in use).
+</code></pre></div>
+<p><code>memory: largest attempted allocation size</code>:</p>
+<div class="highlight"><pre><span></span><code>Largest number of bytes in a single successful `malloc()` operation.
+</code></pre></div>
+<p><code>memory: size of the last failed allocation attempt</code>:</p>
+<div class="highlight"><pre><span></span><code>Largest number of bytes in a single failed `malloc()` operation.
+</code></pre></div>
+<p><code>memory: number of bytes used (requested + overhead)</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of bytes allocated by memory allocator library.
+</code></pre></div>
+<p><code>memory: estimated maximum memory footprint</code>:</p>
+<div class="highlight"><pre><span></span><code>Maximum memory footprint of the storage engine,
+the max value of (used - freed).
+</code></pre></div>
+<p><code>memory: mallocator version</code>:</p>
+<div class="highlight"><pre><span></span><code>Version string from in-use memory allocator.
+</code></pre></div>
+<p><code>memory: mmap threshold</code>:</p>
+<div class="highlight"><pre><span></span><code>The threshold for malloc to use mmap.
+</code></pre></div>
+<p><code>filesystem: ENOSPC redzone state</code>:</p>
+<div class="highlight"><pre><span></span><code>The state of how much disk space exists with respect to the red zone value.
+Redzone is space greater than tokudb_fs_reserve_percent and less
+than full disk.
+
+Valid values are:
+
+
+* **0**
+
+    Space is available
+
+
+
+* **1**
+
+    Warning, with 2x of redzone value. Operations are allowed, but engine
+    status prints a warning.
+
+
+
+* **2**
+
+    In red zone, insert operations are blocked
+
+
+
+* **3**
+
+    All operations are blocked
+</code></pre></div>
+<p><code>filesystem: threads currently blocked by full disk</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of threads that are currently blocked because they are
+attempting to write to a full disk. This is normally zero. If this value is
+non-zero, then a warning will appear in the “disk free space” field.
+</code></pre></div>
+<p><code>filesystem: number of operations rejected by enospc prevention (red zone)</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of database inserts that have been rejected because the
+amount of disk free space was less than the reserve.
+</code></pre></div>
+<p><code>filesystem: most recent disk full</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the most recent time when the disk file system was entirely full. If
+the disk has never been full, then this value will be `Dec 31, 1969` on
+Linux hosts.
+</code></pre></div>
+<p><code>filesystem: number of write operations that returned ENOSPC</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the number of times that an attempt to write to disk failed because
+the disk was full. If the disk is full, this number will continue increasing
+until space is available.
+</code></pre></div>
+<p><code>filesystem: fsync time</code>:</p>
+<div class="highlight"><pre><span></span><code>This the total time, in microseconds, used to fsync to disk.
+</code></pre></div>
+<p><code>filesystem: fsync count</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of times the database has flushed the operating
+system’s file buffers to disk.
+</code></pre></div>
+<p><code>filesystem: long fsync time</code>:</p>
+<div class="highlight"><pre><span></span><code>This the total time, in microseconds, used to fsync to disk when the operation
+required more than 1 second.
+</code></pre></div>
+<p><code>filesystem: long fsync count</code>:</p>
+<div class="highlight"><pre><span></span><code>This is the total number of times the database has flushed the operating
+system’s file buffers to disk and this operation required more than 1 second.
+</code></pre></div>
+<p><code>context: tree traversals blocked by a full fetch</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed while pinning nodes
+from root to leaf because of a full fetch.
+</code></pre></div>
+<p><code>context: tree traversals blocked by a partial fetch</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed while pinning nodes
+from root to leaf because of a partial fetch.
+</code></pre></div>
+<p><code>context: tree traversals blocked by a full eviction</code></p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed while pinning nodes
+from root to leaf because of a full eviction.
+</code></pre></div>
+<p><code>context: tree traversals blocked by a partial eviction</code></p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed while pinning nodes
+from root to leaf because of a partial eviction.
+</code></pre></div>
+<p><code>context: tree traversals blocked by a message injection</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed while pinning nodes
+from root to leaf because of message injection.
+</code></pre></div>
+<p><code>context: tree traversals blocked by a message application</code></p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed while pinning nodes
+from root to leaf because of message application (applying fresh ancestors
+messages to a basement node).
+</code></pre></div>
+<p><code>context: tree traversals blocked by a flush</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed while pinning nodes
+from root to leaf because of a buffer flush from parent to child.
+</code></pre></div>
+<p><code>context: tree traversals blocked by a the cleaner thread</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed while pinning nodes
+from root to leaf because of a cleaner thread.
+</code></pre></div>
+<p><code>context: tree traversals blocked by something uninstrumented</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed while pinning nodes
+from root to leaf because of something uninstrumented.
+</code></pre></div>
+<p><code>context: promotion blocked by a full fetch (should never happen)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed within promotion
+(pinning nodes from root to the buffer to receive the message) because of a
+full fetch.
+</code></pre></div>
+<p><code>context: promotion blocked by a partial fetch (should never happen)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed within promotion
+(pinning nodes from root to the buffer to receive the message) because of a
+partial fetch.
+</code></pre></div>
+<p><code>context: promotion blocked by a full eviction (should never happen)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed within promotion
+(pinning nodes from root to the buffer to receive the message) because of a
+full eviction.
+</code></pre></div>
+<p><code>context: promotion blocked by a partial eviction (should never happen)</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed within promotion
+(pinning nodes from root to the buffer to receive the message) because of a
+partial eviction.
+</code></pre></div>
+<p><code>context: promotion blocked by a message injection</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed within promotion
+(pinning nodes from root to the buffer to receive the message) because of
+message injection.
+</code></pre></div>
+<p><code>context: promotion blocked by a message application</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed within promotion
+(pinning nodes from root to the buffer to receive the message) because of
+message application (applying fresh ancestors messages to a basement node).
+</code></pre></div>
+<p><code>context: promotion blocked by a flush</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed within promotion
+(pinning nodes from root to the buffer to receive the message) because of a
+buffer flush from parent to child.
+</code></pre></div>
+<p><code>context: promotion blocked by the cleaner thread</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed within promotion
+(pinning nodes from root to the buffer to receive the message) because of a
+cleaner thread.
+</code></pre></div>
+<p><code>context: promotion blocked by something uninstrumented</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed within promotion
+(pinning nodes from root to the buffer to receive the message) because of
+something uninstrumented.
+</code></pre></div>
+<p><code>context: something uninstrumented blocked by something uninstrumented</code>:</p>
+<div class="highlight"><pre><span></span><code>Number of times node `rwlock` contention was observed for an uninstrumented
+process because of something uninstrumented.
+</code></pre></div>
+<p><code>handlerton: primary key bytes inserted</code>:</p>
+<div class="highlight"><pre><span></span><code>Total number of bytes inserted into all primary key indexes.
+</code></pre></div>
+
+                
+<div class="md-relbar2__inner md-grid">
+<div class="md-content">
+  <article class="md-content__inner md-typeset" role="main">    
+    <h4>Contact Us </h4>
+       <p>For free technical help, visit the Percona <a class="reference external" href="https://forums.percona.com/c/mysql-mariadb/percona-server-for-mysql-5-7/18" target="_blank">Community Forum</a>.<br>
+        <p>To report bugs or submit feature requests, open a <a class="reference external" href="https://jira.percona.com/projects/PS/issues/" target="_blank">JIRA</a> ticket.<br>
+         <p>For paid <a class="reference external" href="https://www.percona.com/services/support"> support </a> and <a class="reference external" href="https://www.percona.com/services/managed-services"> managed </a> or <a class="reference external" href="https://www.percona.com/services/consulting">consulting services </a>, contact <a class="reference external" href="https://www.percona.com/about-percona/contact" target="_blank">Percona Sales</a>.</p>
+ </article>
+</div>
+</div>
+
+                <!-- Last update of source file -->
+                
+                  
+                    <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      2022-09-27
+    
+  </small>
+</div>
+                  
+                
+              
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="tokudb_fractal_tree_indexing.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: TokuDB Fractal Tree Indexing" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              TokuDB Fractal Tree Indexing
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="tokudb_performance_schema.html" class="md-footer__link md-footer__link--next" aria-label="Next: TokuDB Performance Schema Integration" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              TokuDB Performance Schema Integration
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Percona LLC, &#169; 2022
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.37e9125f.min.js"></script>
+      
+        <script src="../js/version-select.js"></script>
+      
+    
+  </body>
+</html>

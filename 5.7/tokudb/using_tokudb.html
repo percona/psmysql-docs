@@ -1,0 +1,3416 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation">
+      
+      
+        <meta name="author" content="Percona LLC">
+      
+      
+        <link rel="canonical" href="https://docs.percona.com/percona-server/5.7/5.7/tokudb/using_tokudb.html">
+      
+      <link rel="icon" href="../_static/percona_favicon.ico">
+      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.3">
+    
+    
+      
+        <title>Using TokuDB - Percona Server for MySQL</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7a952b86.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.3/css/line.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="../css/percona.css">
+    
+      <link rel="stylesheet" href="../css/version-select.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script id="__analytics">function __md_analytics(){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-343802-3","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");ga("send","event","feedback","click",t,e),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){ga("send","pageview",e.pathname)})});var e=document.createElement("script");e.async=!0,e.src="https://www.google-analytics.com/analytics.js",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#using-tokudb" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://percona.com/software/documentation" class="md-header__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
+      
+  <img src="../_static/percona-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis"><a href="https://www.percona.com/software/documentation">
+            Percona Product Documentation
+          </a></span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Using TokuDB
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/percona/psmysql-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/psmysql-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Percona Server for MySQL" class="md-nav__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
+      
+  <img src="../_static/percona-logo.svg" alt="logo">
+
+    </a>
+    Percona Server for MySQL
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/percona/psmysql-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/psmysql-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Percona Server for MySQL 5.7 - Documentation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ps-versions-comparison.html" class="md-nav__link">
+        List of features available in Percona Server for MySQL releases
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../percona_xtradb.html" class="md-nav__link">
+        The Percona XtraDB Storage Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../feature_comparison.html" class="md-nav__link">
+        Percona Server for MySQL Feature Comparison
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changed_in_57.html" class="md-nav__link">
+        Changed in Percona Server 5.7
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Installation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        Installing Percona Server for MySQL 5.7
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/apt_repo.html" class="md-nav__link">
+        Installing Percona Server for MySQL 5.7 on Debian and Ubuntu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/yum_repo.html" class="md-nav__link">
+        Installing Percona Server for MySQL 5.7 on Red Hat Enterprise Linux and CentOS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/binary-tarball.html" class="md-nav__link">
+        Installing _Percona Server for MySQL_ 5.7 from a Binary Tarball
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/source-tarball.html" class="md-nav__link">
+        Installing _Percona Server for MySQL_ 5.7 from a Source Tarball
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/compile.html" class="md-nav__link">
+        Compiling Percona Server for MySQL 5.7 from Source
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/git-source-tree.html" class="md-nav__link">
+        Installing Percona Server for MySQL 5.7 from the Git Source Tree
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Running Docker
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Running Docker" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Running Docker
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/docker.html" class="md-nav__link">
+        Running Percona Server for MySQL 5.7 in a Docker Container
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Post-Installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Post-Installation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Post-Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/post-installation.html" class="md-nav__link">
+        Post-Installation steps for Percona Server for MySQL 5.7
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Diagnostics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Diagnostics" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Diagnostics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/user_stats.html" class="md-nav__link">
+        User Statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/slow_extended.html" class="md-nav__link">
+        Slow Query Log
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/innodb_show_status.html" class="md-nav__link">
+        Extended Show Engine InnoDB Status
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/show_engines.html" class="md-nav__link">
+        Show Storage Engines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/process_list.html" class="md-nav__link">
+        Process List
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/misc_info_schema_tables.html" class="md-nav__link">
+        Misc. INFORMATION_SCHEMA Tables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/thread_based_profiling.html" class="md-nav__link">
+        Thread Based Profiling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/scalability_metrics_plugin.html" class="md-nav__link">
+        Metrics for scalability measurement
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/response_time_distribution.html" class="md-nav__link">
+        Response Time Distribution
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/innodb_fragmentation_count.html" class="md-nav__link">
+        InnoDB Page Fragmentation Counters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/libcoredumper.html" class="md-nav__link">
+        Using libcoredumper
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/stacktrace.html" class="md-nav__link">
+        Stacktrace
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Flexibility
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Flexibility" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Flexibility
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/log_warnings_suppress.html" class="md-nav__link">
+        Suppress Warning Messages
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/improved_memory_engine.html" class="md-nav__link">
+        Improved MEMORY Storage Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/max_binlog_files.html" class="md-nav__link">
+        Restricting the number of binlog files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/extended_mysqldump.html" class="md-nav__link">
+        Extended mysqldump
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/extended_select_into_outfile.html" class="md-nav__link">
+        Extended SELECT INTO OUTFILE/DUMPFILE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/per_query_variable_statement.html" class="md-nav__link">
+        Per-query variable statement
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/extended_mysqlbinlog.html" class="md-nav__link">
+        Extended mysqlbinlog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/slowlog_rotation.html" class="md-nav__link">
+        Slow Query Log Rotation and Expiration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/csv_engine_mode.html" class="md-nav__link">
+        CSV engine mode for standard-compliant quote and comma parsing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/proxy_protocol_support.html" class="md-nav__link">
+        Support for PROXY protocol
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/per_session_server-id.html" class="md-nav__link">
+        Per-session server-id
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/compressed_columns.html" class="md-nav__link">
+        Compressed columns with dictionaries
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/innodb_fts_improvements.html" class="md-nav__link">
+        InnoDB Full-Text Search improvements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/binlogging_replication_improvements.html" class="md-nav__link">
+        Binlogging and replication improvements
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Management" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/udf_percona_toolkit.html" class="md-nav__link">
+        Percona Toolkit UDFs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/innodb_kill_idle_trx.html" class="md-nav__link">
+        Kill Idle Transactions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/enforce_engine.html" class="md-nav__link">
+        Enforcing Storage Engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/expanded_program_option_modifiers.html" class="md-nav__link">
+        Expanded Program Option Modifiers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/changed_page_tracking.html" class="md-nav__link">
+        XtraDB changed page tracking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/innodb_expanded_fast_index_creation.html" class="md-nav__link">
+        Expanded Fast Index Creation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/backup_locks.html" class="md-nav__link">
+        Backup Locks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/audit_log_plugin.html" class="md-nav__link">
+        Audit Log Plugin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/start_transaction_with_consistent_snapshot.html" class="md-nav__link">
+        Start transaction with consistent snapshot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/extended_show_grants.html" class="md-nav__link">
+        Extended SHOW GRANTS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/utility_user.html" class="md-nav__link">
+        Utility user
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/ps-admin.html" class="md-nav__link">
+        PS-Admin script
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Percona MyRocks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Percona MyRocks" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Percona MyRocks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/index.html" class="md-nav__link">
+        Percona MyRocks Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/install.html" class="md-nav__link">
+        Percona MyRocks Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/limitations.html" class="md-nav__link">
+        MyRocks Limitations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/differences.html" class="md-nav__link">
+        Differences between Percona MyRocks and Facebook MyRocks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/variables.html" class="md-nav__link">
+        MyRocks Server Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/status_variables.html" class="md-nav__link">
+        MyRocks status variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/gap_locks_detection.html" class="md-nav__link">
+        Gap locks detection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../myrocks/data_loading.html" class="md-nav__link">
+        Data Loading
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          Performance
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Performance" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          Performance
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/aio_page_requests.html" class="md-nav__link">
+        Multiple page asynchronous I/O requests
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/query_cache_enhance.html" class="md-nav__link">
+        Query Cache Enhancements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/query_limit_records.html" class="md-nav__link">
+        Limiting the Estimation of Records in a Query
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/innodb_numa_support.html" class="md-nav__link">
+        Improved NUMA support
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/threadpool.html" class="md-nav__link">
+        Thread Pool
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.html" class="md-nav__link">
+        XtraDB Performance Improvements for I/O-Bound Highly-Concurrent Workloads
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/prefix_index_queries_optimization.html" class="md-nav__link">
+        Prefix Index Queries Optimization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_11">
+          Reliability
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reliability" data-md-level="1">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          Reliability
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reliability/log_connection_error.html" class="md-nav__link">
+        Too Many Connections Warning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reliability/innodb_corrupt_table_action.html" class="md-nav__link">
+        Handle Corrupted Tables
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_12">
+          Scalability
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Scalability" data-md-level="1">
+        <label class="md-nav__title" for="__nav_12">
+          <span class="md-nav__icon md-icon"></span>
+          Scalability
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scalability/innodb_split_buf_pool_mutex.html" class="md-nav__link">
+        Improved Buffer Pool Scalability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scalability/innodb_io.html" class="md-nav__link">
+        Improved InnoDB I/O Scalability
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" type="checkbox" id="__nav_13" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_13">
+          Security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Security" data-md-level="1">
+        <label class="md-nav__title" for="__nav_13">
+          <span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/data-at-rest-encryption.html" class="md-nav__link">
+        Data at Rest Encryption
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/pam_plugin.html" class="md-nav__link">
+        PAM Authentication Plugin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/ssl-improvement.html" class="md-nav__link">
+        SSL Improvements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/data-masking.html" class="md-nav__link">
+        Data Masking
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14" type="checkbox" id="__nav_14" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_14">
+          TokuDB
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="TokuDB" data-md-level="1">
+        <label class="md-nav__title" for="__nav_14">
+          <span class="md-nav__icon md-icon"></span>
+          TokuDB
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_intro.html" class="md-nav__link">
+        TokuDB Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_installation.html" class="md-nav__link">
+        TokuDB Installation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Using TokuDB
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="using_tokudb.html" class="md-nav__link md-nav__link--active">
+        Using TokuDB
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fast-insertions-and-richer-indexes" class="md-nav__link">
+    Fast Insertions and Richer Indexes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clustering-secondary-indexes" class="md-nav__link">
+    Clustering Secondary Indexes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hot-index-creation" class="md-nav__link">
+    Hot Index Creation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hot-column-add-delete-expand-and-rename-hcader" class="md-nav__link">
+    Hot Column Add, Delete, Expand, and Rename (HCADER)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compression-details" class="md-nav__link">
+    Compression Details
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changing-compression-of-a-table" class="md-nav__link">
+    Changing Compression of a Table
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-free-replication" class="md-nav__link">
+    Read Free Replication
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transactions-and-acid-compliant-recovery" class="md-nav__link">
+    Transactions and ACID-compliant Recovery
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-log-size" class="md-nav__link">
+    Managing Log Size
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovery" class="md-nav__link">
+    Recovery
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disabling-the-write-cache" class="md-nav__link">
+    Disabling the Write Cache
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#progress-tracking" class="md-nav__link">
+    Progress Tracking
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migrating-to-tokudb" class="md-nav__link">
+    Migrating to TokuDB
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fast_updates.html" class="md-nav__link">
+        Fast Updates with TokuDB
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_files_and_file_types.html" class="md-nav__link">
+        TokuDB files and file types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_file_management.html" class="md-nav__link">
+        TokuDB file management
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_background_analyze_table.html" class="md-nav__link">
+        TokuDB Background ANALYZE TABLE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_variables.html" class="md-nav__link">
+        TokuDB Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_status_variables.html" class="md-nav__link">
+        TokuDB Status Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_fractal_tree_indexing.html" class="md-nav__link">
+        TokuDB Fractal Tree Indexing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_troubleshooting.html" class="md-nav__link">
+        TokuDB Troubleshooting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_performance_schema.html" class="md-nav__link">
+        TokuDB Performance Schema Integration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="toku_backup.html" class="md-nav__link">
+        Percona TokuBackup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb_faq.html" class="md-nav__link">
+        Frequently Asked Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="removing_tokudb.html" class="md-nav__link">
+        Removing TokuDB storage engine
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_15" type="checkbox" id="__nav_15" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_15">
+          Release notes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Release notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_15">
+          <span class="md-nav__icon md-icon"></span>
+          Release notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.39-42.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.39-42 (2022-08-15)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.38-41.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.38-41 (2022-06-02)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.37-40.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.37-40 (2022-03-31)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.36-39.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.36-39 (2021-12-22)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.35-38.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.35-38 (2021-08-18)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.34-37.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.34-37 (2021-05-26)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.33-36.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.33-36 (2021-03-02)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.32-35.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.32-35 (2020-11-24)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.31-34.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.31-34 (2020-08-24)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.30-33.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.30-33 ((2020-05-20)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.29-32.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.29-32 (2020-02-05)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.28-31.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.28-31 (2019-11-13)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.27-30.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.27-30 (2019-08-22)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.26-29.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.26-29 (2019-05-27)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.25-28.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.25-28 (2019-02-18)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.24-27.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.24-27 (2018-12-18)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.24-26.html" class="md-nav__link">
+        Percona Server 5.7.24-26 (2018-12-04)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.23-25.html" class="md-nav__link">
+        Percona Server 5.7.23-25 (2018-11-21)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.23-24.html" class="md-nav__link">
+        Percona Server 5.7.23-24 (2018-11-09)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.23-23.html" class="md-nav__link">
+        Percona Server 5.7.23-23 (2018-09-12)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.22-22.html" class="md-nav__link">
+        Percona Server 5.7.22-22 (2018-05-31)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.21-21.html" class="md-nav__link">
+        Percona Server 5.7.21-21 (2018-04-24)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.21-20.html" class="md-nav__link">
+        Percona Server 5.7.21-20 (2018-02-19)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.20-19.html" class="md-nav__link">
+        Percona Server 5.7.20-19 (2018-01-03)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.20-18.html" class="md-nav__link">
+        Percona Server 5.7.20-18 (2017-12-14)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.19-17.html" class="md-nav__link">
+        Percona Server 5.7.19-17 (2017-08-31)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.18-16.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.18-16 (2017-07-28)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.18-15.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.18-15 (2017-05-26)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.18-14.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.18-14 (2017-05-12)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.17-13.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.17-13 (2017-04-05)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.17-12.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.17-12 (2017-03-24)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.17-11.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.17-11 (2017-02-03)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.16-10.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.16-10 (2016-11-28)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.15-9.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.15-9 (2016-10-21)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.14-8.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.14-8 (2016-09-21)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.14-7.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.14-7 (2016-08-23)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.13-6.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.13-6 (2016-07-16)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.12-5.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.12-5 (2016-06-06)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.11-4.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.11-4 (2016-03-15)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.10-3.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.10-3 (2016-02-23)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.10-2.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.10-2 (2016-02-05)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/Percona-Server-5.7.10-1.html" class="md-nav__link">
+        Percona Server for MySQL 5.7.10-1 (2015-12-14)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_16" type="checkbox" id="__nav_16" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_16">
+          References
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="References" data-md-level="1">
+        <label class="md-nav__title" for="__nav_16">
+          <span class="md-nav__icon md-icon"></span>
+          References
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upstream-bug-fixes.html" class="md-nav__link">
+        List of upstream MySQL bugs fixed in Percona Server for MySQL  5.7
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ps-variables.html" class="md-nav__link">
+        List of variables introduced in Percona Server 5.7
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development.html" class="md-nav__link">
+        Development of Percona Server for MySQL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../trademark-policy.html" class="md-nav__link">
+        Trademark Policy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index_info_schema_tables.html" class="md-nav__link">
+        Index of INFORMATION_SCHEMA Tables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        Frequently Asked Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../copyright.html" class="md-nav__link">
+        Copyright and Licensing Information
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+   <label class="md-nav__title" for="__drawer">
+    <a href="https://learn.percona.com/download-percona-server-5-7-manual" onclick="_gaq.push(['b._trackEvent', 'Percona Server', 'Download', 'Download Manual Percona Server']);" class="md-nav__link md-nav__link--active">
+      Download PDF
+    </a>
+  </label> 
+  </ul>
+</nav>
+
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fast-insertions-and-richer-indexes" class="md-nav__link">
+    Fast Insertions and Richer Indexes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clustering-secondary-indexes" class="md-nav__link">
+    Clustering Secondary Indexes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hot-index-creation" class="md-nav__link">
+    Hot Index Creation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hot-column-add-delete-expand-and-rename-hcader" class="md-nav__link">
+    Hot Column Add, Delete, Expand, and Rename (HCADER)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compression-details" class="md-nav__link">
+    Compression Details
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changing-compression-of-a-table" class="md-nav__link">
+    Changing Compression of a Table
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-free-replication" class="md-nav__link">
+    Read Free Replication
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transactions-and-acid-compliant-recovery" class="md-nav__link">
+    Transactions and ACID-compliant Recovery
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-log-size" class="md-nav__link">
+    Managing Log Size
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovery" class="md-nav__link">
+    Recovery
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disabling-the-write-cache" class="md-nav__link">
+    Disabling the Write Cache
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#progress-tracking" class="md-nav__link">
+    Progress Tracking
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migrating-to-tokudb" class="md-nav__link">
+    Migrating to TokuDB
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+                <!-- Edit button -->
+                
+                  <a
+                    href="https://github.com/percona/psmysql-docs/edit/5.7/docs/tokudb/using_tokudb.md"
+                    title="Edit this page"
+                    class="md-content__button md-icon"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+                  </a>
+                
+
+                <!--
+                  Hack: check whether the content contains a h1 headline. If it
+                  doesn't, the page title (or respectively site name) is used
+                  as the main headline.
+                -->
+                
+
+                <!-- Markdown content -->
+                <h1 id="using-tokudb">Using TokuDB<a class="headerlink" href="#using-tokudb" title="Permanent link">&para;</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not move or modify any TokuDB files. You will break the database, and need to recover the database from a backup.</p>
+</div>
+<h2 id="fast-insertions-and-richer-indexes">Fast Insertions and Richer Indexes<a class="headerlink" href="#fast-insertions-and-richer-indexes" title="Permanent link">&para;</a></h2>
+<p>TokuDB’s fast indexing enables fast queries through the use of rich indexes, such as covering and clustering indexes. It’s worth investing some time to optimize index definitions to get the best performance from MySQL and TokuDB. Here are some resources to get you started:</p>
+<ul>
+<li>
+<p>“Understanding Indexing” by Zardosht Kasheff (<a href="http://vimeo.com/26454091">video</a>)</p>
+</li>
+<li>
+<p><a href="http://www.mysqlperformanceblog.com/2009/06/05/a-rule-of-thumb-for-choosing-column-order-in-indexes/">Rule of Thumb for Choosing Column Order in Indexes</a></p>
+</li>
+<li>
+<p><a href="https://www.percona.com/blog/2009/05/14/covering_indexes_orders_of_magnitude_improvements/">Covering Indexes: Orders-of-Magnitude Improvements</a></p>
+</li>
+<li>
+<p><a href="https://www.percona.com/blog/2009/05/27/introducing_multiple_clustering_indexes/">Introducing Multiple Clustering Indexes</a></p>
+</li>
+<li>
+<p><a href="https://www.percona.com/blog/2009/05/28/clustering_indexes_vs_covering_indexes/">Clustering Indexes vs. Covering Indexes</a></p>
+</li>
+<li>
+<p><a href="https://www.percona.com/blog/2009/06/04/how_clustering_indexes_sometimes_help_update_and_delete_performance/">How Clustering Indexes Sometimes Helps UPDATE and DELETE Performance</a></p>
+</li>
+<li>
+<p><em>High Performance MySQL, 3<sup>rd</sup> Edition</em> by Baron Schwartz, Peter Zaitsev, Vadim Tkachenko, Copyright 2012, O’Reilly Media. See Chapter 5, <em>Indexing for High Performance</em>.</p>
+</li>
+</ul>
+<h2 id="clustering-secondary-indexes">Clustering Secondary Indexes<a class="headerlink" href="#clustering-secondary-indexes" title="Permanent link">&para;</a></h2>
+<p>One of the keys to exploiting TokuDB’s strength in indexing is to make use of clustering secondary indexes.</p>
+<p>TokuDB allows a secondary key to be defined as a clustering key. This means that all of the columns in the table are clustered with the secondary key. <em>Percona Server for MySQL</em> parser and query optimizer support Multiple Clustering Keys when TokuDB engine is used. This means that the query optimizer will avoid primary clustered index reads and replace them by secondary clustered index reads in certain scenarios.</p>
+<p>The parser has been extended to support following syntax:</p>
+<div class="highlight"><pre><span></span><code>CREATE TABLE ... ( ..., CLUSTERING KEY identifier (column list), ...
+CREATE TABLE ... ( ..., UNIQUE CLUSTERING KEY identifier (column list), ...
+CREATE TABLE ... ( ..., CLUSTERING UNIQUE KEY identifier (column list), ...
+CREATE TABLE ... ( ..., CONSTRAINT identifier UNIQUE CLUSTERING KEY identifier (column list), ...
+CREATE TABLE ... ( ..., CONSTRAINT identifier CLUSTERING UNIQUE KEY identifier (column list), ...
+
+CREATE TABLE ... (... column type CLUSTERING [UNIQUE] [KEY], ...)
+CREATE TABLE ... (... column type [UNIQUE] CLUSTERING [KEY], ...)
+
+ALTER TABLE ..., ADD CLUSTERING INDEX identifier (column list), ...
+ALTER TABLE ..., ADD UNIQUE CLUSTERING INDEX identifier (column list), ...
+ALTER TABLE ..., ADD CLUSTERING UNIQUE INDEX identifier (column list), ...
+ALTER TABLE ..., ADD CONSTRAINT identifier UNIQUE CLUSTERING INDEX identifier (column list), ...
+ALTER TABLE ..., ADD CONSTRAINT identifier CLUSTERING UNIQUE INDEX identifier (column list), ...
+
+CREATE CLUSTERING INDEX identifier ON ...
+</code></pre></div>
+<p>To define a secondary index as clustering, simply add the word <code>CLUSTERING</code> before the key definition. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">  </span><span class="n">column_a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">column_b</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">column_c</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">index_a</span><span class="w"> </span><span class="p">(</span><span class="n">column_a</span><span class="p">),</span><span class="w"></span>
+<span class="w">  </span><span class="n">CLUSTERING</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">index_b</span><span class="w"> </span><span class="p">(</span><span class="n">column_b</span><span class="p">))</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TokuDB</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>In the previous example, the primary table is indexed on <em>column_a</em>. Additionally, there is a secondary clustering index (named <em>index_b</em>) sorted on <em>column_b</em>. Unlike non-clustered indexes, clustering indexes include all the columns of a table and can be used as covering indexes. For example, the following query will run very fast using the clustering <em>index_b</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">column_c</span><span class="w"></span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">foo</span><span class="w"></span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">column_b</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>This index is sorted on <em>column_b</em>, making the <code>WHERE</code> clause fast, and includes <em>column_c</em>, which avoids lookups in the primary table to satisfy the query.</p>
+<p>TokuDB makes clustering indexes feasible because of its excellent compression and very high indexing rates. For more information about using clustering indexes, see <a href="https://www.percona.com/blog/2009/05/27/introducing_multiple_clustering_indexes/">Introducing Multiple Clustering Indexes</a>.</p>
+<h2 id="hot-index-creation">Hot Index Creation<a class="headerlink" href="#hot-index-creation" title="Permanent link">&para;</a></h2>
+<p>TokuDB enables you to add indexes to an existing table and still perform inserts and queries on that table while the index is being created.</p>
+<p>The <code>ONLINE</code> keyword is not used. Instead, the value of the tokudb_create_index_online client session variable is examined.</p>
+<p>Hot index creation is invoked using the <code>CREATE INDEX</code> command after setting tokudb_create_index_online to <code>on</code> as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_create_index_online</span><span class="o">=</span><span class="k">on</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The output should resemble the following:</p>
+<p><div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="p">(</span><span class="n">field_name</span><span class="p">);</span><span class="w"></span>
+</code></pre></div></p>
+<p>Alternatively, using the <code>ALTER TABLE</code> command for creating an index will create the index offline (with the table unavailable for inserts or queries), regardless of the value of tokudb_create_index_online. The only way to hot create an index is to use the <code>CREATE INDEX</code> command.</p>
+<p>Hot creating an index will be slower than creating the index offline, and progress depends how busy the mysqld server is with other tasks. Progress of the index creation can be seen by using the <code>SHOW PROCESSLIST</code> command (in another client). Once the index creation completes, the new index will be used in future query plans.</p>
+<p>If more than one hot <code>CREATE INDEX</code> is issued for a particular table, the indexes will be created serially. An index creation that is waiting for another to complete will be shown as <em>Locked</em> in <code>SHOW PROCESSLIST</code>. We recommend that each <code>CREATE INDEX</code> be allowed to complete before the next one is started.</p>
+<h2 id="hot-column-add-delete-expand-and-rename-hcader">Hot Column Add, Delete, Expand, and Rename (HCADER)<a class="headerlink" href="#hot-column-add-delete-expand-and-rename-hcader" title="Permanent link">&para;</a></h2>
+<p>TokuDB enables you to add or delete columns in an existing table, expand <code>char</code>, <code>varchar</code>, <code>varbinary</code>, and <code>integer</code> type columns in an existing table, or rename an existing column in a table with little blocking of other updates and queries. HCADER typically blocks other queries with a table lock for no more than a few seconds. After that initial short-term table locking, the system modifies each row (when adding, deleting, or expanding columns) later, when the row is next brought into main memory from disk. For column rename, all the work is done during the seconds of downtime. On-disk rows need not be modified.</p>
+<p>To get good performance from HCADER, observe the following guidelines:</p>
+<ul>
+<li>The work of altering the table for column addition, deletion, or expansion is performed as subsequent operations touch parts of the Fractal Tree, both in the primary index and secondary indexes.</li>
+</ul>
+<p>You can force the column addition, deletion, or expansion work to be performed all at once using the standard syntax of <code>OPTIMIZE TABLE X</code>, when a column has been added to, deleted from, or expanded in table X. It is important to note that as of TokuDB version 7.1.0, <code>OPTIMIZE TABLE</code> is also hot, so that a table supports updates and queries without blocking while an <code>OPTIMIZE TABLE</code> is being performed. Also, a hot <code>OPTIMIZE TABLE</code> does not rebuild the indexes, since TokuDB indexes do not age. Rather, they flush all background work, such as that induced by a hot column addition, deletion, or expansion.</p>
+<ul>
+<li>
+<p>Each hot column addition, deletion, or expansion operation must be performed individually (with its own SQL statement). If you want to add, delete, or expand multiple columns use multiple statements.</p>
+</li>
+<li>
+<p>Avoid adding, deleting, or expanding a column at the same time as adding or dropping an index.</p>
+</li>
+<li>
+<p>The time that the table lock is held can vary. The table-locking time for HCADER is dominated by the time it takes to flush dirty pages, because MySQL closes the table after altering it. If a checkpoint has happened recently, this operation is fast (on the order of seconds). However, if the table has many dirty pages, then the flushing stage can take on the order of minutes.</p>
+</li>
+<li>
+<p>Avoid dropping a column that is part of an index. If a column to be dropped is part of an index, then dropping that column is slow. To drop a column that is part of an index, first drop the indexes that reference the column in one alter table statement, and then drop the column in another statement.</p>
+</li>
+<li>
+<p>Hot column expansion operations are only supported to <code>char</code>, <code>varchar</code>, <code>varbinary</code>, and <code>integer</code> data types. Hot column expansion is not supported if the given column is part of the primary key or any secondary keys.</p>
+</li>
+<li>
+<p>Rename only one column per statement. Renaming more than one column will revert to the standard MySQL blocking behavior. The proper syntax is as follows:</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
+<span class="w">  </span><span class="n">CHANGE</span><span class="w"> </span><span class="n">column_old</span><span class="w"> </span><span class="n">column_new</span><span class="w"></span>
+<span class="w">  </span><span class="n">DATA_TYPE</span><span class="w"> </span><span class="n">REQUIRED_NESS</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"></span>
+</code></pre></div>
+<p>Here’s an example of how that might look:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
+<span class="w">  </span><span class="n">CHANGE</span><span class="w"> </span><span class="n">column_old</span><span class="w"> </span><span class="n">column_new</span><span class="w"></span>
+<span class="w">  </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>Notice that all of the column attributes must be specified. <code>ALTER TABLE table CHANGE column_old column_new;</code> induces a slow, blocking column rename.</p>
+<ul>
+<li>
+<p>Hot column rename does not support the following data types: <code>TIME</code>, <code>ENUM</code>, <code>BLOB</code>, <code>TINYBLOB</code>, <code>MEDIUMBLOB</code>, <code>LONGBLOB</code>. Renaming columns of these types will revert to the standard MySQL blocking behavior.</p>
+</li>
+<li>
+<p>Temporary tables cannot take advantage of HCADER. Temporary tables are typically small anyway, so altering them using the standard method is usually fast.</p>
+</li>
+</ul>
+<h2 id="compression-details">Compression Details<a class="headerlink" href="#compression-details" title="Permanent link">&para;</a></h2>
+<p>TokuDB offers different levels of compression, which trade off between the amount of CPU used and the compression achieved. Standard compression uses less CPU but generally compresses at a lower level, high compression uses more CPU and generally compresses at a higher level. We have seen compression up to 25x on customer data.</p>
+<p>Compression in TokuDB occurs on background threads, which means that high compression need not slow down your database. Indeed, in some settings, we’ve seen higher overall database performance with high compression.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We recommend that users use standard compression on machines with six or fewer cores, and high compression on machines with more than six cores.</p>
+</div>
+<p>The ultimate choice depends on the particulars of how a database is used, and we recommend that users use the default settings unless they have profiled their system with high compression in place.</p>
+<p>Compression is set on a per-table basis and is controlled by setting row format during a <code>CREATE TABLE</code> or <code>ALTER TABLE</code>. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">  </span><span class="n">column_a</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">column_b</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">TokuDB</span><span class="w"></span>
+<span class="w">  </span><span class="n">ROW_FORMAT</span><span class="o">=</span><span class="n">row_format</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>If no row format is specified in a <code>CREATE TABLE</code>, the table is compressed using whichever row format is specified in the session variable tokudb_row_format. If no row format is set nor is tokudb_row_format, the zlib compressor is used.</p>
+<p>row_format and tokudb_row_format variables accept the following values:</p>
+<ul>
+<li>
+<p><code>TOKUDB_DEFAULT</code>: This sets the compression to the default behavior. As of TokuDB 7.1.0, the default behavior is to compress using the zlib library. In the future this behavior may change.</p>
+</li>
+<li>
+<p><code>TOKUDB_FAST</code>: This sets the compression to use the quicklz library.</p>
+</li>
+<li>
+<p><code>TOKUDB_SMALL</code>: This sets the compression to use the lzma library.</p>
+</li>
+</ul>
+<p>In addition, you can choose a compression library directly, which will override previous values. The following libraries are available:</p>
+<ul>
+<li>
+<p><code>TOKUDB_ZLIB</code>: Compress using the zlib library, which provides mid-range compression and CPU utilization.</p>
+</li>
+<li>
+<p><code>TOKUDB_QUICKLZ</code>: Compress using the quicklz library, which provides light compression and low CPU utilization.</p>
+</li>
+<li>
+<p><code>TOKUDB_LZMA</code>: Compress using the lzma library, which provides the highest compression and high CPU utilization.</p>
+</li>
+<li>
+<p><code>TOKUDB_SNAPPY</code> - This compression is using <a href="http://google.github.io/snappy/">snappy</a> library and aims for very high speeds and reasonable compression.</p>
+</li>
+<li>
+<p><code>TOKUDB_UNCOMPRESSED</code>: This setting turns off compression and is useful for tables with data that cannot be compressed.</p>
+</li>
+</ul>
+<h2 id="changing-compression-of-a-table">Changing Compression of a Table<a class="headerlink" href="#changing-compression-of-a-table" title="Permanent link">&para;</a></h2>
+<p>Modify the compression used on a particular table with the following command:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
+<span class="w">  </span><span class="n">ROW_FORMAT</span><span class="o">=</span><span class="n">row_format</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Changing the compression of a table only affects newly written data (dirtied blocks). After changing a table’s compression you can run <code>OPTIMZE TABLE</code> to rewrite all blocks of the table and its indexes.</p>
+</div>
+<h2 id="read-free-replication">Read Free Replication<a class="headerlink" href="#read-free-replication" title="Permanent link">&para;</a></h2>
+<p>TokuDB replicas can be configured to perform significantly less read IO in order to apply changes from the source. By utilizing the power of Fractal Tree indexes:</p>
+<ul>
+<li>
+<p>insert/update/delete operations can be configured to eliminate read-modify-write behavior and simply inject messages into the appropriate Fractal Tree indexes</p>
+</li>
+<li>
+<p>update/delete operations can be configured to eliminate the IO required for uniqueness checking</p>
+</li>
+</ul>
+<p>To enable Read Free Replication, the servers must be configured as follows:</p>
+<ul>
+<li>
+<p>On the replication source:</p>
+<ul>
+<li>Enable row based replication: set <code>BINLOG_FORMAT=ROW</code></li>
+</ul>
+</li>
+<li>
+<p>On the replication replica(s):</p>
+<ul>
+<li>
+<p>The replica must be in read-only mode: set <code>read_only=1</code></p>
+</li>
+<li>
+<p>Disable unique checks: set <code>tokudb_rpl_unique_checks=0</code></p>
+</li>
+<li>
+<p>Disable lookups (read-modify-write): set <code>tokudb_rpl_lookup_rows=0</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can modify one or both behaviors on the replica(s).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As long as the source is using row based replication, this optimization is available on a TokuDB replica. This means that it’s available even if the source is using InnoDB or MyISAM tables, or running non-TokuDB binaries.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>TokuDB Read Free Replication will not propagate <code>UPDATE</code> and <code>DELETE</code> events reliably if TokuDB table is missing the primary key which will eventually lead to data inconsistency on the replica.</p>
+</div>
+<h2 id="transactions-and-acid-compliant-recovery">Transactions and ACID-compliant Recovery<a class="headerlink" href="#transactions-and-acid-compliant-recovery" title="Permanent link">&para;</a></h2>
+<p>By default, TokuDB checkpoints all open tables regularly and logs all changes between checkpoints, so that after a power failure or system crash, TokuDB will restore all tables into their fully ACID-compliant state. That is, all committed transactions will be reflected in the tables, and any transaction not committed at the time of failure will be rolled back.</p>
+<p>The default checkpoint period is every 60 seconds, and this specifies the time from the beginning of one checkpoint to the beginning of the next. If a checkpoint requires more than the defined checkpoint period to complete, the next checkpoint begins immediately. It is also related to the frequency with which log files are trimmed, as described below. The user can induce a checkpoint at any time by issuing the <code>FLUSH LOGS</code> command. When a database is shut down normally it is also checkpointed and all open transactions are aborted. The logs are trimmed at startup.</p>
+<h2 id="managing-log-size">Managing Log Size<a class="headerlink" href="#managing-log-size" title="Permanent link">&para;</a></h2>
+<p>TokuDB keeps log files back to the most recent checkpoint. Whenever a log file reaches 100 MB, a new log file is started. Whenever there is a checkpoint, all log files older than the checkpoint are discarded. If the checkpoint period is set to be a very large number, logs will get trimmed less frequently. This value is set to 60 seconds by default.</p>
+<p>TokuDB also keeps rollback logs for each open transaction. The size of each log is proportional to the amount of work done by its transaction and is stored compressed on disk. Rollback logs are trimmed when the associated transaction completes.</p>
+<h2 id="recovery">Recovery<a class="headerlink" href="#recovery" title="Permanent link">&para;</a></h2>
+<p>Recovery is fully automatic with TokuDB. TokuDB uses both the log files and rollback logs to recover from a crash. The time to recover from a crash is proportional to the combined size of the log files and uncompressed size of rollback logs. Thus, if there were no long-standing transactions open at the time of the most recent checkpoint, recovery will take less than a minute.</p>
+<h2 id="disabling-the-write-cache">Disabling the Write Cache<a class="headerlink" href="#disabling-the-write-cache" title="Permanent link">&para;</a></h2>
+<p>When using any transaction-safe database, it is essential that you understand the write-caching characteristics of your hardware. TokuDB provides transaction safe (ACID compliant) data storage for MySQL. However, if the underlying operating system or hardware does not actually write data to disk when it says it did, the system can corrupt your database when the machine crashes. For example, TokuDB can not guarantee proper recovery if it is mounted on an NFS volume. It is always safe to disable the write cache, but you may be giving up some performance.</p>
+<p>For most configurations you must disable the write cache on your disk drives. On ATA/SATA drives, the following command should disable the write cache:</p>
+<div class="highlight"><pre><span></span><code>$ hdparm -W0 /dev/hda
+</code></pre></div>
+<p>There are some cases when you can keep the write cache, for example:</p>
+<ul>
+<li>
+<p>Write caching can remain enabled when using XFS, but only if XFS reports that disk write barriers work. If you see one of the following messages in /var/log/messages, then you must disable the write cache:</p>
+<ul>
+<li>
+<p><code>Disabling barriers, not supported with external log device</code></p>
+</li>
+<li>
+<p><code>Disabling barriers, not supported by the underlying device</code></p>
+</li>
+<li>
+<p><code>Disabling barriers, trial barrier write failed</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>XFS write barriers appear to succeed for single disks (with no LVM), or for very recent kernels (such as that provided by Fedora 12). For more information, see the <a href="http://xfs.org/index.php/XFS_FAQ#Q:_How_can_I_tell_if_I_have_the_disk_write_cache_enabled.3F">XFS FAQ</a>.</p>
+<p>In the following cases, you must disable the write cache:</p>
+<ul>
+<li>
+<p>If you use the ext3 filesystem</p>
+</li>
+<li>
+<p>If you use LVM (although recent Linux kernels, such as Fedora 12, have fixed this problem)</p>
+</li>
+<li>
+<p>If you use Linux’s software RAID</p>
+</li>
+<li>
+<p>If you use a RAID controller with battery-backed-up memory. This may seem counter-intuitive. For more information, see the <a href="http://xfs.org/index.php/XFS_FAQ#Q:_How_can_I_tell_if_I_have_the_disk_write_cache_enabled.3F">XFS FAQ</a></p>
+</li>
+</ul>
+<p>In summary, you should disable the write cache, unless you have a very specific reason not to do so.</p>
+<h2 id="progress-tracking">Progress Tracking<a class="headerlink" href="#progress-tracking" title="Permanent link">&para;</a></h2>
+<p>TokuDB has a system for tracking progress of long running statements, thereby removing the need to define triggers to track statement execution, as follows:</p>
+<ul>
+<li>
+<p>Bulk Load: When loading large tables using <code>LOAD DATA INFILE</code> commands, doing a <code>SHOW PROCESSLIST</code> command in a separate client session shows progress. There are two progress stages. The first will state something like <code>Inserted about 1000000 rows</code>. After all rows are processed like this, the next stage tracks progress by showing what fraction of the work is done (e.g. <code>Loading of data about 45% done</code>)</p>
+</li>
+<li>
+<p>Adding Indexes: When adding indexes via <code>ALTER TABLE</code> or <code>CREATE INDEX</code>, the command <code>SHOW PROCESSLIST</code> shows progress. When adding indexes via <code>ALTER TABLE</code> or <code>CREATE INDEX</code>, the command <code>SHOW PROCESSLIST</code> will include an estimation of the number of rows processed. Use this information to verify progress is being made. Similar to bulk loading, the first stage shows how many rows have been processed, and the second stage shows progress with a fraction.</p>
+</li>
+<li>
+<p>Commits and Aborts: When committing or aborting a transaction, the command <code>SHOW PROCESSLIST</code> will include an estimate of the transactional operations processed.</p>
+</li>
+</ul>
+<h2 id="migrating-to-tokudb">Migrating to TokuDB<a class="headerlink" href="#migrating-to-tokudb" title="Permanent link">&para;</a></h2>
+<p>To convert an existing table to use the TokuDB engine, run <code>ALTER TABLE... ENGINE=TokuDB</code>. If you wish to load from a file, use <code>LOAD DATA INFILE</code> and not <code>mysqldump</code>. Using <code>mysqldump</code> will be much slower. To create a file that can be loaded with <code>LOAD DATA INFILE</code>, refer to the <code>INTO OUTFILE</code> option of the <a href="http://dev.mysql.com/doc/refman/5.7/en/select.html">SELECT Syntax</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Creating this file does not save the schema of your table, so you may want to create a copy of that as well.</p>
+</div>
+
+                
+<div class="md-relbar2__inner md-grid">
+<div class="md-content">
+  <article class="md-content__inner md-typeset" role="main">    
+    <h4>Contact Us </h4>
+       <p>For free technical help, visit the Percona <a class="reference external" href="https://forums.percona.com/c/mysql-mariadb/percona-server-for-mysql-5-7/18" target="_blank">Community Forum</a>.<br>
+        <p>To report bugs or submit feature requests, open a <a class="reference external" href="https://jira.percona.com/projects/PS/issues/" target="_blank">JIRA</a> ticket.<br>
+         <p>For paid <a class="reference external" href="https://www.percona.com/services/support"> support </a> and <a class="reference external" href="https://www.percona.com/services/managed-services"> managed </a> or <a class="reference external" href="https://www.percona.com/services/consulting">consulting services </a>, contact <a class="reference external" href="https://www.percona.com/about-percona/contact" target="_blank">Percona Sales</a>.</p>
+ </article>
+</div>
+</div>
+
+                <!-- Last update of source file -->
+                
+                  
+                    <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      2022-09-27
+    
+  </small>
+</div>
+                  
+                
+              
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="tokudb_installation.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: TokuDB Installation" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              TokuDB Installation
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="fast_updates.html" class="md-footer__link md-footer__link--next" aria-label="Next: Fast Updates with TokuDB" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Fast Updates with TokuDB
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Percona LLC, &#169; 2022
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.37e9125f.min.js"></script>
+      
+        <script src="../js/version-select.js"></script>
+      
+    
+  </body>
+</html>
