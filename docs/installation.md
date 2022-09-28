@@ -3,24 +3,24 @@
 This page provides information on how you can install *Percona Server for MySQL*. The following options are available:
 
 
-* Installing Percona Server for MySQL from Repositories (recommended)
+* [Installing Percona Server for MySQL from Repositories](#installing-percona-server-for-mysql-from-repositories) (recommended)
 
 
-* Installing *Percona Server for MySQL* from Downloaded rpm or apt Packages
+* Installing *Percona Server for MySQL* from Downloaded [rpm](installation/yum_repo.md#standalone-rpm) or [apt](installation/apt_repo.md#standalone-deb) Packages
 
 
-* Installing Percona Server for MySQL from a Binary Tarball
+* [Installing Percona Server for MySQL from a Binary Tarball](#installing-percona-server-for-mysql-from-a-binary-tarball)
 
 
-* Installing Percona Server for MySQL from a Source Tarball
+* [Installing Percona Server for MySQL from a Source Tarball](#installing-percona-server-for-mysql-from-a-source-tarball)
 
 
-* Installing Percona Server for MySQL from the Git Source Tree
+* [Installing Percona Server for MySQL from the Git Source Tree](#installing-percona-server-for-mysql-from-the-git-source-tree)
 
 
-* Compiling Percona Server for MySQL from Source
+* [Compiling Percona Server for MySQL from Source](#compiling-percona-server-for-mysql-from-source)
 
-Before installing, you might want to read the Percona Server for MySQL 8.0 Release notes.
+Before installing, you might want to read the [Percona Server for MySQL 8.0 Release notes](release-notes/release-notes_index.md).
 
 ## Installing *Percona Server for MySQL* from Repositories
 
@@ -29,10 +29,10 @@ Before installing, you might want to read the Percona Server for MySQL 8.0 Relea
 The following guides describe the installation process for using the official Percona repositories for the `.deb` and `.rpm` packages.
 
 
-* Installing *Percona Server for MySQL* on *Debian* and *Ubuntu*
+* [Installing *Percona Server for MySQL* on *Debian* and *Ubuntu*](installation/apt_repo.md)
 
 
-* Installing *Percona Server for MySQL* on Red Hat Enterprise Linux and CentOS
+* [Installing *Percona Server for MySQL* on Red Hat Enterprise Linux and CentOS](installation/yum_repo.md)
 
 
 ## Installing *Percona Server for MySQL* from a Binary Tarball
@@ -47,7 +47,7 @@ In *Percona Server for MySQL* 8.0.20-11 and later, select the **Percona Server f
 | Minimal | Percona-Server-&lt;version number&gt;-Linux.x86_64.glibc2.17-minimal.tar.gz | Compatible with any supported operating system except for CentOS 6 | Contains binaries and libraries but does not include test files or debug symbols  |
 
 Implemented in *Percona for MySQL* 8.0.26-16, the following binary tarballs
-are available for the MyRocks ZenFS installation. See Installing and configuring Percona Server for MySQL with ZenFS support for more information and the installation procedure.
+are available for the MyRocks ZenFS installation. See [Installing and configuring Percona Server for MySQL with ZenFS support](myrocks/zenfs.md#zenfs) for more information and the installation procedure.
 
 | Type    | Name                                                                              | Description                                                                          |
 |---------|-----------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
@@ -94,7 +94,7 @@ $ wget https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server
 $ tar xfz Percona-Server-8.0.26-16-Linux.x86_64.glibc2.12.tar.gz
 ```
 
-Next, follow the instructions in Compiling Percona Server for MySQL from Source below.
+Next, follow the instructions in [Compiling Percona Server for MySQL from Source](#compiling-percona-server-for-mysql-from-source) below.
 
 ## Installing *Percona Server for MySQL* from the Git Source Tree
 
@@ -121,7 +121,7 @@ $ cmake .
 $ make dist
 ```
 
-Next, follow the instructions in Compiling Percona Server for MySQL from Source below.
+Next, follow the instructions in [Compiling Percona Server for MySQL from Source](#compiling-percona-server-for-mysql-from-source) below.
 
 ## Compiling *Percona Server for MySQL* from Source
 
@@ -158,8 +158,7 @@ $ make install
 
 If you wish to build your own Debian/Ubuntu (dpkg) packages of *Percona Server for MySQL*,
 you first need to start with a source tarball, either from the Percona
-website or by generating your own by following the instructions above(
-Installing Percona Server for MySQL from the Git Source Tree).
+website or by generating your own by following the instructions above ([Installing Percona Server for MySQL from the Git Source Tree](installation.md#source-from-git)).
 
 Extract the source tarball:
 
@@ -199,4 +198,4 @@ packages for all Debian and Ubuntu releases.
 
 !!! note
 
-    PAM Authentication Plugin is not built with the server by default. In order to build the *Percona Server for MySQL* with PAM plugin, an additional option `-DWITH_PAM=ON` should be used.
+    [PAM Authentication Plugin](security/pam_plugin.md#pam-plugin) is not built with the server by default. In order to build the *Percona Server for MySQL* with PAM plugin, an additional option `-DWITH_PAM=ON` should be used.

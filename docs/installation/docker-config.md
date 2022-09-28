@@ -10,15 +10,15 @@ The variables are optional, but you must specify at least one of the following:
 
 * `MYSQL_DATABASE` - the database schema name that is created when the container starts
 
-* `MYSQL_USER` - Create a user account when the container starts
+* `MYSQL_USER` - create a user account when the container starts
 
-* `MYSQL_PASSWORD` - Used with `MYSQL_USER` to create a password for that user account.
+* `MYSQL_PASSWORD` - used with `MYSQL_USER` to create a password for that user account.
 
-* `MYSQL_ALLOW_EMPTY_PASSWORD` - Creates a root user with an empty password. This option is insecure and only should be used for testing or proof of concept when the database can be removed afterward. Anyone can connect as `root`.
+* `MYSQL_ALLOW_EMPTY_PASSWORD` - creates a root user with an empty password. This option is insecure and only should be used for testing or proof of concept when the database can be removed afterward. Anyone can connect as `root`.
 
-* `MYSQL_ROOT_PASSWORD` - This password is used for the `root` user account. This option is not recommended for production.
+* `MYSQL_ROOT_PASSWORD` - this password is used for the `root` user account. This option is not recommended for production.
 
-* `MYSQL_RANDOM_ROOT_PASSWORD` - Set this variable instead of `MYSQL_ROOT_PASSWORD` when you want Percona Server to generate a password for you. The generated password is available in the container's logs only during the first start of the container. Use `docker logs`. You cannot retrieve the password after the first start.
+* `MYSQL_RANDOM_ROOT_PASSWORD` - set this variable instead of `MYSQL_ROOT_PASSWORD` when you want Percona Server to generate a password for you. The generated password is available in the container's logs only during the first start of the container. Use `docker logs`. You cannot retrieve the password after the first start.
 
 To further secure your instance, use the `MYSQL_ONETIME_PASSWORD` variable.
 
