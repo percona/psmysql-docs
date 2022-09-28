@@ -12,7 +12,7 @@ You can install Percona Server for MySQL using the following methods:
 - from the Percona repository 
 - Build from the [source code](https://github.com/percona/percona-server)
 
-The installation instructions in the official documentation are [here](https://www.percona.com/doc/percona-server/8.0/installation.html).
+The installation instructions in the official documentation are [here](https://docs.percona.com/percona-server/8.0/installation.html).
 
 ## Submit a bug report or a feature request
 
@@ -31,7 +31,7 @@ Percona is dedicated to **keeping open source open**. Whenever possible, we stri
 
 ## How to get involved
 
-We encourage contributions and are always looking for new members that are as dedicated to serving the community as we are. The [Contributing Guide](https://github.com/percona/percona-server/blob/8.0/doc/source/contributing.md) contains how you can contribute.
+We encourage contributions and are always looking for new members that are as dedicated to serving the community as we are. The [Contributing Guide](https://github.com/percona/psmysql-docs/blob/8.0/contributing.md) contains how you can contribute.
 
 ## Contact
 
