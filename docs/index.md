@@ -1,8 +1,4 @@
-<!-- Percona Server documentation master file, created by
-sphinx-quickstart on Mon Aug  8 01:24:46 2011.
-You can adapt this file completely to your liking, but it should at least
-contain the root `toctree` directive. -->
-# *Percona Server for MySQL* 8.0 - Documentation
+# Percona Server for MySQL 8.0 - Documentation
 
 *Percona Server for MySQL* is a free, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior performance, scalability, and instrumentation.
 
