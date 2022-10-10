@@ -1,11 +1,18 @@
-# Using the Keyring Plugin
+# Using the keyring component or keyring plugin
+
+The `keyring_vault` plugin can store the encryption keys inside the [HashiCorp Vault](https://www.hashicorp.com/products/vault/data-protection).
+
+!!! admonition "See also"
+
+    [Hashicorp Documentation: Installing Vault](https://www.vaultproject.io/docs/install/index.html)
+    [Hashicorp Documentation: Production Hardening](https://learn.hashicorp.com/vault/operations/production-hardening)
+
 
 *Percona Server for MySQL* may use either of the following plugins:
 
 * keyring_file stores the keyring data locally
 
-* keyring_vault provides an interface for the database with a HashiCorp Vault
-server to store key and secure encryption keys.
+* keyring_vault provides an interface for the database with a HashiCorp Vault server to store key and secure encryption keys.
 
 !!! note
 
@@ -22,10 +29,7 @@ option to enable keyrings.
 
     Only one keyring plugin should be enabled at a time. Enabling multiple keyring plugins is not supported and may result in data loss.
 
-We recommend the plugin should be loaded in the configuration file to facilitate
-recovery for encrypted tables. Also, the redo log and the undo log encryption cannot
-be used without `--early-plugin-load`. The normal plugin load happens too late
-in startup.
+We recommend that you load the plugin in the configuration file to facilitate recovery for encrypted tables. Also, the redo log encryption and the undo log encryption cannot be used without `--early-plugin-load`. The normal plugin load happens too late in startup.
 
 !!! note
 
@@ -166,6 +170,18 @@ mysql> INSTALL PLUGIN keyring_udf SONAME 'keyring_udf.so';
 
 You must also create keyring encryption user-defined functions.
 
+## Using the keyring_file component
+
+See [keyring component installation](https://dev.mysql.com/doc/refman/8.0/en/keyring-component-installation.html) for information on installing the component.
+
+!!! warning
+
+    The `keyring_file` component should not be used for regulatory compliance. 
+
+!!! admonition "See also"
+
+    [MySQL Documentation: Using the keyring_file component](https://dev.mysql.com/doc/refman/8.0/en/keyring-file-component.html)
+
 ## System Variables
 
 ### `keyring_vault_config`
@@ -178,7 +194,7 @@ You must also create keyring encryption user-defined functions.
 | Data type    | Text                   |
 | Default      |
 
-This variable is used to define the location of the keyring_vault_plugin
+This variable defines the location of the keyring_vault_plugin
 configuration file.
 
 ### `keyring_vault_timeout`
