@@ -32,7 +32,7 @@ SELECT * FROM SEQUENCE_TABLE(n) AS tt;
 SELECT <expr(value)> FROM SEQUENCE_TABLE(n) AS tt;
 ```
 
-The first number in the series, the initial term, is defined as `0` and the series ends with a value less then `n`. In this example, enter the following statement to generate a sequence:
+The first number in the series, the initial term, is defined as `0` and the series ends with a value less than `n`. In this example, enter the following statement to generate a sequence:
 
 ```sql
 mysql> SELECT * FROM SEQUENCE_TABLE(3) AS tt;
@@ -50,7 +50,7 @@ The output could be the following:
 +-------+
 ```
 
-You can define  the initial term using the `WHERE` clause. The following example starts the sequence with `4`.
+You can define the initial term using the `WHERE` clause. The following example starts the sequence with `4`.
 
 ```sql
 SELECT value AS result FROM SEQUENCE_TABLE(8) AS tt WHERE value >= 4;
@@ -93,7 +93,7 @@ The output could be the following:
 The following is an example of using the function to populate a table with a set of random numbers:
 
 ```sql
-mysql> SELECT FLOOR(RAND()) * 100) AS result FROM SEQUENCE_TABLE(4) AS tt;
+mysql> SELECT FLOOR(RAND() * 100) AS result FROM SEQUENCE_TABLE(4) AS tt;
 ```
 
 The output could be the following:
