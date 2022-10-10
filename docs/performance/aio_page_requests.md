@@ -1,19 +1,16 @@
 # Multiple page asynchronous I/O requests
 
-I/O unit size in *InnoDB* is only one page, even if doing read ahead. 16KB
-I/O unit size is too small for sequential reads, and much less efficient than
-larger I/O unit size.
+The I/O unit size in *InnoDB* is only one page, even if the server doing read ahead. A 16KB
+I/O unit size is too small for sequential reads, and less efficient than a larger I/O unit size. *InnoDB* uses Linux asynchronous I/O (`aio`) by default. By submitting multiple, consecutive 16KB read requests at the same time, Linux internally merges the requests and
+reads more efficiently. 
 
-*InnoDB* uses Linux asynchronous I/O (`aio`) by default. By submitting multiple
-consecutive 16KB read requests at once, Linux internally can merge requests and
-reads can be done more efficiently.
+This feature is able to submit multiple page I/O requests and works in the background. You can manage the feature with the [linear read-ahead technique](https://dev.mysql.com/doc/refman/8.0/en/innodb-performance-read_ahead.html). This technique adds pages to the buffer pool based on the buffer pool pages being accessed sequentially. The [`innodb_read_ahead_threshold`](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_read_ahead_threshold) configuration parameter controls this operation.
 
 [On a HDD RAID 1+0 environment](http://yoshinorimatsunobu.blogspot.hr/2013/10/making-full-table-scan-10x-faster-in.html),
 more than 1000MB/s disk reads can be achieved by submitting 64 consecutive pages
 requests at once, while only
 160MB/s disk reads is shown by submitting single page request.
 
-With this feature *InnoDB* submits multiple page I/O requests.
 
 ## Version Specific Information
 
