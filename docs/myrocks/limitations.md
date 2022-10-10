@@ -31,8 +31,7 @@ The MyRocks storage engine lacks the following features compared to InnoDB:
 
 You should also consider the following:
 
-* `\*_bin` (e.g. `latin1_bin`) or binary collation should be used
-on `CHAR` and `VARCHAR` indexed columns. By default, MyRocks prevents creating indexes with non-binary collations (including `latin1`). You can optionally use it by setting [rocksdb_strict_collation_exceptions](variables.md#rocksdb-strict-collation-exceptions) to `t1` (table names with regex format), but non-binary covering indexes other than `latin1` (excluding `german1`) still require a primary key lookup to return the `CHAR` or `VARCHAR` column.
+* All collations are supported on ``CHAR`` and ``VARCHAR`` indexed columns. By default, MyRocks prevents creating indexes with non-binary collations (including `latin1`). You can optionally use it by setting [rocksdb_strict_collation_exceptions](variables.md#rocksdb-strict-collation-exceptions) to `t1` (table names with regex format), but non-binary covering indexes other than `latin1` (excluding `german1`) still require a primary key lookup to return the `CHAR` or `VARCHAR` column.
 
 * Either `ORDER BY DESC` or `ORDER BY ASC` is slow. This is because of “Prefix Key Encoding” feature in RocksDB. See [http://www.slideshare.net/matsunobu/myrocks-deep-dive/58](http://www.slideshare.net/matsunobu/myrocks-deep-dive/58) for details. By default, ascending scan is faster and descending scan is slower. If the “reverse column family” is configured, then descending scan will be faster and ascending scan will be slower. Note that InnoDB also imposes a cost when the index is scanned in the opposite order.
 
