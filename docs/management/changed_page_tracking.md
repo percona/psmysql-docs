@@ -2,6 +2,8 @@
 
 !!! important
 
+    Starting with Percona Server for MySQL 8.0.30, the changed page tracking feature is removed and no longer supported.
+    
     Starting with Percona Server for MySQL 8.0.27, the page tracking feature is deprecated and may be removed in future versions.
 
     We recommend using the MySQL page tracking feature. For more information, see [MySQL InnoDB Clone and page tracking](https://dev.mysql.com/blog-archive/innodb-clone-and-page-tracking/).
