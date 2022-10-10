@@ -43,8 +43,8 @@ This feature adds a new system variable.
 | Default      | assert                |
 | Range        | assert, warn, salvage |
 
-* With the default value, `assert`, *XtraDB* will intentionally crash the server with an assertion failure as it would normally do when detecting corrupted data in a single-table tablespace.
+* Enabling `innodb_file_per_table` and using the `assert` value creates an assertion failure which causes *XtraDB* to intentionally crash the server. This action is expected when detecting corrupted data in a single-table tablespace.
 
-* If the `warn` value is used it will pass corruption of the table as `corrupt table` instead of crashing itself. For this to work innodb_file_per_table should be enabled. All file I/O for the data file after detected as corrupt is disabled, except for the deletion.
+* Enabling `innodb_file_per_table` and using the `warn` value causes *XtraDB* to pass the table corruption as `corrupt table` instead of crashing the server. Detecting the file as corrupt also disables the file I/O for that data file, except for the deletion operation.
 
-* When the option value is `salvage`, *XtraDB* allows read access to a corrupted tablespace, but ignores corrupted pages”. You must enable innodb_file_per_table.
+* Enabling `innodb_file_per_table` and using the `salvage` value causes *XtraDB* to allow read access to the corrupted tablespace but ignores any corrupted pages.
