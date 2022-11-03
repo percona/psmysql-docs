@@ -56,7 +56,7 @@ the `backoff` is selected, Percona implementation will be used.
 
 ## Multi-threaded LRU flusher
 
-*Percona Server for MySQL* Percona Server for MySQL 5.7.10-3 has 
+*Percona Server for MySQL* 5.7.10-3 has 
 introduced a true multi-threaded LRU
 flushing. In this scheme, each buffer pool instance has its own dedicated LRU
 manager thread that is tasked with performing LRU flushes and evictions to
