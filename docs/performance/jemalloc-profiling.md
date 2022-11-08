@@ -4,7 +4,7 @@ Implemented in [Percona Server for MySQL 8.0.25-15](../release-notes/Percona-Ser
 
 ## Requirements
 
-This memory-profiling requires [jemalloc_detected](#jemallocdetected). This read-only variable returns `true` if jemalloc with the profiling-enabled option is being used by *Percona Server for MySQL*.
+This memory-profiling requires [jemalloc_detected](#jemalloc_detected). This read-only variable returns `true` if jemalloc with the profiling-enabled option is being used by *Percona Server for MySQL*.
 
 As root, customize jemalloc with the following flags:
 
@@ -63,7 +63,7 @@ The example of the output:
 1 row in set (0.00 sec)
 ```
 
-The [malloc_stats](#mallocstats) table returns the cumulative totals, in bytes, of several statistics per type of arena. The command takes no parameters and returns the results as a table.
+The [malloc_stats](#malloc_stats) table returns the cumulative totals, in bytes, of several statistics per type of arena. The command takes no parameters and returns the results as a table.
 
 The following example commands display this result:
 

@@ -15,8 +15,8 @@ The following global status variables are available:
 
 | Name                                                                                                        | Var Type |
 |------------------------------------------------------------------------------------------------------------ |----------|
-| [`rocksdb_rows_deleted`](#rocksdbrowsdeleted)                                                               | Numeric  |
-| [`rocksdb_rows_inserted`](#rocksdbrowsinserted)                                                             | Numeric  |
+| [`rocksdb_rows_deleted`](#rocksdb_rows_deleted)                                                               | Numeric  |
+| [`rocksdb_rows_inserted`](#rocksdb_rows_inserted)                                                             | Numeric  |
 | [`rocksdb_rows_read`](#rocksdb_rows_read)                                                                   | Numeric  |
 | [`rocksdb_rows_unfiltered_no_snapshot`](#rocksdb_rows_unfiltered_no_snapshot)                               | Numeric  |
 | [`rocksdb_rows_updated`](#rocksdb_rows_updated)                                                             | Numeric  |
@@ -109,7 +109,7 @@ The following global status variables are available:
 | [`rocksdb_stall_l0_file_count_limit_stops`](#rocksdb_stall_l0_file_count_limit_stops)                       | Numeric  |
 | [`rocksdb_stall_locked_l0_file_count_limit_stops`](#rocksdb_stall_locked_l0_file_count_limit_stops)         | Numeric  |
 | [`rocksdb_stall_pending_compaction_limit_stops`](#rocksdb_stall_pending_compaction_limit_stops)             | Numeric  |
-| [`rocksdb_stall_pending_compaction_limit_slowdowns`](#)                                                     | Numeric  |
+| [`rocksdb_stall_pending_compaction_limit_slowdowns`](#rocksdb_stall_pending_compaction_limit_slowdowns)                                                     | Numeric  |
 | [`rocksdb_stall_memtable_limit_stops`](#rocksdb_stall_memtable_limit_stops)                                 | Numeric  |
 | [`rocksdb_stall_memtable_limit_slowdowns`](#rocksdb_stall_memtable_limit_slowdowns)                         | Numeric  |
 | [`rocksdb_stall_total_stops`](#rocksdb_stall_total_stops)                                                   | Numeric  |

@@ -378,9 +378,7 @@ disk write barriers work. If you see one of the following messages in
 
     * `Disabling barriers, trial barrier write failed`
 
-XFS write barriers appear to succeed for single disks (with no LVM), or for
-very recent kernels (such as that provided by Fedora 12). For more
-information, see the [XFS FAQ](http://xfs.org/index.php/XFS_FAQ#Q:_How_can_I_tell_if_I_have_the_disk_write_cache_enabled.3F).
+XFS write barriers appear to succeed for single disks (with no LVM), or for certain kernels such as that provided by Fedora 12.
 
 In the following cases, you must disable the write cache:
 

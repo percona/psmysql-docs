@@ -103,7 +103,7 @@ Pin: release o=Percona Development Team
 Pin-Priority: 1001
 ```
 
-For more information about the pinning, you can check the official [debian wiki](http://wiki.debian.org/AptPreferences).
+For more information about the pinning, you can check the official [debian wiki](https://wiki.debian.org/AptConfiguration?action=show&redirect=AptPreferences).
 
 ## Installing *Percona Server for MySQL* using downloaded deb packages
 

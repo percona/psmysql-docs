@@ -67,7 +67,7 @@ The features are listed within the following sections:
 * [XtraDB changed page tracking](management/changed_page_tracking.md)
 
 
-* [PAM Authentication Plugin](management/pam_plugin.md)
+* [PAM Authentication Plugin](./security/pam_plugin.md)
 
 
 * [Expanded Fast Index Creation](management/innodb_expanded_fast_index_creation.md)

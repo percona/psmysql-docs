@@ -11,7 +11,7 @@ will be created anyway using the enforced engine (this is consistent with the
 default *MySQL* way of creating the default storage engine if other engines
 are not available unless `NO_ENGINE_SUBSTITUTION` is set).
 
-In case user tries to enable [enforce_storage_engine](#enforcestorageengine) with engine that isn’t available, system will not start.
+In case user tries to enable [enforce_storage_engine](#enforce_storage_engine) with engine that isn’t available, system will not start.
 
 !!! note
 
@@ -36,9 +36,7 @@ In case user tries to enable [enforce_storage_engine](#enforcestorageengine) wit
 | Data type      | String             |
 | Default value  | NULL               |
 
-!!! note
-
-    This variable is not case sensitive.
+This variable is not case sensitive.
 
 ## Example
 

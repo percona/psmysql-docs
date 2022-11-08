@@ -148,8 +148,7 @@ A user-created key deletion is only possible with the use of the keyring_udf
 plugin and deletes the key from the in-memory hash map and the Vault server.
 You cannot delete system keys, such as the master key.
 
-This plugin supports the SQL interface for keyring key management described in
-[General-Purpose Keyring Key-Management Functions](https://dev.mysql.com/doc/refman/8.0/en/keyring-udfs-general-purpose.html)
+This plugin supports the SQL interface for keyring key management described in the [General-Purpose Keyring Key-Management Functions](https://dev.mysql.com/doc/refman/8.0/en/keyring-functions-general-purpose.html)
 manual.
 
 The plugin library contains keyring user-defined functions which allow
