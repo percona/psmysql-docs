@@ -1,4 +1,4 @@
-# Trademark Policy
+# Trademark policy
 
 This Trademark Policy is to ensure that users of Percona-branded products or services know that what they receive has really been developed, approved, tested and maintained by Percona. Trademarks help to prevent confusion in the marketplace, by distinguishing one company’s or person’s products and services from another’s.
 
