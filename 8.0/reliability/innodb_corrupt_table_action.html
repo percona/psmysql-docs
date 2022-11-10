@@ -2923,13 +2923,13 @@ from the MySQL Reference Manual.</p>
 </table>
 <ul>
 <li>
-<p>Enabling <code>innodb_file_per_table</code> and using the <code>assert</code> value creates an assertion failure which causes <em>XtraDB</em> to intentionally crash the server. This action is expected when detecting corrupted data in a single-table tablespace.</p>
+<p>With the default value, <code>assert</code>, <em>XtraDB</em> will intentionally crash the server with an assertion failure as it would normally do when detecting corrupted data in a single-table tablespace.</p>
 </li>
 <li>
-<p>Enabling <code>innodb_file_per_table</code> and using the <code>warn</code> value causes <em>XtraDB</em> to pass the table corruption as <code>corrupt table</code> instead of crashing the server. Detecting the file as corrupt also disables the file I/O for that data file, except for the deletion operation.</p>
+<p>If the <code>warn</code> value is used it will pass corruption of the table as <code>corrupt table</code> instead of crashing itself. For this to work innodb_file_per_table should be enabled. All file I/O for the data file after detected as corrupt is disabled, except for the deletion.</p>
 </li>
 <li>
-<p>Enabling <code>innodb_file_per_table</code> and using the <code>salvage</code> value causes <em>XtraDB</em> to allow read access to the corrupted tablespace but ignores any corrupted pages.</p>
+<p>When the option value is <code>salvage</code>, <em>XtraDB</em> allows read access to a corrupted tablespace, but ignores corrupted pages”. You must enable innodb_file_per_table.</p>
 </li>
 </ul>
 
@@ -2953,7 +2953,7 @@ from the MySQL Reference Manual.</p>
   <small>
     
       Last update:
-      2022-10-10
+      2022-09-27
     
   </small>
 </div>
