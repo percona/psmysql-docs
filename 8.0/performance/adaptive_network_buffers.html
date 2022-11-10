@@ -1169,20 +1169,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../management/pam_plugin.html" class="md-nav__link">
-        PAM Authentication Plugin
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../management/innodb_expanded_fast_index_creation.html" class="md-nav__link">
         Expanded Fast Index Creation
       </a>
@@ -2821,7 +2807,7 @@
                 <h1 id="adaptive-network-buffers">Adaptive Network Buffers<a class="headerlink" href="#adaptive-network-buffers" title="Permanent link">&para;</a></h1>
 <p>To find the buffer size of the current connection, use the <code>network_buffer_length</code> status variable. Add <code>SHOW GLOBAL</code> to review the cumulative buffer sizes for all connections. This variable can help to estimate the maximum size of the network buffer’s overhead.</p>
 <p>Network buffers grow towards the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_allowed_packet">max_allowed_packet</a> size and do not shrink until the connection is terminated. For example, if the connections are selected at random from the pool, an occasional big query eventually increases the buffers of all connections. The combination of max_allowed packet set to a value between 64MB to 128MB and the connection number between 256 to 1024 can create a large memory overhead.</p>
-<p><em>Percona Server for MySQL</em> version 8.0.23-14 introduces the <a href="#netbuffershrinkinterval">net_buffer_shrink_interval</a> variable to solve this issue. The default value is 0 (zero). If you set the value higher than 0, Percona Server records the network buffer’s maximum use size for the number of seconds set by net_buffer_shrink_interval. When the next interval starts, the network buffer is set to the recorded size. This action removes spikes in the buffer size.</p>
+<p><em>Percona Server for MySQL</em> version 8.0.23-14 introduces the <a href="#net_buffer_shrink_interval">net_buffer_shrink_interval</a> variable to solve this issue. The default value is 0 (zero). If you set the value higher than 0, Percona Server records the network buffer’s maximum use size for the number of seconds set by net_buffer_shrink_interval. When the next interval starts, the network buffer is set to the recorded size. This action removes spikes in the buffer size.</p>
 <p>You can achieve similar results by disconnecting and reconnecting the TCP connections, but this solution is a heavier process. This process disconnects and reconnects connections with small buffers.</p>
 <h3 id="net_buffer_shrink_interval"><code>net_buffer_shrink_interval</code><a class="headerlink" href="#net_buffer_shrink_interval" title="Permanent link">&para;</a></h3>
 <table>
@@ -2876,7 +2862,7 @@
   <small>
     
       Last update:
-      2022-09-22
+      2022-11-08
     
   </small>
 </div>

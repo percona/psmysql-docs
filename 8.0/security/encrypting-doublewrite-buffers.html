@@ -1124,20 +1124,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../management/pam_plugin.html" class="md-nav__link">
-        PAM Authentication Plugin
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../management/innodb_expanded_fast_index_creation.html" class="md-nav__link">
         Expanded Fast Index Creation
       </a>
@@ -2830,11 +2816,11 @@
 <tbody>
 <tr>
 <td>Percona Server from Percona-Server-8.0.23-14</td>
-<td><em>MySQL</em> 8.0.23 implemented its own version of <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-data-encryption.html#innodb-doublewrite-file-encryption">parallel doublewrite encryption</a>. Pages that belong to encrypted tablespaces are also written into the doublewrite buffer in an encrypted form. Percona’s implementation was reverted and <a href="#innodb-parallel-dblwr-encrypt">innodb_parallel_dblwr_encrypt</a> is deprecated.</td>
+<td><em>MySQL</em> 8.0.23 implemented its own version of <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-data-encryption.html#innodb-doublewrite-file-encryption">parallel doublewrite encryption</a>. Pages that belong to encrypted tablespaces are also written into the doublewrite buffer in an encrypted form. The Percona implementation was reverted and the<a href="#innodb_parallel_dblwr_encrypt">innodb_parallel_dblwr_encrypt</a> is deprecated and may be removed in later releases.</td>
 </tr>
 <tr>
 <td>Percona Server from Percona-Server-8.0.20-11 to Percona-Server-8.0.22-13 inclusive</td>
-<td><em>MySQL</em> 8.0.20 implemented its own <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-doublewrite-buffer.html">parallel doublewrite buffer</a>, which is stored in external files (#ib_16384_xxx.dblwr) and not stored in the system tablespace. Percona’s implementation was reverted. As a result, <a href="../performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.html#innodb-parallel-doublewrite-path">innodb_parallel_doublewrite_path</a> was deprecated. <br> However, <em>MySQL</em> did not implement parallel doublewrite buffer encryption at this time, so Percona reimplemented parallel doublewrite buffer encryption on top of the <em>MySQL</em> parallel doublewrite buffer implementation. Percona preserved the meaning and functionality of the <a href="#innodb-parallel-dblwr-encrypt">innodb_parallel_dblwr_encrypt</a> variable.</td>
+<td><em>MySQL</em> 8.0.20 implemented its own <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-doublewrite-buffer.html">parallel doublewrite buffer</a>, which is stored in external files (#ib_16384_xxx.dblwr) and not stored in the system tablespace. Percona’s implementation was reverted. As a result, <a href="../performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.html#innodb-parallel-doublewrite-path">innodb_parallel_doublewrite_path</a> was deprecated. <br> However, <em>MySQL</em> did not implement parallel doublewrite buffer encryption at this time, so Percona reimplemented parallel doublewrite buffer encryption on top of the <em>MySQL</em> parallel doublewrite buffer implementation. Percona preserved the meaning and functionality of the <a href="#innodb_parallel_dblwr_encrypt">innodb_parallel_dblwr_encrypt</a> variable.</td>
 </tr>
 <tr>
 <td>Percona-Server-8.0.12-1.alpha to Percona-Server-8.0.19-10 inclusive</td>
@@ -2842,8 +2828,8 @@
 </tr>
 </tbody>
 </table>
-<p>For <em>Percona Server for MySQL</em> versions below <em>Percona Server for MySQL</em> version 8.0.23-14, <em>Percona</em> encrypts the <code>doublewrite buffer</code> using innodb_parallel_dblwr_encrypt.</p>
-<h3 id="innodb_parallel_dblwr_encrypt"><code>innodb_parallel_dblwr_encrypt</code><a class="headerlink" href="#innodb_parallel_dblwr_encrypt" title="Permanent link">&para;</a></h3>
+<p>For <em>Percona Server for MySQL</em> versions below <em>Percona Server for MySQL</em> version 8.0.23-14, <em>Percona</em> encrypts the <code>doublewrite buffer</code> using <a href="#innodb_parallel_dblwr_encrypt">innodb_parallel_dblwr_encrypt</a>.</p>
+<h2 id="innodb_parallel_dblwr_encrypt"><code>innodb_parallel_dblwr_encrypt</code><a class="headerlink" href="#innodb_parallel_dblwr_encrypt" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -2901,7 +2887,7 @@
   <small>
     
       Last update:
-      2022-09-27
+      2022-11-08
     
   </small>
 </div>

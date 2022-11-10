@@ -1237,20 +1237,6 @@
   
   
     <li class="md-nav__item">
-      <a href="pam_plugin.html" class="md-nav__link">
-        PAM Authentication Plugin
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="innodb_expanded_fast_index_creation.html" class="md-nav__link">
         Expanded Fast Index Creation
       </a>
@@ -2960,12 +2946,12 @@
 <p>Starting with Percona Server for MySQL 8.0.27, the page tracking feature is deprecated and may be removed in future versions.</p>
 <p>We recommend using the MySQL page tracking feature. For more information, see <a href="https://dev.mysql.com/blog-archive/innodb-clone-and-page-tracking/">MySQL InnoDB Clone and page tracking</a>.</p>
 </div>
-<p><em>XtraDB</em> now tracks the pages that have changes written to them according to the redo log. This information is written out in special changed page bitmap files. This information can be used to speed up incremental backups using <a href="https://www.percona.com/doc/percona-xtrabackup/">Percona XtraBackup</a> by removing the need to scan whole data files to find the changed pages. Changed page tracking is done by a new <em>XtraDB</em> worker thread that reads and parses log records between checkpoints. The tracking is controlled by a new read-only server variable <a href="#innodbtrackchangedpages">innodb_track_changed_pages</a>.</p>
+<p><em>XtraDB</em> now tracks the pages that have changes written to them according to the redo log. This information is written out in special changed page bitmap files. This information can be used to speed up incremental backups using <a href="https://www.percona.com/doc/percona-xtrabackup/">Percona XtraBackup</a> by removing the need to scan whole data files to find the changed pages. Changed page tracking is done by a new <em>XtraDB</em> worker thread that reads and parses log records between checkpoints. The tracking is controlled by a new read-only server variable <a href="#innodb_track_changed_pages">innodb_track_changed_pages</a>.</p>
 <p>Bitmap filename format used for changed page tracking is <code>ib_modified_log_&lt;seq&gt;_&lt;startlsn&gt;.xdb</code>. The first number is the sequence number of the bitmap log file and the <em>startlsn</em> number is the starting LSN number of data tracked in that file. Example of the bitmap log files should look like this:</p>
 <div class="highlight"><pre><span></span><code>ib_modified_log_1_0.xdb
 ib_modified_log_2_1603391.xdb
 </code></pre></div>
-<p>Sequence number can be used to easily check if all the required bitmap files are present. Start LSN number will be used in <em>XtraBackup</em> and <code>INFORMATION_SCHEMA</code> queries to determine which files have to be opened and read for the required LSN interval data. The bitmap file is rotated on each server restart and whenever the current file size reaches the predefined maximum. This maximum is controlled by a new <a href="#innodbmaxbitmapfilesize">innodb_max_bitmap_file_size</a> variable.</p>
+<p>Sequence number can be used to easily check if all the required bitmap files are present. Start LSN number will be used in <em>XtraBackup</em> and <code>INFORMATION_SCHEMA</code> queries to determine which files have to be opened and read for the required LSN interval data. The bitmap file is rotated on each server restart and whenever the current file size reaches the predefined maximum. This maximum is controlled by a new <a href="#innodb_max_bitmap_file_size">innodb_max_bitmap_file_size</a> variable.</p>
 <p>Old bitmap files may be safely removed after a corresponding incremental backup is taken. For that there are server <a href="#user-statements-for-handling-the-xtradb-changed-page-bitmaps">User statements for handling the XtraDB changed page bitmaps</a>. Removing the bitmap files from the filesystem directly is safe too, as long as care is taken not to delete data for not-yet-backuped LSN range.</p>
 <p>This feature will be used for implementing faster incremental backups that use this information to avoid full data scans in <em>Percona XtraBackup</em>.</p>
 <h2 id="user-statements-for-handling-the-xtradb-changed-page-bitmaps">User statements for handling the XtraDB changed page bitmaps<a class="headerlink" href="#user-statements-for-handling-the-xtradb-changed-page-bitmaps" title="Permanent link">&para;</a></h2>
@@ -3028,7 +3014,7 @@ log_writer_on_[*]_ waits monitors.</p>
 </tbody>
 </table>
 <p>The <code>start_lsn</code> and the <code>end_lsn</code> columns denote between which two checkpoints this page was changed at least once. They are also equal to checkpoint LSNs.</p>
-<p>Number of records in this table can be limited by using the variable <a href="#innodbmaxchangedpages">innodb_max_changed_pages</a>.</p>
+<p>Number of records in this table can be limited by using the variable <a href="#innodb_max_changed_pages">innodb_max_changed_pages</a>.</p>
 <h2 id="version-specific-information">Version Specific Information<a class="headerlink" href="#version-specific-information" title="Permanent link">&para;</a></h2>
 <ul>
 <li>8.0.12-1: The feature was ported from <em>Percona Server for MySQL</em> 5.7.</li>
@@ -3073,7 +3059,7 @@ log_writer_on_[*]_ waits monitors.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to limit the result row count for the queries from <a href="#informationschemainnodbchangedpages">INFORMATION_SCHEMA.INNODB_CHANGED_PAGES</a> table.</p>
+<p>This variable is used to limit the result row count for the queries from <a href="#information_schemainnodb_changed_pages">INFORMATION_SCHEMA.INNODB_CHANGED_PAGES</a> table.</p>
 <h3 id="innodb_track_changed_pages"><code>innodb_track_changed_pages</code><a class="headerlink" href="#innodb_track_changed_pages" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3175,7 +3161,7 @@ log_writer_on_[*]_ waits monitors.</p>
   <small>
     
       Last update:
-      2022-09-22
+      2022-11-08
     
   </small>
 </div>

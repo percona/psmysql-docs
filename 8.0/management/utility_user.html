@@ -1126,20 +1126,6 @@
   
   
     <li class="md-nav__item">
-      <a href="pam_plugin.html" class="md-nav__link">
-        PAM Authentication Plugin
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="innodb_expanded_fast_index_creation.html" class="md-nav__link">
         Expanded Fast Index Creation
       </a>
@@ -2919,60 +2905,41 @@
 <p>This user has a mixed and special scope of abilities and protection:</p>
 <ul>
 <li>
-<p>Utility user will not appear in the mysql.user table and can not be modified by any other user, including root.</p>
+<p>Utility user does not appear in the mysql.user table and can not be modified by any other user, including root.</p>
 </li>
 <li>
-<p>Utility user will not appear in <a href="../diagnostics/user_stats.html#id3">INFORMATION_SCHEMA.USER_STATISTICS</a>, <a href="../diagnostics/user_stats.html#client-statistics">INFORMATION_SCHEMA.CLIENT_STATISTICS</a> or THREAD_STATISTICS tables or in any <a href="https://dev.mysql.com/doc/dev/mysql-server/latest/group__performance__schema__tables.html">performance_schema tables</a>.</p>
+<p>Utility user does not appear in <a href="../diagnostics/user_stats.html#id3">INFORMATION_SCHEMA.USER_STATISTICS</a>, <a href="../diagnostics/user_stats.html#client-statistics">INFORMATION_SCHEMA.CLIENT_STATISTICS</a> or THREAD_STATISTICS tables or in any <a href="https://dev.mysql.com/doc/dev/mysql-server/latest/group__performance__schema__tables.html">performance_schema tables</a>.</p>
 </li>
 <li>
 <p>Utility user’s queries may appear in the general and slow logs.</p>
 </li>
 <li>
-<p>Utility user doesn’t have the ability create, modify, delete or see any schemas or data not specified (except for information_schema).</p>
+<p>Utility user does not have the ability create, modify, delete or see any schemas or data not specified, except for information_schema.</p>
 </li>
 <li>
-<p>Utility user may modify all visible, non read-only system variables (see <em>expanded_option_modifiers</em> functionality).</p>
+<p>Utility user may modify all visible, non-read-only system variables (see <em>expanded_option_modifiers</em> functionality).</p>
 </li>
 <li>
 <p>Utility user may see, create, modify and delete other system users only if given access to the mysql schema.</p>
 </li>
 <li>
-<p>Regular users may be granted proxy rights to the utility user but any attempt to impersonate the utility user will fail. The utility user may not be granted proxy rights on any regular user. For example running: GRANT PROXY ON utility_user TO regular_user; will not fail, but any actual attempt to impersonate as the utility user will fail. Running: GRANT PROXY ON regular_user TO utility_user; will fail when utility_user is an exact match or is more specific than than the utility user specified.</p>
+<p>Regular users may be granted proxy rights to the utility user but attempts to impersonate the utility user fail. The utility user may not be granted proxy rights on any regular user.</p>
 </li>
 </ul>
-<p>When the server starts, it will note in the log output that the utility user exists and the schemas that it has access to.</p>
-<p>In order to have the ability for a special type of MySQL user, which will have a very limited and special amount of control over the system and can not be see or modified by any other user including the root user, three new options have been added.</p>
-<p>Option <a href="#utilityuser">utility_user</a> specifies the user which the system will create and recognize as the utility user. The host in the utility user specification follows conventions described in the <a href="https://dev.mysql.com/doc/refman/8.0/en/connection-access.html">MySQL manual</a>, i.e. it allows wildcards and IP masks. Anonymous user names are not permitted to be used for the utility user name.</p>
-<p>This user must not be an exact match to any other user that exists in the mysql.user table. If the server detects that the user specified with this option exactly matches any user within the mysql.user table on start up, the server will report an error and shut down gracefully. If host name wildcards are used and a more specific user specification is identified on start up, the server will report a warning and continue.</p>
-<blockquote>
-<p>Example: <a href="#utilityuser">utility_user</a> =frank@% and <a href="mailto:frank@localhost">frank@localhost</a> exists within the mysql.user table.</p>
-</blockquote>
-<p>If a client attempts to create a MySQL user that matches this user specification exactly or if host name wildcards are used for the utility user and the user being created has the same name and a more specific host, the creation attempt will fail with an error.</p>
-<blockquote>
-<p>Example: <a href="#utilityuser">utility_user</a> =frank@% and CREATE USER <a href="mailto:'frank@localhost">‘frank@localhost</a>’;</p>
-</blockquote>
-<p>As a result of these requirements, it is strongly recommended that a very unique user name and reasonably specific host be used and that any script or tools test that they are running within the correct user by executing ‘SELECT CURRENT_USER()’ and comparing the result against the known utility user.</p>
-<p>Option <a href="#utilityuserpassword">utility_user_password</a> specifies the password for the utility user and MUST be specified or the server will shut down gracefully with an error.</p>
-<blockquote>
-<p>Example: <a href="#utilityuserpassword">utility_user_password</a> =`Passw0rD`</p>
-</blockquote>
-<p>Option <a href="#utilityuserschemaaccess">utility_user_schema_access</a> specifies the name(s) of the schema(s) that the utility user will have access to read write and modify. If a particular schema named here does not exist on start up it will be ignored. If a schema by the name of any of those listed in this option is created after the server is started, the utility user will have full access to it.</p>
-<blockquote>
-<p>Example: <a href="#utilityuserschemaaccess">utility_user_schema_access</a> =schema1,schema2,schema3</p>
-</blockquote>
-<p>Option <a href="#utilityuserprivileges">utility-user-privileges</a> allows a comma-separated list of extra access privileges to grant to the utility user.</p>
-<blockquote>
-<p>Example: <a href="#utilityuserprivileges">utility-user-privileges</a> =”CREATE,DROP,LOCK TABLES”</p>
-</blockquote>
-<p>Option <a href="#utilityuserdynamicprivileges">utility_user_dynamic_privileges</a> allows a comma-separated list of extra access dynamic privileges to grant to the utility user.</p>
-<blockquote>
-<p>Example: <a href="#utilityuserdynamicprivileges">utility_user_dynamic_privileges</a> =”SYSTEM_USER,AUDIT_ADMIN”</p>
-</blockquote>
+<p>For example, <code>GRANT PROXY ON utility_user TO regular_user;</code> does not fail, but any actual attempt to impersonate as the utility user fails.</p>
+<p><code>GRANT PROXY ON regular_user TO utility_user;</code> fails when utility_user is an exact match or is more specific than than the utility user specified.</p>
+<p>At server start, the server notes in the log output that the utility user exists and the schemas that the utility user can access.</p>
 <h2 id="version-specific-information">Version Specific Information<a class="headerlink" href="#version-specific-information" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../release-notes/Percona-Server-8.0.17-8.html#id1">Percona Server for MySQL 8.0.17-8</a>: The feature was ported from <em>Percona Server for MySQL</em> 5.7.</li>
+<li>
+<p>The <a href="#utility_user_dynamic_privileges">utility_user_dynamic_privileges</a> variable was implemented in <a href="../release-notes/Percona-Server-8.0.20-11.html#id1">Percona Server for MySQL 8.0.20-11</a>.</p>
+</li>
+<li>
+<p><a href="../release-notes/Percona-Server-8.0.17-8.html#id1">Percona Server for MySQL 8.0.17-8</a>: The feature was ported from <em>Percona Server for MySQL</em> 5.7.</p>
+</li>
 </ul>
 <h2 id="system-variables">System Variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
+<p>In order to have the ability for a special type of MySQL user, which will have a very limited and special amount of control over the system and can not be see or modified by any other user including the root user, three new options have been added.</p>
 <h3 id="utility_user"><code>utility_user</code><a class="headerlink" href="#utility_user" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3009,6 +2976,22 @@
 </tbody>
 </table>
 <p>Specifies a MySQL user that will be added to the internal list of users and recognized as the utility user.</p>
+<p>Option <a href="#utility_user">utility_user</a> specifies the user which the system  creates and recognizes as the utility user. The host in the utility user specification follows conventions described in the <a href="https://dev.mysql.com/doc/refman/8.0/en/connection-access.html">MySQL manual</a>. For example, the conventions allow wildcards and IP masks. Anonymous user names are not permitted to be used for the utility user name.</p>
+<p>This user must not be an exact match to any other user that exists in the mysql.user table. If the server detects that the user specified with this option exactly matches any user within the mysql.user table on start up, the server reports an error and exits gracefully.</p>
+<p>If host name wildcards are used and a more specific user specification is identified on start up, the server reports a warning and continues.</p>
+<details class="example">
+<summary>Error message</summary>
+<div class="highlight"><pre><span></span><code>utility_user=frank@% and [frank@localhost](mailto:frank@localhost) exists within the mysql.user table.
+</code></pre></div>
+</details>
+<p>If a client attempts to create a MySQL user that matches this user specification exactly or if host name wildcards are used for the utility user and the user being created has the same name and a more specific host, the creation attempt fails with an error.</p>
+<details class="example">
+<summary>Error message</summary>
+<div class="highlight"><pre><span></span><code>utility_user=frank@% and CREATE USER [‘frank@localhost](mailto:&#39;frank@localhost)’;
+</code></pre></div>
+</details>
+<p>As a result of these requirements, it is strongly recommended that a very unique user name and reasonably specific host be used. </p>
+<p>Verify the script or tools test they are running within the correct user by executing <code>SELECT CURRENT_USER()</code> and comparing the result against the known utility user.</p>
 <h3 id="utility_user_password"><code>utility_user_password</code><a class="headerlink" href="#utility_user_password" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3024,7 +3007,7 @@
 </tr>
 <tr>
 <td>Config file</td>
-<td>utility_user_password=<password></td>
+<td>utility_user_password=password</td>
 </tr>
 <tr>
 <td>Scope:</td>
@@ -3045,6 +3028,12 @@
 </tbody>
 </table>
 <p>Specifies the password required for the utility user.</p>
+<p>Option <a href="#utility_user_password">utility_user_password</a> specifies the password for the utility user and must be specified or the server exits with an error.</p>
+<details class="example">
+<summary>Utility user password</summary>
+<div class="highlight"><pre><span></span><code>utility_user_password=Passw0rD
+</code></pre></div>
+</details>
 <h3 id="utility_user_schema_access"><code>utility_user_schema_access</code><a class="headerlink" href="#utility_user_schema_access" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3060,7 +3049,7 @@
 </tr>
 <tr>
 <td>Config file</td>
-<td>utility_user_schema_access=<schema>,<schema>,<schema></td>
+<td>utility_user_schema_access=schema,schema,schema</td>
 </tr>
 <tr>
 <td>Scope:</td>
@@ -3081,6 +3070,12 @@
 </tbody>
 </table>
 <p>Specifies the schemas that the utility user has access to in a comma delimited list.</p>
+<p>Option <a href="#utility_user_schema_access">utility_user_schema_access</a> specifies the name(s) of the schema(s) that the utility user will have access to read write and modify. If a particular schema named here does not exist on start up it will be ignored. If a schema by the name of any of those listed in this option is created after the server is started, the utility user will have full access to it.</p>
+<details class="example">
+<summary>Utility user schema access</summary>
+<div class="highlight"><pre><span></span><code>utility_user_schema_access=schema1,schema2,schema3
+</code></pre></div>
+</details>
 <h3 id="utility_user_privileges"><code>utility_user_privileges</code><a class="headerlink" href="#utility_user_privileges" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3096,7 +3091,7 @@
 </tr>
 <tr>
 <td>Config file</td>
-<td>utility_user_privileges=<privilege1>,<privilege2>,<privilege3></td>
+<td>utility_user_privileges=privilege1,privilege2,privilege3</td>
 </tr>
 <tr>
 <td>Scope:</td>
@@ -3117,6 +3112,12 @@
 </tbody>
 </table>
 <p>This variable can be used to specify a comma-separated list of extra access privileges to grant to the utility user. Supported values for the privileges list are: <code>SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, RELOAD, SHUTDOWN, PROCESS, FILE, GRANT, REFERENCES, INDEX, ALTER, SHOW DATABASES, SUPER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, REPLICATION SLAVE, REPLICATION CLIENT, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, CREATE USER, EVENT, TRIGGER, CREATE TABLESPACE</code></p>
+<p>Option <a href="#utility_user_privileges">utility-user-privileges</a> allows a comma-separated list of extra access privileges to grant to the utility user.</p>
+<details class="example">
+<summary>Utility user privileges</summary>
+<div class="highlight"><pre><span></span><code>utility-user-privileges =”CREATE,DROP,LOCK TABLES”;
+</code></pre></div>
+</details>
 <h3 id="utility_user_dynamic_privileges"><code>utility_user_dynamic_privileges</code><a class="headerlink" href="#utility_user_dynamic_privileges" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3132,7 +3133,7 @@
 </tr>
 <tr>
 <td>Config file</td>
-<td>utility_user_dynamic_privileges=<privilege1>,<privilege2>,<privilege3></td>
+<td>utility_user_dynamic_privileges=privilege1,privilege2,privilege3</td>
 </tr>
 <tr>
 <td>Scope:</td>
@@ -3238,6 +3239,12 @@
 </li>
 </ul>
 <p>Other dynamic privileges may be defined by plugins.</p>
+<p>Option <a href="#utility_user_dynamic_privileges">utility_user_dynamic_privileges</a> allows a comma-separated list of extra-access dynamic privileges to grant to the utility user.</p>
+<details class="example">
+<summary>Utility user dynamic privileges</summary>
+<div class="highlight"><pre><span></span><code>utility_user_dynamic_privileges =”SYSTEM_USER,AUDIT_ADMIN”;
+</code></pre></div>
+</details>
 
                 
 <div class="md-relbar2__inner md-grid">
@@ -3259,7 +3266,7 @@
   <small>
     
       Last update:
-      2022-09-22
+      2022-11-08
     
   </small>
 </div>
