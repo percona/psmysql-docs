@@ -18,7 +18,7 @@
         <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/8.0/security/encryption-functions.html">
       
       <link rel="icon" href="../_static/percona_favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.9">
     
     
       
@@ -29,7 +29,7 @@
       <link rel="stylesheet" href="../assets/stylesheets/main.20d9efc8.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.08040f6c.min.css">
         
       
       
@@ -83,7 +83,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="percona-light" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
     
@@ -3494,14 +3494,12 @@
 </li>
 <li>
 <p>key_str - a string in the PEM format. The key string must have the following attributes:</p>
-<ul>
+</li>
 <li>
 <p>Valid</p>
 </li>
 <li>
 <p>Public or private key string that corresponds with the private or public key string used with the asymmetric_encrypt function.</p>
-</li>
-</ul>
 </li>
 </ul>
 <h2 id="asymmetric_derivepub_key_str-priv_key_str">asymmetric_derive(<em>pub_key_str, priv_key_str</em>)<a class="headerlink" href="#asymmetric_derivepub_key_str-priv_key_str" title="Permanent link">&para;</a></h2>
@@ -3545,7 +3543,133 @@
 <p>priv_key_str - the private key used to sign the digest string. The key must be in the PEM format.</p>
 </li>
 <li>
-<p>digest_type - the supported values are listed in the digest type table of create_digest.</p>
+<p>digest_type - the OpenSSL version installed on your system determines the available hash functions. The following table lists these functions:</p>
+<table>
+<thead>
+<tr>
+<th>OpenSSL 1.0.2</th>
+<th>OpenSSL 1.1.0</th>
+<th>OpenSSL 1.1.1</th>
+<th>OpenSSL 3.0.x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>md5</td>
+<td>md5</td>
+<td>md5</td>
+<td>md5</td>
+</tr>
+<tr>
+<td>sha1</td>
+<td>sha1</td>
+<td>sha1</td>
+<td>sha1</td>
+</tr>
+<tr>
+<td>sha224</td>
+<td>sha224</td>
+<td>sha224</td>
+<td>sha224</td>
+</tr>
+<tr>
+<td>sha384</td>
+<td>sha384</td>
+<td>sha384</td>
+<td>sha384</td>
+</tr>
+<tr>
+<td>sha512</td>
+<td>sha512</td>
+<td>sha512</td>
+<td>sha512</td>
+</tr>
+<tr>
+<td>md4</td>
+<td>md4</td>
+<td>md4</td>
+<td>md4</td>
+</tr>
+<tr>
+<td>sha</td>
+<td>md5-sha1</td>
+<td>md5-sha1</td>
+<td>md5-sha1</td>
+</tr>
+<tr>
+<td>ripemd160</td>
+<td>ripemd160</td>
+<td>ripemd160</td>
+<td>sha512-224</td>
+</tr>
+<tr>
+<td>whirlpool</td>
+<td>whirlpool</td>
+<td>sha512-224</td>
+<td>sha512-256</td>
+</tr>
+<tr>
+<td></td>
+<td>blake2b512</td>
+<td>sha512-256</td>
+<td>sha3-224</td>
+</tr>
+<tr>
+<td></td>
+<td>blake2s256</td>
+<td>whirlpool</td>
+<td>sha3-256</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>sm3</td>
+<td>sha3-384</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>blake2b512</td>
+<td>sha3-512</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>blake2s256</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>sha3-224</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>sha3-384</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>sha3-512</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>shake128</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>shake256</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 </li>
 </ul>
 <h2 id="asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type">asymmetric_verify(<em>algorithm, digest_str, sig_str, pub_key_str, digest_type</em>)<a class="headerlink" href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type" title="Permanent link">&para;</a></h2>
@@ -3640,46 +3764,130 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 <p>The parameters are the following:</p>
 <ul>
 <li>
-<p>digest_type - the supported values are the following (based on the OpenSSL version):</p>
+<p>digest_type - the OpenSSL version installed on your system determines the available hash functions. The following table lists these functions:</p>
 <table>
 <thead>
 <tr>
-<th>Value Name for OpenSSL 1.0.2</th>
-<th>Value Name for OpenSSL 1.1.x addition</th>
+<th>OpenSSL 1.0.2</th>
+<th>OpenSSL 1.1.0</th>
+<th>OpenSSL 1.1.1</th>
+<th>OpenSSL 3.0.x</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>‘MD5’</td>
-<td>‘BLAKE2B512’</td>
+<td>md5</td>
+<td>md5</td>
+<td>md5</td>
+<td>md5</td>
 </tr>
 <tr>
-<td>‘SHA1’</td>
-<td>‘BLAKE2S256’</td>
+<td>sha1</td>
+<td>sha1</td>
+<td>sha1</td>
+<td>sha1</td>
 </tr>
 <tr>
-<td>‘SHA224’</td>
-<td>‘RIPEMD’</td>
+<td>sha224</td>
+<td>sha224</td>
+<td>sha224</td>
+<td>sha224</td>
 </tr>
 <tr>
-<td>‘SHA256’</td>
-<td>‘RMD160’</td>
+<td>sha384</td>
+<td>sha384</td>
+<td>sha384</td>
+<td>sha384</td>
 </tr>
 <tr>
-<td>‘SHA384’</td>
-<td>‘SHAKE128’</td>
+<td>sha512</td>
+<td>sha512</td>
+<td>sha512</td>
+<td>sha512</td>
 </tr>
 <tr>
-<td>‘SHA512’</td>
-<td>‘SHAKE256’</td>
+<td>md4</td>
+<td>md4</td>
+<td>md4</td>
+<td>md4</td>
 </tr>
 <tr>
-<td>‘MD4’</td>
-<td>‘SM3’</td>
+<td>sha</td>
+<td>md5-sha1</td>
+<td>md5-sha1</td>
+<td>md5-sha1</td>
 </tr>
 <tr>
-<td>‘RIPEMD160’</td>
-<td>‘WHIRLPOOL’</td>
+<td>ripemd160</td>
+<td>ripemd160</td>
+<td>ripemd160</td>
+<td>sha512-224</td>
+</tr>
+<tr>
+<td>whirlpool</td>
+<td>whirlpool</td>
+<td>sha512-224</td>
+<td>sha512-256</td>
+</tr>
+<tr>
+<td></td>
+<td>blake2b512</td>
+<td>sha512-256</td>
+<td>sha3-224</td>
+</tr>
+<tr>
+<td></td>
+<td>blake2s256</td>
+<td>whirlpool</td>
+<td>sha3-256</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>sm3</td>
+<td>sha3-384</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>blake2b512</td>
+<td>sha3-512</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>blake2s256</td>
+<td>sm3</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>sha3-224</td>
+<td>blake2b512</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>sha3-384</td>
+<td>blake2s256</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>sha3-512</td>
+<td>blake2b512</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>shake128</td>
+<td>blake2s256</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>shake256</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -3923,7 +4131,7 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
   <small>
     
       Last update:
-      2022-09-27
+      2022-11-10
     
   </small>
 </div>
@@ -4008,10 +4216,10 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.078830c0.min.js"></script>
+      <script src="../assets/javascripts/bundle.d6c3db9e.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       
