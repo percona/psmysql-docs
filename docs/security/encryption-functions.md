@@ -68,9 +68,9 @@ The following are the function’s parameters:
 
 * key_str - a string in the PEM format. The key string must have the following attributes:
 
-    * Valid
+  * Valid
 
-    * Public or private key string that corresponds with the private or public key string used with the asymmetric_encrypt function.
+  * Public or private key string that corresponds with the private or public key string used with the asymmetric_encrypt function.
 
 ## asymmetric_derive(*pub_key_str, priv_key_str*)
 
@@ -122,7 +122,29 @@ The parameters are the following:
 
 * priv_key_str - the private key used to sign the digest string. The key must be in the PEM format.
 
-* digest_type - the supported values are listed in the digest type table of create_digest.
+* digest_type - the OpenSSL version installed on your system determines the available hash functions. The following table lists these functions:
+
+    | OpenSSL 1.0.2 | OpenSSL 1.1.0 | OpenSSL 1.1.1 | OpenSSL 3.0.x |
+    |---|---|---|---|
+    | md5 | md5 | md5 | md5 |
+    | sha1 | sha1 | sha1 | sha1 |
+    | sha224 | sha224 | sha224 | sha224 |
+    | sha384 | sha384 | sha384 | sha384 |
+    | sha512 | sha512 | sha512 | sha512 |
+    | md4 | md4 | md4 | md4 |
+    | sha | md5-sha1 | md5-sha1 | md5-sha1 |
+    | ripemd160 | ripemd160 | ripemd160 | sha512-224 |
+    | whirlpool | whirlpool | sha512-224 | sha512-256 |
+    |  | blake2b512 | sha512-256 | sha3-224 |
+    |  | blake2s256 | whirlpool | sha3-256 |
+    |  |  | sm3 | sha3-384 |
+    |  |  | blake2b512 | sha3-512 |
+    |  |  | blake2s256 |  |
+    |  |  | sha3-224 |  |
+    |  |  | sha3-384 |  |
+    |  |  | sha3-512 |  |
+    |  |  | shake128 |  |
+    |  |  | shake256 |  |
 
 ## asymmetric_verify(*algorithm, digest_str, sig_str, pub_key_str, digest_type*)
 
@@ -224,18 +246,29 @@ The digest of the given string as a binary string
 
 The parameters are the following:
 
-* digest_type - the supported values are the following (based on the OpenSSL version):
+* digest_type - the OpenSSL version installed on your system determines the available hash functions. The following table lists these functions:
 
-    | Value Name for OpenSSL 1.0.2 | Value Name for OpenSSL 1.1.x addition |
-    |------------------------------|---------------------------------------|
-    | ‘MD5’                        | ‘BLAKE2B512’                          |
-    | ‘SHA1’                       | ‘BLAKE2S256’                          |
-    | ‘SHA224’                     | ‘RIPEMD’                              |
-    | ‘SHA256’                     | ‘RMD160’                              |
-    | ‘SHA384’                     | ‘SHAKE128’                            |
-    | ‘SHA512’                     | ‘SHAKE256’                            |
-    | ‘MD4’                        | ‘SM3’                                 |
-    | ‘RIPEMD160’                  | ‘WHIRLPOOL’                           |
+    | OpenSSL 1.0.2 | OpenSSL 1.1.0 | OpenSSL 1.1.1 | OpenSSL 3.0.x |
+    |---|---|---|---|
+    | md5 | md5 | md5 | md5 |
+    | sha1 | sha1 | sha1 | sha1 |
+    | sha224 | sha224 | sha224 | sha224 |
+    | sha384 | sha384 | sha384 | sha384 |
+    | sha512 | sha512 | sha512 | sha512 |
+    | md4 | md4 | md4 | md4 |
+    | sha | md5-sha1 | md5-sha1 | md5-sha1 |
+    | ripemd160 | ripemd160 | ripemd160 | sha512-224 |
+    | whirlpool | whirlpool | sha512-224 | sha512-256 |
+    |  | blake2b512 | sha512-256 | sha3-224 |
+    |  | blake2s256 | whirlpool | sha3-256 |
+    |  |  | sm3 | sha3-384 |
+    |  |  | blake2b512 | sha3-512 |
+    |  |  | blake2s256 | sm3 |
+    |  |  | sha3-224 | blake2b512 |
+    |  |  | sha3-384 | blake2s256 |
+    |  |  | sha3-512 | blake2b512 |
+    |  |  | shake128 | blake2s256 |
+    |  |  | shake256 |  |
 
 * str - String used to generate the digest string.
 
