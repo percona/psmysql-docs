@@ -19,78 +19,78 @@ eliminating the need for complex and time consuming tuning in most cases.
 
 |Name|Cmd-Line|Option File|Var Scope|Dynamic|
 |--- |--- |--- |--- |--- |
-|[tokudb_alter_print_error](#tokudbalterprinterror)|Yes|Yes|Session, Global|Yes|
-|[tokudb_analyze_delete_fraction](#tokudbanalyzedeletefraction)|Yes|Yes|Session, Global|Yes|
-|[tokudb_analyze_in_background](/tokudb_background_analyze_table.md#tokudbanalyzeinbackground)|Yes|Yes|Session, Global|Yes|
-|[tokudb_analyze_mode](/tokudb_background_analyze_table.md#tokudbanalyzemode)|Yes|Yes|Session, Global|Yes|
-|[tokudb_analyze_throttle](/tokudb_background_analyze_table.md#tokudbanalyzethrottle)|Yes|Yes|Session, Global|Yes|
-|[tokudb_analyze_time](/tokudb_background_analyze_table.md#tokudbanalyzetime)|Yes|Yes|Session, Global|Yes|
-|[tokudb_auto_analyze](/tokudb_background_analyze_table.md#tokudbautoanalyze)|Yes|Yes|Session, Global|Yes|
-|[tokudb_backup_allowed_prefix](#tokudbbackupallowedprefix)|No|Yes|Global|No|
-|[tokudb_backup_dir](#tokudbbackupdir)|No|Yes|Session|No|
-|[tokudb_backup_exclude](#tokudbbackupexclude)|Yes|Yes|Session, Global|Yes|
-|[tokudb_backup_last_error](#tokudbbackuplasterror)|Yes|Yes|Session, Global|Yes|
-|[tokudb_backup_last_error_string](#tokudbbackuplasterrorstring)|Yes|Yes|Session, Global|Yes|
-|[tokudb_backup_plugin_version](#tokudbbackuppluginversion)|No|No|Global|No|
-|[tokudb_backup_throttle](#tokudbbackupthrottle)|Yes|Yes|Session, Global|Yes|
-|[tokudb_backup_version](#tokudbbackupversion)|No|No|Global|No|
-|[tokudb_block_size](#tokudbblocksize)|Yes|Yes|Session, Global|Yes|
-|[tokudb_bulk_fetch](#tokudbbulkfetch)|Yes|Yes|Session, Global|Yes|
-|[tokudb_cachetable_pool_threads](#tokudbcachetablepoolthreads)|Yes|Yes|Global|No|
-|[tokudb_cardinality_scale_percent](/tokudb_background_analyze_table.md#tokudbcardinalityscalepercent)|Yes|Yes|Global|Yes|
-|[tokudb_check_jemalloc](#tokudbcheckjemalloc)|Yes|Yes|Global|No|
-|[tokudb_checkpoint_lock](#tokudbcheckpointlock)|Yes|Yes|Global|No|
-|[tokudb_checkpoint_on_flush_logs](#tokudbcheckpointonflushlogs)|Yes|Yes|Global|Yes|
-|[tokudb_checkpoint_pool_threads](#tokudbcheckpointpoolthreads)|Yes|Yes|Global|Yes|
-|[tokudb_checkpointing_period](#tokudbcheckpointingperiod)|Yes|Yes|Global|Yes|
-|[tokudb_cleaner_iterations](#tokudbcleaneriterations)|Yes|Yes|Global|Yes|
-|[tokudb_cleaner_period](#tokudbcleanerperiod)|Yes|Yes|Global|Yes|
-|[tokudb_client_pool_threads](#tokudbclientpoolthreads)|Yes|Yes|Global|No|
-|[tokudb_commit_sync](#tokudbcommitsync)|Yes|Yes|Session, Global|Yes|
-|[tokudb_compress_buffers_before_eviction](#tokudbcompressbuffersbeforeeviction)|Yes|Yes|Global|No|
-|[tokudb_create_index_online](#tokudbcreateindexonline)|Yes|Yes|Session, Global|Yes|
-|[tokudb_data_dir](#tokudbdatadir)|Yes|Yes|Global|No|
-|[tokudb_debug](#tokudbdebug)|Yes|Yes|Global|Yes|
-|[tokudb_dir_per_db](#tokudbdirperdb)|Yes|Yes|Global|Yes|
-|[tokudb_directio](#tokudbdirectio)|Yes|Yes|Global|No|
-|[tokudb_disable_hot_alter](#tokudbdisablehotalter)|Yes|Yes|Session, Global|Yes|
-|[tokudb_disable_prefetching](#tokudbdisableprefetching)|Yes|Yes|Session, Global|Yes|
-|[tokudb_disable_slow_alter](#tokudbdisableslowalter)|Yes|Yes|Session, Global|Yes|
-|[tokudb_empty_scan](#tokudbemptyscan)|Yes|Yes|Session, Global|Yes|
-|[tokudb_enable_fast_update](#tokudbenablefastupdate)|Yes|Yes|Session, Global|Yes|
-|[tokudb_enable_fast_upsert](#tokudbenablefastupsert)|Yes|Yes|Session, Global|Yes|
-|[tokudb_enable_partial_eviction](#tokudbenablepartialeviction)|Yes|Yes|Global|No|
+|[tokudb_alter_print_error](#tokudb_alter_print_error)|Yes|Yes|Session, Global|Yes|
+|[tokudb_analyze_delete_fraction](#tokudb_analyze_delete_fraction)|Yes|Yes|Session, Global|Yes|
+|[tokudb_analyze_in_background](tokudb_background_analyze_table.md#tokudb-background-analyze-table)|Yes|Yes|Session, Global|Yes|
+|[tokudb_analyze_mode](tokudb_background_analyze_table.md#tokudb_analyze_mode)|Yes|Yes|Session, Global|Yes|
+|[tokudb_analyze_throttle](tokudb_background_analyze_table.md#tokudb_analyze_throttle)|Yes|Yes|Session, Global|Yes|
+|[tokudb_analyze_time](tokudb_background_analyze_table.md#tokudb_analyze_time)|Yes|Yes|Session, Global|Yes|
+|[tokudb_auto_analyze](tokudb_background_analyze_table.md#tokudb_auto_analyze)|Yes|Yes|Session, Global|Yes|
+|[tokudb_backup_allowed_prefix](#tokudb_backup_allowed_prefix)|No|Yes|Global|No|
+|[tokudb_backup_dir](#tokudb_backup_dir)|No|Yes|Session|No|
+|[tokudb_backup_exclude](#tokudb_backup_exclude)|Yes|Yes|Session, Global|Yes|
+|[tokudb_backup_last_error](#tokudb_backup_last_error)|Yes|Yes|Session, Global|Yes|
+|[tokudb_backup_last_error_string](#tokudb_backup_last_error_string)|Yes|Yes|Session, Global|Yes|
+|[tokudb_backup_plugin_version](#tokudb_backup_plugin_version)|No|No|Global|No|
+|[tokudb_backup_throttle](#tokudb_backup_throttle)|Yes|Yes|Session, Global|Yes|
+|[tokudb_backup_version](#tokudb_backup_version)|No|No|Global|No|
+|[tokudb_block_size](#tokudb_block_size)|Yes|Yes|Session, Global|Yes|
+|[tokudb_bulk_fetch](#tokudb_bulk_fetch)|Yes|Yes|Session, Global|Yes|
+|[tokudb_cachetable_pool_threads](#tokudb_cachetable_pool_threads)|Yes|Yes|Global|No|
+|[tokudb_cardinality_scale_percent](tokudb_background_analyze_table.md#tokudb_cardinality_scale_percent)|Yes|Yes|Global|Yes|
+|[tokudb_check_jemalloc](#tokudb_check_jemalloc)|Yes|Yes|Global|No|
+|[tokudb_checkpoint_lock](#tokudb_checkpoint_lock)|Yes|Yes|Global|No|
+|[tokudb_checkpoint_on_flush_logs](#tokudb_checkpoint_on_flush_logs)|Yes|Yes|Global|Yes|
+|[tokudb_checkpoint_pool_threads](#tokudb_checkpoint_pool_threads)|Yes|Yes|Global|Yes|
+|[tokudb_checkpointing_period](#tokudb_checkpointing_period)|Yes|Yes|Global|Yes|
+|[tokudb_cleaner_iterations](#tokudb_cleaner_iterations)|Yes|Yes|Global|Yes|
+|[tokudb_cleaner_period](#tokudb_cleaner_period)|Yes|Yes|Global|Yes|
+|[tokudb_client_pool_threads](#tokudb_client_pool_threads)|Yes|Yes|Global|No|
+|[tokudb_commit_sync](#tokudb_commit_sync)|Yes|Yes|Session, Global|Yes|
+|[tokudb_compress_buffers_before_eviction](#tokudb_compress_buffers_before_eviction|Yes|Yes|Global|No|
+|[tokudb_create_index_online](#tokudb_create_index_online)|Yes|Yes|Session, Global|Yes|
+|[tokudb_data_dir](#tokudb_data_dir)|Yes|Yes|Global|No|
+|[tokudb_debug](#tokudb_debug)|Yes|Yes|Global|Yes|
+|[tokudb_dir_per_db](#tokudb_dir_per_db)|Yes|Yes|Global|Yes|
+|[tokudb_directio](#tokudb_directio)|Yes|Yes|Global|No|
+|[tokudb_disable_hot_alter](#tokudb_disable_hot_alter)|Yes|Yes|Session, Global|Yes|
+|[tokudb_disable_prefetching](#tokudb_disable_prefetching)|Yes|Yes|Session, Global|Yes|
+|[tokudb_disable_slow_alter](#tokudb_disable_slow_alter)|Yes|Yes|Session, Global|Yes|
+|[tokudb_empty_scan](#tokudb_empty_scan)|Yes|Yes|Session, Global|Yes|
+|[tokudb_enable_fast_update](#tokudb_enable_fast_update)|Yes|Yes|Session, Global|Yes|
+|[tokudb_enable_fast_upsert](#tokudb_enable_fast_upsert)|Yes|Yes|Session, Global|Yes|
+|[tokudb_enable_partial_eviction](#tokudb_enable_partial_eviction)|Yes|Yes|Global|No|
 |[tokudb_fanout](#tokudb_fanout) |Yes|Yes|Session, Global|Yes|
-|[tokudb_fs_reserve_percent](#tokudbfsreservepercent)|Yes|Yes|Global|No|
-|[tokudb_fsync_log_period](#tokudbfsynclogperiod)|Yes|Yes|Global|Yes|
-|[tokudb_hide_default_row_format](#tokudbhidedefaultrowformat)|Yes|Yes|Session, Global|Yes|
-|[tokudb_killed_time](#tokudbkilledtime)|Yes|Yes|Session, Global|Yes|
-|[tokudb_last_lock_timeout](#tokudblastlocktimeout)|Yes|Yes|Session, Global|Yes|
-|[tokudb_load_save_space](#tokudbloadsavespace)|Yes|Yes|Session, Global|Yes|
-|[tokudb_loader_memory_size](#tokudbloadermemorysize)|Yes|Yes|Session, Global|Yes|
-|[tokudb_lock_timeout](#tokudblocktimeout)|Yes|Yes|Session, Global|Yes|
-|[tokudb_lock_timeout_debug](#tokudblocktimeoutdebug)|Yes|Yes|Session, Global|Yes|
-|[tokudb_log_dir](#tokudblogdir)|Yes|Yes|Global|No|
-|[tokudb_max_lock_memory](#tokudbmaxlockmemory)|Yes|Yes|Global|No|
-|[tokudb_optimize_index_fraction](#tokudboptimizeindexfraction)|Yes|Yes|Session, Global|Yes|
+|[tokudb_fs_reserve_percent](#tokudb_fs_reserve_percent)|Yes|Yes|Global|No|
+|[tokudb_fsync_log_period](#tokudb_fsync_log_period)|Yes|Yes|Global|Yes|
+|[tokudb_hide_default_row_format](#tokudb_hide_default_row_format)|Yes|Yes|Session, Global|Yes|
+|[tokudb_killed_time](#tokudb_killed_time)|Yes|Yes|Session, Global|Yes|
+|[tokudb_last_lock_timeout](#tokudb_last_lock_timeout)|Yes|Yes|Session, Global|Yes|
+|[tokudb_load_save_space](#tokudb_load_save_space)|Yes|Yes|Session, Global|Yes|
+|[tokudb_loader_memory_size](#tokudb_loader_memory_size)|Yes|Yes|Session, Global|Yes|
+|[tokudb_lock_timeout](#tokudb_lock_timeout)|Yes|Yes|Session, Global|Yes|
+|[tokudb_lock_timeout_debug](#tokudb_lock_timeout_debug)|Yes|Yes|Session, Global|Yes|
+|[tokudb_log_dir](#tokudb_log_dir)|Yes|Yes|Global|No|
+|[tokudb_max_lock_memory](#tokudb_max_lock_memory)|Yes|Yes|Global|No|
+|[tokudb_optimize_index_fraction](#tokudb_optimize_index_fraction)|Yes|Yes|Session, Global|Yes|
 |[tokudb_optimize_index_name](#tokudb_optimize_index_name)|Yes|Yes|Session, Global|Yes|
-|[tokudb_optimize_throttle](#tokudboptimizethrottle)|Yes|Yes|Session, Global|Yes|
-|[tokudb_pk_insert_mode](#tokudbpkinsertmode)|Yes|Yes|Session, Global|Yes|
-|[tokudb_prelock_empty](#tokudbprelockempty)|Yes|Yes|Session, Global|Yes|
-|[tokudb_read_block_size](#tokudbreadblocksize)|Yes|Yes|Session, Global|Yes|
-|[tokudb_read_buf_size](#tokudbreadbufsize)|Yes|Yes|Session, Global|Yes|
-|[tokudb_read_status_frequency](#tokudbreadstatusfrequency)|Yes|Yes|Global|Yes|
-|[tokudb_row_format](#tokudbrowformat)|Yes|Yes|Session, Global|Yes|
-|[tokudb_rpl_check_readonly](#tokudbrplcheckreadonly)|Yes|Yes|Session, Global|Yes|
-|[tokudb_rpl_lookup_rows](#tokudbrpllookuprows)|Yes|Yes|Session, Global|Yes|
-|[tokudb_rpl_lookup_rows_delay](#tokudbrpllookuprowsdelay)|Yes|Yes|Session, Global|Yes|
-|[tokudb_rpl_unique_checks](#tokudbrpluniquechecks)|Yes|Yes|Session, Global|Yes|
-|[tokudb_rpl_unique_checks_delay](#tokudbrpluniquechecksdelay)|Yes|Yes|Session, Global|Yes|
-|[tokudb_strip_frm_data](#tokudbstripfrmdata)|Yes|Yes|Global|No|
-|[tokudb_support_xa](#tokudbsupportxa)|Yes|Yes|Session, Global|Yes|
-|[tokudb_tmp_dir](#tokudbtmpdir)|Yes|Yes|Global|No|
-|[tokudb_version](#tokudbversion)|No|No|Global|No|
-|[tokudb_write_status_frequency](#tokudbwritestatusfrequency)|Yes|Yes|Global|Yes|
+|[tokudb_optimize_throttle](#tokudb_optimize_throttle)|Yes|Yes|Session, Global|Yes|
+|[tokudb_pk_insert_mode](#tokudb_pk_insert_mode)|Yes|Yes|Session, Global|Yes|
+|[tokudb_prelock_empty](#tokudb_prelock_empty)|Yes|Yes|Session, Global|Yes|
+|[tokudb_read_block_size](#tokudb_read_block_size)|Yes|Yes|Session, Global|Yes|
+|[tokudb_read_buf_size](#tokudb_read_buf_size)|Yes|Yes|Session, Global|Yes|
+|[tokudb_read_status_frequency](#tokudb_read_status_frequency)|Yes|Yes|Global|Yes|
+|[tokudb_row_format](#tokudb_row_format)|Yes|Yes|Session, Global|Yes|
+|[tokudb_rpl_check_readonly](#tokudb_rpl_check_readonly)|Yes|Yes|Session, Global|Yes|
+|[tokudb_rpl_lookup_rows](#tokudb_rpl_lookup_rows)|Yes|Yes|Session, Global|Yes|
+|[tokudb_rpl_lookup_rows_delay](#tokudb_rpl_lookup_rows_delay)|Yes|Yes|Session, Global|Yes|
+|[tokudb_rpl_unique_checks](#tokudb_rpl_unique_checks)|Yes|Yes|Session, Global|Yes|
+|[tokudb_rpl_unique_checks_delay](#tokudb_rpl_unique_checks_delay)|Yes|Yes|Session, Global|Yes|
+|[tokudb_strip_frm_data](#tokudb_strip_frm_data)|Yes|Yes|Global|No|
+|[tokudb_support_xa](#tokudb_support_xa)|Yes|Yes|Session, Global|Yes|
+|[tokudb_tmp_dir](#tokudb_tmp_dir)|Yes|Yes|Global|No|
+|[tokudb_version](#tokudb_version)|No|No|Global|No|
+|[tokudb_write_status_frequency](#tokudb_write_status_frequency)|Yes|Yes|Global|Yes|
 
 ### `tokudb_alter_print_error`
 
@@ -192,7 +192,7 @@ directories, use the following command:
 mysql> set tokudb_backup_exclude='/lost\\+found($|/)';
 ```
 
-For more information see [Percona TokuBackup](/toku_backup.md).
+For more information see [Percona TokuBackup](toku_backup.md).
 
 ### `tokudb_backup_last_error`
 

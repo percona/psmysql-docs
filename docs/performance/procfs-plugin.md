@@ -14,7 +14,7 @@ The plugin does the following:
 
 * Populates the file names and their content as rows in the INFORMATION_SCHEMA.PROCFS view.
 
-The system variable [procfs_files_spec](#procfsfilesspec) provides access to the `/proc` and the `/sys` files and directories. This variable cannot be changed at run time, preventing a compromised account from giving itself greater access to those file systems.
+The system variable [procfs_files_spec](#procfs_files_spec) provides access to the `/proc` and the `/sys` files and directories. This variable cannot be changed at run time, preventing a compromised account from giving itself greater access to those file systems.
 
 ## Manually Installing the PLUGIN
 

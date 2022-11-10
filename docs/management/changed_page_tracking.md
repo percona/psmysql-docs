@@ -6,7 +6,7 @@
 
     We recommend using the MySQL page tracking feature. For more information, see [MySQL InnoDB Clone and page tracking](https://dev.mysql.com/blog-archive/innodb-clone-and-page-tracking/).
 
-*XtraDB* now tracks the pages that have changes written to them according to the redo log. This information is written out in special changed page bitmap files. This information can be used to speed up incremental backups using [Percona XtraBackup](https://www.percona.com/doc/percona-xtrabackup/) by removing the need to scan whole data files to find the changed pages. Changed page tracking is done by a new *XtraDB* worker thread that reads and parses log records between checkpoints. The tracking is controlled by a new read-only server variable [innodb_track_changed_pages](#innodbtrackchangedpages).
+*XtraDB* now tracks the pages that have changes written to them according to the redo log. This information is written out in special changed page bitmap files. This information can be used to speed up incremental backups using [Percona XtraBackup](https://www.percona.com/doc/percona-xtrabackup/) by removing the need to scan whole data files to find the changed pages. Changed page tracking is done by a new *XtraDB* worker thread that reads and parses log records between checkpoints. The tracking is controlled by a new read-only server variable [innodb_track_changed_pages](#innodb_track_changed_pages).
 
 Bitmap filename format used for changed page tracking is `ib_modified_log_<seq>_<startlsn>.xdb`. The first number is the sequence number of the bitmap log file and the *startlsn* number is the starting LSN number of data tracked in that file. Example of the bitmap log files should look like this:
 
@@ -15,7 +15,7 @@ ib_modified_log_1_0.xdb
 ib_modified_log_2_1603391.xdb
 ```
 
-Sequence number can be used to easily check if all the required bitmap files are present. Start LSN number will be used in *XtraBackup* and `INFORMATION_SCHEMA` queries to determine which files have to be opened and read for the required LSN interval data. The bitmap file is rotated on each server restart and whenever the current file size reaches the predefined maximum. This maximum is controlled by a new [innodb_max_bitmap_file_size](#innodbmaxbitmapfilesize) variable.
+Sequence number can be used to easily check if all the required bitmap files are present. Start LSN number will be used in *XtraBackup* and `INFORMATION_SCHEMA` queries to determine which files have to be opened and read for the required LSN interval data. The bitmap file is rotated on each server restart and whenever the current file size reaches the predefined maximum. This maximum is controlled by a new [innodb_max_bitmap_file_size](#innodb_max_bitmap_file_size) variable.
 
 Old bitmap files may be safely removed after a corresponding incremental backup is taken. For that there are server [User statements for handling the XtraDB changed page bitmaps](#user-statements-for-handling-the-xtradb-changed-page-bitmaps). Removing the bitmap files from the filesystem directly is safe too, as long as care is taken not to delete data for not-yet-backuped LSN range.
 
@@ -61,7 +61,7 @@ This table contains a list of modified pages from the bitmap file data. As these
 
 The `start_lsn` and the `end_lsn` columns denote between which two checkpoints this page was changed at least once. They are also equal to checkpoint LSNs.
 
-Number of records in this table can be limited by using the variable [innodb_max_changed_pages](#innodbmaxchangedpages).
+Number of records in this table can be limited by using the variable [innodb_max_changed_pages](#innodb_max_changed_pages).
 
 ## Version Specific Information
 
@@ -81,7 +81,7 @@ Number of records in this table can be limited by using the variable [innodb_max
 | Default value   | 1000000            |
 | Range          | 1 - 0 (unlimited)  |
 
-This variable is used to limit the result row count for the queries from [INFORMATION_SCHEMA.INNODB_CHANGED_PAGES](#informationschemainnodbchangedpages) table.
+This variable is used to limit the result row count for the queries from [INFORMATION_SCHEMA.INNODB_CHANGED_PAGES](#information_schemainnodb_changed_pages) table.
 
 ### `innodb_track_changed_pages`
 

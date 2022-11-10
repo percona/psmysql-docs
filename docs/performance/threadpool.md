@@ -19,7 +19,7 @@ can be performed with the dynamic system variables.
 
 ## Priority connection scheduling
 
-Even though thread pool puts a limit on the number of concurrently running queries, the number of open transactions may remain high, because connections with already started transactions are put to the end of the queue. Higher number of open transactions has a number of implications on the currently running queries. To improve the performance new [thread_pool_high_prio_tickets](#threadpoolhighpriotickets) variable has been introduced.
+Even though thread pool puts a limit on the number of concurrently running queries, the number of open transactions may remain high, because connections with already started transactions are put to the end of the queue. Higher number of open transactions has a number of implications on the currently running queries. To improve the performance new [thread_pool_high_prio_tickets](#thread_pool_high_prio_tickets) variable has been introduced.
 
 This variable controls the high priority queue policy. Each new connection is assigned this many tickets to enter the high priority queue. Whenever a query has to be queued to be executed later because no threads are available, the thread pool puts the connection into the high priority queue if the following conditions apply:
 
@@ -38,13 +38,13 @@ The default thread pool behavior is to always put events from already started tr
 
 With the value of `0`, all connections are always put into the common queue, i.e. no priority scheduling is used as in the original implementation in *MariaDB*. The higher is the value, the more chances each transaction gets to enter the high priority queue and commit before it is put in the common queue.
 
-In some cases it is required to prioritize all statements for a specific connection regardless of whether they are executed as a part of a multi-statement transaction or in the autocommit mode. Or vice versa, some connections may require using the low priority queue for all statements unconditionally. To implement this new [thread_pool_high_prio_mode](#threadpoolhighpriomode) variable has been introduced in *Percona Server for MySQL*.
+In some cases it is required to prioritize all statements for a specific connection regardless of whether they are executed as a part of a multi-statement transaction or in the autocommit mode. Or vice versa, some connections may require using the low priority queue for all statements unconditionally. To implement this new [thread_pool_high_prio_mode](#thread_pool_high_prio_mode) variable has been introduced in *Percona Server for MySQL*.
 
 ### Low priority queue throttling
 
 One case that can limit thread pool performance and even lead to deadlocks under high concurrency is a situation when thread groups are oversubscribed due to active threads reaching the oversubscribe limit, but all/most worker threads are actually waiting on locks currently held by a transaction from another connection that is not currently in the thread pool.
 
-What happens in this case is that those threads in the pool that have marked themselves inactive are not accounted to the oversubscribe limit. As a result, the number of threads (both active and waiting) in the pool grows until it hits [thread_pool_max_threads](#threadpoolmaxthreads) value. If the connection executing the transaction which is holding the lock has managed to enter the thread pool by then, we get a large (depending on the [thread_pool_max_threads](#threadpoolmaxthreads) value) number of concurrently running threads, and thus, suboptimal performance as a result. Otherwise, we get a deadlock as no more threads can be created to process those transaction(s) and release the lock(s).
+What happens in this case is that those threads in the pool that have marked themselves inactive are not accounted to the oversubscribe limit. As a result, the number of threads (both active and waiting) in the pool grows until it hits [thread_pool_max_threads](#thread_pool_max_threads) value. If the connection executing the transaction which is holding the lock has managed to enter the thread pool by then, we get a large (depending on the [thread_pool_max_threads](#thread_pool_max_threads) value) number of concurrently running threads, and thus, suboptimal performance as a result. Otherwise, we get a deadlock as no more threads can be created to process those transaction(s) and release the lock(s).
 
 Such situations are prevented by throttling the low priority queue when the total number of worker threads (both active and waiting ones) reaches the oversubscribe limit. That is, if there are too many worker threads, do not start new transactions and create new threads until queued events from the already started transactions are processed.
 
@@ -160,7 +160,7 @@ The number of milliseconds before a running thread is considered stalled. When t
 
 ### Upgrading from a version before 8.0.14 to 8.0.14 or higher
 
-Starting with 8.0.14, *Percona Server for MySQL* uses the upstream implementation of the admin_port. The variables [extra_port](#extraport) and [extra_max_connections](#extramaxconnections) are removed and not supported. It is essential to remove the `extra_port` and `extra_max_connections` variables from your configuration file before you attempt to upgrade from a release before 8.0.14 to *Percona Server for MySQL* version 8.0.14 or higher. Otherwise, a server produces a boot error and refuses to start.
+Starting with 8.0.14, *Percona Server for MySQL* uses the upstream implementation of the admin_port. The variables [extra_port](#extra_port) and [extra_max_connections](#extra_max_connections) are removed and not supported. It is essential to remove the `extra_port` and `extra_max_connections` variables from your configuration file before you attempt to upgrade from a release before 8.0.14 to *Percona Server for MySQL* version 8.0.14 or higher. Otherwise, a server produces a boot error and refuses to start.
 
 !!! admonition "See also"
 
