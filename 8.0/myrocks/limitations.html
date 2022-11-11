@@ -2831,8 +2831,7 @@
 <p>You should also consider the following:</p>
 <ul>
 <li>
-<p><code>\*_bin</code> (e.g. <code>latin1_bin</code>) or binary collation should be used
-on <code>CHAR</code> and <code>VARCHAR</code> indexed columns. By default, MyRocks prevents creating indexes with non-binary collations (including <code>latin1</code>). You can optionally use it by setting <a href="variables.html#rocksdb-strict-collation-exceptions">rocksdb_strict_collation_exceptions</a> to <code>t1</code> (table names with regex format), but non-binary covering indexes other than <code>latin1</code> (excluding <code>german1</code>) still require a primary key lookup to return the <code>CHAR</code> or <code>VARCHAR</code> column.</p>
+<p>All collations are supported on <code>CHAR</code> and <code>VARCHAR</code> indexed columns. By default, MyRocks prevents creating indexes with non-binary collations (including <code>latin1</code>). You can optionally use it by setting <a href="variables.html#rocksdb-strict-collation-exceptions">rocksdb_strict_collation_exceptions</a> to <code>t1</code> (table names with regex format), but non-binary covering indexes other than <code>latin1</code> (excluding <code>german1</code>) still require a primary key lookup to return the <code>CHAR</code> or <code>VARCHAR</code> column.</p>
 </li>
 <li>
 <p>Either <code>ORDER BY DESC</code> or <code>ORDER BY ASC</code> is slow. This is because of “Prefix Key Encoding” feature in RocksDB. See <a href="http://www.slideshare.net/matsunobu/myrocks-deep-dive/58">http://www.slideshare.net/matsunobu/myrocks-deep-dive/58</a> for details. By default, ascending scan is faster and descending scan is slower. If the “reverse column family” is configured, then descending scan will be faster and ascending scan will be slower. Note that InnoDB also imposes a cost when the index is scanned in the opposite order.</p>
@@ -2921,7 +2920,7 @@ on <code>CHAR</code> and <code>VARCHAR</code> indexed columns. By default, MyRoc
   <small>
     
       Last update:
-      2022-09-26
+      2022-10-10
     
   </small>
 </div>
