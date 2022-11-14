@@ -8,9 +8,9 @@ As the proxy protocol amounts to spoofing the client address, it is disabled by 
 
     Ensure that proper firewall access control lists (ACL) are in place when this feature is enabled.
 
-Proxying is supported for TCP over IPv4 and IPv6 connections only. UNIX socket connections can not be proxied and do not fall under the effect of proxy-protocol-networks=’\*’.
+Proxying is supported only for TCP over IPv4 and IPv6 connections. The UNIX socket connections can not be proxied and do not fall under the effect of using the asterisk symbol (*).
 
-As a special exception, it is forbidden for the proxied IP address to be `127.0.0.1` or `::1`.
+You cannot have a proxied IP address that is `127.0.0.1` or `::1`, even if the IP address is in the proxy_protocol_networks.
 
 ## Version Specific Information
 
@@ -28,7 +28,7 @@ As a special exception, it is forbidden for the proxied IP address to be `127.0.
 | Dynamic      | No             |
 | Default      | (empty string) |
 
-This variable is a global-only, read-only variable, which is either a `\*` (to enable proxying globally, a non-recommended setting), or a list of comma-separated IPv4 and IPv6 network and host addresses, for which proxying is enabled. Network addresses are specified in CIDR notation, i.e. `192.168.0.0/24`. To prevent source host spoofing, the setting of this variable must be as restrictive as possible to include only trusted proxy hosts.
+This variable is a global-only, read-only variable, which is either an asterisk symbol(*), or a list of comma-separated IPv4 and IPv6 network and host addresses. For security reasons we do not recommend using an asterisk symbol for the IP address. This symbol causes the server to accept the proxy protocol from any host. Network addresses are specified in CIDR notation, i.e. `192.168.0.0/24`. To prevent source host spoofing, the setting of this variable must be as restrictive as possible to include only trusted proxy hosts.
 
 ## Related Reading
 
