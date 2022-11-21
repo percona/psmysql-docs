@@ -15,14 +15,14 @@
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/8.0/security/simple-ldap.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/8.0/security/ldap-system-variables.html">
       
       <link rel="icon" href="../_static/percona_favicon.ico">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
     
     
       
-        <title>Using Simple LDAP Authentication - Percona Server for MySQL</title>
+        <title>LDAP authentication plugin system variables - Percona Server for MySQL</title>
       
     
     
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#using-simple-ldap-authentication" class="md-skip">
+        <a href="#ldap-authentication-plugin-system-variables" class="md-skip">
           Skip to content
         </a>
       
@@ -129,7 +129,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Using Simple LDAP Authentication
+              LDAP authentication plugin system variables
             
           </span>
         </div>
@@ -1270,6 +1270,20 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="ldap-authentication.html" class="md-nav__link">
+        Using LDAP authentication plugins
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -1282,12 +1296,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Using Simple LDAP Authentication
+          LDAP authentication plugin system variables
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="simple-ldap.html" class="md-nav__link md-nav__link--active">
-        Using Simple LDAP Authentication
+      <a href="ldap-system-variables.html" class="md-nav__link md-nav__link--active">
+        LDAP authentication plugin system variables
       </a>
       
         
@@ -1308,16 +1322,253 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-the-plugin" class="md-nav__link">
-    Install the plugin
+  <a href="#authentication-system-variables" class="md-nav__link">
+    Authentication system variables
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication system variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_bind_base_dn" class="md-nav__link">
+    authentication_ldap_sasl_bind_base_dn
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#uninstall-the-plugin" class="md-nav__link">
-    Uninstall the plugin
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_bind_root_dn" class="md-nav__link">
+    authentication_ldap_sasl_bind_root_dn
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_bind_root_pwd" class="md-nav__link">
+    authentication_ldap_sasl_bind_root_pwd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_ca_path" class="md-nav__link">
+    authentication_ldap_sasl_ca_path
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_fallback_server_host" class="md-nav__link">
+    authentication_ldap_sasl_fallback_server_host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_fallback_server_port" class="md-nav__link">
+    authentication_ldap_sasl_fallback_server_port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_group_role_mapping" class="md-nav__link">
+    authentication_ldap_sasl_group_role_mapping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_group_search_attr" class="md-nav__link">
+    authentication_ldap_sasl_group_search_attr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_group_search_filter" class="md-nav__link">
+    authentication_ldap_sasl_group_search_filter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_init_pool_size" class="md-nav__link">
+    authentication_ldap_sasl_init_pool_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_log_status" class="md-nav__link">
+    authentication_ldap_sasl_log_status
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_max_pool_size" class="md-nav__link">
+    authentication_ldap_sasl_max_pool_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_server_host" class="md-nav__link">
+    authentication_ldap_sasl_server_host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_server_port" class="md-nav__link">
+    authentication_ldap_sasl_server_port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_ssl" class="md-nav__link">
+    authentication_ldap_sasl_ssl
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_tls" class="md-nav__link">
+    authentication_ldap_sasl_tls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_user_search_attr" class="md-nav__link">
+    authentication_ldap_sasl_user_search_attr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_bind_base_dn" class="md-nav__link">
+    authentication_ldap_simple_bind_base_dn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_bind_root_dn" class="md-nav__link">
+    authentication_ldap_simple_bind_root_dn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_bind_root_pwd" class="md-nav__link">
+    authentication_ldap_simple_bind_root_pwd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_ca_path" class="md-nav__link">
+    authentication_ldap_simple_ca_path
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_fallback_server_host" class="md-nav__link">
+    authentication_ldap_simple_fallback_server_host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_fallback_server_port" class="md-nav__link">
+    authentication_ldap_simple_fallback_server_port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_group_role_mapping" class="md-nav__link">
+    authentication_ldap_simple_group_role_mapping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_group_search_attr" class="md-nav__link">
+    authentication_ldap_simple_group_search_attr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_group_search_filter" class="md-nav__link">
+    authentication_ldap_simple_group_search_filter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_init_pool_size" class="md-nav__link">
+    authentication_ldap_simple_init_pool_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_log_status" class="md-nav__link">
+    authentication_ldap_simple_log_status
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_max_pool_size" class="md-nav__link">
+    authentication_ldap_simple_max_pool_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_server_host" class="md-nav__link">
+    authentication_ldap_simple_server_host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_server_port" class="md-nav__link">
+    authentication_ldap_simple_server_port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_ssl" class="md-nav__link">
+    authentication_ldap_simple_ssl
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_tls" class="md-nav__link">
+    authentication_ldap_simple_tls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_user_search_attr" class="md-nav__link">
+    authentication_ldap_simple_user_search_attr
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1325,20 +1576,6 @@
   
 </nav>
       
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="simple-ldap-variables.html" class="md-nav__link">
-        Simple LDAP Variables
-      </a>
     </li>
   
 
@@ -2849,16 +3086,253 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-the-plugin" class="md-nav__link">
-    Install the plugin
+  <a href="#authentication-system-variables" class="md-nav__link">
+    Authentication system variables
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication system variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_bind_base_dn" class="md-nav__link">
+    authentication_ldap_sasl_bind_base_dn
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#uninstall-the-plugin" class="md-nav__link">
-    Uninstall the plugin
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_bind_root_dn" class="md-nav__link">
+    authentication_ldap_sasl_bind_root_dn
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_bind_root_pwd" class="md-nav__link">
+    authentication_ldap_sasl_bind_root_pwd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_ca_path" class="md-nav__link">
+    authentication_ldap_sasl_ca_path
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_fallback_server_host" class="md-nav__link">
+    authentication_ldap_sasl_fallback_server_host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_fallback_server_port" class="md-nav__link">
+    authentication_ldap_sasl_fallback_server_port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_group_role_mapping" class="md-nav__link">
+    authentication_ldap_sasl_group_role_mapping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_group_search_attr" class="md-nav__link">
+    authentication_ldap_sasl_group_search_attr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_group_search_filter" class="md-nav__link">
+    authentication_ldap_sasl_group_search_filter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_init_pool_size" class="md-nav__link">
+    authentication_ldap_sasl_init_pool_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_log_status" class="md-nav__link">
+    authentication_ldap_sasl_log_status
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_max_pool_size" class="md-nav__link">
+    authentication_ldap_sasl_max_pool_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_server_host" class="md-nav__link">
+    authentication_ldap_sasl_server_host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_server_port" class="md-nav__link">
+    authentication_ldap_sasl_server_port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_ssl" class="md-nav__link">
+    authentication_ldap_sasl_ssl
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_tls" class="md-nav__link">
+    authentication_ldap_sasl_tls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_sasl_user_search_attr" class="md-nav__link">
+    authentication_ldap_sasl_user_search_attr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_bind_base_dn" class="md-nav__link">
+    authentication_ldap_simple_bind_base_dn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_bind_root_dn" class="md-nav__link">
+    authentication_ldap_simple_bind_root_dn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_bind_root_pwd" class="md-nav__link">
+    authentication_ldap_simple_bind_root_pwd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_ca_path" class="md-nav__link">
+    authentication_ldap_simple_ca_path
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_fallback_server_host" class="md-nav__link">
+    authentication_ldap_simple_fallback_server_host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_fallback_server_port" class="md-nav__link">
+    authentication_ldap_simple_fallback_server_port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_group_role_mapping" class="md-nav__link">
+    authentication_ldap_simple_group_role_mapping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_group_search_attr" class="md-nav__link">
+    authentication_ldap_simple_group_search_attr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_group_search_filter" class="md-nav__link">
+    authentication_ldap_simple_group_search_filter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_init_pool_size" class="md-nav__link">
+    authentication_ldap_simple_init_pool_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_log_status" class="md-nav__link">
+    authentication_ldap_simple_log_status
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_max_pool_size" class="md-nav__link">
+    authentication_ldap_simple_max_pool_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_server_host" class="md-nav__link">
+    authentication_ldap_simple_server_host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_server_port" class="md-nav__link">
+    authentication_ldap_simple_server_port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_ssl" class="md-nav__link">
+    authentication_ldap_simple_ssl
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_tls" class="md-nav__link">
+    authentication_ldap_simple_tls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication_ldap_simple_user_search_attr" class="md-nav__link">
+    authentication_ldap_simple_user_search_attr
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2878,7 +3352,7 @@
                 <!-- Edit button -->
                 
                   <a
-                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/security/simple-ldap.md"
+                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/security/ldap-system-variables.md"
                     title="Edit this page"
                     class="md-content__button md-icon"
                   >
@@ -2894,231 +3368,1338 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="using-simple-ldap-authentication">Using Simple LDAP Authentication<a class="headerlink" href="#using-simple-ldap-authentication" title="Permanent link">&para;</a></h1>
-<p>This feature was implemented in Percona Server for MySQL 8.0.19-10.</p>
-<p>LDAP (Lightweight Directory Access Protocol) provides an alternative method to
-access existing directory servers, which maintain information about
-individuals, groups, and organizations.</p>
-<p>The Percona Simple LDAP plugin is a free and Open Source implementation of the
-MySQL Enterprise Simple LDAP plugin.</p>
-<h3 id="install-the-plugin">Install the plugin<a class="headerlink" href="#install-the-plugin" title="Permanent link">&para;</a></h3>
-<p>Install the plugin with the following command:</p>
-<div class="highlight"><pre><span></span><code>mysql&gt; INSTALL PLUGIN authentication_ldap_simple SONAME &#39;authentication_ldap_simple.so&#39;;
-</code></pre></div>
+                <h1 id="ldap-authentication-plugin-system-variables">LDAP authentication plugin system variables<a class="headerlink" href="#ldap-authentication-plugin-system-variables" title="Permanent link">&para;</a></h1>
+<h2 id="authentication-system-variables">Authentication system variables<a class="headerlink" href="#authentication-system-variables" title="Permanent link">&para;</a></h2>
 <p>The installation adds the following variables:</p>
 <table>
 <thead>
 <tr>
-<th>Variable Name</th>
+<th>Variable name</th>
 <th>Description</th>
-<th>Default</th>
-<th>Minimum</th>
-<th>Maximum</th>
-<th>Scope</th>
-<th>Dynamic</th>
-<th>Type</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>authentication_ldap_simple_bind_base_dn</td>
-<td>Base distinguished name (DN)</td>
-<td>global</td>
-<td>Yes</td>
-<td>string</td>
-<td></td>
-<td></td>
-<td></td>
+<td><a href="#authentication_ldap_sasl_bind_base_dn">authentication_ldap_sasl_bind_base_dn</a></td>
+<td>Base distinguished name</td>
 </tr>
 <tr>
-<td>authentication_ldap_simple_bind_root_dn</td>
-<td>Root distinguished name (DN)</td>
-<td>global</td>
-<td>yes</td>
-<td>string</td>
-<td></td>
-<td></td>
-<td></td>
+<td><a href="#authentication_ldap_sasl_bind_root_dn">authentication_ldap_sasl_bind_root_dn</a></td>
+<td>Root distinguished name</td>
 </tr>
 <tr>
-<td>authentication_ldap_simple_bind_root_pwd</td>
+<td><a href="#authentication_ldap_sasl_bind_root_pwd">authentication_ldap_sasl_bind_root_dn_pwd</a></td>
 <td>Password for the root distinguished name</td>
-<td>global</td>
-<td>yes</td>
-<td>string</td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 <tr>
-<td>authentication_ldap_simple_ca_path</td>
-<td>Absolute path of the certificate authority file</td>
-<td>global</td>
-<td>yes</td>
-<td>string</td>
-<td></td>
-<td></td>
-<td></td>
+<td><a href="#authentication_ldap_sasl_ca_path">authentication_ldap_sasl_ca_path</a></td>
+<td>Absolute path of the certificate authority</td>
 </tr>
 <tr>
-<td>authentication_ldap_simple_group_search_attr</td>
-<td>Name of the attribute that specifies the group names in LDAP directory</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td><a href="#authentication_ldap_sasl_fallback_server_host">authentication_ldap_sasl_fallback_server_host</a></td>
+<td>If the primary server is unavailable, the authentication plugin attempts to connect to the fallback server</td>
 </tr>
 <tr>
-<td>entries</td>
-<td>cn</td>
-<td>global</td>
-<td>yes</td>
-<td>string</td>
-<td></td>
-<td></td>
-<td></td>
+<td><a href="#authentication_ldap_sasl_fallback_server_port">authentication_ldap_sasl_fallback_server_port</a></td>
+<td>The port number for the fallback server</td>
 </tr>
 <tr>
-<td>authentication_ldap_simple_group_search_filter</td>
+<td><a href="#authentication_ldap_sasl_group_role_mapping">authentication_ldap_sasl_group_role_mapping</a></td>
+<td>A list of LDAP group names - MySQL role pairs</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_sasl_group_search_attr">authentication_ldap_sasl_group_search_attr</a></td>
+<td>Name of the attribute that specifies the group names in the LDAP directory entries</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_sasl_group_search_filter">authentication_ldap_sasl_group_search_filter</a></td>
 <td>Custom group search filter</td>
-<td>(</td>
-<td>(&amp;(objectClass=posixGroup)(memberUid={UA}))(&amp;(objectClass=group)(member={UD})))</td>
-<td>global</td>
-<td>yes</td>
-<td>string</td>
-<td></td>
 </tr>
 <tr>
-<td>authentication_ldap_simple_init_pool_size</td>
+<td><a href="#authentication_ldap_sasl_init_pool_size">authentication_ldap_sasl_init_pool_size</a></td>
 <td>Initial size of the connection pool to the LDAP server</td>
-<td>10</td>
-<td>1</td>
-<td>32767</td>
-<td>global</td>
-<td>yes</td>
-<td>uint</td>
 </tr>
 <tr>
-<td>authentication_ldap_simple_log_status</td>
+<td><a href="#authentication_ldap_sasl_log_status">authentication_ldap_sasl_log_status</a></td>
 <td>logging level</td>
-<td>1</td>
-<td>1</td>
-<td>5</td>
-<td>global</td>
-<td>yes</td>
-<td>uint</td>
 </tr>
 <tr>
-<td>authentication_ldap_simple_max_pool_size</td>
+<td><a href="#authentication_ldap_sasl_max_pool_size">authentication_ldap_sasl_max_pool_size</a></td>
 <td>Maximum size of the pool of connections to the LDAP server</td>
-<td>1000</td>
-<td>1</td>
-<td>32767</td>
-<td>global</td>
-<td>yes</td>
-<td>uint</td>
 </tr>
 <tr>
-<td>authentication_ldap_simple_server_host</td>
+<td><a href="#authentication_ldap_sasl_server_host">authentication_ldap_sasl_server_host</a></td>
 <td>LDAP server host</td>
-<td>global</td>
-<td>yes</td>
-<td>string</td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 <tr>
-<td>authentication_ldap_simple_server_port</td>
+<td><a href="#authentication_ldap_sasl_server_port">authentication_ldap_sasl_server_port</a></td>
 <td>LDAP server TCP/IP port number</td>
-<td>389</td>
-<td>1</td>
-<td>65535</td>
-<td>global</td>
-<td>yes</td>
-<td>uint</td>
 </tr>
 <tr>
-<td>authentication_ldap_simple_ssl</td>
+<td><a href="#authentication_ldap_sasl_ssl">authentication_ldap_sasl_ssl</a></td>
 <td>If plugin connections to the LDAP server use the SSL protocol (ldaps://)</td>
-<td>OFF</td>
-<td>global</td>
-<td>yes</td>
-<td>bool</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
-<td>authentication_ldap_simple_tls</td>
+<td><a href="#authentication_ldap_sasl_tls">authentication_ldap_sasl_tls</a></td>
 <td>If plugin connections to the LDAP server are secured with STARTTLS (ldap://)</td>
-<td>OFF</td>
-<td>global</td>
-<td>yes</td>
-<td>bool</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
-<td>authentication_ldap_simple_user_search_attr</td>
-<td>Name of the attribute that specifies user names in LDAP directory entries</td>
-<td>uid</td>
-<td>global</td>
-<td>yes</td>
-<td>string</td>
-<td></td>
-<td></td>
+<td><a href="#authentication_ldap_sasl_user_search_attr">authentication_ldap_sasl_user_search_attr</a></td>
+<td>Name of the attribute that specifies user names in the LDAP directory entries</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td><a href="#authentication_ldap_simple_bind_base_dn">authentication_ldap_simple_bind_base_dn</a></td>
+<td>Base distinguished name</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_bind_root_dn">authentication_ldap_simple_bind_root_dn</a></td>
+<td>Root distinguished name</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_bind_root_pwd">authentication_ldap_simple_bind_root_dn_pwd</a></td>
+<td>Password for the root distinguished name</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_ca_path">authentication_ldap_simple_ca_path</a></td>
+<td>Absolute path of the certificate authority</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_fallback_server_host">authentication_ldap_simple_fallback_server_host</a></td>
+<td>If the primary server is unavailable, the authentication plugin attempts to connect to the fallback server</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_fallback_server_port">authentication_ldap_simple_fallback_server_port</a></td>
+<td>The port number for the fallback server</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_group_role_mapping">authentication_ldap_simple_group_role_mapping</a></td>
+<td>A list of LDAP group names - MySQL role pairs</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_group_search_attr">authentication_ldap_simple_group_search_attr</a></td>
+<td>Name of the attribute that specifies the group names in the LDAP directory entries</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_group_search_filter">authentication_ldap_simple_group_search_filter</a></td>
+<td>Custom group search filter</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_init_pool_size">authentication_ldap_simple_init_pool_size</a></td>
+<td>Initial size of the connection pool to the LDAP server</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_log_status">authentication_ldap_simple_log_status</a></td>
+<td>logging level</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_max_pool_size">authentication_ldap_simple_max_pool_size</a></td>
+<td>Maximum size of the pool of connections to the LDAP server</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_server_host">authentication_ldap_simple_server_host</a></td>
+<td>LDAP server host</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_server_port">authentication_ldap_simple_server_port</a></td>
+<td>LDAP server TCP/IP port number</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_ssl">authentication_ldap_simple_ssl</a></td>
+<td>If plugin connections to the LDAP server use the SSL protocol (ldaps://)</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_tls">authentication_ldap_simple_tls</a></td>
+<td>If plugin connections to the LDAP server are secured with STARTTLS (ldap://)</td>
+</tr>
+<tr>
+<td><a href="#authentication_ldap_simple_user_search_attr">authentication_ldap_simple_user_search_attr</a></td>
+<td>Name of the attribute that specifies user names in the LDAP directory entries</td>
 </tr>
 </tbody>
 </table>
-<p>For simple LDAP authentication, you must specify the authentication_ldap_simple
-plugin in the <code>CREATE USER</code> statement or the <code>ALTER USER</code> statement.:</p>
-<div class="highlight"><pre><span></span><code>mysql&gt; CREATE USER ... IDENTIFIED WITH authentication_ldap_simple;
-</code></pre></div>
-<p>or</p>
-<div class="highlight"><pre><span></span><code>mysql&gt; CREATE USER ... IDENTIFIED WITH authentication_ldap_simple BY &#39;cn=[user name],ou=[organization unit],dc=[domain component],dc=com&#39;
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If the user is created with the “BY ‘cn,ou,dc,dc’” statement, the following variables are not used:</p>
-<div class="highlight"><pre><span></span><code>* authentication_ldap_simple_bind_base_dn
-
-* authentication_ldap_simple_bind_root_dn
-
-* authentication_ldap_simple_bind_root_pwd
-
-* authentication_ldap_simple_user_search_attr
-
-* authentication_ldap_simple_group_search_attr
-</code></pre></div>
-<p>If the user is created with “IDENTIFIED BY authentication_ldap_simple” the
-listed variables are used.</p>
-</div>
-<p>If a MySQL user <code>rshimek</code> has the following entry in the LDAP directory:</p>
-<div class="highlight"><pre><span></span><code>uid=rshimek, ou=users, dc=hr, dc=com
-</code></pre></div>
-<p>To create a MySQL account for <code>rshimek</code>, use the following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;rshimek&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;uid=rshimek,ou=users,dc=hr,dc=com&#39;</span><span class="p">;</span><span class="w"></span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>Security</strong> The plugin requires that the password is sent in clear text.</p>
-</div>
-<h3 id="uninstall-the-plugin">Uninstall the plugin<a class="headerlink" href="#uninstall-the-plugin" title="Permanent link">&para;</a></h3>
-<p>To uninstall the plugin, run the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="p">;</span><span class="w"></span>
-</code></pre></div>
+<p>The following variables are described in detail:</p>
+<h3 id="authentication_ldap_sasl_bind_base_dn"><code>authentication_ldap_sasl_bind_base_dn</code><a class="headerlink" href="#authentication_ldap_sasl_bind_base_dn" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-bind-base-dn=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>The base distinguished name (DN) for SASL-based LDAP authentication. You can limit the search scope by using the variable as the base of the search.</p>
+<h3 id="authentication_ldap_sasl_bind_root_dn"><code>authentication_ldap_sasl_bind_root_dn</code><a class="headerlink" href="#authentication_ldap_sasl_bind_root_dn" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-bind-root-dn=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>root</code> distiguished name (DN) used to authenticate SASL-based LDAP. When performing a search, this variable is used with
+<code>authentication_ldap_sasl_bind_root_pwd</code> as the authenticating credentials to the LDAP server.</p>
+<h3 id="authentication_ldap_sasl_bind_root_pwd"><code>authentication_ldap_sasl_bind_root_pwd</code><a class="headerlink" href="#authentication_ldap_sasl_bind_root_pwd" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-bind-root-pwd=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>root</code> password used to authenticate against SASL-based LDAP server. This variable is used with
+<a href="#authentication_ldap_sasl_bind_root_dn"><code>authentication_ldap_sasl_bind_root_dn</code></a>.</p>
+<h3 id="authentication_ldap_sasl_ca_path"><code>authentication_ldap_sasl_ca_path</code><a class="headerlink" href="#authentication_ldap_sasl_ca_path" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-ca_path=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>The certificate authority’s absolute path used to verify the LDAP certificate.</p>
+<h3 id="authentication_ldap_sasl_fallback_server_host"><code>authentication_ldap_sasl_fallback_server_host</code><a class="headerlink" href="#authentication_ldap_sasl_fallback_server_host" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-fallback-server-host</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Sting</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>Use with <a href="#authentication_ldap_sasl_fallback_server_port"><code>authentication_ldap_sasl_fallback_server_port</code></a>.</p>
+<p>If the primary server is unavailable, the authentication plugin attempts to connect to the fallback server and authenticate using that server.</p>
+<h3 id="authentication_ldap_sasl_fallback_server_port"><code>authentication_ldap_sasl_fallback_server_port</code><a class="headerlink" href="#authentication_ldap_sasl_fallback_server_port" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-fallback-server-port</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>Use with <a href="#authentication_ldap_sasl_fallback_server_host"><code>authentication_ldap_sasl_fallback_server_host</code></a>.</p>
+<p>If the primary server is unavailable, the authentication plugin attempts to connect to the fallback server and authenticate using that server.</p>
+<p>If the fallback server host has a value, and the fallback port is 0, users can specify multiple fallback servers.</p>
+<p>Use this format to specify multiple fallback servers: <code>authentication_ldap_sasl_fallback_server_host="ldap(s)://host:port,ldap(s)://host2:port2</code>, for example.</p>
+<h3 id="authentication_ldap_sasl_group_role_mapping"><code>authentication_ldap_sasl_group_role_mapping</code><a class="headerlink" href="#authentication_ldap_sasl_group_role_mapping" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-group-role-mapping=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>Null</td>
+</tr>
+</tbody>
+</table>
+<p>When an LDAP user logs in, the server checks if the LDAP user is a member of the specified group. If the user is, then the server automatically grants the database server roles to the user.</p>
+<p>The variable has this format: <code>&lt;ldap_group&gt;=&lt;mysql_role&gt;,&lt;ldap_group2&gt;=&lt;mysql_role2&gt;,</code>.</p>
+<h3 id="authentication_ldap_sasl_group_search_attr"><code>authentication_ldap_sasl_group_search_attr</code><a class="headerlink" href="#authentication_ldap_sasl_group_search_attr" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-group-search-attr=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>cn</td>
+</tr>
+</tbody>
+</table>
+<p>The attribute name that specifies group names in the LDAP directory entries for SASL-based LDAP authentication.  </p>
+<h3 id="authentication_ldap_sasl_group_search_filter"><code>authentication_ldap_sasl_group_search_filter</code><a class="headerlink" href="#authentication_ldap_sasl_group_search_filter" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-group-search-filter=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>(|(&amp;(objectClass=posixGroup)(memberUid=%s))(&amp;(objectClass=group)(member=%s)))</td>
+</tr>
+</tbody>
+</table>
+<p>The custom group search filter for SASL-based LDAP authentication.</p>
+<h3 id="authentication_ldap_sasl_init_pool_size"><code>authentication_ldap_sasl_init_pool_size</code><a class="headerlink" href="#authentication_ldap_sasl_init_pool_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-init-pool-size=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>32767</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>connections</td>
+</tr>
+</tbody>
+</table>
+<p>The initial size of the connection pool to the LDAP server for SASL-based LDAP authentication.</p>
+<h3 id="authentication_ldap_sasl_log_status"><code>authentication_ldap_sasl_log_status</code><a class="headerlink" href="#authentication_ldap_sasl_log_status" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-log-status=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>The logging level for messages written to the error log for SASL-based LDAP authentication.</p>
+<h3 id="authentication_ldap_sasl_max_pool_size"><code>authentication_ldap_sasl_max_pool_size</code><a class="headerlink" href="#authentication_ldap_sasl_max_pool_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-max-pool-size=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>32767</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>connections</td>
+</tr>
+</tbody>
+</table>
+<p>The maximum connection pool size to the LDAP server in SASL-based LDAP authentication. The variable is used with <a href="#authentication_ldap_sasl_init_pool_size"><code>authentication_ldap_sasl_init_pool_size</code></a>.</p>
+<h3 id="authentication_ldap_sasl_server_host"><code>authentication_ldap_sasl_server_host</code><a class="headerlink" href="#authentication_ldap_sasl_server_host" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-server-host=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>The LDAP server host used for SASL-based LDAP authentication.  The LDAP server host can be an IP address or a host name.</p>
+<h3 id="authentication_ldap_sasl_server_port"><code>authentication_ldap_sasl_server_port</code><a class="headerlink" href="#authentication_ldap_sasl_server_port" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-server-port=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>389</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>32376</td>
+</tr>
+</tbody>
+</table>
+<p>The LDAP server TCP/IP port number used for SASL-based LDAP authentication.</p>
+<h3 id="authentication_ldap_sasl_ssl"><code>authentication_ldap_sasl_ssl</code><a class="headerlink" href="#authentication_ldap_sasl_ssl" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-ssl=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>If this variable is enabled, the plugin connects to the server with SSL.</p>
+<h3 id="authentication_ldap_sasl_tls"><code>authentication_ldap_sasl_tls</code><a class="headerlink" href="#authentication_ldap_sasl_tls" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-tls=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>If this variable is enabled, the plugin connects to the server with TLS.</p>
+<h3 id="authentication_ldap_sasl_user_search_attr"><code>authentication_ldap_sasl_user_search_attr</code><a class="headerlink" href="#authentication_ldap_sasl_user_search_attr" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-sasl-user-search-attr=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>uid</td>
+</tr>
+</tbody>
+</table>
+<p>The attribute name that specifies the user names in LDAP directory entries in SASL-based LDAP authentication.</p>
+<h3 id="authentication_ldap_simple_bind_base_dn"><code>authentication_ldap_simple_bind_base_dn</code><a class="headerlink" href="#authentication_ldap_simple_bind_base_dn" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-bind-base-dn=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>The base distinguished name (DN) for simple LDAP authentication. You can limit the search scope by using the variable as the base of the search.</p>
+<h3 id="authentication_ldap_simple_bind_root_dn"><code>authentication_ldap_simple_bind_root_dn</code><a class="headerlink" href="#authentication_ldap_simple_bind_root_dn" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-bind-root-dn=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>root</code> distinguished name (DN) used to authenticate simple LDAP. When performing a search, this variable is used with
+<code>authentication_ldap_simple_bind_root_pwd</code> as the authenticating credentials to the LDAP server.</p>
+<h3 id="authentication_ldap_simple_bind_root_pwd"><code>authentication_ldap_simple_bind_root_pwd</code><a class="headerlink" href="#authentication_ldap_simple_bind_root_pwd" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-bind-root-pwd=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>root</code> password used to authenticate against simple LDAP server. This variable is used with
+<a href="#authentication_ldap_simple_bind_root_dn"><code>authentication_ldap_simple_bind_root_dn</code></a>.</p>
+<h3 id="authentication_ldap_simple_ca_path"><code>authentication_ldap_simple_ca_path</code><a class="headerlink" href="#authentication_ldap_simple_ca_path" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-ca_path=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>The certificate authority’s absolute path used to verify the LDAP certificate.</p>
+<h3 id="authentication_ldap_simple_fallback_server_host"><code>authentication_ldap_simple_fallback_server_host</code><a class="headerlink" href="#authentication_ldap_simple_fallback_server_host" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-fallback-server-host</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Sting</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>Use with <a href="#authentication_ldap_simple_fallback_server_port"><code>authentication_ldap_simple_fallback_server_port</code></a>.</p>
+<p>If the primary server is unavailable, the authentication plugin attempts to connect to the fallback server and authenticate using that server.</p>
+<h3 id="authentication_ldap_simple_fallback_server_port"><code>authentication_ldap_simple_fallback_server_port</code><a class="headerlink" href="#authentication_ldap_simple_fallback_server_port" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-fallback-server-port</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>Use with <a href="#authentication_ldap_simple_fallback_server_host"><code>authentication_ldap_simple_fallback_server_host</code></a>.</p>
+<p>If the primary server is unavailable, the authentication plugin attempts to connect to the fallback server and authenticate using that server.</p>
+<p>If the fallback server host has a value, and the fallback port is 0, users can specify multiple fallback servers.</p>
+<p>Use this format to specify multiple fallback servers: <code>authentication_ldap_simple_fallback_server_host="ldap(s)://host:port,ldap(s)://host2:port2</code>, for example.</p>
+<h3 id="authentication_ldap_simple_group_role_mapping"><code>authentication_ldap_simple_group_role_mapping</code><a class="headerlink" href="#authentication_ldap_simple_group_role_mapping" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-group-role-mapping=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>Null</td>
+</tr>
+</tbody>
+</table>
+<p>When an LDAP user logs in, the server checks if the LDAP user is a member of the specified group. If the user is, then the server automatically grants the database server roles to the user.</p>
+<p>The variable has this format: <code>&lt;ldap_group&gt;=&lt;mysql_role&gt;,&lt;ldap_group2&gt;=&lt;mysql_role2&gt;,</code>.</p>
+<h3 id="authentication_ldap_simple_group_search_attr"><code>authentication_ldap_simple_group_search_attr</code><a class="headerlink" href="#authentication_ldap_simple_group_search_attr" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-group-search-attr=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>cn</td>
+</tr>
+</tbody>
+</table>
+<p>The attribute name that specifies group names in the LDAP directory entries for simple LDAP authentication.  </p>
+<h3 id="authentication_ldap_simple_group_search_filter"><code>authentication_ldap_simple_group_search_filter</code><a class="headerlink" href="#authentication_ldap_simple_group_search_filter" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-group-search-filter=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>(|(&amp;(objectClass=posixGroup)(memberUid=%s))(&amp;(objectClass=group)(member=%s)))</td>
+</tr>
+</tbody>
+</table>
+<p>The custom group search filter for simple LDAP authentication.</p>
+<h3 id="authentication_ldap_simple_init_pool_size"><code>authentication_ldap_simple_init_pool_size</code><a class="headerlink" href="#authentication_ldap_simple_init_pool_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-init-pool-size=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>32767</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>connections</td>
+</tr>
+</tbody>
+</table>
+<p>The initial size of the connection pool to the LDAP server for simple LDAP authentication.</p>
+<h3 id="authentication_ldap_simple_log_status"><code>authentication_ldap_simple_log_status</code><a class="headerlink" href="#authentication_ldap_simple_log_status" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-log-status=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>The logging level for messages written to the error log for simple LDAP authentication.</p>
+<h3 id="authentication_ldap_simple_max_pool_size"><code>authentication_ldap_simple_max_pool_size</code><a class="headerlink" href="#authentication_ldap_simple_max_pool_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-max-pool-size=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>32767</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>connections</td>
+</tr>
+</tbody>
+</table>
+<p>The maximum connection pool size to the LDAP server in simple LDAP authentication. The variable is used with <a href="#authentication_ldap_simple_init_pool_size"><code>authentication_ldap_simple_init_pool_size</code></a>.</p>
+<h3 id="authentication_ldap_simple_server_host"><code>authentication_ldap_simple_server_host</code><a class="headerlink" href="#authentication_ldap_simple_server_host" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-server-host=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>The LDAP server host used for simple LDAP authentication.  The LDAP server host can be an IP address or a host name.</p>
+<h3 id="authentication_ldap_simple_server_port"><code>authentication_ldap_simple_server_port</code><a class="headerlink" href="#authentication_ldap_simple_server_port" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-server-port=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>389</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>32376</td>
+</tr>
+</tbody>
+</table>
+<p>The LDAP server TCP/IP port number used for simple LDAP authentication.</p>
+<h3 id="authentication_ldap_simple_ssl"><code>authentication_ldap_simple_ssl</code><a class="headerlink" href="#authentication_ldap_simple_ssl" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-ssl=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>If this variable is enabled, the plugin connects to the server with SSL.</p>
+<h3 id="authentication_ldap_simple_tls"><code>authentication_ldap_simple_tls</code><a class="headerlink" href="#authentication_ldap_simple_tls" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-tls=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>If this variable is enabled, the plugin connects to the server with TLS.</p>
+<h3 id="authentication_ldap_simple_user_search_attr"><code>authentication_ldap_simple_user_search_attr</code><a class="headerlink" href="#authentication_ldap_simple_user_search_attr" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;authentication-ldap-simple-user-search-attr=value</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>uid</td>
+</tr>
+</tbody>
+</table>
+<p>The attribute name that specifies the user names in LDAP directory entries in simple LDAP authentication.</p>
 
                 
 <div class="md-relbar2__inner md-grid">
@@ -3140,7 +4721,7 @@ listed variables are used.</p>
   <small>
     
       Last update:
-      2022-09-22
+      2022-11-21
     
   </small>
 </div>
@@ -3168,7 +4749,7 @@ listed variables are used.</p>
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="pam_plugin.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: PAM Authentication Plugin" rel="prev">
+        <a href="ldap-authentication.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Using LDAP authentication plugins" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -3177,20 +4758,20 @@ listed variables are used.</p>
               <span class="md-footer__direction">
                 Previous
               </span>
-              PAM Authentication Plugin
+              Using LDAP authentication plugins
             </div>
           </div>
         </a>
       
       
         
-        <a href="simple-ldap-variables.html" class="md-footer__link md-footer__link--next" aria-label="Next: Simple LDAP Variables" rel="next">
+        <a href="selinux.html" class="md-footer__link md-footer__link--next" aria-label="Next: Working with SELinux" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Simple LDAP Variables
+              Working with SELinux
             </div>
           </div>
           <div class="md-footer__button md-icon">
