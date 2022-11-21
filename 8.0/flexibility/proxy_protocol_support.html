@@ -2941,8 +2941,8 @@
 <p class="admonition-title">Note</p>
 <p>Ensure that proper firewall access control lists (ACL) are in place when this feature is enabled.</p>
 </div>
-<p>Proxying is supported for TCP over IPv4 and IPv6 connections only. UNIX socket connections can not be proxied and do not fall under the effect of proxy-protocol-networks=’*’.</p>
-<p>As a special exception, it is forbidden for the proxied IP address to be <code>127.0.0.1</code> or <code>::1</code>.</p>
+<p>Proxying is supported only for TCP over IPv4 and IPv6 connections. The UNIX socket connections can not be proxied and do not fall under the effect of using the asterisk symbol (*).</p>
+<p>You cannot have a proxied IP address that is <code>127.0.0.1</code> or <code>::1</code>, even if the IP address is in the proxy_protocol_networks.</p>
 <h2 id="version-specific-information">Version Specific Information<a class="headerlink" href="#version-specific-information" title="Permanent link">&para;</a></h2>
 <ul>
 <li>8.0.12-1: The feature was ported from <em>Percona Server for MySQL</em> 5.7.</li>
@@ -2979,7 +2979,7 @@
 </tr>
 </tbody>
 </table>
-<p>This variable is a global-only, read-only variable, which is either a <code>\*</code> (to enable proxying globally, a non-recommended setting), or a list of comma-separated IPv4 and IPv6 network and host addresses, for which proxying is enabled. Network addresses are specified in CIDR notation, i.e. <code>192.168.0.0/24</code>. To prevent source host spoofing, the setting of this variable must be as restrictive as possible to include only trusted proxy hosts.</p>
+<p>This variable is a global-only, read-only variable, which is either an asterisk symbol(*), or a list of comma-separated IPv4 and IPv6 network and host addresses. For security reasons we do not recommend using an asterisk symbol for the IP address. This symbol causes the server to accept the proxy protocol from any host. Network addresses are specified in CIDR notation, i.e. <code>192.168.0.0/24</code>. To prevent source host spoofing, the setting of this variable must be as restrictive as possible to include only trusted proxy hosts.</p>
 <h2 id="related-reading">Related Reading<a class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>* [PROXY protocol specification](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)
 </code></pre></div>
@@ -3004,7 +3004,7 @@
   <small>
     
       Last update:
-      2022-09-22
+      2022-11-21
     
   </small>
 </div>
