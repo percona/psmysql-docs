@@ -45,7 +45,9 @@ for individual client connections.
 | [`rocksdb_bulk_load_size`](#rocksdb_bulk_load_size)                                                     |
 | [`rocksdb_bytes_per_sync`](#rocksdb_bytes_per_sync)                                                     |
 | [`rocksdb_cache_dump`](#rocksdb_cache_dump)                                                             |
+| [`rocksdb_cache_high_pri_pool_ratio`](#rocksdb_cache_high_pri_pool_ratio)                               |
 | [`rocksdb_cache_index_and_filter_blocks`](#rocksdb_cache_index_and_filter_blocks)                       |
+| [`rocksdb_cache_index_and_filter_with_high_priority`](#rocksdb_cache_index_and_filter_with_high_priority)|
 | [`rocksdb_cancel_manual_compactions`](#rocksdb_cancel_manual_compactions)                               |
 | [`rocksdb_checksums_pct`](#rocksdb_checksums_pct)                                                       |
 | [`rocksdb_collect_sst_properties`](#rocksdb_collect_sst_properties)                                     |
@@ -66,6 +68,8 @@ for individual client connections.
 | [`rocksdb_db_write_buffer_size`](#rocksdb_db_write_buffer_size)                                         |
 | [`rocksdb_deadlock_detect`](#rocksdb_deadlock_detect)                                                   |
 | [`rocksdb_deadlock_detect_depth`](#rocksdb_deadlock_detect_depth)                                       |
+| [`rocksdb_debug_cardinality_multipler`](#rocksdb_debug_cardinality_multiplier)                          |
+| [`rocksdb_debug_manual_compaction_delay`](#rocksdb_debug_manual_compaction_delay)                       |
 | [`rocksdb_debug_optimizer_no_zero_cardinality`](#rocksdb_debug_optimizer_no_zero_cardinality)           |
 | [`rocksdb_debug_ttl_ignore_pk`](#rocksdb_debug_ttl_ignore_pk)                                           |
 | [`rocksdb_debug_ttl_read_filter_ts`](#rocksdb_debug_ttl_read_filter_ts)                                 |
@@ -106,6 +110,7 @@ for individual client connections.
 | [`rocksdb_log_file_time_to_roll`](#rocksdb_log_file_time_to_roll)                                       |
 | [`rocksdb_manifest_preallocation_size`](#rocksdb_manifest_preallocation_size)                           |
 | [`rocksdb_manual_compaction_bottommost_level`](#rocksdb_manual_compaction_bottommost_level)             |
+| [`rocksdb_manual_compaction_threads`](#rocksdb_manual_compaction_threads)                               |
 | [`rocksdb_manual_wal_flush`](#rocksdb_manual_wal_flush)                                                 |
 | [`rocksdb_master_skip_tx_api`](#rocksdb_master_skip_tx_api)                                             |
 | [`rocksdb_max_background_compactions`](#rocksdb_max_background_compactions)                             |
@@ -116,6 +121,7 @@ for individual client connections.
 | [`rocksdb_max_latest_deadlocks`](#rocksdb_max_latest_deadlocks)                                         |
 | [`rocksdb_max_log_file_size`](#rocksdb_max_log_file_size)                                               |
 | [`rocksdb_max_manifest_file_size`](#rocksdb_max_manifest_file_size)                                     |
+| [`rocksdb_max_manual_compactions`](#rocksdb_max_manual_compactions)                                     |
 | [`rocksdb_max_open_files`](#rocksdb_max_open_files)                                                     |
 | [`rocksdb_max_row_locks`](#rocksdb_max_row_locks)                                                       |
 | [`rocksdb_max_subcompactions`](#rocksdb_max_subcompactions)                                             |
@@ -324,11 +330,11 @@ Allows an inplace alter for the `ALTER COLUMN` default operation.
 | Default      | 1                                     |
 
 Specifies the suggested number of concurrent background compaction jobs,
-submitted to the default LOW priority thread pool in RocksDB. Default is `1`.
-Allowed range of values is from `-1` to `64`.  Maximum depends on the
-rocksdb_max_background_compactions variable. This variable was
-replaced with rocksdb_max_background_jobs, which automatically
-decides how many threads to allocate towards flush/compaction.
+submitted to the default LOW priority thread pool in RocksDB. The default is `1`.
+The allowed range of values is from `-1` to `64`. The maximum value depends on the
+[rocksdb_max_background_compactions](#rocksdb_max_background_compactions) variable. This variable was
+replaced with [rocksdb_max_background_jobs](#rocksdb_max_background_jobs), which automatically
+decides how many threads to allocate toward flush/compaction.
 
 ### `rocksdb_blind_delete_primary_key`
 
@@ -521,6 +527,18 @@ Allowed range is up to `18446744073709551615`.
 The variable was implemented in [Percona Server for MySQL 8.0.20-11](../release-notes/Percona-Server-8.0.20-11.md#id1). Includes RocksDB block cache content in core dump. This variable is
 enabled by default.
 
+### `rocksdb_cache_high_pri_pool_ratio`
+
+| Option | Description |
+|---|---|
+| Command-line | --rocksdb-cache-high-pri-pool-ratio |
+| Dynamic | No |
+| Scope | Global |
+| Data type | Double |
+| Default | 0.0 |
+
+This variable specifies the size of the block cache high-pri pool. The default value and minimum value is 0.0. The maximum value is 1.0.
+
 ### `rocksdb_cache_index_and_filter_blocks`
 
 | Option       | Description                             |
@@ -534,8 +552,22 @@ enabled by default.
 Specifies whether RocksDB should use the block cache for caching the index
 and bloomfilter data blocks from each data file.
 Enabled by default.
-If you disable this feature,
-RocksDB will allocate additional memory to maintain these data blocks.
+If you disable this feature, RocksDB allocates additional memory to maintain these data blocks.
+
+### `rocksdb_cache_index_and_filter_with_high_priority`
+
+| Option | Description |
+|---|---|
+| Command-line | --rocksdb-cache-index-and-filter-with-high-priority |
+| Dynamic | No |
+| Scope | Global |
+| Data type | Boolean |
+| Default | ON |
+
+Specifies whether RocksDB should use the block cache with high priority for caching the index
+and bloomfilter data blocks from each data file.
+Enabled by default.
+If you disable this feature, RocksDB allocates additional memory to maintain these data blocks.
 
 ### `rocksdb_cancel_manual_compactions`
 
@@ -839,6 +871,32 @@ Disabled by default.
 Specifies the number of transactions deadlock detection will traverse
 through before assuming deadlock.
 
+### `rocksdb_debug_cardinality_multiplier`
+
+| Option | Description |
+|---|---|
+| Command-line | --rocksdb-debug-cardinality-multiplier |
+| Dynamic | Yes |
+| Scope | Global |
+| Data type | UINT |
+| Default | 2 |
+
+The cardinality multiplier used in tests. The minimum value is 0. The maxium value is 2147483647 (INT_MAX).
+
+### `rocksdb_debug_manual_compaction_delay`
+
+| Option | Description |
+|---|---|
+| Command-line | --rocksdb-debug-manual-compaction-delay |
+| Dynamic | Yes |
+| Scope | Global |
+| Data type | UINT |
+| Default | 0 |
+
+Only use this variable when debugging.
+
+This variable specifies a sleep, in seconds, to simulate long-running compactions. The minimum value is 0. The maximum value is 4292967295 (UINT_MAX).
+
 ### `rocksdb_debug_optimizer_no_zero_cardinality`
 
 | Option       | Description                                   |
@@ -1052,7 +1110,7 @@ The variable was implemented in [Percona Server for MySQL 8.0.25-15](../release-
 
 DBOptions::enable_pipelined_write for RocksDB.
 
-If `enable_pipelined_write` is `true`, a separate write thread is maintained for WAL write and memtable write. A write thread first enters the WAL writer queue and then the memtable writer queue. A pending thread on the WAL writer queue only waits for the previous WAL write operations but does not wait for memtable write operations. Enabling the feature may improve write throughput and reduce latency of the prepare phase of a two-phase commit.
+If `enable_pipelined_write` is `ON`, a separate write thread is maintained for WAL write and memtable write. A write thread first enters the WAL writer queue and then the memtable writer queue. A pending thread on the WAL writer queue only waits for the previous WAL write operations but does not wait for memtable write operations. Enabling the feature may improve write throughput and reduce latency of the prepare phase of a two-phase commit.
 
 ### `rocksdb_enable_remove_orphaned_dropped_cfs`
 
@@ -1465,6 +1523,18 @@ Option for bottommost level compaction during manual compaction:
 * kForce - Always compact bottommost level
 
 * kForceOptimized -  Always compact bottommost level but in bottommost level avoid double-compacting files created in the same compaction
+  
+### rocksdb_manual_compaction_threads
+
+| Option | Description |
+|---|---|
+| Command-line | --rocksdb-manual-compaction-threads |
+| Dynamic | Yes |
+| Scope | Local |
+| Data type | INT |
+| Default | 0 |
+
+The variable defines the number of RocksDB threads to run for a manual compaction. The minimum value is 0. The maximum value is 120. 
 
 ### `rocksdb_manual_wal_flush`
 
@@ -1620,6 +1690,18 @@ Specifies the maximum size of the MANIFEST data file,
 after which it is rotated.
 Default value is also the maximum, making it practically unlimited:
 only one manifest file is used.
+
+### `rocksdb_max_manual_compactions`
+
+| Option | Description |
+|---|---|
+| Command-line | --rocksdb-max-manual-compactions |
+| Dynamic | Yes |
+| Scope | Global |
+| Data type | UINT |
+| Default | 10 |
+
+The variable defines the maximum number of pending plus ongoing manual compactions. The default value and the minimum value is 0. The maximum value is 4294967295 (UNIT_MAX).
 
 ### `rocksdb_max_open_files`
 
