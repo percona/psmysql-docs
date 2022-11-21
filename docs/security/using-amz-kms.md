@@ -1,6 +1,6 @@
 # Using the Amazon Key Management Service (AWS KMS)
 
-As of Percona Server for MySQL 8.0.30-22, the `Amazon Key Management Service (AWS KMS)` feature is [Generally Available (GA)](../glossary.md#generally-available). 
+As of Percona Server for MySQL 8.0.30-22, the `Amazon Key Management Service (AWS KMS)` feature is [Generally Available (GA)](../glossary.md#general-availability-ga). 
 
 **Percona Server for MySQL** 8.0.28-20 adds support for the [Amazon Key
 Management Service (AWS KMS)](https://aws.amazon.com/kms/). Percona Server
