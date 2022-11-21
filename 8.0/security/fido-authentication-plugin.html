@@ -15,14 +15,14 @@
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/8.0/management/start_transaction_with_consistent_snapshot.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/8.0/security/fido-authentication-plugin.html">
       
       <link rel="icon" href="../_static/percona_favicon.ico">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
     
     
       
-        <title>Start transaction with consistent snapshot - Percona Server for MySQL</title>
+        <title>FIDO authentication plugin - Percona Server for MySQL</title>
       
     
     
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#start-transaction-with-consistent-snapshot" class="md-skip">
+        <a href="#fido-authentication-plugin" class="md-skip">
           Skip to content
         </a>
       
@@ -129,7 +129,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Start transaction with consistent snapshot
+              FIDO authentication plugin
             
           </span>
         </div>
@@ -1054,14 +1054,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
       
       
       
@@ -1084,7 +1082,7 @@
   
   
     <li class="md-nav__item">
-      <a href="udf_percona_toolkit.html" class="md-nav__link">
+      <a href="../management/udf_percona_toolkit.html" class="md-nav__link">
         Percona Toolkit UDFs
       </a>
     </li>
@@ -1098,7 +1096,7 @@
   
   
     <li class="md-nav__item">
-      <a href="kill_idle_trx.html" class="md-nav__link">
+      <a href="../management/kill_idle_trx.html" class="md-nav__link">
         Kill Idle Transactions
       </a>
     </li>
@@ -1112,7 +1110,7 @@
   
   
     <li class="md-nav__item">
-      <a href="changed_page_tracking.html" class="md-nav__link">
+      <a href="../management/changed_page_tracking.html" class="md-nav__link">
         XtraDB changed page tracking
       </a>
     </li>
@@ -1126,7 +1124,7 @@
   
   
     <li class="md-nav__item">
-      <a href="enforce_engine.html" class="md-nav__link">
+      <a href="../management/enforce_engine.html" class="md-nav__link">
         Enforcing Storage Engine
       </a>
     </li>
@@ -1140,7 +1138,7 @@
   
   
     <li class="md-nav__item">
-      <a href="innodb_expanded_fast_index_creation.html" class="md-nav__link">
+      <a href="../management/innodb_expanded_fast_index_creation.html" class="md-nav__link">
         Expanded Fast Index Creation
       </a>
     </li>
@@ -1154,7 +1152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="backup_locks.html" class="md-nav__link">
+      <a href="../management/backup_locks.html" class="md-nav__link">
         Backup Locks
       </a>
     </li>
@@ -1168,7 +1166,7 @@
   
   
     <li class="md-nav__item">
-      <a href="audit_log_plugin.html" class="md-nav__link">
+      <a href="../management/audit_log_plugin.html" class="md-nav__link">
         Audit Log Plugin
       </a>
     </li>
@@ -1180,115 +1178,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Start transaction with consistent snapshot
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="start_transaction_with_consistent_snapshot.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../management/start_transaction_with_consistent_snapshot.html" class="md-nav__link">
         Start transaction with consistent snapshot
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#snapshot-cloning" class="md-nav__link">
-    Snapshot Cloning
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mysqldump" class="md-nav__link">
-    mysqldump
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#system-variables" class="md-nav__link">
-    System Variables
-  </a>
-  
-    <nav class="md-nav" aria-label="System Variables">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#have_snapshot_cloning" class="md-nav__link">
-    have_snapshot_cloning
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#status-variables" class="md-nav__link">
-    Status Variables
-  </a>
-  
-    <nav class="md-nav" aria-label="Status Variables">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#binlog_snapshot_file" class="md-nav__link">
-    Binlog_snapshot_file
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#binlog_snapshot_position" class="md-nav__link">
-    Binlog_snapshot_position
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#other-reading" class="md-nav__link">
-    Other Reading
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1300,7 +1194,7 @@
   
   
     <li class="md-nav__item">
-      <a href="extended_show_grants.html" class="md-nav__link">
+      <a href="../management/extended_show_grants.html" class="md-nav__link">
         Extended SHOW GRANTS
       </a>
     </li>
@@ -1314,7 +1208,7 @@
   
   
     <li class="md-nav__item">
-      <a href="utility_user.html" class="md-nav__link">
+      <a href="../management/utility_user.html" class="md-nav__link">
         Utility user
       </a>
     </li>
@@ -1334,12 +1228,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" checked>
       
       
       
@@ -1362,7 +1258,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/pam_plugin.html" class="md-nav__link">
+      <a href="pam_plugin.html" class="md-nav__link">
         PAM Authentication Plugin
       </a>
     </li>
@@ -1376,7 +1272,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/simple-ldap.html" class="md-nav__link">
+      <a href="simple-ldap.html" class="md-nav__link">
         Using Simple LDAP Authentication
       </a>
     </li>
@@ -1390,7 +1286,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/simple-ldap-variables.html" class="md-nav__link">
+      <a href="simple-ldap-variables.html" class="md-nav__link">
         Simple LDAP Variables
       </a>
     </li>
@@ -1404,7 +1300,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/selinux.html" class="md-nav__link">
+      <a href="selinux.html" class="md-nav__link">
         Working with SELinux
       </a>
     </li>
@@ -1418,7 +1314,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/apparmor.html" class="md-nav__link">
+      <a href="apparmor.html" class="md-nav__link">
         Working with AppArmor
       </a>
     </li>
@@ -1432,7 +1328,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/data-at-rest-encryption.html" class="md-nav__link">
+      <a href="data-at-rest-encryption.html" class="md-nav__link">
         Data at Rest Encryption
       </a>
     </li>
@@ -1446,7 +1342,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/using-keyring-plugin.html" class="md-nav__link">
+      <a href="using-keyring-plugin.html" class="md-nav__link">
         Using the keyring component or keyring plugin
       </a>
     </li>
@@ -1460,7 +1356,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/using-kmip.html" class="md-nav__link">
+      <a href="using-kmip.html" class="md-nav__link">
         Using the Key Management Interoperability Protocol (KMIP)
       </a>
     </li>
@@ -1474,7 +1370,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/encryption-functions.html" class="md-nav__link">
+      <a href="encryption-functions.html" class="md-nav__link">
         Encryption functions
       </a>
     </li>
@@ -1488,7 +1384,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/using-amz-kms.html" class="md-nav__link">
+      <a href="using-amz-kms.html" class="md-nav__link">
         Using the Amazon Key Management Service (AWS KMS)
       </a>
     </li>
@@ -1500,11 +1396,108 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../security/fido-authentication-plugin.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          FIDO authentication plugin
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="fido-authentication-plugin.html" class="md-nav__link md-nav__link--active">
         FIDO authentication plugin
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#plugin-and-library-file-names" class="md-nav__link">
+    Plugin and library file names
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-the-fido-authentication-plugin" class="md-nav__link">
+    Install the FIDO authentication plugin
+  </a>
+  
+    <nav class="md-nav" aria-label="Install the FIDO authentication plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verify-installation" class="md-nav__link">
+    Verify installation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-fido-authentication" class="md-nav__link">
+    Use FIDO authentication
+  </a>
+  
+    <nav class="md-nav" aria-label="Use FIDO authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-fido-authentication-with-non-fido-authentication" class="md-nav__link">
+    Use FIDO authentication with non-FIDO authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-fido-authentication-as-the-only-method" class="md-nav__link">
+    Use FIDO authentication as the only method
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unregister-a-fido-device" class="md-nav__link">
+    Unregister a FIDO device
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1516,7 +1509,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/rotating-master-key.html" class="md-nav__link">
+      <a href="rotating-master-key.html" class="md-nav__link">
         Rotating the Master Key
       </a>
     </li>
@@ -1530,7 +1523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/encrypting-tables.html" class="md-nav__link">
+      <a href="encrypting-tables.html" class="md-nav__link">
         Encrypting File-Per-Table Tablespace
       </a>
     </li>
@@ -1544,7 +1537,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/encrypting-tablespaces.html" class="md-nav__link">
+      <a href="encrypting-tablespaces.html" class="md-nav__link">
         Encrypting a Schema or a General Tablespace
       </a>
     </li>
@@ -1558,7 +1551,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/encrypting-system-tablespace.html" class="md-nav__link">
+      <a href="encrypting-system-tablespace.html" class="md-nav__link">
         Encrypting the System Tablespace
       </a>
     </li>
@@ -1572,7 +1565,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/encrypting-temporary-files.html" class="md-nav__link">
+      <a href="encrypting-temporary-files.html" class="md-nav__link">
         Encrypting Temporary Files
       </a>
     </li>
@@ -1586,7 +1579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/encrypting-binlogs.html" class="md-nav__link">
+      <a href="encrypting-binlogs.html" class="md-nav__link">
         Encrypting Binary Log Files and Relay Log Files
       </a>
     </li>
@@ -1600,7 +1593,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/encrypting-redo-log.html" class="md-nav__link">
+      <a href="encrypting-redo-log.html" class="md-nav__link">
         Encrypting the Redo Log files
       </a>
     </li>
@@ -1614,7 +1607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/encrypting-undo-tablespace.html" class="md-nav__link">
+      <a href="encrypting-undo-tablespace.html" class="md-nav__link">
         Encrypting the Undo Tablespace
       </a>
     </li>
@@ -1628,7 +1621,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/encrypting-threads.html" class="md-nav__link">
+      <a href="encrypting-threads.html" class="md-nav__link">
         Working with Advanced Encryption Key Rotation
       </a>
     </li>
@@ -1642,7 +1635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/encrypting-doublewrite-buffers.html" class="md-nav__link">
+      <a href="encrypting-doublewrite-buffers.html" class="md-nav__link">
         Encrypting Doublewrite Buffers
       </a>
     </li>
@@ -1656,7 +1649,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/verifying-encryption.html" class="md-nav__link">
+      <a href="verifying-encryption.html" class="md-nav__link">
         Verifying the Encryption for Tables, Tablespaces, and Schemas
       </a>
     </li>
@@ -1670,7 +1663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/ssl-improvement.html" class="md-nav__link">
+      <a href="ssl-improvement.html" class="md-nav__link">
         SSL Improvements
       </a>
     </li>
@@ -1684,7 +1677,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/data-masking.html" class="md-nav__link">
+      <a href="data-masking.html" class="md-nav__link">
         Data Masking
       </a>
     </li>
@@ -1698,7 +1691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/system-variables.html" class="md-nav__link">
+      <a href="system-variables.html" class="md-nav__link">
         Server variables
       </a>
     </li>
@@ -2841,30 +2834,23 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#snapshot-cloning" class="md-nav__link">
-    Snapshot Cloning
+  <a href="#plugin-and-library-file-names" class="md-nav__link">
+    Plugin and library file names
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#mysqldump" class="md-nav__link">
-    mysqldump
+  <a href="#install-the-fido-authentication-plugin" class="md-nav__link">
+    Install the FIDO authentication plugin
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#system-variables" class="md-nav__link">
-    System Variables
-  </a>
-  
-    <nav class="md-nav" aria-label="System Variables">
+    <nav class="md-nav" aria-label="Install the FIDO authentication plugin">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#have_snapshot_cloning" class="md-nav__link">
-    have_snapshot_cloning
+  <a href="#verify-installation" class="md-nav__link">
+    Verify installation
   </a>
   
 </li>
@@ -2875,23 +2861,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#status-variables" class="md-nav__link">
-    Status Variables
+  <a href="#use-fido-authentication" class="md-nav__link">
+    Use FIDO authentication
   </a>
   
-    <nav class="md-nav" aria-label="Status Variables">
+    <nav class="md-nav" aria-label="Use FIDO authentication">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#binlog_snapshot_file" class="md-nav__link">
-    Binlog_snapshot_file
+  <a href="#use-fido-authentication-with-non-fido-authentication" class="md-nav__link">
+    Use FIDO authentication with non-FIDO authentication
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#binlog_snapshot_position" class="md-nav__link">
-    Binlog_snapshot_position
+  <a href="#use-fido-authentication-as-the-only-method" class="md-nav__link">
+    Use FIDO authentication as the only method
   </a>
   
 </li>
@@ -2902,8 +2888,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-reading" class="md-nav__link">
-    Other Reading
+  <a href="#unregister-a-fido-device" class="md-nav__link">
+    Unregister a FIDO device
   </a>
   
 </li>
@@ -2924,7 +2910,7 @@
                 <!-- Edit button -->
                 
                   <a
-                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/management/start_transaction_with_consistent_snapshot.md"
+                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/security/fido-authentication-plugin.md"
                     title="Edit this page"
                     class="md-content__button md-icon"
                   >
@@ -2940,95 +2926,100 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="start-transaction-with-consistent-snapshot">Start transaction with consistent snapshot<a class="headerlink" href="#start-transaction-with-consistent-snapshot" title="Permanent link">&para;</a></h1>
-<p><em>Percona Server for MySQL</em> has ported <em>MariaDB</em> <a href="https://mariadb.com/kb/en/enhancements-for-start-transaction-with-consistent/">enhancement</a> for <code>START TRANSACTION WITH CONSISTENT SNAPSHOTS</code> feature to <em>MySQL</em> 5.6 group commit implementation. This enhancement makes binary log positions consistent with <em>InnoDB</em> transaction snapshots.</p>
-<p>This feature is quite useful to obtain logical backups with correct positions without running a <code>FLUSH TABLES WITH READ LOCK</code>. Binary log position can be obtained by two newly implemented status variables: <a href="#binlog_snapshot_file">Binlog_snapshot_file</a> and <a href="#binlog_snapshot_position">Binlog_snapshot_position</a>. After starting a transaction using the <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code>, these two variables will provide you with the binlog position corresponding to the state of the database of the consistent snapshot so taken, irrespectively of which other transactions have been committed since the snapshot was taken.</p>
-<h2 id="snapshot-cloning">Snapshot Cloning<a class="headerlink" href="#snapshot-cloning" title="Permanent link">&para;</a></h2>
-<p>The <em>Percona Server for MySQL</em> implementation extends the <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code> syntax with the optional <code>FROM SESSION</code> clause:</p>
-<div class="highlight"><pre><span></span><code><span class="k">START</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">CONSISTENT</span><span class="w"> </span><span class="n">SNAPSHOT</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">session_id</span><span class="o">&gt;</span><span class="p">;</span><span class="w"></span>
+                <h1 id="fido-authentication-plugin">FIDO authentication plugin<a class="headerlink" href="#fido-authentication-plugin" title="Permanent link">&para;</a></h1>
+<p>The FIDO Authentication plugin is a <a href="../glossary.html#tech-preview">tech preview</a> feature. Before using the plugin in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.</p>
+<p><em>Percona Server for MySQL 8.0.30-22</em> adds support for the Fast Identify Online (FIDO) authentication method that uses a plugin. The FIDO authentication provides a set of standards that reduces the reliance on passwords.</p>
+<p>The server-side fido authentication plugin enables authentication using external devices. If this plugin is the only authentication plugin used by the account, this plugin allows authentication without a password. Multi-factor authentication can use non-FIDO MySQL authentication methods, the FIDO authentication method, or a combination of both. </p>
+<p>All distributions include the client-side <code>authentication_fido_client</code> plugin. This plugin allows clients to connect to accounts that use <code>authentication_fido</code> and authenticate on a server that has that plugin loaded.</p>
+<h2 id="plugin-and-library-file-names">Plugin and library file names<a class="headerlink" href="#plugin-and-library-file-names" title="Permanent link">&para;</a></h2>
+<p>The plugin and library file names are listed in the following table. </p>
+<table>
+<thead>
+<tr>
+<th>Plugin or file name</th>
+<th>Plugin or library file name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server-side plugin</td>
+<td><code>authentication_fido</code></td>
+</tr>
+<tr>
+<td>Client-side plugin</td>
+<td><code>authentication_fido_client</code></td>
+</tr>
+<tr>
+<td>Library file</td>
+<td>authentication_fido.so</td>
+</tr>
+</tbody>
+</table>
+<h2 id="install-the-fido-authentication-plugin">Install the FIDO authentication plugin<a class="headerlink" href="#install-the-fido-authentication-plugin" title="Permanent link">&para;</a></h2>
+<p>The library file must be stored in the directory named by the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_plugin_dir"><code>plugin_dir</code></a> variable. </p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">At server startup</label><label for="__tabbed_1_2">Edit my.cnf and restart the server</label><label for="__tabbed_1_3">Load the plugin at runtime</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>At server startup, use the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-options.html#option_mysqld_plugin-load-add"><code>--plugin_load_add</code></a> option with the library name. The option must be added each time the server starts.</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>[mysqld]
+...
+plugin-load-add=authentication_fido.so
+...
 </code></pre></div>
-<p>When specified, all participating storage engines and binary log instead of creating a new snapshot of data (or binary log coordinates), create a copy of the snapshot which has been created by an active transaction in the specified session. <code>session_id</code> is the session identifier reported in the <code>Id</code> column of <code>SHOW PROCESSLIST</code>.</p>
-<p>Currently snapshot cloning is only supported by <em>XtraDB</em> and the binary log. As with the regular <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code>, snapshot clones can only be created with the <code>REPEATABLE READ</code> isolation level.</p>
-<p>For <em>XtraDB</em>, a transaction with a cloned snapshot will only see data visible or changed by the donor transaction. That is, the cloned transaction will see no changes committed by transactions that started after the donor transaction, not even changes made by itself. Note that in case of chained cloning the donor transaction is the first one in the chain. For example, if transaction A is cloned into transaction B, which is in turn cloned into transaction C, the latter will have read view from transaction A (i.e., the donor transaction). Therefore, it will see changes made by transaction A, but not by transaction B.</p>
-<h2 id="mysqldump">mysqldump<a class="headerlink" href="#mysqldump" title="Permanent link">&para;</a></h2>
-<p><code>mysqldump</code> has been updated to use new status variables automatically when they are supported by the server and both –single-transaction and –master-data are specified on the command line. Along with the <code>mysqldump</code> improvements introduced in <a href="backup_locks.html#backup-locks">Backup Locks</a> there is now a way to generate <code>mysqldump</code> backups that are guaranteed to be consistent without using <code>FLUSH TABLES WITH READ LOCK</code> even if <code>--master-data</code> is requested.</p>
-<h2 id="system-variables">System Variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
-<h3 id="have_snapshot_cloning"><code>have_snapshot_cloning</code><a class="headerlink" href="#have_snapshot_cloning" title="Permanent link">&para;</a></h3>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_fido</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="o">`</span><span class="n">authentication_fido</span><span class="p">.</span><span class="n">so</span><span class="o">`</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="verify-installation">Verify installation<a class="headerlink" href="#verify-installation" title="Permanent link">&para;</a></h3>
+<p>Use the <a href="https://dev.mysql.com/doc/refman/8.0/en/show-plugins.html"><code>SHOW PLUGINS</code></a> statement or query the <code>INFORMATION_SCHEMA.PLUGINS</code> table to verify that the plugin was loaded successfully and is active.</p>
+<p>Check the server error log if the plugin is not loaded.</p>
+<h2 id="use-fido-authentication">Use FIDO authentication<a class="headerlink" href="#use-fido-authentication" title="Permanent link">&para;</a></h2>
+<p>FIDO can be used with non-FIDO authentication. See <a href="#use-fido-authentication-with-non-fido-authentication">Use FIDO authentication with non-FIDO authentication</a>. FIDO can be used to create 1FA accounts that do not require passwords. For instructions, see <a href="#use-fido-authentication-as-the-only-method">Use FIDO</a>.</p>
+<h3 id="use-fido-authentication-with-non-fido-authentication">Use FIDO authentication with non-FIDO authentication<a class="headerlink" href="#use-fido-authentication-with-non-fido-authentication" title="Permanent link">&para;</a></h3>
+<p>A FIDO device is associated with the account using FIDO authentication. The FIDO device must be registered before the account can be used in a one-time process. This device must be available and the user must perform whatever FIDO device action required, such as adding a thumbprint, or the registration fails.</p>
+<p>The registration can only be performed by the user named by the account. An error occurs if a user attempts the registration for another user. </p>
+<p>The device registration can be performed on the mysql client or MySQL Shell.  Use the <code>--fido-register-factor</code> option with the factor or factors for the device. For example, if you are using FIDO as a second authentication method, which is a common practice, the statement is <code>--fido-register-factor=2</code>. </p>
+<p>Any authentication factors that proceed the FIDO registration must succeed before the registration continues.</p>
+<p>The server checks the user account information to determine if the FIDO device requires registration. If the device must be registered, the server switches the client session to sandbox mode. The registration must be completed before any other activity. In this mode, only <code>ALTER USER</code> statements are permitted. If the session is started with <code>--fido-register-factor</code>, the client generates the statements required to register. After the registration is complete, the session is switched out of sandbox mode and the client can proceed as normal.</p>
+<p>After the device is registered, the server updates the <code>mysql.user</code> system table for that account with the device registration status and stores the public key and credential ID.</p>
+<p>The user must use the same FIDO device during registration and authentication. If the device is reset or the user attempts to use a different device, the authentication fails. To use a different device, the registered device must be unregistered and you must complete the registration process again.</p>
+<h3 id="use-fido-authentication-as-the-only-method">Use FIDO authentication as the only method<a class="headerlink" href="#use-fido-authentication-as-the-only-method" title="Permanent link">&para;</a></h3>
+<p>If FIDO is used as the only method of authentication, the method does not use a password. The authentication uses a method such as a biometric scan or a security key.</p>
+<p>The user creates an account with the <code>PASSWORDLESS_USER_ADMIN</code> privilege and the <code>CREATE USER</code> privilege. </p>
+<p>The first element of the <code>authentication_policy</code> value must be an asterisk(*). Do not start with the plugin name. For information about configuring the <code>authentication policy</code> value, see <a href="https://dev.mysql.com/doc/refman/8.0/en/multifactor-authentication.html#multifactor-authentication-policy">Configuring the Multifactor Authentication Policy</a>.</p>
+<p>You must include the <code>INITIAL AUTHENTICATION IDENTIFIED BY</code> clause in the <code>CREATE USER</code> statement. The server does accept the statement without the clause but the account is unusable because the user cannot connect to the server to register the device. </p>
+<p>The <code>CREATE USER</code> syntax is the following:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;@&lt;</span><span class="n">hostname</span><span class="o">&gt;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">authentication_fido</span><span class="w"> </span><span class="n">INITIAL</span><span class="w"> </span><span class="n">AUTHENTICATION</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;&lt;password&gt;&#39;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>During registration, the user must authenticate with the password. After the device is registered, the server deletes the password and modifies the account to make FIDO the only authentication method. </p>
+<h2 id="unregister-a-fido-device">Unregister a FIDO device<a class="headerlink" href="#unregister-a-fido-device" title="Permanent link">&para;</a></h2>
+<p>If the FIDO device is replaced or lost, the following actions occur:</p>
 <table>
 <thead>
 <tr>
-<th>Option</th>
-<th>Description</th>
+<th>Action required</th>
+<th>Who can perform the action</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Command Line:</td>
-<td>Yes</td>
+<td>Unregister the previous device</td>
+<td>The account owner or any user with the <code>CREATE USER</code> privilege can unregister the device</td>
 </tr>
 <tr>
-<td>Config file</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Scope:</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Dynamic:</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Boolean</td>
+<td>Register the new device</td>
+<td>The user planning to use the device must register the new device</td>
 </tr>
 </tbody>
 </table>
-<p>This server variable is implemented to help other utilities detect if the server supports the <code>FROM SESSION</code> extension. When available, the snapshot cloning feature and the syntax extension to <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code> are supported by the server, and the variable value is always <code>YES</code>.</p>
-<h2 id="status-variables">Status Variables<a class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
-<h3 id="binlog_snapshot_file"><code>Binlog_snapshot_file</code><a class="headerlink" href="#binlog_snapshot_file" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Scope:</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>String</td>
-</tr>
-</tbody>
-</table>
-<h3 id="binlog_snapshot_position"><code>Binlog_snapshot_position</code><a class="headerlink" href="#binlog_snapshot_position" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Scope:</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Numeric</td>
-</tr>
-</tbody>
-</table>
-<p>These status variables are only available when the binary log is enabled globally.</p>
-<h2 id="other-reading">Other Reading<a class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://mariadb.com/kb/en/enhancements-for-start-transaction-with-consistent/">MariaDB Enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT</a></li>
-</ul>
+<p>The statement to unregister a device is as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="o">`</span><span class="n">username</span><span class="o">`@`</span><span class="n">hostname</span><span class="o">`</span><span class="w"> </span><span class="err">{</span><span class="mi">2</span><span class="o">|</span><span class="mi">3</span><span class="err">}</span><span class="w"> </span><span class="n">FACTOR</span><span class="w"> </span><span class="n">UNREGISTER</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
 
                 
 <div class="md-relbar2__inner md-grid">
@@ -3050,7 +3041,7 @@
   <small>
     
       Last update:
-      2022-11-08
+      2022-11-21
     
   </small>
 </div>
@@ -3078,7 +3069,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="audit_log_plugin.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Audit Log Plugin" rel="prev">
+        <a href="using-amz-kms.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Using the Amazon Key Management Service (AWS KMS)" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -3087,20 +3078,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Audit Log Plugin
+              Using the Amazon Key Management Service (AWS KMS)
             </div>
           </div>
         </a>
       
       
         
-        <a href="extended_show_grants.html" class="md-footer__link md-footer__link--next" aria-label="Next: Extended SHOW GRANTS" rel="next">
+        <a href="rotating-master-key.html" class="md-footer__link md-footer__link--next" aria-label="Next: Rotating the Master Key" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Extended SHOW GRANTS
+              Rotating the Master Key
             </div>
           </div>
           <div class="md-footer__button md-icon">

@@ -1396,6 +1396,20 @@
   
   
     <li class="md-nav__item">
+      <a href="security/fido-authentication-plugin.html" class="md-nav__link">
+        FIDO authentication plugin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="security/rotating-master-key.html" class="md-nav__link">
         Rotating the Master Key
       </a>
@@ -2745,6 +2759,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#general-availability-ga" class="md-nav__link">
+    General Availability (GA)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#isolation" class="md-nav__link">
     Isolation
   </a>
@@ -2817,6 +2838,13 @@
         <li class="md-nav__item">
   <a href="#storage-engine" class="md-nav__link">
     Storage Engine
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tech-preview" class="md-nav__link">
+    Tech Preview
   </a>
   
 </li>
@@ -2913,6 +2941,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#general-availability-ga" class="md-nav__link">
+    General Availability (GA)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#isolation" class="md-nav__link">
     Isolation
   </a>
@@ -2990,6 +3025,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tech-preview" class="md-nav__link">
+    Tech Preview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#xtradb" class="md-nav__link">
     XtraDB
   </a>
@@ -3030,7 +3072,7 @@
                 <!-- Markdown content -->
                 <h1 id="glossary">Glossary<a class="headerlink" href="#glossary" title="Permanent link">&para;</a></h1>
 <h2 id="acid">ACID<a class="headerlink" href="#acid" title="Permanent link">&para;</a></h2>
-<p>Set of properties that guarantee database transactions are processed reliably. Stands for <a href="#Atomicity">Atomicity</a>, <a href="#Consistency">Consistency</a>, <a href="#Isolation">Isolation</a>, <a href="#Durability">Durability</a>.</p>
+<p>Set of properties that guarantee database transactions are processed reliably. Stands for <a href="#atomicity">Atomicity</a>, <a href="#consistency">Consistency</a>, <a href="#isolation">Isolation</a>, <a href="#durability">Durability</a>.</p>
 <h2 id="atomicity">Atomicity<a class="headerlink" href="#atomicity" title="Permanent link">&para;</a></h2>
 <p>Atomicity means that database operations are applied following a “all or nothing” rule. A transaction is either fully applied or not at all.</p>
 <h2 id="consistency">Consistency<a class="headerlink" href="#consistency" title="Permanent link">&para;</a></h2>
@@ -3039,35 +3081,45 @@
 <p>Once a transaction is committed, it will remain so.</p>
 <h2 id="foreign-key">Foreign Key<a class="headerlink" href="#foreign-key" title="Permanent link">&para;</a></h2>
 <p>A referential constraint between two tables. Example: A purchase order in the purchase_orders table must have been made by a customer that exists in the customers table.</p>
+<h2 id="general-availability-ga">General Availability (GA)<a class="headerlink" href="#general-availability-ga" title="Permanent link">&para;</a></h2>
+<p>A finalized version of the product which is made available to the general public. It is the final stage in the software release cycle.</p>
 <h2 id="isolation">Isolation<a class="headerlink" href="#isolation" title="Permanent link">&para;</a></h2>
 <p>The Isolation requirement means that no transaction can interfere with another.</p>
 <h2 id="innodb">InnoDB<a class="headerlink" href="#innodb" title="Permanent link">&para;</a></h2>
-<p>A <a href="#Storage-Engine">Storage Engine</a> for MySQL and derivatives (<a href="#Percona-Server">Percona Server</a>, <a href="#MariaDB">MariaDB</a>) originally written by Innobase Oy, since acquired by Oracle. It provides <a href="#ACID">ACID</a> compliant storage engine with <a href="#Foreign-Key">foreign key</a> support. As of <a href="#MySQL">MySQL</a> version 5.5, InnoDB became the default storage engine on all platforms.</p>
+<p>A <a href="#storage-engine">Storage Engine</a> for MySQL and derivatives (<a href="#percona-server">Percona Server</a>, <a href="#mariadb">MariaDB</a>) originally written by Innobase Oy, since acquired by Oracle. It provides <a href="#acid">ACID</a> compliant storage engine with <a href="#foreign-key">foreign key</a> support. As of <a href="#mysql">MySQL</a> version 5.5, InnoDB became the default storage engine on all platforms.</p>
 <h2 id="jenkins">Jenkins<a class="headerlink" href="#jenkins" title="Permanent link">&para;</a></h2>
 <p><a href="https://www.jenkins-ci.org">Jenkins</a> is a continuous integration system that we use to help ensure the continued quality of the software we produce. It helps us achieve the aims of:</p>
 <ul>
-<li>no failed tests in the trunk on any platform,   </li>
-<li>aid developers in ensuring merge requests build and test on all platforms,   </li>
-<li>no known performance regressions (without a damn good explanation).</li>
+<li>
+<p>no failed tests in the trunk on any platform</p>
+</li>
+<li>
+<p>aid developers in ensuring merge requests build and test on all platform</p>
+</li>
+<li>
+<p>no known performance regressions (without a damn good explanation).</p>
+</li>
 </ul>
 <h2 id="lsn">LSN<a class="headerlink" href="#lsn" title="Permanent link">&para;</a></h2>
-<p>Log Serial Number. A term used in relation to the <a href="#InnoDB">InnoDB</a> or <a href="#XtraDB">XtraDB</a> storage engines.</p>
+<p>The Log Sequence Number (LSN) is an 8-byte number. Every data change adds an entry to the redo log and generates an LSN. The server increments the LSN with every change.</p>
 <h2 id="mariadb">MariaDB<a class="headerlink" href="#mariadb" title="Permanent link">&para;</a></h2>
-<p>A fork of <a href="#MySQL">MySQL</a> that is maintained primarily by Monty Program AB. It aims to add features, and fix bugs while maintaining 100% backward compatibility with MySQL.</p>
+<p>A fork of <a href="#mysql">MySQL</a> that is maintained primarily by Monty Program AB. It aims to add features, and fix bugs while maintaining 100% backward compatibility with MySQL.</p>
 <h2 id="mycnf">my.cnf<a class="headerlink" href="#mycnf" title="Permanent link">&para;</a></h2>
 <p>The file name of the default MySQL configuration file.</p>
 <h2 id="myisam">MyISAM<a class="headerlink" href="#myisam" title="Permanent link">&para;</a></h2>
-<p>A <a href="#MySQL">MySQL</a> <a href="#Storage-Engine">Storage Engine</a> that was the default until MySQL 5.5.</p>
+<p>A <a href="#mysql">MySQL</a> <a href="#storage-engine">Storage Engine</a> that was the default until MySQL 5.5.</p>
 <h2 id="mysql">MySQL<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h2>
-<p>An open source database that has spawned several distributions and forks. MySQL AB was the primary maintainer and distributor until bought by Sun Microsystems, which was then acquired by Oracle. As Oracle owns the MySQL trademark, the term MySQL is often used for the Oracle distribution of MySQL as distinct from the drop-in replacements such as <a href="#MariaDB">MariaDB</a> and <a href="#Percona-Server">Percona Server for MySQL</a>.</p>
+<p>An open source database that has spawned several distributions and forks. MySQL AB was the primary maintainer and distributor until bought by Sun Microsystems, which was then acquired by Oracle. As Oracle owns the MySQL trademark, the term MySQL is often used for the Oracle distribution of MySQL as distinct from the drop-in replacements such as <a href="#mariadb">MariaDB</a> and <a href="#percona-server">Percona Server for MySQL</a>.</p>
 <h2 id="numa">NUMA<a class="headerlink" href="#numa" title="Permanent link">&para;</a></h2>
 <p>Non-Uniform Memory Access (<a href="https://en.wikipedia.org/wiki/Non-Uniform_Memory_Access">NUMA</a>) is a computer memory design used in multiprocessing, where the memory access time depends on the memory location relative to a processor. Under NUMA, a processor can access its own local memory faster than non-local memory, that is, memory local to another processor or memory shared between processors. The whole system may still operate as one unit, and all memory is basically accessible from everywhere but at a potentially higher latency and lower performance.</p>
 <h2 id="percona-server-for-mysql">Percona Server for MySQL<a class="headerlink" href="#percona-server-for-mysql" title="Permanent link">&para;</a></h2>
-<p>Percona’s branch of <a href="#MySQL">MySQL</a> with performance and management improvements.</p>
+<p>The Percona branch of <a href="#mysql">MySQL</a> with performance and management improvements.</p>
 <h2 id="storage-engine">Storage Engine<a class="headerlink" href="#storage-engine" title="Permanent link">&para;</a></h2>
-<p>A <a href="#Storage-Engine">Storage Engine</a> is a piece of software that implements the details of data storage and retrieval for a database system. This term is primarily used within the <a href="#MySQL">MySQL</a> ecosystem due to it being the first widely used relational database to have an abstraction layer around storage. It is analogous to a Virtual File System layer in an Operating System. A VFS layer allows an operating system to read and write multiple file systems (e.g. FAT, NTFS, XFS, ext3) and a Storage Engine layer allows a database server to access tables stored in different engines (e.g. <a href="#MyISAM">MyISAM</a>, InnoDB).</p>
+<p>A storage engine is a piece of software that implements the details of data storage and retrieval for a database system. This term is primarily used within the <a href="#mysql">MySQL</a> ecosystem due to it being the first widely used relational database to have an abstraction layer around storage. It is analogous to a Virtual File System layer in an Operating System. A VFS layer allows an operating system to read and write multiple file systems (e.g. FAT, NTFS, XFS, ext3) and a Storage Engine layer allows a database server to access tables stored in different engines (for example, <a href="#myisam">MyISAM</a> or InnoDB).</p>
+<h2 id="tech-preview">Tech Preview<a class="headerlink" href="#tech-preview" title="Permanent link">&para;</a></h2>
+<p>A tech preview item can be a feature, a variable, or a value within a variable. The term designates that the item is not yet ready for production use and is not included in support by SLA. A tech preview item is included in a release so that users can provide feedback. The item is either updated and released as <a href="#general-availability-ga">general availability(GA)</a> or removed if not useful. The item&rsquo;s functionality can change from tech preview to GA.</p>
 <h2 id="xtradb">XtraDB<a class="headerlink" href="#xtradb" title="Permanent link">&para;</a></h2>
-<p>Percona’s improved version of <a href="#InnoDB">InnoDB</a> provides performance, features, and reliability above what is shipped by Oracle in InnoDB.</p>
+<p>The Percona improved version of <a href="#innodb">InnoDB</a> provides performance, features, and reliability above what is shipped by Oracle in InnoDB.</p>
 
                 
 <div class="md-relbar2__inner md-grid">
@@ -3089,7 +3141,7 @@
   <small>
     
       Last update:
-      2022-09-27
+      2022-11-21
     
   </small>
 </div>
