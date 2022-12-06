@@ -1,0 +1,13 @@
+# Files in the RPM package built for Percona Server for MySQL 8.0
+
+Each of the Percona Server for MySQL RPM packages has a particular purpose.
+
+|Package                 | Contains                                                                                                                                                                                                                                                   |
+|------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| percona-server-server        | Server itself (the mysqld binary)                                                                                                                                                                                                                          |
+| percona-server-debuginfo     | Debug symbols for the server                                                                                                                                                                                                                               |
+| percona-server-client        | Command line client                                                                                                                                                                                                                                        |
+| percona-server-devel         | Header files needed to compile software using the client library.                                                                                                                                                                                          |
+| percona-server-shared        | Client shared library.                                                                                                                                                                                                                                     |
+| percona-server-shared-compat | Shared libraries for software compiled against old versions of the client library. The following libraries are included in this package: libmysqlclient.so.12, libmysqlclient.so.14, libmysqlclient.so.15, libmysqlclient.so.16, and libmysqlclient.so.18. |
+| percona-server-test          | Includes the test suite for Percona Server for MySQL.                                                                                                                                                                                                      |
