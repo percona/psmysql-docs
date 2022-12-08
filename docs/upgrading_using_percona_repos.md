@@ -6,7 +6,7 @@ Find the instructions on how to enable the repositories in the following documen
 
 * [Percona APT Repository](installation/apt_repo.md)
 
-* [Percona YUM Repository](installation/yum_repo.md)
+* [Percona RPM Repository](installation/yum-repo.md)
 
 
 ## DEB-based distributions
