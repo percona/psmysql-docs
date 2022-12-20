@@ -57,16 +57,7 @@ You can install Percona yum repository by running the following commands as a `r
 	```shell
 	$ sudo yum install percona-server-server
 	```
-	
-	!!! note
-	
-	    Percona Server for MySQL 8.0 also provides the TokuDB storage engine and MyRocks storage engines which can be installed as plugins.
-
-Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds. For more information, see TokuDB Introduction.
-
-For more information on how to install and enable the TokuDB storage review the TokuDB Installation document.
-For information on how to install and enable MyRocks review the
-section Percona MyRocks Installation Guide.
+	--8<-- "./docs/snippets/install/_storage-engines.txt"
 
 ### Percona yum Testing repository
 
