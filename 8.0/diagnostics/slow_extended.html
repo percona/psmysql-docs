@@ -3600,86 +3600,77 @@
 <p>Values are OR’ed together. If the string is empty, then the filter is disabled. If it is not empty, then queries will only be logged to the slow log if their execution plan matches one of the types of plans present in the filter.</p>
 <p>For example, to log only queries that perform a full table scan, set the value to <code>full_scan</code>. To log only queries that use on-disk temporary storage for intermediate results, set the value to <code>tmp_table_on_disk,filesort_on_disk</code>.</p>
 <h3 id="log_slow_rate_type"><code>log_slow_rate_type</code><a class="headerlink" href="#log_slow_rate_type" title="Permanent link">&para;</a></h3>
-<p>| Option</p>
-<div class="highlight"><pre><span></span><code>                       | Description
-
-                                                                                                                                                                                                                                                                |
-</code></pre></div>
-<p>| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Command-line</p>
-<div class="highlight"><pre><span></span><code>                 | Yes
-
-                                                                                                                                                                                                                                                                        |
-</code></pre></div>
-<p>| Config file</p>
-<div class="highlight"><pre><span></span><code>                  | Yes
-
-                                                                                                                                                                                                                                                                        |
-</code></pre></div>
-<p>| Scope</p>
-<div class="highlight"><pre><span></span><code>                        | Global
-
-                                                                                                                                                                                                                                                                     |
-</code></pre></div>
-<p>| Dynamic</p>
-<div class="highlight"><pre><span></span><code>                      | Yes
-
-                                                                                                                                                                                                                                                                        |
-</code></pre></div>
-<p>| Data type</p>
-<div class="highlight"><pre><span></span><code>                    | Enumerated
-
-                                                                                                                                                                                                                                                                 |
-</code></pre></div>
-<p>| Default</p>
-<div class="highlight"><pre><span></span><code>                      | `session`
-
-                                                                                                                                                                                                                                                                    |
-</code></pre></div>
-<p>| Range</p>
-<div class="highlight"><pre><span></span><code>                        | `session`, `query`
-
-                                                                                                                                                                                                                                                             |
-</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Config file</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Enumerated</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>session, query</td>
+</tr>
+</tbody>
+</table>
 <p>Specifies semantic of log_slow_rate_limit - <code>session</code> or <code>query</code>.</p>
 <h3 id="log_slow_rate_limit"><code>log_slow_rate_limit</code><a class="headerlink" href="#log_slow_rate_limit" title="Permanent link">&para;</a></h3>
-<p>| Option</p>
-<div class="highlight"><pre><span></span><code>                       | Description
-
-                                                                                                                                                                                                                                                                |
-</code></pre></div>
-<p>| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Command-line</p>
-<div class="highlight"><pre><span></span><code>                 | Yes
-
-                                                                                                                                                                                                                                                                        |
-</code></pre></div>
-<p>| Config file</p>
-<div class="highlight"><pre><span></span><code>                  | Yes
-
-                                                                                                                                                                                                                                                                        |
-</code></pre></div>
-<p>| Scope</p>
-<div class="highlight"><pre><span></span><code>                        | Global, session
-
-                                                                                                                                                                                                                                                            |
-</code></pre></div>
-<p>| Dynamic</p>
-<div class="highlight"><pre><span></span><code>                      | Yes
-
-                                                                                                                                                                                                                                                                        |
-</code></pre></div>
-<p>| Default</p>
-<div class="highlight"><pre><span></span><code>                      | 1
-
-                                                                                                                                                                                                                                                                          |
-</code></pre></div>
-<p>| Range</p>
-<div class="highlight"><pre><span></span><code>                        | 1-1000
-
-                                                                                                                                                                                                                                                                     |
-</code></pre></div>
-<p>Behavior of this variable depends from log_slow_rate_type.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Config file</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global, session</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Range</td>
+<td>1-1000</td>
+</tr>
+</tbody>
+</table>
+<p>Behavior of this variable depends on the selected log_slow_rate_type.</p>
 <p>Specifies that only a fraction of <code>session/query</code> should be logged. Logging is enabled for every nth <code>session/query</code>. By default, n is 1, so logging is enabled for every <code>session/query</code>. Please note: when log_slow_rate_type is <code>session</code> rate limiting is disabled for the replication thread.</p>
 <p>Logging all queries might consume I/O bandwidth and cause the log file to grow large.</p>
 <div class="highlight"><pre><span></span><code>* When log_slow_rate_type is `session`, this option lets you log full sessions, so you have complete records of sessions for later analysis; but you can rate-limit the number of sessions that are logged. Note that this feature will not work well if your application uses any type of connection pooling or persistent connections. Note that you change log_slow_rate_limit in `session` mode, you should reconnect for get effect.
@@ -4119,7 +4110,7 @@ keyword is followed by a number other than zero:</p>
   <small>
     
       Last update:
-      2022-09-22
+      2022-12-15
     
   </small>
 </div>
