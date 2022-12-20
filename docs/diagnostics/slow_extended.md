@@ -40,88 +40,29 @@ For example, to log only queries that perform a full table scan, set the value t
 
 ### `log_slow_rate_type`
 
-| Option
+| Option       | Description |
+|--------------|-------------|
+| Command-line | Yes         |
+| Config file  | Yes         |
+| Scope        | Global      |
+| Dynamic      | yes         |
+| Data type    | Enumerated  |
+| Default      | session, query     |
 
-                           | Description
-
-                                                                                                                                                                                                                                                                    |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Command-line
-
-                     | Yes
-
-                                                                                                                                                                                                                                                                            |
-| Config file
-
-                      | Yes
-
-                                                                                                                                                                                                                                                                            |
-| Scope
-
-                            | Global
-
-                                                                                                                                                                                                                                                                         |
-| Dynamic
-
-                          | Yes
-
-                                                                                                                                                                                                                                                                            |
-| Data type
-
-                        | Enumerated
-
-                                                                                                                                                                                                                                                                     |
-| Default
-
-                          | `session`
-
-                                                                                                                                                                                                                                                                        |
-| Range
-
-                            | `session`, `query`
-
-                                                                                                                                                                                                                                                                 |
 Specifies semantic of log_slow_rate_limit - `session` or `query`.
 
 ### `log_slow_rate_limit`
 
-| Option
+| Option       | Description     |
+|--------------|-----------------|
+| Command-line | Yes             |
+| Config file  | Yes             |
+| Scope        | Global, session |
+| Dynamic      | yes             |
+| Default      | 1               |
+| Range        | 1-1000          |
 
-                           | Description
-
-                                                                                                                                                                                                                                                                    |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Command-line
-
-                     | Yes
-
-                                                                                                                                                                                                                                                                            |
-| Config file
-
-                      | Yes
-
-                                                                                                                                                                                                                                                                            |
-| Scope
-
-                            | Global, session
-
-                                                                                                                                                                                                                                                                |
-| Dynamic
-
-                          | Yes
-
-                                                                                                                                                                                                                                                                            |
-| Default
-
-                          | 1
-
-                                                                                                                                                                                                                                                                              |
-| Range
-
-                            | 1-1000
-
-                                                                                                                                                                                                                                                                         |
-Behavior of this variable depends from log_slow_rate_type.
+Behavior of this variable depends on the selected log_slow_rate_type.
 
 Specifies that only a fraction of `session/query` should be logged. Logging is enabled for every nth `session/query`. By default, n is 1, so logging is enabled for every `session/query`. Please note: when log_slow_rate_type is `session` rate limiting is disabled for the replication thread.
 
