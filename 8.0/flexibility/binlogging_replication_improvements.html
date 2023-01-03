@@ -17,8 +17,14 @@
       
         <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/8.0/flexibility/binlogging_replication_improvements.html">
       
+      
+        <link rel="prev" href="../performance/procfs-plugin.html">
+      
+      
+        <link rel="next" href="compressed_columns.html">
+      
       <link rel="icon" href="../_static/percona_favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.1">
     
     
       
@@ -26,11 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.3bd4f189.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
-        
       
       
 
@@ -110,7 +115,7 @@
     
     
       <header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
+  <nav class="md-header__inner md-grid" aria-label="">
     <a href="https://percona.com/software/documentation" class="md-header__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
       
   <img src="../_static/percona-logo.svg" alt="logo">
@@ -160,39 +165,6 @@
     
     
     
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    
     
       <div class="md-header__source">
         <a href="https://github.com/percona/psmysql-docs" title="Go to repository" class="md-source" data-md-component="source">
@@ -227,7 +199,7 @@
                     
 
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../index.html" title="Percona Server for MySQL" class="md-nav__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
       
@@ -3520,7 +3492,7 @@
                 
                   <a
                     href="https://github.com/percona/psmysql-docs/edit/8.0/docs/flexibility/binlogging_replication_improvements.md"
-                    title="Edit this page"
+                    title=""
                     class="md-content__button md-icon"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
@@ -3671,8 +3643,8 @@ about what else affects the writing of <code>FLUSH</code> commands to the binary
 </table>
 <p>This variable was introduced in Percona Server for MySQL 8.0.26-16.</p>
 <p>If the variable is enabled, single table <code>DROP TABLE</code> DDL statements are logged in the binary log with comments. Multi-table <code>DROP TABLE</code> DDL statements are not supported and return an error.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">binlog_ddl_skip_rewrite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span><span class="w"></span>
-<span class="cm">/*comment at start*/</span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="cm">/*comment at end*/</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">binlog_ddl_skip_rewrite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
+<span class="cm">/*comment at start*/</span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="cm">/*comment at end*/</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="binary-log-user-defined-functions">Binary Log User Defined Functions<a class="headerlink" href="#binary-log-user-defined-functions" title="Permanent link">&para;</a></h2>
 <p>To implement Point in Time recovery, we have added the <code>binlog_utils_udf</code>. The following user-defined functions are included:</p>
@@ -3728,8 +3700,8 @@ about what else affects the writing of <code>FLUSH</code> commands to the binary
 </code></pre></div>
 <p>Usage: SELECT get_binlog_by_gtid(string) [AS] alias</p>
 <p>Example:</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_binlog_by_gtid</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="n">STRING</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;binlog_utils_udf.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">get_binlog_by_gtid</span><span class="p">(</span><span class="ss">&quot;F6F54186-8495-47B3-8D9F-011DDB1B65B3:1&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="p">;</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_binlog_by_gtid</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="n">STRING</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;binlog_utils_udf.so&#39;</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">get_binlog_by_gtid</span><span class="p">(</span><span class="ss">&quot;F6F54186-8495-47B3-8D9F-011DDB1B65B3:1&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="p">;</span>
 </code></pre></div>
 The output should look like this:</p>
 <div class="highlight"><pre><span></span><code>+--------------+
@@ -3738,15 +3710,15 @@ The output should look like this:</p>
 | binlog.00001 |
 +--------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_binlog_by_gtid</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_binlog_by_gtid</span><span class="p">;</span>
 </code></pre></div>
 <p>The basic syntax for <code>get_last_gtid_from_binlog()</code> is the following:</p>
 <div class="highlight"><pre><span></span><code>* get_last_gtid_from_binlog(string) [AS] alias
 </code></pre></div>
 <p>Usage: SELECT get_last_gtid_from_binlog(string) [AS] alias</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_last_gtid_from_binlog</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="n">STRING</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;binlog_utils_udf.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">get_last_gtid_from_binlog</span><span class="p">(</span><span class="ss">&quot;binlog.00001&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_last_gtid_from_binlog</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="n">STRING</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;binlog_utils_udf.so&#39;</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">get_last_gtid_from_binlog</span><span class="p">(</span><span class="ss">&quot;binlog.00001&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should look like this:</p>
 <div class="highlight"><pre><span></span><code>+-----------------------------------------+
@@ -3755,15 +3727,15 @@ The output should look like this:</p>
 | F6F54186-8495-47B3-8D9F-011DDB1B65B3:10 |
 +-----------------------------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_last_gtid_from_binlog</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_last_gtid_from_binlog</span><span class="p">;</span>
 </code></pre></div>
 <p>The basic syntax for <code>get_gtid_set_by_binlog()</code> is the following:</p>
 <div class="highlight"><pre><span></span><code>* get_gtid_set_by_binlog(string) [AS] alias
 </code></pre></div>
 <p>Usage: SELECT get_gtid_set_by_binlog(string) [AS] alias</p>
 <p>Example:</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_gtid_set_by_binlog</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="n">STRING</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;binlog_utils_udf.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">get_gtid_set_by_binlog</span><span class="p">(</span><span class="ss">&quot;binlog.00001&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="p">;</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_gtid_set_by_binlog</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="n">STRING</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;binlog_utils_udf.so&#39;</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">get_gtid_set_by_binlog</span><span class="p">(</span><span class="ss">&quot;binlog.00001&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="p">;</span>
 </code></pre></div>
 The output should look like this:</p>
 <div class="highlight"><pre><span></span><code>+-------------------------+
@@ -3772,7 +3744,7 @@ The output should look like this:</p>
 | 11ea-b9a7:7,11ea-b9a7:8 |
 +-------------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_gtid_set_by_binlog</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_gtid_set_by_binlog</span><span class="p">;</span>
 </code></pre></div>
 <p>The basic syntax for <code>get_binlog_by_gtid_set()</code> is the following:</p>
 <ul>
@@ -3780,8 +3752,8 @@ The output should look like this:</p>
 </ul>
 <p>Usage: SELECT get_binlog_by_gtid_set(string) [AS] alias</p>
 <p>Example:</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_binlog_by_gtid_set</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="n">STRING</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;binlog_utils_udf.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">get_binlog_by_gtid_set</span><span class="p">(</span><span class="ss">&quot;11ea-b9a7:7,11ea-b9a7:8&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="p">;</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_binlog_by_gtid_set</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="n">STRING</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;binlog_utils_udf.so&#39;</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">get_binlog_by_gtid_set</span><span class="p">(</span><span class="ss">&quot;11ea-b9a7:7,11ea-b9a7:8&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="p">;</span>
 </code></pre></div>
 The output should look like this:</p>
 <div class="highlight"><pre><span></span><code>+---------------------------------------------------------------+
@@ -3790,7 +3762,7 @@ The output should look like this:</p>
 | bin.000003                                                    |
 +---------------------------------------------------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_binlog_by_gtid_set</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_binlog_by_gtid_set</span><span class="p">;</span>
 </code></pre></div>
 <p>The basic syntax for <code>get_first_record_timestamp_by_binlog()</code> is the following:</p>
 <div class="highlight"><pre><span></span><code>* get_first_record_timestamp_by_binlog(TIMESTAMP) [AS] alias
@@ -3807,15 +3779,15 @@ SELECT FROM_UNIXTIME(get_first_record_timestamp_by_binlog(&quot;bin.00003&quot;)
 | 2020-12-03 09:10:40 |
 +---------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_first_record_timestamp_by_binlog</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_first_record_timestamp_by_binlog</span><span class="p">;</span>
 </code></pre></div>
 <p>The basic syntax for <code>get_last_record_timestamp_by_binlog()</code> is the following:</p>
 <div class="highlight"><pre><span></span><code>* get_last_record_timestamp_by_binlog(TIMESTAMP) [AS] alias
 </code></pre></div>
 <p>Usage: SELECT get_last_record_timestamp_by_binlog(TIMESTAMP) [AS] alias</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_last_record_timestamp_by_binlog</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="n">STRING</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;binlog_utils_udf.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">FROM_UNIXTIME</span><span class="p">(</span><span class="n">get_last_record_timestamp_by_binlog</span><span class="p">(</span><span class="ss">&quot;bin.00003&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">DIV</span><span class="w"> </span><span class="mi">1000000</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_last_record_timestamp_by_binlog</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="n">STRING</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;binlog_utils_udf.so&#39;</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">FROM_UNIXTIME</span><span class="p">(</span><span class="n">get_last_record_timestamp_by_binlog</span><span class="p">(</span><span class="ss">&quot;bin.00003&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">DIV</span><span class="w"> </span><span class="mi">1000000</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should look like this:</p>
 <div class="highlight"><pre><span></span><code>+---------------------+
@@ -3824,7 +3796,7 @@ SELECT FROM_UNIXTIME(get_first_record_timestamp_by_binlog(&quot;bin.00003&quot;)
 | 2020-12-04 04:18:56 |
 +---------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_last_record_timestamp_by_binlog</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">get_last_record_timestamp_by_binlog</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
 <p>For the following variables, do not define values with one or more dot (.) characters:</p>
@@ -3878,42 +3850,6 @@ SELECT FROM_UNIXTIME(get_first_record_timestamp_by_binlog(&quot;bin.00003&quot;)
       
         <footer class="md-footer">
   
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="../performance/procfs-plugin.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: The ProcFS plugin" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              The ProcFS plugin
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="compressed_columns.html" class="md-footer__link md-footer__link--next" aria-label="Next: Compressed columns with dictionaries" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Compressed columns with dictionaries
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
-  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
@@ -3939,14 +3875,13 @@ SELECT FROM_UNIXTIME(get_first_record_timestamp_by_binlog(&quot;bin.00003&quot;)
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      <script src="../assets/javascripts/bundle.5cf534bf.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       
-    
     
   </body>
 </html>
