@@ -26,7 +26,7 @@ You can install Percona yum repository by running the following commands as a `r
 	$ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 	```
 	
-	You should see an output that the files are being downloaded, like the following:
+	??? example "Expected output"
 	
 	```text
 	percona-release-latest.noarch-rpm               36 kB/s | 19 kb 00:00
@@ -44,15 +44,16 @@ You can install Percona yum repository by running the following commands as a `r
 	$ sudo percona-release setup ps80
 	```
 	
-	The output could be like the following:
+	If you see the following message, enter 'y' to disable the mysql module:
 	
 	```text
 	On RedHat 8 systems it is needed to disable dnf mysql module to install Percona-Server
-	Do you want to disable it? [y/N] y
+	Do you want to disable it? [y/N] 
 	...
 	```
 
-3. Install the packages
+
+3. Install the packages:
 
 	```shell
 	$ sudo yum install percona-server-server
