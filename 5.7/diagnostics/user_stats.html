@@ -3373,7 +3373,7 @@
 </table>
 <p>This table holds statistics about client connections. The Percona version of the feature restricts this table’s visibility to users who have the <code>SUPER</code> or <code>PROCESS</code> privilege.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">CLIENT_STATISTICS</span><span class="err">\</span><span class="k">G</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">CLIENT_STATISTICS</span><span class="err">\</span><span class="k">G</span>
 </code></pre></div>
 <p>The output could be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>*************************** 1. row ***************************
@@ -3430,8 +3430,8 @@ CONCURRENT_CONNECTIONS: 0
 <p>This table shows statistics on index usage. An older version of the feature contained a single column that had the <code>TABLE_SCHEMA</code>, <code>TABLE_NAME</code> and <code>INDEX_NAME</code> columns concatenated together. The Percona version of the feature separates these into three columns. Users can see entries only for tables to which they have <code>SELECT</code> access.</p>
 <p>This table makes it possible to do many things that were difficult or impossible previously. For example, you can use it to find unused indexes and generate DROP commands to remove them.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">INDEX_STATISTICS</span><span class="w"></span>
-<span class="w">   </span><span class="k">WHERE</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="o">=</span><span class="s1">&#39;tables_priv&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">INDEX_STATISTICS</span>
+<span class="w">   </span><span class="k">WHERE</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="o">=</span><span class="s1">&#39;tables_priv&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>+--------------+-----------------------+--------------------+-----------+
@@ -3477,8 +3477,8 @@ CONCURRENT_CONNECTIONS: 0
 </table>
 <p>This table is similar in function to the <code>INDEX_STATISTICS</code> table.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLE_STATISTICS</span><span class="w"></span>
-<span class="w">   </span><span class="k">WHERE</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="o">=``</span><span class="n">tables_priv</span><span class="o">``</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLE_STATISTICS</span>
+<span class="w">   </span><span class="k">WHERE</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="o">=``</span><span class="n">tables_priv</span><span class="o">``</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>+--------------+-------------------------------+-----------+--------------+------------------------+
@@ -3689,7 +3689,7 @@ CONCURRENT_CONNECTIONS: 0
 <p>This table contains information about user activity. The Percona version of the patch restricts this table’s visibility to users who have the <code>SUPER</code> or <code>PROCESS</code> privilege.</p>
 <p>The table gives answers to questions such as which users cause the most load, and whether any users are being abusive. It also lets you measure how close to capacity the server may be. For example, you can use it to find out whether replication is likely to start falling behind.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">USER_STATISTICS</span><span class="err">\</span><span class="k">G</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">USER_STATISTICS</span><span class="err">\</span><span class="k">G</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>*************************** 1. row ***************************

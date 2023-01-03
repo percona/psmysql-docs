@@ -3061,7 +3061,7 @@
 <ol>
 <li>
 <p>Run <code>ps-admin --enable-tokubackup</code> to add the <code>preload-hotbackup</code> option into <strong>[mysqld_safe]</strong> section of <code>my.cnf</code>.</p>
-<div class="highlight"><pre><span></span><code>$ sudo ps-admin --enable-tokubackup
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-tokubackup
 </code></pre></div>
 <p>The output should be the following:</p>
 <div class="highlight"><pre><span></span><code>Checking SELinux status...
@@ -3080,12 +3080,12 @@ PLEASE RESTART MYSQL SERVICE AND RUN THIS SCRIPT AGAIN TO FINISH INSTALLATION!
 </li>
 <li>
 <p>Restart mysql service</p>
-<div class="highlight"><pre><span></span><code>$ sudo service mysql restart
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>restart
 </code></pre></div>
 </li>
 <li>
 <p>Run <code>ps-admin --enable-tokubackup</code> again to finish installation of TokuBackup plugin</p>
-<div class="highlight"><pre><span></span><code>$ sudo ps-admin --enable-tokubackup
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-tokubackup
 </code></pre></div>
 <p>The output should be the following:</p>
 <div class="highlight"><pre><span></span><code>Checking SELinux status...
@@ -3121,18 +3121,18 @@ INFO: Successfully installed TokuBackup plugin.
 <p>Make sure that the datadir is empty and that MySQL server is shut down before restoring from backup. You can’t restore to a datadir of a running mysqld instance (except when importing a partial backup).</p>
 </div>
 <p>The following example shows how you might use the <strong>rsync</strong> command to restore the backup:</p>
-<div class="highlight"><pre><span></span><code>$ rsync -avrP /data/backup/ /var/lib/mysql/
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>rsync<span class="w"> </span>-avrP<span class="w"> </span>/data/backup/<span class="w"> </span>/var/lib/mysql/
 </code></pre></div>
 <p>Since attributes of files are preserved, in most cases you will need to change their ownership to <em>mysql</em> before starting the database server. Otherwise, the files will be owned by the user who created the backup.</p>
-<div class="highlight"><pre><span></span><code>$ chown -R mysql:mysql /var/lib/mysql
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span>mysql:mysql<span class="w"> </span>/var/lib/mysql
 </code></pre></div>
 <p>If you have changed default TokuDB data directory (tokudb_data_dir) or TokuDB log directory (tokudb_log_dir) or both of them, you will see separate folders for each setting in backup directory after taking backup. You’ll need to restore each folder separately:</p>
-<div class="highlight"><pre><span></span><code>$ rsync -avrP /data/backup/mysql_data_dir/ /var/lib/mysql/
-$ rsync -avrP /data/backup/tokudb_data_dir/ /path/to/original/tokudb_data_dir/
-$ rsync -avrP /data/backup/tokudb_log_dir/ /path/to/original/tokudb_log_dir/
-$ chown -R mysql:mysql /var/lib/mysql
-$ chown -R mysql:mysql /path/to/original/tokudb_data_dir
-$ chown -R mysql:mysql /path/to/original/tokudb_log_dir
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>rsync<span class="w"> </span>-avrP<span class="w"> </span>/data/backup/mysql_data_dir/<span class="w"> </span>/var/lib/mysql/
+$<span class="w"> </span>rsync<span class="w"> </span>-avrP<span class="w"> </span>/data/backup/tokudb_data_dir/<span class="w"> </span>/path/to/original/tokudb_data_dir/
+$<span class="w"> </span>rsync<span class="w"> </span>-avrP<span class="w"> </span>/data/backup/tokudb_log_dir/<span class="w"> </span>/path/to/original/tokudb_log_dir/
+$<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span>mysql:mysql<span class="w"> </span>/var/lib/mysql
+$<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span>mysql:mysql<span class="w"> </span>/path/to/original/tokudb_data_dir
+$<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span>mysql:mysql<span class="w"> </span>/path/to/original/tokudb_log_dir
 </code></pre></div>
 <h2 id="advanced-configuration">Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Permanent link">&para;</a></h2>
 <h3 id="monitoring-progress">Monitoring Progress<a class="headerlink" href="#monitoring-progress" title="Permanent link">&para;</a></h3>
@@ -3153,7 +3153,7 @@ $ chown -R mysql:mysql /path/to/original/tokudb_log_dir
 <h3 id="restricting-backup-target">Restricting Backup Target<a class="headerlink" href="#restricting-backup-target" title="Permanent link">&para;</a></h3>
 <p>You can restrict the location of the destination directory where the backups can be located using the tokudb_backup_allowed_prefix system-level variable. Attempts to backup to a location outside of the specified directory or its children will result in an error.</p>
 <p>The default is <code>null</code>, backups have no restricted locations. This read-only variable can be set in the <code>my.cnf</code> configuration file and displayed with the <code>SHOW VARIABLES</code> command:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysqlSHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;tokudb_backup_allowed_prefix&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysqlSHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;tokudb_backup_allowed_prefix&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be the following:</p>
 <div class="highlight"><pre><span></span><code>+------------------------------+-----------+
@@ -3169,7 +3169,7 @@ $ chown -R mysql:mysql /path/to/original/tokudb_log_dir
 <p>The output could be the following:</p>
 <p><div class="highlight"><pre><span></span><code>ERROR 1231 (42000): Variable &#39;tokudb_backup_dir&#39; can&#39;t be set to the value of &#39;/tmp/backupdir&#39;
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysqlSELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">tokudb_backup_last_error</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysqlSELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">tokudb_backup_last_error</span><span class="p">;</span>
 </code></pre></div></p>
 <p>The output should be the following:</p>
 <p><div class="highlight"><pre><span></span><code>+----------------------------+
@@ -3178,7 +3178,7 @@ $ chown -R mysql:mysql /path/to/original/tokudb_log_dir
 |                         17 |
 +----------------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysqlSELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">tokudb_backup_last_error_string</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysqlSELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">tokudb_backup_last_error_string</span><span class="p">;</span>
 </code></pre></div></p>
 <p>The output should be the following:</p>
 <div class="highlight"><pre><span></span><code>+---------------------------------------------------+

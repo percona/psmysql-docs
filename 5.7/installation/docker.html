@@ -3033,7 +3033,7 @@ with the root password set to <code>root</code>:</p>
 </div>
 <h2 id="accessing-the-percona-server-container">Accessing the Percona Server Container<a class="headerlink" href="#accessing-the-percona-server-container" title="Permanent link">&para;</a></h2>
 <p>To access the shell in the container:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span> $ docker <span class="nb">exec</span> -it ps /bin/bash
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>ps<span class="w"> </span>/bin/bash
 </code></pre></div>
 <p>From the shell, you can view the error log:</p>
 <div class="highlight"><pre><span></span><code>[mysql@ps] $ more /var/log/mysql/error.log
@@ -3043,7 +3043,7 @@ with the root password set to <code>root</code>:</p>
 </code></pre></div>
 <p>You can also run the MySQL command-line client
 to access the database directly:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>mysql@ps<span class="o">]</span> $ mysql -uroot -proot
+<div class="highlight"><pre><span></span><code><span class="o">[</span>mysql@ps<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-proot
 </code></pre></div>
 <p>The output may be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>mysql: [Warning] Using a password on the command line interface can be insecure.
@@ -3068,10 +3068,10 @@ To link a container running your application
 (in this case, from image named <code>app/image</code>)
 with the Percona Server container,
 run it with the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span> $ docker run -d <span class="se">\</span>
-  --name app <span class="se">\</span>
-  --link ps <span class="se">\</span>
-  app/image:latest
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>app<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--link<span class="w"> </span>ps<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>app/image:latest
 </code></pre></div>
 <p>This application container will be able to access the Percona Server container
 via port 3306.</p>
@@ -3126,11 +3126,11 @@ are set up correctly.</p>
 <p>For example, if you create a data directory on a suitable volume
 on your host system named <code>/local/datadir</code>,
 you run the container with the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span> $ docker run -d <span class="se">\</span>
-  --name ps <span class="se">\</span>
-  -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root <span class="se">\</span>
-  -v /local/datadir:/var/lib/mysql <span class="se">\</span>
-  percona/percona-server:5.7
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>ps<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>/local/datadir:/var/lib/mysql<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>percona/percona-server:5.7
 </code></pre></div>
 <p>The <code>-v /local/datadir:/var/lib/mysql</code> option
 mounts the <code>/local/datadir</code> directory on the host
@@ -3143,7 +3143,7 @@ which is the default data directory used by Percona Server.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you have SELinux enabled, assign the relevant policy type to the new data directory, so that the container will be allowed to access it:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span> $ chcon -Rt svirt_sandbox_file_t /local/datadir
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>chcon<span class="w"> </span>-Rt<span class="w"> </span>svirt_sandbox_file_t<span class="w"> </span>/local/datadir
 </code></pre></div>
 </div>
 <h2 id="port-forwarding">Port Forwarding<a class="headerlink" href="#port-forwarding" title="Permanent link">&para;</a></h2>
@@ -3154,11 +3154,11 @@ you can connect to the database by connecting your client
 to a port on the host machine.
 This can greatly simplify consolidating many instances to a single host.</p>
 <p>To map the standard MySQL port 3306 to port 6603 on the host:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span> $ docker run -d <span class="se">\</span>
- --name ps <span class="se">\</span>
- -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root <span class="se">\</span>
- -p <span class="m">6603</span>:3306 <span class="se">\</span>
- percona/percona-server:5.7
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>--name<span class="w"> </span>ps<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-p<span class="w"> </span><span class="m">6603</span>:3306<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>percona/percona-server:5.7
 </code></pre></div>
 <h2 id="passing-options-to-percona-server">Passing Options to Percona Server<a class="headerlink" href="#passing-options-to-percona-server" title="Permanent link">&para;</a></h2>
 <p>You can pass options to Percona Server when running the container
@@ -3166,12 +3166,12 @@ by appending them to the <code>docker run</code> command.
 For example, to start run Percona Server with UTF-8
 as the default setting for character set
 and collation for all databases:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span> $ docker run -d <span class="se">\</span>
- --name ps <span class="se">\</span>
- -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root <span class="se">\</span>
- percona/percona-server:5.7 <span class="se">\</span>
- --character-set-server<span class="o">=</span>utf8 <span class="se">\</span>
- --collation-server<span class="o">=</span>utf8_general_ci
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>--name<span class="w"> </span>ps<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>percona/percona-server:5.7<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>--character-set-server<span class="o">=</span>utf8<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>--collation-server<span class="o">=</span>utf8_general_ci
 </code></pre></div>
 
                 

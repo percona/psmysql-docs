@@ -2948,7 +2948,7 @@
 </code></pre></div>
 <p>Trying to set up bigger value will work correctly, but if we try to set it up with smaller than the limit, defined minimum limit will be used and warning (1292) will be issued:</p>
 <p>Initial query_cache_size size:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;query_cache_size&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;query_cache_size&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>+------------------+---------+
@@ -2959,12 +2959,12 @@
 1 row in set (0.00 sec)
 </code></pre></div>
 <p>Setting up bigger value:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">query_cache_size</span><span class="o">=</span><span class="mi">16777216</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">query_cache_size</span><span class="o">=</span><span class="mi">16777216</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <p><div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;query_cache_size&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;query_cache_size&#39;</span><span class="p">;</span>
 </code></pre></div></p>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>+------------------+----------+
@@ -2975,12 +2975,12 @@
 1 row in set (0.00 sec)
 </code></pre></div>
 <p>Setting up smaller value:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">query_cache_size</span><span class="o">=</span><span class="mi">1048576</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">query_cache_size</span><span class="o">=</span><span class="mi">1048576</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected, 1 warning (0.00 sec)
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">warnings</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">warnings</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>+---------+------+-------------------------------------------------------+
@@ -2990,7 +2990,7 @@
 +---------+------+-------------------------------------------------------+
 1 row in set (0.00 sec)
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;query_cache_size&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;query_cache_size&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>+------------------+---------+
@@ -3003,7 +3003,7 @@
 <p>Adding following option to <code>my.cnf</code> will make query_cache_size hidden.</p>
 <div class="highlight"><pre><span></span><code>hidden-query_cache_size=1
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;query_cache%&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;query_cache%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>+------------------------------+---------+
@@ -3021,7 +3021,7 @@
 <div class="highlight"><pre><span></span><code>readonly-query_cache_size=1
 </code></pre></div>
 <p>Trying to change the variable value will result in error:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;query_cache%&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;query_cache%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>+------------------------------+---------+
@@ -3036,7 +3036,7 @@
 +------------------------------+---------+
 6 rows in set (0.00 sec)
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">query_cache_size</span><span class="o">=</span><span class="mi">16777216</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">query_cache_size</span><span class="o">=</span><span class="mi">16777216</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>ERROR 1238 (HY000): Variable &#39;query_cache_size&#39; is a read only variable

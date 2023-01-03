@@ -3073,10 +3073,10 @@ if the executed expression meets the number of conditions.</p>
 <h2 id="usage-specifics-and-examples">Usage Specifics and Examples<a class="headerlink" href="#usage-specifics-and-examples" title="Permanent link">&para;</a></h2>
 <p>Following example creates a table that associates event identifiers with their
 count:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="n">event_id</span><span class="w"> </span><span class="nb">bigint</span><span class="w"> </span><span class="n">unsigned</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">event_count</span><span class="w"> </span><span class="nb">bigint</span><span class="w"> </span><span class="n">unsigned</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"></span>
-<span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">event_id</span><span class="w"> </span><span class="nb">bigint</span><span class="w"> </span><span class="n">unsigned</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">event_count</span><span class="w"> </span><span class="nb">bigint</span><span class="w"> </span><span class="n">unsigned</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="p">);</span>
 </code></pre></div>
 <p>Many graph applications that map onto relational tables can use duplicate key
 inserts and updates to maintain the graph. For example, one can update the
@@ -3089,8 +3089,8 @@ exists in the table, then <code>INSERT ... ON DUPLICATE KEY UPDATE ...</code> st
 can insert it if not existing, or increment its event_count otherwise. Here
 is an example with duplicate key insertion statement, where <code>%id</code> is some
 specific event_id value:</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="o">%</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">DUPLICATE</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">event_count</span><span class="o">=</span><span class="n">event_count</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="o">%</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">DUPLICATE</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">event_count</span><span class="o">=</span><span class="n">event_count</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
 </code></pre></div>
 <h4 id="explanation">Explanation<a class="headerlink" href="#explanation" title="Permanent link">&para;</a></h4>
 <p>If the event id’s are random, then the throughput of this application would be
@@ -3107,8 +3107,8 @@ Otherwise, the new row is inserted into the leaf node.</p>
 <p>If event_id is known to exist in the table, then <code>UPDATE</code> statement can be
 used to increment its event_count (once again, specific event_id value is
 written here as <code>%id</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">event_count</span><span class="o">=</span><span class="n">event_count</span><span class="o">+</span><span class="mi">1</span><span class="w"></span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">event_id</span><span class="o">=%</span><span class="n">id</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">event_count</span><span class="o">=</span><span class="n">event_count</span><span class="o">+</span><span class="mi">1</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">event_id</span><span class="o">=%</span><span class="n">id</span><span class="p">;</span>
 </code></pre></div>
 <h4 id="explanation_1">Explanation<a class="headerlink" href="#explanation_1" title="Permanent link">&para;</a></h4>
 <p>TokuDB generates an “update” message from the <code>UPDATE</code> statement and its

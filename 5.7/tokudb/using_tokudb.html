@@ -3103,17 +3103,17 @@ ALTER TABLE ..., ADD CONSTRAINT identifier CLUSTERING UNIQUE INDEX identifier (c
 CREATE CLUSTERING INDEX identifier ON ...
 </code></pre></div>
 <p>To define a secondary index as clustering, simply add the word <code>CLUSTERING</code> before the key definition. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">  </span><span class="n">column_a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="n">column_b</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="n">column_c</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">index_a</span><span class="w"> </span><span class="p">(</span><span class="n">column_a</span><span class="p">),</span><span class="w"></span>
-<span class="w">  </span><span class="n">CLUSTERING</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">index_b</span><span class="w"> </span><span class="p">(</span><span class="n">column_b</span><span class="p">))</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TokuDB</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">column_a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">  </span><span class="n">column_b</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">  </span><span class="n">column_c</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">index_a</span><span class="w"> </span><span class="p">(</span><span class="n">column_a</span><span class="p">),</span>
+<span class="w">  </span><span class="n">CLUSTERING</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">index_b</span><span class="w"> </span><span class="p">(</span><span class="n">column_b</span><span class="p">))</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TokuDB</span><span class="p">;</span>
 </code></pre></div>
 <p>In the previous example, the primary table is indexed on <em>column_a</em>. Additionally, there is a secondary clustering index (named <em>index_b</em>) sorted on <em>column_b</em>. Unlike non-clustered indexes, clustering indexes include all the columns of a table and can be used as covering indexes. For example, the following query will run very fast using the clustering <em>index_b</em>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">column_c</span><span class="w"></span>
-<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">foo</span><span class="w"></span>
-<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">column_b</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">column_c</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">foo</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">column_b</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 </code></pre></div>
 <p>This index is sorted on <em>column_b</em>, making the <code>WHERE</code> clause fast, and includes <em>column_c</em>, which avoids lookups in the primary table to satisfy the query.</p>
 <p>TokuDB makes clustering indexes feasible because of its excellent compression and very high indexing rates. For more information about using clustering indexes, see <a href="https://www.percona.com/blog/2009/05/27/introducing_multiple_clustering_indexes/">Introducing Multiple Clustering Indexes</a>.</p>
@@ -3121,12 +3121,12 @@ CREATE CLUSTERING INDEX identifier ON ...
 <p>TokuDB enables you to add indexes to an existing table and still perform inserts and queries on that table while the index is being created.</p>
 <p>The <code>ONLINE</code> keyword is not used. Instead, the value of the tokudb_create_index_online client session variable is examined.</p>
 <p>Hot index creation is invoked using the <code>CREATE INDEX</code> command after setting tokudb_create_index_online to <code>on</code> as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_create_index_online</span><span class="o">=</span><span class="k">on</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_create_index_online</span><span class="o">=</span><span class="k">on</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should resemble the following:</p>
 <p><div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="p">(</span><span class="n">field_name</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="p">(</span><span class="n">field_name</span><span class="p">);</span>
 </code></pre></div></p>
 <p>Alternatively, using the <code>ALTER TABLE</code> command for creating an index will create the index offline (with the table unavailable for inserts or queries), regardless of the value of tokudb_create_index_online. The only way to hot create an index is to use the <code>CREATE INDEX</code> command.</p>
 <p>Hot creating an index will be slower than creating the index offline, and progress depends how busy the mysqld server is with other tasks. Progress of the index creation can be seen by using the <code>SHOW PROCESSLIST</code> command (in another client). Once the index creation completes, the new index will be used in future query plans.</p>
@@ -3158,14 +3158,14 @@ CREATE CLUSTERING INDEX identifier ON ...
 <p>Rename only one column per statement. Renaming more than one column will revert to the standard MySQL blocking behavior. The proper syntax is as follows:</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
-<span class="w">  </span><span class="n">CHANGE</span><span class="w"> </span><span class="n">column_old</span><span class="w"> </span><span class="n">column_new</span><span class="w"></span>
-<span class="w">  </span><span class="n">DATA_TYPE</span><span class="w"> </span><span class="n">REQUIRED_NESS</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span>
+<span class="w">  </span><span class="n">CHANGE</span><span class="w"> </span><span class="n">column_old</span><span class="w"> </span><span class="n">column_new</span>
+<span class="w">  </span><span class="n">DATA_TYPE</span><span class="w"> </span><span class="n">REQUIRED_NESS</span><span class="w"> </span><span class="k">DEFAULT</span>
 </code></pre></div>
 <p>Here’s an example of how that might look:</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
-<span class="w">  </span><span class="n">CHANGE</span><span class="w"> </span><span class="n">column_old</span><span class="w"> </span><span class="n">column_new</span><span class="w"></span>
-<span class="w">  </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span>
+<span class="w">  </span><span class="n">CHANGE</span><span class="w"> </span><span class="n">column_old</span><span class="w"> </span><span class="n">column_new</span>
+<span class="w">  </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span>
 </code></pre></div>
 <p>Notice that all of the column attributes must be specified. <code>ALTER TABLE table CHANGE column_old column_new;</code> induces a slow, blocking column rename.</p>
 <ul>
@@ -3185,10 +3185,10 @@ CREATE CLUSTERING INDEX identifier ON ...
 </div>
 <p>The ultimate choice depends on the particulars of how a database is used, and we recommend that users use the default settings unless they have profiled their system with high compression in place.</p>
 <p>Compression is set on a per-table basis and is controlled by setting row format during a <code>CREATE TABLE</code> or <code>ALTER TABLE</code>. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">  </span><span class="n">column_a</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="n">column_b</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">TokuDB</span><span class="w"></span>
-<span class="w">  </span><span class="n">ROW_FORMAT</span><span class="o">=</span><span class="n">row_format</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">column_a</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">  </span><span class="n">column_b</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">TokuDB</span>
+<span class="w">  </span><span class="n">ROW_FORMAT</span><span class="o">=</span><span class="n">row_format</span><span class="p">;</span>
 </code></pre></div>
 <p>If no row format is specified in a <code>CREATE TABLE</code>, the table is compressed using whichever row format is specified in the session variable tokudb_row_format. If no row format is set nor is tokudb_row_format, the zlib compressor is used.</p>
 <p>row_format and tokudb_row_format variables accept the following values:</p>
@@ -3223,8 +3223,8 @@ CREATE CLUSTERING INDEX identifier ON ...
 </ul>
 <h2 id="changing-compression-of-a-table">Changing Compression of a Table<a class="headerlink" href="#changing-compression-of-a-table" title="Permanent link">&para;</a></h2>
 <p>Modify the compression used on a particular table with the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
-<span class="w">  </span><span class="n">ROW_FORMAT</span><span class="o">=</span><span class="n">row_format</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span>
+<span class="w">  </span><span class="n">ROW_FORMAT</span><span class="o">=</span><span class="n">row_format</span><span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3286,7 +3286,7 @@ CREATE CLUSTERING INDEX identifier ON ...
 <h2 id="disabling-the-write-cache">Disabling the Write Cache<a class="headerlink" href="#disabling-the-write-cache" title="Permanent link">&para;</a></h2>
 <p>When using any transaction-safe database, it is essential that you understand the write-caching characteristics of your hardware. TokuDB provides transaction safe (ACID compliant) data storage for MySQL. However, if the underlying operating system or hardware does not actually write data to disk when it says it did, the system can corrupt your database when the machine crashes. For example, TokuDB can not guarantee proper recovery if it is mounted on an NFS volume. It is always safe to disable the write cache, but you may be giving up some performance.</p>
 <p>For most configurations you must disable the write cache on your disk drives. On ATA/SATA drives, the following command should disable the write cache:</p>
-<div class="highlight"><pre><span></span><code>$ hdparm -W0 /dev/hda
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>hdparm<span class="w"> </span>-W0<span class="w"> </span>/dev/hda
 </code></pre></div>
 <p>There are some cases when you can keep the write cache, for example:</p>
 <ul>

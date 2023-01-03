@@ -2901,7 +2901,7 @@
 <p>In case you want remove the TokuDB storage engine from <em>Percona Server for MySQL</em> without causing any errors, the following is the recommended procedure:</p>
 <h2 id="change-the-tables-from-tokudb-to-innodb">Change the tables from TokuDB to InnoDB<a class="headerlink" href="#change-the-tables-from-tokudb-to-innodb" title="Permanent link">&para;</a></h2>
 <p>If you still need the data in the TokuDB tables you must alter the tables to another supported storage engine, i.e., InnoDB:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2909,7 +2909,7 @@
 </div>
 <h2 id="removing-the-plugins">Removing the plugins<a class="headerlink" href="#removing-the-plugins" title="Permanent link">&para;</a></h2>
 <p>One option is to remove the TokuDB storage engine with all installed plugins by running the <code>ps-admin</code> script:</p>
-<div class="highlight"><pre><span></span><code>ps-admin --disable-tokudb -uroot -pPassw0rd
+<div class="highlight"><pre><span></span><code>ps-admin<span class="w"> </span>--disable-tokudb<span class="w"> </span>-uroot<span class="w"> </span>-pPassw0rd
 </code></pre></div>
 <p>The script output should look like this:</p>
 <div class="highlight"><pre><span></span><code>Checking if Percona server is running with jemalloc enabled...
@@ -2934,29 +2934,29 @@ Uninstalling TokuDB plugin...
 <p class="admonition-title">Note</p>
 <p>The ps-admin removal may not restore the Transparent Huge Pages (THP) to the original operating system default state. You may have the following result:</p>
 </div>
-<div class="highlight"><pre><span></span><code>$ cat /sys/kernel/mm/transparent_hugepage/enabled
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/mm/transparent_hugepage/enabled
 </code></pre></div>
 <p>The output could be the following:</p>
 <div class="highlight"><pre><span></span><code>always madvise [never]
 </code></pre></div>
 <p>On many operating systems, the default state is <code>[always]</code>. To enable transparent huge pages, run the following:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span> always &gt; /sys/kernel/mm/transparent_hugepage/enabled
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span>always<span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/mm/transparent_hugepage/enabled
 </code></pre></div>
 <p>Another option is to manually remove the TokuDB storage engine with all installed plugins:</p>
-<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_file_map</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_fractal_tree_info</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_fractal_tree_block_map</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_trx</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_locks</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_lock_waits</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_background_job_status</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_file_map</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_fractal_tree_info</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_fractal_tree_block_map</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_trx</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_locks</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_lock_waits</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_background_job_status</span><span class="p">;</span>
 </code></pre></div>
 <p>After the engine and the plugins have been uninstalled you can remove the TokuDB package by using the apt/yum commands:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@centos ~<span class="o">]</span><span class="c1"># yum remove Percona-Server-tokudb-57.x86_64</span>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@centos<span class="w"> </span>~<span class="o">]</span><span class="c1"># yum remove Percona-Server-tokudb-57.x86_64</span>
 </code></pre></div>
 <p>or</p>
-<div class="highlight"><pre><span></span><code>root@wheezy:~# apt remove percona-server-tokudb-5.7
+<div class="highlight"><pre><span></span><code>root@wheezy:~#<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span>percona-server-tokudb-5.7
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

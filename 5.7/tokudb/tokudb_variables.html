@@ -4465,7 +4465,7 @@ the directory this variable points to or its children will result in an error.</
 <p>The default is NULL, backups have no restricted locations. This read only
 variable can be set in the <code>my.cnf</code> configuration file and displayed with
 the <code>SHOW VARIABLES</code> command when Percona TokuBackup plugin is loaded.</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;tokudb_backup_allowed_prefix&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;tokudb_backup_allowed_prefix&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be:</p>
 <div class="highlight"><pre><span></span><code>+------------------------------+-----------+
@@ -4550,7 +4550,7 @@ backup as soon as it is set. For more information see Percona TokuBackup.</p>
 <p>Use this variable to set a regular expression that defines source files
 excluded from backup. For example, to exclude all <code>lost+found</code>
 directories, use the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysqlset</span><span class="w"> </span><span class="n">tokudb_backup_exclude</span><span class="o">=</span><span class="s1">&#39;/lost\\+found(#|/)&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysqlset</span><span class="w"> </span><span class="n">tokudb_backup_exclude</span><span class="o">=</span><span class="s1">&#39;/lost\\+found(#|/)&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>For more information see Percona TokuBackup.</p>
 <h3 id="tokudb_backup_last_error"><code>tokudb_backup_last_error</code><a class="headerlink" href="#tokudb_backup_last_error" title="Permanent link">&para;</a></h3>
@@ -5267,7 +5267,7 @@ requires a disk write and may adversely affect the performance of your
 application.</p>
 <p>To disable synchronous flushing of the transaction log, disable the
 tokudb_commit_sync session variable as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_commit_sync</span><span class="o">=</span><span class="k">OFF</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_commit_sync</span><span class="o">=</span><span class="k">OFF</span><span class="p">;</span>
 </code></pre></div>
 <p>Disabling this variable may make the system run faster. However, transactions
 committed since the last checkpoint are not guaranteed to survive a crash.</p>
@@ -5620,9 +5620,9 @@ there are bugs. Not for use in production. It controls whether slow alter
 tables are allowed. For example, the following command is slow because
 <code>HCADER</code> does not allow a mixture of column additions, deletions, or
 expansions:</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
-<span class="k">ADD</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">column_a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"></span>
-<span class="k">DROP</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">column_b</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span>
+<span class="k">ADD</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">column_a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">column_b</span><span class="p">;</span>
 </code></pre></div>
 <p>By default, tokudb_disable_slow_alter is disabled, and the engine
 reports back to MySQL that this is unsupported resulting in the following

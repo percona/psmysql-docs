@@ -3047,12 +3047,12 @@
 <ol>
 <li>
 <p>Navigate to the MySQL directory. The example uses the default location.</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /usr/local/mysql
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/usr/local/mysql
 </code></pre></div>
 </li>
 <li>
 <p>Create a directory for the MySQL files. The <a href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_secure_file_priv">secure_file_priv</a> uses the directory path as a value.</p>
-<div class="highlight"><pre><span></span><code>$ mkdir mydata
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>mydata
 </code></pre></div>
 <p>The <code>mysql</code> user account should have the <code>drwxr-x---</code> permissions.
 Four sections define the permissions; file or directory, User, Group, and Others.</p>
@@ -3091,7 +3091,7 @@ Four sections define the permissions; file or directory, User, Group, and Others
 </li>
 <li>
 <p>Run the command to initialize the data directory.</p>
-<div class="highlight"><pre><span></span><code>$ bin/mysqld --initialize
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>bin/mysqld<span class="w"> </span>--initialize
 </code></pre></div>
 <h2 id="updating-the-root-password">Updating the <code>root</code> password<a class="headerlink" href="#updating-the-root-password" title="Permanent link">&para;</a></h2>
 </li>
@@ -3102,68 +3102,68 @@ To
 reset the password, you must start MySQL with the <code>--skip-grant-tables</code> 
 option and update the <code>user</code> table.</p>
 <p>The initial password is located using the following command:</p>
-<p><div class="highlight"><pre><span></span><code>$ grep <span class="s1">&#39;temporary password&#39;</span> /var/log/mysqld.log
+<p><div class="highlight"><pre><span></span><code>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
 </code></pre></div>
 Follow this procedure to reset the root password:</p>
 <ol>
 <li>
 <p>Stop MySQL.</p>
-<div class="highlight"><pre><span></span><code>$ sudo systemctl stop mysqld
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
 </code></pre></div>
 </li>
 <li>
 <p>Set <code>--skip-grant-tables</code> as an environment option. This method lets 
    you specify the option without modifying configuration files.</p>
-<div class="highlight"><pre><span></span><code>$ sudo systemctl set-environment <span class="nv">MYSQLD_OPTS</span><span class="o">=</span><span class="s2">&quot;--skip-grant-tables </span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>set-environment<span class="w"> </span><span class="nv">MYSQLD_OPTS</span><span class="o">=</span><span class="s2">&quot;--skip-grant-tables </span>
 <span class="s2">--skip-networking&quot;</span>
 </code></pre></div>
 </li>
 <li>
 <p>Restart MySQL to make the option change effective.</p>
-<div class="highlight"><pre><span></span><code>$ sudo systemctl restart mysqld
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
 </code></pre></div>
 </li>
 <li>
 <p>Access MySQL as <code>root</code>.</p>
-<div class="highlight"><pre><span></span><code>$ mysql -u root
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root
 </code></pre></div>
 </li>
 <li>
 <p>Change the root password.</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span><span class="w"></span>
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;NewPassword&#39;</span><span class="p">);</span><span class="w"></span>
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span><span class="w"></span>
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">exit</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;NewPassword&#39;</span><span class="p">);</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">exit</span>
 </code></pre></div>
 </li>
 <li>
 <p>Stop MySQL</p>
-<div class="highlight"><pre><span></span><code>$ sudo systemctl stop mysqld
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
 </code></pre></div>
 </li>
 <li>
 <p>Reset the environment options.</p>
-<div class="highlight"><pre><span></span><code>$ sudo systemctl unset-environment MYSQLD_OPTS
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>unset-environment<span class="w"> </span>MYSQLD_OPTS
 </code></pre></div>
 </li>
 <li>
 <p>Start MySQL</p>
-<div class="highlight"><pre><span></span><code>$ sudo systemctl start mysqld
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld
 </code></pre></div>
 </li>
 <li>
 <p>Log in to MySQL using the root password.</p>
-<div class="highlight"><pre><span></span><code>$ mysql -u root -p
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 </li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>if you have trouble logging in after following the steps, repeat the procedure but, instead of using the <code>ALTER USER</code> statement, modify the <code>user</code> table.</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">authentication_string</span><span class="o">=</span><span class="n">PASSWORD</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">authentication_string</span><span class="o">=</span><span class="n">PASSWORD</span>
 <span class="p">(</span><span class="s1">&#39;NewPassword&#39;</span><span class="p">),</span><span class="w"> </span><span class="n">password_expired</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="w"> </span>
-<span class="k">WHERE</span><span class="w"> </span><span class="k">User</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">Host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">mysql</span><span class="o">&gt;</span><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">User</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">Host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
 </code></pre></div>
 </div>
 <h2 id="securing-the-installation">Securing the Installation<a class="headerlink" href="#securing-the-installation" title="Permanent link">&para;</a></h2>
@@ -3188,31 +3188,31 @@ script improves the security of the installation.</p>
 </li>
 </ul>
 <p>The following statement runs the script:</p>
-<div class="highlight"><pre><span></span><code>$ mysql_secure_installation
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysql_secure_installation
 </code></pre></div>
 <h2 id="checking-the-server-status">Checking the server status<a class="headerlink" href="#checking-the-server-status" title="Permanent link">&para;</a></h2>
 <p>After a generic binary installation, the server starts. The following command checks the server status:</p>
-<div class="highlight"><pre><span></span><code>$ sudo service mysql status
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>status
 </code></pre></div>
 <p>Access the server with the following command:</p>
-<div class="highlight"><pre><span></span><code>$ mysql -u root -p
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <h2 id="configuring-the-server-to-start-at-startup">Configuring the Server to Start at Startup<a class="headerlink" href="#configuring-the-server-to-start-at-startup" title="Permanent link">&para;</a></h2>
 <p>You can manage the server with systemd. If you have installed the server from a generic binary distribution on an operating system that uses systemd, you can manually configure systemd support.</p>
 <p>The following commands start, check the status, and stop the server:</p>
-<div class="highlight"><pre><span></span><code>$ sudo systemctl start mysql
-$ sudo systemctl status mysql
-$ sudo systemctl stop mysql
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysql
+$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 <p>Enabling the server to start at startup, run the following:</p>
-<div class="highlight"><pre><span></span><code>$ sudo systemctl <span class="nb">enable</span> mysql
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mysql
 </code></pre></div>
 <h2 id="testing-the-server">Testing the Server<a class="headerlink" href="#testing-the-server" title="Permanent link">&para;</a></h2>
 <p>After you have initialized the data directory, and the server is started, you can run tests on the server.</p>
 <p>This section assumes you have used the default installation settings. If you have modified the installation, navigate to the installation location. You can also add the location by <a href="https://dev.mysql.com/doc/refman/5.7/en/setting-environment-variables.html">Setting the Environment Variables</a>.</p>
 <p>You can use the <a href="https://dev.mysql.com/doc/refman/5.7/en/mysqladmin.html">mysqladmin</a> client to access the server.</p>
 <p>If you have issues connecting to the server, you should use the <code>root</code> user and the root account password.</p>
-<p><div class="highlight"><pre><span></span><code>$ sudo mysqladmin -u root -p version
+<p><div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mysqladmin<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>version
 </code></pre></div>
 The output should be similar to the following:
 <div class="highlight"><pre><span></span><code>Enter password:
@@ -3229,7 +3229,7 @@ Threads:    2 Questions:    16 Slow queries: 0 Opens: 139 Flush tables: 3
 Open tables: 59  Queries per second avg: 0.0000
 </code></pre></div></p>
 <p>Use <a href="https://dev.mysql.com/doc/refman/5.7/en/mysqlshow.html">mysqlshow</a> to display database and table information.</p>
-<p><div class="highlight"><pre><span></span><code>$ sudo mysqlshow -u root -p
+<p><div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mysqlshow<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>Enter password:
@@ -3270,7 +3270,7 @@ The output should be similar to the following:</p>
 populates the tables from the <code>zoneinfo</code> directory data available in Linux.</p>
 <p>A common method to populate the tables is to add the zoneinfo directory path to <code>mysql_tzinfo_to_sql</code> and then send the output into <code>mysql</code>.</p>
 <p>The example assumes you are running the command with the <code>root</code> account. You must use an account with the privileges able to modify MySQL system tables.</p>
-<div class="highlight"><pre><span></span><code>$ mysql_tzinfo_to_sql /usr/share/zoneinfo <span class="p">|</span> mysql -u root -p rootpassword
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysql_tzinfo_to_sql<span class="w"> </span>/usr/share/zoneinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>rootpassword
 </code></pre></div>
 <h2 id="excluding-buffer-pool-pages-from-core-files">Excluding Buffer Pool Pages from Core files<a class="headerlink" href="#excluding-buffer-pool-pages-from-core-files" title="Permanent link">&para;</a></h2>
 <p>Implemented in <em>Percona Server for MySQL</em> 5.7.33-36, you can use the <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_buffer_pool_in_core_file">innodb_buffer_pool_in__core_file</a> to reduce the size of the core file.</p>
@@ -3288,7 +3288,7 @@ populates the tables from the <code>zoneinfo</code> directory data available in 
 </li>
 </ul>
 <p>To exclude the buffer pool, run the following command at startup or use a <code>SET</code> statement:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysqld</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">innodb_buffer_pool_in__core_file</span><span class="o">=</span><span class="k">OFF</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysqld</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">innodb_buffer_pool_in__core_file</span><span class="o">=</span><span class="k">OFF</span><span class="p">;</span>
 </code></pre></div>
 
                 

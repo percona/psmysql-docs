@@ -2983,10 +2983,10 @@
 <p>These two versions of plugins are physically different. To choose which one you want used, you must use <em>IDENTIFIED WITH ‘auth_pam’</em> for auth_pam, and <em>IDENTIFIED WITH ‘auth_pam_compat’</em> for auth_pam_compat.</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>This plugin requires manual installation because it isn’t installed by default.</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysqlINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_pam</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;auth_pam.so&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysqlINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_pam</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;auth_pam.so&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>After the plugin has been installed it should be present in the plugins list. To check if the plugin has been correctly installed and active</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysqlSHOW</span><span class="w"> </span><span class="n">PLUGINS</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysqlSHOW</span><span class="w"> </span><span class="n">PLUGINS</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be include the following:</p>
 <div class="highlight"><pre><span></span><code>...
@@ -3010,7 +3010,7 @@ account    required     pam_unix.so audit
 </code></pre></div>
 <h2 id="creating-a-user">Creating a user<a class="headerlink" href="#creating-a-user" title="Permanent link">&para;</a></h2>
 <p>After the PAM plugin has been configured, users can be created with the PAM plugin as authentication method</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;newuser&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">auth_pam</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;newuser&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">auth_pam</span><span class="p">;</span>
 </code></pre></div>
 <p>This will create a user <code>newuser</code> that can connect from <code>localhost</code> who will be authenticated using the PAM plugin. If the <code>pam_unix</code> method is being used user will need to exist on the system.</p>
 <h2 id="supplementary-groups-support">Supplementary groups support<a class="headerlink" href="#supplementary-groups-support" title="Permanent link">&para;</a></h2>

@@ -2921,19 +2921,19 @@
 <h2 id="creating-tables-and-loading-data">Creating Tables and Loading Data<a class="headerlink" href="#creating-tables-and-loading-data" title="Permanent link">&para;</a></h2>
 <h3 id="creating-tokudb-tables">Creating TokuDB Tables<a class="headerlink" href="#creating-tokudb-tables" title="Permanent link">&para;</a></h3>
 <p>TokuDB tables are created the same way as other tables in MySQL by specifying <code>ENGINE=TokuDB</code> in the table definition. For example, the following command creates a table with a single column and uses the TokuDB storage engine to store its data:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">TokuDB</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">TokuDB</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="loading-data">Loading Data<a class="headerlink" href="#loading-data" title="Permanent link">&para;</a></h3>
 <p>Once TokuDB tables have been created, data can be inserted or loaded using standard MySQL insert or bulk load operations. For example, the following command loads data from a file into the table:</p>
-<div class="highlight"><pre><span></span><code><span class="k">LOAD</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="n">INFILE</span><span class="w"> </span><span class="n">file</span><span class="w"></span>
-<span class="w">  </span><span class="k">INTO</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">LOAD</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="n">INFILE</span><span class="w"> </span><span class="n">file</span>
+<span class="w">  </span><span class="k">INTO</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="p">;</span>
 </code></pre></div>
 <p><strong>NOTE</strong>: For more information about loading data, see the MySQL 5.6 reference manual.</p>
 <h3 id="migrating-data-from-an-existing-database">Migrating Data from an Existing Database<a class="headerlink" href="#migrating-data-from-an-existing-database" title="Permanent link">&para;</a></h3>
 <p>Use the following command to convert an existing table for the TokuDB storage engine:</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
-<span class="w">  </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">TokuDB</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span>
+<span class="w">  </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">TokuDB</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="bulk-loading-data">Bulk Loading Data<a class="headerlink" href="#bulk-loading-data" title="Permanent link">&para;</a></h2>
 <p>The TokuDB bulk loader imports data much faster than regular MySQL with InnoDB. To make use of the loader you need flat files in either comma separated or tab separated format. The MySQL <code>LOAD DATA INFILE ...</code> statement will invoke the bulk loader if the table is empty. Keep in mind that while this is the most convenient and, in most cases, the fastest way to initialize a TokuDB table, it may not be replication safe if applied to the source</p>
@@ -2942,8 +2942,8 @@
 <ol>
 <li>Create a logical backup of the original table. The easiest way to achieve this is using <code>SELECT ... INTO OUTFILE</code>. Keep in mind that the file will be created on the server.</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
-<span class="w">  </span><span class="k">INTO</span><span class="w"> </span><span class="n">OUTFILE</span><span class="w"> </span><span class="s1">&#39;file.csv&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table</span>
+<span class="w">  </span><span class="k">INTO</span><span class="w"> </span><span class="n">OUTFILE</span><span class="w"> </span><span class="s1">&#39;file.csv&#39;</span><span class="p">;</span>
 </code></pre></div>
 <ol>
 <li>
@@ -2953,7 +2953,7 @@
 <p>To load the data into the server use <code>LOAD DATA INFILE</code>. If loading from a machine other than the server use the keyword <code>LOCAL</code> to point to the file on local machine. Keep in mind that you will need enough disk space on the temporary directory on the server since the local file will be copied onto the server by the MySQL client utility.</p>
 </li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="k">LOAD</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="p">[</span><span class="k">LOCAL</span><span class="p">]</span><span class="w"> </span><span class="n">INFILE</span><span class="w"> </span><span class="s1">&#39;file.csv&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">LOAD</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="p">[</span><span class="k">LOCAL</span><span class="p">]</span><span class="w"> </span><span class="n">INFILE</span><span class="w"> </span><span class="s1">&#39;file.csv&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>It is possible to create the CSV file using either <strong>mysqldump</strong> or the MySQL client utility as well, in which case the resulting file will reside on a local directory. In these 2 cases you have to make sure to use the correct command line options to create a file compatible with <code>LOAD DATA INFILE</code>.</p>
 <p>The bulk loader will use more space than normal for logs and temporary files while running, make sure that your file system has enough disk space to process your load. As a rule of thumb, it should be approximately 1.5 times the size of the raw data.</p>
@@ -3002,20 +3002,20 @@ tokudb_cache_size = 8G
 <li><strong>Hot Optimize Throttling</strong></li>
 </ul>
 <p>By default, table optimization will run with all available resources. To limit the amount of resources, it is possible to limit the speed of table optimization. The tokudb_optimize_throttle session variable determines an upper bound on how many fractal tree leaf nodes per second are optimized. The default is 0 (no upper bound) with a valid range of [0,1000000]. For example, to limit the table optimization to 1 leaf node per second, use the following setting:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_optimize_throttle</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_optimize_throttle</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
 </code></pre></div>
 <ul>
 <li><strong>Optimize a Single Index of a Table</strong></li>
 </ul>
 <p>To optimize a single index in a table, the tokudb_optimize_index_name session variable can be set to select the index by name. For example, to optimize the primary key of a table:</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_optimize_index_name</span><span class="o">=</span><span class="s1">&#39;primary&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">OPTIMIZE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_optimize_index_name</span><span class="o">=</span><span class="s1">&#39;primary&#39;</span><span class="p">;</span>
+<span class="n">OPTIMIZE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
 </code></pre></div>
 * <strong>Optimize a Subset of a Fractal Tree Index</strong></p>
 <p>For patterns where the left side of the tree has many deletions (a common pattern with increasing id or date values), it may be useful to delete a percentage of the tree. In this case, it is possible to optimize a subset of a fractal tree starting at the left side. The tokudb_optimize_index_fraction session variable controls the size of the sub tree. Valid values are in the range [0.0,1.0] with default 1.0 (optimize the whole tree). For example, to optimize the leftmost 10% of the primary key:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_optimize_index_name</span><span class="o">=</span><span class="s1">&#39;primary&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="k">SET</span><span class="w"> </span><span class="n">tokudb_optimize_index_fraction</span><span class="o">=</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
-<span class="n">OPTIMIZE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_optimize_index_name</span><span class="o">=</span><span class="s1">&#39;primary&#39;</span><span class="p">;</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">tokudb_optimize_index_fraction</span><span class="o">=</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">OPTIMIZE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
 </code></pre></div>
 
                 

@@ -3345,14 +3345,14 @@ Decision “log or no” calculated in following manner:</p>
 </li>
 </ul>
 <p>Example of the improved stored procedure slow query log entry:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">DELIMITER</span><span class="w"> </span><span class="o">//</span><span class="w"></span>
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">improved_sp_log</span><span class="p">()</span><span class="w"></span>
-<span class="w">       </span><span class="k">BEGIN</span><span class="w"></span>
-<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">City</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Country</span><span class="p">;</span><span class="w"></span>
-<span class="w">       </span><span class="k">END</span><span class="o">//</span><span class="w"></span>
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">DELIMITER</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CALL</span><span class="w"> </span><span class="n">improved_sp_log</span><span class="p">();</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">DELIMITER</span><span class="w"> </span><span class="o">//</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">improved_sp_log</span><span class="p">()</span>
+<span class="w">       </span><span class="k">BEGIN</span>
+<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">City</span><span class="p">;</span>
+<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Country</span><span class="p">;</span>
+<span class="w">       </span><span class="k">END</span><span class="o">//</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">DELIMITER</span><span class="w"> </span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CALL</span><span class="w"> </span><span class="n">improved_sp_log</span><span class="p">();</span>
 </code></pre></div>
 <p>When we check the slow query log after running the stored procedure, with <code>log_slow_sp_statements</code> set to <code>TRUE</code>, it should look like this:</p>
 <div class="highlight"><pre><span></span><code># Time: 150109 11:38:55

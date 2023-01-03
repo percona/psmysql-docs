@@ -3048,24 +3048,24 @@ known to be unique.</p>
 <h3 id="the-tokudb_trx-table">The <code>TOKUDB_TRX</code> table<a class="headerlink" href="#the-tokudb_trx-table" title="Permanent link">&para;</a></h3>
 <p>The TOKUDB_TRX table in the <code>INFORMATION_SCHEMA</code> maps TokuDB transaction identifiers to MySQL client identifiers. This mapping allows one to associate a TokuDB transaction with a MySQL client operation.</p>
 <p>The following query returns the MySQL clients that have a live TokuDB transaction:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_TRX</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PROCESSLIST</span><span class="w"></span>
-<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">trx_mysql_thread_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_TRX</span><span class="p">,</span>
+<span class="w">  </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PROCESSLIST</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">trx_mysql_thread_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="the-tokudb_locks-table">The <code>TOKUDB_LOCKS</code> table<a class="headerlink" href="#the-tokudb_locks-table" title="Permanent link">&para;</a></h3>
 <p>The tokudb_locks table in the information schema contains the set of locks granted to TokuDB transactions.</p>
 <p>The following query returns all of the locks granted to some TokuDB transaction:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">;</span>
 </code></pre></div>
 <p>The following query returns the locks granted to some MySQL client:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PROCESSLIST</span><span class="w"></span>
-<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">locks_mysql_thread_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">,</span>
+<span class="w">  </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PROCESSLIST</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">locks_mysql_thread_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="the-tokudb_lock_waits-table">The <code>TOKUDB_LOCK_WAITS</code> table<a class="headerlink" href="#the-tokudb_lock_waits-table" title="Permanent link">&para;</a></h3>
 <p>The tokudb_lock_waits table in the information schema contains the set of lock requests that are not granted due to a lock conflict with some other transaction.</p>
 <p>The following query returns the locks that are waiting to be granted due to a lock conflict with some other transaction:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCK_WAITS</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCK_WAITS</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="the-tokudb_lock_timeout_debug-session-variable">The tokudb_lock_timeout_debug session variable<a class="headerlink" href="#the-tokudb_lock_timeout_debug-session-variable" title="Permanent link">&para;</a></h3>
 <p>The tokudb_lock_timeout_debug session variable controls how lock timeouts and lock deadlocks seen by the database client are reported.</p>
@@ -3110,21 +3110,21 @@ known to be unique.</p>
 <p>The tokudb_last_lock_timeout session variable contains a JSON document that describes the last lock conflict seen by the current MySQL client. It gets set when a blocked lock request times out or a lock deadlock is detected. The tokudb_lock_timeout_debug session variable should have bit <code>0</code> set (decimal <code>1</code>).</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <p>Suppose that we create a table with a single column that is the primary key.</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table</span><span class="p">;</span>
 
-<span class="k">Create</span><span class="w"> </span><span class="k">Table</span><span class="p">:</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">‘</span><span class="k">table</span><span class="err">‘</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="err">‘</span><span class="n">id</span><span class="err">‘</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"></span>
-<span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="err">‘</span><span class="n">id</span><span class="err">‘</span><span class="p">))</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">TokuDB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">latin1</span><span class="w"></span>
+<span class="k">Create</span><span class="w"> </span><span class="k">Table</span><span class="p">:</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">‘</span><span class="k">table</span><span class="err">‘</span><span class="w"> </span><span class="p">(</span>
+<span class="err">‘</span><span class="n">id</span><span class="err">‘</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="err">‘</span><span class="n">id</span><span class="err">‘</span><span class="p">))</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">TokuDB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">latin1</span>
 </code></pre></div>
 <p>Suppose that we have 2 MySQL clients with ID’s 1 and 2 respectively. Suppose that MySQL client 1 inserts some values into <code>table</code>. TokuDB transaction 51 is created for the insert statement. Since autocommit is disabled, transaction 51 is still live after the insert statement completes, and we can query the tokudb_locks table in information schema to see the locks that are held by the transaction.</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">AUTOCOMMIT</span><span class="o">=</span><span class="k">OFF</span><span class="p">;</span><span class="w"></span>
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">),(</span><span class="mi">10</span><span class="p">),(</span><span class="mi">100</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">AUTOCOMMIT</span><span class="o">=</span><span class="k">OFF</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">),(</span><span class="mi">10</span><span class="p">),(</span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <p>The output could be:</p>
 <div class="highlight"><pre><span></span><code>Query OK, 3 rows affected (0.00 sec)
 Records: 3  Duplicates: 0  Warnings: 0
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be:</p>
 <p><div class="highlight"><pre><span></span><code>+--------------+-----------------------+---------------+----------------+-----------------+--------------------+------------------+-----------------------------+
@@ -3135,18 +3135,18 @@ Records: 3  Duplicates: 0  Warnings: 0
 |           51 |                     1 | ./test/t-main | 0064000000     | 0064000000      | test               | t                | main                        |
 +--------------+-----------------------+---------------+----------------+-----------------+--------------------+------------------+-----------------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCK_WAITS</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCK_WAITS</span><span class="p">;</span>
 </code></pre></div></p>
 <p>The output could be:</p>
 <div class="highlight"><pre><span></span><code>Empty set (0.00 sec)
 </code></pre></div>
 <p>The keys are currently hex dumped.</p>
 <p>Now we switch to the other MySQL client with ID 2.</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">),(</span><span class="mi">20</span><span class="p">),(</span><span class="mi">100</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">),(</span><span class="mi">20</span><span class="p">),(</span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <p>The insert gets blocked since there is a conflict on the primary key with value 100.</p>
 <p>The granted TokuDB locks are:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be:</p>
 <div class="highlight"><pre><span></span><code>+--------------+-----------------------+---------------+----------------+-----------------+--------------------+------------------+-----------------------------+
@@ -3160,7 +3160,7 @@ Records: 3  Duplicates: 0  Warnings: 0
 +--------------+-----------------------+---------------+----------------+-----------------+--------------------+------------------+-----------------------------+
 </code></pre></div>
 <p>The locks that are pending due to a conflict are:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCK_WAITS</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCK_WAITS</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be:</p>
 <div class="highlight"><pre><span></span><code>+-------------------+-----------------+------------------+---------------------+----------------------+-----------------------+--------------------+------------------+-----------------------------+
@@ -3172,7 +3172,7 @@ Records: 3  Duplicates: 0  Warnings: 0
 <p>Eventually, the lock for client 2 times out, and we can retrieve a JSON document that describes the conflict.</p>
 <div class="highlight"><pre><span></span><code>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">TOKUDB_LAST_LOCK_TIMEOUT</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">TOKUDB_LAST_LOCK_TIMEOUT</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be:</p>
 <div class="highlight"><pre><span></span><code>+---------------------------------------------------------------------------------------------------------------+
@@ -3184,7 +3184,7 @@ Records: 3  Duplicates: 0  Warnings: 0
 ROLLBACK;
 </code></pre></div>
 <p>Since transaction 62 was rolled back, all of the locks taken by it are released.</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCKS</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be:</p>
 <div class="highlight"><pre><span></span><code>+--------------+-----------------------+---------------+----------------+-----------------+--------------------+------------------+-----------------------------+
@@ -3201,7 +3201,7 @@ ROLLBACK;
 <p>Engine status provides details about the inner workings of TokuDB and can be
 useful in tuning your particular environment. The engine status can be
 determined by running the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="n">tokudb</span><span class="w"> </span><span class="n">STATUS</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="n">tokudb</span><span class="w"> </span><span class="n">STATUS</span><span class="p">;</span>
 </code></pre></div>
 <p>The following is a reference of table status statements:</p>
 <p><code>disk free space</code>:</p>

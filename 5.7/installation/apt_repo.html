@@ -3026,34 +3026,34 @@ The instructions to install <a href="https://docs.percona.com/percona-server/lat
 <ol>
 <li>
 <p>Update package repositories:</p>
-<div class="highlight"><pre><span></span><code>$ sudo apt update
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </code></pre></div>
 </li>
 <li>
 <p>Install <code>GnuPG</code>, the GNU Privacy Guard:</p>
-<div class="highlight"><pre><span></span><code>$ sudo apt install gnupg2
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gnupg2
 </code></pre></div>
 </li>
 <li>
 <p>Fetch the repository packages from Percona web:</p>
-<div class="highlight"><pre><span></span><code>$ wget https://repo.percona.com/apt/percona-release_latest.<span class="k">$(</span>lsb_release -sc<span class="k">)</span>_all.deb
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.<span class="k">$(</span>lsb_release<span class="w"> </span>-sc<span class="k">)</span>_all.deb
 </code></pre></div>
 </li>
 <li>
 <p>Install the downloaded package with <strong>dpkg</strong>. To do that, run the following commands as root or with <strong>sudo</strong>:</p>
-<div class="highlight"><pre><span></span><code>$ sudo dpkg -i percona-release_latest.<span class="k">$(</span>lsb_release -sc<span class="k">)</span>_all.deb
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>percona-release_latest.<span class="k">$(</span>lsb_release<span class="w"> </span>-sc<span class="k">)</span>_all.deb
 </code></pre></div>
 <p>Once you install this package, the Percona repositories should be added. You can check the repository setup in the <code>/etc/apt/sources.list.d/percona-original-release.list</code> file.</p>
 </li>
 <li>
 <p>Remember to update the local cache:</p>
-<div class="highlight"><pre><span></span><code>$ sudo apt update
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </code></pre></div>
 <p>Once you install this package the Percona repositories should be added. You can check the repository setup in the <code>/etc/apt/sources.list.d/percona-release.list</code> file.</p>
 </li>
 <li>
 <p>After that you can install the server package:</p>
-<div class="highlight"><pre><span></span><code>$ sudo apt install percona-server-server-5.7
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-server-5.7
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3064,15 +3064,15 @@ The instructions to install <a href="https://docs.percona.com/percona-server/lat
 <p>For information on how to install and configure TokuDB, refer to the TokuDB Installation guide.</p>
 <p>For information on how to install and configure MyRocks, refer to the Percona MyRocks Installation Guide guide.</p>
 <p>The Percona Server for MySQL distribution contains several useful User Defined Functions (UDF) from Percona Toolkit. After the installation completes, run the following commands to create these functions:</p>
-<div class="highlight"><pre><span></span><code>$ mysql -e <span class="s2">&quot;CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME &#39;libfnv1a_udf.so&#39;&quot;</span>
-$ mysql -e <span class="s2">&quot;CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME &#39;libfnv_udf.so&#39;&quot;</span>
-$ mysql -e <span class="s2">&quot;CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME &#39;libmurmur_udf.so&#39;&quot;</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME &#39;libfnv1a_udf.so&#39;&quot;</span>
+$<span class="w"> </span>mysql<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME &#39;libfnv_udf.so&#39;&quot;</span>
+$<span class="w"> </span>mysql<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME &#39;libmurmur_udf.so&#39;&quot;</span>
 </code></pre></div>
 <p>For more details on the UDFs, see <a href="https://www.percona.com/doc/percona-server/5.7/management/udf_percona_toolkit.html">Percona Toolkit UDFS</a>.</p>
 <h3 id="percona-apt-testing-repository">Percona <code>apt</code> Testing repository<a class="headerlink" href="#percona-apt-testing-repository" title="Permanent link">&para;</a></h3>
 <p>Percona offers pre-release builds from the testing repository. To enable it, run
 <strong>percona-release</strong> with the <code>testing</code> argument. Run this command as root or by using the <strong>sudo</strong> command.</p>
-<div class="highlight"><pre><span></span><code>$ sudo percona-release <span class="nb">enable</span> original testing
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>original<span class="w"> </span>testing
 </code></pre></div>
 <h3 id="apt-pinning-the-packages">Apt-Pinning the packages<a class="headerlink" href="#apt-pinning-the-packages" title="Permanent link">&para;</a></h3>
 <p>In some cases, you might need to <a href="https://wiki.debian.org/AptConfiguration?action=show&amp;redirect=AptPinning">pin</a> the selected packages to avoid upgrades from the distribution repositories. Create a new file <code>/etc/apt/preferences.d/00percona.pref</code> and add the following lines:</p>
@@ -3082,13 +3082,13 @@ Pin-Priority: 1001
 </code></pre></div>
 <h2 id="installing-percona-server-for-mysql-using-downloaded-deb-packages">Installing Percona Server for MySQL using downloaded deb packages<a class="headerlink" href="#installing-percona-server-for-mysql-using-downloaded-deb-packages" title="Permanent link">&para;</a></h2>
 <p>Download the packages of the desired series for your architecture from the <a href="http://www.percona.com/downloads/Percona-Server-5.7/">download page</a>. The easiest way is to download bundle which contains all the packages. Following example will download Percona Server for MySQL Percona Server for MySQL 5.7.10-3 release packages for <em>Debian</em> 8.0:</p>
-<div class="highlight"><pre><span></span><code>$ wget https://www.percona.com/downloads/Percona-Server-5.7/Percona-Server-5.7.10-3/binary/debian/jessie/x86_64/Percona-Server-5.7.10-3-r63dafaf-jessie-x86_64-bundle.tar
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://www.percona.com/downloads/Percona-Server-5.7/Percona-Server-5.7.10-3/binary/debian/jessie/x86_64/Percona-Server-5.7.10-3-r63dafaf-jessie-x86_64-bundle.tar
 </code></pre></div>
 <p>You should then unpack the bundle to get the packages:</p>
-<div class="highlight"><pre><span></span><code>$ tar xvf Percona-Server-5.7.10-3-r63dafaf-jessie-x86_64-bundle.tar
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-5.7.10-3-r63dafaf-jessie-x86_64-bundle.tar
 </code></pre></div>
 <p>After you unpack the bundle you should see the following packages:</p>
-<div class="highlight"><pre><span></span><code>$ ls *.deb
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>*.deb
 </code></pre></div>
 <p>The output could be this:</p>
 <div class="highlight"><pre><span></span><code>libperconaserverclient20-dev_5.7.10-3-1.jessie_amd64.deb
@@ -3102,7 +3102,7 @@ percona-server-test-5.7_5.7.10-3-1.jessie_amd64.deb
 percona-server-tokudb-5.7_5.7.10-3-1.jessie_amd64.deb
 </code></pre></div>
 <p>Now you can install Percona Server for MySQL by running:</p>
-<div class="highlight"><pre><span></span><code>$ sudo dpkg -i *.deb
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*.deb
 </code></pre></div>
 <p>This will install all the packages from the bundle. Another option is to download/specify only the packages you need for running Percona Server for MySQL installation (<code>libperconaserverclient20_5.7.10-3-1.jessie_amd64.deb</code>, <code>percona-server-client-5.7_5.7.10-3-1.jessie_amd64.deb</code>, <code>percona-server-common-5.7_5.7.10-3-1.jessie_amd64.deb</code>, and <code>percona-server-server-5.7_5.7.10-3-1.jessie_amd64.deb</code>. Optionally you can install <code>percona-server-tokudb-5.7_5.7.10-3-1.jessie_amd64.deb</code> if you want TokuDB storage engine).</p>
 <div class="admonition note">
@@ -3150,7 +3150,7 @@ percona-server-tokudb-5.7_5.7.10-3-1.jessie_amd64.deb
 <p>The settings govern how the files are accessed. For example, the data file directory access gives read &reg; access to a directory and read, write, and lock access (rwk) to all directories and files underneath <code>/mysql/</code>.</p>
 <p>You should download the apparmor-utils package when you are working with existing AppArmor profiles. The utilities allow you to edit a profile without stopping AppArmor or removing the profile.</p>
 <p>Before you edit a profile, change the profile to <code>complain</code> mode:</p>
-<div class="highlight"><pre><span></span><code>$ aa-complain /usr/sbin/mysqld
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>aa-complain<span class="w"> </span>/usr/sbin/mysqld
 </code></pre></div>
 <p>The output could be the following:</p>
 <div class="highlight"><pre><span></span><code>setting /usr/sbin/mysqld to complain mode
@@ -3163,21 +3163,21 @@ percona-server-tokudb-5.7_5.7.10-3-1.jessie_amd64.deb
 You may need to reload AppArmor or reload the specific AppArmor profile to apply the changes.
 </code></pre></div>
 <p>You can also modify the <code>/etc/apparmor.d/tunables/alias</code> file as follows:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">alias</span> /var/lib/mysql -/volume/percona/data/
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">alias</span><span class="w"> </span>/var/lib/mysql<span class="w"> </span>-/volume/percona/data/
 </code></pre></div>
 <p>To reload one profile, run the following command:</p>
-<div class="highlight"><pre><span></span><code>$ sudo apparmor_parser -r /etc/apparmor.d/usr.sbin.mysqld
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 <p>Restart AppArmor with the following command:</p>
-<div class="highlight"><pre><span></span><code>$ sudo systemctl restart apparmor
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>apparmor
 </code></pre></div>
 <p>You can also disable AppArmor, but this action is not recommended. For earlier Ubuntu systems, prior to 16.04, use the following command:</p>
-<div class="highlight"><pre><span></span><code>$ sudo systemctl stop apparmor
-$ sudo update-rc.d -f apparmor remove
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apparmor
+$<span class="w"> </span>sudo<span class="w"> </span>update-rc.d<span class="w"> </span>-f<span class="w"> </span>apparmor<span class="w"> </span>remove
 </code></pre></div>
 <p>For later Ubuntu systems, use the following:</p>
-<div class="highlight"><pre><span></span><code>$ sudo sudo systemctl stop apparmor
-$ sudo systemctl disable apparmor
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apparmor
+$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>apparmor
 </code></pre></div>
 <p>The following table lists the default locations for files:</p>
 <table>
@@ -3218,25 +3218,25 @@ $ sudo systemctl disable apparmor
 <p>Percona Server for MySQL starts automatically after installation unless the server
 encounters errors during the installation process. You can also manually
 start it by running the following command:</p>
-<div class="highlight"><pre><span></span><code>$ sudo service mysql start
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
 </code></pre></div>
 </li>
 <li>
 <p>Confirming the service is running</p>
 <p>You can verify the service status by running the following command:</p>
-<div class="highlight"><pre><span></span><code>$ service mysql status
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>status
 </code></pre></div>
 </li>
 <li>
 <p>Stopping the service</p>
 <p>You can stop the service by running the following command:</p>
-<div class="highlight"><pre><span></span><code>S sudo service mysql stop
+<div class="highlight"><pre><span></span><code>S<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
 </code></pre></div>
 </li>
 <li>
 <p>Restarting the service</p>
 <p>You can restart the service by running the following command:</p>
-<div class="highlight"><pre><span></span><code>S sudo service mysql restart
+<div class="highlight"><pre><span></span><code>S<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>restart
 </code></pre></div>
 </li>
 </ol>
@@ -3259,7 +3259,7 @@ start it by running the following command:</p>
 <ol>
 <li>
 <p>Stop the Percona Server for MySQL service</p>
-<div class="highlight"><pre><span></span><code>$ sudo service mysql stop
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
 </code></pre></div>
 </li>
 <li>
@@ -3267,15 +3267,15 @@ start it by running the following command:</p>
 <ul>
 <li>Remove the packages. This option does not delete the configuration or data files. If you do not require these files, you must delete each file manually.</li>
 </ul>
-<div class="highlight"><pre><span></span><code>$ sudo apt remove <span class="s1">&#39;percona-server*&#39;</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span><span class="s1">&#39;percona-server*&#39;</span>
 </code></pre></div>
 <ul>
 <li>Purge the packages. This option deletes packages, configuration, and data files. The option does not delete any configuration or data files stored in your home directory. You may need to delete some files manually.</li>
 </ul>
-<div class="highlight"><pre><span></span><code>$ sudo apt purge <span class="s1">&#39;percona-server*&#39;</span>
-$ sudo apt autoremove -y
-$ sudo apt autoclean
-$ sudo rm -rf /etc/mysql
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>purge<span class="w"> </span><span class="s1">&#39;percona-server*&#39;</span>
+$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>autoremove<span class="w"> </span>-y
+$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>autoclean
+$<span class="w"> </span>sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/etc/mysql
 </code></pre></div>
 </li>
 </ol>
@@ -3284,9 +3284,9 @@ $ sudo rm -rf /etc/mysql
 <p>In a regular expression, the <code>\*</code> (asterisk) matches zero or more of the preceding item. The single quotes prevent the shell from misinterpreting the asterisk as a shell command.</p>
 </div>
 <p>If you do not plan to upgrade, run the following commands to remove the data directory location:</p>
-<div class="highlight"><pre><span></span><code>$ rm -rf /var/lib/mysql
-$ rm -rf /var/log/mysql
-$ sudo apt purge percona-server*
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/mysql
+$<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/log/mysql
+$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>purge<span class="w"> </span>percona-server*
 </code></pre></div>
 
                 

@@ -3183,7 +3183,7 @@
 <h2 id="tokudb-and-the-file-system">TokuDB and the File System<a class="headerlink" href="#tokudb-and-the-file-system" title="Permanent link">&para;</a></h2>
 <p><strong>How can I determine which files belong to the various tables and indexes in my schemas?</strong></p>
 <p>The tokudb_file_map plugin lists all Fractal Tree Indexes and their corresponding data files. The <code>internal_file_name</code> is the actual file name (in the data folder).</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysqlSELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">tokudb_file_map</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysqlSELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">tokudb_file_map</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the </p>
 <div class="highlight"><pre><span></span><code>+--------------------------+---------------------------------------+---------------+-------------+------------------------+
@@ -3208,7 +3208,7 @@
 <ul>
 <li>If the file system becomes completely full, then TokuDB will freeze. It will not crash, but it will not respond to most SQL commands until some disk space is made available. When TokuDB is frozen in this state, it will still respond to the following command:</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="n">TokuDB</span><span class="w"> </span><span class="n">STATUS</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="n">TokuDB</span><span class="w"> </span><span class="n">STATUS</span><span class="p">;</span>
 </code></pre></div>
 <p>Make disk space available will allow the storage engine to continue running, but inserts will still be prohibited until twice the reserve is free.</p>
 <div class="admonition note">

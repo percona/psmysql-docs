@@ -2916,22 +2916,22 @@ you first need to start with a source tarball, either from the Percona
 website or by generating your own by following the instructions above(
 Installing Percona Server for MySQL from the Git Source Tree).</p>
 <p>Extract the source tarball:</p>
-<div class="highlight"><pre><span></span><code>$ tar xfz percona-server-5.7.10-3.tar.gz
-$ <span class="nb">cd</span> percona-server-5.7.10-3
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>tar<span class="w"> </span>xfz<span class="w"> </span>percona-server-5.7.10-3.tar.gz
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>percona-server-5.7.10-3
 </code></pre></div>
 <p>Copy the debian packaging into the debian directory:</p>
-<div class="highlight"><pre><span></span><code>$ cp -ap build-ps/debian debian
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cp<span class="w"> </span>-ap<span class="w"> </span>build-ps/debian<span class="w"> </span>debian
 </code></pre></div>
 <p>Update the changelog for your distribution (here we update for the unstable
 distribution - sid), setting the version number appropriately. The trailing one
 in the version number is the revision of the Debian packaging.</p>
-<div class="highlight"><pre><span></span><code>$ dch -D unstable --force-distribution -v <span class="s2">&quot;5.7.10-3-1&quot;</span> <span class="s2">&quot;Update to 5.7.10-3&quot;</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>dch<span class="w"> </span>-D<span class="w"> </span>unstable<span class="w"> </span>--force-distribution<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;5.7.10-3-1&quot;</span><span class="w"> </span><span class="s2">&quot;Update to 5.7.10-3&quot;</span>
 </code></pre></div>
 <p>Build the Debian source package:</p>
-<div class="highlight"><pre><span></span><code>$ dpkg-buildpackage -S
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>dpkg-buildpackage<span class="w"> </span>-S
 </code></pre></div>
 <p>Use <code>sbuild</code> to build the binary package in a <code>chroot</code>:</p>
-<div class="highlight"><pre><span></span><code>$ sbuild -d sid percona-server-5.7_5.7.10_3-1.dsc
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sbuild<span class="w"> </span>-d<span class="w"> </span>sid<span class="w"> </span>percona-server-5.7_5.7.10_3-1.dsc
 </code></pre></div>
 <p>You can give different distribution options to <code>dch</code> and <code>sbuild</code> to build binary
 packages for all Debian and Ubuntu releases.</p>

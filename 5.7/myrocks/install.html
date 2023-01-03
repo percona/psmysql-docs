@@ -2985,12 +2985,12 @@ requires a logical data dump and reload.</p>
 <ul>
 <li>For Debian or Ubuntu:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>$ sudo apt install percona-server-rocksdb-5.7
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb-5.7
 </code></pre></div>
 <ul>
 <li>For RHEL or CentOS:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>$ sudo yum install Percona-Server-rocksdb-57.x86_64
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>Percona-Server-rocksdb-57.x86_64
 </code></pre></div>
 </li>
 </ol>
@@ -3005,7 +3005,7 @@ you should see the following output:</p>
 <p>Run the <code>ps-admin</code> script as system root user or with <strong>sudo</strong>
 and provide the MySQL root user credentials
 to properly enable the RocksDB (MyRocks) storage engine:</p>
-<div class="highlight"><pre><span></span><code>$ sudo ps-admin --enable-rocksdb -u root -pPassw0rd
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd
 </code></pre></div>
 <p>You should see the following output:</p>
 <div class="highlight"><pre><span></span><code>Checking if RocksDB plugin is available for installation ...
@@ -3025,7 +3025,7 @@ installs and enables the RocksDB plugin.</p>
 <p>If the script returns no errors,
 Percona MyRocks should be successfully enabled on the server.
 You can verify it as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINES</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINES</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be the following:</p>
 <div class="highlight"><pre><span></span><code>+---------+---------+----------------------------------------------------------------------------+--------------+------+------------+
@@ -3048,30 +3048,30 @@ for every table that you create.</p>
 <h3 id="installing-myrocks-plugins">Installing MyRocks Plugins<a class="headerlink" href="#installing-myrocks-plugins" title="Permanent link">&para;</a></h3>
 <p>You can install MyRocks manually with a series of <a href="https://dev.mysql.com/doc/refman/5.7/en/install-plugin.html">INSTALL PLUGIN</a> statements. You must have the <code>INSERT</code> privilege for the <code>mysql.plugin</code> system table.</p>
 <p>The following statements install MyRocks:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_CFSTATS</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_DBSTATS</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_PERF_CONTEXT</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_PERF_CONTEXT_GLOBAL</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_CF_OPTIONS</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_GLOBAL_INFO</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_COMPACTION_STATS</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_DDL</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_INDEX_FILE_MAP</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_LOCKS</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_TRX</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_DEADLOCK</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_CFSTATS</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_DBSTATS</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_PERF_CONTEXT</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_PERF_CONTEXT_GLOBAL</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_CF_OPTIONS</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_GLOBAL_INFO</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_COMPACTION_STATS</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_DDL</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_INDEX_FILE_MAP</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_LOCKS</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_TRX</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_DEADLOCK</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="removing-percona-myrocks">Removing Percona MyRocks<a class="headerlink" href="#removing-percona-myrocks" title="Permanent link">&para;</a></h2>
 <p>It will not be possible to access tables created using the RocksDB engine
 with another storage engine after you remove Percona MyRocks.
 If you need this data, alter the tables to another storage engine.
 For example, to alter the <code>City</code> table to InnoDB, run the following:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span>
 </code></pre></div>
 <p>To disable and uninstall the RocksDB engine plugins,
 use the <code>ps-admin</code> script as follows:</p>
-<div class="highlight"><pre><span></span><code>$ sudo ps-admin --disable-rocksdb -u root -pPassw0rd
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd
 </code></pre></div>
 <p>You should see the following output:</p>
 <div class="highlight"><pre><span></span><code>Checking RocksDB engine plugin status...
@@ -3085,12 +3085,12 @@ remove the Percona MyRocks package:</p>
 <ul>
 <li>For Debian or Ubuntu:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>$ sudo apt remove percona-server-rocksdb-5.7
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span>percona-server-rocksdb-5.7
 </code></pre></div>
 <ul>
 <li>For RHEL or CentOS:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>$ sudo yum remove Percona-Server-rocksdb-57.x86_64
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>remove<span class="w"> </span>Percona-Server-rocksdb-57.x86_64
 </code></pre></div>
 <p>Finally, remove all the MyRocks Server Variables
 from the configuration file (<code>my.cnf</code>)
@@ -3098,19 +3098,19 @@ and restart Percona Server.</p>
 <h3 id="uninstall-myrocks-plugins">Uninstall MyRocks Plugins<a class="headerlink" href="#uninstall-myrocks-plugins" title="Permanent link">&para;</a></h3>
 <p>You can <a href="https://dev.mysql.com/doc/refman/5.7/en/uninstall-plugin.html">uninstall the plugins</a> for MyRocks. You must have the <code>DELETE</code> privilege for the <code>mysql.plugin</code> system table.</p>
 <p>The following statements remove the MyRocks plugins:</p>
-<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_CFSTATS</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_DBSTATS</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_PERF_CONTEXT</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_PERF_CONTEXT_GLOBAL</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_CF_OPTIONS</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_GLOBAL_INFO</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_COMPACTION_STATS</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_DDL</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_INDEX_FILE_MAP</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_LOCKS</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_TRX</span><span class="p">;</span><span class="w"></span>
-<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_DEADLOCK</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_CFSTATS</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_DBSTATS</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_PERF_CONTEXT</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_PERF_CONTEXT_GLOBAL</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_CF_OPTIONS</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_GLOBAL_INFO</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_COMPACTION_STATS</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_DDL</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_INDEX_FILE_MAP</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_LOCKS</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_TRX</span><span class="p">;</span>
+<span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_DEADLOCK</span><span class="p">;</span>
 </code></pre></div>
 
                 

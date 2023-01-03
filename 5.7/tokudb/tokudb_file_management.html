@@ -3185,9 +3185,9 @@ behind.</p>
 database directory.</p>
 <p>You can easily move a tables data files into the new scheme and proper database
 directory with a few steps:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">tokudb_dir_per_db</span><span class="o">=</span><span class="k">true</span><span class="p">;</span><span class="w"></span>
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tmp_table</span><span class="o">&gt;</span><span class="p">;</span><span class="w"></span>
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tmp_table</span><span class="o">&gt;</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">tokudb_dir_per_db</span><span class="o">=</span><span class="k">true</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tmp_table</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tmp_table</span><span class="o">&gt;</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3237,7 +3237,7 @@ dictionary_name from old_dictionary_name to new_dictionary_name</p>
 </ul>
 <p>Information about the dictionary_name and internal_file_name can be found in
 the TokuDB_file_map table:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">dictionary_name</span><span class="p">,</span><span class="w"> </span><span class="n">internal_file_name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TokuDB_file_map</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">dictionary_name</span><span class="p">,</span><span class="w"> </span><span class="n">internal_file_name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TokuDB_file_map</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>+------------------------------+---------------------------------------------------------+

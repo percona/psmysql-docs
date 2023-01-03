@@ -3009,7 +3009,7 @@ malloc-lib= /path/to/jemalloc
 </code></pre></div>
 <h3 id="transparent-huge-pages">Transparent huge pages<a class="headerlink" href="#transparent-huge-pages" title="Permanent link">&para;</a></h3>
 <p>TokuDB won’t be able to start if the transparent huge pages are enabled. <a href="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Performance_Tuning_Guide/s-memory-transhuge.html">Transparent huge pages</a> is feature available in the newer kernel versions. You can check if the Transparent huge pages are enabled with:</p>
-<div class="highlight"><pre><span></span><code>$ cat /sys/kernel/mm/transparent_hugepage/enabled
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/mm/transparent_hugepage/enabled
 </code></pre></div>
 <p>The output could be the following:</p>
 <div class="highlight"><pre><span></span><code> [always] madvise never
@@ -3024,16 +3024,16 @@ Transparent huge pages are enabled, according to /sys/kernel/mm/transparent_huge
 <p class="admonition-title">Note</p>
 <p>This setting lasts until the server is rebooted.</p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/enabled
-<span class="nb">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/defrag
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span>never<span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/mm/transparent_hugepage/enabled
+<span class="nb">echo</span><span class="w"> </span>never<span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/mm/transparent_hugepage/defrag
 </code></pre></div>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>TokuDB storage engine for <em>Percona Server for MySQL</em> is currently available in our apt and yum repositories.</p>
 <p>You can install the <em>Percona Server for MySQL</em> with TokuDB engine by using the apt/yum commands:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@centos ~<span class="o">]</span><span class="c1"># yum install Percona-Server-tokudb-57.x86_64</span>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@centos<span class="w"> </span>~<span class="o">]</span><span class="c1"># yum install Percona-Server-tokudb-57.x86_64</span>
 </code></pre></div>
 <p>or</p>
-<div class="highlight"><pre><span></span><code>root@wheezy:~# apt install percona-server-tokudb-5.7
+<div class="highlight"><pre><span></span><code>root@wheezy:~#<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-tokudb-5.7
 </code></pre></div>
 <h2 id="enabling-the-tokudb-storage-engine">Enabling the TokuDB Storage Engine<a class="headerlink" href="#enabling-the-tokudb-storage-engine" title="Permanent link">&para;</a></h2>
 <p>Once the TokuDB server package has been installed following output will be shown:</p>
@@ -3047,7 +3047,7 @@ Transparent huge pages are enabled, according to /sys/kernel/mm/transparent_huge
    * See http://www.percona.com/doc/percona-server/5.7/tokudb/tokudb_intro.html for an introduction to TokuDB
 </code></pre></div>
 <p><em>Percona Server for MySQL</em> has implemented <code>ps_tokudb_admin</code> script to make the enabling the TokuDB storage engine easier. This script will automatically disable Transparent huge pages, if they’re enabled, and install and enable the TokuDB storage engine with all the required plugins. You need to run this script as root or with <strong>sudo</strong>. The script should only be used for local installations and should not be used to install TokuDB to a remote server. After you run the script with required parameters:</p>
-<div class="highlight"><pre><span></span><code>ps-admin --enable-tokudb -uroot -pPassw0rd
+<div class="highlight"><pre><span></span><code>ps-admin<span class="w"> </span>--enable-tokudb<span class="w"> </span>-uroot<span class="w"> </span>-pPassw0rd
 </code></pre></div>
 <p>Following output will be displayed:</p>
 <div class="highlight"><pre><span></span><code>Checking if Percona server is running with jemalloc enabled...
@@ -3070,7 +3070,7 @@ Installing TokuDB engine...
 &gt;&gt; Successfuly installed TokuDB plugin.
 </code></pre></div>
 <p>If the script returns no errors, TokuDB storage engine should be successfully enabled on your server. You can check it out by running:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINES</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINES</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be the following:</p>
 <div class="highlight"><pre><span></span><code>...
@@ -3079,17 +3079,17 @@ Installing TokuDB engine...
 </code></pre></div>
 <h2 id="enabling-the-tokudb-storage-engine-manually">Enabling the TokuDB Storage Engine Manually<a class="headerlink" href="#enabling-the-tokudb-storage-engine-manually" title="Permanent link">&para;</a></h2>
 <p>If you don’t want to use <code>ps-admin</code> script you’ll need to manually install the storage engine ad required plugins.</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_file_map</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_fractal_tree_info</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_fractal_tree_block_map</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_trx</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_locks</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_lock_waits</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_background_job_status</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_file_map</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_fractal_tree_info</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_fractal_tree_block_map</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_trx</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_locks</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_lock_waits</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_background_job_status</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_tokudb.so&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>After the engine has been installed it should be present in the engines list. To check if the engine has been correctly installed and active:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINES</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINES</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be the following:</p>
 <div class="highlight"><pre><span></span><code>...
@@ -3097,7 +3097,7 @@ Installing TokuDB engine...
 ...
 </code></pre></div>
 <p>To check if all the TokuDB plugins have been installed correctly you should run:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">PLUGINS</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">PLUGINS</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be the following:</p>
 <div class="highlight"><pre><span></span><code>...
@@ -3113,7 +3113,7 @@ Installing TokuDB engine...
 </code></pre></div>
 <h2 id="tokudb-version">TokuDB Version<a class="headerlink" href="#tokudb-version" title="Permanent link">&para;</a></h2>
 <p>TokuDB storage engine version can be checked with:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">tokudb_version</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">tokudb_version</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be the following:</p>
 <div class="highlight"><pre><span></span><code>+------------------+

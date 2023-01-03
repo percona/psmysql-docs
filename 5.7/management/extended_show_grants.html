@@ -2927,22 +2927,22 @@
 <p>In Oracle MySQL <code>SHOW GRANTS</code> displays only the privileges granted explicitly to the named account. Other privileges might be available to the account, but they are not displayed. For example, if an anonymous account exists, the named account might be able to use its privileges, but <code>SHOW GRANTS</code> will not display them. In <em>Percona Server for MySQL</em> <code>SHOW GRANTS</code> command was extended to display all the effectively available privileges to the account.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <p>If we create the following users:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">grantee</span><span class="o">@</span><span class="n">localhost</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;grantee1&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">grantee</span><span class="o">@</span><span class="n">localhost</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;grantee1&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.50 sec)
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">grantee</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;grantee2&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">grantee</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;grantee2&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.09 sec)
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">db2</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">db2</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>Query OK, 1 row affected (0.20 sec)
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">db2</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">grantee</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">OPTION</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">db2</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">grantee</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">OPTION</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.12 sec)
@@ -2950,7 +2950,7 @@
 <ul>
 <li><code>SHOW GRANTS</code> output before the change:</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>+----------------------------------------------------------------------------------------------------------------+
@@ -2961,9 +2961,9 @@
 1 row in set (0.04 sec)
 </code></pre></div>
 <p>Although the grant for the <code>db2</code> database isn’t shown, <code>grantee</code> user has enough privileges to create the table in that database:</p>
-<div class="highlight"><pre><span></span><code><span class="k">user</span><span class="o">@</span><span class="n">trusty</span><span class="p">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">ugrantee</span><span class="w"> </span><span class="o">-</span><span class="n">pgrantee1</span><span class="w"> </span><span class="o">-</span><span class="n">h</span><span class="w"> </span><span class="n">localhost</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">user</span><span class="o">@</span><span class="n">trusty</span><span class="p">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">ugrantee</span><span class="w"> </span><span class="o">-</span><span class="n">pgrantee1</span><span class="w"> </span><span class="o">-</span><span class="n">h</span><span class="w"> </span><span class="n">localhost</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">db2</span><span class="p">.</span><span class="n">t1</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="nb">int</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">db2</span><span class="p">.</span><span class="n">t1</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="nb">int</span><span class="p">);</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (1.21 sec)
@@ -2971,7 +2971,7 @@
 <ul>
 <li><code>SHOW GRANTS</code> output after the change shows all the privileges for the <code>grantee</code> user:</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>+----------------------------------------------------------------------------------------------------------------+
