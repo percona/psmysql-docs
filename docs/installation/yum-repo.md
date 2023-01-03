@@ -28,15 +28,15 @@ You can install Percona yum repository by running the following commands as a `r
 	
 	??? example "Expected output"
 	
-	```text
-	percona-release-latest.noarch-rpm               36 kB/s | 19 kb 00:00
-	=====================================================================
-	  Package         Architecture      Version    Repository    Size
-	=====================================================================
-	Installing:
-	   percona release noarch         1.0-25     @commandline  19k
-	...
-	```
+	    ```text
+	    percona-release-latest.noarch-rpm               36 kB/s | 19 kb 00:00
+	    =====================================================================
+	      Package         Architecture      Version    Repository    Size
+	    =====================================================================
+	    Installing:
+	       percona release noarch         1.0-25     @commandline  19k
+	    ...
+	    ```
     
 2. Enable the repository:
 

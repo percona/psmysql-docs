@@ -55,7 +55,7 @@ Specific information on the supported platforms, products, and versions is descr
 
 See [Configuring Percona repositories with `percona-release`](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
 
-	--8<-- "./docs/snippets/install/_storage-engines.md"
+--8<-- "./docs/snippets/install/_storage-engines.md"
 
 Percona Server for MySQL contains user-defined functions from [Percona Toolkit](https://docs.percona.com/percona-toolkit/). These user-defined functions provide faster checksums. For more details on the user-defined functions, see [Percona Toolkit UDF functions](https://www.percona.com/doc/percona-server/8.0/management/udf_percona_toolkit.html).
 

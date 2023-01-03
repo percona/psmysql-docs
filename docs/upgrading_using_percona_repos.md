@@ -4,7 +4,7 @@ Upgrading using the Percona repositories is the easiest and recommended way.
 
 Find the instructions on how to enable the repositories in the following documents:
 
-* [Percona APT Repository](installation/apt_repo.md)
+* [Percona APT Repository](installation/apt-repo.md)
 
 * [Percona RPM Repository](installation/yum-repo.md)
 
