@@ -40,7 +40,7 @@ If the ZenFS functionality is not enabled on Ubuntu 20.04, the binaries with Zen
 
 Start with the installation of *Percona Server for MySQL*.
 
-1. The steps are listed here for convenience, for an explanation, see [Installing Percona Server for MySQL from Percona apt repository](../installation/apt_repo.md#apt-install).
+1. The steps are listed here for convenience, for an explanation, see [Installing Percona Server for MySQL from Percona apt repository](../installation/apt-repo.md#apt-install).
 
     ```shell
     $ wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb
