@@ -418,7 +418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="apt_repo.html" class="md-nav__link">
+      <a href="apt-repo.html" class="md-nav__link">
         Install using APT repository
       </a>
     </li>
@@ -3286,7 +3286,9 @@ that configures yum and installs the <a href="https://www.percona.com/downloads/
 <p>Install the Percona repository</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 </code></pre></div>
-<p>You should see an output that the files are being downloaded, like the following:</p>
+<details class="example">
+<summary>Expected output</summary>
+</details>
 <div class="highlight"><pre><span></span><code>percona-release-latest.noarch-rpm               36 kB/s | 19 kb 00:00
 =====================================================================
   Package         Architecture      Version    Repository    Size
@@ -3300,14 +3302,14 @@ Installing:
 <p>Enable the repository:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps80
 </code></pre></div>
-<p>The output could be like the following:</p>
+<p>If you see the following message, enter &lsquo;y&rsquo; to disable the mysql module:</p>
 <div class="highlight"><pre><span></span><code>On RedHat 8 systems it is needed to disable dnf mysql module to install Percona-Server
-Do you want to disable it? [y/N] y
+Do you want to disable it? [y/N] 
 ...
 </code></pre></div>
 </li>
 <li>
-<p>Install the packages</p>
+<p>Install the packages:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 <div class="admonition note">
@@ -3351,7 +3353,7 @@ release, testing, and experimental - in this case, it is the second section that
   <small>
     
       Last update:
-      2022-12-20
+      2023-01-02
     
   </small>
 </div>

@@ -15,7 +15,7 @@
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/8.0/installation/apt_repo.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/8.0/installation/apt-repo.html">
       
       
         <link rel="prev" href="../installation.html">
@@ -434,7 +434,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="apt_repo.html" class="md-nav__link md-nav__link--active">
+      <a href="apt-repo.html" class="md-nav__link md-nav__link--active">
         Install using APT repository
       </a>
       
@@ -456,22 +456,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-percona-server-for-mysql-from-percona-apt-repository" class="md-nav__link">
-    Install Percona Server for MySQL from Percona apt repository
-  </a>
-  
-    <nav class="md-nav" aria-label="Install Percona Server for MySQL from Percona apt repository">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#percona-apt-testing-repository" class="md-nav__link">
-    Percona apt Testing repository
+  <a href="#install-percona-server-for-mysql-using-apt" class="md-nav__link">
+    Install Percona Server for MySQL using APT
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#install-the-percona-testing-repository-using-apt" class="md-nav__link">
+    Install the Percona Testing repository using APT
+  </a>
   
 </li>
       
@@ -3242,22 +3236,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-percona-server-for-mysql-from-percona-apt-repository" class="md-nav__link">
-    Install Percona Server for MySQL from Percona apt repository
-  </a>
-  
-    <nav class="md-nav" aria-label="Install Percona Server for MySQL from Percona apt repository">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#percona-apt-testing-repository" class="md-nav__link">
-    Percona apt Testing repository
+  <a href="#install-percona-server-for-mysql-using-apt" class="md-nav__link">
+    Install Percona Server for MySQL using APT
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#install-the-percona-testing-repository-using-apt" class="md-nav__link">
+    Install the Percona Testing repository using APT
+  </a>
   
 </li>
       
@@ -3277,7 +3265,7 @@
                 <!-- Edit button -->
                 
                   <a
-                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/installation/apt_repo.md"
+                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/installation/apt-repo.md"
                     title=""
                     class="md-content__button md-icon"
                   >
@@ -3297,57 +3285,70 @@
 <p>Ready-to-use packages are available from the Percona Server for MySQL software
 repositories and the <a href="http://www.percona.com/downloads/Percona-Server-8.0/">Percona downloads</a> page.</p>
 <p>Specific information on the supported platforms, products, and versions is described in <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle</a>.</p>
-<h2 id="install-percona-server-for-mysql-from-percona-apt-repository">Install Percona Server for MySQL from Percona <code>apt</code> repository<a class="headerlink" href="#install-percona-server-for-mysql-from-percona-apt-repository" title="Permanent link">&para;</a></h2>
+<h2 id="install-percona-server-for-mysql-using-apt">Install Percona Server for MySQL using APT<a class="headerlink" href="#install-percona-server-for-mysql-using-apt" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p>Install <code>GnuPG</code>, the GNU Privacy Guard:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gnupg2<span class="w"> </span>curl
+<p>Update the package repositories:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </code></pre></div>
 </li>
 <li>
-<p>Fetch the repository packages from Percona web:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.<span class="k">$(</span>lsb_release<span class="w"> </span>-sc<span class="k">)</span>_all.deb
+<p>Install the <code>curl</code> download utility if needed:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>curl
 </code></pre></div>
 </li>
 <li>
-<p>Install the downloaded package with <code>dpkg</code>. To do that, run the following commands as root or with sudo:</p>
-<div class="highlight"><pre><span></span><code>$ sudo dpkg -i percona-release_latest.$(lsb_release -sc)_all.deb
+<p>Download the <code>percona-release</code> repository package:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>-O<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 </code></pre></div>
 </li>
 <li>
-<p>Once you install this package, the Percona repositories should be added. You
-can check the repository setup in the
-<code>/etc/apt/sources.list.d/percona-original-release.list</code> file.</p>
+<p>Install the downloaded package with <code>apt</code> as root or with sudo:</p>
+<div class="highlight"><pre><span></span><code>$ sudo apt install gnupg2 lsb-release ./percona-release_latest.generic_all.deb
+</code></pre></div>
 </li>
 <li>
-<p>Enable the repository:</p>
+<p>Refresh the local cache to update the package information:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</code></pre></div>
+</li>
+<li>
+<p>Use <code>percona-release</code> to set up the repository for the Percona Server for MySQL 8.0 version:</p>
 <div class="highlight"><pre><span></span><code>$ sudo percona-release setup ps80
 </code></pre></div>
 </li>
 <li>
-<p>After that, you can install the server package:</p>
+<p>You can check the repository setup for the Percona original release list in <code>/etc/apt/sources.list.d/percona-original-release.list</code>. </p>
+</li>
+<li>
+<p>Install the server package with the <code>percona-release</code> command:</p>
 <div class="highlight"><pre><span></span><code>$ sudo apt install percona-server-server
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Percona Server for MySQL 8.0 comes with the TokuDB storage engine and MyRocks storage engine. These storage engines are installed as plugins.</p>
-<p>Starting with <a href="../../release-notes/Percona-Server-8.0.28-19.md">Percona Server for MySQL 8.0.28-19 (2022-05-12)</a>, the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds. For more information, see <a href="../../tokudb/tokudb_intro.md">TokuDB Introduction</a>.</p>
-<p>For information on how to install and configure TokuDB, refer to the <a href="../../tokudb/tokudb_installation.md">TokuDB Installation guide</a>.</p>
-<p>For information on how to install and configure MyRocks, refer to the <a href="../../myrocks/install.md">Percona MyRocks Installation Guide</a>.</p>
-</div>
 </li>
 </ol>
-<p>Percona Server for MySQL contains several useful User Defined Functions (UDF) from Percona Toolkit. After the installation completes, run the following commands to create these functions:</p>
+<p>See <a href="https://docs.percona.com/percona-software-repositories/percona-release.html">Configuring Percona repositories with <code>percona-release</code></a> for more information.</p>
+<div class="highlight"><pre><span></span><code>!!! note
+
+    Percona Server for MySQL 8.0 comes with the TokuDB storage engine and MyRocks storage engine. These storage engines are installed as plugins.
+
+    Starting with [Percona Server for MySQL 8.0.28-19 (2022-05-12)](../../release-notes/Percona-Server-8.0.28-19.md), the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds. For more information, see [TokuDB Introduction](../../tokudb/tokudb_intro.md).
+
+    For information on how to install and configure TokuDB, refer to the [TokuDB Installation guide](../../tokudb/tokudb_installation.md).
+
+    For information on how to install and configure MyRocks, refer to the [Percona MyRocks Installation Guide](../../myrocks/install.md).
+</code></pre></div>
+<p>Percona Server for MySQL contains user-defined functions from <a href="https://docs.percona.com/percona-toolkit/">Percona Toolkit</a>. These user-defined functions provide faster checksums. For more details on the user-defined functions, see <a href="https://www.percona.com/doc/percona-server/8.0/management/udf_percona_toolkit.html">Percona Toolkit UDF functions</a>.</p>
+<p>After the installation completes, run the following commands to create these functions:</p>
 <div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s2">&quot;CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME &#39;libfnv1a_udf.so&#39;&quot;</span>
 <span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s2">&quot;CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME &#39;libfnv_udf.so&#39;&quot;</span>
 <span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s2">&quot;CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME &#39;libmurmur_udf.so&#39;&quot;</span>
 </code></pre></div>
-<p>For more details on the UDFs, see <a href="https://www.percona.com/doc/percona-server/8.0/management/udf_percona_toolkit.html">Percona Toolkit UDFS</a>.</p>
-<h3 id="percona-apt-testing-repository">Percona <code>apt</code> Testing repository<a class="headerlink" href="#percona-apt-testing-repository" title="Permanent link">&para;</a></h3>
+<h2 id="install-the-percona-testing-repository-using-apt">Install the Percona Testing repository using APT<a class="headerlink" href="#install-the-percona-testing-repository-using-apt" title="Permanent link">&para;</a></h2>
 <p>Percona offers pre-release builds from the testing repository. To enable it, run
-percona-release with the <code>testing</code> argument. Run this command as root or by using the sudo command.</p>
+percona-release with the <code>testing</code> argument. Run the following command as root or use the sudo command:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps80<span class="w"> </span>testing
 </code></pre></div>
+<p>These builds should not be run in production. This build may not contain all of the features available in the final release. The features may change without notice.</p>
 
                 
 <div class="md-relbar2__inner md-grid">
@@ -3369,7 +3370,7 @@ percona-release with the <code>testing</code> argument. Run this command as root
   <small>
     
       Last update:
-      2022-12-20
+      2023-01-02
     
   </small>
 </div>
