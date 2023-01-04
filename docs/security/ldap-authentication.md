@@ -10,7 +10,7 @@ individuals, groups, and organizations.
 
 !!! important
 
-    The SASL-based LDAP authentication plugin is a [tech preview](../glossary.md#tech-preview) feature. Before using this plugin in production, we recommend that you test restoring your production databases from physical backups in your environment, and also use an alternative backup method for redundancy.
+    {% include './snippets/tech-preview/_tech-preview-feature.md'%}
 
 *Percona Server for MySQL* 8.0.19-10 implements the simple LDAP authentication. The Percona simple LDAP authentication plugin is a free and Open Source implementation of the MySQL Enterprise Simple LDAP authentication plugin.
 

@@ -1,6 +1,9 @@
 # FIDO authentication plugin
 
-The FIDO Authentication plugin is a [tech preview](../glossary.md#tech-preview) feature. Before using the plugin in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+!!! important
+
+    {% include './snippets/tech-preview/_tech-preview-feature.md'%}
+
 
 *Percona Server for MySQL 8.0.30-22* adds support for the Fast Identify Online (FIDO) authentication method that uses a plugin. The FIDO authentication provides a set of standards that reduces the reliance on passwords.
 

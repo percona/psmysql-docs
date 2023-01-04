@@ -2,6 +2,12 @@
 
 ## Authentication system variables
 
+[Percona 8.0.30-22][8.0.30-22-RN] adds LDAP_SASL variables and the `fallback` server variables for simple LDAP and SASL-based LDAP.
+
+!!! important
+
+    {% include './snippets/tech-preview/_tech-preview-variables.md'%}
+
 The installation adds the following variables:
 
 | Variable name | Description |
@@ -494,3 +500,5 @@ If this variable is enabled, the plugin connects to the server with TLS.
 | Default      | uid                                   |
 
 The attribute name that specifies the user names in LDAP directory entries in simple LDAP authentication.
+
+[8.0.30-22-RN]: ./docs/release-notes//release-notes/8.0.30-22.md
