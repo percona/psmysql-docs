@@ -58,7 +58,7 @@ You can install Percona yum repository by running the following commands as a `r
 	```shell
 	$ sudo yum install percona-server-server
 	```
-	--8<-- "./docs/snippets/install/_storage-engines.txt"
+	{% include './snippets/install/_storage-engines.md'%}
 
 ### Percona yum Testing repository
 
