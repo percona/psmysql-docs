@@ -1,4 +1,4 @@
-# Extended Show Engine InnoDB Status
+# Extended show engine InnoDB status
 
 This feature reorganizes the output of `SHOW ENGINE INNODB STATUS`
 to improve readability and to provide additional information. The
@@ -7,19 +7,15 @@ locks held to print for each *InnoDB* transaction.
 
 This feature modified the `SHOW ENGINE INNODB STATUS` command as follows:
 
-
-* Added extended information about *InnoDB* internal hash table sizes
-(in bytes) in the `BUFFER POOL AND MEMORY` section; also added
-buffer pool size in bytes.
-
+* Added extended information about *InnoDB* internal hash table sizes (in bytes) in the `BUFFER POOL AND MEMORY` section; also added buffer pool size in bytes.
 
 * Added additional LOG section information.
 
-## Other Information
+## Other information
 
-* Author / Origin: Baron Schwartz, [http://lists.mysql.com/internals/35174](http://lists.mysql.com/internals/35174)
+* Author / Origin: Baron Schwartz, [https://lists.mysql.com/internals/35174](https://lists.mysql.com/internals/35174)
 
-## System Variables
+## System variables
 
 ### `innodb_show_locks_held`
 
@@ -70,7 +66,7 @@ WHERE t.PROCESSLIST_ID = %d;
 
 The `PROCESSLIST_ID` in this example is exactly the thread id from error log output.
 
-## Status Variables
+## Status variables
 
 The status variables here contain information available in the output of `SHOW
 ENGINE INNODB STATUS`, organized by the sections `SHOW ENGINE INNODB STATUS`
@@ -80,16 +76,18 @@ you will probably already recognize the information these variables contain.
 ### BACKGROUND THREAD
 
 The following variables contain information in the `BACKGROUND THREAD`
-section of the output from `SHOW ENGINE INNODB STATUS`. An example of that
-output is:
+section of the output from `SHOW ENGINE INNODB STATUS`. 
 
-```text
------------------
-BACKGROUND THREAD
------------------
-srv_master_thread loops: 1 srv_active, 0 srv_shutdown, 11844 srv_idle
-srv_master_thread log flush and writes: 11844
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+
+    -----------------
+    BACKGROUND THREAD
+    -----------------
+    srv_master_thread loops: 1 srv_active, 0 srv_shutdown, 11844 srv_idle
+    srv_master_thread log flush and writes: 11844
+    ```
 
 *InnoDB* has a source thread which performs background tasks depending on the
 server state, once per second. If the server is under workload, the source
@@ -136,15 +134,17 @@ and flushed the redo log.
 The following variables contain information in the `SEMAPHORES` section of
 the output from `SHOW ENGINE INNODB STATUS`. An example of that output is:
 
-```text
-----------
-SEMAPHORES
-----------
-OS WAIT ARRAY INFO: reservation count 9664, signal count 11182
-Mutex spin waits 20599, rounds 223821, OS waits 4479
-RW-shared spins 5155, OS waits 1678; RW-excl spins 5632, OS waits 2592
-Spin rounds per wait: 10.87 mutex, 15.01 RW-shared, 27.19 RW-excl
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    ----------
+    SEMAPHORES
+    ----------
+    OS WAIT ARRAY INFO: reservation count 9664, signal count 11182
+    Mutex spin waits 20599, rounds 223821, OS waits 4479
+    RW-shared spins 5155, OS waits 1678; RW-excl spins 5632, OS waits 2592
+    Spin rounds per wait: 10.87 mutex, 15.01 RW-shared, 27.19 RW-excl
+    ```
 
 ### INSERT BUFFER AND ADAPTIVE HASH INDEX
 
@@ -152,14 +152,16 @@ The following variables contain information in the `INSERT BUFFER AND ADAPTIVE
 HASH INDEX` section of the output from `SHOW ENGINE INNODB STATUS`. An
 example of that output is:
 
-```text
--------------------------------------
-INSERT BUFFER AND ADAPTIVE HASH INDEX
--------------------------------------
-Ibuf: size 1, free list len 6089, seg size 6091,
-44497 inserts, 44497 merged recs, 8734 merges
-0.00 hash searches/s, 0.00 non-hash searches/s
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    -------------------------------------
+    INSERT BUFFER AND ADAPTIVE HASH INDEX
+    -------------------------------------
+    Ibuf: size 1, free list len 6089, seg size 6091,
+    44497 inserts, 44497 merged recs, 8734 merges
+    0.00 hash searches/s, 0.00 non-hash searches/s
+    ```
 
 ### `Innodb_ibuf_free_list`
 
@@ -180,23 +182,25 @@ Ibuf: size 1, free list len 6089, seg size 6091,
 The following variables contain information in the `LOG` section of the
 output from `SHOW ENGINE INNODB STATUS`. An example of that output is:
 
-```text
-LOG
----
-Log sequence number 10145937666
-Log flushed up to   10145937666
-Pages flushed up to 10145937666
-Last checkpoint at  10145937666
-Max checkpoint age    80826164
-Checkpoint age target 78300347
-Modified age          0
-Checkpoint age        0
-0 pending log writes, 0 pending chkp writes
-9 log i/o's done, 0.00 log i/o's/second
-Log tracking enabled
-Log tracked up to   10145937666
-Max tracked LSN age 80826164
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    LOG
+    ---
+    Log sequence number 10145937666
+    Log flushed up to   10145937666
+    Pages flushed up to 10145937666
+    Last checkpoint at  10145937666
+    Max checkpoint age    80826164
+    Checkpoint age target 78300347
+    Modified age          0
+    Checkpoint age        0
+    0 pending log writes, 0 pending chkp writes
+    9 log i/o's done, 0.00 log i/o's/second
+    Log tracking enabled
+    Log tracked up to   10145937666
+    Max tracked LSN age 80826164
+    ```
 
 ### `Innodb_lsn_current`
 
@@ -257,36 +261,38 @@ The following variables contain information in the `BUFFER POOL AND MEMORY`
 section of the output from `SHOW ENGINE INNODB STATUS`. An example of that
 output is:
 
-```text
-----------------------
-BUFFER POOL AND MEMORY
-----------------------
-Total memory allocated 137363456; in additional pool allocated 0
-Total memory allocated by read views 88
-Internal hash tables (constant factor + variable factor)
-    Adaptive hash index 2266736         (2213368 + 53368)
-    Page hash           139112 (buffer pool 0 only)
-    Dictionary cache    729463  (554768 + 174695)
-    File system         824800  (812272 + 12528)
-    Lock system         333248  (332872 + 376)
-    Recovery system     0       (0 + 0)
-Dictionary memory allocated 174695
-Buffer pool size        8191
-Buffer pool size, bytes 134201344
-Free buffers            7481
-Database pages          707
-Old database pages      280
-Modified db pages       0
-Pending reads 0
-Pending writes: LRU 0, flush list 0 single page 0
-Pages made young 0, not young 0
-0.00 youngs/s, 0.00 non-youngs/s
-Pages read 707, created 0, written 1
-0.00 reads/s, 0.00 creates/s, 0.00 writes/s
-No buffer pool page gets since the last printout
-Pages read ahead 0.00/s, evicted without access 0.00/s, Random read ahead 0.00/s
-LRU len: 707, unzip_LRU len: 0
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    ----------------------
+    BUFFER POOL AND MEMORY
+    ----------------------
+    Total memory allocated 137363456; in additional pool allocated 0
+    Total memory allocated by read views 88
+    Internal hash tables (constant factor + variable factor)
+        Adaptive hash index 2266736         (2213368 + 53368)
+        Page hash           139112 (buffer pool 0 only)
+        Dictionary cache    729463  (554768 + 174695)
+        File system         824800  (812272 + 12528)
+        Lock system         333248  (332872 + 376)
+        Recovery system     0       (0 + 0)
+    Dictionary memory allocated 174695
+    Buffer pool size        8191
+    Buffer pool size, bytes 134201344
+    Free buffers            7481
+    Database pages          707
+    Old database pages      280
+    Modified db pages       0
+    Pending reads 0
+    Pending writes: LRU 0, flush list 0 single page 0
+    Pages made young 0, not young 0
+    0.00 youngs/s, 0.00 non-youngs/s
+    Pages read 707, created 0, written 1
+    0.00 reads/s, 0.00 creates/s, 0.00 writes/s
+    No buffer pool page gets since the last printout
+    Pages read ahead 0.00/s, evicted without access 0.00/s, Random read ahead 0.00/s
+    LRU len: 707, unzip_LRU len: 0
+    ```
 
 ### `Innodb_mem_adaptive_hash`
 
@@ -365,20 +371,22 @@ to be old according to the [Making the Buffer Pool Scan Resistant manual page](h
 The following variables contain information in the `TRANSACTIONS` section of
 the output from `SHOW INNODB STATUS`. An example of that output is:
 
-```text
-------------
-TRANSACTIONS
-------------
-Trx id counter F561FD
-Purge done for trx's n:o < F561EB undo n:o < 0
-History list length 19
-LIST OF TRANSACTIONS FOR EACH SESSION:
----TRANSACTION 0, not started, process no 993, OS thread id 140213152634640
-mysql thread id 15933, query id 32109 localhost root
-show innodb status
----TRANSACTION F561FC, ACTIVE 29 sec, process no 993, OS thread id 140213152769808 updating or deleting
-mysql tables in use 1, locked 1
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    ------------
+    TRANSACTIONS
+    ------------
+    Trx id counter F561FD
+    Purge done for trx's n:o < F561EB undo n:o < 0
+    History list length 19
+    LIST OF TRANSACTIONS FOR EACH SESSION:
+    ---TRANSACTION 0, not started, process no 993, OS thread id 140213152634640
+    mysql thread id 15933, query id 32109 localhost root
+    show innodb status
+    ---TRANSACTION F561FC, ACTIVE 29 sec, process no 993, OS thread id 140213152769808 updating or deleting
+    mysql tables in use 1, locked 1
+    ```
 
 ### `Innodb_max_trx_id`
 
@@ -391,7 +399,6 @@ This variable shows the next free transaction id number.
 
 ### `Innodb_oldest_view_low_limit_trx_id`
 
-| Option
 | Option    | Description |
 |-----------|-------------|
 | Scope     | Global      |
@@ -425,11 +432,11 @@ the system.
 
 ### `INFORMATION_SCHEMA.XTRADB_READ_VIEW`
 
-| Column Name                      | Description                                                                                                                                                                         |
-|----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ‘READ_VIEW_LOW_LIMIT_TRX_NUMBER’ | ‘This is the highest transactions number at the time the view was created.’                                                                                                         |
-| ‘READ_VIEW_UPPER_LIMIT_TRX_ID’   | ‘This is the highest transactions ID at the time the view was created. This means that it should not see newer transactions with IDs bigger than or equal to that value.’           |
-| ‘READ_VIEW_LOW_LIMIT_TRX_ID’     | ‘This is the latest committed transaction ID at the time the oldest view was created. This means that it should see all transactions with IDs smaller than or equal to that value.’ |
+| Column Name                      | Description                                                    |
+|----------------------------------|----------------------------------------------------------------|
+| ‘READ_VIEW_LOW_LIMIT_TRX_NUMBER’ | This is the highest transactions number at the time the view was created.  |
+| ‘READ_VIEW_UPPER_LIMIT_TRX_ID’   | This is the highest transactions ID at the time the view was created. This means that it should not see newer transactions with IDs bigger than or equal to that value.          |
+| ‘READ_VIEW_LOW_LIMIT_TRX_ID’     | This is the latest committed transaction ID at the time the oldest view was created. This means that it should see all transactions with IDs smaller than or equal to that value. |
 
 !!! note
 
@@ -451,15 +458,15 @@ InnoDB/XtraDB hash tables.
 
 ### `INFORMATION_SCHEMA.XTRADB_INTERNAL_HASH_TABLES`
 
-| Column Name                | Description              |
-|----------------------------|--------------------------|
-| ‘INTERNAL_HASH_TABLE_NAME’ | ‘Hash table name’        |
-| ‘TOTAL_MEMORY’             | ‘Total amount of memory’ |
-| ‘CONSTANT_MEMORY’          | ‘Constant memory’        |
-| ‘VARIABLE_MEMORY’          | ‘Variable memory’        |
+| Column Name                | Description            |
+|----------------------------|------------------------|
+| ‘INTERNAL_HASH_TABLE_NAME’ | Hash table name        |
+| ‘TOTAL_MEMORY’             | Total amount of memory |
+| ‘CONSTANT_MEMORY’          | Constant memory        |
+| ‘VARIABLE_MEMORY’          | Variable memory        |
 
 ## Other reading
 
-  * [SHOW INNODB STATUS walk through](http://www.mysqlperformanceblog.com/2006/07/17/show-innodb-status-walk-through/)
+* [SHOW INNODB STATUS walk through](https://www.mysqlperformanceblog.com/2006/07/17/show-innodb-status-walk-through/)
 
-  * [Table locks in SHOW INNODB STATUS](http://www.mysqlperformanceblog.com/2010/06/08/table-locks-in-show-innodb-status/)
+* [Table locks in SHOW INNODB STATUS](https://www.mysqlperformanceblog.com/2010/06/08/table-locks-in-show-innodb-status/)

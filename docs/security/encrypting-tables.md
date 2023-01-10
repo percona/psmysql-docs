@@ -1,4 +1,4 @@
-# Encrypting File-Per-Table Tablespace
+# Encrypt file-per-table tablespace
 
 A file-per-table tablespace stores the
 table data and the indexes for a single InnoDB table. In this tablespace
@@ -7,9 +7,7 @@ configuration, each table is stored in a `.ibd` file.
 The architecture for data at rest encryption for file-per-table tablespace
 has two tiers:
 
-
 * Master key
-
 
 * Tablespace keys.
 
@@ -18,13 +16,13 @@ file_per_table tablespace inherits the schema default encryption setting unless 
 
 An example of the `CREATE TABLE` statement:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE TABLE sample (id INT, mytext varchar(255)) ENCRYPTION='Y';
 ```
 
 An example of an `ALTER TABLE` statement.
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> ALTER TABLE ... ENCRYPTION='Y';
 ```
 

@@ -1,11 +1,11 @@
-# Binlogging and replication improvements
+# Binary logs and replication improvements
 
 Due to continuous development, *Percona Server for MySQL* incorporated a number of
 improvements related to replication and binary logs handling. This resulted in replication specifics, which distinguishes it from *MySQL*.
 
 ## Safety of statements with a `LIMIT` clause
 
-### Summary of the Fix
+### Summary of the fix
 
 *MySQL* considers all `UPDATE/DELETE/INSERT ... SELECT` statements with
 `LIMIT` clause to be unsafe, no matter wether they are really producing
@@ -13,7 +13,7 @@ non-deterministic result or not, and switches from statement-based logging
 to row-based one. *Percona Server for MySQL* is more accurate, it acknowledges such
 instructions as safe when they include `ORDER BY PK` or `WHERE`
 condition. This fix has been ported from the upstream bug report
-[#42415](http://bugs.mysql.com/bug.php?id=42415) ([#44](https://jira.percona.com/browse/PS-44)).
+[#42415](https://bugs.mysql.com/bug.php?id=42415) ([#44](https://jira.percona.com/browse/PS-44)).
 
 ## Performance improvement on relay log position update
 
@@ -30,7 +30,7 @@ Particularly, such unconditional relay log position updates caused additional
 fsync operations in case of `relay-log-info-repository=TABLE`, and with the
 higher number of channels transmitting such duplicate (already executed)
 transactions the situation became proportionally worse. Bug fixed [#1786](https://jira.percona.com/browse/PS-1786)
-(upstream [#85141](http://bugs.mysql.com/bug.php?id=85141)).
+(upstream [#85141](https://bugs.mysql.com/bug.php?id=85141)).
 
 ## Performance improvement on source and connection status updates
 
@@ -52,9 +52,9 @@ previously, were evaluated as relay log rotation events and reacted with
 `mysql.slave_master_info` table sync. This inaccuracy could produce huge (up
 to 5 times on some setups) increase in write load on the replica, before this
 problem was fixed in *Percona Server for MySQL*. Bug fixed [#1812](https://jira.percona.com/browse/PS-1812) (upstream
-[#85158](http://bugs.mysql.com/bug.php?id=85158)).
+[#85158](https://bugs.mysql.com/bug.php?id=85158)).
 
-## Writing `FLUSH` Commands to the Binary Log
+## Write `FLUSH` commands to the binary log
 
 `FLUSH` commands, such as `FLUSH SLOW LOGS`, are not written to the
 binary log if the system variable binlog_skip_flush_commands is set
@@ -95,7 +95,7 @@ about what else affects the writing of `FLUSH` commands to the binary log.
 
     `FLUSH LOGS`, `FLUSH BINARY LOGS`, `FLUSH TABLES WITH READ LOCK`, and `FLUSH TABLES ... FOR EXPORT` are not written to the binary log no matter what value the binlog_skip_flush_commands variable contains. The `FLUSH` command is not recorded to the binary log and the value of binlog_skip_flush_commands is ignored if the `FLUSH` command is run with the `NO_WRITE_TO_BINLOG` keyword (or its alias `LOCAL`).
 
-## Maintaining Comments with DROP TABLE
+## Maintaining comments with DROP TABLE
 
 When you issue a `DROP TABLE` command, the binary log stores the command but removes comments and encloses the table name in quotation marks. If you require the binary log to maintain the comments and not add quotation marks, enable `binlog_ddl_skip_rewrite`.
 
@@ -118,7 +118,7 @@ SET binlog_ddl_skip_rewrite = ON;
 /*comment at start*/DROP TABLE t /*comment at end*/;
 ```
 
-## Binary Log User Defined Functions
+## Binary log user defined functions
 
 To implement Point in Time recovery, we have added the `binlog_utils_udf`. The following user-defined functions are included:
 
@@ -151,15 +151,15 @@ Example:
 CREATE FUNCTION get_binlog_by_gtid RETURNS STRING SONAME 'binlog_utils_udf.so';
 SELECT get_binlog_by_gtid("F6F54186-8495-47B3-8D9F-011DDB1B65B3:1") AS result;
 ```
-The output should look like this:
+??? example "Expected output"
 
-```text
-+--------------+
-| result       |
-+==============+
-| binlog.00001 |
-+--------------+
-```
+    ```{.text .no-copy}
+    +--------------+
+    | result       |
+    +==============+
+    | binlog.00001 |
+    +--------------+
+    ```
 
 ```sql
 DROP FUNCTION get_binlog_by_gtid;
@@ -171,22 +171,22 @@ The basic syntax for `get_last_gtid_from_binlog()` is the following:
 
 Usage: SELECT get_last_gtid_from_binlog(string) [AS] alias
 
-Example:
+For example:
 
 ```sql
 CREATE FUNCTION get_last_gtid_from_binlog RETURNS STRING SONAME 'binlog_utils_udf.so';
 SELECT get_last_gtid_from_binlog("binlog.00001") AS result;
 ```
 
-The output should look like this:
+??? example "Expected output"
 
-```text
-+-----------------------------------------+
-| result                                  |
-+=========================================+
-| F6F54186-8495-47B3-8D9F-011DDB1B65B3:10 |
-+-----------------------------------------+
-```
+    ```{.text .no-copy}
+    +-----------------------------------------+
+    | result                                  |
+    +=========================================+
+    | F6F54186-8495-47B3-8D9F-011DDB1B65B3:10 |
+    +-----------------------------------------+
+    ```
 
 ```sql
 DROP FUNCTION get_last_gtid_from_binlog;
@@ -198,21 +198,21 @@ The basic syntax for `get_gtid_set_by_binlog()` is the following:
 
 Usage: SELECT get_gtid_set_by_binlog(string) [AS] alias
 
-Example:
+For example:
 
 ```sql
 CREATE FUNCTION get_gtid_set_by_binlog RETURNS STRING SONAME 'binlog_utils_udf.so';
 SELECT get_gtid_set_by_binlog("binlog.00001") AS result;
 ```
-The output should look like this:
+??? example "Expected output"
 
-```text
-+-------------------------+
-| result                  |
-+=========================+
-| 11ea-b9a7:7,11ea-b9a7:8 |
-+-------------------------+
-```
+    ```{.text .no-copy}
+    +-------------------------+
+    | result                  |
+    +=========================+
+    | 11ea-b9a7:7,11ea-b9a7:8 |
+    +-------------------------+
+    ```
 
 ```sql
 DROP FUNCTION get_gtid_set_by_binlog;
@@ -231,15 +231,15 @@ Example:
 CREATE FUNCTION get_binlog_by_gtid_set RETURNS STRING SONAME 'binlog_utils_udf.so';
 SELECT get_binlog_by_gtid_set("11ea-b9a7:7,11ea-b9a7:8") AS result;
 ```
-The output should look like this:
+??? example "Expected output"
 
-```text
-+---------------------------------------------------------------+
-| result                                                        |
-+===============================================================+
-| bin.000003                                                    |
-+---------------------------------------------------------------+
-```
+    ```{.text .no-copy}
+    +---------------------------------------------------------------+
+    | result                                                        |
+    +===============================================================+
+    | bin.000003                                                    |
+    +---------------------------------------------------------------+
+    ```
 
 ```sql
 DROP FUNCTION get_binlog_by_gtid_set;
@@ -251,22 +251,22 @@ The basic syntax for `get_first_record_timestamp_by_binlog()` is the following:
 
 Usage: SELECT get_first_record_timestamp_by_binlog(TIMESTAMP) [AS] alias
 
-Example:
+For example:
 
-```
+```sql
 CREATE FUNCTION get_first_record_timestamp_by_binlog RETURNS STRING SONAME 'binlog_utils_udf.so';
 SELECT FROM_UNIXTIME(get_first_record_timestamp_by_binlog("bin.00003") DIV 1000000) AS result;
 ```
 
-The output should look like this:
+??? example "Expected output"
 
-```text
-+---------------------+
-| result              |
-+=====================+
-| 2020-12-03 09:10:40 |
-+---------------------+
-```
+    ```{.text .no-copy}
+    +---------------------+
+    | result              |
+    +=====================+
+    | 2020-12-03 09:10:40 |
+    +---------------------+
+    ```
 
 ```sql
 DROP FUNCTION get_first_record_timestamp_by_binlog;
@@ -278,22 +278,22 @@ The basic syntax for `get_last_record_timestamp_by_binlog()` is the following:
 
 Usage: SELECT get_last_record_timestamp_by_binlog(TIMESTAMP) [AS] alias
 
-Example:
+For example:
 
 ```sql
 CREATE FUNCTION get_last_record_timestamp_by_binlog RETURNS STRING SONAME 'binlog_utils_udf.so';
 SELECT FROM_UNIXTIME(get_last_record_timestamp_by_binlog("bin.00003") DIV 1000000) AS result;
 ```
 
-The output should look like this:
+??? example "Expected output"
 
-```text
-+---------------------+
-| result              |
-+=====================+
-| 2020-12-04 04:18:56 |
-+---------------------+
-```
+    ```{.text .no-copy}
+    +---------------------+
+    | result              |
+    +=====================+
+    | 2020-12-04 04:18:56 |
+    +---------------------+
+    ```
 
 ```sql
 DROP FUNCTION get_last_record_timestamp_by_binlog;
@@ -303,8 +303,8 @@ DROP FUNCTION get_last_record_timestamp_by_binlog;
 
 For the following variables, do not define values with one or more dot (.) characters:
 
-    * [log_bin](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin)
+* [log_bin](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin)
 
-    * [log_bin_index](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin-index)
+* [log_bin_index](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin-index)
 
 A value defined with these characters is handled differently in *MySQL* and **Percona XtraBackup** and can cause unpredictable behavior.

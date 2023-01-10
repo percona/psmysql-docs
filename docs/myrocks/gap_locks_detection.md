@@ -9,6 +9,8 @@ level is either `REPEATABLE READ` or `SERIALIZABLE`, the following SQL
 error will be returned to the client and no actual gap lock will be taken
 on the effected rows.
 
-```text
-ERROR HY000: Using Gap Lock without full unique key in multi-table or multi-statement transactions is not allowed. You need to either rewrite queries to use all unique key columns in WHERE equal conditions, or rewrite to single-table, single-statement transaction.
-```
+??? example "Error message"
+
+    ```text
+    ERROR HY000: Using Gap Lock without full unique key in multi-table or multi-statement transactions is not allowed. You need to either rewrite queries to use all unique key columns in WHERE equal conditions, or rewrite to single-table, single-statement transaction.
+    ```

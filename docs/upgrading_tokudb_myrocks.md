@@ -1,4 +1,4 @@
-# Upgrading from Systems that Use the MyRocks or TokuDB Storage Engine and Partitioned Tables
+# Upgrade from systems that use the MyRocks or TokuDB storage engine and partitioned tables
 
 Due to the limitation imposed by *MySQL*, the storage engine provides support for partitioning. *MySQL* 8.0 only provides support for
 partitioned table for the *InnoDB* storage engine.
@@ -10,7 +10,7 @@ upgrade may fail if you do not enable the native partitioning provided by the st
 
 Before you attempt the upgrade, check whether you have any tables that are not using the native partitioning.
 
-```sql
+```{.bash data-prompt="$"}
 $ mysqlcheck -u root --all-databases --check-upgrade
 ```
 
@@ -35,7 +35,7 @@ Complete these steps for each table that **mysqlcheck** list. Otherwise, the upg
 2018-12-17T18:34:14.152691Z 2 [ERROR] [MY-013137] [Server] Can't find file: './comp_test/t1_RocksDB_lz4.frm' (OS errno: 0 - Success)
 ```
 
-## Performing a Distribution upgrade in-place on a System with installed Percona packages
+## Perform a distribution upgrade in-place on a system with installed Percona packages
 
 The following is the recommended process for performing a distribution upgrade on a system with the Percona packages installed:
 

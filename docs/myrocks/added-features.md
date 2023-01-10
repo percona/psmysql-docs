@@ -1,4 +1,4 @@
-# Updated Supported Features
+# Updated supported features
 
 The following is a list of the latest supported features:
 

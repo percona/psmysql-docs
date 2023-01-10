@@ -10,7 +10,7 @@ For more information, see [How MySQL opens and closes tables](https://dev.mysql.
 
 Opening a table with triggers in Table Cache also parses the trigger definitions and associates the open table instance with its own instances of the defined trigger bodies. When a connection executes a DML statement and must run a trigger, that connection gets its own instance of the trigger body for that specific open table instance. As a result of this approach, caching open table instances and also caching an associated trigger body for each trigger can consume a surprising amount of memory.
 
-## Version changes
+## Version specific information
 
 Percona Server for MySQL 8.0.31 adds the following abilities:
 

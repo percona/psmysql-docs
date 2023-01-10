@@ -1,4 +1,4 @@
-# Encrypting the Redo Log files
+# Encrypt the redo log files
 
 MySQL uses the redo log files to apply changes during data recovery.
 

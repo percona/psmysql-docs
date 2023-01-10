@@ -1,5 +1,5 @@
 <!-- stacktrace: -->
-# Stack Trace
+# Stack trace
 
 Developers use the stack trace in the debug process, either an interactive investigation or during the post-mortem. No configuration is required to generate a stack trace.
 

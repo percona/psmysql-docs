@@ -1,4 +1,4 @@
-# Encrypting the System Tablespace
+# Encrypt the system tablespace
 
 *Percona Server for MySQL* supports system tablespace encryption. The InnoDB system tablespace may be encrypted with the master key encryption or the keyring encryption with advanced encryption key rotation.
 
@@ -22,11 +22,11 @@ option
 
 You can create an encrypted table as follows:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE TABLE table_name TABLESPACE=innodb_system ENCRYPTION='Y';
 ```
 
-## System Variables
+## System variables
 
 ### `innodb_sys_tablespace_encrypt`
 
@@ -41,7 +41,7 @@ mysql> CREATE TABLE table_name TABLESPACE=innodb_system ENCRYPTION='Y';
 
 Enables the encryption of the InnoDB system tablespace.
 
-## Re-Encrypt the System Tablespace
+## Re-encrypt the system tablespace
 
 You can re-encrypt the system tablespace key with master key rotation. When
 the master key is rotated, the tablespace key is decrypted and re-encrypt
@@ -51,6 +51,6 @@ re-encrypted.
 
 The command is as follows:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> ALTER INSTANCE ROTATE INNODB MASTER KEY;
 ```

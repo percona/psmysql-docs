@@ -14,6 +14,6 @@ mysqlbinlog now accepts the `SSL` connection options as all the
 other client programs. This feature can be useful with
 `--read-from-remote-server` option. 
 
-## Version Specific Information
+## Version specific information
 
-    * 8.0.12-1: The feature was ported from Percona Server for MySQL 5.7
+* 8.0.12-1: The feature was ported from Percona Server for MySQL 5.7

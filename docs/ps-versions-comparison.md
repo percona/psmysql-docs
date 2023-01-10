@@ -54,10 +54,8 @@
 | Super read-only                                                           | Super read-only                                                           |
 
 
-## Other Reading
+## Other reading
 
+* [What Is New in MySQL 5.7](https://dev.mysql.com/doc/refman/5.7/en/mysql-nutshell.html)
 
-* [What Is New in MySQL 5.7](http://dev.mysql.com/doc/refman/5.7/en/mysql-nutshell.html)
-
-
-* [What Is New in MySQL 8.0](http://dev.mysql.com/doc/refman/8.0/en/mysql-nutshell.html)
+* [What Is New in MySQL 8.0](https://dev.mysql.com/doc/refman/8.0/en/mysql-nutshell.html)

@@ -1,4 +1,4 @@
-# PAM Authentication Plugin
+# PAM authentication plugin
 
 Percona PAM Authentication Plugin is a free and Open Source implementation of the *MySQL*’s authentication plugin. This plugin acts as a mediator between the *MySQL* server, the *MySQL* client, and the PAM stack. The server plugin requests authentication from the PAM stack, forwards any requests and messages from the PAM stack over the wire to the client (in cleartext) and reads back any replies for the PAM stack.
 
@@ -22,7 +22,7 @@ Percona offers two versions of this plugin:
 
 These two versions of plugins are physically different. To choose which one you want used, you must use *IDENTIFIED WITH ‘auth_pam’* for auth_pam, and *IDENTIFIED WITH ‘auth_pam_compat’* for auth_pam_compat.
 
-## Version Specific Information
+## Version specific information
 
 * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
   
@@ -30,22 +30,22 @@ These two versions of plugins are physically different. To choose which one you 
 
 This plugin requires manual installation because it isn’t installed by default.
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> INSTALL PLUGIN auth_pam SONAME 'auth_pam.so';
 ```
 
 After the plugin has been installed it should be present in the plugins list. To check if the plugin has been correctly installed and active
 
-```sql
-mysqlSHOW PLUGINS;
+```{.bash data-prompt="mysql>"}
+mysql> SHOW PLUGINS;
 ```
 
-The output should resemble the following:
+??? example "Expected output"
 
-```text
-...
-| auth_pam                       | ACTIVE   | AUTHENTICATION     | auth_pam.so | GPL     |
-```
+    ```{.text .no-copy}
+    ...
+    | auth_pam                       | ACTIVE   | AUTHENTICATION     | auth_pam.so | GPL     |
+    ```
 
 ## Configuration
 
@@ -74,7 +74,7 @@ account    required     pam_unix.so audit
 
 After the PAM plugin has been configured, users can be created with the PAM plugin as authentication method
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE USER 'newuser'@'localhost' IDENTIFIED WITH auth_pam;
 ```
 
@@ -92,7 +92,7 @@ Default mysql stack size is not enough to handle `pam_encryptfs` module. The wor
 
 PAM authentication can fail with `mysqld: pam_unix(mysqld:account): Fork failed: Cannot allocate memory` error in the `/var/log/secure` even when there is enough memory available. Current workaround is to set [vm.overcommit_memory](https://www.kernel.org/doc/Documentation/vm/overcommit-accounting) to `1`:
 
-```
+```text
 echo 1 /proc/sys/vm/overcommit_memory
 ```
 

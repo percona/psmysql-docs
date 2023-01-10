@@ -1,4 +1,4 @@
-# Data Scrubbing
+# Data scrubbing
 
 **Starting with Percona Server for MySQL 8.0.30-22, this feature is removed.**
 
@@ -40,7 +40,7 @@ innodb-immediate-scrub-data-uncompressed enables this operation. This variable d
 
 For background scrubbing, you must set the innodb_encryption_threads variable to a value greater than **zero** when you enable data scrubbing. Intermediate scrubbing does not use encryption threads. A separate thread performs log scrubbing.
 
-## System Variables
+## System variables
 
 ### `innodb_background_scrub_data_compressed`
 

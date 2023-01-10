@@ -1,6 +1,6 @@
 # List of variables introduced in Percona Server for MySQL 8.0
 
-## System Variables
+## System variables
 
 | Name | Cmd-Line | Option File | Var Scope | Dynamic |
 | --- | --- | --- | --- | --- |
@@ -124,10 +124,7 @@
 | version_comment | Yes | Yes | Global | Yes |
 | version_suffix | Yes | Yes | Global | Yes |
 
-
-
-
-## Status Variables
+## Status variables
 
 | Name | Var Type | Var Scope |
 | --- | --- | --- |

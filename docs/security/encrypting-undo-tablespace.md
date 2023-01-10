@@ -1,4 +1,4 @@
-# Encrypting the Undo Tablespace
+# Encrypt the undo tablespace
 
 The undo data may contain sensitive information about the database operations.
 
@@ -28,7 +28,7 @@ running, add or reduce the number of undo tablespaces.
 
     If you disable encryption, any encrypted undo data remains encrypted. To remove this data, and truncate the undo tablespace.
 
-## How to Enable Encryption on an Undo Log
+## How to enable encryption on an undo log
 
 You enable encryption for an undo log by adding the following to the my.cnf
 file:

@@ -1,28 +1,28 @@
 # Install Percona Server for MySQL 8.0 using downloaded DEB packages
 
 Download the packages of the desired series for your architecture from the
-[Percona downloads](http://www.percona.com/downloads/Percona-Server-8.0/) page. The easiest way is to download the bundle, which contains
+[Percona downloads](https://www.percona.com/downloads/Percona-Server-8.0/) page. The easiest way is to download the bundle, which contains
 all the packages. The following example downloads [Percona Server for MySQL 8.0.13-3](../release-notes/Percona-Server-8.0.13-3.md) release packages for Debian 9.0 (stretch):
 
-```
+```{.bash data-prompt="$"}
 $ wget https://www.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.13-3/binary/debian/stretch/x86_64/percona-server-8.0.13-3-r63dafaf-stretch-x86_64-bundle.tar
 ```
 
 It would help if you then unpacked the bundle to get the packages:
 
-```
+```{.bash data-prompt="$"}
 $ tar xvf percona-server-8.0.13-3-r63dafaf-stretch-x86_64-bundle.tar
 ```
 
 After you unpack the bundle, you should see the following packages:
 
-```
+```{.bash data-prompt="$"}
 $ ls .deb
 ```
 
 Now, you can install Percona Server for MySQL using `dpkg`. Run this command as root or use the sudo command:
 
-```
+```{.bash data-prompt="$"}
 $ sudo dpkg -i .deb
 ```
 

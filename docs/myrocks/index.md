@@ -1,7 +1,7 @@
-# Percona MyRocks Introduction
+# Percona MyRocks introduction
 
-[MyRocks](http://myrocks.io) is a storage engine
-for [MySQL](https://www.mysql.com) based on [RocksDB](http://rocksdb.org/),
+[MyRocks](https://myrocks.io) is a storage engine
+for [MySQL](https://www.mysql.com) based on [RocksDB](https://rocksdb.org/),
 an embeddable, persistent key-value store.
 *Percona MyRocks* is an implementation
 for [Percona Server for MySQL](https://www.percona.com/software/percona-server).

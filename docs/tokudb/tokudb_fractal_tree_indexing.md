@@ -1,4 +1,4 @@
-# TokuDB Fractal Tree Indexing
+# TokuDB fractal tree indexing
 
 !!! important
 

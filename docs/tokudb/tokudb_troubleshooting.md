@@ -1,4 +1,4 @@
-# TokuDB Troubleshooting
+# TokuDB troubleshooting
 
 !!! important
 
@@ -15,7 +15,7 @@
 **Replication and binary logging**: *TokuDB* supports binary logging and replication, with one restriction. *TokuDB* does not implement a lock on the auto-increment function, so concurrent insert statements with one or more of the statements inserting multiple rows may result in a non-deterministic interleaving of the auto-increment values. When running replication with these concurrent inserts, the auto-increment values on the replica table may not match the auto-increment values on the source table. Note that this is only an issue with Statement Based Replication (SBR), and not Row Based Replication (RBR).
 
 For more information about auto-increment and replication, see the *MySQL*
-Reference Manual: [AUTO_INCREMENT handling in InnoDB](http://dev.mysql.com/doc/refman/8.0/en/innodb-auto-increment-handling.html).
+Reference Manual: [AUTO_INCREMENT handling in InnoDB](https://dev.mysql.com/doc/refman/8.0/en/innodb-auto-increment-handling.html).
 
 In addition, when using the `REPLACE INTO` or `INSERT IGNORE` on tables with no secondary indexes or tables where secondary indexes are subsets of the primary, the session variable tokudb_pk_insert_mode controls whether row based replication will work.
 
@@ -1313,7 +1313,7 @@ the max value of (used - freed).</p></td>
 </tr>
 <tr class="row-odd"><td><p>filesystem: ENOSPC redzone state</p></td>
 <td><p>The state of how much disk space exists with respect to the red zone value.
-Redzone is space greater than <a class="reference internal" href="tokudb_variables.html#tokudb_fs_reserve_percent"><span class="std std-ref">tokudb_fs_reserve_percent</span></a> and less
+Redzone is space greater than <a class="reference internal" href="https://docs.percona.com/percona-server/8.0/tokudb/tokudb_variables.html#tokudb_fs_reserve_percent"><span class="std std-ref">tokudb_fs_reserve_percent</span></a> and less
 than full disk.</p>
 <p>Valid values are:</p>
 <dl class="field-list simple">

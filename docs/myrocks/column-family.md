@@ -1,4 +1,4 @@
-# MyRocks Column Families
+# MyRocks column families
 
 *MyRocks* stores all data in a single server instance as a collection of
 key-value pairs within the log structured merge tree data structure. This is a
@@ -63,7 +63,7 @@ With the option `|opt.no-create-column-family|` set to true, the `COMMENT`
 clause will not treat cf_name as a special token; it will not be possible to
 create column families using the `COMMENT` clause.
 
-## Column Family Options
+## Column family options
 
 On startup, the server applies the `|opt.default-cf-options|` option to all
 existing column families. You may use the `|opt.override-cf-options|` option to
