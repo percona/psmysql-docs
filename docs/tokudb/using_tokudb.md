@@ -1,4 +1,4 @@
-# Using TokuDB
+# Use TokuDB
 
 !!! important
 
@@ -394,7 +394,7 @@ this problem)
 
 
 * If you use a RAID controller with battery-backed-up memory. This may seem
-counter-intuitive. For more information, see the [XFS FAQ](http://xfs.org/index.php/XFS_FAQ#Q:_How_can_I_tell_if_I_have_the_disk_write_cache_enabled.3F)
+counter-intuitive.
 
 In summary, you should disable the write cache, unless you have a very specific reason not to do so.
 

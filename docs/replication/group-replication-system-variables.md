@@ -27,7 +27,6 @@ The variable specifies a period of time in seconds before a node is automaticall
 
 In single-primary mode, the primary server ignores the timeout.
 
-
 ## group_replication_flow_control_mode
 
 The "MAJORITY" value is in [tech preview](../glossary.md#tech-preview) mode. Before using the variable in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.

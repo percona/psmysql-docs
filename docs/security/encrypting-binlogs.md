@@ -1,9 +1,9 @@
-# Encrypting Binary Log Files and Relay Log Files
+# Encrypt binary log files and relay log files
 
 Binary log file and relay log file encryption at rest ensures the
 server-generated binary logs are encrypted in persistent storage.
 
-## Upgrading from *Percona Server for MySQL* 8.0.15-5 to any Higher Version
+## Upgrade from Percona Server for MySQL 8.0.15-5 to any higher version
 
 Starting from the release of Percona Server for MySQL 8.0.15-5, *Percona Server for MySQL* uses the upstream
 implementation of the binary log file and relay log file encryption.
@@ -58,7 +58,7 @@ use `mysqlbinlog` with the `--read-from-remote-server` option.
 
     The –read-from-remote-server option only applies to the binary logs. Encrypted relay logs can not be dumped or decrypted with this option.
 
-## Enabling Binary Log Encryption
+## Enable binary log encryption
 
 In versions *Percona Server for MySQL* 8.0.15-5 and later, set the binlog_encryption variable
 to `ON` in a startup configuration file, such as `my.cnf`. The variable
@@ -68,25 +68,26 @@ is set to `OFF` by default.
 binlog_encryption=ON
 ```
 
-## Verifying the Encryption
+## Verify the encryption
 
 To verify if the binary log encryption option is enabled, run the following
 statement:
 
-```sql
-mysqlSHOW BINARY LOGS;
+```{.bash data-prompt="mysql>"}
+mysql> SHOW BINARY LOGS;
 ```
-The output could be the following:
 
-```text
-+-------------------+----------------+---------------+
-| Log_name          | File_size      | Encrypted     |
-+-------------------+----------------+---------------+
-| binlog.00011      | 72367          | No            |
-| binlog:00012      | 71503          | No            |
-| binlog:00013      | 73762          | Yes           |
-+-------------------+----------------+---------------+
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +-------------------+----------------+---------------+
+    | Log_name          | File_size      | Encrypted     |
+    +-------------------+----------------+---------------+
+    | binlog.00011      | 72367          | No            |
+    | binlog:00012      | 71503          | No            |
+    | binlog:00013      | 73762          | Yes           |
+    +-------------------+----------------+---------------+
+    ```
 
 The `SHOW BINARY LOGS` statement displays the name, size, and if a binary log file is encrypted or unencrypted.
 

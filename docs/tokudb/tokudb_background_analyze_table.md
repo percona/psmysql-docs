@@ -1,4 +1,4 @@
-# TokuDB Background ANALYZE TABLE
+# TokuDB background ANALYZE TABLE
 
 !!! important
 

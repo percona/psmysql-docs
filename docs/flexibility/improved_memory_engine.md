@@ -1,10 +1,10 @@
-# Improved MEMORY Storage Engine
+# Improved MEMORY storage engine
 
 As of `MySQL` 5.5.15, a *Fixed Row Format* (`FRF`) is still being used in the `MEMORY` storage engine. The fixed row format imposes restrictions on the type of columns as it assigns in advance a limited amount of memory per row. This renders a `VARCHAR` field in a `CHAR` field in practice and makes it impossible to have a `TEXT` or `BLOB` field with that engine implementation.
 
 To overcome this limitation, the *Improved MEMORY Storage Engine* is introduced in this release for supporting **true** `VARCHAR`, `VARBINARY`, `TEXT`, and `BLOB` fields in the `MEMORY` tables.
 
-This implementation is based on the *Dynamic Row Format* (`DFR`) introduced by the [mysql-heap-dynamic-rows](http://code.google.com/p/mysql-heap-dynamic-rows/) patch.
+This implementation is based on the *Dynamic Row Format* (`DFR`) introduced by the [mysql-heap-dynamic-rows](https://code.google.com/p/mysql-heap-dynamic-rows/) patch.
 
 `DFR` is used to store column values in a variable-length form, thus helping to decrease the memory footprint of those columns and making possible `BLOB` and `TEXT` fields and real `VARCHAR` and `VARBINARY`.
 
@@ -16,7 +16,7 @@ This `DFR` implementation has two caveats regarding ordering and indexes.
 
 ## Caveats
 
-### Ordering of Rows
+### Ordering of rows
 
 In the absence of `ORDER BY`, records may be returned in a different order than the previous `MEMORY` implementation.
 
@@ -26,9 +26,11 @@ This is not a bug. Any application relying on a specific order without an `ORDER
 
 It is currently impossible to use indexes on `BLOB` columns due to some limitations of the *Dynamic Row Format*. Trying to create such an index will fail with the following error:
 
-```text
-BLOB column '<name>' can't be used in key specification with the used table type.
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    BLOB column '<name>' can't be used in key specification with the used table type.
+    ```
 
 ## Restrictions
 
@@ -44,11 +46,11 @@ This sets two restrictions to tables:
 
     * the minimum size of the block used in the table.
 
-### Ordering of Columns
+### Ordering of columns
 
 The columns used in fixed format must be defined before the dynamic ones in the `CREATE TABLE` statement. If this requirement is not met, the engine will not be able to add blocks to the set for these fields and they will be treated as fixed.
 
-### Minimum Block Size
+### Minimum block size
 
 The block size has to be big enough to store all fixed-length information in the first block. If not, the `CREATE TABLE` or `ALTER TABLE` statements will fail (see below).
 
@@ -56,7 +58,7 @@ The block size has to be big enough to store all fixed-length information in the
 
 *MyISAM* tables are still used for query optimizer internal temporary tables where the `MEMORY` tables could be used now instead: for temporary tables containing large `VARCHAR\`\`s, \`\`BLOB`, and `TEXT` columns.
 
-## Setting Row Format
+## Setting row format
 
 Taking the restrictions into account, the *Improved MEMORY Storage Engine* will choose `DRF` over `FRF` at the moment of creating the table according to following criteria:
 
@@ -64,23 +66,23 @@ Taking the restrictions into account, the *Improved MEMORY Storage Engine* will 
 
     * There is an explicit request of the user **AND** the overhead incurred by `DFR` is beneficial.
 
-### Implicit Request
+### Implicit request
 
 The implicit request by the user is taken when there is at least one `BLOB` or `TEXT` column in the table definition. If there are none of these columns and no relevant option is given, the engine will choose `FRF`.
 
 For example, this will yield the use of the dynamic format:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE TABLE t1 (f1 VARCHAR(32), f2 TEXT, PRIMARY KEY (f1)) ENGINE=HEAP;
 ```
 
 While this will not:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE TABLE t1 (f1 VARCHAR(16), f2 VARCHAR(16), PRIMARY KEY (f1)) ENGINE=HEAP;
 ```
 
-### Explicit Request
+### Explicit request
 
 The explicit request is set with one of the following options in the `CREATE TABLE` statement:
 
@@ -104,36 +106,36 @@ the engine will revert to the fixed format as it is more space efficient in such
 
 On a 32-bit platform:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE TABLE t1 (f1 VARCHAR(32), f2 VARCHAR(32), f3 VARCHAR(32), f4 VARCHAR(32), PRIMARY KEY (f1)) KEY_BLOCK_SIZE=124 ENGINE=HEAP;
 
 mysql> SHOW TABLE STATUS LIKE 't1'; 
 ```
 
-The output could be the following:
+??? example "Expected output"
 
-```text
-Name  Engine  Version    Rows Avg_row_length  Data_length     Max_data_length Index_length    Data_free       Auto_increment  Create_time     Update_time     Check_time      Collation       Checksum        Create_options  Comment
-t1    MEMORY  10         X    0       X       0       0       NULL    NULL    NULL    NULL    latin1_swedish_ci       NULL    row_format=DYNAMIC KEY_BLOCK_SIZE=124
-```
+    ```{.text .no-copy}
+    Name  Engine  Version    Rows Avg_row_length  Data_length     Max_data_length Index_length    Data_free       Auto_increment  Create_time     Update_time     Check_time      Collation       Checksum        Create_options  Comment
+    t1    MEMORY  10         X    0       X       0       0       NULL    NULL    NULL    NULL    latin1_swedish_ci       NULL    row_format=DYNAMIC KEY_BLOCK_SIZE=124
+    ```
 
 On a 64-bit platform:
 
-```sql
+```{.bash data-prompt="mysql"}
 mysqlCREATE TABLE t1 (f1 VARCHAR(32), f2 VARCHAR(32), f3 VARCHAR(32), f4 VARCHAR(32), PRIMARY KEY (f1)) KEY_BLOCK_SIZE=124 ENGINE=HEAP;
 ```
-```sql
+```{.bash data-prompt="mysql"}
 mysqlSHOW TABLE STATUS LIKE 't1';
 ```
 
-The output could be the following:
+??? example "Expected output"
 
-```text
-Name  Engine  Version    Rows Avg_row_length  Data_length     Max_data_length Index_length    Data_free       Auto_increment  Create_time     Update_time     Check_time      Collation       Checksum        Create_options  Comment
-t1    MEMORY  10         X    0       X       0       0       NULL    NULL    NULL    NULL    latin1_swedish_ci       NULL    KEY_BLOCK_SIZE=124
-```
+    ```{.text .no-copy} 
+    Name  Engine  Version    Rows Avg_row_length  Data_length     Max_data_length Index_length    Data_free       Auto_increment  Create_time     Update_time     Check_time      Collation       Checksum        Create_options  Comment
+    t1    MEMORY  10         X    0       X       0       0       NULL    NULL    NULL    NULL    latin1_swedish_ci       NULL    KEY_BLOCK_SIZE=124
+    ```
 
-## Implementation Details
+## Implementation details
 
 *MySQL* *MEMORY* tables keep data in arrays of fixed-size chunks. These chunks are organized into two groups of `HP_BLOCK` structures:
 
@@ -180,6 +182,6 @@ The allocation and contents of the actual chunks varies between fixed and variab
 
 Total chunk length is always aligned to the next `sizeof(uchar\*)`.
 
-## See Also
+!!! admonition "See also"
 
-* [Dynamic row format for MEMORY tables](http://www.mysqlperformanceblog.com/2011/09/06/dynamic-row-format-for-memory-tables/)
+    [Dynamic row format for MEMORY tables](https://www.mysqlperformanceblog.com/2011/09/06/dynamic-row-format-for-memory-tables/)

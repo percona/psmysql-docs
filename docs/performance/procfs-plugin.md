@@ -1,8 +1,6 @@
 # The ProcFS plugin
 
-!!! important
-
-    This feature is **tech preview** quality.
+{% include './snippets/tech-preview/_tech-preview-feature.md'%}
 
 Implemented in [Percona Server for MySQL 8.0.25-15](../release-notes/Percona-Server-8.0.25-15.md#id1), the ProcFS plugin provides access to the Linux performance counters by running SQL queries against a Percona Server for MySQL 8.0.
 
@@ -16,7 +14,7 @@ The plugin does the following:
 
 The system variable [procfs_files_spec](#procfs_files_spec) provides access to the `/proc` and the `/sys` files and directories. This variable cannot be changed at run time, preventing a compromised account from giving itself greater access to those file systems.
 
-## Manually Installing the PLUGIN
+## Install the PLUGIN manually
 
 We recommend installing the plugin as part of the package. If needed, you can install this plugin manually. Copy the `procfs.so` file to the mysql plugin installation directory and execute the following command:
 
@@ -24,7 +22,7 @@ We recommend installing the plugin as part of the package. If needed, you can in
 INSTALL PLUGIN procfs SONAME 'procfs.so';
 ```
 
-## Access Privileges Required
+## Access privileges required
 
 Only users with the `ACCESS_PROCFS` dynamic privilege can access the `INFORMATION_SCHEMA.PROCFS` view. During the plugin startup, this dynamic privilege is registered with the server.
 

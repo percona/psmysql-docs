@@ -1,10 +1,6 @@
-# Limiting the Estimation of Records in a Query
+# Limit the estimation of records in a Query
 
-
-* **Availability**
-
-    The feature is **technical preview** quality.
-
+{% include './snippets/tech-preview/_tech-preview-feature.md'%}
 
 This page describes an alternative when running queries against a large number
 of table partitions. When a query runs, InnoDB estimates the records in each
@@ -29,15 +25,12 @@ effectively bypasses the process.
 | Data type:     | Numeric            |
 | Default        | 0                  |
 
-* **Availability**
-
-    The feature is **technical preview** quality.
-
+{% include './snippets/tech-preview/_tech-preview-variables.md'%}
 
 The variable provides a method to limit the number of records estimated for a
 query.
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SET @@GLOBAL.innodb_records_in_range=100;
 100
 ```
@@ -52,26 +45,19 @@ mysql> SET @@GLOBAL.innodb_records_in_range=100;
 | Data type:     | Numeric            |
 | Default        | 0                  |
 
-* **Availability**
-
-    The feature is **technical preview** quality.
-
+{% include './snippets/tech-preview/_tech-preview-variables.md'%}
 
 This variable provides a method to override the records_in_range result when a
 FORCE INDEX is used in a query.
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SET @@GLOBAL.innodb_force_index_records_in_range=100;
 100
 ```
 
 ## Using the favor_range_scan optimizer switch
 
-
-* **Availability**
-
-    The feature is **technical preview** quality.
-
+{% include './snippets/tech-preview/_tech-preview-feature.md'%}
 
 In specific scenarios, the optimizer chooses to scan a table instead of using a range scan. The conditions are the following:
 
@@ -91,6 +77,6 @@ The available values are:
 
 * DEFAULT
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SET optimizer_switch='favor_range_scan=on';
 ```

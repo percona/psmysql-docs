@@ -8,6 +8,6 @@ You can download the binary tarballs from the `Linux - Generic` [section](https:
 
 Fetch and extract the correct binary tarball. For example for *Debian 10*:
 
-```shell
+```{.bash data-prompt="$"}
 $ wget https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.26-16/binary/tarball/Percona-Server-8.0.26-16-Linux.x86_64.glibc2.12.tar.gz
 ```

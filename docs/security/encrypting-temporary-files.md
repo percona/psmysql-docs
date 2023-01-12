@@ -1,4 +1,4 @@
-# Encrypting Temporary Files
+# Encrypt temporary files
 
 For InnoDB user-created temporary tables are created in a temporary tablespace
 file and use the `innodb_temp_tablespace_encrypt` variable.
@@ -12,9 +12,7 @@ are located in the encrypted session temporary tablespace.
 To create new temporary tablespaces unencrypted, the following variables must
 be set to `OFF` at runtime:
 
-
 * `innodb_temp_tablespace_encrypt`
-
 
 * `default_table_encryption`
 
@@ -38,16 +36,13 @@ allow encrypted tables and undo data to be decrypted.
 
 For each temporary file, an encryption key has the following attributes:
 
-
 * Generated locally
-
 
 * Maintained in memory for the lifetime of the temporary file
 
-
 * Discarded with the temporary file
 
-## System Variables
+## System variables
 
 ### `encrypt_tmp_files`
 

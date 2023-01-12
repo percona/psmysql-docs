@@ -1,4 +1,4 @@
-# Prefix Index Queries Optimization
+# Prefix index queries optimization
 
 *Percona Server for MySQL* has ported Prefix Index Queries Optimization feature from
 Facebook patch for *MySQL*.
@@ -8,7 +8,7 @@ columns in an index, even when the value of a particular record was smaller
 than the prefix length. This implementation optimizes that case to use the
 record from the secondary index and avoid the extra lookup.
 
-## Status Variables
+## Status variables
 
 ### `Innodb_secondary_index_triggered_cluster_reads`
 
@@ -30,6 +30,6 @@ cluster lookup.
 This variable shows the number of times prefix optimization avoided
 triggering cluster lookup.
 
-## Version Specific Information
+## Version specific information
 
 * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7

@@ -4,7 +4,7 @@ LDAP (Lightweight Directory Access Protocol) provides an alternative method to
 access existing directory servers, which maintain information about
 individuals, groups, and organizations.
 
-## Version Changes
+## Version specific information
 
 *Percona Server for MySQL* 8.0.30-22 implements an SASL-based LDAP authentication plugin. This plugin only supports the SCRAM-SHA-1 SASL mechanism.
 
@@ -110,26 +110,26 @@ Install the plugin with the following statements.
 
 === "Load the simple LDAP authentication plugin"
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> INSTALL PLUGIN authentication_ldap_simple SONAME 'authentication_ldap_simple.so';
     ```
 
     To set and persist values at runtime, use the following statements:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET PERSIST authentication_ldap_simple_server_host='127.0.0.1';
     mysql> SET PERSIST authentication_ldap_simple_bind_base_dn='dc=percona, dc=com';
     ```
 
 === "Load the SASL-based LDAP authentication plugin" 
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> INSTALL PLUGIN authentication_ldap_sasl SONAME 'authentication_ldap_sasl.so`;
     ```
 
     To set and persist values at runtime, use the following statements:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET PERSIST authentication_ldap_sasl_server_host='127.0.0.1';
     mysql> SET PERSIST authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com';
     ```
@@ -224,13 +224,13 @@ uid=ldapuser,ou=testusers,dc=percona,dc=com
 
     Create a database server account for `ldapuser` with the following statement:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> CREATE USER 'ldapuser'@'localhost' IDENTIFIED WITH authentication_ldap_simple BY 'uid=ldapuser,ou=testusers,dc=percona,dc=com';
     ```
 
     The authentication string does not include the LDAP password. This password must be provided by the client user when they connect.
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> mysql --user=ldapuser --password --enable-cleartext-plugin
     ```
 
@@ -245,7 +245,7 @@ uid=ldapuser,ou=testusers,dc=percona,dc=com
 
     Create a database server account for `ldapuser` with the following statement:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> CREATE USER 'ldapuser'@'localhost' IDENTIFIED WITH authentication_ldap_sasl AS 'uid=ldapuser,ou=testusers,dc=percona,dc=com';
     ```
 
@@ -253,7 +253,7 @@ uid=ldapuser,ou=testusers,dc=percona,dc=com
 
     Clients connect ot the database server by providing the database server user name and LDAP password:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> mysql --user=ldapuser --password
     ```
 
@@ -267,7 +267,7 @@ If you installed either plugin at [server startup](#load-the-plugins-at-server-s
 
     If you installed the plugins at [runtime](#load-the-simple-ldap-authentication-plugin-at-runtime), run the following statements:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> UNINSTALL PLUGIN authentication_ldap_simple;
     ```
 
@@ -277,7 +277,7 @@ If you installed either plugin at [server startup](#load-the-plugins-at-server-s
 
     If you installed the plugins at [runtime](#load-the-sasl-based-ldap-authentication-plugin-at-runtime), run the following statements:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> UNINSTALL PLUGIN authentication_ldap_sasl;
     ```
 

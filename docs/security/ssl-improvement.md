@@ -1,4 +1,4 @@
-# SSL Improvements
+# SSL improvements
 
 *Percona Server for MySQL* passes Elliptic Curve Cryptography (ECC) ciphers to OpenSSL by default.
 

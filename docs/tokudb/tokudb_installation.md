@@ -1,4 +1,4 @@
-# TokuDB Installation
+# TokuDB installation
 
 !!! important
 
@@ -21,11 +21,11 @@ engine that provides indexing-based query improvements, offers online schema
 modifications, and reduces replica lag for both hard disk drives and flash
 memory. This storage engine is specifically designed for high performance on
 write-intensive workloads which is achieved with Fractal Tree indexing. To learn
-more about Fractal Tree indexing, you can visit the following [Wikipedia page](http://en.wikipedia.org/wiki/Fractal_tree_index).
+more about Fractal Tree indexing, you can visit the following [Wikipedia page](https://en.wikipedia.org/wiki/Fractal_tree_index).
 
 !!! warning
 
-    Only the [Percona supplied](http://www.percona.com/downloads/Percona-Server-8.0/LATEST/) *TokuDB* engine should be used with *Percona Server for MySQL* 8.0. A *TokuDB* engine downloaded from other sources is not compatible. *TokuDB* file formats are not the same across *MySQL* variants. Migrating from one variant to any other variant requires a logical data dump and reload.
+    Only the [Percona supplied](https://www.percona.com/downloads/Percona-Server-8.0/LATEST/) *TokuDB* engine should be used with *Percona Server for MySQL* 8.0. A *TokuDB* engine downloaded from other sources is not compatible. *TokuDB* file formats are not the same across *MySQL* variants. Migrating from one variant to any other variant requires a logical data dump and reload.
 
 ## Prerequisites
 

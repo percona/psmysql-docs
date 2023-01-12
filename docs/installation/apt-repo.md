@@ -1,7 +1,7 @@
 # Use an APT repository to install Percona Server for MySQL 8.0
 
 Ready-to-use packages are available from the Percona Server for MySQL software
-repositories and the [Percona downloads](http://www.percona.com/downloads/Percona-Server-8.0/) page.
+repositories and the [Percona downloads](https://www.percona.com/downloads/Percona-Server-8.0/) page.
 
 Specific information on the supported platforms, products, and versions is described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
@@ -10,38 +10,38 @@ Specific information on the supported platforms, products, and versions is descr
 
 1. Update the package repositories:
 
-	```shell
+	```{.bash data-prompt="$"}
 	$ sudo apt update
 	```
 
 2. Install the `curl` download utility if needed:
 
-	```shell
+	```{.bash data-prompt="$"}
 	$ sudo apt install curl
 	```
 	
 3. Download the `percona-release` repository package:
 
-	```shell
+	```{.bash data-prompt="$"}
 	$ curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 	```
 
 4. Install the downloaded package with `apt` as root or with sudo:
 
-	```
+	```{.bash data-prompt="$"}
 	$ sudo apt install gnupg2 lsb-release ./percona-release_latest.generic_all.deb
 	```
     
 
 5. Refresh the local cache to update the package information:
 
-	```shell
+	```{.bash data-prompt="$"}
 	$ sudo apt update
 	```
 
 6. Use `percona-release` to set up the repository for the Percona Server for MySQL 8.0 version:
 
-	```
+	```{.bash data-prompt="$"}
 	$ sudo percona-release setup ps80
 	```
 
@@ -49,7 +49,7 @@ Specific information on the supported platforms, products, and versions is descr
 
 8. Install the server package with the `percona-release` command:
 
-	```
+	```{.bash data-prompt="$"}
 	$ sudo apt install percona-server-server
 	```
 
@@ -72,7 +72,7 @@ mysql -e "CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME 'libmurmur_udf.so'"
 Percona offers pre-release builds from the testing repository. To enable it, run
 percona-release with the `testing` argument. Run the following command as root or use the sudo command:
 
-```shell
+```{.bash data-prompt="$"}
 $ sudo percona-release enable ps80 testing
 ```
 

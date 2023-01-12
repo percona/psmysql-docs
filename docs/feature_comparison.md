@@ -1,4 +1,4 @@
-# Percona Server for MySQL Feature Comparison
+# Percona Server for MySQL feature comparison
 
 *Percona Server for MySQL* is a free, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior performance, scalability, and instrumentation.
 
@@ -28,7 +28,7 @@ compared to the standard *MySQL* database server:
 | MyRocks Storage Engine            | Yes                             | No           |
 | TokuDB Storage Engine             | Yes                             | No           |
 
-## Improvements for Developers
+## Improvements for developers
 
 | Feature                              | Percona Server for MySQL 8.0.13 | MySQL 8.0.13 |
 |--------------------------------------|---------------------------------|--------------|
@@ -38,7 +38,7 @@ compared to the standard *MySQL* database server:
 | InnoDB Full-Text Search Improvements | Yes                             | No           |
 | Extra Hash/Digest Functions          | Yes                             | No           |
 
-## Extra Diagnostic Features
+## Extra diagnostic features
 
 | Feature                                | Percona Server for MySQL 8.0.13 | MySQL 8.0.13 |
 |----------------------------------------|---------------------------------|--------------|
@@ -55,7 +55,7 @@ compared to the standard *MySQL* database server:
 | Extended Slow Query Logging            | Yes                             | No           |
 | User Statistics                        | Yes                             | No           |
 
-## Performance & Scalability Enhancements
+## Performance & scalability enhancements
 
 | Feature                                          | Percona Server for MySQL 8.0.13 | MySQL 8.0.13 |
 |--------------------------------------------------|---------------------------------|--------------|
@@ -70,7 +70,7 @@ compared to the standard *MySQL* database server:
 | Per-Column Compression for VARCHAR/BLOB and JSON | Yes                             | No           |
 | Compressed Columns with Dictionaries             | Yes                             | No           |
 
-## Security Features
+## Security features
 
 | Feature                      | Percona Server for MySQL 8.0.13 | MySQL 8.0.13    |
 |------------------------------|---------------------------------|-----------------|
@@ -80,7 +80,7 @@ compared to the standard *MySQL* database server:
 | PAM Authentication           | Yes                             | Enterprise Only |
 | Audit Logging Plugin         | Yes                             | Enterprise Only |
 
-## Encryption Features
+## Encryption features
 
 | Feature                                                           | Percona Server for MySQL 8.0.13 | MySQL 8.0.13 |
 |-------------------------------------------------------------------|---------------------------------|--------------|
@@ -94,7 +94,7 @@ compared to the standard *MySQL* database server:
 | Key Rotation with Scrubbing                                       | Yes                             | No           |
 | Enforce Encryption                                                | Yes                             | No           |
 
-## Operational Improvements
+## Operational improvements
 
 | Feature                                                    | Percona Server for MySQL 8.0.13 | MySQL 8.0.13    |
 |------------------------------------------------------------|---------------------------------|-----------------|

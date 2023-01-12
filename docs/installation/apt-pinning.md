@@ -2,9 +2,9 @@
 
 Pinning allows you to stay on a release and get packages from a different version. In some cases, you can pin selected packages and avoid accidentally upgrading all the packages. 
 
- The pinning takes place in the `preference` file. To pin a package, set the `Pin-Priority` to higher numbers. 
+The pinning takes place in the `preference` file. To pin a package, set the `Pin-Priority` to higher numbers. 
  
- Make a new file `/etc/apt/preferences.d/00percona.pref`. For example, add the following to the `preference` file:
+Make a new file `/etc/apt/preferences.d/00percona.pref`. For example, add the following to the `preference` file:
 
 ```text
 Package: 

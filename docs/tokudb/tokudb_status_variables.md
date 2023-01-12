@@ -1,4 +1,4 @@
-# TokuDB Status Variables
+# TokuDB status variables
 
 !!! important
 

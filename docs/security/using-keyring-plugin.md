@@ -1,4 +1,4 @@
-# Using the keyring component or keyring plugin
+# Use the keyring component or keyring plugin
 
 The `keyring_vault` plugin can store the encryption keys inside the [HashiCorp Vault](https://www.hashicorp.com/products/vault/data-protection).
 
@@ -20,7 +20,7 @@ The `keyring_vault` plugin can store the encryption keys inside the [HashiCorp V
 
 To install the plugin, follow the [installing and uninstalling plugins](https://dev.mysql.com/doc/refman/8.0/en/plugin-loading.html) instructions.
 
-## Loading the Keyring Plugin
+## Load the keyring plugin
 
 You should load the plugin at server startup with the `-early-plugin-load`
 option to enable keyrings.
@@ -49,7 +49,7 @@ and operating system location.
 
 You could also run the following command which loads the keyring_file plugin:
 
-```shell
+```{.bash data-prompt="$"}
 $ mysqld --early-plugin-load="keyring_file=keyring_file.so"
 ```
 
@@ -112,7 +112,7 @@ by `secret_mount_point` is based on `KV Secrets Engine -
 Version 2 (kv-v2)`, the plugin initialization succeeds but any MySQL
 keyring-related operations fail.
 
-## Upgrading from 8.0.22-13 or earlier to 8.0.23-14 or later
+## Upgrade from 8.0.22-13 or earlier to 8.0.23-14 or later
 
 The `keyring_vault` plugin configuration files created before
 *Percona Server for MySQL* 8.0.23-14 work only with `KV Secrets Engine -
@@ -121,7 +121,7 @@ parameter. After the upgrade to 8.0.23-14 or later, the
 `secret_mount_point_version` is implicitly considered `AUTO` and the
 information is probed and the secrets engine version is determined to `1`.
 
-## Upgrading from Vault Secrets Engine Version 1 to Version 2
+## Upgrade from Vault Secrets Engine Version 1 to Version 2
 
 You can upgrade from the Vault Secrets Engine Version 1 to Version 2.
 Use either of the following methods:
@@ -159,7 +159,7 @@ The plugin library contains keyring user-defined functions which allow
 access to the internal keyring service functions. To enable the functions, you
 must enable the `keyring_udf` plugin:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> INSTALL PLUGIN keyring_udf SONAME 'keyring_udf.so';
 ```
 
@@ -169,7 +169,7 @@ mysql> INSTALL PLUGIN keyring_udf SONAME 'keyring_udf.so';
 
 You must also create keyring encryption user-defined functions.
 
-## Using the keyring_file component
+## Use the keyring_file component
 
 See [keyring component installation](https://dev.mysql.com/doc/refman/8.0/en/keyring-component-installation.html) for information on installing the component.
 
@@ -181,7 +181,7 @@ See [keyring component installation](https://dev.mysql.com/doc/refman/8.0/en/key
 
     [MySQL Documentation: Using the keyring_file component](https://dev.mysql.com/doc/refman/8.0/en/keyring-file-component.html)
 
-## System Variables
+## System variables
 
 ### `keyring_vault_config`
 

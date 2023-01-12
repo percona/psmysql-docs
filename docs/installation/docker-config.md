@@ -24,23 +24,23 @@ To further secure your instance, use the `MYSQL_ONETIME_PASSWORD` variable.
 
 These variables are visible to anyone able to run `Docker inspect`. 
 
-```shell
+```{.bash data-prompt="$"}
 $ docker inspect ps
 ```
 
-The output could be the following:
+??? example "Expected output"
 
-```text
-...
- "Env": [
-                "MYSQL_ROOT_PASSWORD=root",
-                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
-                "PS_VERSION=8.0.29-21.1",
-                "OS_VER=el8",
-                "FULL_PERCONA_VERSION=8.0.29-21.1.el8"
-               ]
-...
-```
+    ```{.text .no-copy}
+    ...
+     "Env": [
+                    "MYSQL_ROOT_PASSWORD=root",
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "PS_VERSION=8.0.29-21.1",
+                    "OS_VER=el8",
+                    "FULL_PERCONA_VERSION=8.0.29-21.1.el8"
+                   ]
+    ...
+    ```
 
 You should use `Docker secrets` or volumes instead. 
 

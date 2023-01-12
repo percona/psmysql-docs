@@ -5,7 +5,7 @@ We welcome contributions from all users and the community. By contributing, you 
 You can contribute to the documentation in either of the following ways:
 
 - [Documentation Contributing Guide](#documentation-contributing-guide)
-  - [Add a forum topic](#add-a-forum-topic)
+  - [Add a forum topic](#add-a-topic)
   - [Request a change with a Jira issue](#request-a-change-with-a-jira-issue)
   - [Contribute to documentation yourself](#contribute-to-documentation-yourself)
     - [What you should know](#what-you-should-know)

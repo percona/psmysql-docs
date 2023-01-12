@@ -1,20 +1,18 @@
-# User Statistics
+# User statistics
 
 This feature adds several `INFORMATION_SCHEMA` tables, several commands, and the userstat variable. The tables and commands can be used to understand the server activity better and identify the source of the load.
 
 The functionality is disabled by default and must be enabled by setting `userstat` to `ON`. It works by keeping several hash tables in memory. To avoid contention over global mutexes, each connection has its own local statistics, which are occasionally merged into the global statistics, and the local statistics are then reset to 0.
 
-## Version Specific Information
+## Version specific information
 
-    * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
+* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
-## Other Information
+## Other information
 
-* Author/Origin:
+* Author/Origin: *Google*; *Percona* added the `INFORMATION_SCHEMA` tables and the userstat variable.
 
-    *Google*; *Percona* added the `INFORMATION_SCHEMA` tables and the userstat variable.
-
-## System Variables
+## System variables
 
 ### `userstat`
 
@@ -74,40 +72,40 @@ Enables or disables collection of thread statistics. The default is `OFF`, meani
 
 This table holds statistics about client connections. The Percona version of the feature restricts this table’s visibility to users who have the `SUPER` or `PROCESS` privilege.
 
-Example:
+For example:
 
-```sql
-mysqlSELECT * FROM INFORMATION_SCHEMA.CLIENT_STATISTICS\G
+```{.bash data-prompt="mysql>"}
+mysql>SELECT * FROM INFORMATION_SCHEMA.CLIENT_STATISTICS\G
 ```
 
-The output should look like the following:
+??? example "Expected output"
 
-```text
-*************************** 1. row ***************************
-                CLIENT: 10.1.12.30
-     TOTAL_CONNECTIONS: 20
-CONCURRENT_CONNECTIONS: 0
-        CONNECTED_TIME: 0
-             BUSY_TIME: 93
-              CPU_TIME: 48
-        BYTES_RECEIVED: 5031
-            BYTES_SENT: 276926
-  BINLOG_BYTES_WRITTEN: 217
-          ROWS_FETCHED: 81
-          ROWS_UPDATED: 0
-       TABLE_ROWS_READ: 52836023
-       SELECT_COMMANDS: 26
-       UPDATE_COMMANDS: 1
-        OTHER_COMMANDS: 145
-   COMMIT_TRANSACTIONS: 1
- ROLLBACK_TRANSACTIONS: 0
-    DENIED_CONNECTIONS: 0
-      LOST_CONNECTIONS: 0
-         ACCESS_DENIED: 0
-         EMPTY_QUERIES: 0
-```
+    ```{.text .no-copy}
+    *************************** 1. row ***************************
+                    CLIENT: 10.1.12.30
+         TOTAL_CONNECTIONS: 20
+    CONCURRENT_CONNECTIONS: 0
+            CONNECTED_TIME: 0
+                 BUSY_TIME: 93
+                  CPU_TIME: 48
+            BYTES_RECEIVED: 5031
+                BYTES_SENT: 276926
+       BINLOG_BYTES_WRITTEN: 217
+              ROWS_FETCHED: 81
+              ROWS_UPDATED: 0
+           TABLE_ROWS_READ: 52836023
+           SELECT_COMMANDS: 26
+           UPDATE_COMMANDS: 1
+            OTHER_COMMANDS: 145
+       COMMIT_TRANSACTIONS: 1
+     ROLLBACK_TRANSACTIONS: 0
+        DENIED_CONNECTIONS: 0
+          LOST_CONNECTIONS: 0
+             ACCESS_DENIED: 0
+             EMPTY_QUERIES: 0
+    ```
 
-## INFORMATION_SCHEMA Tables
+## INFORMATION_SCHEMA tables
 
 ### `INFORMATION_SCHEMA.INDEX_STATISTICS`
 
@@ -124,19 +122,19 @@ This table makes it possible to do many things that were difficult or impossible
 
 Example:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT * FROM INFORMATION_SCHEMA.INDEX_STATISTICS WHERE TABLE_NAME='tables_priv';
 ```
 
-The output should look like the following:
+??? example "Expected output"
 
-```text
-+--------------+-----------------------+--------------------+-----------+
-| TABLE_SCHEMA | TABLE_NAME            | INDEX_NAME         | ROWS_READ |
-+--------------+-----------------------+--------------------+-----------+
-| mysql        | tables_priv           | PRIMARY            |         2 |
-+--------------+-----------------------+--------------------+-----------+
-```
+    ```{.text .no-copy}
+    +--------------+-----------------------+--------------------+-----------+
+    | TABLE_SCHEMA | TABLE_NAME            | INDEX_NAME         | ROWS_READ |
+    +--------------+-----------------------+--------------------+-----------+
+    | mysql        | tables_priv           | PRIMARY            |         2 |
+    +--------------+-----------------------+--------------------+-----------+
+    ```
 
 !!! note
 
@@ -154,21 +152,21 @@ The output should look like the following:
 
 This table is similar in function to the `INDEX_STATISTICS` table.
 
-Example:
+For example:
 
-```
+```{.bash data-prompt="mysql>"}
 mysql> SELECT * FROM INFORMATION_SCHEMA.TABLE_STATISTICS WHERE TABLE_NAME=``tables_priv``;
 ```
 
-The output should look like the following:
+??? example "Expected output"
 
-```text
-+--------------+-------------------------------+-----------+--------------+------------------------+
-| TABLE_SCHEMA | TABLE_NAME                    | ROWS_READ | ROWS_CHANGED | ROWS_CHANGED_X_INDEXES |
-+--------------+-------------------------------+-----------+--------------+------------------------+
-| mysql        | tables_priv                   |         2 |            0 |                      0 |
-+--------------+-------------------------------+-----------+--------------+------------------------+
-```
+    ```{.text .no-copy}
+    +--------------+-------------------------------+-----------+--------------+------------------------+
+    | TABLE_SCHEMA | TABLE_NAME                    | ROWS_READ | ROWS_CHANGED | ROWS_CHANGED_X_INDEXES |
+    +--------------+-------------------------------+-----------+--------------+------------------------+
+    | mysql        | tables_priv                   |         2 |            0 |                      0 |
+    +--------------+-------------------------------+-----------+--------------+------------------------+
+    ```
 
 !!! note
 
@@ -234,36 +232,36 @@ The table gives answers to questions such as which users cause the most load, an
 
 Example:
 
-```sql
-mysqlSELECT * FROM INFORMATION_SCHEMA.USER_STATISTICS\G
+```{.bash data-prompt="mysql>"}
+mysql>SELECT * FROM INFORMATION_SCHEMA.USER_STATISTICS\G
 ```
 
-The output should look like the following:
+??? example "Expected output"
 
-```text
-*************************** 1. row ***************************
-                  USER: root
-     TOTAL_CONNECTIONS: 5592
-CONCURRENT_CONNECTIONS: 0
-        CONNECTED_TIME: 6844
-             BUSY_TIME: 179
-              CPU_TIME: 72
-        BYTES_RECEIVED: 603344
-            BYTES_SENT: 15663832
-  BINLOG_BYTES_WRITTEN: 217
-          ROWS_FETCHED: 9793
-          ROWS_UPDATED: 0
-       TABLE_ROWS_READ: 52836023
-       SELECT_COMMANDS: 9701
-       UPDATE_COMMANDS: 1
-        OTHER_COMMANDS: 2614
-   COMMIT_TRANSACTIONS: 1
- ROLLBACK_TRANSACTIONS: 0
-    DENIED_CONNECTIONS: 0
-      LOST_CONNECTIONS: 0
-         ACCESS_DENIED: 0
-         EMPTY_QUERIES: 0
-```
+    ```{.text .no-copy}
+    *************************** 1. row ***************************
+                      USER: root
+         TOTAL_CONNECTIONS: 5592
+     CONCURRENT_CONNECTIONS: 0
+             CONNECTED_TIME: 6844
+                 BUSY_TIME: 179
+                  CPU_TIME: 72
+            BYTES_RECEIVED: 603344
+                BYTES_SENT: 15663832
+      BINLOG_BYTES_WRITTEN: 217
+              ROWS_FETCHED: 9793
+              ROWS_UPDATED: 0
+           TABLE_ROWS_READ: 52836023
+           SELECT_COMMANDS: 9701
+           UPDATE_COMMANDS: 1
+            OTHER_COMMANDS: 2614
+       COMMIT_TRANSACTIONS: 1
+     ROLLBACK_TRANSACTIONS: 0
+        DENIED_CONNECTIONS: 0
+          LOST_CONNECTIONS: 0
+             ACCESS_DENIED: 0
+             EMPTY_QUERIES: 0
+    ```
 
 ## Commands Provided
 

@@ -1,4 +1,4 @@
-# Adaptive Network Buffers
+# Adaptive network buffers
 
 To find the buffer size of the current connection, use the `network_buffer_length` status variable. Add `SHOW GLOBAL` to review the cumulative buffer sizes for all connections. This variable can help to estimate the maximum size of the network buffer’s overhead.
 
@@ -10,12 +10,12 @@ You can achieve similar results by disconnecting and reconnecting the TCP connec
 
 ### `net_buffer_shrink_interval`
 
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command-line:  | –net-buffer-shrink-interval=#    |
-| Scope:         | Global             |
-| Dynamic:       | Yes                |
-| Data type:     | integer            |
-| Default value: | 0                  |
+| Option         | Description                   |
+| -------------- | ----------------------------- |
+| Command-line:  | –net-buffer-shrink-interval=# |
+| Scope:         | Global                        |
+| Dynamic:       | Yes                           |
+| Data type:     | integer                       |
+| Default value: | 0                             |
 
 The interval is measured in seconds. The default value is 0, which disables the functionality. The minimum value is 0, and the maximum value is 31536000.
