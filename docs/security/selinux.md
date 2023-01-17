@@ -1,4 +1,4 @@
-# Worke with SELinux
+# Working with SELinux
 
 The Linux kernel, through the Linux Security Module (LSM), supports Security-Enhanced Linux (SELinux). This module provides a way to support mandatory access control policies. SELinux defines how confined processes interact with files, network ports, directories, other processes, and additional server components.
 
