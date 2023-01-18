@@ -1,4 +1,4 @@
-## Docker environment variables
+# Docker environment variables
 
 When running a Docker container with Percona Server,
 you can adjust the configuration of the instance
