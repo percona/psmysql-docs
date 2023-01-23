@@ -17,8 +17,14 @@
       
         <link rel="canonical" href="https://docs.percona.com/percona-server/5.7/5.7/myrocks/variables.html">
       
+      
+        <link rel="prev" href="differences.html">
+      
+      
+        <link rel="next" href="status_variables.html">
+      
       <link rel="icon" href="../_static/percona_favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.6">
     
     
       
@@ -26,11 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.558e4712.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
-        
       
       
 
@@ -52,7 +57,7 @@
     
       <link rel="stylesheet" href="../css/percona.css">
     
-      <link rel="stylesheet" href="../css/version-select.css">
+      <link rel="stylesheet" href="../css/nocopy.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -73,6 +78,22 @@
     
     
     
+              
+
+              <script>
+              (function (w, d, s, l, i) {
+                  w[l] = w[l] || []; w[l].push({
+                    'gtm.start': new Date().getTime(), 
+                    event: 'gtm.js'
+                  });
+                  var f = d.getElementsByTagName(s)[0],
+                  j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                  j.async = true; 
+                  j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                  f.parentNode.insertBefore(j, f);
+                })(window, document, 'script', 'dataLayer', 'GTM-K48FGP2');
+              </script>
+              
   </head>
   
   
@@ -138,18 +159,16 @@
     
       <form class="md-header__option" data-md-component="palette">
         
-          
-          
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_1">
+        
+        <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
             </label>
           
         
-          
-          
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_2">
+        
+        <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
           
             <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
@@ -186,7 +205,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -277,12 +296,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" tabindex="0" aria-expanded="false">
           Introduction
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -381,12 +401,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_3" tabindex="0" aria-expanded="false">
           Installation
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -513,12 +534,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_4" tabindex="0" aria-expanded="false">
           Run in Docker
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -561,12 +583,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_5" tabindex="0" aria-expanded="false">
           Post-Installation
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -609,12 +632,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_6">
+        <label class="md-nav__link" for="__nav_6" tabindex="0" aria-expanded="false">
           Diagnostics Improvements
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -811,12 +835,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_7">
+        <label class="md-nav__link" for="__nav_7" tabindex="0" aria-expanded="false">
           Flexibility Improvements
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -1041,12 +1066,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_8">
+        <label class="md-nav__link" for="__nav_8" tabindex="0" aria-expanded="false">
           Management Improvements
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -1245,12 +1271,13 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_9">
+        <label class="md-nav__link" for="__nav_9" tabindex="0" aria-expanded="true">
           Percona MyRocks
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -2526,12 +2553,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_10">
+        <label class="md-nav__link" for="__nav_10" tabindex="0" aria-expanded="false">
           Performance Improvements
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -2658,12 +2686,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_11">
+        <label class="md-nav__link" for="__nav_11" tabindex="0" aria-expanded="false">
           Reliability Improvements
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -2720,12 +2749,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_12" type="checkbox" id="__nav_12" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_12">
+        <label class="md-nav__link" for="__nav_12" tabindex="0" aria-expanded="false">
           Scalability Improvements
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -2782,12 +2812,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" type="checkbox" id="__nav_13" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_13" type="checkbox" id="__nav_13" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_13">
+        <label class="md-nav__link" for="__nav_13" tabindex="0" aria-expanded="false">
           Security Improvements
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -2872,12 +2903,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14" type="checkbox" id="__nav_14" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_14" type="checkbox" id="__nav_14" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_14">
+        <label class="md-nav__link" for="__nav_14" tabindex="0" aria-expanded="false">
           TokuDB
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -3116,12 +3148,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_15" type="checkbox" id="__nav_15" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_15" type="checkbox" id="__nav_15" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_15">
+        <label class="md-nav__link" for="__nav_15" tabindex="0" aria-expanded="false">
           Release notes
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -3140,7 +3173,7 @@
   
     <li class="md-nav__item">
       <a href="../release-notes/release-notes_index.html" class="md-nav__link">
-        Percona Server for MySQL 5.7 Release notes
+        Release notes index
       </a>
     </li>
   
@@ -3766,12 +3799,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_16" type="checkbox" id="__nav_16" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_16" type="checkbox" id="__nav_16" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_16">
+        <label class="md-nav__link" for="__nav_16" tabindex="0" aria-expanded="false">
           References
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -5048,14 +5082,23 @@
               <article class="md-content__inner md-typeset">
                 
 
-                <!-- Edit button -->
+                <!-- Edit and view button -->
                 
+                  
+                  
                   <a
                     href="https://github.com/percona/psmysql-docs/edit/5.7/docs/myrocks/variables.md"
-                    title="Edit this page"
+                    title=""
                     class="md-content__button md-icon"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+                  </a>
+                  <a
+                    href="https://raw.githubusercontent.com/percona/psmysql-docs/5.7/docs/myrocks/variables.md"
+                    title="View source of this page"
+                    class="md-content__button md-icon"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
                   </a>
                 
 
@@ -5595,7 +5638,7 @@ for individual client connections.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-access-hint-on-compaction-start</td>
+<td>&ndash;rocksdb-access-hint-on-compaction-start</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -5642,7 +5685,7 @@ Possible values are:</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-advise-random-on-open</td>
+<td>&ndash;rocksdb-advise-random-on-open</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -5677,7 +5720,7 @@ Enabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-allow-concurrent-memtable-write</td>
+<td>&ndash;rocksdb-allow-concurrent-memtable-write</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -5710,7 +5753,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb_allow_to_start_after_corruption</td>
+<td>&ndash;rocksdb_allow_to_start_after_corruption</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -5751,7 +5794,7 @@ variable turned on in the command line.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-allow-mmap-reads</td>
+<td>&ndash;rocksdb-allow-mmap-reads</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -5783,7 +5826,7 @@ variable turned on in the command line.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-allow-mmap-writes</td>
+<td>&ndash;rocksdb-allow-mmap-writes</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -5815,7 +5858,7 @@ variable turned on in the command line.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-alter-column-default-inplace</td>
+<td>&ndash;rocksdb-alter-column-default-inplace</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -5847,7 +5890,7 @@ variable turned on in the command line.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-base-background-compactions</td>
+<td>&ndash;rocksdb-base-background-compactions</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -5884,7 +5927,7 @@ Maximum depends on the rocksdb_max_background_compactions variable.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-blind-delete-primary-key</td>
+<td>&ndash;rocksdb-blind-delete-primary-key</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -5927,7 +5970,7 @@ Maximum depends on the rocksdb_max_background_compactions variable.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-block-cache-size</td>
+<td>&ndash;rocksdb-block-cache-size</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -5962,7 +6005,7 @@ Maximum depends on the rocksdb_max_background_compactions variable.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-block-restart-interval</td>
+<td>&ndash;rocksdb-block-restart-interval</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -5996,7 +6039,7 @@ The allowed range is from <code>1</code> to <code>2147483647</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-block-size</td>
+<td>&ndash;rocksdb-block-size</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6030,7 +6073,7 @@ The allowed range is from <code>1024</code> to <code>18446744073709551615</code>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-block-size-deviation</td>
+<td>&ndash;rocksdb-block-size-deviation</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6067,7 +6110,7 @@ until there is less than 10 bits of free space remaining.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-bulk-load-allow-sk</td>
+<td>&ndash;rocksdb-bulk-load-allow-sk</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6101,7 +6144,7 @@ when rocksdb_bulk_load is <code>OFF</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-bulk-load-allow-unsorted</td>
+<td>&ndash;rocksdb-bulk-load-allow-unsorted</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6134,7 +6177,7 @@ sorted by the bulkloader itself, at a performance penalty.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-bulk-load</td>
+<td>&ndash;rocksdb-bulk-load</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6172,7 +6215,7 @@ for example, when setting up a new MyRocks instance from a MySQL dump.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-bulk-load-size</td>
+<td>&ndash;rocksdb-bulk-load-size</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6210,7 +6253,7 @@ The allowed range is from <code>1</code> to <code>1073741824</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-bytes-per-sync</td>
+<td>&ndash;rocksdb-bytes-per-sync</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6246,7 +6289,7 @@ The allowed range is up to <code>18446744073709551615</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-cache-dump</td>
+<td>&ndash;rocksdb-cache-dump</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6278,7 +6321,7 @@ The allowed range is up to <code>18446744073709551615</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-cache-index-and-filter-blocks</td>
+<td>&ndash;rocksdb-cache-index-and-filter-blocks</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6312,7 +6355,7 @@ If you disable this feature, RocksDB will allocate additional memory to maintain
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-checksums-pct</td>
+<td>&ndash;rocksdb-checksums-pct</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6346,7 +6389,7 @@ The allowed range is from <code>0</code> to <code>100</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-collect-sst-properties</td>
+<td>&ndash;rocksdb-collect-sst-properties</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6380,7 +6423,7 @@ Enabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-commit-in-the-middle</td>
+<td>&ndash;rocksdb-commit-in-the-middle</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6414,7 +6457,7 @@ Enabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-commit-time-batch-for-recovery</td>
+<td>&ndash;rocksdb-commit-time-batch-for-recovery</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6450,7 +6493,7 @@ Enabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-compact-cf</td>
+<td>&ndash;rocksdb-compact-cf</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6482,7 +6525,7 @@ Enabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-compaction-readahead-size</td>
+<td>&ndash;rocksdb-compaction-readahead-size</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6523,7 +6566,7 @@ The maximum allowed value is <code>18446744073709551615</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-compaction-sequential-deletes</td>
+<td>&ndash;rocksdb-compaction-sequential-deletes</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6563,7 +6606,7 @@ The maximum allowed value is <code>2000000</code> (two million delete markers).<
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-compaction-sequential-deletes-count-sd</td>
+<td>&ndash;rocksdb-compaction-sequential-deletes-count-sd</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6596,7 +6639,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-compaction-sequential-deletes-file-size</td>
+<td>&ndash;rocksdb-compaction-sequential-deletes-file-size</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6630,7 +6673,7 @@ The allowed range is from <code>-1</code> to <code>9223372036854775807</code>.</
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-compaction-sequential-deletes-window</td>
+<td>&ndash;rocksdb-compaction-sequential-deletes-window</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6664,7 +6707,7 @@ The allowed range is up to <code>2000000</code> (two million).</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-concurrent_prepare</td>
+<td>&ndash;rocksdb-concurrent_prepare</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6697,7 +6740,7 @@ The allowed range is up to <code>2000000</code> (two million).</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-create-checkpoint</td>
+<td>&ndash;rocksdb-create-checkpoint</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6729,7 +6772,7 @@ The allowed range is up to <code>2000000</code> (two million).</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-create-if-missing</td>
+<td>&ndash;rocksdb-create-if-missing</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6762,7 +6805,7 @@ Enabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-create-missing-column-families</td>
+<td>&ndash;rocksdb-create-missing-column-families</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6795,7 +6838,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-datadir</td>
+<td>&ndash;rocksdb-datadir</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6828,7 +6871,7 @@ By default, it is created in the current working directory.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-db-write-buffer-size</td>
+<td>&ndash;rocksdb-db-write-buffer-size</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6863,7 +6906,7 @@ The allowed range is up to <code>18446744073709551615</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-deadlock-detect</td>
+<td>&ndash;rocksdb-deadlock-detect</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6897,7 +6940,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-deadlock-detect-depth</td>
+<td>&ndash;rocksdb-deadlock-detect-depth</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6930,7 +6973,7 @@ through before assuming deadlock.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-debug-optimizer-no-zero-cardinality</td>
+<td>&ndash;rocksdb-debug-optimizer-no-zero-cardinality</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6963,7 +7006,7 @@ by always overriding it with some value.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-debug-ttl-ignore-pk</td>
+<td>&ndash;rocksdb-debug-ttl-ignore-pk</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -6995,7 +7038,7 @@ by always overriding it with some value.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb_debug-ttl-read-filter-ts</td>
+<td>&ndash;rocksdb_debug-ttl-read-filter-ts</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7030,7 +7073,7 @@ This variable is a no-op in non-debug builds.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-debug-ttl-rec-ts</td>
+<td>&ndash;rocksdb-debug-ttl-rec-ts</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7067,7 +7110,7 @@ This variable is a no-op in non-debug builds.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-debug-ttl-snapshot-ts</td>
+<td>&ndash;rocksdb-debug-ttl-snapshot-ts</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7104,7 +7147,7 @@ non-debug builds.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-default-cf-options</td>
+<td>&ndash;rocksdb-default-cf-options</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7137,7 +7180,7 @@ Empty by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-delayed-write-rate</td>
+<td>&ndash;rocksdb-delayed-write-rate</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7171,7 +7214,7 @@ The allowed range is from <code>0</code> to <code>18446744073709551615</code>.</
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-delete-cf</td>
+<td>&ndash;rocksdb-delete-cf</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7206,7 +7249,7 @@ The allowed range is from <code>0</code> to <code>18446744073709551615</code>.</
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-delete-obsolete-files-period-micros</td>
+<td>&ndash;rocksdb-delete-obsolete-files-period-micros</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7240,7 +7283,7 @@ Allowed range is up to <code>9223372036854775807</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-enable-bulk-load-api</td>
+<td>&ndash;rocksdb-enable-bulk-load-api</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7275,7 +7318,7 @@ and does not require keys to be inserted in any order.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-enable-insert-with-update-caching</td>
+<td>&ndash;rocksdb-enable-insert-with-update-caching</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7307,7 +7350,7 @@ and does not require keys to be inserted in any order.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-enable-iterate-bounds</td>
+<td>&ndash;rocksdb-enable-iterate-bounds</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7340,7 +7383,7 @@ and does not require keys to be inserted in any order.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-enable-native-partition</td>
+<td>&ndash;rocksdb-enable-native-partition</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7373,7 +7416,7 @@ and does not require keys to be inserted in any order.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-enable-pipelined-write</td>
+<td>&ndash;rocksdb-enable-pipelined-write</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7407,7 +7450,7 @@ and does not require keys to be inserted in any order.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-enable-remove-orphaned-dropped-cfs</td>
+<td>&ndash;rocksdb-enable-remove-orphaned-dropped-cfs</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7440,7 +7483,7 @@ and does not require keys to be inserted in any order.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-enable-ttl</td>
+<td>&ndash;rocksdb-enable-ttl</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7472,7 +7515,7 @@ and does not require keys to be inserted in any order.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-enable-ttl-read-filtering</td>
+<td>&ndash;rocksdb-enable-ttl-read-filtering</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7508,7 +7551,7 @@ are dropped during compaction. <strong>Use with caution.</strong></p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-enable-thread-tracking</td>
+<td>&ndash;rocksdb-enable-thread-tracking</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7542,7 +7585,7 @@ If enabled, thread status will be available via <code>GetThreadList()</code>.</p
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-enable-write-thread-adaptive-yield</td>
+<td>&ndash;rocksdb-enable-write-thread-adaptive-yield</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7577,7 +7620,7 @@ Enable it to increase throughput for concurrent workloads.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-error-if-exists</td>
+<td>&ndash;rocksdb-error-if-exists</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7610,7 +7653,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-error-on-suboptimal-collation</td>
+<td>&ndash;rocksdb-error-on-suboptimal-collation</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7643,7 +7686,7 @@ insensitive). Enabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-flush-log-at-trx-commit</td>
+<td>&ndash;rocksdb-flush-log-at-trx-commit</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7694,7 +7737,7 @@ but reduces performance.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-flush-memtable-on-analyze</td>
+<td>&ndash;rocksdb-flush-memtable-on-analyze</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7729,7 +7772,7 @@ by including data in the memtable for calculating stats.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-force-compute-memtable-stats</td>
+<td>&ndash;rocksdb-force-compute-memtable-stats</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7763,7 +7806,7 @@ This provides better accuracy but may reduce performance.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-force-compute-memtable-stats-cachetime</td>
+<td>&ndash;rocksdb-force-compute-memtable-stats-cachetime</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7795,7 +7838,7 @@ This provides better accuracy but may reduce performance.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-force-flush-memtable-and-lzero-now</td>
+<td>&ndash;rocksdb-force-flush-memtable-and-lzero-now</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7828,7 +7871,7 @@ but also flushes all L0 files.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-force-flush-memtable-now</td>
+<td>&ndash;rocksdb-force-flush-memtable-now</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7864,7 +7907,7 @@ but also flushes all L0 files.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-force-index-records-in-range</td>
+<td>&ndash;rocksdb-force-index-records-in-range</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7900,7 +7943,7 @@ Set to <code>0</code> if you do not want to override the returned value.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-hash-index-allow-collision</td>
+<td>&ndash;rocksdb-hash-index-allow-collision</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -7966,7 +8009,7 @@ If disabled, the full prefix is stored to prevent hash collisions.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-index-type</td>
+<td>&ndash;rocksdb-index-type</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8006,7 +8049,7 @@ If disabled, the full prefix is stored to prevent hash collisions.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-info-log-level</td>
+<td>&ndash;rocksdb-info-log-level</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8056,7 +8099,7 @@ log messages)</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-is-fd-close-on-exec</td>
+<td>&ndash;rocksdb-is-fd-close-on-exec</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8089,7 +8132,7 @@ Enabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-large-prefix</td>
+<td>&ndash;rocksdb-large-prefix</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8124,7 +8167,7 @@ source and replica.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-keep-log-file-num</td>
+<td>&ndash;rocksdb-keep-log-file-num</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8158,7 +8201,7 @@ The allowed range is from <code>1</code> to <code>18446744073709551615</code>.</
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-lock-scanned-rows</td>
+<td>&ndash;rocksdb-lock-scanned-rows</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8191,7 +8234,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-lock-wait-timeout</td>
+<td>&ndash;rocksdb-lock-wait-timeout</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8225,7 +8268,7 @@ The allowed range is up to <code>1073741824</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-log-file-time-to-roll</td>
+<td>&ndash;rocksdb-log-file-time-to-roll</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8259,7 +8302,7 @@ The allowed range is up to <code>18446744073709551615</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-manifest-preallocation-size</td>
+<td>&ndash;rocksdb-manifest-preallocation-size</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8297,7 +8340,7 @@ The allowed range is up to <code>18446744073709551615</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-manual-compaction-bottommost-level</td>
+<td>&ndash;rocksdb-manual-compaction-bottommost-level</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8344,7 +8387,7 @@ The allowed range is up to <code>18446744073709551615</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-manual-wal-flush</td>
+<td>&ndash;rocksdb-manual-wal-flush</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8412,7 +8455,7 @@ The allowed range is up to <code>18446744073709551615</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-max-background-compactions</td>
+<td>&ndash;rocksdb-max-background-compactions</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8447,7 +8490,7 @@ The default value is <code>-1</code>. The allowed range is up to <code>64</code>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-max-background-flushes</td>
+<td>&ndash;rocksdb-max-background-flushes</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8482,7 +8525,7 @@ The default value is <code>-1</code>. The allowed range is up to <code>64</code>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-max-background-jobs</td>
+<td>&ndash;rocksdb-max-background-jobs</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8520,7 +8563,7 @@ responsibility down to RocksDB level.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb_max_bottom_pri_background_compactions</td>
+<td>&ndash;rocksdb_max_bottom_pri_background_compactions</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8549,7 +8592,7 @@ responsibility down to RocksDB level.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-max-latest-deadlocks</td>
+<td>&ndash;rocksdb-max-latest-deadlocks</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8581,7 +8624,7 @@ responsibility down to RocksDB level.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-max-log-file-size</td>
+<td>&ndash;rocksdb-max-log-file-size</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8617,7 +8660,7 @@ The allowed range is up to <code>18446744073709551615</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-manifest-log-file-size</td>
+<td>&ndash;rocksdb-manifest-log-file-size</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8652,7 +8695,7 @@ only one manifest file is used.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-max-open-files</td>
+<td>&ndash;rocksdb-max-open-files</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8695,7 +8738,7 @@ Finally, <code>-1</code> means no limit, i.e. an infinite number of file handles
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-max-row-locks</td>
+<td>&ndash;rocksdb-max-row-locks</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8729,7 +8772,7 @@ transactions never fail due to row locks.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-max-subcompactions</td>
+<td>&ndash;rocksdb-max-subcompactions</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8763,7 +8806,7 @@ The allowed range is up to <code>64</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-max-total-wal-size</td>
+<td>&ndash;rocksdb-max-total-wal-size</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8797,7 +8840,7 @@ The allowed range is up to <code>9223372036854775807</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-merge-buf-size</td>
+<td>&ndash;rocksdb-merge-buf-size</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8835,7 +8878,7 @@ The allowed range is from <code>100</code> to <code>18446744073709551615</code>.
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-merge-combine-read-size</td>
+<td>&ndash;rocksdb-merge-combine-read-size</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8870,7 +8913,7 @@ The allowed range is from <code>100</code> to <code>18446744073709551615</code>.
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb_merge_tmp_file_removal_delay_ms</td>
+<td>&ndash;rocksdb_merge_tmp_file_removal_delay_ms</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8905,7 +8948,7 @@ rate limit the delay in milliseconds.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-new-table-reader-for-compaction-inputs</td>
+<td>&ndash;rocksdb-new-table-reader-for-compaction-inputs</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8941,7 +8984,7 @@ input files without impacting table readers used for user queries.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-no-block-cache</td>
+<td>&ndash;rocksdb-no-block-cache</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -8975,7 +9018,7 @@ meaning that using the block cache is allowed.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-no-create-column-family</td>
+<td>&ndash;rocksdb-no-create-column-family</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9010,7 +9053,7 @@ assign and index to a column family.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-override-cf-options</td>
+<td>&ndash;rocksdb-override-cf-options</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9043,7 +9086,7 @@ Empty by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-paranoid-checks</td>
+<td>&ndash;rocksdb-paranoid-checks</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9077,7 +9120,7 @@ Enabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-pause-background-work</td>
+<td>&ndash;rocksdb-pause-background-work</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9120,7 +9163,7 @@ is set to <code>0</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-perf-context-level</td>
+<td>&ndash;rocksdb-perf-context-level</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9188,7 +9231,7 @@ The allowed range is up to <code>5</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-persistent-cache-path</td>
+<td>&ndash;rocksdb-persistent-cache-path</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9221,7 +9264,7 @@ Set this together with rocksdb_persistent_cache_size_mb.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-persistent-cache-size-mb</td>
+<td>&ndash;rocksdb-persistent-cache-size-mb</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9256,7 +9299,7 @@ Set this together with rocksdb_persistent_cache_path.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-pin-l0-filter-and-index-blocks-in-cache</td>
+<td>&ndash;rocksdb-pin-l0-filter-and-index-blocks-in-cache</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9290,7 +9333,7 @@ Enabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-print-snapshot-conflict-queries</td>
+<td>&ndash;rocksdb-print-snapshot-conflict-queries</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9324,7 +9367,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-rate-limiter-bytes-per-sec</td>
+<td>&ndash;rocksdb-rate-limiter-bytes-per-sec</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9358,7 +9401,7 @@ The allowed range is up to <code>9223372036854775807</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-read-free-rpl</td>
+<td>&ndash;rocksdb-read-free-rpl</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9402,7 +9445,7 @@ The allowed range is up to <code>9223372036854775807</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-read-free-rpl-tables</td>
+<td>&ndash;rocksdb-read-free-rpl-tables</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9437,7 +9480,7 @@ Empty by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-records-in-range</td>
+<td>&ndash;rocksdb-records-in-range</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9471,7 +9514,7 @@ The allowed range is up to <code>2147483647</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-reset-stats</td>
+<td>&ndash;rocksdb-reset-stats</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9503,7 +9546,7 @@ The allowed range is up to <code>2147483647</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-rollback-on-timeout</td>
+<td>&ndash;rocksdb-rollback-on-timeout</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9536,7 +9579,7 @@ the entire transaction.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-rpl-skip-tx-api</td>
+<td>&ndash;rocksdb-rpl-skip-tx-api</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9573,7 +9616,7 @@ operating in super read-only mode.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-seconds-between-stat-computes</td>
+<td>&ndash;rocksdb-seconds-between-stat-computes</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9609,7 +9652,7 @@ The allowed value is from <code>0</code> to <code>4294967295</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-signal-drop-index-thread</td>
+<td>&ndash;rocksdb-signal-drop-index-thread</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9641,7 +9684,7 @@ The allowed value is from <code>0</code> to <code>4294967295</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-sim-cache-size</td>
+<td>&ndash;rocksdb-sim-cache-size</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9673,7 +9716,7 @@ The allowed value is from <code>0</code> to <code>4294967295</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-skip-bloom-filter-on_read</td>
+<td>&ndash;rocksdb-skip-bloom-filter-on_read</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9706,7 +9749,7 @@ Disabled by default (bloom filters are not skipped).</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-skip-fill-cache</td>
+<td>&ndash;rocksdb-skip-fill-cache</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9771,7 +9814,7 @@ Disabled by default (caching is not skipped).</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-sst-mgr-rate-bytes-per-sec</td>
+<td>&ndash;rocksdb-sst-mgr-rate-bytes-per-sec</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9805,7 +9848,7 @@ The allowed range is from <code>0</code> to <code>18446744073709551615</code>.</
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-stats-dump-period-sec</td>
+<td>&ndash;rocksdb-stats-dump-period-sec</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9839,7 +9882,7 @@ The allowed range is up to <code>2147483647</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-stats-level</td>
+<td>&ndash;rocksdb-stats-level</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9871,7 +9914,7 @@ The allowed range is up to <code>2147483647</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-stats-recalc-rate</td>
+<td>&ndash;rocksdb-stats-recalc-rate</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9904,7 +9947,7 @@ The default value is <code>0</code>. The allowed range is up to <code>4294967295
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-store-row-debug-checksums</td>
+<td>&ndash;rocksdb-store-row-debug-checksums</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9937,7 +9980,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-strict-collation-check</td>
+<td>&ndash;rocksdb-strict-collation-check</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -9971,7 +10014,7 @@ Enabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-strict-collation-exceptions</td>
+<td>&ndash;rocksdb-strict-collation-exceptions</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10004,7 +10047,7 @@ Empty by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-table-cache-numshardbits</td>
+<td>&ndash;rocksdb-table-cache-numshardbits</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10038,7 +10081,7 @@ The allowed range is from <code>0</code> to <code>19</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-table-stats-background-thread-nice-value</td>
+<td>&ndash;rocksdb-table-stats-background-thread-nice-value</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10073,7 +10116,7 @@ The maximum = 19 (THREAD_PRIO_MAX)</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-table-stats-max-num-rows-scanned</td>
+<td>&ndash;rocksdb-table-stats-max-num-rows-scanned</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10107,7 +10150,7 @@ The maximum is <code>18,446,744,073,709,551,615</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-table-stats-recalc-threshold-count</td>
+<td>&ndash;rocksdb-table-stats-recalc-threshold-count</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10141,7 +10184,7 @@ The maximum is <code>18,446,744,073,709,551,615</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-table-stats-recalc-threshold-pct</td>
+<td>&ndash;rocksdb-table-stats-recalc-threshold-pct</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10176,7 +10219,7 @@ The maximum value is <code>100</code> (RDB_TBL_STATS_RECALC_THRESHOLD_PCT_MAX).<
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-table-stats-sampling-pct</td>
+<td>&ndash;rocksdb-table-stats-sampling-pct</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10211,7 +10254,7 @@ The allowed range is from <code>0</code> to <code>100</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-table-stats-use-table-scan</td>
+<td>&ndash;rocksdb-table-stats-use-table-scan</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10244,7 +10287,7 @@ The default value is <code>FALSE</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-tmpdir</td>
+<td>&ndash;rocksdb-tmpdir</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10276,7 +10319,7 @@ The default value is <code>FALSE</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-trace-block-cache-access</td>
+<td>&ndash;rocksdb-trace-block-cache-access</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10312,7 +10355,7 @@ The default value is an empty string (&quot;&quot;).</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-trace-queries</td>
+<td>&ndash;rocksdb-trace-queries</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10346,7 +10389,7 @@ The default value is an empty string (&quot;&quot;).</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-trace-sst-api</td>
+<td>&ndash;rocksdb-trace-sst-api</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10380,7 +10423,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-track-and-verify-wals-in-manifest</td>
+<td>&ndash;rocksdb-track-and-verify-wals-in-manifest</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10418,7 +10461,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-track-and-verify-wals-in-manifest</td>
+<td>&ndash;rocksdb-track-and-verify-wals-in-manifest</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10450,7 +10493,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-unsafe-for-binlog</td>
+<td>&ndash;rocksdb-unsafe-for-binlog</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10484,7 +10527,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-update-cf-options</td>
+<td>&ndash;rocksdb-update-cf-options</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10517,7 +10560,7 @@ Empty by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-use-adaptive-mutex</td>
+<td>&ndash;rocksdb-use-adaptive-mutex</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10551,7 +10594,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-use-default-sk-cf</td>
+<td>&ndash;rocksdb-use-default-sk-cf</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10583,7 +10626,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-use-direct-io-for-flush-and-compaction</td>
+<td>&ndash;rocksdb-use-direct-io-for-flush-and-compaction</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10617,7 +10660,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-use-direct-reads</td>
+<td>&ndash;rocksdb-use-direct-reads</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10653,7 +10696,7 @@ make sure that rocksdb_allow_mmap_reads is disabled.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-use-fsync</td>
+<td>&ndash;rocksdb-use-fsync</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10686,7 +10729,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-validate-tables</td>
+<td>&ndash;rocksdb-validate-tables</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10729,7 +10772,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-verify-row-debug-checksums</td>
+<td>&ndash;rocksdb-verify-row-debug-checksums</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10762,7 +10805,7 @@ Disabled by default.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-wal-bytes-per-sync</td>
+<td>&ndash;rocksdb-wal-bytes-per-sync</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10798,7 +10841,7 @@ The allowed range is up to <code>18446744073709551615</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-wal-dir</td>
+<td>&ndash;rocksdb-wal-dir</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10830,7 +10873,7 @@ The allowed range is up to <code>18446744073709551615</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-wal-recovery-mode</td>
+<td>&ndash;rocksdb-wal-recovery-mode</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10882,7 +10925,7 @@ after a system crash.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-wal-size-limit-mb</td>
+<td>&ndash;rocksdb-wal-size-limit-mb</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10917,7 +10960,7 @@ The allowed range is up to <code>9223372036854775807</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-wal-ttl-seconds</td>
+<td>&ndash;rocksdb-wal-ttl-seconds</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10951,7 +10994,7 @@ The allowed range is up to <code>9223372036854775807</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-whole-key-filtering</td>
+<td>&ndash;rocksdb-whole-key-filtering</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -10985,7 +11028,7 @@ Make sure that lookups use the whole key for matching.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-write-batch-max-bytes</td>
+<td>&ndash;rocksdb-write-batch-max-bytes</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -11019,7 +11062,7 @@ limit reached</code>.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-write-disable-wal</td>
+<td>&ndash;rocksdb-write-disable-wal</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -11052,7 +11095,7 @@ which can be useful for bulk loading.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-write-ignore-missing-column-families</td>
+<td>&ndash;rocksdb-write-ignore-missing-column-families</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -11085,7 +11128,7 @@ Disabled by default (writes to non-existent column families are not ignored).</p
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>--rocksdb-write-policy</td>
+<td>&ndash;rocksdb-write-policy</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -11157,48 +11200,12 @@ the prepare phase of a two-phase transaction. If the value is set to
       
         <footer class="md-footer">
   
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="differences.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Differences between Percona MyRocks and Facebook MyRocks" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Differences between Percona MyRocks and Facebook MyRocks
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="status_variables.html" class="md-footer__link md-footer__link--next" aria-label="Next: MyRocks status variables" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              MyRocks status variables
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
-  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Percona LLC, &#169; 2022
+      Percona LLC, &#169; 2023
     </div>
   
   
@@ -11218,14 +11225,23 @@ the prepare phase of a two-phase transaction. If the value is set to
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+              
+      <script src="../assets/javascripts/bundle.51d95adb.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       
+        <script src="../js/promptremover.js"></script>
+      
     
-    
+
+              <img src="https://tracking.g2crowd.com/attribution_tracking/conversions/1007137.gif?e=" width="1" height="1" />
+
+              <noscript>
+                <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K48FGP2" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+              </noscript>
+              
   </body>
 </html>
