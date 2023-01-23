@@ -558,9 +558,9 @@ Enabled by default.
 | Data type    | Boolean                        |
 | Default      | OFF                            |
 
-The variable has been implemented in Percona Server 5.7.19-17. Specifies whether to commit rows implicitly when a batch contains more than the value of rocksdb_bulk_load_size.
+The variable has been implemented in Percona Server 5.7.19-17. Specifies whether to commit rows implicitly when a batch contains more than the value of rocksdb_bulk_load_size. This option should only be enabled at the time of data import because it may cause locking errors.
 
-This variable is disabled by default.
+This variable is disabled by default. 
 
 When the rocksdb_bulk_load variable is enabled, it behaves as if the variable rocksdb_commit_in_the_middle is enabled, even if the variable rocksdb_commit_in_the_middle is disabled.
 
