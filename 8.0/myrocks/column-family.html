@@ -3413,10 +3413,10 @@ create an index in its own column family using the <code>COMMENT</code> clause.<
 cf1 column family and the index <code>kb</code> — into the cf2 column family.</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
 <span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;cfname=cf1&#39;</span><span class="p">,</span>
-<span class="k">KEY</span><span class="w"> </span><span class="n">kb</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;cf_name=cf2&#39;</span><span class="p">)</span>
+<span class="k">KEY</span><span class="w"> </span><span class="n">kb</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;cfname=cf2&#39;</span><span class="p">)</span>
 <span class="n">ENGINE</span><span class="o">=</span><span class="n">ROCKSDB</span><span class="p">;</span>
 </code></pre></div>
-<p>The column family name is specified as the value of the cf_name attribute at
+<p>The column family name is specified as the value of the cfname attribute at
 the beginning of the <code>COMMENT</code> clause. The name is case sensitive and may not
 contain leading or trailing whitespace characters.</p>
 <p>The <code>COMMENT</code> clause may contain other information following the semicolon
@@ -3425,7 +3425,7 @@ family’. If the column family cannot be created, <em>MyRocks</em> uses the def
 column family.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The <code>cf_name</code> attribute must be all lowercase. Place the equals sign (=) in front of the column family name without any whitespace on both sides of it.</p>
+<p>The <code>cfname</code> attribute must be all lowercase. Place the equals sign (=) in front of the column family name without any whitespace on both sides of it.</p>
 <div class="highlight"><pre><span></span><code>COMMENT &#39;cfname=Foo; Creating the Foo family name&#39;
 </code></pre></div>
 </div>
@@ -3441,7 +3441,7 @@ MemTables first. To reduce the overall memory consumption, the number of active
 column families should stay low.</p>
 <!-- Application: PS-8.0 not PS-5.7 -->
 <p>With the option <code>|opt.no-create-column-family|</code> set to true, the <code>COMMENT</code>
-clause will not treat cf_name as a special token; it will not be possible to
+clause will not treat cfname as a special token; it will not be possible to
 create column families using the <code>COMMENT</code> clause.</p>
 <h2 id="column-family-options">Column family options<a class="headerlink" href="#column-family-options" title="Permanent link">&para;</a></h2>
 <p>On startup, the server applies the <code>|opt.default-cf-options|</code> option to all
@@ -3473,7 +3473,7 @@ prefix. Some have the abbreviated syntax -->
   <small>
     
       Last update:
-      2023-01-12
+      2023-01-23
     
   </small>
 </div>
