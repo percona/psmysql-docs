@@ -6400,8 +6400,8 @@ Enabled by default.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable has been implemented in Percona Server 5.7.19-17. Specifies whether to commit rows implicitly when a batch contains more than the value of rocksdb_bulk_load_size.</p>
-<p>This variable is disabled by default.</p>
+<p>The variable has been implemented in Percona Server 5.7.19-17. Specifies whether to commit rows implicitly when a batch contains more than the value of rocksdb_bulk_load_size. This option should only be enabled at the time of data import because it may cause locking errors.</p>
+<p>This variable is disabled by default. </p>
 <p>When the rocksdb_bulk_load variable is enabled, it behaves as if the variable rocksdb_commit_in_the_middle is enabled, even if the variable rocksdb_commit_in_the_middle is disabled.</p>
 <h3 id="rocksdb_commit_time_batch_for_recovery"><code>rocksdb_commit_time_batch_for_recovery</code><a class="headerlink" href="#rocksdb_commit_time_batch_for_recovery" title="Permanent link">&para;</a></h3>
 <table>
@@ -11133,7 +11133,7 @@ the prepare phase of a two-phase transaction. If the value is set to
   <small>
     
       Last update:
-      2022-09-27
+      2023-01-23
     
   </small>
 </div>
