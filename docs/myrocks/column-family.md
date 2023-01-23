@@ -25,11 +25,11 @@ cf1 column family and the index `kb` — into the cf2 column family.
 ```sql
 CREATE TABLE t1 (a INT, b INT,
 PRIMARY KEY(a) COMMENT 'cfname=cf1',
-KEY kb(b) COMMENT 'cf_name=cf2')
+KEY kb(b) COMMENT 'cfname=cf2')
 ENGINE=ROCKSDB;
 ```
 
-The column family name is specified as the value of the cf_name attribute at
+The column family name is specified as the value of the cfname attribute at
 the beginning of the `COMMENT` clause. The name is case sensitive and may not
 contain leading or trailing whitespace characters.
 
@@ -40,7 +40,7 @@ column family.
 
 !!! warning
 
-    The `cf_name` attribute must be all lowercase. Place the equals sign (=) in front of the column family name without any whitespace on both sides of it.
+    The `cfname` attribute must be all lowercase. Place the equals sign (=) in front of the column family name without any whitespace on both sides of it.
     
     ```text
     COMMENT 'cfname=Foo; Creating the Foo family name'
@@ -60,7 +60,7 @@ column families should stay low.
 
 <!-- Application: PS-8.0 not PS-5.7 -->
 With the option `|opt.no-create-column-family|` set to true, the `COMMENT`
-clause will not treat cf_name as a special token; it will not be possible to
+clause will not treat cfname as a special token; it will not be possible to
 create column families using the `COMMENT` clause.
 
 ## Column family options
