@@ -33,7 +33,7 @@ The following is an example of a global manifest file that does not use local ma
 ```json
 {
  "read_local_manifest": false,
- "components": "file:///component_keyring_kmip"
+ "components": "file://component_keyring_kmip"
 }
 ```
 
@@ -49,7 +49,7 @@ The following is an example of a local manifest file:
 
 ```json
 {
- "components": "file:///component_keyring_kmip"
+ "components": "file://component_keyring_kmip"
 }
 ```
 
