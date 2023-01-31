@@ -1,7 +1,8 @@
-# Working with Advanced Encryption Key Rotation
+# Advanced encryption key rotation
 
+!!! important
 
-**Starting with Percona Server for MySQL 8.0.30-22, this feature is removed.**
+    This feature, and associated system variables, status variables, and options have been removed in Percona Server for MySQL 8.0.31-23.
 
 The Advanced Encryption Key Rotation feature lets you perform specific encryption and
 decryption tasks in real time.
@@ -21,16 +22,16 @@ process. If the Advanced Encryption Key Rotation feature is enabled, you cannot
 convert a tablespace to use Master key encryption. You must disable the feature
 before you convert the tablespace.
 
+**This feature is in tech preview.**
 
-* **Availability**
-
-    This feature is tech preview quality.
 
 
 You must have the SYSTEM_VARIABLES_ADMIN privilege or the SUPER privilege to set
 these variables.
 
 ### `innodb_encryption_threads`
+
+This variable is removed in Percona Server for MySQL 8.0.31-23.
 
 | Option       | Description                 |
 |--------------|-----------------------------|
@@ -47,6 +48,8 @@ configures the number of threads for background encryption. For the online
 encryption, the value must be greater than **zero**.
 
 ### `innodb_online_encryption_rotate_key_age`
+
+This variable is removed in Percona Server for MySQL 8.0.31-23.
 
 | Option       | Description                               |
 |--------------|-------------------------------------------|
@@ -76,6 +79,8 @@ You should select the value which best fits your operational requirements.
 
 ### `innodb_encryption_rotation_iops`
 
+This variable is removed in Percona Server for MySQL 8.0.31-23.
+
 | Option       | Description                       |
 |--------------|-----------------------------------|
 | Command-line | --innodb-encryption-rotation-iops |
@@ -89,6 +94,8 @@ use by a key rotation process.
 
 ### `innodb_default_encryption_key_id`
 
+This variable is removed in Percona Server for MySQL 8.0.31-23.
+
 | Option       | Description                        |
 |--------------|------------------------------------|
 | Command-line | --innodb-default-encryption-key-id |
@@ -101,7 +108,7 @@ Defines the default encryption ID used to encrypt tablespaces.
 
 ## Using Keyring Encryption
 
-**Starting with Percona Server for MySQL 8.0.30-22, this feature is removed.**
+This feature is removed in Percona Server for MySQL 8.0.31-23.
 
 Keyring management is enabled for each table, per file table, separately when
 you set encryption in the `ENCRYPTION` clause to `KEYRING` in the supported
