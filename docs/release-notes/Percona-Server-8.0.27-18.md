@@ -18,7 +18,7 @@ delivers greater value to *MySQL* server users with optimized performance,
 greater performance scalability and availability, enhanced backups and
 increased visibility. [Commercial support contracts are available](https://www.percona.com/services/support/mysql-support).
 
-## Release Highlights
+## Release highlights
 
 The following lists a number of the bug fixes for *MySQL* 8.0.27, provided by Oracle, and included in Percona Server for MySQL:
 
@@ -33,7 +33,7 @@ The following lists a number of the bug fixes for *MySQL* 8.0.27, provided by Or
 
 Find the full list of bug fixes and changes in the [MySQL 8.0.27 Release Notes](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-27.html).
 
-## New Features
+## New features
 
 
 * [PS-7960](https://jira.percona.com/browse/PS-7960): Documented the `rocksdb_partial_index_sort_max_mem` variable, the `rocksdb_bulk_load_partial_index` variable, and the `rocksdb_cancel_manual_compactions` variable.
@@ -55,7 +55,7 @@ Find the full list of bug fixes and changes in the [MySQL 8.0.27 Release Notes](
 
 * [PS-8076](https://jira.percona.com/browse/PS-8076): Added a deprecation warning when using XtraDB changed page tracking.
 
-## Bugs Fixed
+## Bugs fixed
 
 
 * [PS-7883](https://jira.percona.com/browse/PS-7883): An `ALTER` query caused a server exit when `--rocksdb_write_disable_wal` was enabled.
@@ -87,7 +87,7 @@ Find the full list of bug fixes and changes in the [MySQL 8.0.27 Release Notes](
 
 * Normalized the `zenfs` utility backup and restore requirements for the `--path` command line option, the `--backup_path` command-lne option, and the `restore_path` command-line option. For more information, see Installing and configuring Percona Server for MySQL with ZenFS support.
 
-## Packaging Notes
+## Packaging notes
 
 
 * Red Hat Enterprise Linux 6 (and derivative Linux distributions) are no longer supported.
@@ -96,7 +96,7 @@ Find the full list of bug fixes and changes in the [MySQL 8.0.27 Release Notes](
 
 The RPM packages for Red Hat Enterprise Linux 7 (and compatible derivatives) do not support TLSv1.3, as it requires OpenSSL 1.1.1, which is currently not available on this platform.
 
-## Contact Us
+## Contact us
 
 The [Documentation Contribution Guide](https://github.com/percona/percona-server/blob/8.0/doc/source/contributing.md) describes the methods available to contribute to the Percona Server for MySQL documentation.
 

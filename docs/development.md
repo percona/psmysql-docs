@@ -4,7 +4,7 @@
 of the *MySQL* Server with improved performance, scalability and
 diagnostics.
 
-## Submitting Changes
+## Submit changes
 
 We keep the trunk in a constant state of stability to allow for a release at
 any time and to minimize wasted time by developers due to broken code.
@@ -30,7 +30,7 @@ related. In other words, we do not merge from one release branch to another. To
 have your changes in several branches, you must propose branches to each release
 branch.
 
-### Making a Change to a Project
+### Making a change to a project
 
 In this case, we are going to use `percona-xtrabackup` as an example. The
 workflow is similar for *Percona Server for MySQL*, but the patch will need to be modified
@@ -61,7 +61,7 @@ should be two branches run through the param build and two merge proposals (one
 for the stable release and one with the changes merged to the trunk). This prevents
 somebody else from having to guess how to merge your changes.
 
-### *Percona Server for MySQL*
+### Percona Server for MySQL
 
 The same process for *Percona Server for MySQL*, but we have several different branches
 (and merge requests).

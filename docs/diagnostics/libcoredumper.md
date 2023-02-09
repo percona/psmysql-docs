@@ -5,7 +5,6 @@
 
     **Availability** This tool is in tech preview.
 
-
 This feature was implemented in *Percona Server for MySQL* 8.0.21-12 and has been tested
 against the version’s supported platforms. The tool may not be supported on future platforms. You should test before putting this tool into production.
 
@@ -32,20 +31,19 @@ The variable can have the following possible values:
 
 Restart the server.
 
-### Verifying the `libcoredumper` is Active
+### Verifying the `libcoredumper` is active
 
 MySQL writes to the log when generating a core file and delegates the core
-dump operation to the Linux kernel. An example of the log message is the
-following:
+dump operation to the Linux kernel. 
 
-```text
+```{.text .no-copy}
 Writing a core file
 ```
 
 MySQL using the `libcoredumper` to generate the file creates the following
 message in the log:
 
-```text
+```{.text .no-copy}
 Writing a core file using lib coredumper
 ```
 
@@ -54,9 +52,9 @@ reasons:
 
 * Correlates the core file with the crash. MySQL prints a UTC timestamp on the crash log.
 
-    ```text
-    10:02:09 UTC - mysqld got signal 11;
-    ```
+```{.text .no-copy}
+10:02:09 UTC - mysqld got signal 11;
+```
 
 * Stores multiple core files.
 

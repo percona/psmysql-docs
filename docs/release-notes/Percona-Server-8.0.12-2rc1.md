@@ -105,9 +105,8 @@ m_create_info->row_type`
 ## Upcoming Features
 
 
-* [New encryption features](https://www.percona.com/doc/percona-server/8.0/management/data_at_rest_encryption.html)
-in *Percona Server for MySQL* 5.7 will be ported forward to *Percona Server for MySQL* 8.0
+* New encryption features in *Percona Server for MySQL* 5.7 will be ported forward to *Percona Server for MySQL* 8.0
 
 
 * Adding back in [column compression with custom data dictionaries](https://www.percona.com/doc/percona-server/8.0/flexibility/compressed_columns.html)
-and [expanded fast index creation](expanded_innodb_fast_index_creation).
+and expanded fast index creation.

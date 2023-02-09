@@ -1,11 +1,10 @@
-# Process List
+# Process list
 
 This page describes Percona changes to both the standard *MySQL* `SHOW PROCESSLIST` command and the standard *MySQL* `INFORMATION_SCHEMA` table `PROCESSLIST`.
 
-## Version Specific Information
+## Version specific information
 
-> 
-> * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
+* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
 ## INFORMATION_SCHEMA Tables
 
@@ -28,20 +27,20 @@ This table implements modifications to the standard MySQL `INFORMATION_SCHEMA` t
 | ‘ROWS_SENT’     | ‘The number of rows sent by the statement being executed.’                                                                                                                                                                                                                     |
 | ‘TID’           | ‘The Linux Thread ID. For Linux, this corresponds to light-weight process ID (LWP ID) and can be seen in the ps -L output. In case when Thread Pool is enabled, “TID” is not null for only currently executing statements and statements received via “extra” connection.’     |
 
-## Example Output
+## Example output
 
 Table [PROCESSLIST](https://docs.percona.com/percona-server/8.0/diagnostics/process_list.html#processlist):
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT * FROM INFORMATION_SCHEMA.PROCESSLIST;
 ```
 
-The output could be:
+??? example "Expected output"
 
-```text
-+----+------+-----------+--------------------+---------+------+-----------+---------------------------+---------+-----------+---------------+
-| ID | USER | HOST      | DB                 | COMMAND | TIME | STATE     | INFO                      | TIME_MS | ROWS_SENT | ROWS_EXAMINED |
-+----+------+-----------+--------------------+---------+------+-----------+---------------------------+---------+-----------+---------------+
-| 12 | root | localhost | information_schema | Query   |    0 | executing | select * from processlist |       0 |         0 |             0 |
-+----+------+-----------+--------------------+---------+------+-----------+---------------------------+---------+-----------+---------------+
-```
+    ```{.text .no-copy}
+    +----+------+-----------+--------------------+---------+------+-----------+---------------------------+---------+-----------+---------------+
+    | ID | USER | HOST      | DB                 | COMMAND | TIME | STATE     | INFO                      | TIME_MS | ROWS_SENT | ROWS_EXAMINED |
+    +----+------+-----------+--------------------+---------+------+-----------+---------------------------+---------+-----------+---------------+
+    | 12 | root | localhost | information_schema | Query   |    0 | executing | select * from processlist |       0 |         0 |             0 |
+    +----+------+-----------+--------------------+---------+------+-----------+---------------------------+---------+-----------+---------------+
+    ```

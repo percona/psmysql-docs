@@ -1,10 +1,6 @@
-# Expanded Fast Index Creation
+# Expanded fast index creation
 
-
-* **Availability**
-
-    This feature is **tech preview** quality.
-
+{% include './snippets/tech-preview/_tech-preview-feature.md'%}
 
 Percona has implemented several changes related to *MySQL*’s fast index creation
 feature. Fast index creation was implemented in *MySQL* as a way to speed up the
@@ -16,7 +12,7 @@ creation. Besides optimizing DDL directly,
 subsequent DML statements because using it results in much less fragmented
 indexes.
 
-## The **mysqldump** Command
+## The **mysqldump** command
 
 A new option, `--innodb-optimize-keys`, was implemented in **mysqldump**. It
 changes the way *InnoDB* tables are dumped, so that secondary and foreign keys
@@ -76,7 +72,7 @@ to temporarily drop the corresponding index;
 non-nullable columns when the table has no `PRIMARY KEY` defined, because in
 this case *InnoDB* picks such an index as the clustered one.
 
-## System Variables
+## System variables
 
 ### `expand_fast_index_creation`
 

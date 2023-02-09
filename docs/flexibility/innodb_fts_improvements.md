@@ -1,6 +1,6 @@
-# InnoDB Full-Text Search Improvements
+# InnoDB full-text search improvements
 
-# Ignoring Stopword List
+# Ignoring stopword list
 
 By default, all Full-Text Search indexes check the [stopwords list](https://dev.mysql.com/doc/refman/8.0/en/fulltext-stopwords.html), to see if any indexed elements contain words on that list.
 
@@ -24,7 +24,7 @@ FTS, `innodb_ft_min_token_size` / `innodb_ft_max_token_size` will be
 ignored meaning that in this case very short and very long words will
 also be indexed.
 
-## System Variables
+## System variables
 
 ### `innodb_ft_ignore_stopwords`
 

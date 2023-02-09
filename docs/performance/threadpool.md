@@ -1,4 +1,4 @@
-# Thread Pool
+# Thread pool
 
 *MySQL* executes statements using one thread per client connection. Once the number of connections increases past a certain point performance will degrade.
 
@@ -48,15 +48,15 @@ What happens in this case is that those threads in the pool that have marked the
 
 Such situations are prevented by throttling the low priority queue when the total number of worker threads (both active and waiting ones) reaches the oversubscribe limit. That is, if there are too many worker threads, do not start new transactions and create new threads until queued events from the already started transactions are processed.
 
-## Handling of Long Network Waits
+## Handling of long network waits
 
 Certain types of workloads (large result sets, BLOBs, slow clients) can have longer waits on network I/O (socket reads and writes). Whenever server waits, this should be communicated to the Thread Pool, so it can start new query by either waking a waiting thread or sometimes creating a new one. This implementation has been ported from *MariaDB* patch MDEV-156.
 
-## Version Specific Information
+## Version specific information
 
 * 8.0.12-1: `Thread Pool` feature was ported from *Percona Server for MySQL* 5.7.
 
-## System Variables
+## System variables
 
 ### `thread_pool_idle_timeout`
 
@@ -205,7 +205,7 @@ can be used with the extra_port variable to access the server in
 case no new connections can be established due to all worker threads being busy
 or being locked when `pool-of-threads` feature is enabled.
 
-## Status Variables
+## Status variables
 
 ### `Threadpool_idle_threads`
 
@@ -225,8 +225,8 @@ This status variable shows the number of idle threads in the pool.
 
 This status variable shows the number of threads in the pool.
 
-## Other Reading
+## Other reading
 
 * [Thread pool in MariaDB 5.5](https://kb.askmonty.org/en/threadpool-in-55/)
 
-* [Thread pool implementation in Oracle MySQL](http://mikaelronstrom.blogspot.com/2011_10_01_archive.html)
+* [Thread pool implementation in Oracle MySQL](https://mikaelronstrom.blogspot.com/2011_10_01_archive.html)

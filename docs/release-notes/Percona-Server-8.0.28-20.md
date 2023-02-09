@@ -15,7 +15,7 @@ delivers more value to *MySQL* server users with optimized performance,
 greater performance scalability and availability, enhanced backups, and
 increased visibility. [Commercial support contracts are available](https://www.percona.com/services/support/mysql-support).
 
-## Release Highlights
+## Release highlights
 
 New features and improvements introduced in *Percona Server for MySQL* 8.0.28-20:
 
@@ -39,7 +39,7 @@ Other improvements and bug fixes introduced by Oracle for *MySQL* 8.0.28 and inc
 
 Find the full list of bug fixes and changes in the [MySQL 8.0.28 Release Notes](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-28.html).
 
-## New Features
+## New features
 
 * [PS-7044](https://jira.percona.com/browse/PS-7044): Implements support for [encryption user-defined functions (UDFs) for OpenSSL](https://www.percona.com/doc/percona-server/8.0/security/encryption-functions.html).
 

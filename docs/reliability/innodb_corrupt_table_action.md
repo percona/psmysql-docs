@@ -1,4 +1,4 @@
-# Handle Corrupted Tables
+# Handle corrupted tables
 
 When a server subsystem tries to access a corrupted table,
 the server may crash.
@@ -25,11 +25,11 @@ from the MySQL Reference Manual.
 
 This feature adds a new system variable.
 
-## Version Specific Information
+## Version specific information
 
 * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
-## System Variables
+## System variables
 
 ### `innodb_corrupt_table_action`
 

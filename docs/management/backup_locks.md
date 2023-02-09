@@ -1,4 +1,4 @@
-# Backup Locks
+# Backup locks
 
 *Percona Server for MySQL* offers the `LOCK TABLES FOR BACKUP` statement as a
 lightweight alternative to `FLUSH TABLES WITH READ LOCK` for both physical and
@@ -34,11 +34,13 @@ non-transactional tables). It never waits for SELECTs, or UPDATEs to *InnoDB* or
 If an “unsafe” statement is executed in the same connection that is holding a
 `LOCK TABLES FOR BACKUP` lock, it fails with the following error:
 
-```text
-ERROR 1880 (HY000): Can't execute the query because you have a conflicting backup lock
+??? example "Expected output"
 
-UNLOCK TABLES releases the lock acquired by LOCK TABLES FOR BACKUP.
-```
+    ```text
+    ERROR 1880 (HY000): Can't execute the query because you have a conflicting backup lock
+
+    UNLOCK TABLES releases the lock acquired by LOCK TABLES FOR BACKUP.
+    ```
 
 The intended use case for *Percona XtraBackup* is:
 
@@ -111,7 +113,7 @@ an error.
 If the backup locks feature is not supported by the target server, but
 [lock-for-backup](#backup-locks) is specified on the command line, `mysqldump` aborts with an error.
 
-## Version Specific Information
+## Version specific information
 
 * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
@@ -133,7 +135,7 @@ locking strategy can be implemented for a server. When available, the backup
 locks feature is supported by the server and the variable value is always
 `YES`.
 
-## Status Variables
+## Status variables
 
 ### `Com_lock_tables_for_backup`
 
@@ -145,7 +147,7 @@ locks feature is supported by the server and the variable value is always
 This status variable indicates the number of times the corresponding statements
 have been executed.
 
-## Client Command Line Parameter
+## Client command line parameter
 
 ### `lock-for-backup`
 

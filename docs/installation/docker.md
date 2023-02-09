@@ -12,18 +12,18 @@ You can start a background container with the `--detached` or `-d` option, which
 The following example starts a container named `ps` with the latest version of
 *Percona Server for MySQL* 8.0. This action also creates the `root` user and uses `root` as the password. Please note that `root` is not a secure password. 
 
-```shell
+```{.bash data-prompt="$"}
 $ docker run -d \
   --name ps \
   -e MYSQL_ROOT_PASSWORD=root \
   percona/percona-server:8.0
 ```
-The output should be similar to the following:
+??? example "Expected output"
 
-```text
-Unable to find image 'percona/percona-server:8.0' locally
-8.0: Pulling from percona/percona-server
-```
+    ```{.text .no-copy}
+    Unable to find image 'percona/percona-server:8.0' locally
+    8.0: Pulling from percona/percona-server
+    ```
 
 By default, Docker pulls the image from Docker Hub if it is not
 available locally.
@@ -33,18 +33,18 @@ To view the container's logs, use the following command:
 ```shell
 docker logs ps --follow
 ```
-The output should resemble the following:
+??? example "Expected output"
 
-```text
-Initializing database
-2022-09-07T15:20:03.158128Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.0.29-21) initializing of server in progress as process 15
-2022-09-07T15:20:03.167764Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
-2022-09-07T15:20:03.530600Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
-2022-09-07T15:20:04.367600Z 0 [Warning] [MY-013829] [Server] Missing data directory for ICU regular expressions: /usr/lib64/mysql/private/.
-...
-2022-09-07T15:20:13.706090Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/lib/mysql/mysqlx.sock
-2022-09-07T15:20:13.706136Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.29-21'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona Server (GPL), Release 21, Revision c59f87d2854.
-```
+    ```{.text .no-copy}
+    Initializing database
+    2022-09-07T15:20:03.158128Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.0.29-21) initializing of server in progress as process 15
+    2022-09-07T15:20:03.167764Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+    2022-09-07T15:20:03.530600Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+    2022-09-07T15:20:04.367600Z 0 [Warning] [MY-013829] [Server] Missing data directory for ICU regular expressions: /usr/lib64/mysql/private/.
+    ...
+    2022-09-07T15:20:13.706090Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/lib/mysql/mysqlx.sock
+    2022-09-07T15:20:13.706136Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.29-21'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona Server (GPL), Release 21, Revision c59f87d2854.
+    ```
 You can access the server when you see the `ready for connections` information in the log.
  
 ## Passing Options
@@ -81,14 +81,14 @@ You can view the error log with the following command:
 ```shell
 [mysql@ps] $ more /var/log/mysql/error.log
 ```
-The output could be the following:
+??? example "Expected output"
 
-```text
-...
-2017-08-29T04:20:22.190474Z 0 [Warning] 'NO_ZERO_DATE', 'NO_ZERO_IN_DATE' and 'ERROR_FOR_DIVISION_BY_ZERO' sql modes should be used with strict mode. They will be merged with strict mode in a future release.
-2017-08-29T04:20:22.190520Z 0 [Warning] 'NO_AUTO_CREATE_USER' sql mode was not set.
-...
-```
+    ```{.text .no-copy}
+    ...
+    2017-08-29T04:20:22.190474Z 0 [Warning] 'NO_ZERO_DATE', 'NO_ZERO_IN_DATE' and 'ERROR_FOR_DIVISION_BY_ZERO' sql modes should be used with strict mode. They will be merged with strict mode in a future release.
+    2017-08-29T04:20:22.190520Z 0 [Warning] 'NO_AUTO_CREATE_USER' sql mode was not set.
+    ...
+    ```
 
 ## Accessing the database 
 
@@ -96,18 +96,18 @@ You can access the database either with `Docker exec` or using the `mysql` comma
 
 An example of using `Docker exec` to access the database:
 
-```shell
+```{.bash data-prompt="$"}
 $ docker exec -ti ps mysql -uroot -proot
 ```
 
-The output should be similar to the following:
+??? example "Expected output"
 
-```text
-mysql: [Warning] Using a password on the command line interface can be insecure.
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 9
-...
-```
+    ```{.text .no-copy}   
+    mysql: [Warning] Using a password on the command line interface can be insecure.
+    Welcome to the MySQL monitor.  Commands end with ; or \g.
+    Your MySQL connection id is 9
+    ...
+    ```
 
 Exiting Percona Server also exits the container.
 
@@ -116,25 +116,25 @@ You can also run the MySQL command-line client within the container's shell to a
 ```shell
 [mysql@ps] $ mysql -uroot -proot
 ```
-The output could be the following:
 
-```text
-mysql: [Warning] Using a password on the command line interface can be insecure.
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 8
-Server version: 8.0.29-21 Percona Server (GPL), Release 21, Revision c59f87d2854
+??? example "Expected output"
 
-Copyright (c) 2009-2022 Percona LLC and/or its affiliates
-Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+    ```{.text .no-copy}
+    mysql: [Warning] Using a password on the command line interface can be insecure.
+    Welcome to the MySQL monitor.  Commands end with ; or \g.
+    Your MySQL connection id is 8
+    Server version: 8.0.29-21 Percona Server (GPL), Release 21, Revision c59f87d2854
 
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+    Copyright (c) 2009-2022 Percona LLC and/or its affiliates
+    Copyright (c) 2000, 2022, Oracle and/or its affiliates.
 
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+    Oracle is a registered trademark of Oracle Corporation and/or its
+    affiliates. Other names may be trademarks of their respective
+    owners.
 
-mysql>
-```
+    Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+    ```
 
 ## Accessing the server from an application in another container
 
@@ -229,13 +229,13 @@ If you have a non-shell process running, interrupt the process with `CTRL-C` bef
 
 The [docker stop](https://docs.docker.com/engine/reference/commandline/stop/) container command sends a TERM signal, then waits 10 seconds and sends a KILL signal. The following example stops the `ps` container:
 
-```shell
+```{.bash data-prompt="$"}
 $ docker stop ps
 ```
 
 The default length of time before stopping a container is 10 seconds. A very large instance cannot dump the data from memory to disk within that time. With this type of instance, add the `--time` or the `-t` option to docker stop:
 
-```shell
+```{.bash data-prompt="$"}
 $ docker stop ps -t 600
 ```
 
@@ -243,7 +243,7 @@ $ docker stop ps -t 600
 
 To remove a stopped container, use the `docker rm` command.
 
-```shell
+```{.bash data-prompt="$"}
 $ docker rm ps
 ```
 ## For more information

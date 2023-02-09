@@ -1,4 +1,4 @@
-# Manage Group Replication flow control
+# Manage group replication flow control
 
 In replication, flow control prevents one member from falling too far behind the cluster and avoids excessive buffering. A cluster is not required to keep members in sync together for replication. The pending transactions in the relay log only increase for the lagging replica. Each member sends statistics to the group.
 

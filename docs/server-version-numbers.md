@@ -25,7 +25,7 @@ Percona uses semantic version numbering, which follows the pattern of base versi
 
 The version numbers for Percona Server for MySQL 8.0.29-21 define the following information:
 
-* Base version - the leftmost numbers indicate [MySQL 8.0](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/) version used as a base. An increase in base version resets the minor build version to 0.
+* Base version - the leftmost numbers indicate [MySQL 8.0](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/) version used as a base. 
 
 * Minor build version - an internal number that increases by one every time Percona Server for MySQL is released.
 

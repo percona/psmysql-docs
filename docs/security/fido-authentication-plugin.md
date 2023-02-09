@@ -1,6 +1,9 @@
 # FIDO authentication plugin
 
-The FIDO Authentication plugin is a [tech preview](../glossary.md#tech-preview) feature. Before using the plugin in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+!!! important
+
+    {% include './snippets/tech-preview/_tech-preview-feature.md'%}
+
 
 *Percona Server for MySQL 8.0.30-22* adds support for the Fast Identify Online (FIDO) authentication method that uses a plugin. The FIDO authentication provides a set of standards that reduces the reliance on passwords.
 
@@ -38,8 +41,8 @@ The library file must be stored in the directory named by the [`plugin_dir`](htt
 
 === "Load the plugin at runtime"
 
-    ```sql
-        mysql> INSTALL PLUGIN authentication_fido SONAME `authentication_fido.so`;
+    ```{.bash data-prompt="mysql>"}
+    mysql> INSTALL PLUGIN authentication_fido SONAME `authentication_fido.so`;
     ```
 
 ### Verify installation
@@ -80,7 +83,7 @@ You must include the `INITIAL AUTHENTICATION IDENTIFIED BY` clause in the `CREAT
 
 The `CREATE USER` syntax is the following:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE USER <username>@<hostname> IDENTIFIED WITH authentication_fido INITIAL AUTHENTICATION IDENTIFIED BY '<password>';
 ```
 
@@ -97,6 +100,6 @@ If the FIDO device is replaced or lost, the following actions occur:
 
 The statement to unregister a device is as follows:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> ALTER USER `username`@`hostname` {2|3} FACTOR UNREGISTER;
 ```

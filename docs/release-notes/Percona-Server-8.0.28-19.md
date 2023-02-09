@@ -15,7 +15,7 @@ delivers more value to *MySQL* server users with optimized performance,
 greater performance scalability and availability, enhanced backups, and
 increased visibility. [Commercial support contracts are available](https://www.percona.com/services/support/mysql-support).
 
-## Release Highlights
+## Release highlights
 
 Improvements and bug fixes introduced by Oracle for *MySQL* 8.0.28 and included in Percona Server for MySQL are the following:
 

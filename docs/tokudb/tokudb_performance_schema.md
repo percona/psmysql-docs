@@ -1,4 +1,4 @@
-# TokuDB Performance Schema Integration
+# TokuDB Performance Schema integration
 
 !!! important
 

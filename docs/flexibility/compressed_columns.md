@@ -13,11 +13,9 @@ data items.
 
 This feature provides:
 
-
 * a better compression ratio for text data which consists of a large number of
 predefined words (e.g. JSON or XML) using compression methods with static
 dictionaries
-
 
 * a way to select columns in the table to compress (in contrast to the *InnoDB*
 row compression method). This feature is based on a patch provided by Weixiang Zhai.
@@ -27,18 +25,13 @@ row compression method). This feature is based on a patch provided by Weixiang Z
 The feature is limited to InnoDB/XtraDB storage engine and to columns of the
 following data types:
 
-
 * `BLOB` (including `TINYBLOB`, `MEDIUMBLOB`, `LONGBLOG`)
-
 
 * `TEXT` (including `TINYTEXT`, `MEDUUMTEXT`, `LONGTEXT`)
 
-
 * `VARCHAR` (including `NATIONAL VARCHAR`)
 
-
 * `VARBINARY`
-
 
 * `JSON`
 
@@ -48,19 +41,14 @@ applied to an unsupported column type or storage engine, an error is returned.
 
 The compression can be specified:
 
+* when creating a table: `CREATE TABLE ... (..., foo BLOB COLUMN_FORMAT COMPRESSED, ...);`
 
-* when creating a table:
-`CREATE TABLE ... (..., foo BLOB COLUMN_FORMAT COMPRESSED, ...);`
-
-
-* when altering a table and modifying a column to the compressed format:
-`ALTER TABLE ... MODIFY [COLUMN] ... COLUMN_FORMAT COMPRESSED`, or
-`ALTER TABLE ... CHANGE [COLUMN] ... COLUMN_FORMAT COMPRESSED`.
+* when altering a table and modifying a column to the compressed format: `ALTER TABLE ... MODIFY [COLUMN] ... COLUMN_FORMAT COMPRESSED`, or `ALTER TABLE ... CHANGE [COLUMN] ... COLUMN_FORMAT COMPRESSED`.
 
 Unlike Oracle MySQL, compression is applicable to generated stored columns. Use
 this syntax extension as follows:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE TABLE t1(
        id INT,
        a BLOB,
@@ -110,30 +98,30 @@ values >= `3`, they are forbidden.
 In order to use the compression dictionary, you need to create it. This
 can be done by running:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SET @dictionary_data = 'one' 'two' 'three' 'four';
 ```
 
-The output should look like this:
+??? example "Expected output"
 
-```text
-Query OK, 0 rows affected (0.00 sec)
-```
+    ```{.text .no-copy}
+    Query OK, 0 rows affected (0.00 sec)
+    ```
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE COMPRESSION_DICTIONARY numbers (@dictionary_data);
 ```
 
-The output should look like this:
+??? example "Expected output"
 
-```text
-Query OK, 0 rows affected (0.00 sec)
-```
+    ```{.text .no-copy}
+    Query OK, 0 rows affected (0.00 sec)
+    ```
 
 To create a table that has both compression and compressed dictionary support
 you should run:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE TABLE t1(
         id INT,
         a BLOB COLUMN_FORMAT COMPRESSED,
@@ -174,7 +162,7 @@ SET @json_value =
 ;
 ```
 
-```
+```{.bash data-prompt="mysql>"}
 mysql> INSERT INTO t1 VALUES(0, @json_value, @json_value);
 Query OK, 1 row affected (0.01 sec)
 ```
@@ -269,11 +257,11 @@ skip-add-drop-compression-dictionary options).
 /*!50633 CREATE COMPRESSION_DICTIONARY IF NOT EXISTS <dictionary>(...); */
 ```
 
-## Version Specific Information
+## Version specific information
 
 * Percona Server for MySQL 8.0.13-3: The feature was ported from *Percona Server for MySQL* 5.7.
 
-## System Variables
+## System variables
 
 ### `innodb_compressed_columns_zip_level`
 

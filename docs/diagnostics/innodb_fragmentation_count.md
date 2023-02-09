@@ -1,4 +1,4 @@
-# InnoDB Page Fragmentation Counters
+# InnoDB page fragmentation counters
 
 *InnoDB* page fragmentation is caused by random insertion or deletion from a
 secondary index. This means that the physical ordering of the index pages on
@@ -13,11 +13,11 @@ Innodb_scan_pages_disjointed, Innodb_scan_data_size,
 Innodb_scan_deleted_recs_size, and
 Innodb_scan_pages_total_seek_distance.
 
-## Version Specific Information
+## Version specific information
 
 * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7
 
-## Status Variables
+## Status variables
 
 ### `Innodb_scan_pages_contiguous`
 
@@ -71,10 +71,8 @@ PAGE_GARBAGE)` for every page scanned.
 
 This variable shows the total seek distance when moving between pages.
 
-## Related Reading
+## Related reading
 
-> 
-> * [InnoDB: look after fragmentation](https://www.percona.com/blog/2009/11/05/innodb-look-after-fragmentation/)
+* [InnoDB: look after fragmentation](https://www.percona.com/blog/2009/11/05/innodb-look-after-fragmentation/)
 
-
-> * [Defragmenting a Table](https://dev.mysql.com/doc/refman/8.0/en/innodb-file-defragmenting.html)
+* [Defragmenting a Table](https://dev.mysql.com/doc/refman/8.0/en/innodb-file-defragmenting.html)

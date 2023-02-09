@@ -24,7 +24,7 @@ increased visibility. [Commercial support contracts are available](https://www.p
 
 Percona integrates a ZenFS RocksDB plugin to Percona Server for MySQL. This
 plugin places files on a raw zoned block device (ZBD) using the MyRocks File
-System interface. Percona provides a binary release for [Debian 11.1](https://www.debian.org/releases/bullseye/debian-installer/index). [Other Linux distributions](https://zonedstorage.io/docs/distributions/linux/) are adding support for ZenFS, but Percona does not offer installation packages for those distributions yet. The `libzbd` package is now linked statically to the RocksDB storage engine.
+System interface. Percona provides a binary release for [Debian 11.1](https://www.debian.org/releases/bullseye/debian-installer/index). [Other Linux distributions](https://zonedstorage.io/docs/distributions/overview) are adding support for ZenFS, but Percona does not offer installation packages for those distributions yet. The `libzbd` package is now linked statically to the RocksDB storage engine.
 
 The following dependency libraries are updated to newer versions:
 

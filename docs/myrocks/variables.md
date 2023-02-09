@@ -1,199 +1,194 @@
-# MyRocks Server Variables
+# MyRocks server variables
 
 The MyRocks server variables expose configuration of the underlying RocksDB
-engine.  There several ways to set these variables:
+engine. There several ways to set these variables:
 
-* For production deployments,
-you should have all variables defined in the configuration file.
+* For production deployments, you should have all variables defined in the configuration file.
 
 * *Dynamic* variables can be changed at runtime using the `SET` statement.
 
-* If you want to test things out, you can set some of the variables
-when starting `mysqld` using corresponding command-line options.
+* If you want to test things out, you can set some of the variables when starting `mysqld` using corresponding command-line options.
 
-If a variable was not set in either the configuration file
-or as a command-line option,
-the default value is used.
+If a variable was not set in either the configuration file or as a command-line option, the default value is used.
 
 Also, all variables can exist in one or both of the following scopes:
 
 * *Global* scope defines how the variable affects overall server operation.
 
-* *Session* scope defines how the variable affects operation
-for individual client connections.
+* *Session* scope defines how the variable affects operation for individual client connections.
 
-| Variable Name                                                                                           |
-|---------------------------------------------------------------------------------------------------------|
-| [`rocksdb_access_hint_on_compaction_start`](#rocksdb_access_hint_on_compaction_start)                   |
-| [`rocksdb_advise_random_on_open`](#rocksdb_advise_random_on_open)                                       |
-| [`rocksdb_allow_concurrent_memtable_write`](#rocksdb_allow_concurrent_memtable_write)                   |
-| [`rocksdb_allow_to_start_after_corruption`](#rocksdb_allow_to_start_after_corruption)                   |
-| [`rocksdb_allow_mmap_reads`](#rocksdb_allow_mmap_reads)                                                 |
-| [`rocksdb_allow_mmap_writes`](#rocksdb_allow_mmap_writes)                                               | 
-| [`rocksdb_allow_unsafe_alter`](#rocksdb_allow_unsafe_alter)                                             |
-| [`rocksdb_alter_column_default_inplace`](#rocksdb_alter_column_default_inplace)                         |
-| [`rocksdb_base_background_compactions`](#rocksdb_base_background_compactions)                           |
-| [`rocksdb_blind_delete_primary_key`](#rocksdb_blind_delete_primary_key)                                 |
-| [`rocksdb_block_cache_size`](#rocksdb_block_cache_size)                                                 |
-| [`rocksdb_bulk_load_partial_index`](#rocksdb_bulk_load_partial_index)                                   |
-| [`rocksdb_block_restart_interval`](#rocksdb_block_restart_interval)                                     |
-| [`rocksdb_block_size`](#rocksdb_block_size)                                                             |
-| [`rocksdb_block_size_deviation`](#rocksdb_block_size_deviation)                                         |
-| [`rocksdb_bulk_load`](#rocksdb_bulk_load)                                                               |
-| [`rocksdb_bulk_load_allow_sk`](#rocksdb_bulk_load_allow_sk)                                             |
-| [`rocksdb_bulk_load_allow_unsorted`](#rocksdb_bulk_load_allow_unsorted)                                 |
-| [`rocksdb_bulk_load_size`](#rocksdb_bulk_load_size)                                                     |
-| [`rocksdb_bytes_per_sync`](#rocksdb_bytes_per_sync)                                                     |
-| [`rocksdb_cache_dump`](#rocksdb_cache_dump)                                                             |
-| [`rocksdb_cache_high_pri_pool_ratio`](#rocksdb_cache_high_pri_pool_ratio)                               |
-| [`rocksdb_cache_index_and_filter_blocks`](#rocksdb_cache_index_and_filter_blocks)                       |
+| Variable Name                                                                                            |
+|----------------------------------------------------------------------------------------------------------|
+| [`rocksdb_access_hint_on_compaction_start`](#rocksdb_access_hint_on_compaction_start)                    |
+| [`rocksdb_advise_random_on_open`](#rocksdb_advise_random_on_open)                                        |
+| [`rocksdb_allow_concurrent_memtable_write`](#rocksdb_allow_concurrent_memtable_write)                    |
+| [`rocksdb_allow_to_start_after_corruption`](#rocksdb_allow_to_start_after_corruption)                    |
+| [`rocksdb_allow_mmap_reads`](#rocksdb_allow_mmap_reads)                                                  |
+| [`rocksdb_allow_mmap_writes`](#rocksdb_allow_mmap_writes)                                                | 
+| [`rocksdb_allow_unsafe_alter`](#rocksdb_allow_unsafe_alter)                                              |
+| [`rocksdb_alter_column_default_inplace`](#rocksdb_alter_column_default_inplace)                          |
+| [`rocksdb_base_background_compactions`](#rocksdb_base_background_compactions)                            |
+| [`rocksdb_blind_delete_primary_key`](#rocksdb_blind_delete_primary_key)                                  |
+| [`rocksdb_block_cache_size`](#rocksdb_block_cache_size)                                                  |
+| [`rocksdb_bulk_load_partial_index`](#rocksdb_bulk_load_partial_index)                                    |
+| [`rocksdb_block_restart_interval`](#rocksdb_block_restart_interval)                                      |
+| [`rocksdb_block_size`](#rocksdb_block_size)                                                              |
+| [`rocksdb_block_size_deviation`](#rocksdb_block_size_deviation)                                          |
+| [`rocksdb_bulk_load`](#rocksdb_bulk_load)                                                                |
+| [`rocksdb_bulk_load_allow_sk`](#rocksdb_bulk_load_allow_sk)                                              |
+| [`rocksdb_bulk_load_allow_unsorted`](#rocksdb_bulk_load_allow_unsorted)                                  |
+| [`rocksdb_bulk_load_size`](#rocksdb_bulk_load_size)                                                      |
+| [`rocksdb_bytes_per_sync`](#rocksdb_bytes_per_sync)                                                      |
+| [`rocksdb_cache_dump`](#rocksdb_cache_dump)                                                              |
+| [`rocksdb_cache_high_pri_pool_ratio`](#rocksdb_cache_high_pri_pool_ratio)                                |
+| [`rocksdb_cache_index_and_filter_blocks`](#rocksdb_cache_index_and_filter_blocks)                        |
 | [`rocksdb_cache_index_and_filter_with_high_priority`](#rocksdb_cache_index_and_filter_with_high_priority)|
-| [`rocksdb_cancel_manual_compactions`](#rocksdb_cancel_manual_compactions)                               |
-| [`rocksdb_checksums_pct`](#rocksdb_checksums_pct)                                                       |
-| [`rocksdb_collect_sst_properties`](#rocksdb_collect_sst_properties)                                     |
-| [`rocksdb_commit_in_the_middle`](#rocksdb_commit_in_the_middle)                                         |
-| [`rocksdb_commit_time_batch_for_recovery`](#rocksdb_commit_time_batch_for_recovery)                     |
-| [`rocksdb_compact_cf`](#rocksdb_compact_cf)                                                             |
-| [`rocksdb_compaction_readahead_size`](#rocksdb_compaction_readahead_size)                               |
-| [`rocksdb_compaction_sequential_deletes`](#rocksdb_compaction_sequential_deletes)                       |
-| [`rocksdb_compaction_sequential_deletes_count_sd`](#rocksdb_compaction_sequential_deletes_count_sd)     |
-| [`rocksdb_compaction_sequential_deletes_file_size`](#rocksdb_compaction_sequential_deletes_file_size)   |
-| [`rocksdb_compaction_sequential_deletes_window`](#rocksdb_compaction_sequential_deletes_window)         |
-| [`rocksdb_concurrent_prepare`](#rocksdb_concurrent_prepare)                                             |
-| [`rocksdb_create_checkpoint`](#rocksdb_create_checkpoint)                                               |
-| [`rocksdb_create_if_missing`](#rocksdb_create_if_missing)                                               |
-| [`rocksdb_create_missing_column_families`](#rocksdb_create_missing_column_families)                     |
-| [`rocksdb_create_temporary_checkpoint`](#rocksdb_create_temporary_checkpoint)                           |
-| [`rocksdb_datadir`](#rocksdb_datadir)                                                                   |
-| [`rocksdb_db_write_buffer_size`](#rocksdb_db_write_buffer_size)                                         |
-| [`rocksdb_deadlock_detect`](#rocksdb_deadlock_detect)                                                   |
-| [`rocksdb_deadlock_detect_depth`](#rocksdb_deadlock_detect_depth)                                       |
-| [`rocksdb_debug_cardinality_multipler`](#rocksdb_debug_cardinality_multiplier)                          |
-| [`rocksdb_debug_manual_compaction_delay`](#rocksdb_debug_manual_compaction_delay)                       |
-| [`rocksdb_debug_optimizer_no_zero_cardinality`](#rocksdb_debug_optimizer_no_zero_cardinality)           |
-| [`rocksdb_debug_ttl_ignore_pk`](#rocksdb_debug_ttl_ignore_pk)                                           |
-| [`rocksdb_debug_ttl_read_filter_ts`](#rocksdb_debug_ttl_read_filter_ts)                                 |
-| [`rocksdb_debug_ttl_rec_ts`](#rocksdb_debug_ttl_rec_ts)                                                 |
-| [`rocksdb_debug_ttl_snapshot_ts`](#rocksdb_debug_ttl_snapshot_ts)                                       |
-| [`rocksdb_default_cf_options`](#rocksdb_default_cf_options)                                             |
-| [`rocksdb_delayed_write_rate`](#rocksdb_delayed_write_rate)                                             |
-| [`rocksdb_delete_cf`](#rocksdb_delete_cf)                                                               |
-| [`rocksdb_delete_obsolete_files_period_micros`](#rocksdb_delete_obsolete_files_period_micros)           |
-| [`rocksdb_disable_file_deletions`](#rocksdb_disable_file_deletions)                                     |
-| [`rocksdb_enable_bulk_load_api`](#rocksdb_enable_bulk_load_api)                                         |
-| [`rocksdb_enable_insert_with_update_caching`](#rocksdb_enable_insert_with_update_caching)               |
-| [`rocksdb_enable_iterate_bounds`](#rocksdb_enable_iterate_bounds)                                       |
-| [`rocksdb_enable_pipelined_write`](#rocksdb_enable_pipelined_write)                                     |
-| [`rocksdb_enable_remove_orphaned_dropped_cfs`](#rocksdb_enable_remove_orphaned_dropped_cfs)             |
-| [`rocksdb_enable_ttl`](#rocksdb_enable_ttl)                                                             |
-| [`rocksdb_enable_ttl_read_filtering`](#rocksdb_enable_ttl_read_filtering)                               |
-| [`rocksdb_enable_thread_tracking`](#rocksdb_enable_thread_tracking)                                     |
-| [`rocksdb_enable_write_thread_adaptive_yield`](#rocksdb_enable_write_thread_adaptive_yield)             |
-| [`rocksdb_error_if_exists`](#rocksdb_error_if_exists)                                                   |
-| [`rocksdb_error_on_suboptimal_collation`](#rocksdb_error_on_suboptimal_collation)                       |
-| [`rocksdb_flush_log_at_trx_commit`](#rocksdb_flush_log_at_trx_commit)                                   |
-| [`rocksdb_flush_memtable_on_analyze`](#rocksdb_flush_memtable_on_analyze)                               |
-| [`rocksdb_force_compute_memtable_stats`](#rocksdb_force_compute_memtable_stats)                         |
-| [`rocksdb_force_compute_memtable_stats_cachetime`](#rocksdb_force_compute_memtable_stats_cachetime)     |
-| [`rocksdb_force_flush_memtable_and_lzero_now`](#rocksdb_force_flush_memtable_and_lzero_now)             |
-| [`rocksdb_force_flush_memtable_now`](#rocksdb_force_flush_memtable_now)                                 |
-| [`rocksdb_force_index_records_in_range`](#rocksdb_force_index_records_in_range)                         |
-| [`rocksdb_hash_index_allow_collision`](#rocksdb_hash_index_allow_collision)                             |
-| [`rocksdb_ignore_unknown_options`](#rocksdb_ignore_unknown_options)                                     |
-| [`rocksdb_index_type`](#rocksdb_index_type)                                                             |
-| [`rocksdb_info_log_level`](#rocksdb_info_log_level)                                                     |
-| [`rocksdb_is_fd_close_on_exec`](#rocksdb_is_fd_close_on_exec)                                           |
-| [`rocksdb_keep_log_file_num`](#rocksdb_keep_log_file_num)                                               |
-| [`rocksdb_large_prefix`](#rocksdb_large_prefix)                                                         |
-| [`rocksdb_lock_scanned_rows`](#rocksdb_lock_scanned_rows)                                               |
-| [`rocksdb_lock_wait_timeout`](#rocksdb_lock_wait_timeout)                                               |
-| [`rocksdb_log_file_time_to_roll`](#rocksdb_log_file_time_to_roll)                                       |
-| [`rocksdb_manifest_preallocation_size`](#rocksdb_manifest_preallocation_size)                           |
-| [`rocksdb_manual_compaction_bottommost_level`](#rocksdb_manual_compaction_bottommost_level)             |
-| [`rocksdb_manual_compaction_threads`](#rocksdb_manual_compaction_threads)                               |
-| [`rocksdb_manual_wal_flush`](#rocksdb_manual_wal_flush)                                                 |
-| [`rocksdb_master_skip_tx_api`](#rocksdb_master_skip_tx_api)                                             |
-| [`rocksdb_max_background_compactions`](#rocksdb_max_background_compactions)                             |
-| [`rocksdb_max_background_flushes`](#rocksdb_max_background_flushes)                                     |
-| [`rocksdb_max_background_jobs`](#rocksdb_max_background_jobs)                                           |
-| [`rocksdb_max_bottom_pri_background_compactions`](#rocksdb_max_bottom_pri_background_compactions)       |
-| [`rocksdb_max_compaction_history`](#rocksdb_max_compaction_history)                                     |
-| [`rocksdb_max_latest_deadlocks`](#rocksdb_max_latest_deadlocks)                                         |
-| [`rocksdb_max_log_file_size`](#rocksdb_max_log_file_size)                                               |
-| [`rocksdb_max_manifest_file_size`](#rocksdb_max_manifest_file_size)                                     |
-| [`rocksdb_max_manual_compactions`](#rocksdb_max_manual_compactions)                                     |
-| [`rocksdb_max_open_files`](#rocksdb_max_open_files)                                                     |
-| [`rocksdb_max_row_locks`](#rocksdb_max_row_locks)                                                       |
-| [`rocksdb_max_subcompactions`](#rocksdb_max_subcompactions)                                             |
-| [`rocksdb_max_total_wal_size`](#rocksdb_max_total_wal_size)                                             |
-| [`rocksdb_merge_buf_size`](#rocksdb_merge_buf_size)                                                     |
-| [`rocksdb_merge_combine_read_size`](#rocksdb_merge_combine_read_size)                                   |
-| [`rocksdb_merge_tmp_file_removal_delay_ms`](#rocksdb_merge_tmp_file_removal_delay_ms)                   |
-| [`rocksdb_new_table_reader_for_compaction_inputs`](#rocksdb_new_table_reader_for_compaction_inputs)     |
-| [`rocksdb_no_block_cache`](#rocksdb_no_block_cache)                                                     |
-| [`rocksdb_no_create_column_family`](#rocksdb_no_create_column_family)                                   |
-| [`rocksdb_override_cf_options`](#rocksdb_override_cf_options)                                           |
-| [`rocksdb_paranoid_checks`](#rocksdb_paranoid_checks)                                                   |
-| [`rocksdb_partial_index_sort_max_mem`](#rocksdb_partial_index_sort_max_mem)                             |
-| [`rocksdb_pause_background_work`](#rocksdb_pause_background_work)                                       |
-| [`rocksdb_perf_context_level`](#rocksdb_perf_context_level)                                             |
-| [`rocksdb_persistent_cache_path`](#rocksdb_persistent_cache_path)                                       |
-| [`rocksdb_persistent_cache_size_mb`](#rocksdb_persistent_cache_size_mb)                                 |
-| [`rocksdb_pin_l0_filter_and_index_blocks_in_cache`](#rocksdb_pin_l0_filter_and_index_blocks_in_cache)   |
-| [`rocksdb_print_snapshot_conflict_queries`](#rocksdb_print_snapshot_conflict_queries)                   |
-| [`rocksdb_rate_limiter_bytes_per_sec`](#rocksdb_rate_limiter_bytes_per_sec)                             |
-| [`rocksdb_read_free_rpl`](#rocksdb_read_free_rpl)                                                       |
-| [`rocksdb_read_free_rpl_tables`](#rocksdb_read_free_rpl_tables)                                         |
-| [`rocksdb_records_in_range`](#rocksdb_records_in_range)                                                 |
-| [`rocksdb_reset_stats`](#rocksdb_reset_stats)                                                           |
-| [`rocksdb_rollback_on_timeout`](#rocksdb_rollback_on_timeout)                                           |
-| [`rocksdb_rpl_skip_tx_api`](#rocksdb_rpl_skip_tx_api)                                                   |
-| [`rocksdb_seconds_between_stat_computes`](#rocksdb_seconds_between_stat_computes)                       |
-| [`rocksdb_signal_drop_index_thread`](#rocksdb_signal_drop_index_thread)                                 |
-| [`rocksdb_sim_cache_size`](#rocksdb_sim_cache_size)                                                     |
-| [`rocksdb_skip_bloom_filter_on_read`](#rocksdb_skip_bloom_filter_on_read)                               |
-| [`rocksdb_skip_fill_cache`](#rocksdb_skip_fill_cache)                                                   |
-| [`rocksdb_skip_locks_if_skip_unique_check`](#rocksdb_skip_locks_if_skip_unique_check)                   |
-| [`rocksdb_sst_mgr_rate_bytes_per_sec`](#rocksdb_sst_mgr_rate_bytes_per_sec)                             |
-| [`rocksdb_stats_dump_period_sec`](#rocksdb_stats_dump_period_sec)                                       |
-| [`rocksdb_stats_level`](#rocksdb_stats_level)                                                           |
-| [`rocksdb_stats_recalc_rate`](#rocksdb_stats_recalc_rate)                                               |
-| [`rocksdb_store_row_debug_checksums`](#rocksdb_store_row_debug_checksums)                               |
-| [`rocksdb_strict_collation_check`](#rocksdb_strict_collation_check)                                     |
-| [`rocksdb_strict_collation_exceptions`](#rocksdb_strict_collation_exceptions)                           |
-| [`rocksdb_table_cache_numshardbits`](#rocksdb_table_cache_numshardbits)                                 |
-| [`rocksdb_table_stats_background_thread_nice_value`](#rocksdb_table_stats_background_thread_nice_value) |
-| [`rocksdb_table_stats_max_num_rows_scanned`](#rocksdb_table_stats_max_num_rows_scanned)                 |
-| [`rocksdb_table_stats_recalc_threshold_count`](#rocksdb_table_stats_recalc_threshold_count)             |
-| [`rocksdb_table_stats_recalc_threshold_pct`](#rocksdb_table_stats_recalc_threshold_pct)                 |
-| [`rocksdb_table_stats_sampling_pct`](#rocksdb_table_stats_sampling_pct)                                 |
-| [`rocksdb_table_stats_use_table_scan`](#rocksdb_table_stats_use_table_scan)                             |
-| [`rocksdb_tmpdir`](#rocksdb_tmpdir)                                                                     |
-| [`rocksdb_two_write_queues`](#rocksdb_two_write_queues)                                                 |
-| [`rocksdb_trace_block_cache_access`](#rocksdb_trace_block_cache_access)                                 |
-| [`rocksdb_trace_queries`](#rocksdb_trace_queries)                                                       |
-| [`rocksdb_trace_sst_api`](#rocksdb_trace_sst_api)                                                       |
-| [`rocksdb_track_and_verify_wals_in_manifest`](#rocksdb_track_and_verify_wals_in_manifest)               |
-| [`rocksdb_unsafe_for_binlog`](#rocksdb_unsafe_for_binlog)                                               |
-| [`rocksdb_update_cf_options`](#rocksdb_update_cf_options)                                               |
-| [`rocksdb_use_adaptive_mutex`](#rocksdb_use_adaptive_mutex)                                             |
-| [`rocksdb_use_default_sk_cf`](#rocksdb_use_default_sk_cf)                                               |
-| [`rocksdb_use_direct_io_for_flush_and_compaction`](#rocksdb_use_direct_io_for_flush_and_compaction)     |
-| [`rocksdb_use_direct_reads`](#rocksdb_use_direct_reads)                                                 |
-| [`rocksdb_use_fsync`](#rocksdb_use_fsync)                                                               |
-| [`rocksdb_validate_tables`](#rocksdb_validate_tables)                                                   |
-| [`rocksdb_verify_row_debug_checksums`](#rocksdb_verify_row_debug_checksums)                             |
-| [`rocksdb_wal_bytes_per_sync`](#rocksdb_wal_bytes_per_sync)                                             |
-| [`rocksdb_wal_dir`](#rocksdb_wal_dir)                                                                   |
-| [`rocksdb_wal_recovery_mode`](#rocksdb_wal_recovery_mode)                                               |
-| [`rocksdb_wal_size_limit_mb`](#rocksdb_wal_size_limit_mb)                                               |
-| [`rocksdb_wal_ttl_seconds`](#rocksdb_wal_ttl_seconds)                                                   |
-| [`rocksdb_whole_key_filtering`](#rocksdb_whole_key_filtering)                                           |
-| [`rocksdb_write_batch_flush_threshold`](#rocksdb_write_batch_flush_threshold)                           |
-| [`rocksdb_write_batch_max_bytes`](#rocksdb_write_batch_max_bytes)                                       |
-| [`rocksdb_write_disable_wal`](#rocksdb_write_disable_wal)                                               |
-| [`rocksdb_write_ignore_missing_column_families`](#rocksdb_write_ignore_missing_column_families)         |
-| [`rocksdb_write_policy`](#rocksdb_write_policy)                                                         |
+| [`rocksdb_cancel_manual_compactions`](#rocksdb_cancel_manual_compactions)                                |
+| [`rocksdb_checksums_pct`](#rocksdb_checksums_pct)                                                        |
+| [`rocksdb_collect_sst_properties`](#rocksdb_collect_sst_properties)                                      |
+| [`rocksdb_commit_in_the_middle`](#rocksdb_commit_in_the_middle)                                          |
+| [`rocksdb_commit_time_batch_for_recovery`](#rocksdb_commit_time_batch_for_recovery)                      |
+| [`rocksdb_compact_cf`](#rocksdb_compact_cf)                                                              |
+| [`rocksdb_compaction_readahead_size`](#rocksdb_compaction_readahead_size)                                |
+| [`rocksdb_compaction_sequential_deletes`](#rocksdb_compaction_sequential_deletes)                        |
+| [`rocksdb_compaction_sequential_deletes_count_sd`](#rocksdb_compaction_sequential_deletes_count_sd)      |
+| [`rocksdb_compaction_sequential_deletes_file_size`](#rocksdb_compaction_sequential_deletes_file_size)    |
+| [`rocksdb_compaction_sequential_deletes_window`](#rocksdb_compaction_sequential_deletes_window)          |
+| [`rocksdb_concurrent_prepare`](#rocksdb_concurrent_prepare)                                              |
+| [`rocksdb_create_checkpoint`](#rocksdb_create_checkpoint)                                                |
+| [`rocksdb_create_if_missing`](#rocksdb_create_if_missing)                                                |
+| [`rocksdb_create_missing_column_families`](#rocksdb_create_missing_column_families)                      |
+| [`rocksdb_create_temporary_checkpoint`](#rocksdb_create_temporary_checkpoint)                            |
+| [`rocksdb_datadir`](#rocksdb_datadir)                                                                    |
+| [`rocksdb_db_write_buffer_size`](#rocksdb_db_write_buffer_size)                                          |
+| [`rocksdb_deadlock_detect`](#rocksdb_deadlock_detect)                                                    |
+| [`rocksdb_deadlock_detect_depth`](#rocksdb_deadlock_detect_depth)                                        |
+| [`rocksdb_debug_cardinality_multipler`](#rocksdb_debug_cardinality_multiplier)                           |
+| [`rocksdb_debug_manual_compaction_delay`](#rocksdb_debug_manual_compaction_delay)                        |
+| [`rocksdb_debug_optimizer_no_zero_cardinality`](#rocksdb_debug_optimizer_no_zero_cardinality)            |
+| [`rocksdb_debug_ttl_ignore_pk`](#rocksdb_debug_ttl_ignore_pk)                                            |
+| [`rocksdb_debug_ttl_read_filter_ts`](#rocksdb_debug_ttl_read_filter_ts)                                  |
+| [`rocksdb_debug_ttl_rec_ts`](#rocksdb_debug_ttl_rec_ts)                                                  |
+| [`rocksdb_debug_ttl_snapshot_ts`](#rocksdb_debug_ttl_snapshot_ts)                                        |
+| [`rocksdb_default_cf_options`](#rocksdb_default_cf_options)                                              |
+| [`rocksdb_delayed_write_rate`](#rocksdb_delayed_write_rate)                                              |
+| [`rocksdb_delete_cf`](#rocksdb_delete_cf)                                                                |
+| [`rocksdb_delete_obsolete_files_period_micros`](#rocksdb_delete_obsolete_files_period_micros)            |
+| [`rocksdb_disable_file_deletions`](#rocksdb_disable_file_deletions)                                      |
+| [`rocksdb_enable_bulk_load_api`](#rocksdb_enable_bulk_load_api)                                          |
+| [`rocksdb_enable_insert_with_update_caching`](#rocksdb_enable_insert_with_update_caching)                |
+| [`rocksdb_enable_iterate_bounds`](#rocksdb_enable_iterate_bounds)                                        |
+| [`rocksdb_enable_pipelined_write`](#rocksdb_enable_pipelined_write)                                      |
+| [`rocksdb_enable_remove_orphaned_dropped_cfs`](#rocksdb_enable_remove_orphaned_dropped_cfs)              |
+| [`rocksdb_enable_ttl`](#rocksdb_enable_ttl)                                                              |
+| [`rocksdb_enable_ttl_read_filtering`](#rocksdb_enable_ttl_read_filtering)                                |
+| [`rocksdb_enable_thread_tracking`](#rocksdb_enable_thread_tracking)                                      |
+| [`rocksdb_enable_write_thread_adaptive_yield`](#rocksdb_enable_write_thread_adaptive_yield)              |
+| [`rocksdb_error_if_exists`](#rocksdb_error_if_exists)                                                    |
+| [`rocksdb_error_on_suboptimal_collation`](#rocksdb_error_on_suboptimal_collation)                        |
+| [`rocksdb_flush_log_at_trx_commit`](#rocksdb_flush_log_at_trx_commit)                                    |
+| [`rocksdb_flush_memtable_on_analyze`](#rocksdb_flush_memtable_on_analyze)                                |
+| [`rocksdb_force_compute_memtable_stats`](#rocksdb_force_compute_memtable_stats)                          |
+| [`rocksdb_force_compute_memtable_stats_cachetime`](#rocksdb_force_compute_memtable_stats_cachetime)      |
+| [`rocksdb_force_flush_memtable_and_lzero_now`](#rocksdb_force_flush_memtable_and_lzero_now)              |
+| [`rocksdb_force_flush_memtable_now`](#rocksdb_force_flush_memtable_now)                                  |
+| [`rocksdb_force_index_records_in_range`](#rocksdb_force_index_records_in_range)                          |
+| [`rocksdb_hash_index_allow_collision`](#rocksdb_hash_index_allow_collision)                              |
+| [`rocksdb_ignore_unknown_options`](#rocksdb_ignore_unknown_options)                                      |
+| [`rocksdb_index_type`](#rocksdb_index_type)                                                              |
+| [`rocksdb_info_log_level`](#rocksdb_info_log_level)                                                      |
+| [`rocksdb_is_fd_close_on_exec`](#rocksdb_is_fd_close_on_exec)                                            |
+| [`rocksdb_keep_log_file_num`](#rocksdb_keep_log_file_num)                                                |
+| [`rocksdb_large_prefix`](#rocksdb_large_prefix)                                                          |
+| [`rocksdb_lock_scanned_rows`](#rocksdb_lock_scanned_rows)                                                |
+| [`rocksdb_lock_wait_timeout`](#rocksdb_lock_wait_timeout)                                                |
+| [`rocksdb_log_file_time_to_roll`](#rocksdb_log_file_time_to_roll)                                        |
+| [`rocksdb_manifest_preallocation_size`](#rocksdb_manifest_preallocation_size)                            |
+| [`rocksdb_manual_compaction_bottommost_level`](#rocksdb_manual_compaction_bottommost_level)              |
+| [`rocksdb_manual_compaction_threads`](#rocksdb_manual_compaction_threads)                                |
+| [`rocksdb_manual_wal_flush`](#rocksdb_manual_wal_flush)                                                  |
+| [`rocksdb_master_skip_tx_api`](#rocksdb_master_skip_tx_api)                                              |
+| [`rocksdb_max_background_compactions`](#rocksdb_max_background_compactions)                              |
+| [`rocksdb_max_background_flushes`](#rocksdb_max_background_flushes)                                      |
+| [`rocksdb_max_background_jobs`](#rocksdb_max_background_jobs)                                            |
+| [`rocksdb_max_bottom_pri_background_compactions`](#rocksdb_max_bottom_pri_background_compactions)        |
+| [`rocksdb_max_compaction_history`](#rocksdb_max_compaction_history)                                      |
+| [`rocksdb_max_latest_deadlocks`](#rocksdb_max_latest_deadlocks)                                          |
+| [`rocksdb_max_log_file_size`](#rocksdb_max_log_file_size)                                                |
+| [`rocksdb_max_manifest_file_size`](#rocksdb_max_manifest_file_size)                                      |
+| [`rocksdb_max_manual_compactions`](#rocksdb_max_manual_compactions)                                      |
+| [`rocksdb_max_open_files`](#rocksdb_max_open_files)                                                      |
+| [`rocksdb_max_row_locks`](#rocksdb_max_row_locks)                                                        |
+| [`rocksdb_max_subcompactions`](#rocksdb_max_subcompactions)                                              |
+| [`rocksdb_max_total_wal_size`](#rocksdb_max_total_wal_size)                                              |
+| [`rocksdb_merge_buf_size`](#rocksdb_merge_buf_size)                                                      |
+| [`rocksdb_merge_combine_read_size`](#rocksdb_merge_combine_read_size)                                    |
+| [`rocksdb_merge_tmp_file_removal_delay_ms`](#rocksdb_merge_tmp_file_removal_delay_ms)                    |
+| [`rocksdb_new_table_reader_for_compaction_inputs`](#rocksdb_new_table_reader_for_compaction_inputs)      |
+| [`rocksdb_no_block_cache`](#rocksdb_no_block_cache)                                                      |
+| [`rocksdb_no_create_column_family`](#rocksdb_no_create_column_family)                                    |
+| [`rocksdb_override_cf_options`](#rocksdb_override_cf_options)                                            |
+| [`rocksdb_paranoid_checks`](#rocksdb_paranoid_checks)                                                    |
+| [`rocksdb_partial_index_sort_max_mem`](#rocksdb_partial_index_sort_max_mem)                              |
+| [`rocksdb_pause_background_work`](#rocksdb_pause_background_work)                                        |
+| [`rocksdb_perf_context_level`](#rocksdb_perf_context_level)                                              |
+| [`rocksdb_persistent_cache_path`](#rocksdb_persistent_cache_path)                                        |
+| [`rocksdb_persistent_cache_size_mb`](#rocksdb_persistent_cache_size_mb)                                  |
+| [`rocksdb_pin_l0_filter_and_index_blocks_in_cache`](#rocksdb_pin_l0_filter_and_index_blocks_in_cache)    |
+| [`rocksdb_print_snapshot_conflict_queries`](#rocksdb_print_snapshot_conflict_queries)                    |
+| [`rocksdb_rate_limiter_bytes_per_sec`](#rocksdb_rate_limiter_bytes_per_sec)                              |
+| [`rocksdb_read_free_rpl`](#rocksdb_read_free_rpl)                                                        |
+| [`rocksdb_read_free_rpl_tables`](#rocksdb_read_free_rpl_tables)                                          |
+| [`rocksdb_records_in_range`](#rocksdb_records_in_range)                                                  |
+| [`rocksdb_reset_stats`](#rocksdb_reset_stats)                                                            |
+| [`rocksdb_rollback_on_timeout`](#rocksdb_rollback_on_timeout)                                            |
+| [`rocksdb_rpl_skip_tx_api`](#rocksdb_rpl_skip_tx_api)                                                    |
+| [`rocksdb_seconds_between_stat_computes`](#rocksdb_seconds_between_stat_computes)                        |
+| [`rocksdb_signal_drop_index_thread`](#rocksdb_signal_drop_index_thread)                                  |
+| [`rocksdb_sim_cache_size`](#rocksdb_sim_cache_size)                                                      |
+| [`rocksdb_skip_bloom_filter_on_read`](#rocksdb_skip_bloom_filter_on_read)                                |
+| [`rocksdb_skip_fill_cache`](#rocksdb_skip_fill_cache)                                                    |
+| [`rocksdb_skip_locks_if_skip_unique_check`](#rocksdb_skip_locks_if_skip_unique_check)                    |
+| [`rocksdb_sst_mgr_rate_bytes_per_sec`](#rocksdb_sst_mgr_rate_bytes_per_sec)                              |
+| [`rocksdb_stats_dump_period_sec`](#rocksdb_stats_dump_period_sec)                                        |
+| [`rocksdb_stats_level`](#rocksdb_stats_level)                                                            |
+| [`rocksdb_stats_recalc_rate`](#rocksdb_stats_recalc_rate)                                                |
+| [`rocksdb_store_row_debug_checksums`](#rocksdb_store_row_debug_checksums)                                |
+| [`rocksdb_strict_collation_check`](#rocksdb_strict_collation_check)                                      |
+| [`rocksdb_strict_collation_exceptions`](#rocksdb_strict_collation_exceptions)                            |
+| [`rocksdb_table_cache_numshardbits`](#rocksdb_table_cache_numshardbits)                                  |
+| [`rocksdb_table_stats_background_thread_nice_value`](#rocksdb_table_stats_background_thread_nice_value)  |
+| [`rocksdb_table_stats_max_num_rows_scanned`](#rocksdb_table_stats_max_num_rows_scanned)                  |
+| [`rocksdb_table_stats_recalc_threshold_count`](#rocksdb_table_stats_recalc_threshold_count)              |
+| [`rocksdb_table_stats_recalc_threshold_pct`](#rocksdb_table_stats_recalc_threshold_pct)                  |
+| [`rocksdb_table_stats_sampling_pct`](#rocksdb_table_stats_sampling_pct)                                  |
+| [`rocksdb_table_stats_use_table_scan`](#rocksdb_table_stats_use_table_scan)                              |
+| [`rocksdb_tmpdir`](#rocksdb_tmpdir)                                                                      |
+| [`rocksdb_two_write_queues`](#rocksdb_two_write_queues)                                                  |
+| [`rocksdb_trace_block_cache_access`](#rocksdb_trace_block_cache_access)                                  |
+| [`rocksdb_trace_queries`](#rocksdb_trace_queries)                                                        |
+| [`rocksdb_trace_sst_api`](#rocksdb_trace_sst_api)                                                        |
+| [`rocksdb_track_and_verify_wals_in_manifest`](#rocksdb_track_and_verify_wals_in_manifest)                |
+| [`rocksdb_unsafe_for_binlog`](#rocksdb_unsafe_for_binlog)                                                |
+| [`rocksdb_update_cf_options`](#rocksdb_update_cf_options)                                                |
+| [`rocksdb_use_adaptive_mutex`](#rocksdb_use_adaptive_mutex)                                              |
+| [`rocksdb_use_default_sk_cf`](#rocksdb_use_default_sk_cf)                                                |
+| [`rocksdb_use_direct_io_for_flush_and_compaction`](#rocksdb_use_direct_io_for_flush_and_compaction)      |
+| [`rocksdb_use_direct_reads`](#rocksdb_use_direct_reads)                                                  |
+| [`rocksdb_use_fsync`](#rocksdb_use_fsync)                                                                |
+| [`rocksdb_validate_tables`](#rocksdb_validate_tables)                                                    |
+| [`rocksdb_verify_row_debug_checksums`](#rocksdb_verify_row_debug_checksums)                              |
+| [`rocksdb_wal_bytes_per_sync`](#rocksdb_wal_bytes_per_sync)                                              |
+| [`rocksdb_wal_dir`](#rocksdb_wal_dir)                                                                    |
+| [`rocksdb_wal_recovery_mode`](#rocksdb_wal_recovery_mode)                                                |
+| [`rocksdb_wal_size_limit_mb`](#rocksdb_wal_size_limit_mb)                                                |
+| [`rocksdb_wal_ttl_seconds`](#rocksdb_wal_ttl_seconds)                                                    |
+| [`rocksdb_whole_key_filtering`](#rocksdb_whole_key_filtering)                                            |
+| [`rocksdb_write_batch_flush_threshold`](#rocksdb_write_batch_flush_threshold)                            |
+| [`rocksdb_write_batch_max_bytes`](#rocksdb_write_batch_max_bytes)                                        |
+| [`rocksdb_write_disable_wal`](#rocksdb_write_disable_wal)                                                |
+| [`rocksdb_write_ignore_missing_column_families`](#rocksdb_write_ignore_missing_column_families)          |
+| [`rocksdb_write_policy`](#rocksdb_write_policy)                                                          |
 
 ### `rocksdb_access_hint_on_compaction_start`
 
@@ -622,6 +617,9 @@ Enabled by default.
 Specifies whether to commit rows implicitly
 when a batch contains more than the value of
 rocksdb_bulk_load_size.
+
+This option should only be enabled at the time of data import because it may cause locking errors.
+
 
 This variable is disabled by default.
 When the rocksdb_bulk_load variable is enabled, it behaves as if the variable rocksdb_commit_in_the_middle is enabled, even if the variable rocksdb_commit_in_the_middle is disabled.
@@ -1526,13 +1524,13 @@ Option for bottommost level compaction during manual compaction:
   
 ### rocksdb_manual_compaction_threads
 
-| Option | Description |
-|---|---|
-| Command-line | --rocksdb-manual-compaction-threads |
-| Dynamic | Yes |
-| Scope | Local |
-| Data type | INT |
-| Default | 0 |
+| Option        | Description                         |
+| ------------- | ----------------------------------- |
+| Command-line  | --rocksdb-manual-compaction-threads |
+| Dynamic       | Yes                                 |
+| Scope         | Local                               |
+| Data type     | INT                                 |
+| Default       | 0                                   |
 
 The variable defines the number of RocksDB threads to run for a manual compaction. The minimum value is 0. The maximum value is 120. 
 
@@ -1553,7 +1551,7 @@ rely on the application to do the flushing.
 
 | Option       | Description     |
 |--------------|-----------------|
-| Command-line |
+| Command-line |                 |
 | Dynamic      | Yes             |
 | Scope        | Global, Session |
 | Data type    | Boolean         |
@@ -1641,7 +1639,7 @@ The minimum value is `0` and the maximum value is `64`.
 | Dynamic      | Yes                                             |
 | Scope        | Global                                          |
 | Data type    | Unsigned integer                                |
-| Default      | 64                                               |
+| Default      | 64                                              |
 
 The minimum value is `0` and the maximum value is `UINT64_MAX`.
 
@@ -1693,13 +1691,13 @@ only one manifest file is used.
 
 ### `rocksdb_max_manual_compactions`
 
-| Option | Description |
-|---|---|
+| Option       | Description                      |
+| ------------ | -------------------------------- |
 | Command-line | --rocksdb-max-manual-compactions |
-| Dynamic | Yes |
-| Scope | Global |
-| Data type | UINT |
-| Default | 10 |
+| Dynamic      | Yes                              |
+| Scope        | Global                           |
+| Data type    | UINT                             |
+| Default      | 10                               |
 
 The variable defines the maximum number of pending plus ongoing manual compactions. The default value and the minimum value is 0. The maximum value is 4294967295 (UNIT_MAX).
 
