@@ -28,7 +28,7 @@
     
     
       
-        <title>Work with Advanced Encryption Key Rotation - Percona Server for MySQL</title>
+        <title>Advanced encryption key rotation - Percona Server for MySQL</title>
       
     
     
@@ -116,7 +116,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#work-with-advanced-encryption-key-rotation" class="md-skip">
+        <a href="#advanced-encryption-key-rotation" class="md-skip">
           Skip to content
         </a>
       
@@ -152,7 +152,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Work with Advanced Encryption Key Rotation
+              Advanced encryption key rotation
             
           </span>
         </div>
@@ -2001,7 +2001,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-tables.html" class="md-nav__link">
-        Encrypt file-per-table tablespace
+        Encrypt File-Per-Table Tablespace
       </a>
     </li>
   
@@ -2015,7 +2015,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-tablespaces.html" class="md-nav__link">
-        Encrypt a schema or a general tablespace
+        Encrypt schema or general tablespace
       </a>
     </li>
   
@@ -2029,7 +2029,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-system-tablespace.html" class="md-nav__link">
-        Encrypt the system tablespace
+        Encrypt system tablespace
       </a>
     </li>
   
@@ -2057,7 +2057,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-binlogs.html" class="md-nav__link">
-        Encrypt binary log files and relay log files
+        Encrypt Binary Log Files and Relay Log Files
       </a>
     </li>
   
@@ -2099,7 +2099,7 @@
   
     <li class="md-nav__item">
       <a href="rotating-master-key.html" class="md-nav__link">
-        Rotate the Master key
+        Rotate the master key
       </a>
     </li>
   
@@ -2122,12 +2122,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Work with Advanced Encryption Key Rotation
+          Advanced encryption key rotation
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="encrypting-threads.html" class="md-nav__link md-nav__link--active">
-        Work with Advanced Encryption Key Rotation
+        Advanced encryption key rotation
       </a>
       
         
@@ -3533,8 +3533,11 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="work-with-advanced-encryption-key-rotation">Work with Advanced Encryption Key Rotation<a class="headerlink" href="#work-with-advanced-encryption-key-rotation" title="Permanent link">&para;</a></h1>
-<p><strong>Starting with Percona Server for MySQL 8.0.30-22, this feature is removed.</strong></p>
+                <h1 id="advanced-encryption-key-rotation">Advanced encryption key rotation<a class="headerlink" href="#advanced-encryption-key-rotation" title="Permanent link">&para;</a></h1>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This feature, and associated system variables, status variables, and options have been removed in Percona Server for MySQL 8.0.31-23.</p>
+</div>
 <p>The Advanced Encryption Key Rotation feature lets you perform specific encryption and
 decryption tasks in real time.</p>
 <p>The following table explains the benefits of Advanced Encryption Key Rotation:</p>
@@ -3565,10 +3568,11 @@ tablespace, the tablespace is re-encrypted with the keyring key in a background
 process. If the Advanced Encryption Key Rotation feature is enabled, you cannot
 convert a tablespace to use Master key encryption. You must disable the feature
 before you convert the tablespace.</p>
-<p>This feature is a <a href="../glossary.html#tech-preview">tech preview</a>. Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.</p>
+<p><strong>This feature is in tech preview.</strong></p>
 <p>You must have the SYSTEM_VARIABLES_ADMIN privilege or the SUPER privilege to set
 these variables.</p>
 <h3 id="innodb_encryption_threads"><code>innodb_encryption_threads</code><a class="headerlink" href="#innodb_encryption_threads" title="Permanent link">&para;</a></h3>
+<p>This variable is removed in Percona Server for MySQL 8.0.31-23.</p>
 <table>
 <thead>
 <tr>
@@ -3605,6 +3609,7 @@ This variable
 configures the number of threads for background encryption. For the online
 encryption, the value must be greater than <strong>zero</strong>.</p>
 <h3 id="innodb_online_encryption_rotate_key_age"><code>innodb_online_encryption_rotate_key_age</code><a class="headerlink" href="#innodb_online_encryption_rotate_key_age" title="Permanent link">&para;</a></h3>
+<p>This variable is removed in Percona Server for MySQL 8.0.31-23.</p>
 <table>
 <thead>
 <tr>
@@ -3653,6 +3658,7 @@ following intervals:</p>
 </ul>
 <p>You should select the value which best fits your operational requirements.</p>
 <h3 id="innodb_encryption_rotation_iops"><code>innodb_encryption_rotation_iops</code><a class="headerlink" href="#innodb_encryption_rotation_iops" title="Permanent link">&para;</a></h3>
+<p>This variable is removed in Percona Server for MySQL 8.0.31-23.</p>
 <table>
 <thead>
 <tr>
@@ -3686,6 +3692,7 @@ following intervals:</p>
 <p>Defines the number of input/output operations per second (iops) available for
 use by a key rotation process.</p>
 <h3 id="innodb_default_encryption_key_id"><code>innodb_default_encryption_key_id</code><a class="headerlink" href="#innodb_default_encryption_key_id" title="Permanent link">&para;</a></h3>
+<p>This variable is removed in Percona Server for MySQL 8.0.31-23.</p>
 <table>
 <thead>
 <tr>
@@ -3718,7 +3725,7 @@ use by a key rotation process.</p>
 </table>
 <p>Defines the default encryption ID used to encrypt tablespaces.</p>
 <h2 id="use-keyring-encryption">Use Keyring Encryption<a class="headerlink" href="#use-keyring-encryption" title="Permanent link">&para;</a></h2>
-<p><strong>Starting with Percona Server for MySQL 8.0.30-22, this feature is removed.</strong></p>
+<p>This feature is removed in Percona Server for MySQL 8.0.31-23.</p>
 <p>Keyring management is enabled for each table, per file table, separately when
 you set encryption in the <code>ENCRYPTION</code> clause to <code>KEYRING</code> in the supported
 SQL statement.</p>
@@ -3755,7 +3762,7 @@ SQL statement.</p>
   <small>
     
       Last update:
-      2023-01-12
+      2023-02-09
     
   </small>
 </div>

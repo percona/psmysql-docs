@@ -28,7 +28,7 @@
     
     
       
-        <title>Encrypt binary log files and relay log files - Percona Server for MySQL</title>
+        <title>Encrypt Binary Log Files and Relay Log Files - Percona Server for MySQL</title>
       
     
     
@@ -152,7 +152,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Encrypt binary log files and relay log files
+              Encrypt Binary Log Files and Relay Log Files
             
           </span>
         </div>
@@ -2001,7 +2001,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-tables.html" class="md-nav__link">
-        Encrypt file-per-table tablespace
+        Encrypt File-Per-Table Tablespace
       </a>
     </li>
   
@@ -2015,7 +2015,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-tablespaces.html" class="md-nav__link">
-        Encrypt a schema or a general tablespace
+        Encrypt schema or general tablespace
       </a>
     </li>
   
@@ -2029,7 +2029,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-system-tablespace.html" class="md-nav__link">
-        Encrypt the system tablespace
+        Encrypt system tablespace
       </a>
     </li>
   
@@ -2066,12 +2066,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Encrypt binary log files and relay log files
+          Encrypt Binary Log Files and Relay Log Files
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="encrypting-binlogs.html" class="md-nav__link md-nav__link--active">
-        Encrypt binary log files and relay log files
+        Encrypt Binary Log Files and Relay Log Files
       </a>
       
         
@@ -2092,8 +2092,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#upgrade-from-percona-server-for-mysql-8015-5-to-any-higher-version" class="md-nav__link">
-    Upgrade from Percona Server for MySQL 8.0.15-5 to any higher version
+  <a href="#upgrade-from-percona-server-for-mysql-8015-5-or-later" class="md-nav__link">
+    Upgrade from Percona Server for MySQL 8.0.15-5 or later
   </a>
   
 </li>
@@ -2190,7 +2190,7 @@
   
     <li class="md-nav__item">
       <a href="rotating-master-key.html" class="md-nav__link">
-        Rotate the Master key
+        Rotate the master key
       </a>
     </li>
   
@@ -2204,7 +2204,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-threads.html" class="md-nav__link">
-        Work with Advanced Encryption Key Rotation
+        Advanced encryption key rotation
       </a>
     </li>
   
@@ -3478,8 +3478,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#upgrade-from-percona-server-for-mysql-8015-5-to-any-higher-version" class="md-nav__link">
-    Upgrade from Percona Server for MySQL 8.0.15-5 to any higher version
+  <a href="#upgrade-from-percona-server-for-mysql-8015-5-or-later" class="md-nav__link">
+    Upgrade from Percona Server for MySQL 8.0.15-5 or later
   </a>
   
 </li>
@@ -3573,17 +3573,17 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="encrypt-binary-log-files-and-relay-log-files">Encrypt binary log files and relay log files<a class="headerlink" href="#encrypt-binary-log-files-and-relay-log-files" title="Permanent link">&para;</a></h1>
+                <h1 id="encrypt-binary-log-files-and-relay-log-files">Encrypt Binary Log Files and Relay Log Files<a class="headerlink" href="#encrypt-binary-log-files-and-relay-log-files" title="Permanent link">&para;</a></h1>
 <p>Binary log file and relay log file encryption at rest ensures the
 server-generated binary logs are encrypted in persistent storage.</p>
-<h2 id="upgrade-from-percona-server-for-mysql-8015-5-to-any-higher-version">Upgrade from Percona Server for MySQL 8.0.15-5 to any higher version<a class="headerlink" href="#upgrade-from-percona-server-for-mysql-8015-5-to-any-higher-version" title="Permanent link">&para;</a></h2>
-<p>Starting from the release of Percona Server for MySQL 8.0.15-5, <em>Percona Server for MySQL</em> uses the upstream
+<h2 id="upgrade-from-percona-server-for-mysql-8015-5-or-later">Upgrade from Percona Server for MySQL 8.0.15-5 or later<a class="headerlink" href="#upgrade-from-percona-server-for-mysql-8015-5-or-later" title="Permanent link">&para;</a></h2>
+<p>As of 8.0.15-5, Percona Server for MySQL uses the upstream
 implementation of the binary log file and relay log file encryption.</p>
 <p>The encrypt-binlog variable is
 removed, and the related command-line option <code>–encrypt-binlog</code> is not
 supported. It is important to remove the encrypt-binlog variable from your
 configuration file before you attempt to upgrade either from another release
-in the <em>Percona Server for MySQL</em> 8.0 series or from <em>Percona Server for MySQL</em> 5.7.
+in the Percona Server for MySQL 8.0 series or from Percona Server for MySQL 5.7.
 Otherwise, a server boot error is generated and reports an unknown
 variable.</p>
 <p>The implemented binary log file encryption is compatible with the older
@@ -3605,16 +3605,13 @@ is stored in the keyring.</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <p>After you have enabled the <code>binlog_encryption</code> variable and the keyring is
 available, you can encrypt the data content for new binary log files and relay
-log files. Only the data content is encrypted. Attempting a binary log file or
-relay log file encryption without the keyring generates a MySQL error.</p>
+log files. Only the data content is encrypted. The server generates a MySQL error if you attempt to encrypt a binary log file or
+relay log file without a keyring.</p>
 <p>In replication, the source maintains the binary log and the replica maintains a binary
-log copy called the relay log. The source copies a stream of decrypted binary
-log events to a replica using SSL connections to encrypt the stream. The events
-are re-executed on the replica. The source and replicas can use separate
+log copy called the relay log. The source uses SSL connections to encrypt the stream, and the events
+are re-executed on the replica. The source and replicas can have separate
 keyring storage and different keyring plugins.</p>
-<p>When the binlog_encryption is set to <code>OFF</code>, the server rotates the
-binary log files and the relay log files and all new log files are unencrypted.
-The encrypted files are not unencrypted, but the server can read the files.</p>
+<p>The server rotates the binary log and relay log files if <code>binlog_encryption</code> = <code>OFF</code>. All new log files are unencrypted. Any encrypted files are not unencrypted.</p>
 <p>When an encrypted binary log is dumped, and this operation involves decryption,
 use <code>mysqlbinlog</code> with the <code>--read-from-remote-server</code> option.</p>
 <div class="admonition note">
@@ -3622,19 +3619,19 @@ use <code>mysqlbinlog</code> with the <code>--read-from-remote-server</code> opt
 <p>The –read-from-remote-server option only applies to the binary logs. Encrypted relay logs can not be dumped or decrypted with this option.</p>
 </div>
 <h2 id="enable-binary-log-encryption">Enable binary log encryption<a class="headerlink" href="#enable-binary-log-encryption" title="Permanent link">&para;</a></h2>
-<p>In versions <em>Percona Server for MySQL</em> 8.0.15-5 and later, set the binlog_encryption variable
-to <code>ON</code> in a startup configuration file, such as <code>my.cnf</code>. The variable
-is set to <code>OFF</code> by default.</p>
+<p>In Percona Server for MySQL 8.0.15-5 and later, set the binlog_encryption variable
+to <code>ON</code> in a startup configuration file, such as <code>my.cnf</code>. The default is <code>OFF</code>.</p>
 <div class="highlight"><pre><span></span><code>binlog_encryption=ON
 </code></pre></div>
 <h2 id="verify-the-encryption">Verify the encryption<a class="headerlink" href="#verify-the-encryption" title="Permanent link">&para;</a></h2>
-<p>To verify if the binary log encryption option is enabled, run the following
+<p>To verify that the binary log encryption option is enabled, run the following
 statement:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>BINARY<span class="w"> </span>LOGS<span class="p">;</span>
 </code></pre></div>
+<p>The <code>SHOW BINARY LOGS</code> output displays the name, size, and if a binary log file is encrypted or unencrypted.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------+----------------+---------------+
+<div class="highlight"><pre><span></span><code>+-------------------+----------------+---------------+
 | Log_name          | File_size      | Encrypted     |
 +-------------------+----------------+---------------+
 | binlog.00011      | 72367          | No            |
@@ -3643,7 +3640,6 @@ statement:</p>
 +-------------------+----------------+---------------+
 </code></pre></div>
 </details>
-<p>The <code>SHOW BINARY LOGS</code> statement displays the name, size, and if a binary log file is encrypted or unencrypted.</p>
 <h2 id="binary-log-file-variables">Binary log file variables<a class="headerlink" href="#binary-log-file-variables" title="Permanent link">&para;</a></h2>
 <h3 id="encrypt_binlog"><code>encrypt_binlog</code><a class="headerlink" href="#encrypt_binlog" title="Permanent link">&para;</a></h3>
 <table>
@@ -3676,8 +3672,8 @@ statement:</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was removed in Percona Server for MySQL 8.0.15-5.</p>
-<p>This variable enables or disables the binary log file and relay log file encryption.</p>
+<p>Percona Server for MySQL 8.0.15-5 removes this variable.</p>
+<p>This variable enables or disables the binary log and relay log file encryption.</p>
 
                 
 <div class="md-relbar2__inner md-grid">
@@ -3699,7 +3695,7 @@ statement:</p>
   <small>
     
       Last update:
-      2023-01-12
+      2023-02-09
     
   </small>
 </div>

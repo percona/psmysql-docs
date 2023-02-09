@@ -28,7 +28,7 @@
     
     
       
-        <title>Encrypt file-per-table tablespace - Percona Server for MySQL</title>
+        <title>Encrypt File-Per-Table Tablespace - Percona Server for MySQL</title>
       
     
     
@@ -152,7 +152,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Encrypt file-per-table tablespace
+              Encrypt File-Per-Table Tablespace
             
           </span>
         </div>
@@ -2010,7 +2010,7 @@
       
       
       <a href="encrypting-tables.html" class="md-nav__link md-nav__link--active">
-        Encrypt file-per-table tablespace
+        Encrypt File-Per-Table Tablespace
       </a>
       
     </li>
@@ -2025,7 +2025,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-tablespaces.html" class="md-nav__link">
-        Encrypt a schema or a general tablespace
+        Encrypt schema or general tablespace
       </a>
     </li>
   
@@ -2039,7 +2039,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-system-tablespace.html" class="md-nav__link">
-        Encrypt the system tablespace
+        Encrypt system tablespace
       </a>
     </li>
   
@@ -2067,7 +2067,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-binlogs.html" class="md-nav__link">
-        Encrypt binary log files and relay log files
+        Encrypt Binary Log Files and Relay Log Files
       </a>
     </li>
   
@@ -2109,7 +2109,7 @@
   
     <li class="md-nav__item">
       <a href="rotating-master-key.html" class="md-nav__link">
-        Rotate the Master key
+        Rotate the master key
       </a>
     </li>
   
@@ -2123,7 +2123,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-threads.html" class="md-nav__link">
-        Work with Advanced Encryption Key Rotation
+        Advanced encryption key rotation
       </a>
     </li>
   
@@ -3429,7 +3429,7 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="encrypt-file-per-table-tablespace">Encrypt file-per-table tablespace<a class="headerlink" href="#encrypt-file-per-table-tablespace" title="Permanent link">&para;</a></h1>
+                <h1 id="encrypt-file-per-table-tablespace">Encrypt File-Per-Table Tablespace<a class="headerlink" href="#encrypt-file-per-table-tablespace" title="Permanent link">&para;</a></h1>
 <p>A file-per-table tablespace stores the
 table data and the indexes for a single InnoDB table. In this tablespace
 configuration, each table is stored in a <code>.ibd</code> file.</p>
@@ -3440,20 +3440,16 @@ has two tiers:</p>
 <p>Master key</p>
 </li>
 <li>
-<p>Tablespace keys.</p>
+<p>Tablespace keys</p>
 </li>
 </ul>
 <p>The keyring plugin must be installed and enabled. The
-file_per_table tablespace inherits the schema default encryption setting unless you explicitly define encryption in the <code>CREATE TABLE</code> statement.</p>
-<p>An example of the <code>CREATE TABLE</code> statement:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>sample<span class="w"> </span><span class="o">(</span>id<span class="w"> </span>INT,<span class="w"> </span>mytext<span class="w"> </span>varchar<span class="o">(</span><span class="m">255</span><span class="o">))</span><span class="w"> </span><span class="nv">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+file_per_table tablespace inherits the schema default encryption setting unless you explicitly define encryption in <code>CREATE TABLE</code> or <code>ALTER TABLE</code>.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>...<span class="w"> </span><span class="nv">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>An example of an <code>ALTER TABLE</code> statement.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>TABLE<span class="w"> </span>...<span class="w"> </span><span class="nv">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>Without the <code>ENCRYPTION</code> option in the ALTER TABLE statement, the table’s
-encryption state does not change. An encrypted table remains encrypted. An
-unencrypted table remains unencrypted.</p>
+<p>Using <code>ALTER TABLE</code> without the <code>ENCRYPTION</code> option does not change the encryption state. An encrypted table remains encrypted or an unencrypted table remains unencrypted.</p>
 
                 
 <div class="md-relbar2__inner md-grid">
@@ -3475,7 +3471,7 @@ unencrypted table remains unencrypted.</p>
   <small>
     
       Last update:
-      2023-01-12
+      2023-02-09
     
   </small>
 </div>

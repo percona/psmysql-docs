@@ -28,7 +28,7 @@
     
     
       
-        <title>Encrypt a schema or a general tablespace - Percona Server for MySQL</title>
+        <title>Encrypt schema or general tablespace - Percona Server for MySQL</title>
       
     
     
@@ -116,7 +116,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#encrypt-a-schema-or-a-general-tablespace" class="md-skip">
+        <a href="#encrypt-schema-or-general-tablespace" class="md-skip">
           Skip to content
         </a>
       
@@ -152,7 +152,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Encrypt a schema or a general tablespace
+              Encrypt schema or general tablespace
             
           </span>
         </div>
@@ -2001,7 +2001,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-tables.html" class="md-nav__link">
-        Encrypt file-per-table tablespace
+        Encrypt File-Per-Table Tablespace
       </a>
     </li>
   
@@ -2024,12 +2024,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Encrypt a schema or a general tablespace
+          Encrypt schema or general tablespace
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="encrypting-tablespaces.html" class="md-nav__link md-nav__link--active">
-        Encrypt a schema or a general tablespace
+        Encrypt schema or general tablespace
       </a>
       
         
@@ -2093,8 +2093,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#set-tablespace-encryption-without-the-default-setting" class="md-nav__link">
-    Set tablespace ENCRYPTION without the default setting
+  <a href="#use-encryption" class="md-nav__link">
+    Use ENCRYPTION
   </a>
   
 </li>
@@ -2127,7 +2127,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-system-tablespace.html" class="md-nav__link">
-        Encrypt the system tablespace
+        Encrypt system tablespace
       </a>
     </li>
   
@@ -2155,7 +2155,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-binlogs.html" class="md-nav__link">
-        Encrypt binary log files and relay log files
+        Encrypt Binary Log Files and Relay Log Files
       </a>
     </li>
   
@@ -2197,7 +2197,7 @@
   
     <li class="md-nav__item">
       <a href="rotating-master-key.html" class="md-nav__link">
-        Rotate the Master key
+        Rotate the master key
       </a>
     </li>
   
@@ -2211,7 +2211,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-threads.html" class="md-nav__link">
-        Work with Advanced Encryption Key Rotation
+        Advanced encryption key rotation
       </a>
     </li>
   
@@ -3528,8 +3528,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#set-tablespace-encryption-without-the-default-setting" class="md-nav__link">
-    Set tablespace ENCRYPTION without the default setting
+  <a href="#use-encryption" class="md-nav__link">
+    Use ENCRYPTION
   </a>
   
 </li>
@@ -3587,15 +3587,15 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="encrypt-a-schema-or-a-general-tablespace">Encrypt a schema or a general tablespace<a class="headerlink" href="#encrypt-a-schema-or-a-general-tablespace" title="Permanent link">&para;</a></h1>
-<p><em>Percona Server for MySQL</em> uses the same encryption architecture as <em>MySQL</em>, a two-tier system consisting of a master key and tablespace keys. The master key can be changed, or rotated in the keyring, as needed. Each tablespace key, when
+                <h1 id="encrypt-schema-or-general-tablespace">Encrypt schema or general tablespace<a class="headerlink" href="#encrypt-schema-or-general-tablespace" title="Permanent link">&para;</a></h1>
+<p>Percona Server for MySQL uses the same encryption architecture as *MySQL, a two-tier system consisting of a master key and tablespace keys. The master key can be changed, or rotated in the keyring, as needed. Each tablespace key, when
 decrypted, remains the same.</p>
 <p>The feature requires the keyring plugin.</p>
 <h2 id="set-the-default-for-schemas-and-general-tablespace-encryption">Set the default for schemas and general tablespace encryption<a class="headerlink" href="#set-the-default-for-schemas-and-general-tablespace-encryption" title="Permanent link">&para;</a></h2>
 <p>The tables in a general tablespace are either all encrypted or all unencrypted.
 A tablespace cannot contain a mixture of encrypted tables and unencrypted
 tables.</p>
-<p>In versions before <em>Percona Server for MySQL</em> 8.0.16-7, use the variable
+<p>In versions before Percona Server for MySQL 8.0.16-7, use the variable
 innodb_encrypt_tables.</p>
 <h3 id="innodb_encrypt_tables"><code>innodb_encrypt_tables</code><a class="headerlink" href="#innodb_encrypt_tables" title="Permanent link">&para;</a></h3>
 <table>
@@ -3628,22 +3628,19 @@ innodb_encrypt_tables.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong> The variable was removed in Percona Server for MySQL 8.0.16-7.</strong></p>
-</div>
-<p>The variable is considered <strong>deprecated</strong> and was removed in version 8.0.16-7.
-The default setting is “OFF”.</p>
+<p>The variable is <strong>deprecated</strong> and removed in Percona Server for MySQL 8.0.16-7.</p>
+<p>The default setting is “OFF”.</p>
 <p>The encryption of a schema or a general tablespace is determined by the
 default_table_encryption variable unless you specify the
 ENCRYPTION clause in the CREATE SCHEMA or CREATE TABLESPACE statement. This
-variable is implemented in <em>Percona Server for MySQL</em> version 8.0.16-7.</p>
+variable is implemented in Percona Server for MySQL version 8.0.16-7.</p>
 <p>You can set the <code>default_table_encryption</code> variable in an individual
 connection.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span><span class="nv">default_table_encryption</span><span class="o">=</span>ON<span class="p">;</span>
 </code></pre></div>
 <h3 id="system-variable">System variable<a class="headerlink" href="#system-variable" title="Permanent link">&para;</a></h3>
 <h3 id="default_table_encryption"><code>default_table_encryption</code><a class="headerlink" href="#default_table_encryption" title="Permanent link">&para;</a></h3>
+<p>Percona Server for MySQL 8.0.31-23 removes the <code>ONLINE_TO_KEYRING</code> and <code>ONLINE_TO_KEYRING_TO_UNENCRYPTED</code> options. </p>
 <table>
 <thead>
 <tr>
@@ -3678,7 +3675,7 @@ connection.</p>
 variable allows you to create or alter schemas or tablespaces without specifying
 the ENCRYPTION clause. The default encryption setting applies only to schemas
 and general tablespaces and is not applied to the MySQL system tablespace.</p>
-<p>The variable has the following possible values:</p>
+<p>The variable has the following possible options:</p>
 <table>
 <thead>
 <tr>
@@ -3697,11 +3694,11 @@ and general tablespaces and is not applied to the MySQL system tablespace.</p>
 </tr>
 <tr>
 <td><code>ONLINE_TO_KEYRING</code></td>
-<td><strong>This value is Experimental quality.</strong> <br> Converts a tablespace encrypted by a Master Key to use Advanced Encryption Key Rotation. You can only apply the keyring encryption when creating tables or altering tables.</td>
+<td><strong>This option is technical preview quality.</strong> <br> <em>Percona Server for MySQL 8.0.31-23 removes this option.</em>* <br> Converts a tablespace encrypted by a Master Key to use Advanced Encryption Key Rotation. You can only apply the keyring encryption when creating tables or altering tables.</td>
 </tr>
 <tr>
 <td><code>ONLINE_FROM_KEYRING_TO_UNENCRYPTED</code></td>
-<td><strong>This value is Experimental quality</strong>. <br> Converts a tablespace encrypted by Advanced Encryption Key Rotation to unencrypted.</td>
+<td><strong>This option is technical preview quality.</strong> <br> <em>Percona Server for MySQL 8.0.31-23 removes this option.</em>*<br> Converts a tablespace encrypted by Advanced Encryption Key Rotation to unencrypted.</td>
 </tr>
 </tbody>
 </table>
@@ -3749,7 +3746,7 @@ and general tablespaces and is not applied to the MySQL system tablespace.</p>
 full-text search using parallel sorting, building indexes using merge sort, and
 online DDL logs created by InnoDB for online DDL. Encryption is available for
 file merges used in queries and backend processes.</p>
-<h3 id="set-tablespace-encryption-without-the-default-setting">Set tablespace ENCRYPTION without the default setting<a class="headerlink" href="#set-tablespace-encryption-without-the-default-setting" title="Permanent link">&para;</a></h3>
+<h3 id="use-encryption">Use ENCRYPTION<a class="headerlink" href="#use-encryption" title="Permanent link">&para;</a></h3>
 <p>If you do not set the default encryption setting, you can create general
 tablespaces with the <code>ENCRYPTION</code> setting.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLESPACE<span class="w"> </span>tablespace_name<span class="w"> </span><span class="nv">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
@@ -3760,7 +3757,8 @@ feature extends the  <a href="https://dev.mysql.com/doc/refman/8.0/en/create-tab
 accept the <code>ENCRYPTION='Y/N'</code> option.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Before <em>Percona Server for MySQL</em> 8.0.13, the <code>ENCRYPTION</code> option was specific to the <code>CREATE TABLE</code> or <code>SHOW CREATE TABLE</code> statement. As of <em>Percona Server for MySQL</em> 8.0.13, this option is a tablespace attribute and is no longer allowed with the <code>CREATE TABLE</code> or <code>SHOW CREATE TABLE</code> statement except for file-per-table tablespaces.</p>
+<p>Prior to Percona Server for MySQL 8.0.13, the <code>ENCRYPTION</code> option was specific to the <code>CREATE TABLE</code> or <code>SHOW CREATE TABLE</code> statement. </p>
+<p>As of Percona Server for MySQL 8.0.13, the option is a tablespace attribute and is not allowed with the <code>CREATE TABLE</code> or <code>SHOW CREATE TABLE</code> statement except with file-per-table tablespaces.</p>
 </div>
 <p>In an encrypted general tablespace, an attempt to create an unencrypted table
 generates the following error:</p>
@@ -3771,9 +3769,8 @@ generates the following error:</p>
 <div class="no-copy highlight"><pre><span></span><code>ERROR 1478 (HY0000): InnoDB: Tablespace &#39;foo&#39; can contain only ENCRYPTED tables.
 </code></pre></div>
 </details>
-<p>An attempt to create or to move any tables, including partitioned ones, to a
-general tablespace with an incompatible encryption setting is diagnosed and
-the process is aborted.</p>
+<p>The server diagnoses an attempt to create or move tables, including partitioned ones, to a
+general tablespace with an incompatible encryption setting and aborts the process.</p>
 <p>If you must move tables between incompatible tablespaces, create tables with the same structure in another tablespace and run <code>INSERT INTO SELECT</code> from each of the source tables into the destination tables.</p>
 <h3 id="export-an-encrypted-general-tablespace">Export an encrypted general tablespace<a class="headerlink" href="#export-an-encrypted-general-tablespace" title="Permanent link">&para;</a></h3>
 <p>You can only export encrypted file-per-table tablespaces</p>
@@ -3798,7 +3795,7 @@ the process is aborted.</p>
   <small>
     
       Last update:
-      2023-01-12
+      2023-02-09
     
   </small>
 </div>

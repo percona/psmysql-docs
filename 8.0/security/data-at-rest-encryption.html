@@ -1891,9 +1891,42 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Data at Rest Encryption
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="data-at-rest-encryption.html" class="md-nav__link md-nav__link--active">
         Data at Rest Encryption
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#percona-xtrabackup-support" class="md-nav__link">
+    Percona XtraBackup support
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2011,7 +2044,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-tables.html" class="md-nav__link">
-        Encrypt file-per-table tablespace
+        Encrypt File-Per-Table Tablespace
       </a>
     </li>
   
@@ -2025,7 +2058,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-tablespaces.html" class="md-nav__link">
-        Encrypt a schema or a general tablespace
+        Encrypt schema or general tablespace
       </a>
     </li>
   
@@ -2039,7 +2072,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-system-tablespace.html" class="md-nav__link">
-        Encrypt the system tablespace
+        Encrypt system tablespace
       </a>
     </li>
   
@@ -2067,7 +2100,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-binlogs.html" class="md-nav__link">
-        Encrypt binary log files and relay log files
+        Encrypt Binary Log Files and Relay Log Files
       </a>
     </li>
   
@@ -2109,7 +2142,7 @@
   
     <li class="md-nav__item">
       <a href="rotating-master-key.html" class="md-nav__link">
-        Rotate the Master key
+        Rotate the master key
       </a>
     </li>
   
@@ -2123,7 +2156,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-threads.html" class="md-nav__link">
-        Work with Advanced Encryption Key Rotation
+        Advanced encryption key rotation
       </a>
     </li>
   
@@ -3390,6 +3423,21 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#percona-xtrabackup-support" class="md-nav__link">
+    Percona XtraBackup support
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -3430,6 +3478,74 @@
 
                 <!-- Markdown content -->
                 <h1 id="data-at-rest-encryption">Data at Rest Encryption<a class="headerlink" href="#data-at-rest-encryption" title="Permanent link">&para;</a></h1>
+<p>The following system variables, status variables, and options have been removed in Percona Server for MySQL 8.0.31-23.</p>
+<table>
+<thead>
+<tr>
+<th>Variable name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>innodb_encryption_rotation_pages_read_from_cache</code></td>
+</tr>
+<tr>
+<td><code>innodb_encryption_rotation_pages_read_from_disk</code></td>
+</tr>
+<tr>
+<td><code>innodb_encryption_rotation_pages_modified</code></td>
+</tr>
+<tr>
+<td><code>innodb_encryption_rotation_pages_flushed</code></td>
+</tr>
+<tr>
+<td><code>innodb_encryption_rotation_estimated_iops</code></td>
+</tr>
+<tr>
+<td><code>innodb_encryption_rotation_list_length</code></td>
+</tr>
+<tr>
+<td><code>innodb_num_pages_encrypted</code></td>
+</tr>
+<tr>
+<td><code>innodb_num_pages_decrypted</code></td>
+</tr>
+<tr>
+<td><code>innodb_encryption_threads</code></td>
+</tr>
+<tr>
+<td><code>innodb_encryption_rotate_key_age</code></td>
+</tr>
+<tr>
+<td><code>innodb_encryption_rotation_loops</code></td>
+</tr>
+<tr>
+<td><code>innodb_default_encryption_key_id</code></td>
+</tr>
+<tr>
+<td><code>rotate_system_key and any dependencies</code></td>
+</tr>
+</tbody>
+</table>
+<p>The following system variable options have been changed in Percona Server for MySQL 8.0.31-23.</p>
+<table>
+<thead>
+<tr>
+<th>Variable name</th>
+<th>Changed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>default_table_encryption</code></td>
+<td>Changed to two options: ON or OFF</td>
+</tr>
+<tr>
+<td><code>innodb_sys_tablespace_encrypt</code></td>
+<td>Changed to Boolean</td>
+</tr>
+</tbody>
+</table>
 <p>Data security is a concern for institutions and organizations. <code>Transparent
 Data Encryption (TDE)</code> or <code>Data at Rest Encryption</code> encrypts
 data files. Data at rest is
@@ -3453,20 +3569,18 @@ the tablespace header. In the master key implementation, the tablespace key
 cannot be changed unless you rebuild the table.</p>
 </li>
 </ul>
-<p>Two separate keys allow the master key to be rotated in minimal operation.
+<p>Two separate keys allow the master key to be rotated in a minimal operation.
 When the master key is rotated, each tablespace key is decrypted and
 re-encrypted with the new master key. The key rotation only reads and writes to the first page of each tablespace file (.ibd).</p>
 <p>An InnoDB tablespace file is comprised of multiple logical and physical pages.
 Page 0 is the tablespace header page and keeps the metadata for the tablespace.
 The encryption information is stored on page 0 and the tablespace key is
 encrypted.</p>
-<p>A buffer pool page is not encrypted. An encrypted page is decrypted at the I/O
-layer and added to the buffer pool and used to access the data. The page is
-encrypted by the I/O layer before the page is flushed to disk.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><em>Percona XtraBackup</em> version 8 supports the backup of encrypted general tablespaces. Features that are not Generally Available (GA) in <em>Percona Server for MySQL</em> are not supported in <em>Percona XtraBackup</em>.</p>
-</div>
+<p>An encrypted page is decrypted at the I/O
+layer, added to the buffer pool, and used to access the data. A buffer pool page is not encrypted. The page is encrypted by the I/O layer before the page is flushed to disk.</p>
+<h2 id="percona-xtrabackup-support">Percona XtraBackup support<a class="headerlink" href="#percona-xtrabackup-support" title="Permanent link">&para;</a></h2>
+<p>Percona XtraBackup version 8 supports the backup of encrypted general tablespaces. </p>
+<p>Percona XtraBackup only supports features that are <a href="../glossary.html#general-availability-ga">Generally Available (GA)</a> in Percona Server for MySQL. Due to time constraints, GA features may be supported in a later Percona XtraBackup release. Review the <a href="https://docs.percona.com/percona-xtrabackup/8.0/release-notes.html">Percona XtraBackup release notes</a> for more information.</p>
 
                 
 <div class="md-relbar2__inner md-grid">
@@ -3488,7 +3602,7 @@ encrypted by the I/O layer before the page is flushed to disk.</p>
   <small>
     
       Last update:
-      2022-09-27
+      2023-02-09
     
   </small>
 </div>

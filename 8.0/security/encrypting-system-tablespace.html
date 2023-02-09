@@ -28,7 +28,7 @@
     
     
       
-        <title>Encrypt the system tablespace - Percona Server for MySQL</title>
+        <title>Encrypt system tablespace - Percona Server for MySQL</title>
       
     
     
@@ -116,7 +116,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#encrypt-the-system-tablespace" class="md-skip">
+        <a href="#encrypt-system-tablespace" class="md-skip">
           Skip to content
         </a>
       
@@ -152,7 +152,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Encrypt the system tablespace
+              Encrypt system tablespace
             
           </span>
         </div>
@@ -2001,7 +2001,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-tables.html" class="md-nav__link">
-        Encrypt file-per-table tablespace
+        Encrypt File-Per-Table Tablespace
       </a>
     </li>
   
@@ -2015,7 +2015,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-tablespaces.html" class="md-nav__link">
-        Encrypt a schema or a general tablespace
+        Encrypt schema or general tablespace
       </a>
     </li>
   
@@ -2038,12 +2038,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Encrypt the system tablespace
+          Encrypt system tablespace
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="encrypting-system-tablespace.html" class="md-nav__link md-nav__link--active">
-        Encrypt the system tablespace
+        Encrypt system tablespace
       </a>
       
         
@@ -2062,6 +2062,20 @@
       On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#version-changes" class="md-nav__link">
+    Version changes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#system-variables" class="md-nav__link">
@@ -2120,7 +2134,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-binlogs.html" class="md-nav__link">
-        Encrypt binary log files and relay log files
+        Encrypt Binary Log Files and Relay Log Files
       </a>
     </li>
   
@@ -2162,7 +2176,7 @@
   
     <li class="md-nav__item">
       <a href="rotating-master-key.html" class="md-nav__link">
-        Rotate the Master key
+        Rotate the master key
       </a>
     </li>
   
@@ -2176,7 +2190,7 @@
   
     <li class="md-nav__item">
       <a href="encrypting-threads.html" class="md-nav__link">
-        Work with Advanced Encryption Key Rotation
+        Advanced encryption key rotation
       </a>
     </li>
   
@@ -3450,6 +3464,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#version-changes" class="md-nav__link">
+    Version changes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#system-variables" class="md-nav__link">
     System variables
   </a>
@@ -3517,27 +3545,20 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="encrypt-the-system-tablespace">Encrypt the system tablespace<a class="headerlink" href="#encrypt-the-system-tablespace" title="Permanent link">&para;</a></h1>
-<p><em>Percona Server for MySQL</em> supports system tablespace encryption. The InnoDB system tablespace may be encrypted with the master key encryption or the keyring encryption with advanced encryption key rotation.</p>
+                <h1 id="encrypt-system-tablespace">Encrypt system tablespace<a class="headerlink" href="#encrypt-system-tablespace" title="Permanent link">&para;</a></h1>
+<h2 id="version-changes">Version changes<a class="headerlink" href="#version-changes" title="Permanent link">&para;</a></h2>
+<p>Percona Server for MySQL 8.0.31-23 removes keyring encryption with advanced encryption key rotation and associated system variables, status variables, and options.</p>
 <p>Keyring encryption is a <strong>tech preview</strong> feature.</p>
-<p>The limitation is the following:</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Percona Server for MySQL supports system tablespace encryption. The InnoDB system tablespace may be encrypted with the master key encryption. The limitation is the following:</p>
 <ul>
 <li>You cannot convert the system tablespace from the encrypted state to the
 unencrypted state, or the unencrypted state to the encrypted state. If a
 conversion is needed, create a new instance with the
 system tablespace in the required state and transfer the user tables to that instance.</li>
 </ul>
-<p>To enable system tablespace encryption, edit <code>my.cnf</code> with the following settings:</p>
-<ul>
-<li>
-<p>Add the innodb_sys_tablespace_encrypt</p>
-</li>
-<li>
-<p>Change the innodb_sys_tablespace_encrypt value to “ON”</p>
-</li>
-</ul>
-<p>System tablespace encryption can only be enabled with the <code>--initialize</code>
-option</p>
+<p>To enable system tablespace encryption, edit <code>my.cnf</code>, and set the <code>innodb_sys_tablespace_encrypt</code> =“ON”</p>
+<p>System tablespace encryption can only be enabled with the <code>--initialize</code> option</p>
 <p>You can create an encrypted table as follows:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>table_name<span class="w"> </span><span class="nv">TABLESPACE</span><span class="o">=</span>innodb_system<span class="w"> </span><span class="nv">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
@@ -3580,7 +3601,6 @@ the master key is rotated, the tablespace key is decrypted and re-encrypt
 with the new master key. Only the first page of the tablespace (.ibd) file is
 read and written during the key rotation. The tables in the tablespace are not
 re-encrypted.</p>
-<p>The command is as follows:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>INSTANCE<span class="w"> </span>ROTATE<span class="w"> </span>INNODB<span class="w"> </span>MASTER<span class="w"> </span>KEY<span class="p">;</span>
 </code></pre></div>
 
@@ -3604,7 +3624,7 @@ re-encrypted.</p>
   <small>
     
       Last update:
-      2023-01-12
+      2023-02-09
     
   </small>
 </div>
