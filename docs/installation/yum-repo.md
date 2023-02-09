@@ -48,7 +48,6 @@ Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storag
 For information on how to install and configure TokuDB, refer to the TokuDB Installation guide.
 
 For information on how to install and configure MyRocks, refer to the Percona MyRocks Installation Guide.
-	
 
 ### Percona yum Testing repository
 
