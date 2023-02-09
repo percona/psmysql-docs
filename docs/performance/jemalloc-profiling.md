@@ -1,4 +1,4 @@
-# Jemalloc Memory Allocation Profiling
+# Jemalloc memory allocation profiling
 
 Implemented in [Percona Server for MySQL 8.0.25-15](../release-notes/Percona-Server-8.0.25-15.md#id1), *Percona Server for MySQL* can take advantage of the memory-profiling ability of the jemalloc allocator. This ability provides a method to investigate memory-related issues.
 
@@ -26,7 +26,7 @@ LD_PRELOAD=/usr/lib/libjemalloc.so
 <!-- note:
 
 Ensure the ``libjemalloc.so`` exists in the LD path. -->
-## Use *Percona Server for MySQL* with jemalloc with profiling enabled
+## Use Percona Server for MySQL with jemalloc with profiling enabled
 
 To detect if jemalloc is set, run the following command:
 
@@ -52,16 +52,16 @@ use performance_schema;
 SELECT * FROM malloc_stats_totals;
 ```
 
-The example of the output:
+??? example "Expected output"
 
-```text
-+----+------------+------------+------------+-------------+------------+
-| id | ALLOCATION | MAPPED     | RESIDENT   | RETAINED    | METADATA   |
-+----+------------+------------+------------+-------------+------------+
-|  1 | 390977528  | 405291008  | 520167424  | 436813824   | 9933744    |
-+----+------------+------------+------------+-------------+------------+
-1 row in set (0.00 sec)
-```
+    ```{.text .no-copy}
+    +----+------------+------------+------------+-------------+------------+
+    | id | ALLOCATION | MAPPED     | RESIDENT   | RETAINED    | METADATA   |
+    +----+------------+------------+------------+-------------+------------+
+    |  1 | 390977528  | 405291008  | 520167424  | 436813824   | 9933744    |
+    +----+------------+------------+------------+-------------+------------+
+    1 row in set (0.00 sec)
+    ```
 
 The [malloc_stats](#malloc_stats) table returns the cumulative totals, in bytes, of several statistics per type of arena. The command takes no parameters and returns the results as a table.
 
@@ -71,23 +71,22 @@ The following example commands display this result:
 use performance_schema;
 ```
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT * FROM malloc_stats ORDER BY TYPE DESC LIMIT 3;
 ```
 
-The example of the output:
+??? example "Expected output"
 
-```text
-The example of the output:
-+--------+-------------+-------------+-------------+-------------+
-| TYPE   | ALLOCATED   | NMALLOC     | NDALLOC     | NRESQUESTS  |
-+--------+-------------+-------------+-------------+-------------+
-| small  | 23578872    | 586156      | 0           | 2649417     |
-| large  | 367382528   | 2218        | 0           | 6355        |
-| huge   | 0           | 0           | 0           | |
-+--------+-------------+-------------+-------------+-------------+
-3 rows in set (0.00 sec)
-```
+    ```{.text .no-copy}
+    +--------+-------------+-------------+-------------+-------------+
+    | TYPE   | ALLOCATED   | NMALLOC     | NDALLOC     | NRESQUESTS  |
+    +--------+-------------+-------------+-------------+-------------+
+    | small  | 23578872    | 586156      | 0           | 2649417     |
+    | large  | 367382528   | 2218        | 0           | 6355        |
+    | huge   | 0           | 0           | 0           | |
+    +--------+-------------+-------------+-------------+-------------+
+    3 rows in set (0.00 sec)
+    ```
 
 ## Dumping the profile
 
@@ -126,11 +125,11 @@ dot --Tpng /tmp/jeprof1.dot > /tmp/jeprof1.png
 
     An example of [allocation graph](https://github.com/jemalloc/jemalloc/wiki/Use-Case%3A-Leak-Checking).
 
-## PERFORMANCE_SCHEMA Tables
+## PERFORMANCE_SCHEMA tables
 
 In 8.0.25.14, the following tables are implemented to retrieve memory allocation statistics for a running instance or return the cumulative number of allocations requested or allocations returned for a running instance.
 
-More information about the stats that are returned can be found in [jemalloc](http://jemalloc.net/jemalloc.3.html).
+More information about the stats that are returned can be found in [jemalloc](https://jemalloc.net/jemalloc.3.html).
 
 ## malloc_stats_totals
 
@@ -157,7 +156,7 @@ The cumulative number of allocations requested or allocations returned for a run
 | NDALLOC               | A cumulative number of times an allocation was returned to the arena’s bins. The number includes times when the allocation was deallocated or flushed the relevant tcache if *opt.tcache* is enabled.                      |
 | NREQUESTS             | The cumulative number of allocation requests satisfied. |
 
-## System Variables
+## System variables
 
 The following variables have been added:
 
@@ -195,7 +194,7 @@ Description: Enables jemalloc profiling. The variable requires [jemalloc_detecte
 
 * Default Value: OFF
 
-## Disable Profiling
+## Disable profiling
 
 To disable jemalloc profiling, in a MySQL client, run the following command:
 

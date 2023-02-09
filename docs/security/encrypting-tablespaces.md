@@ -5,7 +5,7 @@ decrypted, remains the same.
 
 The feature requires the keyring plugin.
 
-## Setting the Default for Schemas and General Tablespace Encryption
+## Set the default for schemas and general tablespace encryption
 
 The tables in a general tablespace are either all encrypted or all unencrypted.
 A tablespace cannot contain a mixture of encrypted tables and unencrypted
@@ -36,11 +36,11 @@ variable is implemented in Percona Server for MySQL version 8.0.16-7.
 You can set the `default_table_encryption` variable in an individual
 connection.
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SET default_table_encryption=ON;
 ```
 
-### System Variable
+### System variable
 
 ### `default_table_encryption`
 
@@ -64,7 +64,7 @@ The variable has the following possible options:
 
 | Value | Description |
 |---|---|
-|  `ON`                                                                             | New tables are encrypted. Add `ENCRYPTION="N"` to the `CREATE TABLE` or `ALTER TABLE` statement to create unencrypted tables. |
+|  `ON` | New tables are encrypted. Add `ENCRYPTION="N"` to the `CREATE TABLE` or `ALTER TABLE` statement to create unencrypted tables. |
 | `OFF` | By default, new tables are unencrypted. Add `ENCRYPTION="Y"` to the `CREATE TABLE` or `ALTER TABLE` statement to create encrypted tables.
 | `ONLINE_TO_KEYRING`| **This option is technical preview quality.** <br> *Percona Server for MySQL 8.0.31-23 removes this option.** <br> Converts a tablespace encrypted by a Master Key to use Advanced Encryption Key Rotation. You can only apply the keyring encryption when creating tables or altering tables.|
  `ONLINE_FROM_KEYRING_TO_UNENCRYPTED` | **This option is technical preview quality.** <br> *Percona Server for MySQL 8.0.31-23 removes this option.**<br> Converts a tablespace encrypted by Advanced Encryption Key Rotation to unencrypted.
@@ -99,7 +99,7 @@ file merges used in queries and backend processes.
 If you do not set the default encryption setting, you can create general
 tablespaces with the `ENCRYPTION` setting.
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE TABLESPACE tablespace_name ENCRYPTION='Y';
 ```
 
@@ -117,13 +117,13 @@ accept the `ENCRYPTION='Y/N'` option.
 In an encrypted general tablespace, an attempt to create an unencrypted table
 generates the following error:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE TABLE t3 (a INT, b TEXT) TABLESPACE foo ENCRYPTION='N';
 ```
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     ERROR 1478 (HY0000): InnoDB: Tablespace 'foo' can contain only ENCRYPTED tables.
     ```
 
@@ -132,6 +132,6 @@ general tablespace with an incompatible encryption setting and aborts the proces
 
 If you must move tables between incompatible tablespaces, create tables with the same structure in another tablespace and run `INSERT INTO SELECT` from each of the source tables into the destination tables.
 
-### Exporting an Encrypted General Tablespace
+### Export an encrypted general tablespace
 
 You can only export encrypted file-per-table tablespaces

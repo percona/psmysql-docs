@@ -1,41 +1,41 @@
-# Show Storage Engines
+# Show storage engines
 
 This feature changes the comment field displayed when the `SHOW STORAGE ENGINES` command is executed and *XtraDB* is the storage engine.
 
-## Version-Specific Information
+## Version specific information
 
-    * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
+* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
 Before the Change:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> show storage engines;
 ```
 
-The output could be:
+??? example "Expected output"
 
-```text
-+------------+---------+----------------------------------------------------------------+--------------+------+------------+
-| Engine     | Support | Comment                                                        | Transactions | XA   | Savepoints |
-+------------+---------+----------------------------------------------------------------+--------------+------+------------+
-| InnoDB     | YES     | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |
-...
-+------------+---------+----------------------------------------------------------------+--------------+------+------------+
-```
+    ```{.text .no-copy}
+    +------------+---------+----------------------------------------------------------------+--------------+------+------------+
+    | Engine     | Support | Comment                                                        | Transactions | XA   | Savepoints |
+    +------------+---------+----------------------------------------------------------------+--------------+------+------------+
+    | InnoDB     | YES     | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |
+    ...
+    +------------+---------+----------------------------------------------------------------+--------------+------+------------+
+    ```
 
 After the Change:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> show storage engines;
 ```
 
-The output could be:
+??? example "Expected output"
 
-```text
-+------------+---------+----------------------------------------------------------------------------+--------------+------+------------+
-| Engine     | Support | Comment                                                                    | Transactions |   XA | Savepoints |
-+------------+---------+----------------------------------------------------------------------------+--------------+------+------------+
-| InnoDB     | YES     | Percona-XtraDB, Supports transactions, row-level locking, and foreign keys |          YES | YES  | YES        |
-...
-+------------+---------+----------------------------------------------------------------------------+--------------+------+------------+
-```
+    ```{.text .no-copy}
+    +------------+---------+----------------------------------------------------------------------------+--------------+------+------------+
+    | Engine     | Support | Comment                                                                    | Transactions |   XA | Savepoints |
+    +------------+---------+----------------------------------------------------------------------------+--------------+------+------------+
+    | InnoDB     | YES     | Percona-XtraDB, Supports transactions, row-level locking, and foreign keys |          YES | YES  | YES        |
+    ...
+    +------------+---------+----------------------------------------------------------------------------+--------------+------+------------+
+    ```

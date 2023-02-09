@@ -1,12 +1,11 @@
-# Audit Log Plugin
+# Audit log plugin
 
 Percona Audit Log Plugin provides monitoring and logging of connection and query
 activity that were performed on specific server. Information about the activity
 is stored in a log file. This
 implementation is alternative to the [MySQL Enterprise Audit Log Plugin](https://dev.mysql.com/doc/refman/8.0/en/audit-log.html)
 
-
-## Version Specific Information
+## Version specific information
 
 * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
@@ -16,31 +15,31 @@ implementation is alternative to the [MySQL Enterprise Audit Log Plugin](https:/
 
 The audit Log plugin is installed, but, by default, is not enabled when you install *Percona Server for MySQL*. To check if the plugin is enabled run the following commands:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT * FROM information_schema.PLUGINS WHERE PLUGIN_NAME LIKE '%audit%';
 ```
 
-??? note "Expected output"
+??? example "Expected output"
 
     ```text
     Empty set (0.00 sec)
     ```
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SHOW variables LIKE 'audit%';
 ```
 
-??? note "Expected output"
+??? example "Expected output"
 
     ```text
     Empty set (0.01 sec)
     ```
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SHOW variables LIKE 'plugin%';
 ```
 
-??? note "Expected output"
+??? example "Expected output"
 
     ```text
     +---------------+------------------------+
@@ -57,17 +56,17 @@ mysql> SHOW variables LIKE 'plugin%';
 
 The following command enables the plugin:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> INSTALL PLUGIN audit_log SONAME 'audit_log.so';
 ```
 
 Run the following command to verify if the plugin was installed correctly:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT * FROM information_schema.PLUGINS WHERE PLUGIN_NAME LIKE '%audit%'\G
 ```
 
-??? note "Expected output"
+??? example "Expected output"
 
     ```text
     *************************** 1. row ***************************
@@ -87,11 +86,11 @@ mysql> SELECT * FROM information_schema.PLUGINS WHERE PLUGIN_NAME LIKE '%audit%'
 
 You can review the audit log variables with the following command:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SHOW variables LIKE 'audit%';
 ```
 
-??? note "Expected output"
+??? example "Expected output"
 
     ```text
     +-----------------------------+---------------+
@@ -119,7 +118,7 @@ mysql> SHOW variables LIKE 'audit%';
     18 rows in set (0.00 sec)
     ```
 
-## Log Format
+## Log format
 
 The plugin supports the following log formats: `OLD`, `NEW`, `JSON`, and `CSV`. The `OLD\`\`format and the\`\`NEW` format are based on XML. The `OLD` format defines each log record with XML attributes. The `NEW` format defines each log record with XML tags. The information logged is the same for all four formats. The audit_log_format variable controls the log format choice.
 
@@ -335,11 +334,11 @@ The following are examples of the different filters.
 
     The following example adds users who will be monitored:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_include_accounts = 'user1@localhost,root@localhost';
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         Query OK, 0 rows affected (0.00 sec)
@@ -347,11 +346,11 @@ The following are examples of the different filters.
 
     If you try to add users to both the include list and the exclude list, the server returns the following error:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_exclude_accounts = 'user1@localhost,root@localhost';
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         ERROR 1231 (42000): Variable 'audit_log_exclude_accounts' can't be set to the value of 'user1@localhost,root@localhost'
@@ -360,51 +359,51 @@ The following are examples of the different filters.
     To switch from filtering by included user list to the excluded user list or back,
     first set the currently active filtering variable to `NULL`:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_include_accounts = NULL;
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         Query OK, 0 rows affected (0.00 sec)
         ```
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_exclude_accounts = 'user1@localhost,root@localhost';
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         Query OK, 0 rows affected (0.00 sec)
         ```
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_exclude_accounts = "'user'@'host'";
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         Query OK, 0 rows affected (0.00 sec)
         ```
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_exclude_accounts = '''user''@''host''';
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         Query OK, 0 rows affected (0.00 sec)
         ```
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_exclude_accounts = '\'user\'@\'host\'';
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         Query OK, 0 rows affected (0.00 sec)
@@ -412,11 +411,11 @@ The following are examples of the different filters.
 
     To see which user accounts have been added to the exclude list, run the following command:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SELECT @@audit_log_exclude_accounts;
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         +------------------------------+
@@ -430,11 +429,11 @@ The following are examples of the different filters.
     Account names from mysql.user table are logged in the
     audit log. For example when you create a user:
 
-    ```mysql
+    ```{.bash data-prompt="mysql>"}
     mysql> CREATE USER 'user1'@'%' IDENTIFIED BY '111';
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         Query OK, 0 rows affected (0.00 sec)
@@ -474,11 +473,11 @@ The following are examples of the different filters.
 
     The available command types can be listed by running:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SELECT name FROM performance_schema.setup_instruments WHERE name LIKE "statement/sql/%" ORDER BY name;
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         +------------------------------------------+
@@ -509,17 +508,17 @@ The following are examples of the different filters.
 
     You can add commands to the `include` filter by running:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_include_commands= 'set_option,create_db';
     ```
 
     Create a database with the following command:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> CREATE DATABASE sample;
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         <AUDIT_RECORD>
@@ -541,21 +540,21 @@ The following are examples of the different filters.
     To switch the command type filtering type from included type list to the excluded list
     or back, first reset the currently-active list to `NULL`:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_include_commands = NULL;
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         Query OK, 0 rows affected (0.00 sec)
         ```
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_exclude_commands= 'set_option,create_db';
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         Query OK, 0 rows affected (0.00 sec)
@@ -569,7 +568,7 @@ The following are examples of the different filters.
 
     To add databases to be monitored, run:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_include_databases = 'test,mysql,db1';
     ```
 
@@ -579,11 +578,11 @@ The following are examples of the different filters.
         Query OK, 0 rows affected (0.00 sec)
         ```
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_include_databases= 'db1','db3';
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         Query OK, 0 rows affected (0.00 sec)
@@ -592,7 +591,7 @@ The following are examples of the different filters.
     If you you try to add databases to both include and exclude lists server will
     show you the following error:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_exclude_databases = 'test,mysql,db1';
     ```
 
@@ -605,27 +604,27 @@ The following are examples of the different filters.
     To switch from filtering by included database list to the excluded one or back,
     first set the currently active filtering variable to `NULL`:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_include_databases = NULL;
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         Query OK, 0 rows affected (0.00 sec)
         ```
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL audit_log_exclude_databases = 'test,mysql,db1';
     ```
 
-    ??? note "Expected output"
+    ??? example "Expected output"
 
         ```text
         Query OK, 0 rows affected (0.00 sec)
         ```
 
-## System Variables
+## System variables
 
 ### `audit_log_strategy`
 

@@ -1,4 +1,4 @@
-# Frequently Asked Questions
+# Frequently asked questions
 
 ## Q: Will *Percona Server for MySQL* with *XtraDB* invalidate our *MySQL* support?
 

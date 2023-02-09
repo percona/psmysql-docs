@@ -1,4 +1,4 @@
-# XtraDB Performance Improvements for I/O-Bound Highly-Concurrent Workloads
+# XtraDB performance improvements for I/O-bound highly-concurrent workloads
 
 ## Priority refill for the buffer pool free list
 
@@ -98,7 +98,7 @@ compiled with `UNIV_PERF_DEBUG` C preprocessor define.
 
 This variable can be added to the configuration file.
 
-## Other Reading
+## Other reading
 
 * Bug [#74637](https://bugs.mysql.com/bug.php?id=74637) - make dirty page flushing more adaptive
 

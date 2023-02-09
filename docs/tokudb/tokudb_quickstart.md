@@ -1,4 +1,4 @@
-# Getting Started with TokuDB
+# Get started with TokuDB
 
 !!! important
 

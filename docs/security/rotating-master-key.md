@@ -15,7 +15,7 @@ To allow for Master Key rotation, you can encrypt an already encrypted InnoDB
 system tablespace with a new master key by running the following `ALTER
 INSTANCE` statement:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> ALTER INSTANCE ROTATE INNODB MASTER KEY;
 ```
 

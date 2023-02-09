@@ -67,7 +67,7 @@ binlog_encryption=ON
 To verify that the binary log encryption option is enabled, run the following
 statement:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SHOW BINARY LOGS;
 ```
 

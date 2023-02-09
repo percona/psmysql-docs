@@ -42,7 +42,7 @@ The `INSERT` privilege on the `mysql.component` system table is required to run 
 
 The following is an example of the installation command:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> INSTALL COMPONENT 'file://component_encryption_udf';
 ```
 
@@ -50,7 +50,7 @@ mysql> INSTALL COMPONENT 'file://component_encryption_udf';
 
     If you are Compiling Percona Server for MySQL from Source, the Encryption UDF component is built by default when Percona Server for MySQL is built. Specify the `-DWITH_ENCRYPTION_UDF=OFF` cmake option to exclude it.
 
-## User-Defined Functions Described
+## User-defined functions described
 
 ## asymmetric_decrypt(*algorithm, crypt_str, key_str*)
 
@@ -335,7 +335,7 @@ Code examples for the following operations:
 
 * decrypt data
 
-```sql
+```{.bash data-prompt="mysql>"}
 -- Set Global variable
 mysql> SET GLOBAL encryption_udf.dh_bits_threshold = 4096;
 
@@ -343,7 +343,7 @@ mysql> SET GLOBAL encryption_udf.dh_bits_threshold = 4096;
 mysql> SET GLOBAL encryption_udf.rsa_bits_threshold = 4096;
 ```
 
-```sql
+```{.bash data-prompt="mysql>"}
 -- Create private key
 mysql> SET @private_key = create_asymmetric_priv_key('RSA', 3072);
 
@@ -366,7 +366,7 @@ Code examples for the following operations:
 
 * verify the signature against the digest
 
-```sql
+```{.bash data-prompt="mysql>"}
 -- Generate a digest string
 mysql> SET @digest = create_digest('SHA256', 'This is the text for digest');
 
@@ -388,7 +388,7 @@ Code examples for the following operations:
 
 * generate a symmetric key using the public_2 and the private_1
 
-```sql
+```{.bash data-prompt="mysql>"}
  -- Generate a DH parameter
  mysql> SET @dh_parameter = create_dh_parameters(3072);
 
@@ -415,7 +415,7 @@ Code examples for the following operations:
 
 * create a private key using an `INSERT` statement
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SET @private_key1 = create_asymmetric_priv_key('RSA', 3072);
 mysql> SELECT create_asymmetric_priv_key('RSA', 3072) INTO @private_key2;
 mysql> INSERT INTO key_table VALUES(create_asymmetric_priv_key('RSA', 3072));
@@ -425,6 +425,6 @@ mysql> INSERT INTO key_table VALUES(create_asymmetric_priv_key('RSA', 3072));
 
 You can deactivate and uninstall the component using the [Uninstall Component statement](https://dev.mysql.com/doc/refman/8.0/en/uninstall-component.html).
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> UNINSTALL COMPONENT 'file://component_encryption_udf';
 ```

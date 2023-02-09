@@ -1,6 +1,6 @@
 # Extended mysqldump
 
-## Backup Locks support
+## Backup locks support
 
 When used together with the –single-transaction option, the
 lock-for-backup option makes `mysqldump` issue `LOCK
@@ -10,7 +10,7 @@ backup.
 
 More information can be found on the Backup Locks feature documentation.
 
-## Compressed Columns support
+## Compressed columns support
 
 **mysqldump** supports the Compressed columns with dictionaries feature. More
 information about the relevant options can be found on the
@@ -31,6 +31,6 @@ rocksdb_skip_fill_cache **mysqldump** sets it to **1**.
 **mysqldump** will now automatically enable session the variable
 rocksdb_bulk_load if it is supported by the target server.
 
-## Version Specific Information
+## Version specific information
 
-    * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7
+* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7

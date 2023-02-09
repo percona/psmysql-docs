@@ -1,19 +1,19 @@
-# Improved InnoDB I/O Scalability
+# Improved InnoDB I/O scalability
 
 Because *InnoDB* is a complex storage engine it must be configured properly in
 order to perform at its best. Some points are not configurable in standard
 *InnoDB*. The goal of this feature is to provide a more exhaustive set of
 options for *XtraDB*.
 
-## Version Specific Information
+## Version specific information
 
-    * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
+* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
 !!! note
 
     Implemented in *Percona Server for MySQL* 8.0.13-4, `max checkpoint age` has been removed because the information is identical to `log capacity`.
 
-## System Variables
+## System variables
 
 ### `innodb_flush_method`
 
@@ -47,7 +47,7 @@ The following values are allowed:
 
 Starting from *Percona Server for MySQL* 8.0.20-11, the [innodb_flush_method](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_flush_method) affects doublewrite buffers exactly the same as in *MySQL* 8.0.20.
 
-## Status Variables
+## Status variables
 
 The following information has been added to `SHOW ENGINE INNODB STATUS` to confirm the checkpointing activity:
 

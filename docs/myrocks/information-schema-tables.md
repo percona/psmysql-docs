@@ -1,4 +1,4 @@
-# MyRocks Information Schema Tables
+# MyRocks Information Schema tables
 
 When you install the MyRocks plugin for *MySQL*, the
 Information Schema is extended to include the following tables:

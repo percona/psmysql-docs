@@ -1,10 +1,10 @@
-# Upgrading using the Percona repositories
+# Upgrade using the Percona repositories
 
 Upgrading using the Percona repositories is the easiest and recommended way.
 
 Find the instructions on how to enable the repositories in the following documents:
 
-* [Percona APT Repository](installation/apt_repo.md)
+* [Percona APT Repository](installation/apt-repo.md)
 
 * [Percona RPM Repository](installation/yum-repo.md)
 
@@ -21,7 +21,7 @@ Run the following commands as root or by using the **sudo** command.
 
     !!! note
 
-        If you are running *Debian*/*Ubuntu* system with [systemd](http:/freedesktop.org/wiki/Software/systemd/) as the default system and service manager, you can invoke the above command with **systemctl**instead of **service**. Currently, both are supported.
+        If you are running *Debian*/*Ubuntu* system with [systemd](https:/freedesktop.org/wiki/Software/systemd/) as the default system and service manager, you can invoke the above command with **systemctl**instead of **service**. Currently, both are supported.
 
 
 3. Do the required modifications in the database configuration file `my.cnf`.
@@ -29,20 +29,20 @@ Run the following commands as root or by using the **sudo** command.
 
 4. Install *Percona Server for MySQL*:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo dpkg -i *.deb
     ```
 
 5. Enable the repository:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ percona-release enable ps-80 release
     $ apt-get update
     ```
 
 6. Install the server package:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ apt-get install percona-server-server
     ```
 
@@ -50,13 +50,13 @@ Run the following commands as root or by using the **sudo** command.
 
     *TokuDB* is deprecated and removed in [Percona Server for MySQL 8.0.28-19](release-notes/Percona-Server-8.0.28-19.md#id3). For more information, see [TokuDB Introduction](tokudb/tokudb_intro.md). If you used the *TokuDB* storage engine in *Percona Server for MySQL* 5.7, install the `percona-server-tokudb` package:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ apt install percona-server-tokudb
     ```
 
     If you used the *MyRocks* storage engine in *Percona Server for MySQL* 5.7, install the `percona-server-rocksdb` package:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ apt install percona-server-rocksdb
     ```
 
@@ -66,28 +66,28 @@ Run the following commands as root or by using the **sudo** command.
 
     If you are upgrading to a *Percona Server for MySQL* version before 8.0.16-7, the installation script will *NOT* run automatically **mysql_upgrade**. You must run the **mysql_upgrade** manually.
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ mysql_upgrade
     ```
 
-    The output should look like the following:
+    ??? example "Expected output"
 
-    ```text
-      Checking if update is needed.
-      Checking server version.
-      Running queries to upgrade MySQL server.
-      Checking system database.
-      mysql.columns_priv                                 OK
-      mysql.db                                           OK
-      mysql.engine_cost                                  OK
-      ...
-      Upgrade process completed successfully.
-      Checking if update is needed.
-    ```
+        ```{.text .no-copy}
+        Checking if update is needed.
+        Checking server version.
+        Running queries to upgrade MySQL server.
+        Checking system database.
+        mysql.columns_priv                                 OK
+        mysql.db                                           OK
+        mysql.engine_cost                                  OK
+        ...
+        Upgrade process completed successfully.
+        Checking if update is needed.
+        ```
 
 9. Restart the service 
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo systemctl restart mysqld
     ```
 After the service has been successfully restarted you can use the new *Percona Server for MySQL* 8.0.
@@ -104,7 +104,7 @@ Run the following commands as root or by using the **sudo** command.
 
 	!!! note
 
-        If you are running *RHEL*/*CentOS* system with [systemd](http: freedesktop.org/wiki/Software/systemd/) as the default system and service manager you can invoke the above command with **systemctl** instead of **service**. Currently, both are supported.
+        If you are running *RHEL*/*CentOS* system with [systemd](https:freedesktop.org/wiki/Software/systemd/) as the default system and service manager you can invoke the above command with **systemctl** instead of **service**. Currently, both are supported.
 
 
 3. Check your installed packages with `rpm -qa | grep Percona-Server`.
@@ -112,7 +112,7 @@ Run the following commands as root or by using the **sudo** command.
 
 4. Remove the packages without dependencies. This command only removes the specified packages and leaves any dependent packages. The command does not prompt for confirmation:
 
-	```shell
+	```{.bash data-prompt="$"}
 	$ rpm -qa | grep Percona-Server | xargs rpm -e --nodeps
 	```
 
@@ -123,7 +123,7 @@ Run the following commands as root or by using the **sudo** command.
 
 5. Install the `percona-server-server` package:
 
-	```shell
+	```{.bash data-prompt="$"}
 	$ yum install percona-server-server
 	```
 
@@ -131,13 +131,13 @@ Run the following commands as root or by using the **sudo** command.
 
 	*TokuDB* is deprecated and removed in [Percona Server for MySQL 8.0.28-19](release-notes/Percona-Server-8.0.28-19.md#id3). For more information, see TokuDB Introduction. If you used *TokuDB* storage engine in *Percona Server for MySQL* 5.7, install the `percona-server-tokudb` package:
 
-	```shell
+	```{.bash data-prompt="$"}
 	$ yum install percona-server-tokudb
 	```
 
 	If you used the *MyRocks* storage engine in *Percona Server for MySQL* 5.7, install the `percona-server-rocksdb` package:
 
-	```shell
+	```{.bash data-prompt="$"}
 	$ apt-get install percona-server-rocksdb
 	```
 
@@ -154,13 +154,13 @@ Run the following commands as root or by using the **sudo** command.
 	
 	If you are upgrading to a *Percona Server for MySQL* version before 8.0.16-7, you can start the mysql service using **service mysql start**. Use **mysql_upgrade** to migrate to the new grant tables. The **mysql_upgrade** rebuilds the required indexes and does the required modifications:
 	
-	```shell
+	```{.bash data-prompt="$"}
 	$ mysql_upgrade
 	```
 
 9. Restart the service.
 	
-	```shell
+	```{.bash data-prompt="$"}
 	$ systemctl mysql restart`.
 	```
 	

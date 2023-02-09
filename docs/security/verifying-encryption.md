@@ -1,4 +1,4 @@
-# Verifying the Encryption for Tables, Tablespaces, and Schemas
+# Verify the encryption for tables, tablespaces, and schemas
 
 If a general tablespace contains tables, check the table information to see if
 the table is encrypted. When the general tablespace contains no tables, you
@@ -7,20 +7,20 @@ may verify if the tablespace is encrypted or not.
 For single tablespaces, verify the ENCRYPTION option using
 INFORMATION_SCHEMA.TABLES and the CREATE OPTIONS settings.
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT TABLE_SCHEMA, TABLE_NAME, CREATE_OPTIONS FROM
        INFORMATION_SCHEMA.TABLES WHERE CREATE_OPTIONS LIKE '%ENCRYPTION%';
 ```
 
-The output could be the following:
+??? example "Expected output"
 
-```text
-+----------------------+-------------------+------------------------------+
-| TABLE_SCHEMA         | TABLE_NAME        | CREATE_OPTIONS               |
-+----------------------+-------------------+------------------------------+
-|sample                | t1                | ENCRYPTION="Y"               |
-+----------------------+-------------------+------------------------------+
-```
+    ```{.text .no-copy}
+    +----------------------+-------------------+------------------------------+
+    | TABLE_SCHEMA         | TABLE_NAME        | CREATE_OPTIONS               |
+    +----------------------+-------------------+------------------------------+
+    |sample                | t1                | ENCRYPTION="Y"               |
+    +----------------------+-------------------+------------------------------+
+    ```
 
 A `flag` field in the `INFORMATION_SCHEMA.INNODB_TABLESPACES` has bit number
 13 set if the tablespace is encrypted. This bit can be checked with the `flag &
@@ -40,46 +40,46 @@ INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION table. You must have the
 
     **This table is in tech preview and may change in future releases.**
 
-```sql
+```{.bash data-prompt="mysql>"}
    mysql> DESCRIBE INNODB_TABLESPACES_ENCRYPTION;
 ```
 
-The output could be:
+??? example "Expected output"
 
-```text
-+-----------------------------+--------------------+-----+----+--------+------+
-| Field                       | Type               | Null| Key| Default| Extra|
-+-----------------------------+--------------------+-----+----+--------+------+
-| SPACE                       | int(11) unsigned   | NO  |    |        |      |
-| NAME                        | varchar(655)       | YES |    |        |      |
-| ENCRYPTION_SCHEME           | int(11) unsigned   | NO  |    |        |      |
-| KEYSERVER_REQUESTS          | int(11) unsigned   | NO  |    |        |      |
-| MIN_KEY_VERSION             | int(11) unsigned   | NO  |    |        |      |
-| CURRENT_KEY_VERSION         | int(11) unsigned   | NO  |    |        |      |
-| KEY_ROTATION_PAGE_NUMBER    | bigint(21) unsigned| YES |    |        |      |
-| KEY_ROTATION_MAX_PAGE_NUMBER| bigint(21) unsigned| YES |    |        |      |
-| CURRENT_KEY_ID              | int(11) unsigned   | NO  |    |        |      |
-| ROTATING_OR_FLUSHING        | int(1) unsigned    | NO  |    |        |      |
-+-----------------------------+--------------------+-----+----+--------+------+
-```
+    ```{.text .no-copy}
+    +-----------------------------+--------------------+-----+----+--------+------+
+    | Field                       | Type               | Null| Key| Default| Extra|
+    +-----------------------------+--------------------+-----+----+--------+------+
+    | SPACE                       | int(11) unsigned   | NO  |    |        |      |
+    | NAME                        | varchar(655)       | YES |    |        |      |
+    | ENCRYPTION_SCHEME           | int(11) unsigned   | NO  |    |        |      |
+    | KEYSERVER_REQUESTS          | int(11) unsigned   | NO  |    |        |      |
+    | MIN_KEY_VERSION             | int(11) unsigned   | NO  |    |        |      |
+    | CURRENT_KEY_VERSION         | int(11) unsigned   | NO  |    |        |      |
+    | KEY_ROTATION_PAGE_NUMBER    | bigint(21) unsigned| YES |    |        |      |
+    | KEY_ROTATION_MAX_PAGE_NUMBER| bigint(21) unsigned| YES |    |        |      |
+    | CURRENT_KEY_ID              | int(11) unsigned   | NO  |    |        |      |
+    | ROTATING_OR_FLUSHING        | int(1) unsigned    | NO  |    |        |      |
+    +-----------------------------+--------------------+-----+----+--------+------+
+    ```
 
 To identify encryption-enabled schemas, query the
 INFORMATION_SCHEMA.SCHEMATA table:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT SCHEMA_NAME, DEFAULT_ENCRYPTION FROM
 INFORMATION_SCHEMA.SCHEMATA WHERE DEFAULT_ENCRYPTION='YES';
 ```
 
-The output could be:
+??? example "Expected output"
 
-```text
-+------------------------------+---------------------------------+
-| SCHEMA_NAME                  | DEFAULT_ENCRYPTION              |
-+------------------------------+---------------------------------+
-| samples                      | YES                             |
-+------------------------------+---------------------------------+
-```
+    ```{.text .no-copy}
+    +------------------------------+---------------------------------+
+    | SCHEMA_NAME                  | DEFAULT_ENCRYPTION              |
+    +------------------------------+---------------------------------+
+    | samples                      | YES                             |
+    +------------------------------+---------------------------------+
+    ```
 
 !!! note 
 

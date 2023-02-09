@@ -1,4 +1,4 @@
-# Index of INFORMATION_SCHEMA Tables
+# Index of INFORMATION_SCHEMA tables
 
 This is a list of the `INFORMATION_SCHEMA TABLES` that exist in *Percona Server for MySQL* with *XtraDB*. The entry for each table points to the page in the documentation where it’s described.
 
@@ -6,9 +6,7 @@ This is a list of the `INFORMATION_SCHEMA TABLES` that exist in *Percona Server 
 
 * [INFORMATION_SCHEMA.GLOBAL_TEMPORARY_TABLES](diagnostics/user_stats.md#index-statistics)
 
-* [INFORMATION_SCHEMA.INDEX_STATISTICS](management/changed_page_tracking.md#innodb-changed-pages)
-
-* [INFORMATION_SCHEMA.INNODB_CHANGED_PAGES]()
+* [INFORMATION_SCHEMA.INDEX_STATISTICS]
 
 * [PROCFS](performance/procfs-plugin.md#procfs)
 

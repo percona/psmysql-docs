@@ -1,4 +1,4 @@
-# Fast Updates with TokuDB
+# Fast updates with TokuDB
 
 !!! important
 
@@ -64,7 +64,7 @@ if the executed expression meets the number of conditions.
 
     * `x = x + values`
 
-## Usage Specifics and Examples
+## Usage specifics and examples
 
 Following example creates a table that associates event identifiers with their
 count:

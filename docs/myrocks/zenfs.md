@@ -34,15 +34,15 @@ For the moment, the ZenFS plugin can be enabled in following distributions:
 
 If the ZenFS functionality is not enabled on Ubuntu 20.04, the binaries with ZenFS support can run on the standard 5.4 kernel.
 
-[Other Linux distributions](https://zonedstorage.io/docs/distributions/linux/) are adding support for ZenFS, but Percona does not provide installation packages for those distributions.
+[Other Linux distributions](https://zonedstorage.io/docs/distributions/overview) are adding support for ZenFS, but Percona does not provide installation packages for those distributions.
 
 ## Installation
 
 Start with the installation of *Percona Server for MySQL*.
 
-1. The steps are listed here for convenience, for an explanation, see [Installing Percona Server for MySQL from Percona apt repository](../installation/apt_repo.md#apt-install).
+1. The steps are listed here for convenience, for an explanation, see [Installing Percona Server for MySQL from Percona apt repository](../installation/apt-repo.md#apt-install).
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb
     $ sudo apt install gnupg2 lsb-release ./percona-release_latest.*_all.deb
     $ sudo percona-release setup ps80
@@ -50,13 +50,13 @@ Start with the installation of *Percona Server for MySQL*.
 
 2. Install Percona Server for MySQL with MyRocks and the ZenFS plugin package. The binaries are listed in the [Installing Percona Server for MySQL from a Binary Tarball](../installation.md#installing-from-binary-tarball) section of the *Percona Server for MySQL* installation instructions.
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo apt install percona-server-server
     ```
 
 3. Install the RocksDB plugin package. This package copies `ha_rocksdb.so` into a predefined location. **The RocksDB storage engine is not enabled**.
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo apt install percona-server-rocksdb
     ```
 
@@ -78,13 +78,13 @@ Start with the installation of *Percona Server for MySQL*.
 
 2. Change the ownership of <block_device_name> to the `mysql:mysql` user account.
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo chown mysql:mysql <block_device_name>
     ```
 
 3. Change the permissions so that the user or owner can read and write and the MySQL group can read, in case they must take a backup, for <block_device_name>.
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo chmod 640 <block_device_name>
     ```
 
@@ -98,7 +98,7 @@ Start with the installation of *Percona Server for MySQL*.
 
 6. Verify if the rule was applied correctly by running the following line:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ cat /sys/block/<short_block_device_name>/queue/scheduler
     ```
 
@@ -123,7 +123,7 @@ Start with the installation of *Percona Server for MySQL*.
 
         Don’t forget to reload the policy if you make edits:
 
-        ```shell
+        ```{.bash data-prompt="$"}
         $ sudo service apparmor reload
         ```
 
@@ -135,38 +135,38 @@ Start with the installation of *Percona Server for MySQL*.
 
         * Create the `aux_path` for <block_device_name>:
 
-        ```shell
+        ```{.bash data-prompt="$"}
         $ sudo mkdir /var/lib/mysql_aux_<short_block_device_name>
         ```
 
         * Change the ownership of the `aux_path`:
 
-        ```shell
+        ```{.bash data-prompt="$"}
         $ sudo chown mysql:mysql /var/lib/mysql_aux_<short_block_device_name>
         ```
 
         * Set the permissions for the `aux_path` for <block_device_name>:
 
-        ```shell
+        ```{.bash data-prompt="$"}
         $ sudo chmod 750 /var/lib/mysql_aux_<short_block_device_name>
         ```
 
 9. Change the ownership of <block_device_name>.
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo chown mysql:mysql <block_device_name>
     ```
 
 10. Initialize ZenFS on <block_device_name>.
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo -H -u mysql zenfs mkfs --zbd=<short_block_device_name> --aux_path=/var/lib/mysql_aux_<short_block_device_name> --finish_threshold=0 --force
     ```
 
 11. Stop *Percona Server for MySQL*:
 
-    ```shell
-    sudo service mysql stop
+    ```{.bash data-prompt="$"}
+    $ sudo service mysql stop
     ```
 
 12. Edit my.cnf. Add the following line to the “[mysqld]” section:
@@ -185,13 +185,13 @@ Start with the installation of *Percona Server for MySQL*.
 
 13. Start *Percona Server for MySQL*:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo service mysql start
     ```
 
 14. Enable `RocksDB`:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo ps-admin --enable-rocksdb -u root -p
     ```
 
@@ -209,13 +209,13 @@ Start with the installation of *Percona Server for MySQL*.
 
 16. Verify that the “.rocksdb” directory in the default data directory has only “LOG\*” files:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo ls -la /var/lib/mysql/.rocksdb
     ```
 
 17. Verify that ZenFS is created on “rocksdb” and has the *RocksDB* data files:
 
-    ```shell
+    ```{.bash data-prompt="$"}
           $ sudo -H -u mysql zenfs list --zbd=<short_block_device_name> --path=./.rocksdb
     #OR
           $ sudo -H -u mysql zenfs dump --zbd=<short_block_device_name>
@@ -223,7 +223,7 @@ Start with the installation of *Percona Server for MySQL*.
 
 18. You can verify if the ZenFS was successfully created with the following command:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo -H -u mysql zenfs ls-uuid
     ...
     13e421af-1967-435c-ab15-faf4529710b6    <short_block_device_name>
@@ -232,7 +232,7 @@ Start with the installation of *Percona Server for MySQL*.
 
 19. You can check the available storage with the following command:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo -H -u mysql zenfs df --zbd=<short_block_device_name>
     Free: 971453 MB
     Used: 0 MB
@@ -246,7 +246,7 @@ Shut down the server and use the following command to backup a ZenFS file system
 
 The following command backs up everything from the root of the ZenFS drive:
 
-```shell
+```{.bash data-prompt="$"}
 $ zenfs backup --zbd=${NULLB} --path="/home/user/bkp" --backup_path=/
 ```
 
@@ -282,7 +282,7 @@ If the backup is for a non-root ZenFS path, use any of the values in the followi
 
 Use the following command to restore a backup into the root of the ZenFS drive:
 
-```shell
+```{.bash data-prompt="$"}
 $ zenfs restore --zbd=${NULLB} --path="/home/user/bkp/" --restore_path=/
 ```
 
@@ -314,7 +314,7 @@ $ zenfs restore --zbd=${NULLB} --path="/home/user/bkp/" --restore_path=/
     | /&#60;directory&#62;/  | A forward slash with the directory name and an ending forward slash|
     | ./&#60;directory&#62;/ | A single period, a forward slash, the directory name, and an ending forward slash|
 
-## Known Limitations
+## Known limitations
 
 After a reboot the NVME ZBD configuration (“/dev/nvme02” in our examples) can disappear. The issue is OS-dependent and can be managed by the system administrators. One or more of the following events may have occurred:
 

@@ -1,4 +1,4 @@
-# Data Loading
+# Data loading
 
 By default, MyRocks configurations are optimized for short transactions,
 and not for data loading. MyRocks has a couple of special session variables
@@ -11,7 +11,7 @@ is recommended. This method works by dropping any secondary keys first, loading
 data into your table in primary key order, and then restoring the secondary
 keys via Fast Secondary Index Creation.
 
-### Creating Secondary Indexes
+### Creating secondary indexes
 
 When loading data into empty tables, it is highly recommended to drop all
 secondary indexes first, then loading data, and adding all secondary indexes
@@ -23,7 +23,7 @@ to bottommost RocksDB levels and bypassing compaction. This significantly
 reduces total write volume and CPU time for decompressing and compressing
 data on higher levels.
 
-### Loading Data
+### Loading data
 
 As described above, loading data is highly recommended for tables with primary
 key only (no secondary keys), with all secondary indexes added after loading
@@ -110,7 +110,7 @@ input data will go through an intermediate step that writes the rows to
 temporary SST files, sorts them rows in the primary key order, and then writes
 to final SST files in the correct order.
 
-## Other Approaches
+## Other approaches
 
 If [rocksdb_commit_in_the_middle](variables.md#rocksdb-commit-in-the-middle) is enabled, MyRocks implicitly
 commits every [rocksdb_bulk_load_size](variables.md#rocksdb-bulk-load-size) records (default is `1,000`)
@@ -123,7 +123,7 @@ need to truncate the table and loading data again.
 
     If you are loading large data without enabling [rocksdb_bulk_load](variables.md#rocksdb-bulk-load) or [rocksdb_commit_in_the_middle](variables.md#rocksdb-commit-in-the-middle), please make sure transaction size is small enough. All modifications of the ongoing transactions are kept in memory.
 
-## Other Reading
+## Other reading
 
 * [Data Loading](https://github.com/facebook/mysql-5.6/wiki/Data-Loading) -
 this document has been used as a source for writing this documentation

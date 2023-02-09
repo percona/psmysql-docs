@@ -1,11 +1,10 @@
-# Slow Query Log
+# Slow query log
 
 This feature adds microsecond time resolution and additional statistics to the slow query log output. It lets you enable or disable the slow query log at runtime, adds logging for the replica SQL thread, and adds fine-grained control over what and how much to log into the slow query log.
 
-You can use *Percona-Toolkit*’s [pt-query-digest](http://www.percona.com/doc/percona-toolkit/2.1/pt-query-digest.html) tool to aggregate similar queries together and report on those that consume the most execution time.
+You can use *Percona-Toolkit*’s [pt-query-digest](https://www.percona.com/doc/percona-toolkit/2.1/pt-query-digest.html) tool to aggregate similar queries together and report on those that consume the most execution time.
 
-## Version Specific Information
-
+## Version specific information
 
 * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
@@ -40,88 +39,29 @@ For example, to log only queries that perform a full table scan, set the value t
 
 ### `log_slow_rate_type`
 
-| Option
+| Option       | Description |
+|--------------|-------------|
+| Command-line | Yes         |
+| Config file  | Yes         |
+| Scope        | Global      |
+| Dynamic      | yes         |
+| Data type    | Enumerated  |
+| Default      | session, query     |
 
-                           | Description
-
-                                                                                                                                                                                                                                                                    |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Command-line
-
-                     | Yes
-
-                                                                                                                                                                                                                                                                            |
-| Config file
-
-                      | Yes
-
-                                                                                                                                                                                                                                                                            |
-| Scope
-
-                            | Global
-
-                                                                                                                                                                                                                                                                         |
-| Dynamic
-
-                          | Yes
-
-                                                                                                                                                                                                                                                                            |
-| Data type
-
-                        | Enumerated
-
-                                                                                                                                                                                                                                                                     |
-| Default
-
-                          | `session`
-
-                                                                                                                                                                                                                                                                        |
-| Range
-
-                            | `session`, `query`
-
-                                                                                                                                                                                                                                                                 |
 Specifies semantic of log_slow_rate_limit - `session` or `query`.
 
 ### `log_slow_rate_limit`
 
-| Option
+| Option       | Description     |
+|--------------|-----------------|
+| Command-line | Yes             |
+| Config file  | Yes             |
+| Scope        | Global, session |
+| Dynamic      | yes             |
+| Default      | 1               |
+| Range        | 1-1000          |
 
-                           | Description
-
-                                                                                                                                                                                                                                                                    |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Command-line
-
-                     | Yes
-
-                                                                                                                                                                                                                                                                            |
-| Config file
-
-                      | Yes
-
-                                                                                                                                                                                                                                                                            |
-| Scope
-
-                            | Global, session
-
-                                                                                                                                                                                                                                                                |
-| Dynamic
-
-                          | Yes
-
-                                                                                                                                                                                                                                                                            |
-| Default
-
-                          | 1
-
-                                                                                                                                                                                                                                                                              |
-| Range
-
-                            | 1-1000
-
-                                                                                                                                                                                                                                                                         |
-Behavior of this variable depends from log_slow_rate_type.
+Behavior of this variable depends on the selected log_slow_rate_type.
 
 Specifies that only a fraction of `session/query` should be logged. Logging is enabled for every nth `session/query`. By default, n is 1, so logging is enabled for every `session/query`. Please note: when log_slow_rate_type is `session` rate limiting is disabled for the replication thread.
 
@@ -144,11 +84,13 @@ Decision “log or no” calculated in following manner:
 
 This allows flexible setup logging behavior.
 
-For example, if you set the value to 100, then one percent of `sessions/queries` will be logged. In *Percona Server for MySQL* information about the log_slow_rate_limit has been added to the slow query log. This means that if the log_slow_rate_limit is effective it will be reflected in the slow query log for each written query. Example of the output looks like this:
+For example, if you set the value to 100, then one percent of `sessions/queries` will be logged. In *Percona Server for MySQL* information about the log_slow_rate_limit has been added to the slow query log. This means that if the log_slow_rate_limit is effective it will be reflected in the slow query log for each written query. 
 
-```
-Log_slow_rate_type: query  Log_slow_rate_limit: 10
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    Log_slow_rate_type: query  Log_slow_rate_limit: 10
+    ```
 
 ### `log_slow_sp_statements`
 
@@ -174,7 +116,7 @@ If `TRUE`, statements executed by stored procedures are logged to the slow if it
 
 Example of the improved stored procedure slow query log entry:
 
-```sql
+```{.bash data-prompt="mysql"}
 mysqlDELIMITER //
 mysqlCREATE PROCEDURE improved_sp_log()
        BEGIN
@@ -187,22 +129,24 @@ mysqlCALL improved_sp_log();
 
 When we check the slow query log after running the stored procedure, with `log_slow_sp_statements` set to `TRUE`, it should look like this:
 
-```text
-# Time: 150109 11:38:55
-# User@Host: root[root] @ localhost []
-# Thread_id: 40  Schema: world  Last_errno: 0  Killed: 0
-# Query_time: 0.012989  Lock_time: 0.000033  Rows_sent: 4079  Rows_examined: 4079  Rows_affected: 0  Rows_read: 4079
-# Bytes_sent: 161085
-# Stored routine: world.improved_sp_log
-SET timestamp=1420803535;
-SELECT * FROM City;
-# User@Host: root[root] @ localhost []
-# Thread_id: 40  Schema: world  Last_errno: 0  Killed: 0
-# Query_time: 0.001413  Lock_time: 0.000017  Rows_sent: 4318  Rows_examined: 4318  Rows_affected: 0  Rows_read: 4318
-# Bytes_sent: 194601
-# Stored routine: world.improved_sp_log
-SET timestamp=1420803535;
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    # Time: 150109 11:38:55
+    # User@Host: root[root] @ localhost []
+    # Thread_id: 40  Schema: world  Last_errno: 0  Killed: 0
+    # Query_time: 0.012989  Lock_time: 0.000033  Rows_sent: 4079  Rows_examined: 4079  Rows_affected: 0  Rows_read: 4079
+    # Bytes_sent: 161085
+    # Stored routine: world.improved_sp_log
+    SET timestamp=1420803535;
+    SELECT * FROM City;
+    # User@Host: root[root] @ localhost []
+    # Thread_id: 40  Schema: world  Last_errno: 0  Killed: 0
+    # Query_time: 0.001413  Lock_time: 0.000017  Rows_sent: 4318  Rows_examined: 4318  Rows_affected: 0  Rows_read: 4318
+    # Bytes_sent: 194601
+    # Stored routine: world.improved_sp_log
+    SET timestamp=1420803535;
+    ```
 
 If variable log_slow_sp_statements is set to `FALSE`:
 
@@ -212,15 +156,17 @@ If variable log_slow_sp_statements is set to `FALSE`:
 
 If we run the same stored procedure with the `log_slow_sp_statements` is set to `FALSE` slow query log should look like this:
 
-```text
-# Time: 150109 11:51:42
-# User@Host: root[root] @ localhost []
-# Thread_id: 40  Schema: world  Last_errno: 0  Killed: 0
-# Query_time: 0.013947  Lock_time: 0.000000  Rows_sent: 4318  Rows_examined: 4318  Rows_affected: 0  Rows_read: 4318
-# Bytes_sent: 194612
-SET timestamp=1420804302;
-CALL improved_sp_log();
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    # Time: 150109 11:51:42
+    # User@Host: root[root] @ localhost []
+    # Thread_id: 40  Schema: world  Last_errno: 0  Killed: 0
+    # Query_time: 0.013947  Lock_time: 0.000000  Rows_sent: 4318  Rows_examined: 4318  Rows_affected: 0  Rows_read: 4318
+    # Bytes_sent: 194612
+    SET timestamp=1420804302;
+    CALL improved_sp_log();
+    ```
 
 !!! note
 
@@ -304,48 +250,52 @@ Specifies which variables have global scope instead of local. For such variables
 
 This variable can be used to specify the query execution time after which the query will be written to the slow query log. It can be used to specify an additional execution time threshold for the slow query log, that, when exceeded, will cause a query to be logged unconditionally, that is, log_slow_rate_limit will not apply to it.
 
-## Other Information
+## Other information
 
-### Changes to the Log Format
+### Changes to the log format
 
-The feature adds more information to the slow log output. Here is a sample log entry:
+The feature adds more information to the slow log output.
 
-```text
-# Time: 130601  8:01:06.058915
-# User@Host: root[root] @ localhost []  Id:    42
-# Schema: imdb  Last_errno: 0  Killed: 0
-# Query_time: 7.725616  Lock_time: 0.000328  Rows_sent: 4  Rows_examined: 1543720  Rows_affected: 0
-# Bytes_sent: 272  Tmp_tables: 0  Tmp_disk_tables: 0  Tmp_table_sizes: 0
-# Full_scan: Yes  Full_join: No  Tmp_table: No  Tmp_table_on_disk: No
-# Filesort: No  Filesort_on_disk: No  Merge_passes: 0
-SET timestamp=1370073666;
-SELECT id,title,production_year FROM title WHERE title = 'Bambi';
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    # Time: 130601  8:01:06.058915
+    # User@Host: root[root] @ localhost []  Id:    42
+    # Schema: imdb  Last_errno: 0  Killed: 0
+    # Query_time: 7.725616  Lock_time: 0.000328  Rows_sent: 4  Rows_examined: 1543720  Rows_affected: 0
+    # Bytes_sent: 272  Tmp_tables: 0  Tmp_disk_tables: 0  Tmp_table_sizes: 0
+    # Full_scan: Yes  Full_join: No  Tmp_table: No  Tmp_table_on_disk: No
+    # Filesort: No  Filesort_on_disk: No  Merge_passes: 0
+    SET timestamp=1370073666;
+    SELECT id,title,production_year FROM title WHERE title = 'Bambi';
+    ```
 
 Another example (log_slow_verbosity `=profiling`):
 
-```text
-# Time: 130601  8:03:20.700441
-# User@Host: root[root] @ localhost []  Id:    43
-# Schema: imdb  Last_errno: 0  Killed: 0
-# Query_time: 7.815071  Lock_time: 0.000261  Rows_sent: 4  Rows_examined: 1543720  Rows_affected: 0
-# Bytes_sent: 272
-# Profile_starting: 0.000125 Profile_starting_cpu: 0.000120
-Profile_checking_permissions: 0.000021 Profile_checking_permissions_cpu: 0.000021
-Profile_Opening_tables: 0.000049 Profile_Opening_tables_cpu: 0.000048 Profile_init: 0.000048
-Profile_init_cpu: 0.000049 Profile_System_lock: 0.000049 Profile_System_lock_cpu: 0.000048
-Profile_optimizing: 0.000024 Profile_optimizing_cpu: 0.000024 Profile_statistics: 0.000036
-Profile_statistics_cpu: 0.000037 Profile_preparing: 0.000029 Profile_preparing_cpu: 0.000029
-Profile_executing: 0.000012 Profile_executing_cpu: 0.000012 Profile_Sending_data: 7.814583
-Profile_Sending_data_cpu: 7.811634 Profile_end: 0.000013 Profile_end_cpu: 0.000012
-Profile_query_end: 0.000014 Profile_query_end_cpu: 0.000014 Profile_closing_tables: 0.000023
-Profile_closing_tables_cpu: 0.000023 Profile_freeing_items: 0.000051
-Profile_freeing_items_cpu: 0.000050 Profile_logging_slow_query: 0.000006
-Profile_logging_slow_query_cpu: 0.000006
-# Profile_total: 7.815085 Profile_total_cpu: 7.812127
-SET timestamp=1370073800;
-SELECT id,title,production_year FROM title WHERE title = 'Bambi';
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    # Time: 130601  8:03:20.700441
+    # User@Host: root[root] @ localhost []  Id:    43
+    # Schema: imdb  Last_errno: 0  Killed: 0
+    # Query_time: 7.815071  Lock_time: 0.000261  Rows_sent: 4  Rows_examined: 1543720  Rows_affected: 0
+    # Bytes_sent: 272
+    # Profile_starting: 0.000125 Profile_starting_cpu: 0.000120
+    Profile_checking_permissions: 0.000021 Profile_checking_permissions_cpu: 0.000021
+    Profile_Opening_tables: 0.000049 Profile_Opening_tables_cpu: 0.000048 Profile_init: 0.000048
+    Profile_init_cpu: 0.000049 Profile_System_lock: 0.000049 Profile_System_lock_cpu: 0.000048
+    Profile_optimizing: 0.000024 Profile_optimizing_cpu: 0.000024 Profile_statistics: 0.000036 
+    Profile_statistics_cpu: 0.000037 Profile_preparing: 0.000029 Profile_preparing_cpu: 0.000029
+    Profile_executing: 0.000012 Profile_executing_cpu: 0.000012 Profile_Sending_data: 7.814583
+    Profile_Sending_data_cpu: 7.811634 Profile_end: 0.000013 Profile_end_cpu: 0.000012
+    Profile_query_end: 0.000014 Profile_query_end_cpu: 0.000014 Profile_closing_tables: 0.000023
+    Profile_closing_tables_cpu: 0.000023 Profile_freeing_items: 0.000051
+    Profile_freeing_items_cpu: 0.000050 Profile_logging_slow_query: 0.000006
+    Profile_logging_slow_query_cpu: 0.000006
+    # Profile_total: 7.815085 Profile_total_cpu: 7.812127
+    SET timestamp=1370073800;
+    SELECT id,title,production_year FROM title WHERE title = 'Bambi';
+    ```
 
 Notice that the `Killed: \`\` keyword is followed by zero when the
 query successfully completes. If the query was killed, the \`\`Killed:`
@@ -366,19 +316,23 @@ Each slow log entry now contains a connection identifier, so you can trace all t
 
 Each entry also contains a schema name, so you can trace all the queries whose default database was set to a particular schema.
 
-```text
-# Id: 43  Schema: imdb
-```
+??? example "Expected output"
 
-### Microsecond Time Resolution and Extra Row Information
+    ```{.text .no-copy}
+    # Id: 43  Schema: imdb
+    ```
+
+### Microsecond time resolution and extra row information
 
 This is the original functionality offered by the `microslow` feature. `Query_time` and `Lock_time` are logged with microsecond resolution.
 
 The feature also adds information about how many rows were examined for `SELECT` queries, and how many were analyzed and affected for `UPDATE`, `DELETE`, and `INSERT` queries,
 
-```text
-# Query_time: 0.962742  Lock_time: 0.000202  Rows_sent: 4  Rows_examined: 1543719  Rows_affected: 0
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    # Query_time: 0.962742  Lock_time: 0.000202  Rows_sent: 4  Rows_examined: 1543719  Rows_affected: 0
+    ```
 
 Values and context:
 
@@ -388,78 +342,74 @@ Values and context:
 
 * `Rows_affected`: Number of rows changed - `UPDATE`, `DELETE`, `INSERT`
 
-### Memory Footprint
+### Memory footprint
 
 The feature provides information about the amount of bytes sent for the result of the query and the number of temporary tables created for its execution - differentiated by whether they were created on memory or on disk - with the total number of bytes used by them.
 
-```text
-# Bytes_sent: 8053  Tmp_tables: 1  Tmp_disk_tables: 0  Tmp_table_sizes: 950528
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    # Bytes_sent: 8053  Tmp_tables: 1  Tmp_disk_tables: 0  Tmp_table_sizes: 950528
+    ```
 
 Values and context:
 
-
 * `Bytes_sent`: The amount of bytes sent for the result of the query
-
 
 * `Tmp_tables`: Number of temporary tables created on memory for the query
 
-
 * `Tmp_disk_tables`: Number of temporary tables created on disk for the query
-
 
 * `Tmp_table_sizes`: Total Size in bytes for all temporary tables used in the query
 
-### Query Plan Information
+### Query plan information
 
 Each query can be executed in various ways. For example, it may use indexes or do a full table scan, or a temporary table may be needed. These are the things that you can usually see by running `EXPLAIN` on the query. The feature will now allow you to see the most important facts about the execution in the log file.
 
-```text
-# Full_scan: Yes  Full_join: No  Tmp_table: No  Tmp_table_on_disk: No
-# Filesort: No  Filesort_on_disk: No  Merge_passes: 0
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    # Full_scan: Yes  Full_join: No  Tmp_table: No  Tmp_table_on_disk: No
+    # Filesort: No  Filesort_on_disk: No  Merge_passes: 0
+    ```
 
 The values and their meanings are documented with the log_slow_filter option.
 
-### *InnoDB* Usage Information
+### InnoDB usage information
 
 The final part of the output is the *InnoDB* usage statistics. *MySQL* currently shows many per-session statistics for operations with `SHOW SESSION STATUS`, but that does not include those of *InnoDB*, which are always global and shared by all threads. This feature lets you see those values for a given query.
 
-```text
-#   InnoDB_IO_r_ops: 6415  InnoDB_IO_r_bytes: 105103360  InnoDB_IO_r_wait: 0.001279
-#   InnoDB_rec_lock_wait: 0.000000  InnoDB_queue_wait: 0.000000
-#   InnoDB_pages_distinct: 6430
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    #   InnoDB_IO_r_ops: 6415  InnoDB_IO_r_bytes: 105103360  InnoDB_IO_r_wait: 0.001279
+    #   InnoDB_rec_lock_wait: 0.000000  InnoDB_queue_wait: 0.000000
+    #   InnoDB_pages_distinct: 6430
+    ```
 
 Values:
 
-
 * `innodb_IO_r_ops`: Counts the number of page read operations scheduled. The actual number of read operations may be different, but since this can be done asynchronously, there is no good way to measure it.
-
 
 * `innodb_IO_r_bytes`: Similar to innodb_IO_r_ops, but the unit is bytes.
 
-
 * `innodb_IO_r_wait`: Shows how long (in seconds) it took *InnoDB* to actually read the data from storage.
-
 
 * `innodb_rec_lock_wait`: Shows how long (in seconds) the query waited for row locks.
 
-
 * `innodb_queue_wait`: Shows how long (in seconds) the query spent either waiting to enter the *InnoDB* queue or inside that queue waiting for execution.
-
 
 * `innodb_pages_distinct`: Counts approximately the number of unique pages the query accessed. The approximation is based on a small hash array representing the entire buffer pool, because it could take a lot of memory to map all the pages. The inaccuracy grows with the number of pages accessed by a query, because there is a higher probability of hash collisions.
 
 If the query did not use *InnoDB* tables, that information is written into the log instead of the above statistics.
 
-## Related Reading
+## Related reading
 
 
-* [Impact of logging on MySQL’s performance](http://www.mysqlperformanceblog.com/2009/02/10/impact-of-logging-on-mysql%E2%80%99s-performance/)
+* [Impact of logging on MySQL’s performance](https://www.mysqlperformanceblog.com/2009/02/10/impact-of-logging-on-mysql%E2%80%99s-performance/)
 
 
-* [log_slow_filter Usage](http://www.mysqlperformanceblog.com/2008/09/22/finding-what-created_tmp_disk_tables-with-log_slow_filter/)
+* [log_slow_filter Usage](https://www.mysqlperformanceblog.com/2008/09/22/finding-what-created_tmp_disk_tables-with-log_slow_filter/)
 
 
 * [Added microseconds to the slow query log event time](https://jira.percona.com/browse/PS-1136)

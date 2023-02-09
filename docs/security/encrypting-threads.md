@@ -15,7 +15,6 @@ The following table explains the benefits of Advanced Encryption Key Rotation:
 | Encrypts tables with a key from a keyring.                                                                                                                                                      | Encrypts tables with a key that is then stored in the encryption header of the tablespace. |
 | Re-encrypts each tablespace page by page when the key is rotated.                                                                                                                               | Re-encrypts only the tablespace encryption header when the key is rotated.                 |
 
-
 If you enable Advanced Encryption Key Rotation with a Master key encrypted
 tablespace, the tablespace is re-encrypted with the keyring key in a background
 process. If the Advanced Encryption Key Rotation feature is enabled, you cannot
@@ -23,8 +22,6 @@ convert a tablespace to use Master key encryption. You must disable the feature
 before you convert the tablespace.
 
 **This feature is in tech preview.**
-
-
 
 You must have the SYSTEM_VARIABLES_ADMIN privilege or the SUPER privilege to set
 these variables.
@@ -66,12 +63,9 @@ are re-encrypted.
 For example, the following values would trigger a re-encryption in the
 following intervals:
 
-
 * The value is **1**, and the table is re-encrypted on each key rotation.
 
-
 * The value is **2**, and the table is re-encrypted on every other key rotation.
-
 
 * The value is **10**, and the table is re-encrypted on every tenth key rotation.
 
@@ -106,7 +100,7 @@ This variable is removed in Percona Server for MySQL 8.0.31-23.
 
 Defines the default encryption ID used to encrypt tablespaces.
 
-## Using Keyring Encryption
+## Use Keyring Encryption
 
 This feature is removed in Percona Server for MySQL 8.0.31-23.
 
@@ -114,9 +108,7 @@ Keyring management is enabled for each table, per file table, separately when
 you set encryption in the `ENCRYPTION` clause to `KEYRING` in the supported
 SQL statement.
 
-
 * CREATE TABLE … ENCRYPTION=’KEYRING’
-
 
 * ALTER TABLE … ENCRYPTION=’KEYRING’
 

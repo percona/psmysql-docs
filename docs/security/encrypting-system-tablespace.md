@@ -21,11 +21,11 @@ System tablespace encryption can only be enabled with the `--initialize` option
 
 You can create an encrypted table as follows:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE TABLE table_name TABLESPACE=innodb_system ENCRYPTION='Y';
 ```
 
-## System Variables
+## System variables
 
 ### `innodb_sys_tablespace_encrypt`
 
@@ -39,7 +39,7 @@ mysql> CREATE TABLE table_name TABLESPACE=innodb_system ENCRYPTION='Y';
 
 Enables the encryption of the InnoDB system tablespace.
 
-## Re-Encrypt the System Tablespace
+## Re-encrypt the system tablespace
 
 You can re-encrypt the system tablespace key with master key rotation. When
 the master key is rotated, the tablespace key is decrypted and re-encrypt
@@ -47,6 +47,6 @@ with the new master key. Only the first page of the tablespace (.ibd) file is
 read and written during the key rotation. The tables in the tablespace are not
 re-encrypted.
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> ALTER INSTANCE ROTATE INNODB MASTER KEY;
 ```

@@ -30,7 +30,7 @@ The Isolation requirement means that no transaction can interfere with another.
 
 ## InnoDB
 
-A [Storage Engine](#storage-engine) for MySQL and derivatives ([Percona Server](#percona-server), [MariaDB](#mariadb)) originally written by Innobase Oy, since acquired by Oracle. It provides [ACID](#acid) compliant storage engine with [foreign key](#foreign-key) support. As of [MySQL](#mysql) version 5.5, InnoDB became the default storage engine on all platforms.
+A [Storage Engine](#storage-engine) for MySQL and derivatives ([Percona Server](#percona-server-for-mysql), [MariaDB](#mariadb)) originally written by Innobase Oy, since acquired by Oracle. It provides [ACID](#acid) compliant storage engine with [foreign key](#foreign-key) support. As of [MySQL](#mysql) version 5.5, InnoDB became the default storage engine on all platforms.
 
 ## Jenkins
 
@@ -60,7 +60,7 @@ A [MySQL](#mysql) [Storage Engine](#storage-engine) that was the default until M
 
 ## MySQL
 
-An open source database that has spawned several distributions and forks. MySQL AB was the primary maintainer and distributor until bought by Sun Microsystems, which was then acquired by Oracle. As Oracle owns the MySQL trademark, the term MySQL is often used for the Oracle distribution of MySQL as distinct from the drop-in replacements such as [MariaDB](#mariadb) and [Percona Server for MySQL](#percona-server).
+An open source database that has spawned several distributions and forks. MySQL AB was the primary maintainer and distributor until bought by Sun Microsystems, which was then acquired by Oracle. As Oracle owns the MySQL trademark, the term MySQL is often used for the Oracle distribution of MySQL as distinct from the drop-in replacements such as [MariaDB](#mariadb) and [Percona Server for MySQL](#percona-server-for-mysql).
 
 ## NUMA
 

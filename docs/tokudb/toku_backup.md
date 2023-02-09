@@ -309,7 +309,7 @@ bin/mysql -uroot -e "set tokudb_backup_dir='$backup_dir'"
 * *TokuBackup* does not backup tablespaces if they are out of datadir.
 
 
-* Due to upstream bug [#80183](http://bugs.mysql.com/bug.php?id=80183), *TokuBackup* can’t recover backed-up table data if backup was taken while running `OPTIMIZE TABLE` or `ALTER TABLE ... TABLESPACE`.
+* Due to upstream bug [#80183](https://bugs.mysql.com/bug.php?id=80183), *TokuBackup* can’t recover backed-up table data if backup was taken while running `OPTIMIZE TABLE` or `ALTER TABLE ... TABLESPACE`.
 
 
 * *TokuBackup* doesn’t support incremental backups.

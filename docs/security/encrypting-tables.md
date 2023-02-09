@@ -14,11 +14,11 @@ has two tiers:
 The keyring plugin must be installed and enabled. The
 file_per_table tablespace inherits the schema default encryption setting unless you explicitly define encryption in `CREATE TABLE` or `ALTER TABLE`.
 
-```text
+```{.bash data-prompt="mysql>"}
 mysql> CREATE TABLE ... ENCRYPTION='Y';
 ```
 
-```text
+```{.bash data-prompt="mysql>"}
 mysql> ALTER TABLE ... ENCRYPTION='Y';
 ```
 

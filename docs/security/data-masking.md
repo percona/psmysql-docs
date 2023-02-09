@@ -1,4 +1,4 @@
-# Data Masking
+# Data masking
 
 This feature was implemented in *Percona Server for MySQL* version Percona Server for MySQL 8.0.17-8.
 
@@ -18,11 +18,11 @@ Data masking can have either of the characteristics:
 
 The following command installs the plugin:
 
-```sql
+```{.bash data-prompt="$"}
 $ INSTALL PLUGIN data_masking SONAME 'data_masking.so';
 ```
 
-### Data Masking functions
+### Data masking functions
 
 The data masking functions have the following categories:
 
@@ -38,7 +38,7 @@ The data masking functions have the following categories:
 
 * Using Dictionaries to Generate Random Data
 
-### General Purpose
+### General purpose
 
 The general purpose data masking functions are the following:
 
@@ -62,33 +62,35 @@ The general purpose data masking functions are the following:
 
 An example of `mask_inner`:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT mask_inner('123456789', 1, 2);
 ```
 
-The output is the following:
+??? example "Expected output"
 
-```text
-+-----------------------------------+
-| mask_inner('123456789', 1, 2)     |
-+-----------------------------------+
-|1XXXXXX89                          |
-+-----------------------------------+
-```
+    ```{.text .no-copy}
+    +-----------------------------------+
+    | mask_inner('123456789', 1, 2)     |
+    +-----------------------------------+
+    |1XXXXXX89                          |
+    +-----------------------------------+
+    ```
+
 An example of `mask_outer`:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT mask_outer('123456789', 2, 2); 
 ```
-The output is the following:
 
-```text
-+------------------------------------+
-| mask_outer('123456789', 2, 2).     |
-+------------------------------------+
-| XX34567XX                          |
-+------------------------------------+
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +------------------------------------+
+    | mask_outer('123456789', 2, 2).     |
+    +------------------------------------+
+    | XX34567XX                          |
+    +------------------------------------+
+    ```
 
 ### Special Purpose
 
@@ -123,50 +125,53 @@ of the string is replaced by “X”.</td>
 
 An example of `mask_pan`.
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT mask_pan (gen_rnd_pan());
 ```
-The output is the following:
 
-```text
-+------------------------------------+
-| mask_pan(gen_rnd_pan())            |
-+------------------------------------+
-| XXXXXXXXXXX2345                    |
-+------------------------------------+
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +------------------------------------+
+    | mask_pan(gen_rnd_pan())            |
+    +------------------------------------+
+    | XXXXXXXXXXX2345                    |
+    +------------------------------------+
+    ```
+
 An example of `mask_pan_relaxed`:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT mask_pan_relaxed(gen_rnd_pan());
 ```
-The output is the following:
 
-```text
-+------------------------------------------+
-| mask_pan_relaxed(gen_rnd_pan())          |
-+------------------------------------------+
-| 520754XXXXXX4848                         |
-+------------------------------------------+
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +------------------------------------------+
+    | mask_pan_relaxed(gen_rnd_pan())          |
+    +------------------------------------------+
+    | 520754XXXXXX4848                         |
+    +------------------------------------------+
+    ```
 
 An example of `mask_ssn`:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT mask_ssn('555-55-5555');
 ```
-The output is the following:
 
-```text
-+-------------------------+
-| mask_ssn('555-55-5555') |
-+-------------------------+
-| XXX-XX-5555             |
-+-------------------------+
-```
+??? example "Expected output"
 
+    ```{.text .no-copy}
+    +-------------------------+
+    | mask_ssn('555-55-5555') |
+    +-------------------------+
+    | XXX-XX-5555             |
+    +-------------------------+
+    ```
 
-### Generating Random Data for Specific Requirements
+### Generate random data for specific requirements
 
 These functions generate random values for specific requirements.
 
@@ -203,93 +208,101 @@ is not valid for any U.S. phone number.</td>
 
 An example of `gen_range(lower, upper)`:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT gen_range(10, 100);
 ```
-The output is the following:
 
-```text
-+--------------------------------------+
-| gen_range(10,100)                    |
-+--------------------------------------+
-| 56                                   |
-+--------------------------------------+
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +--------------------------------------+
+    | gen_range(10,100)                    |
+    +--------------------------------------+
+    | 56                                   |
+    +--------------------------------------+
+    ```
+
 An example of `gen_range(lower, upper)` with negative numbers:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT gen_range(-100,-80);
 ```
-The output is the following:
 
-```text
-+--------------------------------------+
-| gen_range(-100,-80)                  |
-+--------------------------------------+
-| -91                                  |
-+--------------------------------------+
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +--------------------------------------+
+    | gen_range(-100,-80)                  |
+    +--------------------------------------+
+    | -91                                  |
+    +--------------------------------------+
+    ```
+
 An example of `gen_rnd_email()`:
 
-```sql
-<td>mysql> SELECT gen_rnd_email();
+```{.bash data-prompt="mysql>"}
+mysql> SELECT gen_rnd_email();
 ```
-The output is the following:
 
-```text
-+---------------------------------------+
-| gen_rnd_email()                       |
-+---------------------------------------+
-| sma.jrts@example.com                  |
-+---------------------------------------+
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +---------------------------------------+
+    | gen_rnd_email()                       |
+    +---------------------------------------+
+    | sma.jrts@example.com                  |
+    +---------------------------------------+
+    ```
 
 An example of `mask_pan(gen_rnd_pan())`:
 
-```sql
-<td>mysql> SELECT mask_pan(gen_rnd_pan());
+```{.bash data-prompt="mysql>"}
+mysql> SELECT mask_pan(gen_rnd_pan());
 ```
-The output is the following:
 
-```text
-+-------------------------------------+
-| mask_pan(gen_rnd_pan())             |
-+-------------------------------------+
-| XXXXXXXXXXXX4444                    |
-+-------------------------------------+
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +-------------------------------------+
+    | mask_pan(gen_rnd_pan())             |
+    +-------------------------------------+
+    | XXXXXXXXXXXX4444                    |
+    +-------------------------------------+
+    ```
 
 An example of `gen_rnd_us_phone()`:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT gen_rnd_us_phone();
 ```
-The output is the following:
 
-```text
-+-------------------------------+
-| gen_rnd_us_phone()            |
-+-------------------------------+
-| 1-555-635-5709                |
-+-------------------------------+
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +-------------------------------+
+    | gen_rnd_us_phone()            |
+    +-------------------------------+
+    | 1-555-635-5709                |
+    +-------------------------------+
+    ```
+
 An example of `gen_rnd_ssn()`:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT gen_rnd_ssn()
 ```
 
-The output is the following:
+??? example "Expected output"
 
-```text
-+-----------------------------+
-| gen_rnd_ssn()               |
-+-----------------------------+
-| 995-33-5656                 |
-+-----------------------------+
-```
+    ```{.text .no-copy}
+    +-----------------------------+
+    | gen_rnd_ssn()               |
+    +-----------------------------+
+    | 995-33-5656                 |
+    +-----------------------------+
+    ```
 
-### Using Dictionaries to Generate Random Terms
+### Use dictionaries to generate random terms
 
 Use a selected dictionary to generate random terms. The dictionary must be loaded from a file with the following characteristics:
 
@@ -342,65 +355,65 @@ Copy the dictionary files to a directory accessible to MySQL. The [secure-file-p
 
 An example of `gen_blacklist()`:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT gen_blacklist('apple', 'fruit', 'nut');
 ```
 
-The output is the following:
+??? example "Expected output"
 
-```text
-+-----------------------------------------+
-| gen_blacklist('apple', 'fruit', 'nut')  |
-+-----------------------------------------+
-| walnut                                  |
-+-----------------------------------------+
-```
+    ```{.text .no-copy}
+    +-----------------------------------------+
+    | gen_blacklist('apple', 'fruit', 'nut')  |
+    +-----------------------------------------+
+    | walnut                                  |
+    +-----------------------------------------+
+    ```
 An example of `gen_dictionary()`:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT gen_dictionary('trees');
 ```
 
-The output is the following:
+??? example "Expected output"
 
-```text
-+--------------------------------------------------+
-| gen_dictionary('trees')                          |
-+--------------------------------------------------+
-| Norway spruce                                    |
-+--------------------------------------------------+
-```
+    ```{.text .no-copy}
+    +--------------------------------------------------+
+    | gen_dictionary('trees')                          |
+    +--------------------------------------------------+
+    | Norway spruce                                    |
+    +--------------------------------------------------+
+    ```
 An example of `gen_dictionary_drop()`:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT gen_dictionary_drop('mytestdict')
 ```
 
-The output is the following:
+??? example "Expected output"
 
-```text
-+-------------------------------------+
-| gen_dictionary_drop('mytestdict')   |
-+-------------------------------------+
-| Dictionary removed                  |
-+-------------------------------------+
-```
+    ```{.text .no-copy}
+    +-------------------------------------+
+    | gen_dictionary_drop('mytestdict')   |
+    +-------------------------------------+
+    | Dictionary removed                  |
+    +-------------------------------------+
+    ```
 
 An example of `gen_dictionary_load(path, name)`:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT gen_dictionary_load('/usr/local/mysql/dict-files/testdict', 'testdict');
 ```
 
-The output is the following:
+??? example "Expected output"
 
-```text
-+-------------------------------------------------------------------------------+
-| gen_dictionary_load('/usr/local/mysql/mysql/dict-files/testdict', 'testdict') |
-+-------------------------------------------------------------------------------+
-| Dictionary load successfully                                                  |
-+-------------------------------------------------------------------------------+
-```
+    ```{.text .no-copy}
+    +-------------------------------------------------------------------------------+
+    | gen_dictionary_load('/usr/local/mysql/mysql/dict-files/testdict', 'testdict') |
+    +-------------------------------------------------------------------------------+
+    | Dictionary load successfully                                                  |
+    +-------------------------------------------------------------------------------+
+    ```
 
 ### Uninstalling the plugin
 

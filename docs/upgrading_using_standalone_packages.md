@@ -1,4 +1,4 @@
-# Upgrading using Standalone Packages
+# Upgrade using Standalone Packages
 
 ## DEB-based distributions
 
@@ -32,15 +32,15 @@
     The following example will download Percona Server for MySQL 8.0.29-21 release
     packages for *Debian* 11.0:
 
-	    ```shell
-	    $ wget https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-8.0.29-21/binary/debian/bullseye/x86_64/Percona-Server-8.0.29-21-rc59f87d2854-bullseye-x86_64-bundle.tar
-	    ```
+	```{.bash data-prompt="$"}
+	$ wget https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-8.0.29-21/binary/debian/bullseye/x86_64/Percona-Server-8.0.29-21-rc59f87d2854-bullseye-x86_64-bundle.tar
+	```
 
 6. Unpack the bundle to get the packages: `tar xvf Percona-Server-8.0.29-21-rc59f87d2854-bullseye-x86_64-bundle.tar`
 
     After you unpack the bundle, you should see the following packages:
 
-    ```
+    ```text
     $ ls *.deb
 
     llibperconaserverclient21-dev_8.0.29-21-1.bullseye_amd64.deb  
@@ -56,10 +56,9 @@
 
     ```
 
-
 7. Install *Percona Server for MySQL*:
 
-    ```
+    ```{.bash data-prompt="$"}
     $ sudo dpkg -i *.deb
     ```
 
@@ -87,7 +86,7 @@
 
     If you are upgrading to a *Percona Server for MySQL* version before 8.0.16-7, the installation script will *NOT* run automatically **mysql_upgrade**. You must run the **mysql_upgrade** manually.
 
-    ```
+    ```{.bash data-prompt="$"}
     $ mysql_upgrade
 
     Checking if update is needed.
@@ -117,17 +116,18 @@ After the service has been successfully restarted you can use the new *Percona S
 
 3. Check the installed packages:
 
-	```shell
+	```{.bash data-prompt="$"}
 	$ rpm -qa | grep percona-server
 	```
-	The output could be similar to the following:
 	
-	```text
-	percona-server-shared-8.0.29-21.1.el8.x86_64
-	percona-server-shared-compat-8.0.29-21.1.el8.x86_64
-	percona-server-client-8.0.29-21.1.el8.x86_64
-	percona-server-server-8.0.29-21.1.el8.x86_64
-	```
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+	    percona-server-shared-8.0.29-21.1.el8.x86_64
+	    percona-server-shared-compat-8.0.29-21.1.el8.x86_64
+	    percona-server-client-8.0.29-21.1.el8.x86_64
+	    percona-server-server-8.0.29-21.1.el8.x86_64
+	    ```
 
 	You may have the `shared-compat` package, which is required for compatibility.
 
@@ -141,13 +141,13 @@ After the service has been successfully restarted you can use the new *Percona S
 
 5. Download the packages of the desired series for your architecture from the [download page](https://www.percona.com/downloads/Percona-Server-8.0/). The easiest way is to download the bundle which contains all the packages. The following example will download *Percona Server for MySQL* 8.0.13-3 release packages for *CentOS* 7:
 
-	```shell
+	```{.bash data-prompt="$"}
 	$ wget https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-8.0.29-21/binary/redhat/8/x86_64/Percona-Server-8.0.29-21-rc59f87d2854-el8-x86_64-bundle.tar
 	```
 
 6. Unpack the bundle to get the packages
 
-	```shell
+	```{.bash data-prompt="$"}
 	$ tar xvf Percona-Server-8.0.29-21-rc59f87d2854-el8-x86_64-bundle.tar
 	```
 	
@@ -155,7 +155,7 @@ After the service has been successfully restarted you can use the new *Percona S
 
 7. Install *Percona Server for MySQL*:
 
-	```shell
+	```{.bash data-prompt="$"}
 	$ rpm -ivh percona-server-server-8.0.29-21.1.el8.x86_64.rpm \
 	> percona-server-client-8.0.29-21.1.el8.x86_64.rpm \
 	> percona-server-shared-8.0.29-21.1.el8.x86_64.rpm \

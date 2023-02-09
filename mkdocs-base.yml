@@ -3,7 +3,7 @@
 site_name: Percona Server for MySQL
 site_description: Documentation
 site_author: Percona LLC
-copyright: Percona LLC, &#169; 2022
+copyright: Percona LLC, &#169; 2023
 
 repo_name: percona/psmysql-docs
 repo_url: https://github.com/percona/psmysql-docs
@@ -12,12 +12,14 @@ edit_uri: edit/8.0/docs/
 
 use_directory_urls: false
 
-# Theme for netlify testing
+# Theme setup
 theme:
   name: material
   logo: _static/percona-logo.svg
-  favicon: _static/percona_favicon.ico
+  favicon: _static/percona-favicon.ico
   custom_dir: _resource/overrides/
+  font:
+    text: Poppins
   palette:
 
     # Light mode
@@ -40,21 +42,27 @@ theme:
     - search.highlight
     - navigation.top
     - content.tabs.link
+    - content.code.copy 
+    - navigation.tracking 
+    - content.action.edit
+    - content.action.view 
 
 extra_css:
   - https://unicons.iconscout.com/release/v3.0.3/css/line.css
   - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css
   - css/percona.css
-  - css/version-select.css
+  - css/nocopy.css
 
 extra_javascript:
   - js/version-select.js
+  - js/promptremover.js
 
 markdown_extensions:
   attr_list: {}
   toc:
     permalink: True
     title: On this page
+    toc_depth: 3
   admonition: {}
   footnotes: {}
   def_list: {} # https://michelf.ca/projects/php-markdown/extra/#def-list
@@ -72,14 +80,19 @@ markdown_extensions:
   pymdownx.highlight:
       linenums: false
   pymdownx.inlinehilite: {}
+  pymdownx.snippets: {}
+  pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
 
 
 plugins:
-  search: {}
+  search: 
+    separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   git-revision-date: {}
   macros:
       include_yaml:
-#        - 'variables.yml' # Use in markdown as '{{ VAR }}'
+        - 'variables.yml' # Use in markdown as '{{ VAR }}'
 # exclude: # Don't process these files
 #      glob:
 #         - file.md
@@ -88,7 +101,7 @@ plugins:
           cover_title: 'Percona Server Documentation'
           cover_subtitle: 8.0.30-22 (November 21, 2022)
           author: 'Percona Technical Documentation Team'
-          cover_logo: docs/_static/percona-server-logo.jpg
+          cover_logo: docs/_static/Percona_Logo_Color.png
           debug_html: false
           custom_template_path: _resource/templates
           enabled_if_env: ENABLE_PDF_EXPORT
@@ -101,6 +114,12 @@ plugins:
 extra:
   version: 
     provider: mike
+  homepage:
+    https://docs.percona.com
+  consent:
+    title: Cookie consent
+    description: >- 
+      We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better.
 
 nav:
   - Home: index.md
@@ -113,7 +132,7 @@ nav:
   - Installation:
       - installation.md
       - Use APT:
-        - Install using APT repository: installation/apt_repo.md
+        - Install using APT repository: installation/apt-repo.md
         - Files in DEB package: installation/apt-files.md
         - installation/build-apt-packages.md
         - Install from downloaded DEB packages: installation/apt-download-deb.md
@@ -164,6 +183,7 @@ nav:
       - flexibility/proxy_protocol_support.md
       - flexibility/sequence_table.md
       - flexibility/slowlog_rotation.md
+      - flexibility/trigger-updates.md 
       - flexibility/extended_mysqlbinlog.md
       - flexibility/extended_mysqldump.md
       - flexibility/innodb_fts_improvements.md
@@ -182,31 +202,34 @@ nav:
       - management/extended_show_grants.md
       - management/utility_user.md
   - Security:
-      - security/pam_plugin.md
-      - security/ldap-authentication.md
-      - security/ldap-system-variables.md
       - security/selinux.md
       - security/apparmor.md
-      - security/data-at-rest-encryption.md
-      - security/using-keyring-plugin.md
-      - security/using-kmip.md
-      - security/encryption-functions.md
-      - security/using-amz-kms.md
-      - security/fido-authentication-plugin.md
-      - security/rotating-master-key.md
-      - security/encrypting-tables.md
-      - security/encrypting-tablespaces.md
-      - security/encrypting-system-tablespace.md
-      - security/encrypting-temporary-files.md
-      - security/encrypting-binlogs.md
-      - security/encrypting-redo-log.md
-      - security/encrypting-undo-tablespace.md
-      - security/encrypting-threads.md
-      - security/encrypting-doublewrite-buffers.md
-      - security/verifying-encryption.md
+      - security/pam_plugin.md
+      - security/system-variables.md
       - security/ssl-improvement.md
       - security/data-masking.md
-      - security/system-variables.md
+      - LDAP features:
+        - security/ldap-authentication.md
+        - security/ldap-system-variables.md
+      - Data-at-rest-encryption:
+        - security/data-at-rest-encryption.md
+        - security/using-keyring-plugin.md
+        - Authentication:
+          - security/using-kmip.md
+          - security/using-amz-kms.md
+          - security/fido-authentication-plugin.md
+        - security/encryption-functions.md
+        - security/encrypting-tables.md
+        - security/encrypting-tablespaces.md
+        - security/encrypting-system-tablespace.md
+        - security/encrypting-temporary-files.md
+        - security/encrypting-binlogs.md
+        - security/encrypting-redo-log.md
+        - security/encrypting-undo-tablespace.md
+        - security/rotating-master-key.md
+        - security/encrypting-threads.md
+        - security/encrypting-doublewrite-buffers.md
+        - security/verifying-encryption.md
   - Diagnostics:
       - diagnostics/user_stats.md
       - diagnostics/slow_extended.md
@@ -250,7 +273,8 @@ nav:
       - tokudb/removing_tokudb.md
       - tokudb/toku_backup.md
   - Release notes:
-      - release-notes/release-notes_index.md
+      - Release notes index: release-notes/release-notes_index.md
+      - release-notes/8.0.30-22.upd.md
       - release-notes/8.0.30-22.md
       - release-notes/8.0.29-21.md
       - release-notes/Percona-Server-8.0.28-20.md

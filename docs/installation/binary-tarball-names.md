@@ -2,7 +2,7 @@
 
 For later version of Percona XtraBackup, the tar files are organized by the `glibc2` version. You can find this version on your operating system with the following command:
 
-```shell
+```{.bash data-prompt="$"}
 $ ldd --version
 ```
 

@@ -2,7 +2,7 @@
 
 <!-- package name: percona-server-server-8.0.13-3.1.el7.x86_64.rpm -->
 Ready-to-use packages are available from the Percona Server for MySQL software
-repositories and the [download page](http://www.percona.com/downloads/Percona-Server-8.0/). The
+repositories and the [download page](https://www.percona.com/downloads/Percona-Server-8.0/). The
 Percona yum repository supports popular RPM-based
 operating systems. The easiest way to install the Percona RPM repository is to install an RPM
 that configures yum and installs the [Percona GPG key](https://www.percona.com/downloads/RPM-GPG-KEY-percona).
@@ -22,51 +22,49 @@ You can install Percona yum repository by running the following commands as a `r
 
 1. Install the Percona repository
 
-	```shell
+	```{.bash data-prompt="$"}
 	$ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 	```
 	
-	You should see an output that the files are being downloaded, like the following:
+	??? example "Expected output"
 	
-	```text
-	percona-release-latest.noarch-rpm               36 kB/s | 19 kb 00:00
-	=====================================================================
-	  Package         Architecture      Version    Repository    Size
-	=====================================================================
-	Installing:
-	   percona release noarch         1.0-25     @commandline  19k
-	...
-	```
+	    ```text
+	    percona-release-latest.noarch-rpm               36 kB/s | 19 kb 00:00
+	    =====================================================================
+	      Package         Architecture      Version    Repository    Size
+	    =====================================================================
+	    Installing:
+	       percona release noarch         1.0-25     @commandline  19k
+	    ...
+	    ```
     
 2. Enable the repository:
 
-	```shell
+	```{.bash data-prompt="$"}
 	$ sudo percona-release setup ps80
 	```
 	
-	The output could be like the following:
+	If you see the following message, enter 'y' to disable the mysql module:
 	
-	```text
-	On RedHat 8 systems it is needed to disable dnf mysql module to install Percona-Server
-	Do you want to disable it? [y/N] y
-	...
-	```
+	??? example "Expected output"
 
-3. Install the packages
+        ```{.text .no-copy}
+	    On RedHat 8 systems it is needed to disable dnf mysql module to install Percona-Server
+	    Do you want to disable it? [y/N] 
+	    ...
+	    ```
 
-	```shell
+
+3. Install the packages:
+
+	```{.bash data-prompt="$"}
 	$ sudo yum install percona-server-server
 	```
-	
-	!!! note
-	
-	    Percona Server for MySQL 8.0 also provides the TokuDB storage engine and MyRocks storage engines which can be installed as plugins.
 
-Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds. For more information, see TokuDB Introduction.
+!!! note
 
-For more information on how to install and enable the TokuDB storage review the TokuDB Installation document.
-For information on how to install and enable MyRocks review the
-section Percona MyRocks Installation Guide.
+	{% include './snippets/install/_storage-engines.md'%}
+	
 
 ### Percona yum Testing repository
 
