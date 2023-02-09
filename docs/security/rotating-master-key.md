@@ -1,6 +1,6 @@
-# Rotate the Master key
+# Rotate the master key
 
-The Master key should be periodically rotated. You should rotate the key if you
+The Master key should be periodically rotated. Rotate the key if you
 believe the key has been compromised. The Master key rotation changes the Master
 key and tablespace keys are re-encrypted and updated in the tablespace headers.
 The operation does not affect tablespace data.
@@ -24,4 +24,4 @@ can begin.
 
 !!! note
 
-    The rotation re-encrypts each tablespace key. The tablespace key is not changed. If you want to change a tablespace key, you should disable and then re-enable encryption.
+    The rotation re-encrypts each tablespace key. The tablespace key is not changed. If you want to change a tablespace key, disable and then re-enable encryption.
