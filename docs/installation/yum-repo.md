@@ -25,19 +25,19 @@ For more information on the Percona Software repositories and configuring Percon
 
 === "Install on Red Hat 7"
 
-```{.bash data-prompt="$"}
-$ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-$ sudo percona-release enable-only ps-80 release
-$ sudo percona-release enable tools release
-$ sudo yum install percona-server-server
-```
+    ```{.bash data-prompt="$"}
+    $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+    $ sudo percona-release enable-only ps-80 release
+    $ sudo percona-release enable tools release
+    $ sudo yum install percona-server-server
+    ```
 === "Install on Red Hat 8 or later"
 
-```{.bash data-prompt="$"}
-$ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-$ sudo percona-release setup ps-80
-$ sudo yum install percona-server-server
-```
+    ```{.bash data-prompt="$"}
+    $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+    $ sudo percona-release setup ps-80
+    $ sudo yum install percona-server-server
+    ```
 
 ## Available storage engines
 
