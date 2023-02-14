@@ -1,6 +1,6 @@
 ## Percona Server for MySQL
 
-![PS logo](docs/_static/percona-server-logo.jpg)
+![PS logo](docs/_static/Percona_Logo_Color.png)
 
 Percona Server for MySQL is a free, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior performance, scalability, and instrumentation.
 
@@ -25,11 +25,11 @@ As a general rule of thumb, please try to create a bug report that is:
 - Unique - do not duplicate existing tickets
 - Scoped to a single issue - only one issue per report
 
-## Licensing
+## License
 
-Percona is dedicated to **keeping open source open**. Whenever possible, we strive to include permissive licensing for both our software and documentation. For this project, we are using version 2 of the GNU General Public License (GPLv2).
+Percona Server for MySQL documentation is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 
-## How to get involved
+## Contribute to the documentation
 
 We encourage contributions and are always looking for new members that are as dedicated to serving the community as we are. The [Contributing Guide](https://github.com/percona/psmysql-docs/blob/8.0/contributing.md) contains how you can contribute.
 
