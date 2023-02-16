@@ -12,7 +12,6 @@ Here are some of the benefits that Percona dialog plugin offers over the default
 
 * Dialog client [installation bug](https://bugs.mysql.com/bug.php?id=60745) has been fixed.
 
-* This plugin works on *MySQL* and *Percona Server for MySQL*.
 
 Percona offers two versions of this plugin:
 
@@ -24,7 +23,9 @@ These two versions of plugins are physically different. To choose which one you 
 
 ## Version specific information
 
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
+Implemented in Percona Server for MySQL 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
+
+A plugin may not be supported in later releases of MySQL or Percona Server for MySQL since version changes may introduce incompatible changes.
   
 ## Installation
 
