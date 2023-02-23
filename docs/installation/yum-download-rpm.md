@@ -1,8 +1,10 @@
 # Install Percona Server for MySQL using downloaded RPM packages
 
-1. Download the packages of the desired series for your architecture from the
-[download page](http://www.percona.com/downloads/Percona-Server-8.0/). The
-easiest way is to download the bundle which contains all the packages. The following example downloads *Percona Server for MySQL* 8.0.21-12 release packages for *RHEL* 8.
+Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
+
+ The following example downloads *Percona Server for MySQL* 8.0.29-21 release packages for *RHEL* 8.
+
+1. Use `wget` to download the tar file.
 
 	```{.bash data-prompt="$"}
 	$ wget https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-8.0.29-21/binary/redhat/8/x86_64/Percona-Server-8.0.29-21-rc59f87d2854-el8-x86_64-bundle.tar
