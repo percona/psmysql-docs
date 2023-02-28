@@ -19,19 +19,21 @@ Specific information on the supported platforms, products, and versions are desc
 
 Each of the Percona Server for MySQL RPM packages have a particular purpose.
 
-The `Percona-Server-server-57` package contains the server itself (the `mysqld` binary).
+* The `Percona-Server-server-57` package contains the server itself (the `mysqld` binary).
 
-The `Percona-Server-57-debuginfo` package contains debug symbols for the server.
+* The `Percona-Server-57-debuginfo` package contains debug symbols for the server.
 
-The `Percona-Server-client-57` package contains the command line client.
+* The `Percona-Server-client-57` package contains the command line client.
 
-The `Percona-Server-devel-57` package contains the header files needed to compile software using the client library.
+* The `Percona-Server-devel-57` package contains the header files needed to compile software using the client library.
 
-The `Percona-Server-shared-57` package includes the client shared library.
+* The `Percona-Server-shared-57` package includes the client shared library.
 
-The `Percona-Server-shared-compat` package includes shared libraries for software compiled against old versions of the client library. Following libraries are included in this package: `libmysqlclient.so.12`, `libmysqlclient.so.14`, `libmysqlclient.so.15`, `libmysqlclient.so.16`, and `libmysqlclient.so.18`.
+* The `Percona-Server-shared-compat` package includes shared libraries for software compiled against older versions of the client library. The following libraries are included in this package: `libmysqlclient.so.12`, `libmysqlclient.so.14`, `libmysqlclient.so.15`, `libmysqlclient.so.16`, and `libmysqlclient.so.18`. 
 
-The `Percona-Server-test-57` package includes the test suite for Percona Server for MySQL.
+    This package is not included in downloads for Red Hat Enterprise Linux 9 and derivatives.
+
+* The `Percona-Server-test-57` package includes the test suite for Percona Server for MySQL.
 
 ## Installing from the Percona YUM repository
 
