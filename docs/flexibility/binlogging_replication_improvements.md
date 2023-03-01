@@ -254,7 +254,7 @@ Usage: SELECT get_first_record_timestamp_by_binlog(TIMESTAMP) [AS] alias
 For example:
 
 ```sql
-CREATE FUNCTION get_first_record_timestamp_by_binlog RETURNS STRING SONAME 'binlog_utils_udf.so';
+CREATE FUNCTION get_first_record_timestamp_by_binlog RETURNS INTEGER SONAME 'binlog_utils_udf.so';
 SELECT FROM_UNIXTIME(get_first_record_timestamp_by_binlog("bin.00003") DIV 1000000) AS result;
 ```
 
@@ -281,7 +281,7 @@ Usage: SELECT get_last_record_timestamp_by_binlog(TIMESTAMP) [AS] alias
 For example:
 
 ```sql
-CREATE FUNCTION get_last_record_timestamp_by_binlog RETURNS STRING SONAME 'binlog_utils_udf.so';
+CREATE FUNCTION get_last_record_timestamp_by_binlog RETURNS INTEGER SONAME 'binlog_utils_udf.so';
 SELECT FROM_UNIXTIME(get_last_record_timestamp_by_binlog("bin.00003") DIV 1000000) AS result;
 ```
 
