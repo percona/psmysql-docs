@@ -9,17 +9,16 @@ repo_name: percona/psmysql-docs
 repo_url: https://github.com/percona/psmysql-docs
 edit_uri: edit/8.0/docs/
 
-
 use_directory_urls: false
 
 # Theme setup
 theme:
   name: material
   logo: _static/percona-logo.svg
-  favicon: _static/percona_favicon.ico
+  favicon: _static/percona-favicon.ico
   custom_dir: _resource/overrides/
   font:
-    text: Chivo, Colfax, Franziska
+    text: Poppins
   palette:
 
     # Light mode
@@ -42,6 +41,10 @@ theme:
     - search.highlight
     - navigation.top
     - content.tabs.link
+    - content.code.copy 
+    - navigation.tracking 
+    - content.action.edit
+    - content.action.view 
 
 extra_css:
   - https://unicons.iconscout.com/release/v3.0.3/css/line.css
@@ -81,7 +84,6 @@ markdown_extensions:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
 
-
 plugins:
   search: 
     separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
@@ -95,9 +97,9 @@ plugins:
   with-pdf: # https://github.com/orzih/mkdocs-with-pdf
           output_path: '_pdf/PerconaServer-8.0.pdf'
           cover_title: 'Percona Server Documentation'
-          cover_subtitle: 8.0.30-22 (November 21, 2022)
+          cover_subtitle: 8.0.32-24 (March 20, 2023)
           author: 'Percona Technical Documentation Team'
-          cover_logo: docs/_static/percona-server-logo.jpg
+          cover_logo: docs/_static/Percona_Logo_Color.png
           debug_html: false
           custom_template_path: _resource/templates
           enabled_if_env: ENABLE_PDF_EXPORT
@@ -110,6 +112,12 @@ plugins:
 extra:
   version: 
     provider: mike
+  homepage:
+    https://docs.percona.com
+  consent:
+    title: Cookie consent
+    description: >- 
+      We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better.
 
 nav:
   - Home: index.md
@@ -264,6 +272,9 @@ nav:
       - tokudb/toku_backup.md
   - Release notes:
       - Release notes index: release-notes/release-notes_index.md
+      - release-notes/8.0.32-24.md
+      - release-notes/8.0.31-23.md
+      - release-notes/8.0.30-22.upd.md
       - release-notes/8.0.30-22.md
       - release-notes/8.0.29-21.md
       - release-notes/Percona-Server-8.0.28-20.md
@@ -287,7 +298,6 @@ nav:
       - release-notes/Percona-Server-8.0.13-3.md
       - release-notes/Percona-Server-8.0.12-2rc1.md
   - References:
-      - upstream-bug-fixes.md
       - ps-variables.md
       - development.md
       - trademark-policy.md
@@ -297,4 +307,3 @@ nav:
       - glossary.md
 
 # - Version Selector: "../"
-

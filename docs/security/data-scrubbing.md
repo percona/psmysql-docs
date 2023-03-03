@@ -1,18 +1,18 @@
 # Data scrubbing
 
-**Starting with Percona Server for MySQL 8.0.30-22, this feature is removed.**
+## Version changes
+
+Starting with Percona Server for MySQL 8.0.30-22, this feature and all system variables associated with this feature are removed.
+
+## Overview
 
 The `DELETE` statement does the following:
 
-
 * Marks the rows as deleted
-
 
 * Added to `unused`
 
-
 * Records the deleted row position
-
 
 * Records the time when delete was committed
 
@@ -41,6 +41,8 @@ innodb-immediate-scrub-data-uncompressed enables this operation. This variable d
 For background scrubbing, you must set the innodb_encryption_threads variable to a value greater than **zero** when you enable data scrubbing. Intermediate scrubbing does not use encryption threads. A separate thread performs log scrubbing.
 
 ## System variables
+
+Starting with Percona Server for MySQL 8.0.30-22 these variables are removed.
 
 ### `innodb_background_scrub_data_compressed`
 

@@ -1,39 +1,38 @@
 # Install Percona Server for MySQL 8.0 using downloaded DEB packages
 
-Download the packages of the desired series for your architecture from the
-[Percona downloads](https://www.percona.com/downloads/Percona-Server-8.0/) page. The easiest way is to download the bundle, which contains
-all the packages. The following example downloads [Percona Server for MySQL 8.0.13-3](../release-notes/Percona-Server-8.0.13-3.md) release packages for Debian 9.0 (stretch):
+Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
+
+The following example downloads Percona Server for MySQL 8.0.31-23 release packages for Debian 10:
 
 ```{.bash data-prompt="$"}
-$ wget https://www.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.13-3/binary/debian/stretch/x86_64/percona-server-8.0.13-3-r63dafaf-stretch-x86_64-bundle.tar
+$ wget https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.31-23/binary/debian/buster/x86_64/Percona-Server-8.0.31-23-r71449379-buster-x86_64-bundle.tar
 ```
 
-It would help if you then unpacked the bundle to get the packages:
+Unpack the download to get the packages:
 
 ```{.bash data-prompt="$"}
-$ tar xvf percona-server-8.0.13-3-r63dafaf-stretch-x86_64-bundle.tar
+$ tar xvf Percona-Server-8.0.31-23-r71449379-buster-x86_64-bundle.tar
 ```
+??? example "Expected output"
 
-After you unpack the bundle, you should see the following packages:
+    ```text
+    libperconaserverclient21_8.0.31-23-1.buster_amd64.deb
+    libperconaserverclient21-dev_8.0.31-23-1.buster_amd64.deb
+    percona-mysql-router_8.0.31-23-1.buster_amd64.deb
+    percona-server-client_8.0.31-23-1.buster_amd64.deb
+    percona-server-common_8.0.31-23-1.buster_amd64.deb
+    percona-server-dbg_8.0.31-23-1.buster_amd64.deb
+    percona-server-rocksdb_8.0.31-23-1.buster_amd64.deb
+    percona-server-server_8.0.31-23-1.buster_amd64.deb
+    percona-server-source_8.0.31-23-1.buster_amd64.deb
+    percona-server-test_8.0.31-23-1.buster_amd64.deb
+    ```
+
+Install Percona Server for MySQL using `dpkg`. Run this command as root or use the sudo command:
 
 ```{.bash data-prompt="$"}
-$ ls .deb
+$ sudo dpkg -i *.deb
 ```
-
-Now, you can install Percona Server for MySQL using `dpkg`. Run this command as root or use the sudo command:
-
-```{.bash data-prompt="$"}
-$ sudo dpkg -i .deb
-```
-
-This will install all the packages from the bundle. Another option is to
-download/specify only the packages you need for running Percona Server for MySQL
-installation (`libperconaserverclient21_8.0.13-3-1.stretch_amd64.deb`,
-`percona-server-client_8.0.13-3-1.stretch_amd64.deb`,
-`percona-server-common_8.0.13-3-1.stretch_amd64.deb`, and
-`percona-server-server_8.0.13-3-1.stretch_amd64.deb`. Optionally, you can install
-`percona-server-tokudb_8.0.13-3-1.stretch_amd64.deb` if you want the TokuDB
-storage engine).
 
 !!! note
 
