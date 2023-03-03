@@ -1,10 +1,13 @@
 # Group replication system variables
 
 
-| group_replication_auto_evict_timeout |
+| variable name |
 |---|
+| group_replication_auto_evict_timeout |
+| group_replication_certification_loop_chunk_size |
+| group_replication_certification_loop_sleep_time |
 | group_replication_flow_control_mode |
-|  |
+
 
 ## group_replication_auto_evict_timeout
 
@@ -27,19 +30,49 @@ The variable specifies a period of time in seconds before a node is automaticall
 
 In single-primary mode, the primary server ignores the timeout.
 
-## group_replication_flow_control_mode
-
-The "MAJORITY" value is in [tech preview](../glossary.md#tech-preview) mode. Before using the variable in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+## group_replication_certification_loop_chunk_size
 
 | Option | Description |
 |---|---|
-| Introduced | 8.0.30-22 |
+| Introduced | 8.0.32-24 |
+| Command-line |--group-replication-certification-loop-chunk-size |
+| Dynamic | Yes |
+| Scope | Global |
+| Data type | ulong |
+| Default value | 0 |
+
+Defines the size of the chunk that must be processed during the certifier garbage collection phase after which the client transactions are allowed to interleave. The default value is 0.
+
+The minimum value is 0. The maximum value is 4294967295.
+
+## group_replication_certification_loop_sleep_time
+
+| Option | Description |
+|---|---|
+| Introduced | 8.0.32-24 |
+| Command-line |--group-replication-certification-loop-sleep-time |
+| Dynamic | Yes |
+| Scope | Global |
+| Data type | ulong |
+| Default value | 0 |
+
+Defines the sleep time in microseconds that the certifier garbage collection loop allows client transactions to interleave. The default value is 0.
+
+The minimum value is 0. The maximum value is 1000000.
+
+## group_replication_flow_control_mode
+
+| Option | Description |
+|---|---|
+| Introduced | 8.0.32-24 |
 | Command-line |--group_replication_flow_control_mode |
 | Dynamic | Yes |
 | Scope | Global |
 | Data type | Enumeration |
 | Default value | Quota |
 | Valid values | DISABLED <br> QUOTA <br> MAJORITY |
+
+The "MAJORITY" value is in [tech preview](../glossary.md#tech-preview) mode. Before using the variable in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
 
 The variable specifies the mode use for flow control.
 
