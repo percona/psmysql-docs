@@ -1,6 +1,6 @@
 # Binary tarball file names available based on the Percona Server for MySQL version 
 
-For later version of Percona XtraBackup, the tar files are organized by the `glibc2` version. You can find this version on your operating system with the following command:
+For later version of Percona Server for MySQL, the tar files are organized by the `glibc2` version. You can find this version on your operating system with the following command:
 
 ```{.bash data-prompt="$"}
 $ ldd --version
@@ -15,14 +15,14 @@ $ ldd --version
     Written by Roland McGrath and Ulrich Drepper.
     ```
 
-If the `glibc2` version from your operating system is not listed, then this Percona XtraBackup version does not support that operating system.
+If the `glibc2` version from your operating system is not listed, then this Percona Server for MySQL version does not support that operating system.
 
 ## Binary tarball file name organization
 
 
 === "8.0.26-16 and later"
 
-    The following lists the platform and the associated full binary file name used by Percona XtraBackup tar files from version 8.0.26-16 and later.
+    The following lists the platform and the associated full binary file name used by Percona Server for MySQL tar files from version 8.0.26-16 and later.
 
     | Platform             | Percona Server for MySQL tarball name                    | glibc2 version |
     |----------------------|--------------------------------------------------------------|---|
