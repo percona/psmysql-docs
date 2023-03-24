@@ -18,7 +18,12 @@ by adding marketing-requested elements
 </div>
 </div>
 
-<html data-lt-installed="true">
+{%- endmacro %}
+              
+              {% block extrahead %}
+              {{ super() }}
+
+              <html data-lt-installed="true">
                 <head>
                     <meta property="og:title" content="Percona Server for MySQL">
                     <meta property="og:description" content="Documentation">
@@ -28,11 +33,6 @@ by adding marketing-requested elements
                 <body>
                 </body>
               </html>
-
-{%- endmacro %}
-              
-              {% block extrahead %}
-              {{ super() }}
 
               <script>
               (function (w, d, s, l, i) {
