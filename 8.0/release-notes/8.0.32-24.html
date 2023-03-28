@@ -3602,9 +3602,9 @@ increased visibility.</p>
 <h2 id="release-highlights">Release highlights<a class="headerlink" href="#release-highlights" title="Permanent link">&para;</a></h2>
 <p>Percona decided to revert the following MySQL bug fix:</p>
 <p>The data and the GTIDs backed up by mysqldump were inconsistent when the options &ndash;single-transaction and &ndash;set-gtid-purged=ON were both used. It was because in between the transaction started by mysqldump and the fetching of GTID_EXECUTED, GTIDs on the server could have increased already. With this fixed, a FLUSH TABLES WITH READ LOCK is performed before the fetching of GTID_EXECUTED to ensure its value is consistent with the snapshot taken by mysqldump.</p>
-<p>The MySQL fix also added a requirement when using <a href="https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html#option_mysqldump_single-transaction">&ndash;single-transaction</a> and executing FLUSH TABLES WITH READ LOCK for the <a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_reload">RELOAD</a> privilege. (Bug #33630199, Bug #105761)</p>
-<p>The current Percona decision also provides a solution for <a href="https://bugs.mysql.com/bug.php?id=109701">MySQL bug #33630199</a>. </p>
-<p>The Percona Server version of the <code>mysqldump</code> utility, in some modes, can be used with MySQL Server. This utility provides a temporary workaround for the &ldquo;additional RELOAD privilege&rdquo; limitation introduced by Oracle MySQL Server 8.0.32.</p>
+<p>The MySQL fix also added a requirement when using <a href="https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html#option_mysqldump_single-transaction">&ndash;single-transaction</a> and executing FLUSH TABLES WITH READ LOCK for the <a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_reload">RELOAD</a> privilege. (<a href="https://bugs.mysql.com/bug.php?id=109701">MySQL bug #109701</a>, <a href="https://bugs.mysql.com/bug.php?id=105761">MySQL bug #105761</a>)</p>
+<p>The Percona Server version of the <code>mysqldump</code> utility, in some modes, can be used with MySQL Server. This utility provides a temporary workaround for the &ldquo;additional RELOAD privilege&rdquo; limitation introduced by Oracle MySQL Server 8.0.32. </p>
+<p>For more information, see the Percona Performance Blog <a href="https://www.percona.com/blog/workaround-for-the-reload-flush_tables-privilege-required-problem-when-using-oracle-mysqldump-8-0-32/">A Workaround for the &ldquo;RELOAD/FLUSH_TABLES privilege required&rdquo; Problem When Using Oracle mysqldump 8.0.32</a>.</p>
 <p>Improvements and bug fixes introduced by Oracle for MySQL 8.0.32 and included in Percona Server for MySQL are the following:</p>
 <ul>
 <li>
@@ -3691,7 +3691,7 @@ increased visibility.</p>
   <small>
     
       Last update:
-      2023-03-20
+      2023-03-28
     
   </small>
 </div>
