@@ -185,7 +185,7 @@ Stop the server, remove the `--skip-grant-tables` option, start the server, and 
 ```{.bash data-prompt="$"}
 $ sudo systemctl stop mysqld 
 $ sudo systemctl unset-environment MYSQLD_OPTS 
-$ sudo start mysqld 
+$ sudo systemctl start mysqld 
 $ mysql -u root -p
 ```
 
