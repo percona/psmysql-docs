@@ -1,4 +1,4 @@
-# Percona Server for MySQL 5.7.30-33 ((2020-05-20)
+# Percona Server for MySQL 5.7.30-33 (2020-05-20)
 
 * **Installation** [Installing Percona Server for MySQL](https://www.percona.com/doc/percona-server/5.7/installation.html)
 
