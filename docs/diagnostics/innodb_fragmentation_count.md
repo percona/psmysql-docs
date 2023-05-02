@@ -1,5 +1,10 @@
 # InnoDB page fragmentation counters
 
+!!! Important
+
+    Are you ready for [5.7 EOL](https://www.percona.com/navigating-mysql-5-7-end-of-life)? You have options.
+    [Upgrade to 8.0](https://www.percona.com/upgrading-to-mysql-8-0-with-percona) or [stay on 5.7](https://www.percona.com/post-mysql-5-7-eol-support). We'll support you either way.
+
 *InnoDB* page fragmentation is caused by random insertion or deletion from a
 secondary index. This means that the physical ordering of the index pages on
 the disk is not same as the index ordering of the records on the pages. As a
