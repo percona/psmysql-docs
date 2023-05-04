@@ -1,8 +1,3 @@
-{#
-MkDocs template for Netlify builds to customize docs layout 
-by adding marketing-requested elements
-#}
-
 {# Import the theme's layout. #}
 {% extends "base.html" %}
 
@@ -20,20 +15,19 @@ by adding marketing-requested elements
 
 {%- endmacro %}
               
-              {% block extrahead %}
-              {{ super() }}
-
-              <html data-lt-installed="true">
-                <head>
-                    <meta property="og:title" content="Percona Server for MySQL">
-                    <meta property="og:description" content="Documentation">
-                    <meta property="og:image" content="https://docs.percona.com/percona-server/5.7/_static/percona-mysql-logo.png"
-                    <meta property="og:url" content="https://docs.percona.com/percona-server/5.7/">
-                </head>
-                <body>
-                </body>
-              </html>
-              {% endblock %}
+               {% block extrahead %}
+               {{ super() }}
+                 {% set title = config.site_name %}
+                 {% if page and page.meta and page.meta.title %}
+                 {% set title = title ~ " - " ~ page.meta.title %}
+                 {% elif page and page.title and not page.is_homepage %}
+                 {% set title = title ~ " - " ~ page.title %}
+                 {% endif %}
+                 <meta property="og:type" content="website" />
+                 <meta property="og:title" content="{{ title }}" />
+                 <meta property="og:url" content="https://docs.percona.com/percona-server/5.7/" />
+                 <meta property="og:image" content="https://docs.percona.com/percona-server/5.7/_static/percona-mysql-logo.png" />
+               {% endblock %}
 
               {% block analytics %}
               <!-- Google Tag Manager -->
