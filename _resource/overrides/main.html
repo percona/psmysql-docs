@@ -5,36 +5,20 @@ by adding marketing-requested elements
 
 {# Import the theme's layout. #}
 {% extends "base.html" %}
-
-{%- macro relbar2 () %}
-<div class="md-relbar2__inner md-grid">
-<div class="md-content">
-  <article class="md-content__inner md-typeset" role="main">    
-    <h3>Contact us </h3>
-       <p>For free technical help, visit the Percona <a class="reference external" href="https://forums.percona.com/c/mysql-mariadb/percona-server-for-mysql-8-0/20" target="_blank">Community Forum</a>.<br>
-        <p>To report bugs or submit feature requests, open a <a class="reference external" href="https://jira.percona.com/projects/PS/issues/" target="_blank">JIRA</a> ticket.<br>
-         <p>For paid <a class="reference external" href="https://www.percona.com/services/support"> support </a> and <a class="reference external" href="https://www.percona.com/services/managed-services"> managed </a> or <a class="reference external" href="https://www.percona.com/services/consulting">consulting services </a>, contact <a class="reference external" href="https://www.percona.com/about-percona/contact" target="_blank">Percona Sales</a>.</p>
- </article>
-</div>
-</div>
-
-{%- endmacro %}
-              
-              {% block extrahead %}
-              {{ super() }}
-
-              <html data-lt-installed="true">
-                <head>
-                    <meta property="og:title" content="Percona Server for MySQL">
-                    <meta property="og:description" content="Documentation">
-                    <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png"
-                    <meta property="og:url" content="https://docs.percona.com/percona-server/">
-                </head>
-                <body>
-                </body>
-              </html>
+               {% block extrahead %}
+               {{ super() }}
+                 {% set title = config.site_name %}
+                 {% if page and page.meta and page.meta.title %}
+                 {% set title = title ~ " - " ~ page.meta.title %}
+                 {% elif page and page.title and not page.is_homepage %}
+                 {% set title = title ~ " - " ~ page.title %}
+                 {% endif %}
+                 <meta property="og:type" content="website" />
+                 <meta property="og:title" content="{{ title }}" />
+                 <meta property="og:url" content="https://docs.percona.com/percona-server/8.0/" />
+                 <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png" />
               {% endblock %}
-              
+
               {% block analytics %}
               <!-- Google Tag Manager -->
               <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -51,7 +35,7 @@ by adding marketing-requested elements
               {% endblock %}
 
               {% block content %}
-
+              
                 <!-- Edit and view button -->
                 {% if page.edit_url %}
                   {% set edit = "https://github.com/percona/psmysql-docs/edit/8.0/docs/" %}
