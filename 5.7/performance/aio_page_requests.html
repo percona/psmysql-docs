@@ -1,7 +1,5 @@
 
 
-
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -9,7 +7,12 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="The I/O unit size in InnoDB is only one page, even if the server is doing read ahead.
+A 16KB I/O unit size is small for sequential reads and less efficient than a
+larger I/O unit size. InnoDB uses Linux asynchronous I/O (aio) by default.
+By submitting multiple consecutive 16KB read requests at once, Linux internally can
+merge requests, and reads are more efficient. This feature can submit multiple
+page I/O requests and works in the background.">
       
       
         <meta name="author" content="Percona LLC">
@@ -76,19 +79,16 @@
               
     
     
-              
-
-              <html data-lt-installed="true">
-                <head>
-                    <meta property="og:title" content="Percona Server for MySQL">
-                    <meta property="og:description" content="Documentation">
-                    <meta property="og:image" content="https://docs.percona.com/percona-server/5.7/_static/percona-mysql-logo.png"
-                    <meta property="og:url" content="https://docs.percona.com/percona-server/5.7/">
-                </head>
-                <body>
-                </body>
-              </html>
-              
+               
+                 
+                 
+                 
+                 
+                 <meta property="og:type" content="website" />
+                 <meta property="og:title" content="Percona Server for MySQL - Multiple page asynchronous I/O requests" />
+                 <meta property="og:url" content="https://docs.percona.com/percona-server/5.7/" />
+                 <meta property="og:image" content="https://docs.percona.com/percona-server/5.7/_static/percona-mysql-logo.png" />
+               
   </head>
   
   
