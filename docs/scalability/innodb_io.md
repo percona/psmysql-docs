@@ -40,7 +40,7 @@ SET SESSION innodb_flush_log_at_trx_commit=0
 
 This modification only affects the transactions in that session. Other sessions,
 if they have not been individually modified, continue to use the
-global innodb_use_flush_log_at_trx_commit value.
+global `innodb_use_flush_log_at_trx_commit` value.
 
 ```sql
 SET innodb_use_global_flush_log_at_trx_commit=1
@@ -78,9 +78,8 @@ use O_DIRECT to open the data files and parallel doublewrite files, but does not
 use O_DIRECT to open data files, log files, and parallel doublewrite files
 and use `fsync()` to flush the data files but not the log files or
 parallel doublewrite files. This option is recommended when *InnoDB* log files are big (more than 8GB),
-otherwise, there may be performance degradation. **Note**: When using this option on *ext4* filesystem
-variable innodb_log_block_size
-should be set to 4096 (default log-block-size in *ext4*) in order to avoid the `unaligned AIO/DIO` warnings.
+otherwise, there may be performance degradation. **Note**: On *ext4* filesystem, set `innodb_log_write_ahead_size`. This variable should match the
+filesystem's write-ahead block size and avoids the `unaligned AIO/DIO` warnings.
 
 ### Status Variables
 
