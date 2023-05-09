@@ -22,7 +22,7 @@
         <link rel="next" href="../security/data-at-rest-encryption.html">
       
       <link rel="icon" href="../_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.11">
     
     
       
@@ -3175,7 +3175,7 @@ session, the session value is ignored.</p>
 </code></pre></div>
 <p>This modification only affects the transactions in that session. Other sessions,
 if they have not been individually modified, continue to use the
-global innodb_use_flush_log_at_trx_commit value.</p>
+global <code>innodb_use_flush_log_at_trx_commit</code> value.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">innodb_use_global_flush_log_at_trx_commit</span><span class="o">=</span><span class="mi">1</span>
 </code></pre></div>
 <h3 id="innodb_flush_method"><code>innodb_flush_method</code><a class="headerlink" href="#innodb_flush_method" title="Permanent link">&para;</a></h3>
@@ -3241,9 +3241,8 @@ use O_DIRECT to open the data files and parallel doublewrite files, but does not
 use O_DIRECT to open data files, log files, and parallel doublewrite files
 and use <code>fsync()</code> to flush the data files but not the log files or
 parallel doublewrite files. This option is recommended when <em>InnoDB</em> log files are big (more than 8GB),
-otherwise, there may be performance degradation. <strong>Note</strong>: When using this option on <em>ext4</em> filesystem
-variable innodb_log_block_size
-should be set to 4096 (default log-block-size in <em>ext4</em>) in order to avoid the <code>unaligned AIO/DIO</code> warnings.</p>
+otherwise, there may be performance degradation. <strong>Note</strong>: On <em>ext4</em> filesystem, set <code>innodb_log_write_ahead_size</code>. This variable should match the
+filesystem&rsquo;s write-ahead block size and avoids the <code>unaligned AIO/DIO</code> warnings.</p>
 </li>
 </ul>
 <h3 id="status-variables">Status Variables<a class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h3>
@@ -3287,7 +3286,7 @@ Checkpoint age      4243362
   <small>
     
       Last update:
-      2022-09-27
+      2023-05-08
     
   </small>
 </div>
