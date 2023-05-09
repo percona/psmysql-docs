@@ -25,7 +25,7 @@ options for XtraDB.">
         <link rel="next" href="../performance/adaptive_network_buffers.html">
       
       <link rel="icon" href="../_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.11">
     
     
       
@@ -3675,7 +3675,7 @@ parallel doublewrite files. This option is recommended when *InnoDB* log files a
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When using this option on <em>ext4</em>, the filesystem variable <code>innodb_log_block_size</code> should be set to 4096 (default log-block-size in <em>ext4</em>) in order to avoid the <code>unaligned AIO/DIO</code> warnings.</p>
+<p>On an ext4 filesystem, set <code>innodb_log_write_ahead_size</code> to match the filesystem&rsquo;s write-ahead block size. This variable avoids <code>unaligned AIO/DIO</code> warnings.</p>
 </div>
 <p>Starting from <em>Percona Server for MySQL</em> 8.0.20-11, the <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_flush_method">innodb_flush_method</a> affects doublewrite buffers exactly the same as in <em>MySQL</em> 8.0.20.</p>
 <h2 id="status-variables">Status variables<a class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
@@ -3719,7 +3719,7 @@ Checkpoint age      4243362
   <small>
     
       Last update:
-      2023-01-12
+      2023-05-09
     
   </small>
 </div>
