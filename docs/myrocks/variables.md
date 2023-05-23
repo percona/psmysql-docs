@@ -31,6 +31,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_blind_delete_primary_key`](#rocksdb_blind_delete_primary_key)                                  |
 | [`rocksdb_block_cache_size`](#rocksdb_block_cache_size)                                                  |
 | [`rocksdb_bulk_load_partial_index`](#rocksdb_bulk_load_partial_index)                                    |
+| [`rocksdb_bulk_load_use_sst_partitioner`](#rocksdb_bulk_load_use_sst_partitioner) |
 | [`rocksdb_block_restart_interval`](#rocksdb_block_restart_interval)                                      |
 | [`rocksdb_block_size`](#rocksdb_block_size)                                                              |
 | [`rocksdb_block_size_deviation`](#rocksdb_block_size_deviation)                                          |
@@ -55,6 +56,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_compaction_sequential_deletes_file_size`](#rocksdb_compaction_sequential_deletes_file_size)    |
 | [`rocksdb_compaction_sequential_deletes_window`](#rocksdb_compaction_sequential_deletes_window)          |
 | [`rocksdb_concurrent_prepare`](#rocksdb_concurrent_prepare)                                              |
+| [`rocksdb_converter_record_cached_length`](#rocksdb_converter_record_cached_length)                      |
 | [`rocksdb_create_checkpoint`](#rocksdb_create_checkpoint)                                                |
 | [`rocksdb_create_if_missing`](#rocksdb_create_if_missing)                                                |
 | [`rocksdb_create_missing_column_families`](#rocksdb_create_missing_column_families)                      |
@@ -176,6 +178,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_use_direct_io_for_flush_and_compaction`](#rocksdb_use_direct_io_for_flush_and_compaction)      |
 | [`rocksdb_use_direct_reads`](#rocksdb_use_direct_reads)                                                  |
 | [`rocksdb_use_fsync`](#rocksdb_use_fsync)                                                                |
+| [`rocksdb_use_hyper_clock_cache`](#rocksdb_use_hyper_clock_cache)                                        |
 | [`rocksdb_validate_tables`](#rocksdb_validate_tables)                                                    |
 | [`rocksdb_verify_row_debug_checksums`](#rocksdb_verify_row_debug_checksums)                              |
 | [`rocksdb_wal_bytes_per_sync`](#rocksdb_wal_bytes_per_sync)                                              |
@@ -475,6 +478,22 @@ When the rocksdb_bulk_load variable is enabled, it behaves as if the variable ro
 
 The variable was implemented in [Percona Server for MySQL 8.0.27-18](../release-notes/Percona-Server-8.0.27-18.md#id1). Materializes partial index during bulk load instead of leaving the index empty.
 
+### `rocksdb_bulk_load_use_sst_partitioner`
+
+| Option       | Description         |
+|--------------|---------------------|
+| Command-line | --rocksdb_bulk_load_use_sst_partitioner |
+| Dynamic      | Yes                 |
+| Scope        | Global, Session     |
+| Data type    | Boolean             |
+| Default      | OFF                 |
+
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+
+If enabled, this variable uses sst partitioner to split sst files to ensure bulk load sst files can be ingested to bottommost level.
+
+This variable is disabled (OFF) by default.
+
 ### `rocksdb_bulk_load_size`
 
 | Option       | Description              |
@@ -757,6 +776,27 @@ Allowed range is up to `2000000` (two million).
 When enabled this variable allows/encourages threads that are using
 two-phase commit to `prepare` in parallel. This variable was
 renamed in upstream to rocksdb_two_write_queues.
+
+### `rocksdb_converter_record_cached_length`
+
+| Option       | Description                  |
+|--------------|------------------------------|
+| Command-line | --rocksdb_converter_record_cached_length |
+| Dynamic      | Yes                           |
+| Scope        | Global                        |
+| Data type    | Numeric                       |
+| Default      | 0                             |
+
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+
+Specifies the maximum number of bytes to cache on table handler for encoding table record data. 
+
+If the used memory exceeds `rocksdb_converter_record_cached_length`, the memory is released when the handler is returned to the table handler cache.
+
+The minimum value is `0` (zero) that means there is no limit.
+The maximum value is `UINT64_MAX (0xffffffffffffffff)`.
+
+The default value is `0`(zero) that means there is no limit.
 
 ### `rocksdb_create_checkpoint`
 
@@ -2581,6 +2621,22 @@ make sure that rocksdb_allow_mmap_reads is disabled.
 Specifies whether MyRocks should use `fsync` instead of `fdatasync`
 when requesting a sync of a data file.
 Disabled by default.
+
+### `rocksdb_use_hyper_clock_cache`
+
+| Option       | Description               |
+|--------------|---------------------------|
+| Command-line | --rocksdb_use_hyper_clock_cache |
+| Dynamic      | No                        |
+| Scope        | Global                    |
+| Data type    | Boolean                   |
+| Default      | OFF                       |
+
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+
+If enabled, this variable uses HyperClockCache instead of default LRUCache for RocksDB.
+
+This variable is disabled (OFF) by default.
 
 ### `rocksdb_validate_tables`
 
