@@ -1,17 +1,16 @@
 # Post-installation
 
-After you have installed *Percona Server for MySQL*, you may need to do the following:
+Depending on the type of installation, you may need to do the following tasks:
 
-| Task                                     | Description                                                                                                              |
-|------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| Initialize the data directory            | The source distribution or generic binary distribution installation does not automatically initialize the data directory |
-| Update the root password                 | The CentOS/RedHat installations set up a temporary root password.                                                        |
-| Start the server                         | Common method to start the server and check the status                                                                   |
-| Configure the server to start on startup | Use systemd to start the server automatically                                                                            |
-| Testing the server                       | Verify the server returns information                                                                                    |
-| Enable time zone recognition             | Populate the time zone tables                                                                                            |
+## Installed using binary files or compiling from source
 
-## Initializing the data directory
+| Task |
+|---|
+| [Initialize the data dictionary](#initialize-the-data-directory) |
+| [Test the server](#test-the-server) |
+| [Set service to start at boot time](#set-service-to-run-at-boot-time)|
+
+### Initialize the data directory
 
 If you install the server using either the source distribution or generic binary distribution files, the data directory is not initialized, and you must run the initialization process after installation.
 
@@ -67,67 +66,7 @@ You should run the following steps with the `mysql` login.
 	$ bin/mysqld --initialize
 	```
 
-## Secure the installation
-
-The [mysql_secure_installation](https://dev.mysql.com/doc/refman/8.0/en/mysql-secure-installation.html)
-script improves the security of the installation.
-
-Running the script does the following:
-
-
-* Changes the `root` password
-
-
-* Disallows remote login for `root` accounts
-
-
-* Removes anonymous users
-
-
-* Removes the `test` database
-
-
-* Reloads the privilege tables
-
-The following statement runs the script:
-
-```{.bash data-prompt="$"}
-$ mysql_secure_installation
-```
-
-## Testing the server
-
-After a generic binary installation, the server starts. The following command checks the server status:
-
-```{.bash data-prompt="$"}
-$ sudo service mysql status
-```
-
-Access the server with the following command:
-
-```{.bash data-prompt="$"}
-$ mysql -u root -p
-```
-
-## Configure the server to start at startup
-
-You can manage the server with systemd. If you have installed the server from a generic binary distribution on an operating system that uses systemd, you can manually configure systemd support.
-
-The following commands start, check the status, and stop the server:
-
-```{.bash data-prompt="$"}
-$ systemctl start mysql
-$ systemctl status mysql
-$ systemctl stop mysql
-```
-
-Enabling the server to start at startup, run the following:
-
-```shell
-systemctl enable mysql
-```
-
-## Test the server
+### Test the server
 
 After you have initialized the data directory, and the server is started, you can run tests on the server.
 
@@ -135,7 +74,7 @@ This section assumes you have used the default installation settings. If you hav
 
 You can use the [mysqladmin](https://dev.mysql.com/doc/refman/8.0/en/mysqladmin.html) client to access the server.
 
-If you have issues connecting to the server, you should use the `root` user and the root account password.
+If you have issues connecting to the server, use the `root` user and the root account password.
 
 ```{.bash data-prompt="$"}
 $ sudo mysqladmin -u root -p version
@@ -180,6 +119,104 @@ $ sudo mysqlshow -u root -p
     | sys                 |
     +---------------------+
     ```
+
+### Set service to run at boot time
+
+After a generic binary installation, manually configure systemd support.
+
+The following commands start, check the status, and stop the server:
+
+```{.bash data-prompt="$"}
+$ sudo systemctl start mysqld
+$ sudo systemctl status mysqld
+$ sudo systemctl stop mysqld
+```
+
+Run the following command to start the service at boot time:
+
+```{.bash data-prompt="$"}
+$ sudo systemctl enable mysqld
+```
+Run the following command to prevent a service from starting at boot time:
+
+
+```{.bash data-prompt="$"}
+$ sudo systemctl disable mysqld
+```
+
+## All installations
+
+| Task |
+|---|
+| [Update the root password](#update-root-password) |
+| [Secure the server](#secure-the-server) |
+| [Populate the time zone tables](#populate-the-time-zone-tables)
+
+
+### Update the root password
+
+During an installation on Debian/Ubuntu, you are prompted to enter a root password. On Red Hat Enterprise Linux and derivatives, you update the root password after installation.
+
+Restart the server with the `--skip-grant-tables` option to allow access without a password. This option is insecure. This option also disables remote connections.
+
+```{.bash data-prompt="$"}
+$ sudo systemctl stop mysqld
+$ sudo systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
+$ sudo systemctl start mysqld 
+$ mysql
+```
+
+Reload the grant tables to be able to run the `ALTER USER` statement. Enter a password that satisfies the current policy.
+
+```{.sql data-prompt="mysql>"}
+mysql> FLUSH PRIVILEGES;
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'rootPassword_12';
+mysql> exit
+```
+If, when adding the password, MySQL returns `ERROR 1819 (HY000) Your password does not satisfy the current policy`, run the following command to see policy requirement.
+
+```{.sql data-prompt="mysql>"}
+mysql> SHOW VARIABLES LIKE 'validate_password%';
+```
+Redo your password to satisfy the requirements.
+
+Stop the server, remove the `--skip-grant-tables` option, start the server, and log into the server with the updated password.
+
+```{.bash data-prompt="$"}
+$ sudo systemctl stop mysqld 
+$ sudo systemctl unset-environment MYSQLD_OPTS 
+$ sudo systemctl start mysqld 
+$ mysql -u root -p
+```
+
+### Secure the server
+
+The [mysql_secure_installation](https://dev.mysql.com/doc/refman/8.0/en/mysql-secure-installation.html)
+script improves the security of the instance.
+
+The script does the following:
+
+* Changes the `root` password
+
+
+* Disallows remote login for `root` accounts
+
+
+* Removes anonymous users
+
+
+* Removes the `test` database
+
+
+* Reloads the privilege tables
+
+The following statement runs the script:
+
+```{.bash data-prompt="$"}
+$ mysql_secure_installation
+```
+
+
 
 ## Populate the time zone tables
 
