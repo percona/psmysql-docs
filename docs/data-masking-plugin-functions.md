@@ -1,4 +1,5 @@
-# Data masking
+
+# Data masking plugin functions
 
 This feature was implemented in *Percona Server for MySQL* version Percona Server for MySQL 8.0.17-8.
 
@@ -8,57 +9,41 @@ sensitive data with modified content.
 
 Data masking can have either of the characteristics:
 
-
 * Generation of random data, such as an email address
-
 
 * De-identify data by transforming the data to hide content
 
-### Installing the plugin
-
-The following command installs the plugin:
-
-```{.bash data-prompt="$"}
-$ INSTALL PLUGIN data_masking SONAME 'data_masking.so';
-```
-
-### Data masking functions
-
 The data masking functions have the following categories:
-
 
 * General purpose
 
-
 * Special purpose
-
 
 * Generating Random Data with Defined characteristics
 
-
 * Using Dictionaries to Generate Random Data
 
-### General purpose
+## General purpose
 
 The general purpose data masking functions are the following:
 
 <table style="width=100%">
     <tr>
-        <td  style="width:40%">Parameter</td>
+        <td  style="width:40%">Function</td>
         <td>Description</td>
     </tr>
     <tr> 
         <td> mask_inner(string, margin1, margin2 [, character])</td>
-        <td>Returns a result where only the inner part of a string is masked. An optional masking character can be specified.</td>
+        <td>Returns a result where only the inner part of a string is masked. A different masking character can be specified.</td> . 
     </tr>
     <tr>
         <td>mask_outer(string, margin1, margin2 [, character])</td>
-        <td>Masks the outer part of the string. The inner section is not masked.</td
+        <td>Masks the outer part of the string. The inner section is not masked. A different masking character can be specified.</td
 </td>
     </tr>
 </table>
 
-#### Examples
+### Examples
 
 An example of `mask_inner`:
 
@@ -92,7 +77,7 @@ mysql> SELECT mask_outer('123456789', 2, 2);
     +------------------------------------+
     ```
 
-### Special Purpose
+## Special Purpose
 
 The special purpose data masking functions are as follows:
 
@@ -121,7 +106,7 @@ of the string is replaced by “X”.</td>
             </tr>
 </table>
 
-#### Examples
+### Examples
 
 An example of `mask_pan`.
 
@@ -171,7 +156,7 @@ mysql> SELECT mask_ssn('555-55-5555');
     +-------------------------+
     ```
 
-### Generate random data for specific requirements
+## Generate random data for specific requirements
 
 These functions generate random values for specific requirements.
 
@@ -204,7 +189,7 @@ is not valid for any U.S. phone number.</td>
            </tr>
 </table>
 
-#### Examples
+### Examples
 
 An example of `gen_range(lower, upper)`:
 
@@ -302,7 +287,7 @@ mysql> SELECT gen_rnd_ssn()
     +-----------------------------+
     ```
 
-### Use dictionaries to generate random terms
+## Use dictionaries to generate random terms
 
 Use a selected dictionary to generate random terms. The dictionary must be loaded from a file with the following characteristics:
 
@@ -315,11 +300,12 @@ Use a selected dictionary to generate random terms. The dictionary must be loade
 
 * Must contain at least one entry
 
-Copy the dictionary files to a directory accessible to MySQL. The [secure-file-priv](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_secure_file_priv) option defines the directories where gen_dictionary_load() loads the dictionary files.
+Copy the dictionary files to a directory accessible to MySQL. Percona Server for MySQL* 8.0.21-12 enabled using the `secure-file-priv` option for gen_dictionary_load(). The [secure-file-priv](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_secure_file_priv) option defines the directories where gen_dictionary_load() loads the dictionary files.
 
 !!! note
 
-    *Percona Server for MySQL* 8.0.21-12 enabled using the `secure-file-priv` option for gen_dictionary_load().
+     Percona Server for MySQL 8.0.34 deprecates the `gen_blacklist()` function. Use `gen_blocklist()` instead.
+
 
 <table style="width:100%">
     <tr>
@@ -328,8 +314,14 @@ Copy the dictionary files to a directory accessible to MySQL. The [secure-file-p
         <td style="width:30%">Returns</td>
       
     </tr>
-    <tr>
+        <tr>
         <td>gen_blacklist(str, dictionary_name, replacement_dictionary_name)</td>
+        <td>Replaces a term with a term from a second dictionary. Deprecated in Percona Server for MySQL 8.0.34.</td>
+        <td>A dictionary term</td>
+           </tr>
+    <tr>
+    <tr>
+        <td>gen_blocklist(str, dictionary_name, replacement_dictionary_name)</td>
         <td>Replaces a term with a term from a second dictionary.</td>
         <td>A dictionary term</td>
            </tr>
@@ -351,19 +343,19 @@ Copy the dictionary files to a directory accessible to MySQL. The [secure-file-p
             </tr>
 </table>
 
-#### Example
+### Example
 
-An example of `gen_blacklist()`:
+An example of `gen_blocklist()`:
 
 ```{.bash data-prompt="mysql>"}
-mysql> SELECT gen_blacklist('apple', 'fruit', 'nut');
+mysql> SELECT gen_blocklist('apple', 'fruit', 'nut');
 ```
 
 ??? example "Expected output"
 
     ```{.text .no-copy}
     +-----------------------------------------+
-    | gen_blacklist('apple', 'fruit', 'nut')  |
+    | gen_blocklist('apple', 'fruit', 'nut')  |
     +-----------------------------------------+
     | walnut                                  |
     +-----------------------------------------+
@@ -383,6 +375,7 @@ mysql> SELECT gen_dictionary('trees');
     | Norway spruce                                    |
     +--------------------------------------------------+
     ```
+
 An example of `gen_dictionary_drop()`:
 
 ```{.bash data-prompt="mysql>"}
@@ -414,7 +407,3 @@ mysql> SELECT gen_dictionary_load('/usr/local/mysql/dict-files/testdict', 'testd
     | Dictionary load successfully                                                  |
     +-------------------------------------------------------------------------------+
     ```
-
-### Uninstalling the plugin
-
-The [UNINSTALL PLUGIN](https://dev.mysql.com/doc/refman/8.0/en/uninstall-plugin.html) statement disables and uninstalls the plugin.

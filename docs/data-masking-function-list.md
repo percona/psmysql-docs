@@ -7,8 +7,8 @@ The feature is in [tech preview](glossary.md#tech-preview).
 | [`gen_blocklist(str, from_dictionary_name, to_dictionary_name)`](#gen_blockliststr-from_dictionary_name-to_dictionary_name) | Replace a term from a dictionary                      |
 | [`gen_dictionary(dictionary_name)`](#gen_dictionarydictionary_name) | Returns a random term from a dictionary               |
 | [`gen_range(lower, upper)`](#gen_rangelower-upper) | Returns a number from a range                       |
-| [`gen_rnd_canada_sin()`](#gen-rnd-canada-sin) | Generates a Canadian Social Insurance number          |
-| [`gen_rnd_email(name_size, surname_size, domain)`](#gen_rnd_emailname_size-surname_size-domain)    | Generates an email address                            |
+| [`gen_rnd_canada_sin()`](#gen_rnd_canada_sin) | Generates a Canadian Social Insurance number          |
+| [`gen_rnd_email([name_size, surname_size, domain])`](#gen_rnd_emailname_size-surname_size-domain)    | Generates an email address                            |
 | [`gen_rnd_iban([country, size])`](#gen_rnd_ibancountry-size)                                    | Generates an International Bank Account number        |
 | [`gen_rnd_pan()`](#gen_rnd_pan)                                     | Generates a Primary account number for a payment card |
 | [`gen_rnd_ssn()`](#gen_rnd_ssn)                                     | Generates a US Social Security number                 |
@@ -36,13 +36,15 @@ Replaces one term in a dictionary with a term, selected at random, in another di
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| term | No | The term to replace | String |
-| from_dictionary_name | No | The dictionary that stores the term. | String |
-| to_dictionary_name | No | The dictionary that stores the replacement term | String |
+| `term` | No | The term to replace | String |
+| `from_dictionary_name` | No | The dictionary that stores the term. | String |
+| `to_dictionary_name` | No | The dictionary that stores the replacement term | String |
 
 ### Returns
 
 A term, selected at random, from the dictionary listed in `to_dictionary_name` that replaces the selected term. If the selected `term` is not listed in the `from_dictionary_name` or a dictionary is missing, then the `term` is returned. If the `to_dictionary_name` does not exist, then returns NULL. The character set of the returned string is the same character set of the `term` parameter.
+
+Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
@@ -68,12 +70,12 @@ Returns a term from a dictionary selected at random.
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| dictionary_name | No | Select the random term from this dictionary | String |
+| `dictionary_name` | No | Select the random term from this dictionary | String |
 
 
 ### Returns
 
-A random term from the dictionary listed in `dictionary_name` in the `utf8mb4` character set.
+A random term from the dictionary listed in `dictionary_name` in the `utf8mb4` character set. Returns NULL if the `dictionary_name` does not exist.
 
 ### Example
 
@@ -93,22 +95,20 @@ mysql> SELECT gen_dictionary('trees');
 
 ## gen_range(lower, upper)
 
-
-
 Returns a number from a defined range.
 
 ### Parameters
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| lower | No | The lower boundary of the range | Integer |
-| upper | No | The upper boundary of the range | Integer |
+| `lower` | No | The lower boundary of the range | Integer |
+| `upper` | No | The upper boundary of the range | Integer |
 
-The `upper` parameter must be an integer either greater than or equal to the `lower` parameter.
+The `upper` parameter value must be an integer either greater than or equal to the `lower` parameter value.
 
-## Returns
+### Returns
 
-An integer, selected at random, from an inclusive range defined by the `lower` parameter and the `upper` parameter, or NULL if the `upper` boundary is less than the `lower` boundary.
+An integer, selected at random, from an inclusive range defined by the `lower` parameter value and the `upper` parameter value, or NULL if the `upper` boundary is less than the `lower` boundary.
 
 ### Example
 
@@ -126,15 +126,13 @@ mysql> SELECT gen_range(10, 100);
     +--------------------------------------+
     ```
 
-## gen-rnd-canada-sin()
-
-
+## gen_rnd_canada_sin()
 
 Generates a Canada Social Insurance Number (SIN).
 
 !!! important
 
-    Generating the SIN should only be used for testing. The function does not check if the generated value is a legitimate primary account number. If you must publish the result, consider using [`mask_canada_sin`](#mask_canada_sinstr-mask_char) to mix up the result.
+Only use this function for testing because the result could be a legitimate SIN. Use [`mask_canada_sin`](#mask_canada_sinstr-mask_char) to disguise the result if you must publish the result.
 
 ### Parameters
 
@@ -142,9 +140,7 @@ None.
 
 ### Returns
 
-Returns a Canada SIN. The format is `AAA-BBB-CCC` in the `utf8mb4` character set.
-
-The number is verified with the [Luhn Number Checksum]](https://www.dcode.fr/luhn-algorithm) to ensure the number is consistent.
+Returns a Canada SIN formatted in three groups of three digits (for example, 123-456-789) in the `utf8mb4` character set. To ensure the number is consistent, the number is verified with the [Luhn algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm).
 
 ### Example
 
@@ -162,19 +158,17 @@ mysql> SELECT gen_rnd_canada_sin();
     +-------------------------+
     ```
 
-## gen_rnd_email(name_size, surname_size, domain)
+## gen_rnd_email([name_size, surname_size, domain])
 
-
-
-Generates a random email address. The format of the email is `name.surname@domain`. 
+Generates a random email address in the `name.surname@domain` format.
 
 ### Parameters
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| name_size | Yes | Specifies the number of characters in the name part. The default is five. | Integer |
-| surname_size | Yes | Specifies the number of characters in the surname part. The default number is seven. | Integer |
-| domain | Yes | Specifies the domain part. The default value is `example.com`. | Integer |
+| `name_size` | Yes | Specifies the number of characters in the name part. The default number is five. The minimum number is one. The maximum number is 1024. | Integer |
+| `surname_size` | Yes | Specifies the number of characters in the surname part. The default number is seven. The minimum number is one. The maximum number is 1024. | Integer |
+| `domain` | Yes | Specifies the domain name used. The default value is `example.com`. | Integer |
 
 
 ### Returns
@@ -184,19 +178,18 @@ A generated email address as a string in the same character set as `domain`. If 
 ### Example
 
 ```{.bash data-prompt="mysql>"}
-mysql> SELECT gen_rnd_email(name_size=7, surname_size=5, domain=`mydomain.edu`);
+mysql> SELECT gen_rnd_email(name_size=4, surname_size=5, domain='mydomain.edu');
 ```
 
 ??? example "Expected output"
 
     ```{.text .no-copy}
     +-------------------------------------+
-    | gen_rnd_email(4, 5, `mydomain.edu`) |
+    | gen_rnd_email(4, 5, 'mydomain.edu') |
     +-------------------------------------+
     | qwer.asdfg@mydomain.edu             |
     +-------------------------------------+
     ```
-
 
 ## gen_rnd_iban([country, size])
 
@@ -204,22 +197,24 @@ Generates an Internal Bank Account Number (IBAN).
 
 !!! important
 
-    Generating the IBAN with a valid country code should only be used for testing. The function does not check if the generated value is a legitimate bank account. If you must publish the result, consider using [`mask_iban`](#mask_ibanstr-mask_char) to mix up the result.
+Generating an IBAN with a valid country code should only be used for testing. The function does not check if the generated value is a legitimate bank account. If you must publish the result, consider using [`mask_iban`](#mask_ibanstr-mask_char) to disguise the result. The function does not perform a checksum on the bank account number.
 
 ### Parameters
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| country | Yes | A two-character country code | String |
-| size | Yes | Number of characters | Integer |
+| `country` | Yes | A two-character country code | String |
+| `size` | Yes | Number of characters | Integer |
 
-If the `country` is not specified, the default is `ZZ`. The value must be two upper-case characters (A-Z) or an error is returned.
+If the `country` is not specified, the default value is `ZZ`. The value must be two upper-case characters (A-Z) or an error is returned.
 
-The default length for `size` is 16. The minimum value is 15. The maximum value is 34.
+The default value for `size` is 16. The minimum value is 15. The maximum value is 34.
 
 ### Returns
 
-The function returns a string based on the `size` value. The string begins with the `country` (two characters) and contains a regular expression in a <country>[[:digit:]]{size} format. The character set is the same as the `country` parameter or if that parameter is not specified, the character set is `utf8mb4`.
+The function returns a string that is the length of the `size` value. The string consists of `country` (two characters) followed by the (size - 2) random digits.
+
+The character set is the same as the `country` parameter or if that parameter is not specified, the character set is `utf8mb4`.
 
 ### Example
 
@@ -233,19 +228,27 @@ mysql> SELECT gen_rnd_iban();
     +-------------------+
     | gen_rnd_iban()    |
     +-------------------+
-    |ZZ7895912007853695 |
+    |ZZ78959120078536   |
     +-------------------+
     ```
 
 ## gen_rnd_pan()
 
+Generates a Primary Account Number (PAN) for a payment card that passes basic checksum validation.
 
+The generated PAN can be one of the following:
 
-Generates an Primary Account Number (PAN) for a payment card.
+* American Express
+
+* Visa
+
+* Mastercard
+
+* Discover
 
 !!! important
 
-    Generating the PAN should only be used for testing. The function does not check if the generated value is a legitimate primary account number. If you must publish the result, consider using [`mask_pan`](#mask_panstr-mask_char) or [`mask_pan_relaxed()`](#mask_pan_relaxedstr-mask_char) to mix up the result.
+    Generating the PAN should only be used for testing. The function does not check if the generated value is a legitimate primary account number. If you must publish the result, consider using [`mask_pan`](#mask_panstr-mask_char) or [`mask_pan_relaxed()`](#mask_pan_relaxedstr-mask_char) to disguise the result.
 
 ### Parameters
 
@@ -273,10 +276,7 @@ mysql> SELECT gen_rnd_pan();
 
 ## gen_rnd_ssn()
 
-
-
 Generates a United States Social Security Account Number (SSN).
-
 
 ### Parameters
 
@@ -285,7 +285,7 @@ None
 
 ### Returns
 
-A SSN string in a `***-**-****` format in the `utf8mb4` character set. The first three numbers are greater than 900, which are outside the range for legitimate numbers.
+A SSN string in a nine-digit number format "AAA-GG-SSSS" in the `utf8mb4` character set. The number has three parts, the first three digits are the area number, the group number, and the serial number. The generated SSN uses '900' or greater numbers for the area number. These numbers are not legitimate because they are outside the approved range.
 
 ### Example
 
@@ -305,13 +305,11 @@ mysql> SELECT gen_rnd_ssn();
 
 ## gen_rnd_uk_nin()
 
-
-
 Generates a United Kingdom National Insurance Number (NIN).
 
 !!! important
 
-    Generating the NIN should only be used for testing. The function does not check if the generated value is a legitimate primary account number. If you must publish the result, consider using [`mask_uk_nin`](#mask_uk_ninstr-mask_char) to mix up the result.
+    This function should only be used for testing. The function does not check if the generated value is a legitimate United Kingdom National Insurance number. If you must publish the result, consider masking the result with [`mask_uk_nin`](#mask_uk_ninstr-mask_char).
 
 ### Parameters
 
@@ -319,7 +317,7 @@ None.
 
 ### Returns
 
-A NIN string in the `utf8mb4` character set.
+A NIN string in the `utf8mb4` character set. The string is nine (9) characters in length, always starts with 'AA' and ends with 'C'.
 
 ### Example
 
@@ -337,12 +335,9 @@ mysql> SELECT gen_rnd_uk_nin();
     +----------------------+
     ```
 
-
 ## gen_rnd_us_phone()
 
-
-
-Generates a United States phone number with the `555` area code.
+Generates a United States phone number with the `555` area code. The '555' area code represents fictional numbers.
 
 ### Parameters
 
@@ -369,8 +364,6 @@ mysql> SELECT gen_rnd_us_phone();
     ```
 
 ## gen_rnd_uuid()
-
-
 
 Generates a version 4 Universally Unique Identifier (UUID).
 
@@ -406,20 +399,20 @@ Masks a Canada Social Insurance Number (SIN).
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| str | No | The string to be masked | String |
-| mask_char | Yes | The masking character | String |
+| `str` | No | The string to be masked | String |
+| `mask_char` | Yes | The masking character | String |
 
 The `str` accepts an alphanumeric string.
 
-If the `mask_char` is not specified, the default is `X`. The `mask_char` value can be a multibyte character in any character set and may not be same character set as `str`.
+If you do not specify a `mask_char`, the default character is `X`. The `mask_char` value can be a multibyte character in any character set and may not be same character set as `str`.
 
 ### Returns
 
-A string with the selected characters masked by a specified `mask_char` or the default value for that parameter. The function supports multibyte characters in any character set. The character set is the same as `str`.
+A string with the selected characters masked by a specified `mask_char` or the default value for that parameter. The function supports multibyte characters in any character set. The character set of the return value is the same as `str`.
 
-Returns an error if the length of `str` is not correct.
+An error is reported if  `str` length is an incorrect length.
 
-Returns a NULL value if the `str` is in an incorrect length. 
+Returns a NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
@@ -445,12 +438,13 @@ Masks an Internal Bank Account Number (IBAN).
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| str | No | The string to be masked | String |
-| mask_char | Yes | Character used for masking | String |
+| `str` | No | The string to be masked | String |
+| `mask_char` | Yes | Character used for masking | String |
 
 The `str` accepts either of the following:
 
 * No separator symbol
+
 * Groups of four characters. These groups can be separated by a space or any separator character.
 
 The default value for `mask_char` is `*`. The value can be a multibyte character in any character set and may not be same character set as `str`.
@@ -459,9 +453,9 @@ The default value for `mask_char` is `*`. The value can be a multibyte character
 
 Returns the masked string. The character set of the result is the same as the character set of `str`.
 
-Returns an error if `str` length is incorrect.
+An error is reported if the `str` length is incorrect.
 
-If the `str` contains a multi-byte character, the `str` is not masked. 
+Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
@@ -487,14 +481,14 @@ Returns the string where a selected inner portion is masked with a substitute ch
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| string | No | The string to be masked | String |
-| margin1 | No | The number of characters on the left end of the string to remain unmasked | Integer |
-| margin2 | No | The number of characters on the right end of the string to remain unmasked | Integer |
-| mask_char | Yes | The masking character | String |
+| `string` | No | The string to be masked | String |
+| `margin1` | No | The number of characters on the left end of the string to remain unmasked | Integer |
+| `margin2` | No | The number of characters on the right end of the string to remain unmasked | Integer |
+| `mask_char` | Yes | The masking character | String |
 
-If the `margin1` cannot be a negative number. If the marin1 value is 0, then all of the left end characters are unmasked.
+The `margin1` value cannot be a negative number. A value of `0` (zero) masks all characters.
 
-If the `margin2` cannot be a negative number. If the marin1 value is 0, then all of the right end characters are unmasked.
+The `margin2` value cannot be a negative number. A value of `0` (zero) masks all characters.
 
 If the sum of `margin1` and `margin2` is greater than or equal to the string length, no masking occurs.
 
@@ -503,6 +497,8 @@ If the `mask_char` is not specified, the default is 'X'. The `mask_char` value c
 ### Returns
 
 A string with the selected characters masked by a specified `mask_char` or that parameter's default value in the character set of the `string` parameter.
+
+Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
@@ -528,14 +524,14 @@ Returns the string where a selected outer portion is masked with a substitute ch
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| string | No | The string to be masked | String |
-| margin1 | No | The number of characters on the left end of the string to remain unmasked | Integer |
-| margin2 | No | The number of characters on the right end of the string to remain unmasked | Integer |
-| mask_char | Yes | The masking character | String |
+| `string` | No | The string to be masked | String |
+| `margin1` | No | On the left end of the string, mask this designated number of characters | Integer |
+| `margin2` | No | On the right end of the string, mask this designated number of characters | Integer |
+| `mask_char` | Yes | The masking character | String |
 
-If the `margin1` cannot be a negative number. If the marin1 value is 0, then all of the left end characters are unmasked.
+The `margin1` cannot be a negative number. A value of `0` (zero) does not mask any characters.
 
-If the `margin2` cannot be a negative number. If the marin1 value is 0, then all of the right end characters are unmasked.
+The `margin2` cannot be a negative number. A value of `0` (zero) does not mask any characters.
 
 If the sum of `margin1` and `margin2` is greater than or equal to the string length, the string is masked.
 
@@ -544,6 +540,8 @@ If the `mask_char` is not specified, the default is 'X'. The `mask_char` value c
 ### Returns
 
 A string with the selected characters masked by a specified `mask_char` or that parameter's default value in the same character set as `string`.
+
+Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
@@ -569,18 +567,20 @@ Returns a masked payment card Primary Account Number (PAN). The mask replaces th
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| str | No | The string to be masked | String |
-| mask_char | Yes | The masking character | String |
+| `str` | No | The string to be masked | String |
+| `mask_char` | Yes | The masking character | String |
 
 The `str` contains a minimum of 14 or a maximum of 19 alphanumeric characters. 
 
-If the `mask_char` is not specified, the default is 'X'. The `mask_char` value can be a multibyte character in any character set and may not be same character set as `str`.
+If the `mask_char` is not specified, the default value is 'X'. The `mask_char` value can be a multibyte character in any character set and may not be same character set as `str`.
 
 ### Returns
 
-A string with the selected characters masked by a specified `mask_char` or that parameter's default value. 
+A string with the selected characters masked by a specified `mask_char` or that parameter's default value. The character set of the result is the same character set as `str`.
 
 An error occurs if the `str` parameter is not the correct length.
+
+Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
@@ -606,18 +606,22 @@ Returns a masked payment card Primary Account Number (PAN). The first six number
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| str | No | The string to be masked | String |
-| mask_char | Yes | The masking character | String |
+| `str` | No | The string to be masked | String |
+| `mask_char` | Yes | The specified character for masking | String |
 
 The `str` must contain a minimum of 14 or a maximum of 19 alphanumeric characters. 
 
-If the `mask_char` is not specified, the default is 'X'.
+If the `mask_char` is not specified, the default value is 'X'.
 
 ### Returns
 
 A string with the first six numbers and the last four numbers and the rest of the string masked by a specified `mask_char` or that parameter's default value (`X`). The character set of the result is the same character set as `str`.
 
-An error occurs if the `str` parameter is not the correct length. The `mask_char` value can be a multibyte character in any character set and may not be same character set as `str`.
+The `mask_char` value can be a multibyte character in any character set and may not be same character set as `str`.
+
+Reports an error is the `str` parameter is not the correct length.
+
+Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
@@ -643,36 +647,38 @@ Returns a masked United States Social Security Number(SSN). The mask replaces th
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| str | No | The string to be masked | String |
-| mask_char | Yes | The masking character | String |
+| `str` | No | The string to be masked | String |
+| `mask_char` | Yes | The masking character | String |
 
 The `str` accepts either of the following:
 
 * Nine integers, no separator symbol
-* Nine integers in the `***-**-****` pattern. The `-` is a separator character.
+* Nine integers in the `AAA-GG-SSS` pattern. The `-` (dash symbol) is the separator character.
 
-If the `mask_char` is not specified, the default is `*`. The `mask_char` value can be a multibyte character in any character set and may not be same character set as `str`.
+If the `mask_char` is not specified, the default value is `*`. The `mask_char` value can be a multibyte character in any character set and may not be same character set as `str`.
 
 ### Returns
 
 A string with the selected characters masked by a specified `mask_char` or that parameter's default value in the same character set of `str`. 
 
-Returns a NULL value if the `str` is in an incorrect length.
+Reports an error if the value of the `str` is an incorrect length.
+
+Returns a NULL value if you invoke this function with NULL as the primary argument.
 
 ### Example
 
 ```{.bash data-prompt="mysql>"}
-mysql> SELECT mask_ssn('555-55-5555');
+mysql> SELECT mask_ssn('555-55-5555', 'X');
 ```
 
 ??? example "Expected output"
 
     ```{.text .no-copy}
-    +-------------------------+
-    | mask_ssn('555-55-5555') |
-    +-------------------------+
-    | ***-**-5555             |
-    +-------------------------+
+    +-----------------------------+
+    | mask_ssn('555-55-5555','X') |
+    +-----------------------------+
+    | XXX-XX-5555                 |
+    +-----------------------------+
     ```
 
 ## mask_uk_nin(str [,mask_char])
@@ -683,14 +689,12 @@ Returns a masked a United Kingdom National Insurance Number (NIN). The mask repl
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| str | No | The string to be masked | String |
-| mask_char | Yes | The masking character | String |
+| `str` | No | The string to be masked | String |
+| `mask_char` | Yes | The masking character | String |
 
-The `str` accepts an alpha-numeric string and does not check format.
+The `str` accepts an alpha-numeric string and does not check format and the `str` can use any separator character.
 
-The `str` can use any separator character.
-
-If the `mask_char` is not specified, the default is `*`. The `mask_char` value can be a multibyte character in any character set and may not be same character set as `str`.
+If the `mask_char` is not specified, the default value is `*`. The `mask_char` value can be a multibyte character in any character set and may not be same character set as `str`.
 
 ### Returns
 
@@ -698,7 +702,7 @@ Returns a string with the selected characters masked by a specified `mask_char` 
 
 An error occurs if the `str` parameter is not the correct length. 
 
-Returns a NULL value if the `str` is in an incorrect format.
+Returns a NULL value if you invoke this function with NULL as the primary argument.
 
 ### Example
 
@@ -718,20 +722,18 @@ mysql> SELECT mask_uk_nin ('CT 26 46 83 D');
 
 ## mask_uuid(str [,mask_char])
 
-
-
 Masks a Universally Unique Identifier (UUID).
 
 ### Parameters
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| str | No | The string to be masked | String |
-| mask_char | Yes | The masking character | String |
+| `str` | No | The string to be masked | String |
+| `mask_char` | Yes | The masking character | String |
 
 The `str` format is `********-****-****-****-************`.
 
-If the `mask_char` is not specified, the default is '*'. The `mask_char` value can be a multibyte character in any character set and may not be same character set as `str`.
+If the `mask_char` is not specified, the default value is '*'. The `mask_char` value can be a multibyte character in any character set and may not be same character set as `str`.
 
 ### Returns
 
@@ -739,7 +741,7 @@ A string with the characters masked by a specified `mask_char` or that parameter
 
 Returns an error if the length of `str` is incorrect.
 
-Returns `NULL` if `str`  is an incorrect length.
+Returns `NULL` if you invoke this function with NULL as the primary argument.
 
 ### Example
 
@@ -760,9 +762,7 @@ mysql> SELECT mask_uuid('9a3b642c-06c6-11ee-be56-0242ac120002');
 
 ## masking_dictionary_remove(dictionary_name)
 
-
-
-Removes all of the terms and the dictionary. 
+Removes all of the terms and then removes the dictionary. 
 
 Requires the `MASKING_DICTIONARIES_ADMIN` privilege.
 
@@ -770,12 +770,12 @@ Requires the `MASKING_DICTIONARIES_ADMIN` privilege.
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| dictionary_name | No | The dictionary to be removed | String |
+| `dictionary_name` | No | The dictionary to be removed | String |
 
 
 ### Returns
 
-Returns a string value of `1` (one) if the operation is successful or `NULL` if the operation could not find the `dictionary_name`.
+Returns a string value of `1` (one) in the `utf8mb4` character set if the operation is successful or `NULL` if the operation could not find the `dictionary_name`.
 
 ### Example
 
@@ -795,31 +795,51 @@ mysql> SELECT masking_dictionary_remove('trees');
 
 ## masking_dictionary_term_add(dictionary_name, term_name)
 
-Adds the selected term to the dictionary. 
-
-Requires the `MASKING_DICTIONARIES_ADMIN` privilege.
-
-!!! note
-
-    The operation that adds the term to the dicitionary uses `INSERT IGNORE`. The `IGNORE` modifier has the following consequences:
-
-    * The inserted term is truncated without warnings if the term is longer than the mysql.masking_dictionaries.Dictionary or mysql.masking_dictionaries.Term maximum length.
-
-    * Character sets are treated as "?" if the characters are not supported by mysql.masking_dictionaries.Dictionary and/or the mysql.masking_dictionaries.Term character sets. 
+Adds a term to the dictionary and requires the `MASKING_DICTIONARIES_ADMIN` privilege.
 
 ### Parameters
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| dictionary_name | No | The dictionary for the term | String |
-| term_name | No | The term to be added | String |
+| `dictionary_name` | No | The dictionary where the term is added | String |
+| `term_name` | No | The term added to the selected dictionary | String |
 
 
 ### Returns
 
-Returns a string value of `1` (one) if the operation is successful. If the dictionary_name does not exist, the operation creates the dictionary.
+Returns a string value of `1` (one) in the `utf8mb4` character set if the operation is successful. If the `dictionary_name` does not exist, the operation creates the dictionary.
 
 Returns `NULL` if the operation fails. An operation can fail if the `term_name` is already available in the dictionary specified by `dictionary_name`.
+
+The operation uses `INSERT IGNORE` and can have the following outcomes:
+
+* The `term_name` is truncated if the `term_name` length is greater than maximum length of the `Term` field in the `mysql.masking_dictionaries` table.
+
+* The character of the `dictionary_name` is not supported by the `Dictionary` field in `mysql.masking_dictionaries` table, the character is implicitly  converted to '?'. 
+
+* If the character of the `term_name` is not supported by the `Term` field in the `mysql.masking_dictionaries` table, the character is implicitly converted to '?'.
+
+The following command returns the table information:
+
+```{.bash data-prompt="mysql>"}
+mysql> DESCRIBE mysql.masking_dictionaries;
+```
+
+The result returns the table structure.
+
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +------------+--------------+------+-----+---------+-------+
+    | Field      | Type         | Null | Key | Default | Extra |
+    +------------+--------------+------+-----+---------+-------+
+    | Dictionary | varchar(256) | NO   | PRI | NULL    |       |
+    | Term       | varchar(256) | NO   | PRI | NULL    |       |
+    +------------+--------------+------+-----+---------+-------+
+    2 rows in set (0.02 sec)
+    ```
+
+Modify the table with an `ALTER TABLE` statement, if needed.
 
 ### Example
 
@@ -847,18 +867,25 @@ Requires the `MASKING_DICTIONARIES_ADMIN` privilege.
 
 | Parameter | Optional | Description | Type |
 | --- | --- | --- | --- |
-| dictionary_name | No | The dictionary that contains the `term_name` | String |
-| term_name | No | The term to be removed | String |
-
+| `dictionary_name` | No | The dictionary that contains the `term_name` | String |
+| `term_name` | No | The term to be removed | String |
 
 ### Returns
 
-Returns a string value of `1` (one) if the operation is successful.
+Returns a string value of `1` (one) in the `utf8mb4` character set if the operation is successful.
 
 Returns `NULL` if the operation fails. An operation can fail if the following occurs:
 
 * The `term_name` is not available in the dictionary specified by `dictionary_name`
 * The `dictionary_name` could not be found
+
+
+### Parameters
+
+| Parameter | Optional | Description | Type |
+| --- | --- | --- | --- |
+| `dictionary_name` | No | The dictionary for the term | String |
+| `term_name` | No | The term to be added | String |
 
 ### Example
 
