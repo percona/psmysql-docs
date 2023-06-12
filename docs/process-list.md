@@ -1,5 +1,9 @@
 # Process list
 
+!!! note
+
+    MySQL 8.0.22 provides the Performance Schema [`processlist` table](https://dev.mysql.com/doc/refman/8.0/en/performance-schema-processlist-table.html) which can be directly queried.
+
 This page describes Percona changes to both the standard *MySQL* `SHOW PROCESSLIST` command and the standard *MySQL* `INFORMATION_SCHEMA` table `PROCESSLIST`.
 
 ## Version specific information
