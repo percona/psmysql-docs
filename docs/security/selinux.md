@@ -264,6 +264,7 @@ $ sudo semanage permissive -l
     mysqld_t
 
     Builtin Permissive Types
+    ...
     ```
 
 To delete a service from the permissive domain, run the following:
@@ -326,9 +327,9 @@ Restart the service.
 ??? example "Expected output"
 
     ```{.text .no-copy}
-      Redirecting to /bin/systemctl restart mysqld.service
-      Job for mysqld.service failed because the control process exited with error code.
-      See "systemctl status mysqld.service" and "journalctl -xe" for details.
+    Redirecting to /bin/systemctl restart mysqld.service
+    Job for mysqld.service failed because the control process exited with error code.
+    See "systemctl status mysqld.service" and "journalctl -xe" for details.
     ```
 
 Check the journal log to see the error code.
@@ -470,7 +471,7 @@ To adjust the SELinux policy when a directory is shared, follow these steps:
         *class dir write*;
     }
 
-    #============= mysqld_t ==============
+    ============= mysqld_t ==============
     *allow mysqld_t default_t:dir write*;
     allow mysqld_t var_lib_t:file getattr;
     ```
@@ -494,7 +495,7 @@ To adjust the SELinux policy when a directory is shared, follow these steps:
         class dir write;
     }
 
-    #============= mysqld_t ==============
+    ============= mysqld_t ==============
     allow mysqld_t default_t:dir write;
     ```
 
@@ -582,7 +583,7 @@ If SELinux prevents mysql from creating a log file inside the directory. You can
             class file { append create open };
         }
 
-        #============= mysqld_t ==============
+        ============= mysqld_t ==============
         allow mysqld_t default_t:dir { add_name write };
         allow mysqld_t default_t:file { append create open };
         ```

@@ -128,26 +128,69 @@ extra:
 
 nav:
   - Home: index.md
-  - Introduction:
-      - percona_xtradb.md
-      - ps-versions-comparison.md
-      - feature_comparison.md
-      - changed_in_version.md
-      - server-version-numbers.md
-  - Installation:
-      - installation.md
+  - Release notes:
+      - Release notes index: release-notes/release-notes_index.md
+      - release-notes/8.0.32-24.md
+      - release-notes/8.0.31-23.md
+      - 2022:
+        - release-notes/8.0.30-22.upd.md
+        - release-notes/8.0.30-22.md
+        - release-notes/8.0.29-21.md
+        - release-notes/Percona-Server-8.0.28-20.md
+        - release-notes/Percona-Server-8.0.28-19.md
+        - release-notes/Percona-Server-8.0.27-18.md
+        - release-notes/Percona-Server-8.0.26-17.md
+      - 2021:
+        - release-notes/Percona-Server-8.0.26-16.md
+        - release-notes/Percona-Server-8.0.25-15.md
+        - release-notes/Percona-Server-8.0.23-14.md
+      - 2020:
+        - release-notes/Percona-Server-8.0.22-13.md
+        - release-notes/Percona-Server-8.0.21-12.md
+        - release-notes/Percona-Server-8.0.20-11.md
+        - release-notes/Percona-Server-8.0.19-10.md
+      - 2019:
+        - release-notes/Percona-Server-8.0.18-9.md
+        - release-notes/Percona-Server-8.0.17-8.md
+        - release-notes/Percona-Server-8.0.16-7.md
+        - release-notes/Percona-Server-8.0.15-6.md
+        - release-notes/Percona-Server-8.0.15-5.md
+        - release-notes/Percona-Server-8.0.14.md
+        - release-notes/Percona-Server-8.0.13-4.md
+      - 2018:
+        - release-notes/Percona-Server-8.0.13-3.md
+        - release-notes/Percona-Server-8.0.12-2rc1.md
+  - Features:
+      - flexibility/binlog_space.md
+      - flexibility/extended_mysqlbinlog.md
+      - flexibility/slowlog_rotation.md
+      - flexibility/extended_select_into_outfile.md
+      - flexibility/proxy_protocol_support.md
+      - flexibility/sequence_table.md
+      - flexibility/trigger-updates.md 
+      - management/innodb_expanded_fast_index_creation.md
+      - management/kill_idle_trx.md
+      - management/udf_percona_toolkit.md
+      - management/utility_user.md
+      - performance/procfs-plugin.md
+      - performance/adaptive_network_buffers.md
+      - performance/threadpool.md
+  - Quick start guide:
+       - quickstart-overview.md
+  - Install:
+      - Install Percona Server for MySQL from repositories: installation.md
       - Use APT:
-        - Install using APT repository: installation/apt-repo.md
+        - Use APT repositories: installation/apt-repo.md
         - Files in DEB package: installation/apt-files.md
         - installation/build-apt-packages.md
-        - Install from downloaded DEB packages: installation/apt-download-deb.md
+        - Downloaded DEB packages: installation/apt-download-deb.md
         - Apt pinning: installation/apt-pinning.md
         - Run Percona Server for MySQL: installation/apt-run.md
         - Uninstall: installation/apt-uninstall-server.md
       - Use YUM:
-        - Install using a RPM repository: installation/yum-repo.md
+        - Use RPM repositories: installation/yum-repo.md
         - Files in RPM package: installation/yum-files.md
-        - Install from downloaded RPM packages: installation/yum-download-rpm.md
+        - Downloaded RPM packages: installation/yum-download-rpm.md
         - Run Percona Server for MySQL: installation/yum-run.md
         - Uninstall: installation/yum-uninstall.md
       - Use binary tarballs:
@@ -155,160 +198,121 @@ nav:
         - Binary tarballs available: installation/binary-tarball-names.md
       - Compile from source:
         - installation/source-tarball.md
-        - installation/compile-percona-server.md
-  - Post-Installation:
-      - installation/post-installation.md
-  - In-place upgrades:
-      - upgrading_guide.md
+        - installation/compile-percona-server.md  
+      - Docker:
+        - Install using Docker: installation/docker.md
+        - installation/docker-config.md
+  - Upgrade:
+      - Upgrade guide: upgrading_guide.md
       - upgrading_using_percona_repos.md
       - upgrading_tokudb_myrocks.md
       - upgrading_using_standalone_packages.md
-      - downgrade.md
-  - Run in Docker:
-      - installation/docker.md
-      - installation/docker-config.md
-  - Scalability:
-      - scalability/innodb_io.md
-  - Performance: 
-      - performance/adaptive_network_buffers.md
-      - performance/aio_page_requests.md
-      - performance/threadpool.md
-      - performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.md
-      - performance/prefix_index_queries_optimization.md
-      - performance/query_limit_records.md
-      - performance/jemalloc-profiling.md
-      - performance/procfs-plugin.md
-  - Flexibility:
+      - Downgrade: downgrade.md
+  - Post-Installation:
       - flexibility/binlogging_replication_improvements.md
-      - flexibility/compressed_columns.md
-      - flexibility/extended_select_into_outfile.md
-      - flexibility/extended_set_var.md
-      - flexibility/improved_memory_engine.md
-      - flexibility/log_warnings_suppress.md
-      - flexibility/binlog_space.md
-      - flexibility/proxy_protocol_support.md
-      - flexibility/sequence_table.md
-      - flexibility/slowlog_rotation.md
-      - flexibility/trigger-updates.md 
-      - flexibility/extended_mysqlbinlog.md
-      - flexibility/extended_mysqldump.md
-      - flexibility/innodb_fts_improvements.md
-  - Reliability:
-      - reliability/log_connection_error.md
-      - reliability/innodb_corrupt_table_action.md
-  - Management:
-      - management/udf_percona_toolkit.md
-      - management/kill_idle_trx.md
-      - management/changed_page_tracking.md
-      - management/enforce_engine.md
-      - management/innodb_expanded_fast_index_creation.md
-      - management/backup_locks.md
-      - management/audit_log_plugin.md
-      - management/start_transaction_with_consistent_snapshot.md
-      - management/extended_show_grants.md
-      - management/utility_user.md
-  - Security:
-      - security/selinux.md
+      - installation/post-installation.md
       - security/apparmor.md
-      - security/pam_plugin.md
-      - security/system-variables.md
-      - security/ssl-improvement.md
-      - security/data-masking.md
+      - security/selinux.md
+  - Manage:
+      - management/extended_show_grants.md
+  - Back up and restore:
+      - backup-restore-overview.md
+      - backup-locks.md 
+      - extended-mysqldump.md
+      - start-transaction-with-consistent-snapshot.md
+  - Secure:
       - LDAP features:
         - security/ldap-authentication.md
         - security/ldap-system-variables.md
+      - security/data-masking.md
+      - security/pam_plugin.md
+      - security/ssl-improvement.md
+      - security/system-variables.md
+      - security/fido-authentication-plugin.md
+      - security/encryption-functions.md
       - Data-at-rest-encryption:
         - security/data-at-rest-encryption.md
         - security/using-keyring-plugin.md
-        - Authentication:
+        - Keyring plugin and components:
           - security/using-kmip.md
           - security/using-amz-kms.md
-          - security/fido-authentication-plugin.md
-        - security/encryption-functions.md
-        - security/encrypting-tables.md
-        - security/encrypting-tablespaces.md
-        - security/encrypting-system-tablespace.md
-        - security/encrypting-temporary-files.md
-        - security/encrypting-binlogs.md
-        - security/encrypting-redo-log.md
-        - security/encrypting-undo-tablespace.md
-        - security/rotating-master-key.md
-        - security/encrypting-threads.md
-        - security/encrypting-doublewrite-buffers.md
-        - security/verifying-encryption.md
-  - Diagnostics:
-      - diagnostics/user_stats.md
-      - diagnostics/slow_extended.md
-      - diagnostics/innodb_show_status.md
-      - diagnostics/show_engines.md
-      - diagnostics/process_list.md
-      - diagnostics/misc_info_schema_tables.md
-      - diagnostics/thread_based_profiling.md
-      - diagnostics/innodb_fragmentation_count.md
-      - diagnostics/stacktrace.md
-      - diagnostics/libcoredumper.md
-  - Replication:
+          - security/encrypting-tables.md
+          - security/encrypting-tablespaces.md
+          - security/encrypting-system-tablespace.md
+          - security/encrypting-temporary-files.md
+          - security/encrypting-binlogs.md
+          - security/encrypting-redo-log.md
+          - security/encrypting-undo-tablespace.md
+          - security/rotating-master-key.md
+          - security/encrypting-threads.md
+          - security/encrypting-doublewrite-buffers.md
+          - security/verifying-encryption.md     
+  - Replicate:
       - replication/group-replication-flow-control.md
       - replication/group-replication-system-variables.md
+  - Monitor:
+      - management/audit_log_plugin.md
+      - performance/jemalloc-profiling.md
+      - diagnostics/user_stats.md
+      - diagnostics/slow_extended.md
+      - diagnostics/process_list.md
+      - diagnostics/misc_info_schema_tables.md
   - Troubleshoot:
       - advisors.md
-  - Percona MyRocks:
-      - myrocks/index.md
-      - myrocks/install.md
-      - myrocks/added-features.md
-      - myrocks/limitations.md
-      - myrocks/differences.md
-      - myrocks/information-schema-tables.md
-      - myrocks/variables.md
-      - myrocks/status_variables.md
-      - myrocks/gap_locks_detection.md
-      - myrocks/data_loading.md
-      - myrocks/zenfs.md
-  - TokuDB:
-      - tokudb/tokudb_intro.md
-      - tokudb/tokudb_installation.md
-      - tokudb/using_tokudb.md
-      - tokudb/fast_updates.md
-      - tokudb/tokudb_files_and_file_types.md
-      - tokudb/tokudb_file_management.md
-      - tokudb/tokudb_background_analyze_table.md
-      - tokudb/tokudb_variables.md
-      - tokudb/tokudb_status_variables.md
-      - tokudb/tokudb_fractal_tree_indexing.md
-      - tokudb/tokudb_troubleshooting.md
-      - tokudb/tokudb_performance_schema.md
-      - tokudb/tokudb_faq.md
-      - tokudb/removing_tokudb.md
-      - tokudb/toku_backup.md
-  - Release notes:
-      - Release notes index: release-notes/release-notes_index.md
-      - release-notes/8.0.32-24.md
-      - release-notes/8.0.31-23.md
-      - release-notes/8.0.30-22.upd.md
-      - release-notes/8.0.30-22.md
-      - release-notes/8.0.29-21.md
-      - release-notes/Percona-Server-8.0.28-20.md
-      - release-notes/Percona-Server-8.0.28-19.md
-      - release-notes/Percona-Server-8.0.27-18.md
-      - release-notes/Percona-Server-8.0.26-17.md
-      - release-notes/Percona-Server-8.0.26-16.md
-      - release-notes/Percona-Server-8.0.25-15.md
-      - release-notes/Percona-Server-8.0.23-14.md
-      - release-notes/Percona-Server-8.0.22-13.md
-      - release-notes/Percona-Server-8.0.21-12.md
-      - release-notes/Percona-Server-8.0.20-11.md
-      - release-notes/Percona-Server-8.0.19-10.md
-      - release-notes/Percona-Server-8.0.18-9.md
-      - release-notes/Percona-Server-8.0.17-8.md
-      - release-notes/Percona-Server-8.0.16-7.md
-      - release-notes/Percona-Server-8.0.15-6.md
-      - release-notes/Percona-Server-8.0.15-5.md
-      - release-notes/Percona-Server-8.0.14.md
-      - release-notes/Percona-Server-8.0.13-4.md
-      - release-notes/Percona-Server-8.0.13-3.md
-      - release-notes/Percona-Server-8.0.12-2rc1.md
-  - References:
+      - reliability/log_connection_error.md
+      - reliability/innodb_corrupt_table_action.md
+      - diagnostics/thread_based_profiling.md
+      - diagnostics/stacktrace.md
+      - diagnostics/libcoredumper.md
+  - Storage engines:
+      - Percona XtraDB storage engine:
+        - percona_xtradb.md
+        - flexibility/improved_memory_engine.md
+        - scalability/innodb_io.md
+        - management/enforce_engine.md
+        - diagnostics/innodb_show_status.md
+        - diagnostics/show_engines.md
+        - flexibility/compressed_columns.md
+        - flexibility/innodb_fts_improvements.md
+        - management/changed_page_tracking.md 
+        - performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.md
+        - performance/aio_page_requests.md
+        - performance/prefix_index_queries_optimization.md
+        - performance/query_limit_records.md
+        - diagnostics/innodb_fragmentation_count.md
+      - Percona MyRocks:
+          - myrocks/index.md
+          - myrocks/install.md
+          - myrocks/added-features.md
+          - myrocks/limitations.md
+          - myrocks/differences.md
+          - myrocks/information-schema-tables.md
+          - myrocks/variables.md
+          - myrocks/status_variables.md
+          - myrocks/gap_locks_detection.md
+          - myrocks/data_loading.md
+          - myrocks/zenfs.md
+      - TokuDB:
+          - tokudb/tokudb_intro.md
+          - tokudb/tokudb_installation.md
+          - tokudb/using_tokudb.md
+          - tokudb/fast_updates.md
+          - tokudb/tokudb_files_and_file_types.md
+          - tokudb/tokudb_file_management.md
+          - tokudb/tokudb_background_analyze_table.md
+          - tokudb/tokudb_variables.md
+          - tokudb/tokudb_status_variables.md
+          - tokudb/tokudb_fractal_tree_indexing.md
+          - tokudb/tokudb_troubleshooting.md
+          - tokudb/tokudb_performance_schema.md
+          - tokudb/tokudb_faq.md
+          - tokudb/removing_tokudb.md
+          - tokudb/toku_backup.md
+  - Reference:
       - ps-variables.md
+      - ps-versions-comparison.md
+      - feature_comparison.md
+      - server-version-numbers.md
       - development.md
       - trademark-policy.md
       - index_info_schema_tables.md
