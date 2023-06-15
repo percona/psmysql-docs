@@ -7,23 +7,27 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL 8.0 is based on MySQL 8.0 and incorporates many of the
-improvements found in Percona Server for MySQL 5.7.">
+        <meta name="description" content="Backups are data snapshots that are taken at a specific time and are stored in a common location in a common 
+format. A backup is only useful for a defined time.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/changed_in_version.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/backup-restore-overview.html">
       
       
+        <link rel="prev" href="management/extended_show_grants.html">
+      
+      
+        <link rel="next" href="backup-locks.html">
       
       <link rel="icon" href="_static/percona-favicon.ico">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
     
     
       
-        <title>Changed in Percona Server 8.0 - Percona Server for MySQL</title>
+        <title>Backup and restore overview - Percona Server for MySQL</title>
       
     
     
@@ -77,7 +81,7 @@ improvements found in Percona Server for MySQL 5.7.">
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Changed in Percona Server 8.0" />
+                 <meta property="og:title" content="Percona Server for MySQL - Backup and restore overview" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.0/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png" />
               
@@ -103,7 +107,7 @@ improvements found in Percona Server for MySQL 5.7.">
     <div data-md-component="skip">
       
         
-        <a href="#changed-in-percona-server-80" class="md-skip">
+        <a href="#backup-and-restore-overview" class="md-skip">
           Skip to content
         </a>
       
@@ -141,7 +145,7 @@ improvements found in Percona Server for MySQL 5.7.">
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Changed in Percona Server 8.0
+              Backup and restore overview
             
           </span>
         </div>
@@ -1842,28 +1846,38 @@ improvements found in Percona Server for MySQL 5.7.">
 
             
           
-            
-              
+        </ul>
+      </nav>
+    </li>
   
+
+    
+      
+      
+      
+
   
   
     
-    <li class="md-nav__item md-nav__item--nested">
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_2" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
       
       
       
-        <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
           Back up and restore
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_8_2">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_9">
           <span class="md-nav__icon md-icon"></span>
           Back up and restore
         </label>
@@ -1873,9 +1887,100 @@ improvements found in Percona Server for MySQL 5.7.">
               
   
   
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Backup and restore overview
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="backup-restore-overview.html" class="md-nav__link md-nav__link--active">
+        Backup and restore overview
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#strategies" class="md-nav__link">
+    Strategies
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#physical-backup-or-logical-backup" class="md-nav__link">
+    Physical backup or logical backup
+  </a>
+  
+    <nav class="md-nav" aria-label="Physical backup or logical backup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#physical-backups" class="md-nav__link">
+    Physical backups
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logical-backups" class="md-nav__link">
+    Logical backups
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison" class="md-nav__link">
+    Comparison
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
   
     <li class="md-nav__item">
-      <a href="management/backup_locks.html" class="md-nav__link">
+      <a href="backup-locks.html" class="md-nav__link">
         Backup locks
       </a>
     </li>
@@ -1889,7 +1994,7 @@ improvements found in Percona Server for MySQL 5.7.">
   
   
     <li class="md-nav__item">
-      <a href="flexibility/extended_mysqldump.html" class="md-nav__link">
+      <a href="extended-mysqldump.html" class="md-nav__link">
         Extended mysqldump
       </a>
     </li>
@@ -1903,16 +2008,9 @@ improvements found in Percona Server for MySQL 5.7.">
   
   
     <li class="md-nav__item">
-      <a href="management/start_transaction_with_consistent_snapshot.html" class="md-nav__link">
+      <a href="start-transaction-with-consistent-snapshot.html" class="md-nav__link">
         Start transaction with consistent snapshot
       </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -1937,17 +2035,17 @@ improvements found in Percona Server for MySQL 5.7.">
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
       
       
       
-        <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
           Secure
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_9">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_10">
           <span class="md-nav__icon md-icon"></span>
           Secure
         </label>
@@ -1964,17 +2062,17 @@ improvements found in Percona Server for MySQL 5.7.">
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_1" >
       
       
       
-        <label class="md-nav__link" for="__nav_9_1" id="__nav_9_1_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_10_1" id="__nav_10_1_label" tabindex="0">
           LDAP features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_1_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_9_1">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_10_1">
           <span class="md-nav__icon md-icon"></span>
           LDAP features
         </label>
@@ -2110,17 +2208,17 @@ improvements found in Percona Server for MySQL 5.7.">
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_8" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_8" >
       
       
       
-        <label class="md-nav__link" for="__nav_9_8" id="__nav_9_8_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_10_8" id="__nav_10_8_label" tabindex="0">
           Data-at-rest-encryption
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_9_8">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_10_8">
           <span class="md-nav__icon md-icon"></span>
           Data-at-rest-encryption
         </label>
@@ -2165,17 +2263,17 @@ improvements found in Percona Server for MySQL 5.7.">
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_8_3" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_8_3" >
       
       
       
-        <label class="md-nav__link" for="__nav_9_8_3" id="__nav_9_8_3_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_10_8_3" id="__nav_10_8_3_label" tabindex="0">
           Keyring plugin and components
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_9_8_3_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_9_8_3">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_8_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_10_8_3">
           <span class="md-nav__icon md-icon"></span>
           Keyring plugin and components
         </label>
@@ -2396,17 +2494,17 @@ improvements found in Percona Server for MySQL 5.7.">
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
       
       
       
-        <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
           Replicate
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_10">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_11">
           <span class="md-nav__icon md-icon"></span>
           Replicate
         </label>
@@ -2459,17 +2557,17 @@ improvements found in Percona Server for MySQL 5.7.">
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
       
       
       
-        <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
           Monitor
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_11">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_12">
           <span class="md-nav__icon md-icon"></span>
           Monitor
         </label>
@@ -2578,17 +2676,17 @@ improvements found in Percona Server for MySQL 5.7.">
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
       
       
       
-        <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
           Troubleshoot
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_12">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_13">
           <span class="md-nav__icon md-icon"></span>
           Troubleshoot
         </label>
@@ -2697,17 +2795,17 @@ improvements found in Percona Server for MySQL 5.7.">
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
       
       
       
-        <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
           Storage engines
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_13">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_14">
           <span class="md-nav__icon md-icon"></span>
           Storage engines
         </label>
@@ -2724,17 +2822,17 @@ improvements found in Percona Server for MySQL 5.7.">
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_1" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14_1" >
       
       
       
-        <label class="md-nav__link" for="__nav_13_1" id="__nav_13_1_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_14_1" id="__nav_14_1_label" tabindex="0">
           Percona XtraDB storage engine
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_1_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_13_1">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_14_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_14_1">
           <span class="md-nav__icon md-icon"></span>
           Percona XtraDB storage engine
         </label>
@@ -2954,17 +3052,17 @@ improvements found in Percona Server for MySQL 5.7.">
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_2" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14_2" >
       
       
       
-        <label class="md-nav__link" for="__nav_13_2" id="__nav_13_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_14_2" id="__nav_14_2_label" tabindex="0">
           Percona MyRocks
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_2_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_13_2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_14_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_14_2">
           <span class="md-nav__icon md-icon"></span>
           Percona MyRocks
         </label>
@@ -3142,17 +3240,17 @@ improvements found in Percona Server for MySQL 5.7.">
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_3" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14_3" >
       
       
       
-        <label class="md-nav__link" for="__nav_13_3" id="__nav_13_3_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_14_3" id="__nav_14_3_label" tabindex="0">
           TokuDB
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_3_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_13_3">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_14_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_14_3">
           <span class="md-nav__icon md-icon"></span>
           TokuDB
         </label>
@@ -3394,17 +3492,17 @@ improvements found in Percona Server for MySQL 5.7.">
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
       
       
       
-        <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
           Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_14">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_15">
           <span class="md-nav__icon md-icon"></span>
           Reference
         </label>
@@ -3592,51 +3690,37 @@ improvements found in Percona Server for MySQL 5.7.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#features-ported-to-percona-server-for-mysql-80-from-percona-server-for-mysql-57" class="md-nav__link">
-    Features ported to Percona Server for MySQL 8.0 from Percona Server for MySQL 5.7
+  <a href="#strategies" class="md-nav__link">
+    Strategies
   </a>
   
-    <nav class="md-nav" aria-label="Features ported to Percona Server for MySQL 8.0 from Percona Server for MySQL 5.7">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#physical-backup-or-logical-backup" class="md-nav__link">
+    Physical backup or logical backup
+  </a>
+  
+    <nav class="md-nav" aria-label="Physical backup or logical backup">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#show-engine-innodb-status-extensions" class="md-nav__link">
-    SHOW ENGINE INNODB STATUS Extensions
+  <a href="#physical-backups" class="md-nav__link">
+    Physical backups
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#performance" class="md-nav__link">
-    Performance
+  <a href="#logical-backups" class="md-nav__link">
+    Logical backups
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#flexibility" class="md-nav__link">
-    Flexibility
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#management" class="md-nav__link">
-    Management
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reliability" class="md-nav__link">
-    Reliability
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#diagnostics" class="md-nav__link">
-    Diagnostics
+  <a href="#comparison" class="md-nav__link">
+    Comparison
   </a>
   
 </li>
@@ -3664,14 +3748,14 @@ improvements found in Percona Server for MySQL 5.7.">
                   
                   
                   <a
-                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/changed_in_version.md"
+                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/backup-restore-overview.md"
                     title=""
                     class="md-content__button md-icon"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
                   </a>
                   <a
-                    href="https://raw.githubusercontent.com/percona/psmysql-docs/8.0/docs/changed_in_version.md"
+                    href="https://raw.githubusercontent.com/percona/psmysql-docs/8.0/docs/backup-restore-overview.md"
                     title="View source of this page"
                     class="md-content__button md-icon"
                   >
@@ -3687,218 +3771,138 @@ improvements found in Percona Server for MySQL 5.7.">
                 
 
                 <!-- Markdown content -->
-                <h1 id="changed-in-percona-server-80">Changed in Percona Server 8.0<a class="headerlink" href="#changed-in-percona-server-80" title="Permanent link">&para;</a></h1>
-<p><em>Percona Server for MySQL</em> 8.0 is based on <em>MySQL</em> 8.0 and incorporates many of the
-improvements found in <em>Percona Server for MySQL</em> 5.7.</p>
-<h2 id="features-ported-to-percona-server-for-mysql-80-from-percona-server-for-mysql-57">Features ported to <em>Percona Server for MySQL</em> 8.0 from <em>Percona Server for MySQL</em> 5.7<a class="headerlink" href="#features-ported-to-percona-server-for-mysql-80-from-percona-server-for-mysql-57" title="Permanent link">&para;</a></h2>
-<p>The features are listed within the following sections:</p>
-<h3 id="show-engine-innodb-status-extensions">SHOW ENGINE INNODB STATUS Extensions<a class="headerlink" href="#show-engine-innodb-status-extensions" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
-<p>The Redo Log state</p>
-</li>
-<li>
-<p>Specifying the InnoDB buffer pool sizes in bytes</p>
-</li>
-<li>
-<p><code>innodb_print_lock_wait_timeout_info</code> system variable</p>
-</li>
-</ul>
-<h3 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
-<p><a href="performance/prefix_index_queries_optimization.html#prefix-index-queries-optimization">Prefix Index Queries Optimization</a></p>
-</li>
-<li>
-<p><a href="performance/aio_page_requests.html#aio-page-requests">Multiple page asynchronous I/O requests</a></p>
-</li>
-<li>
-<p><a href="performance/threadpool.html#threadpool">Thread Pool</a></p>
-</li>
-<li>
-<p><a href="performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.html#ps-buffer-pool-free-list-priority-refill">Priority refill for the buffer pool free list</a></p>
-</li>
-<li>
-<p><a href="performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.html#lru-manager-threads">Multi-threaded LRU flusher</a></p>
-</li>
-</ul>
-<h3 id="flexibility">Flexibility<a class="headerlink" href="#flexibility" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
-<p><a href="flexibility/innodb_fts_improvements.html#innodb-fts-improvements">InnoDB Full-Text Search Improvements</a></p>
-</li>
-<li>
-<p><a href="flexibility/improved_memory_engine.html#improved-memory-engine">Improved MEMORY Storage Engine</a></p>
-</li>
-<li>
-<p><a href="flexibility/extended_mysqldump.html#extended-mysqldump">Extended mysqldump</a></p>
-</li>
-<li>
-<p><a href="flexibility/extended_select_into_outfile.html#extended-select-into-outfile">Extended SELECT INTO OUTFILE/DUMPFILE</a></p>
-</li>
-<li>
-<p><a href="flexibility/proxy_protocol_support.html#proxy-protocol-support">Support for PROXY protocol</a></p>
-</li>
-<li>
-<p><a href="flexibility/compressed_columns.html#compressed-columns">Compressed columns with dictionaries</a></p>
-</li>
-</ul>
-<h3 id="management">Management<a class="headerlink" href="#management" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
-<p><a href="management/udf_percona_toolkit.html#udf-percona-toolkit">Percona Toolkit UDFs</a></p>
-</li>
-<li>
-<p><a href="management/kill_idle_trx.html">Kill Idle Transactions</a></p>
-</li>
-<li>
-<p><a href="management/changed_page_tracking.html">XtraDB changed page tracking</a></p>
-</li>
-<li>
-<p><a href="security/pam_plugin.html">PAM Authentication Plugin</a></p>
-</li>
-<li>
-<p><a href="management/innodb_expanded_fast_index_creation.html">Expanded Fast Index Creation</a></p>
-</li>
-<li>
-<p><a href="management/backup_locks.html">Backup Locks</a></p>
-</li>
-<li>
-<p><a href="management/audit_log_plugin.html">Audit Log Plugin</a></p>
-</li>
-<li>
-<p><a href="management/start_transaction_with_consistent_snapshot.html">Start transaction with consistent snapshot</a></p>
-</li>
-<li>
-<p><a href="management/extended_show_grants.html">Extended SHOW GRANTS</a></p>
-</li>
-<li>
-<p><a href="security/data-at-rest-encryption.html#data-at-rest-encryption">Data at Rest Encryption</a></p>
-</li>
-</ul>
-<h3 id="reliability">Reliability<a class="headerlink" href="#reliability" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
-<p><a href="reliability/innodb_corrupt_table_action.html">Handle Corrupted Tables</a></p>
-</li>
-<li>
-<p><a href="reliability/log_connection_error.html">Too Many Connections Warning</a></p>
-</li>
-</ul>
-<h3 id="diagnostics">Diagnostics<a class="headerlink" href="#diagnostics" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
-<p><a href="diagnostics/user_stats.html">User Statistics</a></p>
-</li>
-<li>
-<p><a href="diagnostics/slow_extended.html#slow-extended">Slow Query Log</a></p>
-</li>
-<li>
-<p><a href="diagnostics/show_engines.html">Show Storage Engines</a></p>
-</li>
-<li>
-<p><a href="diagnostics/process_list.html">Process List</a></p>
-</li>
-<li>
-<p><a href="diagnostics/misc_info_schema_tables.html">INFORMATION_SCHEMA.[GLOBAL_]TEMP_TABLES</a></p>
-</li>
-<li>
-<p><a href="diagnostics/thread_based_profiling.html">Thread Based Profiling</a></p>
-</li>
-<li>
-<p><a href="diagnostics/innodb_fragmentation_count.html">InnoDB Page Fragmentation Counters</a></p>
-</li>
-</ul>
-<h4 id="features-removed-from-percona-server-for-mysql-80">Features Removed from <em>Percona Server for MySQL</em> 8.0<a class="headerlink" href="#features-removed-from-percona-server-for-mysql-80" title="Permanent link">&para;</a></h4>
-<p>Some features, that were present in <em>Percona Server for MySQL</em> 5.7, are removed from
-<em>Percona Server for MySQL</em> 8.0:</p>
-<h5 id="removed-features">Removed Features<a class="headerlink" href="#removed-features" title="Permanent link">&para;</a></h5>
-<ul>
-<li>
-<p><a href="https://docs.percona.com/percona-server/5.7/flexibility/slowlog_rotation.html">Slow Query Log Rotation and Expiration</a></p>
-</li>
-<li>
-<p><a href="https://docs.percona.com/percona-server/5.7/flexibility/csv_engine_mode.html">CSV engine mode for standard-compliant quote and comma parsing</a></p>
-</li>
-<li>
-<p><a href="https://docs.percona.com/percona-server/5.7/management/expanded_program_option_modifiers.html">Expanded program option modifiers</a></p>
-</li>
-<li>
-<p><a href="https://docs.percona.com/percona-server/5.7/scalability/innodb_io.html">The ALL_O_DIRECT InnoDB flush method: it is not compatible with the new
-redo logging implementation</a></p>
-</li>
-<li>
-<p><a href="https://docs.percona.com/percona-server/5.7/diagnostics/misc_info_schema_tables.html">XTRADB_RSEG table from INFORMATION_SCHEMA</a></p>
-</li>
-<li>
-<p><a href="https://docs.percona.com/percona-server/5.7/diagnostics/innodb_show_status.html">InnoDB memory size information from SHOW ENGINE INNODB STATUS; the same
-information is available from Performance Schema memory summary tables</a></p>
-</li>
-<li>
-<p><a href="https://docs.percona.com/percona-server/5.7/performance/query_cache_enhance.html#query-cache-enhancements">Query cache enhancements</a></p>
-</li>
-</ul>
-<h5 id="removed-syntax">Removed Syntax<a class="headerlink" href="#removed-syntax" title="Permanent link">&para;</a></h5>
-<ul>
-<li>
-<p>The <code>SET STATEMENT ... FOR ...</code> statement that enabled setting a
-variable for a single query. For more information see
-Replacing SET STATEMENT FOR with the Upstream Equivalent.</p>
-</li>
-<li>
-<p>The <code>LOCK BINLOG FOR BACKUP</code> statement due to the introduction of the
-<code>log_status</code> table in Performance Schema of <em>MySQL</em> 8.0.</p>
-</li>
-</ul>
-<h5 id="removed-plugins">Removed plugins<a class="headerlink" href="#removed-plugins" title="Permanent link">&para;</a></h5>
-<ul>
-<li>
-<p><code>SCALABILITY_METRICS</code></p>
-</li>
-<li>
-<p><code>QUERY_RESPONSE_TIME</code> plugins</p>
-</li>
-</ul>
-<p>The <code>QUERY_RESPONSE_TIME</code> plugins have been removed from <em>Percona Server for MySQL</em> 8.0 as the Performance Schema of <em>MySQL</em> 8.0
-provides histogram data for statement execution time.</p>
-<h5 id="removed-system-variables">Removed system variables<a class="headerlink" href="#removed-system-variables" title="Permanent link">&para;</a></h5>
-<ul>
-<li>
-<p>The <a href="https://docs.percona.com/percona-server/5.7/scalability/innodb_io.html#innodb_use_global_flush_log_at_trx_commit">innodb_use_global_flush_log_at_trx_commit</a>
-system variable which enabled setting the global <em>MySQL</em> variable
-<a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit">innodb_flush_log_at_trx_commit</a></p>
-</li>
-<li>
-<p><a href="https://docs.percona.com/percona-server/5.7/flexibility/per_session_server-id.html#pseudo_server_id">pseudo_server_id</a></p>
-</li>
-<li>
-<p><a href="https://docs.percona.com/percona-server/5.7/flexibility/slowlog_rotation.html#max_slowlog_files">max_slowlog_files</a></p>
-</li>
-<li>
-<p><a href="https://docs.percona.com/percona-server/5.7/flexibility/slowlog_rotation.html#max_slowlog_size">max_slowlog_size</a></p>
-</li>
-<li>
-<p><a href="https://docs.percona.com/percona-server/5.7/diagnostics/innodb_show_status.html#innodb_show_verbose_locks">innodb_show_verbose_locks</a>:
-showed the records locked in <code>SHOW ENGINE INNODB STATUS</code></p>
-</li>
-<li>
-<p><a href="https://docs.percona.com/percona-server/5.7/performance/innodb_numa_support.html#improved-numa-support">NUMA support in mysqld_safe</a></p>
-</li>
-<li>
-<p><code>innodb_kill_idle_trx</code> which was an alias to the <code>kill_idle_trx</code> system variable</p>
-</li>
-<li>
-<p>The <a href="https://docs.percona.com/percona-server/5.7/flexibility/max_binlog_files.html#max_binlog_files">max_binlog_files</a> system variable</p>
-</li>
-</ul>
-<h5 id="deprecated-storage-engine">Deprecated storage engine<a class="headerlink" href="#deprecated-storage-engine" title="Permanent link">&para;</a></h5>
-<ul>
-<li>
-<p>The TokuDB Storage Engine was <a href="https://docs.percona.com/percona-server/8.0/release-notes/Percona-Server-8.0.13-3.html">declared as deprecated</a> in Percona Server for MySQL 8.0 and will be disabled in upcoming 8.0 versions.</p>
-<p>We recommend migrating to the MyRocks Storage Engine.</p>
-<p>For more information, see the Percona blog post: <a href="https://www.percona.com/blog/2021/05/21/tokudb-support-changes-and-future-removal-from-percona-server-for-mysql-8-0/">Heads-Up: TokuDB Support Changes and Future Removal from Percona Server for MySQL 8.0</a>.</p>
-</li>
-</ul>
+                <h1 id="backup-and-restore-overview">Backup and restore overview<a class="headerlink" href="#backup-and-restore-overview" title="Permanent link">&para;</a></h1>
+<p>Backups are data snapshots that are taken at a specific time and are stored in a common location in a common 
+format. A backup is only useful for a defined time. </p>
+<p>The following scenarios require a backup to recover:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Reason</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hardware or host failure</td>
+<td>Issues with disks, such as stalls or broken disks. With cloud services, the instance can be unaccessible or broken.</td>
+</tr>
+<tr>
+<td>Corrupted data</td>
+<td>This issue can be caused by power outages, the database failed to write correctly and close the file.</td>
+</tr>
+<tr>
+<td>User mistake</td>
+<td>Deleting data or an update overwriting good data with bad data</td>
+</tr>
+<tr>
+<td>Natural disaster or data center failure</td>
+<td>Power outage, flooding, or internet issues</td>
+</tr>
+<tr>
+<td>Compliance</td>
+<td>Required to comply with regulations and standards</td>
+</tr>
+</tbody>
+</table>
+<h2 id="strategies">Strategies<a class="headerlink" href="#strategies" title="Permanent link">&para;</a></h2>
+<p>Define a backup and restore strategy for each of your databases. The strategies should have the following practices:</p>
+<table>
+<thead>
+<tr>
+<th>Practice</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Retention</td>
+<td>How long should you keep the backups. This decision should be based on the organization&rsquo;s data governance policies and the expense of storing the backups. The schedule for backups should match the retention schedule.</td>
+</tr>
+<tr>
+<td>Document</td>
+<td>Document the strategy and any related policies. The documents should include information about the process and any tools used during backup or restore.</td>
+</tr>
+<tr>
+<td>Encrypt</td>
+<td>Encrypt the backup and secure the storage locations</td>
+</tr>
+<tr>
+<td>Test</td>
+<td>Test the backups on a timely basis.</td>
+</tr>
+</tbody>
+</table>
+<p>The backup strategy defines type and the backup frequency,
+the hardware required, how the backups are verified, and storing the backups, which also 
+includes the backup security. The strategy uses the following metrics:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Metric</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Recovery Time Objective (RTO)</td>
+<td>How long can the system be down?</td>
+</tr>
+<tr>
+<td>Recovery Point Objective (RPO)</td>
+<td>How much data can the organization lose?</td>
+</tr>
+</tbody>
+</table>
+<p>The restore strategy defines which user account has the restore responsibility and how and frequency 
+of testing the restore process.</p>
+<p>These strategies require planning, implementation, and rigorous testing. You must test your
+restore process with each type of backup used to validate the backup and measure the recovery time. Automate this testing
+as much as possible. You should also document the process. In case of disaster, you can follow the procedures in the
+document without wasting time.</p>
+<p>If you are using replication, consider using a dedicated replica for backups because the operation can cause a high CPU load.</p>
+<h2 id="physical-backup-or-logical-backup">Physical backup or logical backup<a class="headerlink" href="#physical-backup-or-logical-backup" title="Permanent link">&para;</a></h2>
+<p>A backup can be either a physical backup or a logical backup.</p>
+<h3 id="physical-backups">Physical backups<a class="headerlink" href="#physical-backups" title="Permanent link">&para;</a></h3>
+<p>A physical backup copies the files needed to store and recover the database. They can be data files, configuration files,
+logs, and other types of files. The physical database can be stored in the cloud, in offline storage, on disc, or tape.</p>
+<p><a href="https://docs.percona.com/percona-xtrabackup/8.0/index.html">Percona XtraBackup</a> takes a physical backup. You can also 
+use RDS/LVM Snapshots or the MySQL Enterprise Backup. </p>
+<p>If the server is stopped or down, you can copy the datadir with the <code>cp</code> command or the <code>rsync</code> command.</p>
+<h3 id="logical-backups">Logical backups<a class="headerlink" href="#logical-backups" title="Permanent link">&para;</a></h3>
+<p>A logical backup contains the structural details. This type of backup contains tables, views, procedures, and functions. </p>
+<p>Tools like <a href="https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html"><code>mysqldump</code></a> , 
+<a href="https://github.com/mydumper/mydumper"><code>mydumper</code></a>, 
+<a href="https://dev.mysql.com/doc/refman/5.7/en/mysqlpump.html"><code>mysqlpump</code></a>, and 
+<a href="https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-utilities-dump-instance-schema.html"><code>mysql shell</code></a> 
+take a logical backup.</p>
+<h3 id="comparison">Comparison<a class="headerlink" href="#comparison" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th><strong>Comparison</strong></th>
+<th><strong>Physical backup</strong></th>
+<th><strong>Logical backup</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content</td>
+<td>The physical database files</td>
+<td>The tables, users, procedures, and functions</td>
+</tr>
+<tr>
+<td>Restore speed</td>
+<td>Restore can be quick</td>
+<td>Restore can be slower and does not include file information.</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Can take more space</td>
+<td>Based on what is selected, the backup can be smaller</td>
+</tr>
+</tbody>
+</table>
 
                 
 <div class="md-relbar2__inner md-grid">
@@ -3920,7 +3924,7 @@ showed the records locked in <code>SHOW ENGINE INNODB STATUS</code></p>
   <small>
     
       Last update:
-      2023-01-12
+      2023-06-15
     
   </small>
 </div>
