@@ -3245,6 +3245,13 @@ engine. There several ways to set these variables:">
 </li>
       
         <li class="md-nav__item">
+  <a href="#rocksdb_bulk_load_use_sst_partitioner" class="md-nav__link">
+    rocksdb_bulk_load_use_sst_partitioner
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#rocksdb_bulk_load_size" class="md-nav__link">
     rocksdb_bulk_load_size
   </a>
@@ -3366,6 +3373,13 @@ engine. There several ways to set these variables:">
         <li class="md-nav__item">
   <a href="#rocksdb_concurrent_prepare" class="md-nav__link">
     rocksdb_concurrent_prepare
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rocksdb_converter_record_cached_length" class="md-nav__link">
+    rocksdb_converter_record_cached_length
   </a>
   
 </li>
@@ -4213,6 +4227,13 @@ engine. There several ways to set these variables:">
         <li class="md-nav__item">
   <a href="#rocksdb_use_fsync" class="md-nav__link">
     rocksdb_use_fsync
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rocksdb_use_hyper_clock_cache" class="md-nav__link">
+    rocksdb_use_hyper_clock_cache
   </a>
   
 </li>
@@ -4967,6 +4988,13 @@ engine. There several ways to set these variables:">
 </li>
       
         <li class="md-nav__item">
+  <a href="#rocksdb_bulk_load_use_sst_partitioner" class="md-nav__link">
+    rocksdb_bulk_load_use_sst_partitioner
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#rocksdb_bulk_load_size" class="md-nav__link">
     rocksdb_bulk_load_size
   </a>
@@ -5088,6 +5116,13 @@ engine. There several ways to set these variables:">
         <li class="md-nav__item">
   <a href="#rocksdb_concurrent_prepare" class="md-nav__link">
     rocksdb_concurrent_prepare
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rocksdb_converter_record_cached_length" class="md-nav__link">
+    rocksdb_converter_record_cached_length
   </a>
   
 </li>
@@ -5940,6 +5975,13 @@ engine. There several ways to set these variables:">
 </li>
       
         <li class="md-nav__item">
+  <a href="#rocksdb_use_hyper_clock_cache" class="md-nav__link">
+    rocksdb_use_hyper_clock_cache
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#rocksdb_validate_tables" class="md-nav__link">
     rocksdb_validate_tables
   </a>
@@ -6139,6 +6181,9 @@ engine. There several ways to set these variables:</p>
 <td><a href="#rocksdb_bulk_load_partial_index"><code>rocksdb_bulk_load_partial_index</code></a></td>
 </tr>
 <tr>
+<td><a href="#rocksdb_bulk_load_use_sst_partitioner"><code>rocksdb_bulk_load_use_sst_partitioner</code></a></td>
+</tr>
+<tr>
 <td><a href="#rocksdb_block_restart_interval"><code>rocksdb_block_restart_interval</code></a></td>
 </tr>
 <tr>
@@ -6209,6 +6254,9 @@ engine. There several ways to set these variables:</p>
 </tr>
 <tr>
 <td><a href="#rocksdb_concurrent_prepare"><code>rocksdb_concurrent_prepare</code></a></td>
+</tr>
+<tr>
+<td><a href="#rocksdb_converter_record_cached_length"><code>rocksdb_converter_record_cached_length</code></a></td>
 </tr>
 <tr>
 <td><a href="#rocksdb_create_checkpoint"><code>rocksdb_create_checkpoint</code></a></td>
@@ -6572,6 +6620,9 @@ engine. There several ways to set these variables:</p>
 </tr>
 <tr>
 <td><a href="#rocksdb_use_fsync"><code>rocksdb_use_fsync</code></a></td>
+</tr>
+<tr>
+<td><a href="#rocksdb_use_hyper_clock_cache"><code>rocksdb_use_hyper_clock_cache</code></a></td>
 </tr>
 <tr>
 <td><a href="#rocksdb_validate_tables"><code>rocksdb_validate_tables</code></a></td>
@@ -7264,6 +7315,40 @@ for example, when setting up a new MyRocks instance from a MySQL dump.</p>
 </tbody>
 </table>
 <p>The variable was implemented in <a href="../release-notes/Percona-Server-8.0.27-18.html#id1">Percona Server for MySQL 8.0.27-18</a>. Materializes partial index during bulk load instead of leaving the index empty.</p>
+<h3 id="rocksdb_bulk_load_use_sst_partitioner"><code>rocksdb_bulk_load_use_sst_partitioner</code><a class="headerlink" href="#rocksdb_bulk_load_use_sst_partitioner" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb_bulk_load_use_sst_partitioner</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global, Session</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>The variable was implemented in <a href="../release-notes/Percona-Server-8.0.33-25.md">Percona Server for MySQL 8.0.33-25</a>.</p>
+<p>If enabled, this variable uses sst partitioner to split sst files to ensure bulk load sst files can be ingested to bottommost level.</p>
+<p>This variable is disabled (OFF) by default.</p>
 <h3 id="rocksdb_bulk_load_size"><code>rocksdb_bulk_load_size</code><a class="headerlink" href="#rocksdb_bulk_load_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7904,6 +7989,43 @@ Allowed range is up to <code>2000000</code> (two million).</p>
 <p>When enabled this variable allows/encourages threads that are using
 two-phase commit to <code>prepare</code> in parallel. This variable was
 renamed in upstream to rocksdb_two_write_queues.</p>
+<h3 id="rocksdb_converter_record_cached_length"><code>rocksdb_converter_record_cached_length</code><a class="headerlink" href="#rocksdb_converter_record_cached_length" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb_converter_record_cached_length</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Numeric</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>The variable was implemented in <a href="../release-notes/Percona-Server-8.0.33-25.md">Percona Server for MySQL 8.0.33-25</a>.</p>
+<p>Specifies the maximum number of bytes to cache on table handler for encoding table record data. </p>
+<p>If the used memory exceeds <code>rocksdb_converter_record_cached_length</code>, the memory is released when the handler is returned to the table handler cache.</p>
+<p>The minimum value is <code>0</code> (zero) that means there is no limit.
+The maximum value is <code>UINT64_MAX (0xffffffffffffffff)</code>.</p>
+<p>The default value is <code>0</code>(zero) that means there is no limit.</p>
 <h3 id="rocksdb_create_checkpoint"><code>rocksdb_create_checkpoint</code><a class="headerlink" href="#rocksdb_create_checkpoint" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -12162,6 +12284,40 @@ make sure that rocksdb_allow_mmap_reads is disabled.</p>
 <p>Specifies whether MyRocks should use <code>fsync</code> instead of <code>fdatasync</code>
 when requesting a sync of a data file.
 Disabled by default.</p>
+<h3 id="rocksdb_use_hyper_clock_cache"><code>rocksdb_use_hyper_clock_cache</code><a class="headerlink" href="#rocksdb_use_hyper_clock_cache" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb_use_hyper_clock_cache</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>The variable was implemented in <a href="../release-notes/Percona-Server-8.0.33-25.md">Percona Server for MySQL 8.0.33-25</a>.</p>
+<p>If enabled, this variable uses HyperClockCache instead of default LRUCache for RocksDB.</p>
+<p>This variable is disabled (OFF) by default.</p>
 <h3 id="rocksdb_validate_tables"><code>rocksdb_validate_tables</code><a class="headerlink" href="#rocksdb_validate_tables" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -12674,7 +12830,7 @@ prefix. Some have the abbreviated syntax -->
   <small>
     
       Last update:
-      2023-02-09
+      2023-06-15
     
   </small>
 </div>
