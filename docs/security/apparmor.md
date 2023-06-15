@@ -230,11 +230,11 @@ $ cat /etc/mysql/mysql.conf.d/mysqld.cnf
 ??? example "Expected output"
 
     ```{.text .no-copy}
-    #
-    # The Percona Server 8.0 configuration file.
-    #
-    # For explanations see
-    # https://dev.mysql.com/doc/mysql/en/server-system-variables.html
+    
+    The Percona Server 8.0 configuration file.
+    
+    For explanations see
+    https://dev.mysql.com/doc/mysql/en/server-system-variables.html
 
     [mysqld]
     pid-file    = /var/run/mysqld/mysqld.pid
@@ -275,7 +275,7 @@ For example, the following log entries show `DENIED`:
 Open `/etc/apparmor.d/local/usr.sbin.mysqld` in a text editor and edit the following entries in the `Allow data dir access` section.
 
 ```text
-# Allow data dir access
+Allow data dir access
 /var/lib/mysqlcustom/ r,
 /var/lib/mysqlcustom/** rwk,
 ```
@@ -309,11 +309,11 @@ cat /etc/mysql/mysql.conf.d/mysqld.cnf
 ??? example "Expected output"
 
     ```{.text .no-copy}
-    #
-    # The Percona Server 8.0 configuration file.
-    #
-    # For explanations see
-    # https://dev.mysql.com/doc/mysql/en/server-system-variables.html
+    
+    The Percona Server 8.0 configuration file.
+    
+    For explanations see
+    https://dev.mysql.com/doc/mysql/en/server-system-variables.html
 
     [mysqld]
     pid-file    = /var/run/mysqld/mysqld.pid
@@ -371,10 +371,10 @@ $ cat /etc/apparmor.d/local/usr.sbin.mysqld
 ??? example "Expected output"
 
     ```{.text .no-copy}
-     # Site-specific additions and overrides for usr.sbin.mysqld..
-     # For more details, please see /etc/apparmor.d/local/README.
+     Site-specific additions and overrides for usr.sbin.mysqld..
+     For more details, please see /etc/apparmor.d/local/README.
 
-     # Allow log file access
+     Allow log file access
      /custom-log-dir/mysql/ r,
      /custom-log-dir/mysql/** rw,
     ```
@@ -412,7 +412,7 @@ mysql> mysqlshow variables like 'secure_file_priv';
 To allow access to another location, in a text editor, open the local profile. Review the settings in the `Allow data dir access` section:
 
 ```text
- # Allow data dir access
+Allow data dir access
 /var/lib/mysql/ r,
 /var/lib/mysql/** rwk,
 ```
@@ -426,10 +426,10 @@ $ cat /etc/apparmor.d/local/usr.sbin.mysqld
 ??? example "Expected output"
 
     ```{.text .no-copy}
-    # Site-specific additions and overrides for usr.sbin.mysqld..
-    # For more details, please see /etc/apparmor.d/local/README.
+    Site-specific additions and overrides for usr.sbin.mysqld..
+    For more details, please see /etc/apparmor.d/local/README.
 
-    # Allow data dir access
+    Allow data dir access
     /var/lib/mysqlcustom/ r,
     /var/lib/mysqlcustom/** rwk,
     ```
