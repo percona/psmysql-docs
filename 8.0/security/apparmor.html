@@ -4017,11 +4017,10 @@ processes are in enforce mode
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>#
-# The Percona Server 8.0 configuration file.
-#
-# For explanations see
-# https://dev.mysql.com/doc/mysql/en/server-system-variables.html
+<div class="no-copy highlight"><pre><span></span><code>The Percona Server 8.0 configuration file.
+
+For explanations see
+https://dev.mysql.com/doc/mysql/en/server-system-variables.html
 
 [mysqld]
 pid-file    = /var/run/mysqld/mysqld.pid
@@ -4055,7 +4054,7 @@ Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(
 </code></pre></div>
 </details>
 <p>Open <code>/etc/apparmor.d/local/usr.sbin.mysqld</code> in a text editor and edit the following entries in the <code>Allow data dir access</code> section.</p>
-<div class="highlight"><pre><span></span><code># Allow data dir access
+<div class="highlight"><pre><span></span><code>Allow data dir access
 /var/lib/mysqlcustom/ r,
 /var/lib/mysqlcustom/** rwk,
 </code></pre></div>
@@ -4076,11 +4075,10 @@ Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>#
-# The Percona Server 8.0 configuration file.
-#
-# For explanations see
-# https://dev.mysql.com/doc/mysql/en/server-system-variables.html
+<div class="no-copy highlight"><pre><span></span><code>The Percona Server 8.0 configuration file.
+
+For explanations see
+https://dev.mysql.com/doc/mysql/en/server-system-variables.html
 
 [mysqld]
 pid-file    = /var/run/mysqld/mysqld.pid
@@ -4123,10 +4121,10 @@ AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/s
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code> # Site-specific additions and overrides for usr.sbin.mysqld..
- # For more details, please see /etc/apparmor.d/local/README.
+<div class="no-copy highlight"><pre><span></span><code> Site-specific additions and overrides for usr.sbin.mysqld..
+ For more details, please see /etc/apparmor.d/local/README.
 
- # Allow log file access
+ Allow log file access
  /custom-log-dir/mysql/ r,
  /custom-log-dir/mysql/** rw,
 </code></pre></div>
@@ -4151,7 +4149,7 @@ AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/s
 </code></pre></div>
 </details>
 <p>To allow access to another location, in a text editor, open the local profile. Review the settings in the <code>Allow data dir access</code> section:</p>
-<div class="highlight"><pre><span></span><code> # Allow data dir access
+<div class="highlight"><pre><span></span><code>Allow data dir access
 /var/lib/mysql/ r,
 /var/lib/mysql/** rwk,
 </code></pre></div>
@@ -4160,10 +4158,10 @@ AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/s
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Site-specific additions and overrides for usr.sbin.mysqld..
-# For more details, please see /etc/apparmor.d/local/README.
+<div class="no-copy highlight"><pre><span></span><code>Site-specific additions and overrides for usr.sbin.mysqld..
+For more details, please see /etc/apparmor.d/local/README.
 
-# Allow data dir access
+Allow data dir access
 /var/lib/mysqlcustom/ r,
 /var/lib/mysqlcustom/** rwk,
 </code></pre></div>
@@ -4195,7 +4193,7 @@ AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/s
   <small>
     
       Last update:
-      2023-01-12
+      2023-06-15
     
   </small>
 </div>

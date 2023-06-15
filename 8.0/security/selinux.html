@@ -4077,6 +4077,7 @@ Customized Permissive Types
 mysqld_t
 
 Builtin Permissive Types
+...
 </code></pre></div>
 </details>
 <p>To delete a service from the permissive domain, run the following:</p>
@@ -4112,9 +4113,9 @@ socket=/var/lib/mysqlcustom/mysql.sock
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>  Redirecting to /bin/systemctl restart mysqld.service
-  Job for mysqld.service failed because the control process exited with error code.
-  See &quot;systemctl status mysqld.service&quot; and &quot;journalctl -xe&quot; for details.
+<div class="no-copy highlight"><pre><span></span><code>Redirecting to /bin/systemctl restart mysqld.service
+Job for mysqld.service failed because the control process exited with error code.
+See &quot;systemctl status mysqld.service&quot; and &quot;journalctl -xe&quot; for details.
 </code></pre></div>
 </details>
 <p>Check the journal log to see the error code.</p>
@@ -4231,7 +4232,7 @@ require {
     *class dir write*;
 }
 
-#============= mysqld_t ==============
+============= mysqld_t ==============
 *allow mysqld_t default_t:dir write*;
 allow mysqld_t var_lib_t:file getattr;
 </code></pre></div>
@@ -4252,7 +4253,7 @@ require {
     class dir write;
 }
 
-#============= mysqld_t ==============
+============= mysqld_t ==============
 allow mysqld_t default_t:dir write;
 </code></pre></div>
 </li>
@@ -4327,7 +4328,7 @@ type default_t;
     class file { append create open };
 }
 
-#============= mysqld_t ==============
+============= mysqld_t ==============
 allow mysqld_t default_t:dir { add_name write };
 allow mysqld_t default_t:file { append create open };
 </code></pre></div>
@@ -4381,7 +4382,7 @@ $<span class="w"> </span>restorecon<span class="w"> </span>-Rv<span class="w"> <
   <small>
     
       Last update:
-      2023-01-17
+      2023-06-15
     
   </small>
 </div>
