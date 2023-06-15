@@ -27,9 +27,11 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_allow_mmap_writes`](#rocksdb_allow_mmap_writes)                                                | 
 | [`rocksdb_allow_unsafe_alter`](#rocksdb_allow_unsafe_alter)                                              |
 | [`rocksdb_alter_column_default_inplace`](#rocksdb_alter_column_default_inplace)                          |
+| [`rocksdb_alter_table_comment_inplace`](#rocksdb_alter_table_comment_inplace)                            |
 | [`rocksdb_base_background_compactions`](#rocksdb_base_background_compactions)                            |
 | [`rocksdb_blind_delete_primary_key`](#rocksdb_blind_delete_primary_key)                                  |
 | [`rocksdb_block_cache_size`](#rocksdb_block_cache_size)                                                  |
+| [`rocksdb_bulk_load_fail_if_not_bottommost_level`](#rocksdb_bulk_load_fail_if_not_bottommost_level)      |
 | [`rocksdb_bulk_load_partial_index`](#rocksdb_bulk_load_partial_index)                                    |
 | [`rocksdb_bulk_load_use_sst_partitioner`](#rocksdb_bulk_load_use_sst_partitioner) |
 | [`rocksdb_block_restart_interval`](#rocksdb_block_restart_interval)                                      |
@@ -45,8 +47,10 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_cache_index_and_filter_blocks`](#rocksdb_cache_index_and_filter_blocks)                        |
 | [`rocksdb_cache_index_and_filter_with_high_priority`](#rocksdb_cache_index_and_filter_with_high_priority)|
 | [`rocksdb_cancel_manual_compactions`](#rocksdb_cancel_manual_compactions)                                |
+| [`rocksdb_charge_memory`](#rocksdb_charge_memory)                                                        |
 | [`rocksdb_checksums_pct`](#rocksdb_checksums_pct)                                                        |
 | [`rocksdb_collect_sst_properties`](#rocksdb_collect_sst_properties)                                      |
+| [`rocksdb_column_default_value_as_expression`](#rocksdb_column_default_value_as_expression)              |
 | [`rocksdb_commit_in_the_middle`](#rocksdb_commit_in_the_middle)                                          |
 | [`rocksdb_commit_time_batch_for_recovery`](#rocksdb_commit_time_batch_for_recovery)                      |
 | [`rocksdb_compact_cf`](#rocksdb_compact_cf)                                                              |
@@ -57,6 +61,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_compaction_sequential_deletes_window`](#rocksdb_compaction_sequential_deletes_window)          |
 | [`rocksdb_concurrent_prepare`](#rocksdb_concurrent_prepare)                                              |
 | [`rocksdb_converter_record_cached_length`](#rocksdb_converter_record_cached_length)                      |
+| [`rocksdb_corrupt_data_action`](#rocksdb_corrupt_data_action)                                            |
 | [`rocksdb_create_checkpoint`](#rocksdb_create_checkpoint)                                                |
 | [`rocksdb_create_if_missing`](#rocksdb_create_if_missing)                                                |
 | [`rocksdb_create_missing_column_families`](#rocksdb_create_missing_column_families)                      |
@@ -77,7 +82,9 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_delete_cf`](#rocksdb_delete_cf)                                                                |
 | [`rocksdb_delete_obsolete_files_period_micros`](#rocksdb_delete_obsolete_files_period_micros)            |
 | [`rocksdb_disable_file_deletions`](#rocksdb_disable_file_deletions)                                      |
+| [`rocksdb_disable_instant_ddl`](#rocksdb_disable_instant_ddl)                                            |
 | [`rocksdb_enable_bulk_load_api`](#rocksdb_enable_bulk_load_api)                                          |
+| [`rocksdb_enable_delete_range_for_drop_index`](#rocksdb_enable_delete_range_for_drop_index)              |
 | [`rocksdb_enable_insert_with_update_caching`](#rocksdb_enable_insert_with_update_caching)                |
 | [`rocksdb_enable_iterate_bounds`](#rocksdb_enable_iterate_bounds)                                        |
 | [`rocksdb_enable_pipelined_write`](#rocksdb_enable_pipelined_write)                                      |
@@ -133,11 +140,13 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_paranoid_checks`](#rocksdb_paranoid_checks)                                                    |
 | [`rocksdb_partial_index_sort_max_mem`](#rocksdb_partial_index_sort_max_mem)                              |
 | [`rocksdb_pause_background_work`](#rocksdb_pause_background_work)                                        |
+| [`rocksdb_partial_index_blind_delete`](#rocksdb_partial_index_blind_delete)                              |
 | [`rocksdb_perf_context_level`](#rocksdb_perf_context_level)                                              |
 | [`rocksdb_persistent_cache_path`](#rocksdb_persistent_cache_path)                                        |
 | [`rocksdb_persistent_cache_size_mb`](#rocksdb_persistent_cache_size_mb)                                  |
 | [`rocksdb_pin_l0_filter_and_index_blocks_in_cache`](#rocksdb_pin_l0_filter_and_index_blocks_in_cache)    |
 | [`rocksdb_print_snapshot_conflict_queries`](#rocksdb_print_snapshot_conflict_queries)                    |
+| [`rocksdb_protection_bytes_per_key`](#rocksdb_protection_bytes_per_key)                                  |
 | [`rocksdb_rate_limiter_bytes_per_sec`](#rocksdb_rate_limiter_bytes_per_sec)                              |
 | [`rocksdb_read_free_rpl`](#rocksdb_read_free_rpl)                                                        |
 | [`rocksdb_read_free_rpl_tables`](#rocksdb_read_free_rpl_tables)                                          |
@@ -179,6 +188,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_use_direct_reads`](#rocksdb_use_direct_reads)                                                  |
 | [`rocksdb_use_fsync`](#rocksdb_use_fsync)                                                                |
 | [`rocksdb_use_hyper_clock_cache`](#rocksdb_use_hyper_clock_cache)                                        |
+| [`rocksdb_use_write_buffer_manager`](#rocksdb_use_write_buffer_manager)                                  |
 | [`rocksdb_validate_tables`](#rocksdb_validate_tables)                                                    |
 | [`rocksdb_verify_row_debug_checksums`](#rocksdb_verify_row_debug_checksums)                              |
 | [`rocksdb_wal_bytes_per_sync`](#rocksdb_wal_bytes_per_sync)                                              |
@@ -303,7 +313,7 @@ Disabled by default.
 | Data type    | Boolean                                |
 | Default      | OFF                                    |
 
-Enable crash unsafe INPLACE ADD|DROP partition.
+Enables crash unsafe INPLACE ADD|DROP partition.
 
 ### `rocksdb_alter_column_default_inplace`
 
@@ -316,6 +326,22 @@ Enable crash unsafe INPLACE ADD|DROP partition.
 | Default      | ON                                     |
 
 Allows an inplace alter for the `ALTER COLUMN` default operation.
+
+### `rocksdb_alter_table_comment_inplace`
+
+| Option       | Description                            |
+|--------------|----------------------------------------|
+| Command-line | --rocksdb_alter_table_comment_inplace  |
+| Dynamic      | Yes                                    |
+| Scope        | Global                                 |
+| Data type    | Boolean                                |
+| Default      | OFF                                    |
+
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+
+Allows changing `ALTER TABLE COMMENT` inplace.
+
+This variable is disabled (OFF) by default.
 
 ### `rocksdb_base_background_compactions`
 
@@ -372,6 +398,28 @@ because that’s the size of one block.
 Default value is `536870912`.
 
 Maximum value is `9223372036854775807`.
+
+### `rocksdb_bulk_load_fail_if_not_bottommost_level`
+
+| Option       | Description                |
+|--------------|----------------------------|
+| Command-line | --rocksdb_bulk_load_fail_if_not_bottommost_level |
+| Dynamic      | Yes                         |
+| Scope        | Global, Session             |
+| Data type    | Boolean                     |
+| Default      | OFF                         |
+
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+
+When this variable is enabled, the bulk load fails if an sst file created during bulk load cannot be placed to the bottommost level in the rocksdb. 
+
+This variable can be enabled or disabled only when the [`rocksdb_bulk_load`](#rocksdbbulkload) is `OFF`.
+
+This variable is disabled (OFF) by default.
+
+!!! warning
+
+    When `rocksdb_bulk_load_fail_if_not_bottommost_level` is disabled, it may cause severe performance impact.
 
 ### `rocksdb_block_restart_interval`
 
@@ -595,6 +643,24 @@ If you disable this feature, RocksDB allocates additional memory to maintain the
 
 The variable was implemented in [Percona Server for MySQL 8.0.27-18](../release-notes/Percona-Server-8.0.27-18.md#id1). Cancels all ongoing manual compactions.
 
+### `rocksdb_charge_memory`
+
+| Option       | Description                             |
+|--------------|-----------------------------------------|
+| Command-line | --rocksdb_charge_memory                 |
+| Dynamic      | No                                      |
+| Scope        | Global                                  |
+| Data type    | Boolean                                 |
+| Default      | OFF                                     |
+
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+
+This variable is [tech preview](../glossary.md/#tech-preview) and may be removed in the future releases.
+
+Turns on RocksDB memory-charging related features (BlockBasedTableOptions::cache_usage_options.options.charged) from `cnf` files. This variable is related to [`rocksdb_use_write_buffer_manager`](#rocksdbusewritebuffermanager).
+
+This variable is disabled (OFF) by default.
+
 ### `rocksdb_checksums_pct`
 
 | Option       | Description             |
@@ -622,6 +688,22 @@ Allowed range is from `0` to `100`.
 Specifies whether to collect statistics on each data file
 to improve optimizer behavior.
 Enabled by default.
+
+### `rocksdb_column_default_value_as_expression`
+
+| Option       | Description                      |
+|--------------|----------------------------------|
+| Command-line | --rocksdb_column_default_value_as_expression |
+| Dynamic      | Yes                               |
+| Scope        | Global                           |
+| Data type    | Boolean                          |
+| Default      | ON                               |
+
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+
+Allows to set a function as the default value for a column.
+
+This variable is enabled (ON) by default.
 
 ### `rocksdb_commit_in_the_middle`
 
@@ -776,6 +858,30 @@ Allowed range is up to `2000000` (two million).
 When enabled this variable allows/encourages threads that are using
 two-phase commit to `prepare` in parallel. This variable was
 renamed in upstream to rocksdb_two_write_queues.
+
+### `rocksdb_corrupt_data_action`
+
+| Option       | Description                    |
+|--------------|--------------------------------|
+| Command-line | --rocksdb_corrupt_data_action  |
+| Dynamic      | Yes                            |
+| Scope        | Global                         |
+| Data type    | enum { ERROR = 0, ABORT_SERVER, WARNING }; |
+| Default      | ERROR                          |
+
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+
+This variable controls the behavior when hitting the data corruption in MyRocks. 
+
+You can select one of the following actions:
+
+* `ERROR` - fail the query with the error `HA_ERR_ROCKSDB_CORRUPT_DATA`
+
+* `ABORT_SERVER` - crash the server
+
+* `WARNING` - pass the query with warning
+
+The default value is `ERROR` that means the query fails with the error `HA_ERR_ROCKSDB_CORRUPT_DATA`.
 
 ### `rocksdb_converter_record_cached_length`
 
@@ -1092,6 +1198,22 @@ deletions and has not re-enabled deletions, they will be explicitly
 re-enabled. This variable should be used by backup tools. Prolonged
 use or other misuse can have serious side effects to the server instance.
 
+### `rocksdb_disable_instant_ddl`
+
+| Option       | Description                                   |
+|--------------|-----------------------------------------------|
+| Command-line | --rocksdb_disable_instant_ddl                 |
+| Dynamic      | Yes                                           |
+| Scope        | Global                                       |
+| Data type    | Boolean                                       |
+| Default      | ON                                            |
+
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+
+Disables instant DDL during `ALTER TABLE` operations.
+
+This variable is enabled (ON) by default.
+
 ### `rocksdb_enable_bulk_load_api`
 
 | Option       | Description                    |
@@ -1109,6 +1231,22 @@ in either ascending or descending order.
 Enabled by default.
 If disabled, bulk loading uses the normal write path via the memtable
 and does not require keys to be inserted in any order.
+
+### `rocksdb_enable_delete_range_for_drop_index`
+
+| Option       | Description                                 |
+|--------------|---------------------------------------------|
+| Command-line | --rocksdb_enable_delete_range_for_drop_index|
+| Dynamic      | Yes                                         |
+| Scope        | Global                                      |
+| Data type    | Boolean                                     |
+| Default      | OFF                                         |
+
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+
+Enables drop table / index by calling the DeleteRange.
+
+This option is disabled (OFF) by default.
 
 ### `rocksdb_enable_insert_with_update_caching`
 
@@ -1972,6 +2110,26 @@ for the MyRocks MTR test suites.
     blocked indefinitely until rocksdb_pause_background_work
     is set to `0`.
 
+### `rocksdb_partial_index_blind_delete`
+
+| Option       | Description                  |
+|--------------|------------------------------|
+| Command-line | --rocksdb_partial_index_blind_delete |
+| Dynamic      | Yes                          |
+| Scope        | Global                       |
+| Data type    | Boolean                      |
+| Default      | ON                           |
+
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+
+If enabled, the server does not read from the partial index to check if the key exists before 
+deleting the partial index and the delete marker is unconditionally written.
+
+If the variable is disabled (OFF), the server always reads from partial index to check if key exists before 
+deleting the partial index. 
+
+This variable is enabled (ON) by default.
+
 ### `rocksdb_perf_context_level`
 
 | Option       | Description                  |
@@ -2049,6 +2207,24 @@ Enabled by default.
 Specifies whether queries that generate snapshot conflicts
 should be logged to the error log.
 Disabled by default.
+
+### `rocksdb_protection_bytes_per_key`
+
+| Option       | Description                               |
+|--------------|-------------------------------------------|
+| Command-line | --rocksdb_protection_bytes_per_key        |
+| Dynamic      | Yes                                       |
+| Scope        | Global, Session                           |
+| Data type    | Numeric                                   |
+| Default      | 0                                         |
+
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+
+This variable is used to configure `WriteOptions::protection_bytes_per_key`. The default value is 0 (disabled). When this variable is set to 1, 2, 4, or 8, it uses that number of bytes per key value to protect entries in the WriteBatch.
+
+The minimum value is `0`.
+
+The maximum value is `ULONG_MAX (0xFFFFFFFF)`.
 
 ### `rocksdb_rate_limiter_bytes_per_sec`
 
@@ -2637,6 +2813,22 @@ The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-
 If enabled, this variable uses HyperClockCache instead of default LRUCache for RocksDB.
 
 This variable is disabled (OFF) by default.
+
+### `rocksdb_use_write_buffer_manager`
+
+| Option       | Description         |
+|--------------|---------------------|
+| Command-line | --rocksdb_use_write_buffer_manager |
+| Dynamic      | No                   |
+| Scope        | Global               |
+| Data type    | Boolean              |
+| Default      | OFF                  |
+
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+
+This variable is [tech preview](../glossary.md/#tech-preview) and may be removed in the future releases.
+
+Allows to turn on the write buffer manager (WriteBufferManager) from `cnf` files. This variable is related to [`rocksdb_charge_memory`](#rocksdbchargememory).
 
 ### `rocksdb_validate_tables`
 
