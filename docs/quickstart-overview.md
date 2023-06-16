@@ -1,4 +1,4 @@
-# Quick start guide for Percona Server for MySQL
+# Quickstart guide for Percona Server for MySQL
 
 Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability and availability, enhanced backups, increased visibility, and instrumentation.
 Percona Server for MySQL is trusted by thousands of enterprises to provide better performance and concurrency for their most demanding workloads.
