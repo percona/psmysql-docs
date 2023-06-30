@@ -8,51 +8,18 @@ Specific information on the supported platforms, products, and versions is descr
 
 ## Install Percona Server for MySQL using APT
 
-1. Update the package repositories:
+The following code sample updates the repositories, downloads, installs, updates the repositories, sets up the repository, and installs latest version of Percona Server for MySQL:
 
 	```{.bash data-prompt="$"}
 	$ sudo apt update
+        $ sudo apt install curl
+        $ curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+        $ sudo apt install gnupg2 lsb-release ./percona-release_latest.generic_all.deb
+        $ sudo apt update
+        $ sudo percona-release setup ps80
+        $ sudo apt install percona-server-server
 	```
-
-2. Install the `curl` download utility if needed:
-
-	```{.bash data-prompt="$"}
-	$ sudo apt install curl
-	```
-	
-3. Download the `percona-release` repository package:
-
-	```{.bash data-prompt="$"}
-	$ curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
-	```
-
-4. Install the downloaded package with `apt` as root or with sudo:
-
-	```{.bash data-prompt="$"}
-	$ sudo apt install gnupg2 lsb-release ./percona-release_latest.generic_all.deb
-	```
-    
-
-5. Refresh the local cache to update the package information:
-
-	```{.bash data-prompt="$"}
-	$ sudo apt update
-	```
-
-6. Use `percona-release` to set up the repository for the Percona Server for MySQL 8.0 version:
-
-	```{.bash data-prompt="$"}
-	$ sudo percona-release setup ps80
-	```
-
-7. You can check the repository setup for the Percona original release list in `/etc/apt/sources.list.d/percona-original-release.list`. 
-
-8. Install the server package with the `percona-release` command:
-
-	```{.bash data-prompt="$"}
-	$ sudo apt install percona-server-server
-	```
-
+ 
 See [Configuring Percona repositories with `percona-release`](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
 
 {% include './snippets/install/_storage-engines.md'%}
