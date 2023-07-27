@@ -52,12 +52,12 @@ SET session rocksdb_bulk_load=0;
 
 Using `sql_log_bin=0` avoids writing to binary logs.
 
-With [rocksdb_bulk_load](variables.md#rocksdb-bulk-load) set to `1`, MyRocks enters special mode to
+With [rocksdb_bulk_load](myrocks-server-variables.md#rocksdb-bulk-load) set to `1`, MyRocks enters special mode to
 write all inserts into bottommost RocksDB levels, and skips writing data into
 MemTable and the following compactions. This is very efficient way to load
 data.
 
-The [rocksdb_bulk_load](variables.md#rocksdb-bulk-load) mode operates with a few conditions:
+The [rocksdb_bulk_load](myrocks-server-variables.md#rocksdb-bulk-load) mode operates with a few conditions:
 
 * None of the data being bulk loaded can overlap with existing data in the
 table. The easiest way to ensure this is to always bulk load into an empty
@@ -66,7 +66,7 @@ operations, and then returning and bulk loading addition data if there is no
 overlap between what is being loaded and what already exists.
 
 * The data may not be visible until bulk load mode is ended (i.e. the
-[rocksdb_bulk_load](variables.md#rocksdb-bulk-load) is set to zero again). The method that is used is building up SST files which will later be added as-is to the database. Until a particular SST has been added the data will not be visible to the rest of the system, thus issuing a `SELECT` on the table currently being
+[rocksdb_bulk_load](myrocks-server-variables.md#rocksdb-bulk-load) is set to zero again). The method that is used is building up SST files which will later be added as-is to the database. Until a particular SST has been added the data will not be visible to the rest of the system, thus issuing a `SELECT` on the table currently being
 bulk loaded will only show older data and will likely not show the most
 recently added rows. Ending the bulk load mode will cause the most recent SST
 file to be added. When bulk loading multiple tables, starting a new table
@@ -74,7 +74,7 @@ will trigger the code to add the most recent SST file to the system – as a
 result, it is inadvisable to interleave `INSERT` statements to two or more
 tables during bulk load mode.
 
-By default, the [rocksdb_bulk_load](variables.md#rocksdb-bulk-load) mode expects all data be inserted
+By default, the [rocksdb_bulk_load](myrocks-server-variables.md#rocksdb-bulk-load) mode expects all data be inserted
 in primary key order (or reversed order). If the data is in the reverse order
 (i.e. the data is descending on a normally ordered primary key or is ascending
 on a reverse ordered primary key), the rows are cached in chunks to switch the
@@ -104,16 +104,16 @@ SET session rocksdb_bulk_load=0;
 SET session rocksdb_bulk_load_allow_unsorted=0;
 ```
 
-Note that [rocksdb_bulk_load_allow_unsorted](variables.md#rocksdb-bulk-load-allow-unsorted) can only be changed when
-[rocksdb_bulk_load](variables.md#rocksdb-bulk-load) is disabled (set to `0`). In this case, all
+Note that [rocksdb_bulk_load_allow_unsorted](myrocks-server-variables.md#rocksdb-bulk-load-allow-unsorted) can only be changed when
+[rocksdb_bulk_load](myrocks-server-variables.md#rocksdb-bulk-load) is disabled (set to `0`). In this case, all
 input data will go through an intermediate step that writes the rows to
 temporary SST files, sorts them rows in the primary key order, and then writes
 to final SST files in the correct order.
 
 ## Other approaches
 
-If [rocksdb_commit_in_the_middle](variables.md#rocksdb-commit-in-the-middle) is enabled, MyRocks implicitly
-commits every [rocksdb_bulk_load_size](variables.md#rocksdb-bulk-load-size) records (default is `1,000`)
+If [rocksdb_commit_in_the_middle](myrocks-server-variables.md#rocksdb-commit-in-the-middle) is enabled, MyRocks implicitly
+commits every [rocksdb_bulk_load_size](myrocks-server-variables.md#rocksdb-bulk-load-size) records (default is `1,000`)
 in the middle of your transaction. If your data loading fails in the middle of
 the statement (`LOAD DATA` or bulk `INSERT`), rows are not entirely rolled
 back, but some of rows are stored in the table. To restart data loading, you’ll
@@ -121,7 +121,7 @@ need to truncate the table and loading data again.
 
 !!! warning
 
-    If you are loading large data without enabling [rocksdb_bulk_load](variables.md#rocksdb-bulk-load) or [rocksdb_commit_in_the_middle](variables.md#rocksdb-commit-in-the-middle), please make sure transaction size is small enough. All modifications of the ongoing transactions are kept in memory.
+    If you are loading large data without enabling [rocksdb_bulk_load](myrocks-server-variables.md#rocksdb-bulk-load) or [rocksdb_commit_in_the_middle](myrocks-server-variables.md#rocksdb-commit-in-the-middle), please make sure transaction size is small enough. All modifications of the ongoing transactions are kept in memory.
 
 ## Other reading
 

@@ -42,4 +42,4 @@ packages for all Debian and Ubuntu releases.
 
 !!! note
 
-    [PAM Authentication Plugin](../security/pam_plugin.md) is not built with the server by default. In order to build the Percona Server for MySQL with PAM plugin, an additional option `-DWITH_PAM=ON` should be used.
+    [PAM Authentication Plugin](pam-plugin.md) is not built with the server by default. In order to build the Percona Server for MySQL with PAM plugin, an additional option `-DWITH_PAM=ON` should be used.

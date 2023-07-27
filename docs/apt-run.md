@@ -34,5 +34,5 @@ Run the following commands as root or by using the sudo command
 
 ## Working with AppArmor
 
-For information on AppArmor, see [Working with AppArmor](../security/apparmor.md).
+For information on AppArmor, see [Working with AppArmor](apparmor.md).
 

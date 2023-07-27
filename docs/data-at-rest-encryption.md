@@ -64,4 +64,4 @@ layer, added to the buffer pool, and used to access the data. A buffer pool page
 
 Percona XtraBackup version 8 supports the backup of encrypted general tablespaces. 
 
-Percona XtraBackup only supports features that are [Generally Available (GA)](../glossary.md#general-availability-ga) in Percona Server for MySQL. Due to time constraints, GA features may be supported in a later Percona XtraBackup release. Review the [Percona XtraBackup release notes](https://docs.percona.com/percona-xtrabackup/8.0/release-notes.html) for more information.
+Percona XtraBackup only supports features that are [Generally Available (GA)](glossary.md#general-availability-ga) in Percona Server for MySQL. Due to time constraints, GA features may be supported in a later Percona XtraBackup release. Review the [Percona XtraBackup release notes](https://docs.percona.com/percona-xtrabackup/8.0/release-notes.html) for more information.

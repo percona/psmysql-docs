@@ -21,7 +21,7 @@ In case user tries to enable [enforce_storage_engine](#enforce_storage_engine) w
 
 ## Version specific information
 
-* [Percona Server for MySQL 8.0.13-4](../release-notes/Percona-Server-8.0.13-4.md#id1): The feature was ported from *Percona Server for MySQL* 5.7.
+* [Percona Server for MySQL 8.0.13-4](https://docs.percona.com/percona-server/8.0/release-notes/Percona-Server-8.0.13-4.html): The feature was ported from *Percona Server for MySQL* 5.7.
 
 ## System variables
 
@@ -40,7 +40,7 @@ This variable is not case sensitive.
 
 ## Example
 
-Adding following option to [my.cnf](../glossary.md#my.cnf) will start the server with InnoDB as enforced storage engine.
+Adding following option to [my.cnf](glossary.md#my.cnf) will start the server with InnoDB as enforced storage engine.
 
 ```text
 enforce_storage_engine=InnoDB
