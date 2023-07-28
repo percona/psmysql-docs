@@ -4,9 +4,9 @@ Upgrading using the Percona repositories is the easiest and recommended way.
 
 Find the instructions on how to enable the repositories in the following documents:
 
-* [Percona APT Repository](installation/apt-repo.md)
+* [Percona APT Repository](apt-repo.md)
 
-* [Percona RPM Repository](installation/yum-repo.md)
+* [Percona RPM Repository](yum-repo.md)
 
 
 ## DEB-based distributions
@@ -48,7 +48,7 @@ Run the following commands as root or by using the **sudo** command.
 
 7. Install the storage engine packages.
 
-    *TokuDB* is deprecated and removed in [Percona Server for MySQL 8.0.28-19](release-notes/Percona-Server-8.0.28-19.md#id3). For more information, see [TokuDB Introduction](tokudb/tokudb_intro.md). If you used the *TokuDB* storage engine in *Percona Server for MySQL* 5.7, install the `percona-server-tokudb` package:
+    *TokuDB* is deprecated and removed in [Percona Server for MySQL 8.0.28-19](release-notes/Percona-Server-8.0.28-19.md#id3). For more information, see [TokuDB Introduction](tokudb-intro.md). If you used the *TokuDB* storage engine in *Percona Server for MySQL* 5.7, install the `percona-server-tokudb` package:
 
     ```{.bash data-prompt="$"}
     $ apt install percona-server-tokudb

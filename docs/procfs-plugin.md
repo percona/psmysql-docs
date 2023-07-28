@@ -36,7 +36,7 @@ GRANT ACCESS_PROCFS ON *.* TO 'user'@'host';
 
     An SELinux policy or an AppArmor profile may prevent access to file locations needed by the ProcFS plugin, such as the '/proc/sys/fs/file-nr' directory or any sub-directories or files under '/proc/irq/'. Either edit the policy or profile to ensure that the plugin has the necessary access. If the policy and profile do not allow access, the plugin may may have unexpected behavior.
 
-    For more information, see [Working with SELinux](../security/selinux.md#selinux) and [Working with AppArmor](../security/apparmor.md#enable-apparmor).
+    For more information, see [Working with SELinux](selinux.md#selinux) and [Working with AppArmor](apparmor.md#enable-apparmor).
 
 ## Using the ProcFS plugin
 

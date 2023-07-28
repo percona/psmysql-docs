@@ -164,7 +164,7 @@ There are several methods to add or modify a user.
   
     * [authentication_ldap_simple_bind_root_pwd](ldap-system-variables.md#authentication_ldap_simple_bind_root_pwd)
   
-    * [authentication_ldap_simple_user_search_attr](ldap-system-variables md#authentication_ldap_simple_user_search_attr)
+    * [authentication_ldap_simple_user_search_attr](ldap-system-variables.md#authentication_ldap_simple_user_search_attr)
   
     * [authentication_ldap_simple_group_search_attr](ldap-system-variables.md#authentication_ldap_simple_group_search_attr)
   

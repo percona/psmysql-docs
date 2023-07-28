@@ -11,7 +11,7 @@
 
 ## group_replication_auto_evict_timeout
 
-The variable is in [tech preview](../glossary.md#tech-preview) mode. Before using the variable in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+The variable is in [tech preview](glossary.md#tech-preview) mode. Before using the variable in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
 
 | Option | Description |
 |---|---|
@@ -72,7 +72,7 @@ The minimum value is 0. The maximum value is 1000000.
 | Default value | Quota |
 | Valid values | DISABLED <br> QUOTA <br> MAJORITY |
 
-The "MAJORITY" value is in [tech preview](../glossary.md#tech-preview) mode. Before using the variable in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+The "MAJORITY" value is in [tech preview](glossary.md#tech-preview) mode. Before using the variable in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
 
 The variable specifies the mode use for flow control.
 
