@@ -6,7 +6,7 @@
 
 !!! important
 
-    {% include '..//snippets/tech-preview/_tech-preview-variables.md'%}
+    {% include './snippets/tech-preview/_tech-preview-variables.md'%}
 
 The installation adds the following variables:
 
