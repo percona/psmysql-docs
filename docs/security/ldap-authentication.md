@@ -10,7 +10,7 @@ individuals, groups, and organizations.
 
 !!! important
 
-    {% include '..//snippets/tech-preview/_tech-preview-feature.md'%}
+    {% include './snippets/tech-preview/_tech-preview-feature.md'%}
 
 *Percona Server for MySQL* 8.0.19-10 implements the simple LDAP authentication. The Percona simple LDAP authentication plugin is a free and Open Source implementation of the MySQL Enterprise Simple LDAP authentication plugin.
 
