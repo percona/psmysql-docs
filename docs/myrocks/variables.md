@@ -337,7 +337,7 @@ Allows an inplace alter for the `ALTER COLUMN` default operation.
 | Data type    | Boolean                                |
 | Default      | OFF                                    |
 
-The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/8.0.33-25.md).
 
 Allows changing `ALTER TABLE COMMENT` inplace.
 
@@ -409,7 +409,7 @@ Maximum value is `9223372036854775807`.
 | Data type    | Boolean                     |
 | Default      | OFF                         |
 
-The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/8.0.33-25.md).
 
 When this variable is enabled, the bulk load fails if an sst file created during bulk load cannot be placed to the bottommost level in the rocksdb. 
 
@@ -536,7 +536,7 @@ The variable was implemented in [Percona Server for MySQL 8.0.27-18](../release-
 | Data type    | Boolean             |
 | Default      | OFF                 |
 
-The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/8.0.33-25.md).
 
 If enabled, this variable uses sst partitioner to split sst files to ensure bulk load sst files can be ingested to bottommost level.
 
@@ -653,7 +653,7 @@ The variable was implemented in [Percona Server for MySQL 8.0.27-18](../release-
 | Data type    | Boolean                                 |
 | Default      | OFF                                     |
 
-The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/8.0.33-25.md).
 
 This variable is [tech preview](../glossary.md/#tech-preview) and may be removed in the future releases.
 
@@ -699,7 +699,7 @@ Enabled by default.
 | Data type    | Boolean                          |
 | Default      | ON                               |
 
-The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/8.0.33-25.md).
 
 Allows to set a function as the default value for a column.
 
@@ -869,7 +869,7 @@ renamed in upstream to rocksdb_two_write_queues.
 | Data type    | enum { ERROR = 0, ABORT_SERVER, WARNING }; |
 | Default      | ERROR                          |
 
-The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/8.0.33-25.md).
 
 This variable controls the behavior when hitting the data corruption in MyRocks. 
 
@@ -893,7 +893,7 @@ The default value is `ERROR` that means the query fails with the error `HA_ERR_R
 | Data type    | Numeric                       |
 | Default      | 0                             |
 
-The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/8.0.33-25.md).
 
 Specifies the maximum number of bytes to cache on table handler for encoding table record data. 
 
@@ -1208,7 +1208,7 @@ use or other misuse can have serious side effects to the server instance.
 | Data type    | Boolean                                       |
 | Default      | ON                                            |
 
-The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/8.0.33-25.md).
 
 Disables instant DDL during `ALTER TABLE` operations.
 
@@ -1242,7 +1242,7 @@ and does not require keys to be inserted in any order.
 | Data type    | Boolean                                     |
 | Default      | OFF                                         |
 
-The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/8.0.33-25.md).
 
 Enables drop table / index by calling the DeleteRange.
 
@@ -1777,7 +1777,6 @@ The default value is `-1`. The allowed range is `-1` to `64`.
 This variable has been replaced
 by rocksdb_max_background_jobs, which automatically decides how
 many threads to allocate towards flush/compaction.
-This variable was re-implemented in :ref: 8.0.20-11.
 
 ### `rocksdb_max_background_jobs`
 
@@ -2120,7 +2119,7 @@ for the MyRocks MTR test suites.
 | Data type    | Boolean                      |
 | Default      | ON                           |
 
-The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/8.0.33-25.md).
 
 If enabled, the server does not read from the partial index to check if the key exists before 
 deleting the partial index and the delete marker is unconditionally written.
@@ -2218,7 +2217,7 @@ Disabled by default.
 | Data type    | Numeric                                   |
 | Default      | 0                                         |
 
-The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/8.0.33-25.md).
 
 This variable is used to configure `WriteOptions::protection_bytes_per_key`. The default value is 0 (disabled). When this variable is set to 1, 2, 4, or 8, it uses that number of bytes per key value to protect entries in the WriteBatch.
 
@@ -2808,7 +2807,7 @@ Disabled by default.
 | Data type    | Boolean                   |
 | Default      | OFF                       |
 
-The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/8.0.33-25.md).
 
 If enabled, this variable uses HyperClockCache instead of default LRUCache for RocksDB.
 
@@ -2824,7 +2823,7 @@ This variable is disabled (OFF) by default.
 | Data type    | Boolean              |
 | Default      | OFF                  |
 
-The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/Percona-Server-8.0.33-25.md).
+The variable was implemented in [Percona Server for MySQL 8.0.33-25](../release-notes/8.0.33-25.md).
 
 This variable is [tech preview](../glossary.md/#tech-preview) and may be removed in the future releases.
 
