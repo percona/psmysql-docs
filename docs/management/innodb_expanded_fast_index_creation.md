@@ -1,6 +1,6 @@
 # Expanded fast index creation
 
-{% include '..//snippets/tech-preview/_tech-preview-feature.md'%}
+{% include './snippets/tech-preview/_tech-preview-feature.md'%}
 
 Percona has implemented several changes related to *MySQL*’s fast index creation
 feature. Fast index creation was implemented in *MySQL* as a way to speed up the
