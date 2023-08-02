@@ -1,1 +1,1 @@
-These variables are [tech preview](..//..//glossary.md#tech-preview). Before using these variables in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+These variables are [tech preview](../glossary.md#tech-preview). Before using these variables in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
