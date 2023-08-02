@@ -1,6 +1,6 @@
 # Slow query log rotation and expiration
 
-{% include '..//snippets/tech-preview/_tech-preview-feature.md'%}
+{% include './snippets/tech-preview/_tech-preview-feature.md'%}
 
 This feature was implemented in *Percona Server for MySQL* 8.0.27-18.
 
