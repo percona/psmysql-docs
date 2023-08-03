@@ -77,7 +77,7 @@ compared to the standard *MySQL* database server:
 | Global Query Response Time Statistics | Yes | No |
 | [Enhanced SHOW INNODB ENGINE STATUS](./diagnostics/innodb_show_status.md) | Yes | No |
 | Undo Segment Information | Yes | No |
-| [Temporary Tables Information](./diagnostics/) | Yes | No |
+| Temporary Tables Information | Yes | No |
 | [Extended Slow Query Logging](./diagnostics/slow_extended.md) | Yes | No |
 | [User Statistics](./diagnostics/user_stats.md) | Yes | No |
 
