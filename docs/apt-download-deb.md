@@ -34,12 +34,6 @@ Install Percona Server for MySQL using `dpkg`. Run this command as root or use t
 $ sudo dpkg -i *.deb
 ```
 
-!!! note
-
-    Percona Server for MySQL 8.0 comes with the TokuDB storage engine. You can find more information on how to install and enable the TokuDB storage in the TokuDB Installation guide.
-
-	Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds. For more information, see the TokuDB Introduction.
-
 !!! warning
 
     When installing packages manually like this, you’ll need to resolve all the dependencies and install missing packages yourself. The following packages will need to be installed before you can manually install Percona Server: `mysql-common`, `libjemalloc1`, `libaio1`, and `libmecab2`.

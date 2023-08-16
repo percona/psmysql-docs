@@ -53,7 +53,7 @@ You should also consider the following:
        kept in memory.
     ```
 
-* With partitioned tables that use the *TokuDB* or *MyRocks* storage engine, the upgrade only works with native partitioning.
+* With partitioned tables that use the *MyRocks* storage engine, the upgrade only works with native partitioning.
 
     !!! admonition "See also"
 
