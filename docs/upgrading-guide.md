@@ -71,11 +71,9 @@ Copy the database configuration file, for example, `my.cnf`, to another director
 
 You can select one of the following ways to upgrade *Percona Server for MySQL* from 5.7 to 8.0:
 
-
 * Upgrading using the Percona repositories
 
-
-* Upgrading from Systems that Use the MyRocks or TokuDB Storage Engine and Partitioned Tables
+* Upgrading from Systems that Use the MyRocks Storage Engine and Partitioned Tables
 
 
 * Upgrading using Standalone Packages
