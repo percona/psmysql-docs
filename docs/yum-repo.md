@@ -41,13 +41,7 @@ For more information on the Percona Software repositories and configuring Percon
 
 ## Available storage engines
 
-Percona Server for MySQL 8.0 comes with the TokuDB storage engine and MyRocks storage engine. These storage engines are installed as plugins.
-
-Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds. For more information, see TokuDB Introduction.
-
-For information on how to install and configure TokuDB, refer to the TokuDB Installation guide.
-
-For information on how to install and configure MyRocks, refer to the Percona MyRocks Installation Guide.
+Percona Server for MySQL 8.0 comes with the `MyRocks` storage engine. This storage engine is installed as a plugin. For information on how to install and configure MyRocks, refer to the Percona MyRocks Installation Guide.
 
 ### Percona yum Testing repository
 
