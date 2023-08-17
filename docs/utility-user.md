@@ -6,7 +6,7 @@ This user has a mixed and special scope of abilities and protection:
 
 * Utility user does not appear in the mysql.user table and can not be modified by any other user, including root.
 
-* Utility user does not appear in [INFORMATION_SCHEMA.USER_STATISTICS](../diagnostics/user_stats.md#id3), [INFORMATION_SCHEMA.CLIENT_STATISTICS](../diagnostics/user_stats.md#client-statistics) or THREAD_STATISTICS tables or in any [performance_schema tables](https://dev.mysql.com/doc/dev/mysql-server/latest/group__performance__schema__tables.html).
+* Utility user does not appear in [INFORMATION_SCHEMA.USER_STATISTICS](user-stats.md#id3), [INFORMATION_SCHEMA.CLIENT_STATISTICS](user-stats.md#client-statistics) or THREAD_STATISTICS tables or in any [performance_schema tables](https://dev.mysql.com/doc/dev/mysql-server/latest/group__performance__schema__tables.html).
 
 * Utility user’s queries may appear in the general and slow logs.
 

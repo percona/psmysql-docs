@@ -7,11 +7,11 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
 
 You can install Percona Server for MySQL using different methods. 
 
-* [Use the Percona Repositories](./installation.md)
-* [Use APT](./installation/apt-repo.md)
-* [Use YUM](./installation/yum-repo.md)
-* [Use binary tarballs](./installation/binary-tarball-install.md)
-* [Use Docker](./installation/docker.md)
+* [Use the Percona Repositories](installation.md)
+* [Use APT](apt-repo.md)
+* [Use YUM](yum-repo.md)
+* [Use binary tarballs](binary-tarball-install.md)
+* [Use Docker](docker.md)
 
 ## For backups and restores
 

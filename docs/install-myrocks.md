@@ -27,7 +27,7 @@ It is recommended to install Percona software from official repositories:
 
     !!! note
 
-        Review the [Installing and configuring Percona Server for MySQL with ZenFS support](zenfs.md#zenfs) document for the [Installation](zenfs.md#zenfs-installation) and the [Configuration](zenfs.md#zenfs-configure) information.
+        Review the [Installing and configuring Percona Server for MySQL with ZenFS support](install-zenfs.md#zenfs) document for the [Installation](install-zenfs.md#zenfs-installation) and the [Configuration](install-zenfs.md#zenfs-configure) information.
 
     * For RHEL or CentOS:
 
@@ -177,7 +177,7 @@ remove the Percona MyRocks package:
     $ sudo yum remove percona-server-rocksdb-80.x86_64
     ```
 
-Finally, remove all the [MyRocks Server Variables](variables.md#myrocks-server-variables)
+Finally, remove all the [MyRocks Server Variables](myrocks-server-variables.md#myrocks-server-variables)
 from the configuration file (`my.cnf`)
 and restart *Percona Server for MySQL*.
 

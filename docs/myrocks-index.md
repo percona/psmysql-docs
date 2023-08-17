@@ -18,16 +18,16 @@ engines, if your workload uses fast storage, such as SSD:
 
 * Ensures better IO capacity
 
-[Percona MyRocks Installation Guide](install.md)
+[Percona MyRocks Installation Guide](install-myrocks.md)
 
-[MyRocks Limitations](limitations.md)
+[MyRocks Limitations](myrocks-limitations.md)
 
-[Differences between Percona MyRocks and Facebook MyRocks](differences.md)
+[Differences between Percona MyRocks and Facebook MyRocks](myrocks-differences.md)
 
-[*MyRocks* Column Families](column-family.md)
+[*MyRocks* Column Families](myrocks-column-families.md)
 
-[MyRocks Server Variables](variables.md)
+[MyRocks Server Variables](myrocks-server-variables.md)
 
-[MyRocks Information Schema Tables](information-schema-tables.md)
+[MyRocks Information Schema Tables](myrocks-information-schema-tables.md)
 
-[Performance Schema MyRocks changes](performance-schema-tables.md)
+[Performance Schema MyRocks changes](performance-schema-myrocks-changes.md)

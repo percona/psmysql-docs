@@ -40,7 +40,7 @@ If the ZenFS functionality is not enabled on Ubuntu 20.04, the binaries with Zen
 
 Start with the installation of *Percona Server for MySQL*.
 
-1. The steps are listed here for convenience, for an explanation, see [Installing Percona Server for MySQL from Percona apt repository](../installation/apt-repo.md#apt-install).
+1. The steps are listed here for convenience, for an explanation, see [Installing Percona Server for MySQL from Percona apt repository](apt-repo.md#apt-install).
 
     ```{.bash data-prompt="$"}
     $ wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb
@@ -48,7 +48,7 @@ Start with the installation of *Percona Server for MySQL*.
     $ sudo percona-release setup ps80
     ```
 
-2. Install Percona Server for MySQL with MyRocks and the ZenFS plugin package. The binaries are listed in the [Installing Percona Server for MySQL from a Binary Tarball](../installation.md#installing-from-binary-tarball) section of the *Percona Server for MySQL* installation instructions.
+2. Install Percona Server for MySQL with MyRocks and the ZenFS plugin package. The binaries are listed in the [Installing Percona Server for MySQL from a Binary Tarball](installation.md#installing-from-binary-tarball) section of the *Percona Server for MySQL* installation instructions.
 
     ```{.bash data-prompt="$"}
     $ sudo apt install percona-server-server

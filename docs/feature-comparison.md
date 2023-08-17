@@ -53,7 +53,7 @@ compared to the standard *MySQL* database server:
 | Geospatial Features (GIS, SRS) | Yes | Yes |
 | GTID Replication | Yes | Yes |
 | Group Replication | Yes | Yes |
-| [MyRocks Storage Engine](./myrocks/index.md) | Yes | No |
+| [MyRocks Storage Engine](myrocks-index.md) | Yes | No |
 
 
 | Improvements for Developers | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
@@ -61,7 +61,7 @@ compared to the standard *MySQL* database server:
 | NoSQL Socket-Level Interface | Yes | Yes |
 | X API Support | Yes | Yes |
 | JSON Functions | Yes | Yes |
-| [InnoDB Full-Text Search Improvements](./flexibility/innodb_fts_improvements.md) | Yes | No |
+| [InnoDB Full-Text Search Improvements](innodb-fts-improvements.md) | Yes | No |
 | Extra Hash/Digest Functions | Yes | No |
 
 | Instrumentation and Troubleshooting Features | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
@@ -75,11 +75,11 @@ compared to the standard *MySQL* database server:
 | Per-Client Performance Counters | Yes | No |
 | Per-Thread Performance Counters | Yes | No |
 | Global Query Response Time Statistics | Yes | No |
-| [Enhanced SHOW INNODB ENGINE STATUS](./diagnostics/innodb_show_status.md) | Yes | No |
+| [Enhanced SHOW INNODB ENGINE STATUS](innodb-show-status.md) | Yes | No |
 | Undo Segment Information | Yes | No |
-| [Temporary Tables Information](./diagnostics/) | Yes | No |
-| [Extended Slow Query Logging](./diagnostics/slow_extended.md) | Yes | No |
-| [User Statistics](./diagnostics/user_stats.md) | Yes | No |
+| Temporary Tables Information | Yes | No |
+| [Extended Slow Query Logging](slow-extended.md) | Yes | No |
+| [User Statistics](user-stats.md) | Yes | No |
 
 | Performance and Scalability Features | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
 |---|---|---|
@@ -87,20 +87,20 @@ compared to the standard *MySQL* database server:
 | Configurable Page Sizes | Yes | Yes |
 | Contention-Aware Transaction Scheduling | Yes | Yes |
 | Improved Scalability By Splitting Mutexes | Yes | No |
-| [Improved MEMORY Storage Engine](./flexibility/improved_memory_engine.md) | Yes | No |
-| [Improved Flushing](./performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.md#multi-threaded-flusher) | Yes | No |
+| [Improved MEMORY Storage Engine](improved-memory-engine.md) | Yes | No |
+| [Improved Flushing](xtradb-performance-improvements.md#multi-threaded-flusher) | Yes | No |
 | Parallel Doublewrite Buffer | Yes | Yes |
-| [Configurable Fast Index Creation](./management/innodb_expanded_fast_index_creation.md) | Yes | No |
+| [Configurable Fast Index Creation](innodb-expanded-fast-index-creation.md) | Yes | No |
 | Per-Column Compression for VARCHAR/BLOB and JSON | Yes | No |
-| [Compressed Columns with Dictionaries](./flexibility/compressed_columns.md) | Yes | No |
+| [Compressed Columns with Dictionaries](compressed-columns.md) | Yes | No |
 
 | Security Features | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
 |---|---|---|
 | SQL Roles | Yes | Yes |
 | SHA-2 Based Password Hashing | Yes | Yes |
 | Password Rotation Policy | Yes | Yes |
-| [PAM Authentication Plugin](./security/pam_plugin.md) | Yes | Enterprise-Only |
-| [Audit Logging Plugin](./management/audit_log_plugin.md) | Yes | Enterprise-Only |
+| [PAM Authentication Plugin](pam-plugin.md) | Yes | Enterprise-Only |
+| [Audit Logging Plugin](audit-log-plugin.md) | Yes | Enterprise-Only |
 
 | Encryption Features | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
 |---|---|---|
@@ -109,8 +109,8 @@ compared to the standard *MySQL* database server:
 | Encrypt InnoDB Data | Yes | Yes |
 | Encrypt InnoDB Logs | Yes | Yes |
 | Encrypt Built-In InnoDB Tablespaces (General, System, Undo, Temp) | Yes | Yes |
-| [Encrypt Binary Logs](./security/encrypting-binlogs.md) | Yes | No |
-| [Encrypt Temporary Files](./security/encrypting-temporary-files.md) | Yes | No |
+| [Encrypt Binary Logs](encrypting-binlogs.md) | Yes | No |
+| [Encrypt Temporary Files](encrypting-temporary-files.md) | Yes | No |
 | Enforce Encryption | Yes | No |
 
 | Operational Improvements | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
@@ -120,13 +120,13 @@ compared to the standard *MySQL* database server:
 | Instant DDL | Yes | Yes |
 | SET PERSIST | Yes | Yes |
 | Invisible Indexes | Yes | Yes |
-| [Threadpool](./performance/threadpool.md) | Yes | Enterprise-Only |
-| [Backup Locks](./backup-locks.md) | Yes | No |
-| [Extended SHOW GRANTS](./management/extended_show_grants.md) | Yes | No |
-| [Improved Handling of Corrupted Tables](./reliability/innodb_corrupt_table_action.md) | Yes | No |
-| [Ability to Kill Idle Transactions](./management/kill_idle_trx.md) | Yes | No |
-| [Improvements to START TRANSACTION WITH CONSISTENT SNAPSHOT](./start-transaction-with-consistent-snapshot.md) | Yes | No |
+| [Threadpool](threadpool.md) | Yes | Enterprise-Only |
+| [Backup Locks](backup-locks.md) | Yes | No |
+| [Extended SHOW GRANTS](extended-show-grants.md) | Yes | No |
+| [Improved Handling of Corrupted Tables](innodb-corrupt-table-action.md) | Yes | No |
+| [Ability to Kill Idle Transactions](kill-idle-trx.md) | Yes | No |
+| [Improvements to START TRANSACTION WITH CONSISTENT SNAPSHOT](start-transaction-with-consistent-snapshot.md) | Yes | No |
 
 | Features for Running Database as a Service (DBaaS) | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
 |---|---|---|
-| [Enforce a Specific Storage Engine](./management/enforce_engine.md) | Yes | Yes |
+| [Enforce a Specific Storage Engine](enforce-engine.md) | Yes | Yes |
