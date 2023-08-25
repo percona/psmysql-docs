@@ -1,21 +1,9 @@
-# List of variables introduced in Percona Server for MySQL 8.0
+# Percona Server for MySQL 8.1 variables
 
 ## System variables
 
 | Name | Cmd-Line | Option File | Var Scope | Dynamic |
 | --- | --- | --- | --- | --- |
-| audit_log_buffer_size | Yes | Yes | Global | No |
-| audit_log_file | Yes | Yes | Global | No |
-| audit_log_flush | Yes | Yes | Global | Yes |
-| audit_log_format | Yes | Yes | Global | No |
-| audit_log_handler | Yes | Yes | Global | No |
-| audit_log_policy | Yes | Yes | Global | Yes |
-| audit_log_rotate_on_size | Yes | Yes | Global | No |
-| audit_log_rotations | Yes | Yes | Global | No |
-| audit_log_strategy | Yes | Yes | Global | No |
-| audit_log_syslog_facility | Yes | Yes | Global | No |
-| audit_log_syslog_ident | Yes | Yes | Global | No |
-| audit_log_syslog_priority | Yes | Yes | Global | No |
 | csv_mode | Yes | Yes | Both | Yes |
 | enforce_storage_engine | Yes | Yes | Global | No |
 | expand_fast_index_creation | Yes | No | Both | Yes |

@@ -100,7 +100,6 @@ compared to the standard *MySQL* database server:
 | SHA-2 Based Password Hashing | Yes | Yes |
 | Password Rotation Policy | Yes | Yes |
 | [PAM Authentication Plugin](pam-plugin.md) | Yes | Enterprise-Only |
-| [Audit Logging Plugin](audit-log-plugin.md) | Yes | Enterprise-Only |
 
 | Encryption Features | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
 |---|---|---|
