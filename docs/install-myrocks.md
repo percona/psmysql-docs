@@ -25,10 +25,6 @@ It is recommended to install Percona software from official repositories:
     $ sudo apt install percona-server-rocksdb
     ```
 
-    !!! note
-
-        Review the [Installing and configuring Percona Server for MySQL with ZenFS support](install-zenfs.md#zenfs) document for the [Installation](install-zenfs.md#zenfs-installation) and the [Configuration](install-zenfs.md#zenfs-configure) information.
-
     * For RHEL or CentOS:
 
     ```{.bash data-prompt="$"}
