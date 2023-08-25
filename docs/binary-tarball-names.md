@@ -43,25 +43,6 @@ If the `glibc2` version from your operating system is not listed, then this Perc
     | Debug | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.debug.tar.gz | Contains the minimal build files and test files, and debug symbols |
     | Zenfs | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;-zenfs.tar.gz | Contains the zenfs files and can be either a full or minimal installation |
 
-=== "Zenfs"
-
-    Implemented in Percona for MySQL 8.0.26-16, the following binary tarballs
-    are available for the MyRocks ZenFS installation. See [Installing and configuring Percona Server for MySQL with ZenFS support](install-zenfs.md) for more information and the installation procedure.
-
-    | Type    | Name                                                                              | Description                                                                          |
-    |---------|-----------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-    | Full    | Percona-Server-&lt;version number&gt;-Linux.x86_64.&lt;glibc-version&gt;-zenfs.tar.gz         | Contains the binaries, libraries, test files, and debug symbols                      |
-    | Minimal | Percona-Server-&lt;version number&gt;-Linux.x86_64.&lt;glibc-version&gt;-zenfs-minimal.tar.gz | Contains the binaries and libraries but does not include test files or debug symbols |
-
-    At this time, you can enable the ZenFS plugin in the following distributions:
-
-    | Distribution Name | Notes                                                                                             |
-    |-------------------|---------------------------------------------------------------------------------------------------|
-    | Debian 11.1       | Able to run the ZenFS plugin                                                                      |
-    | Ubuntu 20.04.3    | Requires the 5.11 HWE kernel patched with the allow blk-zoned ioctls without CAPT_SYS_ADMIN patch |
-
-    If you do not enable the ZenFS functionality on Ubuntu 20.04, the binaries with ZenFS support can run on the standard 5.4 kernel. [Other Linux distributions](https://zonedstorage.io/docs/distributions/linux/) are adding support for ZenFS, but Percona does not provide installation packages for those distributions.
-
 === "8.0.20-11 to 8.0.25-17"
 
     The multiple binary tarballs from earlier versions are replaced with the following:
