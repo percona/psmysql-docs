@@ -1,18 +1,14 @@
 # Using LDAP authentication plugins
 
+!!! important
+
+    --8<--- "tech.preview.md:5:5"
+
 LDAP (Lightweight Directory Access Protocol) provides an alternative method to
 access existing directory servers, which maintain information about
 individuals, groups, and organizations.
 
-## Version specific information
-
-*Percona Server for MySQL* 8.0.30-22 implements an SASL-based LDAP authentication plugin. This plugin only supports the SCRAM-SHA-1 SASL mechanism.
-
-!!! important
-
-    {% include './snippets/tech-preview/_tech-preview-feature.md'%}
-
-*Percona Server for MySQL* 8.0.19-10 implements the simple LDAP authentication. The Percona simple LDAP authentication plugin is a free and Open Source implementation of the MySQL Enterprise Simple LDAP authentication plugin.
+Percona Server for MySQL supports the simple LDAP authentication. The Percona simple LDAP authentication plugin is a free and Open Source implementation of the MySQL Enterprise Simple LDAP authentication plugin. Percona Server for MySQL also supports an SASL-based LDAP authentication plugin. This plugin only supports the SCRAM-SHA-1 SASL mechanism. 
 
 ## Plugin names and file names
 

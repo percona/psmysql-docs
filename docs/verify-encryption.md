@@ -80,7 +80,6 @@ INFORMATION_SCHEMA.SCHEMATA WHERE DEFAULT_ENCRYPTION='YES';
     | samples                      | YES                             |
     +------------------------------+---------------------------------+
     ```
+    
 
-!!! note 
-
-    The `SHOW CREATE SCHEMA` statement returns the `DEFAULT ENCRYPTION` clause.
+The `SHOW CREATE SCHEMA` statement returns the `DEFAULT ENCRYPTION` clause.

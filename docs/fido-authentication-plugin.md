@@ -2,10 +2,9 @@
 
 !!! important
 
-    {% include './snippets/tech-preview/_tech-preview-feature.md'%}
-
-
-*Percona Server for MySQL 8.0.30-22* adds support for the Fast Identify Online (FIDO) authentication method that uses a plugin. The FIDO authentication provides a set of standards that reduces the reliance on passwords.
+    --8<--- "tech.preview.md:5:5"
+    
+Percona Server for MySQL supports the Fast Identify Online (FIDO) authentication method that uses a plugin. The FIDO authentication provides a set of standards that reduces the reliance on passwords.
 
 The server-side fido authentication plugin enables authentication using external devices. If this plugin is the only authentication plugin used by the account, this plugin allows authentication without a password. Multi-factor authentication can use non-FIDO MySQL authentication methods, the FIDO authentication method, or a combination of both. 
 
@@ -27,7 +26,7 @@ The library file must be stored in the directory named by the [`plugin_dir`](htt
 
 === "At server startup"
 
-    At server startup, use the [`--plugin_load_add`](https://dev.mysql.com/doc/refman/8.0/en/server-options.html#option_mysqld_plugin-load-add) option with the library name. The option must be added each time the server starts.
+    At server startup, use the [`--plugin_load_add`](https://dev.mysql.com/doc/refman/8.1/en/server-options.html#option_mysqld_plugin-load-add) option with the library name. The option must be added each time the server starts.
 
 === "Edit my.cnf and restart the server"
 
@@ -47,13 +46,13 @@ The library file must be stored in the directory named by the [`plugin_dir`](htt
 
 ### Verify installation
 
-Use the [`SHOW PLUGINS`](https://dev.mysql.com/doc/refman/8.0/en/show-plugins.html) statement or query the `INFORMATION_SCHEMA.PLUGINS` table to verify that the plugin was loaded successfully and is active.
+Use the [`SHOW PLUGINS`](https://dev.mysql.com/doc/refman/8.1/en/show-plugins.html) statement or query the `INFORMATION_SCHEMA.PLUGINS` table to verify that the plugin was loaded successfully and is active.
 
 Check the server error log if the plugin is not loaded.
 
-## Use FIDO authentication
+## FIDO authentication strategies
 
-FIDO can be used with non-FIDO authentication. See [Use FIDO authentication with non-FIDO authentication](#use-fido-authentication-with-non-fido-authentication). FIDO can be used to create 1FA accounts that do not require passwords. For instructions, see [Use FIDO](#use-fido-authentication-as-the-only-method).
+FIDO can be used with [non-FIDO authentication](#use-fido-authentication-with-non-fido-authentication). FIDO can be used to [create 1FA accounts that do not require passwords](#use-fido-authentication-as-the-only-method).
 
 ### Use FIDO authentication with non-FIDO authentication
 
@@ -77,7 +76,7 @@ If FIDO is used as the only method of authentication, the method does not use a 
 
 The user creates an account with the `PASSWORDLESS_USER_ADMIN` privilege and the `CREATE USER` privilege. 
 
-The first element of the `authentication_policy` value must be an asterisk(*). Do not start with the plugin name. For information about configuring the `authentication policy` value, see [Configuring the Multifactor Authentication Policy](https://dev.mysql.com/doc/refman/8.0/en/multifactor-authentication.html#multifactor-authentication-policy).
+The first element of the `authentication_policy` value must be an asterisk(*). Do not start with the plugin name. [Configuring the `authentication policy` value](https://dev.mysql.com/doc/refman/8.1/en/multifactor-authentication.html#multifactor-authentication-policy) has more information.
 
 You must include the `INITIAL AUTHENTICATION IDENTIFIED BY` clause in the `CREATE USER` statement. The server does accept the statement without the clause but the account is unusable because the user cannot connect to the server to register the device. 
 
@@ -98,7 +97,7 @@ If the FIDO device is replaced or lost, the following actions occur:
 | Unregister the previous device | The account owner or any user with the `CREATE USER` privilege can unregister the device |
 | Register the new device | The user planning to use the device must register the new device |
 
-The statement to unregister a device is as follows:
+Unregister a device with the following statement:
 
 ```{.bash data-prompt="mysql>"}
 mysql> ALTER USER `username`@`hostname` {2|3} FACTOR UNREGISTER;

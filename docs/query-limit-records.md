@@ -1,6 +1,8 @@
 # Limit the estimation of records in a Query
 
-{% include './snippets/tech-preview/_tech-preview-feature.md'%}
+!!! important
+
+    --8<--- "tech.preview.md:5:5"
 
 This page describes an alternative when running queries against a large number
 of table partitions. When a query runs, InnoDB estimates the records in each
@@ -15,7 +17,7 @@ effectively bypasses the process.
 
     The use of these variables may result in improper index selection by the optimizer.
 
-### `innodb_records_in_range`
+## `innodb_records_in_range`
 
 | Option         | Description        |
 | -------------- | ------------------ |
@@ -25,7 +27,9 @@ effectively bypasses the process.
 | Data type:     | Numeric            |
 | Default        | 0                  |
 
-{% include './snippets/tech-preview/_tech-preview-variables.md'%}
+!!! important
+
+    --8<--- "tech.preview.md:9:9"
 
 The variable provides a method to limit the number of records estimated for a
 query.
@@ -45,7 +49,9 @@ mysql> SET @@GLOBAL.innodb_records_in_range=100;
 | Data type:     | Numeric            |
 | Default        | 0                  |
 
-{% include './snippets/tech-preview/_tech-preview-variables.md'%}
+!!! important
+
+    --8<--- "tech.preview.md:9:9"
 
 This variable provides a method to override the records_in_range result when a
 FORCE INDEX is used in a query.
@@ -57,7 +63,9 @@ mysql> SET @@GLOBAL.innodb_force_index_records_in_range=100;
 
 ## Using the favor_range_scan optimizer switch
 
-{% include './snippets/tech-preview/_tech-preview-feature.md'%}
+!!! important
+
+    --8<--- "tech.preview.md:9:9"
 
 In specific scenarios, the optimizer chooses to scan a table instead of using a range scan. The conditions are the following:
 
@@ -67,7 +75,7 @@ In specific scenarios, the optimizer chooses to scan a table instead of using a 
 
 * WHERE clause contains multiple range conditions
 
-The [optimizer_switch](https://dev.mysql.com/doc/refman/8.0/en/switchable-optimizations.html) controls the optimizer behavior. The favor_range_scan switch arbitrarily lowers the cost of a range scan by a factor of 10.
+The [optimizer_switch](https://dev.mysql.com/doc/refman/8.1/en/switchable-optimizations.html) controls the optimizer behavior. The favor_range_scan switch arbitrarily lowers the cost of a range scan by a factor of 10.
 
 The available values are:
 
