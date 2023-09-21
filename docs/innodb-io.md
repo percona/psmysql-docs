@@ -37,10 +37,6 @@ The following values are allowed:
 
     * `O_DIRECT_NO_FSYNC`: use O_DIRECT to open the data files and parallel doublewrite files, but does not use the `fsync()` system call to flush the data files, log files, and parallel doublewrite files. Do not use this option for the *XFS* file system.
 
-    * `ALL_O_DIRECT`: use O_DIRECT to open data files, log files, and parallel doublewrite files
-    and use `fsync()` to flush the data files but not the log files or
-    parallel doublewrite files. This option is recommended when *InnoDB* log files are big (more than 8GB), otherwise, there may be performance degradation. 
-
 !!! note
 
     On an ext4 filesystem, set `innodb_log_write_ahead_size` to match the filesystem's write-ahead block size. This variable avoids `unaligned AIO/DIO` warnings.
