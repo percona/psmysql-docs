@@ -52,10 +52,6 @@ Such situations are prevented by throttling the low priority queue when the tota
 
 Certain types of workloads (large result sets, BLOBs, slow clients) can have longer waits on network I/O (socket reads and writes). Whenever server waits, this should be communicated to the Thread Pool, so it can start new query by either waking a waiting thread or sometimes creating a new one. This implementation has been ported from *MariaDB* patch MDEV-156.
 
-## Version specific information
-
-* 8.0.12-1: `Thread Pool` feature was ported from *Percona Server for MySQL* 5.7.
-
 ## System variables
 
 ### `thread_pool_idle_timeout`

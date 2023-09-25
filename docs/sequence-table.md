@@ -1,6 +1,6 @@
 # SEQUENCE_TABLE(n) function
 
-*Percona Server for MySQL* 8.0.20-11 adds the SEQUENCE_TABLE() function.
+Percona Server for MySQL supports the SEQUENCE_TABLE() function.
 
 A sequence of numbers can be defined as an arithmetic progression when the common difference between two consecutive terms is always the same.
 
@@ -9,7 +9,6 @@ The function is an inline table-valued function. A single SELECT statement gener
 The [JSON_TABLE()](https://dev.mysql.com/doc/refman/8.0/en/json-table-functions.html) is the only table function available in Oracle MySQL Server. `JSON_TABLE` and `SEQUENCE_TABLE()` are the only table functions available in Percona Server.
 
 The basic syntax is the following:
-
 
 * SEQUENCE_TABLE(n) [AS] alias
 
@@ -27,11 +26,13 @@ The basic syntax is the following:
 
 As with any [derived tables](https://dev.mysql.com/doc/refman/8.0/en/derived-tables.html), a table function requires an [alias](https://dev.mysql.com/doc/refman/8.0/en/identifiers.html) in the `SELECT` statement.
 
-The result set is a single column with the predefined column name `value` of type `BIGINT UNSIGNED`. You can reference the `value` column in `SELECT` statements. The following statements are valid.
+The result set is a single column with the predefined column name `value` of type `BIGINT UNSIGNED`. You can reference the `value` column in `SELECT` statements.
 
-```sql
-SELECT * FROM SEQUENCE_TABLE(n) AS tt;
-SELECT <expr(value)> FROM SEQUENCE_TABLE(n) AS tt;
+The following statements are valid:
+
+```{.bash data-prompt="mysql>"}
+mysql> SELECT * FROM SEQUENCE_TABLE(n) AS tt;
+mysql> SELECT <expr(value)> FROM SEQUENCE_TABLE(n) AS tt;
 ```
 
 The first number in the series, the initial term, is defined as `0` and the series ends with a value less than `n`. In this example, enter the following statement to generate a sequence:
@@ -54,7 +55,7 @@ mysql> SELECT * FROM SEQUENCE_TABLE(3) AS tt;
 
 You can define the initial term using the `WHERE` clause. The following example starts the sequence with `4`.
 
-```sql
+```{.bash data-prompt="mysql>"}
 SELECT value AS result FROM SEQUENCE_TABLE(8) AS tt WHERE value >= 4;
 ```
 
@@ -75,7 +76,7 @@ Consecutive terms increase or decrease by a common difference. The default commo
 
 The following example prints only even numbers from the 0..7 range:
 
-```sql
+```{.bash data-prompt="mysql>"}
 SELECT value AS result FROM SEQUENCE_TABLE(8) AS tt WHERE value % 2 = 0;
 ```
 

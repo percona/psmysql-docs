@@ -1,3 +1,5 @@
+<!--- still tech preview?--->
+
 # Limit the estimation of records in a Query
 
 {% include './snippets/tech-preview/_tech-preview-feature.md'%}
@@ -67,7 +69,7 @@ In specific scenarios, the optimizer chooses to scan a table instead of using a 
 
 * WHERE clause contains multiple range conditions
 
-The [optimizer_switch](https://dev.mysql.com/doc/refman/8.0/en/switchable-optimizations.html) controls the optimizer behavior. The favor_range_scan switch arbitrarily lowers the cost of a range scan by a factor of 10.
+The [optimizer_switch](https://dev.mysql.com/doc/refman/8.1/en/switchable-optimizations.html) controls the optimizer behavior. The favor_range_scan switch arbitrarily lowers the cost of a range scan by a factor of 10.
 
 The available values are:
 

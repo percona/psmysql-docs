@@ -1,4 +1,4 @@
-# Compile Percona Server for MySQL 8.0 from source
+# Compile Percona Server for MySQL from source
 
 The following instructions install Percona Server for MySQL 8.0.
 

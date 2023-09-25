@@ -15,7 +15,6 @@ The variable is in [tech preview](glossary.md#tech-preview) mode. Before using t
 
 | Option | Description |
 |---|---|
-| Introduced | 8.0.30-22 |
 | Command-line |--group-replication-auto-evict-timeout  |
 | Dynamic | Yes |
 | Scope | Global |
@@ -34,7 +33,6 @@ In single-primary mode, the primary server ignores the timeout.
 
 | Option | Description |
 |---|---|
-| Introduced | 8.0.32-24 |
 | Command-line |--group-replication-certification-loop-chunk-size |
 | Dynamic | Yes |
 | Scope | Global |
@@ -49,7 +47,6 @@ The minimum value is 0. The maximum value is 4294967295.
 
 | Option | Description |
 |---|---|
-| Introduced | 8.0.32-24 |
 | Command-line |--group-replication-certification-loop-sleep-time |
 | Dynamic | Yes |
 | Scope | Global |
@@ -64,7 +61,6 @@ The minimum value is 0. The maximum value is 1000000.
 
 | Option | Description |
 |---|---|
-| Introduced | 8.0.32-24 |
 | Command-line |--group_replication_flow_control_mode |
 | Dynamic | Yes |
 | Scope | Global |
@@ -76,4 +72,4 @@ The "MAJORITY" value is in [tech preview](glossary.md#tech-preview) mode. Before
 
 The variable specifies the mode use for flow control.
 
-*Percona Server for MySQL* 8.0.30-22 adds the "MAJORITY" value to the [group_replication_flow_control_mode](https://dev.mysql.com/doc/refman/8.0/en/group-replication-options.html#sysvar_group_replication_flow_control_mode) variable. In "MAJORITY" mode, [flow control](group-replication-flow-control.md) is activated only if the majority, more than half the number of members, exceed the flow control threshold. The other values are not changed. 
+Percona Server for MySQL adds the "MAJORITY" value to the [group_replication_flow_control_mode](https://dev.mysql.com/doc/refman/8.0/en/group-replication-options.html#sysvar_group_replication_flow_control_mode) variable. In "MAJORITY" mode, [flow control](group-replication-flow-control.md) is activated only if the majority, more than half the number of members, exceed the flow control threshold. The other values are not changed. 

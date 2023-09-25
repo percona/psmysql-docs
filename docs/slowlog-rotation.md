@@ -1,8 +1,8 @@
+<!-- still tech preview in Innovation release? -->
+
 # Slow query log rotation and expiration
 
 {% include './snippets/tech-preview/_tech-preview-feature.md'%}
-
-This feature was implemented in *Percona Server for MySQL* 8.0.27-18.
 
 Percona has implemented two new variables, `max_slowlog_size` and `max_slowlog_files` to provide users with ability to control the slow query log disk usage. These variables have the same behavior as the [max_binlog_size variable](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_max_binlog_size) and the [max_binlog_files variable](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_max_binlog_size) used for controlling the binary log.
 

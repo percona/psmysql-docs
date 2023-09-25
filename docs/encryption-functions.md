@@ -1,6 +1,6 @@
 # Encryption functions
 
-Percona Server for MySQL 8.0.28-20 adds encryption functions and variables to manage the encryption range. The functions may take an algorithm argument. Encryption converts plaintext into ciphertext using a key and an encryption algorithm.
+Percona Server for MySQL adds encryption functions and variables to manage the encryption range. The functions may take an algorithm argument. Encryption converts plaintext into ciphertext using a key and an encryption algorithm.
 
 You can also use the user-defined functions with the PEM format keys generated externally by the OpenSSL utility.
 

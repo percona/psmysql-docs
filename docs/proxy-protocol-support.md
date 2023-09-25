@@ -12,10 +12,6 @@ Proxying is supported only for TCP over IPv4 and IPv6 connections. The UNIX sock
 
 You cannot have a proxied IP address that is `127.0.0.1` or `::1`, even if the IP address is in the proxy_protocol_networks.
 
-## Version specific information
-
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
-
 ## System variables
 
 ### `proxy_protocol_networks`
@@ -32,4 +28,4 @@ This variable is a global-only, read-only variable, which is either an asterisk 
 
 ## Related reading
 
-* [PROXY protocol specification](https://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)
+* [PROXY protocol specification](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)

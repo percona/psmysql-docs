@@ -2,7 +2,7 @@
 
 Downgrading Percona Server for MySQL 8.0 to 5.7 is not supported. Downgrading from a Percona Server for MySQL 8.0 release to an earlier 8.0 release is not supported.
 
-Each release of Percona Server for MySQL 8.0 can contain significant changes.
+Each Innovation release of Percona Server for MySQL can contain significant changes.
 
 Before [upgrading to the latest release](upgrading-guide.md), do the following:
 
