@@ -16,7 +16,6 @@ theme:
   name: material
   logo: _static/percona-logo.svg
   favicon: _static/percona-favicon.ico
-  custom_dir: _resource/overrides/
   font:
     text: Poppins
   palette:
@@ -50,7 +49,8 @@ extra_css:
   - https://unicons.iconscout.com/release/v3.0.3/css/line.css
   - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css
   - css/percona.css
-  - css/nocopy.css
+  - css/nocopy.css\
+  - css/extra.css
 
 extra_javascript:
   - js/version-select.js
@@ -103,7 +103,7 @@ plugins:
   with-pdf: # https://github.com/orzih/mkdocs-with-pdf
           output_path: '_pdf/PerconaServer-8.0.pdf'
           cover_title: 'Percona Server Documentation'
-          cover_subtitle: 8.0.32-24 (March 20, 2023)
+          cover_subtitle: 8.0.33-25 (2023-08-02)
           author: 'Percona Technical Documentation Team'
           cover_logo: docs/_static/Percona_Logo_Color.png
           debug_html: false
@@ -124,14 +124,18 @@ extra:
   consent:
     title: Cookie consent
     description: >- 
-      We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better.
-
+      We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better. Read more about <a class="reference external" href="https://www.percona.com/20180524-cookie-policy" target="_blank">Percona Cookie Policy</a>.
 nav:
   - Home: index.md
   - Release notes:
-      - Release notes index: release-notes/release-notes_index.md
-      - release-notes/8.0.32-24.md
-      - release-notes/8.0.31-23.md
+    - Release notes index: release-notes/release-notes_index.md
+    - release-notes/8.0.33-25.upd.md
+    - release-notes/8.0.33-25.md
+    - release-notes/8.0.32-24.md
+    - release-notes/8.0.31-23.md
+    - 2022 (versions 8.0.30-22 to 8.0.26-17):
       - release-notes/8.0.30-22.upd.md
       - release-notes/8.0.30-22.md
       - release-notes/8.0.29-21.md
@@ -139,13 +143,16 @@ nav:
       - release-notes/Percona-Server-8.0.28-19.md
       - release-notes/Percona-Server-8.0.27-18.md
       - release-notes/Percona-Server-8.0.26-17.md
+    - 2021 (versions 8.0.26-16 to 8.0.23-14):
       - release-notes/Percona-Server-8.0.26-16.md
       - release-notes/Percona-Server-8.0.25-15.md
       - release-notes/Percona-Server-8.0.23-14.md
+    - 2020 (versions 8.0.22-13 to 8.0.19-10):
       - release-notes/Percona-Server-8.0.22-13.md
       - release-notes/Percona-Server-8.0.21-12.md
       - release-notes/Percona-Server-8.0.20-11.md
       - release-notes/Percona-Server-8.0.19-10.md
+    - 2019 (versions 8.0.18-9 to 8.0.13-4):
       - release-notes/Percona-Server-8.0.18-9.md
       - release-notes/Percona-Server-8.0.17-8.md
       - release-notes/Percona-Server-8.0.16-7.md
@@ -153,6 +160,7 @@ nav:
       - release-notes/Percona-Server-8.0.15-5.md
       - release-notes/Percona-Server-8.0.14.md
       - release-notes/Percona-Server-8.0.13-4.md
+    - 2018 (versions 8.0.13-3 to 8.0.12-2rc1):
       - release-notes/Percona-Server-8.0.13-3.md
       - release-notes/Percona-Server-8.0.12-2rc1.md
   - Features:
@@ -170,7 +178,7 @@ nav:
       - performance/procfs-plugin.md
       - performance/adaptive_network_buffers.md
       - performance/threadpool.md
-  - Quick start guide:
+  - Quickstart guide:
        - quickstart-overview.md
   - Install:
       - Install Percona Server for MySQL from repositories: installation.md
@@ -210,11 +218,11 @@ nav:
       - security/selinux.md
   - Manage:
       - management/extended_show_grants.md
-      - uninstall-component.md
-      - Back up and restore:
-        - management/backup_locks.md 
-        - flexibility/extended_mysqldump.md
-        - management/start_transaction_with_consistent_snapshot.md
+  - Back up and restore:
+      - backup-restore-overview.md
+      - backup-locks.md 
+      - extended-mysqldump.md
+      - start-transaction-with-consistent-snapshot.md
   - Secure:
       - LDAP features:
         - security/ldap-authentication.md

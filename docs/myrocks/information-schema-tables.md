@@ -143,6 +143,34 @@ client operation.
 | ENTRY_OTHERS         | bigint(8)    |
 | DISTINCT_KEYS_PREFIX | varchar(400) |
 
+## ROCKSDB_LIVE_FILES_METADATA
+
+| Column Name              | Type         |
+|--------------------------|--------------|
+| CF_NAME                  | varchar(193) |
+| LEVEL                    | varchar(513) |
+| NAME                     | varchar(513) |
+| DB_PATH                  | varchar(513) |
+| FILE_NUMBER              | bigint       |
+| FILE_TYPE                | varchar(193) | 
+| SIZE                     | bigint       |
+| RELATIVE_FILENAME        | varchar(193) | 
+| DIRECTORY                | varchar(513) | 
+| TEMPERATURE              | varchar(193) |  
+| FILE_CHECKSUM            | varchar(513) | 
+| FILE_CHECKSUM_FUNC_NAME  | varchar(193) |  
+| SMALLEST_SEQNO           | bigint       | 
+| LARGEST_SEQNO            | bigint       | 
+| SMALLEST_KEY             | varchar(513) |  
+| LARGEST_KEY              | varchar(513) |  
+| NUM_READS_SAMPLED        | bigint       | 
+| BEING_COMPACTED          | tinyint      | 
+| NUM_ENTRIES              | bigint       | 
+| NUM_DELETIONS            | bigint       | 
+| OLDEST_BLOB_FILE_NUMBER  | bigint       | 
+| OLDEST_ANCESTER_TIME     | bigint       | 
+| FILE_CREATION_TIME       | bigint       |
+
 ## ROCKSDB_LOCKS
 
 This table contains the set of locks granted to MyRocks transactions.

@@ -77,7 +77,7 @@ compared to the standard *MySQL* database server:
 | Global Query Response Time Statistics | Yes | No |
 | [Enhanced SHOW INNODB ENGINE STATUS](./diagnostics/innodb_show_status.md) | Yes | No |
 | Undo Segment Information | Yes | No |
-| [Temporary Tables Information](./diagnostics/) | Yes | No |
+| Temporary Tables Information | Yes | No |
 | [Extended Slow Query Logging](./diagnostics/slow_extended.md) | Yes | No |
 | [User Statistics](./diagnostics/user_stats.md) | Yes | No |
 
@@ -121,11 +121,11 @@ compared to the standard *MySQL* database server:
 | SET PERSIST | Yes | Yes |
 | Invisible Indexes | Yes | Yes |
 | [Threadpool](./performance/threadpool.md) | Yes | Enterprise-Only |
-| [Backup Locks](./management/backup_locks.md) | Yes | No |
+| [Backup Locks](./backup-locks.md) | Yes | No |
 | [Extended SHOW GRANTS](./management/extended_show_grants.md) | Yes | No |
 | [Improved Handling of Corrupted Tables](./reliability/innodb_corrupt_table_action.md) | Yes | No |
 | [Ability to Kill Idle Transactions](./management/kill_idle_trx.md) | Yes | No |
-| [Improvements to START TRANSACTION WITH CONSISTENT SNAPSHOT](./management/start_transaction_with_consistent_snapshot.md) | Yes | No |
+| [Improvements to START TRANSACTION WITH CONSISTENT SNAPSHOT](./start-transaction-with-consistent-snapshot.md) | Yes | No |
 
 | Features for Running Database as a Service (DBaaS) | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
 |---|---|---|

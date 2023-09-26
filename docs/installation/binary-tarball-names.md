@@ -46,7 +46,7 @@ If the `glibc2` version from your operating system is not listed, then this Perc
 === "Zenfs"
 
     Implemented in Percona for MySQL 8.0.26-16, the following binary tarballs
-    are available for the MyRocks ZenFS installation. See [Installing and configuring Percona Server for MySQL with ZenFS support](../myrocks/zenfs) for more information and the installation procedure.
+    are available for the MyRocks ZenFS installation. See [Installing and configuring Percona Server for MySQL with ZenFS support](../myrocks/zenfs.md) for more information and the installation procedure.
 
     | Type    | Name                                                                              | Description                                                                          |
     |---------|-----------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
