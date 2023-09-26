@@ -1,6 +1,6 @@
 # Extended SET VAR optimizer hint
 
-*Percona Server for MySQL* 8.0 extends the `SET_VAR` introduced in *MySQL* 8.0
+Percona Server for MySQL extends the `SET_VAR` introduced in *MySQL* 8.0
 effectively replacing the `SET STATEMENT ... FOR` statement. `SET_VAR` is an
 optimizer hint that can be applied to session variables.
 
@@ -37,4 +37,4 @@ following:
 
 * The `CREATE TABLE` statement
 
-*Percona Server for MySQL* 8.0 also supports setting the following variables by using `SET_VAR`:
+Percona Server for MySQL also supports setting the following variables by using `SET_VAR`:

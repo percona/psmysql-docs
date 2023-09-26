@@ -18,7 +18,7 @@ To completely uninstall Percona Server for MySQL, remove all the installed packa
 
 	!!! warning
 	
-	    This step removes all the packages and deletes all the data files (databases, tables, logs, etc.). Take a backup before doing this in case you need the data.
+	    This step removes all the packages and deletes all the data files (databases, tables, logs, etc.). Take a backup before this operation in case you need the data.
 	
 	```{.bash data-prompt="$"}
 	$ rm -rf /var/lib/mysql

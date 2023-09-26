@@ -23,8 +23,6 @@ These two versions of plugins are physically different. To choose which one you 
 
 ## Version specific information
 
-Implemented in Percona Server for MySQL 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
-
 A plugin may not be supported in later releases of MySQL or Percona Server for MySQL since version changes may introduce incompatible changes.
   
 ## Installation

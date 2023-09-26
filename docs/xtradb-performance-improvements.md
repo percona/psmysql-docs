@@ -33,11 +33,11 @@ a new system variable innodb_empty_free_list_algorithm.
 | Default        | legacy             |
 
 When `legacy` option is set, server will use the upstream algorithm and when
-the `backoff` is selected, *Percona* implementation will be used.
+the `backoff` is selected, Percona implementation will be used.
 
 ## Multi-threaded LRU flusher
 
-*Percona Server for MySQL* features a true multi-threaded LRU flushing. In this scheme, each buffer pool instance has its own dedicated LRU manager thread that is
+Percona Server for MySQL features a true multi-threaded LRU flushing. In this scheme, each buffer pool instance has its own dedicated LRU manager thread that is
 tasked with performing LRU flushes and evictions to refill the free list of that
 buffer pool instance. Existing multi-threaded flusher no longer does any LRU
 flushing and is tasked with flush list flushing only.
@@ -54,37 +54,15 @@ refill for a subset of buffer pool instances on a loaded server.
 instance, introducing the risk that the right flushing mode will not happen
 for a particular instance because it is being flushed in the other mode.
 
-The following *InnoDB* metrics are no longer accounted, as their semantics do
+The following InnoDB metrics are no longer accounted, as their semantics do
 not make sense under the current LRU flushing design:
 `buffer_LRU_batch_flush_avg_time_slot`, `buffer_LRU_batch_flush_avg_pass`,
 `buffer_LRU_batch_flush_avg_time_thread`,
 `buffer_LRU_batch_flush_avg_time_est`.
 
-The need for *InnoDB* recovery thread writer threads is also removed,
+The need for InnoDB recovery thread writer threads is also removed,
 consequently all associated code is deleted.
 
-## Doublewrite buffer
-
-As of *Percona Server for MySQL* 8.0.20-11, the parallel doublewrite buffer is replaced with the [MySQL implementation](https://dev.mysql.com/doc/refman/8.0/en/innodb-doublewrite-buffer.html).
-
-### `innodb_parallel_doublewrite_path`
-
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command-line:  | Yes                |
-| Scope:         | Global             |
-| Dynamic:       | No                 |
-| Data type:     | String             |
-| Default        | `xb_doublewrite`   |
-
-As of *Percona Server for MySQL* 8.0.20-11, this variable is considered **deprecated** and has no effect. You should use [innodb_doublewrite_dir](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_doublewrite_dir).
-
-This variable is used to specify the location of the parallel doublewrite file.
-It accepts both absolute and relative paths. In the latter case they are
-treated as relative to the data directory.
-
-*Percona Server for MySQL* has introduced several options, only available in builds
-compiled with `UNIV_PERF_DEBUG` C preprocessor define.
 
 ### `innodb_sched_priority_master`
 
@@ -98,11 +76,3 @@ compiled with `UNIV_PERF_DEBUG` C preprocessor define.
 
 This variable can be added to the configuration file.
 
-## Other reading
-
-* Bug [#74637](https://bugs.mysql.com/bug.php?id=74637) - make dirty page flushing more adaptive
-
-* Bug [#67808](https://bugs.mysql.com/bug.php?id=67808) - in innodb engine, double write and multi-buffer pool
-instance reduce concurrency
-
-* Bug [#69232](https://bugs.mysql.com/bug.php?id=69232) - buf_dblwr->mutex can be splited into two

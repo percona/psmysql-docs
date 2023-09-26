@@ -59,7 +59,7 @@ You should also consider the following:
 
         [MySQL Documentation: Preparing Your Installation for Upgrade](https://dev.mysql.com/doc/refman/8.0/en/upgrade-prerequisites.html)
 
-* **Percona Server for MySQL** 8.0 and Unicode 9.0.0 standards have defined a change in the handling of binary collations. These collations are handled as NO PAD, trailing spaces are included in key comparisons. A binary collation comparison may result in two unique rows inserted and does not generate a\`DUP_ENTRY\` error. MyRocks key encoding and comparison does not account for this character set attribute.
+* Percona Server for MySQL 8.1 and Unicode 9.0.0 standards have defined a change in the handling of binary collations. These collations are handled as NO PAD, trailing spaces are included in key comparisons. A binary collation comparison may result in two unique rows inserted and does not generate a\`DUP_ENTRY\` error. MyRocks key encoding and comparison does not account for this character set attribute.
 
 ## Not supported on MyRocks
 
@@ -67,11 +67,11 @@ MyRocks does not support the following:
 
 * Operating as either a source or a replica in any replication topology that is not exclusively row-based. Statement-based and mixed-format binary logging is not supported. For more information, see [Replication Formats](https://dev.mysql.com/doc/refman/8.0/en/replication-formats.html).
 
-* Using [multi-valued indexes](https://dev.mysql.com/doc/refman/8.0/en/create-index.html#create-index-multi-valued). Implemented in **Percona Server for MySQL** 8.0.17, InnoDB supports this feature.
+* Using [multi-valued indexes](https://dev.mysql.com/doc/refman/8.0/en/create-index.html#create-index-multi-valued). InnoDB supports this feature.
 
 * Using [spatial data types](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) .
 
-* Using the [Clone Plugin](https://dev.mysql.com/doc/refman/8.0/en/clone-plugin.html) and the Clone Plugin API.  As of **Percona Server for MySQL** 8.0.17, InnoDB supports either these features.
+* Using the [Clone Plugin](https://dev.mysql.com/doc/refman/8.0/en/clone-plugin.html) and the Clone Plugin API. InnoDB supports either these features.
 
 * Using encryption in tables. At this time, during an `ALTER TABLE` operation, MyRocks mistakenly detects all InnoDB tables as encrypted. Therefore, any attempt to `ALTER` an InnoDB table to MyRocks fails.
 
