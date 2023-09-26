@@ -76,7 +76,7 @@ A storage engine is a piece of software that implements the details of data stor
 
 ## Tech Preview
 
-A tech preview item can be a feature, a variable, or a value within a variable. The term designates that the item is not yet ready for production use and is not included in support by SLA. A tech preview item is included in a release so that users can provide feedback. The item is either updated and released as [general availability(GA)](#general-availability-ga) or removed if not useful. The item's functionality can change from tech preview to GA.
+A tech preview item can be a feature, a variable, or a value within a variable. Before using this feature in production, we recommend that you test restoring production from physical backups in your environment and also use an alternative backup method for redundancy. A tech preview item is included in a release for users to provide feedback. The item is either updated, released as [general availability(GA)](#general-availability-ga), or removed if not useful. The functionality can change from tech preview to GA.
 
 ## XtraDB
 
