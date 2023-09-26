@@ -16,7 +16,6 @@ theme:
   name: material
   logo: _static/percona-logo.svg
   favicon: _static/percona-favicon.ico
-  custom_dir: _resource/overrides/
   font:
     text: Poppins
   palette:
@@ -50,7 +49,8 @@ extra_css:
   - https://unicons.iconscout.com/release/v3.0.3/css/line.css
   - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css
   - css/percona.css
-  - css/nocopy.css
+  - css/nocopy.css\
+  - css/extra.css
 
 extra_javascript:
   - js/version-select.js
@@ -88,6 +88,12 @@ plugins:
   search: 
     separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   git-revision-date: {}
+  meta-descriptions:
+    export_csv: false
+    quiet: false
+    enable_checks: false
+    min_length: 50
+    max_length: 160
   macros:
       include_yaml:
         - 'variables.yml' # Use in markdown as '{{ VAR }}'
@@ -97,7 +103,7 @@ plugins:
   with-pdf: # https://github.com/orzih/mkdocs-with-pdf
           output_path: '_pdf/PerconaServer-8.0.pdf'
           cover_title: 'Percona Server Documentation'
-          cover_subtitle: 8.0.32-24 (March 20, 2023)
+          cover_subtitle: 8.0.33-25 (2023-08-02)
           author: 'Percona Technical Documentation Team'
           cover_logo: docs/_static/Percona_Logo_Color.png
           debug_html: false
@@ -112,13 +118,15 @@ plugins:
 extra:
   version: 
     provider: mike
+    default: latest
   homepage:
     https://docs.percona.com
   consent:
     title: Cookie consent
     description: >- 
-      We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better.
-
+      We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better. Read more about <a class="reference external" href="https://www.percona.com/20180524-cookie-policy" target="_blank">Percona Cookie Policy</a>.
 nav:
   - Home: index.md
   - Release notes:
@@ -235,7 +243,16 @@ nav:
       - LDAP features:
         - security/ldap-authentication.md
         - security/ldap-system-variables.md
-      - security/data-masking.md
+      - Data masking:
+        - data-masking-overview.md
+        - data-masking-comparison.md
+        - Data masking component:
+          - install-data-masking-component.md
+          - data-masking-function-list.md
+          - uninstall-data-masking-component.md
+        - Data masking plugin:
+          - install-data-masking-plugin.md
+          - data-masking-plugin-functions.md
       - security/pam_plugin.md
       - security/ssl-improvement.md
       - security/system-variables.md

@@ -20,7 +20,7 @@ For *XtraDB*, a transaction with a cloned snapshot will only see data visible or
 
 ## mysqldump
 
-`mysqldump` has been updated to use new status variables automatically when they are supported by the server and both –single-transaction and –master-data are specified on the command line. Along with the `mysqldump` improvements introduced in [Backup Locks](backup_locks.md#backup-locks) there is now a way to generate `mysqldump` backups that are guaranteed to be consistent without using `FLUSH TABLES WITH READ LOCK` even if `--master-data` is requested.
+`mysqldump` has been updated to use new status variables automatically when they are supported by the server and both –single-transaction and –master-data are specified on the command line. Along with the `mysqldump` improvements introduced in [Backup Locks](./backup-locks.md#backup-locks) there is now a way to generate `mysqldump` backups that are guaranteed to be consistent without using `FLUSH TABLES WITH READ LOCK` even if `--master-data` is requested.
 
 ## System variables
 

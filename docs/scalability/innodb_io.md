@@ -37,13 +37,10 @@ The following values are allowed:
 
     * `O_DIRECT_NO_FSYNC`: use O_DIRECT to open the data files and parallel doublewrite files, but does not use the `fsync()` system call to flush the data files, log files, and parallel doublewrite files. Do not use this option for the *XFS* file system.
 
-    * `ALL_O_DIRECT`: use O_DIRECT to open data files, log files, and parallel doublewrite files
-    and use `fsync()` to flush the data files but not the log files or
-    parallel doublewrite files. This option is recommended when *InnoDB* log files are big (more than 8GB), otherwise, there may be performance degradation. 
 
 !!! note
 
-    When using this option on *ext4*, the filesystem variable `innodb_log_block_size` should be set to 4096 (default log-block-size in *ext4*) in order to avoid the `unaligned AIO/DIO` warnings.
+    On an ext4 filesystem, set `innodb_log_write_ahead_size` to match the filesystem's write-ahead block size. This variable avoids `unaligned AIO/DIO` warnings.
 
 Starting from *Percona Server for MySQL* 8.0.20-11, the [innodb_flush_method](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_flush_method) affects doublewrite buffers exactly the same as in *MySQL* 8.0.20.
 
