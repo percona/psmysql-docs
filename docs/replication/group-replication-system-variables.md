@@ -3,10 +3,12 @@
 
 | variable name |
 |---|
-| group_replication_auto_evict_timeout |
-| group_replication_certification_loop_chunk_size |
-| group_replication_certification_loop_sleep_time |
-| group_replication_flow_control_mode |
+| [`group_replication_auto_evict_timeout`](#group_replication_auto_evict_timeout) |
+| [`group_replication_certification_loop_chunk_size`](#group_replication_certification_loop_chunk_size) |
+| [`group_replication_certification_loop_sleep_time`](#group_replication_certification_loop_sleep_time) |
+| [`group_replication_flow_control_mode`](#group_replication_flow_control_mode) |
+| [`group_replication_xcom_ssl_accept_retries`](#group_replication_xcom_ssl_accept_retries) |
+| [`group_replication_xcom_ssl_socket_timeout`](#group_replication_xcom_ssl_socket_timeout) |
 
 
 ## group_replication_auto_evict_timeout
@@ -76,4 +78,44 @@ The "MAJORITY" value is in [tech preview](../glossary.md#tech-preview) mode. Bef
 
 The variable specifies the mode use for flow control.
 
-*Percona Server for MySQL* 8.0.30-22 adds the "MAJORITY" value to the [group_replication_flow_control_mode](https://dev.mysql.com/doc/refman/8.0/en/group-replication-options.html#sysvar_group_replication_flow_control_mode) variable. In "MAJORITY" mode, [flow control](group-replication-flow-control.md) is activated only if the majority, more than half the number of members, exceed the flow control threshold. The other values are not changed. 
+*Percona Server for MySQL* 8.0.30-22 adds the "MAJORITY" value to the [group_replication_flow_control_mode](https://dev.mysql.com/doc/refman/8.0/en/group-replication-options.html#sysvar_group_replication_flow_control_mode) variable. In "MAJORITY" mode, [flow control](group-replication-flow-control.md) is activated only if the majority, more than half the number of members, exceed the flow control threshold. The other values are not changed.
+
+## group_replication_xcom_ssl_accept_retries
+
+| Option | Description |
+|---|---|
+| Introduced | 8.0.34-26 |
+| Command-line |--group_replication_xcom_ssl_accept_retries |
+| Dynamic | Yes |
+| Scope | Global |
+| Data type | integer |
+| Default value | 10 |
+
+This variable is only effective on `START GROUP_REPLICATION`, and only when group replication is
+configured with SSL.
+
+Defines the number of retries before closing the socket. On each retry, the server thread calls SSL_accept(), with a timeout defined by `group_replication_xcom_ssl_socket_timeout`. Used by the SSL handshake process after the connection has been accepted by the first accept() call.
+
+The default value is 10.
+
+## group_replication_xcom_ssl_socket_timeout
+
+| Option | Description |
+|---|---|
+| Introduced | 8.0.34-26 |
+| Command-line |--group_replication_xcom_ssl_socket_timeout |
+| Dynamic | Yes |
+| Scope | Global |
+| Data type | integer |
+| Default value | 0 |
+| Measured in | seconds |
+
+This variable is only effective on `START GROUP_REPLICATION`, and only when group replication is
+configured with SSL.
+
+Defines a file-descriptor level timeout, measured in seconds, for both accept() and SSL_accept() calls when group replication listens on the xcom port.
+
+When set to a valid value, for example, 5 then both accept() and
+SSL_accept() return after 5 seconds. 
+
+The default value has been set to 0 (waits infinitely) for backward compatibility.

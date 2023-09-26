@@ -158,6 +158,7 @@
 | Innodb_oldest_view_low_limit_trx_id | Numeric | Global |
 | Innodb_purge_trx_id | Numeric | Global |
 | Innodb_purge_undo_no | Numeric | Global |
+| Open_tables_with_triggers | Numeric | Global |
 | Threadpool_idle_threads | Numeric | Global |
 | Threadpool_threads | Numeric | Global |
 | Tokudb_DB_OPENS |  |  |
