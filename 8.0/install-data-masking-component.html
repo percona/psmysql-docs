@@ -7,34 +7,34 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="This feature was implemented in Percona Server for MySQL version Percona Server for MySQL 8.0.17-8.">
+        <meta name="description" content="Percona Server for MySQL 8.0.34 adds the data masking component. Percona Server for MySQL also has the Data Masking plugin.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/security/data-masking.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/install-data-masking-component.html">
       
       
-        <link rel="prev" href="ldap-system-variables.html">
+        <link rel="prev" href="data-masking-comparison.html">
       
       
-        <link rel="next" href="pam_plugin.html">
+        <link rel="next" href="data-masking-function-list.html">
       
       
-      <link rel="icon" href="../_static/percona-favicon.ico">
+      <link rel="icon" href="_static/percona-favicon.ico">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.2">
     
     
       
-        <title>Data masking - Percona Server for MySQL</title>
+        <title>Install the data masking component - Percona Server for MySQL</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.d451bc0e.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.d451bc0e.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.a5377069.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.a5377069.min.css">
       
       
 
@@ -57,13 +57,13 @@
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     
-      <link rel="stylesheet" href="../css/percona.css">
+      <link rel="stylesheet" href="css/percona.css">
     
-      <link rel="stylesheet" href="../css/nocopy.css/">
+      <link rel="stylesheet" href="css/nocopy.css/">
     
-      <link rel="stylesheet" href="../css/extra.css">
+      <link rel="stylesheet" href="css/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
               <!-- Google Tag Manager -->
               <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -86,7 +86,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Data masking" />
+                 <meta property="og:title" content="Percona Server for MySQL - Install the data masking component" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.0/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png" />
               
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#data-masking" class="md-skip">
+        <a href="#install-the-data-masking-component" class="md-skip">
           Skip to content
         </a>
       
@@ -134,7 +134,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="https://docs.percona.com" title="Percona Server for MySQL" class="md-header__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
       
-  <img src="../_static/percona-logo.svg" alt="logo">
+  <img src="_static/percona-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -151,7 +151,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Data masking
+              Install the data masking component
             
           </span>
         </div>
@@ -263,7 +263,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="https://docs.percona.com" title="Percona Server for MySQL" class="md-nav__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
       
-  <img src="../_static/percona-logo.svg" alt="logo">
+  <img src="_static/percona-logo.svg" alt="logo">
 
     </a>
     Percona Server for MySQL
@@ -294,7 +294,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../index.html" class="md-nav__link">
+      <a href="index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -354,7 +354,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/release-notes_index.html" class="md-nav__link">
+      <a href="release-notes/release-notes_index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -374,7 +374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.33-25.upd.html" class="md-nav__link">
+      <a href="release-notes/8.0.33-25.upd.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -394,7 +394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.33-25.html" class="md-nav__link">
+      <a href="release-notes/8.0.33-25.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -414,7 +414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.32-24.html" class="md-nav__link">
+      <a href="release-notes/8.0.32-24.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -434,7 +434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.31-23.html" class="md-nav__link">
+      <a href="release-notes/8.0.31-23.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -490,7 +490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.30-22.upd.html" class="md-nav__link">
+      <a href="release-notes/8.0.30-22.upd.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -510,7 +510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.30-22.html" class="md-nav__link">
+      <a href="release-notes/8.0.30-22.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -530,7 +530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.29-21.html" class="md-nav__link">
+      <a href="release-notes/8.0.29-21.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -550,7 +550,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.28-20.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.28-20.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -570,7 +570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.28-19.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.28-19.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -590,7 +590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.27-18.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.27-18.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -610,7 +610,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.26-17.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.26-17.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -674,7 +674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.26-16.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.26-16.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -694,7 +694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.25-15.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.25-15.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -714,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.23-14.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.23-14.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -778,7 +778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.22-13.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.22-13.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -798,7 +798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.21-12.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.21-12.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -818,7 +818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.20-11.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.20-11.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -838,7 +838,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.19-10.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.19-10.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -902,7 +902,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.18-9.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.18-9.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -922,7 +922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.17-8.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.17-8.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -942,7 +942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.16-7.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.16-7.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -962,7 +962,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.15-6.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.15-6.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -982,7 +982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.15-5.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.15-5.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1002,7 +1002,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.14.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.14.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1022,7 +1022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.13-4.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.13-4.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1086,7 +1086,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.13-3.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.13-3.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1106,7 +1106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-Server-8.0.12-2rc1.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.12-2rc1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1182,7 +1182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../flexibility/binlog_space.html" class="md-nav__link">
+      <a href="flexibility/binlog_space.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1202,7 +1202,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../flexibility/extended_mysqlbinlog.html" class="md-nav__link">
+      <a href="flexibility/extended_mysqlbinlog.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1222,7 +1222,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../flexibility/slowlog_rotation.html" class="md-nav__link">
+      <a href="flexibility/slowlog_rotation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1242,7 +1242,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../flexibility/extended_select_into_outfile.html" class="md-nav__link">
+      <a href="flexibility/extended_select_into_outfile.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1262,7 +1262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../flexibility/proxy_protocol_support.html" class="md-nav__link">
+      <a href="flexibility/proxy_protocol_support.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1282,7 +1282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../flexibility/sequence_table.html" class="md-nav__link">
+      <a href="flexibility/sequence_table.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1302,7 +1302,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../flexibility/trigger-updates.html" class="md-nav__link">
+      <a href="flexibility/trigger-updates.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1322,7 +1322,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../management/innodb_expanded_fast_index_creation.html" class="md-nav__link">
+      <a href="management/innodb_expanded_fast_index_creation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1342,7 +1342,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../management/kill_idle_trx.html" class="md-nav__link">
+      <a href="management/kill_idle_trx.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1362,7 +1362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../management/udf_percona_toolkit.html" class="md-nav__link">
+      <a href="management/udf_percona_toolkit.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1382,7 +1382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../management/utility_user.html" class="md-nav__link">
+      <a href="management/utility_user.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1402,7 +1402,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../performance/procfs-plugin.html" class="md-nav__link">
+      <a href="performance/procfs-plugin.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1422,7 +1422,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../performance/adaptive_network_buffers.html" class="md-nav__link">
+      <a href="performance/adaptive_network_buffers.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1442,7 +1442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../performance/threadpool.html" class="md-nav__link">
+      <a href="performance/threadpool.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1510,7 +1510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../quickstart-overview.html" class="md-nav__link">
+      <a href="quickstart-overview.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1578,7 +1578,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation.html" class="md-nav__link">
+      <a href="installation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1634,7 +1634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/apt-repo.html" class="md-nav__link">
+      <a href="installation/apt-repo.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1654,7 +1654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/apt-files.html" class="md-nav__link">
+      <a href="installation/apt-files.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1674,7 +1674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/build-apt-packages.html" class="md-nav__link">
+      <a href="installation/build-apt-packages.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1694,7 +1694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/apt-download-deb.html" class="md-nav__link">
+      <a href="installation/apt-download-deb.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1714,7 +1714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/apt-pinning.html" class="md-nav__link">
+      <a href="installation/apt-pinning.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1734,7 +1734,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/apt-run.html" class="md-nav__link">
+      <a href="installation/apt-run.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1754,7 +1754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/apt-uninstall-server.html" class="md-nav__link">
+      <a href="installation/apt-uninstall-server.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1818,7 +1818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/yum-repo.html" class="md-nav__link">
+      <a href="installation/yum-repo.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1838,7 +1838,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/yum-files.html" class="md-nav__link">
+      <a href="installation/yum-files.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1858,7 +1858,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/yum-download-rpm.html" class="md-nav__link">
+      <a href="installation/yum-download-rpm.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1878,7 +1878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/yum-run.html" class="md-nav__link">
+      <a href="installation/yum-run.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1898,7 +1898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/yum-uninstall.html" class="md-nav__link">
+      <a href="installation/yum-uninstall.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1962,7 +1962,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/binary-tarball-install.html" class="md-nav__link">
+      <a href="installation/binary-tarball-install.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1982,7 +1982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/binary-tarball-names.html" class="md-nav__link">
+      <a href="installation/binary-tarball-names.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2046,7 +2046,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/source-tarball.html" class="md-nav__link">
+      <a href="installation/source-tarball.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2066,7 +2066,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/compile-percona-server.html" class="md-nav__link">
+      <a href="installation/compile-percona-server.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2130,7 +2130,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/docker.html" class="md-nav__link">
+      <a href="installation/docker.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2150,7 +2150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/docker-config.html" class="md-nav__link">
+      <a href="installation/docker-config.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2226,7 +2226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../upgrading_guide.html" class="md-nav__link">
+      <a href="upgrading_guide.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2246,7 +2246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../upgrading_using_percona_repos.html" class="md-nav__link">
+      <a href="upgrading_using_percona_repos.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2266,7 +2266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../upgrading_tokudb_myrocks.html" class="md-nav__link">
+      <a href="upgrading_tokudb_myrocks.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2286,7 +2286,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../upgrading_using_standalone_packages.html" class="md-nav__link">
+      <a href="upgrading_using_standalone_packages.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2306,7 +2306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../downgrade.html" class="md-nav__link">
+      <a href="downgrade.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2374,7 +2374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../flexibility/binlogging_replication_improvements.html" class="md-nav__link">
+      <a href="flexibility/binlogging_replication_improvements.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2394,7 +2394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/post-installation.html" class="md-nav__link">
+      <a href="installation/post-installation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2414,7 +2414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="apparmor.html" class="md-nav__link">
+      <a href="security/apparmor.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2434,7 +2434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="selinux.html" class="md-nav__link">
+      <a href="security/selinux.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2502,7 +2502,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../management/extended_show_grants.html" class="md-nav__link">
+      <a href="management/extended_show_grants.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2570,7 +2570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../backup-restore-overview.html" class="md-nav__link">
+      <a href="backup-restore-overview.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2590,7 +2590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../backup-locks.html" class="md-nav__link">
+      <a href="backup-locks.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2610,7 +2610,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../extended-mysqldump.html" class="md-nav__link">
+      <a href="extended-mysqldump.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2630,7 +2630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../start-transaction-with-consistent-snapshot.html" class="md-nav__link">
+      <a href="start-transaction-with-consistent-snapshot.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2736,7 +2736,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ldap-authentication.html" class="md-nav__link">
+      <a href="security/ldap-authentication.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2756,7 +2756,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ldap-system-variables.html" class="md-nav__link">
+      <a href="security/ldap-system-variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2785,6 +2785,122 @@
     
   
   
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10_2" id="__nav_10_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data masking
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10_2">
+            <span class="md-nav__icon md-icon"></span>
+            Data masking
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data-masking-overview.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data masking overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data-masking-comparison.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compare the data masking component to the data masking plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10_2_3" id="__nav_10_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data masking component
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data masking component
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -2797,18 +2913,18 @@
           
   
   <span class="md-ellipsis">
-    Data masking
+    Install the data masking component
   </span>
   
 
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="data-masking.html" class="md-nav__link md-nav__link--active">
+      <a href="install-data-masking-component.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Data masking
+    Install the data masking component
   </span>
   
 
@@ -2832,50 +2948,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installing-the-plugin" class="md-nav__link">
-    Installing the plugin
+  <a href="#install-the-component" class="md-nav__link">
+    Install the component
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#data-masking-functions" class="md-nav__link">
-    Data masking functions
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#general-purpose" class="md-nav__link">
-    General purpose
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#special-purpose" class="md-nav__link">
-    Special Purpose
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#generate-random-data-for-specific-requirements" class="md-nav__link">
-    Generate random data for specific requirements
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#use-dictionaries-to-generate-random-terms" class="md-nav__link">
-    Use dictionaries to generate random terms
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#uninstalling-the-plugin" class="md-nav__link">
-    Uninstalling the plugin
+  <a href="#useful-links" class="md-nav__link">
+    Useful links
   </a>
   
 </li>
@@ -2895,7 +2976,147 @@
   
   
     <li class="md-nav__item">
-      <a href="pam_plugin.html" class="md-nav__link">
+      <a href="data-masking-function-list.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data masking component functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uninstall-data-masking-component.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Uninstall the component
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_2_4" id="__nav_10_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data masking plugin
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Data masking plugin
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install-data-masking-plugin.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and remove the data masking plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data-masking-plugin-functions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data masking plugin functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/pam_plugin.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2915,7 +3136,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ssl-improvement.html" class="md-nav__link">
+      <a href="security/ssl-improvement.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2935,7 +3156,7 @@
   
   
     <li class="md-nav__item">
-      <a href="system-variables.html" class="md-nav__link">
+      <a href="security/system-variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2955,7 +3176,7 @@
   
   
     <li class="md-nav__item">
-      <a href="fido-authentication-plugin.html" class="md-nav__link">
+      <a href="security/fido-authentication-plugin.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2975,7 +3196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="encryption-functions.html" class="md-nav__link">
+      <a href="security/encryption-functions.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3031,7 +3252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="data-at-rest-encryption.html" class="md-nav__link">
+      <a href="security/data-at-rest-encryption.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3051,7 +3272,7 @@
   
   
     <li class="md-nav__item">
-      <a href="using-keyring-plugin.html" class="md-nav__link">
+      <a href="security/using-keyring-plugin.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3107,7 +3328,7 @@
   
   
     <li class="md-nav__item">
-      <a href="using-kmip.html" class="md-nav__link">
+      <a href="security/using-kmip.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3127,7 +3348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="using-amz-kms.html" class="md-nav__link">
+      <a href="security/using-amz-kms.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3147,7 +3368,7 @@
   
   
     <li class="md-nav__item">
-      <a href="encrypting-tables.html" class="md-nav__link">
+      <a href="security/encrypting-tables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3167,7 +3388,7 @@
   
   
     <li class="md-nav__item">
-      <a href="encrypting-tablespaces.html" class="md-nav__link">
+      <a href="security/encrypting-tablespaces.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3187,7 +3408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="encrypting-system-tablespace.html" class="md-nav__link">
+      <a href="security/encrypting-system-tablespace.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3207,7 +3428,7 @@
   
   
     <li class="md-nav__item">
-      <a href="encrypting-temporary-files.html" class="md-nav__link">
+      <a href="security/encrypting-temporary-files.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3227,7 +3448,7 @@
   
   
     <li class="md-nav__item">
-      <a href="encrypting-binlogs.html" class="md-nav__link">
+      <a href="security/encrypting-binlogs.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3247,7 +3468,7 @@
   
   
     <li class="md-nav__item">
-      <a href="encrypting-redo-log.html" class="md-nav__link">
+      <a href="security/encrypting-redo-log.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3267,7 +3488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="encrypting-undo-tablespace.html" class="md-nav__link">
+      <a href="security/encrypting-undo-tablespace.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3287,7 +3508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="rotating-master-key.html" class="md-nav__link">
+      <a href="security/rotating-master-key.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3307,7 +3528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="encrypting-threads.html" class="md-nav__link">
+      <a href="security/encrypting-threads.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3327,7 +3548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="encrypting-doublewrite-buffers.html" class="md-nav__link">
+      <a href="security/encrypting-doublewrite-buffers.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3347,7 +3568,7 @@
   
   
     <li class="md-nav__item">
-      <a href="verifying-encryption.html" class="md-nav__link">
+      <a href="security/verifying-encryption.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3431,7 +3652,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../replication/group-replication-flow-control.html" class="md-nav__link">
+      <a href="replication/group-replication-flow-control.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3451,7 +3672,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../replication/group-replication-system-variables.html" class="md-nav__link">
+      <a href="replication/group-replication-system-variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3519,7 +3740,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../management/audit_log_plugin.html" class="md-nav__link">
+      <a href="management/audit_log_plugin.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3539,7 +3760,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../performance/jemalloc-profiling.html" class="md-nav__link">
+      <a href="performance/jemalloc-profiling.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3559,7 +3780,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../diagnostics/user_stats.html" class="md-nav__link">
+      <a href="diagnostics/user_stats.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3579,7 +3800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../diagnostics/slow_extended.html" class="md-nav__link">
+      <a href="diagnostics/slow_extended.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3599,7 +3820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../diagnostics/process_list.html" class="md-nav__link">
+      <a href="diagnostics/process_list.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3619,7 +3840,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../diagnostics/misc_info_schema_tables.html" class="md-nav__link">
+      <a href="diagnostics/misc_info_schema_tables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3687,7 +3908,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../advisors.html" class="md-nav__link">
+      <a href="advisors.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3707,7 +3928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reliability/log_connection_error.html" class="md-nav__link">
+      <a href="reliability/log_connection_error.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3727,7 +3948,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reliability/innodb_corrupt_table_action.html" class="md-nav__link">
+      <a href="reliability/innodb_corrupt_table_action.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3747,7 +3968,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../diagnostics/thread_based_profiling.html" class="md-nav__link">
+      <a href="diagnostics/thread_based_profiling.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3767,7 +3988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../diagnostics/stacktrace.html" class="md-nav__link">
+      <a href="diagnostics/stacktrace.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3787,7 +4008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../diagnostics/libcoredumper.html" class="md-nav__link">
+      <a href="diagnostics/libcoredumper.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3891,7 +4112,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../percona_xtradb.html" class="md-nav__link">
+      <a href="percona_xtradb.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3911,7 +4132,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../flexibility/improved_memory_engine.html" class="md-nav__link">
+      <a href="flexibility/improved_memory_engine.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3931,7 +4152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../scalability/innodb_io.html" class="md-nav__link">
+      <a href="scalability/innodb_io.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3951,7 +4172,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../management/enforce_engine.html" class="md-nav__link">
+      <a href="management/enforce_engine.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3971,7 +4192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../diagnostics/innodb_show_status.html" class="md-nav__link">
+      <a href="diagnostics/innodb_show_status.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3991,7 +4212,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../diagnostics/show_engines.html" class="md-nav__link">
+      <a href="diagnostics/show_engines.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4011,7 +4232,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../flexibility/compressed_columns.html" class="md-nav__link">
+      <a href="flexibility/compressed_columns.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4031,7 +4252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../flexibility/innodb_fts_improvements.html" class="md-nav__link">
+      <a href="flexibility/innodb_fts_improvements.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4051,7 +4272,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../management/changed_page_tracking.html" class="md-nav__link">
+      <a href="management/changed_page_tracking.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4071,7 +4292,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.html" class="md-nav__link">
+      <a href="performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4091,7 +4312,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../performance/aio_page_requests.html" class="md-nav__link">
+      <a href="performance/aio_page_requests.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4111,7 +4332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../performance/prefix_index_queries_optimization.html" class="md-nav__link">
+      <a href="performance/prefix_index_queries_optimization.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4131,7 +4352,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../performance/query_limit_records.html" class="md-nav__link">
+      <a href="performance/query_limit_records.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4151,7 +4372,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../diagnostics/innodb_fragmentation_count.html" class="md-nav__link">
+      <a href="diagnostics/innodb_fragmentation_count.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4215,7 +4436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../myrocks/index.html" class="md-nav__link">
+      <a href="myrocks/index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4235,7 +4456,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../myrocks/install.html" class="md-nav__link">
+      <a href="myrocks/install.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4255,7 +4476,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../myrocks/added-features.html" class="md-nav__link">
+      <a href="myrocks/added-features.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4275,7 +4496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../myrocks/limitations.html" class="md-nav__link">
+      <a href="myrocks/limitations.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4295,7 +4516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../myrocks/differences.html" class="md-nav__link">
+      <a href="myrocks/differences.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4315,7 +4536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../myrocks/information-schema-tables.html" class="md-nav__link">
+      <a href="myrocks/information-schema-tables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4335,7 +4556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../myrocks/variables.html" class="md-nav__link">
+      <a href="myrocks/variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4355,7 +4576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../myrocks/status_variables.html" class="md-nav__link">
+      <a href="myrocks/status_variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4375,7 +4596,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../myrocks/gap_locks_detection.html" class="md-nav__link">
+      <a href="myrocks/gap_locks_detection.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4395,7 +4616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../myrocks/data_loading.html" class="md-nav__link">
+      <a href="myrocks/data_loading.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4415,7 +4636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../myrocks/zenfs.html" class="md-nav__link">
+      <a href="myrocks/zenfs.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4479,7 +4700,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/tokudb_intro.html" class="md-nav__link">
+      <a href="tokudb/tokudb_intro.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4499,7 +4720,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/tokudb_installation.html" class="md-nav__link">
+      <a href="tokudb/tokudb_installation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4519,7 +4740,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/using_tokudb.html" class="md-nav__link">
+      <a href="tokudb/using_tokudb.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4539,7 +4760,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/fast_updates.html" class="md-nav__link">
+      <a href="tokudb/fast_updates.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4559,7 +4780,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/tokudb_files_and_file_types.html" class="md-nav__link">
+      <a href="tokudb/tokudb_files_and_file_types.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4579,7 +4800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/tokudb_file_management.html" class="md-nav__link">
+      <a href="tokudb/tokudb_file_management.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4599,7 +4820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/tokudb_background_analyze_table.html" class="md-nav__link">
+      <a href="tokudb/tokudb_background_analyze_table.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4619,7 +4840,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/tokudb_variables.html" class="md-nav__link">
+      <a href="tokudb/tokudb_variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4639,7 +4860,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/tokudb_status_variables.html" class="md-nav__link">
+      <a href="tokudb/tokudb_status_variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4659,7 +4880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/tokudb_fractal_tree_indexing.html" class="md-nav__link">
+      <a href="tokudb/tokudb_fractal_tree_indexing.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4679,7 +4900,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/tokudb_troubleshooting.html" class="md-nav__link">
+      <a href="tokudb/tokudb_troubleshooting.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4699,7 +4920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/tokudb_performance_schema.html" class="md-nav__link">
+      <a href="tokudb/tokudb_performance_schema.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4719,7 +4940,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/tokudb_faq.html" class="md-nav__link">
+      <a href="tokudb/tokudb_faq.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4739,7 +4960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/removing_tokudb.html" class="md-nav__link">
+      <a href="tokudb/removing_tokudb.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4759,7 +4980,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokudb/toku_backup.html" class="md-nav__link">
+      <a href="tokudb/toku_backup.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4835,7 +5056,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ps-variables.html" class="md-nav__link">
+      <a href="ps-variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4855,7 +5076,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ps-versions-comparison.html" class="md-nav__link">
+      <a href="ps-versions-comparison.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4875,7 +5096,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../feature_comparison.html" class="md-nav__link">
+      <a href="feature_comparison.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4895,7 +5116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../server-version-numbers.html" class="md-nav__link">
+      <a href="server-version-numbers.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4915,7 +5136,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development.html" class="md-nav__link">
+      <a href="development.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4935,7 +5156,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../trademark-policy.html" class="md-nav__link">
+      <a href="trademark-policy.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4955,7 +5176,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../index_info_schema_tables.html" class="md-nav__link">
+      <a href="index_info_schema_tables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4975,7 +5196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../faq.html" class="md-nav__link">
+      <a href="faq.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4995,7 +5216,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../copyright-and-licensing-information.html" class="md-nav__link">
+      <a href="copyright-and-licensing-information.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5015,7 +5236,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../glossary.html" class="md-nav__link">
+      <a href="glossary.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5072,50 +5293,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installing-the-plugin" class="md-nav__link">
-    Installing the plugin
+  <a href="#install-the-component" class="md-nav__link">
+    Install the component
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#data-masking-functions" class="md-nav__link">
-    Data masking functions
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#general-purpose" class="md-nav__link">
-    General purpose
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#special-purpose" class="md-nav__link">
-    Special Purpose
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#generate-random-data-for-specific-requirements" class="md-nav__link">
-    Generate random data for specific requirements
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#use-dictionaries-to-generate-random-terms" class="md-nav__link">
-    Use dictionaries to generate random terms
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#uninstalling-the-plugin" class="md-nav__link">
-    Uninstalling the plugin
+  <a href="#useful-links" class="md-nav__link">
+    Useful links
   </a>
   
 </li>
@@ -5138,14 +5324,14 @@
                   
                   
                   <a
-                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/security/data-masking.md"
+                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/install-data-masking-component.md"
                     title="edit.link.title"
                     class="md-content__button md-icon"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
                   </a>
                   <a
-                    href="https://raw.githubusercontent.com/percona/psmysql-docs/8.0/docs/security/data-masking.md"
+                    href="https://raw.githubusercontent.com/percona/psmysql-docs/8.0/docs/install-data-masking-component.md"
                     title="View source of this page"
                     class="md-content__button md-icon"
                   >
@@ -5161,350 +5347,57 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="data-masking">Data masking<a class="headerlink" href="#data-masking" title="Permanent link">&para;</a></h1>
-<p>This feature was implemented in <em>Percona Server for MySQL</em> version Percona Server for MySQL 8.0.17-8.</p>
-<p>The Percona Data Masking plugin is a free and Open Source implementation of the
-<em>MySQL</em>’s data masking plugin. Data Masking provides a set of functions to hide
-sensitive data with modified content.</p>
-<p>Data masking can have either of the characteristics:</p>
-<ul>
-<li>
-<p>Generation of random data, such as an email address</p>
-</li>
-<li>
-<p>De-identify data by transforming the data to hide content</p>
-</li>
-</ul>
-<h3 id="installing-the-plugin">Installing the plugin<a class="headerlink" href="#installing-the-plugin" title="Permanent link">&para;</a></h3>
-<p>The following command installs the plugin:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>data_masking<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">&#39;data_masking.so&#39;</span><span class="p">;</span>
-</code></pre></div>
-<h3 id="data-masking-functions">Data masking functions<a class="headerlink" href="#data-masking-functions" title="Permanent link">&para;</a></h3>
-<p>The data masking functions have the following categories:</p>
-<ul>
-<li>
-<p>General purpose</p>
-</li>
-<li>
-<p>Special purpose</p>
-</li>
-<li>
-<p>Generating Random Data with Defined characteristics</p>
-</li>
-<li>
-<p>Using Dictionaries to Generate Random Data</p>
-</li>
-</ul>
-<h3 id="general-purpose">General purpose<a class="headerlink" href="#general-purpose" title="Permanent link">&para;</a></h3>
-<p>The general purpose data masking functions are the following:</p>
-<table style="width=100%">
-    <tr>
-        <td  style="width:40%">Parameter</td>
-        <td>Description</td>
-    </tr>
-    <tr> 
-        <td> mask_inner(string, margin1, margin2 [, character])</td>
-        <td>Returns a result where only the inner part of a string is masked. An optional masking character can be specified.</td>
-    </tr>
-    <tr>
-        <td>mask_outer(string, margin1, margin2 [, character])</td>
-        <td>Masks the outer part of the string. The inner section is not masked.</td
-</td>
-    </tr>
-</table>
-
-<h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
-<p>An example of <code>mask_inner</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_inner<span class="o">(</span><span class="s1">&#39;123456789&#39;</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------------------------------+
-| mask_inner(&#39;123456789&#39;, 1, 2)     |
-+-----------------------------------+
-|1XXXXXX89                          |
-+-----------------------------------+
-</code></pre></div>
-</details>
-<p>An example of <code>mask_outer</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_outer<span class="o">(</span><span class="s1">&#39;123456789&#39;</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span><span class="w"> </span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
-| mask_outer(&#39;123456789&#39;, 2, 2).     |
-+------------------------------------+
-| XX34567XX                          |
-+------------------------------------+
-</code></pre></div>
-</details>
-<h3 id="special-purpose">Special Purpose<a class="headerlink" href="#special-purpose" title="Permanent link">&para;</a></h3>
-<p>The special purpose data masking functions are as follows:</p>
-<table>
-    <tr>
-        <td>Parameter</td>
-        <td>Description</td>
-
-    </tr>
-    <tr>
-        <td>mask_pan(string)</td>
-        <td>Masks the Primary Account Number (PAN) by replacing the
-string with an “X” except for the last four characters. The PAN string must be 15 characters or 16 characters in length.</td>
-
-    </tr>
-    <tr>
-        <td>mask_pan_relaxed(string)</td>
-        <td>Returns the first six numbers and the last four numbers. The rest of
-the string is replaced by “X”.</td>
-
-    </tr>
-    <tr>
-        <td>mask_ssn(string)</td>
-        <td>Returns a string with only the last four numbers visible. The rest
-of the string is replaced by “X”.</td>
-            </tr>
-</table>
-
-<h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
-<p>An example of <code>mask_pan</code>.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_pan<span class="w"> </span><span class="o">(</span>gen_rnd_pan<span class="o">())</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
-| mask_pan(gen_rnd_pan())            |
-+------------------------------------+
-| XXXXXXXXXXX2345                    |
-+------------------------------------+
-</code></pre></div>
-</details>
-<p>An example of <code>mask_pan_relaxed</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_pan_relaxed<span class="o">(</span>gen_rnd_pan<span class="o">())</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------+
-| mask_pan_relaxed(gen_rnd_pan())          |
-+------------------------------------------+
-| 520754XXXXXX4848                         |
-+------------------------------------------+
-</code></pre></div>
-</details>
-<p>An example of <code>mask_ssn</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_ssn<span class="o">(</span><span class="s1">&#39;555-55-5555&#39;</span><span class="o">)</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------------+
-| mask_ssn(&#39;555-55-5555&#39;) |
-+-------------------------+
-| XXX-XX-5555             |
-+-------------------------+
-</code></pre></div>
-</details>
-<h3 id="generate-random-data-for-specific-requirements">Generate random data for specific requirements<a class="headerlink" href="#generate-random-data-for-specific-requirements" title="Permanent link">&para;</a></h3>
-<p>These functions generate random values for specific requirements.</p>
-<table style="width=100%">
-    <tr>
-        <td style="width:25%">Parameter</td>
-        <td>Description</td>
-    </tr>
-    <tr>
-        <td>gen_range(lower, upper)</td>
-        <td>Generates a random number based on a selected range and supports negative numbers.</td>
-           </tr>
-    <tr>
-        <td>gen_rnd_email()</td>
-        <td>Generates a random email address. The domain is example.com.</td>
-            </tr>
-    <tr>
-        <td>gen_rnd_pan([size in integer])</td>
-        <td>Generates a random primary account number. This function should only be used for test purposes.</td>
-            </tr>
-    <tr>
-        <td>gen_rnd_us_phone()</td>
-        <td>Generates a random U.S. phone number. The generated number adds the
-1 dialing code and is in the 555 area code. The 555 area code
-is not valid for any U.S. phone number.</td>
-            </tr>
-    <tr>
-        <td>gen_rnd_ssn()</td>
-        <td>Generates a random, non-legitimate US Social Security Number in an AAA-BBB-CCCC format. This function should only be used for test purposes.</td>
-           </tr>
-</table>
-
-<h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
-<p>An example of <code>gen_range(lower, upper)</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_range<span class="o">(</span><span class="m">10</span>,<span class="w"> </span><span class="m">100</span><span class="o">)</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
-| gen_range(10,100)                    |
-+--------------------------------------+
-| 56                                   |
-+--------------------------------------+
-</code></pre></div>
-</details>
-<p>An example of <code>gen_range(lower, upper)</code> with negative numbers:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_range<span class="o">(</span>-100,-80<span class="o">)</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
-| gen_range(-100,-80)                  |
-+--------------------------------------+
-| -91                                  |
-+--------------------------------------+
-</code></pre></div>
-</details>
-<p>An example of <code>gen_rnd_email()</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_email<span class="o">()</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------------------------+
-| gen_rnd_email()                       |
-+---------------------------------------+
-| sma.jrts@example.com                  |
-+---------------------------------------+
-</code></pre></div>
-</details>
-<p>An example of <code>mask_pan(gen_rnd_pan())</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_pan<span class="o">(</span>gen_rnd_pan<span class="o">())</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------+
-| mask_pan(gen_rnd_pan())             |
-+-------------------------------------+
-| XXXXXXXXXXXX4444                    |
-+-------------------------------------+
-</code></pre></div>
-</details>
-<p>An example of <code>gen_rnd_us_phone()</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_us_phone<span class="o">()</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------------------+
-| gen_rnd_us_phone()            |
-+-------------------------------+
-| 1-555-635-5709                |
-+-------------------------------+
-</code></pre></div>
-</details>
-<p>An example of <code>gen_rnd_ssn()</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_ssn<span class="o">()</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------------------------+
-| gen_rnd_ssn()               |
-+-----------------------------+
-| 995-33-5656                 |
-+-----------------------------+
-</code></pre></div>
-</details>
-<h3 id="use-dictionaries-to-generate-random-terms">Use dictionaries to generate random terms<a class="headerlink" href="#use-dictionaries-to-generate-random-terms" title="Permanent link">&para;</a></h3>
-<p>Use a selected dictionary to generate random terms. The dictionary must be loaded from a file with the following characteristics:</p>
-<ul>
-<li>
-<p>Plain text</p>
-</li>
-<li>
-<p>One term per line</p>
-</li>
-<li>
-<p>Must contain at least one entry</p>
-</li>
-</ul>
-<p>Copy the dictionary files to a directory accessible to MySQL. The <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_secure_file_priv">secure-file-priv</a> option defines the directories where gen_dictionary_load() loads the dictionary files.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><em>Percona Server for MySQL</em> 8.0.21-12 enabled using the <code>secure-file-priv</code> option for gen_dictionary_load().</p>
+                <h1 id="install-the-data-masking-component">Install the data masking component<a class="headerlink" href="#install-the-data-masking-component" title="Permanent link">&para;</a></h1>
+<p>Percona Server for MySQL 8.0.34 adds the data masking component. Percona Server for MySQL also has the <a href="install-data-masking-plugin.html">Data Masking plugin</a>. </p>
+<div class="admonition admonition">
+<p class="admonition-title">Useful link</p>
+<p>Compare the <a href="data-masking-comparison.html">data masking component and the data masking plugin</a></p>
 </div>
-<table style="width:100%">
-    <tr>
-        <td>Parameter</td>
-        <td>Description</td>
-        <td style="width:30%">Returns</td>
-
-    </tr>
-    <tr>
-        <td>gen_blacklist(str, dictionary_name, replacement_dictionary_name)</td>
-        <td>Replaces a term with a term from a second dictionary.</td>
-        <td>A dictionary term</td>
-           </tr>
-    <tr>
-        <td>gen_dictionary(dictionary_name)</td>
-        <td>Randomizes the dictionary terms</td>
-        <td>A random term from the selected dictionary.</td>
-
-    </tr>
-    <tr>
-        <td>gen_dictionary_drop(dictionary_name)</td>
-        <td>Removes the selected dictionary from the dictionary registry.</td>
-        <td>Either success or failure</td>
-            </tr>
-    <tr>
-        <td>gen_dictionary_load(dictionary path, dictionary name)</td>
-        <td>Loads a file into the dictionary registry and configures the dictionary name. The name can be used with any function. If the dictionary is edited, you must drop and then reload the dictionary to view the changes.</td>
-        <td>Either success or failure</td>
-            </tr>
-</table>
-
-<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
-<p>An example of <code>gen_blacklist()</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_blacklist<span class="o">(</span><span class="s1">&#39;apple&#39;</span>,<span class="w"> </span><span class="s1">&#39;fruit&#39;</span>,<span class="w"> </span><span class="s1">&#39;nut&#39;</span><span class="o">)</span><span class="p">;</span>
+<p>Before installing the component, you must <a href="install-data-masking-plugin.html#uninstall-the-plugin">uninstall the data masking plugin and all of the functions</a>. The removal avoids conflicts.</p>
+<p>The component has the following parts:</p>
+<ul>
+<li>A database server system table used to store the terms and dictionaries</li>
+<li>A <code>component_masking_functions</code> component that contains the loadable functions</li>
+</ul>
+<p>The <code>MASKING_DICTIONARIES_ADMIN</code> privilege may be required by some functions.</p>
+<h2 id="install-the-component">Install the component<a class="headerlink" href="#install-the-component" title="Permanent link">&para;</a></h2>
+<p>The following steps install the component:</p>
+<ol>
+<li>
+<p>Create <code>masking_dictionaries</code>.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>IF<span class="w"> </span>NOT<span class="w"> </span>EXISTS
+mysql.masking_dictionaries<span class="o">(</span>
+<span class="w">    </span>Dictionary<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">256</span><span class="o">)</span><span class="w"> </span>NOT<span class="w"> </span>NULL,
+<span class="w">    </span>Term<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">256</span><span class="o">)</span><span class="w"> </span>NOT<span class="w"> </span>NULL,
+<span class="w">    </span>UNIQUE<span class="w"> </span>INDEX<span class="w"> </span>dictionary_term_idx<span class="w"> </span><span class="o">(</span>Dictionary,<span class="w"> </span>Term<span class="o">)</span>
+<span class="o">)</span><span class="w"> </span><span class="nv">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>InnoDB<span class="w"> </span>DEFAULT<span class="w"> </span><span class="nv">CHARSET</span><span class="o">=</span>utf8mb4<span class="p">;</span>
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------+
-| gen_blacklist(&#39;apple&#39;, &#39;fruit&#39;, &#39;nut&#39;)  |
-+-----------------------------------------+
-| walnut                                  |
-+-----------------------------------------+
+</li>
+<li>
+<p>Install the data masking components and the loadable functions.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_masking_functions&#39;</span><span class="p">;</span>
 </code></pre></div>
-</details>
-<p>An example of <code>gen_dictionary()</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_dictionary<span class="o">(</span><span class="s1">&#39;trees&#39;</span><span class="o">)</span><span class="p">;</span>
+</li>
+<li>
+<p>The <code>MASKING_DICTIONARIES_ADMIN</code> is required to use the the following functions:</p>
+<ul>
+<li>
+<p><code>masking_dictionary_term_add</code></p>
+</li>
+<li>
+<p><code>masking_dictionary_term_remove</code></p>
+</li>
+<li>
+<p><code>masking_dictionary_remove</code></p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>MASKING_DICTIONARIES_ADMIN<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span>&lt;user&gt;<span class="p">;</span>
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------------------+
-| gen_dictionary(&#39;trees&#39;)                          |
-+--------------------------------------------------+
-| Norway spruce                                    |
-+--------------------------------------------------+
-</code></pre></div>
-</details>
-<p>An example of <code>gen_dictionary_drop()</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_dictionary_drop<span class="o">(</span><span class="s1">&#39;mytestdict&#39;</span><span class="o">)</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------+
-| gen_dictionary_drop(&#39;mytestdict&#39;)   |
-+-------------------------------------+
-| Dictionary removed                  |
-+-------------------------------------+
-</code></pre></div>
-</details>
-<p>An example of <code>gen_dictionary_load(path, name)</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_dictionary_load<span class="o">(</span><span class="s1">&#39;/usr/local/mysql/dict-files/testdict&#39;</span>,<span class="w"> </span><span class="s1">&#39;testdict&#39;</span><span class="o">)</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------------------------+
-| gen_dictionary_load(&#39;/usr/local/mysql/mysql/dict-files/testdict&#39;, &#39;testdict&#39;) |
-+-------------------------------------------------------------------------------+
-| Dictionary load successfully                                                  |
-+-------------------------------------------------------------------------------+
-</code></pre></div>
-</details>
-<h3 id="uninstalling-the-plugin">Uninstalling the plugin<a class="headerlink" href="#uninstalling-the-plugin" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://dev.mysql.com/doc/refman/8.0/en/uninstall-plugin.html">UNINSTALL PLUGIN</a> statement disables and uninstalls the plugin.</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="useful-links">Useful links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
+<p><a href="uninstall-data-masking-component.html">Uninstall the data masking component</a></p>
+<p><a href="data-masking-function-list.html">Data masking component functions</a></p>
 
                 
 <div class="md-relbar2__inner md-grid">
@@ -5527,7 +5420,7 @@ is not valid for any U.S. phone number.</td>
   <small>
     
       Last update:
-      2023-01-12
+      2023-09-26
     
   </small>
 </div>
@@ -5649,14 +5542,14 @@ is not valid for any U.S. phone number.</td>
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "../assets/javascripts/workers/search.a264c092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.a264c092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.726fbb30.min.js"></script>
+      <script src="assets/javascripts/bundle.726fbb30.min.js"></script>
       
-        <script src="../js/version-select.js"></script>
+        <script src="js/version-select.js"></script>
       
-        <script src="../js/promptremover.js"></script>
+        <script src="js/promptremover.js"></script>
       
     
   </body>

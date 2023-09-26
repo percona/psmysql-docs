@@ -1,0 +1,8136 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="The feature is in tech preview.">
+      
+      
+        <meta name="author" content="Percona LLC">
+      
+      
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/data-masking-function-list.html">
+      
+      
+        <link rel="prev" href="install-data-masking-component.html">
+      
+      
+        <link rel="next" href="uninstall-data-masking-component.html">
+      
+      
+      <link rel="icon" href="_static/percona-favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.2">
+    
+    
+      
+        <title>Data masking component functions - Percona Server for MySQL</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.d451bc0e.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.a5377069.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.3/css/line.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="css/percona.css">
+    
+      <link rel="stylesheet" href="css/nocopy.css/">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+              <!-- Google Tag Manager -->
+              <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-WBVF48V');</script>
+              <!-- End Google Tag Manager -->
+
+              <!-- Google Tag Manager (noscript) -->
+              <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBVF48V"
+              height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+              <!-- End Google Tag Manager (noscript) -->
+              
+    
+    
+               
+                 
+                 
+                 
+                 
+                 <meta property="og:type" content="website" />
+                 <meta property="og:title" content="Percona Server for MySQL - Data masking component functions" />
+                 <meta property="og:url" content="https://docs.percona.com/percona-server/8.0/" />
+                 <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png" />
+              
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="percona-light" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-masking-component-functions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://docs.percona.com" title="Percona Server for MySQL" class="md-header__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
+      
+  <img src="_static/percona-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Percona Server for MySQL
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data masking component functions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/percona/psmysql-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/psmysql-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://docs.percona.com" title="Percona Server for MySQL" class="md-nav__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
+      
+  <img src="_static/percona-logo.svg" alt="logo">
+
+    </a>
+    Percona Server for MySQL
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/percona/psmysql-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/psmysql-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Release notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Release notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/release-notes_index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release notes index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/8.0.33-25.upd.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.33-25 Update (2023-08-02)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/8.0.33-25.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.33-25 (2023-06-15)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/8.0.32-24.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.32-24 (2023-03-20)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/8.0.31-23.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.31-23 (2023-02-09)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2022 (versions 8.0.30-22 to 8.0.26-17)
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            2022 (versions 8.0.30-22 to 8.0.26-17)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/8.0.30-22.upd.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.30-22 Update (2022-11-21)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/8.0.30-22.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.30-22 (2022-11-21)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/8.0.29-21.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.29-21 (2022-08-08)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.28-20.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.28-20 (2022-06-20)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.28-19.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.28-19 (2022-05-12)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.27-18.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.27-18 (2022-03-02)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.26-17.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.26-17 (2022-01-26)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2021 (versions 8.0.26-16 to 8.0.23-14)
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            2021 (versions 8.0.26-16 to 8.0.23-14)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.26-16.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.26-16 (2021-10-20)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.25-15.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.25-15 (2021-07-13)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.23-14.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.23-14 (2021-05-12)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2020 (versions 8.0.22-13 to 8.0.19-10)
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            2020 (versions 8.0.22-13 to 8.0.19-10)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.22-13.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.22-13 (2020-12-14)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.21-12.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.21-12 (2020-10-13)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.20-11.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.20-11 (2020-07-21)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.19-10.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.19-10 (2020-03-23)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2019 (versions 8.0.18-9 to 8.0.13-4)
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            2019 (versions 8.0.18-9 to 8.0.13-4)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.18-9.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.18-9
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.17-8.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.17-8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.16-7.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.16-7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.15-6.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.15-6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.15-5.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.15-5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.14.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.14
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.13-4.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.13-4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2018 (versions 8.0.13-3 to 8.0.12-2rc1)
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            2018 (versions 8.0.13-3 to 8.0.12-2rc1)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.13-3.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.13-3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.12-2rc1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.0.12-2rc1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+
+
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flexibility/binlog_space.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Limiting the disk space used by binary log files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flexibility/extended_mysqlbinlog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extended mysqlbinlog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flexibility/slowlog_rotation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slow query log rotation and expiration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flexibility/extended_select_into_outfile.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extended SELECT INTO OUTFILE/DUMPFILE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flexibility/proxy_protocol_support.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support for PROXY protocol
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flexibility/sequence_table.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SEQUENCE_TABLE(n) function
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flexibility/trigger-updates.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trigger updates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="management/innodb_expanded_fast_index_creation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Expanded fast index creation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="management/kill_idle_trx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kill idle transactions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="management/udf_percona_toolkit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Toolkit UDFs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="management/utility_user.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utility user
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="performance/procfs-plugin.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The ProcFS plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="performance/adaptive_network_buffers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Adaptive network buffers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="performance/threadpool.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Thread pool
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+
+
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quickstart guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Quickstart guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart-overview.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart guide for Percona Server for MySQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+
+
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Install
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Install
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install Percona Server for MySQL from repositories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Use APT
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Use APT
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/apt-repo.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use APT repositories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/apt-files.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Files in DEB package
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/build-apt-packages.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Build APT packages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/apt-download-deb.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Downloaded DEB packages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/apt-pinning.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apt pinning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/apt-run.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Run Percona Server for MySQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/apt-uninstall-server.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Uninstall
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Use YUM
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Use YUM
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/yum-repo.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use RPM repositories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/yum-files.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Files in RPM package
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/yum-download-rpm.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Downloaded RPM packages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/yum-run.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Run Percona Server for MySQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/yum-uninstall.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Uninstall
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Use binary tarballs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Use binary tarballs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/binary-tarball-install.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install with binary tarballs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/binary-tarball-names.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binary tarballs available
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Compile from source
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Compile from source
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/source-tarball.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install Percona Server for MySQL from a source tarball
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/compile-percona-server.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compile Percona Server for MySQL 8.0 from source
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Docker
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            Docker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/docker.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install using Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/docker-config.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker environment variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+
+
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Upgrade
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Upgrade
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="upgrading_guide.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="upgrading_using_percona_repos.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade using the Percona repositories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="upgrading_tokudb_myrocks.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade from systems that use the MyRocks or TokuDB storage engine and partitioned tables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="upgrading_using_standalone_packages.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade using Standalone Packages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="downgrade.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Downgrade
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+
+
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Post-Installation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Post-Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flexibility/binlogging_replication_improvements.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binary logs and replication improvements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/post-installation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Post-installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/apparmor.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Working with AppArmor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/selinux.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Working with SELinux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+
+
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Manage
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Manage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="management/extended_show_grants.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extended SHOW GRANTS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+
+
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Back up and restore
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Back up and restore
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="backup-restore-overview.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backup and restore overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="backup-locks.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backup locks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="extended-mysqldump.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extended mysqldump
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="start-transaction-with-consistent-snapshot.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Start transaction with consistent snapshot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+
+
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Secure
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Secure
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_1" id="__nav_10_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    LDAP features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_1">
+            <span class="md-nav__icon md-icon"></span>
+            LDAP features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/ldap-authentication.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using LDAP authentication plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/ldap-system-variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LDAP authentication plugin system variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10_2" id="__nav_10_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data masking
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10_2">
+            <span class="md-nav__icon md-icon"></span>
+            Data masking
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data-masking-overview.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data masking overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data-masking-comparison.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compare the data masking component to the data masking plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10_2_3" id="__nav_10_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data masking component
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data masking component
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install-data-masking-component.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install the data masking component
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Data masking component functions
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="data-masking-function-list.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Data masking component functions
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gen_blockliststr-from_dictionary_name-to_dictionary_name" class="md-nav__link">
+    gen_blocklist(str, from_dictionary_name, to_dictionary_name)
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_blocklist(str, from_dictionary_name, to_dictionary_name)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_dictionarydictionary_name" class="md-nav__link">
+    gen_dictionary(dictionary_name)
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_dictionary(dictionary_name)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_1" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_1" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rangelower-upper" class="md-nav__link">
+    gen_range(lower, upper)
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_range(lower, upper)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_2" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_2" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_canada_sin" class="md-nav__link">
+    gen_rnd_canada_sin()
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_canada_sin()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_3" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_3" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_3" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_emailname_size-surname_size-domain" class="md-nav__link">
+    gen_rnd_email([name_size, surname_size, domain])
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_email([name_size, surname_size, domain])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_4" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_4" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_4" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_ibancountry-size" class="md-nav__link">
+    gen_rnd_iban([country, size])
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_iban([country, size])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_5" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_5" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_5" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_pan" class="md-nav__link">
+    gen_rnd_pan()
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_pan()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_6" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_6" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_6" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_ssn" class="md-nav__link">
+    gen_rnd_ssn()
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_ssn()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_7" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_7" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_7" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_uk_nin" class="md-nav__link">
+    gen_rnd_uk_nin()
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_uk_nin()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_8" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_8" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_8" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_us_phone" class="md-nav__link">
+    gen_rnd_us_phone()
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_us_phone()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_9" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_9" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_9" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_uuid" class="md-nav__link">
+    gen_rnd_uuid()
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_uuid()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_10" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_10" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_10" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_canada_sinstr-mask_char" class="md-nav__link">
+    mask_canada_sin(str [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_canada_sin(str [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_11" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_11" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_11" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_ibanstr-mask_char" class="md-nav__link">
+    mask_iban(str [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_iban(str [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_12" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_12" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_12" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_innerstr-margin1-margin2-mask_char" class="md-nav__link">
+    mask_inner(str, margin1, margin2 [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_inner(str, margin1, margin2 [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_13" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_13" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_13" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_outerstr-margin1-margin2-mask_char" class="md-nav__link">
+    mask_outer(str, margin1, margin2 [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_outer(str, margin1, margin2 [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_14" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_14" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_14" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_panstr-mask_char" class="md-nav__link">
+    mask_pan(str [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_pan(str [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_15" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_15" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_15" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_pan_relaxedstr-mask_char" class="md-nav__link">
+    mask_pan_relaxed(str [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_pan_relaxed(str [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_16" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_16" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_16" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_ssnstr-mask_char" class="md-nav__link">
+    mask_ssn(str [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_ssn(str [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_17" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_17" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_17" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_uk_ninstr-mask_char" class="md-nav__link">
+    mask_uk_nin(str [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_uk_nin(str [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_18" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_18" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_18" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_uuidstr-mask_char" class="md-nav__link">
+    mask_uuid(str [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_uuid(str [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_19" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_19" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_19" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#masking_dictionary_removedictionary_name" class="md-nav__link">
+    masking_dictionary_remove(dictionary_name)
+  </a>
+  
+    <nav class="md-nav" aria-label="masking_dictionary_remove(dictionary_name)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_20" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_20" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_20" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#masking_dictionary_term_adddictionary_name-term_name" class="md-nav__link">
+    masking_dictionary_term_add(dictionary_name, term_name)
+  </a>
+  
+    <nav class="md-nav" aria-label="masking_dictionary_term_add(dictionary_name, term_name)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_21" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_21" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_21" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#masking_dictionary_term_removedictionary_name-term_name" class="md-nav__link">
+    masking_dictionary_term_remove(dictionary_name, term_name)
+  </a>
+  
+    <nav class="md-nav" aria-label="masking_dictionary_term_remove(dictionary_name, term_name)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_22" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_22" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_23" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_22" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uninstall-data-masking-component.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Uninstall the component
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_2_4" id="__nav_10_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data masking plugin
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Data masking plugin
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install-data-masking-plugin.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and remove the data masking plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data-masking-plugin-functions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data masking plugin functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/pam_plugin.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PAM authentication plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/ssl-improvement.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSL improvements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/system-variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/fido-authentication-plugin.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FIDO authentication plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/encryption-functions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encryption functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_8" id="__nav_10_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data-at-rest-encryption
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_8">
+            <span class="md-nav__icon md-icon"></span>
+            Data-at-rest-encryption
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/data-at-rest-encryption.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data at Rest Encryption
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/using-keyring-plugin.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use the keyring component or keyring plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_8_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_8_3" id="__nav_10_8_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Keyring plugin and components
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_8_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_8_3">
+            <span class="md-nav__icon md-icon"></span>
+            Keyring plugin and components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/using-kmip.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using the Key Management Interoperability Protocol (KMIP)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/using-amz-kms.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use the Amazon Key Management Service (AWS KMS)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/encrypting-tables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt File-Per-Table Tablespace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/encrypting-tablespaces.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt schema or general tablespace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/encrypting-system-tablespace.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt system tablespace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/encrypting-temporary-files.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt temporary files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/encrypting-binlogs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt Binary Log Files and Relay Log Files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/encrypting-redo-log.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypting the Redo Log data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/encrypting-undo-tablespace.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt the undo tablespace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/rotating-master-key.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Rotate the master key
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/encrypting-threads.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Advanced encryption key rotation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/encrypting-doublewrite-buffers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt doublewrite buffers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security/verifying-encryption.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Verify the encryption for tables, tablespaces, and schemas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+
+
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Replicate
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Replicate
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="replication/group-replication-flow-control.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manage group replication flow control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="replication/group-replication-system-variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Group replication system variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+
+
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Monitor
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Monitor
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="management/audit_log_plugin.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Audit log plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="performance/jemalloc-profiling.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jemalloc memory allocation profiling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="diagnostics/user_stats.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="diagnostics/slow_extended.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slow query log
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="diagnostics/process_list.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Process list
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="diagnostics/misc_info_schema_tables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Misc. INFORMATION_SCHEMA tables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+
+
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Troubleshoot
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshoot
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="advisors.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use Percona Monitoring and Management (PMM) Advisors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reliability/log_connection_error.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Too many connections warning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reliability/innodb_corrupt_table_action.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handle corrupted tables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="diagnostics/thread_based_profiling.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Thread based profiling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="diagnostics/stacktrace.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stacktrace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="diagnostics/libcoredumper.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Libcoredumper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+
+
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Storage engines
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Storage engines
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_14_1" id="__nav_14_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Percona XtraDB storage engine
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_14_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14_1">
+            <span class="md-nav__icon md-icon"></span>
+            Percona XtraDB storage engine
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="percona_xtradb.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Percona XtraDB storage engine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flexibility/improved_memory_engine.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Improved MEMORY storage engine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="scalability/innodb_io.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Improved InnoDB I/O scalability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="management/enforce_engine.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Enforcing storage engine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="diagnostics/innodb_show_status.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extended show engine InnoDB status
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="diagnostics/show_engines.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Show storage engines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flexibility/compressed_columns.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compressed columns with dictionaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flexibility/innodb_fts_improvements.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    InnoDB full-text search improvements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="management/changed_page_tracking.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XtraDB changed page tracking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="performance/xtradb_performance_improvements_for_io-bound_highly-concurrent_workloads.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XtraDB performance improvements for I/O-bound highly-concurrent workloads
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="performance/aio_page_requests.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multiple page asynchronous I/O requests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="performance/prefix_index_queries_optimization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prefix index queries optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="performance/query_limit_records.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Limit the estimation of records in a Query
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="diagnostics/innodb_fragmentation_count.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    InnoDB page fragmentation counters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_14_2" id="__nav_14_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Percona MyRocks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_14_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14_2">
+            <span class="md-nav__icon md-icon"></span>
+            Percona MyRocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona MyRocks introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks/install.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona MyRocks installation guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks/added-features.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Updated supported features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks/limitations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MyRocks limitations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks/differences.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Differences between Percona MyRocks and Facebook MyRocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks/information-schema-tables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MyRocks Information Schema tables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks/variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MyRocks server variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks/status_variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MyRocks status variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks/gap_locks_detection.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gap locks detection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks/data_loading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data loading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks/zenfs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing and configuring Percona Server for MySQL with ZenFS support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_14_3" id="__nav_14_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    TokuDB
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_14_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14_3">
+            <span class="md-nav__icon md-icon"></span>
+            TokuDB
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/tokudb_intro.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/tokudb_installation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/using_tokudb.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use TokuDB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/fast_updates.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fast updates with TokuDB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/tokudb_files_and_file_types.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB files and file types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/tokudb_file_management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB file management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/tokudb_background_analyze_table.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB background ANALYZE TABLE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/tokudb_variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/tokudb_status_variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB status variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/tokudb_fractal_tree_indexing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB fractal tree indexing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/tokudb_troubleshooting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB troubleshooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/tokudb_performance_schema.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB Performance Schema integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/tokudb_faq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frequently asked questions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/removing_tokudb.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migrate and removing the TokuDB storage engine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tokudb/toku_backup.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona TokuBackup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+
+
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ps-variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    List of variables introduced in Percona Server for MySQL 8.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ps-versions-comparison.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    List of features available in Percona Server for MySQL releases
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="feature_comparison.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL feature comparison
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="server-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="development.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Development of Percona Server for MySQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="trademark-policy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trademark policy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index_info_schema_tables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index of INFORMATION_SCHEMA tables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="faq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frequently asked questions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="copyright-and-licensing-information.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Copyright and licensing information
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="glossary.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+    <br/>
+   <label class="md-nav__title" for="__drawer">
+    <a href="https://learn.percona.com/download-percona-server-8-0-manual" onclick="_gaq.push(['b._trackEvent', 'Percona Server', 'Download', 'Download Manual Percona Server']);" class="md-nav__link md-nav__link--active">
+      Download PDF
+    </a>
+  </label> 
+  </ul>
+</nav>
+
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gen_blockliststr-from_dictionary_name-to_dictionary_name" class="md-nav__link">
+    gen_blocklist(str, from_dictionary_name, to_dictionary_name)
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_blocklist(str, from_dictionary_name, to_dictionary_name)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_dictionarydictionary_name" class="md-nav__link">
+    gen_dictionary(dictionary_name)
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_dictionary(dictionary_name)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_1" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_1" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rangelower-upper" class="md-nav__link">
+    gen_range(lower, upper)
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_range(lower, upper)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_2" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_2" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_canada_sin" class="md-nav__link">
+    gen_rnd_canada_sin()
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_canada_sin()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_3" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_3" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_3" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_emailname_size-surname_size-domain" class="md-nav__link">
+    gen_rnd_email([name_size, surname_size, domain])
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_email([name_size, surname_size, domain])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_4" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_4" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_4" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_ibancountry-size" class="md-nav__link">
+    gen_rnd_iban([country, size])
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_iban([country, size])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_5" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_5" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_5" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_pan" class="md-nav__link">
+    gen_rnd_pan()
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_pan()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_6" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_6" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_6" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_ssn" class="md-nav__link">
+    gen_rnd_ssn()
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_ssn()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_7" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_7" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_7" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_uk_nin" class="md-nav__link">
+    gen_rnd_uk_nin()
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_uk_nin()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_8" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_8" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_8" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_us_phone" class="md-nav__link">
+    gen_rnd_us_phone()
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_us_phone()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_9" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_9" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_9" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gen_rnd_uuid" class="md-nav__link">
+    gen_rnd_uuid()
+  </a>
+  
+    <nav class="md-nav" aria-label="gen_rnd_uuid()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_10" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_10" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_10" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_canada_sinstr-mask_char" class="md-nav__link">
+    mask_canada_sin(str [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_canada_sin(str [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_11" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_11" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_11" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_ibanstr-mask_char" class="md-nav__link">
+    mask_iban(str [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_iban(str [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_12" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_12" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_12" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_innerstr-margin1-margin2-mask_char" class="md-nav__link">
+    mask_inner(str, margin1, margin2 [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_inner(str, margin1, margin2 [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_13" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_13" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_13" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_outerstr-margin1-margin2-mask_char" class="md-nav__link">
+    mask_outer(str, margin1, margin2 [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_outer(str, margin1, margin2 [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_14" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_14" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_14" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_panstr-mask_char" class="md-nav__link">
+    mask_pan(str [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_pan(str [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_15" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_15" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_15" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_pan_relaxedstr-mask_char" class="md-nav__link">
+    mask_pan_relaxed(str [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_pan_relaxed(str [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_16" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_16" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_16" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_ssnstr-mask_char" class="md-nav__link">
+    mask_ssn(str [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_ssn(str [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_17" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_17" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_17" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_uk_ninstr-mask_char" class="md-nav__link">
+    mask_uk_nin(str [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_uk_nin(str [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_18" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_18" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_18" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask_uuidstr-mask_char" class="md-nav__link">
+    mask_uuid(str [,mask_char])
+  </a>
+  
+    <nav class="md-nav" aria-label="mask_uuid(str [,mask_char])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_19" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_19" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_19" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#masking_dictionary_removedictionary_name" class="md-nav__link">
+    masking_dictionary_remove(dictionary_name)
+  </a>
+  
+    <nav class="md-nav" aria-label="masking_dictionary_remove(dictionary_name)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_20" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_20" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_20" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#masking_dictionary_term_adddictionary_name-term_name" class="md-nav__link">
+    masking_dictionary_term_add(dictionary_name, term_name)
+  </a>
+  
+    <nav class="md-nav" aria-label="masking_dictionary_term_add(dictionary_name, term_name)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_21" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_21" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_21" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#masking_dictionary_term_removedictionary_name-term_name" class="md-nav__link">
+    masking_dictionary_term_remove(dictionary_name, term_name)
+  </a>
+  
+    <nav class="md-nav" aria-label="masking_dictionary_term_remove(dictionary_name, term_name)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_22" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_22" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_23" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_22" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+              
+                <!-- Edit and view button -->
+                
+                  
+                  
+                  <a
+                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/data-masking-function-list.md"
+                    title="edit.link.title"
+                    class="md-content__button md-icon"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+                  </a>
+                  <a
+                    href="https://raw.githubusercontent.com/percona/psmysql-docs/8.0/docs/data-masking-function-list.md"
+                    title="View source of this page"
+                    class="md-content__button md-icon"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+                  </a>
+                
+
+                <!--
+                  Hack: check whether the content contains a h1 headline. If it
+                  doesn't, the page title (or respectively site name) is used
+                  as the main headline.
+                -->
+                
+
+                <!-- Markdown content -->
+                <h1 id="data-masking-component-functions">Data masking component functions<a class="headerlink" href="#data-masking-component-functions" title="Permanent link">&para;</a></h1>
+<p>The feature is in <a href="glossary.html#tech-preview">tech preview</a>.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Usage</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#gen_blockliststr-from_dictionary_name-to_dictionary_name"><code>gen_blocklist(str, from_dictionary_name, to_dictionary_name)</code></a></td>
+<td>Replace a term from a dictionary</td>
+</tr>
+<tr>
+<td><a href="#gen_dictionarydictionary_name"><code>gen_dictionary(dictionary_name)</code></a></td>
+<td>Returns a random term from a dictionary</td>
+</tr>
+<tr>
+<td><a href="#gen_rangelower-upper"><code>gen_range(lower, upper)</code></a></td>
+<td>Returns a number from a range</td>
+</tr>
+<tr>
+<td><a href="#gen_rnd_canada_sin"><code>gen_rnd_canada_sin()</code></a></td>
+<td>Generates a Canadian Social Insurance number</td>
+</tr>
+<tr>
+<td><a href="#gen_rnd_emailname_size-surname_size-domain"><code>gen_rnd_email([name_size, surname_size, domain])</code></a></td>
+<td>Generates an email address</td>
+</tr>
+<tr>
+<td><a href="#gen_rnd_ibancountry-size"><code>gen_rnd_iban([country, size])</code></a></td>
+<td>Generates an International Bank Account number</td>
+</tr>
+<tr>
+<td><a href="#gen_rnd_pan"><code>gen_rnd_pan()</code></a></td>
+<td>Generates a Primary account number for a payment card</td>
+</tr>
+<tr>
+<td><a href="#gen_rnd_ssn"><code>gen_rnd_ssn()</code></a></td>
+<td>Generates a US Social Security number</td>
+</tr>
+<tr>
+<td><a href="#gen_rnd_uk_nin"><code>gen_rnd_uk_nin()</code></a></td>
+<td>Generates a United Kingdom National Insurance number</td>
+</tr>
+<tr>
+<td><a href="#gen_rnd_us_phone"><code>gen_rnd_us_phone()</code></a></td>
+<td>Generates a US phone number</td>
+</tr>
+<tr>
+<td><a href="#gen_rnd_uuid"><code>gen_rnd_uuid()</code></a></td>
+<td>Generates a Universally Unique Identifier</td>
+</tr>
+<tr>
+<td><a href="#mask_canada_sinstr-mask_char"><code>mask_canada_sin(str [,mask_char])</code></a></td>
+<td>Masks the Canadian Social Insurance number</td>
+</tr>
+<tr>
+<td><a href="#mask_ibanstr-mask_char"><code>mask_iban(str [,mask_char])</code></a></td>
+<td>Masks the International Bank Account number</td>
+</tr>
+<tr>
+<td><a href="#mask_innerstr-margin1-margin2-mask_char"><code>mask_inner(str, margin1, margin2 [,mask_char])</code></a></td>
+<td>Masks the inner part of a string</td>
+</tr>
+<tr>
+<td><a href="#mask_outerstr-margin1-margin2-mask_char"><code>mask_outer(str, margin1, margin2 [,mask_char])</code></a></td>
+<td>Masks the outer part of the string</td>
+</tr>
+<tr>
+<td><a href="#mask_panstr-mask_char"><code>mask_pan(str [,mask_char])</code></a></td>
+<td>Masks the Primary Account number for a payment card</td>
+</tr>
+<tr>
+<td><a href="#mask_pan_relaxedstr-mask_char"><code>mask_pan_relaxed(str [,mask_char])</code></a></td>
+<td>Partially masks the Primary Account number for a payment card</td>
+</tr>
+<tr>
+<td><a href="#mask_ssnstr-mask_char"><code>mask_ssn(str [,mask_char])</code></a></td>
+<td>Masks the US Social Security number</td>
+</tr>
+<tr>
+<td><a href="#mask_uk_ninstr-mask_char"><code>mask_uk_nin(str [,mask_char])</code></a></td>
+<td>Masks the United Kingdom National Insurance number</td>
+</tr>
+<tr>
+<td><a href="#mask_uuidstr-mask_char"><code>mask_uuid(str [,mask_char])</code></a></td>
+<td>Masks the Universally Unique Identifier</td>
+</tr>
+<tr>
+<td><a href="#masking_dictionary_removedictionary_name"><code>masking_dictionary_remove(dictionary_name)</code></a></td>
+<td>Removes the dictionary</td>
+</tr>
+<tr>
+<td><a href="#masking_dictionary_term_adddictionary_name-term_name"><code>masking_dictionary_term_add(dictionary_name, term_name)</code></a></td>
+<td>Adds a term to the masking dictionary</td>
+</tr>
+<tr>
+<td><a href="#masking_dictionary_term_removedictionary_name-term_name"><code>masking_dictionary_term_remove(dictionary_name, term_name)</code></a></td>
+<td>Removes a term from the masking dictionary</td>
+</tr>
+</tbody>
+</table>
+<h2 id="gen_blockliststr-from_dictionary_name-to_dictionary_name">gen_blocklist(str, from_dictionary_name, to_dictionary_name)<a class="headerlink" href="#gen_blockliststr-from_dictionary_name-to_dictionary_name" title="Permanent link">&para;</a></h2>
+<p>Replaces one term in a dictionary with a term, selected at random, in another dictionary.</p>
+<h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>term</code></td>
+<td>No</td>
+<td>The term to replace</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>from_dictionary_name</code></td>
+<td>No</td>
+<td>The dictionary that stores the term.</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>to_dictionary_name</code></td>
+<td>No</td>
+<td>The dictionary that stores the replacement term</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<h3 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h3>
+<p>A term, selected at random, from the dictionary listed in <code>to_dictionary_name</code> that replaces the selected term. If the selected <code>term</code> is not listed in the <code>from_dictionary_name</code> or a dictionary is missing, then the <code>term</code> is returned. If the <code>to_dictionary_name</code> does not exist, then returns NULL. The character set of the returned string is the same character set of the <code>term</code> parameter.</p>
+<p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_blocklist<span class="o">(</span><span class="s1">&#39;apple&#39;</span>,<span class="w"> </span><span class="s1">&#39;fruit&#39;</span>,<span class="w"> </span><span class="s1">&#39;nut&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------+
+| gen_blocklist(&#39;apple&#39;, &#39;fruit&#39;, &#39;nut&#39;)  |
++-----------------------------------------+
+| walnut                                  |
++-----------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="gen_dictionarydictionary_name">gen_dictionary(dictionary_name)<a class="headerlink" href="#gen_dictionarydictionary_name" title="Permanent link">&para;</a></h2>
+<p>Returns a term from a dictionary selected at random.</p>
+<h3 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dictionary_name</code></td>
+<td>No</td>
+<td>Select the random term from this dictionary</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<h3 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">&para;</a></h3>
+<p>A random term from the dictionary listed in <code>dictionary_name</code> in the <code>utf8mb4</code> character set. Returns NULL if the <code>dictionary_name</code> does not exist.</p>
+<h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_dictionary<span class="o">(</span><span class="s1">&#39;trees&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------------------+
+| gen_dictionary(&#39;trees&#39;)                          |
++--------------------------------------------------+
+| Norway spruce                                    |
++--------------------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="gen_rangelower-upper">gen_range(lower, upper)<a class="headerlink" href="#gen_rangelower-upper" title="Permanent link">&para;</a></h2>
+<p>Returns a number from a defined range.</p>
+<h3 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lower</code></td>
+<td>No</td>
+<td>The lower boundary of the range</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td><code>upper</code></td>
+<td>No</td>
+<td>The upper boundary of the range</td>
+<td>Integer</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>upper</code> parameter value must be an integer either greater than or equal to the <code>lower</code> parameter value.</p>
+<h3 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">&para;</a></h3>
+<p>An integer, selected at random, from an inclusive range defined by the <code>lower</code> parameter value and the <code>upper</code> parameter value, or NULL if the <code>upper</code> boundary is less than the <code>lower</code> boundary.</p>
+<h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_range<span class="o">(</span><span class="m">10</span>,<span class="w"> </span><span class="m">100</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
+| gen_range(10,100)                    |
++--------------------------------------+
+| 56                                   |
++--------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="gen_rnd_canada_sin">gen_rnd_canada_sin()<a class="headerlink" href="#gen_rnd_canada_sin" title="Permanent link">&para;</a></h2>
+<p>Generates a Canada Social Insurance Number (SIN).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+</div>
+<p>Only use this function for testing because the result could be a legitimate SIN. Use <a href="#mask_canada_sinstr-mask_char"><code>mask_canada_sin</code></a> to disguise the result if you must publish the result.</p>
+<h3 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">&para;</a></h3>
+<p>None.</p>
+<h3 id="returns_3">Returns<a class="headerlink" href="#returns_3" title="Permanent link">&para;</a></h3>
+<p>Returns a Canada SIN formatted in three groups of three digits (for example, 123-456-789) in the <code>utf8mb4</code> character set. To ensure the number is consistent, the number is verified with the <a href="https://en.wikipedia.org/wiki/Luhn_algorithm">Luhn algorithm</a>.</p>
+<h3 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_canada_sin<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-------------------------+
+| gen_rnd_canada_sin()    |
++-------------------------+
+| 506-948-819             |
++-------------------------+
+</code></pre></div>
+</details>
+<h2 id="gen_rnd_emailname_size-surname_size-domain">gen_rnd_email([name_size, surname_size, domain])<a class="headerlink" href="#gen_rnd_emailname_size-surname_size-domain" title="Permanent link">&para;</a></h2>
+<p>Generates a random email address in the <code>name.surname@domain</code> format.</p>
+<h3 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name_size</code></td>
+<td>Yes</td>
+<td>Specifies the number of characters in the name part. The default number is five. The minimum number is one. The maximum number is 1024.</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td><code>surname_size</code></td>
+<td>Yes</td>
+<td>Specifies the number of characters in the surname part. The default number is seven. The minimum number is one. The maximum number is 1024.</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td><code>domain</code></td>
+<td>Yes</td>
+<td>Specifies the domain name used. The default value is <code>example.com</code>.</td>
+<td>Integer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">&para;</a></h3>
+<p>A generated email address as a string in the same character set as <code>domain</code>. If the <code>domain</code> value is not specified, then the string is in the <code>utf8mb4</code> character set. The <code>name</code> and <code>surname</code> are random lower-case letters (a - z).</p>
+<h3 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_email<span class="o">(</span><span class="nv">name_size</span><span class="o">=</span><span class="m">4</span>,<span class="w"> </span><span class="nv">surname_size</span><span class="o">=</span><span class="m">5</span>,<span class="w"> </span><span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;mydomain.edu&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------+
+| gen_rnd_email(4, 5, &#39;mydomain.edu&#39;) |
++-------------------------------------+
+| qwer.asdfg@mydomain.edu             |
++-------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="gen_rnd_ibancountry-size">gen_rnd_iban([country, size])<a class="headerlink" href="#gen_rnd_ibancountry-size" title="Permanent link">&para;</a></h2>
+<p>Generates an Internal Bank Account Number (IBAN).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+</div>
+<p>Generating an IBAN with a valid country code should only be used for testing. The function does not check if the generated value is a legitimate bank account. If you must publish the result, consider using <a href="#mask_ibanstr-mask_char"><code>mask_iban</code></a> to disguise the result. The function does not perform a checksum on the bank account number.</p>
+<h3 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>country</code></td>
+<td>Yes</td>
+<td>A two-character country code</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>size</code></td>
+<td>Yes</td>
+<td>Number of characters</td>
+<td>Integer</td>
+</tr>
+</tbody>
+</table>
+<p>If the <code>country</code> is not specified, the default value is <code>ZZ</code>. The value must be two upper-case characters (A-Z) or an error is returned.</p>
+<p>The default value for <code>size</code> is 16. The minimum value is 15. The maximum value is 34.</p>
+<h3 id="returns_5">Returns<a class="headerlink" href="#returns_5" title="Permanent link">&para;</a></h3>
+<p>The function returns a string that is the length of the <code>size</code> value. The string consists of <code>country</code> (two characters) followed by the (size - 2) random digits.</p>
+<p>The character set is the same as the <code>country</code> parameter or if that parameter is not specified, the character set is <code>utf8mb4</code>.</p>
+<h3 id="example_5">Example<a class="headerlink" href="#example_5" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_iban<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-------------------+
+| gen_rnd_iban()    |
++-------------------+
+|ZZ78959120078536   |
++-------------------+
+</code></pre></div>
+</details>
+<h2 id="gen_rnd_pan">gen_rnd_pan()<a class="headerlink" href="#gen_rnd_pan" title="Permanent link">&para;</a></h2>
+<p>Generates a Primary Account Number (PAN) for a payment card that passes basic checksum validation.</p>
+<p>The generated PAN can be one of the following:</p>
+<ul>
+<li>
+<p>American Express</p>
+</li>
+<li>
+<p>Visa</p>
+</li>
+<li>
+<p>Mastercard</p>
+</li>
+<li>
+<p>Discover</p>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Generating the PAN should only be used for testing. The function does not check if the generated value is a legitimate primary account number. If you must publish the result, consider using <a href="#mask_panstr-mask_char"><code>mask_pan</code></a> or <a href="#mask_pan_relaxedstr-mask_char"><code>mask_pan_relaxed()</code></a> to disguise the result.</p>
+</div>
+<h3 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link">&para;</a></h3>
+<p>None</p>
+<h3 id="returns_6">Returns<a class="headerlink" href="#returns_6" title="Permanent link">&para;</a></h3>
+<p>A random PAN string in <code>utf8mb4</code> character set.</p>
+<h3 id="example_6">Example<a class="headerlink" href="#example_6" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_pan<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-------------------+
+| gen_rnd_pan()     |
++-------------------+
+| 1234567898765432  |
++-------------------+
+</code></pre></div>
+</details>
+<h2 id="gen_rnd_ssn">gen_rnd_ssn()<a class="headerlink" href="#gen_rnd_ssn" title="Permanent link">&para;</a></h2>
+<p>Generates a United States Social Security Account Number (SSN).</p>
+<h3 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link">&para;</a></h3>
+<p>None</p>
+<h3 id="returns_7">Returns<a class="headerlink" href="#returns_7" title="Permanent link">&para;</a></h3>
+<p>A SSN string in a nine-digit number format &ldquo;AAA-GG-SSSS&rdquo; in the <code>utf8mb4</code> character set. The number has three parts, the first three digits are the area number, the group number, and the serial number. The generated SSN uses &lsquo;900&rsquo; or greater numbers for the area number. These numbers are not legitimate because they are outside the approved range.</p>
+<h3 id="example_7">Example<a class="headerlink" href="#example_7" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_ssn<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----------------+
+| gen_rnd_ssn()  |
++----------------+
+| 970-03-0370    |
+-----------------+
+</code></pre></div>
+</details>
+<h2 id="gen_rnd_uk_nin">gen_rnd_uk_nin()<a class="headerlink" href="#gen_rnd_uk_nin" title="Permanent link">&para;</a></h2>
+<p>Generates a United Kingdom National Insurance Number (NIN).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This function should only be used for testing. The function does not check if the generated value is a legitimate United Kingdom National Insurance number. If you must publish the result, consider masking the result with <a href="#mask_uk_ninstr-mask_char"><code>mask_uk_nin</code></a>.</p>
+</div>
+<h3 id="parameters_8">Parameters<a class="headerlink" href="#parameters_8" title="Permanent link">&para;</a></h3>
+<p>None.</p>
+<h3 id="returns_8">Returns<a class="headerlink" href="#returns_8" title="Permanent link">&para;</a></h3>
+<p>A NIN string in the <code>utf8mb4</code> character set. The string is nine (9) characters in length, always starts with &lsquo;AA&rsquo; and ends with &lsquo;C&rsquo;.</p>
+<h3 id="example_8">Example<a class="headerlink" href="#example_8" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_uk_nin<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----------------------+
+| gen_rnd_uk_nin()     |
++----------------------+
+| AA123456C            |
++----------------------+
+</code></pre></div>
+</details>
+<h2 id="gen_rnd_us_phone">gen_rnd_us_phone()<a class="headerlink" href="#gen_rnd_us_phone" title="Permanent link">&para;</a></h2>
+<p>Generates a United States phone number with the <code>555</code> area code. The &lsquo;555&rsquo; area code represents fictional numbers.</p>
+<h3 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link">&para;</a></h3>
+<p>None</p>
+<h3 id="returns_9">Returns<a class="headerlink" href="#returns_9" title="Permanent link">&para;</a></h3>
+<p>Returns a United States phone number in the <code>utf8mb4</code> character set.</p>
+<h3 id="example_9">Example<a class="headerlink" href="#example_9" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_us_phone<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------------------+
+| gen_rnd_us_phone() |
++--------------------+
+| 1-555-249-2029     |
++--------------------+
+</code></pre></div>
+</details>
+<h2 id="gen_rnd_uuid">gen_rnd_uuid()<a class="headerlink" href="#gen_rnd_uuid" title="Permanent link">&para;</a></h2>
+<p>Generates a version 4 Universally Unique Identifier (UUID).</p>
+<h3 id="parameters_10">Parameters<a class="headerlink" href="#parameters_10" title="Permanent link">&para;</a></h3>
+<p>None.</p>
+<h3 id="returns_10">Returns<a class="headerlink" href="#returns_10" title="Permanent link">&para;</a></h3>
+<p>Returns a UUID as a string in the <code>utf8mb4</code> character set.</p>
+<h3 id="example_10">Example<a class="headerlink" href="#example_10" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_uuid<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
+| gen_rnd_uuid()                     |
++------------------------------------+
+|9a3b642c-06c6-11ee-be56-0242ac120002|
++------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="mask_canada_sinstr-mask_char">mask_canada_sin(str [,mask_char])<a class="headerlink" href="#mask_canada_sinstr-mask_char" title="Permanent link">&para;</a></h2>
+<p>Masks a Canada Social Insurance Number (SIN).</p>
+<h3 id="parameters_11">Parameters<a class="headerlink" href="#parameters_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>No</td>
+<td>The string to be masked</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>mask_char</code></td>
+<td>Yes</td>
+<td>The masking character</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>str</code> accepts an alphanumeric string.</p>
+<p>If you do not specify a <code>mask_char</code>, the default character is <code>X</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<h3 id="returns_11">Returns<a class="headerlink" href="#returns_11" title="Permanent link">&para;</a></h3>
+<p>A string with the selected characters masked by a specified <code>mask_char</code> or the default value for that parameter. The function supports multibyte characters in any character set. The character set of the return value is the same as <code>str</code>.</p>
+<p>An error is reported if  <code>str</code> length is an incorrect length.</p>
+<p>Returns a NULL if you invoke this function with NULL as the primary argument.</p>
+<h3 id="example_11">Example<a class="headerlink" href="#example_11" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_canada_sin<span class="o">(</span><span class="s1">&#39;555-555-555&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------------------------------+
+| mask_canada_sin(&#39;555-555-555&#39;) |
++--------------------------------+
+| XXX-XXX-XXX                    |
++--------------------------------+
+</code></pre></div>
+</details>
+<h2 id="mask_ibanstr-mask_char">mask_iban(str [,mask_char])<a class="headerlink" href="#mask_ibanstr-mask_char" title="Permanent link">&para;</a></h2>
+<p>Masks an Internal Bank Account Number (IBAN).</p>
+<h3 id="parameters_12">Parameters<a class="headerlink" href="#parameters_12" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>No</td>
+<td>The string to be masked</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>mask_char</code></td>
+<td>Yes</td>
+<td>Character used for masking</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>str</code> accepts either of the following:</p>
+<ul>
+<li>
+<p>No separator symbol</p>
+</li>
+<li>
+<p>Groups of four characters. These groups can be separated by a space or any separator character.</p>
+</li>
+</ul>
+<p>The default value for <code>mask_char</code> is <code>*</code>. The value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<h3 id="returns_12">Returns<a class="headerlink" href="#returns_12" title="Permanent link">&para;</a></h3>
+<p>Returns the masked string. The character set of the result is the same as the character set of <code>str</code>.</p>
+<p>An error is reported if the <code>str</code> length is incorrect.</p>
+<p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
+<h3 id="example_12">Example<a class="headerlink" href="#example_12" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_iban<span class="o">(</span><span class="s1">&#39;DE27 1002 02003 77495 4156&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------+
+| mask_iban(&#39;DE27 1002 02003 77495 4156&#39;)     |
++---------------------------------------------+
+| DE** **** **** **** ****                    |
++---------------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="mask_innerstr-margin1-margin2-mask_char">mask_inner(str, margin1, margin2 [,mask_char])<a class="headerlink" href="#mask_innerstr-margin1-margin2-mask_char" title="Permanent link">&para;</a></h2>
+<p>Returns the string where a selected inner portion is masked with a substitute character.</p>
+<h3 id="parameters_13">Parameters<a class="headerlink" href="#parameters_13" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>string</code></td>
+<td>No</td>
+<td>The string to be masked</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>margin1</code></td>
+<td>No</td>
+<td>The number of characters on the left end of the string to remain unmasked</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td><code>margin2</code></td>
+<td>No</td>
+<td>The number of characters on the right end of the string to remain unmasked</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td><code>mask_char</code></td>
+<td>Yes</td>
+<td>The masking character</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>margin1</code> value cannot be a negative number. A value of <code>0</code> (zero) masks all characters.</p>
+<p>The <code>margin2</code> value cannot be a negative number. A value of <code>0</code> (zero) masks all characters.</p>
+<p>If the sum of <code>margin1</code> and <code>margin2</code> is greater than or equal to the string length, no masking occurs.</p>
+<p>If the <code>mask_char</code> is not specified, the default is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<h3 id="returns_13">Returns<a class="headerlink" href="#returns_13" title="Permanent link">&para;</a></h3>
+<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the character set of the <code>string</code> parameter.</p>
+<p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
+<h3 id="example_13">Example<a class="headerlink" href="#example_13" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_inner<span class="o">(</span><span class="s1">&#39;123456789&#39;</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-----------------------------------+
+| mask_inner(&#39;123456789&#39;, 1, 2)     |
++-----------------------------------+
+| 1XXXXXX89                          |
++-----------------------------------+
+</code></pre></div>
+</details>
+<h2 id="mask_outerstr-margin1-margin2-mask_char">mask_outer(str, margin1, margin2 [,mask_char])<a class="headerlink" href="#mask_outerstr-margin1-margin2-mask_char" title="Permanent link">&para;</a></h2>
+<p>Returns the string where a selected outer portion is masked with a substitute character.</p>
+<h3 id="parameters_14">Parameters<a class="headerlink" href="#parameters_14" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>string</code></td>
+<td>No</td>
+<td>The string to be masked</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>margin1</code></td>
+<td>No</td>
+<td>On the left end of the string, mask this designated number of characters</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td><code>margin2</code></td>
+<td>No</td>
+<td>On the right end of the string, mask this designated number of characters</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td><code>mask_char</code></td>
+<td>Yes</td>
+<td>The masking character</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>margin1</code> cannot be a negative number. A value of <code>0</code> (zero) does not mask any characters.</p>
+<p>The <code>margin2</code> cannot be a negative number. A value of <code>0</code> (zero) does not mask any characters.</p>
+<p>If the sum of <code>margin1</code> and <code>margin2</code> is greater than or equal to the string length, the string is masked.</p>
+<p>If the <code>mask_char</code> is not specified, the default is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<h3 id="returns_14">Returns<a class="headerlink" href="#returns_14" title="Permanent link">&para;</a></h3>
+<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>string</code>.</p>
+<p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
+<h3 id="example_14">Example<a class="headerlink" href="#example_14" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_outer<span class="o">(</span><span class="s1">&#39;123456789&#39;</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span><span class="w"> </span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
+| mask_outer(&#39;123456789&#39;, 2, 2).     |
++------------------------------------+
+| XX34567XX                          |
++------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="mask_panstr-mask_char">mask_pan(str [,mask_char])<a class="headerlink" href="#mask_panstr-mask_char" title="Permanent link">&para;</a></h2>
+<p>Returns a masked payment card Primary Account Number (PAN). The mask replaces the PAN number with the specified character except for the last four digits.</p>
+<h3 id="parameters_15">Parameters<a class="headerlink" href="#parameters_15" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>No</td>
+<td>The string to be masked</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>mask_char</code></td>
+<td>Yes</td>
+<td>The masking character</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>str</code> contains a minimum of 14 or a maximum of 19 alphanumeric characters. </p>
+<p>If the <code>mask_char</code> is not specified, the default value is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<h3 id="returns_15">Returns<a class="headerlink" href="#returns_15" title="Permanent link">&para;</a></h3>
+<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value. The character set of the result is the same character set as <code>str</code>.</p>
+<p>An error occurs if the <code>str</code> parameter is not the correct length.</p>
+<p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
+<h3 id="example_15">Example<a class="headerlink" href="#example_15" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_pan<span class="w"> </span><span class="o">(</span>gen_rnd_pan<span class="o">())</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
+| mask_pan(gen_rnd_pan())            |
++------------------------------------+
+| XXXXXXXXXXX2345                    |
++------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="mask_pan_relaxedstr-mask_char">mask_pan_relaxed(str [,mask_char])<a class="headerlink" href="#mask_pan_relaxedstr-mask_char" title="Permanent link">&para;</a></h2>
+<p>Returns a masked payment card Primary Account Number (PAN). The first six numbers and the last four numbers and the rest of the string masked by specified character or <code>X</code>.</p>
+<h3 id="parameters_16">Parameters<a class="headerlink" href="#parameters_16" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>No</td>
+<td>The string to be masked</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>mask_char</code></td>
+<td>Yes</td>
+<td>The specified character for masking</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>str</code> must contain a minimum of 14 or a maximum of 19 alphanumeric characters. </p>
+<p>If the <code>mask_char</code> is not specified, the default value is &lsquo;X&rsquo;.</p>
+<h3 id="returns_16">Returns<a class="headerlink" href="#returns_16" title="Permanent link">&para;</a></h3>
+<p>A string with the first six numbers and the last four numbers and the rest of the string masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value (<code>X</code>). The character set of the result is the same character set as <code>str</code>.</p>
+<p>The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>Reports an error is the <code>str</code> parameter is not the correct length.</p>
+<p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
+<h3 id="example_16">Example<a class="headerlink" href="#example_16" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_pan_relaxed<span class="o">(</span>gen_rnd_pan<span class="o">())</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------+
+| mask_pan_relaxed(gen_rnd_pan())          |
++------------------------------------------+
+| 520754XXXXXX4848                         |
++------------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="mask_ssnstr-mask_char">mask_ssn(str [,mask_char])<a class="headerlink" href="#mask_ssnstr-mask_char" title="Permanent link">&para;</a></h2>
+<p>Returns a masked United States Social Security Number(SSN). The mask replaces the SSN number with the specified character except for the last four digits.</p>
+<h3 id="parameters_17">Parameters<a class="headerlink" href="#parameters_17" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>No</td>
+<td>The string to be masked</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>mask_char</code></td>
+<td>Yes</td>
+<td>The masking character</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>str</code> accepts either of the following:</p>
+<ul>
+<li>Nine integers, no separator symbol</li>
+<li>Nine integers in the <code>AAA-GG-SSS</code> pattern. The <code>-</code> (dash symbol) is the separator character.</li>
+</ul>
+<p>If the <code>mask_char</code> is not specified, the default value is <code>*</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<h3 id="returns_17">Returns<a class="headerlink" href="#returns_17" title="Permanent link">&para;</a></h3>
+<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set of <code>str</code>. </p>
+<p>Reports an error if the value of the <code>str</code> is an incorrect length.</p>
+<p>Returns a NULL value if you invoke this function with NULL as the primary argument.</p>
+<h3 id="example_17">Example<a class="headerlink" href="#example_17" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_ssn<span class="o">(</span><span class="s1">&#39;555-55-5555&#39;</span>,<span class="w"> </span><span class="s1">&#39;X&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-----------------------------+
+| mask_ssn(&#39;555-55-5555&#39;,&#39;X&#39;) |
++-----------------------------+
+| XXX-XX-5555                 |
++-----------------------------+
+</code></pre></div>
+</details>
+<h2 id="mask_uk_ninstr-mask_char">mask_uk_nin(str [,mask_char])<a class="headerlink" href="#mask_uk_ninstr-mask_char" title="Permanent link">&para;</a></h2>
+<p>Returns a masked a United Kingdom National Insurance Number (NIN). The mask replaces the NIN number with the specified character except for the first two digits.</p>
+<h3 id="parameters_18">Parameters<a class="headerlink" href="#parameters_18" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>No</td>
+<td>The string to be masked</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>mask_char</code></td>
+<td>Yes</td>
+<td>The masking character</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>str</code> accepts an alpha-numeric string and does not check format and the <code>str</code> can use any separator character.</p>
+<p>If the <code>mask_char</code> is not specified, the default value is <code>*</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<h3 id="returns_18">Returns<a class="headerlink" href="#returns_18" title="Permanent link">&para;</a></h3>
+<p>Returns a string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>str</code>.</p>
+<p>An error occurs if the <code>str</code> parameter is not the correct length. </p>
+<p>Returns a NULL value if you invoke this function with NULL as the primary argument.</p>
+<h3 id="example_18">Example<a class="headerlink" href="#example_18" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_uk_nin<span class="w"> </span><span class="o">(</span><span class="s1">&#39;CT 26 46 83 D&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
+| mask_uk_nin(&#39;CT 26 46 83 D&#39;)       |
++------------------------------------+
+| CT ** ** ** *                      |
++------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="mask_uuidstr-mask_char">mask_uuid(str [,mask_char])<a class="headerlink" href="#mask_uuidstr-mask_char" title="Permanent link">&para;</a></h2>
+<p>Masks a Universally Unique Identifier (UUID).</p>
+<h3 id="parameters_19">Parameters<a class="headerlink" href="#parameters_19" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>No</td>
+<td>The string to be masked</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>mask_char</code></td>
+<td>Yes</td>
+<td>The masking character</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>str</code> format is <code>********-****-****-****-************</code>.</p>
+<p>If the <code>mask_char</code> is not specified, the default value is &lsquo;*&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<h3 id="returns_19">Returns<a class="headerlink" href="#returns_19" title="Permanent link">&para;</a></h3>
+<p>A string with the characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>str</code>.</p>
+<p>Returns an error if the length of <code>str</code> is incorrect.</p>
+<p>Returns <code>NULL</code> if you invoke this function with NULL as the primary argument.</p>
+<h3 id="example_19">Example<a class="headerlink" href="#example_19" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_uuid<span class="o">(</span><span class="s1">&#39;9a3b642c-06c6-11ee-be56-0242ac120002&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------+
+| mask_uuid(&#39;9a3b642c-06c6-11ee-be56-0242ac120002&#39;)     |
++-------------------------------------------------------+
+|********_****_****_****_************                   |
++-------------------------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="masking_dictionary_removedictionary_name">masking_dictionary_remove(dictionary_name)<a class="headerlink" href="#masking_dictionary_removedictionary_name" title="Permanent link">&para;</a></h2>
+<p>Removes all of the terms and then removes the dictionary. </p>
+<p>Requires the <code>MASKING_DICTIONARIES_ADMIN</code> privilege.</p>
+<h3 id="parameters_20">Parameters<a class="headerlink" href="#parameters_20" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dictionary_name</code></td>
+<td>No</td>
+<td>The dictionary to be removed</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<h3 id="returns_20">Returns<a class="headerlink" href="#returns_20" title="Permanent link">&para;</a></h3>
+<p>Returns a string value of <code>1</code> (one) in the <code>utf8mb4</code> character set if the operation is successful or <code>NULL</code> if the operation could not find the <code>dictionary_name</code>.</p>
+<h3 id="example_20">Example<a class="headerlink" href="#example_20" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>masking_dictionary_remove<span class="o">(</span><span class="s1">&#39;trees&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------+
+| masking_dictionary_remove(&#39;trees&#39;)       |
++------------------------------------------+
+|                                        1 |
++------------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="masking_dictionary_term_adddictionary_name-term_name">masking_dictionary_term_add(dictionary_name, term_name)<a class="headerlink" href="#masking_dictionary_term_adddictionary_name-term_name" title="Permanent link">&para;</a></h2>
+<p>Adds a term to the dictionary and requires the <code>MASKING_DICTIONARIES_ADMIN</code> privilege.</p>
+<h3 id="parameters_21">Parameters<a class="headerlink" href="#parameters_21" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dictionary_name</code></td>
+<td>No</td>
+<td>The dictionary where the term is added</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>term_name</code></td>
+<td>No</td>
+<td>The term added to the selected dictionary</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<h3 id="returns_21">Returns<a class="headerlink" href="#returns_21" title="Permanent link">&para;</a></h3>
+<p>Returns a string value of <code>1</code> (one) in the <code>utf8mb4</code> character set if the operation is successful. If the <code>dictionary_name</code> does not exist, the operation creates the dictionary.</p>
+<p>Returns <code>NULL</code> if the operation fails. An operation can fail if the <code>term_name</code> is already available in the dictionary specified by <code>dictionary_name</code>.</p>
+<p>The operation uses <code>INSERT IGNORE</code> and can have the following outcomes:</p>
+<ul>
+<li>
+<p>The <code>term_name</code> is truncated if the <code>term_name</code> length is greater than maximum length of the <code>Term</code> field in the <code>mysql.masking_dictionaries</code> table.</p>
+</li>
+<li>
+<p>The character of the <code>dictionary_name</code> is not supported by the <code>Dictionary</code> field in <code>mysql.masking_dictionaries</code> table, the character is implicitly  converted to &lsquo;?&rsquo;. </p>
+</li>
+<li>
+<p>If the character of the <code>term_name</code> is not supported by the <code>Term</code> field in the <code>mysql.masking_dictionaries</code> table, the character is implicitly converted to &lsquo;?&rsquo;.</p>
+</li>
+</ul>
+<p>The following command returns the table information:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DESCRIBE<span class="w"> </span>mysql.masking_dictionaries<span class="p">;</span>
+</code></pre></div>
+<p>The result returns the table structure.</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Dictionary | varchar(256) | NO   | PRI | NULL    |       |
+| Term       | varchar(256) | NO   | PRI | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+2 rows in set (0.02 sec)
+</code></pre></div>
+</details>
+<p>Modify the table with an <code>ALTER TABLE</code> statement, if needed.</p>
+<h3 id="example_21">Example<a class="headerlink" href="#example_21" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>masking_dictionary_term_add<span class="o">(</span><span class="s1">&#39;trees&#39;</span>,<span class="s1">&#39;pine&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------------+
+| masking_dictionary_term_add(&#39;trees&#39;, &#39;pine&#39;)  |
++-----------------------------------------------+
+|                                             1 |
++-----------------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="masking_dictionary_term_removedictionary_name-term_name">masking_dictionary_term_remove(dictionary_name, term_name)<a class="headerlink" href="#masking_dictionary_term_removedictionary_name-term_name" title="Permanent link">&para;</a></h2>
+<p>Removes the selected term from the dictionary. </p>
+<p>Requires the <code>MASKING_DICTIONARIES_ADMIN</code> privilege.</p>
+<h3 id="parameters_22">Parameters<a class="headerlink" href="#parameters_22" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dictionary_name</code></td>
+<td>No</td>
+<td>The dictionary that contains the <code>term_name</code></td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>term_name</code></td>
+<td>No</td>
+<td>The term to be removed</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<h3 id="returns_22">Returns<a class="headerlink" href="#returns_22" title="Permanent link">&para;</a></h3>
+<p>Returns a string value of <code>1</code> (one) in the <code>utf8mb4</code> character set if the operation is successful.</p>
+<p>Returns <code>NULL</code> if the operation fails. An operation can fail if the following occurs:</p>
+<ul>
+<li>The <code>term_name</code> is not available in the dictionary specified by <code>dictionary_name</code></li>
+<li>The <code>dictionary_name</code> could not be found</li>
+</ul>
+<h3 id="parameters_23">Parameters<a class="headerlink" href="#parameters_23" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dictionary_name</code></td>
+<td>No</td>
+<td>The dictionary for the term</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>term_name</code></td>
+<td>No</td>
+<td>The term to be added</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example_22">Example<a class="headerlink" href="#example_22" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>masking_dictionary_term_remove<span class="o">(</span><span class="s1">&#39;trees&#39;</span>,<span class="s1">&#39;pine&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------+
+| masking_dictionary_term_remove(&#39;trees&#39;, &#39;pine&#39;)       |
++-------------------------------------------------------+
+|                                                     1 |
++-------------------------------------------------------+
+</code></pre></div>
+</details>
+
+                
+<div class="md-relbar2__inner md-grid">
+<div class="md-content">
+  <article class="md-content__inner md-typeset" role="main">    
+    <h3>Contact us </h3>
+       <p>For free technical help, visit the Percona <a class="reference external" href="https://forums.percona.com/c/mysql-mariadb/percona-server-for-mysql-8-0/20" target="_blank">Community Forum</a>.<br>
+        <p>To report bugs or submit feature requests, open a <a class="reference external" href="https://jira.percona.com/projects/PS/issues/" target="_blank">JIRA</a> ticket.<br>
+         <p>For paid <a class="reference external" href="https://www.percona.com/services/support"> support </a> and <a class="reference external" href="https://www.percona.com/services/managed-services"> managed </a> or <a class="reference external" href="https://www.percona.com/services/consulting">consulting services </a>, contact <a class="reference external" href="https://www.percona.com/about-percona/contact" target="_blank">Percona Sales</a>.</p>
+         <img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=bb45684e-0d0d-4ad2-99df-afa2412fea40" />
+        </article>
+</div>
+</div>
+
+                <!-- Last update of source file -->
+                
+                  
+                    <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      2023-09-26
+    
+  </small>
+</div>
+                  
+                
+              
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+    <div class="md-copyright__highlight">
+ <a href='https://percona.com' target='_blank'>Percona LLC and/or its affiliates, </a> &copy; 2023
+    </div>
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+  
+    
+  
+
+
+  
+    
+  
+
+
+
+  
+
+
+<h4>Cookie consent</h4>
+<p>We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better. Read more about <a class="reference external" href="https://www.percona.com/20180524-cookie-policy" target="_blank">Percona Cookie Policy</a>.</p>
+<input class="md-toggle" type="checkbox" id="__settings" >
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="analytics" checked>
+          <span class="task-list-indicator"></span>
+          Google Analytics
+        </label>
+      </li>
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="github" checked>
+          <span class="task-list-indicator"></span>
+          GitHub
+        </label>
+      </li>
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">Accept</button>
+    
+    
+    
+  
+    
+    
+    
+      <label class="md-button" for="__settings">Manage settings</label>
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.a264c092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.726fbb30.min.js"></script>
+      
+        <script src="js/version-select.js"></script>
+      
+        <script src="js/promptremover.js"></script>
+      
+    
+  </body>
+</html>
