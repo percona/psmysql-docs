@@ -3435,6 +3435,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#group_replication_xcom_ssl_accept_retries" class="md-nav__link">
+    group_replication_xcom_ssl_accept_retries
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group_replication_xcom_ssl_socket_timeout" class="md-nav__link">
+    group_replication_xcom_ssl_socket_timeout
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5078,6 +5092,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#group_replication_xcom_ssl_accept_retries" class="md-nav__link">
+    group_replication_xcom_ssl_accept_retries
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group_replication_xcom_ssl_socket_timeout" class="md-nav__link">
+    group_replication_xcom_ssl_socket_timeout
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5128,16 +5156,22 @@
 </thead>
 <tbody>
 <tr>
-<td>group_replication_auto_evict_timeout</td>
+<td><a href="#group_replication_auto_evict_timeout"><code>group_replication_auto_evict_timeout</code></a></td>
 </tr>
 <tr>
-<td>group_replication_certification_loop_chunk_size</td>
+<td><a href="#group_replication_certification_loop_chunk_size"><code>group_replication_certification_loop_chunk_size</code></a></td>
 </tr>
 <tr>
-<td>group_replication_certification_loop_sleep_time</td>
+<td><a href="#group_replication_certification_loop_sleep_time"><code>group_replication_certification_loop_sleep_time</code></a></td>
 </tr>
 <tr>
-<td>group_replication_flow_control_mode</td>
+<td><a href="#group_replication_flow_control_mode"><code>group_replication_flow_control_mode</code></a></td>
+</tr>
+<tr>
+<td><a href="#group_replication_xcom_ssl_accept_retries"><code>group_replication_xcom_ssl_accept_retries</code></a></td>
+</tr>
+<tr>
+<td><a href="#group_replication_xcom_ssl_socket_timeout"><code>group_replication_xcom_ssl_socket_timeout</code></a></td>
 </tr>
 </tbody>
 </table>
@@ -5303,7 +5337,91 @@
 </table>
 <p>The &ldquo;MAJORITY&rdquo; value is in <a href="../glossary.html#tech-preview">tech preview</a> mode. Before using the variable in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.</p>
 <p>The variable specifies the mode use for flow control.</p>
-<p><em>Percona Server for MySQL</em> 8.0.30-22 adds the &ldquo;MAJORITY&rdquo; value to the <a href="https://dev.mysql.com/doc/refman/8.0/en/group-replication-options.html#sysvar_group_replication_flow_control_mode">group_replication_flow_control_mode</a> variable. In &ldquo;MAJORITY&rdquo; mode, <a href="group-replication-flow-control.html">flow control</a> is activated only if the majority, more than half the number of members, exceed the flow control threshold. The other values are not changed. </p>
+<p><em>Percona Server for MySQL</em> 8.0.30-22 adds the &ldquo;MAJORITY&rdquo; value to the <a href="https://dev.mysql.com/doc/refman/8.0/en/group-replication-options.html#sysvar_group_replication_flow_control_mode">group_replication_flow_control_mode</a> variable. In &ldquo;MAJORITY&rdquo; mode, <a href="group-replication-flow-control.html">flow control</a> is activated only if the majority, more than half the number of members, exceed the flow control threshold. The other values are not changed.</p>
+<h2 id="group_replication_xcom_ssl_accept_retries">group_replication_xcom_ssl_accept_retries<a class="headerlink" href="#group_replication_xcom_ssl_accept_retries" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Introduced</td>
+<td>8.0.34-26</td>
+</tr>
+<tr>
+<td>Command-line</td>
+<td>&ndash;group_replication_xcom_ssl_accept_retries</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>Default value</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<p>This variable is only effective on <code>START GROUP_REPLICATION</code>, and only when group replication is
+configured with SSL.</p>
+<p>Defines the number of retries before closing the socket. On each retry, the server thread calls SSL_accept(), with a timeout defined by <code>group_replication_xcom_ssl_socket_timeout</code>. Used by the SSL handshake process after the connection has been accepted by the first accept() call.</p>
+<p>The default value is 10.</p>
+<h2 id="group_replication_xcom_ssl_socket_timeout">group_replication_xcom_ssl_socket_timeout<a class="headerlink" href="#group_replication_xcom_ssl_socket_timeout" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Introduced</td>
+<td>8.0.34-26</td>
+</tr>
+<tr>
+<td>Command-line</td>
+<td>&ndash;group_replication_xcom_ssl_socket_timeout</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>Default value</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Measured in</td>
+<td>seconds</td>
+</tr>
+</tbody>
+</table>
+<p>This variable is only effective on <code>START GROUP_REPLICATION</code>, and only when group replication is
+configured with SSL.</p>
+<p>Defines a file-descriptor level timeout, measured in seconds, for both accept() and SSL_accept() calls when group replication listens on the xcom port.</p>
+<p>When set to a valid value, for example, 5 then both accept() and
+SSL_accept() return after 5 seconds. </p>
+<p>The default value has been set to 0 (waits infinitely) for backward compatibility.</p>
 
                 
 <div class="md-relbar2__inner md-grid">
@@ -5326,7 +5444,7 @@
   <small>
     
       Last update:
-      2023-03-03
+      2023-09-26
     
   </small>
 </div>
