@@ -12,6 +12,8 @@ Opening a table with triggers in Table Cache also parses the trigger definitions
 
 ## Version specific information
 
+Percona Server for MySQL 8.0.34 adds the `open_tables_with_triggers` status variable.
+
 Percona Server for MySQL 8.0.31 adds the following abilities:
 
 * Avoid using table instances with fully-loaded and parsed triggers by read-only queries
@@ -56,6 +58,7 @@ The following status variables are available:
 
 | Variable name                         | Description |
 |---------------------------------------|-------------|
+| `Open_tables_with_triggers` | The current number of TABLE instances with fully-loaded triggers in the `table_open_cache`. |
 | `table_open_cache_triggers_hits`      |  A hit means the statement required an open table instance with fully-loaded triggers and was able to get one from the `table_open_cache`.            |
 | `table_open_cache_triggers_misses`    |  A miss means the statement requiring an open table instance with fully-loaded triggers was not found one in the `table_open_cache`. The statement may find a table instance without fully-loaded triggers and finalized their loading for it.            |
 | `table_open_cache_triggers_overflows` |   An overflow indicates the number of unused table instances with triggers that were expelled from the `table_open_cache` due to the `table_open_cache_triggers` soft limit. This variable may demonstrate that the `table_open_cache_triggers` value should be increased.          |
