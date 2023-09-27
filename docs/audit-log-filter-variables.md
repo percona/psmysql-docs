@@ -1,6 +1,6 @@
 # Audit log filter functions, options and variables
 
-This feature is in [technical preview](../glossary.md#tech-preview).
+This feature is in [technical preview](glossary.md#tech-preview).
 
 The following sections describe the [functions](#audit-log-filter-functions), [options, and variables](#audit-log-filter-options-and-variables) available in the audit log filter plugin.
 
@@ -477,7 +477,7 @@ The file name and suffix can be either of the following:
   
 If you use a full path name, ensure the directory is accessible only to users who need to view the log and the server.
 
-For more information, see [Naming conventions](/audit-log-filter-naming.md)
+For more information, see [Naming conventions](audit-log-filter-naming.md)
 
 
 ### `audit_log_filter_filter_id`
