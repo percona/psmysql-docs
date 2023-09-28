@@ -6,9 +6,9 @@ The Audit Log Filter plugin allows you to monitor, log, and block a connection o
 
 Enabling the plugin produces a log file that contains a record of server activity. The log file has information on connections and databases accessed by that connection. 
 
-The plugin uses the `mysql` system database to store filter and user account data. Set the [`audit_log_filter_database`](audit-log-filter-options.md#audit_log_filter_database) variable at server startup to select a different database.
+The plugin uses the `mysql` system database to store filter and user account data. Set the [`audit_log_filter_database`](audit-log-filter-variables.md#audit_log_filter_database) variable at server startup to select a different database.
 
-The [`AUDIT_ADMIN`](audit-log-privileges.md) privilege is required to enable users to manage the Audit Log Filter plugin.
+The `AUDIT_ADMIN` privilege is required to enable users to manage the Audit Log Filter plugin.
 
 ## Privileges
 

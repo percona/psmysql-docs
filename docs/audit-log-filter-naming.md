@@ -10,7 +10,7 @@ The audit log filter file name has the following qualities:
 * Base name
 * Optional suffix
 
-Using either [compression](audit-log-filter-compression.md) or [encryption](audit-log-filter-encryption.md) adds the following suffixes:
+Using either [compression](audit-log-filter-compression-encryption.md) or [encryption](audit-log-filter-compression-encryption.md) adds the following suffixes:
 
 * Compression adds the `.gz` suffix
 * Encryption adds the `pwd_id.enc` suffix
