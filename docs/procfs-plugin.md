@@ -1,6 +1,8 @@
 # The ProcFS plugin
 
-{% include './snippets/tech-preview/_tech-preview-feature.md'%}
+!!! important
+
+    --8<--- "tech.preview.md:5:5"
 
 The ProcFS plugin provides access to the Linux performance counters by running SQL queries against a Percona Server for MySQL 8.1.
 
