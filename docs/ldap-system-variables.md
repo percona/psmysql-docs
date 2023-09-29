@@ -6,7 +6,7 @@
 
 !!! important
 
-    {% include './snippets/tech-preview/_tech-preview-variables.md'%}
+    --8<--- "tech.preview.md:5:5"
 
 The installation adds the following variables:
 
