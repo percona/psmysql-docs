@@ -42,9 +42,9 @@ All values for columns used in indexes are stored in fixed format at the first b
 
 This sets two restrictions to tables:
 
-    * the order of the fields and therefore,
+* the order of the fields and therefore,
 
-    * the minimum size of the block used in the table.
+* the minimum size of the block used in the table.
 
 ### Ordering of columns
 
@@ -62,9 +62,9 @@ The block size has to be big enough to store all fixed-length information in the
 
 Taking the restrictions into account, the *Improved MEMORY Storage Engine* will choose `DRF` over `FRF` at the moment of creating the table according to following criteria:
 
-    * There is an implicit request of the user in the column types **OR**
+* There is an implicit request of the user in the column types **OR**
 
-    * There is an explicit request of the user **AND** the overhead incurred by `DFR` is beneficial.
+* There is an explicit request of the user **AND** the overhead incurred by `DFR` is beneficial.
 
 ### Implicit request
 
@@ -86,9 +86,9 @@ mysql> CREATE TABLE t1 (f1 VARCHAR(16), f2 VARCHAR(16), PRIMARY KEY (f1)) ENGINE
 
 The explicit request is set with one of the following options in the `CREATE TABLE` statement:
 
-    * `KEY_BLOCK_SIZE = <value>`
+* `KEY_BLOCK_SIZE = <value>`
 
-    * Requests the DFR with the specified block size (in bytes)
+* Requests the DFR with the specified block size (in bytes)
 
 Despite its name, the `KEY_BLOCK_SIZE` option refers to a block size used to store data rather then indexes. The reason for this is that an existing `CREATE TABLE` option is reused to avoid introducing new ones.
 
@@ -96,9 +96,9 @@ Despite its name, the `KEY_BLOCK_SIZE` option refers to a block size used to sto
 
 After `DRF` is requested explicitly and there are no `BLOB` or `TEXT` columns in the table definition, the *Improved MEMORY Engine* will check if using the dynamic format provides any space saving benefits as compared to the fixed one:
 
-    * if the fixed row length is less than the dynamic block size (plus the dynamic row overhead - platform dependent) **OR**
+* if the fixed row length is less than the dynamic block size (plus the dynamic row overhead - platform dependent) **OR**
 
-    * there isn’t any variable-length columns in the table or `VARCHAR` fields are declared with length 31 or less,
+* there isn’t any variable-length columns in the table or `VARCHAR` fields are declared with length 31 or less,
 
 the engine will revert to the fixed format as it is more space efficient in such case. The row format being used by the engine can be checked using `SHOW TABLE STATUS`.
 
@@ -124,6 +124,7 @@ On a 64-bit platform:
 ```{.bash data-prompt="mysql"}
 mysqlCREATE TABLE t1 (f1 VARCHAR(32), f2 VARCHAR(32), f3 VARCHAR(32), f4 VARCHAR(32), PRIMARY KEY (f1)) KEY_BLOCK_SIZE=124 ENGINE=HEAP;
 ```
+
 ```{.bash data-prompt="mysql"}
 mysqlSHOW TABLE STATUS LIKE 't1';
 ```
@@ -164,7 +165,6 @@ When allocating a new chunkset of N chunks, the engine will try to allocate chun
 When freeing chunks, the engine will place them at the front of a free list in the dataspace, each one containing a reference to the previously freed chunk.
 
 The allocation and contents of the actual chunks varies between fixed and variable-size modes:
-
 
 * Format of a fixed-size chunk:
 

@@ -61,6 +61,7 @@ You can disable the libcoredumper. A core file may contain sensitive data and
 takes disk space.
 
 To disable the `libcoredumper` you must do the following:
+{.power-number}
 
 1. In the `mysqld` section of my.cnf, remove the `libcoredumper` variable.
 

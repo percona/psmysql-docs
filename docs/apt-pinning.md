@@ -1,4 +1,4 @@
-# Apt pinning the Percona Server for MySQL 8.0 packages
+# Apt pinning the Percona Server for MySQL {{release}} packages
 
 Pinning allows you to stay on a release and get packages from a different version. In some cases, you can pin selected packages and avoid accidentally upgrading all the packages. 
 

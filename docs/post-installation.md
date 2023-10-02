@@ -31,7 +31,7 @@ Executing `mysqld` with either option does the following:
 * Creates `root@localhost`
 
 You should run the following steps with the `mysql` login.
-
+{.power-number}
 
 1. Navigate to the MySQL directory. The example uses the default location.
 	
@@ -40,7 +40,7 @@ You should run the following steps with the `mysql` login.
 	```
 
 
-1. Create a directory for the MySQL files. The [secure_file_priv](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_secure_file_priv) uses the directory path as a value.
+2. Create a directory for the MySQL files. The [secure_file_priv](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_secure_file_priv) uses the directory path as a value.
 	
 	```{.bash data-prompt="$"}
 	$ mkdir mydata
@@ -60,7 +60,7 @@ You should run the following steps with the `mysql` login.
 	| Execute    | Yes  | Yes   | No    |
 	
 
-1. Run the command to initialize the data directory.
+3. Run the command to initialize the data directory.
 
 	```{.bash data-prompt="$"}
 	$ bin/mysqld --initialize
@@ -215,8 +215,6 @@ The following statement runs the script:
 ```{.bash data-prompt="$"}
 $ mysql_secure_installation
 ```
-
-
 
 ## Populate the time zone tables
 

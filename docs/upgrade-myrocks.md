@@ -1,6 +1,6 @@
 # Upgrade from systems that use the MyRocks storage engine and partitioned tables
 
-MySQL 8.1 only provides support for partitioned table for the InnoDB storage engine.
+MySQL {{release}} only provides support for partitioned table for the InnoDB storage engine.
 
 If you use partitioned tables with the *MyRocks* storage engine, the
 upgrade may fail if you do not enable the native partitioning provided by the storage engine.
@@ -25,7 +25,7 @@ Your next step is to alter the tables that are not using the native partitioning
 ALTER TABLE <table-name> UPGRADE PARTITIONING
 ```
 
-Complete these steps for each table that **mysqlcheck** list. Otherwise, the upgrade to 8.1 fails and your error log contains messages like the following:
+Complete these steps for each table that **mysqlcheck** list. Otherwise, the upgrade to {{release}} fails and your error log contains messages like the following:
 
 ```text
 2018-12-17T18:34:14.152660Z 2 [ERROR] [MY-013140] [Server] The 'partitioning' feature is not available; you need to remove '--skip-partition' or use MySQL built with '-DWITH_PARTITION_STORAGE_ENGINE=1'
@@ -36,6 +36,7 @@ Complete these steps for each table that **mysqlcheck** list. Otherwise, the upg
 ## Perform a distribution upgrade in-place on a system with installed Percona packages
 
 The following is the recommended process for performing a distribution upgrade on a system with the Percona packages installed:
+{.power-number}
 
 1. Record the installed Percona packages.
 

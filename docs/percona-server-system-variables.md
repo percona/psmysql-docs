@@ -1,4 +1,4 @@
-# Percona Server for MySQL 8.1 variables
+# Percona Server for MySQL {{release}} variables
 
 ## System variables
 
