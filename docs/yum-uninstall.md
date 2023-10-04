@@ -1,6 +1,7 @@
 # Uninstall Percona Server for MySQL
 
 To completely uninstall Percona Server for MySQL, remove all the installed packages and data files.
+{.power-number}
 
 1. Stop the Percona Server for MySQL service:
 

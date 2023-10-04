@@ -9,6 +9,6 @@ Percona provides repositories for yum (`RPM` packages for Red Hat, CentOS and Am
 
 The following guides describe the installation process for using the official Percona repositories for the `.deb` and `.rpm` packages.
 
-* [Installing Percona Server for MySQL on Debian and Ubuntu](installation/apt-repo.md)
+[Install Percona Server for MySQL on Debian and Ubuntu :material-arrow-right:](apt-repo.md){.md-button}        [Install Percona Server for MySQL on Red Hat Enterprise Linux and CentOS :material-arrow-right:](yum-repo.md){.md-button}
 
-* [Installing Percona Server for MySQL on Red Hat Enterprise Linux and CentOS](installation/yum-repo.md)
+

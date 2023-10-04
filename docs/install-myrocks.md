@@ -7,13 +7,14 @@ plugin for *Percona Server for MySQL* 8.0 and later versions.
 
     File formats across different MyRocks variants may not be compatible. *Percona Server for MySQL* supports only *Percona MyRocks*.  Migrating from one variant to another requires a logical data dump and reload.
 
-* [Installing Percona MyRocks](#install-percona-myrocks)
+* [Install Percona MyRocks](#install-percona-myrocks)
 
-* [Removing Percona MyRocks](#remove-percona-myrocks)
+* [Remove Percona MyRocks](#remove-percona-myrocks)
 
 ## Install Percona MyRocks
 
 It is recommended to install Percona software from official repositories:
+{.power-number}
 
 1. Configure Percona repositories as described in [Percona Software Repositories Documentation](https://docs.percona.com/percona-software-repositories/index.html).
 

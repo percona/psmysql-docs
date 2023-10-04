@@ -1,4 +1,4 @@
-# Uninstall Percona Server for MySQL 8.0 using the APT package manager
+# Uninstall Percona Server for MySQL {{release}} using the APT package manager
 
 To uninstall Percona Server for MySQL you’ll need to remove all the installed
 packages. Removing packages with apt remove does not remove the

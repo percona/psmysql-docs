@@ -10,6 +10,7 @@ The `MASKING_DICTIONARIES_ADMIN` privilege may be required by some functions.
 ## Install the component
 
 The following steps install the component:
+{.power-number}
 
 1. Create `masking_dictionaries`.
 

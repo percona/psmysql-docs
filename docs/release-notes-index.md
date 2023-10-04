@@ -1,2 +1,2 @@
-# Percona Server for MySQL 8.1 release notes index
+# Percona Server for MySQL {{release}} release notes index
 

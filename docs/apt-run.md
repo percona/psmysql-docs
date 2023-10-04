@@ -1,4 +1,4 @@
-# Run Percona Server for MySQL 8.0 after APT repository installation
+# Run Percona Server for MySQL {{release}} after APT repository installation
 
 Percona Server for MySQL stores the data files in `/var/lib/mysql/` by
 default. You can find the configuration file that is used to manage Percona Server for MySQL in `/etc/mysql/my.cnf`.
@@ -8,7 +8,7 @@ default. You can find the configuration file that is used to manage Percona Serv
     Debian and Ubuntu installation doesn’t automatically create a special `debian-sys-maint` user which can be used by the control scripts to control the Percona Server for MySQL `mysqld` and `mysqld_safe` services which was the case with previous Percona Server for MySQL versions. If you still require this user you’ll need to create it manually.
 
 Run the following commands as root or by using the sudo command
-
+{.power-number}
 
 1. Starting the service
 

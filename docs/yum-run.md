@@ -4,6 +4,7 @@ Percona Server for MySQL stores the data files in `/var/lib/mysql/` by
 default. The configuration file used to manage Percona Server for MySQL is the `/etc/my.cnf`.
 
 The following commands start, provide the server status, stop the server, and restart the server.
+{.power-number}
 
 !!! note
 
