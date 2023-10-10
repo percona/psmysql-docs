@@ -1,4 +1,4 @@
-# Migrate and removing the TokuDB storage engine
+# Migrate and remove the TokuDB storage engine
 
 !!! important
 
