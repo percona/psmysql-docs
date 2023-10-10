@@ -1,4 +1,4 @@
-# Data loading
+# MyRocks data loading
 
 By default, MyRocks configurations are optimized for short transactions,
 and not for data loading. MyRocks has a couple of special session variables

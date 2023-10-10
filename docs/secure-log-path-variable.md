@@ -1,4 +1,4 @@
-# Server variables
+# The secure_log_path variable
 
 Use system variables to configure the server operation.
 

@@ -1,4 +1,4 @@
-# Uninstall the component
+# Uninstall the data masking component
 
 The following steps uninstall the component:
 

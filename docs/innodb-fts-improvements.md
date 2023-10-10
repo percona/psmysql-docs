@@ -1,6 +1,6 @@
 # InnoDB full-text search improvements
 
-# Ignoring stopword list
+## Ignoring stopword list
 
 By default, all Full-Text Search indexes check the [stopwords list](https://dev.mysql.com/doc/refman/8.0/en/fulltext-stopwords.html), to see if any indexed elements contain words on that list.
 
