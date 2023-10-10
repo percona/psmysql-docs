@@ -7,32 +7,30 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL 8.0 extends the SET_VAR introduced in MySQL 8.0
-effectively replacing the SET STATEMENT ... FOR statement. SET_VAR is an
-optimizer hint that can be applied to session variables.">
+        <meta name="description" content="Use system variables to configure the server operation.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/extended-set-var.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/secure-log-path-variable.html">
       
       
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
     
     
       
-        <title>Extended SET VAR optimizer hint - Percona Server for MySQL</title>
+        <title>The secure_log_path variable - Percona Server for MySQL</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.d451bc0e.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6a10b989.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.a5377069.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.356b1318.min.css">
       
       
 
@@ -84,7 +82,7 @@ optimizer hint that can be applied to session variables.">
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Extended SET VAR optimizer hint" />
+                 <meta property="og:title" content="Percona Server for MySQL - The secure_log_path variable" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.0/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png" />
               
@@ -110,7 +108,7 @@ optimizer hint that can be applied to session variables.">
     <div data-md-component="skip">
       
         
-        <a href="#extended-set-var-optimizer-hint" class="md-skip">
+        <a href="#the-secure_log_path-variable" class="md-skip">
           Skip to content
         </a>
       
@@ -149,7 +147,7 @@ optimizer hint that can be applied to session variables.">
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Extended SET VAR optimizer hint
+              The secure_log_path variable
             
           </span>
         </div>
@@ -1465,6 +1463,26 @@ optimizer hint that can be applied to session variables.">
   
   <span class="md-ellipsis">
     Reading Audit Log Filter files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="manage-audit-log-filter.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manage the Audit Log Filter files
   </span>
   
 
@@ -3364,7 +3382,7 @@ optimizer hint that can be applied to session variables.">
         
   
   <span class="md-ellipsis">
-    Uninstall the component
+    Uninstall the data masking component
   </span>
   
 
@@ -3560,11 +3578,11 @@ optimizer hint that can be applied to session variables.">
   
   
     <li class="md-nav__item">
-      <a href="system-variables.html" class="md-nav__link">
+      <a href="system-variables.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Server variables
+    None
   </span>
   
 
@@ -4984,7 +5002,7 @@ optimizer hint that can be applied to session variables.">
         
   
   <span class="md-ellipsis">
-    Data loading
+    MyRocks data loading
   </span>
   
 
@@ -5308,7 +5326,7 @@ optimizer hint that can be applied to session variables.">
         
   
   <span class="md-ellipsis">
-    Frequently asked questions
+    TokuDB frequently asked questions
   </span>
   
 
@@ -5328,7 +5346,7 @@ optimizer hint that can be applied to session variables.">
         
   
   <span class="md-ellipsis">
-    Migrate and removing the TokuDB storage engine
+    Migrate and remove the TokuDB storage engine
   </span>
   
 
@@ -5413,6 +5431,26 @@ optimizer hint that can be applied to session variables.">
             Reference
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="topic-index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Topic index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -5650,6 +5688,21 @@ optimizer hint that can be applied to session variables.">
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#secure_log_path" class="md-nav__link">
+    secure_log_path
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -5666,14 +5719,14 @@ optimizer hint that can be applied to session variables.">
                   
                   
                   <a
-                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/extended-set-var.md"
+                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/secure-log-path-variable.md"
                     title="edit.link.title"
                     class="md-content__button md-icon"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
                   </a>
                   <a
-                    href="https://raw.githubusercontent.com/percona/psmysql-docs/8.0/docs/extended-set-var.md"
+                    href="https://raw.githubusercontent.com/percona/psmysql-docs/8.0/docs/secure-log-path-variable.md"
                     title="View source of this page"
                     class="md-content__button md-icon"
                   >
@@ -5689,45 +5742,42 @@ optimizer hint that can be applied to session variables.">
                 
 
                 <!-- Markdown content -->
-                <h1 id="extended-set-var-optimizer-hint">Extended SET VAR optimizer hint<a class="headerlink" href="#extended-set-var-optimizer-hint" title="Permanent link">&para;</a></h1>
-<p><em>Percona Server for MySQL</em> 8.0 extends the <code>SET_VAR</code> introduced in <em>MySQL</em> 8.0
-effectively replacing the <code>SET STATEMENT ... FOR</code> statement. <code>SET_VAR</code> is an
-optimizer hint that can be applied to session variables.</p>
-<p><em>Percona Server for MySQL</em> 8.0 extends the <code>SET_VAR</code> hint to support the
-following:</p>
-<ul>
-<li>
-<p>The <code>OPTIMIZE TABLE</code> statement</p>
-</li>
-<li>
-<p>MyISAM session variables</p>
-</li>
-<li>
-<p>Plugin or Storage Engine variables</p>
-</li>
-<li>
-<p>InnoDB Session variables</p>
-</li>
-<li>
-<p>The <code>ALTER TABLE</code> statement</p>
-</li>
-<li>
-<p><code>CALL stored_proc()</code> statement</p>
-</li>
-<li>
-<p>The <code>ANALYZE TABLE</code> statement</p>
-</li>
-<li>
-<p>The <code>CHECK TABLE</code> statement</p>
-</li>
-<li>
-<p>The <code>LOAD INDEX</code> statement (used for MyISAM)</p>
-</li>
-<li>
-<p>The <code>CREATE TABLE</code> statement</p>
-</li>
-</ul>
-<p><em>Percona Server for MySQL</em> 8.0 also supports setting the following variables by using <code>SET_VAR</code>:</p>
+                <h1 id="the-secure_log_path-variable">The secure_log_path variable<a class="headerlink" href="#the-secure_log_path-variable" title="Permanent link">&para;</a></h1>
+<p>Use system variables to configure the server operation.</p>
+<h2 id="secure_log_path">secure_log_path<a class="headerlink" href="#secure_log_path" title="Permanent link">&para;</a></h2>
+<p>Implemented in Percona Server for MySQL 8.0.28-19 (2022-05-12).</p>
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;secure-log-path</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>empty string</td>
+</tr>
+</tbody>
+</table>
+<p>This variable restricts the dynamic log file locations. The variable is read-only and must be set up in a configuration file or the command line.</p>
+<p>The accepted value is the directory name as a string. The default value is an empty string. When the value is an empty string, the variable only adds a warning to the error log and does nothing. If the value contains a directory name, then the slow query log and the general log must be located in that directory. An attempt to move either of these files outside of the specified directory results in an error.</p>
 
                 
 <div class="md-relbar2__inner md-grid">
@@ -5750,7 +5800,7 @@ following:</p>
   <small>
     
       Last update:
-      2023-09-27
+      2023-10-10
     
   </small>
 </div>
@@ -5766,10 +5816,10 @@ following:</p>
         </div>
         
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-            
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
-            Back to top
-          </button>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
         
       </main>
       
@@ -5797,6 +5847,7 @@ following:</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
+    
     
       <div class="md-consent" data-md-component="consent" id="__consent" hidden>
         <div class="md-consent__overlay"></div>
@@ -5872,10 +5923,10 @@ following:</p>
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.a264c092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.726fbb30.min.js"></script>
+      <script src="assets/javascripts/bundle.aecac24b.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
