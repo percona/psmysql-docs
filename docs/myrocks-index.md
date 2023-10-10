@@ -3,7 +3,7 @@
 [MyRocks](https://myrocks.io) is a storage engine
 for [MySQL](https://www.mysql.com) based on [RocksDB](https://rocksdb.org/),
 an embeddable, persistent key-value store.
-*Percona MyRocks* is an implementation
+Percona MyRocks is an implementation
 for [Percona Server for MySQL](https://www.percona.com/software/percona-server).
 
 The RocksDB store is based on the log-structured merge-tree (or LSM
@@ -24,10 +24,10 @@ engines, if your workload uses fast storage, such as SSD:
 
 [Differences between Percona MyRocks and Facebook MyRocks](differences.md)
 
-[*MyRocks* Column Families](column-family.md)
+[MyRocks Column Families](myrocks-column-family.md)
 
 [MyRocks Server Variables](variables.md)
 
 [MyRocks Information Schema Tables](information-schema-tables.md)
 
-[Performance Schema MyRocks changes](performance-schema-tables.md)
+[Performance Schema MyRocks changes](myrocks-performance-schema-tables.md)
