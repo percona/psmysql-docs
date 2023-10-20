@@ -1,4 +1,4 @@
-# Use an APT repository to install Percona Server for MySQL 8.0
+# Use an APT repository to install Percona Server for MySQL {{release}}
 
 Ready-to-use packages are available from the Percona Server for MySQL software
 repositories and the [Percona downloads](https://www.percona.com/downloads/Percona-Server-8.0/) page.
@@ -7,6 +7,9 @@ Specific information on the supported platforms, products, and versions is descr
 
 
 ## Install Percona Server for MySQL using APT
+
+To install Percona Server for MySQL using APT, do the following steps:
+{.power-number}
 
 1. Update the package repositories:
 

@@ -1,6 +1,4 @@
-# Percona Server for MySQL 8.1 - Documentation
-
-<! -- Home -->
+# Percona Server for MySQL {{release}} - Documentation
 
 !!! note ""
 

@@ -12,10 +12,9 @@ Find the instructions on how to enable the repositories in the following documen
 ## DEB-based distributions
 
 Run the following commands as root or by using the **sudo** command.
-
+{.power-number}
 
 1. Make a full backup (or dump if possible) of your database. Move the database configuration file, `my.cnf`, to another direction to save it.
-
 
 2. Stop the server with `/etc/init.d/mysql stop`.
 
@@ -25,7 +24,6 @@ Run the following commands as root or by using the **sudo** command.
 
 
 3. Do the required modifications in the database configuration file `my.cnf`.
-
 
 4. Install *Percona Server for MySQL*:
 
@@ -95,10 +93,9 @@ After the service has been successfully restarted you can use the new *Percona S
 ## RPM-based distributions
 
 Run the following commands as root or by using the **sudo** command.
-
+{.power-number}
 
 1. Make a full backup (or dump if possible) of your database. Copy the database configuration file, for example, `my.cnf`, to another directory to save it.
-
 
 2. Stop the server with `/etc/init.d/mysql stop`.
 

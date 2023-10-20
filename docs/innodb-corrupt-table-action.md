@@ -23,11 +23,8 @@ For more information about the innodb_force_recovery variable,
 see [Forcing InnoDB Recovery](https://dev.mysql.com/doc/refman/5.5/en/forcing-innodb-recovery.html)
 from the MySQL Reference Manual.
 
-This feature adds a new system variable.
+This feature adds a system variable.
 
-## Version specific information
-
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
 ## System variables
 

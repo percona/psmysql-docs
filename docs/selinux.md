@@ -370,6 +370,7 @@ To solve the issue, use the following methods:
 * Change the mysqld SELinux policy to allow mysqld access to `var_lib_t` files.
 
 The recommended solution is to set the proper labels. The following procedure assumes you have already created and set ownership to the custom data directory location:
+{.power-number}
 
 1. To change the SELinux context, use `semanage fcontext`. In this step, you define how SELinux deals with the custom paths:
 
@@ -448,7 +449,7 @@ To tag the custom `/logs` location is the recommended method since it locks down
 You may not be able to change the `/logs` directory label. For example, other applications, with their own rules, use the same directory.
 
 To adjust the SELinux policy when a directory is shared, follow these steps:
-
+{.power-number}
 
 1. Create a local policy:
 
@@ -507,7 +508,10 @@ To adjust the SELinux policy when a directory is shared, follow these steps:
 
 Restart the service. If you have a failure, check the journal log and follow the same procedure.
 
-If SELinux prevents mysql from creating a log file inside the directory. You can view all the violations by changing the SELinux mode to `permissive` and then running mysqld. All violations are logged in the journal log. After this run, you can generate a local policy module, install it, and switch SELinux back to `enforcing` mode. Follow this procedure:
+If SELinux prevents mysql from creating a log file inside the directory. You can view all the violations by changing the SELinux mode to `permissive` and then running mysqld. All violations are logged in the journal log. After this run, you can generate a local policy module, install it, and switch SELinux back to `enforcing` mode. 
+
+Follow this procedure:
+{.power-number}
 
 1. Unload the current local my-mysqld policy module:
 

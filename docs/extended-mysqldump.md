@@ -31,6 +31,3 @@ rocksdb_skip_fill_cache **mysqldump** sets it to **1**.
 **mysqldump** will now automatically enable session the variable
 rocksdb_bulk_load if it is supported by the target server.
 
-## Version specific information
-
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7

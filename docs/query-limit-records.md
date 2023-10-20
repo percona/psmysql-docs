@@ -1,3 +1,5 @@
+<!--- still tech preview?--->
+
 # Limit the estimation of records in a Query
 
 !!! important
@@ -29,7 +31,7 @@ effectively bypasses the process.
 
 !!! important
 
-    --8<--- "tech.preview.md:9:9"
+    --8<--- "tech.preview.md:5:5"
 
 The variable provides a method to limit the number of records estimated for a
 query.
@@ -51,7 +53,7 @@ mysql> SET @@GLOBAL.innodb_records_in_range=100;
 
 !!! important
 
-    --8<--- "tech.preview.md:9:9"
+    --8<--- "tech.preview.md:5:5"
 
 This variable provides a method to override the records_in_range result when a
 FORCE INDEX is used in a query.
@@ -65,7 +67,7 @@ mysql> SET @@GLOBAL.innodb_force_index_records_in_range=100;
 
 !!! important
 
-    --8<--- "tech.preview.md:9:9"
+    --8<--- "tech.preview.md:5:5"
 
 In specific scenarios, the optimizer chooses to scan a table instead of using a range scan. The conditions are the following:
 

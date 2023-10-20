@@ -24,12 +24,6 @@ This user has a mixed and special scope of abilities and protection:
 
 At server start, the server notes in the log output that the utility user exists and the schemas that the utility user can access.
 
-## Version specific information
-
-* The [utility_user_dynamic_privileges](#utility_user_dynamic_privileges) variable was implemented in [Percona Server for MySQL 8.0.20-11](../release-notes/Percona-Server-8.0.20-11.md#id1).
-
-* [Percona Server for MySQL 8.0.17-8](../release-notes/Percona-Server-8.0.17-8.md#id1): The feature was ported from *Percona Server for MySQL* 5.7.
-
 ## System variables
 
 In order to have the ability for a special type of MySQL user, which will have a very limited and special amount of control over the system and can not be see or modified by any other user including the root user, three new options have been added.
@@ -144,8 +138,6 @@ Option [utility-user-privileges](#utility_user_privileges) allows a comma-separa
 | Dynamic:       | No                 |
 | Data type      | String             |
 | Default        | NULL               |
-
-This variable was implemented in [Percona Server for MySQL 8.0.20-11](../release-notes/Percona-Server-8.0.20-11.md#id1).
 
 This variable allows a comma-separated list of extra access dynamic privileges to grant to the utility user. The supported values for the dynamic privileges are:
 

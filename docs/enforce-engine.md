@@ -1,6 +1,6 @@
 # Enforcing storage engine
 
-*Percona Server for MySQL* has implemented variable which can be used for enforcing the
+Percona Server for MySQL implements a variable to enforce the
 use of a specific storage engine.
 
 When this variable is specified and a user tries to create a table using an
@@ -18,10 +18,6 @@ In case user tries to enable [enforce_storage_engine](#enforce_storage_engine) w
     If you’re using enforce_storage_engine, you must either disable
     it before doing `mysql_upgrade` or perform `mysql_upgrade` with server
     started with `--skip-grants-tables`.
-
-## Version specific information
-
-* [Percona Server for MySQL 8.0.13-4](https://docs.percona.com/percona-server/8.0/release-notes/Percona-Server-8.0.13-4.html): The feature was ported from *Percona Server for MySQL* 5.7.
 
 ## System variables
 

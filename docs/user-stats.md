@@ -4,13 +4,6 @@ This feature adds several `INFORMATION_SCHEMA` tables, several commands, and the
 
 The functionality is disabled by default and must be enabled by setting `userstat` to `ON`. It works by keeping several hash tables in memory. To avoid contention over global mutexes, each connection has its own local statistics, which are occasionally merged into the global statistics, and the local statistics are then reset to 0.
 
-## Version specific information
-
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
-
-## Other information
-
-* Author/Origin: *Google*; *Percona* added the `INFORMATION_SCHEMA` tables and the userstat variable.
 
 ## System variables
 

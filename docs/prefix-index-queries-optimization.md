@@ -30,6 +30,4 @@ cluster lookup.
 This variable shows the number of times prefix optimization avoided
 triggering cluster lookup.
 
-## Version specific information
 
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7

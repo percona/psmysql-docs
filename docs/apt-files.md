@@ -1,4 +1,4 @@
-# Files in the DEB package built for Percona Server for MySQL 8.0
+# Files in the DEB package built for Percona Server for MySQL {{release}}
 
 | Package                      | Contains                                                                                                                                                                        |
 |------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

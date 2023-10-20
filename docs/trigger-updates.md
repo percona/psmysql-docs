@@ -12,7 +12,7 @@ Opening a table with triggers in Table Cache also parses the trigger definitions
 
 ## Version specific information
 
-Percona Server for MySQL 8.0.31 adds the following abilities:
+Percona Server for MySQL has the following abilities:
 
 * Avoid using table instances with fully-loaded and parsed triggers by read-only queries
 * Show trigger CREATE statements even if the statement is unparseable

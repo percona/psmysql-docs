@@ -2,7 +2,8 @@
 
 Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
 
- The following example downloads *Percona Server for MySQL* 8.0.29-21 release packages for *RHEL* 8.
+The following example downloads *Percona Server for MySQL* 8.0.29-21 release packages for *RHEL* 8.
+{.power-number}
 
 1. Use `wget` to download the tar file.
 

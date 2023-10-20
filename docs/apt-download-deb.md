@@ -1,4 +1,4 @@
-# Install Percona Server for MySQL 8.0 using downloaded DEB packages
+# Install Percona Server for MySQL {{release}} using downloaded DEB packages
 
 Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
 

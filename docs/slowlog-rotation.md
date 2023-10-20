@@ -1,3 +1,5 @@
+<!-- still tech preview in Innovation release? -->
+
 # Slow query log rotation and expiration
 
 !!! important

@@ -2,7 +2,6 @@
 
 ## DEB-based distributions
 
-
 1. Make a full backup (or dump if possible) of your database. Move the database configuration file, `my.cnf`, to another direction to save it.
 
 

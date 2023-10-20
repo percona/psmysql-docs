@@ -1,7 +1,7 @@
 # Install from Percona Software repository
 
 Ready-to-use packages are available from the Percona Server for MySQL software
-repositories and the [download page](https://www.percona.com/downloads/Percona-Server-8.0/). The
+repositories and the [download page](https://www.percona.com/downloads/Percona-Server-8.1/). The
 Percona yum repository supports popular RPM-based
 operating systems. The easiest way to install the Percona RPM repository is to install an RPM
 that configures yum and installs the [Percona GPG key](https://www.percona.com/downloads/RPM-GPG-KEY-percona).
@@ -27,7 +27,7 @@ For more information on the Percona Software repositories and configuring Percon
 
     ```{.bash data-prompt="$"}
     $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-    $ sudo percona-release enable-only ps-80 release
+    $ sudo percona-release enable-only ps-81 release
     $ sudo percona-release enable tools release
     $ sudo yum install percona-server-server
     ```
@@ -35,13 +35,13 @@ For more information on the Percona Software repositories and configuring Percon
 
     ```{.bash data-prompt="$"}
     $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-    $ sudo percona-release setup ps-80
+    $ sudo percona-release setup ps-81
     $ sudo yum install percona-server-server
     ```
 
 ## Available storage engines
 
-Percona Server for MySQL 8.0 comes with the `MyRocks` storage engine. This storage engine is installed as a plugin. For information on how to install and configure MyRocks, refer to the Percona MyRocks Installation Guide.
+Percona Server for MySQL {{release}} comes with the `MyRocks` storage engine. This storage engine is installed as a plugin. For information on how to install and configure MyRocks, refer to the [Percona MyRocks Installation Guide](install-myrocks.md).
 
 ### Percona yum Testing repository
 

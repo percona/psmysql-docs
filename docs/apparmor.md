@@ -142,7 +142,7 @@ For some changes to take effect, you may need to restart the program.
 ## Disable AppArmor
 
 AppArmor provides security and disabling the system is not recommened. If AppArmor must be disabled, run the following commands:
-
+{.power-number}
 
 1. Check the status.
 
@@ -160,6 +160,7 @@ AppArmor provides security and disabling the system is not recommened. If AppArm
 ## Add the mysqld profile
 
 Add the mysqld profile with the following procedure:
+{.power-number}
 
 1. Download the current version of the AppArmor:
 

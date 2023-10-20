@@ -4,9 +4,6 @@ This feature adds microsecond time resolution and additional statistics to the s
 
 You can use *Percona-Toolkit*’s [pt-query-digest](https://www.percona.com/doc/percona-toolkit/2.1/pt-query-digest.html) tool to aggregate similar queries together and report on those that consume the most execution time.
 
-## Version specific information
-
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
 ## System Variables
 

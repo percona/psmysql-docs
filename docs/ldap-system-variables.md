@@ -4,8 +4,8 @@
 
 !!! important
 
-    --8<--- "tech.preview.md:9:9"
-    
+    --8<--- "tech.preview.md:5:5"
+
 The installation adds the following variables:
 
 | Variable name | Description |

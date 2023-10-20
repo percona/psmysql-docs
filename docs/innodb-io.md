@@ -29,17 +29,13 @@ options for *XtraDB*.
 
 The following values are allowed:
 
-    * `fdatasync`: use `fsync()` to flush data, log, and parallel doublewrite files.
+* `fdatasync`: use `fsync()` to flush data, log, and parallel doublewrite files.
 
-    * `O_SYNC`: use `O_SYNC` to open and flush the log and parallel doublewrite files; use `fsync()` to flush the data files. Do not use `fsync()` to flush the parallel doublewrite file.
+* `O_SYNC`: use `O_SYNC` to open and flush the log and parallel doublewrite files; use `fsync()` to flush the data files. Do not use `fsync()` to flush the parallel doublewrite file.
 
-    * `O_DIRECT`: use O_DIRECT to open the data files and `fsync()` system call to flush data, log, and parallel doublewrite files.
+* `O_DIRECT`: use O_DIRECT to open the data files and `fsync()` system call to flush data, log, and parallel doublewrite files.
 
-    * `O_DIRECT_NO_FSYNC`: use O_DIRECT to open the data files and parallel doublewrite files, but does not use the `fsync()` system call to flush the data files, log files, and parallel doublewrite files. Do not use this option for the *XFS* file system.
-
-    * `ALL_O_DIRECT`: use O_DIRECT to open data files, log files, and parallel doublewrite files
-    and use `fsync()` to flush the data files but not the log files or
-    parallel doublewrite files. This option is recommended when *InnoDB* log files are big (more than 8GB), otherwise, there may be performance degradation. 
+* `O_DIRECT_NO_FSYNC`: use O_DIRECT to open the data files and parallel doublewrite files, but does not use the `fsync()` system call to flush the data files, log files, and parallel doublewrite files. Do not use this option for the *XFS* file system.
 
 !!! note
 
