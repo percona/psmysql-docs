@@ -2,8 +2,6 @@
 
 ## Authentication system variables
 
-[Percona 8.0.30-22](../release-notes/8.0.30-22.md) adds LDAP_SASL variables and the `fallback` server variables for simple LDAP and SASL-based LDAP.
-
 !!! important
 
     --8<--- "tech.preview.md:5:5"

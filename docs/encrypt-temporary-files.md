@@ -42,9 +42,7 @@ For each temporary file, an encryption key has the following attributes:
 
 * Discarded with the temporary file
 
-## System variables
-
-### `encrypt_tmp_files`
+## `encrypt_tmp_files`
 
 | Option       | Description         |
 |--------------|---------------------|
@@ -56,7 +54,7 @@ For each temporary file, an encryption key has the following attributes:
 
 This variable turns “ON” the encryption of temporary files created by the *Percona Server for MySQL*. The default value is `OFF`.
 
-### `innodb_temp_tablespace_encrypt`
+## `innodb_temp_tablespace_encrypt`
 
 | Option       | Description                    |
 |--------------|--------------------------------|

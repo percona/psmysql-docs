@@ -19,7 +19,7 @@ effectively bypasses the process.
 
     The use of these variables may result in improper index selection by the optimizer.
 
-### `innodb_records_in_range`
+## `innodb_records_in_range`
 
 | Option         | Description        |
 | -------------- | ------------------ |
