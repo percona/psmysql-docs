@@ -36,6 +36,7 @@
 | query_response_time_flush | Yes | No | Global | No |
 | query_response_time_range_base | Yes | Yes | Global | Yes |
 | query_response_time_stats | Yes | Yes | Global | Yes |
+| secure_log_path | Yes | Yes | Global | No |
 | slow_query_log_always_write_time | Yes | Yes | Global | Yes |
 | slow_query_log_use_global_control | Yes | Yes | Global | Yes |
 | thread_pool_high_prio_mode | Yes | Yes | Both | Yes |
