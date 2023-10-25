@@ -165,7 +165,7 @@ Add the mysqld profile with the following procedure:
 1. Download the current version of the AppArmor:
 
     ```{.bash data-prompt="$"}
-    $ wget https://raw.githubusercontent.com/mysql/mysql-server/8.0/packaging/deb-in/extra/apparmor-profile
+    $ wget https://raw.githubusercontent.com/mysql/mysql-server/{{vers}}/packaging/deb-in/extra/apparmor-profile
     ```
 
     The expected output:
@@ -232,7 +232,7 @@ $ cat /etc/mysql/mysql.conf.d/mysqld.cnf
 
     ```{.text .no-copy}
     
-    The Percona Server 8.0 configuration file.
+    The Percona Server {{vers}} configuration file.
     
     For explanations see
     https://dev.mysql.com/doc/mysql/en/server-system-variables.html
@@ -311,7 +311,7 @@ cat /etc/mysql/mysql.conf.d/mysqld.cnf
 
     ```{.text .no-copy}
     
-    The Percona Server 8.0 configuration file.
+    The Percona Server {{vers}} configuration file.
     
     For explanations see
     https://dev.mysql.com/doc/mysql/en/server-system-variables.html

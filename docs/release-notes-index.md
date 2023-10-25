@@ -1,2 +1,2 @@
-# Percona Server for MySQL {{release}} release notes index
+# Percona Server for MySQL {{vers}} release notes index
 

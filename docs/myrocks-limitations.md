@@ -2,28 +2,28 @@
 
 The MyRocks storage engine lacks the following features compared to InnoDB:
 
-* [Online DDL](https://dev.mysql.com/doc/refman/8.1/en/innodb-online-ddl.html) is not supported due to the lack of atomic DDL support.
+* [Online DDL](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-online-ddl.html) is not supported due to the lack of atomic DDL support.
 
     * There is no `ALTER TABLE ... ALGORITHM=INSTANT` functionality
 
     * A partition management operation only supports the `COPY` algorithms, which rebuilds the partition table and moves the data based on the new `PARTITION ... VALUE` definition. In the case of `DROP PARTITION`, the data not moved to another partition is deleted.
 
 
-* [ALTER TABLE .. EXCHANGE PARTITION](https://dev.mysql.com/doc/refman/8.1/en/partitioning-management-exchange.html).
+* [ALTER TABLE .. EXCHANGE PARTITION](https://dev.mysql.com/doc/refman/{{vers}}/en/partitioning-management-exchange.html).
 
-* [SAVEPOINT](https://dev.mysql.com/doc/refman/8.1/en/savepoint.html)
+* [SAVEPOINT](https://dev.mysql.com/doc/refman/{{vers}}/en/savepoint.html)
 
-* [Transportable tablespace](https://dev.mysql.com/doc/refman/8.1/en/innodb-table-import.html)
+* [Transportable tablespace](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-table-import.html)
 
-* [Foreign keys](https://dev.mysql.com/doc/refman/8.1/en/create-table-foreign-keys.html)
+* [Foreign keys](https://dev.mysql.com/doc/refman/{{vers}}/en/create-table-foreign-keys.html)
 
-* [Spatial indexes](https://dev.mysql.com/doc/refman/8.1/en/using-spatial-indexes.html)
+* [Spatial indexes](https://dev.mysql.com/doc/refman/{{vers}}/en/using-spatial-indexes.html)
 
-* [Fulltext indexes](https://dev.mysql.com/doc/refman/8.1/en/innodb-fulltext-index.html)
+* [Fulltext indexes](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-fulltext-index.html)
 
-* [Gap locks](https://dev.mysql.com/doc/refman/8.1/en/innodb-locking.html#innodb-gap-locks)
+* [Gap locks](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-locking.html#innodb-gap-locks)
 
-* [Group Replication](https://dev.mysql.com/doc/refman/8.1/en/group-replication.html)
+* [Group Replication](https://dev.mysql.com/doc/refman/{{vers}}/en/group-replication.html)
 
 * [Partial Update of LOB in InnoDB](https://mysqlserverteam.com/mysql-8-0-optimizing-small-partial-update-of-lob-in-innodb/)
 
@@ -57,21 +57,21 @@ You should also consider the following:
 
     !!! admonition "See also"
 
-        [MySQL Documentation: Preparing Your Installation for Upgrade](https://dev.mysql.com/doc/refman/8.1/en/upgrade-prerequisites.html)
+        [MySQL Documentation: Preparing Your Installation for Upgrade](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-prerequisites.html)
 
-* Percona Server for MySQL {{release}} and Unicode 9.0.0 standards have defined a change in the handling of binary collations. These collations are handled as NO PAD, trailing spaces are included in key comparisons. A binary collation comparison may result in two unique rows inserted and does not generate a\`DUP_ENTRY\` error. MyRocks key encoding and comparison does not account for this character set attribute.
+* Percona Server for MySQL {{vers}} and Unicode 9.0.0 standards have defined a change in the handling of binary collations. These collations are handled as NO PAD, trailing spaces are included in key comparisons. A binary collation comparison may result in two unique rows inserted and does not generate a\`DUP_ENTRY\` error. MyRocks key encoding and comparison does not account for this character set attribute.
 
 ## Not supported on MyRocks
 
 MyRocks does not support the following:
 
-* Operating as either a source or a replica in any replication topology that is not exclusively row-based. Statement-based and mixed-format binary logging is not supported. For more information, see [Replication Formats](https://dev.mysql.com/doc/refman/8.1/en/replication-formats.html).
+* Operating as either a source or a replica in any replication topology that is not exclusively row-based. Statement-based and mixed-format binary logging is not supported. For more information, see [Replication Formats](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-formats.html).
 
-* Using [multi-valued indexes](https://dev.mysql.com/doc/refman/8.1/en/create-index.html#create-index-multi-valued). InnoDB supports this feature.
+* Using [multi-valued indexes](https://dev.mysql.com/doc/refman/{{vers}}/en/create-index.html#create-index-multi-valued). InnoDB supports this feature.
 
-* Using [spatial data types](https://dev.mysql.com/doc/refman/8.1/en/spatial-type-overview.html) .
+* Using [spatial data types](https://dev.mysql.com/doc/refman/{{vers}}/en/spatial-type-overview.html) .
 
-* Using the [Clone Plugin](https://dev.mysql.com/doc/refman/8.1/en/clone-plugin.html) and the Clone Plugin API. InnoDB supports either these features.
+* Using the [Clone Plugin](https://dev.mysql.com/doc/refman/{{vers}}/en/clone-plugin.html) and the Clone Plugin API. InnoDB supports either these features.
 
 * Using encryption in tables. At this time, during an `ALTER TABLE` operation, MyRocks mistakenly detects all InnoDB tables as encrypted. Therefore, any attempt to `ALTER` an InnoDB table to MyRocks fails.
 

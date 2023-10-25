@@ -11,8 +11,12 @@ Flow controls work asynchronously and depend on the following:
 
 The following system variables set flow control behavior for Group Replication:
 
-* [group_replication_flow_control_mode](https://dev.mysql.com/doc/refman/8.0/en/group-replication-options.html#sysvar_group_replication_flow_control_mode)
-* [group_replication_flow_control_certifier_threshold](https://dev.mysql.com/doc/refman/8.0/en/group-replication-options.html#sysvar_group_replication_flow_control_certifier_threshold)
-* [group_replication_flow_control_applier_threshold](https://dev.mysql.com/doc/refman/8.0/en/group-replication-options.html#sysvar_group_replication_flow_control_applier_threshold)
+* [group_replication_flow_control_mode]
+* [group_replication_flow_control_certifier_threshold]
+* [group_replication_flow_control_applier_threshold]
 
 Flow control is enabled and disabled by selecting a value in the group_replication_flow_control_mode variable. Flow control can also be enabled on the certifier or applier level or both and sets the threshold level.
+
+[group_replication_flow_control_mode]: https://dev.mysql.com/doc/refman/{{vers}}/en/group-replication-options.html#sysvar_group_replication_flow_control_mode
+[group_replication_flow_control_certifier_threshold]: https://dev.mysql.com/doc/refman/{{vers}}/en/group-replication-options.html#sysvar_group_replication_flow_control_certifier_threshold
+[group_replication_flow_control_applier_threshold]: https://dev.mysql.com/doc/refman/{{vers}}/en/group-replication-options.html#sysvar_group_replication_flow_control_applier_threshold

@@ -27,6 +27,7 @@ be sure that the password for `debian-sys-maint` user has been updated and
 it’s the same as that user’s password from the server that the backup has been
 taken from. The password can be seen and updated in
 `/etc/mysql/debian.cnf`. For more information on how to set up a
-replication replica using *Percona XtraBackup* see [this how-to](https://docs.percona.com/percona-xtrabackup/8.0/howtos/setting_up_replication.html).
+replication replica using *Percona XtraBackup* see [this how-to].
 
+[this how-to]: https://docs.percona.com/percona-xtrabackup/{{vers}}/howtos/setting_up_replication.html
 

@@ -1,6 +1,6 @@
 # Jemalloc memory allocation profiling
 
-Implemented in [Percona Server for MySQL 8.0.25-15](../release-notes/Percona-Server-8.0.25-15.md#id1), *Percona Server for MySQL* can take advantage of the memory-profiling ability of the jemalloc allocator. This ability provides a method to investigate memory-related issues.
+Percona Server for MySQL can take advantage of the memory-profiling ability of the jemalloc allocator. This ability provides a method to investigate memory-related issues.
 
 ## Requirements
 
@@ -127,7 +127,7 @@ dot --Tpng /tmp/jeprof1.dot > /tmp/jeprof1.png
 
 ## PERFORMANCE_SCHEMA tables
 
-In 8.0.25.14, the following tables are implemented to retrieve memory allocation statistics for a running instance or return the cumulative number of allocations requested or allocations returned for a running instance.
+The following tables are implemented to retrieve memory allocation statistics for a running instance or return the cumulative number of allocations requested or allocations returned for a running instance.
 
 More information about the stats that are returned can be found in [jemalloc](https://jemalloc.net/jemalloc.3.html).
 
@@ -153,7 +153,7 @@ The cumulative number of allocations requested or allocations returned for a run
 | Type                  | The type of object: small, large, and huge          |
 | ALLOCATED             | The number of bytes that are currently allocated to the application.  |
 | NMALLOC               | A cumulative number of times an allocation was requested from the arena’s bins. The number includes times when the allocation satisfied an allocation request or filled a relevant tcache if opt.tcache is enabled.      |
-| NDALLOC               | A cumulative number of times an allocation was returned to the arena’s bins. The number includes times when the allocation was deallocated or flushed the relevant tcache if *opt.tcache* is enabled.                      |
+| NDALLOC               | A cumulative number of times an allocation was returned to the arena’s bins. The number includes times when the allocation was deallocated or flushed the relevant tcache if *opt.tcache* is enabled.|
 | NREQUESTS             | The cumulative number of allocation requests satisfied. |
 
 ## System variables

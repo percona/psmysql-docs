@@ -89,10 +89,6 @@ exception when innodb_force_value is set to `3`: with values
 less than `3`, compression dictionary operations are allowed, and with
 values >= `3`, they are forbidden.
 
-!!! note
-
-    Prior to Percona Server for MySQL 8.0.15-6 using Compression dictionary operations with innodb_force_recovery variable set to value > 0 would result in an error.
-
 ### Example
 
 In order to use the compression dictionary, you need to create it. This
@@ -256,10 +252,6 @@ skip-add-drop-compression-dictionary options).
 ```text
 /*!50633 CREATE COMPRESSION_DICTIONARY IF NOT EXISTS <dictionary>(...); */
 ```
-
-## Version specific information
-
-* Percona Server for MySQL 8.0.13-3: The feature was ported from *Percona Server for MySQL* 5.7.
 
 ## System variables
 
