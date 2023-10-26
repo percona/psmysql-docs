@@ -2,16 +2,16 @@
 
 Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
 
-The following example downloads *Percona Server for MySQL* 8.0.29-21 release packages for *RHEL* 8.
+The following example downloads *Percona Server for MySQL* {{release}} release packages for *RHEL* 8.
 {.power-number}
 
 1. Use `wget` to download the tar file.
 
 	```{.bash data-prompt="$"}
-	$ wget https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-8.0.29-21/binary/redhat/8/x86_64/Percona-Server-8.0.29-21-rc59f87d2854-el8-x86_64-bundle.tar
+	$ wget https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-{{release}}/binary/redhat/8/x86_64/Percona-Server-{{release}}-rc59f87d2854-el8-x86_64-bundle.tar
 	```
 
-2. Unpack the bundle to get the packages: `tar xvf Percona-Server-8.0.29-21-rc59f87d2854-el8-x86_64-bundle.tar`
+2. Unpack the bundle to get the packages: `tar xvf Percona-Server-{{release}}-rc59f87d2854-el8-x86_64-bundle.tar`
 
 3. To view a list of packages, run the following command:
 
@@ -23,23 +23,23 @@ The following example downloads *Percona Server for MySQL* 8.0.29-21 release pac
     ??? example "Expected output"
 
         ```text
-        percona-icu-data-files-8.0.29-21.1.el8.x86_64.rpm
-        percona-mysql-router-8.0.29-21.1.el8.x86_64.rpm
-        percona-mysql-router-debuginfo-8.0.29-21.1.el8.x86_64.rpm
-        percona-server-client-8.0.29-21.1.el8.x86_64.rpm
-        percona-server-client-debuginfo-8.0.29-21.1.el8.x86_64.rpm
-        percona-server-debuginfo-8.0.29-21.1.el8.x86_64.rpm
-        percona-server-debugsource-8.0.29-21.1.el8.x86_64.rpm
-        percona-server-devel-8.0.29-21.1.el8.x86_64.rpm
-        percona-server-rocksdb-8.0.29-21.1.el8.x86_64.rpm
-        percona-server-rocksdb-debuginfo-8.0.29-21.1.el8.x86_64.rpm
-        percona-server-server-8.0.29-21.1.el8.x86_64.rpm
-        percona-server-server-debuginfo-8.0.29-21.1.el8.x86_64.rpm
-        percona-server-shared-8.0.29-21.1.el8.x86_64.rpm
-        percona-server-shared-compat-8.0.29-21.1.el8.x86_64.rpm
-        percona-server-shared-debuginfo-8.0.29-21.1.el8.x86_64.rpm
-        percona-server-test-8.0.29-21.1.el8.x86_64.rpm
-        percona-server-test-debuginfo-8.0.29-21.1.el8.x86_64.rpm
+        percona-icu-data-files-{{release}}.1.el8.x86_64.rpm
+        percona-mysql-router-{{release}}.1.el8.x86_64.rpm
+        percona-mysql-router-debuginfo-{{release}}.1.el8.x86_64.rpm
+        percona-server-client-{{release}}.1.el8.x86_64.rpm
+        percona-server-client-debuginfo-{{release}}.1.el8.x86_64.rpm
+        percona-server-debuginfo-{{release}}.1.el8.x86_64.rpm
+        percona-server-debugsource-{{release}}.1.el8.x86_64.rpm
+        percona-server-devel-{{release}}.1.el8.x86_64.rpm
+        percona-server-rocksdb-{{release}}.1.el8.x86_64.rpm
+        percona-server-rocksdb-debuginfo-{{release}}.1.el8.x86_64.rpm
+        percona-server-server-{{release}}.1.el8.x86_64.rpm
+        percona-server-server-debuginfo-{{release}}.1.el8.x86_64.rpm
+        percona-server-shared-{{release}}.1.el8.x86_64.rpm
+        percona-server-shared-compat-{{release}}.1.el8.x86_64.rpm
+        percona-server-shared-debuginfo-{{release}}.1.el8.x86_64.rpm
+        percona-server-test-{{release}}.1.el8.x86_64.rpm
+        percona-server-test-debuginfo-{{release}}.1.el8.x86_64.rpm
         ```
 	
 

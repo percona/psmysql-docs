@@ -26,8 +26,6 @@ Only the temporary tables that were explicitly created with CREATE TEMPORARY TAB
 | ‘CREATE_TIME’    | ‘Date and time of creation of the temporary table’          |
 | ‘UPDATE_TIME’    | ‘Date and time of the latest update of the temporary table’ |
 
-The feature was ported from *Percona Server for MySQL* 5.7 in 8.0.12-1.
-
 This table holds information on the temporary tables that exist for all connections. You don’t need the `SUPER` privilege to query this table.
 
 ### `INFORMATION_SCHEMA.TEMPORARY_TABLES`
@@ -45,7 +43,5 @@ This table holds information on the temporary tables that exist for all connecti
 | ‘INDEX_LENGTH’   | ‘Size of the indexes (Bytes)’                               |
 | ‘CREATE_TIME’    | ‘Date and time of creation of the temporary table’          |
 | ‘UPDATE_TIME’    | ‘Date and time of the latest update of the temporary table’ |
-
-The feature was ported from *Percona Server for MySQL* 5.7 in 8.0.12-1.
 
 This table holds information on the temporary tables existing for the running connection.

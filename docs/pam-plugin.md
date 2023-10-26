@@ -87,7 +87,7 @@ This feature enables using secondary groups in the mapping part of the authentic
 
 ## Known issues
 
-Default mysql stack size is not enough to handle `pam_encryptfs` module. The workaround is to increase the *MySQL* stack size by setting the [thread-stack](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_thread_stack) variable to at least `512KB` or by increasing the old value by `256KB`.
+Default mysql stack size is not enough to handle `pam_encryptfs` module. The workaround is to increase the *MySQL* stack size by setting the [thread-stack](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_thread_stack) variable to at least `512KB` or by increasing the old value by `256KB`.
 
 PAM authentication can fail with `mysqld: pam_unix(mysqld:account): Fork failed: Cannot allocate memory` error in the `/var/log/secure` even when there is enough memory available. Current workaround is to set [vm.overcommit_memory](https://www.kernel.org/doc/Documentation/vm/overcommit-accounting) to `1`:
 

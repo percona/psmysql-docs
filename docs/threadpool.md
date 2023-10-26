@@ -4,7 +4,7 @@
 
 This feature enables the server to keep the top performance even with a large number of client connections by introducing a dynamic thread pool. By using the thread pool server would decrease the number of threads, which will then reduce the context switching and hot locks contentions. Using the thread pool will have the most effect with `OLTP` workloads (relatively short CPU-bound queries).
 
-In order to enable the thread pool variable [thread_handling](https://docs.percona.com/percona-server/5.7/performance/threadpool.html#thread-handling) should be set up to `pool-of-threads` value. This can be done by adding:
+In order to enable the thread pool variable [thread_handling] should be set up to `pool-of-threads` value. This can be done by adding:
 
 ```text
 thread_handling=pool-of-threads
@@ -154,53 +154,6 @@ This variable can be used to define the number of threads that can use the CPU a
 
 The number of milliseconds before a running thread is considered stalled. When this limit is reached thread pool will wake up or create another thread. This is being used to prevent a long-running query from monopolizing the pool.
 
-### Upgrading from a version before 8.0.14 to 8.0.14 or higher
-
-Starting with 8.0.14, *Percona Server for MySQL* uses the upstream implementation of the admin_port. The variables [extra_port](#extra_port) and [extra_max_connections](#extra_max_connections) are removed and not supported. It is essential to remove the `extra_port` and `extra_max_connections` variables from your configuration file before you attempt to upgrade from a release before 8.0.14 to *Percona Server for MySQL* version 8.0.14 or higher. Otherwise, a server produces a boot error and refuses to start.
-
-!!! admonition "See also"
-
-    MySQL Documentation:
-    
-    * [admin_port](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_admin_port)
-
-### `extra_port`
-
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command-line:  | Yes                |
-| Config file:   | Yes                |
-| Scope:         | Global             |
-| Dynamic:       | No                 |
-| Data type:     | Numeric            |
-| Default value: | 0                  | 
-
-The varible was removed in [Percona Server for MySQL 8.0.14](../release-notes/Percona-Server-8.0.14.md#id1). This variable can be used to specify an additional port that *Percona Server for MySQL* will listen on. This can be used in case no new connections can be established
-due to all worker threads being busy or being locked when `pool-of-threads`
-feature is enabled. To connect to the extra port the following command can be
-used:
-
-```shell
-mysql --port='extra-port-number' --protocol=tcp
-```
-
-### `extra_max_connections`
-
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command-line:  | Yes                |
-| Config file:   | Yes                |
-| Scope:         | Global             |
-| Dynamic:       | No                 |
-| Data type:     | Numeric            |
-| Default value: | 1                  | 
-
-The varible was removed in [Percona Server for MySQL 8.0.14](../release-notes/Percona-Server-8.0.14.md#id1). This variable can be used to specify the maximum allowed number of connections
-plus one extra `SUPER` users connection on the extra_port. This
-can be used with the extra_port variable to access the server in
-case no new connections can be established due to all worker threads being busy
-or being locked when `pool-of-threads` feature is enabled.
-
 ## Status variables
 
 ### `Threadpool_idle_threads`
@@ -226,3 +179,5 @@ This status variable shows the number of threads in the pool.
 * [Thread pool in MariaDB 5.5](https://kb.askmonty.org/en/threadpool-in-55/)
 
 * [Thread pool implementation in Oracle MySQL](https://mikaelronstrom.blogspot.com/2011_10_01_archive.html)
+
+[thread_handling]: https://docs.percona.com/percona-server/{{vers}}/threadpool.html#thread-handling

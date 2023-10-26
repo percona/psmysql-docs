@@ -4,9 +4,9 @@ Percona Server for MySQL supports the SEQUENCE_TABLE() function.
 
 A sequence of numbers can be defined as an arithmetic progression when the common difference between two consecutive terms is always the same.
 
-The function is an inline table-valued function. A single SELECT statement generates a multi-row result set. In contrast, a scalar function (like [EXP(x)](https://dev.mysql.com/doc/refman/8.0/en/mathematical-functions.html#function_exp) or [LOWER(str)](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_lower) always  returns a single value of a specific data type.
+The function is an inline table-valued function. A single SELECT statement generates a multi-row result set. In contrast, a scalar function (like [EXP(x)](https://dev.mysql.com/doc/refman/{{vers}}/en/mathematical-functions.html#function_exp) or [LOWER(str)](https://dev.mysql.com/doc/refman/{{vers}}/en/string-functions.html#function_lower) always  returns a single value of a specific data type.
 
-The [JSON_TABLE()](https://dev.mysql.com/doc/refman/8.0/en/json-table-functions.html) is the only table function available in Oracle MySQL Server. `JSON_TABLE` and `SEQUENCE_TABLE()` are the only table functions available in Percona Server.
+The [JSON_TABLE()](https://dev.mysql.com/doc/refman/{{vers}}/en/json-table-functions.html) is the only table function available in Oracle MySQL Server. `JSON_TABLE` and `SEQUENCE_TABLE()` are the only table functions available in Percona Server.
 
 The basic syntax is the following:
 
@@ -24,7 +24,7 @@ The basic syntax is the following:
 
     `n:` The number of generated values.
 
-As with any [derived tables](https://dev.mysql.com/doc/refman/8.0/en/derived-tables.html), a table function requires an [alias](https://dev.mysql.com/doc/refman/8.0/en/identifiers.html) in the `SELECT` statement.
+As with any [derived tables](https://dev.mysql.com/doc/refman/{{vers}}/en/derived-tables.html), a table function requires an [alias](https://dev.mysql.com/doc/refman/{{vers}}/en/identifiers.html) in the `SELECT` statement.
 
 The result set is a single column with the predefined column name `value` of type `BIGINT UNSIGNED`. You can reference the `value` column in `SELECT` statements.
 

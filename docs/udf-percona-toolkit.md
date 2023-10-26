@@ -1,16 +1,12 @@
 # Percona Toolkit UDFs
 
-Three *Percona Toolkit* UDFs that provide faster checksums are provided:
+Three Percona Toolkit UDFs that provide faster checksums are provided:
 
 * `libfnv1a_udf`
 
 * `libfnv_udf`
 
 * `libmurmur_udf`
-
-## Version specific information
-
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
 ## Other information
 
@@ -42,4 +38,4 @@ Then you may need to copy the .so file to another location in your system. Try b
 
 ## Other reading
 
-* *Percona Toolkit* [documentation](https://docs.percona.com/percona-toolkit/)
+* Percona Toolkit [documentation](https://docs.percona.com/percona-toolkit/)

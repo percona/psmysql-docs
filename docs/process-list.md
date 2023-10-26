@@ -25,7 +25,7 @@ This table implements modifications to the standard MySQL `INFORMATION_SCHEMA` t
 
 ## Example output
 
-Table [PROCESSLIST](https://docs.percona.com/percona-server/8.0/diagnostics/process_list.html#processlist):
+Table [PROCESSLIST](https://docs.percona.com/percona-server/{{vers}}/diagnostics/process_list.html#processlist):
 
 ```{.bash data-prompt="mysql>"}
 mysql> SELECT * FROM INFORMATION_SCHEMA.PROCESSLIST;

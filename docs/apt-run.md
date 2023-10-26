@@ -1,4 +1,4 @@
-# Run Percona Server for MySQL {{release}} after APT repository installation
+# Run Percona Server for MySQL {{vers}} after APT repository installation
 
 Percona Server for MySQL stores the data files in `/var/lib/mysql/` by
 default. You can find the configuration file that is used to manage Percona Server for MySQL in `/etc/mysql/my.cnf`.

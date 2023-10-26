@@ -36,7 +36,7 @@ The following table describes the Encryption threshold variables which can be us
 
 ## Install component_encryption_udf
 
-Use the [Install Component Statement](https://dev.mysql.com/doc/refman/8.0/en/install-component.html) to add the component_encryption_udf component. The functions and variables are available. The user-defined functions and the Encryption threshold variables are auto-registered. There is no requirement to invoke `CREATE FUNCTION ... SONAME ...`.
+Use the [Install Component Statement] to add the component_encryption_udf component. The functions and variables are available. The user-defined functions and the Encryption threshold variables are auto-registered. There is no requirement to invoke `CREATE FUNCTION ... SONAME ...`.
 
 The `INSERT` privilege on the `mysql.component` system table is required to run the `INSTALL COMPONENT` statement. To register the component, the operation adds a row to this table.
 
@@ -423,8 +423,11 @@ mysql> INSERT INTO key_table VALUES(create_asymmetric_priv_key('RSA', 3072));
 
 ## Uninstall component_encryption_udf
 
-You can deactivate and uninstall the component using the [Uninstall Component statement](https://dev.mysql.com/doc/refman/8.0/en/uninstall-component.html).
+You can deactivate and uninstall the component using the [Uninstall Component statement].
 
 ```{.bash data-prompt="mysql>"}
 mysql> UNINSTALL COMPONENT 'file://component_encryption_udf';
 ```
+
+[Install Component Statement]: https://dev.mysql.com/doc/refman/{{vers}}/en/install-component.html
+[Uninstall Component statement]: https://dev.mysql.com/doc/refman/{{vers}}/en/uninstall-component.html

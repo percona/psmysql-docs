@@ -5,10 +5,6 @@ engines. If a transaction is idle for more seconds than the threshold
 specified, it will be killed. This prevents users from blocking *InnoDB* purge
 by mistake.
 
-## Version specific information
-
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
-
 ## System variables
 
 ### `kill_idle_transaction`

@@ -1,6 +1,6 @@
 # Binary logs and replication improvements
 
-Due to continuous development, *Percona Server for MySQL* incorporated a number of
+Due to continuous development, Percona Server for MySQL incorporated a number of
 improvements related to replication and binary logs handling. This resulted in replication specifics, which distinguishes it from *MySQL*.
 
 ## Safety of statements with a `LIMIT` clause
@@ -29,8 +29,7 @@ GTIDs.
 Particularly, such unconditional relay log position updates caused additional
 fsync operations in case of `relay-log-info-repository=TABLE`, and with the
 higher number of channels transmitting such duplicate (already executed)
-transactions the situation became proportionally worse. Bug fixed [#1786](https://jira.percona.com/browse/PS-1786)
-(upstream [#85141](https://bugs.mysql.com/bug.php?id=85141)).
+transactions the situation became proportionally worse. Bug fixed [#1786](https://jira.percona.com/browse/PS-1786), (upstream [#85141](https://bugs.mysql.com/bug.php?id=85141)).
 
 ## Performance improvement on source and connection status updates
 
@@ -51,8 +50,7 @@ Heartbeats sent to the replica to skip GTID events which it had already executed
 previously, were evaluated as relay log rotation events and reacted with
 `mysql.slave_master_info` table sync. This inaccuracy could produce huge (up
 to 5 times on some setups) increase in write load on the replica, before this
-problem was fixed in *Percona Server for MySQL*. Bug fixed [#1812](https://jira.percona.com/browse/PS-1812) (upstream
-[#85158](https://bugs.mysql.com/bug.php?id=85158)).
+problem was fixed in *Percona Server for MySQL*. Bug fixed [#1812](https://jira.percona.com/browse/PS-1812) (upstream [#85158](https://bugs.mysql.com/bug.php?id=85158)).
 
 ## Write `FLUSH` commands to the binary log
 
@@ -85,8 +83,6 @@ regardless of the value of the binlog_skip_flush_commands variable.
 | Dynamic | Yes |
 | Default | OFF |
 
-This variable was introduced in Percona Server for MySQL 8.0.15-5.
-
 When binlog_skip_flush_commands is set to **ON**, `FLUSH ...` commands are not written to the binary
 log. See Writing FLUSH Commands to the Binary Log for more information
 about what else affects the writing of `FLUSH` commands to the binary log.
@@ -108,8 +104,6 @@ When you issue a `DROP TABLE` command, the binary log stores the command but rem
 | Scope | Global |
 | Dynamic | Yes |
 | Default | OFF |
-
-This variable was introduced in Percona Server for MySQL 8.0.26-16.
 
 If the variable is enabled, single table `DROP TABLE` DDL statements are logged in the binary log with comments. Multi-table `DROP TABLE` DDL statements are not supported and return an error.
 
@@ -135,7 +129,7 @@ To implement Point in Time recovery, we have added the `binlog_utils_udf`. The f
 
     All functions returning timestamps return their values as microsecond precision UNIX time. In other words, they represent the number of microseconds since 1-JAN-1970.
 
-All functions accepting a binlog name as the parameter accepts only short names, without a path component. If the path separator (‘/’) is found in the input, an error is returned. This serves the purpose of restricting the locations from where binlogs can be read. They are always read from the current binlog directory ([@@log_bin_basename system variable](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_log_bin_basename)).
+All functions accepting a binlog name as the parameter accepts only short names, without a path component. If the path separator (‘/’) is found in the input, an error is returned. This serves the purpose of restricting the locations from where binlogs can be read. They are always read from the current binlog directory ([@@log_bin_basename system variable]).
 
 All functions returning binlog file names return the name in short form, without a path component.
 
@@ -303,8 +297,14 @@ DROP FUNCTION get_last_record_timestamp_by_binlog;
 
 For the following variables, do not define values with one or more dot (.) characters:
 
-* [log_bin](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin)
+* [log_bin]
 
-* [log_bin_index](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin-index)
+* [log_bin_index]
 
-A value defined with these characters is handled differently in *MySQL* and **Percona XtraBackup** and can cause unpredictable behavior.
+A value defined with these characters is handled differently in *MySQL* and Percona XtraBackup and can cause unpredictable behavior.
+
+[@@log_bin_basename system variable]: https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#sysvar_log_bin_basename
+
+[log_bin]: https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#option_mysqld_log-bin
+
+[log_bin_index]: https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#option_mysqld_log-bin-index

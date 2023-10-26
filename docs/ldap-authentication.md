@@ -70,8 +70,6 @@ The SASL-based LDAP authentication additionally requires the following:
 
 You can use either of the following methods to install the plugins.
 
-The SASL-based LDAP authentication is available on *Percona Server for MySQL* 8.0.30-22 and later.
-
 ### Load the plugins at server start
 
 Use either of the following methods to load the plugin at server start.

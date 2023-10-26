@@ -13,10 +13,6 @@ Innodb_scan_pages_disjointed, Innodb_scan_data_size,
 Innodb_scan_deleted_recs_size, and
 Innodb_scan_pages_total_seek_distance.
 
-## Version specific information
-
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7
-
 ## Status variables
 
 ### `Innodb_scan_pages_contiguous`
@@ -75,4 +71,6 @@ This variable shows the total seek distance when moving between pages.
 
 * [InnoDB: look after fragmentation](https://www.percona.com/blog/2009/11/05/innodb-look-after-fragmentation/)
 
-* [Defragmenting a Table](https://dev.mysql.com/doc/refman/8.0/en/innodb-file-defragmenting.html)
+* [Defragmenting a Table]
+
+[Defragmenting a Table]: https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-file-defragmenting.html
