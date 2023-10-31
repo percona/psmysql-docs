@@ -60,13 +60,11 @@ If the server is stopped or down, you can copy the datadir with the `cp` command
 ### Logical backups
 
 A logical backup contains the structural details. This type of backup contains tables, views, procedures, and functions. 
-<!--- Do we need mysqlpump tool?--->
 
-Tools like [`mysqldump`](https://dev.mysql.com/doc/refman/{{vers}}/en/mysqldump.html), 
-[`mydumper`](https://github.com/mydumper/mydumper), 
-[`mysqlpump`](https://dev.mysql.com/doc/refman/5.7/en/mysqlpump.html), and 
-[`mysql shell`](https://dev.mysql.com/doc/mysql-shell/{{vers}}/en/mysql-shell-utilities-dump-instance-schema.html) 
-take a logical backup.
+Tools like [`mysqldump`], 
+[`mydumper`], 
+[`mysqlpump`], and 
+[`mysql shell`] take a logical backup.
 
 ### Comparison
 
@@ -77,5 +75,7 @@ take a logical backup.
 | Storage        | Can take more space                               | Based on what is selected, the backup can be smaller          |
 
 [`mysqldump`]: https://dev.mysql.com/doc/refman/{{vers}}/en/mysqldump.html
+[`mydumper`]: https://github.com/mydumper/mydumper
+[`mysqlpump`]: https://dev.mysql.com/doc/refman/{{vers}}/en/mysqlpump.html
 [`mysql shell`]: https://dev.mysql.com/doc/mysql-shell/{{vers}}/en/mysql-shell-utilities-dump-instance-schema.html
 [Percona XtraBackup]: https://docs.percona.com/percona-xtrabackup/{{vers}}/index.html

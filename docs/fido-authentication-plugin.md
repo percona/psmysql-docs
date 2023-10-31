@@ -1,9 +1,5 @@
 # FIDO authentication plugin
 
-!!! important
-
-    --8<--- "tech.preview.md:5:5"
-    
 Percona Server for MySQL supports the Fast Identify Online (FIDO) authentication method that uses a plugin. The FIDO authentication provides a set of standards that reduces the reliance on passwords.
 
 The server-side fido authentication plugin enables authentication using external devices. If this plugin is the only authentication plugin used by the account, this plugin allows authentication without a password. Multi-factor authentication can use non-FIDO MySQL authentication methods, the FIDO authentication method, or a combination of both. 

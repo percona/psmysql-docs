@@ -1,9 +1,5 @@
 # Expanded fast index creation
 
-!!! important
-
-    --8<--- "tech.preview.md:5:5"
-
 Percona has implemented several changes related to *MySQL*’s fast index creation
 feature. Fast index creation was implemented in *MySQL* as a way to speed up the
 process of adding or dropping indexes on tables with many rows.

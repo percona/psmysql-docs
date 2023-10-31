@@ -1,10 +1,4 @@
-<!-- still tech preview in Innovation release? -->
-
 # Slow query log rotation and expiration
-
-!!! important
-
-    --8<--- "tech.preview.md:5:5"
 
 Percona has implemented two new variables, `max_slowlog_size` and `max_slowlog_files` to provide users with ability to control the slow query log disk usage. These variables have the same behavior as the [max_binlog_size variable] and the [max_binlog_files variable] used for controlling the binary log.
 
