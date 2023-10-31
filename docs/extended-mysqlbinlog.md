@@ -1,6 +1,6 @@
 # Extended mysqlbinlog
 
-<!--- Check whether the note is actual--->
+<!--- Candidate for removal in 8.2--->
 
 !!! note
     

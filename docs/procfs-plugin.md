@@ -1,9 +1,5 @@
 # The ProcFS plugin
 
-!!! important
-
-    --8<--- "tech.preview.md:5:5"
-
 The ProcFS plugin provides access to the Linux performance counters by running SQL queries against a Percona Server for MySQL {{vers}}.
 
 You may be unable to capture operating system metrics in certain environments, such as Cloud installations or MySQL-as-a-Service installations. These metrics are essential for complete system performance monitoring.

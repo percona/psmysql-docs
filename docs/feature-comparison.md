@@ -36,7 +36,7 @@ compared to the standard *MySQL* database server:
 </style>
 
 
-| Features | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
+| Features | Percona Server for MySQL {{vers}} | MySQL {{vers}} |
 |---|---|---|
 | Open Source | Yes | Yes |
 | ACID Compliance | Yes | Yes |
@@ -57,7 +57,7 @@ compared to the standard *MySQL* database server:
 | [MyRocks Storage Engine](myrocks-index.md) | Yes | No |
 
 
-| Improvements for Developers | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
+| Improvements for Developers | Percona Server for MySQL {{vers}} | MySQL {{vers}} |
 |---|---|---|
 | NoSQL Socket-Level Interface | Yes | Yes |
 | X API Support | Yes | Yes |
@@ -65,7 +65,7 @@ compared to the standard *MySQL* database server:
 | [InnoDB Full-Text Search Improvements](innodb-fts-improvements.md) | Yes | No |
 | Extra Hash/Digest Functions | Yes | No |
 
-| Instrumentation and Troubleshooting Features | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
+| Instrumentation and Troubleshooting Features | Percona Server for MySQL {{vers}} | MySQL {{vers}} |
 |---|---|---|
 | INFORMATION_SCHEMA Tables | 95 | 65 |
 | Global Performance and Status Counters | 853 | 434 |
@@ -82,7 +82,7 @@ compared to the standard *MySQL* database server:
 | [Extended Slow Query Logging](slow-extended.md) | Yes | No |
 | [User Statistics](user-stats.md) | Yes | No |
 
-| Performance and Scalability Features | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
+| Performance and Scalability Features | Percona Server for MySQL {{vers}} | MySQL {{vers}} |
 |---|---|---|
 | InnoDB Resource Groups | Yes | Yes |
 | Configurable Page Sizes | Yes | Yes |
@@ -95,25 +95,25 @@ compared to the standard *MySQL* database server:
 | Per-Column Compression for VARCHAR/BLOB and JSON | Yes | No |
 | [Compressed Columns with Dictionaries](compressed-columns.md) | Yes | No |
 
-| Security Features | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
+| Security Features | Percona Server for MySQL {{vers}} | MySQL {{vers}} |
 |---|---|---|
 | SQL Roles | Yes | Yes |
 | SHA-2 Based Password Hashing | Yes | Yes |
 | Password Rotation Policy | Yes | Yes |
 | [PAM Authentication Plugin](pam-plugin.md) | Yes | Enterprise-Only |
 
-| Encryption Features | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
+| Encryption Features | Percona Server for MySQL {{vers}} | MySQL {{vers}} |
 |---|---|---|
 | Storing Keyring in a File | Yes | Yes |
 | Storing Keyring in Hashicorp Vault | Yes | Enterprise Only |
 | Encrypt InnoDB Data | Yes | Yes |
 | Encrypt InnoDB Logs | Yes | Yes |
 | Encrypt Built-In InnoDB Tablespaces (General, System, Undo, Temp) | Yes | Yes |
-| [Encrypt Binary Logs](encrypting-binlogs.md) | Yes | No |
-| [Encrypt Temporary Files](encrypting-temporary-files.md) | Yes | No |
+| [Encrypt Binary Logs](encrypt-binary-relay-log-files.md) | Yes | No |
+| [Encrypt Temporary Files](encrypt-temporary-files.md) | Yes | No |
 | Enforce Encryption | Yes | No |
 
-| Operational Improvements | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
+| Operational Improvements | Percona Server for MySQL {{vers}} | MySQL {{vers}} |
 |---|---|---|
 | Atomic DDL | Yes | Yes |
 | Transactional Data Dictionary | Yes | Yes |
@@ -127,6 +127,6 @@ compared to the standard *MySQL* database server:
 | [Ability to Kill Idle Transactions](kill-idle-trx.md) | Yes | No |
 | [Improvements to START TRANSACTION WITH CONSISTENT SNAPSHOT](start-transaction-with-consistent-snapshot.md) | Yes | No |
 
-| Features for Running Database as a Service (DBaaS) | Percona Server for MySQL 8.0.30 | MySQL 8.0.30 |
+| Features for Running Database as a Service (DBaaS) | Percona Server for MySQL {{vers}} | MySQL {{vers}} |
 |---|---|---|
 | [Enforce a Specific Storage Engine](enforce-engine.md) | Yes | Yes |

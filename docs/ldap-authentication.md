@@ -1,9 +1,5 @@
 # Using LDAP authentication plugins
 
-!!! important
-
-    --8<--- "tech.preview.md:5:5"
-
 LDAP (Lightweight Directory Access Protocol) provides an alternative method to
 access existing directory servers, which maintain information about
 individuals, groups, and organizations.

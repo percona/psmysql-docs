@@ -646,7 +646,7 @@ Cancels all ongoing manual compactions.
 | Data type    | Boolean                                 |
 | Default      | OFF                                     |
 
-This variable is [tech preview](../glossary.md/#tech-preview) and may be removed in the future releases.
+This variable is [tech preview](glossary.md) and may be removed in the future releases.
 
 Turns on RocksDB memory-charging related features (BlockBasedTableOptions::cache_usage_options.options.charged) from `cnf` files. This variable is related to [`rocksdb_use_write_buffer_manager`](#rocksdbusewritebuffermanager).
 
@@ -2444,7 +2444,7 @@ Default value is `0`. Allowed range is up to `4294967295`.
 Specifies whether to include checksums when writing index or table records.
 Disabled by default.
 
-<!--- Check whether we need to remove these variables?--->
+<!--- Candidate for removal in 8.2--->
 
 ### `rocksdb_strict_collation_check`
 
@@ -2461,6 +2461,8 @@ This variable is considered **deprecated** in version 8.0.23-14.
 Specifies whether to check and verify
 that table indexes have proper collation settings.
 Enabled by default.
+
+<!--- Candidate for removal in 8.2--->
 
 ### `rocksdb_strict_collation_exceptions`
 
