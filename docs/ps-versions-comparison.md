@@ -7,7 +7,7 @@
 | Multiple Adaptive Hash Search Partitions                                  | Multiple Adaptive Hash Search Partitions                                  |
 | Atomic write support for Fusion-io devices                                | Atomic write support for Fusion-io devices                                |
 | Query Cache Enhancements                                                  | Feature not implemented                                                   |
-| Improved NUMA support                                                     | Feature not implemented                                                   |
+| Improved NUMA support                                                     | Improved NUMA support                                                   |
 | Thread Pool                                                               | Thread Pool                                                               |
 | Suppress Warning Messages                                                 | Suppress Warning Messages                                                 |
 | Ability to change the database for mysqlbinlog                                | Ability to change the database for mysqlbinlog                                |

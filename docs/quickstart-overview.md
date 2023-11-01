@@ -1,17 +1,17 @@
-# Quickstart overview
+# Quickstart guide for Percona Server for MySQL
 
-Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability and availability, enhanced backups, increased visibility, and instrumentation .
+Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability and availability, enhanced backups, increased visibility, and instrumentation.
 Percona Server for MySQL is trusted by thousands of enterprises to provide better performance and concurrency for their most demanding workloads.
 
-## Installing and starting Percona Server for MySQL
+## Install Percona Server for MySQL
 
 You can install Percona Server for MySQL using different methods. 
 
-* [Use the Percona Repositories](./installation.md)
-* [Use APT](./installation/apt-repo.md)
-* [Use YUM](./installation/yum-repo.md)
-* [Use binary tarballs](./installation/binary-tarball-install.md)
-* [Use Docker](./installation/docker.md)
+* [Use the Percona Repositories](installation.md)
+* [Use APT](apt-repo.md)
+* [Use YUM](yum-repo.md)
+* [Use binary tarballs](binary-tarball-install.md)
+* [Use Docker](docker.md)
 
 ## For backups and restores
 
@@ -28,3 +28,5 @@ Percona Monitoring and Management (PMM )monitors and provides actionable perform
 ## For high availability
 
 Percona XtraDB Cluster (PXC) is a 100% open source, enterprise-grade, highly available clustering solution for MySQL multi-master setups based on Galera. PXC helps enterprises minimize unexpected downtime and data loss, reduce costs, and improve performance and scalability of your database environments supporting your critical business applications in the most demanding public, private, and hybrid cloud environments.
+
+[Percona XtraDB Cluster Quick start guide](https://docs.percona.com/percona-xtradb-cluster/8.0/overview.html)
