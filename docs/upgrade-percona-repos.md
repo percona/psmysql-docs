@@ -4,11 +4,11 @@ We recommend using the Percona repositories to upgrade your server.
 
 Find the instructions on how to enable the repositories in the following documents:
 
-* [Percona APT Repository](installation/apt-repo.md)
+* [Percona APT Repository](apt-repo.md)
 
-* [Percona RPM Repository](installation/yum-repo.md)
+* [Percona RPM Repository](yum-repo.md)
 
-If you used the TokuDB storage engine in Percona Server for MySQL 5.7, we recommend that you migrate to either MyRocks or InnoDB, verify the migration, and then upgrade to 8.0. Percona Server for MySQL 8.0.29 removes the TokuDB storage engine.
+If you used the TokuDB storage engine in Percona Server for MySQL 5.7, we recommend that you migrate to either MyRocks or InnoDB, verify the migration, and then upgrade to 8.0. Percona Server for MySQL 8.0.29 removed the TokuDB storage engine.
 
 === "DEB-based distributions"
 
