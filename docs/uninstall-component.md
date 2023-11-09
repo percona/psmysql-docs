@@ -23,5 +23,7 @@ The following is an example of the `UNINSTALL COMPONENT` statement.
 mysql > UNINSTALL COMPONENT 'file://componentA' ;
 ```
 
+Find more information in the [UNINSTALL COMPONENT](uninstall-component.md) document.
+
 
 
