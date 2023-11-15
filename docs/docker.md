@@ -4,6 +4,7 @@
 
 Make sure that you are using the latest version of Docker. The `apt` and `yum` versions may be outdated and cause errors.
 
+We gather [Telemetry data] in the Percona packages and Docker images.
 
 ## Starting a detached container
 
@@ -251,3 +252,5 @@ $ docker rm ps
 Review the [Docker Docs](https://docs.docker.com/)
 
 [Docker tag filter for the {{vers}} versions]: https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name={{vers}}
+
+[Telemetry data]: telemetry.md
