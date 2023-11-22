@@ -12,6 +12,7 @@ You can install Percona Server for MySQL using different methods.
 * [Use YUM](yum-repo.md)
 * [Use binary tarballs](binary-tarball-install.md)
 * [Use Docker](docker.md)
+* [Install pro builds](install-pro.md)
 
 ## For backups and restores
 

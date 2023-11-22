@@ -1,6 +1,5 @@
 # Install Percona Server for MySQL
 
-
 Before installing, read the [Percona Server for MySQL 8.0 Release notes](release-notes/release-notes_index.md).
 
 ## Install Percona Server for MySQL from Repositories
@@ -12,3 +11,7 @@ The following guides describe the installation process for using the official Pe
 * [Install Percona Server for MySQL on Debian and Ubuntu](apt-repo.md)
 
 * [Install Percona Server for MySQL on Red Hat Enterprise Linux and derivatives](yum-repo.md)
+
+## Upgrade to Percona Server for MySQL Pro
+
+* [Upgrade to Percona Server for MySQL Pro](upgrade-pro.md)
