@@ -78,4 +78,4 @@ Tools like [`mysqldump`],
 [`mydumper`]: https://github.com/mydumper/mydumper
 [`mysqlpump`]: https://dev.mysql.com/doc/refman/{{vers}}/en/mysqlpump.html
 [`mysql shell`]: https://dev.mysql.com/doc/mysql-shell/{{vers}}/en/mysql-shell-utilities-dump-instance-schema.html
-[Percona XtraBackup]: https://docs.percona.com/percona-xtrabackup/{{vers}}/index.html
+[Percona XtraBackup]: https://docs.percona.com/percona-xtrabackup/innovation-release/index.html

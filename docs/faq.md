@@ -29,5 +29,5 @@ taken from. The password can be seen and updated in
 `/etc/mysql/debian.cnf`. For more information on how to set up a
 replication replica using *Percona XtraBackup* see [this how-to].
 
-[this how-to]: https://docs.percona.com/percona-xtrabackup/{{vers}}/howtos/setting_up_replication.html
+[this how-to]: https://docs.percona.com/percona-xtrabackup/innovation-release/set-up-replication.html
 

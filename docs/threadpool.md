@@ -4,7 +4,7 @@
 
 This feature enables the server to keep the top performance even with a large number of client connections by introducing a dynamic thread pool. By using the thread pool server would decrease the number of threads, which will then reduce the context switching and hot locks contentions. Using the thread pool will have the most effect with `OLTP` workloads (relatively short CPU-bound queries).
 
-In order to enable the thread pool variable [thread_handling] should be set up to `pool-of-threads` value. This can be done by adding:
+In order to enable the thread pool variable `thread_handling` should be set up to `pool-of-threads` value. This can be done by adding:
 
 ```text
 thread_handling=pool-of-threads
@@ -179,5 +179,3 @@ This status variable shows the number of threads in the pool.
 * [Thread pool in MariaDB 5.5](https://kb.askmonty.org/en/threadpool-in-55/)
 
 * [Thread pool implementation in Oracle MySQL](https://mikaelronstrom.blogspot.com/2011_10_01_archive.html)
-
-[thread_handling]: https://docs.percona.com/percona-server/{{vers}}/threadpool.html#thread-handling

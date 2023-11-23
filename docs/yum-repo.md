@@ -27,7 +27,7 @@ For more information on the Percona Software repositories and configuring Percon
 
     ```{.bash data-prompt="$"}
     $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-    $ sudo percona-release enable-only ps-{{pkg}} release
+    $ sudo percona-release enable-only {{pkg}} release
     $ sudo percona-release enable tools release
     $ sudo yum install percona-server-server
     ```
@@ -35,7 +35,7 @@ For more information on the Percona Software repositories and configuring Percon
 
     ```{.bash data-prompt="$"}
     $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-    $ sudo percona-release setup ps-{{pkg}}
+    $ sudo percona-release setup {{pkg}}
     $ sudo yum install percona-server-server
     ```
 
