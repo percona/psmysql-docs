@@ -165,7 +165,7 @@ Add the mysqld profile with the following procedure:
 1. Download the current version of the AppArmor:
 
     ```{.bash data-prompt="$"}
-    $ wget https://raw.githubusercontent.com/mysql/mysql-server/{{vers}}/packaging/deb-in/extra/apparmor-profile
+    $ wget https://raw.githubusercontent.com/mysql/mysql-server/trunk/packaging/deb-in/extra/apparmor-profile
     ```
 
     The expected output:
