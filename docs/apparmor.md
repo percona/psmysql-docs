@@ -33,6 +33,65 @@ $ sudo apt install apparmor-utils
     ...
     ```
 
+## Add the mysqld profile
+
+Add the mysqld profile with the following procedure:
+{.power-number}
+
+1. Download the current version of the AppArmor:
+
+    ```{.bash data-prompt="$"}
+    $ wget https://raw.githubusercontent.com/percona/percona-server/release-{{release}}/build-ps/debian/percona-server-server.install
+    ```
+
+    The expected output:
+
+    ```{.text .no-copy}
+    ...
+    Saving to 'apparamor-profile`
+    ...
+    ```
+
+2. Move the file to /etc/apparmor.d/usr.sbin.mysqld
+
+    ```{.bash data-prompt="$"}
+    $ sudo mv apparmor-profile /etc/apparmor.d/usr.sbin.mysqld
+    ```
+
+3. Create an empty file for editing:
+
+    ```{.bash data-prompt="$"}
+    $ sudo touch /etc/apparmor.d/local/usr.sbin.mysqld
+    ```
+
+4. Load the profile:
+
+    ```{.bash data-prompt="$"}
+    $ sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.sbin.mysqld
+    ```
+
+5. Restart *Percona Server for MySQL*:
+
+    ```{.bash data-prompt="$"}
+    $ sudo systemctl restart mysql
+    ```
+
+6. Verify the profile status:
+ 
+    ```{.bash data-prompt="$"}
+    $ sudo aa-status
+    ```
+
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        ...
+        processes are in enforce mode
+        ...
+        /usr/sbin/mysqld (100840)
+        ...
+        ```
+
 ## Check the current status
 
 As root or using `sudo`, you can check the AppArmor status:
@@ -139,86 +198,9 @@ $ sudo apparmor_parser -r /etc/apparmor.d/<profile>
 
 For some changes to take effect, you may need to restart the program.
 
-## Disable AppArmor
-
-AppArmor provides security and disabling the system is not recommened. If AppArmor must be disabled, run the following commands:
-{.power-number}
-
-1. Check the status.
-
-    ```{.bash data-prompt="$"}
-    $ sudo apparmor_status
-    ```
-
-2. Stop and disable AppArmor.
-
-    ```{.bash data-prompt="$"}
-    $ sudo systemctl stop apparmor
-    $ sudo systemctl disable apparmor
-    ```
-
-## Add the mysqld profile
-
-Add the mysqld profile with the following procedure:
-{.power-number}
-
-1. Download the current version of the AppArmor:
-
-    ```{.bash data-prompt="$"}
-    $ wget https://raw.githubusercontent.com/mysql/mysql-server/trunk/packaging/deb-in/extra/apparmor-profile
-    ```
-
-    The expected output:
-
-    ```{.text .no-copy}
-    ...
-    Saving to 'apparamor-profile`
-    ...
-    ```
-
-2. Move the file to /etc/apparmor.d/usr.sbin.mysqld
-
-    ```{.bash data-prompt="$"}
-    $ sudo mv apparmor-profile /etc/apparmor.d/usr.sbin.mysqld
-    ```
-
-3. Create an empty file for editing:
-
-    ```{.bash data-prompt="$"}
-    $ sudo touch /etc/apparmor.d/local/usr.sbin.mysqld
-    ```
-
-4. Load the profile:
-
-    ```{.bash data-prompt="$"}
-    $ sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.sbin.mysqld
-    ```
-
-5. Restart *Percona Server for MySQL*:
-
-    ```{.bash data-prompt="$"}
-    $ sudo systemctl restart mysql
-    ```
-
-6. Verify the profile status:
- 
-    ```{.bash data-prompt="$"}
-    $ sudo aa-status
-    ```
-
-    ??? example "Expected output"
-
-        ```{.text .no-copy}
-        ...
-        processes are in enforce mode
-        ...
-        /usr/sbin/mysqld (100840)
-        ...
-        ```
-
 ## Edit the mysqld profile
 
-Only edit `/etc/apparmor.d/local/usr.sbin.mysql`. We recommend that you Switch a Profile to Complain mode before editing the file. Edit the file in any text editor. When your work is done, Reload one profile and Switch a Profile to Enforce mode.
+Only edit `/etc/apparmor.d/local/usr.sbin.mysql`. We recommend that you Switch a Profile to [Complain mode](#switch-a-profile-to-complain-mode) before editing the file. Edit the file in any text editor. When your work is done, Reload one profile and Switch a Profile to [Enforce mode](#switch-a-profile-to-enforce-mode).
 
 ## Configure a custom data directory location
 
@@ -446,3 +428,21 @@ Restart Percona Server for MySQL:
 ```{.bash data-prompt="$"}
 $ systemctl restart mysqld
 ```
+
+## Disable AppArmor
+
+AppArmor provides security and disabling the system is not recommened. If AppArmor must be disabled, run the following commands:
+{.power-number}
+
+1. Check the status.
+
+    ```{.bash data-prompt="$"}
+    $ sudo apparmor_status
+    ```
+
+2. Stop and disable AppArmor.
+
+    ```{.bash data-prompt="$"}
+    $ sudo systemctl stop apparmor
+    $ sudo systemctl disable apparmor
+    ```
