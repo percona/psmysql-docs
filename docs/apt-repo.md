@@ -45,7 +45,8 @@ To install Percona Server for MySQL using APT, do the following steps:
 6. Use `percona-release` to set up the repository for the Percona Server for MySQL {{vers}} version:
 
 	```{.bash data-prompt="$"}
-	$ sudo percona-release setup {{pkg}}
+	$ sudo percona-release enable-only {{pkg}} release
+	$ sudo percona-release enable tools release
 	```
 
 7. You can check the repository setup for the Percona original release list in `/etc/apt/sources.list.d/percona-original-release.list`. 
