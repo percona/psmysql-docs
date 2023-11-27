@@ -2271,6 +2271,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#add-the-mysqld-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the mysqld profile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#check-the-current-status" class="md-nav__link">
     <span class="md-ellipsis">
       Check the current status
@@ -2325,24 +2334,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#disable-apparmor" class="md-nav__link">
-    <span class="md-ellipsis">
-      Disable AppArmor
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#add-the-mysqld-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      Add the mysqld profile
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#edit-the-mysqld-profile" class="md-nav__link">
     <span class="md-ellipsis">
       Edit the mysqld profile
@@ -2373,6 +2364,15 @@
   <a href="#set-secure_file_priv-directory-location" class="md-nav__link">
     <span class="md-ellipsis">
       Set secure_file_priv directory location
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disable-apparmor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disable AppArmor
     </span>
   </a>
   
@@ -4881,6 +4881,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#add-the-mysqld-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the mysqld profile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#check-the-current-status" class="md-nav__link">
     <span class="md-ellipsis">
       Check the current status
@@ -4935,24 +4944,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#disable-apparmor" class="md-nav__link">
-    <span class="md-ellipsis">
-      Disable AppArmor
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#add-the-mysqld-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      Add the mysqld profile
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#edit-the-mysqld-profile" class="md-nav__link">
     <span class="md-ellipsis">
       Edit the mysqld profile
@@ -4983,6 +4974,15 @@
   <a href="#set-secure_file_priv-directory-location" class="md-nav__link">
     <span class="md-ellipsis">
       Set secure_file_priv directory location
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disable-apparmor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disable AppArmor
     </span>
   </a>
   
@@ -5058,6 +5058,54 @@ The following additional packages will be installed:
 ...
 </code></pre></div>
 </details>
+<h2 id="add-the-mysqld-profile">Add the mysqld profile<a class="headerlink" href="#add-the-mysqld-profile" title="Permanent link">&para;</a></h2>
+<p class="power-number">Add the mysqld profile with the following procedure:</p>
+<ol>
+<li>
+<p>Download the current version of the AppArmor:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://raw.githubusercontent.com/percona/percona-server/release-8.1.0-1/build-ps/debian/percona-server-server.install
+</code></pre></div>
+<p>The expected output:</p>
+<div class="no-copy highlight"><pre><span></span><code>...
+Saving to &#39;apparamor-profile`
+...
+</code></pre></div>
+</li>
+<li>
+<p>Move the file to /etc/apparmor.d/usr.sbin.mysqld</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mv<span class="w"> </span>apparmor-profile<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
+</code></pre></div>
+</li>
+<li>
+<p>Create an empty file for editing:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>touch<span class="w"> </span>/etc/apparmor.d/local/usr.sbin.mysqld
+</code></pre></div>
+</li>
+<li>
+<p>Load the profile:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>-W<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
+</code></pre></div>
+</li>
+<li>
+<p>Restart <em>Percona Server for MySQL</em>:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
+</code></pre></div>
+</li>
+<li>
+<p>Verify the profile status:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>...
+processes are in enforce mode
+...
+/usr/sbin/mysqld (100840)
+...
+</code></pre></div>
+</details>
+</li>
+</ol>
 <h2 id="check-the-current-status">Check the current status<a class="headerlink" href="#check-the-current-status" title="Permanent link">&para;</a></h2>
 <p>As root or using <code>sudo</code>, you can check the AppArmor status:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
@@ -5119,71 +5167,8 @@ $<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class=
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>/etc/apparmor.d/&lt;profile&gt;
 </code></pre></div>
 <p>For some changes to take effect, you may need to restart the program.</p>
-<h2 id="disable-apparmor">Disable AppArmor<a class="headerlink" href="#disable-apparmor" title="Permanent link">&para;</a></h2>
-<p class="power-number">AppArmor provides security and disabling the system is not recommened. If AppArmor must be disabled, run the following commands:</p>
-<ol>
-<li>
-<p>Check the status.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apparmor_status
-</code></pre></div>
-</li>
-<li>
-<p>Stop and disable AppArmor.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apparmor
-$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>apparmor
-</code></pre></div>
-</li>
-</ol>
-<h2 id="add-the-mysqld-profile">Add the mysqld profile<a class="headerlink" href="#add-the-mysqld-profile" title="Permanent link">&para;</a></h2>
-<p class="power-number">Add the mysqld profile with the following procedure:</p>
-<ol>
-<li>
-<p>Download the current version of the AppArmor:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://raw.githubusercontent.com/mysql/mysql-server/trunk/packaging/deb-in/extra/apparmor-profile
-</code></pre></div>
-<p>The expected output:</p>
-<div class="no-copy highlight"><pre><span></span><code>...
-Saving to &#39;apparamor-profile`
-...
-</code></pre></div>
-</li>
-<li>
-<p>Move the file to /etc/apparmor.d/usr.sbin.mysqld</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mv<span class="w"> </span>apparmor-profile<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
-</code></pre></div>
-</li>
-<li>
-<p>Create an empty file for editing:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>touch<span class="w"> </span>/etc/apparmor.d/local/usr.sbin.mysqld
-</code></pre></div>
-</li>
-<li>
-<p>Load the profile:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>-W<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
-</code></pre></div>
-</li>
-<li>
-<p>Restart <em>Percona Server for MySQL</em>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
-</code></pre></div>
-</li>
-<li>
-<p>Verify the profile status:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>...
-processes are in enforce mode
-...
-/usr/sbin/mysqld (100840)
-...
-</code></pre></div>
-</details>
-</li>
-</ol>
 <h2 id="edit-the-mysqld-profile">Edit the mysqld profile<a class="headerlink" href="#edit-the-mysqld-profile" title="Permanent link">&para;</a></h2>
-<p>Only edit <code>/etc/apparmor.d/local/usr.sbin.mysql</code>. We recommend that you Switch a Profile to Complain mode before editing the file. Edit the file in any text editor. When your work is done, Reload one profile and Switch a Profile to Enforce mode.</p>
+<p>Only edit <code>/etc/apparmor.d/local/usr.sbin.mysql</code>. We recommend that you Switch a Profile to <a href="#switch-a-profile-to-complain-mode">Complain mode</a> before editing the file. Edit the file in any text editor. When your work is done, Reload one profile and Switch a Profile to <a href="#switch-a-profile-to-enforce-mode">Enforce mode</a>.</p>
 <h2 id="configure-a-custom-data-directory-location">Configure a custom data directory location<a class="headerlink" href="#configure-a-custom-data-directory-location" title="Permanent link">&para;</a></h2>
 <p>You can change the data directory to a non-default location, like /var/lib/mysqlcustom. You should enable audit mode, to capture all of the actions, and edit the profile to allow access for the custom location.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/mysql/mysql.conf.d/mysqld.cnf
@@ -5345,6 +5330,21 @@ Allow data dir access
 <p>Restart Percona Server for MySQL:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
 </code></pre></div>
+<h2 id="disable-apparmor">Disable AppArmor<a class="headerlink" href="#disable-apparmor" title="Permanent link">&para;</a></h2>
+<p class="power-number">AppArmor provides security and disabling the system is not recommened. If AppArmor must be disabled, run the following commands:</p>
+<ol>
+<li>
+<p>Check the status.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apparmor_status
+</code></pre></div>
+</li>
+<li>
+<p>Stop and disable AppArmor.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apparmor
+$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>apparmor
+</code></pre></div>
+</li>
+</ol>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.
@@ -5361,7 +5361,7 @@ Allow data dir access
   <small>
     
       Last update:
-      2023-11-23
+      2023-11-27
     
   </small>
 </div>
