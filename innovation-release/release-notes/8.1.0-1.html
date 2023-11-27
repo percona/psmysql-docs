@@ -8,37 +8,34 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Because InnoDB is a complex storage engine it must be configured properly in
-order to perform at its best. Some points are not configurable in standard
-InnoDB. The goal of this feature is to provide a more exhaustive set of
-options for XtraDB.">
+        <meta name="description" content="Get started with Quickstart Guide for Percona Server for MySQL.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/innovation-release/innodb-io.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/innovation-release/release-notes/8.1.0-1.html">
       
       
-        <link rel="prev" href="improved-memory-engine.html">
+        <link rel="prev" href="release-notes-index.html">
       
       
-        <link rel="next" href="enforce-engine.html">
+        <link rel="next" href="../adaptive-network-buffers.html">
       
       
-      <link rel="icon" href="_static/percona-favicon.ico">
+      <link rel="icon" href="../_static/percona-favicon.ico">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
     
     
       
-        <title>Improved InnoDB I/O scalability - Percona Server for MySQL</title>
+        <title>Percona Server for MySQL 8.1.0-1 (2023-11-27) - Percona Server for MySQL</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.fad675c6.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.fad675c6.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.356b1318.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
       
       
 
@@ -61,15 +58,15 @@ options for XtraDB.">
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     
-      <link rel="stylesheet" href="css/percona.css">
+      <link rel="stylesheet" href="../css/percona.css">
     
-      <link rel="stylesheet" href="css/nocopy.css">
+      <link rel="stylesheet" href="../css/nocopy.css">
     
-      <link rel="stylesheet" href="css/design.css">
+      <link rel="stylesheet" href="../css/design.css">
     
-      <link rel="stylesheet" href="css/extra.css">
+      <link rel="stylesheet" href="../css/extra.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -92,7 +89,7 @@ options for XtraDB.">
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Improved InnoDB I/O scalability" />
+                 <meta property="og:title" content="Percona Server for MySQL - Percona Server for MySQL 8.1.0-1 (2023-11-27)" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/innovation-release/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/innovation-release/_static/percona-mysql-logo.png" />
               
@@ -118,7 +115,7 @@ options for XtraDB.">
     <div data-md-component="skip">
       
         
-        <a href="#improved-innodb-io-scalability" class="md-skip">
+        <a href="#percona-server-for-mysql-810-1-2023-11-27" class="md-skip">
           Skip to content
         </a>
       
@@ -140,7 +137,7 @@ options for XtraDB.">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="https://docs.percona.com" title="Percona Server for MySQL" class="md-header__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
       
-  <img src="_static/percona-logo.svg" alt="logo">
+  <img src="../_static/percona-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -157,7 +154,7 @@ options for XtraDB.">
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Improved InnoDB I/O scalability
+              Percona Server for MySQL 8.1.0-1 (2023-11-27)
             
           </span>
         </div>
@@ -269,7 +266,7 @@ options for XtraDB.">
   <label class="md-nav__title" for="__drawer">
     <a href="https://docs.percona.com" title="Percona Server for MySQL" class="md-nav__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
       
-  <img src="_static/percona-logo.svg" alt="logo">
+  <img src="../_static/percona-logo.svg" alt="logo">
 
     </a>
     Percona Server for MySQL
@@ -296,7 +293,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="index.html" class="md-nav__link">
+      <a href="../index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -313,19 +310,21 @@ options for XtraDB.">
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -339,7 +338,7 @@ options for XtraDB.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Release notes
@@ -353,7 +352,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="release-notes/release-notes-index.html" class="md-nav__link">
+      <a href="release-notes-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -371,10 +370,30 @@ options for XtraDB.">
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="release-notes/8.1.0-1.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.1.0-1 (2023-11-27)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="8.1.0-1.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -383,6 +402,91 @@ options for XtraDB.">
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#release-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release highlights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#new-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      New feature
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bug fixes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deprecation-or-removal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deprecation or removal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Platform support
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful links
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-expert-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get expert help
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -439,7 +543,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="adaptive-network-buffers.html" class="md-nav__link">
+      <a href="../adaptive-network-buffers.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -497,7 +601,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="audit-log-filter-overview.html" class="md-nav__link">
+      <a href="../audit-log-filter-overview.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -518,7 +622,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="install-audit-log-filter.html" class="md-nav__link">
+      <a href="../install-audit-log-filter.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -576,7 +680,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="audit-log-filter-formats.html" class="md-nav__link">
+      <a href="../audit-log-filter-formats.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -597,7 +701,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="audit-log-filter-new.html" class="md-nav__link">
+      <a href="../audit-log-filter-new.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -618,7 +722,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="audit-log-filter-old.html" class="md-nav__link">
+      <a href="../audit-log-filter-old.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -639,7 +743,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="audit-log-filter-json.html" class="md-nav__link">
+      <a href="../audit-log-filter-json.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -668,7 +772,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="audit-log-filter-security.html" class="md-nav__link">
+      <a href="../audit-log-filter-security.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -689,7 +793,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="audit-log-filter-compression-encryption.html" class="md-nav__link">
+      <a href="../audit-log-filter-compression-encryption.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -710,7 +814,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="reading-audit-log-filter-files.html" class="md-nav__link">
+      <a href="../reading-audit-log-filter-files.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -731,7 +835,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="manage-audit-log-filter.html" class="md-nav__link">
+      <a href="../manage-audit-log-filter.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -752,7 +856,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="filter-audit-log-filter-files.html" class="md-nav__link">
+      <a href="../filter-audit-log-filter-files.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -773,7 +877,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="audit-log-filter-restrictions.html" class="md-nav__link">
+      <a href="../audit-log-filter-restrictions.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -794,7 +898,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="audit-log-filter-naming.html" class="md-nav__link">
+      <a href="../audit-log-filter-naming.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -815,7 +919,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="disable-audit-log-filter.html" class="md-nav__link">
+      <a href="../disable-audit-log-filter.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -836,7 +940,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="audit-log-filter-variables.html" class="md-nav__link">
+      <a href="../audit-log-filter-variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -857,7 +961,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="uninstall-audit-log-filter.html" class="md-nav__link">
+      <a href="../uninstall-audit-log-filter.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -886,7 +990,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="binlog-space.html" class="md-nav__link">
+      <a href="../binlog-space.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -907,7 +1011,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="extended-mysqlbinlog.html" class="md-nav__link">
+      <a href="../extended-mysqlbinlog.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -928,7 +1032,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="extended-select-into-outfile.html" class="md-nav__link">
+      <a href="../extended-select-into-outfile.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -949,7 +1053,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="innodb-expanded-fast-index-creation.html" class="md-nav__link">
+      <a href="../innodb-expanded-fast-index-creation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -970,7 +1074,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="kill-idle-trx.html" class="md-nav__link">
+      <a href="../kill-idle-trx.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -991,7 +1095,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="procfs-plugin.html" class="md-nav__link">
+      <a href="../procfs-plugin.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1012,7 +1116,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="proxy-protocol-support.html" class="md-nav__link">
+      <a href="../proxy-protocol-support.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1033,7 +1137,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="sequence-table.html" class="md-nav__link">
+      <a href="../sequence-table.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1054,7 +1158,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="slowlog-rotation.html" class="md-nav__link">
+      <a href="../slowlog-rotation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1075,7 +1179,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="threadpool.html" class="md-nav__link">
+      <a href="../threadpool.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1096,7 +1200,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="trigger-updates.html" class="md-nav__link">
+      <a href="../trigger-updates.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1117,7 +1221,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="udf-percona-toolkit.html" class="md-nav__link">
+      <a href="../udf-percona-toolkit.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1138,7 +1242,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="utility-user.html" class="md-nav__link">
+      <a href="../utility-user.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1203,7 +1307,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="quickstart-overview.html" class="md-nav__link">
+      <a href="../quickstart-overview.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1268,7 +1372,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="installation.html" class="md-nav__link">
+      <a href="../installation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1326,7 +1430,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="download-instructions.html" class="md-nav__link">
+      <a href="../download-instructions.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1392,7 +1496,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="apt-repo.html" class="md-nav__link">
+      <a href="../apt-repo.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1413,7 +1517,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="apt-files.html" class="md-nav__link">
+      <a href="../apt-files.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1434,7 +1538,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="build-apt-packages.html" class="md-nav__link">
+      <a href="../build-apt-packages.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1455,7 +1559,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="apt-download-deb.html" class="md-nav__link">
+      <a href="../apt-download-deb.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1476,7 +1580,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="apt-pinning.html" class="md-nav__link">
+      <a href="../apt-pinning.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1497,7 +1601,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="apt-run.html" class="md-nav__link">
+      <a href="../apt-run.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1518,7 +1622,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="apt-uninstall-server.html" class="md-nav__link">
+      <a href="../apt-uninstall-server.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1584,7 +1688,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="yum-repo.html" class="md-nav__link">
+      <a href="../yum-repo.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1605,7 +1709,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="yum-files.html" class="md-nav__link">
+      <a href="../yum-files.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1626,7 +1730,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="yum-download-rpm.html" class="md-nav__link">
+      <a href="../yum-download-rpm.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1647,7 +1751,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="yum-run.html" class="md-nav__link">
+      <a href="../yum-run.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1668,7 +1772,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="yum-uninstall.html" class="md-nav__link">
+      <a href="../yum-uninstall.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1734,7 +1838,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="binary-tarball-install.html" class="md-nav__link">
+      <a href="../binary-tarball-install.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1755,7 +1859,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="binary-tarball-names.html" class="md-nav__link">
+      <a href="../binary-tarball-names.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1821,7 +1925,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="source-tarball.html" class="md-nav__link">
+      <a href="../source-tarball.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1842,7 +1946,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="compile-percona-server.html" class="md-nav__link">
+      <a href="../compile-percona-server.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1908,7 +2012,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="docker.html" class="md-nav__link">
+      <a href="../docker.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1929,7 +2033,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="docker-config.html" class="md-nav__link">
+      <a href="../docker-config.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1995,7 +2099,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="upgrade.html" class="md-nav__link">
+      <a href="../upgrade.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2016,7 +2120,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="upgrade-strategies.html" class="md-nav__link">
+      <a href="../upgrade-strategies.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2037,7 +2141,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="upgrade-components.html" class="md-nav__link">
+      <a href="../upgrade-components.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2058,7 +2162,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="upgrade-percona-repos.html" class="md-nav__link">
+      <a href="../upgrade-percona-repos.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2079,7 +2183,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="upgrade-standalone-packages.html" class="md-nav__link">
+      <a href="../upgrade-standalone-packages.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2100,7 +2204,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="downgrade.html" class="md-nav__link">
+      <a href="../downgrade.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2173,7 +2277,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="binlogging-replication-improvements.html" class="md-nav__link">
+      <a href="../binlogging-replication-improvements.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2194,7 +2298,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="post-installation.html" class="md-nav__link">
+      <a href="../post-installation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2215,7 +2319,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="apparmor.html" class="md-nav__link">
+      <a href="../apparmor.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2236,7 +2340,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="selinux.html" class="md-nav__link">
+      <a href="../selinux.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2301,7 +2405,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="extended-show-grants.html" class="md-nav__link">
+      <a href="../extended-show-grants.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2322,7 +2426,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="restrict-dynamic-log-locations.html" class="md-nav__link">
+      <a href="../restrict-dynamic-log-locations.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2343,7 +2447,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="clone-plugin.html" class="md-nav__link">
+      <a href="../clone-plugin.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2401,7 +2505,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="install-component.html" class="md-nav__link">
+      <a href="../install-component.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2422,7 +2526,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="uninstall-component.html" class="md-nav__link">
+      <a href="../uninstall-component.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2495,7 +2599,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="backup-restore-overview.html" class="md-nav__link">
+      <a href="../backup-restore-overview.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2516,7 +2620,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="backup-locks.html" class="md-nav__link">
+      <a href="../backup-locks.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2537,7 +2641,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="extended-mysqldump.html" class="md-nav__link">
+      <a href="../extended-mysqldump.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2558,7 +2662,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="start-transaction-with-consistent-snapshot.html" class="md-nav__link">
+      <a href="../start-transaction-with-consistent-snapshot.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2660,7 +2764,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="ldap-authentication.html" class="md-nav__link">
+      <a href="../ldap-authentication.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2681,7 +2785,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="ldap-system-variables.html" class="md-nav__link">
+      <a href="../ldap-system-variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2747,7 +2851,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="data-masking-overview.html" class="md-nav__link">
+      <a href="../data-masking-overview.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2768,7 +2872,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="install-data-masking-component.html" class="md-nav__link">
+      <a href="../install-data-masking-component.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2789,7 +2893,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="data-masking-function-list.html" class="md-nav__link">
+      <a href="../data-masking-function-list.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2810,7 +2914,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="uninstall-data-masking-component.html" class="md-nav__link">
+      <a href="../uninstall-data-masking-component.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2839,7 +2943,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="pam-plugin.html" class="md-nav__link">
+      <a href="../pam-plugin.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2860,7 +2964,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="ssl-improvement.html" class="md-nav__link">
+      <a href="../ssl-improvement.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2881,7 +2985,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="fido-authentication-plugin.html" class="md-nav__link">
+      <a href="../fido-authentication-plugin.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2902,7 +3006,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="encryption-functions.html" class="md-nav__link">
+      <a href="../encryption-functions.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2960,7 +3064,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="data-at-rest-encryption.html" class="md-nav__link">
+      <a href="../data-at-rest-encryption.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3018,7 +3122,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="keyring-components-plugins-overview.html" class="md-nav__link">
+      <a href="../keyring-components-plugins-overview.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3039,7 +3143,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="use-keyring-file.html" class="md-nav__link">
+      <a href="../use-keyring-file.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3060,7 +3164,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="use-keyring-vault-component.html" class="md-nav__link">
+      <a href="../use-keyring-vault-component.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3081,7 +3185,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="using-kmip.html" class="md-nav__link">
+      <a href="../using-kmip.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3102,7 +3206,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="using-amz-kms.html" class="md-nav__link">
+      <a href="../using-amz-kms.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3123,7 +3227,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="encrypt-file-per-table-tablespace.html" class="md-nav__link">
+      <a href="../encrypt-file-per-table-tablespace.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3144,7 +3248,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="encrypt-tablespaces.html" class="md-nav__link">
+      <a href="../encrypt-tablespaces.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3165,7 +3269,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="encrypt-system-tablespace.html" class="md-nav__link">
+      <a href="../encrypt-system-tablespace.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3186,7 +3290,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="encrypt-doublewrite-file-pages.html" class="md-nav__link">
+      <a href="../encrypt-doublewrite-file-pages.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3207,7 +3311,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="encrypt-temporary-files.html" class="md-nav__link">
+      <a href="../encrypt-temporary-files.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3228,7 +3332,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="encrypt-logs.html" class="md-nav__link">
+      <a href="../encrypt-logs.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3249,7 +3353,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="rotate-master-key.html" class="md-nav__link">
+      <a href="../rotate-master-key.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3270,7 +3374,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="verify-encryption.html" class="md-nav__link">
+      <a href="../verify-encryption.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3351,7 +3455,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="group-replication-flow-control.html" class="md-nav__link">
+      <a href="../group-replication-flow-control.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3372,7 +3476,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="group-replication-system-variables.html" class="md-nav__link">
+      <a href="../group-replication-system-variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3430,7 +3534,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="encrypt-binary-relay-log-files.html" class="md-nav__link">
+      <a href="../encrypt-binary-relay-log-files.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3503,7 +3607,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="jemalloc-profiling.html" class="md-nav__link">
+      <a href="../jemalloc-profiling.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3524,7 +3628,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="user-stats.html" class="md-nav__link">
+      <a href="../user-stats.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3545,7 +3649,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="slow-extended.html" class="md-nav__link">
+      <a href="../slow-extended.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3566,7 +3670,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="process-list.html" class="md-nav__link">
+      <a href="../process-list.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3587,7 +3691,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="misc-info-schema-tables.html" class="md-nav__link">
+      <a href="../misc-info-schema-tables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3652,7 +3756,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="advisors.html" class="md-nav__link">
+      <a href="../advisors.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3673,7 +3777,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="log-connection-error.html" class="md-nav__link">
+      <a href="../log-connection-error.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3694,7 +3798,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="innodb-corrupt-table-action.html" class="md-nav__link">
+      <a href="../innodb-corrupt-table-action.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3715,7 +3819,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="thread-based-profiling.html" class="md-nav__link">
+      <a href="../thread-based-profiling.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3736,7 +3840,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="stacktrace.html" class="md-nav__link">
+      <a href="../stacktrace.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3757,7 +3861,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="libcoredumper.html" class="md-nav__link">
+      <a href="../libcoredumper.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3782,21 +3886,19 @@ options for XtraDB.">
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
         
           
           <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
@@ -3810,7 +3912,7 @@ options for XtraDB.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_13">
             <span class="md-nav__icon md-icon"></span>
             Storage engines
@@ -3821,21 +3923,19 @@ options for XtraDB.">
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_1" >
         
           
           <label class="md-nav__link" for="__nav_13_1" id="__nav_13_1_label" tabindex="0">
@@ -3849,7 +3949,7 @@ options for XtraDB.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_13_1">
             <span class="md-nav__icon md-icon"></span>
             Percona XtraDB storage engine
@@ -3863,7 +3963,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="percona-xtradb.html" class="md-nav__link">
+      <a href="../percona-xtradb.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3884,7 +3984,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="improved-memory-engine.html" class="md-nav__link">
+      <a href="../improved-memory-engine.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3902,30 +4002,10 @@ options for XtraDB.">
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Improved InnoDB I/O scalability
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="innodb-io.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../innodb-io.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3934,70 +4014,6 @@ options for XtraDB.">
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#system-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      System variables
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="System variables">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#innodb_flush_method" class="md-nav__link">
-    <span class="md-ellipsis">
-      innodb_flush_method
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#status-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      Status variables
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#get-expert-help" class="md-nav__link">
-    <span class="md-ellipsis">
-      Get expert help
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -4010,7 +4026,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="enforce-engine.html" class="md-nav__link">
+      <a href="../enforce-engine.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4031,7 +4047,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="innodb-show-status.html" class="md-nav__link">
+      <a href="../innodb-show-status.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4052,7 +4068,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="show-engines.html" class="md-nav__link">
+      <a href="../show-engines.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4073,7 +4089,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="compressed-columns.html" class="md-nav__link">
+      <a href="../compressed-columns.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4094,7 +4110,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="innodb-fts-improvements.html" class="md-nav__link">
+      <a href="../innodb-fts-improvements.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4115,7 +4131,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="xtradb-performance-improvements.html" class="md-nav__link">
+      <a href="../xtradb-performance-improvements.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4136,7 +4152,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="aio-page-requests.html" class="md-nav__link">
+      <a href="../aio-page-requests.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4157,7 +4173,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="prefix-index-queries-optimization.html" class="md-nav__link">
+      <a href="../prefix-index-queries-optimization.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4178,7 +4194,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="query-limit-records.html" class="md-nav__link">
+      <a href="../query-limit-records.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4199,7 +4215,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="innodb-fragmentation-count.html" class="md-nav__link">
+      <a href="../innodb-fragmentation-count.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4265,7 +4281,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="myrocks-index.html" class="md-nav__link">
+      <a href="../myrocks-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4286,7 +4302,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="install-myrocks.html" class="md-nav__link">
+      <a href="../install-myrocks.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4307,7 +4323,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="myrocks-added-features.html" class="md-nav__link">
+      <a href="../myrocks-added-features.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4328,7 +4344,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="myrocks-limitations.html" class="md-nav__link">
+      <a href="../myrocks-limitations.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4349,7 +4365,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="myrocks-differences.html" class="md-nav__link">
+      <a href="../myrocks-differences.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4370,7 +4386,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="myrocks-information-schema-tables.html" class="md-nav__link">
+      <a href="../myrocks-information-schema-tables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4391,7 +4407,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="myrocks-server-variables.html" class="md-nav__link">
+      <a href="../myrocks-server-variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4412,7 +4428,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="myrocks-status-variables.html" class="md-nav__link">
+      <a href="../myrocks-status-variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4433,7 +4449,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="myrocks-gap-locks-detection.html" class="md-nav__link">
+      <a href="../myrocks-gap-locks-detection.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4454,7 +4470,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="myrocks-data-loading.html" class="md-nav__link">
+      <a href="../myrocks-data-loading.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4527,7 +4543,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="percona-server-system-variables.html" class="md-nav__link">
+      <a href="../percona-server-system-variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4548,7 +4564,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="percona-server-versions-comparison.html" class="md-nav__link">
+      <a href="../percona-server-versions-comparison.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4569,7 +4585,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="feature-comparison.html" class="md-nav__link">
+      <a href="../feature-comparison.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4590,7 +4606,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="server-version-numbers.html" class="md-nav__link">
+      <a href="../server-version-numbers.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4611,7 +4627,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="development.html" class="md-nav__link">
+      <a href="../development.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4632,7 +4648,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="telemetry.html" class="md-nav__link">
+      <a href="../telemetry.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4653,7 +4669,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="trademark-policy.html" class="md-nav__link">
+      <a href="../trademark-policy.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4674,7 +4690,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="index-info-schema-tables.html" class="md-nav__link">
+      <a href="../index-info-schema-tables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4695,7 +4711,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="faq.html" class="md-nav__link">
+      <a href="../faq.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4716,7 +4732,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="copyright-and-licensing-information.html" class="md-nav__link">
+      <a href="../copyright-and-licensing-information.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4737,7 +4753,7 @@ options for XtraDB.">
   
   
     <li class="md-nav__item">
-      <a href="glossary.html" class="md-nav__link">
+      <a href="../glossary.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4793,33 +4809,54 @@ options for XtraDB.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#system-variables" class="md-nav__link">
+  <a href="#release-highlights" class="md-nav__link">
     <span class="md-ellipsis">
-      System variables
+      Release highlights
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="System variables">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#innodb_flush_method" class="md-nav__link">
-    <span class="md-ellipsis">
-      innodb_flush_method
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#status-variables" class="md-nav__link">
+  <a href="#new-feature" class="md-nav__link">
     <span class="md-ellipsis">
-      Status variables
+      New feature
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bug fixes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deprecation-or-removal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deprecation or removal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Platform support
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful links
     </span>
   </a>
   
@@ -4849,7 +4886,7 @@ options for XtraDB.">
                   
 
   
-    <a href="https://github.com/percona/psmysql-docs/edit/innovation-release/docs/innodb-io.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/edit/innovation-release/docs/release-notes/8.1.0-1.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -4858,96 +4895,125 @@ options for XtraDB.">
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/innovation-release/docs/innodb-io.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/innovation-release/docs/release-notes/8.1.0-1.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
     </a>
   
 
 
-<h1 id="improved-innodb-io-scalability">Improved InnoDB I/O scalability<a class="headerlink" href="#improved-innodb-io-scalability" title="Permanent link">&para;</a></h1>
-<p>Because <em>InnoDB</em> is a complex storage engine it must be configured properly in
-order to perform at its best. Some points are not configurable in standard
-<em>InnoDB</em>. The goal of this feature is to provide a more exhaustive set of
-options for <em>XtraDB</em>.</p>
-<h2 id="system-variables">System variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
-<h3 id="innodb_flush_method"><code>innodb_flush_method</code><a class="headerlink" href="#innodb_flush_method" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Config file</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Enumeration</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>NULL</td>
-</tr>
-<tr>
-<td>Allowed values</td>
-<td>fsync, O_DSYNC, O_DIRECT, O_DIRECT_NO_FSYNC, littlesync, nosync</td>
-</tr>
-</tbody>
-</table>
-<p>The following values are allowed:</p>
+<h1 id="percona-server-for-mysql-810-1-2023-11-27">Percona Server for MySQL 8.1.0-1 (2023-11-27)<a class="headerlink" href="#percona-server-for-mysql-810-1-2023-11-27" title="Permanent link">&para;</a></h1>
+<p>Get started with <a href="../quickstart-overview.html">Quickstart Guide for Percona Server for MySQL</a>.</p>
+<p><a href="https://www.percona.com/software/mysql-database/percona-server">Percona Server for MySQL 8.1.0-1</a> includes all the features and bug fixes available in the
+MySQL 8.1 Community Edition in addition to enterprise-grade features developed by Percona.</p>
+<p>Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability, and availability, enhanced backups, increased visibility and instrumentation.</p>
+<p>Percona Server for MySQL is trusted by thousands of enterprises to provide better performance and concurrency for their most demanding workloads.</p>
+<h2 id="release-highlights">Release highlights<a class="headerlink" href="#release-highlights" title="Permanent link">&para;</a></h2>
+<p>Percona Server for MySQL implements telemetry that fills in the gaps in our understanding of how you use Percona Server to improve our products. Participation in the anonymous program is optional. You can opt-out if you prefer not to share this information. Find more information in the <a href="../telemetry.html">Telemetry on Percona Server for MySQL</a> document.</p>
+<p>The following user-defined function (UDF) shared objects (so) are converted to components:</p>
+<ul>
+<li>The <code>data_masking</code> plugin converted into the <code>component_masking_functions</code> component</li>
+<li>The <code>binlogs_utils_udf</code> UDF shared object (.so) converted to the <code>component_binlog_utils</code> component</li>
+<li>The <code>percona-udf</code> UDF shared object (.so) converted to the <code>component_percona-udf</code> component</li>
+</ul>
+<p>A user does not need to execute a separate <code>CREATE FUNCTION ... SONAME ...</code> statement for each function. Installing the components with the <code>INSTALL COMPONENT 'file://componenet_xxx</code> statement performs the auto-registration operations.</p>
+<p>The <code>keyring_vault</code> plugin converted into the <code>component_keyring_vault</code> component. This conversion aligns the keyring_vault with the KMIP and KMS keyrings and supports &ldquo;ALTER INSTANCE RELOAD KEYRING&rdquo; to update the configuration automatically.</p>
+<p>The <code>audit_log_filter</code> plugin converted to the <code>component_audit_log_filter</code> component. The following changes are also available:</p>
+<ul>
+<li>Adds the <code>mysql_event_tracking_parse</code> audit log event</li>
+<li>Reworked, optimized, and reorganized the audit event data members</li>
+<li>Data deduplication within the audit event data members</li>
+</ul>
+<p>The current version of <code>percona-release</code> does not support the <code>setup</code> subcommand with the <code>ps-8x-innovation</code> repository. Use <code>percona-release enable</code> instead. The support of the <code>ps-8x-innovation</code> repository for the <code>setup</code> subcommand will be added in the next release of <code>percona-release</code>.</p>
+<p>The PS 8.1.0 MTR suites are reorganized. The existing percona-specific MTR test cases are regrouped and put into separate test suites:</p>
+<ul>
+<li>component_encryption_udf</li>
+<li>percona</li>
+<li>percona_innodb</li>
+</ul>
+<p>Improvements and bug fixes introduced by Oracle for MySQL 8.1 and included in Percona Server for MySQL are the following:</p>
 <ul>
 <li>
-<p><code>fdatasync</code>: use <code>fsync()</code> to flush data, log, and parallel doublewrite files.</p>
+<p>The <code>EXPLAIN FORMAT=JSON</code> can output the data to a user variable.</p>
 </li>
 <li>
-<p><code>O_SYNC</code>: use <code>O_SYNC</code> to open and flush the log and parallel doublewrite files; use <code>fsync()</code> to flush the data files. Do not use <code>fsync()</code> to flush the parallel doublewrite file.</p>
+<p>New messages written to the MySQL error log during shutdown:</p>
+<ul>
+<li>
+<p>Startup and shutdown log messages, including when the server was started with <code>--initialize</code></p>
 </li>
 <li>
-<p><code>O_DIRECT</code>: use O_DIRECT to open the data files and <code>fsync()</code> system call to flush data, log, and parallel doublewrite files.</p>
+<p>Start and end of shutdown phases for plugins and components</p>
 </li>
 <li>
-<p><code>O_DIRECT_NO_FSYNC</code>: use O_DIRECT to open the data files and parallel doublewrite files, but does not use the <code>fsync()</code> system call to flush the data files, log files, and parallel doublewrite files. Do not use this option for the <em>XFS</em> file system.</p>
+<p>Start-of-phase and end-of-phase messages for connection closing phases</p>
+</li>
+<li>
+<p>The number and ID of threads still alive after being forcibly disconnected and potentially causing a wait</p>
 </li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>On an ext4 filesystem, set <code>innodb_log_write_ahead_size</code> to match the filesystem&rsquo;s write-ahead block size. This variable avoids <code>unaligned AIO/DIO</code> warnings.</p>
-</div>
-<h2 id="status-variables">Status variables<a class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
-<p>The following information has been added to <code>SHOW ENGINE INNODB STATUS</code> to confirm the checkpointing activity:</p>
-<div class="highlight"><pre><span></span><code>The current checkpoint age target
-The current age of the oldest page modification which has not been flushed to disk yet.
-The current age of the last checkpoint
-...
----
-LOG
----
-Log sequence number 0 1059494372
-Log flushed up to   0 1059494372
-Last checkpoint at  0 1055251010
-Max checkpoint age  162361775
-Checkpoint age target 104630090
-Modified age        4092465
-Checkpoint age      4243362
-0 pending log writes, 0 pending chkp writes
-...
-</code></pre></div>
+</li>
+</ul>
+<p>Find the full list of bug fixes and changes in the <a href="https://dev.mysql.com/doc/relnotes/mysql/8.1/en/">MySQL 8.1 Release Notes</a>.</p>
+<h2 id="new-feature">New feature<a class="headerlink" href="#new-feature" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://jira.percona.com/browse/PS-5945">PS-5945</a> : Add the mysql server host name in the <code>audit_log</code> details when writing to syslog.</li>
+<li><a href="https://jira.percona.com/browse/PS-8042">PS-8042</a> : The Audit Log version 2 initial design and implementation.</li>
+<li><a href="https://jira.percona.com/browse/PS-8848">PS-8848</a> : Increase the verbosity of the connection control plugin to help with debugging.</li>
+</ul>
+<h2 id="bug-fixes">Bug fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://jira.percona.com/browse/PS-8932">PS-8932</a> : The documentation mentioned <code>ALL_O_DIRECT</code> parameter for Percona Server for MySQL 8.x but flag was removed.</li>
+<li><a href="https://jira.percona.com/browse/PS-8949">PS-8949</a> : The MyRocks configuration failed on a Mac with M1.</li>
+</ul>
+<h2 id="deprecation-or-removal">Deprecation or removal<a class="headerlink" href="#deprecation-or-removal" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The <code>mysql_native_password</code> authentication plugin is deprecated and subject to removal in a future version.</li>
+<li>The TokuDB is removed. The following items are also removed:<ul>
+<li>Percona-TokuBackup submodule</li>
+<li>PerconaFT submodule</li>
+<li>TokuDB storage engine code</li>
+<li>TokuDB MTR test suites</li>
+<li>plugin/tokudb-backup-plugin</li>
+</ul>
+</li>
+<li>The MyRocks ZenFS is removed. The following items are also removed:<ul>
+<li>zenfs submodule</li>
+<li>libzdb submodule</li>
+<li>RocksDB MTR changes are reverted</li>
+</ul>
+</li>
+<li>Travis CI integration</li>
+<li>Supporting <code>readline</code> as a alternative to editline library is removed.</li>
+<li>The <code>audit_log</code> (audit version 1) plugin is removed</li>
+<li>The &ldquo;include/ext&rdquo; pre-C++17 compatibility headers are removed.</li>
+<li>The <code>keyring_vault</code> plugin is removed.</li>
+<li>The <code>data_masking</code> UDF shared object (.so) is removed.</li>
+<li>The <code>binlog_utils_udf</code> UDF shared object (.so) is removed.</li>
+<li>The <code>percona_udf</code> UDF shared object (.so) is removed.</li>
+</ul>
+<h2 id="platform-support">Platform support<a class="headerlink" href="#platform-support" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Percona Server for MySQL 8.1.0-1 is not supported on Ubuntu 18.04.</li>
+</ul>
+<h2 id="useful-links">Useful links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Install <a href="https://docs.percona.com/percona-server/8.1/installation.html">Percona Server for MySQL 8.1</a></p>
+</li>
+<li>
+<p>The [Percona Server for MySQL GitHub repository]</p>
+</li>
+<li>
+<p>Download product binaries, packages, and tarballs at <a href="https://www.percona.com/downloads">Percona Product Downloads</a></p>
+</li>
+<li>
+<p><a href="https://github.com/percona/psmysql-docs/blob/8.0/contributing.md">Contribute to the documentation</a></p>
+</li>
+<li>
+<p>For <a href="https://www.percona.com/training">training</a>, contact <a href="https://learn.percona.com/contact-me">Percona Training - Start learning now</a></p>
+</li>
+</ul>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.
@@ -4964,7 +5030,7 @@ Checkpoint age      4243362
   <small>
     
       Last update:
-      2023-10-26
+      2023-11-27
     
   </small>
 </div>
@@ -5132,14 +5198,14 @@ Checkpoint age      4243362
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      <script src="../assets/javascripts/bundle.cd18aaf1.min.js"></script>
       
-        <script src="js/version-select.js"></script>
+        <script src="../js/version-select.js"></script>
       
-        <script src="js/promptremover.js"></script>
+        <script src="../js/promptremover.js"></script>
       
     
   </body>
