@@ -14,6 +14,7 @@ For more information about using Docker, see the [Docker Docs](https://docs.dock
 
     Make sure that you are using the latest version of Docker. The ones provided via `apt` and `yum` may be outdated and cause errors.
 
+We gather [Telemetry data] in the Percona packages and Docker images.
 
 ## Using the Percona Server Images
 
@@ -217,3 +218,5 @@ and collation for all databases:
  --character-set-server=utf8 \
  --collation-server=utf8_general_ci
 ```
+
+[Telemetry data]: telemetry.md

@@ -2,6 +2,8 @@
 
 Before installing, you might want to read the Percona Server for MySQL 5.7 Release notes.
 
+We gather [Telemetry data] in the Percona packages and Docker images.
+
 ## Installing *Percona Server for MySQL* from Repositories
 
 Percona provides repositories for **yum** (`RPM` packages for *Red Hat*, *CentOS* and *Amazon Linux AMI*) and **apt** (`.deb` packages for *Ubuntu* and *Debian*) for software such as *Percona Server for MySQL*, *Percona XtraBackup*, and *Percona Toolkit*. This makes it easy to install and update your software and its dependencies through your operating system’s package manager. This is the recommended way of installing where possible.
@@ -61,3 +63,5 @@ packages for all Debian and Ubuntu releases.
 
     The PAM Authentication Plugin is not built with the server by default. In order to build the Percona Server with the PAM plugin, add the  `-DWITH_PAM=ON` option.
 
+
+[Telemetry data]: telemetry.md
