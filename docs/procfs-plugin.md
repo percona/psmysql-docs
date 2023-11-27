@@ -1,10 +1,6 @@
 # The ProcFS plugin
 
-!!! important
-
-    --8<--- "tech.preview.md:5:5"
-
-The ProcFS plugin provides access to the Linux performance counters by running SQL queries against a Percona Server for MySQL {{release}}.
+The ProcFS plugin provides access to the Linux performance counters by running SQL queries against a Percona Server for MySQL {{vers}}.
 
 You may be unable to capture operating system metrics in certain environments, such as Cloud installations or MySQL-as-a-Service installations. These metrics are essential for complete system performance monitoring.
 
@@ -84,7 +80,6 @@ Status variables provide the basic metrics:
 | Dynamic:       | Yes                |
 | Read, Write, or Read-Only:     | Read-Only            |
 
-The variable has been implemented in Percona Server for MySQL 8.0.25-14. 
 The default value for `procfs_files_spec` is: /proc/cpuinfo;/proc/irq//;/proc/loadavg/proc/net/dev;/proc/net/sockstat;/proc/net/sockstat_rhe4;/proc/net/tcpstat;/proc/self/net/netstat;/proc/self/stat;/proc/self/io;/proc/self/numa_maps/proc/softirqs;/proc/spl/kstat/zfs/arcstats;/proc/stat;/proc/sys/fs/file-nr;/proc/version;/proc/vmstat
 
 Enables access to the `/proc` and `/sys` directories and files. This variable is global, read only, and is set by using either the mysqld command line or by editing `my.cnf`.

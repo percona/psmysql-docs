@@ -52,7 +52,7 @@ A backup can be either a physical backup or a logical backup.
 A physical backup copies the files needed to store and recover the database. They can be data files, configuration files,
 logs, and other types of files. The physical database can be stored in the cloud, in offline storage, on disc, or tape.
 
-[Percona XtraBackup](https://docs.percona.com/percona-xtrabackup/8.0/index.html) takes a physical backup. You can also 
+[Percona XtraBackup] takes a physical backup. You can also 
 use RDS/LVM Snapshots or the MySQL Enterprise Backup. 
 
 If the server is stopped or down, you can copy the datadir with the `cp` command or the `rsync` command.
@@ -61,11 +61,10 @@ If the server is stopped or down, you can copy the datadir with the `cp` command
 
 A logical backup contains the structural details. This type of backup contains tables, views, procedures, and functions. 
 
-Tools like [`mysqldump`](https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html) , 
-[`mydumper`](https://github.com/mydumper/mydumper), 
-[`mysqlpump`](https://dev.mysql.com/doc/refman/5.7/en/mysqlpump.html), and 
-[`mysql shell`](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-utilities-dump-instance-schema.html) 
-take a logical backup.
+Tools like [`mysqldump`], 
+[`mydumper`], 
+[`mysqlpump`], and 
+[`mysql shell`] take a logical backup.
 
 ### Comparison
 
@@ -74,3 +73,9 @@ take a logical backup.
 | Content        | The physical database files                       | The tables, users, procedures, and functions                  |
 | Restore speed  | Restore can be quick                              | Restore can be slower and does not include file information.  |
 | Storage        | Can take more space                               | Based on what is selected, the backup can be smaller          |
+
+[`mysqldump`]: https://dev.mysql.com/doc/refman/{{vers}}/en/mysqldump.html
+[`mydumper`]: https://github.com/mydumper/mydumper
+[`mysqlpump`]: https://dev.mysql.com/doc/refman/{{vers}}/en/mysqlpump.html
+[`mysql shell`]: https://dev.mysql.com/doc/mysql-shell/{{vers}}/en/mysql-shell-utilities-dump-instance-schema.html
+[Percona XtraBackup]: https://docs.percona.com/percona-xtrabackup/innovation-release/index.html

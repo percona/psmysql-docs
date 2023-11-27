@@ -1,4 +1,4 @@
-# Percona Server for MySQL {{release}} - Documentation
+# Percona Server for MySQL {{vers}} - Documentation
 
 !!! note ""
 

@@ -17,7 +17,7 @@ You can install Percona Server for MySQL using different methods.
 
 Percona XtraBackup (PXB) is a 100% open source backup solution for all versions of Percona Server for MySQL and MySQL® that performs online non-blocking, tightly compressed, highly secure full backups on transactional systems. Maintain fully available applications during planned maintenance windows with Percona XtraBackup.
 
-[Install Percona XtraBackup](https://docs.percona.com/percona-xtrabackup/8.0/installation.html)
+[Install Percona XtraBackup](https://docs.percona.com/percona-xtrabackup/innovation-release/installation.html)
 
 ## For Monitoring and Management
 

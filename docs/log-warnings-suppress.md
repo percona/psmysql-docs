@@ -12,10 +12,6 @@ mysql> SET GLOBAL log_warnings_suppress = '1592';
     Query OK, 0 rows affected (0.00 sec)
     ```
 
-## Version specific information
-
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7
-
 ## System variables
 
 ### `log_warnings_suppress`
@@ -38,8 +34,8 @@ In the future, the ability to optionally disable additional warnings may also be
 
 * [MySQL bug 42851](https://bugs.mysql.com/bug.php?id=42851)
 
-* [MySQL InnoDB replication](https://dev.mysql.com/doc/refman/8.0/en/innodb-and-mysql-replication.html)
+* [MySQL InnoDB replication](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-and-mysql-replication.html)
 
-* [InnoDB Startup Options and System Variables](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html)
+* [InnoDB Startup Options and System Variables](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-parameters.html)
 
-* [InnoDB Error Handling](https://dev.mysql.com/doc/refman/8.0/en/innodb-error-handling.html)
+* [InnoDB Error Handling](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-error-handling.html)

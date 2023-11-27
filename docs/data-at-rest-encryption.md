@@ -1,31 +1,5 @@
 # Data at Rest Encryption
 
-The following system variables, status variables, and options have been removed in Percona Server for MySQL 8.0.31-23.
-
-| Variable name                                    |
-|--------------------------------------------------|
-| `innodb_encryption_rotation_pages_read_from_cache` |
-| `innodb_encryption_rotation_pages_read_from_disk`  |
-| `innodb_encryption_rotation_pages_modified`        |
-| `innodb_encryption_rotation_pages_flushed`         |
-| `innodb_encryption_rotation_estimated_iops`        |
-| `innodb_encryption_rotation_list_length`           |
-| `innodb_num_pages_encrypted`                       |
-| `innodb_num_pages_decrypted`                       |
-| `innodb_encryption_threads`                        |
-| `innodb_encryption_rotate_key_age`                 |
-| `innodb_encryption_rotation_loops`                 |
-| `innodb_default_encryption_key_id`                 |
-| `rotate_system_key and any dependencies`           |
-
-
-The following system variable options have been changed in Percona Server for MySQL 8.0.31-23.
-
-| Variable name                                    | Changed              |
-|--------------------------------------------------|-----------------------------------|
-| `default_table_encryption`                         | Changed to two options: ON or OFF |
-| `innodb_sys_tablespace_encrypt`                    | Changed to Boolean                |
-
 Data security is a concern for institutions and organizations. `Transparent
 Data Encryption (TDE)` or `Data at Rest Encryption` encrypts
 data files. Data at rest is
@@ -62,6 +36,8 @@ layer, added to the buffer pool, and used to access the data. A buffer pool page
 
 ## Percona XtraBackup support
 
-Percona XtraBackup version 8 supports the backup of encrypted general tablespaces. 
+Percona XtraBackup version {{vers}} supports the backup of encrypted general tablespaces. 
 
-Percona XtraBackup only supports features that are [Generally Available (GA)](glossary.md#general-availability-ga) in Percona Server for MySQL. Due to time constraints, GA features may be supported in a later Percona XtraBackup release. Review the [Percona XtraBackup release notes](https://docs.percona.com/percona-xtrabackup/8.0/release-notes.html) for more information.
+Percona XtraBackup only supports features that are [Generally Available (GA)](glossary.md#general-availability-ga) in Percona Server for MySQL. Due to time constraints, a GA feature may be supported in a later Percona XtraBackup release. Review the [Percona XtraBackup release notes] for more information.
+
+[Percona XtraBackup release notes]: https://docs.percona.com/percona-xtrabackup/innovation-release/release-notes.html

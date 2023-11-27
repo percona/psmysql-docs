@@ -1,6 +1,6 @@
 # Development of Percona Server for MySQL
 
-*Percona Server for MySQL* is an open source project to produce a distribution
+Percona Server for MySQL is an open source project to produce a distribution
 of the *MySQL* Server with improved performance, scalability and
 diagnostics.
 
@@ -16,6 +16,8 @@ At Percona we use [Git](https://git-scm.com) for source control, [GitHub](https:
 We change our software to implement new features and/or to fix bugs. Refactoring
 could be classed either as a new feature or a bug depending on the scope of
 work.
+
+<!--- Do we need the following info? --->
 
 New features and bugs are targeted to specific releases. A
 release is part of a series. For example, 2.4 is a series in Percona

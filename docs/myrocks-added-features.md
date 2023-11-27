@@ -10,6 +10,6 @@ The following is a list of the latest supported features:
 
     * Using a global variable `rocksdb_cancel_manual_compactions` to cancel all ongoing manual compactions.
 
-* Percona Server for MySQL adds supported for [Generated Columns](https://dev.mysql.com/doc/refman/8.0/en/create-table-generated-columns.html) and index are supported.
+* Percona Server for MySQL adds supported for [Generated Columns](https://dev.mysql.com/doc/refman/{{vers}}/en/create-table-generated-columns.html) and index are supported.
 
-* Percona Server for MySQL adds support for [explicit DEFAULT value expressions](https://dev.mysql.com/doc/refman/8.0/en/data-type-defaults.html). 
+* Percona Server for MySQL adds support for [explicit DEFAULT value expressions](https://dev.mysql.com/doc/refman/{{vers}}/en/data-type-defaults.html). 

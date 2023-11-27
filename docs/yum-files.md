@@ -1,4 +1,4 @@
-# Files in the RPM package built for Percona Server for MySQL {{release}}
+# Files in the RPM package built for Percona Server for MySQL {{vers}}
 
 Each of the Percona Server for MySQL RPM packages has a particular purpose.
 

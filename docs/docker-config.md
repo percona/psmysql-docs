@@ -35,9 +35,9 @@ $ docker inspect ps
      "Env": [
                     "MYSQL_ROOT_PASSWORD=root",
                     "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
-                    "PS_VERSION=8.0.29-21.1",
+                    "PS_VERSION={{release}}",
                     "OS_VER=el8",
-                    "FULL_PERCONA_VERSION=8.0.29-21.1.el8"
+                    "FULL_PERCONA_VERSION={{release}}.el8"
                    ]
     ...
     ```

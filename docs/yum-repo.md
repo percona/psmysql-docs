@@ -1,10 +1,12 @@
 # Install from Percona Software repository
 
 Ready-to-use packages are available from the Percona Server for MySQL software
-repositories and the [download page](https://www.percona.com/downloads/Percona-Server-8.1/). The
+repositories and the [download page](https://www.percona.com/downloads/Percona-Server-{{vers}}/). The
 Percona yum repository supports popular RPM-based
 operating systems. The easiest way to install the Percona RPM repository is to install an RPM
 that configures yum and installs the [Percona GPG key](https://www.percona.com/downloads/RPM-GPG-KEY-percona).
+
+We gather [Telemetry data] in the Percona packages and Docker images.
 
 ## Supported platforms
 
@@ -27,7 +29,7 @@ For more information on the Percona Software repositories and configuring Percon
 
     ```{.bash data-prompt="$"}
     $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-    $ sudo percona-release enable-only ps-81 release
+    $ sudo percona-release enable-only {{pkg}} release
     $ sudo percona-release enable tools release
     $ sudo yum install percona-server-server
     ```
@@ -35,13 +37,14 @@ For more information on the Percona Software repositories and configuring Percon
 
     ```{.bash data-prompt="$"}
     $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-    $ sudo percona-release setup ps-81
+    $ sudo percona-release enable-only {{pkg}} release
+    $ sudo percona-release enable tools release
     $ sudo yum install percona-server-server
     ```
 
 ## Available storage engines
 
-Percona Server for MySQL {{release}} comes with the `MyRocks` storage engine. This storage engine is installed as a plugin. For information on how to install and configure MyRocks, refer to the [Percona MyRocks Installation Guide](install-myrocks.md).
+Percona Server for MySQL {{vers}} comes with the `MyRocks` storage engine. This storage engine is installed as a plugin. For information on how to install and configure MyRocks, refer to the [Percona MyRocks Installation Guide](install-myrocks.md).
 
 ### Percona yum Testing repository
 
@@ -53,3 +56,5 @@ to `enabled = 1` (Note that there are three sections in this file:
 release, testing, and experimental - in this case, it is the second section that requires updating).
 
 You must install the Percona repository first if the installation has not been done already.
+
+[Telemetry data]: telemetry.md

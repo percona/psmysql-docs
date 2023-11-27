@@ -105,11 +105,6 @@ mysql> SHOW EFFECTIVE GRANTS;
     2 rows in set (0.00 sec)
     ```
     
-
-## Version specific information
-
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
-
 ## Other reading
 
 * [#53645](https://bugs.mysql.com/bug.php?id=53645) - `SHOW GRANTS` not displaying all the applicable grants

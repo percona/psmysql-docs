@@ -7,7 +7,7 @@ copyright: Percona LLC, &#169; 2023
 
 repo_name: percona/psmysql-docs
 repo_url: https://github.com/percona/psmysql-docs
-edit_uri: edit/inno-release/docs/
+edit_uri: edit/innovation-release/docs/
 
 use_directory_urls: false
 
@@ -16,7 +16,6 @@ theme:
   name: material
   logo: _static/percona-logo.svg
   favicon: _static/percona-favicon.ico
-  custom_dir: _resource/overrides/
   font:
     text: Roboto
     code: Roboto Mono
@@ -61,6 +60,7 @@ extra_css:
   - css/percona.css
   - css/nocopy.css
   - css/design.css
+  - css/extra.css
 
 #Copyright
 copyright: >
@@ -102,9 +102,8 @@ markdown_extensions:
   pymdownx.highlight:
     use_pygments: true
   pymdownx.emoji:
-
-    emoji_index: !!python/name:materialx.emoji.twemoji
-    emoji_generator: !!python/name:materialx.emoji.to_svg
+    emoji_index: !!python/name:material.extensions.emoji.twemoji
+    emoji_generator: !!python/name:material.extensions.emoji.to_svg
     options:
       custom_icons:
         - _resource/.icons
@@ -161,24 +160,44 @@ nav:
     - Release notes index: release-notes/release-notes-index.md
     - release-notes/8.1.0-1.md
   - Features:
+    - adaptive-network-buffers.md
+    - Audit Log Filter:
+      - audit-log-filter-overview.md
+      - install-audit-log-filter.md
+      - Formats: 
+        - Overview: audit-log-filter-formats.md
+        - XML (New style): audit-log-filter-new.md
+        - XML (Old style): audit-log-filter-old.md
+        - JSON: audit-log-filter-json.md
+      - audit-log-filter-security.md
+      - audit-log-filter-compression-encryption.md
+      - reading-audit-log-filter-files.md
+      - manage-audit-log-filter.md
+      - filter-audit-log-filter-files.md
+      - audit-log-filter-restrictions.md
+      - audit-log-filter-naming.md
+      - disable-audit-log-filter.md
+      - audit-log-filter-variables.md
+      - uninstall-audit-log-filter.md
     - binlog-space.md
     - extended-mysqlbinlog.md
-    - slowlog-rotation.md
     - extended-select-into-outfile.md
-    - proxy-protocol-support.md
-    - sequence-table.md
-    - trigger-updates.md 
     - innodb-expanded-fast-index-creation.md
     - kill-idle-trx.md
+    - procfs-plugin.md
+    - proxy-protocol-support.md
+    - sequence-table.md
+    - slowlog-rotation.md
+    - threadpool.md
+    - trigger-updates.md 
     - udf-percona-toolkit.md
     - utility-user.md
-    - procfs-plugin.md
-    - adaptive-network-buffers.md
-    - threadpool.md
   - Quickstart guide:
        - quickstart-overview.md
   - Install:
     - Install Percona Server for MySQL from repositories: installation.md
+    - Before you start: 
+      - download-instructions.md
     - Use APT:
       - Use APT repositories: apt-repo.md
       - Files in DEB package: apt-files.md
@@ -202,12 +221,13 @@ nav:
     - Docker:
       - Install using Docker: docker.md
       - docker-config.md
-  - Upgrade:
-    - Upgrade guide: upgrading-guide.md
-    - upgrading-using-percona-repos.md
-    - upgrade-myrocks.md
-    - upgrading-using-standalone-packages.md
-    - Downgrade: downgrade.md
+    - Upgrade:
+      - upgrade.md
+      - upgrade-strategies.md
+      - upgrade-components.md
+      - upgrade-percona-repos.md
+      - upgrade-standalone-packages.md
+      - downgrade.md
   - Post-Installation:
     - binlogging-replication-improvements.md
     - post-installation.md
@@ -215,7 +235,11 @@ nav:
     - selinux.md
   - Manage:
     - extended-show-grants.md
-    - uninstall-component.md
+    - restrict-dynamic-log-locations.md
+    - clone-plugin.md
+    - Manage components:
+      - install-component.md
+      - uninstall-component.md
   - Back up and restore:
     - backup-restore-overview.md
     - backup-locks.md 
@@ -232,29 +256,29 @@ nav:
       - uninstall-data-masking-component.md
     - pam-plugin.md
     - ssl-improvement.md
-    - system-variables.md
     - fido-authentication-plugin.md
     - encryption-functions.md
     - Data-at-rest-encryption:
       - data-at-rest-encryption.md
-      - using-keyring-plugin.md
-      - Keyring plugin and components:
+      - Keyring components and plugins:
+        - keyring-components-plugins-overview.md
+        - use-keyring-file.md
+        - use-keyring-vault-component.md
         - using-kmip.md
         - using-amz-kms.md
-        - encrypting-tables.md
-        - encrypting-tablespaces.md
-        - encrypting-system-tablespace.md
-        - encrypting-temporary-files.md
-        - encrypting-binlogs.md
-        - encrypting-redo-log.md
-        - encrypting-undo-tablespace.md
-        - rotating-master-key.md
-        - encrypting-threads.md
-        - encrypting-doublewrite-buffers.md
-        - verifying-encryption.md     
+        - encrypt-file-per-table-tablespace.md
+        - encrypt-tablespaces.md
+        - encrypt-system-tablespace.md
+        - encrypt-doublewrite-file-pages.md
+        - encrypt-temporary-files.md
+        - encrypt-logs.md
+        - rotate-master-key.md
+        - verify-encryption.md     
   - Replicate:
     - group-replication-flow-control.md
     - group-replication-system-variables.md
+    - Replication Security:
+      - encrypt-binary-relay-log-files.md
   - Monitor:
     - jemalloc-profiling.md
     - user-stats.md
@@ -278,7 +302,6 @@ nav:
       - show-engines.md
       - compressed-columns.md
       - innodb-fts-improvements.md
-      - changed-page-tracking.md 
       - xtradb-performance-improvements.md
       - aio-page-requests.md
       - prefix-index-queries-optimization.md
@@ -301,6 +324,7 @@ nav:
     - feature-comparison.md
     - server-version-numbers.md
     - development.md
+    - telemetry.md
     - trademark-policy.md
     - index-info-schema-tables.md
     - faq.md

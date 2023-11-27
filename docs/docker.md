@@ -1,28 +1,29 @@
 # Running Percona Server for MySQL in a Docker Container
 
- *Percona Server for MySQL* has an official Docker image hosted on [Docker Hub](https://hub.docker.com/r/percona/percona-server/). If you want the latest version, use the `latest` tag. You can reference a specific version using the [Docker tag filter for the 8.0 versions](https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name=8.0). 
+Percona Server for MySQL has an official Docker image hosted on [Docker Hub](https://hub.docker.com/r/percona/percona-server/). Download a specific version by adding the [Docker tag filter for the {{vers}} versions]. 
 
-Make sure that you are using the latest version of Docker. The `apt` and `yum` versions may be outdated and cause errors.
+We gather [Telemetry data] in the Percona packages and Docker images.
 
+Make sure that you are using the latest version of Docker. The `APT` version or the `YUM` version may be outdated and cause errors.
 
 ## Starting a detached container
 
-You can start a background container with the `--detached` or `-d` option, which runs the container in the background. In detached mode, the container exits when the root process used to run the container exits.
+Start a container with the `--detached` or `-d` option, which runs the container in the background. In `detached` mode, when the root process used to run the container exits, the container exits.
 
 The following example starts a container named `ps` with the latest version of
-*Percona Server for MySQL* 8.0. This action also creates the `root` user and uses `root` as the password. Please note that `root` is not a secure password. 
+Percona Server for MySQL {{vers}}. This action also creates the `root` user and uses `root` as the password. Please note that `root` is not a secure password. 
 
 ```{.bash data-prompt="$"}
 $ docker run -d \
   --name ps \
   -e MYSQL_ROOT_PASSWORD=root \
-  percona/percona-server:8.0
+  percona/percona-server:{{vers}}
 ```
 ??? example "Expected output"
 
     ```{.text .no-copy}
-    Unable to find image 'percona/percona-server:8.0' locally
-    8.0: Pulling from percona/percona-server
+    Unable to find image 'percona/percona-server:{{vers}}' locally
+    {{vers}}: Pulling from percona/percona-server
     ```
 
 By default, Docker pulls the image from Docker Hub if it is not
@@ -37,13 +38,13 @@ docker logs ps --follow
 
     ```{.text .no-copy}
     Initializing database
-    2022-09-07T15:20:03.158128Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.0.29-21) initializing of server in progress as process 15
+    2022-09-07T15:20:03.158128Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld {{release}}) initializing of server in progress as process 15
     2022-09-07T15:20:03.167764Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
     2022-09-07T15:20:03.530600Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
     2022-09-07T15:20:04.367600Z 0 [Warning] [MY-013829] [Server] Missing data directory for ICU regular expressions: /usr/lib64/mysql/private/.
     ...
     2022-09-07T15:20:13.706090Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/lib/mysql/mysqlx.sock
-    2022-09-07T15:20:13.706136Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.29-21'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona Server (GPL), Release 21, Revision c59f87d2854.
+    2022-09-07T15:20:13.706136Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '{{release}}'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona Server (GPL), Release 21, Revision c59f87d2854.
     ```
 You can access the server when you see the `ready for connections` information in the log.
  
@@ -56,7 +57,7 @@ You can pass options with the `docker run` command. For example, the following c
 [root@docker-host] $ docker run -d \
  --name ps \
  -e MYSQL_ROOT_PASSWORD=root \
- percona/percona-server:8.0 \
+ percona/percona-server:{{vers}} \
  --character-set-server=utf8 \
  --collation-server=utf8_general_ci
 ```
@@ -123,7 +124,7 @@ You can also run the MySQL command-line client within the container's shell to a
     mysql: [Warning] Using a password on the command line interface can be insecure.
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 8
-    Server version: 8.0.29-21 Percona Server (GPL), Release 21, Revision c59f87d2854
+    Server version: {{release}} Percona Server (GPL), Release 21, Revision c59f87d2854
 
     Copyright (c) 2009-2022 Percona LLC and/or its affiliates
     Copyright (c) 2000, 2022, Oracle and/or its affiliates.
@@ -180,7 +181,7 @@ you run the container with the following command:
   --name ps \
   -e MYSQL_ROOT_PASSWORD=root \
   -v /local/datadir:/var/lib/mysql \
-  percona/percona-server:8.0
+  percona/percona-server:{{vers}}
 ```
 
 The `-v /local/datadir:/var/lib/mysql` option
@@ -214,7 +215,7 @@ To map the standard MySQL port 3306 to port 6603 on the host:
  --name ps \
  -e MYSQL_ROOT_PASSWORD=root \
  -p 6603:3306 \
- percona/percona-server:8.0
+ percona/percona-server:{{vers}}
 ```
 
 
@@ -249,3 +250,7 @@ $ docker rm ps
 ## For more information
 
 Review the [Docker Docs](https://docs.docker.com/)
+
+[Docker tag filter for the {{vers}} versions]: https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name={{vers}}
+
+[Telemetry data]: telemetry.md

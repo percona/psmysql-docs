@@ -1,6 +1,6 @@
 # Encrypt schema or general tablespace
 
-Percona Server for MySQL uses the same encryption architecture as *MySQL, a two-tier system consisting of a master key and tablespace keys. The master key can be changed, or rotated in the keyring, as needed. Each tablespace key, when
+Percona Server for MySQL uses the same encryption architecture as MySQL, a two-tier system consisting of a master key and tablespace keys. The master key can be changed, or rotated in the keyring, as needed. Each tablespace key, when
 decrypted, remains the same.
 
 The feature requires the keyring plugin.
@@ -11,27 +11,9 @@ The tables in a general tablespace are either all encrypted or all unencrypted.
 A tablespace cannot contain a mixture of encrypted tables and unencrypted
 tables.
 
-In versions before Percona Server for MySQL 8.0.16-7, use the variable
-innodb_encrypt_tables.
-
-### `innodb_encrypt_tables`
-
-| Option       | Description             |
-|--------------|-------------------------|
-| Command-line | --innodb-encrypt-tables |
-| Scope        | Global                  |
-| Dynamic      | Yes                     |
-| Data type    | Text                    |
-| Default      | OFF                     |
-
-The variable is **deprecated** and removed in Percona Server for MySQL 8.0.16-7.
-
-The default setting is “OFF”.
-
 The encryption of a schema or a general tablespace is determined by the
-default_table_encryption variable unless you specify the
-ENCRYPTION clause in the CREATE SCHEMA or CREATE TABLESPACE statement. This
-variable is implemented in Percona Server for MySQL version 8.0.16-7.
+`default_table_encryption` variable unless you specify the
+ENCRYPTION clause in the CREATE SCHEMA or CREATE TABLESPACE statement.
 
 You can set the `default_table_encryption` variable in an individual
 connection.
@@ -40,11 +22,7 @@ connection.
 mysql> SET default_table_encryption=ON;
 ```
 
-### System variable
-
-### `default_table_encryption`
-
-Percona Server for MySQL 8.0.31-23 removes the `ONLINE_TO_KEYRING` and `ONLINE_TO_KEYRING_TO_UNENCRYPTED` options. 
+## `default_table_encryption`
 
 | Option       | Description              |
 |--------------|--------------------------|
@@ -66,24 +44,16 @@ The variable has the following possible options:
 |---|---|
 |  `ON` | New tables are encrypted. Add `ENCRYPTION="N"` to the `CREATE TABLE` or `ALTER TABLE` statement to create unencrypted tables. |
 | `OFF` | By default, new tables are unencrypted. Add `ENCRYPTION="Y"` to the `CREATE TABLE` or `ALTER TABLE` statement to create encrypted tables.
-| `ONLINE_TO_KEYRING`| **This option is technical preview quality.** <br> *Percona Server for MySQL 8.0.31-23 removes this option.** <br> Converts a tablespace encrypted by a Master Key to use Advanced Encryption Key Rotation. You can only apply the keyring encryption when creating tables or altering tables.|
- `ONLINE_FROM_KEYRING_TO_UNENCRYPTED` | **This option is technical preview quality.** <br> *Percona Server for MySQL 8.0.31-23 removes this option.**<br> Converts a tablespace encrypted by Advanced Encryption Key Rotation to unencrypted.
 
 !!! note
 
     The `ALTER TABLE` statement changes the current encryption mode only if you use the `ENCRYPTION` clause.
-
-!!! admonition "See also"
-
-    [MySQL Documentation: default_table_encryption](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html)
     
-### Merge-sort-encryption
-
-### `innodb_encrypt_online_alter_logs`
+## `innodb_encrypt_online_alter_logs`
 
 | Option       | Description                        |
 |--------------|------------------------------------|
-| Command-line | --innodb_encrypt-online-alter-logs |
+| Command-line | --innodb-encrypt-online-alter-logs |
 | Scope        | Global                             |
 | Dynamic      | Yes                                |
 | Data type    | Boolean                            |
@@ -94,7 +64,7 @@ full-text search using parallel sorting, building indexes using merge sort, and
 online DDL logs created by InnoDB for online DDL. Encryption is available for
 file merges used in queries and backend processes.
 
-### Use ENCRYPTION
+## Use ENCRYPTION
 
 If you do not set the default encryption setting, you can create general
 tablespaces with the `ENCRYPTION` setting.
@@ -108,11 +78,7 @@ You cannot encrypt only some of the tables in a general tablespace. This
 feature extends the  [CREATE TABLESPACE](https://dev.mysql.com/doc/refman/8.0/en/create-tablespace.html) statement to
 accept the `ENCRYPTION='Y/N'` option.
 
-!!! note
-
-    Prior to Percona Server for MySQL 8.0.13, the `ENCRYPTION` option was specific to the `CREATE TABLE` or `SHOW CREATE TABLE` statement. 
-    
-    As of Percona Server for MySQL 8.0.13, the option is a tablespace attribute and is not allowed with the `CREATE TABLE` or `SHOW CREATE TABLE` statement except with file-per-table tablespaces.
+The option is a tablespace attribute and is not allowed with the `CREATE TABLE` or `SHOW CREATE TABLE` statement except with file-per-table tablespaces.
 
 In an encrypted general tablespace, an attempt to create an unencrypted table
 generates the following error:
@@ -132,6 +98,6 @@ general tablespace with an incompatible encryption setting and aborts the proces
 
 If you must move tables between incompatible tablespaces, create tables with the same structure in another tablespace and run `INSERT INTO SELECT` from each of the source tables into the destination tables.
 
-### Export an encrypted general tablespace
+## Export an encrypted general tablespace
 
 You can only export encrypted file-per-table tablespaces

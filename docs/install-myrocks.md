@@ -1,7 +1,7 @@
 # Percona MyRocks installation guide
 
 Percona MyRocks is distributed as a separate package that can be enabled as a
-plugin for *Percona Server for MySQL* 8.0 and later versions.
+plugin for Percona Server for MySQL {{vers}} and later versions.
 
 !!! note
 
@@ -109,7 +109,7 @@ for every table that you create.
 
 ### Install MyRocks plugins
 
-You can install MyRocks manually with a series of [INSTALL PLUGIN](https://dev.mysql.com/doc/refman/8.0/en/install-plugin.html) statements. You must have the `INSERT` privilege for the `mysql.plugin` system table.
+You can install MyRocks manually with a series of [INSTALL PLUGIN] statements. You must have the `INSERT` privilege for the `mysql.plugin` system table.
 
 The following statements install MyRocks:
 
@@ -165,7 +165,7 @@ remove the Percona MyRocks package:
 * For Debian or Ubuntu:
 
     ```{.bash data-prompt="$"}
-    $ sudo apt remove percona-server-rocksdb-8.0
+    $ sudo apt remove percona-server-rocksdb-{{vers}}
     ```
 
 * For RHEL or CentOS:
@@ -180,7 +180,7 @@ and restart *Percona Server for MySQL*.
 
 ### Uninstall MyRocks plugins
 
-You can [uninstall the plugins](https://dev.mysql.com/doc/refman/8.0/en/uninstall-plugin.html) for MyRocks. You must have the `DELETE` privilege for the `mysql.plugin` system table.
+You can [uninstall the plugins] for MyRocks. You must have the `DELETE` privilege for the `mysql.plugin` system table.
 
 The following statements remove the MyRocks plugins:
 
@@ -201,3 +201,6 @@ UNINSTALL PLUGIN ROCKSDB_LOCKS;
 UNINSTALL PLUGIN ROCKSDB_TRX;
 UNINSTALL PLUGIN ROCKSDB_DEADLOCK;
 ```
+[INSTALL PLUGIN]: https://dev.mysql.com/doc/refman/{{vers}}/en/install-plugin.html
+
+[uninstall the plugins]: https://dev.mysql.com/doc/refman/{{vers}}/en/uninstall-plugin.html

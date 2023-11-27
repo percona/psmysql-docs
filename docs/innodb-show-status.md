@@ -240,21 +240,6 @@ This variable shows the LSN of the latest completed checkpoint.
 This variable shows the current *InnoDB* checkpoint age, i.e., the difference
 between the current LSN and the LSN of the last completed checkpoint.
 
-### `Innodb_checkpoint_max_age`
-
-| Option    | Description |
-|-----------|-------------|
-| Scope     | Global      |
-| Data type | Numeric     |
-
-This variable shows the maximum allowed checkpoint age above which the redo
-log is close to full and a checkpoint must happen before any further redo log
-writes.
-
-!!! note
-
-    This variable was removed in *Percona Server for MySQL* 8.0.13-4 due to a change in MySQL. The variable is identical to log capacity.
-
 ### BUFFER POOL AND MEMORY
 
 The following variables contain information in the `BUFFER POOL AND MEMORY`
@@ -364,7 +349,7 @@ buffer pool.
 | Data type | Numeric     |
 
 This variable shows the total number of buffer pool pages which are considered
-to be old according to the [Making the Buffer Pool Scan Resistant manual page](https://dev.mysql.com/doc/refman/8.0/en/innodb-performance-midpoint_insertion.html).
+to be old according to the [Making the Buffer Pool Scan Resistant manual page].
 
 ### TRANSACTIONS
 
@@ -432,26 +417,13 @@ the system.
 
 ### `INFORMATION_SCHEMA.XTRADB_READ_VIEW`
 
+The data type for the following columns is `BIGINT UNSIGNED`. The columns contain 64-bit integers.
+
 | Column Name                      | Description                                                    |
 |----------------------------------|----------------------------------------------------------------|
 | ‘READ_VIEW_LOW_LIMIT_TRX_NUMBER’ | This is the highest transactions number at the time the view was created.  |
 | ‘READ_VIEW_UPPER_LIMIT_TRX_ID’   | This is the highest transactions ID at the time the view was created. This means that it should not see newer transactions with IDs bigger than or equal to that value.          |
 | ‘READ_VIEW_LOW_LIMIT_TRX_ID’     | This is the latest committed transaction ID at the time the oldest view was created. This means that it should see all transactions with IDs smaller than or equal to that value. |
-
-!!! note
-
-    Starting with *Percona Server for MySQL* 8.0.20-11, in `INFORMATION_SCHEMA.XTRADB_READ_VIEW`, the data type for the following columns is changed from `VARCHAR(18)` to `BIGINT UNSIGNED`:
-
-
-* `READ_VIEW_LOW_LIMIT_TRX_NUMBER`
-
-
-* `READ_VIEW_UPPER_LIMIT_TRX_ID`
-
-
-* `READ_VIWE_LOW_LIMIT_TRX_ID`
-
-The columns contain 64-bit integers, which is too large for `VARCHAR(18)`.
 
 The following table contains information about the memory usage for
 InnoDB/XtraDB hash tables.
@@ -470,3 +442,6 @@ InnoDB/XtraDB hash tables.
 * [SHOW INNODB STATUS walk through](https://www.mysqlperformanceblog.com/2006/07/17/show-innodb-status-walk-through/)
 
 * [Table locks in SHOW INNODB STATUS](https://www.mysqlperformanceblog.com/2010/06/08/table-locks-in-show-innodb-status/)
+
+
+[Making the Buffer Pool Scan Resistant manual page]: https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-performance-midpoint_insertion.html

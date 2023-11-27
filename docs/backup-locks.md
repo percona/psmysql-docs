@@ -1,12 +1,8 @@
 # Backup locks
 
-*Percona Server for MySQL* offers the `LOCK TABLES FOR BACKUP` statement as a
+Percona Server for MySQL offers the `LOCK TABLES FOR BACKUP` statement as a
 lightweight alternative to `FLUSH TABLES WITH READ LOCK` for both physical and
 logical backups.
-
-!!! note
-
-    As of *Percona Server for MySQL* 8.0.13-4, `LOCK TABLES FOR BACKUP` requires the `BACKUP_ADMIN` privilege.
 
 ## LOCK TABLES FOR BACKUP
 
@@ -112,10 +108,6 @@ an error.
 
 If the backup locks feature is not supported by the target server, but
 [lock-for-backup](#backup-locks) is specified on the command line, `mysqldump` aborts with an error.
-
-## Version specific information
-
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
 ## System Variables
 

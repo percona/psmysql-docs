@@ -1,7 +1,8 @@
 # Install Percona Server for MySQL
 
+Before installing, read the [Percona Server for MySQL {{vers}} Release notes](release-notes/release-notes.md).
 
-Before installing, read the [Percona Server for MySQL 8.0 Release notes](release-notes/release-notes_index.md).
+We gather [Telemetry data] in the Percona packages and Docker images.
 
 ## Install Percona Server for MySQL from Repositories
 
@@ -11,4 +12,4 @@ The following guides describe the installation process for using the official Pe
 
 [Install Percona Server for MySQL on Debian and Ubuntu :material-arrow-right:](apt-repo.md){.md-button}        [Install Percona Server for MySQL on Red Hat Enterprise Linux and CentOS :material-arrow-right:](yum-repo.md){.md-button}
 
-
+[Telemetry data]: telemetry.md

@@ -1,5 +1,7 @@
 # Extended mysqlbinlog
 
+<!--- Candidate for removal in 8.2--->
+
 !!! note
     
     The `--compress` option was marked as deprecated and may be removed in a future version of Percona Server for MySQL.
@@ -14,6 +16,3 @@ mysqlbinlog now accepts the `SSL` connection options as all the
 other client programs. This feature can be useful with
 `--read-from-remote-server` option. 
 
-## Version specific information
-
-* 8.0.12-1: The feature was ported from Percona Server for MySQL 5.7
