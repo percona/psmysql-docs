@@ -1,0 +1,6595 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="The following sections describe the functions, options, and variables available in the audit log filter component.">
+      
+      
+        <meta name="author" content="Percona LLC">
+      
+      
+        <link rel="canonical" href="https://docs.percona.com/percona-server/innovation-release/audit-log-filter-variables.html">
+      
+      
+        <link rel="prev" href="disable-audit-log-filter.html">
+      
+      
+        <link rel="next" href="uninstall-audit-log-filter.html">
+      
+      
+      <link rel="icon" href="_static/percona-favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
+    
+    
+      
+        <title>Audit log filter functions, options and variables - Percona Server for MySQL</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.fad675c6.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.3/css/line.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="css/percona.css">
+    
+      <link rel="stylesheet" href="css/nocopy.css">
+    
+      <link rel="stylesheet" href="css/design.css">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-J4J70BNH0G"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-J4J70BNH0G",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-J4J70BNH0G",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>var consent;"undefined"==typeof __md_analytics||(consent=__md_get("__consent"))&&consent.analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+
+                 
+                 
+                 
+                 
+                 <meta property="og:type" content="website" />
+                 <meta property="og:title" content="Percona Server for MySQL - Audit log filter functions, options and variables" />
+                 <meta property="og:url" content="https://docs.percona.com/percona-server/innovation-release/" />
+                 <meta property="og:image" content="https://docs.percona.com/percona-server/innovation-release/_static/percona-mysql-logo.png" />
+              
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="percona-light" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#audit-log-filter-functions-options-and-variables" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://docs.percona.com" title="Percona Server for MySQL" class="md-header__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
+      
+  <img src="_static/percona-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Percona Server for MySQL
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Audit log filter functions, options and variables
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/percona/psmysql-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/psmysql-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+              
+                
+                <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                  <div class="md-sidebar__scrollwrap">
+                    <div class="md-sidebar__inner">
+                      
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://docs.percona.com" title="Percona Server for MySQL" class="md-nav__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
+      
+  <img src="_static/percona-logo.svg" alt="logo">
+
+    </a>
+    Percona Server for MySQL
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/percona/psmysql-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/psmysql-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Release notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Release notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/release-notes-index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release notes index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adaptive-network-buffers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Adaptive network buffers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Audit Log Filter
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Audit Log Filter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-overview.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Audit Log Filter overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install-audit-log-filter.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install the Audit Log Filter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_3" id="__nav_3_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Formats
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Formats
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-formats.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-new.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XML (New style)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-old.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XML (Old style)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-json.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JSON
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-security.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Audit Log Filter security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-compression-encryption.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Audit Log Filter compression and encryption
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reading-audit-log-filter-files.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reading Audit Log Filter files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="manage-audit-log-filter.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manage the Audit Log Filter files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="filter-audit-log-filter-files.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Filter the Audit Log Filter logs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-restrictions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Audit Log Filter restrictions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-naming.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Audit Log Filter file naming conventions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="disable-audit-log-filter.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Disable Audit Log Filter logging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Audit log filter functions, options and variables
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="audit-log-filter-variables.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Audit log filter functions, options and variables
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#audit-log-filter-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audit log filter functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Audit log filter functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_encryption_password_getkeyring_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_encryption_password_get(keyring_id)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_encryption_password_setnew_password" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_encryption_password_set(new_password)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filter_flush" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter_flush()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_read()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_read_bookmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_read_bookmark()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_session_filter_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_session_filter_id()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filter_remove_filterfilter_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter_remove_filter(filter_name)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filter_remove_useruser_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter_remove_user(user_name)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_rotate" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_rotate()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filter_set_filterfilter_name-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter_set_filter(filter_name, definition)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filter_set_useruser_name-filter_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter_set_user(user_name, filter_name)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audit-log-filter-options-and-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audit log filter options and variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Audit log filter options and variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#audit-log-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit-log-filter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterbuffer_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.buffer_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filtercompression" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.compression
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterdatabase" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterdisable" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.disable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterencryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.encryption
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterformat" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterformat_unix_timestamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.format_unix_timestamp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterhandler" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.handler
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterkey_derivation_iterations_count_mean" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.key_derivation_iterations_count_mean
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filtermax_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.max_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterpassword_history_keep_days" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.password_history_keep_days
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterprune_seconds" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.prune_seconds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterread_buffer_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.read_buffer_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterrotate_on_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.rotate_on_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterstrategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filtersyslog_tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.syslog_tag
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filtersyslog_facility" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.syslog_facility
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filtersyslog_priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.syslog_priority
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audit-log-filter-status-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audit log filter status variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-expert-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get expert help
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uninstall-audit-log-filter.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Uninstall Audit Log Filter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="binlog-space.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Limiting the disk space used by binary log files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="extended-mysqlbinlog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extended mysqlbinlog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="extended-select-into-outfile.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extended SELECT INTO OUTFILE/DUMPFILE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="innodb-expanded-fast-index-creation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Expanded fast index creation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="kill-idle-trx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kill idle transactions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="procfs-plugin.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The ProcFS plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="proxy-protocol-support.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support for PROXY protocol
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sequence-table.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SEQUENCE_TABLE(n) function
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="slowlog-rotation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slow query log rotation and expiration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="threadpool.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Thread pool
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="trigger-updates.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trigger updates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="udf-percona-toolkit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Toolkit UDFs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="utility-user.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utility user
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quickstart guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Quickstart guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart-overview.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart guide for Percona Server for MySQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Install
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Install
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install Percona Server for MySQL from repositories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Before you start
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Before you start
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="download-instructions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Product Download Instructions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Use APT
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Use APT
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apt-repo.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use APT repositories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apt-files.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Files in DEB package
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="build-apt-packages.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Build APT packages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apt-download-deb.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Downloaded DEB packages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apt-pinning.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apt pinning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apt-run.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Run Percona Server for MySQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apt-uninstall-server.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Uninstall
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Use YUM
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Use YUM
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="yum-repo.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use RPM repositories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="yum-files.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Files in RPM package
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="yum-download-rpm.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Downloaded RPM packages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="yum-run.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Run Percona Server for MySQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="yum-uninstall.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Uninstall
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Use binary tarballs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Use binary tarballs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="binary-tarball-install.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install with binary tarballs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="binary-tarball-names.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binary tarballs available
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Compile from source
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            Compile from source
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="source-tarball.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install Percona Server for MySQL from a source tarball
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="compile-percona-server.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compile Percona Server for MySQL from source
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Docker
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            Docker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="docker.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install using Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="docker-config.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker environment variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="downgrade.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Downgrade
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Post-Installation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Post-Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="binlogging-replication-improvements.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binary logs and replication improvements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="post-installation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Post-installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apparmor.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Working with AppArmor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="selinux.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Working with SELinux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Manage
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Manage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="extended-show-grants.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extended SHOW GRANTS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="restrict-dynamic-log-locations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Restrict dynamic log file locations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Manage components
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            Manage components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install-component.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    INSTALL COMPONENT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uninstall-component.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UNINSTALL COMPONENT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Back up and restore
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Back up and restore
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="backup-restore-overview.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backup and restore overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="backup-locks.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backup locks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="extended-mysqldump.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extended mysqldump
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="start-transaction-with-consistent-snapshot.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Start transaction with consistent snapshot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Secure
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Secure
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_1" id="__nav_9_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    LDAP features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_1">
+            <span class="md-nav__icon md-icon"></span>
+            LDAP features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ldap-authentication.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using LDAP authentication plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ldap-system-variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LDAP authentication plugin system variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data masking
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_2">
+            <span class="md-nav__icon md-icon"></span>
+            Data masking
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data-masking-overview.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data masking overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install-data-masking-component.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install the data masking component
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data-masking-function-list.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data masking component functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uninstall-data-masking-component.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Uninstall the component
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pam-plugin.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PAM authentication plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ssl-improvement.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSL improvements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fido-authentication-plugin.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FIDO authentication plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encryption-functions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encryption functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_7" id="__nav_9_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data-at-rest-encryption
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_7">
+            <span class="md-nav__icon md-icon"></span>
+            Data-at-rest-encryption
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data-at-rest-encryption.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data at Rest Encryption
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_7_2" id="__nav_9_7_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Keyring components and plugins
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_9_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            Keyring components and plugins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="keyring-components-plugins-overview.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Keyring components and plugins overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="use-keyring-file.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use the keyring file component or keyring file plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="use-keyring-vault-component.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use the keyring vault component
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="using-kmip.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use the Key Management Interoperability Protocol (KMIP)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="using-amz-kms.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use the Amazon Key Management Service (AWS KMS)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypt-file-per-table-tablespace.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt File-Per-Table Tablespace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypt-tablespaces.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt schema or general tablespace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypt-system-tablespace.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt system tablespace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypt-doublewrite-file-pages.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt doublewrite file pages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypt-temporary-files.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt temporary files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypt-logs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Log encryption
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rotate-master-key.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Rotate the master encryption key
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verify-encryption.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Verify the encryption for tables, tablespaces, and schemas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Replicate
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Replicate
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="group-replication-flow-control.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manage group replication flow control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="group-replication-system-variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Group replication system variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_3" id="__nav_10_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Replication Security
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_3">
+            <span class="md-nav__icon md-icon"></span>
+            Replication Security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypt-binary-relay-log-files.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt binary log files and relay log files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Monitor
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Monitor
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="jemalloc-profiling.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jemalloc memory allocation profiling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user-stats.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="slow-extended.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slow query log
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="process-list.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Process list
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="misc-info-schema-tables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Misc. INFORMATION_SCHEMA tables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Troubleshoot
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshoot
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="advisors.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use Percona Monitoring and Management (PMM) Advisors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="log-connection-error.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Too many connections warning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="innodb-corrupt-table-action.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handle corrupted tables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="thread-based-profiling.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Thread based profiling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="stacktrace.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stacktrace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="libcoredumper.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Libcoredumper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Storage engines
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Storage engines
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_13_1" id="__nav_13_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Percona XtraDB storage engine
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13_1">
+            <span class="md-nav__icon md-icon"></span>
+            Percona XtraDB storage engine
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="percona-xtradb.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Percona XtraDB storage engine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="improved-memory-engine.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Improved MEMORY storage engine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="innodb-io.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Improved InnoDB I/O scalability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="enforce-engine.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Enforcing storage engine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="innodb-show-status.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extended show engine InnoDB status
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="show-engines.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Show storage engines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="compressed-columns.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compressed columns with dictionaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="innodb-fts-improvements.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    InnoDB full-text search improvements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="xtradb-performance-improvements.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XtraDB performance improvements for I/O-bound highly-concurrent workloads
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aio-page-requests.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multiple page asynchronous I/O requests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="prefix-index-queries-optimization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prefix index queries optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="query-limit-records.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Query limit records
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="innodb-fragmentation-count.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    InnoDB page fragmentation counters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_13_2" id="__nav_13_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Percona MyRocks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13_2">
+            <span class="md-nav__icon md-icon"></span>
+            Percona MyRocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks-index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona MyRocks introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install-myrocks.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona MyRocks installation guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks-added-features.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Updated supported features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks-limitations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MyRocks limitations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks-differences.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Differences between Percona MyRocks and Facebook MyRocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks-information-schema-tables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MyRocks Information Schema tables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks-server-variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MyRocks server variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks-status-variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MyRocks status variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks-gap-locks-detection.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gap locks detection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myrocks-data-loading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data loading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="percona-server-system-variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.1 variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="percona-server-versions-comparison.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona server versions comparison
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="feature-comparison.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Feature comparison
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="server-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="development.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Development of Percona Server for MySQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="telemetry.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Telemetry on Percona Server for MySQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="trademark-policy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trademark policy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index-info-schema-tables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index of INFORMATION_SCHEMA tables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="faq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frequently asked questions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="copyright-and-licensing-information.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Copyright and licensing information
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="glossary.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                      <br>
+                      <label class="md-nav__title" for="__drawer">
+      <a href="https://learn.percona.com/download-manual-percona-server-innovation-release" onclick="_gaq.push(['b._trackEvent', 'Percona Server', 'Download', 'Download Manual Percona Server']);" class="md-nav__link md-nav__link--active" style="font-size: .7rem;">
+        Download PDF
+      </a>
+    </label> 
+                    </div>
+                  </div>
+                </div>
+              
+              
+                
+                <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                  <div class="md-sidebar__scrollwrap">
+                    <div class="md-sidebar__inner">
+                      
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#audit-log-filter-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audit log filter functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Audit log filter functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_encryption_password_getkeyring_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_encryption_password_get(keyring_id)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_encryption_password_setnew_password" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_encryption_password_set(new_password)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filter_flush" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter_flush()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_read()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_read_bookmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_read_bookmark()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_session_filter_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_session_filter_id()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filter_remove_filterfilter_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter_remove_filter(filter_name)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filter_remove_useruser_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter_remove_user(user_name)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_rotate" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_rotate()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filter_set_filterfilter_name-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter_set_filter(filter_name, definition)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filter_set_useruser_name-filter_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter_set_user(user_name, filter_name)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audit-log-filter-options-and-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audit log filter options and variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Audit log filter options and variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#audit-log-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit-log-filter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterbuffer_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.buffer_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filtercompression" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.compression
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterdatabase" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterdisable" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.disable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterencryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.encryption
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterformat" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterformat_unix_timestamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.format_unix_timestamp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterhandler" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.handler
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterkey_derivation_iterations_count_mean" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.key_derivation_iterations_count_mean
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filtermax_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.max_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterpassword_history_keep_days" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.password_history_keep_days
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterprune_seconds" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.prune_seconds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterread_buffer_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.read_buffer_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterrotate_on_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.rotate_on_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filterstrategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filtersyslog_tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.syslog_tag
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filtersyslog_facility" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.syslog_facility
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit_log_filtersyslog_priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      audit_log_filter.syslog_priority
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audit-log-filter-status-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audit log filter status variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-expert-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get expert help
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                    </div>
+                  </div>
+                </div>
+              
+            
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/percona/psmysql-docs/edit/innovation-release/docs/audit-log-filter-variables.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/percona/psmysql-docs/raw/innovation-release/docs/audit-log-filter-variables.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+<h1 id="audit-log-filter-functions-options-and-variables">Audit log filter functions, options and variables<a class="headerlink" href="#audit-log-filter-functions-options-and-variables" title="Permanent link">&para;</a></h1>
+<p>The following sections describe the <a href="#audit-log-filter-functions">functions</a>, <a href="#audit-log-filter-options-and-variables">options, and variables</a> available in the audit log filter component.</p>
+<h2 id="audit-log-filter-functions">Audit log filter functions<a class="headerlink" href="#audit-log-filter-functions" title="Permanent link">&para;</a></h2>
+<p>The following audit log filter functions are available.</p>
+<table>
+<thead>
+<tr>
+<th>Function name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#audit_log_encryption_password_getkeyring_id">audit_log_encryption_password_get(keyring_id)</a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_encryption_password_setnew_password">audit_log_encryption_password_set(new_password)</a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_flush">audit_log_filter_flush()</a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_read">audit_log_read()</a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_read_bookmark">audit_log_read_bookmark()</a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_session_filter_id">audit_log_session_filter_id()</a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_remove_filterfilter_name">audit_log_filter_remove_filter(filter_name)</a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_remove_useruser_name">audit_log_filter_remove_user(user_name)</a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_rotate">audit_log_rotate()</a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_set_filterfilter_name-definition">audit_log_filter_set_filter(filter_name, definition)</a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_set_useruser_name-filter_name">audit_log_filter_set_user(user_name, filter_name)</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="audit_log_encryption_password_getkeyring_id">audit_log_encryption_password_get(keyring_id)<a class="headerlink" href="#audit_log_encryption_password_getkeyring_id" title="Permanent link">&para;</a></h3>
+<p>This function returns the encryption password. Any keyring component or keyring component can be used, but the component or component must be enabled. If the component or component is not enabled, an error occurs.</p>
+<h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h4>
+<p><code>keyring_id</code> - If the function does not contain a keyring_id, the function returns the current encryption password. You can also request a specific encryption password with the keyring ID of either the current password or an archived password.</p>
+<h4 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h4>
+<p>This function returns a JSON object containing the password, iterations count used by the password.</p>
+<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_encryption_password_get<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------+
+| audit_log_encryption_password_get()         |
++---------------------------------------------+
+| {&quot;password&quot;:&quot;passw0rd&quot;,&quot;iterations&quot;:5689}   |
++---------------------------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit_log_encryption_password_setnew_password">audit_log_encryption_password_set(new_password)<a class="headerlink" href="#audit_log_encryption_password_setnew_password" title="Permanent link">&para;</a></h3>
+<p>This function sets the encryption password and stores the new password in the keyring. </p>
+<h4 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">&para;</a></h4>
+<p><code>password</code> - the password as a string. The maximum length is 766 bytes.</p>
+<h4 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">&para;</a></h4>
+<p>This function returns a string. An <code>OK</code> indicates a success. <code>ERROR</code> indicates a failure.</p>
+<h4 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_encryption_password_set<span class="o">(</span>passw0rd<span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------------------+
+| audit_log_encryption_password_set(passw0rd)         |
++-----------------------------------------------------+
+| OK                                                  |
++-----------------------------------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit_log_filter_flush">audit_log_filter_flush()<a class="headerlink" href="#audit_log_filter_flush" title="Permanent link">&para;</a></h3>
+<p>This function updates the audit log filter tables and makes any changes operational. </p>
+<p>Modifying the audit log filter tables directly with <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code> does not implement the modifications immediately. The tables must be flushed to have those changes take effect. </p>
+<p>This function forces reloading all filters and should only be used if someone has modified the tables directly. </p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Avoid using this function. This function performs an operation that is similar to uninstalling and reinstalling the component. Filters are detached from all current sessions. To restart logging, the current sessions must either disconnect and reconnect or do a change-user operation. </p>
+</div>
+<h4 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">&para;</a></h4>
+<p>None.</p>
+<h4 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">&para;</a></h4>
+<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
+<h4 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_flush<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------------------------+
+| audit_log_filter_flush() |
++--------------------------+
+| OK                       |
++--------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit_log_read">audit_log_read()<a class="headerlink" href="#audit_log_read" title="Permanent link">&para;</a></h3>
+<p>If the audit log filter format is JSON, this function reads the audit log and returns an array of the audit events as a JSON string. Generates an error if the format is not JSON.</p>
+<h4 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">&para;</a></h4>
+<p>None. If the start position is not provided, the read continues from the current position. </p>
+<p>Optional: You can specify a starting position for the read with <code>start</code> or a <code>timestamp</code> and an <code>id</code>, both items are considered a bookmark and can be used to identify an event. You must include both (<code>timestamp</code> and <code>id</code>) or an error is generated. If the <code>timestamp</code> does not include a <code>time</code> section, the function assumes  the time is <code>00:00</code>.</p>
+<p>You can also provide a <code>max_array_length</code> to limit the number of log events.</p>
+<p>Call<a href="#audit_log_read_bookmark"><code>audit_log_read_bookmark()</code></a> to return the most recently written event.</p>
+<h4 id="returns_3">Returns<a class="headerlink" href="#returns_3" title="Permanent link">&para;</a></h4>
+<p>This function returns a string of a JSON array of the audit events, or a JSON NULL value. Returns <code>NULL</code> and generates an error if the call fails.</p>
+<h4 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">(</span>audit_log_read_bookmark<span class="o">())</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------------------------------------+
+| audit_log_read(audit_log_read_bookmark())                                   |
++------------------------------------------------------------------------------+
+| [{&quot;timestamp&quot; : &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10,&quot;class&quot;:&quot;connection&quot;,]       |
++------------------------------------------------------------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit_log_read_bookmark">audit_log_read_bookmark()<a class="headerlink" href="#audit_log_read_bookmark" title="Permanent link">&para;</a></h3>
+<p>This function provides a bookmark for the most recently written audit log event as a JSON string. Generates an error if the format is not JSON.</p>
+<p>If this function is used with [<code>audit_log_read()](#audit_log_read), the</code>audit_log_read()` function starts reading at that position.</p>
+<h4 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">&para;</a></h4>
+<p>None.</p>
+<h4 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">&para;</a></h4>
+<p>This function returns a <code>JSON</code> string containing a bookmark for success or  <code>NULL</code> and an error for failure.</p>
+<h4 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read_bookmark<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----------------------------------------------------+
+| audit_log_read_bookmark()                          |
++----------------------------------------------------+
+| {&quot;timestamp&quot; : &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10 }   |
++----------------------------------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit_log_session_filter_id"><code>audit_log_session_filter_id()</code><a class="headerlink" href="#audit_log_session_filter_id" title="Permanent link">&para;</a></h3>
+<p>This function returns the internal ID of the audit log filter in the current session.</p>
+<p>Returns 0 (zero) if the session has no assigned filter.</p>
+<h3 id="audit_log_filter_remove_filterfilter_name">audit_log_filter_remove_filter(filter_name)<a class="headerlink" href="#audit_log_filter_remove_filterfilter_name" title="Permanent link">&para;</a></h3>
+<p>This function removes the selected filter from the current set of filters.</p>
+<p>If user accounts are assigned the selected filter, the user accounts are no longer filtered. The user accounts are removed from <code>audit_log_user</code>. If the user accounts are in a current session, they are detached from the selected filter and no longer logged.</p>
+<h4 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">&para;</a></h4>
+<p><code>filter_name</code> - a selected filter name as a string.</p>
+<h4 id="returns_5">Returns<a class="headerlink" href="#returns_5" title="Permanent link">&para;</a></h4>
+<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
+<p>If the filter name does not exist, no error is generated. </p>
+<h4 id="example_5">Example<a class="headerlink" href="#example_5" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_remove_filter<span class="o">(</span><span class="s1">&#39;filter-name&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------+
+| audit_log_filter_remove_filter(&#39;filter-name&#39;)  |
++------------------------------------------------+
+| OK                                             |
++------------------------------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit_log_filter_remove_useruser_name">audit_log_filter_remove_user(user_name)<a class="headerlink" href="#audit_log_filter_remove_useruser_name" title="Permanent link">&para;</a></h3>
+<p>This function removes the assignment of a filter from the selected user account.</p>
+<p>If the user account is in a current session, they are not affected. New sessions for this user account use the default account filter or are not logged.</p>
+<p>If the user-name is <code>%</code>, the default account filter is removed.</p>
+<h4 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link">&para;</a></h4>
+<p><code>user_name</code> - a selected user name in either the <code>user_name</code>@<code>host_name</code> format or <code>%</code>.</p>
+<h4 id="returns_6">Returns<a class="headerlink" href="#returns_6" title="Permanent link">&para;</a></h4>
+<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
+<p>If the user_name has no filter assigned, no error is generated. </p>
+<h4 id="example_6">Example<a class="headerlink" href="#example_6" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_remove_user<span class="o">(</span><span class="s1">&#39;user-name@localhost&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------------+
+| audit_log_filter_remove_user(&#39;user-name@localhost&#39;)  |
++------------------------------------------------------+
+| OK                                                   |
++------------------------------------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit_log_rotate">audit_log_rotate()<a class="headerlink" href="#audit_log_rotate" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link">&para;</a></h4>
+<p>None.</p>
+<h4 id="returns_7">Returns<a class="headerlink" href="#returns_7" title="Permanent link">&para;</a></h4>
+<p>This function returns renamed file name.</p>
+<h4 id="example_7">Example<a class="headerlink" href="#example_7" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_rotate<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="audit_log_filter_set_filterfilter_name-definition">audit_log_filter_set_filter(filter_name, definition)<a class="headerlink" href="#audit_log_filter_set_filterfilter_name-definition" title="Permanent link">&para;</a></h3>
+<p>This function, when provided with a filter name and definition, adds the filter. </p>
+<p>The new filter has a different filter ID. Generates an error if the filter name exists.</p>
+<h4 id="parameters_8">Parameters<a class="headerlink" href="#parameters_8" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><code>filter_name</code> - a selected filter name as a string.</p>
+</li>
+<li>
+<p><code>definition</code> - Defines the definition as a JSON value.</p>
+</li>
+</ul>
+<h4 id="returns_8">Returns<a class="headerlink" href="#returns_8" title="Permanent link">&para;</a></h4>
+<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
+<h4 id="example_8">Example<a class="headerlink" href="#example_8" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@filter<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{ &quot;filter_name&quot;: { &quot;log&quot;: true }}&#39;</span>
+mysql&gt;<span class="w"> </span>SET<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;filter-name&#39;</span>,<span class="w"> </span>@filter<span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------+
+| audit_log_filter_set_filter(&#39;filter-name&#39;, @filter)  |
++-------------------------------------------------------------+
+| OK                                                          |
++-------------------------------------------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit_log_filter_set_useruser_name-filter_name">audit_log_filter_set_user(user_name, filter_name)<a class="headerlink" href="#audit_log_filter_set_useruser_name-filter_name" title="Permanent link">&para;</a></h3>
+<p>This function assigns the filter to the selected user account.</p>
+<p>A user account can only have one filter. If the user account already has a filter, this function replaces the current filter. If the user account is in a current session, nothing happens. When the user account connects again the new filter is used.</p>
+<p>The user name, <code>%</code>, is the default account. The filter assigned to <code>%</code> is used by any user account without a defined filter.</p>
+<h4 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><code>user_name</code> - a selected user name in either the <code>user_name</code>@<code>host_name</code> format or <code>%</code>.</p>
+</li>
+<li>
+<p><code>filter_name</code> - a selected filter name as a string.</p>
+</li>
+</ul>
+<h4 id="returns_9">Returns<a class="headerlink" href="#returns_9" title="Permanent link">&para;</a></h4>
+<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
+<h4 id="example_9">Example<a class="headerlink" href="#example_9" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_user<span class="o">(</span><span class="s1">&#39;user-name@localhost&#39;</span>,<span class="w"> </span><span class="s1">&#39;filter-name&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------------+
+| audit_log_filter_set_user(&#39;user-name@localhost&#39;, &#39;filter-name&#39;)  |
++-------------------------------------------------------------------+
+| OK                                                                |
++-------------------------------------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="audit-log-filter-options-and-variables">Audit log filter options and variables<a class="headerlink" href="#audit-log-filter-options-and-variables" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#audit-logvalue"><code>audit-log-filter</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_buffer_size"><code>audit_log_filter.buffer_size</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_filter_compression"><code>audit_log_filter.compression</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter.database"><code>audit_log_filter.database</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_disable"><code>audit_log_filter.disable</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_encryption"><code>audit_log_filter.encryption</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_file"><code>audit_log_filter.file</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_format"><code>audit_log_filter.format</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_format_unix_timestamp"><code>audit_log_filter.format_unix_timestamp</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_handler"><code>audit_log_filter.handler</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_key_derivation_iterations_count_mean"><code>audit_log_filter.key_derivation_iterations_count_mean</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_max_size"><code>audit_log_filter.max_size</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_keep_password_history_keep_days"><code>audit_log_filter.keep_password_history_keep_days</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_prune_seconds"><code>audit_log_filter.prune_seconds</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_read_buffer_size"><code>audit_log_filter.read_buffer_size</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_rotate_on_size"><code>audit_log_filter.rotate_on_size</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_strategy"><code>audit_log_filter.strategy</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_syslog_tag"><code>audit_log_filter.syslog_tag</code></a></td>
+</tr>
+<tr>
+<td><a href="#audit_log_filter_syslog_priority"><code>audit_log_filter.syslog_priority</code></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="audit-log-filter"><code>audit-log-filter</code><a class="headerlink" href="#audit-log-filter" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter[=value]</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td></td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Enumeration</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>ON</td>
+</tr>
+</tbody>
+</table>
+<p>This option determines how, at startup, the server loads the <code>audit_log_filter</code> component. The component must be registered. </p>
+<p>The valid values are the following:</p>
+<ul>
+<li>ON</li>
+<li>OFF</li>
+<li>FORCE</li>
+<li>FORCE_PLUS_PERMANENT</li>
+</ul>
+<h3 id="audit_log_filterbuffer_size"><code>audit_log_filter.buffer_size</code><a class="headerlink" href="#audit_log_filterbuffer_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.buffer-size</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>1048576</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>4096</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>18446744073709547520</td>
+</tr>
+<tr>
+<td>Units</td>
+<td>byes</td>
+</tr>
+<tr>
+<td>Block size</td>
+<td>4096</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the buffer size in multiples of 4096 when logging is asynchronous. The contents for events are stored in a buffer. The contents are stored until the contents are written.</p>
+<p>The component initializes a single buffer and removes the buffer when the component terminates.</p>
+<h3 id="audit_log_filtercompression"><code>audit_log_filter.compression</code><a class="headerlink" href="#audit_log_filtercompression" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.compression</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Enumeration</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NONE</td>
+</tr>
+<tr>
+<td>Valid values</td>
+<td>NONE or GZIP</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the compression type for the audit log filter file. The values can be either <code>NONE</code>, the default value and file has no compression, or <code>GZIP</code>.</p>
+<h3 id="audit_log_filterdatabase"><code>audit_log_filter.database</code><a class="headerlink" href="#audit_log_filterdatabase" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.database</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>mysql</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the audit_log_filter database. This read-only variable stores the necessary tables. Set this option at system startup. The database name cannot exceed 64 characters or be <code>NULL</code>.</p>
+<p>An invalid database name prevents the use of audit log filter component.</p>
+<h3 id="audit_log_filterdisable"><code>audit_log_filter.disable</code><a class="headerlink" href="#audit_log_filterdisable" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.disable</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>This variable disables the component logging for all connections and any sessions. </p>
+<p>This variable requires the user account to have <code>SYSTEM_VARIABLES_ADMIN</code> and <code>AUDIT_ADMIN</code> privileges.</p>
+<h3 id="audit_log_filterencryption"><code>audit_log_filter.encryption</code><a class="headerlink" href="#audit_log_filterencryption" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.encryption</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Enumeration</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NONE</td>
+</tr>
+<tr>
+<td>Valid values</td>
+<td>NONE or AES</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the encryption type for the audit log filter file. The values can be either of the following:</p>
+<ul>
+<li><code>NONE</code> - the default value, no encryption</li>
+<li><code>AES</code> </li>
+</ul>
+<h3 id="audit_log_filterfile"><code>audit_log_filter.file</code><a class="headerlink" href="#audit_log_filterfile" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.file</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>audit_filter.log</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the name and suffix of the audit log filter file. The component writes events to this file.</p>
+<p>The file name and suffix can be either of the following:</p>
+<ul>
+<li>a relative path name - the component looks for this file in the data directory</li>
+<li>a full path name - the component uses the given value</li>
+</ul>
+<p>If you use a full path name, ensure the directory is accessible only to users who need to view the log and the server.</p>
+<p>For more information, see <a href="audit-log-filter-naming.html">Naming conventions</a></p>
+<h3 id="audit_log_filterformat"><code>audit_log_filter.format</code><a class="headerlink" href="#audit_log_filterformat" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.format</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Enumeration</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NEW</td>
+</tr>
+<tr>
+<td>Available values</td>
+<td>OLD, NEW, JSON</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the audit log filter file format. </p>
+<p>The available values are the following: </p>
+<ul>
+<li><a href="audit-log-filter-old.html">OLD (old-style XML)</a></li>
+<li><a href="audit-log-filter-new.html">NEW (new-style XML)</a> and </li>
+<li><a href="audit-log-filter-json.html">JSON</a>.</li>
+</ul>
+<h3 id="audit_log_filterformat_unix_timestamp"><code>audit_log_filter.format_unix_timestamp</code><a class="headerlink" href="#audit_log_filterformat_unix_timestamp" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.format-unix-timestamp</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>This option is only supported for JSON-format files.</p>
+<p>Enabling this option adds a <code>time</code> field to JSON-format files. The integer represents the UNIX timestamp value and indicates the date and time when the audit event was generated. Changing the value causes a file rotation because all records must either have or do not have the <code>time</code> field. This option requires the <code>AUDIT_ADMIN</code> and <code>SYSTEM_VARIABLES_ADMIN</code> privileges.</p>
+<p>This option does nothing when used with other format types.</p>
+<h3 id="audit_log_filterhandler"><code>audit_log_filter.handler</code><a class="headerlink" href="#audit_log_filterhandler" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.handler</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>FILE</td>
+</tr>
+</tbody>
+</table>
+<p>Defines where the component writes the audit log filter file. The following values are available:</p>
+<ul>
+<li><code>FILE</code> - component writes the log to a location specified in <a href="#audit_log_filter_file"><code>audit_log_filter.file</code></a></li>
+<li><code>SYSLOG</code> - component writes to the syslog</li>
+</ul>
+<h3 id="audit_log_filterkey_derivation_iterations_count_mean"><code>audit_log_filter.key_derivation_iterations_count_mean</code><a class="headerlink" href="#audit_log_filterkey_derivation_iterations_count_mean" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.key-derivation-iterations-count-mean</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>60000</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>1000000</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the mean value of iterations used by the password-based derivation routine while calculating the encryption key and iv values. A random number represents the actual iteration count and deviates no more than 10% from this value.</p>
+<h3 id="audit_log_filtermax_size"><code>audit_log_filter.max_size</code><a class="headerlink" href="#audit_log_filtermax_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.max-size</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>1GB</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>18446744073709551615</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>bytes</td>
+</tr>
+<tr>
+<td>Block size</td>
+<td>4096</td>
+</tr>
+</tbody>
+</table>
+<p>Defines pruning based on the combined size of the files:</p>
+<p>The default value is 1GB. </p>
+<p>A value of 0 (zero) disables pruning based on size.</p>
+<p>A value greater than 0 (zero) enables pruning based on size and defines the combined size limit. When the files exceed this limit, they can be pruned.</p>
+<p>The value is based on 4096 (block size). A value is truncated to the nearest multiple of the block size. If the value is less than 4096, the value is treated as 0 (zero).</p>
+<p>If the values for <code>audit_log_filter.rotate_on_size</code> and <code>audit_log_filter.max_size</code> are greater than 0, we recommend that <code>audit_log_filter.max_size</code> value should be at least seven times the <code>audit_log_filter.rotate_on_size</code> value.</p>
+<p>Pruning requires the following options:</p>
+<ul>
+<li><code>audit_log_filter.max_size</code></li>
+<li><code>audit_log_filter.rotate_on_size</code></li>
+<li><code>audit_log_filter.prune_seconds</code></li>
+</ul>
+<h3 id="audit_log_filterpassword_history_keep_days"><code>audit_log_filter.password_history_keep_days</code><a class="headerlink" href="#audit_log_filterpassword_history_keep_days" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.password-history-keep-days</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Defines when passwords may be removed and measured in days.</p>
+<p>Encrypted log files have passwords stored in the keyring. The component also stores a password history. A password does not expire, despite being past the value, in case the password is used for rotated audit logs. The operation of creating a password also archives the previous password.</p>
+<p>The default value is 0 (zero). This value disables the expiration of passwords. Passwords are retained forever. </p>
+<p>If the component starts and encryption is enabled, the component checks for an audit log filter encryption password. If a password is not found, the component generates a random password.</p>
+<p>Call <code>audit_log_filter_encryption_set()</code> to set a specific password.</p>
+<h3 id="audit_log_filterprune_seconds"><code>audit_log_filter.prune_seconds</code><a class="headerlink" href="#audit_log_filterprune_seconds" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.prune-seconds</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>1844674073709551615</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>seconds</td>
+</tr>
+</tbody>
+</table>
+<p>Defines when the audit log filter file is pruned. This pruning is based on the age of the file. The value is measured in seconds. </p>
+<p>A value of 0 (zero) is the default and disables pruning. The maximum value is 18446744073709551615.</p>
+<p>A value greater than 0 enables pruning. An audit log filter file can be pruned after this value.</p>
+<p>To enable log pruning, you must set one of the following:</p>
+<ul>
+<li>Enable log rotation by setting <code>audit_log_filter.rotate_on_size</code></li>
+<li>Add a value greater than 0 (zero) for either <code>audit_log_filter.max_size</code> or <code>audit_log_filter.prune_seconds</code></li>
+</ul>
+<h3 id="audit_log_filterread_buffer_size"><code>audit_log_filter.read_buffer_size</code><a class="headerlink" href="#audit_log_filterread_buffer_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.read-buffer-size</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>Bytes</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>32768</td>
+</tr>
+</tbody>
+</table>
+<p>This option is only supported for JSON-format files.</p>
+<p>The size of the buffer for reading from the audit log filter file. The <code>audit_log_filter_read()</code> reads only from this buffer size.</p>
+<h3 id="audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code><a class="headerlink" href="#audit_log_filterrotate_on_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.rotate-on-size</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>1GB</td>
+</tr>
+</tbody>
+</table>
+<p>Performs an automatic log file rotation based on the size. The default value is 1GB. If the value is greater than 0, when the log file size exceeds the value, the component renames the current file and opens a new log file using the original name.</p>
+<p>If you set the value to less than 4096, the component does not automatically rotate the log files. You can rotate the log files manually using <a href="#audit_log_rotate"><code>audit_log_rotate()</code></a>. If the value is not a multiple of 4096, the component truncates the value to the nearest multiple.</p>
+<h3 id="audit_log_filterstrategy"><code>audit_log_filter.strategy</code><a class="headerlink" href="#audit_log_filterstrategy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.strategy</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Enumeration</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>ASYNCHRONOUS</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the Audit Log filter component&rsquo;s logging method. The valid values are the following:</p>
+<table>
+<thead>
+<tr>
+<th>Values</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASYNCHRONOUS</td>
+<td>Waits until there is outer buffer space</td>
+</tr>
+<tr>
+<td>PERFORMANCE</td>
+<td>If the outer buffer does not have enough space, drops requests</td>
+</tr>
+<tr>
+<td>SEMISYNCHRONOUS</td>
+<td>Operating system permits caching</td>
+</tr>
+<tr>
+<td>SYNCHRONOUS</td>
+<td>Each request calls <code>sync()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="audit_log_filtersyslog_tag"><code>audit_log_filter.syslog_tag</code><a class="headerlink" href="#audit_log_filtersyslog_tag" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.syslog-tag=</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>audit-filter</td>
+</tr>
+</tbody>
+</table>
+<h3 id="audit_log_filtersyslog_facility"><code>audit_log_filter.syslog_facility</code><a class="headerlink" href="#audit_log_filtersyslog_facility" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.syslog-facility</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>LOG_USER</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the syslog <code>facility</code> value. The option has the same meaning as the appropriate parameter described in the <a href="https://linux.die.net/man/3/syslog">syslog(3) manual</a>.</p>
+<h3 id="audit_log_filtersyslog_priority"><code>audit_log_filter.syslog_priority</code><a class="headerlink" href="#audit_log_filtersyslog_priority" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter.syslog-priority</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>LOG_INFO</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the <code>priority</code> value for the syslog. The option has the same meaning as the appropriate parameter described in the <a href="https://linux.die.net/man/3/syslog">syslog(3) manual</a>.</p>
+<h2 id="audit-log-filter-status-variables">Audit log filter status variables<a class="headerlink" href="#audit-log-filter-status-variables" title="Permanent link">&para;</a></h2>
+<p>The audit log filter component exposes status variables. These variables provide information on the operations.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>audit_log_filter_current_size</code></td>
+<td>The current size of the audit log filter file. If the log is rotated, the size is reset to 0.</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_direct_writes</code></td>
+<td>Identifies when the <code>log_strategy_type</code> = ASYNCHRONOUS and messages bypass the write buffer and are written directly to the log file</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_max_drop_size</code></td>
+<td>In the performance logging mode, the size of the largest dropped event.</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_events</code></td>
+<td>The number of audit log filter events</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_events_filtered</code></td>
+<td>The number of filtered audit log filter component events</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_events_lost</code></td>
+<td>If the event is larger than the available audit log filter buffer space, the event is lost</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_events_written</code></td>
+<td>The number of audit log filter events written</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_total_size</code></td>
+<td>The total size of the events written to all audit log filter files. The number increases even when a log is rotated</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_write_waits</code></td>
+<td>In the asynchronous logging mode, the number of times an event waited for space in the audit log filter buffer</td>
+</tr>
+</tbody>
+</table>
+<div data-banner="data-banner">
+<h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
+<p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.
+<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=bb45684e-0d0d-4ad2-99df-afa2412fea40" /></p>
+<div class="actions">
+<p><a href="https://forums.percona.com/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 4v7H5.17L4 12.17V4h11m1-2H3a1 1 0 0 0-1 1v14l4-4h10a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1m5 4h-2v9H6v2a1 1 0 0 0 1 1h11l4 4V7a1 1 0 0 0-1-1Z"/></svg></span> Community Forum</a> <a href="https://www.percona.com/about/contact"><span class="twemoji"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19.3996 14.148C21.9082 12.5083 22.7289 9.16368 21.2109 6.53493C20.4502 5.21636 19.2207 4.27206 17.7497 3.87776C16.3868 3.51187 14.9634 3.6615 13.7106 4.29444L12 1.33337L8.44934 7.48295L0.242432 21.6959H23.7576L19.3996 14.148ZM17.3474 5.38416C18.4167 5.66894 19.3064 6.35548 19.8606 7.31143C20.9499 9.19582 20.384 11.5859 18.6176 12.7931L14.4917 5.64797C15.3806 5.22055 16.3831 5.12734 17.3474 5.38416ZM12 4.45432L21.0533 20.135H15.7562L9.35029 9.04341L11.9995 4.45478L12 4.45432ZM2.94667 20.135L8.44888 10.6071L13.9511 20.135H2.94667Z"/>
+</svg></span> Get a Percona Expert</a></p>
+</div>
+</div>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      2023-11-27
+    
+  </small>
+</div>
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81Z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14Z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Thank you for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Thank you for your feedback! Help us improve by following this <a href="https://docs.google.com/forms/d/1bkWACehjqlwA0AKf-qTJcXvYbOSYgze8iTPXjntqmNo/edit" target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+    <div class="md-copyright__highlight">
+ <a href='https://percona.com' target='_blank'>Percona LLC and/or its affiliates, </a> &copy; 2023
+    </div>
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+  
+    
+  
+
+
+  
+    
+  
+
+
+
+  
+
+
+<h4>Cookie consent</h4>
+<p>We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better. Read more about <a class="reference external" href="https://www.percona.com/20180524-cookie-policy" target="_blank">Percona Cookie Policy</a>.</p>
+<input class="md-toggle" type="checkbox" id="__settings" >
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="analytics" checked>
+          <span class="task-list-indicator"></span>
+          Google Analytics
+        </label>
+      </li>
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="github" checked>
+          <span class="task-list-indicator"></span>
+          GitHub
+        </label>
+      </li>
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">Accept</button>
+    
+    
+    
+  
+    
+    
+    
+      <label class="md-button" for="__settings">Manage settings</label>
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      
+        <script src="js/version-select.js"></script>
+      
+        <script src="js/promptremover.js"></script>
+      
+    
+  </body>
+</html>
