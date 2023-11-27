@@ -5,6 +5,7 @@ repositories and the [Percona downloads] page.
 
 Specific information on the supported platforms, products, and versions is described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
+We gather [Telemetry data] in the Percona packages and Docker images.
 
 ## Install Percona Server for MySQL using APT
 
@@ -45,7 +46,8 @@ To install Percona Server for MySQL using APT, do the following steps:
 6. Use `percona-release` to set up the repository for the Percona Server for MySQL {{vers}} version:
 
 	```{.bash data-prompt="$"}
-	$ sudo percona-release setup ps{{pkg}}
+	$ sudo percona-release enable-only {{pkg}} release
+	$ sudo percona-release enable tools release
 	```
 
 7. You can check the repository setup for the Percona original release list in `/etc/apt/sources.list.d/percona-original-release.list`. 
@@ -76,9 +78,11 @@ Percona offers pre-release builds from the testing repository. To enable it, run
 percona-release with the `testing` argument. Run the following command as root or use the sudo command:
 
 ```{.bash data-prompt="$"}
-$ sudo percona-release enable ps{{pkg}} testing
+$ sudo percona-release enable {{pkg}} testing
 ```
 
 These builds should not be run in production. This build may not contain all of the features available in the final release. The features may change without notice.
 
 [Percona downloads]: https://www.percona.com/downloads/Percona-Server-{{vers}}/
+
+[Telemetry data]: telemetry.md

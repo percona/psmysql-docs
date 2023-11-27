@@ -6,6 +6,8 @@ Percona yum repository supports popular RPM-based
 operating systems. The easiest way to install the Percona RPM repository is to install an RPM
 that configures yum and installs the [Percona GPG key](https://www.percona.com/downloads/RPM-GPG-KEY-percona).
 
+We gather [Telemetry data] in the Percona packages and Docker images.
+
 ## Supported platforms
 
 Specific information on the supported platforms, products, and versions are described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
@@ -27,7 +29,7 @@ For more information on the Percona Software repositories and configuring Percon
 
     ```{.bash data-prompt="$"}
     $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-    $ sudo percona-release enable-only ps-{{pkg}} release
+    $ sudo percona-release enable-only {{pkg}} release
     $ sudo percona-release enable tools release
     $ sudo yum install percona-server-server
     ```
@@ -35,7 +37,8 @@ For more information on the Percona Software repositories and configuring Percon
 
     ```{.bash data-prompt="$"}
     $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-    $ sudo percona-release setup ps-{{pkg}}
+    $ sudo percona-release enable-only {{pkg}} release
+    $ sudo percona-release enable tools release
     $ sudo yum install percona-server-server
     ```
 
@@ -53,3 +56,5 @@ to `enabled = 1` (Note that there are three sections in this file:
 release, testing, and experimental - in this case, it is the second section that requires updating).
 
 You must install the Percona repository first if the installation has not been done already.
+
+[Telemetry data]: telemetry.md

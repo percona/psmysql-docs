@@ -1,13 +1,14 @@
 # Running Percona Server for MySQL in a Docker Container
 
- *Percona Server for MySQL* has an official Docker image hosted on [Docker Hub](https://hub.docker.com/r/percona/percona-server/). If you want the latest version, use the `latest` tag. You can reference a specific version using the [Docker tag filter for the {{vers}} versions]. 
+Percona Server for MySQL has an official Docker image hosted on [Docker Hub](https://hub.docker.com/r/percona/percona-server/). Download a specific version by adding the [Docker tag filter for the {{vers}} versions]. 
 
-Make sure that you are using the latest version of Docker. The `apt` and `yum` versions may be outdated and cause errors.
+We gather [Telemetry data] in the Percona packages and Docker images.
 
+Make sure that you are using the latest version of Docker. The `APT` version or the `YUM` version may be outdated and cause errors.
 
 ## Starting a detached container
 
-You can start a background container with the `--detached` or `-d` option, which runs the container in the background. In detached mode, the container exits when the root process used to run the container exits.
+Start a container with the `--detached` or `-d` option, which runs the container in the background. In `detached` mode, when the root process used to run the container exits, the container exits.
 
 The following example starts a container named `ps` with the latest version of
 Percona Server for MySQL {{vers}}. This action also creates the `root` user and uses `root` as the password. Please note that `root` is not a secure password. 
@@ -251,3 +252,5 @@ $ docker rm ps
 Review the [Docker Docs](https://docs.docker.com/)
 
 [Docker tag filter for the {{vers}} versions]: https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name={{vers}}
+
+[Telemetry data]: telemetry.md
