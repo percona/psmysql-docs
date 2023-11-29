@@ -2,8 +2,9 @@
 
  *Percona Server for MySQL* has an official Docker image hosted on [Docker Hub](https://hub.docker.com/r/percona/percona-server/). If you want the latest version, use the `latest` tag. You can reference a specific version using the [Docker tag filter for the 8.0 versions](https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name=8.0). 
 
-Make sure that you are using the latest version of Docker. The `apt` and `yum` versions may be outdated and cause errors.
+We gather [Telemetry data] in the Percona packages and Docker images.
 
+Make sure that you are using the latest version of Docker. The `apt` and `yum` versions may be outdated and cause errors.
 
 ## Starting a detached container
 
@@ -249,3 +250,5 @@ $ docker rm ps
 ## For more information
 
 Review the [Docker Docs](https://docs.docker.com/)
+
+[Telemetry data]: telemetry.md

@@ -5,6 +5,7 @@ repositories and the [Percona downloads](https://www.percona.com/downloads/Perco
 
 Specific information on the supported platforms, products, and versions is described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
+We gather [Telemetry data] in the Percona packages and Docker images.
 
 ## Install Percona Server for MySQL using APT
 
@@ -78,3 +79,4 @@ $ sudo percona-release enable ps80 testing
 
 These builds should not be run in production. This build may not contain all of the features available in the final release. The features may change without notice.
 
+[Telemetry data]: telemetry.md
