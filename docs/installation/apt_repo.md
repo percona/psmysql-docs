@@ -9,6 +9,8 @@ Ready-to-use packages are available from the Percona Server for MySQL software r
 
 Specific information on the supported platforms, products, and versions is described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
+We gather [Telemetry data] in the Percona packages and Docker images.
+
 ## What’s in each DEB package?
 
 The `percona-server-server-5.7` package contains the database server itself, the `mysqld` binary and associated files.
@@ -351,3 +353,5 @@ $ rm -rf /var/lib/mysql
 $ rm -rf /var/log/mysql
 $ sudo apt purge percona-server*
 ```
+
+[Telemetry data]: telemetry.md

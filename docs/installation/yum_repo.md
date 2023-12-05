@@ -11,6 +11,8 @@ The easiest way to install the *Percona Yum* repository is to install an *RPM* t
 
 Specific information on the supported platforms, products, and versions are described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
+We gather [Telemetry data] in the Percona packages and Docker images.
+
 !!! note
 
     The RPM packages for Red Hat Enterprise Linux 7 (and compatible derivatives) do not support TLSv1.3, because TLSv1.3 requires OpenSSL 1.1.1, which is currently not available on this platform.
@@ -250,3 +252,5 @@ installed packages and data files.
     $ rm -rf /var/lib/mysql
     $ rm -f /etc/my.cnf
     ```
+
+[Telemetry data]: telemetry.md
