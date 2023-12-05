@@ -354,4 +354,4 @@ $ rm -rf /var/log/mysql
 $ sudo apt purge percona-server*
 ```
 
-[Telemetry data]: telemetry.md
+[Telemetry data]: ../telemetry.md
