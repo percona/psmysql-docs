@@ -253,4 +253,4 @@ installed packages and data files.
     $ rm -f /etc/my.cnf
     ```
 
-[Telemetry data]: telemetry.md
+[Telemetry data]: ../telemetry.md

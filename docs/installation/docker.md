@@ -219,4 +219,4 @@ and collation for all databases:
  --collation-server=utf8_general_ci
 ```
 
-[Telemetry data]: telemetry.md
+[Telemetry data]: ../telemetry.md
