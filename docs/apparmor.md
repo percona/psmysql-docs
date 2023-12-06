@@ -164,7 +164,7 @@ Add the mysqld profile with the following procedure:
 1. Download the current version of the AppArmor:
 
     ```{.bash data-prompt="$"}
-    $ wget https://raw.githubusercontent.com/mysql/mysql-server/8.0/packaging/deb-in/extra/apparmor-profile
+    $ wget https://raw.githubusercontent.com/percona/percona-server/8.0/build-ps/debian/extra/apparmor.d/usr.sbin.mysqld.in
     ```
 
     The expected output:
@@ -217,7 +217,7 @@ Add the mysqld profile with the following procedure:
 
 ## Edit the mysqld profile
 
-Only edit `/etc/apparmor.d/local/usr.sbin.mysql`. We recommend that you Switch a Profile to Complain mode before editing the file. Edit the file in any text editor. When your work is done, Reload one profile and Switch a Profile to Enforce mode.
+Only edit `/etc/apparmor.d/local/usr.sbin.mysql`. We recommend that you switch a profile to [Complain mode](#switch-a-profile-to-complain-mode) before editing the file. Edit the file in any text editor. When your work is done, Reload one profile and [Switch a Profile to Enforce mode](#switch-a-profile-to-enforce-mode).
 
 ## Configure a custom data directory location
 
