@@ -6757,7 +6757,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> <
 <ol>
 <li>
 <p>Download the current version of the AppArmor:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://raw.githubusercontent.com/mysql/mysql-server/8.0/packaging/deb-in/extra/apparmor-profile
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://raw.githubusercontent.com/percona/percona-server/8.0/build-ps/debian/extra/apparmor.d/usr.sbin.mysqld.in
 </code></pre></div>
 <p>The expected output:</p>
 <div class="no-copy highlight"><pre><span></span><code>...
@@ -6801,7 +6801,7 @@ processes are in enforce mode
 </li>
 </ol>
 <h2 id="edit-the-mysqld-profile">Edit the mysqld profile<a class="headerlink" href="#edit-the-mysqld-profile" title="Permanent link">&para;</a></h2>
-<p>Only edit <code>/etc/apparmor.d/local/usr.sbin.mysql</code>. We recommend that you Switch a Profile to Complain mode before editing the file. Edit the file in any text editor. When your work is done, Reload one profile and Switch a Profile to Enforce mode.</p>
+<p>Only edit <code>/etc/apparmor.d/local/usr.sbin.mysql</code>. We recommend that you switch a profile to <a href="#switch-a-profile-to-complain-mode">Complain mode</a> before editing the file. Edit the file in any text editor. When your work is done, Reload one profile and <a href="#switch-a-profile-to-enforce-mode">Switch a Profile to Enforce mode</a>.</p>
 <h2 id="configure-a-custom-data-directory-location">Configure a custom data directory location<a class="headerlink" href="#configure-a-custom-data-directory-location" title="Permanent link">&para;</a></h2>
 <p>You can change the data directory to a non-default location, like /var/lib/mysqlcustom. You should enable audit mode, to capture all of the actions, and edit the profile to allow access for the custom location.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/mysql/mysql.conf.d/mysqld.cnf
@@ -6985,7 +6985,7 @@ Allow data dir access
   <small>
     
       Last update:
-      2023-09-27
+      2023-12-06
     
   </small>
 </div>
