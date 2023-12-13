@@ -4,31 +4,47 @@ Percona Server for MySQL offers the `LOCK TABLES FOR BACKUP` statement as a
 lightweight alternative to `FLUSH TABLES WITH READ LOCK` for both physical and
 logical backups.
 
+## FLUST TABLES WITH READ LOCK
+
+The FLUSH TABLES WITH READ LOCK statement performs two main actions:
+
+* Flushes any changes to the tables currently in memory but have not yet been written to disk. This operation ensures that the data on the disk is up-to-date with the most recent changes.
+  
+* Acquires a read lock on all tables. This means that other sessions can continue to read from the tables but cannot execute any write operations (like INSERT, UPDATE, or DELETE) until the lock is released. This action is beneficial when creating a consistent data snapshot for backup purposes.
+  
+Please note that FLUSH TABLES WITH READ LOCK applies to all databases unless you specify tables individually. Also, this statement causes an implicit commit.
+
+The following command connects to the server and executes the `FLUSH TABLES WITH READ LOCK` statement. After running this command, no write operations can be performed until the lock is released.
+
+```
+mysql --user="user" --password="password" --host="host" --execute="FLUSH TABLES WITH READ LOCK"
+```
+
 ## LOCK TABLES FOR BACKUP
 
 `LOCK TABLES FOR BACKUP` uses a new MDL lock type to block updates to
 non-transactional tables and DDL statements for all tables. If there is an
 active `LOCK TABLES FOR BACKUP` lock then all DDL statements and all updates
-to MyISAM, CSV, MEMORY, ARCHIVE, and *MyRocks* tables will be blocked
+to MyISAM, CSV, MEMORY, ARCHIVE, and MyRocks tables will be blocked
 in the `Waiting for backup lock` status, visible in `PERFORMANCE_SCHEMA` or
 `PROCESSLIST`.
 
-`LOCK TABLES FOR BACKUP` has no effect on `SELECT` queries for all mentioned
-storage engines. Against *InnoDB*, *MyRocks*, Blackhole and Federated tables,
-the `LOCK TABLES FOR BACKUP` is not applicable to the `INSERT`, `REPLACE`,
-`UPDATE`, `DELETE` statements: Blackhole tables obviously have no relevance
-to backups, and Federated tables are ignored by both logical and physical backup
+`LOCK TABLES FOR BACKUP` does not affect `SELECT` queries for all mentioned
+storage engines. Against InnoDB, MyRocks, Blackhole and Federated tables,
+the `LOCK TABLES FOR BACKUP` does not apply to the `INSERT`, `REPLACE`,
+`UPDATE`, `DELETE` statements: Blackhole tables have no relevance
+to backups and Federated tables are ignored by both logical and physical backup
 tools.
 
 Unlike `FLUSH TABLES WITH READ LOCK`, `LOCK TABLES FOR BACKUP` does not
-flush tables, i.e. storage engines are not forced to close tables and tables are
+flush tables, i.e. storage engines are not forced to close tables, and tables are
 not expelled from the table cache. As a result, `LOCK TABLES FOR BACKUP` only
 waits for conflicting statements to complete (i.e. DDL and updates to
-non-transactional tables). It never waits for SELECTs, or UPDATEs to *InnoDB* or
-*MyRocks* tables to complete, for example.
+non-transactional tables). It never waits for SELECTs, or UPDATEs to InnoDB or
+MyRocks tables to complete, for example.
 
 If an “unsafe” statement is executed in the same connection that is holding a
-`LOCK TABLES FOR BACKUP` lock, it fails with the following error:
+`LOCK TABLES FOR BACKUP` lock, the statement fails with the following error:
 
 ??? example "Expected output"
 
@@ -38,7 +54,7 @@ If an “unsafe” statement is executed in the same connection that is holding 
     UNLOCK TABLES releases the lock acquired by LOCK TABLES FOR BACKUP.
     ```
 
-The intended use case for *Percona XtraBackup* is:
+The intended use case for Percona XtraBackup is:
 
 ```text
 LOCK TABLES FOR BACKUP
@@ -56,28 +72,26 @@ privilege.
 ## Interaction with other global locks
 
 The `LOCK TABLES FOR BACKUP` has no effect if the current connection already
-owns a `FLUSH TABLES WITH READ LOCK` lock, as it is a more restrictive
-lock. If `FLUSH TABLES WITH READ LOCK` is executed in a connection that has
+owns a `FLUSH TABLES WITH READ LOCK` lock, as that lock is more restrictive. If `FLUSH TABLES WITH READ LOCK` is executed in a connection that has
 acquired `LOCK TABLES FOR BACKUP`, `FLUSH TABLES WITH READ LOCK` fails with
 an error.
 
-If the server is operating in the read-only mode (i.e. read_only set
+If the server is operating in the read-only mode (for example, read_only set
 to `1`), statements that are unsafe for backups will be either blocked or fail
 with an error, depending on whether they are executed in the same connection
-that owns `LOCK TABLES FOR BACKUP` lock, or other connections.
+that owns a `LOCK TABLES FOR BACKUP` lock or other connections.
 
 ## MyISAM index and data buffering
 
-*MyISAM* key buffering is normally write-through, i.e. by the time each update
-to a *MyISAM* table is completed, all index updates are written to disk. The
-only exception is delayed key writing feature which is disabled by default.
+MyISAM key buffering is normally write-through, i.e. by the time each update
+to a MyISAM table is completed, all index updates are written to disk. The
+only exception is the delayed key writing feature which is disabled by default.
 
 When the global system variable delay_key_write is set to `ALL`,
-key buffers for all *MyISAM* tables are not flushed between updates, so a
-physical backup of those tables may result in broken *MyISAM* indexes. To
+key buffers for all MyISAM tables are not flushed between updates, so a
+physical backup of those tables may result in broken MyISAM indexes. To
 prevent this, `LOCK TABLES FOR BACKUP` will fail with an error if
-delay_key_write is set to `ALL`. An attempt to set delay_key_write to `ALL` when there’s an active backup lock will
-also fail with an error.
+delay_key_write is set to `ALL`. An attempt to set delay_key_write to `ALL` when there’s an active backup lock will also fail with an error.
 
 Another option to involve delayed key writing is to create *MyISAM* tables with
 the DELAY_KEY_WRITE option and set the delay_key_write variable to
@@ -87,16 +101,16 @@ encouraged to set delay_key_writes to `OFF` in the configuration
 file, `my.cnf`, or repair *MyISAM* indexes after restoring from a physical
 backup created with backup locks.
 
-*MyISAM* may also cache data for bulk inserts, e.g. when executing multi-row
+MyISAM may also cache data for bulk inserts, e.g. when executing multi-row
 INSERTs or `LOAD DATA` statements. Those caches, however, are flushed between
-statements, so have no effect on physical backups as long as all statements
-updating *MyISAM* tables are blocked.
+statements, so do not affect physical backups as long as all statements
+updating MyISAM tables are blocked.
 
 ## The mysqldump Command
 
-`mysqldump` has also been extended with a new option,
+The `mysqldump` tool has also been extended with a new option,
 [lock-for-backup](#backup-locks) (disabled by default). When used together with the
-`--single-transaction` option, the option makes `mysqldump` issue
+`--single-transaction` option, the option makes `mysqldump` issue a
 `LOCK TABLES FOR BACKUP` before starting the dump operation to prevent unsafe
 statements that would normally result in an inconsistent backup.
 
