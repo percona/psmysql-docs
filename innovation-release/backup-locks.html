@@ -2565,6 +2565,15 @@ logical backups.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#flust-tables-with-read-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      FLUST TABLES WITH READ LOCK
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#lock-tables-for-backup" class="md-nav__link">
     <span class="md-ellipsis">
       LOCK TABLES FOR BACKUP
@@ -4874,6 +4883,15 @@ logical backups.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#flust-tables-with-read-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      FLUST TABLES WITH READ LOCK
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#lock-tables-for-backup" class="md-nav__link">
     <span class="md-ellipsis">
       LOCK TABLES FOR BACKUP
@@ -5034,27 +5052,41 @@ logical backups.">
 <p>Percona Server for MySQL offers the <code>LOCK TABLES FOR BACKUP</code> statement as a
 lightweight alternative to <code>FLUSH TABLES WITH READ LOCK</code> for both physical and
 logical backups.</p>
+<h2 id="flust-tables-with-read-lock">FLUST TABLES WITH READ LOCK<a class="headerlink" href="#flust-tables-with-read-lock" title="Permanent link">&para;</a></h2>
+<p>The FLUSH TABLES WITH READ LOCK statement performs two main actions:</p>
+<ul>
+<li>
+<p>Flushes any changes to the tables currently in memory but have not yet been written to disk. This operation ensures that the data on the disk is up-to-date with the most recent changes.</p>
+</li>
+<li>
+<p>Acquires a read lock on all tables. This means that other sessions can continue to read from the tables but cannot execute any write operations (like INSERT, UPDATE, or DELETE) until the lock is released. This action is beneficial when creating a consistent data snapshot for backup purposes.</p>
+</li>
+</ul>
+<p>Please note that FLUSH TABLES WITH READ LOCK applies to all databases unless you specify tables individually. Also, this statement causes an implicit commit.</p>
+<p>The following command connects to the server and executes the <code>FLUSH TABLES WITH READ LOCK</code> statement. After running this command, no write operations can be performed until the lock is released.</p>
+<div class="highlight"><pre><span></span><code>mysql --user=&quot;user&quot; --password=&quot;password&quot; --host=&quot;host&quot; --execute=&quot;FLUSH TABLES WITH READ LOCK&quot;
+</code></pre></div>
 <h2 id="lock-tables-for-backup">LOCK TABLES FOR BACKUP<a class="headerlink" href="#lock-tables-for-backup" title="Permanent link">&para;</a></h2>
 <p><code>LOCK TABLES FOR BACKUP</code> uses a new MDL lock type to block updates to
 non-transactional tables and DDL statements for all tables. If there is an
 active <code>LOCK TABLES FOR BACKUP</code> lock then all DDL statements and all updates
-to MyISAM, CSV, MEMORY, ARCHIVE, and <em>MyRocks</em> tables will be blocked
+to MyISAM, CSV, MEMORY, ARCHIVE, and MyRocks tables will be blocked
 in the <code>Waiting for backup lock</code> status, visible in <code>PERFORMANCE_SCHEMA</code> or
 <code>PROCESSLIST</code>.</p>
-<p><code>LOCK TABLES FOR BACKUP</code> has no effect on <code>SELECT</code> queries for all mentioned
-storage engines. Against <em>InnoDB</em>, <em>MyRocks</em>, Blackhole and Federated tables,
-the <code>LOCK TABLES FOR BACKUP</code> is not applicable to the <code>INSERT</code>, <code>REPLACE</code>,
-<code>UPDATE</code>, <code>DELETE</code> statements: Blackhole tables obviously have no relevance
-to backups, and Federated tables are ignored by both logical and physical backup
+<p><code>LOCK TABLES FOR BACKUP</code> does not affect <code>SELECT</code> queries for all mentioned
+storage engines. Against InnoDB, MyRocks, Blackhole and Federated tables,
+the <code>LOCK TABLES FOR BACKUP</code> does not apply to the <code>INSERT</code>, <code>REPLACE</code>,
+<code>UPDATE</code>, <code>DELETE</code> statements: Blackhole tables have no relevance
+to backups and Federated tables are ignored by both logical and physical backup
 tools.</p>
 <p>Unlike <code>FLUSH TABLES WITH READ LOCK</code>, <code>LOCK TABLES FOR BACKUP</code> does not
-flush tables, i.e. storage engines are not forced to close tables and tables are
+flush tables, i.e. storage engines are not forced to close tables, and tables are
 not expelled from the table cache. As a result, <code>LOCK TABLES FOR BACKUP</code> only
 waits for conflicting statements to complete (i.e. DDL and updates to
-non-transactional tables). It never waits for SELECTs, or UPDATEs to <em>InnoDB</em> or
-<em>MyRocks</em> tables to complete, for example.</p>
+non-transactional tables). It never waits for SELECTs, or UPDATEs to InnoDB or
+MyRocks tables to complete, for example.</p>
 <p>If an “unsafe” statement is executed in the same connection that is holding a
-<code>LOCK TABLES FOR BACKUP</code> lock, it fails with the following error:</p>
+<code>LOCK TABLES FOR BACKUP</code> lock, the statement fails with the following error:</p>
 <details class="example">
 <summary>Expected output</summary>
 <div class="highlight"><pre><span></span><code>ERROR 1880 (HY000): Can&#39;t execute the query because you have a conflicting backup lock
@@ -5062,7 +5094,7 @@ non-transactional tables). It never waits for SELECTs, or UPDATEs to <em>InnoDB<
 UNLOCK TABLES releases the lock acquired by LOCK TABLES FOR BACKUP.
 </code></pre></div>
 </details>
-<p>The intended use case for <em>Percona XtraBackup</em> is:</p>
+<p>The intended use case for Percona XtraBackup is:</p>
 <div class="highlight"><pre><span></span><code>LOCK TABLES FOR BACKUP
 ... copy .frm, MyISAM, CSV, etc. ...
 UNLOCK TABLES
@@ -5074,24 +5106,22 @@ UNLOCK TABLES
 privilege.</p>
 <h2 id="interaction-with-other-global-locks">Interaction with other global locks<a class="headerlink" href="#interaction-with-other-global-locks" title="Permanent link">&para;</a></h2>
 <p>The <code>LOCK TABLES FOR BACKUP</code> has no effect if the current connection already
-owns a <code>FLUSH TABLES WITH READ LOCK</code> lock, as it is a more restrictive
-lock. If <code>FLUSH TABLES WITH READ LOCK</code> is executed in a connection that has
+owns a <code>FLUSH TABLES WITH READ LOCK</code> lock, as that lock is more restrictive. If <code>FLUSH TABLES WITH READ LOCK</code> is executed in a connection that has
 acquired <code>LOCK TABLES FOR BACKUP</code>, <code>FLUSH TABLES WITH READ LOCK</code> fails with
 an error.</p>
-<p>If the server is operating in the read-only mode (i.e. read_only set
+<p>If the server is operating in the read-only mode (for example, read_only set
 to <code>1</code>), statements that are unsafe for backups will be either blocked or fail
 with an error, depending on whether they are executed in the same connection
-that owns <code>LOCK TABLES FOR BACKUP</code> lock, or other connections.</p>
+that owns a <code>LOCK TABLES FOR BACKUP</code> lock or other connections.</p>
 <h2 id="myisam-index-and-data-buffering">MyISAM index and data buffering<a class="headerlink" href="#myisam-index-and-data-buffering" title="Permanent link">&para;</a></h2>
-<p><em>MyISAM</em> key buffering is normally write-through, i.e. by the time each update
-to a <em>MyISAM</em> table is completed, all index updates are written to disk. The
-only exception is delayed key writing feature which is disabled by default.</p>
+<p>MyISAM key buffering is normally write-through, i.e. by the time each update
+to a MyISAM table is completed, all index updates are written to disk. The
+only exception is the delayed key writing feature which is disabled by default.</p>
 <p>When the global system variable delay_key_write is set to <code>ALL</code>,
-key buffers for all <em>MyISAM</em> tables are not flushed between updates, so a
-physical backup of those tables may result in broken <em>MyISAM</em> indexes. To
+key buffers for all MyISAM tables are not flushed between updates, so a
+physical backup of those tables may result in broken MyISAM indexes. To
 prevent this, <code>LOCK TABLES FOR BACKUP</code> will fail with an error if
-delay_key_write is set to <code>ALL</code>. An attempt to set delay_key_write to <code>ALL</code> when there’s an active backup lock will
-also fail with an error.</p>
+delay_key_write is set to <code>ALL</code>. An attempt to set delay_key_write to <code>ALL</code> when there’s an active backup lock will also fail with an error.</p>
 <p>Another option to involve delayed key writing is to create <em>MyISAM</em> tables with
 the DELAY_KEY_WRITE option and set the delay_key_write variable to
 <code>ON</code> (which is the default). In this case, <code>LOCK TABLES FOR BACKUP</code> will not
@@ -5099,14 +5129,14 @@ be able to prevent stale index files from appearing in the backup. Users are
 encouraged to set delay_key_writes to <code>OFF</code> in the configuration
 file, <code>my.cnf</code>, or repair <em>MyISAM</em> indexes after restoring from a physical
 backup created with backup locks.</p>
-<p><em>MyISAM</em> may also cache data for bulk inserts, e.g. when executing multi-row
+<p>MyISAM may also cache data for bulk inserts, e.g. when executing multi-row
 INSERTs or <code>LOAD DATA</code> statements. Those caches, however, are flushed between
-statements, so have no effect on physical backups as long as all statements
-updating <em>MyISAM</em> tables are blocked.</p>
+statements, so do not affect physical backups as long as all statements
+updating MyISAM tables are blocked.</p>
 <h2 id="the-mysqldump-command">The mysqldump Command<a class="headerlink" href="#the-mysqldump-command" title="Permanent link">&para;</a></h2>
-<p><code>mysqldump</code> has also been extended with a new option,
+<p>The <code>mysqldump</code> tool has also been extended with a new option,
 <a href="#backup-locks">lock-for-backup</a> (disabled by default). When used together with the
-<code>--single-transaction</code> option, the option makes <code>mysqldump</code> issue
+<code>--single-transaction</code> option, the option makes <code>mysqldump</code> issue a
 <code>LOCK TABLES FOR BACKUP</code> before starting the dump operation to prevent unsafe
 statements that would normally result in an inconsistent backup.</p>
 <p>When used without the <code>--single-transaction</code> option,
@@ -5228,7 +5258,7 @@ inconsistent backup.</p>
   <small>
     
       Last update:
-      2023-10-26
+      2023-12-13
     
   </small>
 </div>
