@@ -1,13 +1,7 @@
 # Kill idle transactions
 
-This feature limits the age of idle transactions, for all transactional storage
-engines. If a transaction is idle for more seconds than the threshold
-specified, it will be killed. This prevents users from blocking *InnoDB* purge
-by mistake.
-
-## Version specific information
-
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
+This feature limits the age of idle transactions for all transactional storage
+engines. Kills any idle transaction when the specified limit is reached. This limit prevents users from blocking the InnoDB purge by mistake.
 
 ## System variables
 
@@ -22,4 +16,3 @@ by mistake.
 | Default value  | 0 (disabled)       |
 | Units          | Seconds            |
 
-If non-zero, any idle transaction will be killed after being idle for this many seconds.
