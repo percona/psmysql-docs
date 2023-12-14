@@ -1,6 +1,6 @@
 # Install Percona Server for MySQL
 
-Before installing, read the [Percona Server for MySQL {{vers}} Release notes](release-notes/release-notes.md).
+Before installing, read the [Percona Server for MySQL {{vers}} Release notes](release-notes/release-notes-index.md).
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
