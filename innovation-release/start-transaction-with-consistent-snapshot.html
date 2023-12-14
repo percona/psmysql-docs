@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL has ported MariaDB enhancement for START TRANSACTION WITH CONSISTENT SNAPSHOTS feature to MySQL 5.6 group commit implementation. This enhancement makes binary log positions consistent with InnoDB transaction snapshots.">
+        <meta name="description" content="Percona Server for MySQL has ported MariaDB enhancement for START TRANSACTION WITH CONSISTENT SNAPSHOTS feature to the group commit implementation. This enhancement makes binary log positions consistent with InnoDB transaction snapshots.">
       
       
         <meta name="author" content="Percona LLC">
@@ -2680,15 +2680,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-reading" class="md-nav__link">
-    <span class="md-ellipsis">
-      Other reading
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#get-expert-help" class="md-nav__link">
     <span class="md-ellipsis">
       Get expert help
@@ -4914,15 +4905,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-reading" class="md-nav__link">
-    <span class="md-ellipsis">
-      Other reading
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#get-expert-help" class="md-nav__link">
     <span class="md-ellipsis">
       Get expert help
@@ -4963,15 +4945,15 @@
 
 
 <h1 id="start-transaction-with-consistent-snapshot">Start transaction with consistent snapshot<a class="headerlink" href="#start-transaction-with-consistent-snapshot" title="Permanent link">&para;</a></h1>
-<p>Percona Server for MySQL has ported <em>MariaDB</em> <a href="https://mariadb.com/kb/en/enhancements-for-start-transaction-with-consistent/">enhancement</a> for <code>START TRANSACTION WITH CONSISTENT SNAPSHOTS</code> feature to <em>MySQL</em> 5.6 group commit implementation. This enhancement makes binary log positions consistent with <em>InnoDB</em> transaction snapshots.</p>
-<p>This feature is quite useful to obtain logical backups with correct positions without running a <code>FLUSH TABLES WITH READ LOCK</code>. Binary log position can be obtained by two newly implemented status variables: <a href="#binlog_snapshot_file">Binlog_snapshot_file</a> and <a href="#binlog_snapshot_position">Binlog_snapshot_position</a>. After starting a transaction using the <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code>, these two variables will provide you with the binlog position corresponding to the state of the database of the consistent snapshot so taken, irrespectively of which other transactions have been committed since the snapshot was taken.</p>
+<p>Percona Server for MySQL has ported MariaDB <a href="https://mariadb.com/kb/en/enhancements-for-start-transaction-with-consistent/">enhancement</a> for <code>START TRANSACTION WITH CONSISTENT SNAPSHOTS</code> feature to the group commit implementation. This enhancement makes binary log positions consistent with InnoDB transaction snapshots.</p>
+<p>This feature obtains logical backups with correct positions without running a <code>FLUSH TABLES WITH READ LOCK</code>. Binary log position can be obtained by two newly implemented status variables: <a href="#binlog_snapshot_file">Binlog_snapshot_file</a> and <a href="#binlog_snapshot_position">Binlog_snapshot_position</a>. After starting a transaction using the <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code>, these two variables provide you with the binlog position that corresponds to the state of the database when the consistent snapshot is created and ignores which other transactions have been committed since the snapshot was created.</p>
 <h2 id="snapshot-cloning">Snapshot cloning<a class="headerlink" href="#snapshot-cloning" title="Permanent link">&para;</a></h2>
-<p>The <em>Percona Server for MySQL</em> implementation extends the <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code> syntax with the optional <code>FROM SESSION</code> clause:</p>
-<div class="highlight"><pre><span></span><code><span class="k">START</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">CONSISTENT</span><span class="w"> </span><span class="n">SNAPSHOT</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">session_id</span><span class="o">&gt;</span><span class="p">;</span>
+<p>The Percona Server for MySQL implementation extends the <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code> syntax with the optional <code>FROM SESSION</code> clause:</p>
+<div class="highlight"><pre><span></span><code>START TRANSACTION WITH CONSISTENT SNAPSHOT FROM SESSION &lt;session_id&gt;;
 </code></pre></div>
 <p>When specified, all participating storage engines and binary log instead of creating a new snapshot of data (or binary log coordinates), create a copy of the snapshot which has been created by an active transaction in the specified session. <code>session_id</code> is the session identifier reported in the <code>Id</code> column of <code>SHOW PROCESSLIST</code>.</p>
 <p>Currently snapshot cloning is only supported by <em>XtraDB</em> and the binary log. As with the regular <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code>, snapshot clones can only be created with the <code>REPEATABLE READ</code> isolation level.</p>
-<p>For <em>XtraDB</em>, a transaction with a cloned snapshot will only see data visible or changed by the donor transaction. That is, the cloned transaction will see no changes committed by transactions that started after the donor transaction, not even changes made by itself. Note that in case of chained cloning the donor transaction is the first one in the chain. For example, if transaction A is cloned into transaction B, which is in turn cloned into transaction C, the latter will have read view from transaction A (i.e., the donor transaction). Therefore, it will see changes made by transaction A, but not by transaction B.</p>
+<p>For XtraDB, a transaction with a cloned snapshot will only see data visible or changed by the donor transaction. That is, the cloned transaction will see no changes committed by transactions that started after the donor transaction, not even changes made by itself. Note that in case of chained cloning the donor transaction is the first one in the chain. For example, if transaction A is cloned into transaction B, which is in turn cloned into transaction C, the latter will have read view from transaction A (i.e., the donor transaction). Therefore, it will see changes made by transaction A, but not by transaction B.</p>
 <h2 id="mysqldump">mysqldump<a class="headerlink" href="#mysqldump" title="Permanent link">&para;</a></h2>
 <p><code>mysqldump</code> has been updated to use new status variables automatically when they are supported by the server and both –single-transaction and –master-data are specified on the command line. Along with the <code>mysqldump</code> improvements introduced in <a href="backup-locks.html#backup-locks">Backup Locks</a> there is now a way to generate <code>mysqldump</code> backups that are guaranteed to be consistent without using <code>FLUSH TABLES WITH READ LOCK</code> even if <code>--master-data</code> is requested.</p>
 <h2 id="system-variables">System variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
@@ -5047,10 +5029,6 @@
 </tbody>
 </table>
 <p>These status variables are only available when the binary log is enabled globally.</p>
-<h2 id="other-reading">Other reading<a class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://mariadb.com/kb/en/enhancements-for-start-transaction-with-consistent/">MariaDB Enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT</a></li>
-</ul>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.
@@ -5066,7 +5044,7 @@
   <small>
     
       Last update:
-      2023-10-26
+      2023-12-13
     
   </small>
 </div>
