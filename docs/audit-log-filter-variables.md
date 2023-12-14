@@ -1,4 +1,4 @@
-# Audit log filter functions, options and variables
+# Audit log filter functions, options, and variables
 
 The following sections describe the [functions](#audit-log-filter-functions), [options, and variables](#audit-log-filter-options-and-variables) available in the audit log filter component.
 
@@ -128,7 +128,7 @@ Call[`audit_log_read_bookmark()`](#audit_log_read_bookmark) to return the most r
 
 #### Returns
 
-This function returns a string of a JSON array of the audit events, or a JSON NULL value. Returns `NULL` and generates an error if the call fails.
+This function returns a string of a JSON array of the audit events or a JSON NULL value. Returns `NULL` and generates an error if the call fails.
 
 #### Example
 
@@ -221,7 +221,7 @@ This function removes the assignment of a filter from the selected user account.
 
 If the user account is in a current session, they are not affected. New sessions for this user account use the default account filter or are not logged.
 
-If the user-name is `%`, the default account filter is removed.
+If the user name is `%`, the default account filter is removed.
 
 #### Parameters
 
@@ -259,12 +259,12 @@ None.
 
 #### Returns
 
-This function returns renamed file name.
+This function returns the renamed file name.
 
 #### Example
 
 ```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_filter_rotate();
+mysql> SELECT audit_log_rotate();
 ```
 
 ### audit_log_filter_set_filter(filter_name, definition)
@@ -424,7 +424,7 @@ This variable defines the compression type for the audit log filter file. The va
 
 This variable defines the audit_log_filter database. This read-only variable stores the necessary tables. Set this option at system startup. The database name cannot exceed 64 characters or be `NULL`.
 
-An invalid database name prevents the use of audit log filter component.
+An invalid database name prevents the use of the audit log filter component.
 
 ### `audit_log_filter.disable`
 
