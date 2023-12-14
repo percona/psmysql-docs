@@ -2,19 +2,20 @@
 
 ## Backup locks support
 
-When used together with the –single-transaction option, the
+When used together with the `–single-transaction` option, the
 lock-for-backup option makes `mysqldump` issue `LOCK
 TABLES FOR BACKUP` before starting the dump operation to prevent
 unsafe statements that would normally result in an inconsistent
 backup.
 
-More information can be found on the Backup Locks feature documentation.
+More information can be found in [Backup Locks](backup-locks.md).
 
 ## Compressed columns support
 
-**mysqldump** supports the Compressed columns with dictionaries feature. More
-information about the relevant options can be found on the
-Compressed columns with dictionaries feature page.
+**mysqldump** supports the Compressed columns with dictionaries feature. 
+
+More information can be found in
+[Compressed columns with dictionaries](compressed-columns.md).
 
 ## Taking backup by descending primary key order
 
@@ -26,8 +27,7 @@ the storage engine is using the reverse order column for a primary key.
 
 **mysqldump** detects when MyRocks is installed and available.
 If there is a session variable named
-rocksdb_skip_fill_cache **mysqldump** sets it to **1**.
+`rocksdb_skip_fill_cache`, **mysqldump** sets the variable to **1**.
 
-**mysqldump** will now automatically enable session the variable
-rocksdb_bulk_load if it is supported by the target server.
+**mysqldump** automatically enables `rocksdb_bulk_load` if the the target server supports the variable.
 
