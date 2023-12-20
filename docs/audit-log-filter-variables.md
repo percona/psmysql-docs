@@ -262,7 +262,7 @@ This function returns renamed file name.
 #### Example
 
 ```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_filter_rotate();
+mysql> SELECT audit_log_rotate();
 ```
 
 

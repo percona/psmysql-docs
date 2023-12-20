@@ -73,3 +73,4 @@ The following steps guide you through a key process for a developer:
 [the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Minikube]: https://docs.percona.com/percona-operator-for-mysql/ps/minikube.html
 
 [Install]: installation.md
+
