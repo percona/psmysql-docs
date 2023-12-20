@@ -1,5 +1,6 @@
 
 
+
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -7,8 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability and availability, enhanced backups, increased visibility, and instrumentation.
-Percona Server for MySQL is trusted by thousands of enterprises to provide better performance and concurrency for their most demanding workloads.">
+        <meta name="description" content="Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. Percona Server for MySQL provides enterprise-grade features in security, availability, data management, visibility, instrumentation, and performance. To start with Percona Server for MySQL quickly, we recommend using Docker and this Quickstart guide focuses on this installation method. You can explore alternative installation options in the Install section.">
       
       
         <meta name="author" content="Percona LLC">
@@ -20,7 +20,7 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
         <link rel="prev" href="utility-user.html">
       
       
-        <link rel="next" href="installation.html">
+        <link rel="next" href="quickstart-docker.html">
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
@@ -28,7 +28,7 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     
     
       
-        <title>Quickstart guide for Percona Server for MySQL - Percona Server for MySQL</title>
+        <title>Overview - Percona Server for MySQL</title>
       
     
     
@@ -49,8 +49,8 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
     
@@ -60,34 +60,34 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     
       <link rel="stylesheet" href="css/percona.css">
     
-      <link rel="stylesheet" href="css/nocopy.css/">
+      <link rel="stylesheet" href="css/nocopy.css">
     
-      <link rel="stylesheet" href="css/extra.css">
+      <link rel="stylesheet" href="css/design.css">
     
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
-              <!-- Google Tag Manager -->
-              <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-WBVF48V');</script>
-              <!-- End Google Tag Manager -->
+      
+  
 
-              <!-- Google Tag Manager (noscript) -->
-              <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBVF48V"
-              height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-              <!-- End Google Tag Manager (noscript) -->
-              
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-J4J70BNH0G"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-J4J70BNH0G",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-J4J70BNH0G",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>var consent;"undefined"==typeof __md_analytics||(consent=__md_get("__consent"))&&consent.analytics&&__md_analytics()</script>
+  
+
     
     
-               
+    
+
                  
                  
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Quickstart guide for Percona Server for MySQL" />
+                 <meta property="og:title" content="Percona Server for MySQL - Overview" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.0/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png" />
               
@@ -101,7 +101,7 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     
     
     
-    <body dir="ltr" data-md-color-scheme="percona-light" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="percona-light" data-md-color-primary="custom" data-md-color-accent="custom">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -110,7 +110,7 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     <div data-md-component="skip">
       
         
-        <a href="#quickstart-guide-for-percona-server-for-mysql" class="md-skip">
+        <a href="#overview" class="md-skip">
           Skip to content
         </a>
       
@@ -149,7 +149,7 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Quickstart guide for Percona Server for MySQL
+              Overview
             
           </span>
         </div>
@@ -162,7 +162,7 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
@@ -172,7 +172,7 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
@@ -251,12 +251,12 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
       <main class="md-main" data-md-component="main">
         <div class="md-main__inner md-grid">
           
-            
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
+                
+                <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                  <div class="md-sidebar__scrollwrap">
+                    <div class="md-sidebar__inner">
+                      
 
 
 
@@ -286,11 +286,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     
       
       
-      
-
-
-
-      
   
   
   
@@ -310,11 +305,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
 
     
       
-      
-      
-
-
-
       
   
   
@@ -1194,11 +1184,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     
       
       
-      
-
-
-
-      
   
   
   
@@ -1963,11 +1948,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     
       
       
-      
-
-
-
-      
   
   
     
@@ -2025,7 +2005,7 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
           
   
   <span class="md-ellipsis">
-    Quickstart guide for Percona Server for MySQL
+    Overview
   </span>
   
 
@@ -2036,7 +2016,7 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
         
   
   <span class="md-ellipsis">
-    Quickstart guide for Percona Server for MySQL
+    Overview
   </span>
   
 
@@ -2060,36 +2040,45 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-percona-server-for-mysql" class="md-nav__link">
+  <a href="#purpose-of-the-quickstart" class="md-nav__link">
     <span class="md-ellipsis">
-      Install Percona Server for MySQL
+      Purpose of the Quickstart
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#for-backups-and-restores" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      For backups and restores
+      Prerequisites
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#for-monitoring-and-management" class="md-nav__link">
+  <a href="#steps-for-first-time-users" class="md-nav__link">
     <span class="md-ellipsis">
-      For Monitoring and Management
+      Steps for first-time users
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#for-high-availability" class="md-nav__link">
+  <a href="#next-step" class="md-nav__link">
     <span class="md-ellipsis">
-      For high availability
+      Next step
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-expert-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get expert help
     </span>
   </a>
   
@@ -2104,6 +2093,111 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart-docker.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Start and connect to a Docker container
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart-database.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create a database and table
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart-queries.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Run SQL queries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart-exit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clean up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart-next-steps.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Next steps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2112,11 +2206,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
 
     
       
-      
-      
-
-
-
       
   
   
@@ -2852,11 +2941,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     
       
       
-      
-
-
-
-      
   
   
   
@@ -3261,11 +3345,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     
       
       
-      
-
-
-
-      
   
   
   
@@ -3394,11 +3473,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     
       
       
-      
-
-
-
-      
   
   
   
@@ -3484,11 +3558,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
 
     
       
-      
-      
-
-
-
       
   
   
@@ -3617,11 +3686,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
 
     
       
-      
-      
-
-
-
       
   
   
@@ -4567,11 +4631,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     
       
       
-      
-
-
-
-      
   
   
   
@@ -4657,11 +4716,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
 
     
       
-      
-      
-
-
-
       
   
   
@@ -4833,11 +4887,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     
       
       
-      
-
-
-
-      
   
   
   
@@ -5007,11 +5056,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
 
     
       
-      
-      
-
-
-
       
   
   
@@ -6095,11 +6139,6 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     
       
       
-      
-
-
-
-      
   
   
   
@@ -6394,25 +6433,24 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
   
 
     
-    <br/>
-   <label class="md-nav__title" for="__drawer">
-    <a href="https://learn.percona.com/download-percona-server-8-0-manual" onclick="_gaq.push(['b._trackEvent', 'Percona Server', 'Download', 'Download Manual Percona Server']);" class="md-nav__link md-nav__link--active">
-      Download PDF
-    </a>
-  </label> 
   </ul>
 </nav>
-
+                      <br>
+                      <label class="md-nav__title" for="__drawer">
+                        <a href="https://learn.percona.com/download-percona-server-8-0-manual" onclick="_gaq.push(['b._trackEvent', 'Percona Server', 'Download', 'Download Manual Percona Server']);" class="md-nav__link md-nav__link--active">
+                            Download PDF
+                          </a>
+    </label> 
+                    </div>
                   </div>
                 </div>
-              </div>
-            
-            
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
+              
+                
+                <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                  <div class="md-sidebar__scrollwrap">
+                    <div class="md-sidebar__inner">
+                      
 
   
 
@@ -6430,36 +6468,45 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-percona-server-for-mysql" class="md-nav__link">
+  <a href="#purpose-of-the-quickstart" class="md-nav__link">
     <span class="md-ellipsis">
-      Install Percona Server for MySQL
+      Purpose of the Quickstart
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#for-backups-and-restores" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      For backups and restores
+      Prerequisites
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#for-monitoring-and-management" class="md-nav__link">
+  <a href="#steps-for-first-time-users" class="md-nav__link">
     <span class="md-ellipsis">
-      For Monitoring and Management
+      Steps for first-time users
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#for-high-availability" class="md-nav__link">
+  <a href="#next-step" class="md-nav__link">
     <span class="md-ellipsis">
-      For high availability
+      Next step
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-expert-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get expert help
     </span>
   </a>
   
@@ -6468,94 +6515,172 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
     </ul>
   
 </nav>
+                    </div>
                   </div>
                 </div>
-              </div>
+              
             
-          
           
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-              
-                <!-- Edit and view button -->
-                
                   
-                  
-                  <a
-                    href="https://github.com/percona/psmysql-docs/edit/8.0/docs/quickstart-overview.md"
-                    title="edit.link.title"
-                    class="md-content__button md-icon"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
-                  </a>
-                  <a
-                    href="https://raw.githubusercontent.com/percona/psmysql-docs/8.0/docs/quickstart-overview.md"
-                    title="View source of this page"
-                    class="md-content__button md-icon"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
-                  </a>
-                
 
-                <!--
-                  Hack: check whether the content contains a h1 headline. If it
-                  doesn't, the page title (or respectively site name) is used
-                  as the main headline.
-                -->
-                
+  
+    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/quickstart-overview.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/quickstart-overview.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
 
-                <!-- Markdown content -->
-                <h1 id="quickstart-guide-for-percona-server-for-mysql">Quickstart guide for Percona Server for MySQL<a class="headerlink" href="#quickstart-guide-for-percona-server-for-mysql" title="Permanent link">&para;</a></h1>
-<p>Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability and availability, enhanced backups, increased visibility, and instrumentation.
-Percona Server for MySQL is trusted by thousands of enterprises to provide better performance and concurrency for their most demanding workloads.</p>
-<h2 id="install-percona-server-for-mysql">Install Percona Server for MySQL<a class="headerlink" href="#install-percona-server-for-mysql" title="Permanent link">&para;</a></h2>
-<p>You can install Percona Server for MySQL using different methods. </p>
+
+<h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
+<p>Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. Percona Server for MySQL provides enterprise-grade features in security, availability, data management, visibility, instrumentation, and performance. To start with Percona Server for MySQL quickly, we recommend using Docker and this Quickstart guide focuses on this installation method. You can explore alternative installation options in the <a href="installation.html">Install</a> section.</p>
+<p>Docker lets developers build, deploy, run, update, and manage containers, which isolate applications from the host system. Docker containers are made from Docker images, which are snapshots of the configuration needed to run an application, such as the code and libraries.</p>
+<details class="information">
+<summary>Reasons for deploying Percona Server in Docker</summary>
+<p>Deploying a Percona Server for MySQL container is an efficient, fast solution to setting up a database quickly without using too many resources. This type of deployment works best for small to medium applications.</p>
+<p>You should deploy a Percona Server for MySQL database in Docker for several reasons. Here are some of them:</p>
 <ul>
-<li><a href="installation.html">Use the Percona Repositories</a></li>
-<li><a href="apt-repo.html">Use APT</a></li>
-<li><a href="yum-repo.html">Use YUM</a></li>
-<li><a href="binary-tarball-install.html">Use binary tarballs</a></li>
-<li><a href="docker.html">Use Docker</a></li>
+<li>Portability: Docker containers can run on any platform that supports Docker. This flexibility lets you move your database or installation steps from one platform to another.</li>
+<li>Isolation: Docker containers are isolated from each other and the host system. This isolation means you can run multiple instances of MySQL on the same machine without interfering with each other or affecting the host&rsquo;s performance. You can also isolate your database from other applications or services that might pose a security risk or consume too many resources.</li>
+<li>Scalability: Depending on the load and demand, you can scale docker containers up or down. You can use tools like Docker Compose or Kubernetes to orchestrate multiple containers and manage their configuration, networking, and deployment. You can also use Docker Swarm or Amazon ECS to distribute your containers across multiple nodes and achieve high availability and fault tolerance.</li>
+<li>Versioning: Docker images and containers contain all the dependencies and configurations needed to run your application. You can use tags to specify different versions of your images and easily switch between them. You can also use Docker Hub or other registries to store and share your images with others.</li>
+<li>Development: Docker containers can help you create a consistent and reproducible development environment that matches your production environment. You can use tools like Dockerfile or Docker Build to automate the creation of your images and ensure they have the same settings and packages as your production images. You can also use tools like Docker Volumes or Bind Mounts to persist and share your data between containers or the host system.</li>
 </ul>
-<h2 id="for-backups-and-restores">For backups and restores<a class="headerlink" href="#for-backups-and-restores" title="Permanent link">&para;</a></h2>
-<p>Percona XtraBackup (PXB) is a 100% open source backup solution for all versions of Percona Server for MySQL and MySQL® that performs online non-blocking, tightly compressed, highly secure full backups on transactional systems. Maintain fully available applications during planned maintenance windows with Percona XtraBackup.</p>
-<p><a href="https://docs.percona.com/percona-xtrabackup/8.0/installation.html">Install Percona XtraBackup</a></p>
-<h2 id="for-monitoring-and-management">For Monitoring and Management<a class="headerlink" href="#for-monitoring-and-management" title="Permanent link">&para;</a></h2>
-<p>Percona Monitoring and Management (PMM )monitors and provides actionable performance data for MySQL variants, including Percona Server for MySQL, Percona XtraDB Cluster, Oracle MySQL Community Edition, Oracle MySQL Enterprise Edition, and MariaDB. PMM captures metrics and data for the InnoDB, XtraDB, and MyRocks storage engines, and has specialized dashboards for specific engine details.</p>
-<p><a href="https://docs.percona.com/percona-monitoring-and-management/get-started/index.html">Install PMM and connect your MySQL instances to it</a>.</p>
-<h2 id="for-high-availability">For high availability<a class="headerlink" href="#for-high-availability" title="Permanent link">&para;</a></h2>
-<p>Percona XtraDB Cluster (PXC) is a 100% open source, enterprise-grade, highly available clustering solution for MySQL multi-master setups based on Galera. PXC helps enterprises minimize unexpected downtime and data loss, reduce costs, and improve performance and scalability of your database environments supporting your critical business applications in the most demanding public, private, and hybrid cloud environments.</p>
-<p><a href="https://docs.percona.com/percona-xtradb-cluster/8.0/quickstart-overview.html">Percona XtraDB Cluster Quick start guide</a></p>
-
-                
-<div class="md-relbar2__inner md-grid">
-<div class="md-content">
-  <article class="md-content__inner md-typeset" role="main">    
-    <h3>Contact us </h3>
-       <p>For free technical help, visit the Percona <a class="reference external" href="https://forums.percona.com/c/mysql-mariadb/percona-server-for-mysql-8-0/20" target="_blank">Community Forum</a>.<br>
-        <p>To report bugs or submit feature requests, open a <a class="reference external" href="https://jira.percona.com/projects/PS/issues/" target="_blank">JIRA</a> ticket.<br>
-         <p>For paid <a class="reference external" href="https://www.percona.com/services/support"> support </a> and <a class="reference external" href="https://www.percona.com/services/managed-services"> managed </a> or <a class="reference external" href="https://www.percona.com/services/consulting">consulting services </a>, contact <a class="reference external" href="https://www.percona.com/about-percona/contact" target="_blank">Percona Sales</a>.</p>
-         <img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=bb45684e-0d0d-4ad2-99df-afa2412fea40" />
-        </article>
+</details>
+<h2 id="purpose-of-the-quickstart">Purpose of the Quickstart<a class="headerlink" href="#purpose-of-the-quickstart" title="Permanent link">&para;</a></h2>
+<p>This document is an introduction to our Percona Server for MySQL server and guides you through the basic steps to create and run a database using a Docker container. These steps describe one way to use Percona Server for MySQL. You can also do the following:</p>
+<ul>
+<li>
+<p><a href="installation.html">Download and install Percona Server for MySQL packages for your operating system</a></p>
+</li>
+<li>
+<p>Work with <a href="https://docs.percona.com/percona-operator-for-mysql/ps/helm.html">the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Helm</a> or <a href="https://docs.percona.com/percona-operator-for-mysql/ps/minikube.html">the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Minikube</a> to find out more about the Percona Operator.</p>
+</li>
+</ul>
+<details class="information">
+<summary>Percona solutions</summary>
+<p>Percona provides a range of solutions and services for open source databases. Some of the critical solutions offered are the following:</p>
+<ul>
+<li>
+<p>Database Distributions: Percona offers enhanced, enterprise-ready versions of popular open source databases, such as MySQL, MongoDB, and PostgreSQL</p>
+</li>
+<li>
+<p>Backup Solutions: They provide tools for backing up your databases.</p>
+</li>
+<li>
+<p>Clustering Solutions: Percona offers solutions for setting up and managing database clusters.</p>
+</li>
+<li>
+<p>Observability, Monitoring, and Management Solutions: Percona Monitoring and Management (PMM) is an open source platform for managing and monitoring MySQL, MongoDB, and PostgreSQL performance.</p>
+</li>
+<li>
+<p>Kubernetes Operators: Percona provides Kubernetes operators for automated provisioning and managing databases in Kubernetes.</p>
+</li>
+</ul>
+<p>These databases are supported across traditional deployments, cloud-based platforms, and hybrid IT environments. Percona’s solutions are designed for peak performance, security, scalability, and availability. They also offer support and services for these databases, ensuring they run faster and more reliably.</p>
+</details>
+<p>You are welcome to name any items to match your organization&rsquo;s standards or use your table structure and data. If you do, the results are different from the expected results. </p>
+<p>For this document, container refers to the Docker container and instance refers to the database server in the container.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p><a href="https://docs.docker.com/get-docker/">Install Docker</a> on your system.</p>
+<h2 id="steps-for-first-time-users">Steps for first-time users<a class="headerlink" href="#steps-for-first-time-users" title="Permanent link">&para;</a></h2>
+<p class="power-number">The following steps guide you through a key process for a developer:</p>
+<ol>
+<li>
+<p><a href="quickstart-docker.html">Start and connect to a Docker container</a></p>
+</li>
+<li>
+<p><a href="quickstart-database.html">Create a database and table</a></p>
+</li>
+<li>
+<p><a href="quickstart-queries.html">Run queries</a></p>
+</li>
+<li>
+<p><a href="quickstart-exit.html">Clean up</a></p>
+</li>
+<li>
+<p><a href="quickstart-next-steps.html">Choose your next steps</a></p>
+</li>
+</ol>
+<h2 id="next-step">Next step<a class="headerlink" href="#next-step" title="Permanent link">&para;</a></h2>
+<p><a class="md-button" href="quickstart-docker.html">Start and connect to a Docker container <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg></span></a></p>
+<div data-banner="data-banner">
+<h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
+<p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.
+<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=bb45684e-0d0d-4ad2-99df-afa2412fea40" /></p>
+<div class="actions">
+<p><a href="https://forums.percona.com/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 4v7H5.17L4 12.17V4h11m1-2H3a1 1 0 0 0-1 1v14l4-4h10a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1m5 4h-2v9H6v2a1 1 0 0 0 1 1h11l4 4V7a1 1 0 0 0-1-1Z"/></svg></span> Community Forum</a> <a href="https://www.percona.com/about/contact"><span class="twemoji"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19.3996 14.148C21.9082 12.5083 22.7289 9.16368 21.2109 6.53493C20.4502 5.21636 19.2207 4.27206 17.7497 3.87776C16.3868 3.51187 14.9634 3.6615 13.7106 4.29444L12 1.33337L8.44934 7.48295L0.242432 21.6959H23.7576L19.3996 14.148ZM17.3474 5.38416C18.4167 5.66894 19.3064 6.35548 19.8606 7.31143C20.9499 9.19582 20.384 11.5859 18.6176 12.7931L14.4917 5.64797C15.3806 5.22055 16.3831 5.12734 17.3474 5.38416ZM12 4.45432L21.0533 20.135H15.7562L9.35029 9.04341L11.9995 4.45478L12 4.45432ZM2.94667 20.135L8.44888 10.6071L13.9511 20.135H2.94667Z"/>
+</svg></span> Get a Percona Expert</a></p>
 </div>
 </div>
-
-                <!-- Last update of source file -->
-                
-                  
-                    <hr>
+<hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2023-11-27
+      2023-12-20
     
   </small>
 </div>
-                  
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81Z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14Z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
                 
               
+              Thank you for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Thank you for your feedback! Help us improve by following this <a href="https://docs.google.com/forms/d/1bkWACehjqlwA0AKf-qTJcXvYbOSYgze8iTPXjntqmNo/edit" target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
               </article>
             </div>
           
