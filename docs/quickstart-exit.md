@@ -25,9 +25,9 @@ The steps are as follows:
             Bye
             ```
 
-2. You may want to remove the docker container and the image if they are no longer needed or to free up disk space. To remove a docker container, use the command `docker rm` followed by `psmysql`, the container ID or name. To remove a docker image, use the command `docker rmi` followed by `percona/percona-server:8.0.34`, the image ID or name and the tag.
+2. You may want to remove the docker container and the image if they are no longer needed or to free up disk space. To remove a docker container, use the command `docker rm` followed by `psmysql`, the container ID or name. To remove a docker image, use the command `docker rmi` followed by `percona/percona-server:8.0.34`, the image ID or name and the tag. If you are running the ARM64 version of Percona Server, edit the Docker command to use the `8.0.34-26.1-aarch64` tag with `docker image rmi percona/percona-server:8.0.34-26.1-aarch64`
 
-    * An example of removing a Docker container and a Docker image.
+    * An example of removing a Docker container.
 
         ```{.bash data-prompt="$"}
         $ docker container rm psmysql -f
@@ -38,7 +38,7 @@ The steps are as follows:
             ```{.text .no-copy}
             psmysql
             ```
-
+    * An example of removing a Docker image. If running the ARM64 version of Percona Server, edit the Docker command to use the `8.0.34-26.1-aarch64` tag. This edit changes the command to `docker image rmi percona/percona-server:8.0.34-26.1-aarch64`
         ```
         $ docker image rmi percona/percona-server:8.0.34
         ```
@@ -57,7 +57,7 @@ The steps are as follows:
             Deleted: sha256:db9672f7e12e374d5e9016b758a29d5444e8b0fd1246a6f1fc5c2b3c847dddcf
             ```
 
-3. Remove the docker volume if a container does not use the volume, and you no longer need it.
+3. Remove the docker volume if a container does not use the volume and you no longer need it.
 
     * An example of removing a Docker volume.
   
