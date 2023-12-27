@@ -1,32 +1,64 @@
-# Quickstart guide for Percona Server for MySQL
+# Overview
 
-Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability and availability, enhanced backups, increased visibility, and instrumentation.
-Percona Server for MySQL is trusted by thousands of enterprises to provide better performance and concurrency for their most demanding workloads.
+Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. Percona Server for MySQL provides enterprise-grade features in security, availability, data management, visibility, instrumentation, and performance. To start with Percona Server for MySQL quickly, we recommend using Docker, and this Quickstart guide focuses on this installation method. You can explore alternative installation options in the [Install] section.
 
-## Install Percona Server for MySQL
+Docker lets developers build, deploy, run, update, and manage containers, which isolate applications from the host system. Docker containers are made from Docker images, which are snapshots of the configuration needed to run an application, such as the code and libraries.
 
-You can install Percona Server for MySQL using different methods. 
+## Purpose of the Quickstart
 
-* [Use the Percona Repositories](installation.md)
-* [Use APT](apt-repo.md)
-* [Use YUM](yum-repo.md)
-* [Use binary tarballs](binary-tarball-install.md)
-* [Use Docker](docker.md)
+This document is an introduction to our Percona Server for MySQL server and guides you through the basic steps to create and run a database using a Docker container. These steps describe one way to use Percona Server for MySQL. You can also do the following:
 
-## For backups and restores
+* [Download and install Percona Server for MySQL packages for your operating system](installation.md)
 
-Percona XtraBackup (PXB) is a 100% open source backup solution for all versions of Percona Server for MySQL and MySQL® that performs online non-blocking, tightly compressed, highly secure full backups on transactional systems. Maintain fully available applications during planned maintenance windows with Percona XtraBackup.
+* Work with [the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Helm] or [the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Minikube] to find out more about the Percona Operator.
 
-[Install Percona XtraBackup](https://docs.percona.com/percona-xtrabackup/innovation-release/installation.html)
+??? information "Percona solutions"
 
-## For Monitoring and Management
+    Percona provides a range of solutions and services for open source databases. Some of the critical solutions offered are the following:
 
-Percona Monitoring and Management (PMM )monitors and provides actionable performance data for MySQL variants, including Percona Server for MySQL, Percona XtraDB Cluster, Oracle MySQL Community Edition, Oracle MySQL Enterprise Edition, and MariaDB. PMM captures metrics and data for the InnoDB, XtraDB, and MyRocks storage engines, and has specialized dashboards for specific engine details.
+    * Database Distributions: Percona offers enhanced, enterprise-ready versions of popular open source databases, such as MySQL, MongoDB, and PostgreSQL
+  
+    * Backup Solutions: They provide tools for backing up your databases.
 
-[Install PMM and connect your MySQL instances to it](https://docs.percona.com/percona-monitoring-and-management/get-started/index.html).
+    * Clustering Solutions: Percona offers solutions for setting up and managing database clusters.
 
-## For high availability
+    * Observability, Monitoring, and Management Solutions: Percona Monitoring and Management (PMM) is an open source platform for managing and monitoring MySQL, MongoDB, and PostgreSQL performance.
 
-Percona XtraDB Cluster (PXC) is a 100% open source, enterprise-grade, highly available clustering solution for MySQL multi-master setups based on Galera. PXC helps enterprises minimize unexpected downtime and data loss, reduce costs, and improve performance and scalability of your database environments supporting your critical business applications in the most demanding public, private, and hybrid cloud environments.
+    * Kubernetes Operators: Percona provides Kubernetes operators for automated provisioning and managing databases in Kubernetes.
 
-[Percona XtraDB Cluster Quick start guide](https://docs.percona.com/percona-xtradb-cluster/8.0/overview.html)
+    These databases are supported across traditional deployments, cloud-based platforms, and hybrid IT environments. Percona’s solutions are designed for peak performance, security, scalability, and availability. They also offer support and services for these databases, ensuring they run faster and more reliably.
+
+You are welcome to name any items to match your organization's standards or use your table structure and data. If you do, the results are different from the expected results. 
+
+For this document, container refers to the Docker container, and instance refers to the database server in the container.
+
+## Prerequisites
+
+[Install Docker](https://docs.docker.com/get-docker/) on your system.
+
+## Steps for first-time users
+
+The following steps guide you through a key process for a developer:
+{.power-number}
+
+1. [Start and connect to a Docker container](quickstart-docker.md)
+
+2. [Create a database and table](quickstart-database.md)
+
+3. [Run queries](quickstart-queries.md)
+
+4. [Clean up](quickstart-exit.md)
+
+5. [Choose your next steps](quickstart-next-steps.md)
+
+## Next step
+
+[Start and connect to a Docker container :material-arrow-right:](quickstart-docker.md){.md-button}
+
+
+[the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Helm]: https://docs.percona.com/percona-operator-for-mysql/ps/helm.html
+
+[the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Minikube]: https://docs.percona.com/percona-operator-for-mysql/ps/minikube.html
+
+[Install]: installation.md
+
