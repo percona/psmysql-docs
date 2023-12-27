@@ -43,7 +43,7 @@ The following steps create a database and create and populate a table.
      * Create a table example.
 
         ```{.bash data-prompt="mysql>"}
-        CREATE TABLE `employees` (
+        mysql> CREATE TABLE `employees` (
           `id` mediumint(8) unsigned NOT NULL auto_increment,
           `name` varchar(255) default NULL,
           `email` varchar(255) default NULL,
@@ -63,7 +63,7 @@ The following steps create a database and create and populate a table.
     * INSERT records into the table example.
 
         ```{.bash data-prompt="mysql>"}
-        INSERT INTO `employees` (`name`,`email`,`country`)
+        mysql> INSERT INTO `employees` (`name`,`email`,`country`)
         VALUES
           ("Erasmus Richardson","posuere.cubilia.curae@outlook.net","England"),
           ("Jenna French","rhoncus.donec@hotmail.couk","Canada"),
