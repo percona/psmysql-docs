@@ -17,10 +17,10 @@ The following steps run a SELECT query, an UPDATE query, an INSERT INTO query, a
             +----+-------------------+---------------------+---------+
             | id | name              | email               | country |
             +----+-------------------+---------------------+---------+
-            |  5 | Michal Brzezinski | magnus@iclound.pl   | Poland  |
+            |  5 | Michal Brzezinski | magna@icloud.pl     | Poland  |
             |  6 | Zofia Lis         | zofial00@hotmail.pl | Poland  |
             +----+-------------------+---------------------+---------+
-            2 rows in set (0.01 sec)
+            2 rows in set (0.00 sec)
             ```
 
 2. UPDATE queries modify existing data in a table. They are used to change or correct the information stored in the database. UPDATE queries can update one or more columns and rows simultaneously, depending on the specified conditions. They may also fail if they violate any constraints or rules defined on the table.
@@ -39,19 +39,18 @@ The following steps run a SELECT query, an UPDATE query, an INSERT INTO query, a
             ```
 
         ```{.bash data-prompt="mysql>"}
-        mysql> SELECT id, name, email, country FROM employees WHERE country = 'Poland';
+        mysql> SELECT name FROM employees WHERE id = 6;
         ```
 
         ??? example "Expected output"
 
             ```{.text .no-copy}
-            +----+-------------------+---------------------+---------+
-            | id | name              | email               | country |
-            +----+-------------------+---------------------+---------+
-            |  5 | Michal Brzezinski | magnus@iclound.pl   | Poland  |
-            |  6 | Zofia Niemec      | zofial00@hotmail.pl | Poland  |
-            +----+-------------------+---------------------+---------+
-            2 rows in set (0.00 sec)
+            +--------------+
+            | name         |
+            +--------------+
+            | Zofia Niemec |
+            +--------------+
+            1 row in set (0.00 sec)
             ```
 
 3. INSERT queries add new data to a table. They are used to populate the database with new information. INSERT queries can insert one or more rows at a time, depending on the syntax. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.
@@ -59,7 +58,7 @@ The following steps run a SELECT query, an UPDATE query, an INSERT INTO query, a
     * Insert a row into a table and then run a [SELECT](#select-query) with a WHERE clause to verify the record was inserted.
 
         ```{.bash data-prompt="mysql>"}
-        INSERT INTO `employees` (`name`,`email`,`country`)
+        mysql> INSERT INTO `employees` (`name`,`email`,`country`)
         VALUES
         ("Kenzo Sasaki","KenSasaki@outlook.com","Japan");
         ```
@@ -100,7 +99,7 @@ The following steps run a SELECT query, an UPDATE query, an INSERT INTO query, a
             ```
 
         ```{.bash data-prompt="mysql>"}
-        mysql> SELECT id, name, email, country FROM employees WHERE id = 11;
+        mysql> SELECT id, name, email, country FROM employees WHERE id > 10;
         ```
 
         ??? example "Expected output"
