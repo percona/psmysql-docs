@@ -6504,10 +6504,10 @@
 <div class="no-copy highlight"><pre><span></span><code>+----+-------------------+---------------------+---------+
 | id | name              | email               | country |
 +----+-------------------+---------------------+---------+
-|  5 | Michal Brzezinski | magnus@iclound.pl   | Poland  |
+|  5 | Michal Brzezinski | magna@icloud.pl     | Poland  |
 |  6 | Zofia Lis         | zofial00@hotmail.pl | Poland  |
 +----+-------------------+---------------------+---------+
-2 rows in set (0.01 sec)
+2 rows in set (0.00 sec)
 </code></pre></div>
 </details>
 </li>
@@ -6526,17 +6526,16 @@
 Rows matched: 1  Changed: 1  Warnings: 0
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>id,<span class="w"> </span>name,<span class="w"> </span>email,<span class="w"> </span>country<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Poland&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>name<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----+-------------------+---------------------+---------+
-| id | name              | email               | country |
-+----+-------------------+---------------------+---------+
-|  5 | Michal Brzezinski | magnus@iclound.pl   | Poland  |
-|  6 | Zofia Niemec      | zofial00@hotmail.pl | Poland  |
-+----+-------------------+---------------------+---------+
-2 rows in set (0.00 sec)
+<div class="no-copy highlight"><pre><span></span><code>+--------------+
+| name         |
++--------------+
+| Zofia Niemec |
++--------------+
+1 row in set (0.00 sec)
 </code></pre></div>
 </details>
 </li>
@@ -6547,7 +6546,7 @@ Rows matched: 1  Changed: 1  Warnings: 0
 <ul>
 <li>
 <p>Insert a row into a table and then run a <a href="#select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
 VALUES
 <span class="o">(</span><span class="s2">&quot;Kenzo Sasaki&quot;</span>,<span class="s2">&quot;KenSasaki@outlook.com&quot;</span>,<span class="s2">&quot;Japan&quot;</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
@@ -6583,7 +6582,7 @@ VALUES
 <div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>id,<span class="w"> </span>name,<span class="w"> </span>email,<span class="w"> </span>country<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>id,<span class="w"> </span>name,<span class="w"> </span>email,<span class="w"> </span>country<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span>id<span class="w"> </span>&gt;<span class="w"> </span><span class="m">10</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -6611,7 +6610,7 @@ VALUES
   <small>
     
       Last update:
-      2023-12-20
+      2023-12-26
     
   </small>
 </div>
