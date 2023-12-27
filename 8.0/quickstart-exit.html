@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -6520,16 +6520,17 @@
 </ul>
 </li>
 <li>
-<p>You may want to remove the docker container and the image if they are no longer needed or to free up disk space. To remove a docker container, use the command <code>docker rm</code> followed by <code>psmysql</code>, the container ID or name. To remove a docker image, use the command <code>docker rmi</code> followed by <code>percona/percona-server:8.0.34</code>, the image ID or name and the tag.</p>
+<p>You may want to remove the docker container and the image if they are no longer needed or to free up disk space. To remove a docker container, use the command <code>docker rm</code> followed by <code>psmysql</code>, the container ID or name. To remove a docker image, use the command <code>docker rmi</code> followed by <code>percona/percona-server:8.0.34</code>, the image ID or name and the tag. If you are running the ARM64 version of Percona Server, edit the Docker command to use the <code>8.0.34-26.1-aarch64</code> tag with <code>docker image rmi percona/percona-server:8.0.34-26.1-aarch64</code></p>
 <ul>
 <li>
-<p>An example of removing a Docker container and a Docker image.</p>
+<p>An example of removing a Docker container.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>container<span class="w"> </span>rm<span class="w"> </span>psmysql<span class="w"> </span>-f
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>psmysql
+<p><div class="no-copy highlight"><pre><span></span><code>psmysql
 </code></pre></div>
+* An example of removing a Docker image. If running the ARM64 version of Percona Server, edit the Docker command to use the <code>8.0.34-26.1-aarch64</code> tag. This edit changes the command to <code>docker image rmi percona/percona-server:8.0.34-26.1-aarch64</code></p>
 </details>
 <div class="highlight"><pre><span></span><code>$ docker image rmi percona/percona-server:8.0.34
 </code></pre></div>
@@ -6550,7 +6551,7 @@ Deleted: sha256:db9672f7e12e374d5e9016b758a29d5444e8b0fd1246a6f1fc5c2b3c847dddcf
 </ul>
 </li>
 <li>
-<p>Remove the docker volume if a container does not use the volume, and you no longer need it.</p>
+<p>Remove the docker volume if a container does not use the volume and you no longer need it.</p>
 <ul>
 <li>
 <p>An example of removing a Docker volume.</p>
@@ -6582,7 +6583,7 @@ Deleted: sha256:db9672f7e12e374d5e9016b758a29d5444e8b0fd1246a6f1fc5c2b3c847dddcf
   <small>
     
       Last update:
-      2023-12-20
+      2023-12-26
     
   </small>
 </div>
