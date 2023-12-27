@@ -6529,7 +6529,7 @@
 </tr>
 <tr>
 <td><code>-e</code></td>
-<td>Adds an environmental variable. This example adds the  <code>MYSQL_ROOT_PASSWORD</code>  environment variable. The instance refuses to initialize if no environmental variable is added. Choose a more secure password, if needed.</td>
+<td>Adds an environmental variable. This example adds the  <code>MYSQL_ROOT_PASSWORD</code>  environment variable. The instance refuses to initialize if no environmental variable is added. Choose a more secure password if needed.</td>
 </tr>
 <tr>
 <td><code>--volume</code></td>
@@ -6542,16 +6542,16 @@
 </tbody>
 </table>
 <p>You must provide at least one environment variable to access the database, such as <code>MYSQL_ROOT_PASSWORD</code>, <code>MYSQL_DATABASE</code>, <code>MYSQL_USER</code>, and <code>MYSQL_PASSWORD</code> or the instance refuses to initialize.</p>
-<p>For this document, we are using the <code>8.0.34</code> tag. In Docker, a tag is a label assigned to an image. Tags are used to maintain different versions of an image. If we did not add a tag, Docker uses <code>latest</code> as the default tag and downloads the latest image from <a href="https://hub.docker.com/r/percona/percona-server">percona/percona-server on the Docker Hub</a>.</p>
+<p>For this document, we are using the <code>8.0.34</code> tag. In Docker, a tag is a label assigned to an image and is used to maintain different versions of an image. If we did not add a tag, Docker uses <code>latest</code> as the default tag and downloads the latest image from <a href="https://hub.docker.com/r/percona/percona-server">percona/percona-server on the Docker Hub</a>. If you want to run the ARM64 version of Percona Server, use the <code>8.0.34-26.1-aarch64</code> tag.</p>
 <details class="information">
 <summary>Benefits of using Docker run</summary>
-<p>The &ldquo;Docker run&rdquo; command automatically pulls the image from a registry if that image is not available locally and starts a container. A container is an isolated environment that runs an application on the host operating system. An image is a template that contains the application code and its dependencies. You can use the &ldquo;Docker run&rdquo; command to run an application in a container without affecting the host system or other containers.</p>
+<p>The &ldquo;Docker run&rdquo; command automatically pulls the image from a registry if that image is not available locally and starts a Docker container. A container is an isolated environment that runs an application on the host operating system. An image is a template that contains the application code and its dependencies. You can use the &ldquo;Docker run&rdquo; command to run an application in a container without affecting the host system or other containers.</p>
 <p>The benefits of using the &ldquo;Docker run&rdquo; command are:</p>
 <ul>
 <li>Allows you to run applications consistently and safely across different platforms and environments.</li>
 <li>Reduces the overhead and complexity of installing and configuring applications and their dependencies on the host system.</li>
 <li>Improves the security and isolation of applications by limiting their access to the host resources and other containers.</li>
-<li>Enables faster development and deployment cycles by allowing you to create, update, and destroy containers easily.</li>
+<li>Enables faster development and deployment cycles by allowing you to easily create, update, and destroy containers.</li>
 </ul>
 </details>
 <p>To use a Docker volume for persistent storage with a database, specify the path where the database stores its data inside the container, usually <code>/var/lib/mysql</code>.</p>
@@ -6661,7 +6661,7 @@ mysql&gt;
   <small>
     
       Last update:
-      2023-12-20
+      2023-12-26
     
   </small>
 </div>
