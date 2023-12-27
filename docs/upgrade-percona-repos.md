@@ -40,7 +40,7 @@ If you used the TokuDB storage engine in Percona Server for MySQL 5.7, we recomm
 
     5. Install the storage engine packages.
 
-        [Percona Server for MySQL 8.0.28-19](release-notes/Percona-Server-8.0.28-19.md#id3) removes TokuDB. For more information, see [TokuDB Introduction](tokudb/tokudb_intro.md). 
+        [Percona Server for MySQL 8.0.28-19](release-notes/Percona-Server-8.0.28-19.md#id3) removes TokuDB. For more information, see [TokuDB Introduction](tokudb-intro.md). 
         
         If you used the TokuDB storage engine in Percona Server for MySQL 5.7, we recommend that you migrate to either MyRocks or InnoDB, verify the migration, and then upgrade to 8.0.
 
@@ -126,7 +126,7 @@ If you used the TokuDB storage engine in Percona Server for MySQL 5.7, we recomm
          ```
 
     6. Install the storage engine packages.
-        [Percona Server for MySQL 8.0.28-19](release-notes/Percona-Server-8.0.28-19.md#id3) removes TokuDB. For more information, see [TokuDB Introduction](tokudb/tokudb_intro.md).
+        [Percona Server for MySQL 8.0.28-19](release-notes/Percona-Server-8.0.28-19.md#id3) removes TokuDB. For more information, see [TokuDB Introduction](tokudb-intro.md).
         
         If you used the TokuDB storage engine in Percona Server for MySQL 5.7, we recommend that you migrate to either MyRocks or InnoDB, verify the migration, and then upgrade to 8.0.
 
