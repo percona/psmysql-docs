@@ -22,7 +22,7 @@ After creating a database and running queries, you have taken the first steps to
 
 These tasks will expand your knowledge and skills in using Percona Server for MySQL and become more confident and proficient in developing database applications.
 
-Review the [Percona Server for MySQL documentation] for more information.
+Review the [Percona Server for MySQL documentation](index.md) for more information. 
 
 ## Other Percona products
 
@@ -49,5 +49,3 @@ Percona XtraDB Cluster (PXC) is a 100% open source, enterprise-grade, highly ava
 Percona Toolkit is a collection of advanced command-line tools used by the Percona support staff to perform a variety of MySQL, MongoDB, and system tasks that are complex or difficult to perform manually. These tools are ideal alternatives to “one-off” scripts because they are professionally developed, formally tested, and documented. Each tool is self-contained, so installation is quick and easy and does not install libraries.
 
 [Percona Toolkit documentation](https://docs.percona.com/percona-toolkit/)
-
-[Percona Server for MySQL documentation]:(index.md)

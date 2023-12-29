@@ -6,7 +6,7 @@ partitioned table for the *InnoDB* storage engine.
 If you use partitioned tables with the *MyRocks* or *TokuDB* storage engine, the
 upgrade may fail if you do not enable the native partitioning provided by the storage engine.
 
-*TokuDB* is deprecated. For more information, see [TokuDB Introduction](tokudb/tokudb_intro.md).
+*TokuDB* is deprecated. For more information, see [TokuDB Introduction](tokudb-intro.md).
 
 Before you attempt the upgrade, check whether you have any tables that are not using the native partitioning.
 
