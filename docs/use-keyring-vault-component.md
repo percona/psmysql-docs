@@ -9,7 +9,7 @@ The following example is a global manifest file that does not use local manifest
 ```json
 {
  "read_local_manifest": false,
- "components": "file:///component_keyring_vault"
+ "components": "file://component_keyring_vault"
 }
 ```
 
@@ -25,7 +25,7 @@ The following is an example of a local manifest file:
 
 ```json
 {
- "components": "file:///component_keyring_vault"
+ "components": "file://component_keyring_vault"
 }
 ```
 
@@ -33,7 +33,7 @@ The configuration settings are either in a global configuration file or a local 
 
 The `component_keyring_vault.cnf` file contains the following information:
 
-* `read_local_config [optional]` - this option can be used only in the global configuration file. If you use this option, it indicats whether the component should read configuration information from the local configuration file. The allowed values are `true` or `false`. If you do not use this option, the component uses only the global configuration file.
+* `read_local_config [optional]` - this option can be used only in the global configuration file. This option indicates whether the component should read configuration information from the local configuration file. The allowed values are `true` or `false`. If you do not use this option, the component uses only the global configuration file.
 
     If you use the `read_local_config` option in the global configuration file along with other items, the component checks the `read_local_config` item value first:
 
@@ -68,7 +68,7 @@ The `component_keyring_vault.cnf` file contains the following information:
 
 !!! warning
 
-    Each `secret_mount_point` must be used by only one server. If multiple servers use the same `secret_mount_point`, the behavior is unpredictable.
+    Each `secret_mount_point` must be used by only one server. The behavior is unpredictable if multiple servers use the same `secret_mount_point`.
 
 The first time a key is fetched from a keyring, the `keyring_vault` communicates with the Vault server to retrieve the key type and data.
 
@@ -83,7 +83,7 @@ The `secret_mount_point_version` can be either a `1`, `2`, `AUTO`, or the `secre
 | AUTO | An autodetection mechanism probes and determines if the secrets engine version is `kv` or `kv-v2` and based on the outcome will either use the `secret_mount_point` as is, or split the `secret_mount_point` into two parts.|
 | Not listed| If the `secret_mount_point_version` is not listed in the configuration file, the behavior is the same as `AUTO`.|
 
-If you set the `secret_mount_point_version` to `2` but the path pointed by `secret_mount_point` is based on `KV Secrets Engine - Version 1 (kv)`, an error is reported and the component fails to initialize.
+If you set the `secret_mount_point_version` to `2` but the path pointed by `secret_mount_point` is based on `KV Secrets Engine - Version 1 (kv)`, an error is reported, and the component fails to initialize.
 
 If you set the `secret_mount_point_version` to `1` but the path pointed by `secret_mount_point` is based on `KV Secrets Engine - Version 2 (kv-v2)`, the component initialization succeeds but any MySQL keyring-related operations fail.
 
