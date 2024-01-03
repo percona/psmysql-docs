@@ -19,8 +19,7 @@ either by its ID, alias (the key can have any number of aliases), or ARN.
 ## Component installation
 
 You should only load the AWS KMS component with a manifest file. The server uses
-this manifest file and the
-component consults its configuration file during initialization.
+this manifest file, and the component consults its configuration file during initialization.
 
 For more information, see [Installing and Uninstalling Components](https://dev.mysql.com/doc/refman/8.0/en/component-loading.html)
 
@@ -34,9 +33,8 @@ To install a KMS component, do the following:
 
 A manifest file indicates which component to load. The server does not load the
 component if the manifest file associated with the component does not exist.
-During startup, the server reads the global manifest file from the installation
-directory. The global manifest file can contain the required information or
-point to a local manifest file located in the data directory. If you have
+The server reads the global manifest file from the installation directory during startup. The global manifest file can contain the required information or
+point to a local manifest file in the data directory. If you have
 multiple server instances that use different keyring components, use a local
 manifest file in each data directory to load the correct keyring component for that instance.
 
@@ -50,7 +48,7 @@ manifests:
 ```json
 {
  "read_local_manifest": false,
- "components": "file:///component_keyring_kmip"
+ "components": "file://component_keyring_kms"
 }
 ```
 
@@ -66,7 +64,7 @@ The following is an example of a local manifest file:
 
 ```json
 {
- "components": "file:///component_keyring_kmip"
+ "components": "file://component_keyring_kms"
 }
 ```
 
@@ -81,8 +79,7 @@ The KMS configuration file has the following options:
 
 * read_only - if true, the keyring cannot be modified.
 
-* kms_key - the identifier of an AWS KMS master key. This key must be created by
-the user before creating the manifest file. The identifier can be one of the
+* kms_key - the identifier of an AWS KMS master key. The user must create this key before creating the manifest file. The identifier can be one of the
 following:
 
     * UUID
@@ -93,7 +90,7 @@ following:
 
 For more information, see [Finding the key ID and key ARN](https://docs.aws.amazon.com/kms/latest/developerguide/find-cmk-id-arn.html).
 
-* region - the AWS where the KMS is stored. Any HTTP request connect to this region.
+* region - the AWS where the KMS is stored. Any HTTP request connects to this region.
 
 * auth_key - an AWS user authentication key. The user must have access to the KMS key.
 
