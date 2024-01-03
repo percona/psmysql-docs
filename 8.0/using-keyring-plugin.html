@@ -6736,10 +6736,10 @@ and operating system location.
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If a server starts with different plugins loaded early, the <code>--early-plugin-load</code> option should contain the plugin names in a double-quoted list with each plugin name separated by a semicolon. The use of double quotes ensures the semicolons do not create issues when the list is executed in a script.</p>
 </div>
-<p>Apart from installing the plugin you also must set the
-keyring_vault_config variable to point to the keyring_vault
+<p>If a server starts with multiple plugins loaded early, the <code>--early-plugin-load</code> option should contain the plugin names in a double-quoted list, separating each plugin name by a semicolon. The double quotes ensure the semicolons do not create issues when executing the list in a script.</p>
+<p>After installing the plugin, you must also point the
+<code>keyring_vault_config</code> variable to the keyring_vault
 configuration file.</p>
 <p>The keyring_vault_config file has the following information:</p>
 <ul>
@@ -6804,7 +6804,7 @@ parameter is not listed in the configuration file.</p>
 </table>
 <p>If you set the <code>secret_mount_point_version</code> to <code>2</code> but the path pointed
 by <code>secret_mount_point</code> is based on <code>KV Secrets Engine - Version 1 (kv)</code>,
-an error is reported and the plugin fails to initialize.</p>
+an error is reported, and the plugin fails to initialize.</p>
 <p>If you set the <code>secret_mount_point_version</code> to <code>1</code> but the path pointed
 by <code>secret_mount_point</code> is based on <code>KV Secrets Engine -
 Version 2 (kv-v2)</code>, the plugin initialization succeeds but any MySQL
@@ -6821,7 +6821,7 @@ information is probed and the secrets engine version is determined to <code>1</c
 Use either of the following methods:</p>
 <ul>
 <li>
-<p>Set the <code>secret_mount_point_version</code> to <code>AUTO</code> or the variable is not set in the <code>keyring_vault</code> plugin configuration files in all Percona Servers. The <code>AUTO</code> value ensures the autodetection mechanism is invoked during the plugin initialization.</p>
+<p>Set the <code>secret_mount_point_version</code> to <code>AUTO</code> or the variable is not set in the <code>keyring_vault</code> plugin configuration files in all Percona Servers. The <code>AUTO</code> value ensures that the autodetection mechanism is invoked during the plugin&rsquo;s initialization.</p>
 </li>
 <li>
 <p>Set the <code>secret_mount_point_version</code> to <code>2</code> to ensure that plugins do not initialize unless the <code>kv</code> to <code>kv-v2</code> upgrade completes.</p>
@@ -6834,25 +6834,16 @@ Use either of the following methods:</p>
 <h2 id="kv-secret-engine-considerations-for-upgrading-from-57-to-80">KV Secret Engine considerations for upgrading from 5.7 to 8.0<a class="headerlink" href="#kv-secret-engine-considerations-for-upgrading-from-57-to-80" title="Permanent link">&para;</a></h2>
 <p>When you upgrade from <em>Percona Server for MySQL</em> 5.7.32 or older, you can only use
 <code>KV Secrets Engine 1 (kv)</code>. You can upgrade to any version of
-<em>Percona Server for MySQL</em> 8.0. Both the old <code>keyring_vault</code> plugin and new
-<code>keyring_vault</code> plugin work correctly with the existing Vault Server
-data under the existing <code>keyring_vault</code> plugin configuration file.</p>
-<p>If you upgrade from <em>Percona Server for MySQL</em> 5.7.33 or newer, you have the following options:</p>
-<ul>
-<li>
-<p>If you are using <code>KV Secrets Engine 1 (kv)</code> you can upgrade with any version of <em>Percona Server for MySQL</em> 8.0.</p>
-</li>
-<li>
-<p>If you are using <code>KV Secrets Engine 2 (kv-v2)</code> you can upgrade with <em>Percona Server for MySQL</em> 8.0.23 or newer. <em>Percona Server for MySQL</em> 8.0.23.14 is the first version of the 8.0 series which has the <code>keyring_vault</code> plugin that supports <code>kv-v2</code>.</p>
-</li>
-</ul>
-<p>A user-created key deletion is only possible with the use of the keyring_udf
-plugin and deletes the key from the in-memory hash map and the Vault server.
+<em>Percona Server for MySQL</em> 8.0. The old <code>keyring_vault`` plugin and new</code>keyring_vault<code>plugin work correctly with the existing Vault Server
+data under the existing</code>keyring_vault` plugin configuration file.</p>
+<p>If you upgrade from <em>Percona Server for MySQL</em> 5.7.33 or newer, you have the following options:
+If you are using <code>KV Secrets Engine 1 (kv)</code>, you can upgrade to any version of <em>Percona Server for MySQL</em> 8.0.
+If you use <code>KV Secrets</code> Engine 2 (kv-v2)<code>you can upgrade with *Percona Server for MySQL* 8.0.23 or newer. *Percona Server for MySQL* 8.0.23.14 is the first version of the 8.0 series which has the</code>keyring_vault<code>plugin that supports</code>kv-v2`.
+A user-created key deletion is only possible using the keyring_udf plugin, which deletes the key from the in-memory hash map and the Vault server.
 You cannot delete system keys, such as the master key.</p>
 <p>This plugin supports the SQL interface for keyring key management described in the <a href="https://dev.mysql.com/doc/refman/8.0/en/keyring-functions-general-purpose.html">General-Purpose Keyring Key-Management Functions</a>
-manual.</p>
-<p>The plugin library contains keyring user-defined functions which allow
-access to the internal keyring service functions. To enable the functions, you
+manual.
+The plugin library contains user-defined keyring functions allowing access to the internal keyring service functions. To enable the functions, you
 must enable the <code>keyring_udf</code> plugin:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>keyring_udf<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">&#39;keyring_udf.so&#39;</span><span class="p">;</span>
 </code></pre></div>
@@ -6938,7 +6929,7 @@ configuration file.</p>
 </table>
 <p>Set the duration in seconds for the Vault server connection timeout. The
 default value is <code>15</code>. The allowed range is from <code>0</code> to <code>86400</code>. The
-timeout can be also disabled to wait an infinite amount of time by setting
+timeout can also be disabled to wait an infinite amount of time by setting
 this variable to <code>0</code>.</p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
@@ -6955,7 +6946,7 @@ this variable to <code>0</code>.</p>
   <small>
     
       Last update:
-      2023-09-27
+      2024-01-03
     
   </small>
 </div>
@@ -7029,7 +7020,7 @@ this variable to <code>0</code>.</p>
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
     <div class="md-copyright__highlight">
- <a href='https://percona.com' target='_blank'>Percona LLC and/or its affiliates, </a> &copy; 2023
+ <a href='https://percona.com' target='_blank'>Percona LLC and/or its affiliates, </a> &copy; 2024
     </div>
   
     Made with

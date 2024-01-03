@@ -6554,8 +6554,7 @@ either by its ID, alias (the key can have any number of aliases), or ARN.</p>
 </ul>
 <h2 id="component-installation">Component installation<a class="headerlink" href="#component-installation" title="Permanent link">&para;</a></h2>
 <p>You should only load the AWS KMS component with a manifest file. The server uses
-this manifest file and the
-component consults its configuration file during initialization.</p>
+this manifest file, and the component consults its configuration file during initialization.</p>
 <p>For more information, see <a href="https://dev.mysql.com/doc/refman/8.0/en/component-loading.html">Installing and Uninstalling Components</a></p>
 <p>You should create a global manifest file named <code>mysqld.my</code> in the installation directory and, optionally, create a local manifest file, also named <code>mysqld.my</code> in a data directory.</p>
 <p>To install a KMS component, do the following:</p>
@@ -6569,9 +6568,8 @@ component consults its configuration file during initialization.</p>
 </ol>
 <p>A manifest file indicates which component to load. The server does not load the
 component if the manifest file associated with the component does not exist.
-During startup, the server reads the global manifest file from the installation
-directory. The global manifest file can contain the required information or
-point to a local manifest file located in the data directory. If you have
+The server reads the global manifest file from the installation directory during startup. The global manifest file can contain the required information or
+point to a local manifest file in the data directory. If you have
 multiple server instances that use different keyring components, use a local
 manifest file in each data directory to load the correct keyring component for that instance.</p>
 <div class="admonition note">
@@ -6582,7 +6580,7 @@ manifest file in each data directory to load the correct keyring component for t
 manifests:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w"> </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file:///component_keyring_kmip&quot;</span>
+<span class="w"> </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://component_keyring_kms&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The following is an example of a global manifest file that points to a local manifest file:</p>
@@ -6592,7 +6590,7 @@ manifests:</p>
 </code></pre></div>
 <p>The following is an example of a local manifest file:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w"> </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file:///component_keyring_kmip&quot;</span>
+<span class="w"> </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://component_keyring_kms&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The configuration settings are either in a global configuration file or a local
@@ -6609,8 +6607,7 @@ configuration file. The settings are the same.</p>
 <p>read_only - if true, the keyring cannot be modified.</p>
 </li>
 <li>
-<p>kms_key - the identifier of an AWS KMS master key. This key must be created by
-the user before creating the manifest file. The identifier can be one of the
+<p>kms_key - the identifier of an AWS KMS master key. The user must create this key before creating the manifest file. The identifier can be one of the
 following:</p>
 <ul>
 <li>
@@ -6628,7 +6625,7 @@ following:</p>
 <p>For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/find-cmk-id-arn.html">Finding the key ID and key ARN</a>.</p>
 <ul>
 <li>
-<p>region - the AWS where the KMS is stored. Any HTTP request connect to this region.</p>
+<p>region - the AWS where the KMS is stored. Any HTTP request connects to this region.</p>
 </li>
 <li>
 <p>auth_key - an AWS user authentication key. The user must have access to the KMS key.</p>
@@ -6667,7 +6664,7 @@ following:</p>
   <small>
     
       Last update:
-      2023-09-27
+      2024-01-03
     
   </small>
 </div>
@@ -6741,7 +6738,7 @@ following:</p>
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
     <div class="md-copyright__highlight">
- <a href='https://percona.com' target='_blank'>Percona LLC and/or its affiliates, </a> &copy; 2023
+ <a href='https://percona.com' target='_blank'>Percona LLC and/or its affiliates, </a> &copy; 2024
     </div>
   
     Made with
