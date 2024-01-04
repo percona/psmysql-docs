@@ -25,7 +25,7 @@ manifests:
 ```json
 {
  "read_local_manifest": false,
- "components": "file:///component_keyring_kmip"
+ "components": "file://component_keyring_kms"
 }
 ```
 
@@ -41,7 +41,7 @@ The following is an example of a local manifest file:
 
 ```json
 {
- "components": "file:///component_keyring_kmip"
+ "components": "file://component_keyring_kms"
 }
 ```
 
@@ -56,8 +56,7 @@ The KMS configuration file has the following options:
 
 * read_only - if true, the keyring cannot be modified.
 
-* kms_key - the identifier of an AWS KMS master key. This key must be created by
-the user before creating the manifest file. The identifier can be one of the
+* kms_key - the identifier of an AWS KMS master key. The user must create this key before creating the manifest file. The identifier can be one of the
 following:
 
     * UUID
