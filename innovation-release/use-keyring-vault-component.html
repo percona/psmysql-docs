@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -4855,7 +4855,7 @@
 <p>The following example is a global manifest file that does not use local manifests:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w"> </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file:///component_keyring_vault&quot;</span>
+<span class="w"> </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://component_keyring_vault&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The following is an example of a global manifest file that points to a local manifest file:</p>
@@ -4865,14 +4865,14 @@
 </code></pre></div>
 <p>The following is an example of a local manifest file:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w"> </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file:///component_keyring_vault&quot;</span>
+<span class="w"> </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://component_keyring_vault&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The configuration settings are either in a global configuration file or a local configuration file.</p>
 <p>The <code>component_keyring_vault.cnf</code> file contains the following information:</p>
 <ul>
 <li>
-<p><code>read_local_config [optional]</code> - this option can be used only in the global configuration file. If you use this option, it indicats whether the component should read configuration information from the local configuration file. The allowed values are <code>true</code> or <code>false</code>. If you do not use this option, the component uses only the global configuration file.</p>
+<p><code>read_local_config [optional]</code> - this option can be used only in the global configuration file. This option indicates whether the component should read configuration information from the local configuration file. The allowed values are <code>true</code> or <code>false</code>. If you do not use this option, the component uses only the global configuration file.</p>
 <p>If you use the <code>read_local_config</code> option in the global configuration file along with other items, the component checks the <code>read_local_config</code> item value first:</p>
 <p><code>false</code> - the component processes other items in the global configuration file and ignores the local configuration file.</p>
 <p><code>true</code> - the component ignores other items in the global configuration file and attempts to read the local configuration file.</p>
@@ -4910,7 +4910,7 @@
 </details>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Each <code>secret_mount_point</code> must be used by only one server. If multiple servers use the same <code>secret_mount_point</code>, the behavior is unpredictable.</p>
+<p>Each <code>secret_mount_point</code> must be used by only one server. The behavior is unpredictable if multiple servers use the same <code>secret_mount_point</code>.</p>
 </div>
 <p>The first time a key is fetched from a keyring, the <code>keyring_vault</code> communicates with the Vault server to retrieve the key type and data.</p>
 <h3 id="secret_mount_point_version-information">secret_mount_point_version information<a class="headerlink" href="#secret_mount_point_version-information" title="Permanent link">&para;</a></h3>
@@ -4941,7 +4941,7 @@
 </tr>
 </tbody>
 </table>
-<p>If you set the <code>secret_mount_point_version</code> to <code>2</code> but the path pointed by <code>secret_mount_point</code> is based on <code>KV Secrets Engine - Version 1 (kv)</code>, an error is reported and the component fails to initialize.</p>
+<p>If you set the <code>secret_mount_point_version</code> to <code>2</code> but the path pointed by <code>secret_mount_point</code> is based on <code>KV Secrets Engine - Version 1 (kv)</code>, an error is reported, and the component fails to initialize.</p>
 <p>If you set the <code>secret_mount_point_version</code> to <code>1</code> but the path pointed by <code>secret_mount_point</code> is based on <code>KV Secrets Engine - Version 2 (kv-v2)</code>, the component initialization succeeds but any MySQL keyring-related operations fail.</p>
 <h3 id="upgrade-from-vault-secrets-engine-version-1-to-version-2">Upgrade from Vault Secrets Engine Version 1 to Version 2<a class="headerlink" href="#upgrade-from-vault-secrets-engine-version-1-to-version-2" title="Permanent link">&para;</a></h3>
 <p>You can upgrade from the Vault Secrets Engine Version 1 to Version 2.</p>
@@ -4978,7 +4978,7 @@
   <small>
     
       Last update:
-      2023-10-19
+      2024-01-03
     
   </small>
 </div>
@@ -5052,7 +5052,7 @@
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
     <div class="md-copyright__highlight">
- <a href='https://percona.com' target='_blank'>Percona LLC and/or its affiliates, </a> &copy; 2023
+ <a href='https://percona.com' target='_blank'>Percona LLC and/or its affiliates, </a> &copy; 2024
     </div>
   
     Made with
