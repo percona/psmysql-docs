@@ -1,7 +1,6 @@
 # MyRocks server variables
 
-The MyRocks server variables expose configuration of the underlying RocksDB
-engine. There several ways to set these variables:
+The MyRocks server variables expose configuration of the underlying RocksDB engine. There several ways to set these variables:
 
 * For production deployments, you should have all variables defined in the configuration file.
 
@@ -30,6 +29,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_alter_table_comment_inplace`](#rocksdb_alter_table_comment_inplace)                            |
 | [`rocksdb_base_background_compactions`](#rocksdb_base_background_compactions)                            |
 | [`rocksdb_blind_delete_primary_key`](#rocksdb_blind_delete_primary_key)                                  |
+| [`rocksdb_block_cache_numshardbits`](#rocksdb_block_cache_numshardbits)                                  |
 | [`rocksdb_block_cache_size`](#rocksdb_block_cache_size)                                                  |
 | [`rocksdb_bulk_load_fail_if_not_bottommost_level`](#rocksdb_bulk_load_fail_if_not_bottommost_level)      |
 | [`rocksdb_bulk_load_partial_index`](#rocksdb_bulk_load_partial_index)                                    |
@@ -48,12 +48,14 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_cache_index_and_filter_with_high_priority`](#rocksdb_cache_index_and_filter_with_high_priority)|
 | [`rocksdb_cancel_manual_compactions`](#rocksdb_cancel_manual_compactions)                                |
 | [`rocksdb_charge_memory`](#rocksdb_charge_memory)                                                        |
+| [`rocksdb_check_iterate_bounds`](#rocksdb_check_iterate_bounds)                                          |
 | [`rocksdb_checksums_pct`](#rocksdb_checksums_pct)                                                        |
 | [`rocksdb_collect_sst_properties`](#rocksdb_collect_sst_properties)                                      |
 | [`rocksdb_column_default_value_as_expression`](#rocksdb_column_default_value_as_expression)              |
 | [`rocksdb_commit_in_the_middle`](#rocksdb_commit_in_the_middle)                                          |
 | [`rocksdb_commit_time_batch_for_recovery`](#rocksdb_commit_time_batch_for_recovery)                      |
 | [`rocksdb_compact_cf`](#rocksdb_compact_cf)                                                              |
+| [`rocksdb_compact_lzero_now`](#rocksdb_compact_lzero_now)                                                |
 | [`rocksdb_compaction_readahead_size`](#rocksdb_compaction_readahead_size)                                |
 | [`rocksdb_compaction_sequential_deletes`](#rocksdb_compaction_sequential_deletes)                        |
 | [`rocksdb_compaction_sequential_deletes_count_sd`](#rocksdb_compaction_sequential_deletes_count_sd)      |
@@ -95,6 +97,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_enable_write_thread_adaptive_yield`](#rocksdb_enable_write_thread_adaptive_yield)              |
 | [`rocksdb_error_if_exists`](#rocksdb_error_if_exists)                                                    |
 | [`rocksdb_error_on_suboptimal_collation`](#rocksdb_error_on_suboptimal_collation)                        |
+| [`rocksdb_file_checksums`](#rocksdb_file_checksums)                                                      |
 | [`rocksdb_flush_log_at_trx_commit`](#rocksdb_flush_log_at_trx_commit)                                    |
 | [`rocksdb_flush_memtable_on_analyze`](#rocksdb_flush_memtable_on_analyze)                                |
 | [`rocksdb_force_compute_memtable_stats`](#rocksdb_force_compute_memtable_stats)                          |
@@ -122,6 +125,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_max_background_jobs`](#rocksdb_max_background_jobs)                                            |
 | [`rocksdb_max_bottom_pri_background_compactions`](#rocksdb_max_bottom_pri_background_compactions)        |
 | [`rocksdb_max_compaction_history`](#rocksdb_max_compaction_history)                                      |
+| [`rocksdb_max_file_opening_threads`](#rocksdb_max_file_opening_threads)                                  |
 | [`rocksdb_max_latest_deadlocks`](#rocksdb_max_latest_deadlocks)                                          |
 | [`rocksdb_max_log_file_size`](#rocksdb_max_log_file_size)                                                |
 | [`rocksdb_max_manifest_file_size`](#rocksdb_max_manifest_file_size)                                      |
@@ -138,6 +142,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_no_create_column_family`](#rocksdb_no_create_column_family)                                    |
 | [`rocksdb_override_cf_options`](#rocksdb_override_cf_options)                                            |
 | [`rocksdb_paranoid_checks`](#rocksdb_paranoid_checks)                                                    |
+| [`rocksdb_partial_index_ignore_killed`](#rocksdb_partial_index_ignore_killed)                            |
 | [`rocksdb_partial_index_sort_max_mem`](#rocksdb_partial_index_sort_max_mem)                              |
 | [`rocksdb_pause_background_work`](#rocksdb_pause_background_work)                                        |
 | [`rocksdb_partial_index_blind_delete`](#rocksdb_partial_index_blind_delete)                              |
@@ -377,6 +382,24 @@ The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-not
 * Only a single table listed in the `DELETE` statement
 
 * The table has only a primary key with no secondary keys
+
+### `rocksdb_block_cache_numshardbits`
+
+| Option       | Description                        |
+|--------------|------------------------------------|
+| Command-line | --rocksdb-block-cache-numshardbits |
+| Dynamic      | No                                 |
+| Scope        | Global                             |
+| Data type    | Numeric                            |
+| Default      | -1                                 |
+
+This variable has been implemented in [Percona Server for MySQL 8.0.36-28](.//release-notes/8.0.36-28.md).
+
+This variable specifies the number of shards ,`numShardBits`, for the block cache in RocksDB. The cache is sharded into `2^numShardBits` shards by the key hash.
+
+The default value is `-1`. The `-1` value means that RocksDB automatically determines the number of shards for the block cache based on the cache capacity.
+
+The minimum value is `-1` and the maximum value is `8`.
 
 ### `rocksdb_block_cache_size`
 
@@ -661,6 +684,20 @@ Turns on RocksDB memory-charging related features (BlockBasedTableOptions::cache
 
 This variable is disabled (OFF) by default.
 
+### `rocksdb_check_iterate_bounds`
+
+| Option       | Description             |
+|--------------|-------------------------|
+| Command-line | --rocksdb-check-iterate-bounds |
+| Dynamic      | Yes                     |
+| Scope        | Global, Session         |
+| Data type    | Boolean                 |
+| Default      | ON                      |
+
+This variable has been implemented in [Percona Server for MySQL 8.0.36-28](.//release-notes/8.0.36-28.md).
+
+This variable enables checking the upper and lower bounds of the RocksDB iterator during iteration. The default value in `ON` which means this variable is enabled.
+
 ### `rocksdb_checksums_pct`
 
 | Option       | Description             |
@@ -754,6 +791,20 @@ not.
 
 Specifies the name of the column family to compact.
 
+### `rocksdb_compact_lzero_now`
+
+| Option       | Description          |
+|--------------|----------------------|
+| Command-line | --rocksdb-compact-lzero-now |
+| Dynamic      | Yes                  |
+| Scope        | Global               |
+| Data type    | Boolean              |
+| Default      | OFF                  |
+
+This variable has been implemented in [Percona Server for MySQL 8.0.36-28](.//release-notes/8.0.36-28.md).
+
+This variable acts as a trigger. Set the variable to `ON`, `rocksdb-compact-lzero-now=ON`, to immediately compact all the `Level 0` (L0) files. After all the `L0` files are compacted, the variable value automatically switches to `OFF`.
+
 ### `rocksdb_compaction_readahead_size`
 
 | Option       | Description                         |
@@ -783,12 +834,16 @@ Maximum allowed value is `18446744073709551615`.
 | Dynamic      | Yes                                     |
 | Scope        | Global                                  |
 | Data type    | Numeric                                 |
-| Default      | 0                                       |
+| Default      | 149999                                  |
 
-Specifies the threshold to trigger compaction on a file
-if it has more than this number of sequential delete markers.
-Default value is `0` meaning that compaction is not triggered
-regardless of the number of delete markers.
+!!! note
+
+    In version [Percona Server for MySQL 8.0.36-28](.//release-notes/8.0.36-28.md) and later, the default value is changed from `0` to `149999`.
+
+Specifies the threshold to trigger compaction on a file if it has more than this number of sequential delete markers.
+
+The default value is `149999`.
+
 Maximum allowed value is `2000000` (two million delete markers).
 
 !!! note
@@ -808,11 +863,15 @@ Maximum allowed value is `2000000` (two million delete markers).
 | Dynamic      | Yes                                              |
 | Scope        | Global                                           |
 | Data type    | Boolean                                          |
-| Default      | OFF                                              |
+| Default      | ON                                              |
 
-Specifies whether to count single deletes as delete markers
-recognized by rocksdb_compaction_sequential_deletes.
-Disabled by default.
+!!! note
+
+    In version [Percona Server for MySQL 8.0.36-28](.//release-notes/8.0.36-28.md) and later, the default value is changed from `OFF` to `ON`.
+
+Specifies whether to count single deletes as delete markers recognized by `rocksdb_compaction_sequential_deletes`.
+
+The default value is `ON` which means the variable is enabled.
 
 ### `rocksdb_compaction_sequential_deletes_file_size`
 
@@ -838,11 +897,14 @@ Allowed range is from `-1` to `9223372036854775807`.
 | Dynamic      | Yes                                            |
 | Scope        | Global                                         |
 | Data type    | Numeric                                        |
-| Default      | 0                                              |
+| Default      | 150000                                         |
 
-Specifies the size of the window for counting delete markers
-by rocksdb_compaction_sequential_deletes.
-Default value is `0`.
+!!! note
+
+    In version [Percona Server for MySQL 8.0.36-28](.//release-notes/8.0.36-28.md) and later, the default value is changed from `0` to `150000`.
+
+Specifies the size of the window for counting delete markers by `rocksdb_compaction_sequential_deletes`.
+Default value is `150000`.
 Allowed range is up to `2000000` (two million).
 
 ### `rocksdb_concurrent_prepare`
@@ -1128,8 +1190,11 @@ non-debug builds.
 
 The dafault value is:
 
-block_based_table_factory= {cache_index_and_filter_blocks=1;filter_policy=bloomfilter:10:false;whole_key_filtering=1};level_compaction_dynamic_level_bytes=true;optimize_filters_for_hits=true;compaction_pri=kMinOverlappingRatio;compression=kLZ4Compression;bottommost_compression=kLZ4Compression;Specifies the default column family options for MyRocks. On startup, the
-server applies this option to all existing column families. This option is
+```default
+block_based_table_factory= {cache_index_and_filter_blocks=1;filter_policy=bloomfilter:10:false;whole_key_filtering=1};level_compaction_dynamic_level_bytes=true;optimize_filters_for_hits=true;compaction_pri=kMinOverlappingRatio;compression=kLZ4Compression;bottommost_compression=kLZ4Compression;
+```
+
+Specifies the default column family options for MyRocks. On startup, the server applies this option to all existing column families. This option is
 read-only at runtime.
 
 ### `rocksdb_delayed_write_rate`
@@ -1268,7 +1333,7 @@ The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-not
 | Dynamic      | Yes                             |
 | Scope        | Global, Local                   |
 | Data type    | Boolean                         |
-| Default      | TRUE                            |
+| Default      | ON                            |
 
 The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Enables the rocksdb iterator upper bounds and lower bounds in read options.
 
@@ -1296,11 +1361,11 @@ If `enable_pipelined_write` is `ON`, a separate write thread is maintained for W
 | Dynamic      | Yes                                          |
 | Scope        | Global                                       |
 | Data type    | Boolean                                      |
-| Default      | TRUE                                         |
+| Default      | ON                                         |
 
 The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Enables the removal of dropped column families (cfs) from metadata if the cfs do not exist in the cf manager.
 
-The default value is `TRUE`.
+The default value is `ON`.
 
 ### `rocksdb_enable_ttl`
 
@@ -1390,6 +1455,20 @@ Specifies whether to report an error instead of a warning if an index is
 created on a char field where the table has a sub-optimal collation (case
 insensitive). Enabled by default.
 
+### `rocksdb_file_checksums`
+
+| Option       | Description                             |
+|--------------|-----------------------------------------|
+| Command-line | --rocksdb-file-checksums                |
+| Dynamic      | No                                      |
+| Scope        | Global                                  |
+| Data type    | Boolean                                 |
+| Default      | OFF                                     |
+
+This variable has been implemented in [Percona Server for MySQL 8.0.36-28](.//release-notes/8.0.36-28.md).
+
+This variable controls whether to write and check RocksDB file-level checksums. The default value is `OFF` which means the variable is disabled.
+
 ### `rocksdb_flush_log_at_trx_commit`
 
 | Option       | Description                       |
@@ -1471,8 +1550,7 @@ be used instead of computing it every time during the query plan analysis.
 | Data type    | Boolean                                      |
 | Default      | OFF                                          |
 
-Works similar to rocksdb_force_flush_memtable_now
-but also flushes all L0 files.
+Works similar to `rocksdb_force_flush_memtable_now` but also flushes all L0 files.
 
 ### `rocksdb_force_flush_memtable_now`
 
@@ -1484,7 +1562,11 @@ but also flushes all L0 files.
 | Data type    | Boolean                            |
 | Default      | OFF                                |
 
-Forces MyRocks to immediately flush all memtables out to data files.
+!!! note
+
+    In version [Percona Server for MySQL 8.0.36-28](.//release-notes/8.0.36-28.md) and later, the default value is changed from `ON` to `OFF`.
+
+This variable acts as a trigger. Set the variable to `ON`, `rocksdb_force_flush_memtable_now=ON`, to immediately flush all memtables. After all memtables are flushed, the variable value automatically switches to `OFF`.
 
 !!! warning
 
@@ -1593,15 +1675,15 @@ Enabled by default.
 | Dynamic      | Yes                    |
 | Scope        | Global                 |
 | Data type    | Boolean                |
-| Default      | TRUE                   |
+| Default      | ON                   |
 
-When enabled, this option allows index key prefixes longer than 767 bytes (up to
-3072 bytes). The values for rocksdb_large_prefix should be the same between
-source and replica.
+This variable is deprecated in `Percona Server for MySQL 8.0.36-28` and will be removed in a future release.
+
+When enabled, this option allows index key prefixes longer than 767 bytes (up to 3072 bytes). The values for `rocksdb_large_prefix` should be the same between source and replica.
 
 !!! note
 
-    In version [Percona Server for MySQL 8.0.16-7](release-notes/Percona-Server-8.0.16-7.md#id1) and later, the default value is changed to `TRUE`.
+    In version [Percona Server for MySQL 8.0.16-7](release-notes/Percona-Server-8.0.16-7.md#id1) and later, the default value is changed to `ON`.
 
 ### `rocksdb_keep_log_file_num`
 
@@ -1821,6 +1903,20 @@ The minimum value is `0` and the maximum value is `64`.
 The minimum value is `0` and the maximum value is `UINT64_MAX`.
 
 Tracks the history for at most `rockdb_mx_compaction_history` completed compactions. The history is in the INFORMATION_SCHEMA.ROCKSDB_COMPACTION_HISTORY table.
+
+### `rocksdb_max_file_opening_threads`
+
+| Option       | Description                                     |
+|--------------|-------------------------------------------------|
+| Command-line | --rocksdb-max-file-opening-threads              |
+| Dynamic      | No                                              |
+| Scope        | Global                                          |
+| Data type    | Numeric                                         |
+| Default      | 16                                              |
+
+This variable has been implemented in [Percona Server for MySQL 8.0.36-28](.//release-notes/8.0.36-28.md).
+
+This variable sets `DBOptions::max_file_opening_threads` for RocksDB. The default value is `16`. The minimum value is `1` and the maximum value is 2147483647 (`INT_MAX`).
 
 ### `rocksdb_max_latest_deadlocks`
 
@@ -2073,6 +2169,22 @@ Empty by default.
 Specifies whether MyRocks should re-read the data file
 as soon as it is created to verify correctness.
 Enabled by default.
+
+### `rocksdb_partial_index_ignore_killed`
+
+| Option       | Description               |
+|--------------|---------------------------|
+| Command-line | --rocksdb-partial-index-ignore-killed |
+| Dynamic      | Yes                       |
+| Scope        | Global                    |
+| Data type    | Boolean                   |
+| Default      | ON                        |
+
+This variable has been implemented in [Percona Server for MySQL 8.0.36-28](.//release-notes/8.0.36-28.md).
+
+If this variable is set to `ON`, the partial index materialization ignores the killed flag and continues materialization until completion. If queries are killed during materialization due to timeout, the work done so far is wasted, and the killed query will likely be retried later, hitting the same issue.
+
+The dafault value is `ON` which means this variable is enabled.
 
 ### `rocksdb_partial_index_sort_max_mem`
 
@@ -2621,10 +2733,10 @@ Allowed range is from `0` to `100`.
 | Dynamic      | Yes                                  |
 | Scope        | Global                               |
 | Data type    | Boolean                              |
-| Default      | FALSE                                |
+| Default      | OFF                                |
 
 The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Enables table-scan-based index calculations.
-The default value is `FALSE`.
+The default value is `OFF`.
 
 ### `rocksdb_tmpdir`
 
@@ -2912,7 +3024,7 @@ The following are the options:
 
 * `0`: if the last WAL entry is corrupted, truncate the entry and either start the server normally or refuse to start.
 
-* `1`: if a WAL entry is corrupted, the server fails to   start and does not recover from the crash.
+* `1`: if a WAL entry is corrupted, the server fails to start and does not recover from the crash.
 
 * `2` (default): if a corrupted WAL entry is detected, truncate all entries after the detected corrupted entry. You can select this setting for replication replicas.
 
