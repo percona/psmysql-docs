@@ -1,7 +1,5 @@
 # Percona Server for MySQL 8.0 - Documentation
 
-<! -- Home -->
-
 !!! note ""
 
     This documentation is for the latest release: Percona Server for MySQL {{release}} ([Release Notes](release-notes/{{release}}.md)).
