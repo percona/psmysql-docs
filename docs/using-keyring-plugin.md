@@ -1,14 +1,19 @@
-# Use the keyring component or keyring plugin
+# Use the keyring_plugin
 
-The `keyring_vault` plugin can store the encryption keys inside the [HashiCorp Vault](https://www.hashicorp.com/products/vault/data-protection).
+You can benefit from using the `keyring_plugin` or `keyring_component` in several ways. Some of the advantages are:
 
-!!! admonition "See also"
+- You can securely store sensitive information such as encryption keys, passwords, or credentials for later retrieval by internal server components and plugins.
 
-    [Hashicorp Documentation: Installing Vault](https://www.vaultproject.io/docs/install/index.html)
-    [Hashicorp Documentation: Production Hardening](https://learn.hashicorp.com/vault/operations/production-hardening)
+- You can choose from different keyring backends such as local files, [KMIP servers], [Amazon Web Services], or HashiCorp Vault.
+
+- You can use keyring functions to manage your keys, such as creating, reading, updating, or deleting them.
 
 
-*Percona Server for MySQL* may use either of the following plugins:
+
+
+## Install the plugin
+
+Percona Server for MySQL may use either of the following plugins:
 
 * keyring_file stores the keyring data locally
 
@@ -16,24 +21,19 @@ The `keyring_vault` plugin can store the encryption keys inside the [HashiCorp V
 
 !!! note
 
-    The `keyring_file` plugin should not be used for regulatory compliance.
+    Do not use the `keyring_file` plugin for regulatory compliance.
 
-To install the plugin, follow the [installing and uninstalling plugins](https://dev.mysql.com/doc/refman/8.0/en/plugin-loading.html) instructions.
+You can install the plugin using the [`INSTALL PLUGIN`] statement or add the plugin to the plugin-load option in the my.cnf file.
 
 ## Load the keyring plugin
 
-You should load the plugin at server startup with the `-early-plugin-load`
-option to enable keyrings.
+You should load the plugin at server startup to enable keyrings with the `-early-plugin-load` option. We recommend that you load the plugin in the configuration file to facilitate recovery for encrypted tables. Also, you cannot use the redo log encryption, and the undo log encryption without `--early-plugin-load`. The normal plugin load happens too late in startup. Change the keyring_vault extension, “.so,” and the vault configuration file location to match your operating system if needed.
+
+If a server starts with multiple plugins loaded early, the `--early-plugin-load` option should contain the plugin names in a double-quoted list, separating each plugin name by a semicolon. The double quotes ensure the semicolons do not create issues when executing the list in a script.
 
 !!! warning 
 
-    Only one keyring plugin should be enabled at a time. Enabling multiple keyring plugins is not supported and may result in data loss.
-
-We recommend that you load the plugin in the configuration file to facilitate recovery for encrypted tables. Also, the redo log encryption and the undo log encryption cannot be used without `--early-plugin-load`. The normal plugin load happens too late in startup.
-
-!!! note
-
-    The keyring_vault extension, “.so” and the file location for the vault configuration should be changed to match your operating system’s extension and the file location in your operating system.
+    Enable only one keyring plugin at a time. Enabling multiple keyring plugins is not supported and may result in data loss.
 
 To use the keyring_vault, you can add this option to your configuration file:
 
@@ -41,112 +41,15 @@ To use the keyring_vault, you can add this option to your configuration file:
 [mysqld]
 early-plugin-load="keyring_vault=keyring_vault.so"
 loose-keyring_vault_config="/home/mysql/keyring_vault.conf"
-
-The keyring_vault extension, ".so" and the file location for the vault
-configuration should be changed to match your operating system's extension
-and operating system location.
 ```
 
-You could also run the following command which loads the keyring_file plugin:
+You could also run the following command, which loads the keyring_file plugin:
 
 ```{.bash data-prompt="$"}
 $ mysqld --early-plugin-load="keyring_file=keyring_file.so"
 ```
 
-!!! note
 
-If a server starts with multiple plugins loaded early, the `--early-plugin-load` option should contain the plugin names in a double-quoted list, separating each plugin name by a semicolon. The double quotes ensure the semicolons do not create issues when executing the list in a script.
-
-After installing the plugin, you must also point the
-`keyring_vault_config` variable to the keyring_vault
-configuration file.
-
-The keyring_vault_config file has the following information:
-
-* `vault_url` - the Vault server address
-
-* `secret_mount_point` - the mount point name where the keyring_vault stores the keys.
-
-* `secret_mount_point_version` - the `KV Secrets Engine version (kv or kv-v2)` used. Implemented in *Percona Server for MySQL* 8.0.23-14.
-
-* `token` - a token generated by the Vault server
-
-* `vault_ca [optional]` - if the machine does not trust the Vault’s CA certificate, this variable points to the CA certificate used to sign the Vault’s certificates
-
-This is an example of a configuration file:
-
-```text
-vault_url = https://vault.public.com:8202
-secret_mount_point = secret
-secret_mount_point_version = AUTO
-token = 58a20c08-8001-fd5f-5192-7498a48eaf20
-vault_ca = /data/keyring_vault_confs/vault_ca.crt
-```
-
-!!! warning
-
-    Each `secret_mount_point` must be used by only one server. If multiple servers use the same secret_mount_point, the behavior is unpredictable.
-
-The first time a key is fetched from a keyring, the keyring_vault
-communicates with the Vault server to retrieve the key type and data.
-
-## secret_mount_point_version information
-
-Implemented in *Percona Server for MySQL* 8.0.23-14, the `secret_mount_point_version`
-can be either a `1`, `2`, `AUTO`, or the `secret_mount_point_version`
-parameter is not listed in the configuration file.
-
-| Value            | Description                                          |       
-|----------------- | ---------------------------------------------------- | 
-| 1                | Works with `KV Secrets Engine - Version 1 (kv)`. When forming key operation URLs, the `secret_mount_point` is always used without any transformations. For example, to return a key named `skey`, the URL is <vault_url>/v1/<secret_mount_point>/skey  |
-| 2                | Works with `KV Secrets Engine - Version 2 (kv)` The initialization logic splits the `secret_mount_point` parameter into two parts:<ul><li>The `mount_point_path` - the mount path under which the Vault Server secret was created</li><li>The `directory_path` - a virtual directory suffix that can be used to create virtual namespaces with the same real mount point</li></ul> For example, both the `mount_point_path` and the `directory_path` are needed to form key access URLs: <vault_url>/v1/<mount_point_path/data/<directory_path>/skey |
-| AUTO | An autodetection mechanism probes and determines if the secrets engine version is `kv` or `kv-v2` and based on the outcome will either use the `secret_mount_point` as is, or split the `secret_mount_point` into two parts.|
-| Not listed| If the `secret_mount_point_version` is not listed in the configuration file, the behavior is the same as `AUTO`.|
-
-If you set the `secret_mount_point_version` to `2` but the path pointed
-by `secret_mount_point` is based on `KV Secrets Engine - Version 1 (kv)`,
-an error is reported, and the plugin fails to initialize.
-
-If you set the `secret_mount_point_version` to `1` but the path pointed
-by `secret_mount_point` is based on `KV Secrets Engine -
-Version 2 (kv-v2)`, the plugin initialization succeeds but any MySQL
-keyring-related operations fail.
-
-## Upgrade from 8.0.22-13 or earlier to 8.0.23-14 or later
-
-The `keyring_vault` plugin configuration files created before
-*Percona Server for MySQL* 8.0.23-14 work only with `KV Secrets Engine -
-Version 1 (kv)` and do not have the `secret_mount_point_version`
-parameter. After the upgrade to 8.0.23-14 or later, the
-`secret_mount_point_version` is implicitly considered `AUTO` and the
-information is probed and the secrets engine version is determined to `1`.
-
-## Upgrade from Vault Secrets Engine Version 1 to Version 2
-
-You can upgrade from the Vault Secrets Engine Version 1 to Version 2.
-Use either of the following methods:
-
-* Set the `secret_mount_point_version` to `AUTO` or the variable is not set in the `keyring_vault` plugin configuration files in all Percona Servers. The `AUTO` value ensures that the autodetection mechanism is invoked during the plugin's initialization.
-
-* Set the `secret_mount_point_version` to `2` to ensure that plugins do not initialize unless the `kv` to `kv-v2` upgrade completes.
-
-!!! note
-
-    The `keyring_vault` plugin that works with `kv-v2` secret engines does not use the built-in key versioning capabilities. The keyring key versions are encoded into key names.
-
-## KV Secret Engine considerations for upgrading from 5.7 to 8.0
-
-When you upgrade from *Percona Server for MySQL* 5.7.32 or older, you can only use
-`KV Secrets Engine 1 (kv)`. You can upgrade to any version of
-*Percona Server for MySQL* 8.0. The old `keyring_vault`` plugin and new
-`keyring_vault` plugin work correctly with the existing Vault Server
-data under the existing `keyring_vault` plugin configuration file.
-
-If you upgrade from *Percona Server for MySQL* 5.7.33 or newer, you have the following options:
-If you are using `KV Secrets Engine 1 (kv)`, you can upgrade to any version of _Percona Server for MySQL_ 8.0.
-If you use `KV Secrets` Engine 2 (kv-v2)` you can upgrade with *Percona Server for MySQL* 8.0.23 or newer. *Percona Server for MySQL* 8.0.23.14 is the first version of the 8.0 series which has the `keyring_vault` plugin that supports `kv-v2`.
-A user-created key deletion is only possible using the keyring_udf plugin, which deletes the key from the in-memory hash map and the Vault server.
-You cannot delete system keys, such as the master key.
 
 This plugin supports the SQL interface for keyring key management described in the [General-Purpose Keyring Key-Management Functions](https://dev.mysql.com/doc/refman/8.0/en/keyring-functions-general-purpose.html)
 manual.
@@ -157,50 +60,14 @@ must enable the `keyring_udf` plugin:
 mysql> INSTALL PLUGIN keyring_udf SONAME 'keyring_udf.so';
 ```
 
-!!! note
+Deleting a user-created key is only possible using the `keyring_udf` plugin. This plugin deletes the key from the in-memory hash map and the Vault server.
+You cannot delete system keys, such as the master key.
 
-    The `keyring_udf` plugin must be installed. Using the user-defined functions without the `keyring_udf` plugin generates an error.
+You must install the `keyring_udf` plugin to use user-defined functions. Attempting to use these functions without the `keyring_udf` plugin generates an error.
 
-You must also create keyring encryption user-defined functions.
 
-## Use the keyring_file component
+## 
 
-See [keyring component installation](https://dev.mysql.com/doc/refman/8.0/en/keyring-component-installation.html) for information on installing the component.
-
-!!! warning
-
-    The `keyring_file` component should not be used for regulatory compliance. 
-
-!!! admonition "See also"
-
-    [MySQL Documentation: Using the keyring_file component](https://dev.mysql.com/doc/refman/8.0/en/keyring-file-component.html)
-
-## System variables
-
-### `keyring_vault_config`
-
-| Option       | Description            |
-|--------------|------------------------|
-| Command-line | --keyring-vault-config |
-| Scope        | Global                 |
-| Dynamic      | Yes                    |
-| Data type    | Text                   |
-| Default      |
-
-This variable defines the location of the keyring_vault_plugin
-configuration file.
-
-### `keyring_vault_timeout`
-
-| Option       | Description             |
-|--------------|-------------------------|
-| Command-line | --keyring-vault-timeout |
-| Scope        | Global                  |
-| Dynamic      | Yes                     |
-| Data type    | Numeric                 |
-| Default      | 15                      |
-
-Set the duration in seconds for the Vault server connection timeout. The
-default value is `15`. The allowed range is from `0` to `86400`. The
-timeout can also be disabled to wait an infinite amount of time by setting
-this variable to `0`.
+[KMIP servers]: using-kmip.md
+[Amazon Web Services]: using-amz-kms.md
+[`INSTALL PLUGIN`]: https://dev.mysql.com/doc/refman/8.0/en/plugin-loading.html
