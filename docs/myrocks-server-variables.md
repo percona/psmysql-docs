@@ -2444,8 +2444,6 @@ Default value is `0`. Allowed range is up to `4294967295`.
 Specifies whether to include checksums when writing index or table records.
 Disabled by default.
 
-<!--- Candidate for removal in 8.2--->
-
 ### `rocksdb_strict_collation_check`
 
 | Option       | Description                      |
@@ -2456,13 +2454,13 @@ Disabled by default.
 | Data type    | Boolean                          |
 | Default      | ON                               |
 
-This variable is considered **deprecated** in version 8.0.23-14.
+This variable is removed in [Percona Server for MySQL 8.2.0-1](8.2.0-1.md).
+
+This variable is considered **deprecated** in Percona Server for MySQL 8.0.23-14.
 
 Specifies whether to check and verify
 that table indexes have proper collation settings.
 Enabled by default.
-
-<!--- Candidate for removal in 8.2--->
 
 ### `rocksdb_strict_collation_exceptions`
 
@@ -2474,7 +2472,9 @@ Enabled by default.
 | Data type    | String                                |
 | Default      |                                       |
 
-This variable is considered **deprecated** in version 8.0.23-14.
+This variable is removed in [Percona Server for MySQL 8.2.0-1](8.2.0-1.md).
+
+This variable is considered **deprecated** in Percona Server for MySQL 8.0.23-14.
 
 Lists tables (as a regular expression) that should be excluded
 from verifying case-sensitive collation
