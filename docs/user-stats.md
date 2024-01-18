@@ -155,7 +155,7 @@ This table is similar in function to the `INDEX_STATISTICS` table.
 For example:
 
 ```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM INFORMATION_SCHEMA.TABLE_STATISTICS WHERE TABLE_NAME=``tables_priv``;
+mysql> SELECT * FROM INFORMATION_SCHEMA.TABLE_STATISTICS WHERE TABLE_NAME='tables_priv';
 ```
 
 ??? example "Expected output"
