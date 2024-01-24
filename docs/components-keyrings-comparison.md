@@ -1,4 +1,4 @@
-# Keyring components and keyring plugins
+# Compare keyring components and keyring plugins
 
 If you want to store encryption keys in Percona Server for MySQL securely, you have two options: keyring components and plugins. They are similar in functionality, but they have some differences that you should consider before choosing.
 
