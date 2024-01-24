@@ -24,11 +24,11 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.4">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.5">
     
     
       
-        <title>Keyring components and keyring plugins - Percona Server for MySQL</title>
+        <title>Compare keyring components and keyring plugins - Percona Server for MySQL</title>
       
     
     
@@ -87,7 +87,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Keyring components and keyring plugins" />
+                 <meta property="og:title" content="Percona Server for MySQL - Compare keyring components and keyring plugins" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.0/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png" />
 
@@ -110,7 +110,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#keyring-components-and-keyring-plugins" class="md-skip">
+        <a href="#compare-keyring-components-and-keyring-plugins" class="md-skip">
           Skip to content
         </a>
       
@@ -149,7 +149,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Keyring components and keyring plugins
+              Compare keyring components and keyring plugins
             
           </span>
         </div>
@@ -4198,6 +4198,45 @@
   
   
   
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_8_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10_8_2" id="__nav_10_8_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Keyring plugin and components
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_8_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            Keyring plugin and components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -4210,7 +4249,7 @@
           
   
   <span class="md-ellipsis">
-    Keyring components and keyring plugins
+    Compare keyring components and keyring plugins
   </span>
   
 
@@ -4221,7 +4260,7 @@
         
   
   <span class="md-ellipsis">
-    Keyring components and keyring plugins
+    Compare keyring components and keyring plugins
   </span>
   
 
@@ -4282,43 +4321,6 @@
   
 
               
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_8_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_10_8_4" id="__nav_10_8_4_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    Keyring plugin and components
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_8_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10_8_4">
-            <span class="md-nav__icon md-icon"></span>
-            Keyring plugin and components
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -6515,7 +6517,7 @@
   
 
 
-<h1 id="keyring-components-and-keyring-plugins">Keyring components and keyring plugins<a class="headerlink" href="#keyring-components-and-keyring-plugins" title="Permanent link">&para;</a></h1>
+<h1 id="compare-keyring-components-and-keyring-plugins">Compare keyring components and keyring plugins<a class="headerlink" href="#compare-keyring-components-and-keyring-plugins" title="Permanent link">&para;</a></h1>
 <p>If you want to store encryption keys in Percona Server for MySQL securely, you have two options: keyring components and plugins. They are similar in functionality, but they have some differences that you should consider before choosing.</p>
 <p>Keyring components are newer and more flexible than keyring plugins. You can load them using a manifest file, so you don&rsquo;t need the <code>--early-plugin-load</code> option. You can also configure the keyring components using their configuration files instead of system variables. Keyring components have fewer restrictions on the types and lengths of keys they can handle. For example, keyring components can support RSA keys, while keyring plugins cannot.</p>
 <p>However, keyring components also have some disadvantages. They are incompatible with features that rely on keyring plugins, such as InnoDB encryption threads or binary log encryption. They also require more steps to install and uninstall than keyring plugins. You must create and edit each component&rsquo;s manifest file, configuration file, and component directory.</p>
@@ -6537,7 +6539,7 @@
   <small>
     
       Last update:
-      2023-12-06
+      2024-01-24
     
   </small>
 </div>
@@ -6705,10 +6707,10 @@
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.c011b7c0.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.7389ff0e.min.js"></script>
+      <script src="assets/javascripts/bundle.c18c5fb9.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
