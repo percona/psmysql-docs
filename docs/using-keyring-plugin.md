@@ -79,7 +79,7 @@ This is an example of a configuration file:
 vault_url = https://vault.public.com:8202
 secret_mount_point = secret
 secret_mount_point_version = AUTO
-token = 58a20c08-8001-fd5f-5192-7498a48eaf20
+token = {randomly-generated-alphanumeric-string}
 vault_ca = /data/keyring_vault_confs/vault_ca.crt
 ```
 

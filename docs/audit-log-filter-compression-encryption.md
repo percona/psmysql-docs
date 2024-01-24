@@ -92,7 +92,7 @@ openssl enc -d -aes-256-cbc -pass pass:password
 
 To execute that command, you must obtain a password and iterations. To do this, use `audit_log_encryption_password_get()`. 
 
-This function gets the encryption password, and the iterations count and returns this data as a JSON-encoded string. For example, if the audit log file name is `audit.20190415T151322.log.20190414T223342-2.enc`, the password ID is `20190414T223342-2` and the keyring ID is `audit-log-20190414T223342-2`. 
+This function gets the encryption password, and the iterations count and returns this data as a JSON-encoded string. For example, if the audit log file name is `audit.20190415T151322.log.20190414T223342-2.enc`, the password ID is `{randomly-generated-alphanumeric-string}-2` and the keyring ID is `audit-log-20190414T223342-2`. 
 
 Get the keyring password:
 
@@ -104,5 +104,5 @@ The return value of this function may look like the following:
 
 ??? example "Expected output"
     ```text
-    {"password":"6i1Nx35CKMIaQaFzBrDzLpCq6gC","iterations":568977}
+    {"password":"{randomly-generated-alphanumeric-string}","iterations":568977}
     ```
