@@ -4926,14 +4926,14 @@
 <span class="w">    </span>-out<span class="w"> </span>audit.timestamp.log
 </code></pre></div>
 <p>To execute that command, you must obtain a password and iterations. To do this, use <code>audit_log_encryption_password_get()</code>. </p>
-<p>This function gets the encryption password, and the iterations count and returns this data as a JSON-encoded string. For example, if the audit log file name is <code>audit.20190415T151322.log.20190414T223342-2.enc</code>, the password ID is <code>20190414T223342-2</code> and the keyring ID is <code>audit-log-20190414T223342-2</code>. </p>
+<p>This function gets the encryption password, and the iterations count and returns this data as a JSON-encoded string. For example, if the audit log file name is <code>audit.20190415T151322.log.20190414T223342-2.enc</code>, the password ID is <code>{randomly-generated-alphanumeric-string}</code> and the keyring ID is <code>audit-log-20190414T223342-2</code>. </p>
 <p>Get the keyring password:</p>
 <div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_encryption_password_get</span><span class="p">(</span><span class="s1">&#39;audit-log-20190414T223342-2&#39;</span><span class="p">);</span>
 </code></pre></div>
 <p>The return value of this function may look like the following:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code>{&quot;password&quot;:&quot;6i1Nx35CKMIaQaFzBrDzLpCq6gC&quot;,&quot;iterations&quot;:568977}
+<div class="highlight"><pre><span></span><code>{&quot;password&quot;:&quot;{randomly-generated-alphanumeric-string}&quot;,&quot;iterations&quot;:568977}
 </code></pre></div>
 </details>
 <div data-banner="data-banner">
@@ -4951,7 +4951,7 @@
   <small>
     
       Last update:
-      2023-11-27
+      2024-01-24
     
   </small>
 </div>
