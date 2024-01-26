@@ -10,17 +10,21 @@ To prepare Percona Server for MySQL for FIPS certification, do the following:
 
 * Check that your operating system includes FIPS pre-approved OpenSSL library in version 3.0.x or higher. The following distributions includes FIPS pre-approved OpenSSL library in version 3.0.x or higher:
 
-    * RedHat Enterprise Linux 9
+    * RedHat Enterprise Linux 9 and derivatives
 
     * Oracle Linux 9
 
     The following distributions also includes OpenSSL library in version 3.0.x but do not have FIPS-approved crypto provider installed by default (you can build the crypto provider from the source for testing):
 
-    * Debian 12 `Bookworm`
+    * Debian 12
 
-    * Ubuntu 22.04 Pro `Jammy` (the OpenSSL FIPS 140-3 certification is under implementation)
+    * Ubuntu 22.04 Pro (the OpenSSL FIPS 140-3 certification is under implementation)
 
-* Deploy Percona Server for MySQL from the Pro build, which is built and tested on operating systems with FIPS pre-approved OpenSSL packages.
+        !!! note
+            
+            If you enable FIPS on Ubuntu Pro with `$ sudo pro enable fips-updates` and then disable FIPS with `$ sudo pro disable fips-updates`, Percona Server for MySQL may stop operating properly. For example, if you disable FIPS on Ubuntu Pro with `$ sudo pro disable fips-updates` and enable the FIPS mode on Percona Server with `ssl-fips-mode=ON`, Percona Server may not load the SSL certificate.
+
+* Deploy [Percona Server for MySQL from the Pro build](psmysql-pro.md), which is built and tested on operating systems with FIPS pre-approved OpenSSL packages.
 
 ## The FIPS mode variables
 
@@ -31,34 +35,44 @@ Percona Server for MySQL uses the same variables and values as MySQL. Percona Se
     The `ssl_fips_mode` system variable has these values:
 
     * `0` - disables FIPS mode
-    * `1` - enables FIPS mode
-    * `2` - enables `strict` FIPS mode. This value provides more restrictions than the  `1 ` value. However, MySQL itself does not have any FIPS-specific code other than to specify the FIPS mode value to OpenSSL. The exact behavior of FIPS mode for `1` or `2` depends on the OpenSSL version.
+    * `1` - enables FIPS mode. The exact behavior of the enabled FIPS mode depends on the OpenSSL version. The server only specifies the FIPS value to OpenSSL.
+    * `2` - enables `strict` FIPS mode. This value provides more restrictions than the `1 ` value. The exact behavior of the `strict` FIPS mode depends on the OpenSSL version. The server only specifies the FIPS value to OpenSSL.
 
-* The `--ssl-fips-mode` client/server option controls whether a given MySQL client operates in FIPS mode. This setting does not change the server setting. This option is disabled by default.
+* The `--ssl-fips-mode` client/server option controls whether a given client operates in FIPS mode. This setting does not change the server setting. This option is disabled by default.
 
     The `--ssl-fips-mode` client/server option has these values:
 
     * `OFF` - disables FIPS mode
-    * `ON` - enables FIPS mode
-    * `STRICT` - enables `strict` FIPS mode. This value provides more restrictions than the `ON` value. However, MySQL itself does not have any FIPS-specific code other than to specify the FIPS mode value to OpenSSL. The exact behavior of FIPS mode for `ON` or `STRICT` depends on the OpenSSL version.
+    * `ON` - enables FIPS mode. The exact behavior of the enabled FIPS mode depends on the OpenSSL version. The server only specifies the FIPS value to OpenSSL.
+    * `STRICT` - enables `strict` FIPS mode. This value provides more restrictions than the `ON` value. The exact behavior of the `strict` FIPS mode depends on the OpenSSL version. The server only specifies the FIPS value to OpenSSL.
      
-    The MySQL server operation in FIPS mode does not depend on which crypto module (regular or FIPS-approved) is set as the default in the OpenSSL configuration file. The server always respects the value of `--ssl-fips-mode` server command line option (`OFF`, `ON`, or `STRICT`). The `ssl_fips_mode` global system variable is read-only and cannot be changed at runtime.
+    The server operation in FIPS mode does not depend on which crypto module (regular or FIPS-approved) is set as the default in the OpenSSL configuration file. The server always respects the value of `--ssl-fips-mode` server command line option (`OFF`, `ON`, or `STRICT`). The `ssl_fips_mode` global system variable is read-only and cannot be changed at runtime.
   
-    ### Enable the FIPS mode
+### Enable the FIPS mode
 
-    To enable the FIPS mode, pass `--ssl-fips-mode=ON` to mysqld as a command line argument or add `ssl-fips-mode=ON` to the configuration file. Ignore the warning that the `--ssl-fips-mode` client/server option is deprecated.
+To enable the FIPS mode, pass `--ssl-fips-mode=ON` or `--ssl-fips-mode=STRICT` to mysqld as a command line argument or add `ssl-fips-mode=ON` or `--ssl-fips-mode=STRICT` to the configuration file. Ignore the warning that the `--ssl-fips-mode` client/server option is deprecated.
     
-    ## Check that FIPS mode is enabled
+## Check that FIPS mode is enabled
 
-    To ensure that the FIPS mode is enabled, do the following:
+To ensure that the FIPS mode is enabled, do the following:
 
-    * Pass `--log-error-verbosity=3` to mysqld as a command line argument or add `log-error-verbosity=3` to the configuration file.
+* Pass `--log-error-verbosity=3` to mysqld as a command line argument or add `log-error-verbosity=3` to the configuration file.
     
-    * Check that the error log contains the following message:
+* Check that the error log contains the following message:
 
-        ```{.text .no-copy}
-        A FIPS-approved version of the OpenSSL cryptographic library has been detected in the operating system with a properly configured FIPS module available for loading. Percona Server for MySQL will load this module and run in FIPS mode.
-        ```
+    ```{.text .no-copy}
+    A FIPS-approved version of the OpenSSL cryptographic library has been detected in the operating system with a properly configured FIPS module available for loading. Percona Server for MySQL will load this module and run in FIPS mode.
+    ```
+
+## Next steps
+
+[Install Percona Server for MySQL Pro :material-arrow-right:](install-pro.md){.md-button}
+
+If you already use Percona Server for MySQL, you can
+
+[Upgrade to Percona Server for MySQL Pro :material-arrow-right:](upgrade-pro.md){.md-button}
+
+
 
 
 

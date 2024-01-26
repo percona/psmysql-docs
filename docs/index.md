@@ -1,7 +1,5 @@
 # Percona Server for MySQL 8.0 - Documentation
 
-<! -- Home -->
-
 !!! note ""
 
     This documentation is for the latest release: Percona Server for MySQL {{release}} ([Release Notes](release-notes/{{release}}.md)).
@@ -9,6 +7,10 @@
 Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability, and availability, enhanced backups, increased visibility and instrumentation.
 
 Percona Server for MySQL is trusted by thousands of enterprises to provide better performance and concurrency for their most demanding workloads.
+
+Enjoy all the [benefits of Percona Server for MySQL Pro](psmysql-pro.md).
+
+You can use the [Quickstart Guide](quickstart-overview.md) to start using Percona Server for MySQL.
 
 ## For Monitoring and Management 
 

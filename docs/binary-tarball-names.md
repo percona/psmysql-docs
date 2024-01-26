@@ -10,7 +10,7 @@ $ ldd --version
     ```text
     ldd (Ubuntu GLIBC 2.35-0ubuntu3.1) 2.35
     Copyright (C) 2022 Free Software Foundation, Inc.
-    This is free software; see the source for copying conditions.  There is NO
+    This is free software; see the source for copying conditions. There is NO
     warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
     Written by Roland McGrath and Ulrich Drepper.
     ```
@@ -24,8 +24,8 @@ If the `glibc2` version from your operating system is not listed, then this Perc
 
     The following lists the platform and the associated full binary file name used by Percona Server for MySQL tar files from version 8.0.26-16 and later.
 
-    | Platform             | Percona Server for MySQL tarball name                    | glibc2 version |
-    |----------------------|--------------------------------------------------------------|---|
+    | Platform             | Percona Server for MySQL tarball name                        | glibc2 version |
+    |----------------------|--------------------------------------------------------------|-----------|
     | Ubuntu 22.04         | Percona-Server-8.0.30-22-Linux.x86_64.glibc2.35-zenfs.tar.gz | glibc2.35 |
     | Ubuntu 20.04         | Percona-Server-8.0.30-22-Linux.x86_64.glibc2.31.tar.gz       | glibc2.31 |
     | Ubuntu 18.04         | Percona-Server-8.0.30-22-Linux.x86_64.glibc2.27.tar.gz       | glibc2.27 |
@@ -38,10 +38,28 @@ If the `glibc2` version from your operating system is not listed, then this Perc
 
     | Type | Name | Description |
     |---|---|---|
-    | Full | Percona-Server-<version-number>-Linux.x86_64.<glibc2-version>.tar.gz | Contains all files available |
+    | Full    | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.tar.gz | Contains all files available |
     | Minimal | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.minimal.tar.gz | Contains binaries and libraries |
-    | Debug | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.debug.tar.gz | Contains the minimal build files and test files, and debug symbols |
-    | Zenfs | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;-zenfs.tar.gz | Contains the zenfs files and can be either a full or minimal installation |
+    | Debug   | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.debug.tar.gz | Contains the minimal build files and test files, and debug symbols   |
+    | Zenfs   | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;-zenfs.tar.gz | Contains the zenfs files and can be either a full or minimal installation |
+
+=== "Pro builds"
+
+    The following binary tarballs are available for Percona Server for MySQL Pro builds from version 8.0.35-27 and later.
+
+    | Platform             | Percona Server for MySQL Pro tarball name                          | glibc2 version |
+    |----------------------|--------------------------------------------------------------------|----------------|
+    | Ubuntu 22.04         | Percona-Server-Pro-8.0.35-27-Linux.x86_64.glibc2.35.tar.gz         | glibc2.35      |
+    | Ubuntu 22.04         | Percona-Server-Pro-8.0.35-27-Linux.x86_64.glibc2.35-minimal.tar.gz | glibc2.35      |
+    | Red Hat Enterprise 9 | Percona-Server-Pro-8.0.35-27-Linux.x86_64.glibc2.34.tar.gz         | glibc2.34      |
+    | Red Hat Enterprise 9 | Percona-Server-Pro-8.0.35-27-Linux.x86_64.glibc2.34-minimal.tar.gz | glibc2.34      |
+
+    The types of files are the following:
+
+    | Type | Name | Description |
+    |---|---|---|
+    | Full | Percona-Server-Pro-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.tar.gz | Contains all files available |
+    | Minimal | Percona-Server-Pro&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.minimal.tar.gz | Contains binaries and libraries |
 
 === "Zenfs"
 
@@ -77,7 +95,7 @@ If the `glibc2` version from your operating system is not listed, then this Perc
 
     | Type | Name | Description |
     |---|---|---|
-    | Full | Percona-Server-<version-number>-Linux.x86_64.<glibc2-version>.tar.gz | Contains all files available |
+    | Full | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.tar.gz | Contains all files available |
     | Minimal | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.minimal.tar.gz | Contains binaries and libraries |
     | Debug | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.debug.tar.gz | Contains the minimal build files and test files, and debug symbols |
 

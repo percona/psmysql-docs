@@ -8,5 +8,7 @@
 | percona-server-dbg           | Debug symbols for the server.                                                                                                                                                   |
 | percona-server-test          | The database test suite.                                                                                                                                                        |
 | percona-server-source        | The server source.                                                                                                                                                              |
+| percona-server-rocksdb       | The files for rocksdb installation.                                                                                                  |
+| percona-mysql-router         | The mysql router.                               |
 | libperconaserverclient21-dev | Header files needed to compile software to use the client library.                                                                                                              |
 | libperconaserverclient21     | The client-shared library. The version is incremented when there is an ABI change that requires software using the client library to be recompiled or its source code modified. |

@@ -12,6 +12,10 @@ The following guides describe the installation process for using the official Pe
 
 * [Install Percona Server for MySQL on Red Hat Enterprise Linux and derivatives](yum-repo.md)
 
+## Install Percona Server for MySQL Pro
+
+[Install Percona Server for MySQL Pro](install-pro.md){.md-button}
+
 ## Upgrade to Percona Server for MySQL Pro
 
-* [Upgrade to Percona Server for MySQL Pro](upgrade-pro.md)
+If you already use Percona Server for MySQL, you can [Upgrade to Percona Server for MySQL Pro](upgrade-pro.md)
