@@ -22,7 +22,7 @@ Not upgrading your database can have the following risks:
 
 Create a test environment to verify the upgrade before you upgrade the production servers. The test environment is crucial to the success of the upgrade. There is no supported [downgrade procedure](./downgrade.md). You can try to replicate from an {{vers}} version to an 8.0 version or restore a backup.
 
-[Several tools](The `pt-upgrade` tool](https://docs.percona.com/percona-toolkit/pt-upgrade.html) in the [Percona Toolkit](https://docs.percona.com/percona-toolkit/) can help with the upgrade process.
+Tools, such as the [`pt-upgrade` tool](https://docs.percona.com/percona-toolkit/pt-upgrade.html) in the [Percona Toolkit](https://docs.percona.com/percona-toolkit/), can help with the upgrade process.
 
 We recommend upgrading to the latest version.
 
@@ -49,3 +49,13 @@ The following list summarizes a number of the changes in the 8.0 series and has 
 * [Rebuilding or Repairing Tables or Indexes](https://dev.mysql.com/doc/refman/{{vers}}/en/rebuilding-tables.html)
 
 Review other [Percona blogs](https://www.percona.com/blog/) that contain upgrade information.
+
+## Limitations
+
+An upgrade on Ubuntu 20.04 from the following releases does not restart the MySQL service automatically. You must start the service manually.
+
+* Percona Server for MySQL8.0.x to Percona Server for MySQL 8.1
+
+* Percona Server for MySQL8.0.x to Percona Server for MySQL 8.2
+
+* Percona Server for MySQL8.1 to Percona Server for MySQL 8.2
