@@ -54,8 +54,8 @@ Review other [Percona blogs](https://www.percona.com/blog/) that contain upgrade
 
 An upgrade on Ubuntu 20.04 from the following releases does not restart the MySQL service automatically. You must start the service manually.
 
-* Percona Server for MySQL8.0.x to Percona Server for MySQL 8.1
+* Percona Server for MySQL 8.0.x to Percona Server for MySQL 8.1
 
-* Percona Server for MySQL8.0.x to Percona Server for MySQL 8.2
+* Percona Server for MySQL 8.0.x to Percona Server for MySQL 8.2
 
-* Percona Server for MySQL8.1 to Percona Server for MySQL 8.2
+* Percona Server for MySQL 8.1 to Percona Server for MySQL 8.2
