@@ -371,6 +371,27 @@
   
   
     <li class="md-nav__item">
+      <a href="release-notes/8.2.0-1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.2.0-1 (2024-02-05)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="release-notes/8.1.0-1.html" class="md-nav__link">
         
   
@@ -1975,7 +1996,7 @@
         
   
   <span class="md-ellipsis">
-    Upgrade from 8.0 to 8.1 overview
+    Upgrade from 8.0 to 8.2 overview
   </span>
   
 
@@ -4483,7 +4504,7 @@
         
   
   <span class="md-ellipsis">
-    Percona Server for MySQL 8.1 variables
+    Percona Server for MySQL 8.2 variables
   </span>
   
 
@@ -4797,7 +4818,7 @@
 <p>The MyRocks storage engine lacks the following features compared to InnoDB:</p>
 <ul>
 <li>
-<p><a href="https://dev.mysql.com/doc/refman/8.1/en/innodb-online-ddl.html">Online DDL</a> is not supported due to the lack of atomic DDL support.</p>
+<p><a href="https://dev.mysql.com/doc/refman/8.2/en/innodb-online-ddl.html">Online DDL</a> is not supported due to the lack of atomic DDL support.</p>
 <ul>
 <li>
 <p>There is no <code>ALTER TABLE ... ALGORITHM=INSTANT</code> functionality</p>
@@ -4808,28 +4829,28 @@
 </ul>
 </li>
 <li>
-<p><a href="https://dev.mysql.com/doc/refman/8.1/en/partitioning-management-exchange.html">ALTER TABLE .. EXCHANGE PARTITION</a>.</p>
+<p><a href="https://dev.mysql.com/doc/refman/8.2/en/partitioning-management-exchange.html">ALTER TABLE .. EXCHANGE PARTITION</a>.</p>
 </li>
 <li>
-<p><a href="https://dev.mysql.com/doc/refman/8.1/en/savepoint.html">SAVEPOINT</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.2/en/savepoint.html">SAVEPOINT</a></p>
 </li>
 <li>
-<p><a href="https://dev.mysql.com/doc/refman/8.1/en/innodb-table-import.html">Transportable tablespace</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.2/en/innodb-table-import.html">Transportable tablespace</a></p>
 </li>
 <li>
-<p><a href="https://dev.mysql.com/doc/refman/8.1/en/create-table-foreign-keys.html">Foreign keys</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.2/en/create-table-foreign-keys.html">Foreign keys</a></p>
 </li>
 <li>
-<p><a href="https://dev.mysql.com/doc/refman/8.1/en/using-spatial-indexes.html">Spatial indexes</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.2/en/using-spatial-indexes.html">Spatial indexes</a></p>
 </li>
 <li>
-<p><a href="https://dev.mysql.com/doc/refman/8.1/en/innodb-fulltext-index.html">Fulltext indexes</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.2/en/innodb-fulltext-index.html">Fulltext indexes</a></p>
 </li>
 <li>
-<p><a href="https://dev.mysql.com/doc/refman/8.1/en/innodb-locking.html#innodb-gap-locks">Gap locks</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.2/en/innodb-locking.html#innodb-gap-locks">Gap locks</a></p>
 </li>
 <li>
-<p><a href="https://dev.mysql.com/doc/refman/8.1/en/group-replication.html">Group Replication</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.2/en/group-replication.html">Group Replication</a></p>
 </li>
 <li>
 <p><a href="https://mysqlserverteam.com/mysql-8-0-optimizing-small-partial-update-of-lob-in-innodb/">Partial Update of LOB in InnoDB</a></p>
@@ -4867,27 +4888,27 @@
 <p>With partitioned tables that use the <em>MyRocks</em> storage engine, the upgrade only works with native partitioning.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://dev.mysql.com/doc/refman/8.1/en/upgrade-prerequisites.html">MySQL Documentation: Preparing Your Installation for Upgrade</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.2/en/upgrade-prerequisites.html">MySQL Documentation: Preparing Your Installation for Upgrade</a></p>
 </div>
 </li>
 <li>
-<p>Percona Server for MySQL 8.1 and Unicode 9.0.0 standards have defined a change in the handling of binary collations. These collations are handled as NO PAD, trailing spaces are included in key comparisons. A binary collation comparison may result in two unique rows inserted and does not generate a`DUP_ENTRY` error. MyRocks key encoding and comparison does not account for this character set attribute.</p>
+<p>Percona Server for MySQL 8.2 and Unicode 9.0.0 standards have defined a change in the handling of binary collations. These collations are handled as NO PAD, trailing spaces are included in key comparisons. A binary collation comparison may result in two unique rows inserted and does not generate a`DUP_ENTRY` error. MyRocks key encoding and comparison does not account for this character set attribute.</p>
 </li>
 </ul>
 <h2 id="not-supported-on-myrocks">Not supported on MyRocks<a class="headerlink" href="#not-supported-on-myrocks" title="Permanent link">&para;</a></h2>
 <p>MyRocks does not support the following:</p>
 <ul>
 <li>
-<p>Operating as either a source or a replica in any replication topology that is not exclusively row-based. Statement-based and mixed-format binary logging is not supported. For more information, see <a href="https://dev.mysql.com/doc/refman/8.1/en/replication-formats.html">Replication Formats</a>.</p>
+<p>Operating as either a source or a replica in any replication topology that is not exclusively row-based. Statement-based and mixed-format binary logging is not supported. For more information, see <a href="https://dev.mysql.com/doc/refman/8.2/en/replication-formats.html">Replication Formats</a>.</p>
 </li>
 <li>
-<p>Using <a href="https://dev.mysql.com/doc/refman/8.1/en/create-index.html#create-index-multi-valued">multi-valued indexes</a>. InnoDB supports this feature.</p>
+<p>Using <a href="https://dev.mysql.com/doc/refman/8.2/en/create-index.html#create-index-multi-valued">multi-valued indexes</a>. InnoDB supports this feature.</p>
 </li>
 <li>
-<p>Using <a href="https://dev.mysql.com/doc/refman/8.1/en/spatial-type-overview.html">spatial data types</a> .</p>
+<p>Using <a href="https://dev.mysql.com/doc/refman/8.2/en/spatial-type-overview.html">spatial data types</a> .</p>
 </li>
 <li>
-<p>Using the <a href="https://dev.mysql.com/doc/refman/8.1/en/clone-plugin.html">Clone Plugin</a> and the Clone Plugin API. InnoDB supports either these features.</p>
+<p>Using the <a href="https://dev.mysql.com/doc/refman/8.2/en/clone-plugin.html">Clone Plugin</a> and the Clone Plugin API. InnoDB supports either these features.</p>
 </li>
 <li>
 <p>Using encryption in tables. At this time, during an <code>ALTER TABLE</code> operation, MyRocks mistakenly detects all InnoDB tables as encrypted. Therefore, any attempt to <code>ALTER</code> an InnoDB table to MyRocks fails.</p>

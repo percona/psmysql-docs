@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL has an official Docker image hosted on Docker Hub. Download a specific version by adding the Docker tag filter for the 8.1 versions.">
+        <meta name="description" content="Percona Server for MySQL has an official Docker image hosted on Docker Hub. Download a specific version by adding the Docker tag filter for the 8.2 versions.">
       
       
         <meta name="author" content="Percona LLC">
@@ -355,6 +355,27 @@
   
   <span class="md-ellipsis">
     Release notes index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/8.2.0-1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.2.0-1 (2024-02-05)
   </span>
   
 
@@ -2138,7 +2159,7 @@
         
   
   <span class="md-ellipsis">
-    Upgrade from 8.0 to 8.1 overview
+    Upgrade from 8.0 to 8.2 overview
   </span>
   
 
@@ -4582,7 +4603,7 @@
         
   
   <span class="md-ellipsis">
-    Percona Server for MySQL 8.1 variables
+    Percona Server for MySQL 8.2 variables
   </span>
   
 
@@ -4992,22 +5013,22 @@
 
 
 <h1 id="running-percona-server-for-mysql-in-a-docker-container">Running Percona Server for MySQL in a Docker Container<a class="headerlink" href="#running-percona-server-for-mysql-in-a-docker-container" title="Permanent link">&para;</a></h1>
-<p>Percona Server for MySQL has an official Docker image hosted on <a href="https://hub.docker.com/r/percona/percona-server/">Docker Hub</a>. Download a specific version by adding the <a href="https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&amp;name=8.1">Docker tag filter for the 8.1 versions</a>. </p>
+<p>Percona Server for MySQL has an official Docker image hosted on <a href="https://hub.docker.com/r/percona/percona-server/">Docker Hub</a>. Download a specific version by adding the <a href="https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&amp;name=8.2">Docker tag filter for the 8.2 versions</a>. </p>
 <p>We gather <a href="telemetry.html">Telemetry data</a> in the Percona packages and Docker images.</p>
 <p>Make sure that you are using the latest version of Docker. The <code>APT</code> version or the <code>YUM</code> version may be outdated and cause errors.</p>
 <h2 id="starting-a-detached-container">Starting a detached container<a class="headerlink" href="#starting-a-detached-container" title="Permanent link">&para;</a></h2>
 <p>Start a container with the <code>--detached</code> or <code>-d</code> option, which runs the container in the background. In <code>detached</code> mode, when the root process used to run the container exits, the container exits.</p>
 <p>The following example starts a container named <code>ps</code> with the latest version of
-Percona Server for MySQL 8.1. This action also creates the <code>root</code> user and uses <code>root</code> as the password. Please note that <code>root</code> is not a secure password. </p>
+Percona Server for MySQL 8.2. This action also creates the <code>root</code> user and uses <code>root</code> as the password. Please note that <code>root</code> is not a secure password. </p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--name<span class="w"> </span>ps<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>percona/percona-server:8.1
+<span class="w">  </span>percona/percona-server:8.2
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Unable to find image &#39;percona/percona-server:8.1&#39; locally
-8.1: Pulling from percona/percona-server
+<div class="no-copy highlight"><pre><span></span><code>Unable to find image &#39;percona/percona-server:8.2&#39; locally
+8.2: Pulling from percona/percona-server
 </code></pre></div>
 </details>
 <p>By default, Docker pulls the image from Docker Hub if it is not
@@ -5018,13 +5039,13 @@ available locally.</p>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Initializing database
-2022-09-07T15:20:03.158128Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.1.0-1) initializing of server in progress as process 15
+2022-09-07T15:20:03.158128Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.2.0-1) initializing of server in progress as process 15
 2022-09-07T15:20:03.167764Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
 2022-09-07T15:20:03.530600Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
 2022-09-07T15:20:04.367600Z 0 [Warning] [MY-013829] [Server] Missing data directory for ICU regular expressions: /usr/lib64/mysql/private/.
 ...
 2022-09-07T15:20:13.706090Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: &#39;::&#39; port: 33060, socket: /var/lib/mysql/mysqlx.sock
-2022-09-07T15:20:13.706136Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: &#39;8.1.0-1&#39;  socket: &#39;/var/lib/mysql/mysql.sock&#39;  port: 3306  Percona Server (GPL), Release 21, Revision c59f87d2854.
+2022-09-07T15:20:13.706136Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: &#39;8.2.0-1&#39;  socket: &#39;/var/lib/mysql/mysql.sock&#39;  port: 3306  Percona Server (GPL), Release 21, Revision c59f87d2854.
 </code></pre></div>
 </details>
 <p>You can access the server when you see the <code>ready for connections</code> information in the log.</p>
@@ -5033,7 +5054,7 @@ available locally.</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>--name<span class="w"> </span>ps<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span>percona/percona-server:8.1<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>percona/percona-server:8.2<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>--character-set-server<span class="o">=</span>utf8<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>--collation-server<span class="o">=</span>utf8_general_ci
 </code></pre></div>
@@ -5077,7 +5098,7 @@ Your MySQL connection id is 9
 <div class="no-copy highlight"><pre><span></span><code>mysql: [Warning] Using a password on the command line interface can be insecure.
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 8
-Server version: 8.1.0-1 Percona Server (GPL), Release 21, Revision c59f87d2854
+Server version: 8.2.0-1 Percona Server (GPL), Release 21, Revision c59f87d2854
 
 Copyright (c) 2009-2022 Percona LLC and/or its affiliates
 Copyright (c) 2000, 2022, Oracle and/or its affiliates.
@@ -5128,7 +5149,7 @@ you run the container with the following command:</p>
 <span class="w">  </span>--name<span class="w"> </span>ps<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-v<span class="w"> </span>/local/datadir:/var/lib/mysql<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>percona/percona-server:8.1
+<span class="w">  </span>percona/percona-server:8.2
 </code></pre></div>
 <p>The <code>-v /local/datadir:/var/lib/mysql</code> option
 mounts the <code>/local/datadir</code> directory on the host
@@ -5153,7 +5174,7 @@ This ability simplifies consolidating instances to a single host.</p>
 <span class="w"> </span>--name<span class="w"> </span>ps<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>-p<span class="w"> </span><span class="m">6603</span>:3306<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span>percona/percona-server:8.1
+<span class="w"> </span>percona/percona-server:8.2
 </code></pre></div>
 <h2 id="exiting-the-container">Exiting the container<a class="headerlink" href="#exiting-the-container" title="Permanent link">&para;</a></h2>
 <p>If you are in the interactive shell, use CTRL-D or exit to exit the session.</p>

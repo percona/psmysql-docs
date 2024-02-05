@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
         <meta name="description" content="Percona MyRocks is distributed as a separate package that can be enabled as a
-plugin for Percona Server for MySQL 8.1 and later versions.">
+plugin for Percona Server for MySQL 8.2 and later versions.">
       
       
         <meta name="author" content="Percona LLC">
@@ -356,6 +356,27 @@ plugin for Percona Server for MySQL 8.1 and later versions.">
   
   <span class="md-ellipsis">
     Release notes index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/8.2.0-1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.2.0-1 (2024-02-05)
   </span>
   
 
@@ -1976,7 +1997,7 @@ plugin for Percona Server for MySQL 8.1 and later versions.">
         
   
   <span class="md-ellipsis">
-    Upgrade from 8.0 to 8.1 overview
+    Upgrade from 8.0 to 8.2 overview
   </span>
   
 
@@ -4532,7 +4553,7 @@ plugin for Percona Server for MySQL 8.1 and later versions.">
         
   
   <span class="md-ellipsis">
-    Percona Server for MySQL 8.1 variables
+    Percona Server for MySQL 8.2 variables
   </span>
   
 
@@ -4892,7 +4913,7 @@ plugin for Percona Server for MySQL 8.1 and later versions.">
 
 <h1 id="percona-myrocks-installation-guide">Percona MyRocks installation guide<a class="headerlink" href="#percona-myrocks-installation-guide" title="Permanent link">&para;</a></h1>
 <p>Percona MyRocks is distributed as a separate package that can be enabled as a
-plugin for Percona Server for MySQL 8.1 and later versions.</p>
+plugin for Percona Server for MySQL 8.2 and later versions.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>File formats across different MyRocks variants may not be compatible. <em>Percona Server for MySQL</em> supports only <em>Percona MyRocks</em>.  Migrating from one variant to another requires a logical data dump and reload.</p>
@@ -4990,7 +5011,7 @@ of <code>my.cnf</code> and restart <em>Percona Server for MySQL</em>.</p>
 after the <code>CREATE TABLE</code> statement
 for every table that you create.</p>
 <h3 id="install-myrocks-plugins">Install MyRocks plugins<a class="headerlink" href="#install-myrocks-plugins" title="Permanent link">&para;</a></h3>
-<p>You can install MyRocks manually with a series of <a href="https://dev.mysql.com/doc/refman/8.1/en/install-plugin.html">INSTALL PLUGIN</a> statements. You must have the <code>INSERT</code> privilege for the <code>mysql.plugin</code> system table.</p>
+<p>You can install MyRocks manually with a series of <a href="https://dev.mysql.com/doc/refman/8.2/en/install-plugin.html">INSTALL PLUGIN</a> statements. You must have the <code>INSERT</code> privilege for the <code>mysql.plugin</code> system table.</p>
 <p>The following statements install MyRocks:</p>
 <div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
 <span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_CFSTATS</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;ha_rocksdb.so&#39;</span><span class="p">;</span>
@@ -5033,7 +5054,7 @@ remove the Percona MyRocks package:</p>
 <ul>
 <li>
 <p>For Debian or Ubuntu:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span>percona-server-rocksdb-8.1
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span>percona-server-rocksdb-8.2
 </code></pre></div>
 </li>
 <li>
@@ -5046,7 +5067,7 @@ remove the Percona MyRocks package:</p>
 from the configuration file (<code>my.cnf</code>)
 and restart <em>Percona Server for MySQL</em>.</p>
 <h3 id="uninstall-myrocks-plugins">Uninstall MyRocks plugins<a class="headerlink" href="#uninstall-myrocks-plugins" title="Permanent link">&para;</a></h3>
-<p>You can <a href="https://dev.mysql.com/doc/refman/8.1/en/uninstall-plugin.html">uninstall the plugins</a> for MyRocks. You must have the <code>DELETE</code> privilege for the <code>mysql.plugin</code> system table.</p>
+<p>You can <a href="https://dev.mysql.com/doc/refman/8.2/en/uninstall-plugin.html">uninstall the plugins</a> for MyRocks. You must have the <code>DELETE</code> privilege for the <code>mysql.plugin</code> system table.</p>
 <p>The following statements remove the MyRocks plugins:</p>
 <div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB</span><span class="p">;</span>
 <span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">ROCKSDB_CFSTATS</span><span class="p">;</span>
