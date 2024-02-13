@@ -1,9 +1,63 @@
-# Running Percona Server for MySQL 5.7 in a Docker Container
+# Run Percona Server for MySQL 5.7 in a Docker Container
 
 !!! note
 
     The following instructions run Percona Server for MySQL 5.7 in a Docker container. 
     The instructions on how to run [Percona Server for MySQL 8.0 in a Docker container are available at this location](https://docs.percona.com/percona-server/latest/installation/docker.html).
+
+## {{post}} Docker containers
+
+To use {{post}} in a Docker container, you must request access to the {{post}} repository from Percona Support. This request provides you with the client ID and the access token. The Docker image is stored in a binary tarball. 
+
+Download the tar file.
+
+```{.bash data-prompt="$"}
+$ sudo docker load -i percona-server-5.7.44-49-1.docker.tar
+```
+
+Provide a password before the download begins.
+
+After the download, check the Docker images:
+
+```{.bash data-prompt="$"}
+$ sudo docker images
+```
+
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    Repository              TAG            IMAGE ID       CREATED       SIZE
+    percona/percona-server  5.7           (image number) (when created) (size of file)
+    percona/percona-server  5.7.44 
+    percona/percona-server  5.7.44-49
+    percona/percona-server  5.7.44-49.1
+    ```
+
+Run the image in a container in detached mode with the following command:
+
+```{.bash data-prompt="$"}
+sudo docker run -d --name ps57 -t percona/percona-server:5.7 bash
+```
+
+Access the detached mode container with the following command:
+
+```{.bash data-prompt="$"}
+$ sudo docker exec -it ps57 /bin/bash
+```
+
+In the container, verify the version.
+
+```{.bash data-prompt="$"}
+$ mysql -V
+```
+
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    mysql Ver 14.14 Distrib 5.7.44-49, for Linux (x86_64) using 7.0
+    ```
+
+## Docker images for versions that are not {{post}}
 
 Docker images of Percona Server are hosted publicly on Docker Hub at
 [https://hub.docker.com/r/percona/percona-server/](https://hub.docker.com/r/percona/percona-server/).
@@ -31,8 +85,8 @@ To start a container named `ps`
 running the latest version in the Percona Server 5.7 series,
 with the root password set to `root`:
 
-```
-[root@docker-host] $ docker run -d \
+```{.bash data-prompt="$"}
+$ docker run -d \
   --name ps \
   -e MYSQL_ROOT_PASSWORD=root \
   percona/percona-server:5.7
@@ -52,13 +106,13 @@ with the root password set to `root`:
 
 To access the shell in the container:
 
-```shell
+```{.bash data-prompt="$"}
 [root@docker-host] $ docker exec -it ps /bin/bash
 ```
 
 From the shell, you can view the error log:
 
-```text
+```{.text .no-copy}
 [mysql@ps] $ more /var/log/mysql/error.log
 2017-08-29T04:20:22.190474Z 0 [Warning] 'NO_ZERO_DATE', 'NO_ZERO_IN_DATE' and 'ERROR_FOR_DIVISION_BY_ZERO' sql modes should be used with strict mode. They will be merged with strict mode in a future release.
 2017-08-29T04:20:22.190520Z 0 [Warning] 'NO_AUTO_CREATE_USER' sql mode was not set.
@@ -68,13 +122,13 @@ From the shell, you can view the error log:
 You can also run the MySQL command-line client
 to access the database directly:
 
-```shell
+```{.bash data-prompt="$"}
 [mysql@ps] $ mysql -uroot -proot
 ```
 
 The output may be similar to the following:
 
-```text
+```{.text .no-copy}
 mysql: [Warning] Using a password on the command line interface can be insecure.
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 4
@@ -100,25 +154,24 @@ To link a container running your application
 with the Percona Server container,
 run it with the following command:
 
-```shell
+```{.bash data-prompt="$"}
 [root@docker-host] $ docker run -d \
   --name app \
   --link ps \
   app/image:latest
 ```
 
-This application container will be able to access the Percona Server container
+This application container can access the Percona Server container
 via port 3306.
 
 ## Environment Variables
 
 When running a Docker container with Percona Server,
-you can adjust the configuration of the instance
-by passing one or more environment variables with the `docker run` command.
+you can adjust the instance's configuration by passing one or more environment variables with the `docker run` command.
 
 !!! note
 
-    These variables will not have any effect if you start the container with a data directory that already contains a database: any pre-existing database will always remain untouched on container startup.
+    If you start the container with a data directory containing a database, these variables are not effective. Any pre-existing database will always remain untouched on container startup.
 
 The variables are optional, except that you must specify at least one of the following:
 
@@ -142,24 +195,22 @@ that run in Docker containers:
 
 * Let Docker manage the storage of your data
 by writing the database files to disk on the host system
-using its own internal volume management.
+using its internal volume management.
 
 * Create a data directory on the host system
-(outside the container on high performance storage)
+(outside the container on high-performance storage)
 and mount it to a directory visible from inside the container.
-This places the database files in a known location on the host system,
-and makes it easy for tools and applications on the host system
+This directory places the database files in a known location on the host system and makes it easy for tools and applications on the host system
 to access the files.
-The user should make sure that the directory exists,
-and that permissions and other security mechanisms on the host system
+The user should ensure that the directory exists and that permissions and other security mechanisms on the host system
 are set up correctly.
 
 For example, if you create a data directory on a suitable volume
 on your host system named `/local/datadir`,
 you run the container with the following command:
 
-```shell
-[root@docker-host] $ docker run -d \
+```{.bash data-prompt="$"}
+$ docker run -d \
   --name ps \
   -e MYSQL_ROOT_PASSWORD=root \
   -v /local/datadir:/var/lib/mysql \
@@ -177,10 +228,10 @@ which is the default data directory used by Percona Server.
 
 !!! note
 
-    If you have SELinux enabled, assign the relevant policy type to the new data directory, so that the container will be allowed to access it:
+    If you have SELinux enabled, assign the relevant policy type to the new data directory so that the container will be allowed to access it:
 
-    ```shell
-    [root@docker-host] $ chcon -Rt svirt_sandbox_file_t /local/datadir
+    ```{.bash data-prompt="$"}
+    $ sudo chcon -Rt svirt_sandbox_file_t /local/datadir
     ```
 
 ## Port Forwarding
@@ -190,11 +241,11 @@ using the `-p` option.
 If you run the container with this option,
 you can connect to the database by connecting your client
 to a port on the host machine.
-This can greatly simplify consolidating many instances to a single host.
+This can significantly simplify consolidating many instances to a single host.
 
 To map the standard MySQL port 3306 to port 6603 on the host:
 
-```shell
+```{.bash data-prompt="$"}
 [root@docker-host] $ docker run -d \
  --name ps \
  -e MYSQL_ROOT_PASSWORD=root \
@@ -204,14 +255,13 @@ To map the standard MySQL port 3306 to port 6603 on the host:
 
 ## Passing Options to Percona Server
 
-You can pass options to Percona Server when running the container
-by appending them to the `docker run` command.
+You can pass options to the Percona Server by appending them to the `docker run` command when running the container.
 For example, to start run Percona Server with UTF-8
 as the default setting for character set
 and collation for all databases:
 
-```shell
-[root@docker-host] $ docker run -d \
+```{.bash data-prompt="$"}
+$ docker run -d \
  --name ps \
  -e MYSQL_ROOT_PASSWORD=root \
  percona/percona-server:5.7 \

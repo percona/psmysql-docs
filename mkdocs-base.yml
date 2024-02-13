@@ -19,7 +19,6 @@ theme:
   font:
     text: Poppins
   palette:
-
     # Light mode
     - media: "(prefers-color-scheme: light)"
       scheme: percona-light
@@ -34,16 +33,16 @@ theme:
         icon: material/toggle-switch
         name: Switch to light mode
 
-# Theme features
+  # Theme features
 
   features:
     - search.highlight
     - navigation.top
     - content.tabs.link
-    - content.code.copy 
-    - navigation.tracking 
+    - content.code.copy
+    - navigation.tracking
     - content.action.edit
-    - content.action.view 
+    - content.action.view
 
 extra_css:
   - https://unicons.iconscout.com/release/v3.0.3/css/line.css
@@ -70,25 +69,23 @@ markdown_extensions:
   def_list: {} # https://michelf.ca/projects/php-markdown/extra/#def-list
   meta: {}
   md_in_html: {}
-  smarty:
-      {smart_angled_quotes: true}
+  smarty: { smart_angled_quotes: true }
   pymdownx.details: {}
   pymdownx.mark: {}
   pymdownx.smartsymbols: {}
-  pymdownx.tabbed: 
-      {alternate_style: true}
+  pymdownx.tabbed: { alternate_style: true }
   pymdownx.tilde: {}
   pymdownx.superfences: {}
   pymdownx.highlight:
-      linenums: false
+    linenums: false
   pymdownx.inlinehilite: {}
   pymdownx.snippets: {}
   pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+    emoji_index: !!python/name:material.extensions.emoji.twemoji
+    emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 plugins:
-  search: 
+  search:
     separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   git-revision-date: {}
   meta-descriptions:
@@ -98,34 +95,33 @@ plugins:
     min_length: 50
     max_length: 160
   macros:
-      include_yaml:
-        - 'variables.yml' # Use in markdown as '{{ VAR }}'
-# exclude: # Don't process these files
-#      glob:
-#         - file.md
+    include_yaml:
+      - "variables.yml" # Use in markdown as '{{ VAR }}'
+  # exclude: # Don't process these files
+  #      glob:
+  #         - file.md
   with-pdf: # https://github.com/orzih/mkdocs-with-pdf
-          output_path: '_pdf/PerconaServer-5.7.pdf'
-          cover_title: 'Percona Server Documentation'
-          cover_subtitle: 5.7.44-48 (2023-12-05)
-          author: 'Percona Technical Documentation Team'
-          cover_logo: docs/_static/Percona_Logo_Color.png
-          debug_html: false
-          custom_template_path: _resource/templates
-          enabled_if_env: ENABLE_PDF_EXPORT
+    output_path: "_pdf/PerconaServer-5.7.pdf"
+    cover_title: "Percona Server Documentation"
+    cover_subtitle: 5.7.44-49 (2024-03-14)
+    author: "Percona Technical Documentation Team"
+    cover_logo: docs/_static/Percona_Logo_Color.png
+    debug_html: false
+    custom_template_path: _resource/templates
+    enabled_if_env: ENABLE_PDF_EXPORT
   mike:
-      version_selector: true
-      css_dir: css
-      javascript_dir: js
-      canonical_version: null
-     
+    version_selector: true
+    css_dir: css
+    javascript_dir: js
+    canonical_version: null
+
 extra:
-  version: 
+  version:
     provider: mike
-  homepage:
-    https://docs.percona.com
+  homepage: https://docs.percona.com
   consent:
     title: Cookie consent
-    description: >- 
+    description: >-
       We use cookies to recognize your repeated visits and preferences, as well
       as to measure the effectiveness of our documentation and whether users
       find what they're searching for. With your consent, you're helping us to
@@ -143,8 +139,10 @@ nav:
       - server-version-numbers.md
   - Installation:
       - installation.md
+      - installation/download-instructions.md
       - installation/apt_repo.md
       - installation/yum_repo.md
+      - installation/install-eol.md
       - installation/binary-tarball.md
       - installation/source-tarball.md
       - installation/compile.md
@@ -159,7 +157,7 @@ nav:
       - upgrading_guide_56_57.md
   - Post-Installation:
       - installation/post-installation.md
-  - Diagnostics Improvements: 
+  - Diagnostics Improvements:
       - diagnostics/user_stats.md
       - diagnostics/slow_extended.md
       - diagnostics/innodb_show_status.md
@@ -246,6 +244,7 @@ nav:
       - tokudb/removing_tokudb.md
   - Release notes:
       - Release notes index: release-notes/release-notes_index.md
+      - release-notes/5.7.44-49.md
       - release-notes/5.7.44-48.md
       - release-notes/5.7.43-47.md
       - release-notes/5.7.42-46.md
@@ -304,6 +303,4 @@ nav:
       - faq.md
       - copyright-and-licensing-information.md
       - glossary.md
-
 # - Version Selector: "../"
-

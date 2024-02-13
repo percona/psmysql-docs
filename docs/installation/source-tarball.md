@@ -1,4 +1,4 @@
-# Installing _Percona Server for MySQL_ 5.7 from a Source Tarball
+# Installing Percona Server for MySQL 5.7 from a Source Tarball
 
 !!! note
 
