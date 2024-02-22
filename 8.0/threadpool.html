@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="MySQL executes statements using one thread per client connection. Once the number of connections increases past a certain point performance will degrade.">
+        <meta name="description" content="You can use thread pooling for MySQL databases to improve performance and scalability. Thread pooling is a technique that reuses a fixed number of threads to handle multiple client connections and execute statements. Thread pooling reduces the overhead of creating and destroying threads, and avoids the contention and context switching that can occur when there are too many threads.">
       
       
         <meta name="author" content="Percona LLC">
@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.7">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
     
     
       
@@ -32,7 +32,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.f2e4d321.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.7e359304.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
@@ -314,10 +314,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
@@ -498,10 +496,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
@@ -690,10 +686,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
@@ -798,10 +792,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
@@ -927,10 +919,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
@@ -1119,10 +1109,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
@@ -1215,10 +1203,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
@@ -1273,10 +1259,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
@@ -1352,10 +1336,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_3" >
@@ -1933,42 +1915,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#version-specific-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version specific information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#priority-connection-scheduling" class="md-nav__link">
     <span class="md-ellipsis">
       Priority connection scheduling
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Priority connection scheduling">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#low-priority-queue-throttling" class="md-nav__link">
     <span class="md-ellipsis">
-      Low priority queue throttling
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#handling-of-long-network-waits" class="md-nav__link">
-    <span class="md-ellipsis">
-      Handling of long network waits
+      Low-priority queue throttling
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#version-specific-information" class="md-nav__link">
+  <a href="#handling-long-network-waits" class="md-nav__link">
     <span class="md-ellipsis">
-      Version specific information
+      Handling long network waits
     </span>
   </a>
   
@@ -1983,6 +1959,15 @@
   
     <nav class="md-nav" aria-label="System variables">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#thread_handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      thread_handling
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#thread_pool_idle_timeout" class="md-nav__link">
@@ -2219,10 +2204,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
@@ -2389,10 +2372,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
@@ -2447,10 +2428,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
@@ -2513,10 +2492,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
@@ -2705,10 +2682,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
@@ -2855,10 +2830,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
@@ -2942,10 +2915,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
@@ -3029,10 +3000,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
@@ -3123,10 +3092,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
@@ -3223,10 +3190,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
@@ -3527,10 +3492,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
@@ -3655,10 +3618,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
@@ -3741,10 +3702,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
@@ -3869,10 +3828,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
@@ -3906,10 +3863,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_1" >
@@ -3993,10 +3948,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2" >
@@ -4072,10 +4025,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2_3" >
@@ -4180,10 +4131,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2_4" >
@@ -4380,10 +4329,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_8" >
@@ -4438,10 +4385,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_8_2" >
@@ -4813,10 +4758,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
@@ -4899,10 +4842,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
@@ -5069,10 +5010,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
@@ -5239,10 +5178,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
@@ -5276,10 +5213,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14_1" >
@@ -5615,10 +5550,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14_2" >
@@ -5933,10 +5866,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14_3" >
@@ -6321,10 +6252,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
@@ -6663,42 +6592,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#version-specific-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version specific information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#priority-connection-scheduling" class="md-nav__link">
     <span class="md-ellipsis">
       Priority connection scheduling
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Priority connection scheduling">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#low-priority-queue-throttling" class="md-nav__link">
     <span class="md-ellipsis">
-      Low priority queue throttling
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#handling-of-long-network-waits" class="md-nav__link">
-    <span class="md-ellipsis">
-      Handling of long network waits
+      Low-priority queue throttling
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#version-specific-information" class="md-nav__link">
+  <a href="#handling-long-network-waits" class="md-nav__link">
     <span class="md-ellipsis">
-      Version specific information
+      Handling long network waits
     </span>
   </a>
   
@@ -6713,6 +6636,15 @@
   
     <nav class="md-nav" aria-label="System variables">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#thread_handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      thread_handling
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#thread_pool_idle_timeout" class="md-nav__link">
@@ -6892,45 +6824,109 @@
 
 
 <h1 id="thread-pool">Thread pool<a class="headerlink" href="#thread-pool" title="Permanent link">&para;</a></h1>
-<p><em>MySQL</em> executes statements using one thread per client connection. Once the number of connections increases past a certain point performance will degrade.</p>
-<p>This feature enables the server to keep the top performance even with a large number of client connections by introducing a dynamic thread pool. By using the thread pool server would decrease the number of threads, which will then reduce the context switching and hot locks contentions. Using the thread pool will have the most effect with <code>OLTP</code> workloads (relatively short CPU-bound queries).</p>
-<p>In order to enable the thread pool variable <a href="https://docs.percona.com/percona-server/5.7/performance/threadpool.html#thread-handling">thread_handling</a> should be set up to <code>pool-of-threads</code> value. This can be done by adding:</p>
+<p>You can use thread pooling for MySQL databases to improve performance and scalability. Thread pooling is a technique that reuses a fixed number of threads to handle multiple client connections and execute statements. Thread pooling reduces the overhead of creating and destroying threads, and avoids the contention and context switching that can occur when there are too many threads.</p>
+<p>MySQL supports thread pooling through the thread pool plugin, which replaces the default one-thread-per-connection model. When a statement arrives, the thread group either begins executing it immediately or queues it for later execution in a round-robin fashion.  The high-priority queue consists of a number of thread groups, each of which manages a set of client connections.  Each thread group has a listener thread that listens for incoming statements from the connections assigned to the group.  The thread pool exposes several system variables that can be used to configure its operation, such as thread_pool_size, thread_pool_algorithm, thread_pool_stall_limit and others.</p>
+<p>The thread pool plugin consists of a number of thread groups, each of which manages a set of client connections. As connections are established, the thread pool assigns them to thread groups in round-robin fashion. For more details, see   .</p>
+<p>MySQL executes statements using one thread per client connection. When the number of connections increases past a specific point, performance degrades.
+This feature introduces a dynamic thread pool, which enables the server to keep the top performance even with a large number of client connections. The server decreases the number of threads using the thread pool and reduces the context switching and hot locks contentions. The thread pool is most effective with <code>OLTP</code> workloads (relatively short CPU-bound queries).</p>
+<p>Set the thread pool variable <a href="#thread_handling">thread_handling</a> to <code>pool-of-threads</code> by adding the following line to <code>my.cnf</code>:</p>
 <div class="highlight"><pre><span></span><code>thread_handling=pool-of-threads
 </code></pre></div>
-<p>Although the default values for the thread pool should provide good performance, additional tuning
-can be performed with the dynamic system variables.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Current implementation of the thread pool is built in the server, unlike the upstream version which is implemented as a plugin. Another significant implementation difference is that this implementation doesn’t try to minimize the number of concurrent transactions like the <code>MySQL Enterprise Threadpool</code>. Because of these differences, this implementation is not compatible with the upstream version.</p>
-</div>
-<h2 id="priority-connection-scheduling">Priority connection scheduling<a class="headerlink" href="#priority-connection-scheduling" title="Permanent link">&para;</a></h2>
-<p>Even though thread pool puts a limit on the number of concurrently running queries, the number of open transactions may remain high, because connections with already started transactions are put to the end of the queue. Higher number of open transactions has a number of implications on the currently running queries. To improve the performance new <a href="#thread_pool_high_prio_tickets">thread_pool_high_prio_tickets</a> variable has been introduced.</p>
-<p>This variable controls the high priority queue policy. Each new connection is assigned this many tickets to enter the high priority queue. Whenever a query has to be queued to be executed later because no threads are available, the thread pool puts the connection into the high priority queue if the following conditions apply:</p>
+<p>Although the default values for the thread pool should provide good performance, perform additional tuning with the dynamic system variables. The goal is to minimize the number of open transactions on the server. Short-running transactions commit faster and deallocate server resources and locks.</p>
+<p>Due to the following differences, this implementation is not compatible with upstream:</p>
 <ul>
 <li>
-<p>The connection has an open transaction in the server.</p>
+<p>Built into the server, upstream implements the thread pool as a plugin</p>
 </li>
 <li>
-<p>The number of high priority tickets of this connection is non-zero.</p>
+<p>Does not minimize the number of concurrent transactions</p>
 </li>
 </ul>
-<p>If both the above conditions hold, the connection is put into the high priority queue and its tickets value is decremented. Otherwise the connection is put into the common queue with the initial tickets value specified with this option.</p>
-<p>Each time the thread pool looks for a new connection to process, first it checks the high priority queue, and picks connections from the common queue only when the high priority one is empty.</p>
-<p>The goal is to minimize the number of open transactions in the server. In many cases it is beneficial to give short-running transactions a chance to commit faster and thus deallocate server resources and locks without waiting in the same queue with other connections that are about to start a new transaction, or those that have run out of their high priority tickets.</p>
-<p>The default thread pool behavior is to always put events from already started transactions into the high priority queue, as we believe that results in better performance in vast majority of cases.</p>
-<p>With the value of <code>0</code>, all connections are always put into the common queue, i.e. no priority scheduling is used as in the original implementation in <em>MariaDB</em>. The higher is the value, the more chances each transaction gets to enter the high priority queue and commit before it is put in the common queue.</p>
-<p>In some cases it is required to prioritize all statements for a specific connection regardless of whether they are executed as a part of a multi-statement transaction or in the autocommit mode. Or vice versa, some connections may require using the low priority queue for all statements unconditionally. To implement this new <a href="#thread_pool_high_prio_mode">thread_pool_high_prio_mode</a> variable has been introduced in <em>Percona Server for MySQL</em>.</p>
-<h3 id="low-priority-queue-throttling">Low priority queue throttling<a class="headerlink" href="#low-priority-queue-throttling" title="Permanent link">&para;</a></h3>
-<p>One case that can limit thread pool performance and even lead to deadlocks under high concurrency is a situation when thread groups are oversubscribed due to active threads reaching the oversubscribe limit, but all/most worker threads are actually waiting on locks currently held by a transaction from another connection that is not currently in the thread pool.</p>
-<p>What happens in this case is that those threads in the pool that have marked themselves inactive are not accounted to the oversubscribe limit. As a result, the number of threads (both active and waiting) in the pool grows until it hits <a href="#thread_pool_max_threads">thread_pool_max_threads</a> value. If the connection executing the transaction which is holding the lock has managed to enter the thread pool by then, we get a large (depending on the <a href="#thread_pool_max_threads">thread_pool_max_threads</a> value) number of concurrently running threads, and thus, suboptimal performance as a result. Otherwise, we get a deadlock as no more threads can be created to process those transaction(s) and release the lock(s).</p>
-<p>Such situations are prevented by throttling the low priority queue when the total number of worker threads (both active and waiting ones) reaches the oversubscribe limit. That is, if there are too many worker threads, do not start new transactions and create new threads until queued events from the already started transactions are processed.</p>
-<h2 id="handling-of-long-network-waits">Handling of long network waits<a class="headerlink" href="#handling-of-long-network-waits" title="Permanent link">&para;</a></h2>
-<p>Certain types of workloads (large result sets, BLOBs, slow clients) can have longer waits on network I/O (socket reads and writes). Whenever server waits, this should be communicated to the Thread Pool, so it can start new query by either waking a waiting thread or sometimes creating a new one. This implementation has been ported from <em>MariaDB</em> patch MDEV-156.</p>
+<p>Priority Queue:</p>
+<p>This is a queue that assigns a priority to each data element and processes them according to their priority. The data element with the highest priority is served first, regardless of its order in the queue. A priority queue can be implemented using an array, a linked list, a heap or a binary search tree. A priority queue can also be ascending or descending, meaning that the highest priority is either the smallest or the largest value.</p>
 <h2 id="version-specific-information">Version specific information<a class="headerlink" href="#version-specific-information" title="Permanent link">&para;</a></h2>
+<p>Starting with 8.0.14, Percona Server for MySQL uses the upstream implementation of the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_admin_port"><code>admin_port</code></a>. The variables <a href="#extra_port">extra_port</a> and <a href="#extra_max_connections">extra_max_connections</a> are removed and not supported. Remove the <code>extra_port</code> and <code>extra_max_connections</code> variables from your configuration file before upgrading to 8.0.14 or higher. In 8.0.14 or higher, the variables cause a boot error, and the server refuses to start.</p>
+<p>Implemented in 8.0.12-1: We ported the <code>Thread Pool</code> feature from Percona Server for MySQL 5.7.</p>
+<h2 id="priority-connection-scheduling">Priority connection scheduling<a class="headerlink" href="#priority-connection-scheduling" title="Permanent link">&para;</a></h2>
+<p>The thread pool limits the number of concurrently running queries. The number of open transactions may remain high. Connections with already-started transactions are added to the end of the queue. A high number of open transactions has implications for the currently running queries. The <a href="#thread_pool_high_prio_tickets">thread_pool_high_prio_tickets</a> variable controls the high-priority queue policy and assigns tickets to each new connection.</p>
+<p>The thread pool adds the connection to the high-priority queue and decrements the ticket if the connection has the following attributes:</p>
 <ul>
-<li>8.0.12-1: <code>Thread Pool</code> feature was ported from <em>Percona Server for MySQL</em> 5.7.</li>
+<li>
+<p>Has an open transaction</p>
+</li>
+<li>
+<p>Has a non-zero number of high-priority tickets</p>
+</li>
 </ul>
+<p>Otherwise, the variable adds the connection to the low-priority queue with the initial value.</p>
+<p>The thread pool checks the high-priority queue for the next connection each time. The thread pool picks connections from the low-priority queue when the high-priority queue is empty. The default behavior is to put events from already started transactions into the high-priority queue.</p>
+<p>If the value equals <code>0</code>, all connections are put into the low-priority queue. Each connection could be put into a high-priority queue if the value exceeds zero.</p>
+<p>The <a href="#thread_pool_high_prio_mode">thread_pool_high_prio_mode</a> variable prioritizes all statements for a connection or assigns connections to the low-priority queue. To implement this new <a href="#thread_pool_high_prio_mode">thread_pool_high_prio_mode</a> variable</p>
+<h2 id="low-priority-queue-throttling">Low-priority queue throttling<a class="headerlink" href="#low-priority-queue-throttling" title="Permanent link">&para;</a></h2>
+<p>One case that can limit thread pool performance and even lead to deadlocks under high concurrency is when thread groups are oversubscribed due to active threads reaching the oversubscribe limit. Still, all/most worker threads are waiting on locks currently held by a transaction from another connection not currently in the thread pool.</p>
+<p>In this case, the oversubscribe limit does not account for those threads in the pool that marked themselves inactive. As a result, the number of threads (both active and waiting) in the pool grows until it hits the <a href="#thread_pool_max_threads"><code>thread_pool_max_threads</code></a> value. If the connection executing the transaction holding the lock has managed to enter the thread pool by then, we get a large (depending on the <a href="#thread_pool_max_threads"><code>thread_pool_max_threads</code></a> value) number of concurrently running threads and, thus, suboptimal performance. Otherwise, we get a deadlock as no more threads can be created to process those transaction(s) and release the lock(s).</p>
+<p>Such situations are prevented by throttling the low-priority queue when the total number of worker threads (both active and waiting ones) reaches the oversubscribe limit. If there are too many worker threads, do not start new transactions and create new threads until queued events from the already started transactions are processed.</p>
+<h2 id="handling-long-network-waits">Handling long network waits<a class="headerlink" href="#handling-long-network-waits" title="Permanent link">&para;</a></h2>
+<p>Specific workloads (large result sets, BLOBs, slow clients) can wait longer on network I/O (socket reads and writes). Whenever the server waits, this should be communicated to the thread pool so it can start a new query by either waking a waiting thread or sometimes creating a new one. This implementation has been ported from <em>MariaDB</em> patch MDEV-156.</p>
 <h2 id="system-variables">System variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
+<h3 id="thread_handling"><code>thread_handling</code><a class="headerlink" href="#thread_handling" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Config file</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>one-thread-per-connection</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines how the server handles threads for connections from the client.</p>
+<table>
+<thead>
+<tr>
+<th>Values</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>one-thread-per-connection</td>
+<td>One thread handles all requests for a connection</td>
+</tr>
+<tr>
+<td>pool-of-threads</td>
+<td>A thread pool handles requests for all connections</td>
+</tr>
+<tr>
+<td>no-threads</td>
+<td>A single thread for all connections for debugging mode</td>
+</tr>
+</tbody>
+</table>
 <h3 id="thread_pool_idle_timeout"><code>thread_pool_idle_timeout</code><a class="headerlink" href="#thread_pool_idle_timeout" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6966,57 +6962,19 @@ can be performed with the dynamic system variables.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable can be used to limit the time an idle thread should wait before exiting.</p>
+<p>This variable can limit the time an idle thread should wait before exiting.</p>
 <h3 id="thread_pool_high_prio_mode"><code>thread_pool_high_prio_mode</code><a class="headerlink" href="#thread_pool_high_prio_mode" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line:</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Config file:</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope:</td>
-<td>Global, Session</td>
-</tr>
-<tr>
-<td>Dynamic:</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Data type:</td>
-<td>String</td>
-</tr>
-<tr>
-<td>Default value:</td>
-<td><code>transactions</code></td>
-</tr>
-<tr>
-<td>Allowed values:</td>
-<td><code>transactions</code>, <code>statements</code>, <code>none</code></td>
-</tr>
-</tbody>
-</table>
-<p>This variable is used to provide more fine-grained control over high priority scheduling either globally or per connection.</p>
+<p>This variable provides more fine-grained control over high-priority scheduling globally or per connection.</p>
 <p>The following values are allowed:</p>
 <ul>
 <li>
-<p><code>transactions</code> (the default). In this mode only statements from already started transactions may go into the high priority queue depending on the number of high priority tickets currently available in a connection (see thread_pool_high_prio_tickets).</p>
+<p><code>transactions</code> (the default). In this mode, only statements from already started transactions may go into the high-priority queue depending on the number of high-priority tickets currently available in a connection (see thread_pool_high_prio_tickets).</p>
 </li>
 <li>
-<p><code>statements</code>. In this mode all individual statements go into the high priority queue, regardless of connection’s transactional state and the number of available high priority tickets. This value can be used to prioritize <code>AUTOCOMMIT</code> transactions or other kinds of statements such as administrative ones for specific connections. Note that setting this value globally essentially disables high priority scheduling, since in this case all statements from all connections will use a single queue (the high priority one)</p>
+<p><code>statements</code>. In this mode, all individual statements go into the high-priority queue, regardless of the transactional state and the number of available high-priority tickets. Use this value to prioritize <code>AUTOCOMMIT</code> transactions or other statements, such as administrative ones. Setting this value globally essentially disables high-priority scheduling. All connections use the high-priority queue.</p>
 </li>
 <li>
-<p><code>none</code>. This mode disables high priority queue for a connection. Some connections (e.g. monitoring) may be insensitive to execution latency and/or never allocate any server resources that would otherwise impact performance in other connections and thus, do not really require high priority scheduling. Note that setting thread_pool_high_prio_mode to <code>none</code> globally has essentially the same effect as setting it to <code>statements</code> globally: all connections will always use a single queue (the low priority one in this case).</p>
+<p><code>none</code>. This mode disables the priority queue for a connection. Certain types of connections, for example, monitoring, are insensitive to execution latency and do not allocate the server resources that would impact the performance of other connections. These types of connections do not require high-priority scheduling. Setting this value globally essentially disables high-priority scheduling. All connections use the low-priority queue.</p>
 </li>
 </ul>
 <h3 id="thread_pool_high_prio_tickets"><code>thread_pool_high_prio_tickets</code><a class="headerlink" href="#thread_pool_high_prio_tickets" title="Permanent link">&para;</a></h3>
@@ -7054,7 +7012,7 @@ can be performed with the dynamic system variables.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable controls the high priority queue policy. Each new connection is assigned this many tickets to enter the high priority queue. Setting this variable to <code>0</code> will disable the high priority queue.</p>
+<p>This variable controls the high-priority queue policy. Assigns the selected number of tickets to each new connection to enter the high-priority queue. Setting this variable to <code>0</code> disables the high-priority queue.</p>
 <h3 id="thread_pool_max_threads"><code>thread_pool_max_threads</code><a class="headerlink" href="#thread_pool_max_threads" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7090,7 +7048,7 @@ can be performed with the dynamic system variables.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable can be used to limit the maximum number of threads in the pool. Once this number is reached no new threads will be created.</p>
+<p>This variable can limit the maximum number of threads in the pool. The server does not create new threads when the limit is reached.</p>
 <h3 id="thread_pool_oversubscribe"><code>thread_pool_oversubscribe</code><a class="headerlink" href="#thread_pool_oversubscribe" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7126,7 +7084,7 @@ can be performed with the dynamic system variables.</p>
 </tr>
 </tbody>
 </table>
-<p>The higher the value of this parameter the more threads can be run at the same time, if the values is lower than <code>3</code> it could lead to more sleeps and wake-ups.</p>
+<p>Determines the number of threads run simultaneously. A value lower than <code>3</code> could cause sleep and wake-up actions.</p>
 <h3 id="thread_pool_size"><code>thread_pool_size</code><a class="headerlink" href="#thread_pool_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7162,7 +7120,7 @@ can be performed with the dynamic system variables.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable can be used to define the number of threads that can use the CPU at the same time.</p>
+<p>Defines the number of threads that can use the CPU simultaneously.</p>
 <h3 id="thread_pool_stall_limit"><code>thread_pool_stall_limit</code><a class="headerlink" href="#thread_pool_stall_limit" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7198,55 +7156,14 @@ can be performed with the dynamic system variables.</p>
 </tr>
 </tbody>
 </table>
-<p>The number of milliseconds before a running thread is considered stalled. When this limit is reached thread pool will wake up or create another thread. This is being used to prevent a long-running query from monopolizing the pool.</p>
+<p>Defines the number of milliseconds before a running thread is considered stalled. The thread pool will wake up or create another thread when this limit is reached. This variable prevents a long-running query from monopolizing the pool.</p>
 <h3 id="upgrading-from-a-version-before-8014-to-8014-or-higher">Upgrading from a version before 8.0.14 to 8.0.14 or higher<a class="headerlink" href="#upgrading-from-a-version-before-8014-to-8014-or-higher" title="Permanent link">&para;</a></h3>
-<p>Starting with 8.0.14, <em>Percona Server for MySQL</em> uses the upstream implementation of the admin_port. The variables <a href="#extra_port">extra_port</a> and <a href="#extra_max_connections">extra_max_connections</a> are removed and not supported. It is essential to remove the <code>extra_port</code> and <code>extra_max_connections</code> variables from your configuration file before you attempt to upgrade from a release before 8.0.14 to <em>Percona Server for MySQL</em> version 8.0.14 or higher. Otherwise, a server produces a boot error and refuses to start.</p>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p>MySQL Documentation:</p>
-<ul>
-<li><a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_admin_port">admin_port</a></li>
-</ul>
-</div>
 <h3 id="extra_port"><code>extra_port</code><a class="headerlink" href="#extra_port" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line:</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Config file:</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope:</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Dynamic:</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Data type:</td>
-<td>Numeric</td>
-</tr>
-<tr>
-<td>Default value:</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>The varible was removed in <a href="release-notes/Percona-Server-8.0.14.html">Percona Server for MySQL 8.0.14</a>. This variable can be used to specify an additional port that <em>Percona Server for MySQL</em> will listen on. This can be used in case no new connections can be established
+<p>The variable was removed in <a href="release-notes/Percona-Server-8.0.14.html">Percona Server for MySQL 8.0.14</a>.</p>
+<p>Specifies an additional port that Percona Server for MySQL listens on. This can be used in case no new connections can be established
 due to all worker threads being busy or being locked when <code>pool-of-threads</code>
-feature is enabled. To connect to the extra port the following command can be
-used:</p>
+feature is enabled.</p>
+<p>The following command connects to the extra port:</p>
 <div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>--port<span class="o">=</span><span class="s1">&#39;extra-port-number&#39;</span><span class="w"> </span>--protocol<span class="o">=</span>tcp
 </code></pre></div>
 <h3 id="extra_max_connections"><code>extra_max_connections</code><a class="headerlink" href="#extra_max_connections" title="Permanent link">&para;</a></h3>
@@ -7354,7 +7271,7 @@ or being locked when <code>pool-of-threads</code> feature is enabled.</p>
   <small>
     
       Last update:
-      2023-09-27
+      2024-02-21
     
   </small>
 </div>
@@ -7525,7 +7442,7 @@ or being locked when <code>pool-of-threads</code> feature is enabled.</p>
     <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.caa56a14.min.js"></script>
+      <script src="assets/javascripts/bundle.8fd75fb4.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
