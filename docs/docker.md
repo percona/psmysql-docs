@@ -1,17 +1,65 @@
-# Running Percona Server for MySQL in a Docker Container
+# Run Percona Server for MySQL in a Docker Container
 
- *Percona Server for MySQL* has an official Docker image hosted on [Docker Hub](https://hub.docker.com/r/percona/percona-server/). If you want the latest version, use the `latest` tag. You can reference a specific version using the [Docker tag filter for the 8.0 versions](https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name=8.0). 
+
+Docker lets developers build, deploy, run, update, and manage containers, which isolate applications from the host system. Docker containers are made from Docker images, which are snapshots of the configuration needed to run an application, such as the code and libraries.
+
+??? information "Percona solutions"
+
+    Percona provides a range of solutions and services for open source databases. Some of the critical solutions offered are the following:
+
+    * Database Distributions: Percona offers enhanced, enterprise-ready versions of popular open source databases, such as MySQL, MongoDB, and PostgreSQL
+
+    * Backup Solutions: They provide tools for backing up your databases.
+
+    * Clustering Solutions: Percona offers solutions for setting up and managing database clusters.
+
+    * Observability, Monitoring, and Management Solutions: Percona Monitoring and Management (PMM) is an open source platform for managing and monitoring MySQL, MongoDB, and PostgreSQL performance.
+
+    * Kubernetes Operators: Percona provides Kubernetes operators for automated provisioning and managing databases in Kubernetes.
+
+    These databases are supported across traditional deployments, cloud-based platforms, and hybrid IT environments. Percona’s solutions are designed for peak performance, security, scalability, and availability. They also offer support and services for these databases, ensuring they run faster and more reliably.
+
+For this document, container refers to the Docker container and instance refers to the database server in the container.
+
+??? Information "Reasons for deploying Percona Server in Docker"
+
+    Deploying a Percona Server for MySQL container is an efficient, fast solution to setting up a database quickly without using too many resources. This type of deployment works best for small to medium applications.
+
+    You should deploy a Percona Server for MySQL database in Docker for several reasons. Here are some of them:
+
+    - Portability: Docker containers can run on any platform that supports Docker. This flexibility lets you move your database or installation steps from one platform to another.
+    - Isolation: Docker containers are isolated from each other and the host system. This isolation means you can run multiple instances of MySQL on the same machine without interfering with each other or affecting the host's performance. You can also isolate your database from other applications or services that might pose a security risk or consume too many resources.
+    - Scalability: Depending on the load and demand, you can scale docker containers up or down. You can use tools like Docker Compose or Kubernetes to orchestrate multiple containers and manage their configuration, networking, and deployment. You can also use Docker Swarm or Amazon ECS to distribute your containers across multiple nodes and achieve high availability and fault tolerance.
+    - Versioning: Docker images and containers contain all the dependencies and configurations needed to run your application. You can use tags to specify different versions of your images and easily switch between them. You can also use Docker Hub or other registries to store and share your images with others.
+    - Development: Docker containers can help you create a consistent and reproducible development environment that matches your production environment. You can use tools like Dockerfile or Docker Build to automate the creation of your images and ensure they have the same settings and packages as your production images. You can also use tools like Docker Volumes or Bind Mounts to persist and share your data between containers or the host system.
+
+
+
+*Percona Server for MySQL* has an official Docker image hosted on [Docker Hub](https://hub.docker.com/r/percona/percona-server/). If you want the latest version, use the `latest` tag. You can reference a specific version using the [Docker tag filter for the 8.0 versions](https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name=8.0).
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
-Make sure that you are using the latest version of Docker. The `apt` and `yum` versions may be outdated and cause errors.
+Make sure that you are using the latest version of Docker. The `apt` and `yum` versions may be outdated and cause errors. [Install Docker](https://docs.docker.com/get-docker/) on your system.
 
 ## Starting a detached container
 
 You can start a background container with the `--detached` or `-d` option, which runs the container in the background. In detached mode, the container exits when the root process used to run the container exits.
 
+??? Information "Benefits of using Docker run"
+
+    The `docker run` command automatically pulls the image from a registry if that image is not available locally and starts a Docker container. A container is an isolated environment that runs an application on the host operating system. An image is a template that contains the application code and its dependencies. You can use this command to run an application in a container without affecting the host system or other containers.
+
+    The benefits of using the Docker run command are:
+
+    - Allows you to run applications consistently and safely across different platforms and environments.
+    - Reduces the overhead and complexity of installing and configuring applications and their dependencies on the host system.
+    - Improves the security and isolation of applications by limiting their access to the host resources and other containers.
+    - Enables faster development and deployment cycles by allowing you to easily create, update, and destroy containers.
+
+
 The following example starts a container named `ps` with the latest version of
-*Percona Server for MySQL* 8.0. This action also creates the `root` user and uses `root` as the password. Please note that `root` is not a secure password. 
+*Percona Server for MySQL* 8.0. This action also creates the `root` user and uses `root` as the password. Please note that `root` is not a secure password.
+
 
 ```{.bash data-prompt="$"}
 $ docker run -d \
@@ -47,7 +95,7 @@ docker logs ps --follow
     2022-09-07T15:20:13.706136Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.29-21'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona Server (GPL), Release 21, Revision c59f87d2854.
     ```
 You can access the server when you see the `ready for connections` information in the log.
- 
+
 ## Passing Options
 
 
@@ -64,7 +112,7 @@ You can pass options with the `docker run` command. For example, the following c
 
 ## Accessing the Percona Server Container
 
-The `docker exec` command lets you have a shell inside the container. This command uses `it` which forwards your input stream as an interactive TTY. 
+The `docker exec` command lets you have a shell inside the container. This command uses `it` which forwards your input stream as an interactive TTY.
 
 An example of accessing the detached container:
 
@@ -72,7 +120,7 @@ An example of accessing the detached container:
 [root@docker-host] $ docker exec -it ps /bin/bash
 ```
 
-If you need to troubleshoot, the error log is found in `/var/log/` or `/var/log/mysql/`. The file name may be error.log or mysqld.log. 
+If you need to troubleshoot, the error log is found in `/var/log/` or `/var/log/mysql/`. The file name may be error.log or mysqld.log.
 
 
 ## Troubleshooting
@@ -91,7 +139,7 @@ You can view the error log with the following command:
     ...
     ```
 
-## Accessing the database 
+## Accessing the database
 
 You can access the database either with `Docker exec` or using the `mysql` command in the container's shell.
 
@@ -103,7 +151,7 @@ $ docker exec -ti ps mysql -uroot -proot
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}   
+    ```{.text .no-copy}
     mysql: [Warning] Using a password on the command line interface can be insecure.
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 9
@@ -191,7 +239,7 @@ which is the default data directory used by *Percona Server for MySQL*.
 
 Do not add MYSQL_ROOT_PASSWORD to the `docker run` command if the data directory contains subdirectories, files, or data.
 
-!!! note 
+!!! note
 
     If you have SELinux enabled, assign the relevant policy type to the new data directory so that the container will be allowed to access it:
 
