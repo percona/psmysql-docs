@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The following steps create a Docker volume, start a Docker container, and connect to the Docker container.">
+        <meta name="description" content="You are welcome to name any items to match your organization’s standards or use your table structure and data. If you do, the results are different from the expected results.">
       
       
         <meta name="author" content="Percona LLC">
@@ -20,15 +20,15 @@
         <link rel="prev" href="quickstart-overview.html">
       
       
-        <link rel="next" href="quickstart-database.html">
+        <link rel="next" href="quickstart-apt.html">
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.11">
     
     
       
-        <title>Start and connect to a Docker container - Percona Server for MySQL</title>
+        <title>Run Percona Server for MySQL in a Docker container - Percona Server for MySQL</title>
       
     
     
@@ -87,7 +87,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Start and connect to a Docker container" />
+                 <meta property="og:title" content="Percona Server for MySQL - Run Percona Server for MySQL in a Docker container" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.0/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png" />
 
@@ -110,7 +110,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#start-and-connect-to-a-docker-container" class="md-skip">
+        <a href="#run-percona-server-for-mysql-in-a-docker-container" class="md-skip">
           Skip to content
         </a>
       
@@ -149,7 +149,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Start and connect to a Docker container
+              Run Percona Server for MySQL in a Docker container
             
           </span>
         </div>
@@ -2027,7 +2027,7 @@
           
   
   <span class="md-ellipsis">
-    Start and connect to a Docker container
+    Run Percona Server for MySQL in a Docker container
   </span>
   
 
@@ -2038,7 +2038,7 @@
         
   
   <span class="md-ellipsis">
-    Start and connect to a Docker container
+    Run Percona Server for MySQL in a Docker container
   </span>
   
 
@@ -2060,6 +2060,123 @@
       On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-a-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start a Docker container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connect-to-the-database-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Connect to the database instance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a database
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#insert-data-into-the-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Insert data into the table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-a-select-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run a SELECT query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-an-update-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run an Update query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-an-insert-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run an INSERT query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-a-delete-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run a Delete query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clean-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clean up
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-measures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security measures
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#next-step" class="md-nav__link">
@@ -2095,11 +2212,11 @@
   
   
     <li class="md-nav__item">
-      <a href="quickstart-database.html" class="md-nav__link">
+      <a href="quickstart-apt.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Create a database and table
+    Install with APT
   </span>
   
 
@@ -2116,32 +2233,11 @@
   
   
     <li class="md-nav__item">
-      <a href="quickstart-queries.html" class="md-nav__link">
+      <a href="quickstart-yum.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Run SQL queries
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="quickstart-exit.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Clean up
+    Install with YUM
   </span>
   
 
@@ -2282,6 +2378,27 @@
   
   <span class="md-ellipsis">
     Percona Product Download Instructions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="percona-release.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use percona-release
   </span>
   
 
@@ -6409,6 +6526,123 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-a-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start a Docker container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connect-to-the-database-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Connect to the database instance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a database
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#insert-data-into-the-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Insert data into the table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-a-select-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run a SELECT query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-an-update-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run an Update query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-an-insert-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run an INSERT query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-a-delete-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run a Delete query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clean-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clean up
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-measures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security measures
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#next-step" class="md-nav__link">
     <span class="md-ellipsis">
       Next step
@@ -6457,27 +6691,16 @@
   
 
 
-<h1 id="start-and-connect-to-a-docker-container">Start and connect to a Docker container<a class="headerlink" href="#start-and-connect-to-a-docker-container" title="Permanent link">&para;</a></h1>
-<p class="power-number">The following steps create a Docker volume, start a Docker container, and connect to the Docker container.</p>
-<ol>
-<li>
-<p>Create a Docker volume</p>
-<p>One of the benefits of using a Docker volume for persistent storage with a database is that it allows you to keep your data safe and accessible across different containers. For example, if you want to upgrade your database image to a newer version, you can stop the old container and start a new one with the same volume attached without losing any data. Another benefit is that you can quickly backup and restore your data using the docker cp command or mount the volume to another container.</p>
+<h1 id="run-percona-server-for-mysql-in-a-docker-container">Run Percona Server for MySQL in a Docker container<a class="headerlink" href="#run-percona-server-for-mysql-in-a-docker-container" title="Permanent link">&para;</a></h1>
+<p>You are welcome to name any items to match your organization&rsquo;s standards or use your table structure and data. If you do, the results are different from the expected results.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
-<li>
-<p>Create a volume example</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>volume<span class="w"> </span>create<span class="w"> </span>myvol
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>myvol
-</code></pre></div>
-</details>
-</li>
+<li>Docker Engine installed and running</li>
+<li>Stable internet connection</li>
+<li>Basic understanding of the command-line interface (CLI)</li>
 </ul>
-</li>
-<li>
-<p>Start a Docker container</p>
+<p>Always adapt the commands and configurations to your specific environment and security requirements.</p>
+<h2 id="start-a-docker-container">Start a Docker container<a class="headerlink" href="#start-a-docker-container" title="Permanent link">&para;</a></h2>
 <p>To use the &ldquo;Docker run&rdquo; command, specify the name or ID of the image you want to use and, optionally, some flags and arguments that modify the container&rsquo;s behavior. The command has the following options:</p>
 <table>
 <thead>
@@ -6488,45 +6711,39 @@
 </thead>
 <tbody>
 <tr>
-<td><code>--name</code></td>
-<td>Provides a name to the container. If you do not use this option, Docker adds a random name.</td>
-</tr>
-<tr>
 <td><code>-d</code></td>
-<td>Detaches the container. The container runs in the background.</td>
+<td>Runs the container in detached mode, allowing the container to operate in the background.</td>
 </tr>
 <tr>
-<td><code>-e</code></td>
-<td>Adds an environmental variable. This example adds the  <code>MYSQL_ROOT_PASSWORD</code>  environment variable. The instance refuses to initialize if no environmental variable is added. Choose a more secure password if needed.</td>
+<td><code>-p 3306:3306</code></td>
+<td>Maps the container&rsquo;s MySQLport (3306) tothe same port yourhost, enabling external access.</td>
 </tr>
 <tr>
-<td><code>--volume</code></td>
-<td>Lets you have persistent storage for the database.</td>
+<td><code>--name psmysql</code></td>
+<td>Provides a meaningful name to the container. If you do not use this option, Docker adds a random name.</td>
 </tr>
 <tr>
-<td><code>8.0.34</code></td>
-<td>Use this tag to specify a specific version.</td>
+<td><code>-e MYSQL_ROOT_PASSWORD=secret</code></td>
+<td>Adds an environmental variable and changes the password from the default password.</td>
+</tr>
+<tr>
+<td><code>--v myvol:/var/lib/mysql</code></td>
+<td>Mounts a host directory (myvol) as the container&rsquo;s data voluem, ensuring persistent storage for the database between container lifecycles.</td>
+</tr>
+<tr>
+<td><code>percona/percona-server:8.0.34</code></td>
+<td>The image with the tag (8.0.34) to specify a specific release.</td>
 </tr>
 </tbody>
 </table>
 <p>You must provide at least one environment variable to access the database, such as <code>MYSQL_ROOT_PASSWORD</code>, <code>MYSQL_DATABASE</code>, <code>MYSQL_USER</code>, and <code>MYSQL_PASSWORD</code> or the instance refuses to initialize.</p>
-<p>For this document, we are using the <code>8.0.34</code> tag. In Docker, a tag is a label assigned to an image and is used to maintain different versions of an image. If we did not add a tag, Docker uses <code>latest</code> as the default tag and downloads the latest image from <a href="https://hub.docker.com/r/percona/percona-server">percona/percona-server on the Docker Hub</a>. If you want to run the ARM64 version of Percona Server, use the <code>8.0.34-26.1-aarch64</code> tag.</p>
-<details class="information">
-<summary>Benefits of using Docker run</summary>
-<p>The &ldquo;Docker run&rdquo; command automatically pulls the image from a registry if that image is not available locally and starts a Docker container. A container is an isolated environment that runs an application on the host operating system. An image is a template that contains the application code and its dependencies. You can use the &ldquo;Docker run&rdquo; command to run an application in a container without affecting the host system or other containers.</p>
-<p>The benefits of using the &ldquo;Docker run&rdquo; command are:</p>
-<ul>
-<li>Allows you to run applications consistently and safely across different platforms and environments.</li>
-<li>Reduces the overhead and complexity of installing and configuring applications and their dependencies on the host system.</li>
-<li>Improves the security and isolation of applications by limiting their access to the host resources and other containers.</li>
-<li>Enables faster development and deployment cycles by allowing you to easily create, update, and destroy containers.</li>
-</ul>
-</details>
-<p>To use a Docker volume for persistent storage with a database, specify the path where the database stores its data inside the container, usually <code>/var/lib/mysql</code>.</p>
-<ul>
-<li>
-<p>Run a Docker container example</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">3306</span>:3306<span class="w"> </span>--name<span class="w"> </span>psmysql<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>secret<span class="w"> </span>-v<span class="w"> </span>myvol:/var/lib/mysql<span class="w"> </span>percona/percona-server:8.0.34
+<p>If needed, you can replace the <code>secret</code> password with a <a href="#security-measures">stronger password</a>.</p>
+<p>For this document, we add the <code>8.0.34</code> tag. In Docker, a tag is a label assigned to an image and is used to maintain different versions of an image. If we did not add a tag, Docker uses <code>latest</code> as the default tag and downloads the latest image from <a href="https://hub.docker.com/r/percona/percona-server">percona/percona-server on the Docker Hub</a>.</p>
+<p>To run the Docker ARM64 version of Percona Server for MySQL, use the <code>8.0.34-26 1-aarch64</code> tag instead of <code>8.0.34</code>.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">3306</span>:3306<span class="w"> </span>--name<span class="w"> </span>psmysql<span class="w"> </span><span class="se">\</span>
+-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>secret<span class="w"> </span><span class="se">\</span>
+-v<span class="w"> </span>myvol:/var/lib/mysql<span class="w"> </span><span class="se">\</span>
+percona/percona-server:8.0.34
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -6543,12 +6760,9 @@ Status: Downloaded newer image for percona/percona-server:8.0.34
 01d4f6d188b609ff92158605f8528d640aa28ff5720efa0286b36f51d4bec11c
 </code></pre></div>
 </details>
-</li>
-</ul>
-</li>
-<li>
-<p>Connect to the database instance</p>
-<p>To connect to a MySQL database on a container, use the Docker exec command with the database instance connect command. You must know the name or ID of the container that runs the database server and the database credentials. The Docker exec command runs a specified command in a running container. The<code>-it</code> option attaches an interactive terminal to the container, so you can run queries and see the results. The database instance connect command connects to a MySQL server with the user name and password.</p>
+<h2 id="connect-to-the-database-instance">Connect to the database instance<a class="headerlink" href="#connect-to-the-database-instance" title="Permanent link">&para;</a></h2>
+<p>To connect to a MySQL database on a container, use the Docker exec command with the database instance connect command. You must know the name or ID of the container that runs the database server and the database credentials.</p>
+<p>The Docker exec command runs a specified command in a running container. The database instance connect command connects to a MySQL server with the user name and password.</p>
 <p>For this example, we have the following options:</p>
 <table>
 <thead>
@@ -6581,12 +6795,10 @@ Status: Downloaded newer image for percona/percona-server:8.0.34
 </tbody>
 </table>
 <p>You must enter the password when the server prompts you.</p>
-<ul>
-<li>
 <p>Connect to the database instance example</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>psmysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
 </code></pre></div>
-<p>You are prompted to enter the password, which is <code>secret</code>.</p>
+<p>You are prompted to enter the password, which is <code>secret</code>. If you have changed the password, use your password. You will not see any characters as you type.</p>
 <div class="no-copy highlight"><pre><span></span><code>Enter password:
 </code></pre></div>
 <p>You should see the following result.</p>
@@ -6608,12 +6820,258 @@ Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the cu
 mysql&gt;
 </code></pre></div>
 </details>
+<h2 id="create-a-database">Create a database<a class="headerlink" href="#create-a-database" title="Permanent link">&para;</a></h2>
+<details class="example">
+<summary>Benefits and what to watch out for when creating databases and tables</summary>
+<p>Creating a database and table has the following benefits:</p>
+<ul>
+<li>Store and organize your data in a structured and consistent way.</li>
+<li>Query and manipulate your data using SQL.</li>
+<li>Enforce data integrity and security using constraints, triggers, views, roles, and permissions.</li>
+<li>Optimize your data access and performance using indexes, partitions, caching, and other techniques.</li>
+</ul>
+<p>When you create a table, design your database schema carefully, changing it later may be difficult and costly. You should experiment with concurrency, transactions, locking, isolation, and other issues that may arise when multiple users access the same data. You must backup and restore your data regularly, as data loss or corruption may occur due to hardware failures, human errors, or malicious attacks.</p>
+</details>
+<p>To create a database, use the <code>CREATE DATABASE</code> statement. You can optionally specify the character set and collation for the database in the statement. After the database is created, select the database using the <code>USE</code> statement or the <code>-D</code> option in the MySQL client.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>mydb<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>use<span class="w"> </span>mydb<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Database changed
+</code></pre></div>
+</details>
+<h2 id="create-a-table">Create a table<a class="headerlink" href="#create-a-table" title="Permanent link">&para;</a></h2>
+<p>Create a table using the <code>CREATE TABLE</code> statement. You can specify the values for each column or use the DEFAULT keyword for columns with default values, data types, constraints, indexes, and other options.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span>
+<span class="w">    </span><span class="sb">`</span>id<span class="sb">`</span><span class="w"> </span>mediumint<span class="o">(</span><span class="m">8</span><span class="o">)</span><span class="w"> </span>unsigned<span class="w"> </span>NOT<span class="w"> </span>NULL<span class="w"> </span>auto_increment,
+<span class="w">    </span><span class="sb">`</span>name<span class="sb">`</span><span class="w"> </span>varchar<span class="o">(</span><span class="m">255</span><span class="o">)</span><span class="w"> </span>default<span class="w"> </span>NULL,
+<span class="w">    </span><span class="sb">`</span>email<span class="sb">`</span><span class="w"> </span>varchar<span class="o">(</span><span class="m">255</span><span class="o">)</span><span class="w"> </span>default<span class="w"> </span>NULL,
+<span class="w">    </span><span class="sb">`</span>country<span class="sb">`</span><span class="w"> </span>varchar<span class="o">(</span><span class="m">100</span><span class="o">)</span><span class="w"> </span>default<span class="w"> </span>NULL,
+<span class="w">    </span>PRIMARY<span class="w"> </span>KEY<span class="w"> </span><span class="o">(</span><span class="sb">`</span>id<span class="sb">`</span><span class="o">)</span>
+<span class="o">)</span><span class="w"> </span><span class="nv">AUTO_INCREMENT</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected, 1 warning (0.03 sec)
+</code></pre></div>
+</details>
+<h2 id="insert-data-into-the-table">Insert data into the table<a class="headerlink" href="#insert-data-into-the-table" title="Permanent link">&para;</a></h2>
+<p>Insert data into the table using the <code>INSERT INTO</code> SQL statement. This statement adds multiple records into a table in one statement.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
+VALUES
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Erasmus Richardson&quot;</span>,<span class="s2">&quot;posuere.cubilia.curae@outlook.net&quot;</span>,<span class="s2">&quot;England&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Jenna French&quot;</span>,<span class="s2">&quot;rhoncus.donec@hotmail.couk&quot;</span>,<span class="s2">&quot;Canada&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Alfred Dejesus&quot;</span>,<span class="s2">&quot;interdum@aol.org&quot;</span>,<span class="s2">&quot;Austria&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Hamilton Puckett&quot;</span>,<span class="s2">&quot;dapibus.quam@outlook.com&quot;</span>,<span class="s2">&quot;Canada&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Michal Brzezinski&quot;</span>,<span class="s2">&quot;magna@icloud.pl&quot;</span>,<span class="s2">&quot;Poland&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Zofia Lis&quot;</span>,<span class="s2">&quot;zofial00@hotmail.pl&quot;</span>,<span class="s2">&quot;Poland&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Aisha Yakubu&quot;</span>,<span class="s2">&quot;ayakubu80@outlook.com&quot;</span>,<span class="s2">&quot;Nigeria&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Miguel Cardenas&quot;</span>,<span class="s2">&quot;euismod@yahoo.com&quot;</span>,<span class="s2">&quot;Peru&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Luke Jansen&quot;</span>,<span class="s2">&quot;nibh@hotmail.edu&quot;</span>,<span class="s2">&quot;Netherlands&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Roger Pettersen&quot;</span>,<span class="s2">&quot;nunc@protonmail.no&quot;</span>,<span class="s2">&quot;Norway&quot;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 10 rows affected (0.02 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+</code></pre></div>
+</details>
+<h2 id="run-a-select-query">Run a SELECT query<a class="headerlink" href="#run-a-select-query" title="Permanent link">&para;</a></h2>
+<p>SELECT queries retrieve data from one or more tables based on specified criteria. They are the most common type of query and can be used for various purposes, such as displaying, filtering, sorting, aggregating, or joining data. SELECT queries do not modify the data in the database but can affect the performance if the query involves large or complex datasets.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;SELECT<span class="w"> </span>id,<span class="w"> </span>name,<span class="w"> </span>email,<span class="w"> </span>country<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Poland&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----+-------------------+---------------------+---------+
+| id | name              | email               | country |
++----+-------------------+---------------------+---------+
+|  5 | Michal Brzezinski | magna@icloud.pl     | Poland  |
+|  6 | Zofia Lis         | zofial00@hotmail.pl | Poland  |
++----+-------------------+---------------------+---------+
+2 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="run-an-update-query">Run an Update query<a class="headerlink" href="#run-an-update-query" title="Permanent link">&para;</a></h2>
+<p>UPDATE queries modify existing data in a table. They are used to change or correct the information stored in the database. UPDATE queries can update one or more columns and rows simultaneously, depending on the specified conditions. They may also fail if they violate any constraints or rules defined on the table.</p>
+<p>An example of an UPDATE query and then run a <a href="#select-query">SELECT</a> with a WHERE clause to verify the update.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>employees<span class="w"> </span>SET<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Zofia Niemec&#39;</span><span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>name<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------------+
+| name         |
++--------------+
+| Zofia Niemec |
++--------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="run-an-insert-query">Run an INSERT query<a class="headerlink" href="#run-an-insert-query" title="Permanent link">&para;</a></h2>
+<p>INSERT queries add new data to a table. They are used to populate the database with new information. INSERT queries can insert one or more rows at a time, depending on the syntax. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.</p>
+<p>Insert a row into a table and then run a <a href="#select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
+VALUES
+<span class="o">(</span><span class="s2">&quot;Kenzo Sasaki&quot;</span>,<span class="s2">&quot;KenSasaki@outlook.com&quot;</span>,<span class="s2">&quot;Japan&quot;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>id,<span class="w"> </span>name,<span class="w"> </span>email,<span class="w"> </span>country<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----+--------------+-----------------------+---------+
+| id | name         | email                 | country |
++----+--------------+-----------------------+---------+
+| 11 | Kenzo Sasaki | KenSasaki@outlook.com | Japan   |
++----+--------------+-----------------------+---------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="run-a-delete-query">Run a Delete query<a class="headerlink" href="#run-a-delete-query" title="Permanent link">&para;</a></h2>
+<p>DELETE queries remove existing data from a table. They are used to clean up the information no longer needed or relevant in the database. The DELETE queries can delete one or more rows at a time, depending on the specified conditions. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.</p>
+<p>Delete a row in the table and run a <a href="#select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DELETE<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span>id<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>id,<span class="w"> </span>name,<span class="w"> </span>email,<span class="w"> </span>country<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span>id<span class="w"> </span>&gt;<span class="w"> </span><span class="m">10</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Empty set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="clean-up">Clean up<a class="headerlink" href="#clean-up" title="Permanent link">&para;</a></h2>
+<p>The following steps do the following:</p>
+<ul>
+<li>
+<p>Exits the MySQL command client shell and the Docker container</p>
+</li>
+<li>
+<p>Removes the Docker container and the Docker image</p>
+</li>
+<li>
+<p>Removes the Docker volume.</p>
+</li>
+</ul>
+<p class="power-number">The steps are as follows:</p>
+<ol>
+<li>
+<p>To exit the MySQL command client shell we use <code>exit</code>. You can also use the <code>\q</code> or <code>quit</code> commands. The execution of the statement also closes the connection.</p>
+<ul>
+<li>
+<p>An example of exiting the MySQL command client shell and closing the connection.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span><span class="nb">exit</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Bye
+</code></pre></div>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<p>You may want to remove the docker container and the image if they are no longer needed or to free up disk space. To remove a docker container, use the command <code>docker rm</code> followed by <code>psmysql</code>, the container ID or name. To remove a docker image, use the command <code>docker rmi</code> followed by <code>percona/percona-server:8.0.34</code>, the image ID or name and the tag. If you are running the ARM64 version of Percona Server, edit the Docker command to use the <code>8.0.34-26.1-aarch64</code> tag with <code>docker image rmi percona/percona-server:8.0.34-26.1-aarch64</code></p>
+<ul>
+<li>
+<p>An example of removing a Docker container.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>container<span class="w"> </span>rm<span class="w"> </span>psmysql<span class="w"> </span>-f
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<p><div class="no-copy highlight"><pre><span></span><code>psmysql
+</code></pre></div>
+* An example of removing a Docker image. If running the ARM64 version of Percona Server, edit the Docker command to use the <code>8.0.34-26.1-aarch64</code> tag. This edit changes the command to <code>docker image rmi percona/percona-server:8.0.34-26.1-aarch64</code></p>
+</details>
+<div class="highlight"><pre><span></span><code>$ docker image rmi percona/percona-server:8.0.34
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Untagged: percona/percona-server:8.0.34
+Untagged: percona/percona-server@sha256:4944f9b365e0dc88f41b3b704ff2a02d1459fd07763d7d1a444b263db8498e1f
+Deleted: sha256:b2588da614b1f382468fc9f44600863e324067a9cae57c204a30a2105d61d9d9
+Deleted: sha256:1ceaa6dc89e328281b426854a3b00509b5df13826a9618a09e819a830b752ebd
+Deleted: sha256:77471692427a227eb16d06907357956c3bb43f0fdc3ecf6f8937e1acecae24fe
+Deleted: sha256:8db06cc7b0430437edc7f118b139d2195cb65e2e8025f9a4517d16778f615384
+Deleted: sha256:e5a57a2fafec4ab9482240f28927651d56545c19626e344aceb8be3704c3c397
+Deleted: sha256:f86198f39b893674d44d424c958f23183bf919d2ced20e1f519714d0972d75ed
+Deleted: sha256:db9672f7e12e374d5e9016b758a29d5444e8b0fd1246a6f1fc5c2b3c847dddcf
+</code></pre></div>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<p>Remove the docker volume if a container does not use the volume and you no longer need it.</p>
+<ul>
+<li>
+<p>An example of removing a Docker volume.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>volume<span class="w"> </span>rm<span class="w"> </span>myvol
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>myvol
+</code></pre></div>
+</details>
 </li>
 </ul>
 </li>
 </ol>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Connection Refusal: Ensure Docker is running and the container is active. Verify port 3306 is accessible on the container&rsquo;s IP address.</p>
+</li>
+<li>
+<p>Incorrect Credentials: Double-check the root password you set during container launch.</p>
+</li>
+<li>
+<p>Data Loss: Always back up your data regularly outside the container volume.</p>
+</li>
+</ul>
+<h2 id="security-measures">Security measures<a class="headerlink" href="#security-measures" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Strong Passwords: Utilize complex, unique passwords for the root user and any additional accounts created within the container. The alphanumeric password should contain at least 12 characters. The password should include uppercase and lowercase letters, numbers, and symbols.</p>
+</li>
+<li>
+<p>Network Restrictions: Limit network access to the container by restricting firewall rules to only authorized IP addresses.</p>
+</li>
+<li>
+<p>Periodic Updates: Regularly update the Percona Server image and Docker Engine to mitigate known vulnerabilities.</p>
+</li>
+<li>
+<p>Data Encryption: Consider encrypting the data directory within the container volume for an additional layer of security.</p>
+</li>
+<li>
+<p>Monitor Logs: Actively monitor container logs for suspicious activity or errors.</p>
+</li>
+</ul>
+<p>Remember, responsible container management and robust security practices are crucial for safeguarding your MySQL deployment. By following these guidelines, you can leverage the benefits of Docker and Percona Server while prioritizing the integrity and security of your data.</p>
 <h2 id="next-step">Next step<a class="headerlink" href="#next-step" title="Permanent link">&para;</a></h2>
-<p><a class="md-button" href="quickstart-database.html">Create a database and table <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg></span></a></p>
+<p><a class="md-button" href="quickstart-next-steps.html">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg></span></a></p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.
@@ -6629,7 +7087,7 @@ mysql&gt;
   <small>
     
       Last update:
-      2023-12-26
+      2024-02-26
     
   </small>
 </div>

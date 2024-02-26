@@ -8,27 +8,27 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The following steps run a SELECT query, an UPDATE query, an INSERT INTO query, and a DELETE query on a table in the database. These are a series of structured query language (SQL) statements that manipulate the data in a database.">
+        <meta name="description" content="Use the Percona repositories to install using YUM.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/quickstart-queries.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/quickstart-yum.html">
       
       
-        <link rel="prev" href="quickstart-database.html">
+        <link rel="prev" href="quickstart-apt.html">
       
       
-        <link rel="next" href="quickstart-exit.html">
+        <link rel="next" href="quickstart-next-steps.html">
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.11">
     
     
       
-        <title>Run SQL queries - Percona Server for MySQL</title>
+        <title>Install with YUM - Percona Server for MySQL</title>
       
     
     
@@ -87,7 +87,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Run SQL queries" />
+                 <meta property="og:title" content="Percona Server for MySQL - Install with YUM" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.0/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png" />
 
@@ -110,7 +110,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#run-sql-queries" class="md-skip">
+        <a href="#install-with-yum" class="md-skip">
           Skip to content
         </a>
       
@@ -149,7 +149,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Run SQL queries
+              Install with YUM
             
           </span>
         </div>
@@ -2018,7 +2018,7 @@
         
   
   <span class="md-ellipsis">
-    Start and connect to a Docker container
+    Run Percona Server for MySQL in a Docker container
   </span>
   
 
@@ -2035,11 +2035,11 @@
   
   
     <li class="md-nav__item">
-      <a href="quickstart-database.html" class="md-nav__link">
+      <a href="quickstart-apt.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Create a database and table
+    Install with APT
   </span>
   
 
@@ -2069,18 +2069,18 @@
           
   
   <span class="md-ellipsis">
-    Run SQL queries
+    Install with YUM
   </span>
   
 
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="quickstart-queries.html" class="md-nav__link md-nav__link--active">
+      <a href="quickstart-yum.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Run SQL queries
+    Install with YUM
   </span>
   
 
@@ -2104,6 +2104,114 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#prerequisits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisits
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a database
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#insert-data-into-the-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Insert data into the table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-a-select-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run a SELECT query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-an-update-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run an Update query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-an-insert-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run an INSERT query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-a-delete-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run a Delete query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Steps:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secure-the-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secure the installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#next-step" class="md-nav__link">
     <span class="md-ellipsis">
       Next step
@@ -2125,27 +2233,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="quickstart-exit.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Clean up
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -2282,6 +2369,27 @@
   
   <span class="md-ellipsis">
     Percona Product Download Instructions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="percona-release.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use percona-release
   </span>
   
 
@@ -6409,6 +6517,114 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#prerequisits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisits
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a database
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#insert-data-into-the-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Insert data into the table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-a-select-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run a SELECT query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-an-update-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run an Update query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-an-insert-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run an INSERT query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-a-delete-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run a Delete query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Steps:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secure-the-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secure the installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#next-step" class="md-nav__link">
     <span class="md-ellipsis">
       Next step
@@ -6441,7 +6657,7 @@
                   
 
   
-    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/quickstart-queries.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/quickstart-yum.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -6450,21 +6666,275 @@
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/quickstart-queries.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/quickstart-yum.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
     </a>
   
 
 
-<h1 id="run-sql-queries">Run SQL queries<a class="headerlink" href="#run-sql-queries" title="Permanent link">&para;</a></h1>
-<p class="power-number">The following steps run a SELECT query, an UPDATE query, an INSERT INTO query, and a DELETE query on a table in the database. These are a series of structured query language (SQL) statements that manipulate the data in a database.</p>
-<ol>
-<li>
-<p>SELECT queries retrieve data from one or more tables based on specified criteria. They are the most common type of query and can be used for various purposes, such as displaying, filtering, sorting, aggregating, or joining data. SELECT queries do not modify the data in the database but can affect the performance if the query involves large or complex datasets.</p>
+<h1 id="install-with-yum">Install with YUM<a class="headerlink" href="#install-with-yum" title="Permanent link">&para;</a></h1>
+<p>Use the <a href="percona-release.html">Percona repositories</a> to install using YUM.</p>
+<h2 id="prerequisits">Prerequisits<a class="headerlink" href="#prerequisits" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p>An example of a SELECT query.</p>
+<p>Either use <code>sudo</code> or run as root</p>
+</li>
+<li>
+<p>Stable Internet access</p>
+</li>
+</ul>
+<h2 id="installation-steps">Installation steps<a class="headerlink" href="#installation-steps" title="Permanent link">&para;</a></h2>
+<p class="power-number">The examles of the &ldquo;expected output&rdquo; depend on the operating system. The following examples are based on Oracle Linux 9.3.</p>
+<ol>
+<li>
+<p>Use the YUM package manager to install <code>percona-release</code>.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Oracle Linux 9 BaseOS Latest (x86_64)                                                        7.0 MB/s |  20 MB     00:02
+Oracle Linux 9 Application Stream Packages (x86_64)                                          7.3 MB/s |  28 MB     00:03
+Oracle Linux 9 UEK Release 7 (x86_64)                                                        6.7 MB/s |  27 MB     00:04
+Last metadata expiration check: 0:00:04 ago on Fri 16 Feb 2024 12:34:26 PM UTC.
+percona-release-latest.noarch.rpm                                                             37 kB/s |  20 kB     00:00
+Dependencies resolved.
+...
+* Enabling the Percona Original repository
+&lt;*&gt; All done!
+* Enabling the Percona Release repository
+&lt;*&gt; All done!
+The percona-release package now contains a percona-release script that can enable additional repositories for our newer products.
+
+For example, to enable the Percona Server 8.0 repository use:
+
+    percona-release setup ps80
+
+Note: To avoid conflicts with older product versions, the percona-release setup command may disable our original repository for some products.
+
+For more information, please visit:
+    https://www.percona.com/doc/percona-repo-config/percona-release.html
+
+
+    Verifying        : percona-release-1.0-27.noarch                                                                       1/1
+
+Installed:
+    percona-release-1.0-27.noarch
+
+Complete!
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Use the <code>percona-release</code> tool to setup the repository for Percona Server for MySQL 8.0.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps-80
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>* Disabling all Percona Repositories
+On Red Hat 8 systems it is needed to disable the following DNF module(s): mysql  to install Percona-Server
+Do you want to disable it? [y/N] y
+Disabling dnf module...
+Percona Release release/noarch YUM repository                                             2.7 kB/s | 1.8 kB     00:00
+Unable to resolve argument mysql
+Error: Problems in request:
+missing groups or modules: mysql
+DNF mysql module was disabled
+* Enabling the Percona Server 8.0 repository
+* Enabling the Percona Tools repository
+&lt;*&gt; All done!
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Enable the <code>ps-80 release</code> repository.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps-80<span class="w"> </span>release
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>* Enabling the Percona Server 8.0 repository
+&lt;*&gt; All done!
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Install the latest version of Percona Server for MySQL 8.0. This installation may take some time.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Percona Server 8.0 release/x86_64 YUM repository                                             1.0 MB/s | 2.3 MB     00:02
+Percona Tools release/x86_64 YUM repository                                                  761 kB/s | 1.1 MB     00:01
+Last metadata expiration check: 0:00:01 ago on Fri 16 Feb 2024 03:07:45 PM UTC.
+Dependencies resolved.
+…
+perl-vars-1.05-480.el9.noarch
+
+Complete!
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Check the status of the mysql service and restart if needed.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysql
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>○ mysqld.service - MySQL Server
+    Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; preset: disabled)
+    Active: inactive (dead)
+    Docs: man:mysqld(8)
+            http://dev.mysql.com/doc/refman/en/using-systemd.html
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
+</code></pre></div>
+<p>This command has no output.</p>
+</li>
+<li>
+<p>Percona Server for MySQL generates a temporary password during installation. You must have the service running to access the log.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>2024-02-12T16:05:03.969449Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: [random-generated-password]
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Log in to the server. Use the password retrieved by the <code>grep</code> command. You can type the password or copy-and-paste. You do not see the characters in the password as you type.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
+Enter<span class="w"> </span>password:
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.35-27 Percona Server (GPL), Release &#39;27&#39;, Revision &#39;2f8eeab2&#39;$
+
+Copyright (c) 2009-2023 Percona LLC and/or its affiliates
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+
+mysql&gt;
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>The temporary password must be replaced. Run the ALTER USER command tochange the password for the root user. Remember or save the new password.You will need it to log into the server in the next step.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;[your password]&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Log out of the server. to verify that the password has changed.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span><span class="nb">exit</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Bye
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Log into the server with the new password to verify that the password has changed.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
+Enter<span class="w"> </span>password:
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.35-27 Percona Server (GPL), Release &#39;27&#39;, Revision &#39;2f8eeab2&#39;$
+
+Copyright (c) 2009-2023 Percona LLC and/or its affiliates
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+
+mysql&gt;
+</code></pre></div>
+</details>
+</li>
+</ol>
+<h2 id="create-a-database">Create a database<a class="headerlink" href="#create-a-database" title="Permanent link">&para;</a></h2>
+<details class="example">
+<summary>Benefits and what to watch out for when creating databases and tables</summary>
+<p>Creating a database and table has the following benefits:</p>
+<ul>
+<li>Store and organize your data in a structured and consistent way.</li>
+<li>Query and manipulate your data using SQL.</li>
+<li>Enforce data integrity and security using constraints, triggers, views, roles, and permissions.</li>
+<li>Optimize your data access and performance using indexes, partitions, caching, and other techniques.</li>
+</ul>
+<p>When you create a table, design your database schema carefully, changing it later may be difficult and costly. You should experiment with concurrency, transactions, locking, isolation, and other issues that may arise when multiple users access the same data. You must backup and restore your data regularly, as data loss or corruption may occur due to hardware failures, human errors, or malicious attacks.</p>
+</details>
+<p>To create a database, use the <code>CREATE DATABASE</code> statement. You can optionally specify the character set and collation for the database in the statement. After the database is created, select the database using the <code>USE</code> statement or the <code>-D</code> option in the MySQL client.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>mydb<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>use<span class="w"> </span>mydb<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Database changed
+</code></pre></div>
+</details>
+<h2 id="create-a-table">Create a table<a class="headerlink" href="#create-a-table" title="Permanent link">&para;</a></h2>
+<p>Create a table using the <code>CREATE TABLE</code> statement. You can specify the values for each column or use the DEFAULT keyword for columns with default values, data types, constraints, indexes, and other options.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span>
+<span class="w">    </span><span class="sb">`</span>id<span class="sb">`</span><span class="w"> </span>mediumint<span class="o">(</span><span class="m">8</span><span class="o">)</span><span class="w"> </span>unsigned<span class="w"> </span>NOT<span class="w"> </span>NULL<span class="w"> </span>auto_increment,
+<span class="w">    </span><span class="sb">`</span>name<span class="sb">`</span><span class="w"> </span>varchar<span class="o">(</span><span class="m">255</span><span class="o">)</span><span class="w"> </span>default<span class="w"> </span>NULL,
+<span class="w">    </span><span class="sb">`</span>email<span class="sb">`</span><span class="w"> </span>varchar<span class="o">(</span><span class="m">255</span><span class="o">)</span><span class="w"> </span>default<span class="w"> </span>NULL,
+<span class="w">    </span><span class="sb">`</span>country<span class="sb">`</span><span class="w"> </span>varchar<span class="o">(</span><span class="m">100</span><span class="o">)</span><span class="w"> </span>default<span class="w"> </span>NULL,
+<span class="w">    </span>PRIMARY<span class="w"> </span>KEY<span class="w"> </span><span class="o">(</span><span class="sb">`</span>id<span class="sb">`</span><span class="o">)</span>
+<span class="o">)</span><span class="w"> </span><span class="nv">AUTO_INCREMENT</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected, 1 warning (0.03 sec)
+</code></pre></div>
+</details>
+<h2 id="insert-data-into-the-table">Insert data into the table<a class="headerlink" href="#insert-data-into-the-table" title="Permanent link">&para;</a></h2>
+<p>Insert data into the table using the <code>INSERT INTO</code> SQL statement. This statement adds multiple records into a table in one statement.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
+VALUES
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Erasmus Richardson&quot;</span>,<span class="s2">&quot;posuere.cubilia.curae@outlook.net&quot;</span>,<span class="s2">&quot;England&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Jenna French&quot;</span>,<span class="s2">&quot;rhoncus.donec@hotmail.couk&quot;</span>,<span class="s2">&quot;Canada&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Alfred Dejesus&quot;</span>,<span class="s2">&quot;interdum@aol.org&quot;</span>,<span class="s2">&quot;Austria&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Hamilton Puckett&quot;</span>,<span class="s2">&quot;dapibus.quam@outlook.com&quot;</span>,<span class="s2">&quot;Canada&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Michal Brzezinski&quot;</span>,<span class="s2">&quot;magna@icloud.pl&quot;</span>,<span class="s2">&quot;Poland&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Zofia Lis&quot;</span>,<span class="s2">&quot;zofial00@hotmail.pl&quot;</span>,<span class="s2">&quot;Poland&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Aisha Yakubu&quot;</span>,<span class="s2">&quot;ayakubu80@outlook.com&quot;</span>,<span class="s2">&quot;Nigeria&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Miguel Cardenas&quot;</span>,<span class="s2">&quot;euismod@yahoo.com&quot;</span>,<span class="s2">&quot;Peru&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Luke Jansen&quot;</span>,<span class="s2">&quot;nibh@hotmail.edu&quot;</span>,<span class="s2">&quot;Netherlands&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Roger Pettersen&quot;</span>,<span class="s2">&quot;nunc@protonmail.no&quot;</span>,<span class="s2">&quot;Norway&quot;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 10 rows affected (0.02 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+</code></pre></div>
+</details>
+<h2 id="run-a-select-query">Run a SELECT query<a class="headerlink" href="#run-a-select-query" title="Permanent link">&para;</a></h2>
+<p>SELECT queries retrieve data from one or more tables based on specified criteria. They are the most common type of query and can be used for various purposes, such as displaying, filtering, sorting, aggregating, or joining data. SELECT queries do not modify the data in the database but can affect the performance if the query involves large or complex datasets.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;SELECT<span class="w"> </span>id,<span class="w"> </span>name,<span class="w"> </span>email,<span class="w"> </span>country<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Poland&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -6478,14 +6948,10 @@
 2 rows in set (0.00 sec)
 </code></pre></div>
 </details>
-</li>
-</ul>
-</li>
-<li>
+<h2 id="run-an-update-query">Run an Update query<a class="headerlink" href="#run-an-update-query" title="Permanent link">&para;</a></h2>
 <p>UPDATE queries modify existing data in a table. They are used to change or correct the information stored in the database. UPDATE queries can update one or more columns and rows simultaneously, depending on the specified conditions. They may also fail if they violate any constraints or rules defined on the table.</p>
-<ul>
-<li>
-<p>An example of an UPDATE query and then run a <a href="#select-query">SELECT</a> with a WHERE clause to verify the update.</p>
+<div class="highlight"><pre><span></span><code>An example of an UPDATE query and then run a [SELECT](#select-query) with a WHERE clause to verify the update.
+</code></pre></div>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>employees<span class="w"> </span>SET<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Zofia Niemec&#39;</span><span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -6506,13 +6972,8 @@ Rows matched: 1  Changed: 1  Warnings: 0
 1 row in set (0.00 sec)
 </code></pre></div>
 </details>
-</li>
-</ul>
-</li>
-<li>
+<h2 id="run-an-insert-query">Run an INSERT query<a class="headerlink" href="#run-an-insert-query" title="Permanent link">&para;</a></h2>
 <p>INSERT queries add new data to a table. They are used to populate the database with new information. INSERT queries can insert one or more rows at a time, depending on the syntax. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.</p>
-<ul>
-<li>
 <p>Insert a row into a table and then run a <a href="#select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
 VALUES
@@ -6535,13 +6996,8 @@ VALUES
 1 row in set (0.00 sec)
 </code></pre></div>
 </details>
-</li>
-</ul>
-</li>
-<li>
+<h2 id="run-a-delete-query">Run a Delete query<a class="headerlink" href="#run-a-delete-query" title="Permanent link">&para;</a></h2>
 <p>DELETE queries remove existing data from a table. They are used to clean up the information no longer needed or relevant in the database. The DELETE queries can delete one or more rows at a time, depending on the specified conditions. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.</p>
-<ul>
-<li>
 <p>Delete a row in the table and run a <a href="#select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DELETE<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span>id<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">;</span>
 </code></pre></div>
@@ -6557,12 +7013,145 @@ VALUES
 <div class="no-copy highlight"><pre><span></span><code>Empty set (0.00 sec)
 </code></pre></div>
 </details>
+<h2 id="troubleshooting">Troubleshooting:<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<p>Installation:</p>
+<ul>
+<li>
+<p>Verify repository is enabled: <code>sudo yum repolist</code></p>
+</li>
+<li>
+<p>Check for package conflicts: <code>sudo yum deplist percona-server-server</code></p>
+</li>
+<li>
+<p>Consult package logs: <code>sudo journalctl -u yum</code></p>
 </li>
 </ul>
+<p>MySQL startup:</p>
+<ul>
+<li>
+<p>Review system logs: <code>sudo journalctl -u mysqld</code></p>
 </li>
-</ol>
+<li>
+<p>Check configuration files: /etc/my.cnf</p>
+</li>
+</ul>
+<h2 id="security-steps">Security Steps:<a class="headerlink" href="#security-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Keep software updated: <code>sudo yum update</code> regularly.</p>
+</li>
+<li>
+<p>Strong root password: Set a complex, unique password using <a href="#secure-the-installation"><code>mysql_secure_installation</code></a>.</p>
+</li>
+<li>
+<p>Disable unused accounts and databases: Remove unnecessary elements.</p>
+</li>
+<li>
+<p>Monitor Server Activity: Employ tools, like <a href="https://docs.percona.com/percona-monitoring-and-management">Percona Monitoring and Management</a>, and logs to monitor server activity for suspicious behavior.</p>
+</li>
+<li>
+<p>Backup data regularly: Ensure robust backups for disaster recovery.</p>
+</li>
+</ul>
+<h2 id="secure-the-installation">Secure the installation<a class="headerlink" href="#secure-the-installation" title="Permanent link">&para;</a></h2>
+<p>You can increase the security of MySQL by running<code>sudo mysql_secure installation</code>.</p>
+<p>After installing MySQL, you should run the <code>mysql_secure_installation</code> script to improve the security of your database server. This script helps you perform several important tasks, such as:</p>
+<ul>
+<li>
+<p>Set a password for the root user</p>
+</li>
+<li>
+<p>Select a level for the  password validation policy</p>
+</li>
+<li>
+<p>Remove anonymous users</p>
+</li>
+<li>
+<p>Disable root login remotely</p>
+</li>
+<li>
+<p>Remove the test database</p>
+</li>
+<li>
+<p>Reload the privilege table to ensure all changes take effect immediately</p>
+</li>
+</ul>
+<p>By running this script, you can prevent unauthorized access to your server and protect your data from potential threats.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mysql_secure_installation
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Securing the MySQL server deployment.
+
+Enter password for user root:
+
+VALIDATE PASSWORD COMPONENT can be used to test passwords
+and improve security. It checks the strength of password
+and allows the users to set only those passwords which are
+secure enough. Would you like to setup VALIDATE PASSWORD component?
+
+Press y|Y for Yes, any other key for No:
+
+There are three levels of password validation policy:
+
+LOW    Length &gt;= 8
+MEDIUM Length &gt;= 8, numeric, mixed case, and special characters
+STRONG Length &gt;= 8, numeric, mixed case, special characters and dictionary                  file
+
+Please enter 0 = LOW, 1 = MEDIUM and 2 = STRONG: 1
+Using existing password for root.
+
+Estimated strength of the password: 0
+Change the password for root ? ((Press y|Y for Yes, any other key for No) :
+
+New password:
+
+Re-enter new password:
+
+Estimated strength of the password: 100
+Do you wish to continue with the password provided?(Press y|Y for Yes, any other key for No) :
+By default, a MySQL installation has an anonymous user,
+allowing anyone to log into MySQL without having to have
+a user account created for them. This is intended only for
+testing, and to make the installation go a bit smoother.
+You should remove them before moving into a production
+environment.
+
+Remove anonymous users? (Press y|Y for Yes, any other key for No) :
+Success.
+
+
+Normally, root should only be allowed to connect from
+&#39;localhost&#39;. This ensures that someone cannot guess at
+the root password from the network.
+
+Disallow root login remotely? (Press y|Y for Yes, any other key for No) :
+Success.
+
+By default, MySQL comes with a database named &#39;test&#39; that
+anyone can access. This is also intended only for testing,
+and should be removed before moving into a production
+environment.
+
+
+Remove test database and access to it? (Press y|Y for Yes, any other key for No) :
+ - Dropping test database...
+Success.
+
+ - Removing privileges on test database...
+Success.
+
+Reloading the privilege tables will ensure that all changes
+made so far will take effect immediately.
+
+Reload privilege tables now? (Press y|Y for Yes, any other key for No) :
+Success.
+
+All done!
+</code></pre></div>
+</details>
 <h2 id="next-step">Next step<a class="headerlink" href="#next-step" title="Permanent link">&para;</a></h2>
-<p><a class="md-button" href="quickstart-exit.html">Clean up <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg></span></a></p>
+<p><a class="md-button" href="quickstart-next-steps.html">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg></span></a></p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.
@@ -6578,7 +7167,7 @@ VALUES
   <small>
     
       Last update:
-      2023-12-26
+      2024-02-26
     
   </small>
 </div>

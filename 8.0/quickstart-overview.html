@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. Percona Server for MySQL provides enterprise-grade features in security, availability, data management, visibility, instrumentation, and performance. To start with Percona Server for MySQL quickly, we recommend using Docker and this Quickstart guide focuses on this installation method. You can explore alternative installation options in the Install section.">
+        <meta name="description" content="Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database and provides enterprise-grade features in security, availability, data management, visibility, instrumentation, and performance.">
       
       
         <meta name="author" content="Percona LLC">
@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.11">
     
     
       
@@ -2050,15 +2050,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#steps-for-first-time-users" class="md-nav__link">
     <span class="md-ellipsis">
       Steps for first-time users
@@ -2068,9 +2059,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
+  <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
-      Next step
+      Next steps
     </span>
   </a>
   
@@ -2105,7 +2096,7 @@
         
   
   <span class="md-ellipsis">
-    Start and connect to a Docker container
+    Run Percona Server for MySQL in a Docker container
   </span>
   
 
@@ -2122,11 +2113,11 @@
   
   
     <li class="md-nav__item">
-      <a href="quickstart-database.html" class="md-nav__link">
+      <a href="quickstart-apt.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Create a database and table
+    Install with APT
   </span>
   
 
@@ -2143,32 +2134,11 @@
   
   
     <li class="md-nav__item">
-      <a href="quickstart-queries.html" class="md-nav__link">
+      <a href="quickstart-yum.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Run SQL queries
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="quickstart-exit.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Clean up
+    Install with YUM
   </span>
   
 
@@ -2309,6 +2279,27 @@
   
   <span class="md-ellipsis">
     Percona Product Download Instructions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="percona-release.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use percona-release
   </span>
   
 
@@ -6445,15 +6436,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#steps-for-first-time-users" class="md-nav__link">
     <span class="md-ellipsis">
       Steps for first-time users
@@ -6463,9 +6445,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
+  <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
-      Next step
+      Next steps
     </span>
   </a>
   
@@ -6512,22 +6494,12 @@
 
 
 <h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
-<p>Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. Percona Server for MySQL provides enterprise-grade features in security, availability, data management, visibility, instrumentation, and performance. To start with Percona Server for MySQL quickly, we recommend using Docker and this Quickstart guide focuses on this installation method. You can explore alternative installation options in the <a href="installation.html">Install</a> section.</p>
-<p>Docker lets developers build, deploy, run, update, and manage containers, which isolate applications from the host system. Docker containers are made from Docker images, which are snapshots of the configuration needed to run an application, such as the code and libraries.</p>
-<details class="information">
-<summary>Reasons for deploying Percona Server in Docker</summary>
-<p>Deploying a Percona Server for MySQL container is an efficient, fast solution to setting up a database quickly without using too many resources. This type of deployment works best for small to medium applications.</p>
-<p>You should deploy a Percona Server for MySQL database in Docker for several reasons. Here are some of them:</p>
-<ul>
-<li>Portability: Docker containers can run on any platform that supports Docker. This flexibility lets you move your database or installation steps from one platform to another.</li>
-<li>Isolation: Docker containers are isolated from each other and the host system. This isolation means you can run multiple instances of MySQL on the same machine without interfering with each other or affecting the host&rsquo;s performance. You can also isolate your database from other applications or services that might pose a security risk or consume too many resources.</li>
-<li>Scalability: Depending on the load and demand, you can scale docker containers up or down. You can use tools like Docker Compose or Kubernetes to orchestrate multiple containers and manage their configuration, networking, and deployment. You can also use Docker Swarm or Amazon ECS to distribute your containers across multiple nodes and achieve high availability and fault tolerance.</li>
-<li>Versioning: Docker images and containers contain all the dependencies and configurations needed to run your application. You can use tags to specify different versions of your images and easily switch between them. You can also use Docker Hub or other registries to store and share your images with others.</li>
-<li>Development: Docker containers can help you create a consistent and reproducible development environment that matches your production environment. You can use tools like Dockerfile or Docker Build to automate the creation of your images and ensure they have the same settings and packages as your production images. You can also use tools like Docker Volumes or Bind Mounts to persist and share your data between containers or the host system.</li>
-</ul>
-</details>
+<p>Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database and provides enterprise-grade features in security, availability, data management, visibility, instrumentation, and performance.</p>
+<p>To start with Percona Server for MySQL quickly, this Quickstart guide focuses on either using Docker, or installing with APT or YUM.</p>
+<p>You can explore alternative installation options in the <a href="installation.html">Install</a> section of the Percona Server for MySQL documentation.</p>
 <h2 id="purpose-of-the-quickstart">Purpose of the Quickstart<a class="headerlink" href="#purpose-of-the-quickstart" title="Permanent link">&para;</a></h2>
-<p>This document is an introduction to our Percona Server for MySQL server and guides you through the basic steps to create and run a database using a Docker container. These steps describe one way to use Percona Server for MySQL. You can also do the following:</p>
+<p>This document guides you through the initial setup process, including setting a root password in either APT or YUM, creating a database.</p>
+<p>You can also do the following:</p>
 <ul>
 <li>
 <p><a href="installation.html">Download and install Percona Server for MySQL packages for your operating system</a></p>
@@ -6536,53 +6508,13 @@
 <p>Work with <a href="https://docs.percona.com/percona-operator-for-mysql/ps/helm.html">the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Helm</a> or <a href="https://docs.percona.com/percona-operator-for-mysql/ps/minikube.html">the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Minikube</a> to find out more about the Percona Operator.</p>
 </li>
 </ul>
-<details class="information">
-<summary>Percona solutions</summary>
-<p>Percona provides a range of solutions and services for open source databases. Some of the critical solutions offered are the following:</p>
-<ul>
-<li>
-<p>Database Distributions: Percona offers enhanced, enterprise-ready versions of popular open source databases, such as MySQL, MongoDB, and PostgreSQL</p>
-</li>
-<li>
-<p>Backup Solutions: They provide tools for backing up your databases.</p>
-</li>
-<li>
-<p>Clustering Solutions: Percona offers solutions for setting up and managing database clusters.</p>
-</li>
-<li>
-<p>Observability, Monitoring, and Management Solutions: Percona Monitoring and Management (PMM) is an open source platform for managing and monitoring MySQL, MongoDB, and PostgreSQL performance.</p>
-</li>
-<li>
-<p>Kubernetes Operators: Percona provides Kubernetes operators for automated provisioning and managing databases in Kubernetes.</p>
-</li>
-</ul>
-<p>These databases are supported across traditional deployments, cloud-based platforms, and hybrid IT environments. Percona’s solutions are designed for peak performance, security, scalability, and availability. They also offer support and services for these databases, ensuring they run faster and more reliably.</p>
-</details>
-<p>You are welcome to name any items to match your organization&rsquo;s standards or use your table structure and data. If you do, the results are different from the expected results. </p>
-<p>For this document, container refers to the Docker container and instance refers to the database server in the container.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p><a href="https://docs.docker.com/get-docker/">Install Docker</a> on your system.</p>
 <h2 id="steps-for-first-time-users">Steps for first-time users<a class="headerlink" href="#steps-for-first-time-users" title="Permanent link">&para;</a></h2>
-<p class="power-number">The following steps guide you through a key process for a developer:</p>
-<ol>
-<li>
-<p><a href="quickstart-docker.html">Start and connect to a Docker container</a></p>
-</li>
-<li>
-<p><a href="quickstart-database.html">Create a database and table</a></p>
-</li>
-<li>
-<p><a href="quickstart-queries.html">Run queries</a></p>
-</li>
-<li>
-<p><a href="quickstart-exit.html">Clean up</a></p>
-</li>
-<li>
-<p><a href="quickstart-next-steps.html">Choose your next steps</a></p>
-</li>
-</ol>
-<h2 id="next-step">Next step<a class="headerlink" href="#next-step" title="Permanent link">&para;</a></h2>
-<p><a class="md-button" href="quickstart-docker.html">Start and connect to a Docker container <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg></span></a></p>
+<p>The following guides walk you through the setup process and working with a database for a developer. Select the installation method that works best in your environment.</p>
+<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p><a class="md-button" href="quickstart-docker.html">Using a Docker container<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg></span></a></p>
+<p><a class="md-button" href="quickstart-apt.html">Install using APT<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg></span></a></p>
+<p><a class="md-button" href="quickstart-yum.html">Install using YUM<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg></span></a></p>
+<p><a class="md-button" href="quickstart-next-steps.html">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg></span></a></p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.
@@ -6598,7 +6530,7 @@
   <small>
     
       Last update:
-      2023-12-20
+      2024-02-26
     
   </small>
 </div>

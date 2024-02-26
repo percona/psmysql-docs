@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL has an official Docker image hosted on Docker Hub. If you want the latest version, use the latest tag. You can reference a specific version using the Docker tag filter for the 8.0 versions.">
+        <meta name="description" content="Docker lets developers build, deploy, run, update, and manage containers, which isolate applications from the host system. Docker containers are made from Docker images, which are snapshots of the configuration needed to run an application, such as the code and libraries.">
       
       
         <meta name="author" content="Percona LLC">
@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.11">
     
     
       
@@ -110,7 +110,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#running-percona-server-for-mysql-in-a-docker-container" class="md-skip">
+        <a href="#run-percona-server-for-mysql-in-a-docker-container" class="md-skip">
           Skip to content
         </a>
       
@@ -2016,7 +2016,7 @@
         
   
   <span class="md-ellipsis">
-    Start and connect to a Docker container
+    Run Percona Server for MySQL in a Docker container
   </span>
   
 
@@ -2033,11 +2033,11 @@
   
   
     <li class="md-nav__item">
-      <a href="quickstart-database.html" class="md-nav__link">
+      <a href="quickstart-apt.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Create a database and table
+    Install with APT
   </span>
   
 
@@ -2054,32 +2054,11 @@
   
   
     <li class="md-nav__item">
-      <a href="quickstart-queries.html" class="md-nav__link">
+      <a href="quickstart-yum.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Run SQL queries
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="quickstart-exit.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Clean up
+    Install with YUM
   </span>
   
 
@@ -2222,6 +2201,27 @@
   
   <span class="md-ellipsis">
     Percona Product Download Instructions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="percona-release.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use percona-release
   </span>
   
 
@@ -6657,14 +6657,61 @@
   
 
 
-<h1 id="running-percona-server-for-mysql-in-a-docker-container">Running Percona Server for MySQL in a Docker Container<a class="headerlink" href="#running-percona-server-for-mysql-in-a-docker-container" title="Permanent link">&para;</a></h1>
-<p><em>Percona Server for MySQL</em> has an official Docker image hosted on <a href="https://hub.docker.com/r/percona/percona-server/">Docker Hub</a>. If you want the latest version, use the <code>latest</code> tag. You can reference a specific version using the <a href="https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&amp;name=8.0">Docker tag filter for the 8.0 versions</a>. </p>
+<h1 id="run-percona-server-for-mysql-in-a-docker-container">Run Percona Server for MySQL in a Docker Container<a class="headerlink" href="#run-percona-server-for-mysql-in-a-docker-container" title="Permanent link">&para;</a></h1>
+<p>Docker lets developers build, deploy, run, update, and manage containers, which isolate applications from the host system. Docker containers are made from Docker images, which are snapshots of the configuration needed to run an application, such as the code and libraries.</p>
+<details class="information">
+<summary>Percona solutions</summary>
+<p>Percona provides a range of solutions and services for open source databases. Some of the critical solutions offered are the following:</p>
+<ul>
+<li>
+<p>Database Distributions: Percona offers enhanced, enterprise-ready versions of popular open source databases, such as MySQL, MongoDB, and PostgreSQL</p>
+</li>
+<li>
+<p>Backup Solutions: They provide tools for backing up your databases.</p>
+</li>
+<li>
+<p>Clustering Solutions: Percona offers solutions for setting up and managing database clusters.</p>
+</li>
+<li>
+<p>Observability, Monitoring, and Management Solutions: Percona Monitoring and Management (PMM) is an open source platform for managing and monitoring MySQL, MongoDB, and PostgreSQL performance.</p>
+</li>
+<li>
+<p>Kubernetes Operators: Percona provides Kubernetes operators for automated provisioning and managing databases in Kubernetes.</p>
+</li>
+</ul>
+<p>These databases are supported across traditional deployments, cloud-based platforms, and hybrid IT environments. Percona’s solutions are designed for peak performance, security, scalability, and availability. They also offer support and services for these databases, ensuring they run faster and more reliably.</p>
+</details>
+<p>For this document, container refers to the Docker container and instance refers to the database server in the container.</p>
+<details class="information">
+<summary>Reasons for deploying Percona Server in Docker</summary>
+<p>Deploying a Percona Server for MySQL container is an efficient, fast solution to setting up a database quickly without using too many resources. This type of deployment works best for small to medium applications.</p>
+<p>You should deploy a Percona Server for MySQL database in Docker for several reasons. Here are some of them:</p>
+<ul>
+<li>Portability: Docker containers can run on any platform that supports Docker. This flexibility lets you move your database or installation steps from one platform to another.</li>
+<li>Isolation: Docker containers are isolated from each other and the host system. This isolation means you can run multiple instances of MySQL on the same machine without interfering with each other or affecting the host&rsquo;s performance. You can also isolate your database from other applications or services that might pose a security risk or consume too many resources.</li>
+<li>Scalability: Depending on the load and demand, you can scale docker containers up or down. You can use tools like Docker Compose or Kubernetes to orchestrate multiple containers and manage their configuration, networking, and deployment. You can also use Docker Swarm or Amazon ECS to distribute your containers across multiple nodes and achieve high availability and fault tolerance.</li>
+<li>Versioning: Docker images and containers contain all the dependencies and configurations needed to run your application. You can use tags to specify different versions of your images and easily switch between them. You can also use Docker Hub or other registries to store and share your images with others.</li>
+<li>Development: Docker containers can help you create a consistent and reproducible development environment that matches your production environment. You can use tools like Dockerfile or Docker Build to automate the creation of your images and ensure they have the same settings and packages as your production images. You can also use tools like Docker Volumes or Bind Mounts to persist and share your data between containers or the host system.</li>
+</ul>
+</details>
+<p><em>Percona Server for MySQL</em> has an official Docker image hosted on <a href="https://hub.docker.com/r/percona/percona-server/">Docker Hub</a>. If you want the latest version, use the <code>latest</code> tag. You can reference a specific version using the <a href="https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&amp;name=8.0">Docker tag filter for the 8.0 versions</a>.</p>
 <p>We gather <a href="telemetry.html">Telemetry data</a> in the Percona packages and Docker images.</p>
-<p>Make sure that you are using the latest version of Docker. The <code>apt</code> and <code>yum</code> versions may be outdated and cause errors.</p>
+<p>Make sure that you are using the latest version of Docker. The <code>apt</code> and <code>yum</code> versions may be outdated and cause errors. <a href="https://docs.docker.com/get-docker/">Install Docker</a> on your system.</p>
 <h2 id="starting-a-detached-container">Starting a detached container<a class="headerlink" href="#starting-a-detached-container" title="Permanent link">&para;</a></h2>
 <p>You can start a background container with the <code>--detached</code> or <code>-d</code> option, which runs the container in the background. In detached mode, the container exits when the root process used to run the container exits.</p>
+<details class="information">
+<summary>Benefits of using Docker run</summary>
+<p>The <code>docker run</code> command automatically pulls the image from a registry if that image is not available locally and starts a Docker container. A container is an isolated environment that runs an application on the host operating system. An image is a template that contains the application code and its dependencies. You can use this command to run an application in a container without affecting the host system or other containers.</p>
+<p>The benefits of using the Docker run command are:</p>
+<ul>
+<li>Allows you to run applications consistently and safely across different platforms and environments.</li>
+<li>Reduces the overhead and complexity of installing and configuring applications and their dependencies on the host system.</li>
+<li>Improves the security and isolation of applications by limiting their access to the host resources and other containers.</li>
+<li>Enables faster development and deployment cycles by allowing you to easily create, update, and destroy containers.</li>
+</ul>
+</details>
 <p>The following example starts a container named <code>ps</code> with the latest version of
-<em>Percona Server for MySQL</em> 8.0. This action also creates the <code>root</code> user and uses <code>root</code> as the password. Please note that <code>root</code> is not a secure password. </p>
+<em>Percona Server for MySQL</em> 8.0. This action also creates the <code>root</code> user and uses <code>root</code> as the password. Please note that <code>root</code> is not a secure password.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--name<span class="w"> </span>ps<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span><span class="se">\</span>
@@ -6704,11 +6751,11 @@ available locally.</p>
 <span class="w"> </span>--collation-server<span class="o">=</span>utf8_general_ci
 </code></pre></div>
 <h2 id="accessing-the-percona-server-container">Accessing the Percona Server Container<a class="headerlink" href="#accessing-the-percona-server-container" title="Permanent link">&para;</a></h2>
-<p>The <code>docker exec</code> command lets you have a shell inside the container. This command uses <code>it</code> which forwards your input stream as an interactive TTY. </p>
+<p>The <code>docker exec</code> command lets you have a shell inside the container. This command uses <code>it</code> which forwards your input stream as an interactive TTY.</p>
 <p>An example of accessing the detached container:</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>ps<span class="w"> </span>/bin/bash
 </code></pre></div>
-<p>If you need to troubleshoot, the error log is found in <code>/var/log/</code> or <code>/var/log/mysql/</code>. The file name may be error.log or mysqld.log. </p>
+<p>If you need to troubleshoot, the error log is found in <code>/var/log/</code> or <code>/var/log/mysql/</code>. The file name may be error.log or mysqld.log.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <p>You can view the error log with the following command:</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span>mysql@ps<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>more<span class="w"> </span>/var/log/mysql/error.log
@@ -6852,7 +6899,7 @@ This ability simplifies consolidating instances to a single host.</p>
   <small>
     
       Last update:
-      2023-11-29
+      2024-02-26
     
   </small>
 </div>
