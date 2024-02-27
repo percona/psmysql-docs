@@ -55,10 +55,10 @@ $ mysqld --early-plugin-load="keyring_file=keyring_file.so"
 
 !!! note
 
-    If a server starts with different plugins loaded early, the `--early-plugin-load` option should contain the plugin names in a double-quoted list with each plugin name separated by a semicolon. The use of double quotes ensures the semicolons do not create issues when the list is executed in a script.
+If a server starts with multiple plugins loaded early, the `--early-plugin-load` option should contain the plugin names in a double-quoted list, separating each plugin name by a semicolon. The double quotes ensure the semicolons do not create issues when executing the list in a script.
 
-Apart from installing the plugin you also must set the
-keyring_vault_config variable to point to the keyring_vault
+After installing the plugin, you must also point the
+`keyring_vault_config` variable to the keyring_vault
 configuration file.
 
 The keyring_vault_config file has the following information:
@@ -79,7 +79,7 @@ This is an example of a configuration file:
 vault_url = https://vault.public.com:8202
 secret_mount_point = secret
 secret_mount_point_version = AUTO
-token = 58a20c08-8001-fd5f-5192-7498a48eaf20
+token = {randomly-generated-alphanumeric-string}
 vault_ca = /data/keyring_vault_confs/vault_ca.crt
 ```
 
@@ -105,7 +105,7 @@ parameter is not listed in the configuration file.
 
 If you set the `secret_mount_point_version` to `2` but the path pointed
 by `secret_mount_point` is based on `KV Secrets Engine - Version 1 (kv)`,
-an error is reported and the plugin fails to initialize.
+an error is reported, and the plugin fails to initialize.
 
 If you set the `secret_mount_point_version` to `1` but the path pointed
 by `secret_mount_point` is based on `KV Secrets Engine -
@@ -126,7 +126,7 @@ information is probed and the secrets engine version is determined to `1`.
 You can upgrade from the Vault Secrets Engine Version 1 to Version 2.
 Use either of the following methods:
 
-* Set the `secret_mount_point_version` to `AUTO` or the variable is not set in the `keyring_vault` plugin configuration files in all Percona Servers. The `AUTO` value ensures the autodetection mechanism is invoked during the plugin initialization.
+* Set the `secret_mount_point_version` to `AUTO` or the variable is not set in the `keyring_vault` plugin configuration files in all Percona Servers. The `AUTO` value ensures that the autodetection mechanism is invoked during the plugin's initialization.
 
 * Set the `secret_mount_point_version` to `2` to ensure that plugins do not initialize unless the `kv` to `kv-v2` upgrade completes.
 
@@ -138,25 +138,19 @@ Use either of the following methods:
 
 When you upgrade from *Percona Server for MySQL* 5.7.32 or older, you can only use
 `KV Secrets Engine 1 (kv)`. You can upgrade to any version of
-*Percona Server for MySQL* 8.0. Both the old `keyring_vault` plugin and new
+*Percona Server for MySQL* 8.0. The old `keyring_vault`` plugin and new
 `keyring_vault` plugin work correctly with the existing Vault Server
 data under the existing `keyring_vault` plugin configuration file.
 
 If you upgrade from *Percona Server for MySQL* 5.7.33 or newer, you have the following options:
-
-* If you are using `KV Secrets Engine 1 (kv)` you can upgrade with any version of *Percona Server for MySQL* 8.0.
-
-* If you are using `KV Secrets Engine 2 (kv-v2)` you can upgrade with *Percona Server for MySQL* 8.0.23 or newer. *Percona Server for MySQL* 8.0.23.14 is the first version of the 8.0 series which has the `keyring_vault` plugin that supports `kv-v2`.
-
-A user-created key deletion is only possible with the use of the keyring_udf
-plugin and deletes the key from the in-memory hash map and the Vault server.
+If you are using `KV Secrets Engine 1 (kv)`, you can upgrade to any version of _Percona Server for MySQL_ 8.0.
+If you use `KV Secrets` Engine 2 (kv-v2)` you can upgrade with *Percona Server for MySQL* 8.0.23 or newer. *Percona Server for MySQL* 8.0.23.14 is the first version of the 8.0 series which has the `keyring_vault` plugin that supports `kv-v2`.
+A user-created key deletion is only possible using the keyring_udf plugin, which deletes the key from the in-memory hash map and the Vault server.
 You cannot delete system keys, such as the master key.
 
 This plugin supports the SQL interface for keyring key management described in the [General-Purpose Keyring Key-Management Functions](https://dev.mysql.com/doc/refman/8.0/en/keyring-functions-general-purpose.html)
 manual.
-
-The plugin library contains keyring user-defined functions which allow
-access to the internal keyring service functions. To enable the functions, you
+The plugin library contains user-defined keyring functions allowing access to the internal keyring service functions. To enable the functions, you
 must enable the `keyring_udf` plugin:
 
 ```{.bash data-prompt="mysql>"}
@@ -208,5 +202,5 @@ configuration file.
 
 Set the duration in seconds for the Vault server connection timeout. The
 default value is `15`. The allowed range is from `0` to `86400`. The
-timeout can be also disabled to wait an infinite amount of time by setting
+timeout can also be disabled to wait an infinite amount of time by setting
 this variable to `0`.

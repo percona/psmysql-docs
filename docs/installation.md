@@ -1,12 +1,18 @@
 # Install Percona Server for MySQL
 
-Before installing, read the [Percona Server for MySQL 8.0 Release notes](release-notes/release-notes_index.md).
+Before installing, review the [Percona Server for MySQL 8.0 Release notes](release-notes/release-notes_index.md) for your version.
 
-## Install Percona Server for MySQL from Repositories
+We gather [Telemetry data] in the Percona packages and Docker images.
 
-Percona provides repositories for yum (`RPM` packages for Red Hat, CentOS and Amazon Linux AMI) and apt (`.deb` packages for Ubuntu and Debian) for software such as Percona Server for MySQL, Percona XtraBackup, and Percona Toolkit. This makes it easy to install and update your software and its dependencies through your operating system package manager. This is the recommended way of installing where possible.
+We recommend using the repositories that Percona provides to simplify the installation process. The percona-release tool makes it easy to install and update your software and its dependencies using your operating system package manager.
 
-The following guides describe the installation process for using the official Percona repositories for the `.deb` and `.rpm` packages.
+The Percona Software repositories contain YUM (`RPM` packages for Red Hat Enterprise Linux and derivatives) and APT (`DEB` packages for Ubuntu and Debian) for Percona software such as Percona Server for MySQL, Percona XtraBackup, and Percona Toolkit.
+
+For more information see,  [Percona Software repositories and the percona-release tool].
+
+To get started quickly, use the [Quickstart guide].You can find instructions to either use Docker or install Percona Server for MySQL using your package manager.
+
+The following guides describe the installation procedures for using the official Percona Software repositories for either the `.deb` and `.rpm` packages.
 
 * [Install Percona Server for MySQL on Debian and Ubuntu](apt-repo.md)
 
@@ -19,3 +25,8 @@ The following guides describe the installation process for using the official Pe
 ## Upgrade to Percona Server for MySQL Pro
 
 If you already use Percona Server for MySQL, you can [Upgrade to Percona Server for MySQL Pro](upgrade-pro.md)
+
+[Telemetry data]: telemetry.md
+[Percona Software repositories and the percona-release tool]:percona-release.md
+[Quickstart guide]: quickstart-overview.md
+
