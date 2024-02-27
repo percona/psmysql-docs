@@ -18,6 +18,15 @@ The following guides describe the installation procedures for using the official
 
 * [Install Percona Server for MySQL on Red Hat Enterprise Linux and derivatives](yum-repo.md)
 
+## Install Percona Server for MySQL Pro
+
+[Install Percona Server for MySQL Pro](install-pro.md){.md-button}
+
+## Upgrade to Percona Server for MySQL Pro
+
+If you already use Percona Server for MySQL, you can [Upgrade to Percona Server for MySQL Pro](upgrade-pro.md)
+
 [Telemetry data]: telemetry.md
 [Percona Software repositories and the percona-release tool]:percona-release.md
 [Quickstart guide]: quickstart-overview.md
+

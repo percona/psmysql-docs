@@ -8,9 +8,11 @@ Percona Server for MySQL is a freely available, fully compatible, enhanced, and 
 
 Percona Server for MySQL is trusted by thousands of enterprises to provide better performance and concurrency for their most demanding workloads.
 
+Enjoy all the [benefits of Percona Server for MySQL Pro](psmysql-pro.md).
+
 You can use the [Quickstart Guide] to start using Percona Server for MySQL.
 
-## For Monitoring and Management
+## For Monitoring and Management 
 
 Percona Monitoring and Management (PMM )monitors and provides actionable performance data for MySQL variants, including Percona Server for MySQL, Percona XtraDB Cluster, Oracle MySQL Community Edition, Oracle MySQL Enterprise Edition, and MariaDB. PMM captures metrics and data for the InnoDB, XtraDB, and MyRocks storage engines, and has specialized dashboards for specific engine details.
 
