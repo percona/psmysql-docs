@@ -1,5 +1,3 @@
-<!--- Check wheher the info is actual ----->
-
 # Binary tarball file names available based on the Percona Server for MySQL version 
 
 For later of Percona Server for MySQL, the tar files are organized by the `glibc2` version. You can find this version on your operating system with the following command:
@@ -35,6 +33,6 @@ The types of files are as follows:
 
 | Type | Name | Description |
 |---|---|---|
-| Full | Percona-Server-<version-number>-Linux.x86_64.<glibc2-version>.tar.gz | Contains all files available |
+| Full | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.tar.gz | Contains all files available |
 | Minimal | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.minimal.tar.gz | Contains binaries and libraries |
 | Debug | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.debug.tar.gz | Contains the minimal build files and test files, and debug symbols |
