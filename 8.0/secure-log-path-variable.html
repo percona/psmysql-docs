@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Use system variables to configure the server operation.">
+        <meta name="description" content="Documentation">
       
       
         <meta name="author" content="Percona LLC">
@@ -4308,6 +4308,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#the-example-of-the-secure_log_path-variable-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      The example of the secure_log_path variable usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#get-expert-help" class="md-nav__link">
     <span class="md-ellipsis">
       Get expert help
@@ -6607,6 +6616,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#the-example-of-the-secure_log_path-variable-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      The example of the secure_log_path variable usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#get-expert-help" class="md-nav__link">
     <span class="md-ellipsis">
       Get expert help
@@ -6647,9 +6665,8 @@
 
 
 <h1 id="the-secure_log_path-variable">The secure_log_path variable<a class="headerlink" href="#the-secure_log_path-variable" title="Permanent link">&para;</a></h1>
-<p>Use system variables to configure the server operation.</p>
 <h2 id="secure_log_path">secure_log_path<a class="headerlink" href="#secure_log_path" title="Permanent link">&para;</a></h2>
-<p>Implemented in Percona Server for MySQL 8.0.28-19 (2022-05-12).</p>
+<p>This variable is implemented in Percona Server for MySQL 8.0.28-19 (2022-05-12).</p>
 <table>
 <thead>
 <tr>
@@ -6680,8 +6697,77 @@
 </tr>
 </tbody>
 </table>
-<p>This variable restricts the dynamic log file locations. The variable is read-only and must be set up in a configuration file or the command line.</p>
-<p>The accepted value is the directory name as a string. The default value is an empty string. When the value is an empty string, the variable only adds a warning to the error log and does nothing. If the value contains a directory name, then the slow query log and the general log must be located in that directory. An attempt to move either of these files outside of the specified directory results in an error.</p>
+<p>This variable restricts the location of the <code>slow_query_log</code>, <code>general_log</code>, and <code>buffered_error_log</code> files. Also, this variable is applied to the following options:</p>
+<ul>
+<li>
+<p><code>slow_query_log_file</code> - specifies the name of the slow query log file and the directory where to store this file.</p>
+</li>
+<li>
+<p><code>general_log_file</code> - specifies the name of the general log file and the directory where to store this file.</p>
+</li>
+<li>
+<p><code>buffered_error_log_filename</code> - specifies the name of the buffered error log file and the directory where to store this file. You can specify the size of the buffer for error logging in bytes with the <code>buffered-error-log-size</code> option.</p>
+</li>
+</ul>
+<p>The <code>secure_log_path</code> variable is read-only and is set up in a configuration file or the command line.</p>
+<p>The value accepts a directory name as a string. The default value is an empty string. An empty string adds a warning to the error log and the log files are located in the default directory, /var/lib/mysql. If the value is a directory name, the log files are located in that directory. An attempt to move the log files from the specified directory results in an error.</p>
+<h2 id="the-example-of-the-secure_log_path-variable-usage">The example of the secure_log_path variable usage<a class="headerlink" href="#the-example-of-the-secure_log_path-variable-usage" title="Permanent link">&para;</a></h2>
+<p>Run the following commands as root:</p>
+<ol>
+<li>
+<p>Create the direcory to store the log files.</p>
+<div class="highlight" data-prompt="[root@localhost ~]#"><pre><span></span><code><span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1"># mkdir /var/lib/mysqld-logs</span>
+</code></pre></div>
+</li>
+<li>
+<p>Enable the following options and set them up with the created directory in /etc/my.cnf configuration file.</p>
+<div class="highlight"><pre><span></span><code>[mysqld]
+secure_log_path=/var/lib/mysqld-logs
+general-log=ON
+general-log-file=/var/lib/mysqld-logs/general_log
+slow-query-log=ON
+slow-query-log-file=/var/lib/mysqld-logs/slow_log
+buffered-error-log-size=1000
+buffered-error-log-filename=/var/lib/mysqld-logs/buffered_log 
+</code></pre></div>
+</li>
+<li>
+<p>Change the owner and group of the <code>/var/lib/mysqld-logs</code> directory and all its subdirectories and files to <code>mysql</code>.</p>
+<div class="highlight" data-prompt="[root@localhost ~]#"><pre><span></span><code><span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1"># chown -R mysql:mysql /var/lib/mysqld-logs</span>
+</code></pre></div>
+</li>
+<li>
+<p>Restart the MySQL server.</p>
+<div class="highlight" data-prompt="[root@localhost ~]#"><pre><span></span><code><span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl restart mysql</span>
+</code></pre></div>
+</li>
+<li>
+<p>Check that the slow query log and the general log are enabled for the MySQL server.</p>
+<div class="highlight" data-prompt="[root@localhost ~]#"><pre><span></span><code><span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1"># mysql -e &quot;select @@slow_query_log, @@general_log, @@secure_log_path&quot;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------+---------------+-----------------------+
+| @@slow_query_log | @@general_log | @@secure_log_path     |
++------------------+---------------+-----------------------+
+|                1 |             1 | /var/lib/mysqld-logs/ |
++------------------+---------------+-----------------------+
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Check that the slow query log and the general log are stored in the <code>/var/lib/mysqld-logs</code> directory.</p>
+<div class="highlight" data-prompt="[root@localhost ~]#"><pre><span></span><code><span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1"># cd /var/lib/mysqld-logs/</span>
+<span class="o">[</span>root@localhost<span class="w"> </span>mysqld-logs<span class="o">]</span><span class="c1"># ls -lrth</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>-rw-r-----. 1 mysql mysqld-logs 240 Aug 18 11:56 localhost-slow.log
+-rw-r-----. 1 mysql mysqld-logs 565 Aug 18 11:56 localhost.log
+</code></pre></div>
+</details>
+</li>
+</ol>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.
@@ -6697,7 +6783,7 @@
   <small>
     
       Last update:
-      2023-10-10
+      2024-03-04
     
   </small>
 </div>
