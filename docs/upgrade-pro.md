@@ -1,6 +1,6 @@
 # Upgrade to Percona Server for MySQL Pro
 
-Are you a Percona Customer already and are you ready to enjoy all the [benefits of Percona Server for MySQL Pro](../psmysql-pro.md)? 
+Are you a Percona Customer already and are you ready to enjoy all the [benefits of Percona Server for MySQL Pro](psmysql-pro.md)? 
 
 This document provides instructions on how you can upgrade from Percona Server for MySQL to Percona Server for MySQL Pro.
 
