@@ -34,7 +34,6 @@ For this document, container refers to the Docker container and instance refers 
     - Development: Docker containers can help you create a consistent and reproducible development environment that matches your production environment. You can use tools like Dockerfile or Docker Build to automate the creation of your images and ensure they have the same settings and packages as your production images. You can also use tools like Docker Volumes or Bind Mounts to persist and share your data between containers or the host system.
 
 
-
 *Percona Server for MySQL* has an official Docker image hosted on [Docker Hub](https://hub.docker.com/r/percona/percona-server/). If you want the latest version, use the `latest` tag. You can reference a specific version using the [Docker tag filter for the 8.0 versions](https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name=8.0).
 
 We gather [Telemetry data] in the Percona packages and Docker images.
@@ -95,6 +94,64 @@ docker logs ps --follow
     2022-09-07T15:20:13.706136Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.29-21'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona Server (GPL), Release 21, Revision c59f87d2854.
     ```
 You can access the server when you see the `ready for connections` information in the log.
+
+### Percona Server for MySQL ARM64
+
+Percona Server for MySQL is available in the ARM64 architecture. You can find the version and architecture on [Docker Hub Percona/Percona-Server Tags](https://hub.docker.com/r/percona/percona-server/tags). Docker Hub provides images for multiple OS/ARCH combinations, letting you select the version and architecture that aligns with your specific system. Docker Hub has two elements for identifying and managing container images: tags and OS/ARCH. 
+
+Tags are labels attached to Docker images. The tag identifies the different versions of the same image.
+
+You use a tag to do the following:
+
+* Pull a specific version of an image (for example, percona/percona-server:22.04)
+
+* Access the latest version (for example, percona/percona-server:latest)
+
+The OS/ARCH refers to the combination of the operating system (OS) and architecture (ARCH) that an image is designed to run on. Common examples of OS/ARCH combinations include the following:
+
+* linux/amd64: Runs on Linux systems with 64-bit AMD or Intel processors
+
+* arm64/v8: Runs on ARM-based systems with 64-bit architecture
+
+Select the desired tag and verify the OS/ARCH (linux/arm64/v8). Add that tag to the `docker run` command. If you do not add a tag, Docker uses `latest` as the default tag and assumes you are in the AMD64 architecture.
+
+For example, to download `8.0.35` in `linux/arm64/v8`, add the `8.0.35-aarch64` tag. The `aarch64` section defines the architecture as ARM64. Run the following command:
+
+```{.bash data-prompt="$"}
+$ docker run -d \
+  --name ps \
+  -e MYSQL_ROOT_PASSWORD=root \
+  percona/percona-server:8.0.35-aarch64
+```
+
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    Unable to find image 'percona/percona-server:8.0.35-aarch64' locally
+    8.0.35-aarch64: Pulling from percona/percona-server
+    0f09b26fb4cb: Pull complete
+    ...
+    121231b07f2a: Pull complete
+    Digest: sha256:610e7e3beffd09b8a037e2b172452d1231188a6ba12c414e7ffb306846f63b34 
+    Status: Downloaded newer image for percona/percona-server:8.0.35-aarch64
+    c0de02ce3b84281e030a710e184f20a6b8f012133ca15a51ed6a35e75d1d8e22
+    ```
+    
+You can also use `8.0.35-27.1-multi`. Docker selects the appropriate architecture.
+
+#### Using Docker `--platform` for emulation
+ 
+If you must use an AMD64 version in an ARM64 architecture, add `--platform Linux/amd64` to specify the target platform in the `docker run` command. This option lets you construct images compatible with different architectures using an emulation. 
+
+Be aware of the following when running an emulation:
+
+* May be slower than running in the native architecture for compute-heavy tasks
+
+* Adds complexity to your environment and may require additional configuration
+
+* May find subtle architectural differences which lead to runtime issues
+
+Be sure to test the image throughly before using it in production.
 
 ## Passing Options
 
