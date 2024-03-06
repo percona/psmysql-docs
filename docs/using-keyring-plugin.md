@@ -4,7 +4,7 @@ The `keyring_vault` plugin can store the encryption keys inside the [HashiCorp V
 
 !!! admonition "See also"
 
-    [Hashicorp Documentation: Installing Vault](https://www.vaultproject.io/docs/install/index.html)
+    [Hashicorp Documentation: Installing Vault](https://www.vaultproject.io/docs/install/index.html)<br>
     [Hashicorp Documentation: Production Hardening](https://learn.hashicorp.com/vault/operations/production-hardening)
 
 
