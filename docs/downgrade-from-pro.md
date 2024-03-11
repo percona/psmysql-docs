@@ -4,7 +4,7 @@ If you want to downgrade from Percona Server for MySQL Pro to the same version o
 
 !!! note
 
-    For Ubuntu 22.04 the downgrade from percona-mysql-router-pro to percona-mysql-router will be implemented in future releases.
+    In Percona Server for MySQL Pro 8.0.35-27, the downgrade from percona-mysql-router-pro to percona-mysql-router is not supported for Ubuntu 22.04.
 
 === "On Debian and Ubuntu"
 
@@ -14,7 +14,7 @@ If you want to downgrade from Percona Server for MySQL Pro to the same version o
         $ sudo percona-release setup ps80
         ```
 
-    2. Stop the `mysql` server
+    2. Stop the `mysql` server.
        
         ```{.bash data-prompt="$"}
         $ sudo systemctl stop mysql
@@ -26,24 +26,21 @@ If you want to downgrade from Percona Server for MySQL Pro to the same version o
         $ sudo apt install percona-server-server
         ```
 
-       Install other required packages. [Check files in the DEB package built for Percona Server for MySQL 8.0](apt-files.md).
+        Install other required packages. [Check files in the DEB package built for Percona Server for MySQL 8.0](apt-files.md).
 
-    4. Stop the `mysql` server again.
-       
-        ```{.bash data-prompt="$"}
-        $ sudo systemctl stop mysql
-        ```
-
-    5. Create an alternative symbolic link for the MySQL configuration file, `my.cnf`, that points to `/etc/mysql/mysql.cnf`
-
-        ```{.bash data-prompt="$"}
-        $ sudo update-alternatives --force --install /etc/mysql/my.cnf my.cnf "/etc/mysql/mysql.cnf" 300
-        ```
-
-    6. Start the `mysql` server
+    4. Start the `mysql` server
 
         ```{.bash data-prompt="$"}
         $ sudo systemctl start mysql
+        ```
+
+    !!! note
+
+        On Debian 12, if you want to remove the Percona Server for MySQL after the downgrade, you must stop the 
+        server manually. This behavior will be fixed in future releases.
+       
+        ```{.bash data-prompt="$"}
+        $ sudo systemctl stop mysql
         ```
 
 === "On RHEL and derivatives"
@@ -53,36 +50,23 @@ If you want to downgrade from Percona Server for MySQL Pro to the same version o
         ```{.bash data-prompt="$"}
         $ sudo percona-release setup ps80
         ```
-
-    2. Back up the `my.cnf` configuration file 
-
+ 
+    2. Stop the `mysql` server.
+       
         ```{.bash data-prompt="$"}
-        $ sudo cp /etc/my.cnf /etc/my.cnf_back
+        $ sudo systemctl stop mysql
         ```
 
-    3. Remove the server Pro package
+    3. Install the server package
 
         ```{.bash data-prompt="$"}
-        $ sudo yum remove percona-server-server-pro
-        ```
-
-    4. Install the server package
-
-        ```{.bash data-prompt="$"}
-        $ sudo yum install percona-server-server
+        $ sudo yum --allowerasing install percona-server-server
         ```
     
         Install other required packages. [Check files in the RPM package built for Percona Server for MySQL 8.0](yum-files.md).
 
-    5. Overwrite the contents of `/etc/my.cnf` configuration file with the contents from `my.cnf_back` configuration file.
-
-        ```{.bash data-prompt="$"}
-        $ sudo cp /etc/my.cnf_back /etc/my.cnf
-        ```
-
-    6. Start the `mysql` server
+    4. Start the `mysql` server
 
         ```{.bash data-prompt="$"}
         $ sudo systemctl start mysql
         ```
-
