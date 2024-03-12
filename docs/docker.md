@@ -31,8 +31,8 @@ available locally.
 
 To view the container's logs, use the following command:
 
-```shell
-docker logs ps --follow
+```{.bash data-prompt="$"}
+$ docker logs ps --follow
 ```
 ??? example "Expected output"
 
@@ -53,8 +53,8 @@ You can access the server when you see the `ready for connections` information i
 
 You can pass options with the `docker run` command. For example, the following command uses UTF-8 as the default setting for character set and collation for all databases:
 
-```shell
-[root@docker-host] $ docker run -d \
+```{.bash data-prompt="$"}
+$ docker run -d \
  --name ps \
  -e MYSQL_ROOT_PASSWORD=root \
  percona/percona-server:{{vers}} \
@@ -68,8 +68,8 @@ The `docker exec` command lets you have a shell inside the container. This comma
 
 An example of accessing the detached container:
 
-```shell
-[root@docker-host] $ docker exec -it ps /bin/bash
+```{.bash data-prompt="$"}
+$ docker exec -it ps /bin/bash
 ```
 
 If you need to troubleshoot, the error log is found in `/var/log/` or `/var/log/mysql/`. The file name may be error.log or mysqld.log. 
@@ -147,8 +147,8 @@ To link a container running your application
 with the Percona Server container,
 run it with the following command:
 
-```shell
-[root@docker-host] $ docker run -d \
+```{.bash data-prompt="$"}
+$ docker run -d \
   --name app \
   --link ps \
   app/image:latest
@@ -176,8 +176,8 @@ For example, if you create a data directory on a suitable volume
 on your host system named `/local/datadir`,
 you run the container with the following command:
 
-```shell
-[root@docker-host] $ docker run -d \
+```{.bash data-prompt="$"}
+$ docker run -d \
   --name ps \
   -e MYSQL_ROOT_PASSWORD=root \
   -v /local/datadir:/var/lib/mysql \
@@ -195,8 +195,8 @@ Do not add MYSQL_ROOT_PASSWORD to the `docker run` command if the data directory
 
     If you have SELinux enabled, assign the relevant policy type to the new data directory so that the container will be allowed to access it:
 
-```
-[root@docker-host] $ chcon -Rt svirt_sandbox_file_t /local/datadir
+```{.bash data-prompt="$"}
+$ chcon -Rt svirt_sandbox_file_t /local/datadir
 ```
 
 ## Port forwarding
@@ -210,8 +210,8 @@ This ability simplifies consolidating instances to a single host.
 
 To map the standard MySQL port 3306 to port 6603 on the host:
 
-```shell
-[root@docker-host] $ docker run -d \
+```{.bash data-prompt="$"}
+$ docker run -d \
  --name ps \
  -e MYSQL_ROOT_PASSWORD=root \
  -p 6603:3306 \
