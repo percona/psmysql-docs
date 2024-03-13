@@ -6,10 +6,11 @@ See the list of the [binary tarball available based on the Percona Server for My
     
 You can download the binary tarballs from the `Linux - Generic` [section] on the download page.
 
-Fetch and extract the correct binary tarball. For example for *Debian 10*:
+Fetch and extract the correct binary tarball. For example for Ubuntu 22.04:
 
 ```{.bash data-prompt="$"}
-$ wget https://downloads.percona.com/downloads/Percona-Server-{{vers}}/Percona-Server-{{release}}/binary/tarball/Percona-Server-{{release}}-Linux.x86_64.glibc2.12.tar.gz
+$ wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/tarball/Percona-Server-{{release}}-Linux.x86_64.glibc2.35.tar.gz
 ```
 
 [section]: https://www.percona.com/downloads/Percona-Server-{{vers}}/LATEST/binary/tarball/
+

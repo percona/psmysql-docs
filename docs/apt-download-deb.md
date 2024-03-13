@@ -2,10 +2,10 @@
 
 Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
 
-The following example downloads Percona Server for MySQL {{release}} release packages for Debian 10:
+The following example downloads Percona Server for MySQL {{release}} release packages for Ubuntu 22.04:
 
 ```{.bash data-prompt="$"}
-$ wget https://downloads.percona.com/downloads/Percona-Server-{{vers}}/Percona-Server-{{release}}/binary/debian/buster/x86_64/Percona-Server-{{release}}-r71449379-buster-x86_64-bundle.tar
+$ wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/debian/jammy/x86_64/Percona-Server-{{release}}-r582ebeef-jammy-x86_64-bundle.tar
 ```
 
 Unpack the download to get the packages:

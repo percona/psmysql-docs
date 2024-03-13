@@ -8,7 +8,7 @@ The following example downloads *Percona Server for MySQL* {{release}} release p
 1. Use `wget` to download the tar file.
 
 	```{.bash data-prompt="$"}
-	$ wget https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-{{release}}/binary/redhat/8/x86_64/Percona-Server-{{release}}-rc59f87d2854-el8-x86_64-bundle.tar
+	$ wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/redhat/8/x86_64/Percona-Server-{{release}}-r582ebeef-el8-x86_64-bundle.tar
 	```
 
 2. Unpack the bundle to get the packages: `tar xvf Percona-Server-{{release}}-rc59f87d2854-el8-x86_64-bundle.tar`
