@@ -6945,7 +6945,7 @@
 <p>By default, Docker pulls the image from Docker Hub if it is not
 available locally.</p>
 <p>To view the container&rsquo;s logs, use the following command:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>logs<span class="w"> </span>ps<span class="w"> </span>--follow
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>logs<span class="w"> </span>ps<span class="w"> </span>--follow
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -7018,7 +7018,7 @@ c0de02ce3b84281e030a710e184f20a6b8f012133ca15a51ed6a35e75d1d8e22
 <p>Be sure to test the image throughly before using it in production.</p>
 <h2 id="passing-options">Passing Options<a class="headerlink" href="#passing-options" title="Permanent link">&para;</a></h2>
 <p>You can pass options with the <code>docker run</code> command. For example, the following command uses UTF-8 as the default setting for character set and collation for all databases:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>--name<span class="w"> </span>ps<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>percona/percona-server:8.0<span class="w"> </span><span class="se">\</span>
@@ -7028,7 +7028,7 @@ c0de02ce3b84281e030a710e184f20a6b8f012133ca15a51ed6a35e75d1d8e22
 <h2 id="accessing-the-percona-server-container">Accessing the Percona Server Container<a class="headerlink" href="#accessing-the-percona-server-container" title="Permanent link">&para;</a></h2>
 <p>The <code>docker exec</code> command lets you have a shell inside the container. This command uses <code>it</code> which forwards your input stream as an interactive TTY.</p>
 <p>An example of accessing the detached container:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>ps<span class="w"> </span>/bin/bash
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>ps<span class="w"> </span>/bin/bash
 </code></pre></div>
 <p>If you need to troubleshoot, the error log is found in <code>/var/log/</code> or <code>/var/log/mysql/</code>. The file name may be error.log or mysqld.log.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
@@ -7085,7 +7085,7 @@ To link a container running your application
 (in this case, from an image named <code>app/image</code>)
 with the Percona Server container,
 run it with the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--name<span class="w"> </span>app<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--link<span class="w"> </span>ps<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>app/image:latest
@@ -7112,7 +7112,7 @@ The user should ensure that the directory exists, that the user accounts have re
 <p>For example, if you create a data directory on a suitable volume
 on your host system named <code>/local/datadir</code>,
 you run the container with the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--name<span class="w"> </span>ps<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-v<span class="w"> </span>/local/datadir:/var/lib/mysql<span class="w"> </span><span class="se">\</span>
@@ -7127,7 +7127,7 @@ which is the default data directory used by <em>Percona Server for MySQL</em>.</
 <p class="admonition-title">Note</p>
 <p>If you have SELinux enabled, assign the relevant policy type to the new data directory so that the container will be allowed to access it:</p>
 </div>
-<div class="highlight"><pre><span></span><code>[root@docker-host] $ chcon -Rt svirt_sandbox_file_t /local/datadir
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>chcon<span class="w"> </span>-Rt<span class="w"> </span>svirt_sandbox_file_t<span class="w"> </span>/local/datadir
 </code></pre></div>
 <h2 id="port-forwarding">Port forwarding<a class="headerlink" href="#port-forwarding" title="Permanent link">&para;</a></h2>
 <p>Docker allows mapping ports on the container to ports on the host system
@@ -7137,7 +7137,7 @@ you can connect to the database by connecting your client
 to a port on the host machine.
 This ability simplifies consolidating instances to a single host.</p>
 <p>To map the standard MySQL port 3306 to port 6603 on the host:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@docker-host<span class="o">]</span><span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>--name<span class="w"> </span>ps<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>-p<span class="w"> </span><span class="m">6603</span>:3306<span class="w"> </span><span class="se">\</span>
@@ -7173,7 +7173,7 @@ This ability simplifies consolidating instances to a single host.</p>
   <small>
     
       Last update:
-      2024-03-04
+      2024-03-13
     
   </small>
 </div>
