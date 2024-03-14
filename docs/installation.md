@@ -14,6 +14,8 @@ Following guides describe the installation process for using the official Percon
 
 * [Installing Percona Server for MySQL on Red Hat Enterprise Linux and CentOS](installation/yum_repo.md)
 
+* [Installing {{post}} releases](installation/install-eol.md)
+
 
 ## Building *Percona Server for MySQL* Debian/Ubuntu packages
 
