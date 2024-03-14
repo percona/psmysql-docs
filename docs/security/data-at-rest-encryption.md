@@ -166,13 +166,13 @@ The output could be the following:
 The [CREATE TABLESPACE](https://dev.mysql.com/doc/refman/5.7/en/create-tablespace.html) statement is extended to allow the `ENCRYPTION=['Y/N']` option to encrypt a File-per-Table tablespace.
 
 ```sql
-CREATE TABLE myexample (id INT mytext varchar(255)) ENCRYPTION='Y';
+CREATE TABLESPACE tablespace_name ENCRYPTION='Y';
 ```
 
 To enable encryption to an existing tablespace, add the `ENCRYPTION` option to the `ALTER TABLE` statement.
 
 ```sql
-CREATE TABLE myexample ENCRYPTION='Y';
+ALTER TABLESPACE myexample ENCRYPTION='Y';
 ```
 
 You must add the `ENCRYPTION` option to [ALTER TABLE](https://dev.mysql.com/doc/refman/5.7/en/alter-table.html) to change the table encryption state. Without the `ENCRYPTION` option, an encrypted table remains encrypted or an unencrypted table remains unencrypted.
@@ -199,11 +199,10 @@ Add the `innodb_encrypt_tables` variable to my.cnf to automatically encrypt gene
 Adding ENCRYPTION=NO to either a CREATE TABLE or ALTER TABLE statement results in a warning.
  |
 
-The [CREATE TABLESPACE](https://dev.mysql.com/doc/refman/5.7/en/create-tablespace.html) statement is extended to allow the `ENCRYPTION=['
-Y/N']` option.
+The [CREATE TABLESPACE](https://dev.mysql.com/doc/refman/5.7/en/create-tablespace.html) statement is extended to allow the `ENCRYPTION=['Y/N']` option.
 
 ```sql
-CREATE TABLE t1 (id INT) ENCRYPTION='Y';
+CREATE TABLESPACE tablespace_name ENCRYPTION='Y';
 ```
 
 To encrypt an existing table, add the ENCRYPTION option in the `ALTER TABLE` statement.
