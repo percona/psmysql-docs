@@ -4619,10 +4619,10 @@ run a query on the INFORMATION_SCHEMA.PLUGINS table. You can also query the PLUG
 </code></pre></div>
 <h2 id="encrypting-a-file-per-table-tablespace">Encrypting a File-Per-Table Tablespace<a class="headerlink" href="#encrypting-a-file-per-table-tablespace" title="Permanent link">&para;</a></h2>
 <p>The <a href="https://dev.mysql.com/doc/refman/5.7/en/create-tablespace.html">CREATE TABLESPACE</a> statement is extended to allow the <code>ENCRYPTION=['Y/N']</code> option to encrypt a File-per-Table tablespace.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">myexample</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">mytext</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">))</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">tablespace_name</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>To enable encryption to an existing tablespace, add the <code>ENCRYPTION</code> option to the <code>ALTER TABLE</code> statement.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">myexample</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">myexample</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>You must add the <code>ENCRYPTION</code> option to <a href="https://dev.mysql.com/doc/refman/5.7/en/alter-table.html">ALTER TABLE</a> to change the table encryption state. Without the <code>ENCRYPTION</code> option, an encrypted table remains encrypted or an unencrypted table remains unencrypted.</p>
 <p>To change the tablespace key, run the <a href="https://dev.mysql.com/doc/refman/5.7/en/optimize-table.html">optimize table</a> command.</p>
@@ -4662,9 +4662,8 @@ run a query on the INFORMATION_SCHEMA.PLUGINS table. You can also query the PLUG
 </tr>
 </tbody>
 </table>
-<p>The <a href="https://dev.mysql.com/doc/refman/5.7/en/create-tablespace.html">CREATE TABLESPACE</a> statement is extended to allow the <code>ENCRYPTION=['
-Y/N']</code> option.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">)</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<p>The <a href="https://dev.mysql.com/doc/refman/5.7/en/create-tablespace.html">CREATE TABLESPACE</a> statement is extended to allow the <code>ENCRYPTION=['Y/N']</code> option.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">tablespace_name</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>To encrypt an existing table, add the ENCRYPTION option in the <code>ALTER TABLE</code> statement.</p>
 <div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
@@ -5187,7 +5186,7 @@ innodb_online_encryption_threads variable to a value greater than
   <small>
     
       Last update:
-      2022-09-27
+      2024-03-14
     
   </small>
 </div>
