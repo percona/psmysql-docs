@@ -20,7 +20,7 @@ For *Percona Server for MySQL* versions below *Percona Server for MySQL* version
 | Data type    | Boolean                         |
 | Default      | OFF                             |
 
-The variable was announced as deprecated in Percona Server for MySQL 8.0.23-14.
+Percona Server for MySQL 8.0.23-14 has deprecated this variable and has no effect.
 
 This variable controls whether the parallel doublewrite buffer pages were encrypted or not. The encryption used the key of the tablespace to which the page belongs.
 
