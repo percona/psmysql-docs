@@ -1,10 +1,10 @@
 # Install from Percona Software repository
 
 Ready-to-use packages are available from the Percona Server for MySQL software
-repositories and the [download page](https://www.percona.com/downloads/Percona-Server-8.0/). The
-Percona yum repository supports popular RPM-based
-operating systems. The easiest way to install the Percona RPM repository is to install an RPM
-that configures yum and installs the [Percona GPG key](https://www.percona.com/downloads/RPM-GPG-KEY-percona).
+repositories and the [download page](https://www.percona.com/downloads). 
+
+The Percona yum repository supports popular RPM-based
+operating systems. The easiest way to install the Percona RPM repository is to install an RPM configuring yum and installing the [Percona GPG key](https://repo.percona.com/yum/PERCONA-PACKAGING-KEY).
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
@@ -18,15 +18,17 @@ Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certi
 
 ## Limitations
 
-The RPM packages for Red Hat Enterprise Linux 7 and the compatible derivatives do not support TLSv1.3, as it requires OpenSSL 1.1.1, which is currently not available on this platform.
+The RPM packages for Red Hat Enterprise Linux 7 and the compatible derivatives do not support TLSv1.3. This version requires OpenSSL 1.1.1, which is currently unavailable on this platform.
 
 ## Install
 
 Install from Percona Software Repository
-For more information on the Percona Software repositories and configuring Percona Repositories with percona-release, see the Percona Software Repositories Documentation. Run the following commands as a `root` user or with sudo.
+For more information on the Percona Software repositories and configuring Percona Repositories with `percona-release`, see the [Percona Software Repositories Documentation]. Run the following commands as a `root` user or with sudo.
 
 === "Install on Red Hat 7"
 
+    The first command uses `yum` to install the Percona repository from the Percona website. The second command enables the `ps-80` release series of the Percona Server. The third command allows the `tools` repository. This repository contains additional Percona software. The fourth command installs Percona Server for MySQL.
+    
     ```{.bash data-prompt="$"}
     $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
     $ sudo percona-release enable-only ps-80 release
@@ -34,6 +36,8 @@ For more information on the Percona Software repositories and configuring Percon
     $ sudo yum install percona-server-server
     ```
 === "Install on Red Hat 8 or later"
+
+     The first command uses `yum` to install the Percona repository from the Percona website. The second command uses the `percona-release` script to set up the `ps-80` release series of Percona Server. The third command installs Percona Server for MySQL.
 
     ```{.bash data-prompt="$"}
     $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
@@ -45,21 +49,32 @@ For more information on the Percona Software repositories and configuring Percon
 
 Percona Server for MySQL 8.0 comes with the TokuDB storage engine and MyRocks storage engine. These storage engines are installed as plugins.
 
-Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds. For more information, see TokuDB Introduction.
+Percona Server for MySQL 8.0.28-19 (2022-05-12)and higher do not support the TokuDB storage engine. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds. For more information, see [TokuDB version changes].
 
-For information on how to install and configure TokuDB, refer to the TokuDB Installation guide.
+For information on how to install and configure TokuDB, refer to the [TokuDB Installation guide].
 
-For information on how to install and configure MyRocks, refer to the Percona MyRocks Installation Guide.
+For information on how to install and configure MyRocks, refer to the [Percona MyRocks Installation guide].
 
 ### Percona yum Testing repository
 
-Percona offers pre-release builds from our testing repository. To
-subscribe to the testing repository, you enable the testing
-repository in `/etc/yum.repos.d/percona-release.repo`. To do so,
-set both `percona-testing-$basearch` and `percona-testing-noarch`
-to `enabled = 1` (Note that there are three sections in this file:
-release, testing, and experimental - in this case, it is the second section that requires updating).
+Percona offers pre-release builds from our testing repository.
+
+To subscribe to the testing repository, you enable the testing
+repository in `/etc/yum.repos.d/percona-release.repo` by updating the second section, 'testing' and set both `percona-testing-$basearch` and `percona-testing-noarch` to `enabled = 1`. 
+
+There are three sections in this file: 
+
+* release
+
+* testing
+
+* experimental
 
 You must install the Percona repository first if the installation has not been done already.
 
 [Telemetry data]: telemetry.md
+[Percona Software Repositories Documentation]: https://docs.percona.com/percona-software-repositories/index.html
+
+[TokuDB version changes]: tokudb-version-changes.md
+[TokuDB Installation guide]: tokudb-installation.md
+[Percona MyRocks Installation guide]: install-myrocks.md
