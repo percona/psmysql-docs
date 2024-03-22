@@ -49,10 +49,10 @@ If the `glibc2` version from your operating system is not listed, then this Perc
 
     | Platform             | Percona Server for MySQL Pro tarball name                          | glibc2 version |
     |----------------------|--------------------------------------------------------------------|----------------|
-    | Ubuntu 22.04         | Percona-Server-Pro-8.0.35-27-Linux.x86_64.glibc2.35.tar.gz         | glibc2.35      |
-    | Ubuntu 22.04         | Percona-Server-Pro-8.0.35-27-Linux.x86_64.glibc2.35-minimal.tar.gz | glibc2.35      |
-    | Red Hat Enterprise 9 | Percona-Server-Pro-8.0.35-27-Linux.x86_64.glibc2.34.tar.gz         | glibc2.34      |
-    | Red Hat Enterprise 9 | Percona-Server-Pro-8.0.35-27-Linux.x86_64.glibc2.34-minimal.tar.gz | glibc2.34      |
+    | Ubuntu 22.04         | Percona-Server-Pro-{{pro_release}}-Linux.x86_64.glibc2.35.tar.gz         | glibc2.35      |
+    | Ubuntu 22.04         | Percona-Server-Pro-{{pro_release}}-Linux.x86_64.glibc2.35-minimal.tar.gz | glibc2.35      |
+    | Red Hat Enterprise 9 | Percona-Server-Pro-{{pro_release}}-Linux.x86_64.glibc2.34.tar.gz         | glibc2.34      |
+    | Red Hat Enterprise 9 | Percona-Server-Pro-{{pro_release}}-Linux.x86_64.glibc2.34-minimal.tar.gz | glibc2.34      |
 
     The types of files are the following:
 

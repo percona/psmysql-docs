@@ -19,5 +19,5 @@ You can download the required binary tarball for Percona Server for MySQL Pro us
 Fetch and extract the correct binary tarball using your `CLIENTID` and `TOKEN`. For example, for Oracle Linux 9:
 
 ```{.bash data-prompt="$"}
-wget https://repo.percona.com/private/[CLIENTID]-[TOKEN]/ps-80-pro/tarballs/Percona-Server-8.0.35-27/Percona-Server-Pro-8.0.35-27-Linux.x86_64.glibc2.34-debug.tar.gz
+wget https://repo.percona.com/private/[CLIENTID]-[TOKEN]/ps-80-pro/tarballs/Percona-Server-{{pro_release}}/Percona-Server-Pro-{{pro_release}}-Linux.x86_64.glibc2.34-debug.tar.gz
 ```
