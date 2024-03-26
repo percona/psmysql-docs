@@ -1,45 +1,67 @@
 # Install Percona Server for MySQL 8.0 using downloaded DEB packages
 
+When installing packages manually, you must resolve all the dependencies and install missing packages yourself. You must install the following packages before manually installing Percona Server:
+
+* `mysql-common`
+
+* `libjemalloc1`
+
+* `libaio1`
+
+* `libmecab2`.
+
 Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
 
-The following example downloads Percona Server for MySQL 8.0.31-23 release packages for Debian 10:
+1. The following example uses `Wget` to download the Percona Server 8.0 bundle from the specified URL. The bundle is a tar archive containing the Percona Server 8.0.31-23 binary for Debian Buster (x86_64 architecture):
 
-```{.bash data-prompt="$"}
-$ wget https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.31-23/binary/debian/buster/x86_64/Percona-Server-8.0.31-23-r71449379-buster-x86_64-bundle.tar
-```
-
-Unpack the download to get the packages:
-
-```{.bash data-prompt="$"}
-$ tar xvf Percona-Server-8.0.31-23-r71449379-buster-x86_64-bundle.tar
-```
-??? example "Expected output"
-
-    ```text
-    libperconaserverclient21_8.0.31-23-1.buster_amd64.deb
-    libperconaserverclient21-dev_8.0.31-23-1.buster_amd64.deb
-    percona-mysql-router_8.0.31-23-1.buster_amd64.deb
-    percona-server-client_8.0.31-23-1.buster_amd64.deb
-    percona-server-common_8.0.31-23-1.buster_amd64.deb
-    percona-server-dbg_8.0.31-23-1.buster_amd64.deb
-    percona-server-rocksdb_8.0.31-23-1.buster_amd64.deb
-    percona-server-server_8.0.31-23-1.buster_amd64.deb
-    percona-server-source_8.0.31-23-1.buster_amd64.deb
-    percona-server-test_8.0.31-23-1.buster_amd64.deb
+    ```{.bash data-prompt="$"}
+    $ wget https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.31-23/binary/debian/buster/x86_64/Percona-Server-8.0.31-23-r71449379-buster-x86_64-bundle.tar
     ```
 
-Install Percona Server for MySQL using `dpkg`. Run this command as root or use the sudo command:
+2. The command line instruction uses the `tar` command to extract files from a tarball (a type of compressed file). The `tar` command is a Unix utility that stores and extracts files from an archive file known as a tarfile. 
 
-```{.bash data-prompt="$"}
-$ sudo dpkg -i *.deb
-```
+    The `xvf` option combines three separate options: `x`, `v`, and `f`. 
 
-!!! note
+    * `x` extract the files from the archive
 
-    Percona Server for MySQL 8.0 comes with the TokuDB storage engine. You can find more information on how to install and enable the TokuDB storage in the TokuDB Installation guide.
+    * `v` verbose - print the file names as they are extracted
 
-	Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds. For more information, see the TokuDB Introduction.
+    * `f` file - use the following argument as the name of the archive file
 
-!!! warning
+    The following command extracts the contents of the  `Percona-Server-8.0.31-23-r71449379-buster-x86_64-bundle.tar` file and prints the file names.
 
-    When installing packages manually like this, you’ll need to resolve all the dependencies and install missing packages yourself. The following packages will need to be installed before you can manually install Percona Server: `mysql-common`, `libjemalloc1`, `libaio1`, and `libmecab2`.
+    ```{.bash data-prompt="$"}
+    $ tar xvf Percona-Server-8.0.31-23-r71449379-buster-x86_64-bundle.tar
+    ```
+
+    ??? example "Expected output"
+
+        ```text
+        libperconaserverclient21_8.0.31-23-1.buster_amd64.deb
+        libperconaserverclient21-dev_8.0.31-23-1.buster_amd64.deb
+        percona-mysql-router_8.0.31-23-1.buster_amd64.deb
+        percona-server-client_8.0.31-23-1.buster_amd64.deb
+        percona-server-common_8.0.31-23-1.buster_amd64.deb
+        percona-server-dbg_8.0.31-23-1.buster_amd64.deb
+        percona-server-rocksdb_8.0.31-23-1.buster_amd64.deb
+        percona-server-server_8.0.31-23-1.buster_amd64.deb
+        percona-server-source_8.0.31-23-1.buster_amd64.deb
+        percona-server-test_8.0.31-23-1.buster_amd64.deb
+        ```
+
+3. Install Percona Server for MySQL using the `dpkg` utility to install Debian (.deb) packages. The installation requires either root or the `sudo` command. `sudo` allows you to run programs with the security privileges of another user, usually as the superuser.
+
+    `dpkg` is a package manager for Debian-based systems and can install, remove, and provide information about `.deb` packages. 
+
+    The `-i` option tells `dpkg` to install the package.
+
+    The `*.deb` is a wildcard that matches any file in the current directory that ends with the `.deb` extension. 
+
+
+    ```{.bash data-prompt="$"}
+    $ sudo dpkg -i *.deb
+    ```
+
+Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. For more information, see the [TokuDB Introduction](tokudb-intro.md) and [TokuDB changes by Percona Server for MySQL version](tokudb-version-changes.md). 
+
+

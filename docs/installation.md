@@ -1,18 +1,16 @@
 # Install Percona Server for MySQL
 
-Before installing, review the [Percona Server for MySQL 8.0 Release notes](release-notes/release-notes_index.md) for your version.
+Before installing, review the [Percona Server for MySQL 8.0 Release notes](release-notes/release-notes_index.md).
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
-We recommend using the repositories that Percona provides to simplify the installation process. The percona-release tool makes it easy to install and update your software and its dependencies using your operating system package manager.
+We recommend using the repositories that Percona provides to simplify the installation process. The `percona-release` tool makes installing and updating your software and its dependencies easy using your operating system package manager. The Percona Software repositories contain YUM (`RPM` packages for Red Hat Enterprise Linux and derivatives) and APT (`DEB` packages for Ubuntu and Debian) for Percona software such as Percona Server for MySQL, Percona XtraBackup, and Percona Toolkit.
 
-The Percona Software repositories contain YUM (`RPM` packages for Red Hat Enterprise Linux and derivatives) and APT (`DEB` packages for Ubuntu and Debian) for Percona software such as Percona Server for MySQL, Percona XtraBackup, and Percona Toolkit.
+For more information, see [Percona Software repositories and the percona-release tool].
 
-For more information see,  [Percona Software repositories and the percona-release tool].
+To get started quickly, use the [Quickstart guide]. You can find instructions for either Docker or installing with a package manager.
 
-To get started quickly, use the [Quickstart guide].You can find instructions to either use Docker or install Percona Server for MySQL using your package manager.
-
-The following guides describe the installation procedures for using the official Percona Software repositories for either the `.deb` and `.rpm` packages.
+The following guides describe the installation procedures for using the official Percona Software repositories.
 
 * [Install Percona Server for MySQL on Debian and Ubuntu](apt-repo.md)
 
