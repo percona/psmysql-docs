@@ -21,7 +21,7 @@ To use the "Docker run" command, specify the name or ID of the image you want to
 | `-p 3306:3306` |Maps the container's MySQLport (3306) tothe same port yourhost, enabling external access.|
 | `--name psmysql` | Provides a meaningful name to the container. If you do not use this option, Docker adds a random name. |
 | `-e MYSQL_ROOT_PASSWORD=secret` | Adds an environmental variable and changes the password from the default password. |
-|  `--v myvol:/var/lib/mysql` | Mounts a host directory (myvol) as the container's data voluem, ensuring persistent storage for the database between container lifecycles. |
+|  `--v myvol:/var/lib/mysql` | Mounts a host directory (myvol) as the container's data volume, ensuring persistent storage for the database between container lifecycles. |
 | `percona/percona-server:8.0.34` | The image with the tag (8.0.34) to specify a specific release. |
 
 You must provide at least one environment variable to access the database, such as `MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE`, `MYSQL_USER`, and `MYSQL_PASSWORD` or the instance refuses to initialize.
