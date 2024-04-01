@@ -39,8 +39,8 @@ If the `glibc2` version from your operating system is not listed, then this Perc
     | Type | Name | Description |
     |---|---|---|
     | Full    | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.tar.gz | Contains all files available |
-    | Minimal | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.minimal.tar.gz | Contains binaries and libraries |
-    | Debug   | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;.debug.tar.gz | Contains the minimal build files and test files, and debug symbols   |
+    | Minimal | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;-minimal.tar.gz | Contains binaries and libraries |
+    | Debug   | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;-debug.tar.gz | Contains the minimal build files and test files, and debug symbols   |
     | Zenfs   | Percona-Server-&lt;version-number&gt;-Linux.x86_64.&lt;glibc2-version&gt;-zenfs.tar.gz | Contains the zenfs files and can be either a full or minimal installation |
 
 === "Pro builds"
