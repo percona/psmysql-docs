@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="As mentioned in the TokuDB files and file types Percona FT is particular when validating its data set. If a file goes missing or can’t be accessed, or seems to contain some nonsensical data, it will assert, abort or fail to start. It does this not to annoy you, but to try to protect you from doing any further damage to your data.">
+        <meta name="description" content="Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. For more information, see the TokuDB Introduction and TokuDB version changes.">
       
       
         <meta name="author" content="Percona LLC">
@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.16">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
@@ -5867,6 +5867,27 @@
   
   
     <li class="md-nav__item">
+      <a href="tokudb-version-changes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB changes in Percona Server for MySQL by version
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="tokudb-quickstart.html" class="md-nav__link">
         
   
@@ -6823,13 +6844,7 @@
 
 
 <h1 id="tokudb-file-management">TokuDB file management<a class="headerlink" href="#tokudb-file-management" title="Permanent link">&para;</a></h1>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Starting with <a href="release-notes/Percona-Server-8.0.28-19.html">Percona Server for MySQL 8.0.28-19</a>, the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds.</p>
-<p>Starting with <a href="release-notes/Percona-Server-8.0.26-16.html">Percona Server for MySQL 8.0.26-16</a>, the binary builds and packages include but disable the TokuDB storage engine plugins. The tokudb_enabled option and the tokudb_backup_enabled option control the state of the plugins and have a default setting of FALSE. The result of attempting to load the plugins are the plugins fail to initialize and print a deprecation message.</p>
-<p>We recommend <a href="https://docs.percona.com/percona-server/latest/tokudb/removing_tokudb.html#migrate-myrocks">Migrating the data to the MyRocks storage engine</a>. To enable the plugins to migrate to another storage engine, set the tokudb_enabled and tokudb_backup_enabled options to TRUE in your my.cnf file and restart your server instance. Then, you can load the plugins.</p>
-<p>The TokuDB storage engine was declared as deprecated in <a href="release-notes/Percona-Server-8.0.13-3.html">Percona Server for MySQL 8.0</a>. For more information, see the Percona blog post: <a href="https://www.percona.com/blog/2021/05/21/tokudb-support-changes-and-future-removal-from-percona-server-for-mysql-8-0/">Heads-Up: TokuDB Support Changes and Future Removal from Percona Server for MySQL 8.0</a>.</p>
-</div>
+<p>Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. For more information, see the <a href="tokudb-intro.html">TokuDB Introduction</a> and <a href="tokudb-version-changes.html">TokuDB version changes</a>. </p>
 <p>As mentioned in the TokuDB files and file types <em>Percona FT</em> is particular when validating its data set. If a file goes missing or can’t be accessed, or seems to contain some nonsensical data, it will assert, abort or fail to start. It does this not to annoy you, but to try to protect you from doing any further damage to your data.</p>
 <p>This document contains examples of common file maintenance operations and
 instructions on how to safely execute these operations.</p>
@@ -7069,7 +7084,7 @@ the tokudb_dir_cmd variable.</p>
   <small>
     
       Last update:
-      2023-09-27
+      2024-03-22
     
   </small>
 </div>
@@ -7169,7 +7184,7 @@ the tokudb_dir_cmd variable.</p>
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.bd41221c.min.js"></script>
+      <script src="assets/javascripts/bundle.1e8ae164.min.js"></script>
       
         <script src="js/version-select.js"></script>
       

@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Download the packages from Percona Product Downloads. If needed, Instructions for the Percona Product Download are available.">
+        <meta name="description" content="You should be aware that when you install packages manually, you must resolve and install any dependencies. This process may involve finding and installing the necessary dependencies before installing the packages. Dependencies are other packages that a package may need to function correctly. For example, a package may rely on a specific library. If that library is not installed, or if the installed library is the wrong version, the package may not work correctly.">
       
       
         <meta name="author" content="Percona LLC">
@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.16">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
@@ -5918,6 +5918,27 @@
   
   
     <li class="md-nav__item">
+      <a href="tokudb-version-changes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB changes in Percona Server for MySQL by version
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="tokudb-quickstart.html" class="md-nav__link">
         
   
@@ -6631,19 +6652,34 @@
 
 
 <h1 id="install-percona-server-for-mysql-using-downloaded-rpm-packages">Install Percona Server for MySQL using downloaded RPM packages<a class="headerlink" href="#install-percona-server-for-mysql-using-downloaded-rpm-packages" title="Permanent link">&para;</a></h1>
+<p>You should be aware that when you install packages manually, you must resolve and install any dependencies. This process may involve finding and installing the necessary dependencies before installing the packages. Dependencies are other packages that a package may need to function correctly. For example, a package may rely on a specific library. If that library is not installed, or if the installed library is the wrong version, the package may not work correctly.</p>
+<p>Package managers, like <code>APT</code> or <code>YUM</code> install the dependencies for you.</p>
 <p>Download the packages from <a href="https://www.percona.com/downloads">Percona Product Downloads</a>. If needed, <a href="download-instructions.html">Instructions for the Percona Product Download</a> are available.</p>
 <p>The following example downloads <em>Percona Server for MySQL</em> 8.0.29-21 release packages for <em>RHEL</em> 8.</p>
 <ol>
 <li>
-<p>Use <code>wget</code> to download the tar file.</p>
+<p>Using <a href="https://www.gnu.org/software/wget/"><code>Wget</code></a>, the following command downloads a specific version of Percona Server for MySQL on Red Hat Enterprise Linux 8 from the Percona website. </p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-8.0.29-21/binary/redhat/8/x86_64/Percona-Server-8.0.29-21-rc59f87d2854-el8-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
-<p>Unpack the bundle to get the packages: <code>tar xvf Percona-Server-8.0.29-21-rc59f87d2854-el8-x86_64-bundle.tar</code></p>
+<p>The following command extracts the contents of Percona Server for MySQL tarball. The <code>tar</code> command uses these options for the extraction:</p>
+<ul>
+<li>
+<p><code>x</code> - extract</p>
 </li>
 <li>
-<p>To view a list of packages, run the following command:</p>
+<p><code>v</code> - a verbose description of the <code>tar</code> extraction</p>
+</li>
+<li>
+<p><code>f</code> - name of the archive file</p>
+</li>
+</ul>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-8.0.29-21-rc59f87d2854-el8-x86_64-bundle.tar
+</code></pre></div>
+</li>
+<li>
+<p>The following command uses the <code>ls</code> utility to list the RPM files in the current directory. The command uses the <code>*.rpm</code> pattern. The <code>*</code> is a wildcard that matches any number of characters. The <code>.rpm</code> specifies that we only want the files that end in this extension.</p>
 <p><div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>*.rpm
 </code></pre></div>
 The output should look like the following:</p>
@@ -6670,23 +6706,30 @@ percona-server-test-debuginfo-8.0.29-21.1.el8.x86_64.rpm
 </details>
 </li>
 <li>
-<p>Install <code>jemalloc</code> with the following command, if needed:</p>
+<p>[Optional] Install <code>jemalloc</code>. The following command downloads a specific version of <code>jemalloc</code> for RHEL 8 from the Percona repository.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://repo.percona.com/yum/release/8/RPMS/x86_64/jemalloc-3.6.0-1.el8.x86_64.rpm
 </code></pre></div>
 </li>
 <li>
-<p>An EL8-based <em>RHEL</em> distribution or derivatives package installation requires the mysql module to be disabled before installing the packages:</p>
+<p>An EL8-based RHEL distribution or derivatives package installation requires you to disable the <code>mysql</code> module. We are installing a different version than the one provided by the module, so we must disable the module before installation. </p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
-<p>Install all the packages (for debugging, testing, etc.) with the following command:</p>
+<p>The following command uses superuser privileges to install RPM packages in the current directory using the <code>rpm</code> command. The <code>rpm</code> command uses the following options:</p>
+<ul>
+<li>
+<p><code>i</code> - install</p>
+</li>
+<li>
+<p><code>v</code> - verbose, describe the process in detail</p>
+</li>
+<li>
+<p><code>h</code> - display hash marks (<code>#</code>) to display installation progress</p>
+</li>
+</ul>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>*.rpm
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When installing packages manually, you must make sure to resolve all dependencies and install any missing packages yourself.</p>
-</div>
 </li>
 </ol>
 <div data-banner="data-banner">
@@ -6703,7 +6746,7 @@ percona-server-test-debuginfo-8.0.29-21.1.el8.x86_64.rpm
   <small>
     
       Last update:
-      2023-09-27
+      2024-03-22
     
   </small>
 </div>
@@ -6803,7 +6846,7 @@ percona-server-test-debuginfo-8.0.29-21.1.el8.x86_64.rpm
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.bd41221c.min.js"></script>
+      <script src="assets/javascripts/bundle.1e8ae164.min.js"></script>
       
         <script src="js/version-select.js"></script>
       

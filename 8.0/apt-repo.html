@@ -25,7 +25,7 @@ repositories and the Percona downloads page.">
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.16">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
@@ -5937,6 +5937,27 @@ repositories and the Percona downloads page.">
   
   
     <li class="md-nav__item">
+      <a href="tokudb-version-changes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB changes in Percona Server for MySQL by version
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="tokudb-quickstart.html" class="md-nav__link">
         
   
@@ -6675,63 +6696,69 @@ repositories and the <a href="https://www.percona.com/downloads/Percona-Server-8
 <h2 id="install-percona-server-for-mysql-using-apt">Install Percona Server for MySQL using APT<a class="headerlink" href="#install-percona-server-for-mysql-using-apt" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p>Update the package repositories:</p>
+<p>This command line instruction uses the <code>apt</code> command to update the package lists for upgrades and new package installations.</p>
+<ul>
+<li>
+<p><code>sudo</code> is a command that allows you to run programs with the security privileges of another user, by default, as the superuser. Updating the package lists typically requires superuser or &lsquo;root&rsquo; privileges.</p>
+</li>
+<li>
+<p><code>apt</code> is a command-line interface that handles package management in Debian and its derivatives. </p>
+</li>
+<li>
+<p><code>update</code> option resynchronizes the package index files from the sources specified in the system&rsquo;s <code>sources.list</code> file. You should run this command regularly to get the latest package updates.</p>
+</li>
+</ul>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </code></pre></div>
 </li>
 <li>
-<p>Install the <code>curl</code> download utility if needed:</p>
+<p>This command line instruction uses superuser privileges to install the <code>curl</code> package using the <code>apt</code> package manager. <code>curl</code> is a command-line tool used to transfer data using various network protocols.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>curl
 </code></pre></div>
 </li>
 <li>
-<p>Download the <code>percona-release</code> repository package:</p>
+<p>This command line instruction uses <code>curl</code> to download the <code>percona-release_latest.generic_all.deb</code> file from the <code>https://repo.percona.com/apt</code> location.</p>
+<p>The <code>-0</code> option saves the downloaded file with the same name used in the URL.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>-O<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 </code></pre></div>
 </li>
 <li>
-<p>Install the downloaded package with <code>apt</code> as root or with sudo:</p>
+<p>The following command uses the <code>apt</code> command to install multiple packages. <code>gnupg2</code> is the GNU Privacy Guard that provides cryptographic privacy and authentication. <code>lsb-release</code> is a Linux utility that provides certain Linux Standard Base (LSB) and distribution-specific information. <code>./percona-release_latest.generic_all.deb</code> is a Debian package in the current directory. </p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>./percona-release_latest.generic_all.deb
 </code></pre></div>
 </li>
 <li>
-<p>Refresh the local cache to update the package information:</p>
+<p>The following command uses superuser privileges to update the package lists from the repositories so that the system knows about the latest versions of packages and their dependencies.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </code></pre></div>
 </li>
 <li>
-<p>Use <code>percona-release</code> to set up the repository for the Percona Server for MySQL 8.0 version:</p>
+<p>This command line instruction uses <code>percona-release</code> command, a tool provided by Percona, to set up a specific Percona Server version. </p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps80
 </code></pre></div>
 </li>
 <li>
-<p>You can check the repository setup for the Percona original release list in <code>/etc/apt/sources.list.d/percona-original-release.list</code>. </p>
+<p>You can check the repository setup for the Percona original release list in <code>/etc/apt/sources.list.d/percona-original-release.list</code>. The APT system uses this file to know where to find updates and new packages for Percona software.</p>
 </li>
 <li>
-<p>Install the server package with the <code>percona-release</code> command:</p>
+<p>This command uses the <code>apt</code> command to install the <code>percona-server-server</code> package.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 </li>
 </ol>
 <p>See <a href="https://docs.percona.com/percona-software-repositories/percona-release.html">Configuring Percona repositories with <code>percona-release</code></a> for more information.</p>
-<p>Percona Server for MySQL 8.0 comes with the TokuDB and MyRocks storage engine and can be installed as a plugin. For information on installing and configuring MyRocks, refer to the <a href="install-myrocks.html">Percona MyRocks Installation Guide</a>.</p>
-<p>For information on installing and configuring TokuDB, refer to the <a href="tokudb-installation.html">TokuDB Installation Guide</a>.</p>
-<p>From <a href="release-notes/Percona-Server-8.0.28-19.html">Percona Server for MySQL 8.0.28-19</a>, the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds.</p>
-<p>From <a href="release-notes/Percona-Server-8.0.26-16.html">Percona Server for MySQL 8.0.26-16</a>, the binary builds and packages include but disable the TokuDB storage engine plugins. The tokudb_enabled option and the tokudb_backup_enabled option control the state of the plugins and have a default setting of FALSE. The result of attempting to load the plugins are the plugins fail to initialize and print a deprecation message.</p>
-<p>We recommend <a href="https://docs.percona.com/percona-server/latest/tokudb/removing_tokudb.html#migrate-myrocks">Migrating the data to the MyRocks storage engine</a>. To enable the plugins to migrate to another storage engine, set the tokudb_enabled and tokudb_backup_enabled options to TRUE in your my.cnf file and restart your server instance. Then, you can load the plugins.</p>
-<p>The TokuDB storage engine was declared as deprecated in <a href="release-notes/Percona-Server-8.0.13-3.html">Percona Server for MySQL 8.0</a>. For more information, see the Percona blog post: <a href="https://www.percona.com/blog/2021/05/21/tokudb-support-changes-and-future-removal-from-percona-server-for-mysql-8-0/">Heads-Up: TokuDB Support Changes and Future Removal from Percona Server for MySQL 8.0</a>.</p>
-<p>Percona Server for MySQL contains user-defined functions from <a href="https://docs.percona.com/percona-toolkit/">Percona Toolkit</a>. These user-defined functions provide faster checksums. For more details on the user-defined functions, see <a href="https://www.percona.com/doc/percona-server/8.0/management/udf_percona_toolkit.html">Percona Toolkit UDF functions</a>.</p>
+<p>Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. For more information, see the <a href="tokudb-intro.html">TokuDB Introduction</a> and <a href="tokudb-version-changes.html">TokuDB version changes</a>. </p>
+<p>Percona Server for MySQL contains user-defined functions from the <a href="https://docs.percona.com/percona-toolkit/">Percona Toolkit</a>. These user-defined functions provide faster checksums. For more details on the user-defined functions, see <a href="udf-percona-toolkit.html">Percona Toolkit UDF functions</a>.</p>
 <p>After the installation completes, run the following commands to create these functions:</p>
 <div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s2">&quot;CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME &#39;libfnv1a_udf.so&#39;&quot;</span>
 <span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s2">&quot;CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME &#39;libfnv_udf.so&#39;&quot;</span>
 <span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s2">&quot;CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME &#39;libmurmur_udf.so&#39;&quot;</span>
 </code></pre></div>
 <h2 id="install-the-percona-testing-repository-using-apt">Install the Percona Testing repository using APT<a class="headerlink" href="#install-the-percona-testing-repository-using-apt" title="Permanent link">&para;</a></h2>
-<p>Percona offers pre-release builds from the testing repository. To enable it, run
-percona-release with the <code>testing</code> argument. Run the following command as root or use the sudo command:</p>
+<p>Percona offers pre-release builds from the testing repository. As a superuser, run <code>percona-release</code> with the <code>testing</code> argument to enable it.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps80<span class="w"> </span>testing
 </code></pre></div>
-<p>These builds should not be run in production. This build may not contain all of the features available in the final release. The features may change without notice.</p>
+<p>Do not run testing repository builds in production. The build may not contain all the features available in the final release and may change without notice.</p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.</p>
@@ -6746,7 +6773,7 @@ percona-release with the <code>testing</code> argument. Run the following comman
   <small>
     
       Last update:
-      2023-11-29
+      2024-03-22
     
   </small>
 </div>
@@ -6846,7 +6873,7 @@ percona-release with the <code>testing</code> argument. Run the following comman
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.bd41221c.min.js"></script>
+      <script src="assets/javascripts/bundle.1e8ae164.min.js"></script>
       
         <script src="js/version-select.js"></script>
       

@@ -9,10 +9,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
         <meta name="description" content="Ready-to-use packages are available from the Percona Server for MySQL software
-repositories and the download page. The
-Percona yum repository supports popular RPM-based
-operating systems. The easiest way to install the Percona RPM repository is to install an RPM
-that configures yum and installs the Percona GPG key.">
+repositories and the download page.">
       
       
         <meta name="author" content="Percona LLC">
@@ -28,7 +25,7 @@ that configures yum and installs the Percona GPG key.">
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.16">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
@@ -5982,6 +5979,27 @@ that configures yum and installs the Percona GPG key.">
   
   
     <li class="md-nav__item">
+      <a href="tokudb-version-changes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB changes in Percona Server for MySQL by version
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="tokudb-quickstart.html" class="md-nav__link">
         
   
@@ -6756,23 +6774,23 @@ that configures yum and installs the Percona GPG key.">
 
 <h1 id="install-from-percona-software-repository">Install from Percona Software repository<a class="headerlink" href="#install-from-percona-software-repository" title="Permanent link">&para;</a></h1>
 <p>Ready-to-use packages are available from the Percona Server for MySQL software
-repositories and the <a href="https://www.percona.com/downloads/Percona-Server-8.0/">download page</a>. The
-Percona yum repository supports popular RPM-based
-operating systems. The easiest way to install the Percona RPM repository is to install an RPM
-that configures yum and installs the <a href="https://www.percona.com/downloads/RPM-GPG-KEY-percona">Percona GPG key</a>.</p>
+repositories and the <a href="https://www.percona.com/downloads">download page</a>. </p>
+<p>The Percona yum repository supports popular RPM-based
+operating systems. The easiest way to install the Percona RPM repository is to install an RPM configuring yum and installing the <a href="https://repo.percona.com/yum/PERCONA-PACKAGING-KEY">Percona GPG key</a>.</p>
 <p>We gather <a href="telemetry.html">Telemetry data</a> in the Percona packages and Docker images.</p>
 <h2 id="supported-platforms">Supported platforms<a class="headerlink" href="#supported-platforms" title="Permanent link">&para;</a></h2>
 <p>Specific information on the supported platforms, products, and versions are described in <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle</a>.</p>
 <h2 id="red-hat-certified">Red Hat Certified<a class="headerlink" href="#red-hat-certified" title="Permanent link">&para;</a></h2>
 <p>Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certification is based on common and secure best practices and successful interoperability with the operating system. Percona Server is listed in the <a href="https://catalog.redhat.com/software/applications/detail/112055">Red Hat Ecosystem Catalog</a>.</p>
 <h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
-<p>The RPM packages for Red Hat Enterprise Linux 7 and the compatible derivatives do not support TLSv1.3, as it requires OpenSSL 1.1.1, which is currently not available on this platform.</p>
+<p>The RPM packages for Red Hat Enterprise Linux 7 and the compatible derivatives do not support TLSv1.3. This version requires OpenSSL 1.1.1, which is currently unavailable on this platform.</p>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
 <p>Install from Percona Software Repository
-For more information on the Percona Software repositories and configuring Percona Repositories with percona-release, see the Percona Software Repositories Documentation. Run the following commands as a <code>root</code> user or with sudo.</p>
+For more information on the Percona Software repositories and configuring Percona Repositories with <code>percona-release</code>, see the <a href="https://docs.percona.com/percona-software-repositories/index.html">Percona Software Repositories Documentation</a>. Run the following commands as a <code>root</code> user or with sudo.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Install on Red Hat 7</label><label for="__tabbed_1_2">Install on Red Hat 8 or later</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
+<p>The first command uses <code>yum</code> to install the Percona repository from the Percona website. The second command enables the <code>ps-80</code> release series of the Percona Server. The third command allows the <code>tools</code> repository. This repository contains additional Percona software. The fourth command installs Percona Server for MySQL.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 $<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-80<span class="w"> </span>release
 $<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>tools<span class="w"> </span>release
@@ -6780,6 +6798,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
+<p>The first command uses <code>yum</code> to install the Percona repository from the Percona website. The second command uses the <code>percona-release</code> script to set up the <code>ps-80</code> release series of Percona Server. The third command installs Percona Server for MySQL.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 $<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps-80
 $<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-server
@@ -6789,16 +6808,25 @@ $<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>
 </div>
 <h2 id="available-storage-engines">Available storage engines<a class="headerlink" href="#available-storage-engines" title="Permanent link">&para;</a></h2>
 <p>Percona Server for MySQL 8.0 comes with the TokuDB storage engine and MyRocks storage engine. These storage engines are installed as plugins.</p>
-<p>Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds. For more information, see TokuDB Introduction.</p>
-<p>For information on how to install and configure TokuDB, refer to the TokuDB Installation guide.</p>
-<p>For information on how to install and configure MyRocks, refer to the Percona MyRocks Installation Guide.</p>
+<p>Percona Server for MySQL 8.0.28-19 (2022-05-12)and higher do not support the TokuDB storage engine. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds. For more information, see <a href="tokudb-version-changes.html">TokuDB version changes</a>.</p>
+<p>For information on how to install and configure TokuDB, refer to the <a href="tokudb-installation.html">TokuDB Installation guide</a>.</p>
+<p>For information on how to install and configure MyRocks, refer to the <a href="install-myrocks.html">Percona MyRocks Installation guide</a>.</p>
 <h3 id="percona-yum-testing-repository">Percona yum Testing repository<a class="headerlink" href="#percona-yum-testing-repository" title="Permanent link">&para;</a></h3>
-<p>Percona offers pre-release builds from our testing repository. To
-subscribe to the testing repository, you enable the testing
-repository in <code>/etc/yum.repos.d/percona-release.repo</code>. To do so,
-set both <code>percona-testing-$basearch</code> and <code>percona-testing-noarch</code>
-to <code>enabled = 1</code> (Note that there are three sections in this file:
-release, testing, and experimental - in this case, it is the second section that requires updating).</p>
+<p>Percona offers pre-release builds from our testing repository.</p>
+<p>To subscribe to the testing repository, you enable the testing
+repository in <code>/etc/yum.repos.d/percona-release.repo</code> by updating the second section, &lsquo;testing&rsquo; and set both <code>percona-testing-$basearch</code> and <code>percona-testing-noarch</code> to <code>enabled = 1</code>. </p>
+<p>There are three sections in this file: </p>
+<ul>
+<li>
+<p>release</p>
+</li>
+<li>
+<p>testing</p>
+</li>
+<li>
+<p>experimental</p>
+</li>
+</ul>
 <p>You must install the Percona repository first if the installation has not been done already.</p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
@@ -6814,7 +6842,7 @@ release, testing, and experimental - in this case, it is the second section that
   <small>
     
       Last update:
-      2023-11-29
+      2024-03-22
     
   </small>
 </div>
@@ -6914,7 +6942,7 @@ release, testing, and experimental - in this case, it is the second section that
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.bd41221c.min.js"></script>
+      <script src="assets/javascripts/bundle.1e8ae164.min.js"></script>
       
         <script src="js/version-select.js"></script>
       

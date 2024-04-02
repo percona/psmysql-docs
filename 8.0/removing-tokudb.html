@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. For more information, see the TokuDB Introduction and TokuDB version changes.">
       
       
         <meta name="author" content="Percona LLC">
@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.16">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
@@ -5867,6 +5867,27 @@
   
   
     <li class="md-nav__item">
+      <a href="tokudb-version-changes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB changes in Percona Server for MySQL by version
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="tokudb-quickstart.html" class="md-nav__link">
         
   
@@ -6188,36 +6209,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#migrating-the-data-to-myrocks-storage-engine" class="md-nav__link">
+  <a href="#migrate-to-myrocks" class="md-nav__link">
     <span class="md-ellipsis">
-      Migrating the data to MyRocks Storage Engine
+      Migrate to MyRocks
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#migrating-from-tokudb-to-innodb" class="md-nav__link">
+  <a href="#migrate-to-innodb" class="md-nav__link">
     <span class="md-ellipsis">
-      Migrating from TokuDB to InnoDB
+      Migrate to InnoDB
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#change-the-tables-from-tokudb-to-innodb" class="md-nav__link">
+  <a href="#remove-the-plugins" class="md-nav__link">
     <span class="md-ellipsis">
-      Change the tables from TokuDB to InnoDB
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#removing-the-plugins" class="md-nav__link">
-    <span class="md-ellipsis">
-      Removing the plugins
+      Remove the plugins
     </span>
   </a>
   
@@ -6627,36 +6639,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#migrating-the-data-to-myrocks-storage-engine" class="md-nav__link">
+  <a href="#migrate-to-myrocks" class="md-nav__link">
     <span class="md-ellipsis">
-      Migrating the data to MyRocks Storage Engine
+      Migrate to MyRocks
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#migrating-from-tokudb-to-innodb" class="md-nav__link">
+  <a href="#migrate-to-innodb" class="md-nav__link">
     <span class="md-ellipsis">
-      Migrating from TokuDB to InnoDB
+      Migrate to InnoDB
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#change-the-tables-from-tokudb-to-innodb" class="md-nav__link">
+  <a href="#remove-the-plugins" class="md-nav__link">
     <span class="md-ellipsis">
-      Change the tables from TokuDB to InnoDB
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#removing-the-plugins" class="md-nav__link">
-    <span class="md-ellipsis">
-      Removing the plugins
+      Remove the plugins
     </span>
   </a>
   
@@ -6703,14 +6706,8 @@
 
 
 <h1 id="migrate-and-remove-the-tokudb-storage-engine">Migrate and remove the TokuDB storage engine<a class="headerlink" href="#migrate-and-remove-the-tokudb-storage-engine" title="Permanent link">&para;</a></h1>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Starting with <a href="release-notes/Percona-Server-8.0.28-19.html">Percona Server for MySQL 8.0.28-19</a>, the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds.</p>
-<p>Starting with <a href="release-notes/Percona-Server-8.0.26-16.html">Percona Server for MySQL 8.0.26-16</a>, the binary builds and packages include but disable the TokuDB storage engine plugins. The tokudb_enabled option and the tokudb_backup_enabled option control the state of the plugins and have a default setting of FALSE. The result of attempting to load the plugins are the plugins fail to initialize and print a deprecation message.</p>
-<p>We recommend <a href="https://docs.percona.com/percona-server/latest/tokudb/removing_tokudb.html#migrate-myrocks">Migrating the data to the MyRocks storage engine</a>. To enable the plugins to migrate to another storage engine, set the tokudb_enabled and tokudb_backup_enabled options to TRUE in your my.cnf file and restart your server instance. Then, you can load the plugins.</p>
-<p>The TokuDB storage engine was declared as deprecated in <a href="release-notes/Percona-Server-8.0.13-3.html">Percona Server for MySQL 8.0</a>. For more information, see the Percona blog post: <a href="https://www.percona.com/blog/2021/05/21/tokudb-support-changes-and-future-removal-from-percona-server-for-mysql-8-0/">Heads-Up: TokuDB Support Changes and Future Removal from Percona Server for MySQL 8.0</a>.</p>
-</div>
-<h2 id="migrating-the-data-to-myrocks-storage-engine">Migrating the data to MyRocks Storage Engine<a class="headerlink" href="#migrating-the-data-to-myrocks-storage-engine" title="Permanent link">&para;</a></h2>
+<p>Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. For more information, see the <a href="tokudb-intro.html">TokuDB Introduction</a> and <a href="tokudb-version-changes.html">TokuDB version changes</a>. </p>
+<h2 id="migrate-to-myrocks">Migrate to MyRocks<a class="headerlink" href="#migrate-to-myrocks" title="Permanent link">&para;</a></h2>
 <p>To migrate data use the <a href="https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html">mysqldump</a> client utility or the tools in the <a href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a> to dump and restore the database.</p>
 <p>We recommended migrating to the MyRocks storage engine. Follow these steps to migrate the data:</p>
 <ol>
@@ -6724,48 +6721,43 @@
 <p>Replace the references to TokuDB with MyRocks.</p>
 </li>
 <li>
-<p>Enable the following variable: rocksdb_bulk_load. This variable also enables rocksdb_commit_in_the_middle.</p>
+<p>Enable the following variable: <code>rocksdb_bulk_load</code>. This variable also enables <code>rocksdb_commit_in_the_middle</code>.</p>
 </li>
 <li>
 <p>Import the data into the MyRocks database.</p>
 </li>
+<li>
+<p>Go to <a href="#remove-the-plugins">Remove the plugins</a></p>
+</li>
 </ol>
-<p>Follow the Removing the plugins steps.</p>
-<h2 id="migrating-from-tokudb-to-innodb">Migrating from TokuDB to InnoDB<a class="headerlink" href="#migrating-from-tokudb-to-innodb" title="Permanent link">&para;</a></h2>
-<p>In case you want remove the TokuDB storage engine from <em>Percona Server for MySQL</em> without
-causing any errors following is the recommended procedure:</p>
-<h2 id="change-the-tables-from-tokudb-to-innodb">Change the tables from TokuDB to InnoDB<a class="headerlink" href="#change-the-tables-from-tokudb-to-innodb" title="Permanent link">&para;</a></h2>
-<p>If you still need the data in the TokuDB tables you must alter the tables
-to other supported storage engine i.e., <em>InnoDB</em>: <code>ALTER TABLE City
-ENGINE=InnoDB;</code></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Do not remove the TokuDB storage engine before you’ve changed your tables to the other supported storage engine. Otherwise, you will not be able to access that data without reinstalling the TokuDB storage engine.</p>
-</div>
-<h2 id="removing-the-plugins">Removing the plugins<a class="headerlink" href="#removing-the-plugins" title="Permanent link">&para;</a></h2>
-<p>To remove the <em>TokuDB</em> storage engine with all installed plugins you can use the
+<h2 id="migrate-to-innodb">Migrate to InnoDB<a class="headerlink" href="#migrate-to-innodb" title="Permanent link">&para;</a></h2>
+<p>Remove the TokuDB storage engine from Percona Server for MySQL without causing any errors. </p>
+<p>If you need the data in the TokuDB tables, you must alter the tables to another supported storage engine. Do not remove the TokuDB storage engine before you’ve changed your tables to a supported storage engine. </p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>TABLE<span class="w"> </span>table-name<span class="w"> </span><span class="nv">ENGINE</span><span class="o">=</span>InnoDB<span class="p">;</span>
+</code></pre></div>
+<p>If you remove the TokuDB storage engine and then find you are missing data, you must reinstall the TokuDB storage engine to access the data. </p>
+<h2 id="remove-the-plugins">Remove the plugins<a class="headerlink" href="#remove-the-plugins" title="Permanent link">&para;</a></h2>
+<p>To remove the TokuDB storage engine with all installed plugins you can use the
 <strong>ps-admin</strong> script:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ps-admin<span class="w"> </span>--disable-tokudb<span class="w"> </span>-uroot<span class="w"> </span>-pPassw0rd
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ps-admin<span class="w"> </span>--disable-tokudb<span class="w"> </span>-uroot<span class="w"> </span>-pPassw0rd
 </code></pre></div>
-<p>Script output should look like this:</p>
-<p>Another option is to manually remove the <em>TokuDB</em> storage engine with all installed plugins:</p>
-<div class="highlight"><pre><span></span><code><span class="n">msql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb</span><span class="p">;</span>
-<span class="n">msql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_file_map</span><span class="p">;</span>
-<span class="n">msql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_fractal_tree_info</span><span class="p">;</span>
-<span class="n">msql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_fractal_tree_block_map</span><span class="p">;</span>
-<span class="n">msql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_trx</span><span class="p">;</span>
-<span class="n">msql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_locks</span><span class="p">;</span>
-<span class="n">msql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_lock_waits</span><span class="p">;</span>
-<span class="n">msql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">tokudb_background_job_status</span><span class="p">;</span>
+<p>Another option is to remove the TokuDB storage engine with all installed plugins manually:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>tokudb<span class="p">;</span>
+mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>tokudb_file_map<span class="p">;</span>
+mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>tokudb_fractal_tree_info<span class="p">;</span>
+mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>tokudb_fractal_tree_block_map<span class="p">;</span>
+mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>tokudb_trx<span class="p">;</span>
+mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>tokudb_locks<span class="p">;</span>
+mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>tokudb_lock_waits<span class="p">;</span>
+mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>tokudb_background_job_status<span class="p">;</span>
 </code></pre></div>
-<p>After the engine and the plugins have been uninstalled you can remove the TokuDB package by using the apt/yum commands:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@centos<span class="w"> </span>~<span class="o">]</span><span class="c1"># yum remove Percona-Server-tokudb-80.x86_64</span>
+<p>After the engine and the plugins are uninstalled, you can remove the TokuDB package by using the apt/yum commands:</p>
+<p><div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>remove<span class="w"> </span>Percona-Server-tokudb-80.x86_64
 </code></pre></div>
-<p>or <code>apt remove percona-server-tokudb-8.0</code></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Make sure you’ve removed all the TokuDB specific variables from your configuration file (<code>my.cnf</code>) before you restart the server, otherwise server could show errors or warnings and won’t be able to start.</p>
-</div>
+or</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span>percona-server-tokudb-8.0
+</code></pre></div>
+<p>Ensure you’ve removed all TokuDB-specific variables from your configuration file before restarting the server. If variables are in your configuration file, the server won&rsquo;t start and the logs will contain errors or warnings.</p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.</p>
@@ -6780,7 +6772,7 @@ ENGINE=InnoDB;</code></p>
   <small>
     
       Last update:
-      2023-10-10
+      2024-03-22
     
   </small>
 </div>
@@ -6880,7 +6872,7 @@ ENGINE=InnoDB;</code></p>
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.bd41221c.min.js"></script>
+      <script src="assets/javascripts/bundle.1e8ae164.min.js"></script>
       
         <script src="js/version-select.js"></script>
       

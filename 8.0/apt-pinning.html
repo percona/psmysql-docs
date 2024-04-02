@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Pinning allows you to stay on a release and get packages from a different version. In some cases, you can pin selected packages and avoid accidentally upgrading all the packages.">
+        <meta name="description" content="Apt pinning is a feature in Debian and its derivatives like Ubuntu, allowing you to prioritize package versions from different repositories. When you pin the Percona Server for MySQL 8.0 packages, you tell your system’s package manager to prefer this specific version over others available in different repositories. This ability is beneficial when you want to ensure that you’re running a specific version of Percona Server for MySQL due to compatibility or stability reasons, despite newer versions available elsewhere.">
       
       
         <meta name="author" content="Percona LLC">
@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.16">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
@@ -5918,6 +5918,27 @@
   
   
     <li class="md-nav__item">
+      <a href="tokudb-version-changes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB changes in Percona Server for MySQL by version
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="tokudb-quickstart.html" class="md-nav__link">
         
   
@@ -6631,14 +6652,18 @@
 
 
 <h1 id="apt-pinning-the-percona-server-for-mysql-80-packages">Apt pinning the Percona Server for MySQL 8.0 packages<a class="headerlink" href="#apt-pinning-the-percona-server-for-mysql-80-packages" title="Permanent link">&para;</a></h1>
-<p>Pinning allows you to stay on a release and get packages from a different version. In some cases, you can pin selected packages and avoid accidentally upgrading all the packages. </p>
-<p>The pinning takes place in the <code>preference</code> file. To pin a package, set the <code>Pin-Priority</code> to higher numbers. </p>
+<p>Apt pinning is a feature in Debian and its derivatives like Ubuntu, allowing you to prioritize package versions from different repositories. When you pin the Percona Server for MySQL 8.0 packages, you tell your system&rsquo;s package manager to prefer this specific version over others available in different repositories. This ability is beneficial when you want to ensure that you&rsquo;re running a specific version of Percona Server for MySQL due to compatibility or stability reasons, despite newer versions available elsewhere.</p>
+<p>To apt pin Percona Server for MySQL 8.0, you must first open the <code>/etc/apt/preferences.d/</code> directory and create a new file for the Percona Server package. In this file, you will specify the package name followed by a pinning priority. A higher priority ensures that the version of Percona Server you wish to install is preferred over other versions. </p>
+<p>You should include the version number of the Percona Server in the &lsquo;Package&rsquo; field to identify the package. </p>
+<p>Then, assign a priority in the &lsquo;Pin-Priority&rsquo; field; a common practice is to set it above 1000 to prioritize it over other packages. 
+The pinning takes place in the <code>preference</code> file. To pin a package, set the <code>Pin-Priority</code> to higher numbers. </p>
 <p>Make a new file <code>/etc/apt/preferences.d/00percona.pref</code>. For example, add the following to the <code>preference</code> file:</p>
-<div class="highlight"><pre><span></span><code>Package: 
+<div class="no-copy highlight"><pre><span></span><code>Package: 
 Pin: release o=Percona Development Team
 Pin-Priority: 1001
 </code></pre></div>
-<p>For more information about the pinning, you can check the official <a href="https://wiki.debian.org/AptConfiguration?action=show&amp;redirect=AptPreferences">debian wiki</a>.</p>
+<p>Save this file and update your package lists with <code>sudo apt update</code>. Finally, install Percona Server for MySQL 8.0 with <code>sudo apt install percona-server-server-8.0</code>, and apt will adhere to your pinning preferences.</p>
+<p>For more information, see <a href="https://wiki.debian.org/AptConfiguration?action=show&amp;redirect=AptPreferences">debian wiki on AptConfiguration</a>.</p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.</p>
@@ -6653,7 +6678,7 @@ Pin-Priority: 1001
   <small>
     
       Last update:
-      2023-09-27
+      2024-03-22
     
   </small>
 </div>
@@ -6753,7 +6778,7 @@ Pin-Priority: 1001
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.bd41221c.min.js"></script>
+      <script src="assets/javascripts/bundle.1e8ae164.min.js"></script>
       
         <script src="js/version-select.js"></script>
       

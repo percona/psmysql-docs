@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Download the packages from Percona Product Downloads. If needed, Instructions for the Percona Product Download are available.">
+        <meta name="description" content="When installing packages manually, you must resolve all the dependencies and install missing packages yourself. You must install the following packages before manually installing Percona Server:">
       
       
         <meta name="author" content="Percona LLC">
@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.16">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
@@ -5918,6 +5918,27 @@
   
   
     <li class="md-nav__item">
+      <a href="tokudb-version-changes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB changes in Percona Server for MySQL by version
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="tokudb-quickstart.html" class="md-nav__link">
         
   
@@ -6631,11 +6652,43 @@
 
 
 <h1 id="install-percona-server-for-mysql-80-using-downloaded-deb-packages">Install Percona Server for MySQL 8.0 using downloaded DEB packages<a class="headerlink" href="#install-percona-server-for-mysql-80-using-downloaded-deb-packages" title="Permanent link">&para;</a></h1>
+<p>When installing packages manually, you must resolve all the dependencies and install missing packages yourself. You must install the following packages before manually installing Percona Server:</p>
+<ul>
+<li>
+<p><code>mysql-common</code></p>
+</li>
+<li>
+<p><code>libjemalloc1</code></p>
+</li>
+<li>
+<p><code>libaio1</code></p>
+</li>
+<li>
+<p><code>libmecab2</code>.</p>
+</li>
+</ul>
 <p>Download the packages from <a href="https://www.percona.com/downloads">Percona Product Downloads</a>. If needed, <a href="download-instructions.html">Instructions for the Percona Product Download</a> are available.</p>
-<p>The following example downloads Percona Server for MySQL 8.0.31-23 release packages for Debian 10:</p>
+<ol>
+<li>
+<p>The following example uses <code>Wget</code> to download the Percona Server 8.0 bundle from the specified URL. The bundle is a tar archive containing the Percona Server 8.0.31-23 binary for Debian Buster (x86_64 architecture):</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.31-23/binary/debian/buster/x86_64/Percona-Server-8.0.31-23-r71449379-buster-x86_64-bundle.tar
 </code></pre></div>
-<p>Unpack the download to get the packages:</p>
+</li>
+<li>
+<p>The command line instruction uses the <code>tar</code> command to extract files from a tarball (a type of compressed file). The <code>tar</code> command is a Unix utility that stores and extracts files from an archive file known as a tarfile. </p>
+<p>The <code>xvf</code> option combines three separate options: <code>x</code>, <code>v</code>, and <code>f</code>. </p>
+<ul>
+<li>
+<p><code>x</code> extract the files from the archive</p>
+</li>
+<li>
+<p><code>v</code> verbose - print the file names as they are extracted</p>
+</li>
+<li>
+<p><code>f</code> file - use the following argument as the name of the archive file</p>
+</li>
+</ul>
+<p>The following command extracts the contents of the  <code>Percona-Server-8.0.31-23-r71449379-buster-x86_64-bundle.tar</code> file and prints the file names.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-8.0.31-23-r71449379-buster-x86_64-bundle.tar
 </code></pre></div>
 <details class="example">
@@ -6652,18 +6705,17 @@ percona-server-source_8.0.31-23-1.buster_amd64.deb
 percona-server-test_8.0.31-23-1.buster_amd64.deb
 </code></pre></div>
 </details>
-<p>Install Percona Server for MySQL using <code>dpkg</code>. Run this command as root or use the sudo command:</p>
+</li>
+<li>
+<p>Install Percona Server for MySQL using the <code>dpkg</code> utility to install Debian (.deb) packages. The installation requires either root or the <code>sudo</code> command. <code>sudo</code> allows you to run programs with the security privileges of another user, usually as the superuser.</p>
+<p><code>dpkg</code> is a package manager for Debian-based systems and can install, remove, and provide information about <code>.deb</code> packages. </p>
+<p>The <code>-i</code> option tells <code>dpkg</code> to install the package.</p>
+<p>The <code>*.deb</code> is a wildcard that matches any file in the current directory that ends with the <code>.deb</code> extension. </p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*.deb
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Percona Server for MySQL 8.0 comes with the TokuDB storage engine. You can find more information on how to install and enable the TokuDB storage in the TokuDB Installation guide.</p>
-<p>Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds. For more information, see the TokuDB Introduction.</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>When installing packages manually like this, you’ll need to resolve all the dependencies and install missing packages yourself. The following packages will need to be installed before you can manually install Percona Server: <code>mysql-common</code>, <code>libjemalloc1</code>, <code>libaio1</code>, and <code>libmecab2</code>.</p>
-</div>
+</li>
+</ol>
+<p>Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. For more information, see the <a href="tokudb-intro.html">TokuDB Introduction</a> and <a href="tokudb-version-changes.html">TokuDB changes by Percona Server for MySQL version</a>. </p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.</p>
@@ -6678,7 +6730,7 @@ percona-server-test_8.0.31-23-1.buster_amd64.deb
   <small>
     
       Last update:
-      2023-09-27
+      2024-03-22
     
   </small>
 </div>
@@ -6778,7 +6830,7 @@ percona-server-test_8.0.31-23-1.buster_amd64.deb
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.bd41221c.min.js"></script>
+      <script src="assets/javascripts/bundle.1e8ae164.min.js"></script>
       
         <script src="js/version-select.js"></script>
       

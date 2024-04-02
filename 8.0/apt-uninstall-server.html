@@ -8,11 +8,9 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="To uninstall Percona Server for MySQL you’ll need to remove all the installed
+        <meta name="description" content="To uninstall Percona Server for MySQL, you must remove all the installed
 packages. Removing packages with apt remove does not remove the
-configuration and data files. Removing the packages with apt purge does remove the packages with configuration files and data files (all
-the databases). Depending on your needs you can choose which command better
-suits you.">
+configuration and data files. Removing the packages with apt purge does remove the packages with configuration files and data files (all the databases). Depending on your needs, you can choose which command best suits you.">
       
       
         <meta name="author" content="Percona LLC">
@@ -28,7 +26,7 @@ suits you.">
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.16">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
@@ -5922,6 +5920,27 @@ suits you.">
   
   
     <li class="md-nav__item">
+      <a href="tokudb-version-changes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB changes in Percona Server for MySQL by version
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="tokudb-quickstart.html" class="md-nav__link">
         
   
@@ -6635,25 +6654,37 @@ suits you.">
 
 
 <h1 id="uninstall-percona-server-for-mysql-80-using-the-apt-package-manager">Uninstall Percona Server for MySQL 8.0 using the APT package manager<a class="headerlink" href="#uninstall-percona-server-for-mysql-80-using-the-apt-package-manager" title="Permanent link">&para;</a></h1>
-<p>To uninstall Percona Server for MySQL you’ll need to remove all the installed
-packages. Removing packages with apt remove does not remove the
-configuration and data files. Removing the packages with apt purge does remove the packages with configuration files and data files (all
-the databases). Depending on your needs you can choose which command better
-suits you.</p>
+<p>To uninstall Percona Server for MySQL, you must remove all the installed
+packages. Removing packages with <code>apt remove</code> does not remove the
+configuration and data files. Removing the packages with <code>apt purge</code> does remove the packages with configuration files and data files (all the databases). Depending on your needs, you can choose which command best suits you.</p>
 <ol>
 <li>
-<p>Stop the Percona Server for MySQL service: <code>service mysql stop</code></p>
+<p>To uninstall Percona Server for MySQL, you must stop the Percona Server for MySQL service:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+</code></pre></div>
 </li>
 <li>
-<p>Remove the packages</p>
-<ol>
-<li>
-<p>Remove the packages. This will leave the data files (databases, tables, logs, configuration, etc.) behind. In case you don’t need them you’ll need to remove them manually: <code>apt remove percona-server\</code></p>
+<p>Remove the Percona Server for MySQL packages. You can use either command.</p>
+<p>a. The command, <code>apt remove</code> removes only the packages. This operation does not remove the data files (databases, tables, logs, configuration, and other files). 
+    <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span>percona-server<span class="se">\</span>
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code>If you do not need these remaining files, remove them manually.
+</code></pre></div>
+<p>b. This command removes all the packages and any associated configuration files. This action ensures the complete removal of the packages from the system. </p>
+<div class="highlight"><pre><span></span><code>```{.bash data-prompt=&quot;$&quot;}
+$ sudo apt purge percona-server\`
+```
+</code></pre></div>
 </li>
 <li>
-<p>Purge the packages. This command removes all the packages and deletes all the data files (databases, tables, logs, and so on.): <code>apt purge percona-server\</code></p>
+<p>To ensure associated packages are removed, run the following command:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>autoremove
+</code></pre></div>
 </li>
-</ol>
+<li>
+<p>You can manually remove the data directory by executing the following command. Back up any of the necessary data before deleting the files.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/mysql/
+</code></pre></div>
 </li>
 </ol>
 <div data-banner="data-banner">
@@ -6670,7 +6701,7 @@ suits you.</p>
   <small>
     
       Last update:
-      2023-09-27
+      2024-03-22
     
   </small>
 </div>
@@ -6770,7 +6801,7 @@ suits you.</p>
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.bd41221c.min.js"></script>
+      <script src="assets/javascripts/bundle.1e8ae164.min.js"></script>
       
         <script src="js/version-select.js"></script>
       

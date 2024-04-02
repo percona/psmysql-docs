@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.16">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
@@ -5918,6 +5918,27 @@
   
   
     <li class="md-nav__item">
+      <a href="tokudb-version-changes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TokuDB changes in Percona Server for MySQL by version
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="tokudb-quickstart.html" class="md-nav__link">
         
   
@@ -6635,19 +6656,19 @@
 <ol>
 <li>
 <p>Stop the Percona Server for MySQL service:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
-<p>Remove the packages:</p>
+<p>As a superuser, either <code>root</code> or using <code>sudo</code>, use <code>yum</code> and the <code>remove</code> option. You can use the <code>remove</code> option to remove a specific package or a group of packages. In the example, the command removes all packages starting with <code>percona-server</code>. </p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>remove<span class="w"> </span>percona-server*
 </code></pre></div>
 </li>
 <li>
-<p>Remove the data and configuration files:</p>
+<p>The first command removes the <code>/var/lib/mysql</code> directory and everything within it. The second command removes the <code>/etc/my.cnf</code> file, the main configuration file for Percona Server for MySQL.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This step removes all the packages and deletes all the data files (databases, tables, logs, etc.). Take a backup before doing this in case you need the data.</p>
+<p>This step removes all the packages and deletes all the data files (databases, tables, logs, and other files). Take a backup before doing this in case you need the data.</p>
 </div>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/mysql
 $<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>/etc/my.cnf
@@ -6668,7 +6689,7 @@ $<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>/et
   <small>
     
       Last update:
-      2023-09-27
+      2024-03-22
     
   </small>
 </div>
@@ -6768,7 +6789,7 @@ $<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>/et
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.bd41221c.min.js"></script>
+      <script src="assets/javascripts/bundle.1e8ae164.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
