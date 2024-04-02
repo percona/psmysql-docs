@@ -1,15 +1,39 @@
 # Uninstall Percona Server for MySQL 8.0 using the APT package manager
 
-To uninstall Percona Server for MySQL you’ll need to remove all the installed
-packages. Removing packages with apt remove does not remove the
-configuration and data files. Removing the packages with apt purge does remove the packages with configuration files and data files (all
-the databases). Depending on your needs you can choose which command better
-suits you.
+To uninstall Percona Server for MySQL, you must remove all the installed
+packages. Removing packages with `apt remove` does not remove the
+configuration and data files. Removing the packages with `apt purge` does remove the packages with configuration files and data files (all the databases). Depending on your needs, you can choose which command best suits you.
 
-1. Stop the Percona Server for MySQL service: `service mysql stop`
+1. To uninstall Percona Server for MySQL, you must stop the Percona Server for MySQL service:
 
-2. Remove the packages
+    ```{.bash data-prompt="$"} 
+    $ sudo systemctl stop mysql
+    ```
 
-    1. Remove the packages. This will leave the data files (databases, tables, logs, configuration, etc.) behind. In case you don’t need them you’ll need to remove them manually: `apt remove percona-server\`
+2. Remove the Percona Server for MySQL packages. You can use either command.
 
-    2. Purge the packages. This command removes all the packages and deletes all the data files (databases, tables, logs, and so on.): `apt purge percona-server\`
+    a. The command, `apt remove` removes only the packages. This operation does not remove the data files (databases, tables, logs, configuration, and other files). 
+        ```{.bash data-prompt="$"}
+        $ sudo apt remove percona-server\
+        ```
+
+        If you do not need these remaining files, remove them manually.
+
+    b. This command removes all the packages and any associated configuration files. This action ensures the complete removal of the packages from the system. 
+    
+        ```{.bash data-prompt="$"}
+        $ sudo apt purge percona-server\`
+        ```
+
+3. To ensure associated packages are removed, run the following command:
+
+    ```{.bash data-prompt="$"}
+    $ sudo apt autoremove
+    ```
+
+4. You can manually remove the data directory by executing the following command. Back up any of the necessary data before deleting the files.
+
+    ```{.bash data-prompt="$"}
+    $ sudo rm -rf /var/lib/mysql/
+    ```
+
