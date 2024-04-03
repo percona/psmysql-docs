@@ -193,7 +193,7 @@ Specifies how much information to include in your slow log. The value is a comma
 
 * `standard`: Equivalent to enabling `microtime,query_plan`.
 
-* `full`: Equivalent to all other values OR’ed together without the `profiling` and `profiling_use_getrusage` options.
+* `full`: Equivalent to `microtime`,`query_plan`,`innodb`.
 
 * `profiling`: Enables profiling of all queries in all connections.
 
@@ -201,9 +201,8 @@ Specifies how much information to include in your slow log. The value is a comma
 
 * `query_info`: Enables printing `Query_tables` and `Query_digest` into the slow query log. These fields are disabled by default.
 
-Values are OR’ed together.
 
-For example, to enable microsecond query timing and *InnoDB* statistics, set this option to `microtime,innodb` or `standard`. To turn all options on, set the option to `full`.
+You can combine the options. For example, to enable microsecond query timing and InnoDB statistics, set this option to `microtime,innodb` or `standard`.
 
 ### `slow_query_log_use_global_control`
 
