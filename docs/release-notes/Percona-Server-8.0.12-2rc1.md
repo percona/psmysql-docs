@@ -17,8 +17,8 @@ Percona provides completely open-source and free software.
 
 As this is a release candidate, installation is performed by enabling the
 testing repository and installing the software via your package manager.  For
-Debian based distributions, see [apt installation instructions](https://www.percona.com/doc/percona-server/8.0/installation/apt_repo.html);
-for RPM based distributions. see [yum installation instructions](https://www.percona.com/doc/percona-server/8.0/installation/yum_repo.html).
+Debian based distributions, see [apt installation instructions](https://www.percona.com/doc/percona-server/8.0/apt-repo.html);
+for RPM based distributions. see [yum installation instructions](https://www.percona.com/doc/percona-server/8.0/yum-repo.html).
 Note that in both cases after installing the current percona-release package,
 you’ll need to enable the testing repository in order to install *Percona Server for MySQL*
 for MySQL 8.0.12-2rc1.  For manual installations, you can download from the
@@ -108,5 +108,5 @@ m_create_info->row_type`
 * New encryption features in *Percona Server for MySQL* 5.7 will be ported forward to *Percona Server for MySQL* 8.0
 
 
-* Adding back in [column compression with custom data dictionaries](https://www.percona.com/doc/percona-server/8.0/flexibility/compressed_columns.html)
+* Adding back in [column compression with custom data dictionaries](https://www.percona.com/doc/percona-server/8.0/compressed-columns.html)
 and expanded fast index creation.

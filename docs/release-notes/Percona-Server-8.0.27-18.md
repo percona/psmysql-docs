@@ -98,7 +98,7 @@ The RPM packages for Red Hat Enterprise Linux 7 (and compatible derivatives) do 
 
 ## Contact us
 
-The [Documentation Contribution Guide](https://github.com/percona/percona-server/blob/8.0/doc/source/contributing.md) describes the methods available to contribute to the Percona Server for MySQL documentation.
+The [Documentation Contribution Guide](https://github.com/percona/psmysql-docs/blob/8.0/contributing.md) describes the methods available to contribute to the Percona Server for MySQL documentation.
 
 For free technical help, visit the Percona [Community Forum](https://forums.percona.com/c/mysql-mariadb/percona-server-for-mysql-8-0/20).
 
