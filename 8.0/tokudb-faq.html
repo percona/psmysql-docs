@@ -7616,7 +7616,7 @@
 <p>The maximum row size is 32 MiB.</p>
 <h2 id="nfs-cifs">NFS &amp; CIFS<a class="headerlink" href="#nfs-cifs" title="Permanent link">&para;</a></h2>
 <h3 id="can-the-data-directories-reside-on-a-disk-that-is-nfs-or-cifs-mounted">Can the data directories reside on a disk that is NFS or CIFS mounted?<a class="headerlink" href="#can-the-data-directories-reside-on-a-disk-that-is-nfs-or-cifs-mounted" title="Permanent link">&para;</a></h3>
-<p>Yes, we do have customers in production with NFS &amp; CIFS volumes today. However, both of these disk types can pose a challenge to performance and data integrity due to their complexity. If you’re seeking performance, the switching infrastructure and protocols of a traditional network were not conceptualized for low response times and can be very difficult to troubleshoot. If you’re concerned with data integrity, the possible data caching at the NFS level can cause inconsistencies between the logs and data files that may never be detected in the event of a crash. If you are thinking of using a NFS or CIFS mount, we would recommend that you use synchronous mount options, which are available from the NFS mount man page, but these settings may decrease performance. For further discussion please look <a href="https://www.mysqlperformanceblog.com/2010/07/30/storing-mysql-binary-logs-on-nfs-volume/">here</a>.</p>
+<p>Yes, we do have customers in production with NFS &amp; CIFS volumes today. However, both of these disk types can pose a challenge to performance and data integrity due to their complexity. If you’re seeking performance, the switching infrastructure and protocols of a traditional network were not conceptualized for low response times and can be very difficult to troubleshoot. If you’re concerned with data integrity, the possible data caching at the NFS level can cause inconsistencies between the logs and data files that may never be detected in the event of a crash. If you are thinking of using a NFS or CIFS mount, we would recommend that you use synchronous mount options, which are available from the NFS mount man page, but these settings may decrease performance. For further discussion please look <a href="https://www.percona.com/blog/storing-mysql-binary-logs-on-nfs-volume/">here</a>.</p>
 <h2 id="using-other-storage-engines">Using Other Storage Engines<a class="headerlink" href="#using-other-storage-engines" title="Permanent link">&para;</a></h2>
 <h3 id="can-the-myisam-and-innodb-storage-engines-be-used">Can the MyISAM and InnoDB Storage Engines be used?<a class="headerlink" href="#can-the-myisam-and-innodb-storage-engines-be-used" title="Permanent link">&para;</a></h3>
 <p><em>MyISAM</em> and <em>InnoDB</em> can be used directly in conjunction with <em>TokuDB</em>. Please note that you should not over-commit memory between <em>InnoDB</em> and <em>TokuDB</em>. The total memory assigned to both caches must be less than physical memory.</p>
@@ -7649,7 +7649,7 @@
   <small>
     
       Last update:
-      2024-03-22
+      2024-04-08
     
   </small>
 </div>
