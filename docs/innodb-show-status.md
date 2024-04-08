@@ -439,9 +439,9 @@ InnoDB/XtraDB hash tables.
 
 ## Other reading
 
-* [SHOW INNODB STATUS walk through](https://www.mysqlperformanceblog.com/2006/07/17/show-innodb-status-walk-through/)
+* [SHOW INNODB STATUS walk through](https://www.percona.com/blog/show-innodb-status-walk-through/)
 
-* [Table locks in SHOW INNODB STATUS](https://www.mysqlperformanceblog.com/2010/06/08/table-locks-in-show-innodb-status/)
+* [Table locks in SHOW INNODB STATUS](https://www.percona.com/blog/table-locks-in-show-innodb-status/)
 
 
 [Making the Buffer Pool Scan Resistant manual page]: https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-performance-midpoint_insertion.html

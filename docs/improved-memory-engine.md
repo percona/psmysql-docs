@@ -4,7 +4,7 @@ A *Fixed Row Format* (`FRF`) is used in the `MEMORY` storage engine. The fixed r
 
 To overcome this limitation, the *Improved MEMORY Storage Engine* is introduced in this release for supporting **true** `VARCHAR`, `VARBINARY`, `TEXT`, and `BLOB` fields in the `MEMORY` tables.
 
-This implementation is based on the *Dynamic Row Format* (`DFR`) introduced by the [mysql-heap-dynamic-rows](https://code.google.com/p/mysql-heap-dynamic-rows/) patch.
+This implementation is based on the *Dynamic Row Format* (`DFR`) introduced by the [mysql-heap-dynamic-rows](https://code.google.com/archive/p/mysql-heap-dynamic-rows/) patch.
 
 `DFR` is used to store column values in a variable-length form, thus helping to decrease the memory footprint of those columns and making possible `BLOB` and `TEXT` fields and real `VARCHAR` and `VARBINARY`.
 
