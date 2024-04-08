@@ -405,10 +405,10 @@ If the query did not use *InnoDB* tables, that information is written into the l
 ## Related reading
 
 
-* [Impact of logging on MySQL’s performance](https://www.mysqlperformanceblog.com/2009/02/10/impact-of-logging-on-mysql%E2%80%99s-performance/)
+* [Impact of logging on MySQL’s performance](https://www.percona.com/blog/impact-of-logging-on-mysql%E2%80%99s-performance/)
 
 
-* [log_slow_filter Usage](https://www.mysqlperformanceblog.com/2008/09/22/finding-what-created_tmp_disk_tables-with-log_slow_filter/)
+* [log_slow_filter Usage](https://www.percona.com/blog/finding-what-created_tmp_disk_tables-with-log_slow_filter/)
 
 
 * [Added microseconds to the slow query log event time](https://jira.percona.com/browse/PS-1136)

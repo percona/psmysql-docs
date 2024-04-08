@@ -1306,7 +1306,7 @@ the max value of (used - freed).</p></td>
 </tr>
 <tr class="row-odd"><td><p>filesystem: ENOSPC redzone state</p></td>
 <td><p>The state of how much disk space exists with respect to the red zone value.
-Redzone is space greater than <a class="reference internal" href="https://docs.percona.com/percona-server/8.0/tokudb/tokudb_variables.html#tokudb_fs_reserve_percent"><span class="std std-ref">tokudb_fs_reserve_percent</span></a> and less
+Redzone is space greater than <a class="reference internal" href="https://docs.percona.com/percona-server/8.0/tokudb-variables.html#tokudb_fs_reserve_percent"><span class="std std-ref">tokudb_fs_reserve_percent</span></a> and less
 than full disk.</p>
 <p>Valid values are:</p>
 <dl class="field-list simple">

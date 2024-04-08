@@ -22,7 +22,7 @@ especially useful to those who are operating *MySQL* as a Service. This feature
 has the same functionality as the utility user in earlier versions and has been
 delay-ported to version 8.0.
 
-*Percona Server for MySQL* has implemented [data masking](https://www.percona.com/doc/percona-server/8.0/security/data-masking.html) .
+*Percona Server for MySQL* has implemented [data masking](https://docs.percona.com/percona-server/8.0/data-masking-overview.html) .
 
 ## Bugs Fixed
 

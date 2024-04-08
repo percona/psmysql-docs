@@ -25,7 +25,7 @@ The MyRocks storage engine lacks the following features compared to InnoDB:
 
 * [Group Replication](https://dev.mysql.com/doc/refman/8.0/en/group-replication.html)
 
-* [Partial Update of LOB in InnoDB](https://mysqlserverteam.com/mysql-8-0-optimizing-small-partial-update-of-lob-in-innodb/)
+* [Partial Update of LOB in InnoDB](https://dev.mysql.com/blog-archive/mysql-8-0-optimizing-small-partial-update-of-lob-in-innodb/)
 
 You should also consider the following:
 

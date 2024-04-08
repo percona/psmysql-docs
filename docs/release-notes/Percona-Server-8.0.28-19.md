@@ -71,4 +71,4 @@ Starting with **Percona Server for MySQL** 8.0.28-19, the TokuDB storage engine 
 * The [Percona Server for MySQL GitHub location](https://github.com/percona/percona-server)
 
 
-* To contribute to the documentation, review the [Documentation Contribution Guide](https://github.com/percona/percona-server/blob/8.0/doc/source/contributing.md)
+* To contribute to the documentation, review the [Documentation Contribution Guide](https://github.com/percona/psmysql-docs/blob/8.0/contributing.md)

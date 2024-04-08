@@ -81,4 +81,4 @@ Find the full list of bug fixes and changes in the [MySQL 8.0.28 Release Notes](
 
 * The [Percona Server for MySQL GitHub location](https://github.com/percona/percona-server)
 
-* To contribute to the documentation, review the [Documentation Contribution Guide](https://github.com/percona/percona-server/blob/8.0/doc/source/contributing.md)
+* To contribute to the documentation, review the [Documentation Contribution Guide](https://github.com/percona/psmysql-docs/blob/8.0/contributing.md)
