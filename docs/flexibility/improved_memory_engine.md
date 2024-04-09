@@ -210,4 +210,4 @@ Total chunk length is always aligned to the next `sizeof(uchar\*)`.
 
 ## See Also
 
-* [Dynamic row format for MEMORY tables](https://www.mysqlperformanceblog.com/2011/09/06/dynamic-row-format-for-memory-tables/)
+* [Dynamic row format for MEMORY tables](https://www.percona.com/blog/dynamic-row-format-for-memory-tables/)
