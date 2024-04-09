@@ -10,7 +10,7 @@ This is a list of the `INFORMATION_SCHEMA TABLES` that exist in Percona Server f
 
 * [PROCFS](procfs-plugin.md#procfs)
 
-* [INFORMATION_SCHEMA.QUERY_RESPONSE_TIME](https://docs.percona.com/percona-server/5.7/response_time_distribution.html#query-response-time)
+* [INFORMATION_SCHEMA.QUERY_RESPONSE_TIME](https://docs.percona.com/percona-server/5.7/diagnostics/response_time_distribution.html?h=information_schema+query_response_time#information_schemaquery_response_time)
 
 * [INFORMATION_SCHEMA.TABLE_STATISTICS](user-stats.md#table-statistics)
 
