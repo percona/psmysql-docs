@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
@@ -32,7 +32,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.7e359304.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.bcfcd587.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
@@ -4993,7 +4993,7 @@
 <h1 id="improved-memory-storage-engine">Improved MEMORY storage engine<a class="headerlink" href="#improved-memory-storage-engine" title="Permanent link">&para;</a></h1>
 <p>A <em>Fixed Row Format</em> (<code>FRF</code>) is used in the <code>MEMORY</code> storage engine. The fixed row format imposes restrictions on the type of columns as it assigns in advance a limited amount of memory per row. This renders a <code>VARCHAR</code> field in a <code>CHAR</code> field in practice and makes it impossible to have a <code>TEXT</code> or <code>BLOB</code> field with that engine implementation.</p>
 <p>To overcome this limitation, the <em>Improved MEMORY Storage Engine</em> is introduced in this release for supporting <strong>true</strong> <code>VARCHAR</code>, <code>VARBINARY</code>, <code>TEXT</code>, and <code>BLOB</code> fields in the <code>MEMORY</code> tables.</p>
-<p>This implementation is based on the <em>Dynamic Row Format</em> (<code>DFR</code>) introduced by the <a href="https://code.google.com/p/mysql-heap-dynamic-rows/">mysql-heap-dynamic-rows</a> patch.</p>
+<p>This implementation is based on the <em>Dynamic Row Format</em> (<code>DFR</code>) introduced by the <a href="https://code.google.com/archive/p/mysql-heap-dynamic-rows/">mysql-heap-dynamic-rows</a> patch.</p>
 <p><code>DFR</code> is used to store column values in a variable-length form, thus helping to decrease the memory footprint of those columns and making possible <code>BLOB</code> and <code>TEXT</code> fields and real <code>VARCHAR</code> and <code>VARBINARY</code>.</p>
 <p>Unlike the fixed implementation, each column value in <code>DRF</code> uses only as much space as required. Variable-length values can use up to 4 bytes to store the actual value length, and only the necessary number of blocks is used to store the value.</p>
 <p>Rows in <code>DFR</code> are represented internally by multiple memory blocks, which means that a single row can consist of multiple blocks organized into one set. Each row occupies at least one block, there can not be multiple rows within a single block. Block size can be configured when creating a table (see below).</p>
@@ -5158,7 +5158,7 @@ t1    MEMORY  10         X    0       X       0       0       NULL    NULL    NU
   <small>
     
       Last update:
-      2023-10-26
+      2024-04-09
     
   </small>
 </div>
@@ -5258,7 +5258,7 @@ t1    MEMORY  10         X    0       X       0       0       NULL    NULL    NU
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.bd41221c.min.js"></script>
+      <script src="assets/javascripts/bundle.1e8ae164.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
