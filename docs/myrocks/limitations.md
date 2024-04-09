@@ -12,7 +12,7 @@ The MyRocks storage engine lacks the following features compared to InnoDB:
 * [SAVEPOINT](https://dev.mysql.com/doc/refman/5.7/en/savepoint.html)
 
 
-* [Transportable tablespace](https://dev.mysql.com/doc/refman/5.7/en/innodb-transportable-tablespace-examples.html)
+* [Transportable tablespace](https://dev.mysql.com/doc/refman/5.7/en/innodb-table-import.html)
 
 
 * [Foreign keys](https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html)
@@ -33,7 +33,7 @@ The MyRocks storage engine lacks the following features compared to InnoDB:
 * [Generated Columns](https://dev.mysql.com/doc/refman/5.7/en/create-table-generated-columns.html)
 
 
-* [Partial Update of LOB in InnoDB](https://mysqlserverteam.com/mysql-8-0-optimizing-small-partial-update-of-lob-in-innodb/)
+* [Partial Update of LOB in InnoDB](https://dev.mysql.com/blog-archive/mysql-8-0-optimizing-small-partial-update-of-lob-in-innodb/)
 
 You should also consider the following:
 

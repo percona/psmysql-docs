@@ -74,7 +74,7 @@ There’s also a number of cases when this optimization is not applicable:
 ### Other Reading
 
 > 
-> * [Improved InnoDB fast index creation](http://www.mysqlperformanceblog.com/2011/11/06/improved-innodb-fast-index-creation/)
+> * [Improved InnoDB fast index creation](https://www.percona.com/blog/improved-innodb-fast-index-creation/)
 
 
-> * [Thinking about running OPTIMIZE on your InnoDB Table? Stop!](http://www.mysqlperformanceblog.com/2010/12/09/thinking-about-running-optimize-on-your-innodb-table-stop/)
+> * [Thinking about running OPTIMIZE on your InnoDB Table? Stop!](https://www.percona.com/blog/mysql-optimize-tables-innodb-stop/)

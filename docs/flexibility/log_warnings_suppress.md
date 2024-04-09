@@ -13,7 +13,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 ## Version Specific Information
 
-* Percona Server for MySQL 5.7.10-1: Variable [log_warnings_suppress](https://docs.percona.com/percona-server/8.0/flexibility/log_warnings_suppress.html#log-warnings-suppress) ported from *Percona Server for MySQL* 5.6.
+* Percona Server for MySQL 5.7.10-1: Variable [log_warnings_suppress](https://docs.percona.com/percona-server/5.7/flexibility/log_warnings_suppress.html?h=log_warnings_suppress) ported from *Percona Server for MySQL* 5.6.
 
 * Percona Server for MySQL 5.7.11-4: Feature has been removed from *Percona Server for MySQL* 5.7 because MySQL 5.7.11 has implemented a new system variable, [log_statements_unsafe_for_binlog](https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_log_statements_unsafe_for_binlog), which implements the same effect.
 
