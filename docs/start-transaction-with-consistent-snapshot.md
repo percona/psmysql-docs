@@ -14,7 +14,7 @@ START TRANSACTION WITH CONSISTENT SNAPSHOT FROM SESSION <session_id>;
 
 When specified, all participating storage engines and binary log instead of creating a new snapshot of data (or binary log coordinates), create a copy of the snapshot which has been created by an active transaction in the specified session. `session_id` is the session identifier reported in the `Id` column of `SHOW PROCESSLIST`.
 
-Currently snapshot cloning is only supported by *XtraDB* and the binary log. As with the regular `START TRANSACTION WITH CONSISTENT SNAPSHOT`, snapshot clones can only be created with the `REPEATABLE READ` isolation level.
+Currently, snapshot cloning is only supported by *XtraDB* and the binary log. As with the regular `START TRANSACTION WITH CONSISTENT SNAPSHOT`, snapshot clones can only be created with the `REPEATABLE READ` isolation level.
 
 For *XtraDB*, a transaction with a cloned snapshot will only see data visible or changed by the donor transaction. That is, the cloned transaction will see no changes committed by transactions that started after the donor transaction, not even changes made by itself. Note that in case of chained cloning the donor transaction is the first one in the chain. For example, if transaction A is cloned into transaction B, which is in turn cloned into transaction C, the latter will have read view from transaction A (i.e., the donor transaction). Therefore, it will see changes made by transaction A, but not by transaction B.
 
@@ -51,6 +51,15 @@ This server variable is implemented to help other utilities detect if the server
 | -------------- | ------------------ |
 | Scope:         | Global             |
 | Data type      | Numeric            |
+
+### Binlog_snapshot_gtid_executed
+
+| Option | Description |
+|---|---|
+| Scope: | Global |
+| Data type | UUID |
+
+Returns the `gtid_executed` state when `start transaction with consistent snapshot` starts. Within this transaction, the GTID returns the same value. Other sessions can have transactions that modify the `gtid_executed`.
 
 These status variables are only available when the binary log is enabled globally.
 
