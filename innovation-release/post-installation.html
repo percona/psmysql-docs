@@ -371,6 +371,27 @@
   
   
     <li class="md-nav__item">
+      <a href="release-notes/8.3.0-1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.3.0-1 (2024-04-16)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="release-notes/8.2.0-1.html" class="md-nav__link">
         
   
@@ -1972,7 +1993,7 @@
         
   
   <span class="md-ellipsis">
-    Upgrade from 8.0 to 8.2 overview
+    Upgrade from 8.0 to 8.3 overview
   </span>
   
 
@@ -4519,7 +4540,7 @@
         
   
   <span class="md-ellipsis">
-    Percona Server for MySQL 8.2 variables
+    Percona Server for MySQL 8.3 variables
   </span>
   
 
@@ -4931,7 +4952,7 @@
 </table>
 <h3 id="initialize-the-data-directory">Initialize the data directory<a class="headerlink" href="#initialize-the-data-directory" title="Permanent link">&para;</a></h3>
 <p>If you install the server using either the source distribution or generic binary distribution files, the data directory is not initialized, and you must run the initialization process after installation.</p>
-<p>Run mysqld with the <a href="https://dev.mysql.com/doc/refman/8.2/en/server-options.html#option_mysqld_initialize">–initialize</a> option or the <a href="https://dev.mysql.com/doc/refman/8.2/en/server-options.html#option_mysqld_initialize-insecure">initialize-insecure</a> option.</p>
+<p>Run mysqld with the <a href="https://dev.mysql.com/doc/refman/8.3/en/server-options.html#option_mysqld_initialize">–initialize</a> option or the <a href="https://dev.mysql.com/doc/refman/8.3/en/server-options.html#option_mysqld_initialize-insecure">initialize-insecure</a> option.</p>
 <p>Executing <code>mysqld</code> with either option does the following:</p>
 <ul>
 <li>
@@ -4955,7 +4976,7 @@
 </code></pre></div>
 </li>
 <li>
-<p>Create a directory for the MySQL files. The <a href="https://dev.mysql.com/doc/refman/8.2/en/server-system-variables.html#sysvar_secure_file_priv">secure_file_priv</a> uses the directory path as a value.</p>
+<p>Create a directory for the MySQL files. The <a href="https://dev.mysql.com/doc/refman/8.3/en/server-system-variables.html#sysvar_secure_file_priv">secure_file_priv</a> uses the directory path as a value.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>mydata
 </code></pre></div>
 <p>The <code>mysql</code> user account should have the <code>drwxr-x---</code> permissions.
@@ -5001,17 +5022,17 @@ Four sections define the permissions; file or directory, User, Group, and Others
 </ol>
 <h3 id="test-the-server">Test the server<a class="headerlink" href="#test-the-server" title="Permanent link">&para;</a></h3>
 <p>After you have initialized the data directory, and the server is started, you can run tests on the server.</p>
-<p>This section assumes you have used the default installation settings. If you have modified the installation, navigate to the installation location. You can also add the location by <a href="https://dev.mysql.com/doc/refman/8.2/en/setting-environment-variables.html">Setting the Environment Variables</a>.</p>
-<p>You can use the <a href="https://dev.mysql.com/doc/refman/8.2/en/mysqladmin.html">mysqladmin</a> client to access the server.</p>
+<p>This section assumes you have used the default installation settings. If you have modified the installation, navigate to the installation location. You can also add the location by <a href="https://dev.mysql.com/doc/refman/8.3/en/setting-environment-variables.html">Setting the Environment Variables</a>.</p>
+<p>You can use the <a href="https://dev.mysql.com/doc/refman/8.3/en/mysqladmin.html">mysqladmin</a> client to access the server.</p>
 <p>If you have issues connecting to the server, use the <code>root</code> user and the root account password.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mysqladmin<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>version
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Enter password:
-mysql Ver 8.2.0-1 for debian-linux-gnu on x86_64 (Percona Server (GPL), Release &#39;10&#39;, Revision &#39;f446c04&#39;)
+mysql Ver 8.3.0-1 for debian-linux-gnu on x86_64 (Percona Server (GPL), Release &#39;10&#39;, Revision &#39;f446c04&#39;)
 ...
-Server version      8.2.0-1
+Server version      8.3.0-1
 Protocol version    10
 Connection          Localhost via UNIX socket
 UNIX socket         /var/run/mysqld/mysqld.sock
@@ -5021,7 +5042,7 @@ Threads:    2 Questions:    16 Slow queries: 0 Opens: 139 Flush tables: 3
 Open tables: 59  Queries per second avg: 0.0000
 </code></pre></div>
 </details>
-<p>Use <a href="https://dev.mysql.com/doc/refman/8.2/en/mysqlshow.html">mysqlshow</a> to display database and table information.</p>
+<p>Use <a href="https://dev.mysql.com/doc/refman/8.3/en/mysqlshow.html">mysqlshow</a> to display database and table information.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mysqlshow<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <details class="example">
@@ -5097,7 +5118,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> <
 $<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <h3 id="secure-the-server">Secure the server<a class="headerlink" href="#secure-the-server" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://dev.mysql.com/doc/refman/8.2/en/mysql-secure-installation.html">mysql_secure_installation</a>
+<p>The <a href="https://dev.mysql.com/doc/refman/8.3/en/mysql-secure-installation.html">mysql_secure_installation</a>
 script improves the security of the instance.</p>
 <p>The script does the following:</p>
 <ul>
@@ -5142,11 +5163,11 @@ script improves the security of the instance.</p>
 <p>If you install the server using either the source distribution or the
 generic binary distribution files, the installation creates the time zone
 tables, but the tables are not populated.</p>
-<p>The <a href="https://dev.mysql.com/doc/refman/8.2/en/mysql-tzinfo-to-sql.html">mysql_tzinfo_to_sql</a> program
+<p>The <a href="https://dev.mysql.com/doc/refman/8.3/en/mysql-tzinfo-to-sql.html">mysql_tzinfo_to_sql</a> program
 populates the tables from the <code>zoneinfo</code> directory data available in Linux.</p>
 <p>A common method to populate the tables is to add the zoneinfo directory path
 to <code>mysql_tzinfo_to_sql</code> and then send the output into
-the <a href="https://dev.mysql.com/doc/refman/8.2/en/system-schema.html">mysql system schema</a>.</p>
+the <a href="https://dev.mysql.com/doc/refman/8.3/en/system-schema.html">mysql system schema</a>.</p>
 <p>The example assumes you are running the command with the <code>root</code> account.
 The account must have the privileges for modifying the <code>mysql</code>
 system schema.</p>

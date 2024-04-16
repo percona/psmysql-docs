@@ -371,6 +371,27 @@
   
   
     <li class="md-nav__item">
+      <a href="release-notes/8.3.0-1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.3.0-1 (2024-04-16)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="release-notes/8.2.0-1.html" class="md-nav__link">
         
   
@@ -1972,7 +1993,7 @@
         
   
   <span class="md-ellipsis">
-    Upgrade from 8.0 to 8.2 overview
+    Upgrade from 8.0 to 8.3 overview
   </span>
   
 
@@ -4472,7 +4493,7 @@
         
   
   <span class="md-ellipsis">
-    Percona Server for MySQL 8.2 variables
+    Percona Server for MySQL 8.3 variables
   </span>
   
 
@@ -4817,7 +4838,7 @@
 <p class="admonition-title">Warning</p>
 <p>The <code>keyring_file</code> plugin should not be used for regulatory compliance.</p>
 </div>
-<p>To install the plugin, follow the <a href="https://dev.mysql.com/doc/refman/8.2/en/plugin-loading.html">installing and uninstalling plugins</a> instructions.</p>
+<p>To install the plugin, follow the <a href="https://dev.mysql.com/doc/refman/8.3/en/plugin-loading.html">installing and uninstalling plugins</a> instructions.</p>
 <h3 id="load-the-keyring-plugin">Load the keyring plugin<a class="headerlink" href="#load-the-keyring-plugin" title="Permanent link">&para;</a></h3>
 <p>You should load the plugin at server startup with the <code>--early-plugin-load</code> option to enable keyrings.</p>
 <p>We recommend that you load the plugin in the configuration file to facilitate recovery for encrypted tables. Also, the redo log encryption and the undo log encryption cannot be used without <code>--early-plugin-load</code>. The normal plugin load happens too late at startup.</p>
@@ -4827,7 +4848,7 @@
 <p>If a server starts with different plugins loaded early, the <code>--early-plugin-load</code> option should contain the plugin names in a double-quoted list with each plugin name separated by a semicolon. The use of double quotes ensures the semicolons do not create issues when the list is executed in a script.</p>
 <h2 id="use-the-keyring-file-component">Use the keyring file component<a class="headerlink" href="#use-the-keyring-file-component" title="Permanent link">&para;</a></h2>
 <p>The <code>keyring_file</code> component is part of the component-based MySQL infrastructure which extends the server capabilities.</p>
-<p>See the MySQL documentation on the <a href="https://dev.mysql.com/doc/refman/8.2/en/keyring-component-installation.html">component installation</a> and on the <a href="https://dev.mysql.com/doc/refman/8.2/en/keyring-file-component.html">keyring_file component usage</a> for more information.</p>
+<p>See the MySQL documentation on the <a href="https://dev.mysql.com/doc/refman/8.3/en/keyring-component-installation.html">component installation</a> and on the <a href="https://dev.mysql.com/doc/refman/8.3/en/keyring-file-component.html">keyring_file component usage</a> for more information.</p>
 <p>The component must be installed with a manifest. A keyring component is not loaded with the <code>--early-plugin-load</code> option on the server. The server uses a manifest and the component consults its configuration file during initialization. You should only load a keyring component with a manifest file. Do not use the <code>INSTALL_COMPONENT</code> statement, which loads the keyring components too late in the startup sequence of the server. For example, <code>InnoDB</code> requires the component, but because the components are registered in the <code>mysql.component</code> table, this table is loaded after <code>InnoDB</code> initialization.</p>
 <p>You should create a global manifest file named <code>mysqld.my</code> in the installation directory and, optionally, create a local manifest file, also named <code>mysqld.my</code> in a data directory.</p>
 <p>To install a keyring component, do the following:</p>

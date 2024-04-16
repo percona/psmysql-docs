@@ -371,6 +371,27 @@
   
   
     <li class="md-nav__item">
+      <a href="release-notes/8.3.0-1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.3.0-1 (2024-04-16)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="release-notes/8.2.0-1.html" class="md-nav__link">
         
   
@@ -1972,7 +1993,7 @@
         
   
   <span class="md-ellipsis">
-    Upgrade from 8.0 to 8.2 overview
+    Upgrade from 8.0 to 8.3 overview
   </span>
   
 
@@ -4489,7 +4510,7 @@
         
   
   <span class="md-ellipsis">
-    Percona Server for MySQL 8.2 variables
+    Percona Server for MySQL 8.3 variables
   </span>
   
 
@@ -4912,7 +4933,7 @@ account    required     pam_unix.so audit
 <p><em>Percona Server for MySQL</em> has implemented PAM plugin support for supplementary groups. Supplementary or secondary groups are extra groups a specific user is member of. For example user <code>joe</code> might be a member of groups: <code>joe</code> (his primary group) and secondary groups <code>developers</code> and <code>dba</code>. A complete list of groups and users belonging to them can be checked with <code>cat /etc/group</code> command.</p>
 <p>This feature enables using secondary groups in the mapping part of the authentication string, like “<code>mysql, developers=joe, dba=mark</code>”. Previously only primary groups could have been specified there. If user is a member of both <code>developers</code> and <code>dba</code>, PAM plugin will map it to the <code>joe</code> because <code>developers</code> matches first.</p>
 <h2 id="known-issues">Known issues<a class="headerlink" href="#known-issues" title="Permanent link">&para;</a></h2>
-<p>Default mysql stack size is not enough to handle <code>pam_encryptfs</code> module. The workaround is to increase the <em>MySQL</em> stack size by setting the <a href="https://dev.mysql.com/doc/refman/8.2/en/server-system-variables.html#sysvar_thread_stack">thread-stack</a> variable to at least <code>512KB</code> or by increasing the old value by <code>256KB</code>.</p>
+<p>Default mysql stack size is not enough to handle <code>pam_encryptfs</code> module. The workaround is to increase the <em>MySQL</em> stack size by setting the <a href="https://dev.mysql.com/doc/refman/8.3/en/server-system-variables.html#sysvar_thread_stack">thread-stack</a> variable to at least <code>512KB</code> or by increasing the old value by <code>256KB</code>.</p>
 <p>PAM authentication can fail with <code>mysqld: pam_unix(mysqld:account): Fork failed: Cannot allocate memory</code> error in the <code>/var/log/secure</code> even when there is enough memory available. Current workaround is to set <a href="https://www.kernel.org/doc/Documentation/vm/overcommit-accounting">vm.overcommit_memory</a> to <code>1</code>:</p>
 <div class="highlight"><pre><span></span><code>echo 1 /proc/sys/vm/overcommit_memory
 </code></pre></div>

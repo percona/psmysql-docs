@@ -373,6 +373,27 @@ reads more efficiently.">
   
   
     <li class="md-nav__item">
+      <a href="release-notes/8.3.0-1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.3.0-1 (2024-04-16)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="release-notes/8.2.0-1.html" class="md-nav__link">
         
   
@@ -1974,7 +1995,7 @@ reads more efficiently.">
         
   
   <span class="md-ellipsis">
-    Upgrade from 8.0 to 8.2 overview
+    Upgrade from 8.0 to 8.3 overview
   </span>
   
 
@@ -4472,7 +4493,7 @@ reads more efficiently.">
         
   
   <span class="md-ellipsis">
-    Percona Server for MySQL 8.2 variables
+    Percona Server for MySQL 8.3 variables
   </span>
   
 
@@ -4814,7 +4835,7 @@ reads more efficiently.">
 <p>The I/O unit size in <em>InnoDB</em> is only one page, even if the server doing read ahead. A 16KB
 I/O unit size is too small for sequential reads, and less efficient than a larger I/O unit size. <em>InnoDB</em> uses Linux asynchronous I/O (<code>aio</code>) by default. By submitting multiple, consecutive 16KB read requests at the same time, Linux internally merges the requests and
 reads more efficiently. </p>
-<p>This feature is able to submit multiple page I/O requests and works in the background. You can manage the feature with the <a href="https://dev.mysql.com/doc/refman/8.2/en/innodb-performance-read_ahead.html">linear read-ahead technique</a>. This technique adds pages to the buffer pool based on the buffer pool pages being accessed sequentially. The [<code>innodb_read_ahead_threshold</code>] configuration parameter controls this operation.</p>
+<p>This feature is able to submit multiple page I/O requests and works in the background. You can manage the feature with the <a href="https://dev.mysql.com/doc/refman/8.3/en/innodb-performance-read_ahead.html">linear read-ahead technique</a>. This technique adds pages to the buffer pool based on the buffer pool pages being accessed sequentially. The [<code>innodb_read_ahead_threshold</code>] configuration parameter controls this operation.</p>
 <p><a href="http://yoshinorimatsunobu.blogspot.hr/2013/10/making-full-table-scan-10x-faster-in.html">On a HDD RAID 1+0 environment</a>,
 more than 1000MB/s disk reads can be achieved by submitting 64 consecutive pages
 requests at once, while only

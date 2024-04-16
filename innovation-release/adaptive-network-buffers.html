@@ -371,6 +371,27 @@
   
   
     <li class="md-nav__item">
+      <a href="release-notes/8.3.0-1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona Server for MySQL 8.3.0-1 (2024-04-16)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="release-notes/8.2.0-1.html" class="md-nav__link">
         
   
@@ -2034,7 +2055,7 @@
         
   
   <span class="md-ellipsis">
-    Upgrade from 8.0 to 8.2 overview
+    Upgrade from 8.0 to 8.3 overview
   </span>
   
 
@@ -4444,7 +4465,7 @@
         
   
   <span class="md-ellipsis">
-    Percona Server for MySQL 8.2 variables
+    Percona Server for MySQL 8.3 variables
   </span>
   
 
@@ -4760,7 +4781,7 @@
 
 <h1 id="adaptive-network-buffers">Adaptive network buffers<a class="headerlink" href="#adaptive-network-buffers" title="Permanent link">&para;</a></h1>
 <p>To find the buffer size of the current connection, use the <code>network_buffer_length</code> status variable. Add <code>SHOW GLOBAL</code> to review the cumulative buffer sizes for all connections. This variable can help to estimate the maximum size of the network buffer’s overhead.</p>
-<p>Network buffers grow towards the <a href="https://dev.mysql.com/doc/refman/8.2/en/server-system-variables.html#sysvar_max_allowed_packet">max_allowed_packet</a> size and do not shrink until the connection is terminated. For example, if the connections are selected at random from the pool, an occasional big query eventually increases the buffers of all connections. The combination of max_allowed packet set to a value between 64MB to 128MB and the connection number between 256 to 1024 can create a large memory overhead.</p>
+<p>Network buffers grow towards the <a href="https://dev.mysql.com/doc/refman/8.3/en/server-system-variables.html#sysvar_max_allowed_packet">max_allowed_packet</a> size and do not shrink until the connection is terminated. For example, if the connections are selected at random from the pool, an occasional big query eventually increases the buffers of all connections. The combination of max_allowed packet set to a value between 64MB to 128MB and the connection number between 256 to 1024 can create a large memory overhead.</p>
 <p>Percona Server for MySQL implemented the <a href="#net_buffer_shrink_interval">net_buffer_shrink_interval</a> variable to solve this issue. The default value is 0 (zero). If you set the value higher than 0, Percona Server records the network buffer’s maximum use size for the number of seconds set by net_buffer_shrink_interval. When the next interval starts, the network buffer is set to the recorded size. This action removes spikes in the buffer size.</p>
 <p>You can achieve similar results by disconnecting and reconnecting the TCP connections, but this solution is a heavier process. This process disconnects and reconnects connections with small buffers.</p>
 <h3 id="net_buffer_shrink_interval"><code>net_buffer_shrink_interval</code><a class="headerlink" href="#net_buffer_shrink_interval" title="Permanent link">&para;</a></h3>
