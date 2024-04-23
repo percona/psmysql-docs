@@ -61,7 +61,9 @@ The following list summarizes a number of the changes in the 8.0 series and has 
 
 Review other [Percona blogs](https://www.percona.com/blog/) that contain upgrade information.
 
-Implemented in release Percona Server for MySQL 8.0.15-5, *Percona Server for MySQL* uses the upstream
-implementation of binary log file encryption and relay log file encryption.
+Implemented in Percona Server for MySQL 8.0.15-5, *Percona Server for MySQL* uses the upstream implementation of binary log file encryption and relay log file encryption.
 
+## Known limitation
+
+The Percona 5.7 and Percona 8.0 Dockerfiles have a different user ID (UID). This difference can create compatibility and permissions issues. The UID determines the permissions for the anonymous volume mounts. Since the UIDs differ between versions, the container does not have the necessary permissions to access or modify these volumes.
 
