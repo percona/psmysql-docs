@@ -16,6 +16,10 @@ Consistency means that each transaction that modifies the database takes it from
 
 Once a transaction is committed, it will remain so.
 
+## Environment Variable
+
+A variable that stores configuration settings for a software program or operating system.
+
 ## Foreign Key
 
 A referential constraint between two tables. Example: A purchase order in the purchase\_orders table must have been made by a customer that exists in the customers table.
@@ -32,6 +36,10 @@ The Isolation requirement means that no transaction can interfere with another.
 
 A [Storage Engine](#storage-engine) for MySQL and derivatives ([Percona Server](#percona-server-for-mysql), [MariaDB](#mariadb)) originally written by Innobase Oy, since acquired by Oracle. It provides [ACID](#acid) compliant storage engine with [foreign key](#foreign-key) support. As of [MySQL](#mysql) version 5.5, InnoDB became the default storage engine on all platforms.
 
+## JSON (JavaScript Object Notation)
+
+A common file format used to store data in a human-readable and machine-readable way using key-value pairs.
+ 
 ## Jenkins
 
 [Jenkins](https://www.jenkins-ci.org) is a continuous integration system that we use to help ensure the continued quality of the software we produce. It helps us achieve the aims of:
@@ -46,13 +54,21 @@ A [Storage Engine](#storage-engine) for MySQL and derivatives ([Percona Server](
 
 The Log Sequence Number (LSN) is an 8-byte number. Every data change adds an entry to the redo log and generates an LSN. The server increments the LSN with every change.
 
+## Mandatory Dependency
+
+A software package that another software package absolutely needs to function correctly. Removing a mandatory dependency can cause the main software to malfunction.
+
 ## MariaDB
 
 A fork of [MySQL](#mysql) that is maintained primarily by Monty Program AB. It aims to add features, and fix bugs while maintaining 100% backward compatibility with MySQL.
 
+## Metrics
+
+Measurable data points collected by telemetry about software usage.
+
 ## my.cnf
 
-The file name of the default MySQL configuration file.
+A configuration file used by MySQL databases.
 
 ## MyISAM
 
@@ -77,6 +93,19 @@ A storage engine is a piece of software that implements the details of data stor
 ## Tech Preview
 
 A tech preview item can be a feature, a variable, or a value within a variable. Before using this feature in production, we recommend that you test restoring production from physical backups in your environment and also use an alternative backup method for redundancy. A tech preview item is included in a release for users to provide feedback. The item is either updated, released as [general availability(GA)](#general-availability-ga), or removed if not useful. The functionality can change from tech preview to GA.
+
+## Telemetry
+
+Telemetry automatically collects usage data from software to understand how users interact with it.
+
+## Uninstall Component
+
+A way to remove a specific component or functionality within a software package.
+
+
+## Universally Unique Identifier (UUID)
+
+A unique identifier used to ensure no two entities share the same ID.
 
 ## XtraDB
 
