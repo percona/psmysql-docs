@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.19">
     
     
       
@@ -6662,7 +6662,7 @@
 <h1 id="compare-keyring-components-and-keyring-plugins">Compare keyring components and keyring plugins<a class="headerlink" href="#compare-keyring-components-and-keyring-plugins" title="Permanent link">&para;</a></h1>
 <p>If you want to store encryption keys in Percona Server for MySQL securely, you have two options: keyring components and plugins. They are similar in functionality, but they have some differences that you should consider before choosing.</p>
 <p>Keyring components are newer and more flexible than keyring plugins. You can load them using a manifest file, so you don&rsquo;t need the <code>--early-plugin-load</code> option. You can also configure the keyring components using their configuration files instead of system variables. Keyring components have fewer restrictions on the types and lengths of keys they can handle. For example, keyring components can support RSA keys, while keyring plugins cannot.</p>
-<p>However, keyring components also have some disadvantages. They are incompatible with features that rely on keyring plugins, such as InnoDB encryption threads or binary log encryption. They also require more steps to install and uninstall than keyring plugins. You must create and edit each component&rsquo;s manifest file, configuration file, and component directory.</p>
+<p>However, keyring components also have some disadvantages. They may be incompatible with certain features such as InnoDB encryption threads. They also require more steps to install and uninstall than keyring plugins. You must create and edit each component&rsquo;s manifest file, configuration file, and component directory.</p>
 <p>Keyring plugins are older than keyring components. You can load them using the <code>--early-plugin-load</code> option, which is more straightforward than a manifest file. You can also configure them using system variables, which are easier to manage than configuration files. Keyring plugins are compatible with certain features that use encryption keys.</p>
 <p>However, keyring plugins also have some limitations. They have more restrictions on the types and lengths of keys they can support. For example, they cannot handle RSA keys, while keyring components can. They also require you to specify the plugin name and library file for each plugin you load.</p>
 <p>To summarize, keyring components and plugins are ways to store encryption keys in Percona Server for MySQL, but they have different advantages and disadvantages. You should choose the one that suits your needs and preferences.</p>
@@ -6680,7 +6680,7 @@
   <small>
     
       Last update:
-      2024-01-24
+      2024-04-26
     
   </small>
 </div>
@@ -6780,7 +6780,7 @@
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.3220b9d7.min.js"></script>
+      <script src="assets/javascripts/bundle.dd8806f2.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
