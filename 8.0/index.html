@@ -21,7 +21,7 @@
         <link rel="next" href="psmysql-pro.html">
       
       
-      <link rel="icon" href="_static/percona-favicon.ico">
+      <link rel="icon" href="assets/mysql-fav.svg">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.20">
     
     
@@ -56,13 +56,15 @@
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     
-      <link rel="stylesheet" href="css/percona.css">
-    
-      <link rel="stylesheet" href="css/nocopy.css">
-    
       <link rel="stylesheet" href="css/design.css">
     
       <link rel="stylesheet" href="css/osano.css">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+      <link rel="stylesheet" href="css/nocopy.css">
+    
+      <link rel="stylesheet" href="css/mysql.css">
     
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -99,7 +101,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="percona-light" data-md-color-primary="custom" data-md-color-accent="custom">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -122,28 +124,64 @@
       </div>
     
     
-      
+      <!-- Determine classes -->
+
 
   
 
+
+<!-- Header -->
 <header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="https://docs.percona.com" title="Percona Server for MySQL" class="md-header__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
+
+  <!-- Super Nav -->
+  <div class="superNav">
+    <div class="md-header__inner md-grid">
+      <a href="https://docs.percona.com/percona-for-mysql/" title="Percona Documentation home page">
+        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <mask id="a" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+            <path d="M0 0h24v24H0z"/>
+          </mask>
+          <g mask="url(#a)">
+            <path d="m7.825 13 5.6 5.6L12 20l-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825Z"/>
+          </g>
+        </svg>
+        <span>Percona Documentation</span>
+      </a>
+    </div>
+  </div>
+
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="Header"
+  >
+
+    <!-- Link to home -->
+    <a
+      href="index.html"
+      title="Percona Server for MySQL"
+      class="md-header__button md-logo"
+      aria-label="Percona Server for MySQL"
+      data-md-component="logo"
+    >
       
-  <img src="_static/percona-logo.svg" alt="logo">
+  <img src="assets/mysql-mark.svg" alt="logo">
 
     </a>
+
+    <!-- Button to open drawer -->
     <label class="md-header__button md-icon" for="__drawer">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
-    <div class="md-header__title" data-md-component="header-title">
+
+    <!-- Header title -->
+    <div class="md-header__title">
       <div class="md-header__ellipsis">
-        <div class="md-header__topic">
+        <a href="index.html" class="md-header__topic">
           <span class="md-ellipsis">
             Percona Server for MySQL
           </span>
-        </div>
+        </a>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
@@ -153,6 +191,8 @@
         </div>
       </div>
     </div>
+
+    <!-- Color palette toggle -->
     
       
         <form class="md-header__option" data-md-component="palette">
@@ -160,35 +200,53 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Color theme set to Automatic. Click to change"  type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      <label class="md-header__button md-icon" title="Color theme set to Automatic. Click to change" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z"/></svg>
       </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Color theme set to Light Mode. Click to change"  type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      <label class="md-header__button md-icon" title="Color theme set to Light Mode. Click to change" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="percona-dark" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Color theme set to Dark Mode. Click to change"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Color theme set to Dark Mode. Click to change" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
       </label>
     
   
 </form>
       
     
+
+    <!-- User preference: color palette -->
     
       <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
+
+    <!-- Site language selector -->
     
+
+    <!-- Button to open search modal -->
     
       <label class="md-header__button md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
+
+      <!-- Search interface -->
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
@@ -222,6 +280,8 @@
   </div>
 </div>
     
+
+    <!-- Repository information -->
     
       <div class="md-header__source">
         <a href="https://github.com/percona/psmysql-docs" title="Go to repository" class="md-source" data-md-component="source">
@@ -236,6 +296,8 @@
       </div>
     
   </nav>
+
+  <!-- Navigation tabs (sticky) -->
   
 </header>
     
@@ -260,9 +322,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://docs.percona.com" title="Percona Server for MySQL" class="md-nav__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
+    <a href="index.html" title="Percona Server for MySQL" class="md-nav__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
       
-  <img src="_static/percona-logo.svg" alt="logo">
+  <img src="assets/mysql-mark.svg" alt="logo">
 
     </a>
     Percona Server for MySQL
