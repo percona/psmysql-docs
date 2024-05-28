@@ -2,21 +2,6 @@
 
 A version number identifies the innovtion product release. The product contains the latest features, improvements, and bug fixes at the time of that release.
 
-<style>
-    table {
-        border-collapse: collapse;
-        width=100%;
-    }
-    table td {
-        border: 2px solid black;
-        padding: 8px;
-        text-align: center;
-    }
-    tr:nth-child(even){
-        background-color:#f5f5f5
-    }
-</style>
-
 | 8.1.0 | -1 |
 |---|---|---|
 | Base version | Minor build version |
