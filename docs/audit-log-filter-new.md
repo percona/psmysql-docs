@@ -80,178 +80,33 @@ The order of the attributes within an <AUDIT_RECORD> can vary. Certain attribute
 
 The attributes in every element are the following:
 
+| Attribute Name | Description                                                                                                                                            |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `<NAME>`       | The action that generated the audit record.                                                                                                            |
+| `<RECORD_ID>`  | The `<RECORD_ID>` consists of a sequence number and a timestamp value. The sequence number is initialized when the component opens the audit log filter file. |
+| `<TIMESTAMP>`  | Displays the date and time when the audit event happened.                                                                                              |
 
-  <!DOCTYPE html>
-  <html>
-<head>
-	<title>HTML Table Generator</title> 
-	<style>
-		table {
-			width:150%;
-			height:100%;
-			border:1px solid #b3adad;
-			border-collapse:collapse;
-			padding:1px;
-		}
-		table th {
-			border:1px solid #b3adad;
-			padding:1px;
-			background: #f0f0f0;
-			color: #313030;
-		}
-		table td {
-			border:1px solid #b3adad;
-			text-align:left;
-			padding:1px;
-			background: #ffffff;
-			color: #313030;
-		}
-	</style>
-</head>
-<body>
-	<table>
-		<thead>
-			<tr>
-				<th>Attribute Name</th>
-				<th>Description</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>&nbsp;&lt;NAME&gt;</td>
-				<td>The action that generated the audit record.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;RECORD_ID&gt;</td>
-				<td>The &lt;RECORD_ID&gt; consists of a sequence number and a timestamp value. The sequence number is initialized when the component opens the audit log filter file.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;TIMESTAMP&gt;</td>
-				<td>Displays the date and time when the audit event happened.</td>
-			</tr>
-		</tbody>
-	</table>
-</body>
-</html>
 The optional attributes are the following:
 
-  <!DOCTYPE html>
-  <html>
-<head>
-	<title>HTML Table Generator</title> 
-	<style>
-		table {
-			width:150%;
-			height:100%;
-			border:1px solid #b3adad;
-			border-collapse:collapse;
-			padding:1px;
-		}
-		table th {
-			border:1px solid #b3adad;
-			padding:1px;
-			background: #f0f0f0;
-			color: #313030;
-		}
-		table td {
-			border:1px solid #b3adad;
-			text-align:left;
-			padding:1px;
-			background: #ffffff;
-			color: #313030;
-		}
-	</style>
-</head>
-<body>
-	<table>
-		<thead>
-			<tr>
-				<th>Attribute Name</th>
-				<th>Description</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>&nbsp;&lt;COMMAND_CLASS&gt;</td>
-				<td>Contains the type of performed action.&nbsp;</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;CONNECTION_ID&gt;</td>
-				<td>Contains the client connection identifier.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;CONNECTION_ATTRIBUTES&gt;</td>
-				<td>Contains the client connection attributes. Each attribute has a &lt;NAME&gt; and &lt;VALUE&gt; pair.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;CONNECTION_TYPE&gt;</td>
-				<td>Contains the type of connection security.&nbsp;<br></td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;DB&gt;</td>
-				<td>Contains the database name.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;HOST&gt;</td>
-				<td>Contains the client's hostname.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;IP&gt;</td>
-				<td>Contains the client's IP address.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;MYSQL_VERSION&gt;</td>
-				<td>Contains the MySQL server version.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;OS_LOGIN&gt;</td>
-				<td>Contains the user name used during an external authentication, for example, if the user is authenticated through an LDAP component. If the authentication component does not set a value or the user is authenticated using MySQL authentication, this value is empty.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;OS_VERSION&gt;</td>
-				<td>Contains the server's operating system.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;PRIV_USER&gt;</td>
-				<td>Contains the user name used by the server when checking privileges. This name may be different than &lt;USER&gt;.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;PROXY_USER&gt;</td>
-				<td>Contains the proxy user. If a proxy is not used, the value is empty.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;SERVER_ID&gt;</td>
-				<td>Contains the server ID.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;SQLTEXT&gt;</td>
-				<td>Contains the text of the SQL statement.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;STARTUP_OPTIONS&gt;</td>
-				<td>Contains the startup options. These options may be provided by the command line or files.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;STATUS&gt;</td>
-				<td>Contains the status of a command. A 0 (zero) is a success. A nonzero value is an error.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;STATUS_CODE&gt;</td>
-				<td>Contains the status of a command, which either succeeds (0) or an error occurred (1).</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;TABLE&gt;</td>
-				<td>Contains the table name.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;USER&gt;</td>
-				<td>Contains the user name from the client. This name may be different than &lt;PRIV_USER&gt;.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&lt;VERSION&gt;</td>
-				<td>Contains the audit log filter format.</td>
-			</tr>
-		</tbody>
-	</table>
-</body>
-</html>
+| Attribute Name          | Description            |
+| ----------------------- | ---------------------- |
+| `<COMMAND_CLASS>`       | Contains the type of performed action.                                                         |
+| `<CONNECTION_ID>`       | Contains the client connection identifier.                                                     |
+| `<CONNECTION_ATTRIBUTES>`| Contains the client connection attributes. Each attribute has a `<NAME>` and `<VALUE>` pair.  |
+| `<CONNECTION_TYPE>`     | Contains the type of connection security.                                                      |
+| `<DB>`                  | Contains the database name.                                                                    |
+| `<HOST>`                | Contains the client's hostname.                                                                |
+| `<IP>`                  | Contains the client's IP address.                                                              |
+| `<MYSQL_VERSION>`       | Contains the MySQL server version.                                                             |
+| `<OS_LOGIN>`            | Contains the user name used during an external authentication, for example, if the user is authenticated through an LDAP component. If the authentication component does not set a value or the user is authenticated using MySQL authentication, this value is empty.               |
+| `<OS_VERSION>`          | Contains the server's operating system.                                                        |
+| `<PRIV_USER>`           | Contains the user name used by the server when checking privileges. This name may be different than `<USER>`.     |
+| `<PROXY_USER>`          | Contains the proxy user. If a proxy is not used, the value is empty.                           |
+| `<SERVER_ID>`           | Contains the server ID.                                                                        |
+| `<SQLTEXT>`             | Contains the text of the SQL statement.                                                        |
+| `<STARTUP_OPTIONS>`     | Contains the startup options. These options may be provided by the command line or files.      |
+| `<STATUS>`              | Contains the status of a command. A 0 (zero) is a success. A nonzero value is an error.        |
+| `<STATUS_CODE>`         | Contains the status of a command, which either succeeds (0) or an error occurred (1).          |
+| `<TABLE>`               | Contains the table name.                                                                       |
+| `<USER>`                | Contains the user name from the client. This name may be different than `<PRIV_USER>`.         |
+| `<VERSION>`             | Contains the audit log filter format.                                                          |
