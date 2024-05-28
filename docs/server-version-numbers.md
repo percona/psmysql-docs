@@ -2,21 +2,6 @@
 
 A version number identifies the product release. The product contains the latest Generally Available (GA) features at the time of that release. 
 
-<style>
-    table {
-        border-collapse: collapse;
-        width=100%;
-    }
-    table td {
-        border: 2px solid black;
-        padding: 8px;
-        text-align: center;
-    }
-    tr:nth-child(even){
-        background-color:#f5f5f5
-    }
-</style>
-
 | 8.0.29| -21. | 2 |
 |---|---|---|
 | Base version | Minor build version | Custom build |
