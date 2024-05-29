@@ -1,4 +1,3 @@
-
 /*
 * Prefixed by https://autoprefixer.github.io
 * PostCSS: v8.4.14,
@@ -216,12 +215,20 @@
 .md-tabs__link {
     margin-top: 0.55rem;
 }
-.md-header__topic {
-    transition: opacity .25s;
+/* .md-header__topic .md-ellipsis {
+    position: relative;
 }
-.md-header__topic:hover {
-    opacity: 0.7;
-}
+.md-header__topic:hover .md-ellipsis::after {
+    content: "";
+    position: absolute;
+    display: block;
+    right: 0;
+    bottom: 11px;
+    left: 0;
+    width: 100%;
+    height: 2.5px;
+    background-color: currentColor;
+} */
 
 /* Footer */
 
@@ -663,6 +670,46 @@ i[warning] [class*="moji"] {
 }
 #versionSelect::-ms-expand {
     display: none;
+}
+
+/* Mike Version Select */
+
+.md-version__current,
+.md-version__link {
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 0.5em;
+}
+.md-version__current {
+    top: unset;
+    margin-left: 0.25em !important;
+    margin-right: 0.25em !important;
+    border-radius: 0.1rem;
+    background-color: rgba(0,0,0,0.2);
+}
+.md-version__current::after {
+    width: 0.5em;
+    height: 0.75em;
+}
+.md-version__list {
+    top: 0.1em;
+    margin: 0.25em;
+    border-radius: 0.1rem;
+}
+[dir="ltr"] .md-version__current::after {
+    margin-left: 0.4em;
+}
+[dir="rtl"] .md-version__current::after {
+    margin-right: 0.4em;
+}
+[dir="ltr"] .md-version__link {
+    padding-left: 0.5em;
+    padding-right: 1.4375em;
+}
+[dir="rtl"] .md-version__link {
+    padding-left: 1.4375em;
+    padding-right: 0.5em;
 }
 
 /* Media queries */
