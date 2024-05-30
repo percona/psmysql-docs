@@ -4,7 +4,7 @@ Download the packages from [Percona Product Downloads](https://www.percona.com/d
 
 The RPM builds for *RHEL* 8 and *RHEL* 9 contain ARM packages with the aarch64.rpm extension. This means that Percona Server for MySQL is available for users on ARM-based systems.
 
-The following example downloads *Percona Server for MySQL* {{release}} release packages for *RHEL* 8.
+The following example downloads *Percona Server for MySQL* {{release}} release `x86_64` packages for *RHEL* 8.
 {.power-number}
 
 1. Use `wget` to download the tar file.
@@ -12,8 +12,8 @@ The following example downloads *Percona Server for MySQL* {{release}} release p
 	```{.bash data-prompt="$"}
 	$ wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/redhat/8/x86_64/Percona-Server-{{release}}-rfcee26ff-el8-x86_64-bundle.tar
 	```
- 
-2. Unpack the bundle to get the packages: `tar xvf Percona-Server-{{release}}-rfcee26ff-el8-x86_64-bundle.tar`
+
+2. Unpack the bundle to get the packages: `tar xvf Percona-Server-{{release}}-rc59f87d2854-el8-x86_64-bundle.tar`
 
 3. To view a list of packages, run the following command:
 
@@ -25,22 +25,6 @@ The following example downloads *Percona Server for MySQL* {{release}} release p
     ??? example "Expected output"
 
         ```text
-        percona-icu-data-files-{{release}}.el8.aarch64.rpm
-        percona-mysql-router-{{release}}.el8.aarch64.rpm
-        percona-mysql-router-debuginfo-{{release}}.el8.aarch64.rpm
-        percona-server-client-{{release}}.el8.aarch64.rpm
-        percona-server-client-debuginfo-{{release}}.el8.aarch64.rpm
-        percona-server-debuginfo-{{release}}.el8.aarch64.rpm
-        percona-server-debugsource-{{release}}.el8.aarch64.rpm
-        percona-server-devel-{{release}}.el8.aarch64.rpm
-        percona-server-rocksdb-{{release}}.el8.aarch64.rpm
-        percona-server-rocksdb-debuginfo-{{release}}.el8.aarch64.rpm
-        percona-server-server-{{release}}.el8.aarch64.rpm
-        percona-server-server-debuginfo-{{release}}.el8.aarch64.rpm
-        percona-server-shared-{{release}}.el8.aarch64.rpm
-        percona-server-shared-debuginfo-{{release}}.el8.aarch64.rpm
-        percona-server-test-{{release}}.el8.aarch64.rpm
-        percona-server-test-debuginfo-{{release}}.el8.aarch64.rpm
         percona-icu-data-files-{{release}}.1.el8.x86_64.rpm
         percona-mysql-router-{{release}}.1.el8.x86_64.rpm
         percona-mysql-router-debuginfo-{{release}}.1.el8.x86_64.rpm
