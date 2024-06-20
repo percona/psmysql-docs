@@ -16,9 +16,9 @@ SQL provides a standardized way to interact with a database. It uses simple comm
 
 Fundamental SQL links:
 
-* [Common SQL](docs/common-sql.md)
-* [SELECT](docs/select.md)
-* [INSERT](docs/insert.md)
-* [DELETE](docs/delete.md)
-* [UPDATE](docs/update.md)
-* [SQL Operators](docs/sql-operators.md)
+* [Common SQL](common-sql.md)
+* [SELECT](select.md)
+* [INSERT](insert.md)
+* [DELETE](delete.md)
+* [UPDATE](update.md)
+* [SQL Operators](sql-operators.md)

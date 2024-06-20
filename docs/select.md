@@ -24,9 +24,9 @@ WHERE condition;
 
 Fundamental SQL links:
 
-* [Common SQL](docs/common-sql.md)
-* [SQL Basics](docs/sql-basics.md)
-* [INSERT](docs/insert.md)
-* [DELETE](docs/delete.md)
-* [UPDATE](docs/update.md)
-* [SQL Operators](docs/sql-operators.md)
+* [Common SQL](common-sql.md)
+* [SQL Basics](sql-basics.md)
+* [INSERT](insert.md)
+* [DELETE](delete.md)
+* [UPDATE](update.md)
+* [SQL Operators](sql-operators.md)

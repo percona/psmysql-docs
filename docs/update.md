@@ -44,9 +44,9 @@ WHERE department = 'Sales';
 
 Fundamental SQL links:
 
-* [Common SQL](docs/common-sql.md)
-* [SQL Basics](docs/sql-basics.md)
-* [SELECT](docs/select.md)
-* [INSERT](docs/insert.md)
-* [DELETE](docs/delete.md)
-* [SQL Operators](docs/sql-operators.md)
+* [Common SQL](common-sql.md)
+* [SQL Basics](sql-basics.md)
+* [SELECT](select.md)
+* [INSERT](insert.md)
+* [DELETE](delete.md)
+* [SQL Operators](sql-operators.md)
