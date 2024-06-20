@@ -9,7 +9,7 @@ implementation is alternative to the [MySQL Enterprise Audit Log Plugin](https:/
 
 * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
-* [Percona Server for MySQL 8.0.15-6](release-notes/Percona-Server-8.0.15-6.md#id1): The Audit_log_buffer_size_overflow variable was implemented.
+* [Percona Server for MySQL 8.0.15-6](release-notes/Percona-Server-8.0.15-6.md): The Audit_log_buffer_size_overflow variable was implemented.
 
 ## Install the plugin
 

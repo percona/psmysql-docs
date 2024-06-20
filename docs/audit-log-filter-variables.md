@@ -338,9 +338,9 @@ mysql> SELECT audit_log_filter_set_user('user-name@localhost', 'filter-name');
 
 | Name |
 | --- |
-| [`audit-log-filter`](#audit-logvalue) |
-| [`audit_log_buffer_size`](#audit_log_buffer_size) |
-| [`audit_log_filter_compression`](#audit_log_filter_filter_compression) |
+| [`audit-log-filter`](#audit-log-filter) |
+| [`audit_log_filter_buffer_size`](#audit_log_filter_buffer_size) |
+| [`audit_log_filter_compression`](#audit_log_filter_compression) |
 | [`audit_log_filter_database`](#audit_log_filter_database) |
 | [`audit_log_filter_disable`](#audit_log_filter_disable) |
 | [`audit_log_filter_encryption`](#audit_log_filter_encryption) |
@@ -351,7 +351,7 @@ mysql> SELECT audit_log_filter_set_user('user-name@localhost', 'filter-name');
 | [`audit_log_filter_handler`](#audit_log_filter_handler) |
 | [`audit_log_filter_key_derivation_iterations_count_mean`](#audit_log_filter_key_derivation_iterations_count_mean) |
 | [`audit_log_filter_max_size`](#audit_log_filter_max_size) |
-| [`audit_log_filter_keep_password_history_keep_days`](#audit_log_filter_keep_password_history_keep_days) |
+| [`audit_log_filter_password_history_keep_days`](#audit_log_filter_password_history_keep_days) |
 | [`audit_log_filter_prune_seconds`](#audit_log_filter_prune_seconds) |
 | [`audit_log_filter_read_buffer_size`](#audit_log_filter_read_buffer_size) |
 | [`audit_log_filter_rotate_on_size`](#audit_log_filter_rotate_on_size) |
