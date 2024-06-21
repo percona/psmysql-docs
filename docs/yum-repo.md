@@ -8,6 +8,10 @@ operating systems. The easiest way to install the Percona RPM repository is to i
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
+## Version changes
+
+Starting with Percona Server 8.0.33-25, the RPM builds for *RHEL* 8 and *RHEL* 9 contain ARM packages with the `aarch64.rpm` extension. This means that Percona Server for MySQL is available for users on ARM-based systems.
+
 ## Supported platforms
 
 Specific information on the supported platforms, products, and versions are described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
