@@ -2689,6 +2689,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#version-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version changes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-install-rpm-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download and install RPM packages
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#get-expert-help" class="md-nav__link">
     <span class="md-ellipsis">
       Get expert help
@@ -6697,6 +6715,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#version-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version changes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-install-rpm-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download and install RPM packages
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#get-expert-help" class="md-nav__link">
     <span class="md-ellipsis">
       Get expert help
@@ -6744,11 +6780,14 @@
 <p>You should be aware that when you install packages manually, you must resolve and install any dependencies. This process may involve finding and installing the necessary dependencies before installing the packages. Dependencies are other packages that a package may need to function correctly. For example, a package may rely on a specific library. If that library is not installed, or if the installed library is the wrong version, the package may not work correctly.</p>
 <p>Package managers, like <code>APT</code> or <code>YUM</code> install the dependencies for you.</p>
 <p>Download the packages from <a href="https://www.percona.com/downloads">Percona Product Downloads</a>. If needed, <a href="download-instructions.html">Instructions for the Percona Product Download</a> are available.</p>
-<p>The following example downloads <em>Percona Server for MySQL</em> 8.0.29-21 release packages for <em>RHEL</em> 8.</p>
+<h2 id="version-changes">Version changes<a class="headerlink" href="#version-changes" title="Permanent link">&para;</a></h2>
+<p>Starting with Percona Server 8.0.33-25, the RPM builds for <em>RHEL</em> 8 and <em>RHEL</em> 9 contain ARM packages with the <code>aarch64.rpm</code> extension. This means that Percona Server for MySQL is available for users on ARM-based systems.</p>
+<h2 id="download-and-install-rpm-packages">Download and install RPM packages<a class="headerlink" href="#download-and-install-rpm-packages" title="Permanent link">&para;</a></h2>
+<p>The following example downloads <em>Percona Server for MySQL</em> 8.0.32-24 release packages for <em>RHEL</em> 8.</p>
 <ol>
 <li>
 <p>Using <a href="https://www.gnu.org/software/wget/"><code>Wget</code></a>, the following command downloads a specific version of Percona Server for MySQL on Red Hat Enterprise Linux 8 from the Percona website. </p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-8.0.29-21/binary/redhat/8/x86_64/Percona-Server-8.0.29-21-rc59f87d2854-el8-x86_64-bundle.tar
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.32-24/binary/redhat/8/x86_64/Percona-Server-8.0.32-24-re5c6e9d2-el8-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
@@ -6764,7 +6803,7 @@
 <p><code>f</code> - name of the archive file</p>
 </li>
 </ul>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-8.0.29-21-rc59f87d2854-el8-x86_64-bundle.tar
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-8.0.32-24-re5c6e9d2-el8-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
@@ -6774,23 +6813,23 @@
 The output should look like the following:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code>percona-icu-data-files-8.0.29-21.1.el8.x86_64.rpm
-percona-mysql-router-8.0.29-21.1.el8.x86_64.rpm
-percona-mysql-router-debuginfo-8.0.29-21.1.el8.x86_64.rpm
-percona-server-client-8.0.29-21.1.el8.x86_64.rpm
-percona-server-client-debuginfo-8.0.29-21.1.el8.x86_64.rpm
-percona-server-debuginfo-8.0.29-21.1.el8.x86_64.rpm
-percona-server-debugsource-8.0.29-21.1.el8.x86_64.rpm
-percona-server-devel-8.0.29-21.1.el8.x86_64.rpm
-percona-server-rocksdb-8.0.29-21.1.el8.x86_64.rpm
-percona-server-rocksdb-debuginfo-8.0.29-21.1.el8.x86_64.rpm
-percona-server-server-8.0.29-21.1.el8.x86_64.rpm
-percona-server-server-debuginfo-8.0.29-21.1.el8.x86_64.rpm
-percona-server-shared-8.0.29-21.1.el8.x86_64.rpm
-percona-server-shared-compat-8.0.29-21.1.el8.x86_64.rpm
-percona-server-shared-debuginfo-8.0.29-21.1.el8.x86_64.rpm
-percona-server-test-8.0.29-21.1.el8.x86_64.rpm
-percona-server-test-debuginfo-8.0.29-21.1.el8.x86_64.rpm
+<div class="highlight"><pre><span></span><code>percona-icu-data-files-8.0.32-24.1.el8.x86_64.rpm
+percona-mysql-router-8.0.32-24.1.el8.x86_64.rpm
+percona-mysql-router-debuginfo-8.0.32-24.1.el8.x86_64.rpm
+percona-server-client-8.0.32-24.1.el8.x86_64.rpm
+percona-server-client-debuginfo-8.0.32-24.1.el8.x86_64.rpm
+percona-server-debuginfo-8.0.32-24.1.el8.x86_64.rpm
+percona-server-debugsource-8.0.32-24.1.el8.x86_64.rpm
+percona-server-devel-8.0.32-24.1.el8.x86_64.rpm 
+percona-server-rocksdb-8.0.32-24.1.el8.x86_64.rpm
+percona-server-rocksdb-debuginfo-8.0.32-24.1.el8.x86_64.rpm
+percona-server-server-8.0.32-24.1.el8.x86_64.rpm
+percona-server-server-debuginfo-8.0.32-24.1.el8.x86_64.rpm
+percona-server-shared-8.0.32-24.1.el8.x86_64.rpm
+percona-server-shared-compat-8.0.32-24.1.el8.x86_64.rpm
+percona-server-shared-debuginfo-8.0.32-24.1.el8.x86_64.rpm
+percona-server-test-8.0.32-24.1.el8.x86_64.rpm
+percona-server-test-debuginfo-8.0.32-24.1.el8.x86_64.rpm
 </code></pre></div>
 </details>
 </li>
@@ -6835,7 +6874,7 @@ percona-server-test-debuginfo-8.0.29-21.1.el8.x86_64.rpm
   <small>
     
       Last update:
-      2024-03-22
+      2024-06-21
     
   </small>
 </div>
