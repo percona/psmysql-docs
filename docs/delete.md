@@ -39,9 +39,9 @@ WHERE order_date < '2023-01-01';
 
 Fundamental SQL links:
 
-* [Common SQL](docs/common-sql.md)
-* [SQL Basics](docs/sql-basics.md)
-* [SELECT](docs/select.md)
-* [INSERT](docs/insert.md)
-* [UPDATE](docs/update.md)
-* [SQL Operators](docs/sql-operators.md)
+* [Common SQL](common-sql.md)
+* [SQL Basics](sql-basics.md)
+* [SELECT](select.md)
+* [INSERT](insert.md)
+* [UPDATE](update.md)
+* [SQL Operators](sql-operators.md)

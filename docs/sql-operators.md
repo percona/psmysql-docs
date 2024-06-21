@@ -82,9 +82,9 @@ These examples illustrate how SQL operators are used in Percona Server for MySQL
 
 Fundamental SQL links:
 
-- [Common SQL](docs/common-sql.md)
-- [SQL Basics](docs/sql-basics.md)
-- [SELECT](docs/select.md)
-- [INSERT](docs/insert.md)
-- [DELETE](docs/delete.md)
-- [UPDATE](docs/update.md)
+- [Common SQL](common-sql.md)
+- [SQL Basics](sql-basics.md)
+- [SELECT](select.md)
+- [INSERT](insert.md)
+- [DELETE](delete.md)
+- [UPDATE](update.md)
