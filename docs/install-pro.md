@@ -53,7 +53,7 @@ This document provides guidelines how to install Pro packages of Percona Server 
             ```ini title="/etc/yum.repos.d/psmysql-pro.repo"
             [ps-8.0-pro]
             name=PS_8.0_PRO
-            baseurl=http://repo.percona.com/private/[CLIENTID]-[TOKEN]/ps-80-pro/yum/main/$releasever/RPMS/x86_64
+            baseurl=http://repo.percona.com/private/[CLIENTID]-[TOKEN]/ps-80-pro/yum/release/$releasever/RPMS/x86_64
             enabled=1
             gpgkey = https://repo.percona.com/yum/PERCONA-PACKAGING-KEY
             ```
