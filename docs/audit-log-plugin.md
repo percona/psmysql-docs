@@ -723,10 +723,8 @@ audit_log_include_commands must be unset, and vice versa.
 | Dynamic:       | Yes                |
 | Data type      | String             |
 
-This variable is used to specify the list of commands for which
-Filtering by database is applied. The value can be `NULL` or
-comma separated list of commands. If this variable is set, then
-audit_log_include_databases must be unset, and vice versa.
+Use this variable to specify the databases to be filtered. The value can be NULL or a comma-separated list of databases if you set this variable, unset `audit_log_include_databases`, and vice versa.
+
 
 ### `audit_log_format`
 
@@ -783,10 +781,7 @@ audit_log_exclude_commands must be unset, and vice versa.
 | Dynamic:       | Yes                |
 | Data type      | String             |
 
-This variable is used to specify the list of commands for which
-Filtering by database is applied. The value can be `NULL` or
-comma separated list of commands. If this variable is set, then
-audit_log_exclude_databases must be unset, and vice versa.
+This variable defines the list of databases to be filtered. You can set the value to NULL or a comma-separated list of databases. If you set this variable, you must unset `audit_log_exclude_databases`; the opposite is true.
 
 ### `audit_log_policy`
 
