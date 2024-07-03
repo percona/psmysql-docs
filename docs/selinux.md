@@ -1,12 +1,49 @@
-# Working with SELinux
+# Secure Percona Server for MySQL with SELinux
 
-The Linux kernel, through the Linux Security Module (LSM), supports Security-Enhanced Linux (SELinux). This module provides a way to support mandatory access control policies. SELinux defines how confined processes interact with files, network ports, directories, other processes, and additional server components.
+Understanding SELinux labels and their components (user, role, type, sensitivity level)
+Importance of SELinux context for administrators and users
 
-An SELinux policy defines the set of rules, the `types` for files, and the `domains` for processes. Rules determine how a process interacts with another type. SELinux decides whether to allow or deny an action based on the subject’s context, what object initiates the action and what object is the action’s target.
+MySQL SELinux Policy
+Explanation of SELinux policy for MySQL
+Compatibility of Percona Server for MySQL with CentOS 7 and CentOS 8 SELinux policies
 
-A label represents the context for administrators and users.
+SELinux is a mandatory access control system implemented in the Linux kernel. It's designed to enhance system security by enforcing strict rules on how processes interact with files, directories, and other system resources. Unlike discretionary access control (DAC), where users have some control over permissions, SELinux imposes policies that must be followed regardless of user settings.
 
-CentOS 7 and CentOS 8 contain a MySQL SELinux policy. *Percona Server for MySQL* is a drop-in replacement for MySQL and can use this policy without changes.
+In SELinux, access policies are defined based on the context of processes and files. Each process and file is assigned a security context, which includes information about its identity and permissions. These contexts determine a process's actions on a file or resource.
+
+For processes, SELinux defines policies based on their security context, such as their domain and role. These policies specify which operations a process can perform and what resources it can access. For example, a web server process may be allowed to read web content files but not modify system configuration files.
+Similarly, files and directories are assigned security contexts that dictate how processes can access them. SELinux policies define rules governing interactions between processes and files based on their contexts. For instance, a database file may only be accessible for reading and writing by the database server process, while other processes are restricted from accessing it.
+
+Overall, SELinux acts as a guardrail for system resources, ensuring that only authorized processes can access sensitive files and directories, thereby bolstering system security. Understanding SELinux and its access policies is crucial for maintaining a secure and robust MySQL environment.
+
+## Understanding SELinux labels and their components
+
+| Component       | Description                                                                                                                                                     |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| User            | Represents the identity of the user or process attempting an action. It helps SELinux determine which user is initiating the action.                            |
+| Role            | Defines the role or function of a process within the system. It assists SELinux in determining the purpose or responsibility of the process.                   |
+| Type            | Represents the type or category of an object such as files, directories, or processes. It aids SELinux in identifying the nature of the resource being accessed. |
+| Sensitivity Level | Indicates the sensitivity level or security classification of an object. It assists SELinux in enforcing security policies based on the object's sensitivity.    |
+
+## Importance of SELinux context for administrators and users
+
+Understanding SELinux context is crucial for administrators and users because it determines how processes interact with system resources. By assigning specific labels to users, roles, types, and sensitivity levels, SELinux ensures that only authorized actions are permitted. This granular control enhances system security by restricting unauthorized access and preventing malicious activities. Administrators rely on SELinux context to configure policies that align with organizational security requirements, while users benefit from a secure environment where their actions are safeguarded against potential threats. Overall, SELinux context plays a pivotal role in maintaining the integrity and confidentiality of system operations.
+
+## Explanation of SELinux Policy for MySQL
+
+SELinux is a security feature in Linux that controls access to various resources such as files, directories, and network ports based on defined policies. For MySQL, SELinux has a specific policy that governs how the MySQL server process interacts with the system and other resources.
+
+This policy defines rules for MySQL's behavior, including which files it can access, which network ports it can use, and what actions it can perform. These rules help enforce security by restricting MySQL's actions to only those that are necessary for its operation, preventing unauthorized access and potential security breaches.
+
+The SELinux policy for MySQL ensures that the MySQL server process operates within predefined boundaries, limiting its capabilities to minimize the risk of exploitation or unauthorized access to sensitive data.
+
+## Compatibility of Percona Server for MySQL with SELinux Policies
+
+Percona Server for MySQL is a drop-in replacement for MySQL that offers enhanced performance, scalability, and other features. When running Percona Server for MySQL on Red Hat Enterprise Linux (RHEL) 7, RHEL 8, RHEL 9, or their derivatives, compatibility with SELinux policies is essential for ensuring secure and reliable operation.
+
+Percona Server for MySQL is designed to be compatible with SELinux policies on these Linux distributions. This means that Percona Server for MySQL can seamlessly integrate with SELinux, allowing administrators to enforce security policies and restrictions without sacrificing the functionality or performance of the database server.
+
+By adhering to SELinux policies, Percona Server for MySQL ensures that it operates within the confines defined by SELinux, preventing any unauthorized or potentially malicious actions that could compromise the system's security. This compatibility with SELinux policies enhances the overall security posture of Percona Server for MySQL deployments on RHEL and its derivatives, providing peace of mind to administrators and users alike.
 
 ## SELinux context example
 
