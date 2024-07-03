@@ -24,52 +24,10 @@ The AES uses the 256-bit key size.
 
 The following audit log filter functions are used with encryption:
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>HTML Table Generator</title> 
-	<style>
-		table {
-			border:1px solid #b3adad;
-			border-collapse:collapse;
-			padding:5px;
-		}
-		table th {
-			border:1px solid #b3adad;
-			padding:5px;
-			background: #f0f0f0;
-			color: #313030;
-		}
-		table td {
-			border:1px solid #b3adad;
-			text-align:center;
-			padding:5px;
-			background: #ffffff;
-			color: #313030;
-		}
-	</style>
-</head>
-<body>
-	<table>
-		<thead>
-			<tr>
-				<th>Function name</th>
-				<th>Description</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>audit_log_encryption_password_set()</td>
-				<td>Stores the password in the keyring. If encryption is enabled, the function also rotates the log file by renaming the current log file and creating a log file encrypted with the password.</td>
-			</tr>
-			<tr>
-				<td>audit_log_encryption_password_get()</td>
-				<td>Invoking this function without an argument returns the current encryption password. An argument that specifies the keyring ID of an archived password or current password returns that password by ID.</td>
-			</tr>
-		</tbody>
-	</table>
-</body>
-</html>
+| Function name     | Description          |
+| ----------------- | -------------------- |
+| audit_log_encryption_password_set() | Stores the password in the keyring. If encryption is enabled, the function also rotates the log file by renaming the current log file and creating a log file encrypted with the password.                                           |
+| audit_log_encryption_password_get() | Invoking this function without an argument returns the current encryption password. An argument that specifies the keyring ID of an archived password or current password returns that password by ID. |
 
 The `audit_log_filter.password_history_keep_days` variable is used with encryption. If the variable is not zero (0), invoking `audit_log_encryption_password_set()` causes the expiration of archived audit log passwords.
 

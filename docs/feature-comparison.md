@@ -8,34 +8,6 @@
 We provide these benefits by significantly enhancing *Percona Server for MySQL* as
 compared to the standard *MySQL* database server:
 
-<style>
-    table {
-        table-layout: fixed;
-        width: 100%';
-        border-collapse: collapse
-        border: 3px solid blue
-    }
-
-    thead th:nth-child(1) {
-        width: 30%;
-        text-align: left;
-        vertical-align: top;
-    }
-    thead th:nth-child(2) {
-        width: 25%;
-        text-align: center;
-        vertical-align: top;
-    }
-    thead th:nth-child(3) {
-        width: 25%;
-        text-align: center;
-        vertical-align: top;
-    }
-    th,
-    td {padding: 20px;}
-</style>
-
-
 | Features | Percona Server for MySQL {{vers}} | MySQL {{vers}} |
 |---|---|---|
 | Open Source | Yes | Yes |

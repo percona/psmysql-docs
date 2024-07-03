@@ -2,13 +2,15 @@
 
 Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
 
-The following example downloads *Percona Server for MySQL* {{release}} release packages for *RHEL* 8.
+The RPM builds for *RHEL* 8 and *RHEL* 9 contain ARM packages with the aarch64.rpm extension. This means that Percona Server for MySQL is available for users on ARM-based systems.
+
+The following example downloads *Percona Server for MySQL* {{release}} release `x86_64` packages for *RHEL* 8.
 {.power-number}
 
 1. Use `wget` to download the tar file.
 
 	```{.bash data-prompt="$"}
-	$ wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/redhat/8/x86_64/Percona-Server-{{release}}-r582ebeef-el8-x86_64-bundle.tar
+	$ wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/redhat/8/x86_64/Percona-Server-{{release}}-rfcee26ff-el8-x86_64-bundle.tar
 	```
 
 2. Unpack the bundle to get the packages: `tar xvf Percona-Server-{{release}}-rc59f87d2854-el8-x86_64-bundle.tar`
