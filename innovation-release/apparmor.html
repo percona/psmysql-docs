@@ -20,15 +20,15 @@
         <link rel="prev" href="post-installation.html">
       
       
-        <link rel="next" href="selinux.html">
+        <link rel="next" href="apparmor-profiles.html">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.28">
     
     
       
-        <title>Working with AppArmor - Percona Server for MySQL</title>
+        <title>Secure Percona Server for MySQL with AppArmor - Percona Server for MySQL</title>
       
     
     
@@ -91,7 +91,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Working with AppArmor" />
+                 <meta property="og:title" content="Percona Server for MySQL - Secure Percona Server for MySQL with AppArmor" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/innovation-release/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/innovation-release/_static/percona-mysql-logo.png" />
               
@@ -114,7 +114,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#working-with-apparmor" class="md-skip">
+        <a href="#secure-percona-server-for-mysql-with-apparmor" class="md-skip">
           Skip to content
         </a>
       
@@ -189,7 +189,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Working with AppArmor
+              Secure Percona Server for MySQL with AppArmor
             
           </span>
         </div>
@@ -2270,6 +2270,43 @@
   
   
   
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    AppArmor
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            AppArmor
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -2282,7 +2319,7 @@
           
   
   <span class="md-ellipsis">
-    Working with AppArmor
+    Secure Percona Server for MySQL with AppArmor
   </span>
   
 
@@ -2293,7 +2330,7 @@
         
   
   <span class="md-ellipsis">
-    Working with AppArmor
+    Secure Percona Server for MySQL with AppArmor
   </span>
   
 
@@ -2317,117 +2354,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-the-utilities-used-to-control-apparmor" class="md-nav__link">
+  <a href="#apparmor-links" class="md-nav__link">
     <span class="md-ellipsis">
-      Install the utilities used to control AppArmor
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#add-the-mysqld-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      Add the mysqld profile
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#check-the-current-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      Check the current status
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#switch-a-profile-to-complain-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      Switch a profile to complain mode
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#switch-a-profile-to-enforce-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      Switch a profile to enforce mode
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#disable-one-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      Disable one profile
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reload-all-profiles" class="md-nav__link">
-    <span class="md-ellipsis">
-      Reload all profiles
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reload-one-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      Reload one profile
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#edit-the-mysqld-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      Edit the mysqld profile
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configure-a-custom-data-directory-location" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configure a custom data directory location
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#set-up-a-custom-log-location" class="md-nav__link">
-    <span class="md-ellipsis">
-      Set up a custom log location
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#set-secure_file_priv-directory-location" class="md-nav__link">
-    <span class="md-ellipsis">
-      Set secure_file_priv directory location
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#disable-apparmor" class="md-nav__link">
-    <span class="md-ellipsis">
-      Disable AppArmor
+      AppArmor links:
     </span>
   </a>
   
@@ -2458,15 +2387,255 @@
   
   
     <li class="md-nav__item">
-      <a href="selinux.html" class="md-nav__link">
+      <a href="apparmor-profiles.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Working with SELinux
+    AppArmor profile modes
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="manage-apparmor-profiles.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing AppArmor profiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="disable-apparmor.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Disable AppArmor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configure-apparmor.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure AppArmor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="troubleshoot-apparmor.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshoot AppArmor profiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    SELinux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            SELinux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="selinux.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Secure Percona Server for MySQL with SELinux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="selinux-contexts.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SELinux contexts and labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="manage-selinux-modes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manage SELinux modes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="additional-selinux-tools.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Additional SELinux tools and management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="troubleshoot-selinux.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshoot SELinux issues
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -5655,117 +5824,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-the-utilities-used-to-control-apparmor" class="md-nav__link">
+  <a href="#apparmor-links" class="md-nav__link">
     <span class="md-ellipsis">
-      Install the utilities used to control AppArmor
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#add-the-mysqld-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      Add the mysqld profile
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#check-the-current-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      Check the current status
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#switch-a-profile-to-complain-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      Switch a profile to complain mode
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#switch-a-profile-to-enforce-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      Switch a profile to enforce mode
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#disable-one-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      Disable one profile
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reload-all-profiles" class="md-nav__link">
-    <span class="md-ellipsis">
-      Reload all profiles
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reload-one-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      Reload one profile
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#edit-the-mysqld-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      Edit the mysqld profile
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configure-a-custom-data-directory-location" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configure a custom data directory location
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#set-up-a-custom-log-location" class="md-nav__link">
-    <span class="md-ellipsis">
-      Set up a custom log location
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#set-secure_file_priv-directory-location" class="md-nav__link">
-    <span class="md-ellipsis">
-      Set secure_file_priv directory location
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#disable-apparmor" class="md-nav__link">
-    <span class="md-ellipsis">
-      Disable AppArmor
+      AppArmor links:
     </span>
   </a>
   
@@ -5815,323 +5876,16 @@
   
 
 
-<h1 id="working-with-apparmor">Working with AppArmor<a class="headerlink" href="#working-with-apparmor" title="Permanent link">&para;</a></h1>
+<h1 id="secure-percona-server-for-mysql-with-apparmor">Secure Percona Server for MySQL with AppArmor<a class="headerlink" href="#secure-percona-server-for-mysql-with-apparmor" title="Permanent link">&para;</a></h1>
 <p>The operating system has a Discretionary Access Controls (DAC) system. AppArmor supplements the DAC with a Mandatory Access Control (MAC) system. AppArmor is the default security module for Ubuntu or Debian systems and uses profiles to define how programs access resources.</p>
-<p>AppArmor is path-based and restricts processes by using profiles. Each profile contains a set of policy rules. Some applications may install their profile along with the application. If an installation does not also install a profile, then that application is not part of the AppArmor subsystem. You can also create profiles since they are simple text files stored in the <code>/etc/apparmor.d</code> directory.</p>
-<p>A profile is in one of the following modes:</p>
-<ul>
-<li>
-<p>Enforce - the default setting, applications are prevented from taking actions restricted by the profile rules.</p>
-</li>
-<li>
-<p>Complain - applications are allowed to take restricted actions, and the actions are logged.</p>
-</li>
-<li>
-<p>Disabled - applications are allowed to take restricted actions, and the actions are not logged.</p>
-</li>
-</ul>
-<p>You can mix enforce profiles and complain profiles in your server.</p>
-<h2 id="install-the-utilities-used-to-control-apparmor">Install the utilities used to control AppArmor<a class="headerlink" href="#install-the-utilities-used-to-control-apparmor" title="Permanent link">&para;</a></h2>
-<p>Install the <code>apparmor-utils</code> package to work with profiles. Use these utilities to create, update, enforce, switch to complain mode, and disable profiles, as needed:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>apparmor-utils
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Reading package lists... Done
-Building dependency tree
-...
-The following additional packages will be installed:
-    python3-apparmor python3-libapparmor
-...
-</code></pre></div>
-</details>
-<h2 id="add-the-mysqld-profile">Add the mysqld profile<a class="headerlink" href="#add-the-mysqld-profile" title="Permanent link">&para;</a></h2>
-<p class="power-number">Add the mysqld profile with the following procedure:</p>
-<ol>
-<li>
-<p>Download the current version of the AppArmor:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://raw.githubusercontent.com/percona/percona-server/release-8.3.0-1/build-ps/debian/percona-server-server.install
-</code></pre></div>
-<p>The expected output:</p>
-<div class="no-copy highlight"><pre><span></span><code>...
-Saving to &#39;apparamor-profile`
-...
-</code></pre></div>
-</li>
-<li>
-<p>Move the file to /etc/apparmor.d/usr.sbin.mysqld</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mv<span class="w"> </span>apparmor-profile<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
-</code></pre></div>
-</li>
-<li>
-<p>Create an empty file for editing:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>touch<span class="w"> </span>/etc/apparmor.d/local/usr.sbin.mysqld
-</code></pre></div>
-</li>
-<li>
-<p>Load the profile:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>-W<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
-</code></pre></div>
-</li>
-<li>
-<p>Restart <em>Percona Server for MySQL</em>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
-</code></pre></div>
-</li>
-<li>
-<p>Verify the profile status:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>...
-processes are in enforce mode
-...
-/usr/sbin/mysqld (100840)
-...
-</code></pre></div>
-</details>
-</li>
-</ol>
-<h2 id="check-the-current-status">Check the current status<a class="headerlink" href="#check-the-current-status" title="Permanent link">&para;</a></h2>
-<p>As root or using <code>sudo</code>, you can check the AppArmor status:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>apparmor module is loaded.
-34 profiles are loaded.
-32 profiles in enforce mode.
-...
-    /usr/sbin/mysqld
-...
-2 profiles in complain mode.
-...
-3 profiles have profiles defined.
-...
-0 processes are in complain mode.
-0 processes are unconfined but have a profile defined.
-</code></pre></div>
-</details>
-<h2 id="switch-a-profile-to-complain-mode">Switch a profile to complain mode<a class="headerlink" href="#switch-a-profile-to-complain-mode" title="Permanent link">&para;</a></h2>
-<p>Switch a profile to complain mode when the program is in your path with this command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>&lt;program&gt;
-</code></pre></div>
-<p>If needed, specify the program’s path in the command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>/sbin/&lt;program&gt;
-</code></pre></div>
-<p>If the profile is not stored in <code>/etc/apparmor.d/</code>, use the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>/path/to/profiles/&lt;program&gt;
-</code></pre></div>
-<h2 id="switch-a-profile-to-enforce-mode">Switch a profile to enforce mode<a class="headerlink" href="#switch-a-profile-to-enforce-mode" title="Permanent link">&para;</a></h2>
-<p>Switch a profile to the enforce mode when the program is in your path with this command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>&lt;program&gt;
-</code></pre></div>
-<p>If needed, specify the program’s path in the command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>/sbin/&lt;program&gt;
-</code></pre></div>
-<p>If the profile is not stored in <code>/etc/apparmor.d/</code>, use the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>/path/to/profile
-</code></pre></div>
-<h2 id="disable-one-profile">Disable one profile<a class="headerlink" href="#disable-one-profile" title="Permanent link">&para;</a></h2>
-<p>You can disable a profile but it is recommended to Switch a Profile to Complain mode.</p>
-<p>Use either of the following methods to disable a profile:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld<span class="w"> </span>/etc/apparmor.d/disable/
-$<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-R<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
-</code></pre></div>
-<p>or</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>aa-disable<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
-</code></pre></div>
-<h2 id="reload-all-profiles">Reload all profiles<a class="headerlink" href="#reload-all-profiles" title="Permanent link">&para;</a></h2>
-<p>Run either of the following commands to reload all profiles:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>apparmor<span class="w"> </span>reload
-</code></pre></div>
-<p>or</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w"> </span>apparmor.service
-</code></pre></div>
-<h2 id="reload-one-profile">Reload one profile<a class="headerlink" href="#reload-one-profile" title="Permanent link">&para;</a></h2>
-<p>To reload one profile, run the following:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>/etc/apparmor.d/&lt;profile&gt;
-</code></pre></div>
-<p>For some changes to take effect, you may need to restart the program.</p>
-<h2 id="edit-the-mysqld-profile">Edit the mysqld profile<a class="headerlink" href="#edit-the-mysqld-profile" title="Permanent link">&para;</a></h2>
-<p>Only edit <code>/etc/apparmor.d/local/usr.sbin.mysql</code>. We recommend that you Switch a Profile to <a href="#switch-a-profile-to-complain-mode">Complain mode</a> before editing the file. Edit the file in any text editor. When your work is done, Reload one profile and Switch a Profile to <a href="#switch-a-profile-to-enforce-mode">Enforce mode</a>.</p>
-<h2 id="configure-a-custom-data-directory-location">Configure a custom data directory location<a class="headerlink" href="#configure-a-custom-data-directory-location" title="Permanent link">&para;</a></h2>
-<p>You can change the data directory to a non-default location, like /var/lib/mysqlcustom. You should enable audit mode, to capture all of the actions, and edit the profile to allow access for the custom location.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/mysql/mysql.conf.d/mysqld.cnf
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>The Percona Server 8.3 configuration file.
-
-For explanations see
-https://dev.mysql.com/doc/mysql/en/server-system-variables.html
-
-[mysqld]
-pid-file    = /var/run/mysqld/mysqld.pid
-socket        = /var/run/mysqld/mysqld.sock
-*datadir    = /var/lib/mysqlcustom*
-log-error    = /var/log/mysql/error.log
-</code></pre></div>
-</details>
-<p>Enable audit mode for mysqld. In this mode, the security policy is enforced and all access is logged.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>aa-audit<span class="w"> </span>mysqld
-</code></pre></div>
-<p>Restart Percona Server for MySQL.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>mysql<span class="w"> </span>restart
-</code></pre></div>
-<p>The restart fails because AppArmor has blocked access to the custom data directory location. To diagnose the issue, check the logs for the following:</p>
-<ul>
-<li>
-<p>ALLOWED - A log event when the profile is in complain mode and the action violates a policy.</p>
-</li>
-<li>
-<p>DENIED - A log event when the profile is in enforce mode and the action is blocked.</p>
-</li>
-</ul>
-<p>For example, the following log entries show <code>DENIED</code>:</p>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>...
-Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps audit[16013]: AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/sbin/mysqld&quot; name=&quot;/var/lib/mysqlcustom/binlog.index&quot; pid=16013 comm=&quot;mysqld&quot; requested_mask=&quot;c&quot; denied_mask=&quot;c&quot; fsuid=111 ouid=111
-Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(1607343428.022:36): apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/sbin/mysqld&quot; name=&quot;/var/lib/mysqlcustom/mysqld_tmp_file_case_insensitive_test.lower-test&quot; pid=16013 comm=&quot;mysqld&quot; requested_mask=&quot;c&quot; denied_mask=&quot;c&quot; fsuid=111 ouid=111
-...
-</code></pre></div>
-</details>
-<p>Open <code>/etc/apparmor.d/local/usr.sbin.mysqld</code> in a text editor and edit the following entries in the <code>Allow data dir access</code> section.</p>
-<div class="highlight"><pre><span></span><code>Allow data dir access
-/var/lib/mysqlcustom/ r,
-/var/lib/mysqlcustom/** rwk,
-</code></pre></div>
-<p>In <code>etc/apparmor.d/local/usr.sbin.mysqld</code>, comment out, using the # symbol, the current entries in the Allow data dir access section. This step is optional. If you skip this step, mysqld continues to access the default data directory location.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Edit the local version of the file instead of the main profile. Separating the changes makes maintenance easier.</p>
-</div>
-<p>Reload the profile:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
-</code></pre></div>
-<p>Restart mysql:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
-</code></pre></div>
-<h2 id="set-up-a-custom-log-location">Set up a custom log location<a class="headerlink" href="#set-up-a-custom-log-location" title="Permanent link">&para;</a></h2>
-<p>To move your logs to a custom location, you must edit the my.cnf configuration file and then edit the local profile to allow access:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/etc/mysql/mysql.conf.d/mysqld.cnf
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>The Percona Server 8.3 configuration file.
-
-For explanations see
-https://dev.mysql.com/doc/mysql/en/server-system-variables.html
-
-[mysqld]
-pid-file    = /var/run/mysqld/mysqld.pid
-socket        = /var/run/mysqld/mysqld.sock
-datadir    = /var/lib/mysql
-log-error    = /*custom-log-dir*/mysql/error.log
-</code></pre></div>
-</details>
-<p>Verify the custom directory exists.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>-la<span class="w"> </span>/custom-log-dir/
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>total 12
-drwxrwxrwx  3 root root 4096 Dec  7 13:09 .
-drwxr-xr-x 24 root root 4096 Dec  7 13:07 ..
-drwxrwxrwx  2 root root 4096 Dec  7 13:09 mysql
-</code></pre></div>
-</details>
-<p>Restart Percona Server.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Job for mysql.service failed because the control process exited with error code.
-See &quot;systemctl status mysql.service&quot; and &quot;journalctl -xe&quot; for details.
-</code></pre></div>
-</details>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>journalctl<span class="w"> </span>-xe
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>...
-AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/sbin/mysqld&quot; name=&quot;/custom-log-dir/mysql/error.log&quot;
-...
-</code></pre></div>
-</details>
-<p>The access has been denied by AppArmor. Edit the local profile in the <code>Allow log file access</code> section to allow access to the custom log location.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/apparmor.d/local/usr.sbin.mysqld
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code> Site-specific additions and overrides for usr.sbin.mysqld..
- For more details, please see /etc/apparmor.d/local/README.
-
- Allow log file access
- /custom-log-dir/mysql/ r,
- /custom-log-dir/mysql/** rw,
-</code></pre></div>
-</details>
-<p>Reload the profile:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
-</code></pre></div>
-<p>Restart Percona Server:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
-</code></pre></div>
-<h2 id="set-secure_file_priv-directory-location">Set <code>secure_file_priv</code> directory location<a class="headerlink" href="#set-secure_file_priv-directory-location" title="Permanent link">&para;</a></h2>
-<p>By default, secure_file_priv points to the following location:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>mysqlshow<span class="w"> </span>variables<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;secure_file_priv&#39;</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------+-----------------------+
-| Variable_name    | Value                 |
-+------------------+-----------------------+
-| secure_file_priv | /var/lib/mysql-files/ |
-+------------------+-----------------------+
-</code></pre></div>
-</details>
-<p>To allow access to another location, in a text editor, open the local profile. Review the settings in the <code>Allow data dir access</code> section:</p>
-<div class="highlight"><pre><span></span><code>Allow data dir access
-/var/lib/mysql/ r,
-/var/lib/mysql/** rwk,
-</code></pre></div>
-<p>Edit the local profile in a text editor to allow access to the custom location.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/apparmor.d/local/usr.sbin.mysqld
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Site-specific additions and overrides for usr.sbin.mysqld..
-For more details, please see /etc/apparmor.d/local/README.
-
-Allow data dir access
-/var/lib/mysqlcustom/ r,
-/var/lib/mysqlcustom/** rwk,
-</code></pre></div>
-</details>
-<p>Reload the profile:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
-</code></pre></div>
-<p>Restart Percona Server for MySQL:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
-</code></pre></div>
-<h2 id="disable-apparmor">Disable AppArmor<a class="headerlink" href="#disable-apparmor" title="Permanent link">&para;</a></h2>
-<p class="power-number">AppArmor provides security and disabling the system is not recommened. If AppArmor must be disabled, run the following commands:</p>
-<ol>
-<li>
-<p>Check the status.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apparmor_status
-</code></pre></div>
-</li>
-<li>
-<p>Stop and disable AppArmor.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apparmor
-$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>apparmor
-</code></pre></div>
-</li>
-</ol>
+<p>AppArmor is path-based and restricts processes by using profiles. Each profile contains a set of policy rules. Some applications may install their profile along with the application. If an installation does not also install a profile, that application is not part of the AppArmor subsystem. You can also create profiles since they are simple text files stored in the <code>/etc/apparmor.d</code> directory.</p>
+<p>AppArmor enhances system security by enforcing strict access controls and protecting against unauthorized access and potential threats. It achieves this by defining profiles that specify how programs interact with system resources. These profiles act as a set of rules dictating a program&rsquo;s actions and the resources it can access. By confining each program to its designated profile, AppArmor limits the damage in case of a compromise and prevents unauthorized escalation of privileges. Additionally, AppArmor provides fine-grained control over program behavior, allowing administrators to tailor security policies to specific application requirements and minimize the attack surface. Overall, AppArmor is crucial in bolstering system security for MySQL developers, maintaining system integrity, and mitigating the risks associated with security breaches.</p>
+<h2 id="apparmor-links">AppArmor links:<a class="headerlink" href="#apparmor-links" title="Permanent link">&para;</a></h2>
+<p><a href="apparmor-profiles.html">AppArmor Profiles</a><br>
+<a href="manage-apparmor-profiles.html">Manage AppArmor Profiles</a><br>
+<a href="disable-apparmor.html">Disable AppArmor</a><br>
+<a href="configure-apparmor.html">Configure AppArmor</a><br>
+<a href="troubleshoot-apparmor.html">Troubleshoot AppArmor</a></p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.</p>
@@ -6146,7 +5900,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> <
   <small>
     
       Last update:
-      2023-11-27
+      2024-05-14
     
   </small>
 </div>
@@ -6247,7 +6001,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> <
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.ad660dcc.min.js"></script>
+      <script src="assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
         <script src="js/version-select.js"></script>
       

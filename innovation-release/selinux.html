@@ -8,7 +8,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The Linux kernel, through the Linux Security Module (LSM), supports Security-Enhanced Linux (SELinux). This module provides a way to support mandatory access control policies. SELinux defines how confined processes interact with files, network ports, directories, other processes, and additional server components.">
+        <meta name="description" content="Understanding SELinux labels and their components (user, role, type, sensitivity level)
+Importance of SELinux context for administrators and users">
       
       
         <meta name="author" content="Percona LLC">
@@ -17,18 +18,18 @@
         <link rel="canonical" href="https://docs.percona.com/percona-server/innovation-release/selinux.html">
       
       
-        <link rel="prev" href="apparmor.html">
+        <link rel="prev" href="troubleshoot-apparmor.html">
       
       
-        <link rel="next" href="sql-basics.html">
+        <link rel="next" href="selinux-contexts.html">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.28">
     
     
       
-        <title>Working with SELinux - Percona Server for MySQL</title>
+        <title>Secure Percona Server for MySQL with SELinux - Percona Server for MySQL</title>
       
     
     
@@ -91,7 +92,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Working with SELinux" />
+                 <meta property="og:title" content="Percona Server for MySQL - Secure Percona Server for MySQL with SELinux" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/innovation-release/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/innovation-release/_static/percona-mysql-logo.png" />
               
@@ -114,7 +115,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#working-with-selinux" class="md-skip">
+        <a href="#secure-percona-server-for-mysql-with-selinux" class="md-skip">
           Skip to content
         </a>
       
@@ -189,7 +190,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Working with SELinux
+              Secure Percona Server for MySQL with SELinux
             
           </span>
         </div>
@@ -2268,12 +2269,47 @@
   
   
   
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    AppArmor
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            AppArmor
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="apparmor.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Working with AppArmor
+    Secure Percona Server for MySQL with AppArmor
   </span>
   
 
@@ -2282,6 +2318,156 @@
   
 
               
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apparmor-profiles.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AppArmor profile modes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="manage-apparmor-profiles.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing AppArmor profiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="disable-apparmor.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Disable AppArmor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configure-apparmor.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure AppArmor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="troubleshoot-apparmor.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshoot AppArmor profiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    SELinux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            SELinux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -2303,7 +2489,7 @@
           
   
   <span class="md-ellipsis">
-    Working with SELinux
+    Secure Percona Server for MySQL with SELinux
   </span>
   
 
@@ -2314,7 +2500,7 @@
         
   
   <span class="md-ellipsis">
-    Working with SELinux
+    Secure Percona Server for MySQL with SELinux
   </span>
   
 
@@ -2336,6 +2522,42 @@
       On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-selinux-labels-and-their-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding SELinux labels and their components
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importance-of-selinux-context-for-administrators-and-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Importance of SELinux context for administrators and users
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explanation-of-selinux-policy-for-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explanation of SELinux Policy for MySQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compatibility-of-percona-server-for-mysql-with-selinux-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compatibility of Percona Server for MySQL with SELinux Policies
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#selinux-context-example" class="md-nav__link">
@@ -2475,6 +2697,98 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="selinux-contexts.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SELinux contexts and labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="manage-selinux-modes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manage SELinux modes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="additional-selinux-tools.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Additional SELinux tools and management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="troubleshoot-selinux.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshoot SELinux issues
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -5664,6 +5978,42 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#understanding-selinux-labels-and-their-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding SELinux labels and their components
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importance-of-selinux-context-for-administrators-and-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Importance of SELinux context for administrators and users
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explanation-of-selinux-policy-for-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explanation of SELinux Policy for MySQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compatibility-of-percona-server-for-mysql-with-selinux-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compatibility of Percona Server for MySQL with SELinux Policies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#selinux-context-example" class="md-nav__link">
     <span class="md-ellipsis">
       SELinux context example
@@ -5833,11 +6183,54 @@
   
 
 
-<h1 id="working-with-selinux">Working with SELinux<a class="headerlink" href="#working-with-selinux" title="Permanent link">&para;</a></h1>
-<p>The Linux kernel, through the Linux Security Module (LSM), supports Security-Enhanced Linux (SELinux). This module provides a way to support mandatory access control policies. SELinux defines how confined processes interact with files, network ports, directories, other processes, and additional server components.</p>
-<p>An SELinux policy defines the set of rules, the <code>types</code> for files, and the <code>domains</code> for processes. Rules determine how a process interacts with another type. SELinux decides whether to allow or deny an action based on the subject’s context, what object initiates the action and what object is the action’s target.</p>
-<p>A label represents the context for administrators and users.</p>
-<p>CentOS 7 and CentOS 8 contain a MySQL SELinux policy. <em>Percona Server for MySQL</em> is a drop-in replacement for MySQL and can use this policy without changes.</p>
+<h1 id="secure-percona-server-for-mysql-with-selinux">Secure Percona Server for MySQL with SELinux<a class="headerlink" href="#secure-percona-server-for-mysql-with-selinux" title="Permanent link">&para;</a></h1>
+<p>Understanding SELinux labels and their components (user, role, type, sensitivity level)
+Importance of SELinux context for administrators and users</p>
+<p>MySQL SELinux Policy
+Explanation of SELinux policy for MySQL
+Compatibility of Percona Server for MySQL with CentOS 7 and CentOS 8 SELinux policies</p>
+<p>SELinux is a mandatory access control system implemented in the Linux kernel. It&rsquo;s designed to enhance system security by enforcing strict rules on how processes interact with files, directories, and other system resources. Unlike discretionary access control (DAC), where users have some control over permissions, SELinux imposes policies that must be followed regardless of user settings.</p>
+<p>In SELinux, access policies are defined based on the context of processes and files. Each process and file is assigned a security context, which includes information about its identity and permissions. These contexts determine a process&rsquo;s actions on a file or resource.</p>
+<p>For processes, SELinux defines policies based on their security context, such as their domain and role. These policies specify which operations a process can perform and what resources it can access. For example, a web server process may be allowed to read web content files but not modify system configuration files.
+Similarly, files and directories are assigned security contexts that dictate how processes can access them. SELinux policies define rules governing interactions between processes and files based on their contexts. For instance, a database file may only be accessible for reading and writing by the database server process, while other processes are restricted from accessing it.</p>
+<p>Overall, SELinux acts as a guardrail for system resources, ensuring that only authorized processes can access sensitive files and directories, thereby bolstering system security. Understanding SELinux and its access policies is crucial for maintaining a secure and robust MySQL environment.</p>
+<h2 id="understanding-selinux-labels-and-their-components">Understanding SELinux labels and their components<a class="headerlink" href="#understanding-selinux-labels-and-their-components" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User</td>
+<td>Represents the identity of the user or process attempting an action. It helps SELinux determine which user is initiating the action.</td>
+</tr>
+<tr>
+<td>Role</td>
+<td>Defines the role or function of a process within the system. It assists SELinux in determining the purpose or responsibility of the process.</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Represents the type or category of an object such as files, directories, or processes. It aids SELinux in identifying the nature of the resource being accessed.</td>
+</tr>
+<tr>
+<td>Sensitivity Level</td>
+<td>Indicates the sensitivity level or security classification of an object. It assists SELinux in enforcing security policies based on the object&rsquo;s sensitivity.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="importance-of-selinux-context-for-administrators-and-users">Importance of SELinux context for administrators and users<a class="headerlink" href="#importance-of-selinux-context-for-administrators-and-users" title="Permanent link">&para;</a></h2>
+<p>Understanding SELinux context is crucial for administrators and users because it determines how processes interact with system resources. By assigning specific labels to users, roles, types, and sensitivity levels, SELinux ensures that only authorized actions are permitted. This granular control enhances system security by restricting unauthorized access and preventing malicious activities. Administrators rely on SELinux context to configure policies that align with organizational security requirements, while users benefit from a secure environment where their actions are safeguarded against potential threats. Overall, SELinux context plays a pivotal role in maintaining the integrity and confidentiality of system operations.</p>
+<h2 id="explanation-of-selinux-policy-for-mysql">Explanation of SELinux Policy for MySQL<a class="headerlink" href="#explanation-of-selinux-policy-for-mysql" title="Permanent link">&para;</a></h2>
+<p>SELinux is a security feature in Linux that controls access to various resources such as files, directories, and network ports based on defined policies. For MySQL, SELinux has a specific policy that governs how the MySQL server process interacts with the system and other resources.</p>
+<p>This policy defines rules for MySQL&rsquo;s behavior, including which files it can access, which network ports it can use, and what actions it can perform. These rules help enforce security by restricting MySQL&rsquo;s actions to only those that are necessary for its operation, preventing unauthorized access and potential security breaches.</p>
+<p>The SELinux policy for MySQL ensures that the MySQL server process operates within predefined boundaries, limiting its capabilities to minimize the risk of exploitation or unauthorized access to sensitive data.</p>
+<h2 id="compatibility-of-percona-server-for-mysql-with-selinux-policies">Compatibility of Percona Server for MySQL with SELinux Policies<a class="headerlink" href="#compatibility-of-percona-server-for-mysql-with-selinux-policies" title="Permanent link">&para;</a></h2>
+<p>Percona Server for MySQL is a drop-in replacement for MySQL that offers enhanced performance, scalability, and other features. When running Percona Server for MySQL on Red Hat Enterprise Linux (RHEL) 7, RHEL 8, RHEL 9, or their derivatives, compatibility with SELinux policies is essential for ensuring secure and reliable operation.</p>
+<p>Percona Server for MySQL is designed to be compatible with SELinux policies on these Linux distributions. This means that Percona Server for MySQL can seamlessly integrate with SELinux, allowing administrators to enforce security policies and restrictions without sacrificing the functionality or performance of the database server.</p>
+<p>By adhering to SELinux policies, Percona Server for MySQL ensures that it operates within the confines defined by SELinux, preventing any unauthorized or potentially malicious actions that could compromise the system&rsquo;s security. This compatibility with SELinux policies enhances the overall security posture of Percona Server for MySQL deployments on RHEL and its derivatives, providing peace of mind to administrators and users alike.</p>
 <h2 id="selinux-context-example">SELinux context example<a class="headerlink" href="#selinux-context-example" title="Permanent link">&para;</a></h2>
 <p>To view the SELinux context, add the <code>-Z</code> switch to many of the utilities. Here is an example of the context for <code>mysqld</code>:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mysqld_t
@@ -6340,7 +6733,7 @@ $<span class="w"> </span>restorecon<span class="w"> </span>-Rv<span class="w"> <
   <small>
     
       Last update:
-      2023-10-04
+      2024-05-14
     
   </small>
 </div>
@@ -6441,7 +6834,7 @@ $<span class="w"> </span>restorecon<span class="w"> </span>-Rv<span class="w"> <
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.ad660dcc.min.js"></script>
+      <script src="assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
