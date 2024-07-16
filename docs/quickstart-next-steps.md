@@ -40,12 +40,26 @@ Percona Monitoring and Management (PMM )monitors and provides actionable perform
 
 ### For high availability
 
-Percona XtraDB Cluster (PXC) is a 100% open source, enterprise-grade, highly available clustering solution for MySQL multi-master setups based on Galera. PXC helps enterprises minimize unexpected downtime and data loss, reduce costs, and improve the performance and scalability of their database environments supporting your critical business applications in the most demanding public, private, and hybrid cloud environments.
+Percona XtraDB Cluster (PXC) is a 100% open source, enterprise-grade, highly available clustering solution for MySQL multi-master setups based on Galera. PXC helps enterprises minimize unexpected downtime and data loss, reduce costs, and improve the performance and scalability of their database environments, supporting their critical business applications in the most demanding public, private, and hybrid cloud environments.
 
 [Percona XtraDB Cluster Quick Start guide](https://docs.percona.com/percona-xtradb-cluster/8.0/quickstart-overview.html)
 
 ### Advanced command-line tools
 
-Percona Toolkit is a collection of advanced command-line tools used by the Percona support staff to perform a variety of MySQL, MongoDB, and system tasks that are complex or difficult to perform manually. These tools are ideal alternatives to “one-off” scripts because they are professionally developed, formally tested, and documented. Each tool is self-contained, so installation is quick and easy and does not install libraries.
+Percona Toolkit is a collection of advanced command-line tools used by the Percona support staff to perform various MySQL, MongoDB, and system tasks that are complex or difficult to perform manually. These tools are ideal alternatives to “one-off” scripts because they are professionally developed, formally tested, and documented. Each tool is self-contained, so installation is quick and easy and does not install libraries.
 
 [Percona Toolkit documentation](https://docs.percona.com/percona-toolkit/)
+
+### Operators
+
+Percona Operator for MySQL and Percona Operator for MySQL based on Percona XtraDB Cluster are tools designed to simplify the deployment, management, and scaling of MySQL and Percona XtraDB Cluster (PXC) instances in Kubernetes environments. These operators automate various database tasks such as backups, recovery, and updates, ensuring high availability and reliability. They provide robust features like automated failover, self-healing, and seamless scaling, which help maintain optimal database performance and reduce manual intervention. By leveraging Kubernetes' orchestration capabilities, these operators enhance the efficiency and resilience of MySQL and PXC deployments, making them well-suited for modern cloud-native applications.
+
+[Percona Operator for MySQL Documentation](https://docs.percona.com/percona-operator-for-mysql/ps/)
+
+[Percona Operator for MySQL based on Percona XtraDB Cluster](https://docs.percona.com/percona-operator-for-mysql/pxc/)
+
+### Cloud-native database services
+
+Percona Everest is an open-source cloud-native database platform that helps developers deploy code faster, scale deployments rapidly, and reduce database administration overhead while regaining control over their data, database configuration, and DBaaS costs.
+
+[Percona Everest](https://docs.percona.com/everest/index.html)
