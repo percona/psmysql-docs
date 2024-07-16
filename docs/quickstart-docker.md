@@ -36,14 +36,14 @@ To run the Docker ARM64 version of Percona Server for MySQL, use the `8.0.34-26 
 $ docker run -d -p 3306:3306 --name psmysql \
 -e MYSQL_ROOT_PASSWORD=secret \
 -v myvol:/var/lib/mysql \
-percona/percona-server:8.0.34
+percona/percona-server:8.0.34-26 1-aarch64
 ```
 
 ??? example "Expected output"
 
     ```{.text .no-copy}
-    Unable to find image 'percona/percona-server:8.0.34' locally
-    8.0.34: Pulling from percona/percona-server
+    Unable to find image 'percona/percona-server:8.0.34-26 1-aarch64' locally
+    8.0.34-26 1-aarch64: Pulling from percona/percona-server
     d6f6a69cdebb: Pull complete
     4f8794caafba: Pull complete
     d80629460c71: Pull complete
@@ -51,7 +51,7 @@ percona/percona-server:8.0.34
     fb91f65fb039: Pull complete
     e8f7e0c2fbae: Pull complete
     Digest: sha256:4944f9b365e0dc88f41b3b704ff2a02d1459fd07763d7d1a444b263db8498e1f
-    Status: Downloaded newer image for percona/percona-server:8.0.34
+    Status: Downloaded newer image for percona/percona-server:8.0.34-26 1-aarch64
     01d4f6d188b609ff92158605f8528d640aa28ff5720efa0286b36f51d4bec11c
     ```
 
