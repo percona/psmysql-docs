@@ -1,8 +1,8 @@
-name: Build Percona Server 8.3 docs
+name: Build Percona Server 8.4 docs
 on:
   push:
     branches: 
-      - innovation-release 
+      - 8.4 
 jobs:
   build:
     name: Deploy docs
@@ -44,9 +44,10 @@ jobs:
      # Deploy docs
       - name: Deploy docs
         run: |
-          mike deploy innovation-release -b publish -p
-          mike set-default innovation-release -b publish -p
-          mike retitle innovation-release "Innovation 8.3" -b publish -p
+          mike deploy 8.4 -b publish -p
+          mike set-default 8.4 -b publish -p
+          mike retitle 8.4 "8.4" -b publish -p
+          
 # - name: Install Node.js 14.x
 #        uses: percona-platform/setup-node@v2
 #        with:
