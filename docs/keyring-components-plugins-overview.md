@@ -1,14 +1,14 @@
-# Keyring components and plugins overview
+# Keyring components overview
 
-Percona Server supports a keyring that enables internal server components and plugins to store sensitive information securely for later retrieval.
+Percona Server supports a keyring that enables internal server components to store sensitive information securely for later retrieval.
 
 !!! warning
 
-    Enable only one keyring plugin or one keyring component at a time for each server instance. Enabling multiple keyring plugins or keyring components or mixing keyring plugins or keyring components is not supported and may result in data loss.
+    Enable only one keyring component at a time for each server instance. Enabling multiple keyring components is not supported and may result in data loss.
 
-Percona Server supports the following keyring components and plugins:
+Percona Server supports the following keyring components:
 
-[Use the keyring file component or plugin :material-arrow-right:](use-keyring-file.md){.md-button}
+[Use the keyring file component :material-arrow-right:](use-keyring-file.md){.md-button}
 
 [Use the keyring vault component :material-arrow-right:](use-keyring-vault-component.md){.md-button}
 
