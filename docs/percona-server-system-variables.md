@@ -77,8 +77,6 @@
 | Innodb_lsn_current | Numeric | Global |
 | Innodb_lsn_flushed | Numeric | Global |
 | Innodb_lsn_last_checkpoint | Numeric | Global |
-| Innodb_master_thread_active_loops | Numeric | Global |
-| Innodb_master_thread_idle_loops | Numeric | Global |
 | Innodb_max_trx_id | Numeric | Global |
 | Innodb_mem_adaptive_hash | Numeric | Global |
 | Innodb_mem_dictionary | Numeric | Global |
