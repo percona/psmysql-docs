@@ -8,19 +8,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL 8.0.28-20 adds encryption functions and variables to manage the encryption range. The functions may take an algorithm argument. Encryption converts plaintext into ciphertext using a key and an encryption algorithm.">
+        <meta name="description" content="Using PERCONA_SEQUENCE_TABLE() function provides the following:">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/encryption-functions.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/percona-sequence-table.html">
       
       
-        <link rel="prev" href="fido-authentication-plugin.html">
+        <link rel="prev" href="kill-idle-trx.html">
       
       
-        <link rel="next" href="pam-plugin.html">
+        <link rel="next" href="procfs-plugin.html">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
@@ -28,7 +28,7 @@
     
     
       
-        <title>Encryption functions - Percona Server for MySQL</title>
+        <title>PERCONA_SEQUENCE_TABLE(n) function - Percona Server for MySQL</title>
       
     
     
@@ -91,7 +91,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Encryption functions" />
+                 <meta property="og:title" content="Percona Server for MySQL - PERCONA_SEQUENCE_TABLE(n) function" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.0/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png" />
 
@@ -114,7 +114,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#encryption-functions" class="md-skip">
+        <a href="#percona_sequence_tablen-function" class="md-skip">
           Skip to content
         </a>
       
@@ -189,7 +189,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Encryption functions
+              PERCONA_SEQUENCE_TABLE(n) function
             
           </span>
         </div>
@@ -1300,17 +1300,19 @@
       
   
   
+    
   
   
+  
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -1324,7 +1326,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Features
@@ -1904,10 +1906,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="percona-sequence-table.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    PERCONA_SEQUENCE_TABLE(n) function
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="percona-sequence-table.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1916,6 +1938,124 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#version-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version update
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Syntax
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Syntax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-sequence-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic sequence generation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-with-a-specific-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start with a specific value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-even-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filter even numbers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-random-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate random numbers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-random-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate random strings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-a-sequence-to-a-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a sequence to a table
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-expert-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get expert help
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3851,19 +3991,17 @@
       
   
   
-    
   
   
-  
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
         
           
           <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
@@ -3877,7 +4015,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11">
             <span class="md-nav__icon md-icon"></span>
             Secure
@@ -4270,30 +4408,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Encryption functions
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="encryption-functions.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="encryption-functions.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4302,406 +4420,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#install-component_encryption_udf" class="md-nav__link">
-    <span class="md-ellipsis">
-      Install component_encryption_udf
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#user-defined-functions-described" class="md-nav__link">
-    <span class="md-ellipsis">
-      User-defined functions described
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#asymmetric_decryptalgorithm-crypt_str-key_str" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_decrypt(algorithm, crypt_str, key_str)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="asymmetric_decrypt(algorithm, crypt_str, key_str)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#returns" class="md-nav__link">
-    <span class="md-ellipsis">
-      Returns
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      Parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#asymmetric_derivepub_key_str-priv_key_str" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_derive(pub_key_str, priv_key_str)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="asymmetric_derive(pub_key_str, priv_key_str)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_derive-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_derive output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_derive-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_derive parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#asymmetric_encryptalgorithm-str-key_str" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_encrypt(algorithm, str, key_str)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="asymmetric_encrypt(algorithm, str, key_str)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_encrypt-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_encrypt output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_encrypt-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_encrypt parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_sign-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_sign output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_sign-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_sign parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_verify-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_verify output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_verify-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_verify parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#create_asymmetric_priv_keyalgorithm-key_len-dh_parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_asymmetric_priv_key(algorithm, (key_len | dh_parameters))
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="create_asymmetric_priv_key(algorithm, (key_len | dh_parameters))">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create_asymmetric_priv_key-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_asymmetric_priv_key output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create_asymmetric_priv_key-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_asymmetric_priv_key parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#create_asymmetric_pub_keyalgorithm-priv_key_str" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_asymmetric_pub_key(algorithm, priv_key_str)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="create_asymmetric_pub_key(algorithm, priv_key_str)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create_asymmetric_pub_key-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_asymmetric_pub_key output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create_asymmetric_pub_key-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_asymmetric_pub_key parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#create_dh_parameterskey_len" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_dh_parameters(key_len)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="create_dh_parameters(key_len)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create_dh_parameters-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_dh_parameters output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create_dh_parameters-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_dh_parameters parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#create_digestdigest_type-str" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_digest(digest_type, str)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="create_digest(digest_type, str)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create_digest-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_digest output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create_digest-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_digest parameters
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#encryption-threshold-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      Encryption threshold variables
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#encryption_udfdh_bits_threshold" class="md-nav__link">
-    <span class="md-ellipsis">
-      encryption_udf.dh_bits_threshold
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#encryption_udfdsa_bits_threshold" class="md-nav__link">
-    <span class="md-ellipsis">
-      encryption_udf.dsa_bits_threshold
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#encryption_udfrsa_bits_threshold" class="md-nav__link">
-    <span class="md-ellipsis">
-      encryption_udf.rsa_bits_threshold
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Examples
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#uninstall-component_encryption_udf" class="md-nav__link">
-    <span class="md-ellipsis">
-      Uninstall component_encryption_udf
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#get-expert-help" class="md-nav__link">
-    <span class="md-ellipsis">
-      Get expert help
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -7085,46 +6803,82 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-component_encryption_udf" class="md-nav__link">
+  <a href="#version-update" class="md-nav__link">
     <span class="md-ellipsis">
-      Install component_encryption_udf
+      Version update
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#user-defined-functions-described" class="md-nav__link">
+  <a href="#table-functions" class="md-nav__link">
     <span class="md-ellipsis">
-      User-defined functions described
+      Table functions
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#asymmetric_decryptalgorithm-crypt_str-key_str" class="md-nav__link">
+  <a href="#syntax" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_decrypt(algorithm, crypt_str, key_str)
+      Syntax
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="asymmetric_decrypt(algorithm, crypt_str, key_str)">
+    <nav class="md-nav" aria-label="Syntax">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#returns" class="md-nav__link">
+  <a href="#basic-sequence-generation" class="md-nav__link">
     <span class="md-ellipsis">
-      Returns
+      Basic sequence generation
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameters" class="md-nav__link">
+  <a href="#start-with-a-specific-value" class="md-nav__link">
     <span class="md-ellipsis">
-      Parameters
+      Start with a specific value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-even-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filter even numbers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-random-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate random numbers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-random-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate random strings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-a-sequence-to-a-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a sequence to a table
     </span>
   </a>
   
@@ -7132,324 +6886,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#asymmetric_derivepub_key_str-priv_key_str" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_derive(pub_key_str, priv_key_str)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="asymmetric_derive(pub_key_str, priv_key_str)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_derive-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_derive output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_derive-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_derive parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#asymmetric_encryptalgorithm-str-key_str" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_encrypt(algorithm, str, key_str)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="asymmetric_encrypt(algorithm, str, key_str)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_encrypt-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_encrypt output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_encrypt-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_encrypt parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_sign-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_sign output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_sign-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_sign parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_verify-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_verify output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#asymmetric_verify-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      asymmetric_verify parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#create_asymmetric_priv_keyalgorithm-key_len-dh_parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_asymmetric_priv_key(algorithm, (key_len | dh_parameters))
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="create_asymmetric_priv_key(algorithm, (key_len | dh_parameters))">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create_asymmetric_priv_key-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_asymmetric_priv_key output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create_asymmetric_priv_key-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_asymmetric_priv_key parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#create_asymmetric_pub_keyalgorithm-priv_key_str" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_asymmetric_pub_key(algorithm, priv_key_str)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="create_asymmetric_pub_key(algorithm, priv_key_str)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create_asymmetric_pub_key-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_asymmetric_pub_key output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create_asymmetric_pub_key-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_asymmetric_pub_key parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#create_dh_parameterskey_len" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_dh_parameters(key_len)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="create_dh_parameters(key_len)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create_dh_parameters-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_dh_parameters output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create_dh_parameters-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_dh_parameters parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#create_digestdigest_type-str" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_digest(digest_type, str)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="create_digest(digest_type, str)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create_digest-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_digest output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create_digest-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_digest parameters
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#encryption-threshold-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      Encryption threshold variables
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#encryption_udfdh_bits_threshold" class="md-nav__link">
-    <span class="md-ellipsis">
-      encryption_udf.dh_bits_threshold
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#encryption_udfdsa_bits_threshold" class="md-nav__link">
-    <span class="md-ellipsis">
-      encryption_udf.dsa_bits_threshold
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#encryption_udfrsa_bits_threshold" class="md-nav__link">
-    <span class="md-ellipsis">
-      encryption_udf.rsa_bits_threshold
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Examples
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#uninstall-component_encryption_udf" class="md-nav__link">
-    <span class="md-ellipsis">
-      Uninstall component_encryption_udf
-    </span>
-  </a>
   
 </li>
       
@@ -7481,7 +6917,7 @@
                   
 
   
-    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/encryption-functions.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/percona-sequence-table.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -7490,721 +6926,169 @@
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/encryption-functions.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/percona-sequence-table.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
     </a>
   
 
 
-<h1 id="encryption-functions">Encryption functions<a class="headerlink" href="#encryption-functions" title="Permanent link">&para;</a></h1>
-<p>Percona Server for MySQL 8.0.28-20 adds encryption functions and variables to manage the encryption range. The functions may take an algorithm argument. Encryption converts plaintext into ciphertext using a key and an encryption algorithm.</p>
-<p>You can also use the user-defined functions with the PEM format keys generated externally by the OpenSSL utility.</p>
-<p>A digest uses plaintext and generates a hash value. This hash value can verify if the plaintext is unmodified. You can also sign or verify on digests to ensure that the original plaintext was not modified. You cannot decrypt the original text from the hash value.</p>
-<p>When choosing key lengths, consider the following:</p>
-<ul>
-<li>
-<p>Encryption strength increases with the key size and, also, the key generation time.</p>
-</li>
-<li>
-<p>If performance is important and the functions are frequently used, use symmetric encryption. Symmetric encryption functions are faster than asymmetric encryption functions. Moreover, asymmetric encryption has restrictions on the maximum length of a message being encrypted. For example, for RSA the algorithm maximum message size is the key length in bytes (key length in bits / 8) minus 11.</p>
-</li>
-</ul>
-<p>The following table and sections describe the functions. For examples, see function examples.</p>
+<h1 id="percona_sequence_tablen-function">PERCONA_SEQUENCE_TABLE(n) function<a class="headerlink" href="#percona_sequence_tablen-function" title="Permanent link">&para;</a></h1>
+<p>Using <code>PERCONA_SEQUENCE_TABLE()</code> function provides the following:</p>
 <table>
 <thead>
 <tr>
-<th>Function Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="#asymmetric_decryptalgorithm-crypt_str-key_str">asymmetric_decrypt(algorithm, crypt_str, key_str)</a></td>
-</tr>
-<tr>
-<td><a href="#asymmetric_derivepub_key_str-priv_key_str">asymmetric_derive(pub_key_str, priv_key_str)</a></td>
-</tr>
-<tr>
-<td><a href="#asymmetric_encryptalgorithm-str-key_str">asymmetric_encrypt(algorithm, str, key_str)</a></td>
-</tr>
-<tr>
-<td><a href="#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type">asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type)</a></td>
-</tr>
-<tr>
-<td><a href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type">asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type)</a></td>
-</tr>
-<tr>
-<td><a href="#create_asymmetric_priv_keyalgorithm-key_len--dh_parameters">create_asymmetric_priv_key(algorithm, (key_len &#124; dh_parameters))</a></td>
-</tr>
-<tr>
-<td><a href="#create_asymmetric_pub_keyalgorithm-priv_key_str">create_asymmetric_pub_key(algorithm, priv_key_str)</a></td>
-</tr>
-<tr>
-<td><a href="#create_dh_parameterskey_len">create_dh_parameters(key_len)</a></td>
-</tr>
-<tr>
-<td><a href="#create_digestdigest_type-str">create_digest(digest_type, str)</a></td>
-</tr>
-</tbody>
-</table>
-<p>The following table describes the Encryption threshold variables which can be used to set the maximum value for a key length based on the type of encryption.</p>
-<table>
-<thead>
-<tr>
-<th>Variable Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="#encryption_udfdh_bits_threshold">encryption_udf.dh_bits_threshold</a></td>
-</tr>
-<tr>
-<td><a href="#encryption_udfdsa_bits_threshold">encryption_udf.dsa_bits_threshold</a></td>
-</tr>
-<tr>
-<td><a href="#encryption_udfrsa_bits_threshold">encryption_udf.rsa_bits_threshold</a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="install-component_encryption_udf">Install component_encryption_udf<a class="headerlink" href="#install-component_encryption_udf" title="Permanent link">&para;</a></h2>
-<p>Use the <a href="https://dev.mysql.com/doc/refman/8.0/en/install-component.html">Install Component Statement</a> to add the component_encryption_udf component. The functions and variables are available. The user-defined functions and the Encryption threshold variables are auto-registered. There is no requirement to invoke <code>CREATE FUNCTION ... SONAME ...</code>.</p>
-<p>The <code>INSERT</code> privilege on the <code>mysql.component</code> system table is required to run the <code>INSTALL COMPONENT</code> statement. To register the component, the operation adds a row to this table.</p>
-<p>The following is an example of the installation command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you are Compiling Percona Server for MySQL from Source, the Encryption UDF component is built by default when Percona Server for MySQL is built. Specify the <code>-DWITH_ENCRYPTION_UDF=OFF</code> cmake option to exclude it.</p>
-</div>
-<h2 id="user-defined-functions-described">User-defined functions described<a class="headerlink" href="#user-defined-functions-described" title="Permanent link">&para;</a></h2>
-<h2 id="asymmetric_decryptalgorithm-crypt_str-key_str">asymmetric_decrypt(<em>algorithm, crypt_str, key_str</em>)<a class="headerlink" href="#asymmetric_decryptalgorithm-crypt_str-key_str" title="Permanent link">&para;</a></h2>
-<p>Decrypts an encrypted string using the algorithm and a key string.</p>
-<h3 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h3>
-<p>A plaintext as a string.</p>
-<h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
-<p>The following are the function’s parameters:</p>
-<ul>
-<li>
-<p>algorithm - the encryption algorithm supports RSA to decrypt the string.</p>
-</li>
-<li>
-<p>key_str - a string in the PEM format. The key string must have the following attributes:</p>
-</li>
-<li>
-<p>Valid</p>
-</li>
-<li>
-<p>Public or private key string that corresponds with the private or public key string used with the asymmetric_encrypt function.</p>
-</li>
-</ul>
-<h2 id="asymmetric_derivepub_key_str-priv_key_str">asymmetric_derive(<em>pub_key_str, priv_key_str</em>)<a class="headerlink" href="#asymmetric_derivepub_key_str-priv_key_str" title="Permanent link">&para;</a></h2>
-<p>Derives a symmetric key using a public key generated on one side and a private key generated on another.</p>
-<h3 id="asymmetric_derive-output">asymmetric_derive output<a class="headerlink" href="#asymmetric_derive-output" title="Permanent link">&para;</a></h3>
-<p>A key as a binary string.</p>
-<h3 id="asymmetric_derive-parameters">asymmetric_derive parameters<a class="headerlink" href="#asymmetric_derive-parameters" title="Permanent link">&para;</a></h3>
-<p>The <code>pub_key_str</code> must be a public key in the PEM format and generated using the Diffie-Hellman (DH) algorithm.</p>
-<p>The <code>priv_key_str</code> must be a private key in the PEM format and generated using the Diffie-Hellman (DH) algorithm.</p>
-<h2 id="asymmetric_encryptalgorithm-str-key_str">asymmetric_encrypt(<em>algorithm, str, key_str</em>)<a class="headerlink" href="#asymmetric_encryptalgorithm-str-key_str" title="Permanent link">&para;</a></h2>
-<p>Encrypts a string using the algorithm and a key string.</p>
-<h3 id="asymmetric_encrypt-output">asymmetric_encrypt output<a class="headerlink" href="#asymmetric_encrypt-output" title="Permanent link">&para;</a></h3>
-<p>A ciphertext as a binary string.</p>
-<h3 id="asymmetric_encrypt-parameters">asymmetric_encrypt parameters<a class="headerlink" href="#asymmetric_encrypt-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
-<ul>
-<li>
-<p>algorithm - the encryption algorithm supports RSA to encrypt the string.</p>
-</li>
-<li>
-<p>str - measured in bytes. The length of the string must not be greater than the key_str modulus length in bytes - 11 (additional bytes used for PKCS1 padding)</p>
-</li>
-<li>
-<p>key_str - a key (either private or public) in the PEM format</p>
-</li>
-</ul>
-<h2 id="asymmetric_signalgorithm-digest_str-priv_key_str-digest_type">asymmetric_sign(<em>algorithm, digest_str, priv_key_str, digest_type</em>)<a class="headerlink" href="#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type" title="Permanent link">&para;</a></h2>
-<p>Signs a digest string using a private key string.</p>
-<h3 id="asymmetric_sign-output">asymmetric_sign output<a class="headerlink" href="#asymmetric_sign-output" title="Permanent link">&para;</a></h3>
-<p>A signature is a binary string.</p>
-<h3 id="asymmetric_sign-parameters">asymmetric_sign parameters<a class="headerlink" href="#asymmetric_sign-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
-<ul>
-<li>
-<p>algorithm - the encryption algorithm supports either RSA or DSA to encrypt the string.</p>
-</li>
-<li>
-<p>digest_str - the digest binary string that is signed. Invoking create_digest generates the digest.</p>
-</li>
-<li>
-<p>priv_key_str - the private key used to sign the digest string. The key must be in the PEM format.</p>
-</li>
-<li>
-<p>digest_type - the OpenSSL version installed on your system determines the available hash functions. The following table lists these functions:</p>
-<table>
-<thead>
-<tr>
-<th>OpenSSL 1.0.2</th>
-<th>OpenSSL 1.1.0</th>
-<th>OpenSSL 1.1.1</th>
-<th>OpenSSL 3.0.x</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>md5</td>
-<td>md5</td>
-<td>md5</td>
-<td>md5</td>
-</tr>
-<tr>
-<td>sha1</td>
-<td>sha1</td>
-<td>sha1</td>
-<td>sha1</td>
-</tr>
-<tr>
-<td>sha224</td>
-<td>sha224</td>
-<td>sha224</td>
-<td>sha224</td>
-</tr>
-<tr>
-<td>sha384</td>
-<td>sha384</td>
-<td>sha384</td>
-<td>sha384</td>
-</tr>
-<tr>
-<td>sha512</td>
-<td>sha512</td>
-<td>sha512</td>
-<td>sha512</td>
-</tr>
-<tr>
-<td>md4</td>
-<td>md4</td>
-<td>md4</td>
-<td>md4</td>
-</tr>
-<tr>
-<td>sha</td>
-<td>md5-sha1</td>
-<td>md5-sha1</td>
-<td>md5-sha1</td>
-</tr>
-<tr>
-<td>ripemd160</td>
-<td>ripemd160</td>
-<td>ripemd160</td>
-<td>sha512-224</td>
-</tr>
-<tr>
-<td>whirlpool</td>
-<td>whirlpool</td>
-<td>sha512-224</td>
-<td>sha512-256</td>
-</tr>
-<tr>
-<td></td>
-<td>blake2b512</td>
-<td>sha512-256</td>
-<td>sha3-224</td>
-</tr>
-<tr>
-<td></td>
-<td>blake2s256</td>
-<td>whirlpool</td>
-<td>sha3-256</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sm3</td>
-<td>sha3-384</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>blake2b512</td>
-<td>sha3-512</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>blake2s256</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sha3-224</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sha3-384</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sha3-512</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>shake128</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>shake256</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<h2 id="asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type">asymmetric_verify(<em>algorithm, digest_str, sig_str, pub_key_str, digest_type</em>)<a class="headerlink" href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type" title="Permanent link">&para;</a></h2>
-<p>Verifies whether the signature string matches the digest string.</p>
-<h3 id="asymmetric_verify-output">asymmetric_verify output<a class="headerlink" href="#asymmetric_verify-output" title="Permanent link">&para;</a></h3>
-<p>A <code>1</code> (success) or a <code>0</code> (failure).</p>
-<h3 id="asymmetric_verify-parameters">asymmetric_verify parameters<a class="headerlink" href="#asymmetric_verify-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
-<ul>
-<li>
-<p>algorithm - supports either ‘RSA’ or ‘DSA’.</p>
-</li>
-<li>
-<p>digest_str - invoking create_digest generates this digest binary string.</p>
-</li>
-<li>
-<p>sig_str - the signature binary string. Invoking asymmetric_sign generates this string.</p>
-</li>
-<li>
-<p>pub_key_str - the signer’s public key string. This string must correspond to the private key passed to asymmetric_sign to generate the signature string. The string must be in the PEM format.</p>
-</li>
-<li>
-<p>digest_type - the supported values are listed in the digest type table of create_digest</p>
-</li>
-</ul>
-<h2 id="create_asymmetric_priv_keyalgorithm-key_len-dh_parameters">create_asymmetric_priv_key(<em>algorithm, (key_len | dh_parameters)</em>)<a class="headerlink" href="#create_asymmetric_priv_keyalgorithm-key_len-dh_parameters" title="Permanent link">&para;</a></h2>
-<p>Generates a private key using the given algorithm and key length for RSA or DSA
-or Diffie-Hellman parameters for DH. For RSA or DSA, if needed, execute <code>KILL
-[QUERY|CONNECTION] &lt;id&gt;</code> to terminate a long-lasting key generation. The
-DH key generation from existing parameters is a quick operation. Therefore, it
-does not make sense to terminate that operation with <code>KILL</code>.</p>
-<h3 id="create_asymmetric_priv_key-output">create_asymmetric_priv_key output<a class="headerlink" href="#create_asymmetric_priv_key-output" title="Permanent link">&para;</a></h3>
-<p>The key as a string in the PEM format.</p>
-<h3 id="create_asymmetric_priv_key-parameters">create_asymmetric_priv_key parameters<a class="headerlink" href="#create_asymmetric_priv_key-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
-<ul>
-<li>
-<p>algorithm - the supported values are ‘RSA’, ‘DSA’, or ‘DH’.</p>
-</li>
-<li>
-<p>key_len - the supported key length values are the following:</p>
-<ul>
-<li>
-<p>RSA - the minimum length is 1,024. The maximum length is 16,384.</p>
-</li>
-<li>
-<p>DSA - the minimum length is 1,024. The maximum length is 9,984.</p>
-</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The key length limits are defined by OpenSSL. To change the maximum key length, use either encryption_udf.rsa_bits_threshold or encryption_udf.dsa_bits_threshold.</p>
-</div>
-</li>
-<li>
-<p>dh_parameters - Diffie-Hellman (DH) parameters. Invoking create_dh_parameter creates the DH parameters.</p>
-</li>
-</ul>
-<h2 id="create_asymmetric_pub_keyalgorithm-priv_key_str">create_asymmetric_pub_key(<em>algorithm, priv_key_str</em>)<a class="headerlink" href="#create_asymmetric_pub_keyalgorithm-priv_key_str" title="Permanent link">&para;</a></h2>
-<p>Derives a public key from the given private key using the given algorithm.</p>
-<h3 id="create_asymmetric_pub_key-output">create_asymmetric_pub_key output<a class="headerlink" href="#create_asymmetric_pub_key-output" title="Permanent link">&para;</a></h3>
-<p>The key as a string in the PEM format.</p>
-<h3 id="create_asymmetric_pub_key-parameters">create_asymmetric_pub_key parameters<a class="headerlink" href="#create_asymmetric_pub_key-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
-<ul>
-<li>
-<p>algorithm - the supported values are ‘RSA’, ‘DSA’, or ‘DH’.</p>
-</li>
-<li>
-<p>priv_key_str - must be a valid key string in the PEM format.</p>
-</li>
-</ul>
-<h2 id="create_dh_parameterskey_len">create_dh_parameters(<em>key_len</em>)<a class="headerlink" href="#create_dh_parameterskey_len" title="Permanent link">&para;</a></h2>
-<p>Creates parameters for generating a Diffie-Hellman (DH) private/public key pair.
-If needed, execute <code>KILL [QUERY|CONNECTION] &lt;id&gt;</code> to terminate the generation of long-lasting parameters.</p>
-<p>Generating the DH parameters can take more time than generating the RSA keys or
-the DSA keys.
-OpenSSL defines the parameter length limits. To change the
-maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
-<h3 id="create_dh_parameters-output">create_dh_parameters output<a class="headerlink" href="#create_dh_parameters-output" title="Permanent link">&para;</a></h3>
-<p>A string in the PEM format and can be passed to create_asymmetric_private_key.</p>
-<h3 id="create_dh_parameters-parameters">create_dh_parameters parameters<a class="headerlink" href="#create_dh_parameters-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
-<ul>
-<li>key_len - the range for the key length is from 1024 to 10,000. The default value is 10,000.</li>
-</ul>
-<h2 id="create_digestdigest_type-str">create_digest(<em>digest_type, str</em>)<a class="headerlink" href="#create_digestdigest_type-str" title="Permanent link">&para;</a></h2>
-<p>Creates a digest from the given string using the given digest type. The digest string can be used with asymmetric_sign and asymmetric_verify.</p>
-<h3 id="create_digest-output">create_digest output<a class="headerlink" href="#create_digest-output" title="Permanent link">&para;</a></h3>
-<p>The digest of the given string as a binary string</p>
-<h3 id="create_digest-parameters">create_digest parameters<a class="headerlink" href="#create_digest-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
-<ul>
-<li>
-<p>digest_type - the OpenSSL version installed on your system determines the available hash functions. The following table lists these functions:</p>
-<table>
-<thead>
-<tr>
-<th>OpenSSL 1.0.2</th>
-<th>OpenSSL 1.1.0</th>
-<th>OpenSSL 1.1.1</th>
-<th>OpenSSL 3.0.x</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>md5</td>
-<td>md5</td>
-<td>md5</td>
-<td>md5</td>
-</tr>
-<tr>
-<td>sha1</td>
-<td>sha1</td>
-<td>sha1</td>
-<td>sha1</td>
-</tr>
-<tr>
-<td>sha224</td>
-<td>sha224</td>
-<td>sha224</td>
-<td>sha224</td>
-</tr>
-<tr>
-<td>sha384</td>
-<td>sha384</td>
-<td>sha384</td>
-<td>sha384</td>
-</tr>
-<tr>
-<td>sha512</td>
-<td>sha512</td>
-<td>sha512</td>
-<td>sha512</td>
-</tr>
-<tr>
-<td>md4</td>
-<td>md4</td>
-<td>md4</td>
-<td>md4</td>
-</tr>
-<tr>
-<td>sha</td>
-<td>md5-sha1</td>
-<td>md5-sha1</td>
-<td>md5-sha1</td>
-</tr>
-<tr>
-<td>ripemd160</td>
-<td>ripemd160</td>
-<td>ripemd160</td>
-<td>sha512-224</td>
-</tr>
-<tr>
-<td>whirlpool</td>
-<td>whirlpool</td>
-<td>sha512-224</td>
-<td>sha512-256</td>
-</tr>
-<tr>
-<td></td>
-<td>blake2b512</td>
-<td>sha512-256</td>
-<td>sha3-224</td>
-</tr>
-<tr>
-<td></td>
-<td>blake2s256</td>
-<td>whirlpool</td>
-<td>sha3-256</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sm3</td>
-<td>sha3-384</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>blake2b512</td>
-<td>sha3-512</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>blake2s256</td>
-<td>sm3</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sha3-224</td>
-<td>blake2b512</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sha3-384</td>
-<td>blake2s256</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sha3-512</td>
-<td>blake2b512</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>shake128</td>
-<td>blake2s256</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>shake256</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>str - String used to generate the digest string.</p>
-</li>
-</ul>
-<h3 id="encryption-threshold-variables">Encryption threshold variables<a class="headerlink" href="#encryption-threshold-variables" title="Permanent link">&para;</a></h3>
-<p>The maximum key length limits are defined by OpenSSL. Server administrators can limit the maximum key length using the encryption threshold variables.</p>
-<p>The variables are automatically registered when component_encryption_udf is installed.</p>
-<table>
-<thead>
-<tr>
-<th>Variable Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>encryption_udf.dh_bits_threshold</td>
-</tr>
-</tbody>
-</table>
-<h3 id="encryption_udfdh_bits_threshold"><code>encryption_udf.dh_bits_threshold</code><a class="headerlink" href="#encryption_udfdh_bits_threshold" title="Permanent link">&para;</a></h3>
-<p>The variable sets the maximum limit for the create_dh_parameters user-defined function and takes precedence over the OpenSSL maximum length value.</p>
-<table>
-<thead>
-<tr>
-<th>Option</th>
+<th>Benefit</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>command-line</td>
-<td>Yes</td>
+<td>Generates Sequences</td>
+<td>Acts as an inline table-valued function that generates a sequence of numbers.</td>
 </tr>
 <tr>
-<td>scope</td>
-<td>Global</td>
+<td>Table-Valued Function</td>
+<td>Unlike traditional scalar functions, <code>PERCONA_SEQUENCE_TABLE()</code> returns a virtual table with a single column named <code>value</code> containing the generated sequence.</td>
 </tr>
 <tr>
-<td>data type</td>
-<td>unsigned integer</td>
+<td>Simpler Syntax</td>
+<td>Simplifies queries that need to generate predictable sequences of numbers.</td>
 </tr>
 <tr>
-<td>default</td>
-<td>10000</td>
+<td>Flexibility</td>
+<td>Allows dynamic definition of sequences within queries, offering more control compared to pre-defined tables for sequences.</td>
+</tr>
+<tr>
+<td>Predefined Sequence</td>
+<td>Does not manage sequences like Oracle or PostgreSQL; instead, it allows definition and generation of sequences within a <code>SELECT</code> statement.</td>
+</tr>
+<tr>
+<td>Customization</td>
+<td>Enables customization of starting value, increment/decrement amount, and number of values to generate.</td>
 </tr>
 </tbody>
 </table>
-<p>The range for this variable is from 1024 to 10,000. The default value is 10,000.</p>
-<h3 id="encryption_udfdsa_bits_threshold">encryption_udf.dsa_bits_threshold<a class="headerlink" href="#encryption_udfdsa_bits_threshold" title="Permanent link">&para;</a></h3>
-<p>The variable sets the threshold limits for create_asymmetric_priv_key user-defined function when the function is invoked with the DSA parameter and takes precedence over the OpenSSL maximum length value.</p>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>command-line</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>data type</td>
-<td>unsigned integer</td>
-</tr>
-<tr>
-<td>default</td>
-<td>9984</td>
-</tr>
-</tbody>
-</table>
-<p>The range for this variable is from 1,024 to 9,984. The default value is 9,984.</p>
-<h3 id="encryption_udfrsa_bits_threshold">encryption_udf.rsa_bits_threshold<a class="headerlink" href="#encryption_udfrsa_bits_threshold" title="Permanent link">&para;</a></h3>
-<p>The variable sets the threshold limits for the create_asymmetric_priv_key user-defined function when the function is invoked with the RSA parameter and takes precedence over the OpenSSL maximum length value.</p>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>command-line</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>data type</td>
-<td>unsigned integer</td>
-</tr>
-<tr>
-<td>default</td>
-<td>16384</td>
-</tr>
-</tbody>
-</table>
-<p>The range for this variable is from 1,024 to 16,384. The default value is 16,384.</p>
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<p>Code examples for the following operations:</p>
+<h2 id="version-update">Version update<a class="headerlink" href="#version-update" title="Permanent link">&para;</a></h2>
+<p>Percona Server for MySQL 8.0.37 deprecated <code>SEQUENCE_TABLE()</code>, and Percona may remove this function in a future release. We recommend that you use <code>PERCONA_SEQUENCE_TABLE()</code> instead.</p>
+<p>To maintain compatibility with existing third-party software, <code>SEQUENCE_TABLE</code> is no longer a reserved term and can be used as a regular identifier.</p>
+<p>Percona Server for MySQL 8.0.20-11 introduced the <code>SEQUENCE_TABLE()</code> function.</p>
+<h2 id="table-functions">Table functions<a class="headerlink" href="#table-functions" title="Permanent link">&para;</a></h2>
+<p>The function is an inline table-valued function. This function creates a temporary table with multiple rows. You can use this function within a single SELECT statement. Oracle MySQL Server only has the <code>JSON_TABLE</code> table function. The Percona Server for MySQL has the <code>JSON_TABLE</code> and <code>PERCONA_SEQUENCE_TABLE()</code> table functions. A single SELECT statement generates a multi-row result set. In contrast, a scalar function (like <a href="https://dev.mysql.com/doc/refman/8.0/en/mathematical-functions.html#function_exp">EXP(x)</a> or <a href="https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_lower">LOWER(str)</a> always returns a single value of a specific data type.</p>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
+<p>As with any <a href="https://dev.mysql.com/doc/refman/8.0/en/derived-tables.html">derived tables</a>, a table function requires an <a href="https://dev.mysql.com/doc/refman/8.0/en/identifiers.html">alias</a> in the <code>SELECT</code> statement.</p>
+<p>The result set is a single column with the predefined column name <code>value</code> of type <code>BIGINT UNSIGNED</code>. You can reference the <code>value</code> column in <code>SELECT</code> statements. The following statements are valid. Using <code>n</code> as the number of generated values, the following is the basic syntax:</p>
 <ul>
-<li>
-<p>set the threshold variables</p>
-</li>
-<li>
-<p>create a private key</p>
-</li>
-<li>
-<p>create a public key</p>
-</li>
-<li>
-<p>encrypt data</p>
-</li>
-<li>
-<p>decrypt data</p>
-</li>
+<li>PERCONA_SEQUENCE_TABLE(n) [AS] alias</li>
 </ul>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Set<span class="w"> </span>Global<span class="w"> </span>variable
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span>encryption_udf.dh_bits_threshold<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4096</span><span class="p">;</span>
+<div class="no-copy highlight"><pre><span></span><code>SELECT … FROM PERCONA_SEQUENCE_TABLE(n) [AS] alias
 
---<span class="w"> </span>Set<span class="w"> </span>Global<span class="w"> </span>variable
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span>encryption_udf.rsa_bits_threshold<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4096</span><span class="p">;</span>
+PERCONA_SEQUENCE_TABLE(n) [AS] alias
 </code></pre></div>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Create<span class="w"> </span>private<span class="w"> </span>key
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@private_key<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">)</span><span class="p">;</span>
-
---<span class="w"> </span>Create<span class="w"> </span>public<span class="w"> </span>key
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@public_key<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_pub_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span>@private_key<span class="o">)</span><span class="p">;</span>
-
---<span class="w"> </span>Encrypt<span class="w"> </span>data<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>private<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>you<span class="w"> </span>can<span class="w"> </span>also<span class="w"> </span>use<span class="w"> </span>the<span class="w"> </span>public<span class="w"> </span>key<span class="o">)</span>
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@ciphertext<span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_encrypt<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="s1">&#39;This text is secret&#39;</span>,<span class="w"> </span>@private_key<span class="o">)</span><span class="p">;</span>
-
---<span class="w"> </span>Decrypt<span class="w"> </span>data<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>public<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>you<span class="w"> </span>can<span class="w"> </span>also<span class="w"> </span>use<span class="w"> </span>the<span class="w"> </span>private<span class="w"> </span>key<span class="o">)</span>
---<span class="w"> </span>The<span class="w"> </span>decrypted<span class="w"> </span>value<span class="w"> </span>@plaintext<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span>identical<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>original<span class="w"> </span><span class="s1">&#39;This text is secret&#39;</span>
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@plaintext<span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_decrypt<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span>@ciphertext,<span class="w"> </span>@public_key<span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">&lt;</span><span class="n">expr</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="p">;</span>
 </code></pre></div>
-<p>Code examples for the following operations:</p>
-<ul>
-<li>
-<p>generate a digest string</p>
-</li>
-<li>
-<p>generate a digest signature</p>
-</li>
-<li>
-<p>verify the signature against the digest</p>
-</li>
-</ul>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>digest<span class="w"> </span>string
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@digest<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_digest<span class="o">(</span><span class="s1">&#39;SHA256&#39;</span>,<span class="w"> </span><span class="s1">&#39;This is the text for digest&#39;</span><span class="o">)</span><span class="p">;</span>
-
---<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>digest<span class="w"> </span>signature
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@signature<span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_sign<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span>@digest,<span class="w"> </span>@private_key,<span class="w"> </span><span class="s1">&#39;SHA256&#39;</span><span class="o">)</span><span class="p">;</span>
-
---<span class="w"> </span>Verify<span class="w"> </span>the<span class="w"> </span>signature<span class="w"> </span>against<span class="w"> </span>the<span class="w"> </span>digest
---<span class="w"> </span>The<span class="w"> </span>@verify_signature<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span>equal<span class="w"> </span>to<span class="w"> </span><span class="m">1</span>
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@verify_signature<span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_verify<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span>@digest,<span class="w"> </span>@signature,<span class="w"> </span>@public_key,<span class="w"> </span><span class="s1">&#39;SHA256&#39;</span><span class="o">)</span><span class="p">;</span>
+<p>The first number in the series, the initial term, is defined as <code>0</code>, and the series ends with a value less than <code>n</code>.</p>
+<h3 id="basic-sequence-generation">Basic sequence generation<a class="headerlink" href="#basic-sequence-generation" title="Permanent link">&para;</a></h3>
+<p>In this example, the following statement generates a sequence:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">3</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
 </code></pre></div>
-<p>Code examples for the following operations:</p>
-<ul>
-<li>
-<p>generate a DH parameter</p>
-</li>
-<li>
-<p>generates two DH key pairs</p>
-</li>
-<li>
-<p>generate a symmetric key using the public_1 and the private_2</p>
-</li>
-<li>
-<p>generate a symmetric key using the public_2 and the private_1</p>
-</li>
-</ul>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="w"> </span>--<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>DH<span class="w"> </span>parameter
-<span class="w"> </span>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@dh_parameter<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_dh_parameters<span class="o">(</span><span class="m">3072</span><span class="o">)</span><span class="p">;</span>
-
-<span class="w"> </span>--<span class="w"> </span>Generate<span class="w"> </span>DH<span class="w"> </span>key<span class="w"> </span>pairs
-<span class="w"> </span>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@private_1<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;DH&#39;</span>,<span class="w"> </span>@dh_parameter<span class="o">)</span><span class="p">;</span>
-<span class="w"> </span>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@public_1<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_pub_key<span class="o">(</span><span class="s1">&#39;DH&#39;</span>,<span class="w"> </span>@private_1<span class="o">)</span><span class="p">;</span>
-<span class="w"> </span>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@private_2<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;DH&#39;</span>,<span class="w"> </span>@dh_parameter<span class="o">)</span><span class="p">;</span>
-<span class="w"> </span>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@public_2<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_pub_key<span class="o">(</span><span class="s1">&#39;DH&#39;</span>,<span class="w"> </span>@private_2<span class="o">)</span><span class="p">;</span>
-
---<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>symmetric<span class="w"> </span>key<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>public_1<span class="w"> </span>and<span class="w"> </span>private_2
---<span class="w"> </span>The<span class="w"> </span>@symmetric_1<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span>identical<span class="w"> </span>to<span class="w"> </span>@symmetric_2
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span><span class="nv">symmetric_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_derive<span class="o">(</span>@public_1,<span class="w"> </span>@private_2<span class="o">)</span><span class="p">;</span>
-
---<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>symmetric<span class="w"> </span>key<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>public_2<span class="w"> </span>and<span class="w"> </span>private_1
---<span class="w"> </span>The<span class="w"> </span>@symmetric_2<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span>identical<span class="w"> </span>to<span class="w"> </span>@symmetric_1
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span><span class="nv">symmetric_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_derive<span class="o">(</span>@public_2,<span class="w"> </span>@private_1<span class="o">)</span><span class="p">;</span>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-------+
+| value |
++-------+
+|     0 |
+|     1 |
+|     2 |
++-------+
 </code></pre></div>
-<p>Code examples for the following operations:</p>
-<ul>
-<li>
-<p>create a private key using a <code>SET</code> statement</p>
-</li>
-<li>
-<p>create a private key using a  <code>SELECT</code> statement</p>
-</li>
-<li>
-<p>create a private key using an <code>INSERT</code> statement</p>
-</li>
-</ul>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@private_key1<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">)</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">)</span><span class="w"> </span>INTO<span class="w"> </span>@private_key2<span class="p">;</span>
-mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>key_table<span class="w"> </span>VALUES<span class="o">(</span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">))</span><span class="p">;</span>
+</details>
+<h3 id="start-with-a-specific-value">Start with a specific value<a class="headerlink" href="#start-with-a-specific-value" title="Permanent link">&para;</a></h3>
+<p>You can define the initial value using the <code>WHERE</code> clause. The following example starts the sequence with <code>4</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="uninstall-component_encryption_udf">Uninstall component_encryption_udf<a class="headerlink" href="#uninstall-component_encryption_udf" title="Permanent link">&para;</a></h2>
-<p>You can deactivate and uninstall the component using the <a href="https://dev.mysql.com/doc/refman/8.0/en/uninstall-component.html">Uninstall Component statement</a>.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------+
+| result |
++--------+
+|      4 |
+|      5 |
+|      6 |
+|      7 |
++--------+
 </code></pre></div>
+</details>
+<h3 id="filter-even-numbers">Filter even numbers<a class="headerlink" href="#filter-even-numbers" title="Permanent link">&para;</a></h3>
+<p>Consecutive terms increase or decrease by a common difference. The default common difference value is <code>1</code>. However, it is possible to filter the results using the WHERE clause to simulate common differences greater than 1.</p>
+<p>The following example prints only even numbers from the 0..7 range:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------+
+| result |
++--------+
+|      0 |
+|      2 |
+|      4 |
+|      6 |
++--------+
+</code></pre></div>
+</details>
+<h3 id="generate-random-numbers">Generate random numbers<a class="headerlink" href="#generate-random-numbers" title="Permanent link">&para;</a></h3>
+<p>The following is an example of using the function to populate a table with a set of random numbers:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>FLOOR<span class="o">(</span>RAND<span class="o">()</span><span class="w"> </span>*<span class="w"> </span><span class="m">100</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>result<span class="w"> </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">4</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
+</code></pre></div>
+<p>The output could be the following:</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------+
+| result |
++--------+
+|     24 |
+|     56 |
+|     70 |
+|     25 |
++--------+
+</code></pre></div>
+</details>
+<h3 id="generate-random-strings">Generate random strings<a class="headerlink" href="#generate-random-strings" title="Permanent link">&para;</a></h3>
+<p>You can populate a table with a set of pseudo-random strings with the following statement:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>MD5<span class="o">(</span>value<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>result<span class="w"> </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">4</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----------------------------------+
+| result                           |
++----------------------------------+
+| f17d9c990f40f8ac215f2ecdfd7d0451 |
+| 2e5751b7cfd7f053cd29e946fb2649a4 |
+| b026324c6904b2a9cb4b88d6d61c81d1 |
+| 26ab0db90d72e28ad0ba1e22ee510510 |
++----------------------------------+
+</code></pre></div>
+</details>
+<h3 id="add-a-sequence-to-a-table">Add a sequence to a table<a class="headerlink" href="#add-a-sequence-to-a-table" title="Permanent link">&para;</a></h3>
+<p>You can add the sequence as a column to a new table or an existing table, as shown in this example:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span>AS<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">4</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
+
+mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>t1<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-------+
+| value |
++-------+
+|     0 |
+|     1 |
+|     2 |
+|     3 |
++-------+
+</code></pre></div>
+</details>
+<p>Sequences are useful for various purposes, such as populating tables and generating test data.</p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.</p>
@@ -8219,7 +7103,7 @@ mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="
   <small>
     
       Last update:
-      2023-09-27
+      2024-08-06
     
   </small>
 </div>

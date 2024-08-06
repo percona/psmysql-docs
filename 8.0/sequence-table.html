@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL 8.0.20-11 adds the SEQUENCE_TABLE() function.">
+        <meta name="description" content="Using SEQUENCE_TABLE() function provides the following:">
       
       
         <meta name="author" content="Percona LLC">
@@ -1909,6 +1909,27 @@
   
   
     <li class="md-nav__item">
+      <a href="percona-sequence-table.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PERCONA_SEQUENCE_TABLE(n) function
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="procfs-plugin.html" class="md-nav__link">
         
   
@@ -1999,11 +2020,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
+  <a href="#version-update" class="md-nav__link">
     <span class="md-ellipsis">
-      Usage
+      Version update
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Syntax
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-sequence-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic sequence generation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-with-a-specific-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start with a specific value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-even-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filter even numbers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-random-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate random numbers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-random-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate random strings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-a-sequence-to-a-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a sequence to a table
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -6704,11 +6812,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
+  <a href="#version-update" class="md-nav__link">
     <span class="md-ellipsis">
-      Usage
+      Version update
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Syntax
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-sequence-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic sequence generation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-with-a-specific-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start with a specific value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-even-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filter even numbers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-random-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate random numbers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-random-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate random strings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-a-sequence-to-a-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a sequence to a table
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -6757,29 +6952,70 @@
 
 
 <h1 id="sequence_tablen-function">SEQUENCE_TABLE(n) function<a class="headerlink" href="#sequence_tablen-function" title="Permanent link">&para;</a></h1>
-<p><em>Percona Server for MySQL</em> 8.0.20-11 adds the SEQUENCE_TABLE() function.</p>
-<p>A sequence of numbers can be defined as an arithmetic progression when the common difference between two consecutive terms is always the same.</p>
-<p>The function is an inline table-valued function. A single SELECT statement generates a multi-row result set. In contrast, a scalar function (like <a href="https://dev.mysql.com/doc/refman/8.0/en/mathematical-functions.html#function_exp">EXP(x)</a> or <a href="https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_lower">LOWER(str)</a> always  returns a single value of a specific data type.</p>
-<p>The <a href="https://dev.mysql.com/doc/refman/8.0/en/json-table-functions.html">JSON_TABLE()</a> is the only table function available in Oracle MySQL Server. <code>JSON_TABLE</code> and <code>SEQUENCE_TABLE()</code> are the only table functions available in Percona Server.</p>
-<p>The basic syntax is the following:</p>
+<p>Using <code>SEQUENCE_TABLE()</code> function provides the following:</p>
+<table>
+<thead>
+<tr>
+<th>Benefit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Generates Sequences</td>
+<td>Acts as an inline table-valued function that generates a sequence of numbers.</td>
+</tr>
+<tr>
+<td>Table-Valued Function</td>
+<td>Unlike traditional scalar functions, <code>SEQUENCE_TABLE()</code> returns a virtual table with a single column named <code>value</code> containing the generated sequence.</td>
+</tr>
+<tr>
+<td>Simpler Syntax</td>
+<td>Simplifies queries that need to generate predictable sequences of numbers.</td>
+</tr>
+<tr>
+<td>Flexibility</td>
+<td>Allows dynamic definition of sequences within queries, offering more control compared to pre-defined tables for sequences.</td>
+</tr>
+<tr>
+<td>Predefined Sequence</td>
+<td>Does not manage sequences like Oracle or PostgreSQL; instead, it allows definition and generation of sequences within a <code>SELECT</code> statement.</td>
+</tr>
+<tr>
+<td>Customization</td>
+<td>Enables customization of starting value, increment/decrement amount, and number of values to generate.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="version-update">Version update<a class="headerlink" href="#version-update" title="Permanent link">&para;</a></h2>
+<p>Percona Server for MySQL 8.0.37 deprecated <code>SEQUENCE_TABLE()</code>, and this function can be removed in a future release. We recommend that you use <a href="percona-sequence-table.html"><code>PERCONA_SEQUENCE_TABLE()</code></a> instead.</p>
+<p>To maintain compatibility with existing third-party software, <code>SEQUENCE_TABLE</code> is no longer a reserved term and can be used as a regular identifier.</p>
+<p>Percona Server for MySQL 8.0.20-11 introduced the <code>SEQUENCE_TABLE()</code> function.</p>
+<h2 id="table-functions">Table functions<a class="headerlink" href="#table-functions" title="Permanent link">&para;</a></h2>
+<p>The function is an inline table-valued function. This function creates a temporary table with multiple rows. You can use this function within a single SELECT statement. Oracle MySQL Server only has the <code>JSON_TABLE</code> table function. The Percona Server for MySQL has the <code>JSON_TABLE</code> and <code>SEQUENCE_TABLE()</code> table functions. A single SELECT statement generates a multi-row result set. In contrast, a scalar function (like <a href="https://dev.mysql.com/doc/refman/8.0/en/mathematical-functions.html#function_exp">EXP(x)</a> or <a href="https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_lower">LOWER(str)</a> always returns a single value of a specific data type.</p>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
+<p>As with any <a href="https://dev.mysql.com/doc/refman/8.0/en/derived-tables.html">derived tables</a>, a table function requires an <a href="https://dev.mysql.com/doc/refman/8.0/en/identifiers.html">alias</a> in the <code>SELECT</code> statement.</p>
+<p>The result set is a single column with the predefined column name <code>value</code> of type <code>BIGINT UNSIGNED</code>. You can reference the <code>value</code> column in <code>SELECT</code> statements. The following statements are valid. Using <code>n</code> as the number of generated values, the following is the basic syntax:</p>
 <ul>
 <li>SEQUENCE_TABLE(n) [AS] alias</li>
 </ul>
-<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
-<details class="example">
-<summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>SELECT … FROM SEQUENCE_TABLE(n) [AS] alias
 
-SEQUENCE_TABLE(n&gt;) [AS] alias
+SEQUENCE_TABLE(n) [AS] alias
 </code></pre></div>
-<p><code>n:</code> The number of generated values.</p>
-</details>
-<p>As with any <a href="https://dev.mysql.com/doc/refman/8.0/en/derived-tables.html">derived tables</a>, a table function requires an <a href="https://dev.mysql.com/doc/refman/8.0/en/identifiers.html">alias</a> in the <code>SELECT</code> statement.</p>
-<p>The result set is a single column with the predefined column name <code>value</code> of type <code>BIGINT UNSIGNED</code>. You can reference the <code>value</code> column in <code>SELECT</code> statements. The following statements are valid.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">SEQUENCE_TABLE</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="p">;</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">&lt;</span><span class="n">expr</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">SEQUENCE_TABLE</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="p">;</span>
 </code></pre></div>
-<p>The first number in the series, the initial term, is defined as <code>0</code> and the series ends with a value less than <code>n</code>. In this example, enter the following statement to generate a sequence:</p>
+<p>The first number in the series, the initial term, is defined as <code>0</code>, and the series ends with a value less than <code>n</code>.</p>
+<h2 id="example-usage">Example usage<a class="headerlink" href="#example-usage" title="Permanent link">&para;</a></h2>
+<p>Using <code>SEQUENCE_TABLE()</code>:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>SEQUENCE_TABLE<span class="o">(</span><span class="m">5</span><span class="o">))</span><span class="w"> </span>AS<span class="w"> </span>sequence_data<span class="p">;</span>
+</code></pre></div>
+<p>Using <code>PERCONA_SEQUENCE_TABLE()</code>:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">5</span><span class="o">))</span><span class="w"> </span>AS<span class="w"> </span>sequence_data<span class="p">;</span>
+</code></pre></div>
+<h3 id="basic-sequence-generation">Basic sequence generation<a class="headerlink" href="#basic-sequence-generation" title="Permanent link">&para;</a></h3>
+<p>In this example, the following statement generates a sequence:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>SEQUENCE_TABLE<span class="o">(</span><span class="m">3</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -6793,7 +7029,8 @@ SEQUENCE_TABLE(n&gt;) [AS] alias
 +-------+
 </code></pre></div>
 </details>
-<p>You can define the initial term using the <code>WHERE</code> clause. The following example starts the sequence with <code>4</code>.</p>
+<h3 id="start-with-a-specific-value">Start with a specific value<a class="headerlink" href="#start-with-a-specific-value" title="Permanent link">&para;</a></h3>
+<p>You can define the initial value using the <code>WHERE</code> clause. The following example starts the sequence with <code>4</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -6808,6 +7045,7 @@ SEQUENCE_TABLE(n&gt;) [AS] alias
 +--------+
 </code></pre></div>
 </details>
+<h3 id="filter-even-numbers">Filter even numbers<a class="headerlink" href="#filter-even-numbers" title="Permanent link">&para;</a></h3>
 <p>Consecutive terms increase or decrease by a common difference. The default common difference value is <code>1</code>. However, it is possible to filter the results using the WHERE clause to simulate common differences greater than 1.</p>
 <p>The following example prints only even numbers from the 0..7 range:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -6824,6 +7062,7 @@ SEQUENCE_TABLE(n&gt;) [AS] alias
 +--------+
 </code></pre></div>
 </details>
+<h3 id="generate-random-numbers">Generate random numbers<a class="headerlink" href="#generate-random-numbers" title="Permanent link">&para;</a></h3>
 <p>The following is an example of using the function to populate a table with a set of random numbers:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>FLOOR<span class="o">(</span>RAND<span class="o">()</span><span class="w"> </span>*<span class="w"> </span><span class="m">100</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>result<span class="w"> </span>FROM<span class="w"> </span>SEQUENCE_TABLE<span class="o">(</span><span class="m">4</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
 </code></pre></div>
@@ -6840,6 +7079,7 @@ SEQUENCE_TABLE(n&gt;) [AS] alias
 +--------+
 </code></pre></div>
 </details>
+<h3 id="generate-random-strings">Generate random strings<a class="headerlink" href="#generate-random-strings" title="Permanent link">&para;</a></h3>
 <p>You can populate a table with a set of pseudo-random strings with the following statement:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>MD5<span class="o">(</span>value<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>result<span class="w"> </span>FROM<span class="w"> </span>SEQUENCE_TABLE<span class="o">(</span><span class="m">4</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
 </code></pre></div>
@@ -6855,6 +7095,7 @@ SEQUENCE_TABLE(n&gt;) [AS] alias
 +----------------------------------+
 </code></pre></div>
 </details>
+<h3 id="add-a-sequence-to-a-table">Add a sequence to a table<a class="headerlink" href="#add-a-sequence-to-a-table" title="Permanent link">&para;</a></h3>
 <p>You can add the sequence as a column to a new table or an existing table, as shown in this example:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span>AS<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>SEQUENCE_TABLE<span class="o">(</span><span class="m">4</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
 
@@ -6872,7 +7113,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w">
 +-------+
 </code></pre></div>
 </details>
-<p>There are many uses for a sequence when populating tables.</p>
+<p>Sequences are useful for various purposes, such as populating tables and generating test data.</p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.</p>
@@ -6887,7 +7128,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w">
   <small>
     
       Last update:
-      2023-09-27
+      2024-08-06
     
   </small>
 </div>
