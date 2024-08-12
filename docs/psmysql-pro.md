@@ -11,7 +11,8 @@ Find the list of capabilities available in Percona Server for MySQL Pro:
 | Name                                | Version | Description  | 
 | ----------------------------------- | ------------- | -------------|
 | [FIPS compliance](fips.md)| 8.0.35-27 | Enables all commercial cloud service providers who want to sell and expand their footprint for US government entities. |
-| [FIPS compliance](fips.md)| 8.0.36-28 | The FIPS feature has been tested on Percona Server for MySQL Pro 8.0.36-28. There are no other changes to this release.|
+| [FIPS compliance](fips.md)| 8.0.36-28 | The FIPS feature has been tested on Percona Server for MySQL Pro 8.0.36-28. There are no changes to this release.|
+| [FIPS compliance](fips.md)| 8.0.37-29 | The FIPS feature has been tested on Percona Server for MySQL Pro 8.0.37-29. There are no changes to this release.|
 
 ## What's in it for you?
 
