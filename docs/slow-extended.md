@@ -105,13 +105,13 @@ For example, if you set the value to 100, then one percent of `sessions/queries`
 
 If `TRUE`, statements executed by stored procedures are logged to the slow if it is open.
 
-*Percona Server for MySQL* implemented improvements for logging of stored procedures to the slow query log:
+Percona Server for MySQL implemented improvements for logging of stored procedures to the slow query log:
 
-    * Each query from a stored procedure is now logged to the slow query log individually
+* Each query from a stored procedure is now logged to the slow query log individually
 
-    * `CALL` itself isn’t logged to the slow query log anymore as this would be counting twice for the same query which would lead to incorrect results
+* `CALL` itself isn’t logged to the slow query log anymore as this would be counting twice for the same query which would lead to incorrect results
 
-    * Queries that were called inside of stored procedures are annotated in the slow query log with the stored procedure name in which they run.
+* Queries that were called inside of stored procedures are annotated in the slow query log with the stored procedure name in which they run.
 
 Example of the improved stored procedure slow query log entry:
 
