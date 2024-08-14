@@ -6296,11 +6296,14 @@
 <p>Behavior of this variable depends on the selected log_slow_rate_type.</p>
 <p>Specifies that only a fraction of <code>session/query</code> should be logged. Logging is enabled for every nth <code>session/query</code>. By default, n is 1, so logging is enabled for every <code>session/query</code>. Please note: when log_slow_rate_type is <code>session</code> rate limiting is disabled for the replication thread.</p>
 <p>Logging all queries might consume I/O bandwidth and cause the log file to grow large.</p>
-<div class="highlight"><pre><span></span><code>* When log_slow_rate_type is `session`, this option lets you log full sessions, so you have complete records of sessions for later analysis; but you can rate-limit the number of sessions that are logged. Note that this feature will not work well if your application uses any type of connection pooling or persistent connections. Note that you change log_slow_rate_limit in `session` mode, you should reconnect for get effect.
-
-
-* When log_slow_rate_type is `query`, this option lets you log just some queries for later analysis. For example, if you set the value to 100, then one percent of queries will be logged.
-</code></pre></div>
+<ul>
+<li>
+<p>When log_slow_rate_type is <code>session</code>, this option lets you log full sessions, so you have complete records of sessions for later analysis; but you can rate-limit the number of sessions that are logged. Note that this feature will not work well if your application uses any type of connection pooling or persistent connections. Note that you change log_slow_rate_limit in <code>session</code> mode, you should reconnect for get effect.</p>
+</li>
+<li>
+<p>When log_slow_rate_type is <code>query</code>, this option lets you log just some queries for later analysis. For example, if you set the value to 100, then one percent of queries will be logged.</p>
+</li>
+</ul>
 <p>Note that every query has global unique <code>query_id</code> and every connection can has it own (session) log_slow_rate_limit.
 Decision “log or no” calculated in following manner:</p>
 <ul>
@@ -6358,13 +6361,18 @@ Decision “log or no” calculated in following manner:</p>
 </tbody>
 </table>
 <p>If <code>TRUE</code>, statements executed by stored procedures are logged to the slow if it is open.</p>
-<p><em>Percona Server for MySQL</em> implemented improvements for logging of stored procedures to the slow query log:</p>
-<div class="highlight"><pre><span></span><code>* Each query from a stored procedure is now logged to the slow query log individually
-
-* `CALL` itself isn’t logged to the slow query log anymore as this would be counting twice for the same query which would lead to incorrect results
-
-* Queries that were called inside of stored procedures are annotated in the slow query log with the stored procedure name in which they run.
-</code></pre></div>
+<p>Percona Server for MySQL implemented improvements for logging of stored procedures to the slow query log:</p>
+<ul>
+<li>
+<p>Each query from a stored procedure is now logged to the slow query log individually</p>
+</li>
+<li>
+<p><code>CALL</code> itself isn’t logged to the slow query log anymore as this would be counting twice for the same query which would lead to incorrect results</p>
+</li>
+<li>
+<p>Queries that were called inside of stored procedures are annotated in the slow query log with the stored procedure name in which they run.</p>
+</li>
+</ul>
 <p>Example of the improved stored procedure slow query log entry:</p>
 <div class="highlight" data-prompt="mysql"><pre><span></span><code>mysqlDELIMITER<span class="w"> </span>//
 mysqlCREATE<span class="w"> </span>PROCEDURE<span class="w"> </span>improved_sp_log<span class="o">()</span>
@@ -6757,7 +6765,7 @@ keyword is followed by a number other than zero:</p>
   <small>
     
       Last update:
-      2024-04-09
+      2024-08-14
     
   </small>
 </div>
