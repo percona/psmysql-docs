@@ -124,7 +124,7 @@ Install the plugin with the following statements.
 === "Load the SASL-based LDAP authentication plugin" 
 
     ```{.bash data-prompt="mysql>"}
-    mysql> INSTALL PLUGIN authentication_ldap_sasl SONAME 'authentication_ldap_sasl.so`;
+    mysql> INSTALL PLUGIN authentication_ldap_sasl SONAME 'authentication_ldap_sasl.so';
     ```
 
     To set and persist values at runtime, use the following statements:
