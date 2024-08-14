@@ -68,10 +68,9 @@ Specifies that only a fraction of `session/query` should be logged. Logging is e
 Logging all queries might consume I/O bandwidth and cause the log file to grow large.
 
     
-    * When log_slow_rate_type is `session`, this option lets you log full sessions, so you have complete records of sessions for later analysis; but you can rate-limit the number of sessions that are logged. Note that this feature will not work well if your application uses any type of connection pooling or persistent connections. Note that you change log_slow_rate_limit in `session` mode, you should reconnect for get effect.
+  * When log_slow_rate_type is `session`, this option lets you log full sessions, so you have complete records of sessions for later analysis; but you can rate-limit the number of sessions that are logged. Note that this feature will not work well if your application uses any type of connection pooling or persistent connections. Note that you change log_slow_rate_limit in `session` mode, you should reconnect for get effect.
 
-
-    * When log_slow_rate_type is `query`, this option lets you log just some queries for later analysis. For example, if you set the value to 100, then one percent of queries will be logged.
+  * When log_slow_rate_type is `query`, this option lets you log just some queries for later analysis. For example, if you set the value to 100, then one percent of queries will be logged.
 
 Note that every query has global unique `query_id` and every connection can has it own (session) log_slow_rate_limit.
 Decision “log or no” calculated in following manner:
