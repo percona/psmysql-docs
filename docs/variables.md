@@ -1379,7 +1379,7 @@ The default value is `ON`.
 
 Specifies whether to keep expired TTL records during compaction.
 Enabled by default.
-If disabled, expired TTL records will be dropped during compaction.
+If disabled, expired TTL records will not be dropped during compaction.
 
 ### `rocksdb_enable_ttl_read_filtering`
 
