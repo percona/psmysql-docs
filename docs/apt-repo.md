@@ -7,6 +7,20 @@ Specific information on the supported platforms, products, and versions is descr
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
+## Version changes
+
+Starting with [Percona Server 8.0.37-29](release-notes/8.0.37-29.md), the following operating systems on [Percona Software Download](https://www.percona.com/downloads) include ARM64 packages with the `arm64.deb` extension:
+
+* Debian GNU/Linux 12.0
+
+* Debian GNU/Linux 11.0
+
+* Ubuntu 24.04
+
+* Ubuntu 22.04
+
+* Ubuntu 20.04
+
 ## Install Percona Server for MySQL using APT
 
 1. This command line instruction uses the `apt` command to update the package lists for upgrades and new package installations.
