@@ -51,7 +51,7 @@ For instructions for binary tarballs, see [Install {{post}} release from a binar
         1. Create the `/etc/yum.repos.d/post-eol.repo` configuration file with the following contents with your [CLIENTID] and [TOKEN].
 
             ```ini title="/etc/yum.repos.d/post-eol.repo"
-            baseurl=http://repo.percona.com/private/[CLIENTID]-[TOKEN]/ps-57-eol/yum/main/$releasever/RPMS/x86_64
+            baseurl=http://repo.percona.com/private/[Clientid]-[Token]/ps-57-eol/yum/release/$releasever/RPMS/x86_64
             enabled=1
             gpgkey = https://repo.percona.com/yum/PERCONA-PACKAGING-KEY
             ```
