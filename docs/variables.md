@@ -1377,9 +1377,9 @@ The default value is `ON`.
 | Data type    | Boolean              |
 | Default      | ON                   |
 
-Specifies whether to keep expired TTL records during compaction.
-Enabled by default.
-If disabled, expired TTL records will not be dropped during compaction.
+By default, this variable removes expired Time-to-Live (TTL) records during compaction. TTL records are entries in the database that are automatically set to expire after a specified period of time and can be deleted during the compaction process.
+
+Set this variable to `OFF` to keep expired TTL records during compaction.
 
 ### `rocksdb_enable_ttl_read_filtering`
 
@@ -1392,10 +1392,9 @@ If disabled, expired TTL records will not be dropped during compaction.
 | Default      | ON                                  |
 
 For tables with TTL, expired records are skipped/filtered
-out during processing and in query results. Disabling
-this will allow these records to be seen, but as a result
-rows may disappear in the middle of transactions as they
-are dropped during compaction. **Use with caution.**
+out during processing and in query results. 
+
+Disabling this option allows these records to be seen, but the rows may disappear during transactions since they are deleted during compaction. **Use with caution.**
 
 ### `rocksdb_enable_thread_tracking`
 
