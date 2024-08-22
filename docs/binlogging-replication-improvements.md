@@ -40,18 +40,6 @@ only on log file rotation did not experience the expected reduction in load.
 *MySQL* was additionally updating this information in case of multi-source
 replication when replica had to skip the already executed GTID event.
 
-### Source and connection status details
-
-The configuration with `master_info_repository=TABLE` and
-`sync_master_info=0` makes replica to update source status and connection
-information in this table on log file rotation and not after each
-sync_master_info event, but it didn’t work on multi-source replication setups.
-Heartbeats sent to the replica to skip GTID events which it had already executed
-previously, were evaluated as relay log rotation events and reacted with
-`mysql.slave_master_info` table sync. This inaccuracy could produce huge (up
-to 5 times on some setups) increase in write load on the replica, before this
-problem was fixed in *Percona Server for MySQL*. Bug fixed [#1812](https://jira.percona.com/browse/PS-1812) (upstream [#85158](https://bugs.mysql.com/bug.php?id=85158)).
-
 ## Write `FLUSH` commands to the binary log
 
 `FLUSH` commands, such as `FLUSH SLOW LOGS`, are not written to the
