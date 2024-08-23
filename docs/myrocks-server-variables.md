@@ -391,7 +391,7 @@ Skips verifying if rows exists before executing deletes. The following condition
 | Data type    | Numeric                            |
 | Default      | -1                                 |
 
-This variable has been implemented in [Percona Server for MySQL 8.3.0-1](.//release-notes/8.3.0-1.md).
+This variable has been implemented in [Percona Server for MySQL 8.3.0-1](https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html).
 
 This variable specifies the number of shards ,`numShardBits`, for the block cache in RocksDB. The cache is sharded into `2^numShardBits` shards by the key hash.
 
@@ -685,7 +685,7 @@ This variable is disabled (OFF) by default.
 | Data type    | Boolean                 |
 | Default      | ON                      |
 
-This variable has been implemented in [Percona Server for MySQL 8.3.0-1](.//release-notes/8.3.0-1.md).
+This variable has been implemented in [Percona Server for MySQL 8.3.0-1](https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html).
 
 This variable enables checking the upper and lower bounds of the RocksDB iterator during iteration. The default value in `ON` which means this variable is enabled.
 
@@ -790,7 +790,7 @@ Specifies the name of the column family to compact.
 | Data type    | Boolean              |
 | Default      | OFF                  |
 
-This variable has been implemented in [Percona Server for MySQL 8.3.0-1](.//release-notes/8.3.0-1.md).
+This variable has been implemented in [Percona Server for MySQL 8.3.0-1](https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html).
 
 This variable acts as a trigger. Set the variable to `ON`, `rocksdb-compact-lzero-now=ON`, to immediately compact all the `Level 0` (L0) files. After all the `L0` files are compacted, the variable value automatically switches to `OFF`.
 
@@ -827,7 +827,7 @@ Maximum allowed value is `18446744073709551615`.
 
 !!! note
 
-    In version [Percona Server for MySQL 8.3.0-1](.//release-notes/8.3.0-1.md) and later, the default value is changed from `0` to `149999`.
+    In version [Percona Server for MySQL 8.3.0-1](https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html) and later, the default value is changed from `0` to `149999`.
 
 Specifies the threshold to trigger compaction on a file if it has more than this number of sequential delete markers.
 
@@ -856,7 +856,7 @@ Maximum allowed value is `2000000` (two million delete markers).
 
 !!! note
 
-    In version [Percona Server for MySQL 8.3.0-1](.//release-notes/8.3.0-1.md) and later, the default value is changed from `OFF` to `ON`.
+    In version [Percona Server for MySQL 8.3.0-1](https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html) and later, the default value is changed from `OFF` to `ON`.
 
 Specifies whether to count single deletes as delete markers recognized by `rocksdb_compaction_sequential_deletes`.
 
@@ -1443,7 +1443,7 @@ insensitive). Enabled by default.
 | Data type    | Boolean                                 |
 | Default      | OFF                                     |
 
-This variable has been implemented in [Percona Server for MySQL 8.3.0-1](.//release-notes/8.3.0-1.md).
+This variable has been implemented in [Percona Server for MySQL 8.3.0-1](https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html).
 
 This variable controls whether to write and check RocksDB file-level checksums. The default value is `OFF` which means the variable is disabled.
 
@@ -1879,7 +1879,7 @@ Tracks the history for at most `rockdb_mx_compaction_history` completed compacti
 | Data type    | Numeric                                         |
 | Default      | 16                                              |
 
-This variable has been implemented in [Percona Server for MySQL 8.3.0-1](.//release-notes/8.3.0-1.md).
+This variable has been implemented in [Percona Server for MySQL 8.3.0-1](https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html).
 
 This variable sets `DBOptions::max_file_opening_threads` for RocksDB. The default value is `16`. The minimum value is `1` and the maximum value is 2147483647 (`INT_MAX`).
 
@@ -2145,7 +2145,7 @@ Enabled by default.
 | Data type    | Boolean                   |
 | Default      | ON                        |
 
-This variable has been implemented in [Percona Server for MySQL 8.3.0-1](.//release-notes/8.3.0-1.md).
+This variable has been implemented in [Percona Server for MySQL 8.3.0-1](https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html).
 
 If this variable is set to `ON`, the partial index materialization ignores the killed flag and continues materialization until completion. If queries are killed during materialization due to timeout, the work done so far is wasted, and the killed query will likely be retried later, hitting the same issue.
 
@@ -2563,7 +2563,7 @@ Disabled by default.
 | Data type    | Boolean                          |
 | Default      | ON                               |
 
-This variable is removed in [Percona Server for MySQL 8.2.0-1](8.2.0-1.md).
+This variable is removed in [Percona Server for MySQL 8.2.0-1](https://docs.percona.com/percona-server/innovation-release/release-notes/8.2.0-1.html).
 
 This variable is considered **deprecated** in Percona Server for MySQL 8.0.23-14.
 
@@ -2581,7 +2581,7 @@ Enabled by default.
 | Data type    | String                                |
 | Default      |                                       |
 
-This variable is removed in [Percona Server for MySQL 8.2.0-1](8.2.0-1.md).
+This variable is removed in [Percona Server for MySQL 8.2.0-1](https://docs.percona.com/percona-server/innovation-release/release-notes/8.2.0-1.html).
 
 This variable is considered **deprecated** in Percona Server for MySQL 8.0.23-14.
 
