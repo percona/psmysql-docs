@@ -120,7 +120,7 @@ mysql> SHOW variables LIKE 'audit%';
 
 ## Log format
 
-The plugin supports the following log formats: `OLD`, `NEW`, `JSON`, and `CSV`. The `OLD\`\`format and the\`\`NEW` format are based on XML. The `OLD` format defines each log record with XML attributes. The `NEW` format defines each log record with XML tags. The information logged is the same for all four formats. The audit_log_format variable controls the log format choice.
+The plugin supports the following log formats: `OLD`, `NEW`, `JSON`, and `CSV`. The `OLD` format and the `NEW` format are based on XML. The `OLD` format defines each log record with XML attributes. The `NEW` format defines each log record with XML tags. The information logged is the same for all four formats. The audit_log_format variable controls the log format choice.
 
 ### Format examples
 
