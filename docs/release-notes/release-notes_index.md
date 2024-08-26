@@ -1,5 +1,7 @@
 # Percona Server for MySQL 5.7 release notes index
 
+* [Percona Server for MySQL 5.7.44-50 (2024-08-26)](5.7.44-51.md)
+
 * [Percona Server for MySQL 5.7.44-50 (2024-06-19)](5.7.44-50.md)
 
 * [Percona Server for MySQL 5.7.44-49 (2024-03-14)](5.7.44-49.md)
