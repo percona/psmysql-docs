@@ -2,13 +2,7 @@
 
 ## Installing SELinux management tools
 
-To install SELinux management tools on RHEL 7, use the following command as root:
-
-```{.bash data-prompt="$"}
-$ yum -y install policycoreutils-python
-```
-
-On RHEL 8, utilize the following command as root:
+To install SELinux management tools on Red Hat Enterprise Linux 8 or later, run the following command as root:
 
 ```{.bash data-prompt="$"}
 $ yum -y install policycoreutils-python-utils
