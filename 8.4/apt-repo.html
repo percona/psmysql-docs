@@ -1488,6 +1488,15 @@ repositories and the Percona downloads page.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#arm-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARM support
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-percona-server-for-mysql-using-apt" class="md-nav__link">
     <span class="md-ellipsis">
       Install Percona Server for MySQL using APT
@@ -5877,6 +5886,15 @@ repositories and the Percona downloads page.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#arm-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARM support
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-percona-server-for-mysql-using-apt" class="md-nav__link">
     <span class="md-ellipsis">
       Install Percona Server for MySQL using APT
@@ -5943,6 +5961,8 @@ repositories and the Percona downloads page.">
 repositories and the <a href="https://www.percona.com/downloads/Percona-Server-8.4/">Percona downloads</a> page.</p>
 <p>Specific information on the supported platforms, products, and versions is described in <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle</a>.</p>
 <p>We gather <a href="telemetry.html">Telemetry data</a> in the Percona packages and Docker images.</p>
+<h2 id="arm-support">ARM support<a class="headerlink" href="#arm-support" title="Permanent link">&para;</a></h2>
+<p>The DEB builds for Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, DEBIAN 11, and DEBIAN 12 contain ARM packages with the <code>aarch64.rpm</code> extension. This means that Percona Server for MySQL is available for users on ARM-based systems.</p>
 <h2 id="install-percona-server-for-mysql-using-apt">Install Percona Server for MySQL using APT<a class="headerlink" href="#install-percona-server-for-mysql-using-apt" title="Permanent link">&para;</a></h2>
 <p class="power-number">To install Percona Server for MySQL using APT, do the following steps:</p>
 <ol>
@@ -5973,7 +5993,7 @@ repositories and the <a href="https://www.percona.com/downloads/Percona-Server-8
 </li>
 <li>
 <p>Use <code>percona-release</code> to set up the repository for the Percona Server for MySQL 8.4 version:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span><span class="m">84</span><span class="w"> </span>release
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-84-lts<span class="w"> </span>release
 $<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>tools<span class="w"> </span>release
 </code></pre></div>
 </li>
@@ -5987,17 +6007,15 @@ $<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class=
 </li>
 </ol>
 <p>See <a href="https://docs.percona.com/percona-software-repositories/percona-release.html">Configuring Percona repositories with <code>percona-release</code></a> for more information.</p>
-<p>Percona Server for MySQL 8.2 comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the <a href="install-myrocks.html">Percona MyRocks Installation Guide</a>.</p>
-<p>Percona Server for MySQL contains user-defined functions from <a href="https://docs.percona.com/percona-toolkit/">Percona Toolkit</a>. These user-defined functions provide faster checksums. For more details on the user-defined functions, see <a href="udf-percona-toolkit.html">Percona Toolkit UDF functions</a>.</p>
-<p>After the installation completes, run the following commands to create these functions:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s2">&quot;CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME &#39;libfnv1a_udf.so&#39;&quot;</span>
-<span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s2">&quot;CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME &#39;libfnv_udf.so&#39;&quot;</span>
-<span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s2">&quot;CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME &#39;libmurmur_udf.so&#39;&quot;</span>
+<p>Percona Server for MySQL 8.4.x comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the <a href="install-myrocks.html">Percona MyRocks Installation Guide</a>.</p>
+<p>Percona Server for MySQL contains user-defined functions from <a href="https://docs.percona.com/percona-toolkit/">Percona Toolkit</a>. These user-defined functions, <code>fnv_64</code>, <code>fnv1a_64</code>, <code>murmur_hash</code>, provide faster checksums. For more details on the user-defined functions, see <a href="udf-percona-toolkit.html">Percona Toolkit UDF functions</a>.</p>
+<p>After the installation completes, run the following command to create these functions:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s2">&quot;INSTALL COMPONENT &#39;file://component_percona_udf&#39;&quot;</span>
 </code></pre></div>
 <h2 id="install-the-percona-testing-repository-using-apt">Install the Percona Testing repository using APT<a class="headerlink" href="#install-the-percona-testing-repository-using-apt" title="Permanent link">&para;</a></h2>
 <p>Percona offers pre-release builds from the testing repository. To enable it, run
 percona-release with the <code>testing</code> argument. Run the following command as root or use the sudo command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span><span class="m">84</span><span class="w"> </span>testing
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps-84-lts<span class="w"> </span>testing
 </code></pre></div>
 <p>These builds should not be run in production. This build may not contain all of the features available in the final release. The features may change without notice.</p>
 <div data-banner="data-banner">
@@ -6015,7 +6033,7 @@ percona-release with the <code>testing</code> argument. Run the following comman
   <small>
     
       Last update:
-      2023-11-27
+      2024-08-29
     
   </small>
 </div>

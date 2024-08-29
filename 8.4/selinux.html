@@ -6271,7 +6271,7 @@ Similarly, files and directories are assigned security contexts that dictate how
 <p>This policy defines rules for MySQL&rsquo;s behavior, including which files it can access, which network ports it can use, and what actions it can perform. These rules help enforce security by restricting MySQL&rsquo;s actions to only those that are necessary for its operation, preventing unauthorized access and potential security breaches.</p>
 <p>The SELinux policy for MySQL ensures that the MySQL server process operates within predefined boundaries, limiting its capabilities to minimize the risk of exploitation or unauthorized access to sensitive data.</p>
 <h2 id="compatibility-of-percona-server-for-mysql-with-selinux-policies">Compatibility of Percona Server for MySQL with SELinux Policies<a class="headerlink" href="#compatibility-of-percona-server-for-mysql-with-selinux-policies" title="Permanent link">&para;</a></h2>
-<p>Percona Server for MySQL is a drop-in replacement for MySQL that offers enhanced performance, scalability, and other features. When running Percona Server for MySQL on Red Hat Enterprise Linux (RHEL) 7, RHEL 8, RHEL 9, or their derivatives, compatibility with SELinux policies is essential for ensuring secure and reliable operation.</p>
+<p>Percona Server for MySQL is a drop-in replacement for MySQL that offers enhanced performance, scalability, and other features. When running Percona Server for MySQL on Red Hat Enterprise Linux (RHEL) 8, RHEL 9, or their derivatives, compatibility with SELinux policies is essential for ensuring secure and reliable operation.</p>
 <p>Percona Server for MySQL is designed to be compatible with SELinux policies on these Linux distributions. This means that Percona Server for MySQL can seamlessly integrate with SELinux, allowing administrators to enforce security policies and restrictions without sacrificing the functionality or performance of the database server.</p>
 <p>By adhering to SELinux policies, Percona Server for MySQL ensures that it operates within the confines defined by SELinux, preventing any unauthorized or potentially malicious actions that could compromise the system&rsquo;s security. This compatibility with SELinux policies enhances the overall security posture of Percona Server for MySQL deployments on RHEL and its derivatives, providing peace of mind to administrators and users alike.</p>
 <h2 id="selinux-context-example">SELinux context example<a class="headerlink" href="#selinux-context-example" title="Permanent link">&para;</a></h2>
@@ -6385,9 +6385,6 @@ selinuxuser_mysql_connect_enabled
 <p>On boot, to disable SELinux, set the <code>selinux=0</code> kernel option. The kernel does not load the SELinux infrastructure. This option has the same effect as changing the <code>SELINUX=disabled</code> instruction in the configuration file and then rebooting the system.</p>
 <h2 id="additional-selinux-tools">Additional SELinux tools<a class="headerlink" href="#additional-selinux-tools" title="Permanent link">&para;</a></h2>
 <p>Install the SELinux management tools, such as <code>semanage</code> or <code>sesearch</code>, if needed.</p>
-<p>On RHEL 7 or compatible operating systems, use the following command as root:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>policycoreutils-python
-</code></pre></div>
 <p>On RHEL 8 or compatible operating systems, use the following command as root:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>policycoreutils-python-utils
 </code></pre></div>
@@ -6777,7 +6774,7 @@ $<span class="w"> </span>restorecon<span class="w"> </span>-Rv<span class="w"> <
   <small>
     
       Last update:
-      2024-05-14
+      2024-08-29
     
   </small>
 </div>
