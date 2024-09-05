@@ -180,7 +180,7 @@ This table contains the set of locks granted to MyRocks transactions.
 | Column Name      | Type         |
 |------------------|--------------|
 | COLUMN_FAMILY_ID | int(4)       |
-| TRANSACTION_ID   | int(4)       |
+| TRANSACTION_ID   | bigint       |
 | KEY              | varchar(513) |
 | MODE             | varchar(32)  |
 
