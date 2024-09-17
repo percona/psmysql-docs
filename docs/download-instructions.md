@@ -8,9 +8,10 @@ Do the following steps to select the software:
 2. Locate the Percona Software, for example, Percona Server for MySQL
 3. In `Select Product`, select the which product, for example, Percona Server {{vers}}
 4. In `Select Product Version`, select the version, for example, PERCONA-SERVER-{{release}}
-5. In `Select Software`, select the operating system, for example, RED HAT ENTERPRISE LINUX / CENTOS/ ORACLE LINUX 9
-
+5. In `Select Platform`, select the operating system, for example, DEBIAN GNU/LINUX 12.0 ("Bookworm")
 The easiest method is to download all packages.
+
+The `Package Download Options` may mix `AMD64` and `ARM64` packages. Select the correct CPU architecture for your system.
 
 ## Download to a local computer
 
