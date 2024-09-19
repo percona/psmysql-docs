@@ -1,6 +1,7 @@
 # Uninstall the data masking component
 
 The following steps uninstall the component:
+{.power-number}
 
 1. Uninstall the component with [`UNINSTALL_COMPONENT`](uninstall-component.md) and the loadable functions.
 
