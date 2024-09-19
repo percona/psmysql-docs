@@ -1,7 +1,7 @@
 
 # Data masking plugin functions
 
-This feature was implemented in *Percona Server for MySQL* version Percona Server for MySQL 8.0.17-8.
+This feature was implemented in Percona Server for MySQL 8.0.17-8.
 
 The Percona Data Masking plugin is a free and Open Source implementation of the
 *MySQL*’s data masking plugin. Data Masking provides a set of functions to hide
