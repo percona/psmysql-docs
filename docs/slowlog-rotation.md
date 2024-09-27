@@ -24,7 +24,7 @@ Percona has implemented two new variables, `max_slowlog_size` and `max_slowlog_f
 
 The `max_slowlog_size` variable controls when the server rotates the slow query log file based on size.
 
-By default, the value is set to `0`, which means the server does not automatically rotate the slow query log file.
+The value is set to `0` by default, which means the server does not automatically rotate the slow query log file.
 
 The block size is `4096` bytes. If you set a value that is not a multiple of `4096`, the server rounds it down to the nearest multiple of `4096`. For example, setting `max_slowlog_size` to any value less than `4096` will effectively set the value to `0`.
 
@@ -42,6 +42,6 @@ If you set a limit for this size and enable this feature, the server will rename
 |   Default    | 0 (unlimited) |
 |    Range     |  0 - 102400   |
 
-This variable limits the total amount of slow query log files and is used with max_slowlog_size.
+This variable limits the total amount of slow query log files and is used with `max_slowlog_size`.
 
-The server creates and adds slow query logs until reaching the range’s upper value. When the upper value is reached, the server creates a new slow query log file with a higher sequence number and deletes the log file with the lowest sequence number maintaining the total amount defined in the range.
+The server creates and adds slow query logs until it reaches the range’s upper value. When the upper value is reached, the server creates a new slow query log file with a higher sequence number and deletes the log file with the lowest sequence number, maintaining the total amount defined in the range.

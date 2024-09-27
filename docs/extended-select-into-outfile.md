@@ -1,19 +1,10 @@
 # Extended SELECT INTO OUTFILE/DUMPFILE
 
-*Percona Server for MySQL* has extended the `SELECT INTO ... OUTFILE` and `SELECT INTO
-DUMPFILE` [commands](https://dev.mysql.com/doc/refman/8.0/en/select-into.html)
-to add support for UNIX sockets and named pipes. Before this was implemented
-the database would return an error for such files.
+Percona Server for MySQL improves the `SELECT INTO ... OUTFILE` and `SELECT ... INTO DUMPFILE` commands by allowing them to work with UNIX sockets and named pipes. In the past, using these types of files would cause an error.
 
-This feature allows using `LOAD DATA LOCAL INFILE` in combination with
-`SELECT INTO OUTFILE` to quickly load multiple partitions across the network
-or in other setups, without having to use an intermediate file that wastes
-space and I/O.
+This feature lets you quickly combine `LOAD DATA LOCAL INFILE` with `SELECT INTO ... OUTFILE` to transfer data across the network or between different partitions. It avoids creating an intermediate file, saves disk space, and reduces I/O usage. This ability makes data loading more efficient, especially for large datasets or complex configurations.
 
 ## Version specific information
 
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
+* 8.0.12-1: The feature was ported from Percona Server for MySQL 5.7.
 
-## Other reading
-
-* *MySQL* bug: [#44835](https://bugs.mysql.com/bug.php?id=44835)
