@@ -1,4 +1,4 @@
-# Limiting the disk space used by binary log files
+# Managing binary log disk space
 
 It is a challenge to control how much disk space is used by the binary logs. The size of a binary log can vary because a single transaction must be written to a single binary log and cannot be split between multiple binary log files.
 
