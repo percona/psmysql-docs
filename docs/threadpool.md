@@ -2,6 +2,10 @@
 
 Thread pooling can improve performance and scalability for MySQL databases. This technique reuses a fixed number of threads to handle multiple client connections and execute statements. It reduces the overhead of creating and destroying threads and avoids the contention and context switching that can occur when there are too many threads.
 
+If you have fewer than 20,000 connections, using the thread pool does not provide significant benefits. It’s better to keep thread pooling disabled and use the default method.
+
+The default method, called one-thread-per-connection, creates a new thread for each client that connects to the MySQL server. This thread manages all queries and responses for that connection until it’s closed. This approach works well for a moderate number of connections, but it can become inefficient as the number of connections increases.
+
 MySQL supports thread pooling through the thread pool plugin, which replaces the default one-thread-per-connection model. When a statement arrives, the thread group either begins executing it immediately or queues it for later execution in a round-robin fashion. The high-priority queue consists of several thread groups, each managing client connections. Each thread group has a listener thread that listens for incoming statements from the connections assigned to the group. The thread pool exposes several system variables that can be used to configure its operation, such as thread_pool_size, thread_pool_algorithm, thread_pool_stall_limit, and others.
 
 The thread pool plugin consists of several thread groups, each of which manages a set of client connections. As connections are established, the thread pool assigns them to thread groups using the round-robin method. This method assigns threads fairly and efficiently. Here's how it works:
