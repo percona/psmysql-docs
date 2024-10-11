@@ -34,11 +34,11 @@ Leverage [{{post}}](https://www.percona.com/navigating-mysql-5-7-end-of-life) to
 
 ## For Monitoring and Management
 
-Percona Monitoring and Management (PMM )monitors and provides actionable performance data for MySQL variants, including Percona Server for MySQL, Percona XtraDB Cluster, Oracle MySQL Community Edition, Oracle MySQL Enterprise Edition, and MariaDB. PMM captures metrics and data for the InnoDB, XtraDB, and MyRocks storage engines, and has specialized dashboards for specific engine details.
+Percona Monitoring and Management (PMM )monitors and provides actionable performance data for MySQL variants, including Percona Server for MySQL, Percona XtraDB Cluster, Oracle MySQL Community Edition, Oracle MySQL Enterprise Edition, and MariaDB. PMM captures metrics and data for the InnoDB, XtraDB, and MyRocks storage engines and has specialized dashboards for specific engine details.
 
 [Install PMM and connect your server instances to it.](https://docs.percona.com/percona-monitoring-and-management/get-started/index.html)
 
 [MySQL 5.7 Post-EOL Support from Percona customers]: https://www.percona.com/post-mysql-5-7-eol-support
 
-[build this release from the source]: /installation/git-source-tree.md
+[build this release from the source]: installation/git-source-tree.md
 
