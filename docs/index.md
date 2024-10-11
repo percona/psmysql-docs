@@ -11,25 +11,17 @@ Percona Server for MySQL is trusted by thousands of enterprises to provide bette
 
 ## {{post}}
 
-This release is part of MySQL 5.7 Post-EOL Support from Percona. The fixes are available to [MySQL 5.7 Post-EOL Support from Percona customers]. Community members can [build this release from the source]. We recommend upgrading to MySQL 8.0, or you can stay on 5.7; we’ll support you either way.
+Make sure to use [{{post}}](https://www.percona.com/navigating-mysql-5-7-end-of-life) to keep your MySQL applications secure and performing well. This service provides essential bug fixes and security patches.
 
-Leverage [{{post}}](https://www.percona.com/navigating-mysql-5-7-end-of-life) to ensure continued security and performance for your MySQL applications. While this service provides critical bug fixes and security patches, consider migrating to the next major version to unlock a wider range of benefits:
+However, consider upgrading to the next major version for more benefits, such as improved performance, better handling of growing data volumes, enhanced security features, and the latest functionalities for better database management.
 
-* Enhanced performance and scalability: Gain access to performance improvements and better handle growing data volumes.
-
-* Improved security features: Benefit from the latest security advancements to safeguard your data more effectively.
-
-* Access to the latest features and functionality: Utilize the newest features and functionalities to improve your database management experience.
-
-### Releases
-
-* [Percona Server for MySQL 5.7.44-49](release-notes/5.7.44-49.md)
-
-### Installation links 
+Version {{release}} contains fixes as part of the [MySQL 5.7 post-EOL support from Percona], available to customers. They have access to the following installation methods:
 
 * [Install {{post}} releases](installation/install-eol.md)
 
-* [Download {{post}} releases from binary tarballs](./installation/binary-tarball.md)
+* [Download {{post}} releases as binary tarballs](./installation/binary-tarball.md)
+
+Community members can [build this release from the source]. 
 
 
 ## For Monitoring and Management
@@ -38,7 +30,7 @@ Percona Monitoring and Management (PMM )monitors and provides actionable perform
 
 [Install PMM and connect your server instances to it.](https://docs.percona.com/percona-monitoring-and-management/get-started/index.html)
 
-[MySQL 5.7 Post-EOL Support from Percona customers]: https://www.percona.com/post-mysql-5-7-eol-support
+[MySQL 5.7 Post-EOL Support from Percona]: https://www.percona.com/post-mysql-5-7-eol-support
 
 [build this release from the source]: installation/git-source-tree.md
 

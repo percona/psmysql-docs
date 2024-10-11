@@ -2,6 +2,10 @@
 
 This document provides guidelines on installing Percona Server packages for MySQL from Percona repositories. For more information, see [{{post}}](https://www.percona.com/navigating-mysql-5-7-end-of-life).
 
+Version {{release}} contains fixes as part of the [MySQL 5.7 post-EOL support from Percona], available to customers.
+
+Community members can [build this release from the source].
+
 For instructions for binary tarballs, see [Install {{post}} release from a binary tarball](binary-tarball.md#install-a-mysql-57-post-eol-support-release-from-a-binary-tarball).
 
 ## Procedure
@@ -61,3 +65,8 @@ For instructions for binary tarballs, see [Install {{post}} release from a binar
             ```{.bash .data-prompt="$"}
             $ sudo yum install -y percona-server-server-5.7
             ```
+
+
+[MySQL 5.7 Post-EOL Support from Percona]: https://www.percona.com/post-mysql-5-7-eol-support
+
+[build this release from the source]: git-source-tree.md
