@@ -40,5 +40,5 @@ Percona Monitoring and Management (PMM )monitors and provides actionable perform
 
 [MySQL 5.7 Post-EOL Support from Percona customers]: https://www.percona.com/post-mysql-5-7-eol-support
 
-[build this release from the source]: ../installation/git-source-tree.md
+[build this release from the source]: /installation/git-source-tree.md
 
