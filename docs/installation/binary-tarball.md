@@ -7,6 +7,10 @@
 
 ## Download a {{post}} binary tarball
 
+Version {{release}} contains fixes as part of the [MySQL 5.7 post-EOL support from Percona], available to customers.
+
+Community members can [build this release from the source].
+
 You can download the binary tarball for Percona Server for MySQL release in the {{post}} program using your `CLIENTID` and `TOKEN`.
 
 | Type    | Name                                                                |Description         |
@@ -54,6 +58,6 @@ for MySQL 5.7.38-41 for Debian 10:
 $ wget https://downloads.percona.com/downloads/Percona-Server-5.7/Percona-Server-5.7.38-41/binary/debian/buster/x86_64/Percona-Server-5.7.38-41-rda46e5474f9-buster-x86_64-bundle.tar
 ```
 
+[MySQL 5.7 Post-EOL Support from Percona]: https://www.percona.com/post-mysql-5-7-eol-support
 
-
-
+[build this release from the source]: git-source-tree.md
