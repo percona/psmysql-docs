@@ -30,7 +30,7 @@ The feature is in [tech preview](glossary.md#tech-preview).
 
 ## gen_blocklist(str, from_dictionary_name, to_dictionary_name)
 
-Replaces one term in a dictionary with a term, selected at random, in another dictionary.
+Replaces a term from one dictionary with a randomly selected term in another dictionary.
 
 ### Parameters
 
