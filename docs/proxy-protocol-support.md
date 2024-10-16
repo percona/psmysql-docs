@@ -1,20 +1,16 @@
 # Support for PROXY protocol
 
-The proxy protocol allows an intermediate proxying server speaking proxy protocol (ie. HAProxy) between the server and the ultimate client (i.e. mysql client etc) to provide the source client address to the server, which normally would only see the proxying server address instead.
+The proxy protocol helps servers see the real client address when a proxy server sits between them. Normally, servers only see the proxy's address. For example, when HAProxy stands between a MySQL client and server, it can use the proxy protocol to show the client's true address to the server.
 
-As the proxy protocol amounts to spoofing the client address, it is disabled by default, and can be enabled on per-host or per-network basis for the trusted source addresses where trusted proxy servers are known to run. Unproxied connections are not allowed from these source addresses.
+This protocol is off by default because it can make the server think traffic is coming from somewhere else. You can turn it on for specific hosts or networks where you trust the proxy servers. Once enabled, these addresses can only send proxied connections.
 
-!!! note
+Remember to set up proper firewall rules when you use this feature.
 
-    Ensure that proper firewall access control lists (ACL) are in place when this feature is enabled.
-
-Proxying is supported only for TCP over IPv4 and IPv6 connections. The UNIX socket connections can not be proxied and do not fall under the effect of using the asterisk symbol (*).
-
-You cannot have a proxied IP address that is `127.0.0.1` or `::1`, even if the IP address is in the proxy_protocol_networks.
+The proxy protocol only works with TCP connections over IPv4 and IPv6. It doesn't work with UNIX socket connections. Also, you can't use localhost addresses (127.0.0.1 or ::1) as proxied IP addresses, even if they're in your allowed proxy network list.
 
 ## Version specific information
 
-* 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
+* 8.0.12-1: The feature was ported from Percona Server for MySQL 5.7.
 
 ## System variables
 
@@ -28,8 +24,12 @@ You cannot have a proxied IP address that is `127.0.0.1` or `::1`, even if the I
 | Dynamic      | No             |
 | Default      | (empty string) |
 
-This variable is a global-only, read-only variable, which is either an asterisk symbol(*), or a list of comma-separated IPv4 and IPv6 network and host addresses. For security reasons we do not recommend using an asterisk symbol for the IP address. This symbol causes the server to accept the proxy protocol from any host. Network addresses are specified in CIDR notation, i.e. `192.168.0.0/24`. To prevent source host spoofing, the setting of this variable must be as restrictive as possible to include only trusted proxy hosts.
+This setting controls which IP addresses can use the proxy protocol. It's a global setting that you can't change while the server is running. You can set it to either a star symbol (*) or a list of specific IP addresses and networks.
 
-## Related reading
+For safety, we don't recommend using the star symbol. If you do, your server will accept the proxy protocol from any computer, which could be risky.
 
-* [PROXY protocol specification](https://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)
+When listing networks, use CIDR notation. For example, write "192.168.0.0/24" to include all addresses from 192.168.0.0 to 192.168.0.255.
+
+To keep your server safe from people pretending to be trusted sources, make this list as small as possible. Only include the IP addresses of proxy servers you trust.
+
+Remember, you can list both IPv4 and IPv6 addresses. Separate each address or network with a comma.
