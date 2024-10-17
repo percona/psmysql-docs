@@ -4,6 +4,8 @@ This document provides guidelines how to install Pro packages of Percona Server 
 
 [Check files in packages built for Percona Server for MySQL Pro :material-arrow-right:](pro-files.md){.md-button}
 
+Percona Server for MySQL Pro contains packages created and tested by Percona. These packages are supported only for Percona Customers with a subscription.
+
 ## Procedure
 
 1. Request the access to the pro repository from Percona Support. You will receive the client ID and the access token which you use when downloading the packages.
