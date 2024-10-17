@@ -17,10 +17,10 @@
         <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/slow-extended.html">
       
       
-        <link rel="prev" href="process-list.html">
+        <link rel="prev" href="improved-slow-query-log.html">
       
       
-        <link rel="next" href="user-stats.html">
+        <link rel="next" href="slowlog-rotation.html">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
@@ -28,7 +28,7 @@
     
     
       
-        <title>Slow query log - Percona Server for MySQL</title>
+        <title>Slow query log variables - Percona Server for MySQL</title>
       
     
     
@@ -91,7 +91,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Slow query log" />
+                 <meta property="og:title" content="Percona Server for MySQL - Slow query log variables" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.0/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png" />
 
@@ -114,7 +114,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slow-query-log" class="md-skip">
+        <a href="#slow-query-log-variables" class="md-skip">
           Skip to content
         </a>
       
@@ -189,7 +189,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slow query log
+              Slow query log variables
             
           </span>
         </div>
@@ -2038,27 +2038,6 @@
   
   <span class="md-ellipsis">
     SEQUENCE_TABLE(n) function
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="slowlog-rotation.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Slow query log rotation and expiration
   </span>
   
 
@@ -5117,6 +5096,64 @@
   
   
   
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_13_5" id="__nav_13_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Slow query log
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_13_5">
+            <span class="md-nav__icon md-icon"></span>
+            Slow query log
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="improved-slow-query-log.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Improved slow query log
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -5129,7 +5166,7 @@
           
   
   <span class="md-ellipsis">
-    Slow query log
+    Slow query log variables
   </span>
   
 
@@ -5140,7 +5177,7 @@
         
   
   <span class="md-ellipsis">
-    Slow query log
+    Slow query log variables
   </span>
   
 
@@ -5162,15 +5199,6 @@
       On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#version-specific-information" class="md-nav__link">
-    <span class="md-ellipsis">
-      Version specific information
-    </span>
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#system-variables" class="md-nav__link">
@@ -5251,84 +5279,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-information" class="md-nav__link">
-    <span class="md-ellipsis">
-      Other information
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Other information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#changes-to-the-log-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      Changes to the log format
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#connection-and-schema-identifier" class="md-nav__link">
-    <span class="md-ellipsis">
-      Connection and Schema Identifier
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#microsecond-time-resolution-and-extra-row-information" class="md-nav__link">
-    <span class="md-ellipsis">
-      Microsecond time resolution and extra row information
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#memory-footprint" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory footprint
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#query-plan-information" class="md-nav__link">
-    <span class="md-ellipsis">
-      Query plan information
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#innodb-usage-information" class="md-nav__link">
-    <span class="md-ellipsis">
-      InnoDB usage information
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-reading" class="md-nav__link">
-    <span class="md-ellipsis">
-      Related reading
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#get-expert-help" class="md-nav__link">
     <span class="md-ellipsis">
       Get expert help
@@ -5340,6 +5290,35 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="slowlog-rotation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slow query log rotation and expiration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -7008,15 +6987,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#version-specific-information" class="md-nav__link">
-    <span class="md-ellipsis">
-      Version specific information
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#system-variables" class="md-nav__link">
     <span class="md-ellipsis">
       System Variables
@@ -7095,84 +7065,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-information" class="md-nav__link">
-    <span class="md-ellipsis">
-      Other information
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Other information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#changes-to-the-log-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      Changes to the log format
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#connection-and-schema-identifier" class="md-nav__link">
-    <span class="md-ellipsis">
-      Connection and Schema Identifier
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#microsecond-time-resolution-and-extra-row-information" class="md-nav__link">
-    <span class="md-ellipsis">
-      Microsecond time resolution and extra row information
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#memory-footprint" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory footprint
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#query-plan-information" class="md-nav__link">
-    <span class="md-ellipsis">
-      Query plan information
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#innodb-usage-information" class="md-nav__link">
-    <span class="md-ellipsis">
-      InnoDB usage information
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-reading" class="md-nav__link">
-    <span class="md-ellipsis">
-      Related reading
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#get-expert-help" class="md-nav__link">
     <span class="md-ellipsis">
       Get expert help
@@ -7216,13 +7108,8 @@
   
 
 
-<h1 id="slow-query-log">Slow query log<a class="headerlink" href="#slow-query-log" title="Permanent link">&para;</a></h1>
+<h1 id="slow-query-log-variables">Slow query log variables<a class="headerlink" href="#slow-query-log-variables" title="Permanent link">&para;</a></h1>
 <p>This feature adds microsecond time resolution and additional statistics to the slow query log output. It lets you enable or disable the slow query log at runtime, adds logging for the replica SQL thread, and adds fine-grained control over what and how much to log into the slow query log.</p>
-<p>You can use <em>Percona-Toolkit</em>’s <a href="https://www.percona.com/doc/percona-toolkit/2.1/pt-query-digest.html">pt-query-digest</a> tool to aggregate similar queries together and report on those that consume the most execution time.</p>
-<h2 id="version-specific-information">Version specific information<a class="headerlink" href="#version-specific-information" title="Permanent link">&para;</a></h2>
-<ul>
-<li>8.0.12-1: The feature was ported from <em>Percona Server for MySQL</em> 5.7.</li>
-</ul>
 <h2 id="system-variables">System Variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
 <h3 id="log_slow_filter"><code>log_slow_filter</code><a class="headerlink" href="#log_slow_filter" title="Permanent link">&para;</a></h3>
 <table>
@@ -7251,29 +7138,47 @@
 </tr>
 </tbody>
 </table>
-<p>Filters the slow log by the query’s execution plan. The value is a comma-delimited string, and can contain any combination of the following values:</p>
-<ul>
-<li>
-<p><code>full_scan</code>: The query performed a full table scan.</p>
-</li>
-<li>
-<p><code>full_join</code>: The query performed a full join (a join without indexes).</p>
-</li>
-<li>
-<p><code>tmp_table</code>: The query created an implicit internal temporary table.</p>
-</li>
-<li>
-<p><code>tmp_table_on_disk</code>: The query’s temporary table was stored on disk.</p>
-</li>
-<li>
-<p><code>filesort</code>: The query used a filesort.</p>
-</li>
-<li>
-<p><code>filesort_on_disk</code>: The filesort was performed on disk.</p>
-</li>
-</ul>
-<p>Values are OR’ed together. If the string is empty, then the filter is disabled. If it is not empty, then queries will only be logged to the slow log if their execution plan matches one of the types of plans present in the filter.</p>
-<p>For example, to log only queries that perform a full table scan, set the value to <code>full_scan</code>. To log only queries that use on-disk temporary storage for intermediate results, set the value to <code>tmp_table_on_disk,filesort_on_disk</code>.</p>
+<p>Controls which slow queries are recorded in the slow query log based on any combination of the following values:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>filesort</code></td>
+<td>Logs when a query requires sorting.</td>
+</tr>
+<tr>
+<td><code>filesort_on_disk</code></td>
+<td>Records queries that sort results using temporary tables on disk.</td>
+</tr>
+<tr>
+<td><code>full_join</code></td>
+<td>Records queries that join tables without using indexes.</td>
+</tr>
+<tr>
+<td><code>full_scan</code></td>
+<td>Records queries that scan the entire table.</td>
+</tr>
+<tr>
+<td><code>qc_miss</code></td>
+<td>Logs queries that could not be served from the query cache.</td>
+</tr>
+<tr>
+<td><code>tmp_table</code></td>
+<td>Records queries that create temporary tables in memory.</td>
+</tr>
+<tr>
+<td><code>tmp_table_on_disk</code></td>
+<td>Records queries that create temporary tables on disk.</td>
+</tr>
+</tbody>
+</table>
+<p>Multiple values are separated by commas. For example: <code>full_scan,tmp_table_on_disk</code></p>
+<p>If no values are specified, the filter is disabled and all queries are logged.</p>
 <h3 id="log_slow_rate_type"><code>log_slow_rate_type</code><a class="headerlink" href="#log_slow_rate_type" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7309,7 +7214,25 @@
 </tr>
 </tbody>
 </table>
-<p>Specifies semantic of log_slow_rate_limit - <code>session</code> or <code>query</code>.</p>
+<p>Determines the context of <code>log_slow_rate_limit</code>.  </p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>session</td>
+<td>The rate limit applies to the entire server session. The maximum number of slow queries allowed per second is counted across all queries executed within that session.</td>
+</tr>
+<tr>
+<td>query</td>
+<td>The rate limit applies to each individual query. This means that each query can be logged as slow if it exceeds the specified limit, regardless of the overall session activity.</td>
+</tr>
+</tbody>
+</table>
 <h3 id="log_slow_rate_limit"><code>log_slow_rate_limit</code><a class="headerlink" href="#log_slow_rate_limit" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7345,8 +7268,9 @@
 </tr>
 </tbody>
 </table>
-<p>Behavior of this variable depends on the selected log_slow_rate_type.</p>
-<p>Specifies that only a fraction of <code>session/query</code> should be logged. Logging is enabled for every nth <code>session/query</code>. By default, n is 1, so logging is enabled for every <code>session/query</code>. Please note: when log_slow_rate_type is <code>session</code> rate limiting is disabled for the replication thread.</p>
+<p>The <code>log_slow_rate_limit</code> variable controls how often queries are logged in the slow query log. Instead of logging every query, it only logs one out of every <code>n</code> queries, where <code>n</code> is the value of <code>log_slow_rate_limit</code>. </p>
+<p>By default, <code>n</code> is 1, so all queries are logged. This setting helps reduce the amount of information in the slow query log, which is useful during debugging to avoid overwhelming the log file.</p>
+<p>Please note: when log_slow_rate_type is <code>session</code> rate limiting is disabled for the replication thread.</p>
 <p>Logging all queries might consume I/O bandwidth and cause the log file to grow large.</p>
 <ul>
 <li>
@@ -7360,14 +7284,15 @@
 Decision “log or no” calculated in following manner:</p>
 <ul>
 <li>
-<p>if <code>log_slow_rate_limit</code> is 1 - log every query</p>
+<p>if <code>log_slow_rate_limit</code> = 1 - log every query</p>
 </li>
 <li>
-<p>If <code>log_slow_rate_limit</code> 1 - randomly log every 1/<code>log_slow_rate_limit</code> query.</p>
+<p>If <code>log_slow_rate_limit</code> &gt; 1 - log every 1/<code>log_slow_rate_limit</code> query.</p>
 </li>
 </ul>
 <p>This allows flexible setup logging behavior.</p>
-<p>For example, if you set the value to 100, then one percent of <code>sessions/queries</code> will be logged. In <em>Percona Server for MySQL</em> information about the log_slow_rate_limit has been added to the slow query log. This means that if the log_slow_rate_limit is effective it will be reflected in the slow query log for each written query. </p>
+<p>For example, if you set the value to 100, then 1 query for every 100 queries of <code>sessions/queries</code> is logged. </p>
+<p>In Percona Server for MySQL information about the <code>log_slow_rate_limit</code> has been added to the slow query log. This means that if the <code>log_slow_rate_limit</code> is effective it will be reflected in the slow query log for each written query. </p>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Log_slow_rate_type: query  Log_slow_rate_limit: 10
@@ -7623,184 +7548,7 @@ CALL improved_sp_log();
 </tr>
 </tbody>
 </table>
-<p>This variable can be used to specify the query execution time after which the query will be written to the slow query log. It can be used to specify an additional execution time threshold for the slow query log, that, when exceeded, will cause a query to be logged unconditionally, that is, log_slow_rate_limit will not apply to it.</p>
-<h2 id="other-information">Other information<a class="headerlink" href="#other-information" title="Permanent link">&para;</a></h2>
-<h3 id="changes-to-the-log-format">Changes to the log format<a class="headerlink" href="#changes-to-the-log-format" title="Permanent link">&para;</a></h3>
-<p>The feature adds more information to the slow log output.</p>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Time: 130601  8:01:06.058915
-# User@Host: root[root] @ localhost []  Id:    42
-# Schema: imdb  Last_errno: 0  Killed: 0
-# Query_time: 7.725616  Lock_time: 0.000328  Rows_sent: 4  Rows_examined: 1543720  Rows_affected: 0
-# Bytes_sent: 272  Tmp_tables: 0  Tmp_disk_tables: 0  Tmp_table_sizes: 0
-# Full_scan: Yes  Full_join: No  Tmp_table: No  Tmp_table_on_disk: No
-# Filesort: No  Filesort_on_disk: No  Merge_passes: 0
-SET timestamp=1370073666;
-SELECT id,title,production_year FROM title WHERE title = &#39;Bambi&#39;;
-</code></pre></div>
-</details>
-<p>Another example (log_slow_verbosity <code>=profiling</code>):</p>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Time: 130601  8:03:20.700441
-# User@Host: root[root] @ localhost []  Id:    43
-# Schema: imdb  Last_errno: 0  Killed: 0
-# Query_time: 7.815071  Lock_time: 0.000261  Rows_sent: 4  Rows_examined: 1543720  Rows_affected: 0
-# Bytes_sent: 272
-# Profile_starting: 0.000125 Profile_starting_cpu: 0.000120
-Profile_checking_permissions: 0.000021 Profile_checking_permissions_cpu: 0.000021
-Profile_Opening_tables: 0.000049 Profile_Opening_tables_cpu: 0.000048 Profile_init: 0.000048
-Profile_init_cpu: 0.000049 Profile_System_lock: 0.000049 Profile_System_lock_cpu: 0.000048
-Profile_optimizing: 0.000024 Profile_optimizing_cpu: 0.000024 Profile_statistics: 0.000036 
-Profile_statistics_cpu: 0.000037 Profile_preparing: 0.000029 Profile_preparing_cpu: 0.000029
-Profile_executing: 0.000012 Profile_executing_cpu: 0.000012 Profile_Sending_data: 7.814583
-Profile_Sending_data_cpu: 7.811634 Profile_end: 0.000013 Profile_end_cpu: 0.000012
-Profile_query_end: 0.000014 Profile_query_end_cpu: 0.000014 Profile_closing_tables: 0.000023
-Profile_closing_tables_cpu: 0.000023 Profile_freeing_items: 0.000051
-Profile_freeing_items_cpu: 0.000050 Profile_logging_slow_query: 0.000006
-Profile_logging_slow_query_cpu: 0.000006
-# Profile_total: 7.815085 Profile_total_cpu: 7.812127
-SET timestamp=1370073800;
-SELECT id,title,production_year FROM title WHERE title = &#39;Bambi&#39;;
-</code></pre></div>
-</details>
-<p>Notice that the <code>Killed: \</code>` keyword is followed by zero when the
-query successfully completes. If the query was killed, the ``Killed:`
-keyword is followed by a number other than zero:</p>
-<table>
-<thead>
-<tr>
-<th>Killed Numeric Code</th>
-<th>Exception</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>NOT_KILLED</td>
-</tr>
-<tr>
-<td>1</td>
-<td>KILL_BAD_DATA</td>
-</tr>
-<tr>
-<td>1053</td>
-<td>ER_SERVER_SHUTDOWN (see MySQL Documentation)</td>
-</tr>
-<tr>
-<td>1317</td>
-<td>ER_QUERY_INTERRUPTED (see MySQL Documentation)</td>
-</tr>
-<tr>
-<td>3024</td>
-<td>ER_QUERY_TIMEOUT (see MySQL Documentation)</td>
-</tr>
-<tr>
-<td>Any other number</td>
-<td>KILLED_NO_VALUE (Catches all other cases)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="connection-and-schema-identifier">Connection and Schema Identifier<a class="headerlink" href="#connection-and-schema-identifier" title="Permanent link">&para;</a></h3>
-<p>Each slow log entry now contains a connection identifier, so you can trace all the queries coming from a single connection. This is the same value that is shown in the Id column in <code>SHOW FULL PROCESSLIST</code> or returned from the <code>CONNECTION_ID()</code> function.</p>
-<p>Each entry also contains a schema name, so you can trace all the queries whose default database was set to a particular schema.</p>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Id: 43  Schema: imdb
-</code></pre></div>
-</details>
-<h3 id="microsecond-time-resolution-and-extra-row-information">Microsecond time resolution and extra row information<a class="headerlink" href="#microsecond-time-resolution-and-extra-row-information" title="Permanent link">&para;</a></h3>
-<p>This is the original functionality offered by the <code>microslow</code> feature. <code>Query_time</code> and <code>Lock_time</code> are logged with microsecond resolution.</p>
-<p>The feature also adds information about how many rows were examined for <code>SELECT</code> queries, and how many were analyzed and affected for <code>UPDATE</code>, <code>DELETE</code>, and <code>INSERT</code> queries,</p>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Query_time: 0.962742  Lock_time: 0.000202  Rows_sent: 4  Rows_examined: 1543719  Rows_affected: 0
-</code></pre></div>
-</details>
-<p>Values and context:</p>
-<ul>
-<li>
-<p><code>Rows_examined</code>: Number of rows scanned - <code>SELECT</code></p>
-</li>
-<li>
-<p><code>Rows_affected</code>: Number of rows changed - <code>UPDATE</code>, <code>DELETE</code>, <code>INSERT</code></p>
-</li>
-</ul>
-<h3 id="memory-footprint">Memory footprint<a class="headerlink" href="#memory-footprint" title="Permanent link">&para;</a></h3>
-<p>The feature provides information about the amount of bytes sent for the result of the query and the number of temporary tables created for its execution - differentiated by whether they were created on memory or on disk - with the total number of bytes used by them.</p>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Bytes_sent: 8053  Tmp_tables: 1  Tmp_disk_tables: 0  Tmp_table_sizes: 950528
-</code></pre></div>
-</details>
-<p>Values and context:</p>
-<ul>
-<li>
-<p><code>Bytes_sent</code>: The amount of bytes sent for the result of the query</p>
-</li>
-<li>
-<p><code>Tmp_tables</code>: Number of temporary tables created on memory for the query</p>
-</li>
-<li>
-<p><code>Tmp_disk_tables</code>: Number of temporary tables created on disk for the query</p>
-</li>
-<li>
-<p><code>Tmp_table_sizes</code>: Total Size in bytes for all temporary tables used in the query</p>
-</li>
-</ul>
-<h3 id="query-plan-information">Query plan information<a class="headerlink" href="#query-plan-information" title="Permanent link">&para;</a></h3>
-<p>Each query can be executed in various ways. For example, it may use indexes or do a full table scan, or a temporary table may be needed. These are the things that you can usually see by running <code>EXPLAIN</code> on the query. The feature will now allow you to see the most important facts about the execution in the log file.</p>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Full_scan: Yes  Full_join: No  Tmp_table: No  Tmp_table_on_disk: No
-# Filesort: No  Filesort_on_disk: No  Merge_passes: 0
-</code></pre></div>
-</details>
-<p>The values and their meanings are documented with the log_slow_filter option.</p>
-<h3 id="innodb-usage-information">InnoDB usage information<a class="headerlink" href="#innodb-usage-information" title="Permanent link">&para;</a></h3>
-<p>The final part of the output is the <em>InnoDB</em> usage statistics. <em>MySQL</em> currently shows many per-session statistics for operations with <code>SHOW SESSION STATUS</code>, but that does not include those of <em>InnoDB</em>, which are always global and shared by all threads. This feature lets you see those values for a given query.</p>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>#   InnoDB_IO_r_ops: 6415  InnoDB_IO_r_bytes: 105103360  InnoDB_IO_r_wait: 0.001279
-#   InnoDB_rec_lock_wait: 0.000000  InnoDB_queue_wait: 0.000000
-#   InnoDB_pages_distinct: 6430
-</code></pre></div>
-</details>
-<p>Values:</p>
-<ul>
-<li>
-<p><code>innodb_IO_r_ops</code>: Counts the number of page read operations scheduled. The actual number of read operations may be different, but since this can be done asynchronously, there is no good way to measure it.</p>
-</li>
-<li>
-<p><code>innodb_IO_r_bytes</code>: Similar to innodb_IO_r_ops, but the unit is bytes.</p>
-</li>
-<li>
-<p><code>innodb_IO_r_wait</code>: Shows how long (in seconds) it took <em>InnoDB</em> to actually read the data from storage.</p>
-</li>
-<li>
-<p><code>innodb_rec_lock_wait</code>: Shows how long (in seconds) the query waited for row locks.</p>
-</li>
-<li>
-<p><code>innodb_queue_wait</code>: Shows how long (in seconds) the query spent either waiting to enter the <em>InnoDB</em> queue or inside that queue waiting for execution.</p>
-</li>
-<li>
-<p><code>innodb_pages_distinct</code>: Counts approximately the number of unique pages the query accessed. The approximation is based on a small hash array representing the entire buffer pool, because it could take a lot of memory to map all the pages. The inaccuracy grows with the number of pages accessed by a query, because there is a higher probability of hash collisions.</p>
-</li>
-</ul>
-<p>If the query did not use <em>InnoDB</em> tables, that information is written into the log instead of the above statistics.</p>
-<h2 id="related-reading">Related reading<a class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><a href="https://www.percona.com/blog/impact-of-logging-on-mysql%E2%80%99s-performance/">Impact of logging on MySQL’s performance</a></p>
-</li>
-<li>
-<p><a href="https://www.percona.com/blog/finding-what-created_tmp_disk_tables-with-log_slow_filter/">log_slow_filter Usage</a></p>
-</li>
-<li>
-<p><a href="https://jira.percona.com/browse/PS-1136">Added microseconds to the slow query log event time</a></p>
-</li>
-</ul>
+<p>This variable can be used to specify the query execution time after which the query will be written to the slow query log. It can be used to specify an additional execution time threshold for the slow query log, that, when exceeded, will cause a query to be logged unconditionally, that is, <code>log_slow_rate_limit</code> will not apply to it.</p>
 <div data-banner="data-banner">
 <p><svg style="display:block;margin:-1em 0 0.75em" width="78" height="69" viewBox="0 0 78 69" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M56.7281 30.7666C62.6528 26.8938 64.5914 18.9942 61.0059 12.7854C59.2094 9.67113 56.3053 7.44082 52.8311 6.50951C49.6122 5.64535 46.2502 5.99872 43.2912 7.49366L39.251 0.5L30.8648 15.0245L11.4811 48.5937H67.021L56.7281 30.7666ZM51.881 10.0674C54.4064 10.7401 56.5079 12.3616 57.8168 14.6194C60.3895 19.0701 59.053 24.7153 54.8808 27.5665L45.1362 10.6905C47.2355 9.68104 49.6034 9.46087 51.881 10.0674ZM39.251 7.87125L60.6339 44.907H48.1228L32.9927 18.7102L39.2499 7.87235L39.251 7.87125ZM17.8682 44.907L30.8637 22.4035L43.8592 44.907H17.8682Z" fill="url(#paint0_linear_2899_1968)"/><path style="fill:var(--md-typeset-color)" d="M4.981 64.943H3.157V68.207H.756V57.323H5.217C7.822 57.323 9.397 58.861 9.397 61.086V61.116C9.397 63.635 7.433 64.94 4.984 64.94L4.981 64.943V64.943ZM6.961 61.134C6.961 60.061 6.213 59.485 5.011 59.485H3.154V62.812H5.056C6.258 62.812 6.958 62.096 6.958 61.163V61.134H6.961ZM10.738 68.208V57.323H18.973V59.455H13.124V61.664H18.27V63.796H13.124V66.082H19.051V68.214H10.738V68.208 68.208ZM27.557 68.208 25.218 64.726H23.332V68.208H20.931V57.323H25.921C28.496 57.323 30.039 58.677 30.039 60.915V60.945C30.039 62.702 29.088 63.807 27.7 64.32L30.367 68.207H27.556L27.557 68.208ZM27.605 61.041C27.605 60.016 26.887 59.485 25.719 59.485H23.333V62.61H25.767C26.936 62.61 27.605 61.987 27.605 61.071V61.042 61.041ZM36.922 68.499C33.668 68.499 31.249 65.994 31.249 62.825V62.795C31.249 59.659 33.619 57.091 37.019 57.091 39.105 57.091 40.356 57.783 41.383 58.792L39.834 60.571C38.98 59.798 38.113 59.327 37.004 59.327 35.141 59.327 33.795 60.871 33.795 62.762V62.793C33.795 64.684 35.107 66.257 37.004 66.257 38.268 66.257 39.043 65.753 39.913 64.964L41.462 66.524C40.322 67.738 39.059 68.493 36.925 68.493L36.922 68.499ZM47.885 68.499C44.47 68.499 42.021 65.962 42.021 62.825V62.795C42.021 59.659 44.503 57.091 47.915 57.091 51.327 57.091 53.779 59.628 53.779 62.765V62.795C53.779 65.931 51.297 68.499 47.885 68.499ZM51.237 62.795C51.237 60.904 49.846 59.331 47.885 59.331 45.925 59.331 44.567 60.874 44.567 62.766V62.796C44.567 64.688 45.959 66.261 47.919 66.261 49.879 66.261 51.237 64.717 51.237 62.826V62.795 62.795ZM67.001 68.217 72.374 57.091 77.746 68.218H75.052L72.374 62.681 69.705 68.218H67.001V68.217ZM66.007 57.327V68.5L57.813 61.884V68.199H55.264V57.091L63.458 63.681V57.327H66.007Z"/><defs><linearGradient id="paint0_linear_2899_1968" x1="18.1513" y1="44.7152" x2="61.4356" y2="20.9786" gradientUnits="userSpaceOnUse"><stop stop-color="#FC3519"/><stop offset="1" stop-color="#F0D136"/></linearGradient></defs></svg></p>
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
@@ -7816,7 +7564,7 @@ keyword is followed by a number other than zero:</p>
   <small>
     
       Last update:
-      2024-08-14
+      2024-09-27
     
   </small>
 </div>
