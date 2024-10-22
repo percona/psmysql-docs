@@ -1,39 +1,57 @@
 # Binary logs and replication improvements
 
 Due to continuous development, Percona Server for MySQL incorporated a number of
-improvements related to replication and binary logs handling. This resulted in replication specifics, which distinguishes it from *MySQL*.
+improvements related to replication and binary logs handling. This resulted in replication specifics, which distinguishes it from MySQL.
 
-## Safety of statements with a `LIMIT` clause
+## Statements with a `LIMIT` clause
 
-### Summary of the fix
+In MySQL 8.0, any UPDATE/DELETE/INSERT ... SELECT statements that include a LIMIT clause are indeed considered unsafe for statement-based replication. These statements will cause MySQL to automatically switch from statement-based logging to row-based logging if binlog_format is set to MIXED.
 
-*MySQL* considers all `UPDATE/DELETE/INSERT ... SELECT` statements with
-`LIMIT` clause to be unsafe, no matter wether they are really producing
-non-deterministic result or not, and switches from statement-based logging
-to row-based one. *Percona Server for MySQL* is more accurate, it acknowledges such
-instructions as safe when they include `ORDER BY PK` or `WHERE`
-condition. This fix has been ported from the upstream bug report
-[#42415](https://bugs.mysql.com/bug.php?id=42415) ([#44](https://jira.percona.com/browse/PS-44)).
+Here's why:
 
-## Performance improvement on relay log position update
+* The LIMIT clause without an ORDER BY makes the result set non-deterministic
 
-### Relay log position fix
+* The same statement might affect different rows on the primary and replicas
+
+```sql
+UPDATE table1 LIMIT 10 SET col1 = 'value';
+DELETE FROM table1 LIMIT 5;
+INSERT INTO table2 SELECT * FROM table1 LIMIT 3;
+```
+
+To make these statements safe for statement-based replication, you should do one of the following:
+
+* Remove the LIMIT clause
+
+* Add an ORDER BY clause to make the result set deterministic
+
+```sql
+UPDATE table1 SET col1 = 'value' ORDER BY id LIMIT 10;
+DELETE FROM table1 ORDER BY id LIMIT 5;
+INSERT INTO table2 SELECT * FROM table1 ORDER BY id LIMIT 3;
+```
+
+The exception is when the LIMIT is used with an ORDER BY clause that uses a unique key - in this case, the statement becomes deterministic and safe for statement-based replication.
+
+Percona Server for MySQL acknowledges statements as safe when they include either an `ORDER BY PK` or `WHERE` 
+condition. 
+
+
+## Relay log position fix
 
 *MySQL* always updated relay log position in multi-source replications setups
 regardless of whether the committed transaction has already been executed or
 not. Percona Server omits relay log position updates for the already logged
 GTIDs.
 
-### Relay log position details
+## Relay log position details
 
 Particularly, such unconditional relay log position updates caused additional
 fsync operations in case of `relay-log-info-repository=TABLE`, and with the
 higher number of channels transmitting such duplicate (already executed)
 transactions the situation became proportionally worse. Bug fixed [#1786](https://jira.percona.com/browse/PS-1786), (upstream [#85141](https://bugs.mysql.com/bug.php?id=85141)).
 
-## Performance improvement on source and connection status updates
-
-### Source and connection status update fix
+## Source and connection status update fix
 
 Replica nodes configured to update source status and connection information
 only on log file rotation did not experience the expected reduction in load.
@@ -43,7 +61,7 @@ replication when replica had to skip the already executed GTID event.
 ## Write `FLUSH` commands to the binary log
 
 `FLUSH` commands, such as `FLUSH SLOW LOGS`, are not written to the
-binary log if the system variable binlog_skip_flush_commands is set
+binary log if the system variable `binlog_skip_flush_commands` is set
 to **ON**.
 
 In addition, the following changes were implemented in the behavior of
@@ -71,17 +89,32 @@ regardless of the value of the binlog_skip_flush_commands variable.
 | Dynamic | Yes |
 | Default | OFF |
 
-When binlog_skip_flush_commands is set to **ON**, `FLUSH ...` commands are not written to the binary
-log. See Writing FLUSH Commands to the Binary Log for more information
-about what else affects the writing of `FLUSH` commands to the binary log.
+When `binlog_skip_flush_commands` is set to **ON**, `FLUSH ...` commands are not written to the binary
+log. 
 
-!!! note
+The `binlog_skip_flush_commands` setting does not affect the following commands because they are not written to binary log:
 
-    `FLUSH LOGS`, `FLUSH BINARY LOGS`, `FLUSH TABLES WITH READ LOCK`, and `FLUSH TABLES ... FOR EXPORT` are not written to the binary log no matter what value the binlog_skip_flush_commands variable contains. The `FLUSH` command is not recorded to the binary log and the value of binlog_skip_flush_commands is ignored if the `FLUSH` command is run with the `NO_WRITE_TO_BINLOG` keyword (or its alias `LOCAL`).
+	•	`FLUSH LOGS`
+	
+	•	`FLUSH BINARY LOGS`
+	
+	•	`FLUSH TABLES WITH READ LOCK`
+	
+	•	`FLUSH TABLES ... FOR EXPORT`
 
-## Maintaining comments with DROP TABLE
 
-When you issue a `DROP TABLE` command, the binary log stores the command but removes comments and encloses the table name in quotation marks. If you require the binary log to maintain the comments and not add quotation marks, enable `binlog_ddl_skip_rewrite`.
+The `FLUSH` command does not record to the binary log, and it ignores the `binlog_skip_flush_commands` value when you run it with the `NO_WRITE_TO_BINLOG` keyword (or its alias `LOCAL`).
+
+## Keep comments with DDL commands
+
+When you run a DDL command, such as `DROP TABLE`, the server does the following in the binary log. 
+
+| Actions  | Description   |
+|---|---|
+| Removes Comments   | The server deletes any comments in the original command. For example, if you use `DROP TABLE my_table /* This is a comment */;`, the binary log does not save the comment. |
+| Adds Quotation Marks | The server puts quotation marks around the table name. So, if you run `DROP TABLE my_table;`, it logs it as `DROP TABLE "my_table";`.                               |
+
+These actions simplify the logging format, but sometimes, you want the original format.
 
 ### binlog_ddl_skip_rewrite
 
@@ -93,7 +126,38 @@ When you issue a `DROP TABLE` command, the binary log stores the command but rem
 | Dynamic | Yes |
 | Default | OFF |
 
-If the variable is enabled, single table `DROP TABLE` DDL statements are logged in the binary log with comments. Multi-table `DROP TABLE` DDL statements are not supported and return an error.
+When disabled (default setting), the server removes comments and adds quotation marks.
+
+If the variable is enabled, all single table `DROP TABLE` DDL statements are logged in the binary log with the following:
+
+•	Comments are preserved, so any notes you add to the command stay in the binary log.
+
+•	Quotation marks are not added.
+
+
+You can enable `binlog_ddl_skip_rewrite` at runtime:
+
+```sql
+-- Check current setting
+SHOW VARIABLES LIKE 'binlog_ddl_skip_rewrite';
+
+-- Enable feature
+SET GLOBAL binlog_ddl_skip_rewrite = ON;
+
+-- Disable feature
+SET GLOBAL binlog_ddl_skip_rewrite = OFF;
+```
+
+You can enable it permanently by adding it to the my.cnf configuration file:
+
+```text
+[mysqld]
+binlog_ddl_skip_rewrite = ON
+```
+
+After adding the statement to the configuration file, restart the MySQL service.
+
+Multi-table `DROP TABLE` DDL statements are not supported and return an error.
 
 ```sql
 SET binlog_ddl_skip_rewrite = ON;
@@ -113,9 +177,7 @@ To implement Point in Time recovery, we have added the `binlog_utils_udf`. The f
 | get_first_record_timestamp_by_binlog() | Timestamp as INTEGER | Returns the timestamp of the first event in the specified binlog |
 | get_last_record_timestamp_by_binlog() | Timestamp as INTEGER | Returns the timestamp of the last event in the specified binlog |
 
-!!! note
-
-    All functions returning timestamps return their values as microsecond precision UNIX time. In other words, they represent the number of microseconds since 1-JAN-1970.
+All functions returning timestamps return their values as microsecond precision UNIX time. In other words, they represent the number of microseconds since 1-JAN-1970.
 
 All functions accepting a binlog name as the parameter accepts only short names, without a path component. If the path separator (‘/’) is found in the input, an error is returned. This serves the purpose of restricting the locations from where binlogs can be read. They are always read from the current binlog directory ([@@log_bin_basename system variable]).
 
@@ -127,7 +189,7 @@ The basic syntax for `get_binlog_by_gtid()` is the following:
 
 Usage: SELECT get_binlog_by_gtid(string) [AS] alias
 
-Example:
+An example of using the `get_binlog_gtid` command:
 
 ```sql
 CREATE FUNCTION get_binlog_by_gtid RETURNS STRING SONAME 'binlog_utils_udf.so';
@@ -153,7 +215,7 @@ The basic syntax for `get_last_gtid_from_binlog()` is the following:
 
 Usage: SELECT get_last_gtid_from_binlog(string) [AS] alias
 
-For example:
+An example of using the `get_last_gtid_from_binlog` command:
 
 ```sql
 CREATE FUNCTION get_last_gtid_from_binlog RETURNS STRING SONAME 'binlog_utils_udf.so';
@@ -180,7 +242,7 @@ The basic syntax for `get_gtid_set_by_binlog()` is the following:
 
 Usage: SELECT get_gtid_set_by_binlog(string) [AS] alias
 
-For example:
+An example of using the `get_gtid_set_by_binlog` command:
 
 ```sql
 CREATE FUNCTION get_gtid_set_by_binlog RETURNS STRING SONAME 'binlog_utils_udf.so';
@@ -207,7 +269,7 @@ The basic syntax for `get_binlog_by_gtid_set()` is the following:
 
 Usage: SELECT get_binlog_by_gtid_set(string) [AS] alias
 
-Example:
+An example of using the `get_binlog_by_gtid_set` command:
 
 ```sql
 CREATE FUNCTION get_binlog_by_gtid_set RETURNS STRING SONAME 'binlog_utils_udf.so';
@@ -233,7 +295,7 @@ The basic syntax for `get_first_record_timestamp_by_binlog()` is the following:
 
 Usage: SELECT get_first_record_timestamp_by_binlog(TIMESTAMP) [AS] alias
 
-For example:
+An example of using the `get_first_record_timestamp_by_binlog` command:
 
 ```sql
 CREATE FUNCTION get_first_record_timestamp_by_binlog RETURNS INTEGER SONAME 'binlog_utils_udf.so';
@@ -260,7 +322,7 @@ The basic syntax for `get_last_record_timestamp_by_binlog()` is the following:
 
 Usage: SELECT get_last_record_timestamp_by_binlog(TIMESTAMP) [AS] alias
 
-For example:
+An example of using the `get_last_record_timestamp_by_binlog` command:
 
 ```sql
 CREATE FUNCTION get_last_record_timestamp_by_binlog RETURNS INTEGER SONAME 'binlog_utils_udf.so';
@@ -289,7 +351,7 @@ For the following variables, do not define values with one or more dot (.) chara
 
 * [log_bin_index]
 
-A value defined with these characters is handled differently in *MySQL* and Percona XtraBackup and can cause unpredictable behavior.
+A value defined with the dot (.) character is handled differently in MySQL and Percona XtraBackup and can cause unpredictable behavior.
 
 [@@log_bin_basename system variable]: https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#sysvar_log_bin_basename
 
