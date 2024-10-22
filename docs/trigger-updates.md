@@ -1,20 +1,17 @@
 # Trigger updates
 
-Clients can issue simultaneous queries for a table. To avoid scalability problems, each thread-handling query has its own table instance. The server uses a special cache, called the Table Cache, which contains open table instanances. The use of the cache avoids paying the penalty in resources for opening and closing tables for each statement.
+In MySQL, the system efficiently handles multiple client queries to the same table by opening separate table instances for each query. This prevents delays and conflicts. The use of a "Table Cache" speeds up access by reducing the need to repeatedly open and close tables, improving overall performance.
 
-The [`table_open_cache`] system variable sets soft limits on the cache size. This limit can be temporarily exceeded if the currently executing queries require more open tables than specified. However, when these queries complete, the server closes the unused table instances from this cache using the least recently used (LRU) algorithm.
+The [table_open_cache] system variable controls the number of tables MySQL can keep open simultaneously across all threads. By increasing this setting, MySQL can handle more open files, although this requires more file descriptors. Despite a soft limit, MySQL can temporarily exceed it if queries demand more open tables. Upon query completion, MySQL automatically manages the cache by closing the least recently used tables.
 
-The [`table_open_cache_instances`] system variable shows the number of open tables cache instances.
+The [table_open_cache_instances] system variable controls the number of open table cache instances in MySQL. By splitting the open tables cache into smaller segments (table_open_cache divided by table_open_cache_instances), sessions can access only one instance at a time for DML operations, reducing contention and improving performance when many sessions are running. For systems with 16 or more CPU cores, a value of 8 or 16 is recommended. However, if many large triggers are causing high memory usage, setting this variable to 1 can help limit memory consumption.
 
-For more information, see [How MySQL opens and closes tables].
-
-Opening a table with triggers in Table Cache also parses the trigger definitions and associates the open table instance with its own instances of the defined trigger bodies. When a connection executes a DML statement and must run a trigger, that connection gets its own instance of the trigger body for that specific open table instance. As a result of this approach, caching open table instances and also caching an associated trigger body for each trigger can consume a surprising amount of memory.
-
-## Version specific information
+When a table with triggers is opened in the Table Cache, it also reads the trigger definitions and links the open table instance to its specific trigger instances. When a connection executes a Data Manipulation Language (DML) statement that activates a trigger, that connection uses its own instance of the trigger body for that particular table instance. This method of caching both the open table instances and their associated trigger bodies can unexpectedly use a significant amount of memory.
 
 Percona Server for MySQL has the following abilities:
 
 * Avoid using table instances with fully-loaded and parsed triggers by read-only queries
+
 * Show trigger CREATE statements even if the statement is unparseable
 
 The additional system variable reduces the Table Cache memory consumption on the server when tables that contain trigger definitions also are part of a significant read-only workload.
@@ -38,11 +35,7 @@ The additional system variable reduces the Table Cache memory consumption on the
 | Minimum value  | 1                           |
 | Maximum value  | 524288                      |
 
-This variable allows you to set a soft limit on the maximum of open tables in the Table Cache, which contains fully-loaded triggers. By default, the value is the maximum value to avoid existing users observing a change in behavior.
-
-If the number of open table instances with fully-loaded triggers exceeds the value, then unused table instances with fully-loaded triggers are removed. This operation uses the least recently used (LRU) method for managing storage areas.
-
-The value can be a start-up option or changed dynamically.
+This variable sets a soft limit on the maximum number of open tables in the Table Cache, which holds fully loaded triggers. By default, this value is set to the maximum to prevent any changes in behavior for existing users. If the number of open table instances with fully loaded triggers exceeds this limit, the system removes the least recently used unused table instances. You can set this value as a start-up option or change it dynamically while the system runs.
 
 ## Status variables
 
@@ -62,13 +55,13 @@ The following status variables are available:
 
 ## SHOW CREATE TRIGGER statment changes
 
-The `SHOW CREATE TRIGGER` statement shows the CREATE statement used to create
-the trigger. The statement also shows definitions which can no longer be
-parsed. For example, you can show the definition of a trigger created before
-a server upgrade which changed the trigger syntax.
+The `SHOW CREATE TRIGGER` statement displays the SQL command that created a trigger, including definitions that may no longer be understandable. For example, if a trigger was created before a server upgrade that changed the trigger syntax, this statement will still show its definition.
 
-[`table_open_cache`]: https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_table_open_cache
+## Additional resources
 
-[`table_open_cache_instances`]: https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_table_open_cache_instances
+For more information, see [How MySQL opens and closes tables].
+
+[table_open_cache]: https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_table_open_cache
+[table_open_cache_instances]: https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_table_open_cache_instances
 
 [How MySQL opens and closes tables]: https://dev.mysql.com/doc/refman/{{vers}}/en/table-cache.html
