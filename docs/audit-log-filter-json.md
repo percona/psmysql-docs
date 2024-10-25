@@ -1,7 +1,5 @@
 # Audit Log Filter format - JSON
 
-The feature is in [tech preview](glossary.md#tech-preview).
-
 The JSON format has one top-level JSON array, which contain JSON objects with key-value pairs. These objects represent an event in the audit. Some pairs are listed in every audit record. The audit record type determines if other key-value pairs are listed. The order of the pairs within an audit record is not guaranteed. The value description may be truncated.
 
 Certain statistics, such as query time and size, are only available in the JSON format and help detect activity outliers when analyzed. 

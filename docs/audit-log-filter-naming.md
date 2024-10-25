@@ -1,7 +1,5 @@
 # Audit Log Filter file naming conventions
 
-The feature is in [tech preview](glossary.md#tech-preview).
-
 ## Name qualities
 
 The audit log filter file name has the following qualities:

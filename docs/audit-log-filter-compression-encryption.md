@@ -1,7 +1,5 @@
 # Audit Log Filter compression and encryption
 
-The feature is in [tech preview](glossary.md#tech-preview).
-
 ## Compression
 
 You can enable compression for any [format](audit-log-filter-formats.md) by setting the `audit_log_filter_compression` system variable when the server starts.

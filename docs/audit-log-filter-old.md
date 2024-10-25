@@ -1,7 +1,5 @@
 # Audit Log Filter format - XML (old style)
 
-The feature is in [tech preview](glossary.md#tech-preview).
-
 The old style XML format uses `<AUDIT>` tag as the root element and adds the `</AUDIT>` tag when the file closes. Each audited event is contained in an <AUDIT_RECORD> element. 
 
 The order of the attributes within an <AUDIT_RECORD> can vary. Certain attributes are in every element. Other attributes are optional and depend on the type of audit record.

@@ -1,7 +1,5 @@
 # Audit Log Filter file format overview
 
-The feature is in [tech preview](glossary.md#tech-preview).
-
 When an auditable event occurs, the plugin writes a record to the log file.
 
 After the plugin starts, the first record lists the description of the server and the options at startup. After the first record, the auditable events are connections, disconnections, SQL statements executed, and so on. Statements within stored procedures or triggers are not logged, only the top-level statements.
