@@ -1,7 +1,5 @@
 # Disable Audit Log Filter logging
 
-The feature is in [tech preview](glossary.md#tech-preview).
-
 The `audit_log_filter_disable` system variable lets you disable or enable logging for all connections.
 
 You can set the variable in the following ways:

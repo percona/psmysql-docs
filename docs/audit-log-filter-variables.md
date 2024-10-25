@@ -1,7 +1,5 @@
 # Audit log filter functions, options and variables
 
-This feature is in [technical preview](glossary.md#tech-preview).
-
 The following sections describe the [functions](#audit-log-filter-functions), [options, and variables](#audit-log-filter-options-and-variables) available in the audit log filter plugin.
 
 ## Audit log filter functions

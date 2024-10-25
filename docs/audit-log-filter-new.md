@@ -1,7 +1,5 @@
 # Audit Log Filter format - XML (new style)
 
-The feature is in [tech preview](glossary.md#tech-preview).
-
 The filter writes the audit log filter file in XML. The XML file uses 
 UTF-8.
 

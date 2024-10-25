@@ -1,7 +1,5 @@
 # Audit Log Filter overview
 
-The feature is in [tech preview](glossary.md#tech-preview).
-
 The Audit Log Filter plugin allows you to monitor, log, and block a connection or query actively executed on the selected server. 
 
 Enabling the plugin produces a log file that contains a record of server activity. The log file has information on connections and databases accessed by that connection. 

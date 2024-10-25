@@ -1,7 +1,5 @@
 # Audit Log Filter restrictions
 
-The feature is in [tech preview](glossary.md#tech-preview).
-
 ## General restrictions
 
 The Audit Log Filter has the following general restrictions:

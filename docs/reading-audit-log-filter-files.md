@@ -1,7 +1,5 @@
 # Reading Audit Log Filter files
 
-The feature is in [tech preview](glossary.md#tech-preview).
-
 The Audit Log Filter functions can provide a SQL interface to read JSON-format audit log files. The functions cannot read log files in other formats. Configuring the plugin for JSON logging lets the functions use the directory that contains the current audit log filter file and search in that location for readable files. The value of the `audit_log_filter_file` system variable provides the file location, base name, and the suffix and then searches for names that match the pattern.
 
 If the file is renamed and no longer fits the pattern, the file is ignored.

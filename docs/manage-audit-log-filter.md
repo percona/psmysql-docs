@@ -1,7 +1,5 @@
 # Manage the Audit Log Filter files
 
-The feature is in [tech preview](glossary.md#tech-preview).
-
 The Audit Log Filter files have the following potential results:
 
 * Consume a large amount of disk space

@@ -1,7 +1,5 @@
 # Install the Audit Log Filter
 
-The feature is in [tech preview](glossary.md#tech-preview).
-
 The `plugin_dir` system variable defines the plugin library location. If needed, at server startup, set the `plugin_dir` variable.
 
 When upgrading a MySQL installation, plugins are not automatically upgraded. You may need to manually load the plugin after the MySQL upgrade.

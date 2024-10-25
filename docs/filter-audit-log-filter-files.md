@@ -1,7 +1,5 @@
 # Filter the Audit Log Filter logs
 
-The feature is in [tech preview](glossary.md#tech-preview).
-
 The audit filter log filtering is based on rules. The filter rule definition has the ability to include or exclude events based on the following attributes:
 
 * User account

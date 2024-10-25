@@ -1,7 +1,5 @@
 # Audit Log Filter security
 
-The feature is in [tech preview](glossary.md#tech-preview).
-
 The Audit Log Filter plugin generates audit log filter files. The directory 
 that contains these files should be accessible only to the following:
 
