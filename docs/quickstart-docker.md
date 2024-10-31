@@ -22,28 +22,28 @@ To use the "Docker run" command, specify the name or ID of the image you want to
 | `--name psmysql` | Provides a meaningful name to the container. If you do not use this option, Docker adds a random name. |
 | `-e MYSQL_ROOT_PASSWORD=secret` | Adds an environmental variable and changes the password from the default password. |
 |  `--v myvol:/var/lib/mysql` | Mounts a host directory (myvol) as the container's data volume, ensuring persistent storage for the database between container lifecycles. |
-| `percona/percona-server:8.0.34` | The image with the tag (8.0.34) to specify a specific release. |
+| `percona/percona-server:{{tag}}` | The image with the tag ({{tag}}) to specify a specific release. |
 
 You must provide at least one environment variable to access the database, such as `MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE`, `MYSQL_USER`, and `MYSQL_PASSWORD` or the instance refuses to initialize.
 
 If needed, you can replace the `secret` password with a [stronger password](#security-measures).
 
-For this document, we add the `8.0.34` tag. In Docker, a tag is a label assigned to an image and is used to maintain different versions of an image. If we did not add a tag, Docker uses `latest` as the default tag and downloads the latest image from [percona/percona-server on the Docker Hub].
+For this document, we add the `{{tag}}` tag. In Docker, a tag is a label assigned to an image and is used to maintain different versions of an image. If we did not add a tag, Docker uses `latest` as the default tag and downloads the latest image from [percona/percona-server on the Docker Hub].
 
-To run the Docker ARM64 version of Percona Server for MySQL, use the `8.0.34-26 1-aarch64` tag instead of `8.0.34`.
+To run the Docker ARM64 version of Percona Server for MySQL, use the `{{arm_tag}}` tag instead of `{{tag}}`.
 
 ```{.bash data-prompt="$"}
 $ docker run -d -p 3306:3306 --name psmysql \
 -e MYSQL_ROOT_PASSWORD=secret \
 -v myvol:/var/lib/mysql \
-percona/percona-server:8.0.34-26 1-aarch64
+percona/percona-server:{{arm_tag}}
 ```
 
 ??? example "Expected output"
 
     ```{.text .no-copy}
-    Unable to find image 'percona/percona-server:8.0.34-26 1-aarch64' locally
-    8.0.34-26 1-aarch64: Pulling from percona/percona-server
+    Unable to find image 'percona/percona-server:{{arm_tag}}' locally
+    {{arm_tag}}: Pulling from percona/percona-server
     d6f6a69cdebb: Pull complete
     4f8794caafba: Pull complete
     d80629460c71: Pull complete
@@ -51,7 +51,7 @@ percona/percona-server:8.0.34-26 1-aarch64
     fb91f65fb039: Pull complete
     e8f7e0c2fbae: Pull complete
     Digest: sha256:4944f9b365e0dc88f41b3b704ff2a02d1459fd07763d7d1a444b263db8498e1f
-    Status: Downloaded newer image for percona/percona-server:8.0.34-26 1-aarch64
+    Status: Downloaded newer image for percona/percona-server:{{arm_tag}}
     01d4f6d188b609ff92158605f8528d640aa28ff5720efa0286b36f51d4bec11c
     ```
 
@@ -92,10 +92,10 @@ You should see the following result.
     ```{.text .no-copy}
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 8
-    Server version: 8.0.34-26 Percona Server (GPL), Release 26, Revision 0fe62c85
+    Server version: {{tag}} Percona Server (GPL), Release 26, Revision 0fe62c85
 
-    Copyright (c) 2009-2023 Percona LLC and/or its affiliates
-    Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+    Copyright (c) 2009-{{year_tag}} Percona LLC and/or its affiliates
+    Copyright (c) 2000, {{year_tag}}, Oracle and/or its affiliates.
 
     Oracle is a registered trademark of Oracle Corporation and/or its
     affiliates. Other names may be trademarks of their respective
@@ -328,7 +328,7 @@ The steps are as follows:
             Bye
             ```
 
-2. You may want to remove the docker container and the image if they are no longer needed or to free up disk space. To remove a docker container, use the command `docker rm` followed by `psmysql`, the container ID or name. To remove a docker image, use the command `docker rmi` followed by `percona/percona-server:8.0.34`, the image ID or name and the tag. If you are running the ARM64 version of Percona Server, edit the Docker command to use the `8.0.34-26.1-aarch64` tag with `docker image rmi percona/percona-server:8.0.34-26.1-aarch64`
+2. You may want to remove the docker container and the image if they are no longer needed or to free up disk space. To remove a docker container, use the command `docker rm` followed by `psmysql`, the container ID or name. To remove a docker image, use the command `docker rmi` followed by `percona/percona-server:{{tag}}`, the image ID or name and the tag. If you are running the ARM64 version of Percona Server, edit the Docker command to use the `{{arm_tag}}` tag with `docker image rmi percona/percona-server:{{arm_tag}}`
 
     * An example of removing a Docker container.
 
@@ -341,15 +341,15 @@ The steps are as follows:
             ```{.text .no-copy}
             psmysql
             ```
-    * An example of removing a Docker image. If running the ARM64 version of Percona Server, edit the Docker command to use the `8.0.34-26.1-aarch64` tag. This edit changes the command to `docker image rmi percona/percona-server:8.0.34-26.1-aarch64`
+    * An example of removing a Docker image. If running the ARM64 version of Percona Server, edit the Docker command to use the `{{arm_tag}}` tag. This edit changes the command to `docker image rmi percona/percona-server:{{arm_tag}}`
         ```
-        $ docker image rmi percona/percona-server:8.0.34
+        $ docker image rmi percona/percona-server:{{tag}}
         ```
 
         ??? example "Expected output"
 
             ```{.text .no-copy}
-            Untagged: percona/percona-server:8.0.34
+            Untagged: percona/percona-server:{{tag}}
             Untagged: percona/percona-server@sha256:4944f9b365e0dc88f41b3b704ff2a02d1459fd07763d7d1a444b263db8498e1f
             Deleted: sha256:b2588da614b1f382468fc9f44600863e324067a9cae57c204a30a2105d61d9d9
             Deleted: sha256:1ceaa6dc89e328281b426854a3b00509b5df13826a9618a09e819a830b752ebd

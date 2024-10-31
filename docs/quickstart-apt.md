@@ -336,10 +336,10 @@ The examles of the "expected output" depend on the operating system. The followi
         ```{.text .no-copy}
         Welcome to the MySQL monitor.  Commands end with ; or \g.
         Your MySQL connection id is 8
-        Server version: 8.0.35-27 Percona Server (GPL), Release '27', Revision '2f8eeab2'$
+        Server version: {{tag}} Percona Server (GPL), Release '27', Revision '2f8eeab2'$
 
-        Copyright (c) 2009-2023 Percona LLC and/or its affiliates
-        Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+        Copyright (c) 2009-{{year_tag}} Percona LLC and/or its affiliates
+        Copyright (c) 2000, {{year_tag}}, Oracle and/or its affiliates.
 
         Oracle is a registered trademark of Oracle Corporation and/or its
         affiliates. Other names may be trademarks of their respective
