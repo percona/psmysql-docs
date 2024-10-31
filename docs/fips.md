@@ -1,5 +1,9 @@
 # FIPS compliance
 
+Percona Server for MySQL Pro includes the [capabilities](psmysql-pro.md#capabilities) that are typically requested by large enterprises. Percona Server for MySQL Pro contains packages created and tested by Percona. These packages are supported only for Percona Customers with a subscription.
+
+[Become a Percona Customer](https://www.percona.com/about/contact){.md-button}
+
 The Federal Information Processing Standards (FIPS) are a set of U.S. government standards that ensure the security of computer systems for non-military government agencies and contractors. These standards specify how to perform cryptographic operations, such as encryption, hashing, and digital signatures. FIPS mode is a mode of operation that enforces these standards and rejects any non-compliant algorithms or parameters.
 
 Percona Server for MySQL implements the same level of FIPS support as MySQL. Percona Server for MySQL can run in FIPS mode if a FIPS-enabled OpenSSL library and FIPS Object Module are available at runtime or if compiled using a FIPS-validated version of OpenSSL. You can also receive this functionality by [building Percona Server for MySQL from source code](compile-percona-server.md).
