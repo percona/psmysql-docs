@@ -1,10 +1,12 @@
 # Upgrade to Percona Server for MySQL Pro
 
-Are you a Percona Customer already, and are you ready to enjoy all the [benefits of Percona Server for MySQL Pro](psmysql-pro.md)? Percona Server for MySQL Pro contains packages created and tested by Percona. These packages are supported only for Percona customers with a subscription.
+Percona Server for MySQL Pro includes the [capabilities](psmysql-pro.md#capabilities) that are typically requested by large enterprises. Percona Server for MySQL Pro contains packages created and tested by Percona. These packages are supported only for Percona Customers with a subscription.
+
+[Become a Percona Customer](https://www.percona.com/about/contact){.md-button}
 
 This document provides instructions on upgrading from Percona Server for MySQL to Percona Server for MySQL Pro.
 
-## Preconditions 
+## Preconditions
 
 Request the access to the pro repository from Percona Support. You will receive the client ID and the access token which you use when downloading the packages.
 
