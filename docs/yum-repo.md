@@ -20,24 +20,9 @@ Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certi
 
 The RPM builds for *RHEL* 8 and *RHEL* 9 contain ARM packages with the `aarch64.rpm` extension. This means that Percona Server for MySQL is available for users on ARM-based systems.
 
-## Limitations
-
-The RPM packages for Red Hat Enterprise Linux 7 and the compatible derivatives do not support TLSv1.3, as it requires OpenSSL 1.1.1, which is currently not available on this platform.
-
 ## Install
 
-Install from Percona Software Repository
-For more information on the Percona Software repositories and configuring Percona Repositories with percona-release, see the Percona Software Repositories Documentation. Run the following commands as a `root` user or with sudo.
-
-=== "Install on Red Hat 7"
-
-    ```{.bash data-prompt="$"}
-    $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-    $ sudo percona-release enable-only {{pkg}} release
-    $ sudo percona-release enable tools release
-    $ sudo yum install percona-server-server
-    ```
-=== "Install on Red Hat 8 or later"
+To install using the Percona Software repository, run the following commands either as a `root` user or, as in the example, using `sudo`.
 
     ```{.bash data-prompt="$"}
     $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
@@ -59,6 +44,5 @@ set both `percona-testing-$basearch` and `percona-testing-noarch`
 to `enabled = 1` (Note that there are three sections in this file:
 release, testing, and experimental - in this case, it is the second section that requires updating).
 
-You must install the Percona repository first if the installation has not been done already.
 
 [Telemetry data]: telemetry.md

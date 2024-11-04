@@ -1,11 +1,11 @@
-# SEQUENCE_TABLE(n) function
+# PERCONA_SEQUENCE_TABLE(n) function
 
-Using `SEQUENCE_TABLE()` function provides the following:
+Using the `PERCONA_SEQUENCE_TABLE()` function provides the following:
 
 | Benefit                   | Description                                                                                       |
 |---------------------------|---------------------------------------------------------------------------------------------------|
 | Generates Sequences       | Acts as an inline table-valued function that generates a sequence of numbers.                     |
-| Table-Valued Function     | Unlike traditional scalar functions, `SEQUENCE_TABLE()` returns a virtual table with a single column named `value` containing the generated sequence. |
+| Table-Valued Function     | Unlike traditional scalar functions, `PERCONA_SEQUENCE_TABLE()` returns a virtual table with a single column named `value` containing the generated sequence. |
 | Simpler Syntax            | Simplifies queries that need to generate predictable sequences of numbers.                        |
 | Flexibility               | Allows dynamic definition of sequences within queries, offering more control compared to pre-defined tables for sequences. |
 | Predefined Sequence       | Does not manage sequences like Oracle or PostgreSQL; instead, it allows definition and generation of sequences within a `SELECT` statement. |
@@ -13,13 +13,13 @@ Using `SEQUENCE_TABLE()` function provides the following:
 
 ## Version update
 
-Percona Server for MySQL 8.4 deprecated `SEQUENCE_TABLE()`, and this function can be removed in a future release. We recommend that you use [`PERCONA_SEQUENCE_TABLE()`](percona-sequence-table.md) instead.
+Percona Server for MySQL 8.4 deprecated [`SEQUENCE_TABLE()`](sequence-table.md), and Percona may remove this function in a future release. We recommend that you use `PERCONA_SEQUENCE_TABLE()` instead.
 
 To maintain compatibility with existing third-party software, `SEQUENCE_TABLE` is no longer a reserved term and can be used as a regular identifier.
 
 ## Table functions
 
-The function is an inline table-valued function. This function creates a temporary table with multiple rows. You can use this function within a single SELECT statement. Oracle MySQL Server only has the `JSON_TABLE` table function. The Percona Server for MySQL has the `JSON_TABLE` and `SEQUENCE_TABLE()` table functions. A single SELECT statement generates a multi-row result set. In contrast, a scalar function (like [EXP(x)](https://dev.mysql.com/doc/refman/8.4/en/mathematical-functions.html#function_exp) or [LOWER(str)](https://dev.mysql.com/doc/refman/8.4/en/string-functions.html#function_lower) always returns a single value of a specific data type.
+The function is an inline table-valued function. This function creates a temporary table with multiple rows. You can use this function within a single SELECT statement. Oracle MySQL Server only has the `JSON_TABLE` table function. The Percona Server for MySQL has the `JSON_TABLE` and `PERCONA_SEQUENCE_TABLE()` table functions. A single SELECT statement generates a multi-row result set. In contrast, a scalar function (like [EXP(x)](https://dev.mysql.com/doc/refman/8.4/en/mathematical-functions.html#function_exp) or [LOWER(str)](https://dev.mysql.com/doc/refman/8.4/en/string-functions.html#function_lower) always returns a single value of a specific data type.
 
 ## Syntax
 
@@ -27,42 +27,27 @@ As with any [derived tables](https://dev.mysql.com/doc/refman/8.4/en/derived-tab
 
 The result set is a single column with the predefined column name `value` of type `BIGINT UNSIGNED`. You can reference the `value` column in `SELECT` statements. The following statements are valid. Using `n` as the number of generated values, the following is the basic syntax:
 
-* SEQUENCE_TABLE(n) [AS] alias
-
+### PERCONA_SEQUENCE_TABLE(n) [AS] alias
 
 ```{.text .no-copy}
-SELECT … FROM SEQUENCE_TABLE(n) [AS] alias
+SELECT … FROM PERCONA_SEQUENCE_TABLE(n) [AS] alias
 
-SEQUENCE_TABLE(n) [AS] alias
+PERCONA_SEQUENCE_TABLE(n) [AS] alias
 ```
 
-```sql
-SELECT * FROM SEQUENCE_TABLE(n) AS tt;
-SELECT <expr(value)> FROM SEQUENCE_TABLE(n) AS tt;
+```{.text .no-copy}
+SELECT * FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
+SELECT <expr(value)> FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 ```
 
 The first number in the series, the initial term, is defined as `0`, and the series ends with a value less than `n`.
-
-## Example usage
-
-Using `SEQUENCE_TABLE()`:
-
-```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM SEQUENCE_TABLE(5)) AS sequence_data;
-```
-
-Using `PERCONA_SEQUENCE_TABLE()`:
-
-```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM PERCONA_SEQUENCE_TABLE(5)) AS sequence_data;
-```
 
 ### Basic sequence generation
 
 In this example, the following statement generates a sequence:
 
 ```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM SEQUENCE_TABLE(3) AS tt;
+mysql> SELECT * FROM PERCONA_SEQUENCE_TABLE(3) AS tt;
 ```
 
 ??? example "Expected output"
@@ -81,8 +66,12 @@ mysql> SELECT * FROM SEQUENCE_TABLE(3) AS tt;
 
 You can define the initial value using the `WHERE` clause. The following example starts the sequence with `4`.
 
-```sql
-SELECT value AS result FROM SEQUENCE_TABLE(8) AS tt WHERE value >= 4;
+```{.bash data-prompt="mysql>"}
+mysql> SELECT value AS result \
+       FROM \
+            (SELECT seq AS value
+             FROM PERCONA_SEQUENCE_TABLE(8)) AS tt \
+       WHERE value >= 4;
 ```
 
 ??? example "Expected output"
@@ -104,8 +93,10 @@ Consecutive terms increase or decrease by a common difference. The default commo
 
 The following example prints only even numbers from the 0..7 range:
 
-```sql
-SELECT value AS result FROM SEQUENCE_TABLE(8) AS tt WHERE value % 2 = 0;
+```{.bash data-prompt="mysql>"}
+mysql> SELECT value AS result \
+       FROM PERCONA_SEQUENCE_TABLE(8) AS tt \
+       WHERE value % 2 = 0;
 ```
 
 ??? example "Expected output"
@@ -126,7 +117,8 @@ SELECT value AS result FROM SEQUENCE_TABLE(8) AS tt WHERE value % 2 = 0;
 The following is an example of using the function to populate a table with a set of random numbers:
 
 ```{.bash data-prompt="mysql>"}
-mysql> SELECT FLOOR(RAND() * 100) AS result FROM SEQUENCE_TABLE(4) AS tt;
+mysql> SELECT FLOOR(RAND() * 100) AS result \
+       FROM PERCONA_SEQUENCE_TABLE(4) AS tt;
 ```
 
 The output could be the following:
@@ -149,7 +141,8 @@ The output could be the following:
 You can populate a table with a set of pseudo-random strings with the following statement:
 
 ```{.bash data-prompt="mysql>"}
-mysql> SELECT MD5(value) AS result FROM SEQUENCE_TABLE(4) AS tt;
+mysql> SELECT MD5(value) AS result \
+       FROM PERCONA_SEQUENCE_TABLE(4) AS tt;
 ```
 
 ??? example "Expected output"
@@ -170,7 +163,7 @@ mysql> SELECT MD5(value) AS result FROM SEQUENCE_TABLE(4) AS tt;
 You can add the sequence as a column to a new table or an existing table, as shown in this example:
 
 ```{.bash data-prompt="mysql>"}
-mysql> CREATE TABLE t1 AS SELECT * FROM SEQUENCE_TABLE(4) AS tt;
+mysql> CREATE TABLE t1 AS SELECT * FROM PERCONA_SEQUENCE_TABLE(4) AS tt;
 
 mysql> SELECT * FROM t1;
 ```
@@ -191,4 +184,5 @@ mysql> SELECT * FROM t1;
 Sequences are helpful for various purposes, such as populating tables and generating test data.
 
 [`JSON_TABLE()`]: https://dev.mysql.com/doc/refman/8.4/en/json-table-functions.html
-[`PERCONA_SEQUENCE_TABLE()`]: percona-sequence-table.md
+
+[SEQUENCE_TABLE()]: sequence-table.md

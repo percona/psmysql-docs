@@ -5,13 +5,13 @@ Download the packages from [Percona Product Downloads](https://www.percona.com/d
 The following example downloads Percona Server for MySQL {{release}} release packages for Ubuntu 22.04:
 
 ```{.bash data-prompt="$"}
-$ wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/debian/jammy/x86_64/Percona-Server-{{release}}-r582ebeef-jammy-x86_64-bundle.tar
+$ wget https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.0-1/binary/debian/jammy/x86_64/Percona-Server-8.4.0-1-r238b3c02-jammy-x86_64-bundle.tar
 ```
 
 Unpack the download to get the packages:
 
 ```{.bash data-prompt="$"}
-$ tar xvf Percona-Server-{{release}}-r71449379-buster-x86_64-bundle.tar
+$ tar xvf Percona-Server-8.4.0-1-r71449379-buster-x86_64-bundle.tar
 ```
 ??? example "Expected output"
 

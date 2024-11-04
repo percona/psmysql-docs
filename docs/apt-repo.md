@@ -7,6 +7,10 @@ Specific information on the supported platforms, products, and versions is descr
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
+## ARM support
+
+The DEB builds for Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, DEBIAN 11, and DEBIAN 12 contain ARM packages with the `aarch64.rpm` extension. This means that Percona Server for MySQL is available for users on ARM-based systems.
+
 ## Install Percona Server for MySQL using APT
 
 To install Percona Server for MySQL using APT, do the following steps:
@@ -62,14 +66,12 @@ See [Configuring Percona repositories with `percona-release`](https://docs.perco
 
 --8<--- "storage-engines.md"
 
-Percona Server for MySQL contains user-defined functions from [Percona Toolkit](https://docs.percona.com/percona-toolkit/). These user-defined functions provide faster checksums. For more details on the user-defined functions, see [Percona Toolkit UDF functions](udf-percona-toolkit.md).
+Percona Server for MySQL contains user-defined functions from [Percona Toolkit](https://docs.percona.com/percona-toolkit/). These user-defined functions, `fnv_64`, `fnv1a_64`, `murmur_hash`, provide faster checksums. For more details on the user-defined functions, see [Percona Toolkit UDF functions](udf-percona-toolkit.md).
 
-After the installation completes, run the following commands to create these functions:
+After the installation completes, run the following command to create these functions:
 
 ```mysql
-mysql -e "CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME 'libfnv1a_udf.so'"
-mysql -e "CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME 'libfnv_udf.so'"
-mysql -e "CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME 'libmurmur_udf.so'"
+mysql -e "INSTALL COMPONENT 'file://component_percona_udf'"
 ```
 
 ## Install the Percona Testing repository using APT

@@ -39,7 +39,7 @@ The SELinux policy for MySQL ensures that the MySQL server process operates with
 
 ## Compatibility of Percona Server for MySQL with SELinux Policies
 
-Percona Server for MySQL is a drop-in replacement for MySQL that offers enhanced performance, scalability, and other features. When running Percona Server for MySQL on Red Hat Enterprise Linux (RHEL) 7, RHEL 8, RHEL 9, or their derivatives, compatibility with SELinux policies is essential for ensuring secure and reliable operation.
+Percona Server for MySQL is a drop-in replacement for MySQL that offers enhanced performance, scalability, and other features. When running Percona Server for MySQL on Red Hat Enterprise Linux (RHEL) 8, RHEL 9, or their derivatives, compatibility with SELinux policies is essential for ensuring secure and reliable operation.
 
 Percona Server for MySQL is designed to be compatible with SELinux policies on these Linux distributions. This means that Percona Server for MySQL can seamlessly integrate with SELinux, allowing administrators to enforce security policies and restrictions without sacrificing the functionality or performance of the database server.
 
@@ -178,12 +178,6 @@ On boot, to disable SELinux, set the `selinux=0` kernel option. The kernel does 
 ## Additional SELinux tools
 
 Install the SELinux management tools, such as `semanage` or `sesearch`, if needed.
-
-On RHEL 7 or compatible operating systems, use the following command as root:
-
-```{.bash data-prompt="$"}
-$ yum -y install policycoreutils-python
-```
 
 On RHEL 8 or compatible operating systems, use the following command as root:
 

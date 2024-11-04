@@ -99,26 +99,6 @@ the redo log if needed due to the checkpoint age; performs change buffer merge
 at full I/O capacity; evicts tables from the dictionary cache if
 needed; and makes a checkpoint.
 
-### `Innodb_master_thread_active_loops`
-
-| Option    | Description |
-|-----------|-------------|
-| Scope     | Global      |
-| Data type | Numeric     |
-
-This variable shows the number of times the above one-second loop was executed
-for active server states.
-
-### `Innodb_master_thread_idle_loops`
-
-| Option    | Description |
-|-----------|-------------|
-| Scope     | Global      |
-| Data type | Numeric     |
-
-This variable shows the number of times the above one-second loop was executed
-for idle server states.
-
 ### `Innodb_background_log_sync`
 
 | Option    | Description |

@@ -27,7 +27,7 @@ Percona Monitoring and Management (PMM )monitors and provides actionable perform
 
 ## For high availability
 
-Percona XtraDB Cluster (PXC) is a 100% open source, enterprise-grade, highly available clustering solution for MySQL multi-master setups based on Galera. PXC helps enterprises minimize unexpected downtime and data loss, reduce costs, and improve performance and scalability of your database environments supporting your critical business applications in the most demanding public, private, and hybrid cloud environments.
+Percona XtraDB Cluster (PXC) is a 100% open source, enterprise-grade, highly available clustering solution for MySQL multi-source setups based on Galera. PXC helps enterprises minimize unexpected downtime and data loss, reduce costs, and improve performance and scalability of your database environments supporting your critical business applications in the most demanding public, private, and hybrid cloud environments.
 
 [Percona XtraDB Cluster Quick start guide](https://docs.percona.com/percona-xtradb-cluster/8.0/quickstart-overview.html)
 
