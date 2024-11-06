@@ -22,6 +22,8 @@ The RPM builds for *RHEL* 8 and *RHEL* 9 contain ARM packages with the `aarch64.
 
 ## Install
 
+--8<--- "percona-release.md"
+
 To install using the Percona Software repository, run the following commands either as a `root` user or, as in the example, using `sudo`.
 
     ```{.bash data-prompt="$"}
