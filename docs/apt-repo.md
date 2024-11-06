@@ -13,6 +13,8 @@ The DEB builds for Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, DEBIAN 11, and DEBI
 
 ## Install Percona Server for MySQL using APT
 
+--8<--- "percona-release.md"
+
 To install Percona Server for MySQL using APT, do the following steps:
 {.power-number}
 
