@@ -2,9 +2,9 @@
 
 The `plugin_dir` system variable defines the component library location. If needed, at server startup, set the `plugin_dir` variable.
 
-In the `share` directory, locate the `audit_log_filter_linux_install.sql `script.
+In the `share` directory, locate the `audit_log_filter_linux_install.sql ` script.
 
-At the time you run the script, you can select the database used to store the JSON filter tables. 
+At the time you run the script, you can select the database used to store the JSON filter tables.
 
 * If the component is loaded, the installation script takes the database name from the `audit_log_filter.database` variable
 * If the component is not loaded, but passes the `-D db_name` to the mysql client when the installation script runs, uses the `db_name`.
@@ -20,6 +20,4 @@ mysql> INSTALL COMPONENT 'file://component_audit_log_filter';
 
 Find more information in the [INSTALL COMPONENT](install-component.md) document.
 
-After the installation, you can use the `--audit_log_filter` option when restarting the server. To prevent the server from not running the plugin use `--audit_log_filter` with either the `FORCE` or the `FORCE_PLUS_PERMANENT` values.
-
-To upgrade from `audit_log_filter` plugin in Percona Server 8.0 to `component_audit_log_filter` component in Percona Server {{vers}}, do the [manual upgrade](upgrade-components.md).
+To upgrade from `audit_log_filter` plugin in Percona Server 8.4 to `component_audit_log_filter` component in Percona Server {{vers}}, do the [manual upgrade](upgrade-components.md).
