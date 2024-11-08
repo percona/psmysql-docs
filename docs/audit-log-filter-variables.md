@@ -359,27 +359,6 @@ mysql> SELECT audit_log_filter_set_user('user-name@localhost', 'filter-name');
 | [`audit_log_filter.syslog_tag`](#audit_log_filter_syslog_tag) |
 | [`audit_log_filter.syslog_priority`](#audit_log_filter_syslog_priority) |
 
-
-
-### `audit-log-filter`
-
-| Option       | Description                     |
-|--------------|---------------------------------|
-| Command-line | --audit-log-filter[=value]      |
-| Dynamic      | No                              |
-| Scope        |                                 |
-| Data type    | Enumeration                     |
-| Default      | ON                              |
-
-This option determines how, at startup, the server loads the `audit_log_filter` component. The component must be registered. 
-
-The valid values are the following:
-
-* ON
-* OFF
-* FORCE
-* FORCE_PLUS_PERMANENT
-
 ### `audit_log_filter.buffer_size`
 
 | Option name | Description |
