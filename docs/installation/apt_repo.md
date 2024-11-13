@@ -65,7 +65,13 @@ The `libperconaserverclient20` package contains the client shared library. The `
 
     Once you install this package the Percona repositories should be added. You can check the repository setup in the `/etc/apt/sources.list.d/percona-release.list` file.
 
-6. After that you can install the server package:
+6. Set up a specific Percona Server version:
+
+   ```shell
+   $ sudo percona-release enable-only ps57
+   ```
+
+8. After that you can install the server package:
 
     ```shell
     $ sudo apt install percona-server-server-5.7
