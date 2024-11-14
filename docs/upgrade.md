@@ -20,6 +20,7 @@ Not upgrading your database can have the following risks:
 | Compatibility risks | You can experience compatibility issues with hardware, operating system, or applications since the older version is not supported on newer platforms. At some point, the database server is no longer supportable. |
 | Failure risk | A failure in either hardware, operating system or application may force an upgrade at the wrong time. |
 
+Review [Get more help](get-help.md) for ways that we can work with you.
 
 Create a test environment to verify the upgrade before you upgrade the production servers. The test environment is crucial to the success of the upgrade. There is no supported [downgrade procedure](./downgrade.md). You can try to [replicate from an 8.0 version to 5.7](https://www.percona.com/blog/replicating-mysql-8-0-mysql-5-7/) or restore a backup.
 

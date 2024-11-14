@@ -10,6 +10,8 @@ For more information, see [Percona Software repositories and the percona-release
 
 To get started quickly, use the [Quickstart guide]. You can find instructions for either Docker or installing with a package manager.
 
+Review [Get more help](get-help.md) for ways that we can work with you.
+
 The following guides describe the installation procedures for using the official Percona Software repositories.
 
 * [Install Percona Server for MySQL on Debian and Ubuntu](apt-repo.md)

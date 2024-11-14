@@ -1,5 +1,7 @@
 # Post-installation
 
+Review [Get more help](get-help.md) for ways that we can work with you.
+
 Depending on the type of installation, you may need to do the following tasks:
 
 ## Installed using binary files or compiling from source

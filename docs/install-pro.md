@@ -4,6 +4,8 @@ Percona Server for MySQL Pro includes the [capabilities](psmysql-pro.md#capabili
 
 [Become a Percona Customer](https://www.percona.com/about/contact){.md-button}
 
+Review [Get more help](get-help.md) for ways that we can work with you.
+
 This document provides guidelines how to install Pro packages of Percona Server for MySQL from Percona repositories. [Check files in packages built for Percona Server for MySQL Pro :material-arrow-right:](pro-files.md){.md-button}
 
 ## Procedure

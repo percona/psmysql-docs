@@ -4,6 +4,8 @@ Percona Server for MySQL Pro includes the [capabilities](psmysql-pro.md#capabili
 
 [Become a Percona Customer](https://www.percona.com/about/contact){.md-button}
 
+Review [Get more help](get-help.md) for ways that we can work with you.
+
 This document provides instructions on upgrading from Percona Server for MySQL to Percona Server for MySQL Pro.
 
 ## Preconditions
