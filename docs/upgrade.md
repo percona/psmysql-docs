@@ -1,5 +1,7 @@
 # Upgrade from 8.0 to {{vers}} overview
 
+--8<--- "get-help-snip.md"
+
 Upgrading your server to {{vers}} has the following benefits:
 
 | Benefits | Description |

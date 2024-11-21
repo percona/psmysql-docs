@@ -1,5 +1,7 @@
 # Troubleshoot SQL code
 
+--8<--- "get-help-snip.md"
+
 ## Troubleshooting SQL Code
 
 To troubleshoot SQL code, follow these steps:

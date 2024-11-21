@@ -34,6 +34,8 @@ encrypted.
 An encrypted page is decrypted at the I/O
 layer, added to the buffer pool, and used to access the data. A buffer pool page is not encrypted. The page is encrypted by the I/O layer before the page is flushed to disk.
 
+--8<--- "get-help-snip.md"
+
 ## Percona XtraBackup support
 
 Percona XtraBackup version {{vers}} supports the backup of encrypted general tablespaces. 

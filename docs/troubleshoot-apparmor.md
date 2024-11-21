@@ -2,6 +2,8 @@
 
 Troubleshooting AppArmor profiles ensure that applications can access necessary resources without compromising system security. 
 
+--8<--- "get-help-snip.md"
+
 ## Profile Modes
 
 AppArmor profiles operate in different modes:

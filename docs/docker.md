@@ -6,6 +6,8 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 
 Make sure that you are using the latest version of Docker. The `APT` version or the `YUM` version may be outdated and cause errors.
 
+--8<--- "get-help-snip.md"
+
 ## Starting a detached container
 
 Start a container with the `--detached` or `-d` option, which runs the container in the background. In `detached` mode, when the root process used to run the container exits, the container exits.

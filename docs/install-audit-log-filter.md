@@ -21,3 +21,5 @@ mysql> INSTALL COMPONENT 'file://component_audit_log_filter';
 Find more information in the [INSTALL COMPONENT](install-component.md) document.
 
 To upgrade from `audit_log_filter` plugin in Percona Server 8.4 to `component_audit_log_filter` component in Percona Server {{vers}}, do the [manual upgrade](upgrade-components.md).
+
+--8<--- "get-help-snip.md"
