@@ -6,6 +6,7 @@ To start with Percona Server for MySQL quickly, this Quickstart guide focuses on
 
 You can explore alternative installation options in the [Install] section of the Percona Server for MySQL documentation.
 
+Review [Get more help](get-help.md) for ways that we can work with you.
 
 ## Purpose of the Quickstart
 

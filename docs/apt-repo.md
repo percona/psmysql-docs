@@ -7,6 +7,8 @@ Specific information on the supported platforms, products, and versions is descr
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
+Review [Get more help](get-help.md) for ways that we can work with you.
+
 ## Version changes
 
 Starting with [Percona Server 8.0.37-29](release-notes/8.0.37-29.md), the following operating systems on [Percona Software Download](https://www.percona.com/downloads) include ARM64 packages with the `arm64.deb` extension:

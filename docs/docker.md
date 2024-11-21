@@ -32,6 +32,7 @@ For this document, container refers to the Docker container and instance refers 
     - Versioning: Docker images and containers contain all the dependencies and configurations needed to run your application. You can use tags to specify different versions of your images and easily switch between them. You can also use Docker Hub or other registries to store and share your images with others.
     - Development: Docker containers can help you create a consistent and reproducible development environment that matches your production environment. You can use tools like Dockerfile or Docker Build to automate the creation of your images and ensure they have the same settings and packages as your production images. You can also use tools like Docker Volumes or Bind Mounts to persist and share your data between containers or the host system.
 
+Review [Get more help](get-help.md) for ways that we can work with you.
 
 *Percona Server for MySQL* has an official Docker image hosted on [Docker Hub](https://hub.docker.com/r/percona/percona-server/). If you want the latest version, use the `latest` tag. You can reference a specific version using the [Docker tag filter for the 8.0 versions](https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name=8.0).
 

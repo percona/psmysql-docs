@@ -15,3 +15,5 @@ Before you [upgrade to the latest release](./upgrade.md), do the following:
 * Thoroughly test in a staging environment
 
 [MySQL 8 Minor Version Upgrades Are ONE-WAY Only](https://www.percona.com/blog/2020/01/10/mysql-8-minor-version-upgrades-are-one-way-only/)
+
+Review [Get more help](get-help.md) for ways that we can work with you.
