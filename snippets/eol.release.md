@@ -1,0 +1,3 @@
+This release is part of Percona's MySQL 5.7 Post-End-of-Life (EOL) support program. This program provides critical updates and ensures the stability for businesses relying on MySQL 5.7 beyond its official EOL. Paying customers can access the full release, including pre-compiled binaries, through our private repository. Community members will be able to [build the release] from publicly available source code, which will be released on a quarterly basis.
+
+We recommend that you upgrade to MySQL 8.0 or you can stay on 5.7; we'll support you either way.
