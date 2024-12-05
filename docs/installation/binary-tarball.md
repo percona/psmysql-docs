@@ -9,7 +9,7 @@
 
 Version {{release}} contains fixes as part of the [MySQL 5.7 post-EOL support from Percona], available to customers.
 
-Community members can [build this release from the source].
+Community members can [build this release from the source] from publicly available source code, which will be released on a quarterly basis.
 
 You can download the binary tarball for Percona Server for MySQL release in the {{post}} program using your `CLIENTID` and `TOKEN`.
 
