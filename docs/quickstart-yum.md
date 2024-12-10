@@ -10,7 +10,7 @@ Use the [Percona repositories] to install using YUM.
 
 ## Installation steps
 
-The examles of the "expected output" depend on the operating system. The following examples are based on Oracle Linux 9.3.
+The "expected output" depends on the operating system. The following examples are based on Oracle Linux 9.3.
 {.power-number}
 
 1. Use the YUM package manager to install `percona-release`.
@@ -53,7 +53,7 @@ The examles of the "expected output" depend on the operating system. The followi
         Complete!
         ```
 
-2. Use the `percona-release` tool to setup the repository for Percona Server for MySQL 8.0.
+2. Use the `percona-release` tool to set up the repository for Percona Server for MySQL 8.0.
 
     ```{.bash data-prompt="$"}
     $ sudo percona-release setup ps-80
@@ -168,7 +168,7 @@ The examles of the "expected output" depend on the operating system. The followi
         mysql>
         ```
 
-8. The temporary password must be replaced. Run the ALTER USER command tochange the password for the root user. Remember or save the new password.You will need it to log into the server in the next step.
+8. The temporary password must be replaced. Run the ALTER USER command tochange the password for the root user. Remember or save the new password. You will need it to log into the server in the next step.
 
     ```{.bash data-prompt="mysql>"}
     mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY '[your password]';
@@ -303,7 +303,7 @@ VALUES
 
 ## Run a SELECT query
 
-SELECT queries retrieve data from one or more tables based on specified criteria. They are the most common type of query and can be used for various purposes, such as displaying, filtering, sorting, aggregating, or joining data. SELECT queries do not modify the data in the database but can affect the performance if the query involves large or complex datasets.
+SELECT queries retrieve data from one or more tables based on specified criteria. They are the most common type of query and can be used for various purposes, such as displaying, filtering, sorting, aggregating, or joining data. SELECT queries do not modify the data in the database but can affect performance if they involve large or complex datasets.
 
 
 
@@ -357,7 +357,7 @@ mysql> SELECT name FROM employees WHERE id = 6;
 
 ## Run an INSERT query
 
-INSERT queries add new data to a table. They are used to populate the database with new information. INSERT queries can insert one or more rows at a time, depending on the syntax. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.
+INSERT queries add new data to a table and populate the database with new information. Depending on the syntax, INSERT queries can insert one or more rows at a time. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.
 
 Insert a row into a table and then run a [SELECT](#select-query) with a WHERE clause to verify the record was inserted.
 
@@ -414,11 +414,6 @@ mysql> SELECT id, name, email, country FROM employees WHERE id > 10;
     Empty set (0.00 sec)
     ```
 
-
-
-
-
-
 ## Troubleshooting:
 
 Installation:
@@ -449,7 +444,7 @@ MySQL startup:
 
 ## Secure the installation
 
-You can increase the security of MySQL by running`sudo mysql_secure installation`.
+You can increase the security of MySQL by running `sudo mysql_secure installation`.
 
 After installing MySQL, you should run the `mysql_secure_installation` script to improve the security of your database server. This script helps you perform several important tasks, such as:
 
