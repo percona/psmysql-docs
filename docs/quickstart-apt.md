@@ -1,6 +1,6 @@
 # Install with APT
 
-Use the Percona repositories to install using APT.
+Install the Percona repositories using APT.
 
 ## Prerequisits
 
@@ -10,7 +10,7 @@ Use the Percona repositories to install using APT.
 
 ## Installation steps
 
-The examles of the "expected output" depend on the operating system. The following examples are based on Ubuntu 22.04.
+The  "expected output" depends on the operating system. The following examples are based on Ubuntu 22.04.
 {.power-number}
 
 1. Update the package index.
@@ -23,12 +23,12 @@ The examles of the "expected output" depend on the operating system. The followi
 
     ??? example "Expected output"
 
-            ```{.text .no-copy}
-            Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
-            Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
-            Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
-            ...
-            ```
+        ```{.text .no-copy}
+        Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
+        Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
+        Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
+        ...
+        ```
 
 2. Install curl.
 
@@ -185,7 +185,7 @@ The examles of the "expected output" depend on the operating system. The followi
         ...
         ```
 
-10. The installation asks you to enter a password. We use 'secret' for these examples, but you can use any password, but you must remember to use your password for the rest of the Quickstart.
+10. The installation asks you to enter a password. We use 'secret' for these examples, but you can use any password. You must remember to use your password for the rest of the Quickstart.
 
     ![Add a password](_static/strong-password.png "Add a password")
 
@@ -293,7 +293,7 @@ The examles of the "expected output" depend on the operating system. The followi
         All done!
         ```
 
-14. When the installation completes, check the service status.
+14. When the installation is complete, check the service status.
 
     ```{.bash data-prompt="$"}
     $ sudo systemctl status mysql
@@ -324,7 +324,7 @@ The examles of the "expected output" depend on the operating system. The followi
     $ sudo systemctl status mysql
     ```
 
-15. Log in to the server. Use the password that you entered during the installation process, which could be `secret`orwhatever password you have selected. You do not see the characters in the password as you type.
+15. Log in to the server. Use the password you entered during the installation process, which could be `secret` or whatever you have selected. You do not see the characters in the password as you type.
 
     ```{.bash data-prompt="$"}
     $ mysql -uroot -p
@@ -435,7 +435,7 @@ VALUES
 
 ## Run a SELECT query
 
-SELECT queries retrieve data from one or more tables based on specified criteria. They are the most common type of query and can be used for various purposes, such as displaying, filtering, sorting, aggregating, or joining data. SELECT queries do not modify the data in the database but can affect the performance if the query involves large or complex datasets.
+SELECT queries retrieve data from one or more tables based on specified criteria. They are the most common type of query and can be used for various purposes, such as displaying, filtering, sorting, aggregating, or joining data. SELECT queries do not modify the data in the database but can affect performance if they involve large or complex datasets.
 
 
 
@@ -489,7 +489,7 @@ mysql> SELECT name FROM employees WHERE id = 6;
 
 ## Run an INSERT query
 
-INSERT queries add new data to a table. They are used to populate the database with new information. INSERT queries can insert one or more rows at a time, depending on the syntax. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.
+INSERT queries add new data to a table and populate the database with new information. Depending on the syntax, INSERT queries can insert one or more rows at a time. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.
 
 Insert a row into a table and then run a [SELECT](#select-query) with a WHERE clause to verify the record was inserted.
 
@@ -522,7 +522,7 @@ mysql> SELECT id, name, email, country FROM employees WHERE id = 11;
 
 ## Run a Delete query
 
-DELETE queries remove existing data from a table. They are used to clean up the information no longer needed or relevant in the database. The DELETE queries can delete one or more rows at a time, depending on the specified conditions. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.
+DELETE queries remove existing data from a table. They are used to clean up information no longer needed or relevant in the database. Depending on the specified conditions, DELETE queries can delete one or more rows at a time. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.
 
 Delete a row in the table and run a [SELECT](#select-query) with a WHERE clause to verify the deletion.
 
