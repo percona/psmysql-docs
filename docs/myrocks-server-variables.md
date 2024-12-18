@@ -888,10 +888,6 @@ Allowed range is from `-1` to `9223372036854775807`.
 | Data type    | Numeric                                        |
 | Default      | 150000                                              |
 
-!!! note
-
-    In version [Percona Server for MySQL 8.0.36-28](.//release-notes/8.0.36-28.md) and later, the default value is changed from `0` to `150000`.
-
 Specifies the size of the window for counting delete markers by `rocksdb_compaction_sequential_deletes`. Default value is `150000`.
 
 Allowed range is up to `2000000` (two million).
@@ -2886,7 +2882,7 @@ This variable is disabled (OFF) by default.
 | Data type    | Boolean              |
 | Default      | OFF                  |
 
-This variable is [tech preview](../glossary.md/#tech-preview) and may be removed in the future releases.
+This variable is [tech preview](./glossary.md#tech-preview) and may be removed in the future releases.
 
 Allows to turn on the write buffer manager (WriteBufferManager) from `cnf` files. This variable is related to [`rocksdb_charge_memory`](#rocksdbchargememory).
 
