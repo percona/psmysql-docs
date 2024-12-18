@@ -26,6 +26,12 @@ Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certi
 
 The RPM packages for Red Hat Enterprise Linux 7 and the compatible derivatives do not support TLSv1.3. This version requires OpenSSL 1.1.1, which is currently unavailable on this platform.
 
+RHEL 8 and other EL8 systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled to make these packages visible. The following command disables the module:
+
+```{.bash data-prompt="$"}
+$ sudo yum module disable mysql
+```
+
 ## Install
 
 Install from Percona Software Repository
