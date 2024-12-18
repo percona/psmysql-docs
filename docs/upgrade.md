@@ -50,6 +50,3 @@ The following list summarizes a number of the changes in the 8.0 series and has 
 
 Review other [Percona blogs](https://www.percona.com/blog/) that contain upgrade information.
 
-## Limitations
-
---8<--- "percona-release.md"
