@@ -33,20 +33,20 @@ client operation.
 
 | Column Name              | Type         |
 |--------------------------|--------------|
-| TRANSACTION_ID           | bigint(8)    |
+| TRANSACTION_ID           | bigint    |
 | STATE                    | varchar(193) |
 | NAME                     | varchar(193) |
-| WRITE_COUNT              | bigint(8)    |
-| LOCK_COUNT               | bigint(8)    |
-| TIMEOUT_SEC              | int(4)       |
+| WRITE_COUNT              | bigint    |
+| LOCK_COUNT               | bigint    |
+| TIMEOUT_SEC              | int       |
 | WAITING_KEY              | varchar(513) |
-| WAITING_COLUMN_FAMILY_ID | int(4)       |
-| IS_REPLICATION           | int(4)       |
-| SKIP_TRX_API             | int(4)       |
-| READ_ONLY                | int(4)       |
-| HAS_DEADLOCK_DETECTION   | int(4)       |
-| NUM_ONGOING_BULKLOAD     | int(4)       |
-| THREAD_ID                | int(8)       |
+| WAITING_COLUMN_FAMILY_ID | int       |
+| IS_REPLICATION           | int       |
+| SKIP_TRX_API             | int       |
+| READ_ONLY                | int       |
+| HAS_DEADLOCK_DETECTION   | int       |
+| NUM_ONGOING_BULKLOAD     | int      |
+| THREAD_ID                | int       |
 | QUERY                    | varchar(193) |
 
 ## ROCKSDB_CF_OPTIONS
