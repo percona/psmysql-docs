@@ -1812,6 +1812,15 @@ that configures yum and installs the Percona GPG key.">
 </li>
       
         <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install" class="md-nav__link">
     <span class="md-ellipsis">
       Install
@@ -6201,6 +6210,15 @@ that configures yum and installs the Percona GPG key.">
 </li>
       
         <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install" class="md-nav__link">
     <span class="md-ellipsis">
       Install
@@ -6290,16 +6308,16 @@ that configures yum and installs the <a href="https://www.percona.com/downloads/
 <p>Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certification is based on common and secure best practices and successful interoperability with the operating system. Percona Server is listed in the <a href="https://catalog.redhat.com/software/applications/detail/112055">Red Hat Ecosystem Catalog</a>.</p>
 <h2 id="arm-support">ARM support<a class="headerlink" href="#arm-support" title="Permanent link">&para;</a></h2>
 <p>The RPM builds for <em>RHEL</em> 8 and <em>RHEL</em> 9 contain ARM packages with the <code>aarch64.rpm</code> extension. This means that Percona Server for MySQL is available for users on ARM-based systems.</p>
+<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<p>RHEL 8 and other EL8 systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled to make these packages visible. The following command disables the module:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
+</code></pre></div>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
-<p><strong>The <code>percona-release</code> tool currently shows an Unknown alias specification error when you use <code>ps-84-lts</code>. The next release of the percona-release tool will fix this error.</strong></p>
-<p><strong>In the meantime, use your platform’s version of the APT or YUM package management tools instead.</strong></p>
 <p>To install using the Percona Software repository, run the following commands either as a <code>root</code> user or, as in the example, using <code>sudo</code>.</p>
-<div class="highlight"><pre><span></span><code>```{.bash data-prompt=&quot;$&quot;}
-$ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-$ sudo percona-release enable-only ps-84-lts release
-$ sudo percona-release enable tools release
-$ sudo yum install percona-server-server
-```
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-84-lts<span class="w"> </span>release
+$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>tools<span class="w"> </span>release
+$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 <h2 id="available-storage-engines">Available storage engines<a class="headerlink" href="#available-storage-engines" title="Permanent link">&para;</a></h2>
 <p>Percona Server for MySQL 8.4 comes with the <code>MyRocks</code> storage engine. This storage engine is installed as a plugin. For information on how to install and configure MyRocks, refer to the <a href="install-myrocks.html">Percona MyRocks Installation Guide</a>.</p>
@@ -6325,7 +6343,7 @@ release, testing, and experimental - in this case, it is the second section that
   <small>
     
       Last update:
-      2024-11-06
+      2024-12-18
     
   </small>
 </div>
