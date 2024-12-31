@@ -1,5 +1,7 @@
 # Troubleshoot SELinux issues
 
+--8<--- "get-help-snip.md"
+
 ## Relabel the Entire File System
 
 Relabeling the entire file system is updating SELinux contexts for all files and directories. This operation ensures that SELinux can enforce its policies correctly.

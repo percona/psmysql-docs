@@ -8,6 +8,8 @@ that configures yum and installs the [Percona GPG key](https://www.percona.com/d
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
+--8<--- "get-help-snip.md"
+
 ## Supported platforms
 
 Specific information on the supported platforms, products, and versions are described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).

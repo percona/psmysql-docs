@@ -1,5 +1,7 @@
 # Downgrade Percona Server for MySQL
 
+--8<--- "get-help-snip.md"
+
 Downgrading to a 5.7 or earlier series is not supported.
 
 The following table lists the downgrade paths:
