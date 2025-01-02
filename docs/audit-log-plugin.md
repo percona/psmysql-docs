@@ -811,14 +811,18 @@ are:
 | -------------- | ------------------ |
 | Command Line:  | Yes                |
 | Scope:         | Global             |
-| Dynamic:       | No                 |
+| Dynamic:       | Yes                |
 | Data type      | Numeric            |
-| Default value   | 0 (don’t rotate the log file)   |
+| Default value  | 0                  |
 
 This variable is measured in bytes and specifies the maximum size of the audit log file. Upon reaching
 this size, the audit log will be rotated. The rotated log files are present in
 the same directory as the current log file. The sequence number is appended to
-the log file name upon rotation. For this variable to take effect, set the audit_log_handler variable to `FILE`.
+the log file name upon rotation. 
+
+If the value is set to 0 (the default), the audit log files won’t rotate.
+
+Set the `audit_log_handler` to FILE to enable this variable.
 
 ### `audit_log_rotations`
 
