@@ -8,10 +8,6 @@ individuals, groups, and organizations.
 
 *Percona Server for MySQL* 8.0.30-22 implements an SASL-based LDAP authentication plugin. This plugin only supports the SCRAM-SHA-1 SASL mechanism.
 
-!!! important
-
-    --8<--- "tech.preview.md:5:5"
-
 *Percona Server for MySQL* 8.0.19-10 implements the simple LDAP authentication. The Percona simple LDAP authentication plugin is a free and Open Source implementation of the MySQL Enterprise Simple LDAP authentication plugin.
 
 ## Plugin names and file names
@@ -114,12 +110,6 @@ Install the plugin with the following statements.
     mysql> INSTALL PLUGIN authentication_ldap_simple SONAME 'authentication_ldap_simple.so';
     ```
 
-    To set and persist values at runtime, use the following statements:
-
-    ```{.bash data-prompt="mysql>"}
-    mysql> SET PERSIST authentication_ldap_simple_server_host='127.0.0.1';
-    mysql> SET PERSIST authentication_ldap_simple_bind_base_dn='dc=percona, dc=com';
-    ```
 
 === "Load the SASL-based LDAP authentication plugin" 
 
@@ -134,130 +124,134 @@ Install the plugin with the following statements.
     mysql> SET PERSIST authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com';
     ```
 
-## Create a user using simple LDAP authentication
+## Create a user 
 
 There are several methods to add or modify a user.
 
-=== "Use authentication_ldap_simple plugin"
+=== "Using LDAP Simple authentication"
 
-    In the `CREATE USER` statement or the `ALTER USER` statement, for simple LDAP authentication, you can specify the `authentication_ldap_simple` plugin in the `IDENTIFIED WITH` clause:
-
-    ```text
-    mysql> CREATE USER ... IDENTIFIED WITH authentication_ldap_simple;
-    ```
-
-    Using the `IDENTIFIED WITH` clause, the database server assigns the specified plugin.
-
-=== "Use the authentication string in simple LDAP"
-
-    If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.
-
-    ```text
-    mysql> CREATE USER ... IDENTIFIED WITH authentication_ldap_simple BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
-    ```
-
-    Unless the [authentication_ldap_simple_group_role_mapping](ldap-system-variables.md#authentication_ldap_simple_group_role_mapping) variable is used, creating a user with an authentication string does not use the following system variables:
-
-    * [authentication_ldap_simple_bind_base_dn](ldap-system-variables.md#authentication_ldap_simple_bind_base_dn)
-  
-    * [authentication_ldap_simple_bind_root_dn](ldap-system-variables.md#authentication_ldap_simple_bind_root_dn)
-  
-    * [authentication_ldap_simple_bind_root_pwd](ldap-system-variables.md#authentication_ldap_simple_bind_root_pwd)
-  
-    * [authentication_ldap_simple_user_search_attr](ldap-system-variables.md#authentication_ldap_simple_user_search_attr)
-  
-    * [authentication_ldap_simple_group_search_attr](ldap-system-variables.md#authentication_ldap_simple_group_search_attr)
-  
-    Creating the user with `IDENTIFIED BY authentication_ldap_simple` uses the variables.
+    There are several methods to add or modify a user.
     
-    Creating the user with the [authentication_ldap_simple_group_role_mapping](ldap-system-variables.md#authentication_ldap_simple_group_role_mapping) variable also adds the [authentication_ldap_simple_bind_root_dn](ldap-system-variables.md#authentication_ldap_simple_bind_root_dn) and [authentication_ldap_simple_bind_root_pwd](ldap-system-variables.md#authentication_ldap_simple_bind_root_pwd) variables.
-
-## Create a user using SASL-based LDAP authentication
-
-There are several methods to add or modify a user.
-
-=== "Use authentication_ldap_sasl plugin"
-
-    For SASL-based LDAP authentication, in the `CREATE USER` statement or the `ALTER USER` statement, you can specify the `authentication_ldap_sasl` plugin:
-
-    ```text
-    mysql> CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl;
-    ```
-
-=== "Use the authentication string in SASL-based LDAP"
-
-    If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.
-
-    ```text
-    mysql> CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
-    ```
-
-    Unless the [authentication_ldap_sasl_group_role_mapping](ldap-system-variables.md#authentication_ldap_sasl_group_role_mapping) variable is used, creating a user with an authentication string does not use the following system variables:
-
-    * [authentication_ldap_sasl_bind_base_dn](ldap-system-variables.md#authentication_ldap_sasl_bind_base_dn)
-
-    * [authentication_ldap_sasl_bind_root_dn](ldap-system-variables.md#authentication_ldap_sasl_bind_root_dn)
-
-    * [authentication_ldap_sasl_bind_root_pwd](ldap-system-variables.md#authentication_ldap_sasl_bind_root_pwd)
-
-    * [authentication_ldap_sasl_user_search_attr](ldap-system-variables.md#authentication_ldap_sasl_user_search_attr)
-
-    * [authentication_ldap_sasl_group_search_attr](ldap-system-variables.md#authentication_ldap_sasl_group_search_attr)
-
-    Creating the user with `IDENTIFIED BY authentication_ldap_sasl` uses the variables. 
+    === "Use authentication_ldap_simple plugin"
     
-    Creating the user with the [authentication_ldap_sasl_group_role_mapping](ldap-system-variables.md#authentication_ldap_sasl_group_role_mapping) variable also adds the[authentication_ldap_sasl_bind_root_dn](ldap-system-variables.md#authentication_ldap_sasl_bind_root_dn) and [authentication_ldap_sasl_bind_root_pwd](ldap-system-variables.md#authentication_ldap_sasl_bind_root_pwd) variables.
+        In the `CREATE USER` statement or the `ALTER USER` statement, for simple LDAP authentication, you can specify the `authentication_ldap_simple` plugin in the `IDENTIFIED WITH` clause:
+    
+        ```text
+        mysql> CREATE USER ... IDENTIFIED WITH authentication_ldap_simple;
+        ```
+    
+        Using the `IDENTIFIED WITH` clause, the database server assigns the specified plugin.
+    
+    === "Use the authentication string in simple LDAP"
+    
+        If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.
+    
+        ```text
+        mysql> CREATE USER ... IDENTIFIED WITH authentication_ldap_simple BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
+        ```
+    
+        Unless the [authentication_ldap_simple_group_role_mapping](ldap-simple-variables.md#authentication_ldap_simple_group_role_mapping) variable is used, creating a user with an authentication string does not use the following system variables:
+    
+        * [authentication_ldap_simple_bind_base_dn](ldap-simple-variables.md#authentication_ldap_simple_bind_base_dn)
+      
+        * [authentication_ldap_simple_bind_root_dn](ldap-simple-variables.md#authentication_ldap_simple_bind_root_dn)
+      
+        * [authentication_ldap_simple_bind_root_pwd](ldap-simple-variables.md#authentication_ldap_simple_bind_root_pwd)
+      
+        * [authentication_ldap_simple_user_search_attr](ldap-simple-variables.md#authentication_ldap_simple_user_search_attr)
+      
+        * [authentication_ldap_simple_group_search_attr](ldap-simple-variables.md#authentication_ldap_simple_group_search_attr)
+      
+        Creating the user with `IDENTIFIED BY authentication_ldap_simple` uses the variables.
+        
+        Creating the user with the [authentication_ldap_simple_group_role_mapping](ldap-simple-variables.md#authentication_ldap_simple_group_role_mapping) variable also adds the [authentication_ldap_simple_bind_root_dn](ldap-simple-variables.md#authentication_ldap_simple_bind_root_dn) and [authentication_ldap_simple_bind_root_pwd](ldap-simple-variables.md#authentication_ldap_simple_bind_root_pwd) variables.
 
-## Examples
+=== "Using SASL-based LDAP authentication"
 
-The following sections are examples of using simple LDAP authentication and SASL-based LDAP authentication.
-
-For the purposes of this example, we use the following LDAP user:
-
-```text
-uid=ldapuser,ou=testusers,dc=percona,dc=com
-```
-
-=== "Simple LDAP authentication"
-
-    The following example configures an LDAP user and connects to the database server.
-
-    Create a database server account for `ldapuser` with the following statement:
-
-    ```{.bash data-prompt="mysql>"}
-    mysql> CREATE USER 'ldapuser'@'localhost' IDENTIFIED WITH authentication_ldap_simple BY 'uid=ldapuser,ou=testusers,dc=percona,dc=com';
+    There are several methods to add or modify a user.
+    
+    === "Use authentication_ldap_sasl plugin"
+    
+        For SASL-based LDAP authentication, in the `CREATE USER` statement or the `ALTER USER` statement, you can specify the `authentication_ldap_sasl` plugin:
+    
+        ```text
+        mysql> CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl;
+        ```
+    
+    === "Use the authentication string in SASL-based LDAP"
+    
+        If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.
+    
+        ```text
+        mysql> CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
+        ```
+    
+        Unless the [authentication_ldap_sasl_group_role_mapping](ldap-sasl-variables.md#authentication_ldap_sasl_group_role_mapping) variable is used, creating a user with an authentication string does not use the following system variables:
+    
+        * [authentication_ldap_sasl_bind_base_dn](ldap-sasl-variables.md#authentication_ldap_sasl_bind_base_dn)
+    
+        * [authentication_ldap_sasl_bind_root_dn](ldap-sasl-variables.md#authentication_ldap_sasl_bind_root_dn)
+    
+        * [authentication_ldap_sasl_bind_root_pwd](ldap-sasl-variables.md#authentication_ldap_sasl_bind_root_pwd)
+    
+        * [authentication_ldap_sasl_user_search_attr](ldap-sasl-variables.md#authentication_ldap_sasl_user_search_attr)
+    
+        * [authentication_ldap_sasl_group_search_attr](ldap-sasl-variables.md#authentication_ldap_sasl_group_search_attr)
+    
+        Creating the user with `IDENTIFIED BY authentication_ldap_sasl` uses the variables. 
+        
+        Creating the user with the [authentication_ldap_sasl_group_role_mapping](ldap-sasl-variables.md#authentication_ldap_sasl_group_role_mapping) variable also adds the[authentication_ldap_sasl_bind_root_dn](ldap-sasl-variables.md#authentication_ldap_sasl_bind_root_dn) and [authentication_ldap_sasl_bind_root_pwd](ldap-sasl-variables.md#authentication_ldap_sasl_bind_root_pwd) variables.
+    
+    ## Examples
+    
+    The following sections are examples of using simple LDAP authentication and SASL-based LDAP authentication.
+    
+    For the purposes of this example, we use the following LDAP user:
+    
+    ```text
+    uid=ldapuser,ou=testusers,dc=percona,dc=com
     ```
-
-    The authentication string does not include the LDAP password. This password must be provided by the client user when they connect.
-
-    ```{.bash data-prompt="mysql>"}
-    mysql> mysql --user=ldapuser --password --enable-cleartext-plugin
-    ```
-
-    The user enters the `ldapuser` password. The client sends the password as cleartext, which is necessary when using a server-side LDAP library without SASL. The following actions may minimize the risk:
-
-    * Require that the database server clients explicitly enable the `mysql_clear_password` plugin with `--enable-cleartext-plugin`. 
-    * Require that the database server clients connect to the database server using an encrypted connection
-
-=== "SASL-based LDAP authentication"
-
-    The following example configures an LDAP user and connect to the database server.
-
-    Create a database server account for `ldapuser` with the following statement:
-
-    ```{.bash data-prompt="mysql>"}
-    mysql> CREATE USER 'ldapuser'@'localhost' IDENTIFIED WITH authentication_ldap_sasl AS 'uid=ldapuser,ou=testusers,dc=percona,dc=com';
-    ```
-
-    The authentication string does not include the LDAP password. This password must be provided by the client user when they connect.
-
-    Clients connect ot the database server by providing the database server user name and LDAP password:
-
-    ```{.bash data-prompt="mysql>"}
-    mysql> mysql --user=ldapuser --password
-    ```
-
-    The authentication is similar to the authentication method used by simple LDAP authentication, except that the client and the database server SASL LDAP plugins use SASL messages. These messages are secure within the LDAP protocol.
+    
+    === "Simple LDAP authentication"
+    
+        The following example configures an LDAP user and connects to the database server.
+    
+        Create a database server account for `ldapuser` with the following statement:
+    
+        ```{.bash data-prompt="mysql>"}
+        mysql> CREATE USER 'ldapuser'@'localhost' IDENTIFIED WITH authentication_ldap_simple BY 'uid=ldapuser,ou=testusers,dc=percona,dc=com';
+        ```
+    
+        The authentication string does not include the LDAP password. This password must be provided by the client user when they connect.
+    
+        ```{.bash data-prompt="mysql>"}
+        mysql> mysql --user=ldapuser --password --enable-cleartext-plugin
+        ```
+    
+        The user enters the `ldapuser` password. The client sends the password as cleartext, which is necessary when using a server-side LDAP library without SASL. The following actions may minimize the risk:
+    
+        * Require that the database server clients explicitly enable the `mysql_clear_password` plugin with `--enable-cleartext-plugin`. 
+        * Require that the database server clients connect to the database server using an encrypted connection
+    
+    === "SASL-based LDAP authentication"
+    
+        The following example configures an LDAP user and connect to the database server.
+    
+        Create a database server account for `ldapuser` with the following statement:
+    
+        ```{.bash data-prompt="mysql>"}
+        mysql> CREATE USER 'ldapuser'@'localhost' IDENTIFIED WITH authentication_ldap_sasl AS 'uid=ldapuser,ou=testusers,dc=percona,dc=com';
+        ```
+    
+        The authentication string does not include the LDAP password. This password must be provided by the client user when they connect.
+    
+        Clients connect ot the database server by providing the database server user name and LDAP password:
+    
+        ```{.bash data-prompt="mysql>"}
+        mysql> mysql --user=ldapuser --password
+        ```
+    
+        The authentication is similar to the authentication method used by simple LDAP authentication, except that the client and the database server SASL LDAP plugins use SASL messages. These messages are secure within the LDAP protocol.
 
 ### Uninstall the plugins
 
@@ -270,8 +264,6 @@ If you installed either plugin at [server startup](#load-the-plugins-at-server-s
     ```{.bash data-prompt="mysql>"}
     mysql> UNINSTALL PLUGIN authentication_ldap_simple;
     ```
-
-    If you used `SET_PERSIST`, use `RESET PERSIST` to remove the settings.
 
 === "Uninstall the SASL-based LDAP authentication plugin"
 
