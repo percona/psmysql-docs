@@ -33,7 +33,7 @@ The configuration settings are either in a global configuration file or a local 
 
 The component communicates with the [Hashicorp Vault server](https://developer.hashicorp.com/vault/docs/install). Prepare the certificate and key files for a secure HTTPS connection to the server. You must have an organizational Certificate Authority (CA), a private vault key, and certificate for the Hashicorp Vault server instance. 
 
-You can use [OpenSL](https://www.openssl.org/docs/man3.0/index.html) to generate these files or use existing files. The key files contain sensitive information. Store these key files and the password used to create each key in a secure location. 
+You can use [OpenSSL](https://www.openssl.org/docs/man3.0/index.html) to generate these files or use existing files. The key files contain sensitive information. Store these key files and the password used to create each key in a secure location. 
 
 You can use the Hashicorp Vault to [build your own CA](https://developer.hashicorp.com/vault/tutorials/secrets-management/pki-engine), if needed, and then create a Hashicorp Vault server certificate.
 
