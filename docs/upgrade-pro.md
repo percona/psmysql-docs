@@ -64,27 +64,29 @@ Request the access to the pro repository from Percona Support. You will receive 
 
     === "On RHEL and derivatives"
 
+        The `--allow erasing` option allows Yum to remove existing packages that conflict with the new installation. This is often necessary when         upgrading or reinstalling software.
+   
         ```{.bash .data-prompt="$"}
         $ sudo yum install --allowerasing percona-server-server-pro
         ```
         
-        Install other required packages. [Check files in the DEB package built for Percona Server for MySQL 8.0](apt-files.md).
+        Install other required packages. [Check files in the RPM package built for Percona Server for MySQL 8.0](yum-files.md).
 
-4. Start the server
+5. Start the server
     
     ```{.bash .data-prompt="$"}
-    $ sudo systemct start mysql
+    $ sudo systemctl start mysql
     ```
 
 !!! note
 
-    On Debian 12, you may receive the following warning after running `systemct` commands:
+    On Debian 12, you may receive the following warning after running `systemctl` commands:
     
     ```text
-    Warning: The unit file, source configuration file or drop-ins of mysql.service changed on disk. Run 'systemctl daemon-reload' to reload units.
+    Warning: The unit file, source configuration file, or drop-ins of mysql.service changed on disk. Run 'systemctl daemon-reload' to reload units.
     ```
     
-    Run the following command to reload units:
+    Run the suggested command:
 
     ```{.bash .data-prompt="$"}
     $ sudo systemctl daemon-reload
