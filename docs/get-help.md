@@ -1,4 +1,4 @@
-# Get more help from Percona
+# Get help from Percona
 
 This guide is packed with information but can’t cover everything you need to know about Percona Server for MySQL. It also won’t cover every scenario you might come across.
 
