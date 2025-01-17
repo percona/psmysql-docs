@@ -14,6 +14,7 @@ I recommend visiting our [Community Forum](https://forums.percona.com/t/welcome-
 
 If you have thoughts, feedback, or ideas to share, the community team would like to hear from you at [Any ideas on how to make the forum better?](https://forums.percona.com/t/any-ideas-on-how-to-make-the-forum-better/11522){:target="_blank"}. We’re always excited to connect and improve everyone's experience.
 
+If you have thoughts, feedback, or ideas, the community team would like to hear from you at [Any ideas on how to make the forum better?](https://forums.percona.com/t/any-ideas-on-how-to-make-the-forum-better/11522){:target="blank"}. We’re always excited to connect and improve everyone's experience.
 
 ## Percona experts
 
