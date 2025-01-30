@@ -1,6 +1,67 @@
-# JSON in MySQL
+# JSON in Percona Server for MySQL
 
-JSON stands for JavaScript Object Notation. It is a lightweight data-interchange format that is easy for humans to read and write. It is also easy for machines to parse and generate. MySQL supports JSON data type, allowing you to store JSON documents in your database. 
+JSON stands for JavaScript Object Notation. It is a lightweight data-interchange format that is easy for humans to read and write. It is also easy for machines to parse and generate. Percona Server for MySQL supports JSON data type, allowing you to store JSON documents in your database. 
+
+The JSON data type in Percona Server for MySQL is a handy way to store and work with flexible, semi-structured data right in your database. Think of it as a way to save JSON objects directly into your tables, so you don’t have to convert them into a rigid format.
+
+When you use the JSON data type, the database stores your data in a special binary format that’s optimized for speed and space which is faster and more efficient than just saving JSON as plain text.
+
+The JSON data type is great when your data doesn’t fit into a fixed structure or if it’s likely to change over time. The following are examples of when you would use the JSON data type:
+
+* Storing user preferences or settings.
+	
+* Capturing logs or other dynamic data.
+	
+* Handling complex objects without adding a ton of columns to your table.
+
+JSON has the following features:
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  th:first-child, td:first-child {
+    width: auto;
+    white-space: nowrap;
+  }
+</style>
+
+| Feature              | Details                                                                                                               |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------|
+| Validation Built-In  | Percona Server checks your JSON data when you insert or update it to make sure it’s valid. If something’s wrong, you’ll know right away. |
+| Powerful Querying    | You can dig into specific parts of your JSON data using built-in functions like the following: <br>  - `JSON_EXTRACT()` to pull out specific keys or values. <br> - `JSON_CONTAINS()` to check if a key or value exists. <br> - `JSON_SET()` to update parts of your JSON object without replacing the whole thing. |
+| Indexing for Speed   | If you often query a particular key inside your JSON, you can create a generated column based on that key and index it, making queries much faster. |
+
+## Use JSON in your database
+
+The following is an example using JSON in your database.
+
+```JSON
+CREATE TABLE user_data (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    settings JSON
+);
+
+INSERT INTO user_data (name, settings)
+VALUES ('John', '{"theme": "dark", "notifications": {"email": true, "sms": false}}');
+
+SELECT JSON_EXTRACT(settings, '$.theme') AS theme
+FROM user_data
+WHERE name = 'John';
+```
+
+* The settings column stores JSON data.
+
+* You can use `JSON_EXTRACT()` to get the value of a specific key, like theme.
+
+JSON in Percona Server for MySQL gives you have the flexibility of NoSQL with the reliability and querying power of a relational database. 
 
 ## Create a table with JSON Data Type
 
@@ -81,7 +142,7 @@ WHERE name = 'John Doe';
 
 ## Use JSON Functions
 
-MySQL provides several functions to work with JSON data.
+Percona Server for MySQL provides several functions to work with JSON data.
 
 ### `JSON_EXTRACT`
 
