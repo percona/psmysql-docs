@@ -22,7 +22,7 @@ theme:
   icon:
     edit: material/file-edit-outline
     view: material/file-eye-outline
-  
+
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
@@ -95,8 +95,8 @@ markdown_extensions:
     custom_checkbox: true
   pymdownx.snippets:
       base_path: ["snippets"]
-      auto_append:
-        - services-banner.md
+#      auto_append:
+#        - services-banner.md
   pymdownx.highlight:
     use_pygments: true
   pymdownx.emoji:
@@ -125,7 +125,7 @@ plugins:
   with-pdf: # https://github.com/orzih/mkdocs-with-pdf
           output_path: '_pdf/PerconaServer-8.4.pdf'
           cover_title: 'Percona Server Documentation'
-          cover_subtitle: 8.4.0-1 (2024-08-28)
+          cover_subtitle: 8.4.3-3 (2024-12-18)
           author: 'Percona Technical Documentation Team'
           cover_logo: docs/_static/pdf-logo.png
           debug_html: false
@@ -146,8 +146,13 @@ extra:
 
 nav:
   - Home: index.md
+  - psmysql-pro.md
+  - get-help.md
   - Release notes:
     - Release notes index: release-notes/release-notes-index.md
+    - release-notes/8.4.3-3.md
+    - release-notes/8.4.2-2.md
+    - release-notes/8.4.1.md
     - release-notes/8.4.0-1.md
   - Features:
     - adaptive-network-buffers.md
@@ -159,6 +164,7 @@ nav:
         - XML (New style): audit-log-filter-new.md
         - XML (Old style): audit-log-filter-old.md
         - JSON: audit-log-filter-json.md
+      - write-filter-definitions.md
       - audit-log-filter-security.md
       - audit-log-filter-compression-encryption.md
       - reading-audit-log-filter-files.md
@@ -171,6 +177,7 @@ nav:
       - uninstall-audit-log-filter.md
     - binlog-space.md
     - extended-select-into-outfile.md
+    - fips.md
     - innodb-expanded-fast-index-creation.md
     - kill-idle-trx.md
     - percona-sequence-table.md
@@ -215,13 +222,18 @@ nav:
     - Docker:
       - Install using Docker: docker.md
       - docker-config.md
-    - Upgrade:
-      - upgrade.md
-      - upgrade-strategies.md
-      - upgrade-components.md
-      - upgrade-percona-repos.md
-      - upgrade-standalone-packages.md
-      - downgrade.md
+    - Install Percona Server for MySQL Pro:
+      - install-pro.md
+      - pro-files.md
+  - Upgrade:
+    - upgrade.md
+    - upgrade-strategies.md
+    - upgrade-components.md
+    - upgrade-percona-repos.md
+    - upgrade-standalone-packages.md
+    - upgrade-pro.md
+    - downgrade.md
+    - downgrade-from-pro.md
   - Post-Installation:
     - binlogging-replication-improvements.md
     - post-installation.md
@@ -269,6 +281,7 @@ nav:
         - isolation-levels.md
         - transaction-mgmt.md
         - views.md
+        - authentication-methods.md
     - extended-show-grants.md
     - restrict-dynamic-log-locations.md
     - clone-plugin.md
@@ -296,7 +309,6 @@ nav:
     - UUID_VX component:
       - uuid-versions.md
     
-      
     - Data-at-rest-encryption:
       - data-at-rest-encryption.md
       - Keyring components:

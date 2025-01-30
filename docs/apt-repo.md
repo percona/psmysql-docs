@@ -7,6 +7,8 @@ Specific information on the supported platforms, products, and versions is descr
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
+--8<--- "get-help-snip.md"
+
 ## ARM support
 
 The DEB builds for Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, DEBIAN 11, and DEBIAN 12 contain ARM packages with the `aarch64.rpm` extension. This means that Percona Server for MySQL is available for users on ARM-based systems.

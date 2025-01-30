@@ -1,5 +1,7 @@
 # Upgrade from 8.0 to {{vers}} overview
 
+--8<--- "get-help-snip.md"
+
 Upgrading your server to {{vers}} has the following benefits:
 
 | Benefits | Description |
@@ -50,12 +52,3 @@ The following list summarizes a number of the changes in the 8.0 series and has 
 
 Review other [Percona blogs](https://www.percona.com/blog/) that contain upgrade information.
 
-## Limitations
-
-An upgrade on Ubuntu 20.04 from the following releases does not restart the MySQL service automatically. You must start the service manually.
-
-* Percona Server for MySQL 8.0.x to Percona Server for MySQL 8.1
-
-* Percona Server for MySQL 8.0.x to Percona Server for MySQL 8.2
-
-* Percona Server for MySQL 8.1 to Percona Server for MySQL 8.2

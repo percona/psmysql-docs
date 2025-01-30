@@ -8,6 +8,8 @@ that configures yum and installs the [Percona GPG key](https://www.percona.com/d
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
+--8<--- "get-help-snip.md"
+
 ## Supported platforms
 
 Specific information on the supported platforms, products, and versions are described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
@@ -20,16 +22,24 @@ Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certi
 
 The RPM builds for *RHEL* 8 and *RHEL* 9 contain ARM packages with the `aarch64.rpm` extension. This means that Percona Server for MySQL is available for users on ARM-based systems.
 
+## Limitations
+
+RHEL 8 and other EL8 systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled to make these packages visible. The following command disables the module:
+
+```{.bash data-prompt="$"}
+$ sudo yum module disable mysql
+```
+
 ## Install
 
 To install using the Percona Software repository, run the following commands either as a `root` user or, as in the example, using `sudo`.
 
-    ```{.bash data-prompt="$"}
-    $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-    $ sudo percona-release enable-only {{pkg}} release
-    $ sudo percona-release enable tools release
-    $ sudo yum install percona-server-server
-    ```
+```{.bash data-prompt="$"}
+$ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+$ sudo percona-release enable-only {{pkg}} release
+$ sudo percona-release enable tools release
+$ sudo yum install percona-server-server
+```
 
 ## Available storage engines
 
