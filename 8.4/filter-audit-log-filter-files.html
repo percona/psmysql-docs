@@ -826,6 +826,27 @@
   
   
     <li class="md-nav__item">
+      <a href="write-filter-definitions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Write audit_log_filter definitons
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="audit-log-filter-security.html" class="md-nav__link">
         
   
@@ -981,6 +1002,30 @@
       Using the audit log filter functions
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set_filter-options-and-available-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      set_filter options and available filters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="set_filter options and available filters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3411,7 +3456,7 @@
         
   
   <span class="md-ellipsis">
-    JSON in MySQL
+    JSON in Percona Server for MySQL
   </span>
   
 
@@ -6174,6 +6219,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#set_filter-options-and-available-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      set_filter options and available filters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="set_filter options and available filters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6278,12 +6347,264 @@
 <p>With a new connection, the audit log filter component finds the user account name in the filter assignments. If a filter has been assigned, the component uses that filter. If no filter has been assigned, but there is a default account filter, the component uses that filter. If there is no filter assigned, and there is no default account filter, then the component does not process any event.</p>
 <p>The default account is represented by <code>%</code> as the account name.</p>
 <p>You can assign filters to a specific user account or disassociate a user account from a filter. To disassociate a user account, either unassign a filter or assign a different filter. If you remove a filter, that filter is unassigned from all users, including current users in current sessions.</p>
+<h2 id="set_filter-options-and-available-filters">set_filter options and available filters<a class="headerlink" href="#set_filter-options-and-available-filters" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Filter</th>
+<th>Available options</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>class Filter</td>
+<td><code>general</code>: Logs general server events</td>
+</tr>
+<tr>
+<td></td>
+<td><code>connection</code>: Tracks connection-related activities</td>
+</tr>
+<tr>
+<td></td>
+<td><code>table_access</code>: Monitors database table interactions</td>
+</tr>
+<tr>
+<td>user Filter</td>
+<td>Accepts specific usernames as filter criteria</td>
+</tr>
+<tr>
+<td></td>
+<td>Can include multiple usernames</td>
+</tr>
+<tr>
+<td></td>
+<td>Supports wildcard matching</td>
+</tr>
+<tr>
+<td>database Filter</td>
+<td>Filters events by database name</td>
+</tr>
+<tr>
+<td></td>
+<td>Accepts exact database names</td>
+</tr>
+<tr>
+<td></td>
+<td>Supports wildcard matching for database selection</td>
+</tr>
+<tr>
+<td>table Filter</td>
+<td>Specifies individual table names</td>
+</tr>
+<tr>
+<td></td>
+<td>Allows filtering for specific tables within databases</td>
+</tr>
+<tr>
+<td></td>
+<td>Supports wildcard matching</td>
+</tr>
+<tr>
+<td>operation Filter</td>
+<td><code>read</code>: SELECT statements</td>
+</tr>
+<tr>
+<td></td>
+<td><code>write</code>: INSERT, UPDATE, DELETE statements</td>
+</tr>
+<tr>
+<td></td>
+<td><code>ddl</code>: Data Definition Language operations</td>
+</tr>
+<tr>
+<td></td>
+<td><code>dcl</code>: Data Control Language operations</td>
+</tr>
+<tr>
+<td>event Filter</td>
+<td><code>status</code>: Tracks query execution status</td>
+</tr>
+<tr>
+<td></td>
+<td><code>query</code>: Captures query details</td>
+</tr>
+<tr>
+<td></td>
+<td><code>connection</code>: Monitors connection events</td>
+</tr>
+<tr>
+<td>status Filter</td>
+<td><code>0</code>: Successful operations</td>
+</tr>
+<tr>
+<td></td>
+<td><code>1</code>: Failed operations</td>
+</tr>
+</tbody>
+</table>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<p>Create simple filters</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_general&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: {</span>
+<span class="s1">      &quot;name&quot;: &quot;general&quot;</span>
+<span class="s1">    }</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+
+mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_connection&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: {</span>
+<span class="s1">      &quot;name&quot;: &quot;connection&quot;</span>
+<span class="s1">    }</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+
+mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_table_access&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: {</span>
+<span class="s1">      &quot;name&quot;: &quot;table_access&quot;</span>
+<span class="s1">    }</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+
+mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_global_variable&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: {</span>
+<span class="s1">      &quot;name&quot;: &quot;global_variable&quot;</span>
+<span class="s1">    }</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+
+mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_command&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: {</span>
+<span class="s1">      &quot;name&quot;: &quot;command&quot;</span>
+<span class="s1">    }</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+
+mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_query&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: {</span>
+<span class="s1">      &quot;name&quot;: &quot;query&quot;</span>
+<span class="s1">    }</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+
+mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_stored_program&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: {</span>
+<span class="s1">      &quot;name&quot;: &quot;stored_program&quot;</span>
+<span class="s1">    }</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+
+mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_authentication&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: {</span>
+<span class="s1">      &quot;name&quot;: &quot;authentication&quot;</span>
+<span class="s1">    }</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+
+mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_message&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: {</span>
+<span class="s1">      &quot;name&quot;: &quot;message&quot;</span>
+<span class="s1">    }</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<p>Add filter_update_on_user_change.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_connect&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: {</span>
+<span class="s1">      &quot;name&quot;: &quot;connection&quot;,</span>
+<span class="s1">      &quot;event&quot;: {</span>
+<span class="s1">        &quot;name&quot;: &quot;connect&quot;</span>
+<span class="s1">      }</span>
+<span class="s1">    }</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+
+mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_disconnect&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: {</span>
+<span class="s1">      &quot;name&quot;: &quot;connection&quot;,</span>
+<span class="s1">      &quot;event&quot;: {</span>
+<span class="s1">        &quot;name&quot;: &quot;disconnect&quot;</span>
+<span class="s1">      }</span>
+<span class="s1">    }</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Filters</th>
+<th>Example</th>
+<th>Event</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>class</td>
+<td>general, connection, table_access</td>
+<td>N/A</td>
+<td>general: Server-wide events, query processing<br>connection: Login, logout, connection attempts<br>table_access: Database and table-level interactions</td>
+</tr>
+<tr>
+<td>user</td>
+<td>Filters by MySQL user accounts</td>
+<td>[&ldquo;admin&rdquo;, &ldquo;readonly_user&rdquo;]</td>
+<td>All actions performed by specified users</td>
+</tr>
+<tr>
+<td>database</td>
+<td>Filters by database name</td>
+<td>[&ldquo;sales&rdquo;, &ldquo;inventory&rdquo;]</td>
+<td>Operations within specified databases</td>
+</tr>
+<tr>
+<td>table</td>
+<td>Filters by table name</td>
+<td>[&ldquo;customers&rdquo;, &ldquo;orders&rdquo;]</td>
+<td>Interactions with specific tables</td>
+</tr>
+<tr>
+<td>operation</td>
+<td>For table_access: read, insert, update, delete<br>For connection: connect, disconnect</td>
+<td>N/A</td>
+<td>Specific types of database operations</td>
+</tr>
+<tr>
+<td>status</td>
+<td>0: Successful queries<br>1: Failed queries</td>
+<td>N/A</td>
+<td>Query execution result filtering</td>
+</tr>
+<tr>
+<td>thread_id</td>
+<td>Filters by specific MySQL thread identifiers</td>
+<td>[&ldquo;12345&rdquo;, &ldquo;67890&rdquo;]</td>
+<td>Actions within a particular database thread</td>
+</tr>
+<tr>
+<td>query_time</td>
+<td>Filters based on query execution duration</td>
+<td>N/A</td>
+<td>Long-running or quick queries</td>
+</tr>
+</tbody>
+</table>
 <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2023-11-27
+      2025-01-23
     
   </small>
 </div>

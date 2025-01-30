@@ -8,19 +8,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The following steps uninstall the component:">
+        <meta name="description" content="When you’re setting up audit log filters in Percona Server for MySQL, you use JSON values to define those filters. At their core, a filter is just a JSON object with a very simple structure.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.4/uninstall-data-masking-component.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.4/write-filter-definitions.html">
       
       
-        <link rel="prev" href="data-masking-function-list.html">
+        <link rel="prev" href="audit-log-filter-json.html">
       
       
-        <link rel="next" href="pam-plugin.html">
+        <link rel="next" href="audit-log-filter-security.html">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
@@ -28,7 +28,7 @@
     
     
       
-        <title>Uninstall the component - Percona Server for MySQL</title>
+        <title>Write audit_log_filter definitons - Percona Server for MySQL</title>
       
     
     
@@ -91,7 +91,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Uninstall the component" />
+                 <meta property="og:title" content="Percona Server for MySQL - Write audit_log_filter definitons" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
               
@@ -114,7 +114,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#uninstall-the-component" class="md-skip">
+        <a href="#write-audit_log_filter-definitons" class="md-skip">
           Skip to content
         </a>
       
@@ -189,7 +189,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Uninstall the component
+              Write audit_log_filter definitons
             
           </span>
         </div>
@@ -559,17 +559,19 @@
       
   
   
+    
   
   
+  
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -583,7 +585,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Features
@@ -615,17 +617,19 @@
                 
   
   
+    
   
   
+  
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
         
           
           <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
@@ -639,7 +643,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             Audit Log Filter
@@ -819,10 +823,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="write-filter-definitions.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Write audit_log_filter definitons
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="write-filter-definitions.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -831,6 +855,148 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basic structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#practical-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practical example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-all-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log all events
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-specific-event-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log specific event classes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-multiple-classes-or-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log multiple classes or events
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inclusive-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inclusive filters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exclusive-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exclusive filters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exclusive-filter-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exclusive filter example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implement-the-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implement the filter
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implement the filter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-filter-identifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add filter identifier
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-filter-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add filter definition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3915,19 +4081,17 @@
       
   
   
-    
   
   
-  
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
         
           
           <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
@@ -3941,7 +4105,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
             Secure
@@ -4037,19 +4201,17 @@
                 
   
   
-    
   
   
-  
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_2" >
         
           
           <label class="md-nav__link" for="__nav_12_2" id="__nav_12_2_label" tabindex="0">
@@ -4063,7 +4225,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_12_2">
             <span class="md-nav__icon md-icon"></span>
             Data masking
@@ -4137,30 +4299,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Uninstall the component
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="uninstall-data-masking-component.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="uninstall-data-masking-component.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4169,37 +4311,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#useful-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      Useful links
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -6151,11 +6262,122 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#useful-links" class="md-nav__link">
+  <a href="#basic-structure" class="md-nav__link">
     <span class="md-ellipsis">
-      Useful links
+      Basic structure
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Basic structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#practical-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practical example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-all-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log all events
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-specific-event-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log specific event classes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-multiple-classes-or-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log multiple classes or events
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inclusive-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inclusive filters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exclusive-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exclusive filters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exclusive-filter-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exclusive filter example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implement-the-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implement the filter
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implement the filter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-filter-identifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add filter identifier
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-filter-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add filter definition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -6189,7 +6411,7 @@
                   
 
   
-    <a href="https://github.com/percona/psmysql-docs/edit/8.4/docs/uninstall-data-masking-component.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/edit/8.4/docs/write-filter-definitions.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6198,36 +6420,426 @@
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/8.4/docs/uninstall-data-masking-component.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/8.4/docs/write-filter-definitions.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="uninstall-the-component">Uninstall the component<a class="headerlink" href="#uninstall-the-component" title="Permanent link">&para;</a></h1>
-<p class="power-number">The following steps uninstall the component:</p>
-<ol>
-<li>
-<p>Uninstall the component with <a href="uninstall-component.html"><code>UNINSTALL_COMPONENT</code></a> and the loadable functions.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_masking_functions&#39;</span><span class="p">;</span>
+<h1 id="write-audit_log_filter-definitons">Write audit_log_filter definitons<a class="headerlink" href="#write-audit_log_filter-definitons" title="Permanent link">&para;</a></h1>
+<p>When you’re setting up audit log filters in Percona Server for MySQL, you use JSON values to define those filters. At their core, a filter is just a JSON object with a very simple structure.</p>
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+
+  /* Ensure the first column's width matches its content */
+  th:first-child, td:first-child {
+    white-space: nowrap;
+    width: 1%; /* Allows the column to shrink or expand to fit its content */
+  }
+</style>
+
+<table>
+<thead>
+<tr>
+<th>Benefit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reduced Log Volume and Storage</td>
+<td>By defining specific rules for what events to log (inclusive filters), you significantly reduce the amount of data written to the audit log. This minimizes log file size, reduces storage requirements, and lowers maintenance overhead.</td>
+</tr>
+<tr>
+<td>Improved Performance</td>
+<td>Smaller log files lead to faster log rotations and less disk I/O, which can improve overall server performance. Reduced log volume also decreases the impact of auditing on the database server itself.</td>
+</tr>
+<tr>
+<td>Enhanced Security Focus</td>
+<td>Instead of logging every single event (which can be overwhelming), you can focus on the most critical events. For example, you can prioritize logging events related to:<br> - Sensitive data access: Log queries that access or modify critical tables.<br> - User account activity: Monitor user logins, password changes, and privilege grants.<br> - DML operations: Log INSERT, UPDATE, and DELETE statements on specific tables.<br> - DDL operations: Log schema changes like CREATE TABLE, ALTER TABLE, and DROP TABLE.</td>
+</tr>
+<tr>
+<td>Simplified Log Analysis</td>
+<td>By filtering out irrelevant events, you make it easier to analyze and investigate security incidents or performance issues. You can quickly identify and focus on the most important events in the audit log.</td>
+</tr>
+<tr>
+<td>Compliance</td>
+<td>Many compliance regulations (e.g., PCI DSS, HIPAA) require organizations to audit database activity. Well-defined audit log filters help you meet these compliance requirements by ensuring that the necessary events are being logged.</td>
+</tr>
+<tr>
+<td>Resource Optimization</td>
+<td>By minimizing log volume and optimizing the auditing process, you can conserve valuable system resources, such as CPU, memory, and disk space.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="basic-structure">Basic structure<a class="headerlink" href="#basic-structure" title="Permanent link">&para;</a></h2>
+<p>The following is an example of the basic structure of a filter.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;class_type&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;option1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;value1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;value2&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;option2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;value3&quot;</span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
+<p>The <code>filter</code> is the root key in the configuration, which tells the system that you&rsquo;re setting up a filter for capturing or excluding specific events. Inside the filter, there&rsquo;s a key called <code>class</code>, which holds an array of different filter definitions. Each object in that array represents a specific rule for filtering events based on certain conditions.</p>
+<p>Inside each filter object, you&rsquo;ll have a few essential parts: The name is where you define the <code>event class</code> you&rsquo;re targeting, like <code>connection</code> or <code>table_access</code>. This name tells the filter what type of event you want to track. For example, <code>class_type</code> is just a placeholder name for any event class you can filter.</p>
+<p>Then, you have option1, which specifies additional filtering criteria. This criteria could be specific users, actions, or other event properties. For example, if you have [&ldquo;value1&rdquo;, &ldquo;value2&rdquo;] in option1, the filter will include events that match either value1 or value2. The filter also includes option2, which is another set of filtering criteria. It works similarly to option1 but focuses on a different property. So if option2 has [&ldquo;value3&rdquo;], it will capture events that match value3.</p>
+<h3 id="practical-example">Practical example<a class="headerlink" href="#practical-example" title="Permanent link">&para;</a></h3>
+<p>The following code is an example of a filter:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;developer&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;192.168.0.1&quot;</span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This filter targets the <code>connection</code> class. It matches connections made by users admin or developer from the host <code>192.168.0.1</code>. Events meeting these criteria would be logged or processed.</p>
+<h3 id="log-all-events">Log all events<a class="headerlink" href="#log-all-events" title="Permanent link">&para;</a></h3>
+<p>You can enable or disable logging for all events in Percona Server for MySQL using an audit log filter definition.</p>
+<p>To start, you can explicitly enable or disable logging for all events by adding a log item to your filter like the following example:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Setting <code>log</code>: <code>true</code> means all events are logged. If you want to turn logging off completely, set the value to <code>false</code>.</p>
+<p>You can also leave the <code>log</code> item out, like this example:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This setting works the same as  <code>log: true</code> and logs all events by default.</p>
+<p>Now, let’s break down how logging behaves depending on whether the log item is included or not:</p>
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+
+  /* Ensure the first column's width matches its content */
+  th:first-child, td:first-child {
+    white-space: nowrap;
+    width: 1%; /* Allows the column to shrink or expand to fit its content */
+  }
+</style>
+
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>When you include the log item</td>
+<td>The value you set (<code>true</code> or <code>false</code>) determines if events are logged.</td>
+</tr>
+<tr>
+<td>When you don’t include the log item</td>
+<td>If no <code>class</code> or <code>event</code> items are specified, logging is enabled by default.</td>
+</tr>
+</tbody>
+</table>
+<p>However, if you define specific class or event items, they can have their own log settings to control logging for just those events.</p>
+<h3 id="log-specific-event-classes">Log specific event classes<a class="headerlink" href="#log-specific-event-classes" title="Permanent link">&para;</a></h3>
+<p>If you want to log specific types of activities, such as connection-related events, you can define <code>class</code> item in your filter. </p>
+<p>For example, to log events in the “connection” class, your filter might look like this example.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>In the example, the outermost element is &ldquo;filter&rdquo;, which represents the audit log filter you’re defining. Everything within this key specifies what you want to track in the audit logs.</p>
+<p>Inside &ldquo;filter&rdquo;, you have a &ldquo;class&rdquo; element. This tells the server the general category of events you’re interested in. In this example, &ldquo;class&rdquo; is set to { &ldquo;name&rdquo;: &ldquo;connection&rdquo; }. The &ldquo;name&rdquo; key within the &ldquo;class&rdquo; specifies the type of events within the connection category that should be logged. By using &ldquo;connection&rdquo;, you’re instructing the server to monitor connection-related events, such as when users connect to or disconnect from the database.</p>
+<p>This structure makes it easy to focus your logging on specific areas of activity in the server, helping you capture only the data you need without cluttering your logs with unnecessary details.</p>
+<p>The following filter definition does the same thing, but explicitly states that no other logging is filtered.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="w"> </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="log-multiple-classes-or-events">Log multiple classes or events<a class="headerlink" href="#log-multiple-classes-or-events" title="Permanent link">&para;</a></h3>
+<p>To log multiple classes at the same time, you have two options.</p>
+<p>Both filters achieve the same goal: they define an audit log filter to log events related to &ldquo;connection&rdquo;, &ldquo;general&rdquo;, and &ldquo;table_access&rdquo;. These examples only differ in how the event classes are listed. </p>
+<p>It’s a comprehensive configuration for monitoring activities at the connection level, general server operations, and specific table interactions. This setup is useful for administrators who want broad visibility into user activity and server behavior.</p>
+<h4 id="a-list">A list<a class="headerlink" href="#a-list" title="Permanent link">&para;</a></h4>
+<p>A list is useful when you want to expand the filter later to include more granular settings for each class.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="an-array">An array<a class="headerlink" href="#an-array" title="Permanent link">&para;</a></h4>
+<p>To simplify, when you have multiple items, you can combine their values into a single array:</p>
+<p><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+This array object is more concise. You should use it if you do not plan to add additional settings for individual classes.</p>
+<h4 id="list-of-event-and-subclass-options">List of event and subclass options<a class="headerlink" href="#list-of-event-and-subclass-options" title="Permanent link">&para;</a></h4>
+<p>The table shows the available event classes and their subclasses:</p>
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+
+  /* Ensure the first column's width matches its content */
+  th:first-child, td:first-child {
+    white-space: nowrap;
+    width: 1%; /* Allows the column to shrink or expand to fit its content */
+  }
+</style>
+
+<table>
+<thead>
+<tr>
+<th>Class name</th>
+<th>Event subclass</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>connection</code></td>
+<td><code>connect</code></td>
+<td>Tracks when a connection is initiated (successful or not)</td>
+</tr>
+<tr>
+<td><code>connection</code></td>
+<td><code>change_user</code></td>
+<td>Tracks when a user changes during a session</td>
+</tr>
+<tr>
+<td><code>connection</code></td>
+<td><code>disconnect</code></td>
+<td>Tracks when a connection is terminated</td>
+</tr>
+<tr>
+<td><code>general</code></td>
+<td><code>status</code></td>
+<td>Tracks the status of general server operations (for example, query success or failure)</td>
+</tr>
+<tr>
+<td><code>general</code></td>
+<td><code>command</code></td>
+<td>Logs SQL commands issued to the server</td>
+</tr>
+<tr>
+<td><code>table_access</code></td>
+<td><code>read</code></td>
+<td>Logs read statements, like <code>SELECT</code> or <code>INSERT INTO … SELECT</code></td>
+</tr>
+<tr>
+<td><code>table_access</code></td>
+<td><code>delete</code></td>
+<td>Logs delete statements, like <code>DELETE</code> or <code>TRUNCATE TABLE</code></td>
+</tr>
+<tr>
+<td><code>table_access</code></td>
+<td><code>insert</code></td>
+<td>Logs insert statements, like <code>INSERT</code> or <code>REPLACE</code></td>
+</tr>
+<tr>
+<td><code>table_access</code></td>
+<td><code>update</code></td>
+<td>Logs update statements, like <code>UPDATE</code></td>
+</tr>
+</tbody>
+</table>
+<p>This setup gives you the flexibility to monitor the exact events that are important to you while controlling logging behavior in a detailed way.</p>
+<h3 id="inclusive-filters">Inclusive filters<a class="headerlink" href="#inclusive-filters" title="Permanent link">&para;</a></h3>
+<p>Inclusive filters capture specific database events you want to log. They allow you to precisely target and record only the actions you care about.</p>
+<h4 id="basic-structure_1">Basic Structure<a class="headerlink" href="#basic-structure_1" title="Permanent link">&para;</a></h4>
+<p>An inclusive filter uses a JSON configuration that defines which events to include in your audit logging. The filter specifies:</p>
+<ul>
+<li>
+<p>What type of events to capture</p>
 </li>
 <li>
-<p>Drop <code>masking_dictionaries</code>.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DROP<span class="w"> </span>TABLE<span class="w"> </span>mysql.masking_dictionaries<span class="p">;</span>
-</code></pre></div>
+<p>Which users to track</p>
 </li>
-</ol>
-<h2 id="useful-links">Useful links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
-<p><a href="install-data-masking-component.html">Install the data masking component</a></p>
-<p><a href="data-masking-function-list.html">Data masking component functions</a></p>
+<li>
+<p>What specific actions to log</p>
+</li>
+</ul>
+<p>Common use cases for inclusive filters include security audits, compliance tracking, performance monitoring, and user behavior analysis.</p>
+<p>Event tracking can be more precise, which helps reduce unnecessary log noise. By focusing on the specific events that matter, you can enhance security monitoring and ensure that only the most relevant data is logged. This approach not only improves the clarity of your logs but also helps optimize performance by limiting the number of events being recorded, reducing overhead and making it easier to manage the system.</p>
+<p>It’s important to consider the performance impact of logging and how it might affect your server. Before deploying your filters in a production environment, test them thoroughly to ensure everything works as expected. </p>
+<h4 id="inclusive-filter-example">Inclusive filter example<a class="headerlink" href="#inclusive-filter-example" title="Permanent link">&para;</a></h4>
+<p>This filter is useful for monitoring and auditing changes to the database performed by administrative users, particularly to ensure that updates and deletions are tracked.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;admin&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;operation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This filter does one thing: log all update and delete operations performed by admin users. The filter uses the following components:</p>
+<ul>
+<li>
+<p>&ldquo;class&rdquo;: The top-level key specifies that the filter applies to the <code>table_access</code> class. This class monitors events related to database table interactions.</p>
+</li>
+<li>
+<p>&ldquo;name&rdquo;: &ldquo;table_access&rdquo;: This defines the event class you want to track. This class captures interactions with database tables such as read, insert, update, and delete operations. Specifies the specific class of events</p>
+</li>
+<li>
+<p>user: [&ldquo;admin&rdquo;]: This specifies that the filter applies only to events performed by the admin user. It restricts the filter to only log actions executed by this user.</p>
+</li>
+<li>
+<p>operation: [&ldquo;update&rdquo;, &ldquo;delete&rdquo;]: This narrows down the filter to track only specific operations. In this case, it captures update and delete operations. Any SELECT (read) or INSERT operations on tables will not be logged, as they are excluded by this filter.</p>
+</li>
+</ul>
+<p>Inclusive filters give you granular control over your MySQL audit logging, allowing you to capture exactly the information you need without overwhelming your logging system.</p>
+<h3 id="exclusive-filters">Exclusive filters<a class="headerlink" href="#exclusive-filters" title="Permanent link">&para;</a></h3>
+<p>Exclusive filters in the audit_log_filter for Percona Server for MySQL let you exclude certain activities from being logged, helping you reduce log size and focus on what matters most. For example, you can filter out routine operations like health checks or background processes to avoid unnecessary clutter in your logs. </p>
+<p>This example defines a filter that <code>excludes</code> (negate: true) all table access events (&ldquo;table_access&rdquo;) by the user &ldquo;readonly_user&rdquo;. Events for other users or other classes of activity are still be logged unless additional filters are defined.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;readonly_user&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;negate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="exclusive-filter-example">Exclusive filter example<a class="headerlink" href="#exclusive-filter-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;developer&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;database&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;financial&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;operation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w">  </span><span class="c1">// Failed operations only</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;external_service&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w">  </span><span class="c1">// Successful connections</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This filter captures failed update/delete operations by admin and developer users in the financial database and successful connections for the <code>external_service</code> user</p>
+<h2 id="best-practices">Best practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<p>Following a systematic approach helps ensure successful deployment and maintenance when implementing audit log filters. Start by creating broad, inclusive filters that capture a wide range of events, giving you a comprehensive view of your database activity. For example, you might begin by logging all actions from administrative users or all operations on critical databases. As you analyze the captured data, you can refine these filters to focus on specific events, users, or operations that matter most to your organization.</p>
+<p>Testing is crucial before deploying filters in production. Set up a non-production environment that mirrors your production setup as closely as possible. This non-production environment allows you to verify that your filters capture the intended events without missing critical information. During testing, pay particular attention to how different filter combinations interact and ensure they don&rsquo;t create any unexpected gaps in your audit coverage.</p>
+<p>Log file management requires careful attention. Audit logs can grow rapidly, especially with detailed filtering configurations. Monitor your log file sizes regularly and implement appropriate rotation policies. Consider storage capacity, retention requirements, and system performance when determining how much detail to include in your logs. It&rsquo;s often helpful to calculate expected log growth based on your typical database activity and adjust your rotation policies accordingly.</p>
+<p>Performance impact is a critical consideration when implementing detailed logging. More granular filters typically require more system resources to process and store the audit data. Monitor your system&rsquo;s performance metrics while testing different filter configurations. Look for significant changes in query response times, CPU usage, or I/O operations. If you notice performance degradation, consider adjusting your filters to balance capturing necessary audit data and maintaining acceptable system performance. Remember that starting with less detailed logging is often better and gradually increasing it as needed rather than implementing overly aggressive logging that impacts system performance.</p>
+<h2 id="implement-the-filter">Implement the filter<a class="headerlink" href="#implement-the-filter" title="Permanent link">&para;</a></h2>
+<p>Here&rsquo;s how to define and implement an audit log filter:</p>
+<h3 id="add-filter-identifier">Add filter identifier<a class="headerlink" href="#add-filter-identifier" title="Permanent link">&para;</a></h3>
+<p>An audit log filter identifier is your filter&rsquo;s unique name within the <code>audit_log_filter</code> system. You create this name to label and track your specific filter setup. The <code>audit_log_filter_id</code> system variable stores this name, and you should choose descriptive identifiers like &lsquo;finance_audit&rsquo; or &lsquo;security_tracking&rsquo;.</p>
+<p>After you name your filter with an identifier, you attach your rules. The identifier makes it easy to manage multiple filter setups and update them as needed. When you want to change your logging rules, you first reference your chosen identifier and then add your new filter settings.</p>
+<p>Remember that when you apply new filter settings to an existing identifier, the system replaces the old settings. It doesn&rsquo;t add the new rules to what&rsquo;s already there.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;financial_tracking&#39;</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="add-filter-definition">Add filter definition<a class="headerlink" href="#add-filter-definition" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: [</span>
+<span class="s1">      {</span>
+<span class="s1">        &quot;name&quot;: &quot;table_access&quot;,</span>
+<span class="s1">        &quot;user&quot;: [&quot;admin&quot;, &quot;finance_team&quot;],</span>
+<span class="s1">        &quot;database&quot;: [&quot;financial_db&quot;],</span>
+<span class="s1">        &quot;table&quot;: [&quot;accounts&quot;, &quot;transactions&quot;],</span>
+<span class="s1">        &quot;operation&quot;: [&quot;insert&quot;, &quot;update&quot;, &quot;delete&quot;],</span>
+<span class="s1">        &quot;status&quot;: [0, 1]</span>
+<span class="s1">      },</span>
+<span class="s1">      {</span>
+<span class="s1">        &quot;name&quot;: &quot;connection&quot;,</span>
+<span class="s1">        &quot;user&quot;: [&quot;admin&quot;, &quot;finance_team&quot;],</span>
+<span class="s1">        &quot;operation&quot;: [&quot;connect&quot;, &quot;disconnect&quot;],</span>
+<span class="s1">        &quot;status&quot;: [0, 1]</span>
+<span class="s1">      }</span>
+<span class="s1">    ]</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>The filter monitors two main types of activities. First, it watches all changes to your accounts and transactions tables. This monitoring means that the filter logs when someone adds new data, changes existing information, or removes records. You get a complete picture of who&rsquo;s touching your financial data and what they do with it.</p>
+<p>The filter doesn&rsquo;t just track successful operations—it monitors both successes and failures. This tracking gives you valuable information about attempted changes that didn&rsquo;t work out, which is helpful for troubleshooting and security monitoring.</p>
+<p>Here&rsquo;s what gets logged:</p>
+<ul>
+<li>
+<p>Every insert, update, and delete operation on your financial tables</p>
+</li>
+<li>
+<p>All connection attempts from your admin and finance teams, including when they log in and out</p>
+</li>
+<li>
+<p>Whether each operation succeeded (status 0) or failed (status 1)</p>
+</li>
+</ul>
+<p>The filter focuses only on activity in your <code>financial_db</code> database. This targeted approach makes it easier to find the information you need when you need it.</p>
+<p>Tracking all these elements gives you a comprehensive view of who&rsquo;s accessing your financial data, what changes they&rsquo;re making, and whether those changes are successful. This ability is beneficial for security monitoring and compliance requirements.</p>
+<p>To verify your filter:
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;audit_log_filter&#39;</span><span class="p">;</span>
+</code></pre></div></p>
+<p>To check if events are being logged, you can examine your audit log file (default location is the data directory).</p>
 <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2023-10-04
+      2025-01-23
     
   </small>
 </div>

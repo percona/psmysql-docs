@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="JSON stands for JavaScript Object Notation. It is a lightweight data-interchange format that is easy for humans to read and write. It is also easy for machines to parse and generate. MySQL supports JSON data type, allowing you to store JSON documents in your database.">
+        <meta name="description" content="JSON stands for JavaScript Object Notation. It is a lightweight data-interchange format that is easy for humans to read and write. It is also easy for machines to parse and generate. Percona Server for MySQL supports JSON data type, allowing you to store JSON documents in your database.">
       
       
         <meta name="author" content="Percona LLC">
@@ -28,7 +28,7 @@
     
     
       
-        <title>JSON in MySQL - Percona Server for MySQL</title>
+        <title>JSON in Percona Server for MySQL - Percona Server for MySQL</title>
       
     
     
@@ -91,7 +91,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - JSON in MySQL" />
+                 <meta property="og:title" content="Percona Server for MySQL - JSON in Percona Server for MySQL" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
               
@@ -114,7 +114,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#json-in-mysql" class="md-skip">
+        <a href="#json-in-percona-server-for-mysql" class="md-skip">
           Skip to content
         </a>
       
@@ -189,7 +189,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              JSON in MySQL
+              JSON in Percona Server for MySQL
             
           </span>
         </div>
@@ -810,6 +810,27 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="write-filter-definitions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Write audit_log_filter definitons
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -3351,7 +3372,7 @@
           
   
   <span class="md-ellipsis">
-    JSON in MySQL
+    JSON in Percona Server for MySQL
   </span>
   
 
@@ -3362,7 +3383,7 @@
         
   
   <span class="md-ellipsis">
-    JSON in MySQL
+    JSON in Percona Server for MySQL
   </span>
   
 
@@ -3384,6 +3405,15 @@
       On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#use-json-in-your-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use JSON in your database
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#create-a-table-with-json-data-type" class="md-nav__link">
@@ -6226,6 +6256,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#use-json-in-your-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use JSON in your database
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#create-a-table-with-json-data-type" class="md-nav__link">
     <span class="md-ellipsis">
       Create a table with JSON Data Type
@@ -6376,8 +6415,85 @@
   
 
 
-<h1 id="json-in-mysql">JSON in MySQL<a class="headerlink" href="#json-in-mysql" title="Permanent link">&para;</a></h1>
-<p>JSON stands for JavaScript Object Notation. It is a lightweight data-interchange format that is easy for humans to read and write. It is also easy for machines to parse and generate. MySQL supports JSON data type, allowing you to store JSON documents in your database. </p>
+<h1 id="json-in-percona-server-for-mysql">JSON in Percona Server for MySQL<a class="headerlink" href="#json-in-percona-server-for-mysql" title="Permanent link">&para;</a></h1>
+<p>JSON stands for JavaScript Object Notation. It is a lightweight data-interchange format that is easy for humans to read and write. It is also easy for machines to parse and generate. Percona Server for MySQL supports JSON data type, allowing you to store JSON documents in your database. </p>
+<p>The JSON data type in Percona Server for MySQL is a handy way to store and work with flexible, semi-structured data right in your database. Think of it as a way to save JSON objects directly into your tables, so you don’t have to convert them into a rigid format.</p>
+<p>When you use the JSON data type, the database stores your data in a special binary format that’s optimized for speed and space which is faster and more efficient than just saving JSON as plain text.</p>
+<p>The JSON data type is great when your data doesn’t fit into a fixed structure or if it’s likely to change over time. The following are examples of when you would use the JSON data type:</p>
+<ul>
+<li>
+<p>Storing user preferences or settings.</p>
+</li>
+<li>
+<p>Capturing logs or other dynamic data.</p>
+</li>
+<li>
+<p>Handling complex objects without adding a ton of columns to your table.</p>
+</li>
+</ul>
+<p>JSON has the following features:</p>
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  th:first-child, td:first-child {
+    width: auto;
+    white-space: nowrap;
+  }
+</style>
+
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Validation Built-In</td>
+<td>Percona Server checks your JSON data when you insert or update it to make sure it’s valid. If something’s wrong, you’ll know right away.</td>
+</tr>
+<tr>
+<td>Powerful Querying</td>
+<td>You can dig into specific parts of your JSON data using built-in functions like the following: <br>  - <code>JSON_EXTRACT()</code> to pull out specific keys or values. <br> - <code>JSON_CONTAINS()</code> to check if a key or value exists. <br> - <code>JSON_SET()</code> to update parts of your JSON object without replacing the whole thing.</td>
+</tr>
+<tr>
+<td>Indexing for Speed</td>
+<td>If you often query a particular key inside your JSON, you can create a generated column based on that key and index it, making queries much faster.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="use-json-in-your-database">Use JSON in your database<a class="headerlink" href="#use-json-in-your-database" title="Permanent link">&para;</a></h2>
+<p>The following is an example using JSON in your database.</p>
+<div class="highlight"><pre><span></span><code><span class="err">CREATE</span><span class="w"> </span><span class="err">TABLE</span><span class="w"> </span><span class="err">user_da</span><span class="kc">ta</span><span class="w"> </span><span class="err">(</span>
+<span class="w">    </span><span class="err">id</span><span class="w"> </span><span class="err">INT</span><span class="w"> </span><span class="err">PRIMARY</span><span class="w"> </span><span class="err">KEY</span><span class="w"> </span><span class="err">AUTO_INCREMENT</span><span class="p">,</span>
+<span class="w">    </span><span class="kc">na</span><span class="err">me</span><span class="w"> </span><span class="err">VARCHAR(</span><span class="mi">50</span><span class="err">)</span><span class="p">,</span>
+<span class="w">    </span><span class="err">se</span><span class="kc">tt</span><span class="err">i</span><span class="kc">n</span><span class="err">gs</span><span class="w"> </span><span class="err">JSON</span>
+<span class="err">);</span>
+
+<span class="err">INSERT</span><span class="w"> </span><span class="err">INTO</span><span class="w"> </span><span class="err">user_da</span><span class="kc">ta</span><span class="w"> </span><span class="err">(</span><span class="kc">na</span><span class="err">me</span><span class="p">,</span><span class="w"> </span><span class="err">se</span><span class="kc">tt</span><span class="err">i</span><span class="kc">n</span><span class="err">gs)</span>
+<span class="err">VALUES</span><span class="w"> </span><span class="err">(&#39;Joh</span><span class="kc">n</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="p">{</span><span class="nt">&quot;theme&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dark&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;notifications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;sms&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}}</span><span class="err">&#39;);</span>
+
+<span class="err">SELECT</span><span class="w"> </span><span class="err">JSON_EXTRACT(se</span><span class="kc">tt</span><span class="err">i</span><span class="kc">n</span><span class="err">gs</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;$.</span><span class="kc">t</span><span class="err">heme&#39;)</span><span class="w"> </span><span class="err">AS</span><span class="w"> </span><span class="kc">t</span><span class="err">heme</span>
+<span class="err">FROM</span><span class="w"> </span><span class="err">user_da</span><span class="kc">ta</span>
+<span class="err">WHERE</span><span class="w"> </span><span class="kc">na</span><span class="err">me</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">&#39;Joh</span><span class="kc">n</span><span class="err">&#39;;</span>
+</code></pre></div>
+<ul>
+<li>
+<p>The settings column stores JSON data.</p>
+</li>
+<li>
+<p>You can use <code>JSON_EXTRACT()</code> to get the value of a specific key, like theme.</p>
+</li>
+</ul>
+<p>JSON in Percona Server for MySQL gives you have the flexibility of NoSQL with the reliability and querying power of a relational database. </p>
 <h2 id="create-a-table-with-json-data-type">Create a table with JSON Data Type<a class="headerlink" href="#create-a-table-with-json-data-type" title="Permanent link">&para;</a></h2>
 <p>Create a table that includes a column with the JSON data type.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>users<span class="w"> </span><span class="o">(</span>
@@ -6432,7 +6548,7 @@ SET<span class="w"> </span><span class="nv">info</span><span class="w"> </span><
 WHERE<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="use-json-functions">Use JSON Functions<a class="headerlink" href="#use-json-functions" title="Permanent link">&para;</a></h2>
-<p>MySQL provides several functions to work with JSON data.</p>
+<p>Percona Server for MySQL provides several functions to work with JSON data.</p>
 <h3 id="json_extract"><code>JSON_EXTRACT</code><a class="headerlink" href="#json_extract" title="Permanent link">&para;</a></h3>
 <p>You can extract data from a JSON document using the <code>JSON_EXTRACT</code> function. This function extracts the value of the <code>city</code> key from the JSON object stored in the <code>info</code> column.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>JSON_EXTRACT<span class="o">(</span>info,<span class="w"> </span><span class="s1">&#39;$.city&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>city<span class="w"> </span>FROM<span class="w"> </span>users<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
@@ -6453,7 +6569,7 @@ WHERE<span class="w"> </span><span class="nv">name</span><span class="w"> </span
   <small>
     
       Last update:
-      2024-10-15
+      2025-01-23
     
   </small>
 </div>
