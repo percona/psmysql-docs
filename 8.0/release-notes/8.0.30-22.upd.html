@@ -4139,11 +4139,32 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../ldap-system-variables.html" class="md-nav__link">
+      <a href="../ldap-sasl-variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    LDAP authentication plugin system variables
+    LDAP SASL system variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ldap-simple-variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LDAP Simple system variables
   </span>
   
 
@@ -7181,10 +7202,10 @@ increased visibility. </p>
 <p><a href="../ldap-authentication.html">SASL-based LDAP plugin</a></p>
 </li>
 <li>
-<p><a href="../ldap-system-variables.html">SASL-based LDAP variables</a></p>
+<p><a href="../ldap-system-variables.md">SASL-based LDAP variables</a></p>
 </li>
 <li>
-<p><a href="../ldap-system-variables.html">Fallback server variables for simple LDAP and SASL-based LDAP</a></p>
+<p><a href="../ldap-system-variables.md">Fallback server variables for simple LDAP and SASL-based LDAP</a></p>
 </li>
 <li>
 <p><a href="../fido-authentication-plugin.html">FIDO authentication plugin</a></p>
@@ -7221,7 +7242,7 @@ increased visibility. </p>
 <p><a href="https://jira.percona.com/browse/PS-6002">PS-6002</a>: Added the global variable <a href="../group-replication-system-variables.html#replica-enable-event"><code>--replica-enable-event</code></a> to maintain the create/alter event state on replicas.</p>
 </li>
 <li>
-<p><a href="https://jira.percona.com/browse/PS-7980">PS-7980</a>: Added the global system variables <a href="../ldap-system-variables.html#authentication_ldap_simple_group_role_mapping"><code>--authentication_ldap_simple_group_role_mapping</code></a> and <a href="../ldap-system-variables.html#authentication_ldap_sasl_group_role_mapping"><code>--authentication_ldap_sasl_group_role_mapping</code></a>. When a user logs in with LDAP authentication, the server checks if the LDAP user is a member of any group specified in this variable. If the check is successful, the matching MySQL roles are automatically granted to the user.</p>
+<p><a href="https://jira.percona.com/browse/PS-7980">PS-7980</a>: Added the global system variables <a href="../ldap-system-variables.md#authentication_ldap_simple_group_role_mapping"><code>--authentication_ldap_simple_group_role_mapping</code></a> and <a href="../ldap-system-variables.md#authentication_ldap_sasl_group_role_mapping"><code>--authentication_ldap_sasl_group_role_mapping</code></a>. When a user logs in with LDAP authentication, the server checks if the LDAP user is a member of any group specified in this variable. If the check is successful, the matching MySQL roles are automatically granted to the user.</p>
 </li>
 <li>
 <p><a href="https://jira.percona.com/browse/PS-8275">PS-8275</a>: Implements the ability to eject a cluster node when the node exceeds the flow control threshold by adding a <code>MAJORITY</code> mode to <a href="../group-replication-system-variables.html#group-replication-flow-control-mode"><code>group_replication_flow_control_mode</code></a> and a global system variable <a href="../group-replication-system-variables.html#group-replication-auto-evict-timeout"><code>group_replication_auto_evict_timeout</code></a>.</p>
@@ -7239,16 +7260,16 @@ increased visibility. </p>
 <p><a href="https://jira.percona.com/browse/PS-8155">PS-8155</a>: Implements support for multiple LDAP server for the simple LDAP authentication plugin and the SASL-based LDAP authentication plugin. If the appropriate system variable is set, and if the primary server is unavailable, the authentication plugin attempts to connect and authenticate using a fallback server. A user can also specify multiple fallback servers. The following global system variables are:</p>
 </li>
 <li>
-<p><a href="../ldap-system-variables.html#authentication-ldap-simple-fallback-server-host"><code>authentication_ldap_simple_fallback_server_host</code></a></p>
+<p><a href="../ldap-system-variables.md#authentication-ldap-simple-fallback-server-host"><code>authentication_ldap_simple_fallback_server_host</code></a></p>
 </li>
 <li>
-<p><a href="../ldap-system-variables.html#authentication-ldap-simple-fallback-server-port"><code>authentication_ldap_simple_fallback_server_port</code></a></p>
+<p><a href="../ldap-system-variables.md#authentication-ldap-simple-fallback-server-port"><code>authentication_ldap_simple_fallback_server_port</code></a></p>
 </li>
 <li>
-<p><a href="../ldap-system-variables.html#authentication-ldap-sasl-fallback-server-host"><code>authentication_ldap_sasl_fallback_server_host</code></a></p>
+<p><a href="../ldap-system-variables.md#authentication-ldap-sasl-fallback-server-host"><code>authentication_ldap_sasl_fallback_server_host</code></a></p>
 </li>
 <li>
-<p><a href="../ldap-system-variables.html#authentication-ldap-sasl-fallback-server-port"><code>authentication_ldap_sasl_fallback_server_port</code></a></p>
+<p><a href="../ldap-system-variables.md#authentication-ldap-sasl-fallback-server-port"><code>authentication_ldap_sasl_fallback_server_port</code></a></p>
 </li>
 </ul>
 <h2 id="bug-fixes">Bug fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h2>

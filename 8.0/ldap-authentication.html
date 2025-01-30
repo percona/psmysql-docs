@@ -22,7 +22,7 @@ individuals, groups, and organizations.">
         <link rel="prev" href="start-transaction-with-consistent-snapshot.html">
       
       
-        <link rel="next" href="ldap-system-variables.html">
+        <link rel="next" href="ldap-sasl-variables.html">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
@@ -4130,18 +4130,9 @@ individuals, groups, and organizations.">
 </li>
       
         <li class="md-nav__item">
-  <a href="#create-a-user-using-simple-ldap-authentication" class="md-nav__link">
+  <a href="#create-a-user" class="md-nav__link">
     <span class="md-ellipsis">
-      Create a user using simple LDAP authentication
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#create-a-user-using-sasl-based-ldap-authentication" class="md-nav__link">
-    <span class="md-ellipsis">
-      Create a user using SASL-based LDAP authentication
+      Create a user
     </span>
   </a>
   
@@ -4187,11 +4178,32 @@ individuals, groups, and organizations.">
   
   
     <li class="md-nav__item">
-      <a href="ldap-system-variables.html" class="md-nav__link">
+      <a href="ldap-sasl-variables.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    LDAP authentication plugin system variables
+    LDAP SASL system variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ldap-simple-variables.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LDAP Simple system variables
   </span>
   
 
@@ -7123,18 +7135,9 @@ individuals, groups, and organizations.">
 </li>
       
         <li class="md-nav__item">
-  <a href="#create-a-user-using-simple-ldap-authentication" class="md-nav__link">
+  <a href="#create-a-user" class="md-nav__link">
     <span class="md-ellipsis">
-      Create a user using simple LDAP authentication
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#create-a-user-using-sasl-based-ldap-authentication" class="md-nav__link">
-    <span class="md-ellipsis">
-      Create a user using SASL-based LDAP authentication
+      Create a user
     </span>
   </a>
   
@@ -7218,10 +7221,6 @@ access existing directory servers, which maintain information about
 individuals, groups, and organizations.</p>
 <h2 id="version-specific-information">Version specific information<a class="headerlink" href="#version-specific-information" title="Permanent link">&para;</a></h2>
 <p><em>Percona Server for MySQL</em> 8.0.30-22 implements an SASL-based LDAP authentication plugin. This plugin only supports the SCRAM-SHA-1 SASL mechanism.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>This feature is a <a href="glossary.html#tech-preview">tech preview</a>. Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.</p>
-</div>
 <p><em>Percona Server for MySQL</em> 8.0.19-10 implements the simple LDAP authentication. The Percona simple LDAP authentication plugin is a free and Open Source implementation of the MySQL Enterprise Simple LDAP authentication plugin.</p>
 <h2 id="plugin-names-and-file-names">Plugin names and file names<a class="headerlink" href="#plugin-names-and-file-names" title="Permanent link">&para;</a></h2>
 <p>The following tables show the plugin names and the file name for simple LDAP authentication and SASL-based LDAP authentication.</p>
@@ -7350,10 +7349,6 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 <div class="tabbed-block">
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_simple<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">&#39;authentication_ldap_simple.so&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>To set and persist values at runtime, use the following statements:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="w"> </span><span class="nv">authentication_ldap_simple_server_host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="w"> </span><span class="nv">authentication_ldap_simple_bind_base_dn</span><span class="o">=</span><span class="s1">&#39;dc=percona, dc=com&#39;</span><span class="p">;</span>
-</code></pre></div>
 </div>
 <div class="tabbed-block">
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_sasl<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">&#39;authentication_ldap_sasl.so&#39;</span><span class="p">;</span>
@@ -7365,9 +7360,13 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 </div>
 </div>
 </div>
-<h2 id="create-a-user-using-simple-ldap-authentication">Create a user using simple LDAP authentication<a class="headerlink" href="#create-a-user-using-simple-ldap-authentication" title="Permanent link">&para;</a></h2>
+<h2 id="create-a-user">Create a user<a class="headerlink" href="#create-a-user" title="Permanent link">&para;</a></h2>
 <p>There are several methods to add or modify a user.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Use authentication_ldap_simple plugin</label><label for="__tabbed_4_2">Use the authentication string in simple LDAP</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Using LDAP Simple authentication</label><label for="__tabbed_4_2">Using SASL-based LDAP authentication</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>There are several methods to add or modify a user.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Use authentication_ldap_simple plugin</label><label for="__tabbed_5_2">Use the authentication string in simple LDAP</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In the <code>CREATE USER</code> statement or the <code>ALTER USER</code> statement, for simple LDAP authentication, you can specify the <code>authentication_ldap_simple</code> plugin in the <code>IDENTIFIED WITH</code> clause:</p>
@@ -7379,32 +7378,33 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <p>If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.</p>
 <div class="highlight"><pre><span></span><code>mysql&gt; CREATE USER ... IDENTIFIED WITH authentication_ldap_simple BY &#39;cn=[user name],ou=[organization unit],dc=[domain component],dc=com&#39;
 </code></pre></div>
-<p>Unless the <a href="ldap-system-variables.html#authentication_ldap_simple_group_role_mapping">authentication_ldap_simple_group_role_mapping</a> variable is used, creating a user with an authentication string does not use the following system variables:</p>
+<p>Unless the <a href="ldap-simple-variables.html#authentication_ldap_simple_group_role_mapping">authentication_ldap_simple_group_role_mapping</a> variable is used, creating a user with an authentication string does not use the following system variables:</p>
 <ul>
 <li>
-<p><a href="ldap-system-variables.html#authentication_ldap_simple_bind_base_dn">authentication_ldap_simple_bind_base_dn</a></p>
+<p><a href="ldap-simple-variables.html#authentication_ldap_simple_bind_base_dn">authentication_ldap_simple_bind_base_dn</a></p>
 </li>
 <li>
-<p><a href="ldap-system-variables.html#authentication_ldap_simple_bind_root_dn">authentication_ldap_simple_bind_root_dn</a></p>
+<p><a href="ldap-simple-variables.html#authentication_ldap_simple_bind_root_dn">authentication_ldap_simple_bind_root_dn</a></p>
 </li>
 <li>
-<p><a href="ldap-system-variables.html#authentication_ldap_simple_bind_root_pwd">authentication_ldap_simple_bind_root_pwd</a></p>
+<p><a href="ldap-simple-variables.html#authentication_ldap_simple_bind_root_pwd">authentication_ldap_simple_bind_root_pwd</a></p>
 </li>
 <li>
-<p><a href="ldap-system-variables.html#authentication_ldap_simple_user_search_attr">authentication_ldap_simple_user_search_attr</a></p>
+<p><a href="ldap-simple-variables.html#authentication_ldap_simple_user_search_attr">authentication_ldap_simple_user_search_attr</a></p>
 </li>
 <li>
-<p><a href="ldap-system-variables.html#authentication_ldap_simple_group_search_attr">authentication_ldap_simple_group_search_attr</a></p>
+<p><a href="ldap-simple-variables.html#authentication_ldap_simple_group_search_attr">authentication_ldap_simple_group_search_attr</a></p>
 </li>
 </ul>
 <p>Creating the user with <code>IDENTIFIED BY authentication_ldap_simple</code> uses the variables.</p>
-<p>Creating the user with the <a href="ldap-system-variables.html#authentication_ldap_simple_group_role_mapping">authentication_ldap_simple_group_role_mapping</a> variable also adds the <a href="ldap-system-variables.html#authentication_ldap_simple_bind_root_dn">authentication_ldap_simple_bind_root_dn</a> and <a href="ldap-system-variables.html#authentication_ldap_simple_bind_root_pwd">authentication_ldap_simple_bind_root_pwd</a> variables.</p>
+<p>Creating the user with the <a href="ldap-simple-variables.html#authentication_ldap_simple_group_role_mapping">authentication_ldap_simple_group_role_mapping</a> variable also adds the <a href="ldap-simple-variables.html#authentication_ldap_simple_bind_root_dn">authentication_ldap_simple_bind_root_dn</a> and <a href="ldap-simple-variables.html#authentication_ldap_simple_bind_root_pwd">authentication_ldap_simple_bind_root_pwd</a> variables.</p>
 </div>
 </div>
 </div>
-<h2 id="create-a-user-using-sasl-based-ldap-authentication">Create a user using SASL-based LDAP authentication<a class="headerlink" href="#create-a-user-using-sasl-based-ldap-authentication" title="Permanent link">&para;</a></h2>
+</div>
+<div class="tabbed-block">
 <p>There are several methods to add or modify a user.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Use authentication_ldap_sasl plugin</label><label for="__tabbed_5_2">Use the authentication string in SASL-based LDAP</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Use authentication_ldap_sasl plugin</label><label for="__tabbed_6_2">Use the authentication string in SASL-based LDAP</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>For SASL-based LDAP authentication, in the <code>CREATE USER</code> statement or the <code>ALTER USER</code> statement, you can specify the <code>authentication_ldap_sasl</code> plugin:</p>
@@ -7415,26 +7415,26 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <p>If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.</p>
 <div class="highlight"><pre><span></span><code>mysql&gt; CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl BY &#39;cn=[user name],ou=[organization unit],dc=[domain component],dc=com&#39;
 </code></pre></div>
-<p>Unless the <a href="ldap-system-variables.html#authentication_ldap_sasl_group_role_mapping">authentication_ldap_sasl_group_role_mapping</a> variable is used, creating a user with an authentication string does not use the following system variables:</p>
+<p>Unless the <a href="ldap-sasl-variables.html#authentication_ldap_sasl_group_role_mapping">authentication_ldap_sasl_group_role_mapping</a> variable is used, creating a user with an authentication string does not use the following system variables:</p>
 <ul>
 <li>
-<p><a href="ldap-system-variables.html#authentication_ldap_sasl_bind_base_dn">authentication_ldap_sasl_bind_base_dn</a></p>
+<p><a href="ldap-sasl-variables.html#authentication_ldap_sasl_bind_base_dn">authentication_ldap_sasl_bind_base_dn</a></p>
 </li>
 <li>
-<p><a href="ldap-system-variables.html#authentication_ldap_sasl_bind_root_dn">authentication_ldap_sasl_bind_root_dn</a></p>
+<p><a href="ldap-sasl-variables.html#authentication_ldap_sasl_bind_root_dn">authentication_ldap_sasl_bind_root_dn</a></p>
 </li>
 <li>
-<p><a href="ldap-system-variables.html#authentication_ldap_sasl_bind_root_pwd">authentication_ldap_sasl_bind_root_pwd</a></p>
+<p><a href="ldap-sasl-variables.html#authentication_ldap_sasl_bind_root_pwd">authentication_ldap_sasl_bind_root_pwd</a></p>
 </li>
 <li>
-<p><a href="ldap-system-variables.html#authentication_ldap_sasl_user_search_attr">authentication_ldap_sasl_user_search_attr</a></p>
+<p><a href="ldap-sasl-variables.html#authentication_ldap_sasl_user_search_attr">authentication_ldap_sasl_user_search_attr</a></p>
 </li>
 <li>
-<p><a href="ldap-system-variables.html#authentication_ldap_sasl_group_search_attr">authentication_ldap_sasl_group_search_attr</a></p>
+<p><a href="ldap-sasl-variables.html#authentication_ldap_sasl_group_search_attr">authentication_ldap_sasl_group_search_attr</a></p>
 </li>
 </ul>
 <p>Creating the user with <code>IDENTIFIED BY authentication_ldap_sasl</code> uses the variables. </p>
-<p>Creating the user with the <a href="ldap-system-variables.html#authentication_ldap_sasl_group_role_mapping">authentication_ldap_sasl_group_role_mapping</a> variable also adds the<a href="ldap-system-variables.html#authentication_ldap_sasl_bind_root_dn">authentication_ldap_sasl_bind_root_dn</a> and <a href="ldap-system-variables.html#authentication_ldap_sasl_bind_root_pwd">authentication_ldap_sasl_bind_root_pwd</a> variables.</p>
+<p>Creating the user with the <a href="ldap-sasl-variables.html#authentication_ldap_sasl_group_role_mapping">authentication_ldap_sasl_group_role_mapping</a> variable also adds the<a href="ldap-sasl-variables.html#authentication_ldap_sasl_bind_root_dn">authentication_ldap_sasl_bind_root_dn</a> and <a href="ldap-sasl-variables.html#authentication_ldap_sasl_bind_root_pwd">authentication_ldap_sasl_bind_root_pwd</a> variables.</p>
 </div>
 </div>
 </div>
@@ -7443,7 +7443,7 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <p>For the purposes of this example, we use the following LDAP user:</p>
 <div class="highlight"><pre><span></span><code>uid=ldapuser,ou=testusers,dc=percona,dc=com
 </code></pre></div>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Simple LDAP authentication</label><label for="__tabbed_6_2">SASL-based LDAP authentication</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Simple LDAP authentication</label><label for="__tabbed_7_2">SASL-based LDAP authentication</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The following example configures an LDAP user and connects to the database server.</p>
@@ -7472,15 +7472,17 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 <h3 id="uninstall-the-plugins">Uninstall the plugins<a class="headerlink" href="#uninstall-the-plugins" title="Permanent link">&para;</a></h3>
 <p>If you installed either plugin at <a href="#load-the-plugins-at-server-start">server startup</a>, remove those options from the <code>my.cnf</code> file, remove any startup options that set LDAP system variables, and restart the server.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Uninstall the simple LDAP authentication plugin</label><label for="__tabbed_7_2">Uninstall the SASL-based LDAP authentication plugin</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Uninstall the simple LDAP authentication plugin</label><label for="__tabbed_8_2">Uninstall the SASL-based LDAP authentication plugin</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>If you installed the plugins at <a href="#load-the-simple-ldap-authentication-plugin-at-runtime">runtime</a>, run the following statements:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_simple<span class="p">;</span>
 </code></pre></div>
-<p>If you used <code>SET_PERSIST</code>, use <code>RESET PERSIST</code> to remove the settings.</p>
 </div>
 <div class="tabbed-block">
 <p>If you installed the plugins at <a href="#load-the-sasl-based-ldap-authentication-plugin-at-runtime">runtime</a>, run the following statements:</p>
@@ -7495,7 +7497,7 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
   <small>
     
       Last update:
-      2024-08-15
+      2025-01-13
     
   </small>
 </div>
