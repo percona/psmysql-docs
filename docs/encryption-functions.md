@@ -1,58 +1,6 @@
-# Encryption user-defined functions
+# Encryption functions
 
-The encryption user-defined functions (UDF) let you encrypt and decrypt data. You can choose different encryption algorithms and manage the range of data to encrypt.
-
-## Version updates
-
-Percona Server for MySQL 8.0.41 adds the following:
-
-* Support for `pkcs1`, `oaep`, or `no` padding for RSA encrypt and decrypt operations
-
-    <details>
-       <summary> `pkcs1` padding explanation</summary>
-        `RSAES-PKCS1-v1_5`](https://en.wikipedia.org/wiki/PKCS_1) RSA encryption padding scheme prevents patterns that attackers could exploit by including a random sequence of bytes which ensures that the ciphertext is different no matter how many times it is encrypted.
-    </details>
-    
-    <details>
-       <summary> `oeap` padding explanation</summary>  
-        The [`RSAES-OAEP`](https://en.wikipedia.org/wiki/PKCS_1)  - [`Optimal Asymmetric Encryption Padding`](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding) RSA encryption padding scheme adds a randomized mask generation function. This function makes it more difficult for attackers to exploit weaknesses in the encryption algorithm or to recover the original message.
-    </details>
-    
-    <details>
-       <summary> `no` padding explanation</summary>
-       Using `no` padding means that the plaintext message is encrypted without adding an extra layer before performing the RSA encryption operation.
-    </details>
-
-* Support for `pkcs1` or `pkcs1_pss`  padding for RSA sign and verify operations
-
-    <details>
-       <summary> `pkcs1` padding explanation</summary>
-        The [`RSASSA-PKCS1-v1_5`](https://en.wikipedia.org/wiki/PKCS_1) is a deterministic RSA signature padding scheme that hashes a message, pads the hash with a specific structure, and encrypts it with the signer's private key for signature generation. 
-    </details>
-    <details>
-       <summary> `pkcs1_pss` padding explanation</summary>
-        The [`RSASSA-PSS`](https://en.wikipedia.org/wiki/PKCS_1) - [`Probabilistic Signature Scheme'](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding) is an RSA signature padding scheme used to add randomness to a message before signing it with a private key. This randomness helps to increase the security of the signature and make it more resistant to various attacks. 
-    </details>
-
-* [`encryption_udf.legacy_paddding_scheme`](#encryption_udflegacy_paddding_scheme) system variable
-
-* Character set awareness
-
-Percona Server for MySQL 8.0.28-20 adds encryption functions and variables to manage the encryption range.
-
-## Charset Awareness
-
-All component_encryption_udf functions now handle character sets intelligently:
-
-• Algorithms, digest names, padding schemes, keys, and parameters in PEM format: Automatically converted to the ASCII charset at the MySQL level before passing to the functions.
-
-• Messages, data blocks, and signatures used for digest calculation, encryption, decryption, signing, or verification: Automatically converted to the binary charset at the MySQL level before passing to the functions.
-
-• Function return values in PEM format: Assigned the ASCII charset.
-
-• Function return values for operations like digest calculation, encryption, decryption, and signing: Assigned the binary charset.
-
-## Use user-defined functions
+Percona Server for MySQL 8.0.28-20 adds encryption functions and variables to manage the encryption range. The functions may take an algorithm argument. Encryption converts plaintext into ciphertext using a key and an encryption algorithm.
 
 You can also use the user-defined functions with the PEM format keys generated externally by the OpenSSL utility.
 
@@ -123,10 +71,6 @@ The following are the function’s parameters:
   * Valid
 
   * Public or private key string that corresponds with the private or public key string used with the asymmetric_encrypt function.
-  
-  * `crypt_str` - an encrypted string produced by certain encryption functions like AES_ENCRYPT(). This string is typically stored as a binary or blog data type.
-  
-* padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA encryption padding schemes like `no`, `pkcs1`, or `oaep`. If you skip this parameter, the system determines its value based on the [`encryption_udf.legacy_padding_scheme`](#encryption_udf.legacy_padding_scheme) variable.
 
 ## asymmetric_derive(*pub_key_str, priv_key_str*)
 
@@ -159,8 +103,6 @@ The parameters are the following:
 * str - measured in bytes. The length of the string must not be greater than the key_str modulus length in bytes - 11 (additional bytes used for PKCS1 padding)
 
 * key_str - a key (either private or public) in the PEM format
-
-* padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA encryption padding schemes like `no`, `pkcs1`, or `oaep`. If you skip this parameter, the system determines its value based on the [`encryption_udf.legacy_padding_scheme`](#encryption_udf.legacy_padding_scheme) variable.
 
 ## asymmetric_sign(*algorithm, digest_str, priv_key_str, digest_type*)
 
@@ -204,9 +146,6 @@ The parameters are the following:
     |  |  | shake128 |  |
     |  |  | shake256 |  |
 
-
-* padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA signature padding schemes like `pkcs1`, or `pkcs1_pss`. If you skip this parameter, the system determines its value based on the [`encryption_udf.legacy_padding_scheme`](#encryption_udf.legacy_padding_scheme) variable.
-
 ## asymmetric_verify(*algorithm, digest_str, sig_str, pub_key_str, digest_type*)
 
 Verifies whether the signature string matches the digest string.
@@ -228,8 +167,6 @@ The parameters are the following:
 * pub_key_str - the signer’s public key string. This string must correspond to the private key passed to asymmetric_sign to generate the signature string. The string must be in the PEM format.
 
 * digest_type - the supported values are listed in the digest type table of create_digest
-
-* padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA signature padding schemes like `pkcs1`, or `pkcs1_pss`. If you skip this parameter, the system determines its value based on the [`encryption_udf.legacy_padding_scheme`](#encryption_udf.legacy_padding_scheme) variable.
 
 ## create_asymmetric_priv_key(*algorithm, (key_len | dh_parameters)*)
 
@@ -370,49 +307,6 @@ The variable sets the threshold limits for create_asymmetric_priv_key user-defin
 | default      | 9984             |
 
 The range for this variable is from 1,024 to 9,984. The default value is 9,984.
-
-### encryption_udf.legacy_paddding_scheme
-
-The variable enables or disables the legacy padding scheme for certain encryption operations.
-
-| Option       | Description      |
-|--------------|------------------|
-| command-line | Yes              |
-| scope        | Global           |
-| data type    | Boolean |
-| default      | OFF            |
-
-This system variable is a BOOLEAN type and is set to `OFF` by default. 
-
-This variable controls how the functions `asymmetric_encrypt()`, `asymmetric_decrypt()`, `asymmetric_sign()`, and `asymmetric_verify()` behave when you don’t explicitly set the padding parameter.
-
-•	When encryption_udf.legacy_padding_scheme is OFF:
-
-    • asymmetric_encrypt() and asymmetric_decrypt() use OAEP encryption padding.
-
-    • asymmetric_sign() and asymmetric_verify() use PKCS1_PSS signature padding.
-
-•	When encryption_udf.legacy_padding_scheme is ON:
-
-    • asymmetric_encrypt() and asymmetric_decrypt() use PKCS1 encryption padding.
-
-    • asymmetric_sign() and asymmetric_verify() use PKCS1 signature padding.
-
-The `asymmetric_encrypt()` and `asymmetric_decrypt()` functions, when the encryption is `RSA`, can accept an optional parameter, `padding`. You can set this parameter to `no`, `pkcs1`, or `oaep`. If you don’t specify this parameter, it defaults based on the [`encryption_udf.legacy_padding_scheme`](#encryption_udf.legacy_padding_scheme) value. 
-
-The padding schemes have the following limitations:
-
-| Padding Scheme    | Details                                                                                                                                                        |
-|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `oeap`           | The message you encrypt can be as long as your RSA key size in bytes - 42 bytes.|
-| `no`             | The message length must exactly match your RSA key size in bytes. For example, if your key is 1024 bits (128 bytes), the message must also be 128 bytes. If it doesn’t match, it will cause an error. |
-| `pkcs1` | Your message can be equal to or smaller than the RSA key size - 11 bytes. For instance, with a 1024-bit RSA key, your message can’t be longer than 117 bytes.|
-
-Similarly, `asymmetric_sign()` and `asymmetric_verify()` also have an optional `padding` parameter, which can be either `pkcs1` or `pkcs1_pss`. If not explicitly set, it follows the default based on [`encryption_udf.legacy_padding_scheme`](#encryption_udf.legacy_padding_scheme). You can only use the padding parameter with RSA algorithms.
-
-#### Additional resources
-
-  For more information, read [`Digital Signatures: Another layer of Data Protection in Percona Server for MySQL`](https://www.percona.com/blog/digital-signatures-another-layer-of-data-protection-in-percona-server-for-mysql/)
 
 ### encryption_udf.rsa_bits_threshold
 
