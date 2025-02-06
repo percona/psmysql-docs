@@ -1,58 +1,106 @@
 # Thread pool
 
-*MySQL* executes statements using one thread per client connection. Once the number of connections increases past a certain point performance will degrade.
+Thread pooling can improve performance and scalability for MySQL databases. This technique reuses a fixed number of threads to handle multiple client connections and execute statements. It reduces the overhead of creating and destroying threads and avoids the contention and context switching that can occur when there are too many threads.
 
-This feature enables the server to keep the top performance even with a large number of client connections by introducing a dynamic thread pool. By using the thread pool server would decrease the number of threads, which will then reduce the context switching and hot locks contentions. Using the thread pool will have the most effect with `OLTP` workloads (relatively short CPU-bound queries).
+If you have fewer than 20,000 connections, using the thread pool does not provide significant benefits. It’s better to keep thread pooling disabled and use the default method.
 
-In order to enable the thread pool variable `thread_handling` should be set up to `pool-of-threads` value. This can be done by adding:
+The default method, called one-thread-per-connection, creates a new thread for each client that connects to the MySQL server. This thread manages all queries and responses for that connection until it’s closed. This approach works well for a moderate number of connections, but it can become inefficient as the number of connections increases.
+
+MySQL supports thread pooling through the thread pool plugin, which replaces the default one-thread-per-connection model. When a statement arrives, the thread group either begins executing it immediately or queues it for later execution in a round-robin fashion. The high-priority queue consists of several thread groups, each managing client connections. Each thread group has a listener thread that listens for incoming statements from the connections assigned to the group. The thread pool exposes several system variables that can be used to configure its operation, such as thread_pool_size, thread_pool_algorithm, thread_pool_stall_limit, and others.
+
+The thread pool plugin consists of several thread groups, each of which manages a set of client connections. As connections are established, the thread pool assigns them to thread groups using the round-robin method. This method assigns threads fairly and efficiently. Here's how it works:
+
+1. The thread pool starts with a set number of thread groups.
+
+2. When a new task arrives, the pool needs to assign it to a group.
+
+3. It does this by going through the groups in order, one by one.
+
+4. Let's say you have four thread groups. The assignment would work like this:
+   - Task 1 goes to Group 1
+   - Task 2 goes to Group 2
+   - Task 3 goes to Group 3
+   - Task 4 goes to Group 4
+   - Task 5 goes back to Group 1
+   
+5. This pattern continues, always moving to the next group and starting over when it reaches the end.
+
+6. Each group handles its assigned tasks using its available threads.
+
+This round-robin approach spreads work evenly across all groups. It prevents any single group from getting overloaded while others sit idle. This method helps maintain balanced performance across the system.
+
+MySQL executes statements using one thread per client connection. When the number of connections increases past a specific point, performance degrades.
+This feature introduces a dynamic thread pool, which enables the server to maintain top performance even with a large number of client connections. The server decreases the number of threads using the thread pool and reduces the context switching and hot lock contentions. The thread pool is most effective with `OLTP` workloads (relatively short CPU-bound queries).
+
+Set the thread pool variable [thread_handling](#thread_handling) to `pool-of-threads` by adding the following line to `my.cnf`:
 
 ```text
 thread_handling=pool-of-threads
 ```
 
-Although the default values for the thread pool should provide good performance, additional tuning
-can be performed with the dynamic system variables.
+Although the default values for the thread pool should provide good performance, additional tuning should be performed with the dynamic system variables. The goal is to minimize the number of open transactions on the server. Short-running transactions commit faster and deallocate server resources and locks.
 
-!!! note
+Due to the following differences, this implementation is not compatible with upstream:
 
-    Current implementation of the thread pool is built in the server, unlike the upstream version which is implemented as a plugin. Another significant implementation difference is that this implementation doesn’t try to minimize the number of concurrent transactions like the `MySQL Enterprise Threadpool`. Because of these differences, this implementation is not compatible with the upstream version.
+* Built into the server, upstream implements the thread pool as a plugin
+
+* Does not minimize the number of concurrent transactions
+
+Priority Queue:
+
+A queue that assigns a priority to each data element and processes them according to their priority. The data element with the highest priority is served first, regardless of its order in the queue. A priority queue can be implemented using an array, a linked list, a heap, or a binary search tree. It can also be ascending or descending, meaning that the highest priority is either the smallest or the largest value.
 
 ## Priority connection scheduling
 
-Even though thread pool puts a limit on the number of concurrently running queries, the number of open transactions may remain high, because connections with already started transactions are put to the end of the queue. Higher number of open transactions has a number of implications on the currently running queries. To improve the performance new [thread_pool_high_prio_tickets](#thread_pool_high_prio_tickets) variable has been introduced.
+The thread pool limits the number of concurrently running queries. The number of open transactions may remain high. Connections with already-started transactions are added to the end of the queue. A high number of open transactions has implications for the currently running queries. The [thread_pool_high_prio_tickets](#thread_pool_high_prio_tickets) variable controls the high-priority queue policy and assigns tickets to each new connection.
 
-This variable controls the high priority queue policy. Each new connection is assigned this many tickets to enter the high priority queue. Whenever a query has to be queued to be executed later because no threads are available, the thread pool puts the connection into the high priority queue if the following conditions apply:
+The thread pool adds the connection to the high-priority queue and decrements the ticket if the connection has the following attributes:
 
-* The connection has an open transaction in the server.
+* Has an open transaction
 
+* Has a non-zero number of high-priority tickets
 
-* The number of high priority tickets of this connection is non-zero.
+Otherwise, the variable adds the connection to the low-priority queue with the initial value.
 
-If both the above conditions hold, the connection is put into the high priority queue and its tickets value is decremented. Otherwise the connection is put into the common queue with the initial tickets value specified with this option.
+Each time, the thread pool checks the high-priority queue for the next connection. When the high-priority queue is empty, the thread pool picks connections from the low-priority queue. The default behavior is to put events from already started transactions into the high-priority queue.
 
-Each time the thread pool looks for a new connection to process, first it checks the high priority queue, and picks connections from the common queue only when the high priority one is empty.
+If the value equals `0`, all connections are put into the low-priority queue. If the value exceeds zero, each connection could be put into a high-priority queue.
 
-The goal is to minimize the number of open transactions in the server. In many cases it is beneficial to give short-running transactions a chance to commit faster and thus deallocate server resources and locks without waiting in the same queue with other connections that are about to start a new transaction, or those that have run out of their high priority tickets.
+The [thread_pool_high_prio_mode](#thread_pool_high_prio_mode) variable prioritizes all statements for a connection or assigns connections to the low-priority queue. To implement this new [thread_pool_high_prio_mode](#thread_pool_high_prio_mode) variable
 
-The default thread pool behavior is to always put events from already started transactions into the high priority queue, as we believe that results in better performance in vast majority of cases.
+## Low-priority queue throttling
 
-With the value of `0`, all connections are always put into the common queue, i.e. no priority scheduling is used as in the original implementation in *MariaDB*. The higher is the value, the more chances each transaction gets to enter the high priority queue and commit before it is put in the common queue.
+One case that can limit thread pool performance and even lead to deadlocks under high concurrency is when thread groups are oversubscribed due to active threads reaching the oversubscribe limit. Still, all/most worker threads are waiting on locks currently held by a transaction from another connection that is not currently in the thread pool.
 
-In some cases it is required to prioritize all statements for a specific connection regardless of whether they are executed as a part of a multi-statement transaction or in the autocommit mode. Or vice versa, some connections may require using the low priority queue for all statements unconditionally. To implement this new [thread_pool_high_prio_mode](#thread_pool_high_prio_mode) variable has been introduced in *Percona Server for MySQL*.
+In this case, the oversubscribe limit does not account for those threads in the pool that marked themselves inactive. As a result, the number of threads (both active and waiting) in the pool grows until it hits the [`thread_pool_max_threads`](#thread_pool_max_threads) value. If the connection executing the transaction holding the lock has managed to enter the thread pool by then, we get a large (depending on the [`thread_pool_max_threads`](#thread_pool_max_threads) value) number of concurrently running threads and, thus, suboptimal performance. Otherwise, we get a deadlock as no more threads can be created to process those transaction(s) and release the lock(s).
 
-### Low priority queue throttling
+Such situations are prevented by throttling the low-priority queue when the total number of worker threads (both active and waiting ones) reaches the oversubscribe limit. If there are too many worker threads, do not start new transactions; create new threads until queued events from the already-started transactions are processed.
 
-One case that can limit thread pool performance and even lead to deadlocks under high concurrency is a situation when thread groups are oversubscribed due to active threads reaching the oversubscribe limit, but all/most worker threads are actually waiting on locks currently held by a transaction from another connection that is not currently in the thread pool.
+## Handling long network waits
 
-What happens in this case is that those threads in the pool that have marked themselves inactive are not accounted to the oversubscribe limit. As a result, the number of threads (both active and waiting) in the pool grows until it hits [thread_pool_max_threads](#thread_pool_max_threads) value. If the connection executing the transaction which is holding the lock has managed to enter the thread pool by then, we get a large (depending on the [thread_pool_max_threads](#thread_pool_max_threads) value) number of concurrently running threads, and thus, suboptimal performance as a result. Otherwise, we get a deadlock as no more threads can be created to process those transaction(s) and release the lock(s).
-
-Such situations are prevented by throttling the low priority queue when the total number of worker threads (both active and waiting ones) reaches the oversubscribe limit. That is, if there are too many worker threads, do not start new transactions and create new threads until queued events from the already started transactions are processed.
-
-## Handling of long network waits
-
-Certain types of workloads (large result sets, BLOBs, slow clients) can have longer waits on network I/O (socket reads and writes). Whenever server waits, this should be communicated to the Thread Pool, so it can start new query by either waking a waiting thread or sometimes creating a new one. This implementation has been ported from *MariaDB* patch MDEV-156.
+Specific workloads (large result sets, BLOBs, slow clients) can wait longer on network I/O (socket reads and writes). Whenever the server waits, this should be communicated to the thread pool so it can start a new query by either waking a waiting thread or sometimes creating a new one.
 
 ## System variables
+
+### `thread_handling`
+
+| Option       | Description               |
+|--------------|---------------------------|
+| Command-line | Yes                       |
+| Config file  | Yes                       |
+| Scope        | Global                    |
+| Dynamic      | No                        |
+| Data type    | String                    |
+| Default      | one-thread-per-connection |
+
+
+This variable defines how the server handles threads for connections from the client.
+
+| Values                    | Description                                            |
+|---------------------------|--------------------------------------------------------|
+| one-thread-per-connection | One thread handles all requests for a connection       |
+| pool-of-threads           | A thread pool handles requests for all connections     |
+| no-threads                | A single thread for all connections for debugging mode |
 
 ### `thread_pool_idle_timeout`
 
@@ -65,29 +113,19 @@ Certain types of workloads (large result sets, BLOBs, slow clients) can have lon
 | Data type:     | Numeric            |
 | Default value: | 60 (seconds)       |
 
-This variable can be used to limit the time an idle thread should wait before exiting.
+This variable can limit the time an idle thread should wait before exiting.
 
 ### `thread_pool_high_prio_mode`
 
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command-line:  | Yes                |
-| Config file:   | Yes                |
-| Scope:         | Global, Session    |
-| Dynamic:       | Yes                |
-| Data type:     | String             |
-| Default value: | `transactions`     | 
-| Allowed values:| `transactions`, `statements`, `none`|
-
-This variable is used to provide more fine-grained control over high priority scheduling either globally or per connection.
+This variable provides more fine-grained control over high-priority scheduling globally or per connection.
 
 The following values are allowed:
 
-* `transactions` (the default). In this mode only statements from already started transactions may go into the high priority queue depending on the number of high priority tickets currently available in a connection (see thread_pool_high_prio_tickets).
+* `transactions` (the default). In this mode, only statements from already started transactions may go into the high-priority queue depending on the number of high-priority tickets currently available in a connection (see thread_pool_high_prio_tickets).
 
-* `statements`. In this mode all individual statements go into the high priority queue, regardless of connection’s transactional state and the number of available high priority tickets. This value can be used to prioritize `AUTOCOMMIT` transactions or other kinds of statements such as administrative ones for specific connections. Note that setting this value globally essentially disables high priority scheduling, since in this case all statements from all connections will use a single queue (the high priority one)
+* `statements`. In this mode, all individual statements go into the high-priority queue, regardless of the transactional state and the number of available high-priority tickets. Use this value to prioritize `AUTOCOMMIT` transactions or other statements, such as administrative ones. Setting this value globally essentially disables high-priority scheduling. All connections use the high-priority queue.
 
-* `none`. This mode disables high priority queue for a connection. Some connections (e.g. monitoring) may be insensitive to execution latency and/or never allocate any server resources that would otherwise impact performance in other connections and thus, do not really require high priority scheduling. Note that setting thread_pool_high_prio_mode to `none` globally has essentially the same effect as setting it to `statements` globally: all connections will always use a single queue (the low priority one in this case).
+* `none`. This mode disables the priority queue for a connection. Certain types of connections, such as monitoring, are insensitive to execution latency and do not allocate the server resources that would impact the performance of other connections. These types of connections do not require high-priority scheduling. Setting this value globally essentially disables high-priority scheduling. All connections use the low-priority queue.
 
 ### `thread_pool_high_prio_tickets`
 
@@ -98,9 +136,9 @@ The following values are allowed:
 | Scope:         | Global, Session    |
 | Dynamic:       | Yes                |
 | Data type:     | Numeric            |
-| Default value: | 4294967295         | 
+| Default value: | 4294967295         |
 
-This variable controls the high priority queue policy. Each new connection is assigned this many tickets to enter the high priority queue. Setting this variable to `0` will disable the high priority queue.
+This variable controls the high-priority queue policy. Assigns the selected number of tickets to each new connection to enter the high-priority queue. Setting this variable to `0` disables the high-priority queue.
 
 ### `thread_pool_max_threads`
 
@@ -111,9 +149,9 @@ This variable controls the high priority queue policy. Each new connection is as
 | Scope:         | Global             |
 | Dynamic:       | Yes                |
 | Data type:     | Numeric            |
-| Default value: | 100000             | 
+| Default value: | 100000             |
 
-This variable can be used to limit the maximum number of threads in the pool. Once this number is reached no new threads will be created.
+This variable can limit the maximum number of threads in the pool. When the limit is reached, the server does not create new threads.
 
 ### `thread_pool_oversubscribe`
 
@@ -124,9 +162,9 @@ This variable can be used to limit the maximum number of threads in the pool. On
 | Scope:         | Global             |
 | Dynamic:       | Yes                |
 | Data type:     | Numeric            |
-| Default value: | 3                  | 
+| Default value: | 3                  |
 
-The higher the value of this parameter the more threads can be run at the same time, if the values is lower than `3` it could lead to more sleeps and wake-ups.
+Determines the number of threads run simultaneously. A value lower than `3` could cause sleep and wake-up actions.
 
 ### `thread_pool_size`
 
@@ -137,9 +175,9 @@ The higher the value of this parameter the more threads can be run at the same t
 | Scope:         | Global             |
 | Dynamic:       | Yes                |
 | Data type:     | Numeric            |
-| Default value: | Number of processors   | 
+| Default value: | Number of processors   |
 
-This variable can be used to define the number of threads that can use the CPU at the same time.
+Defines the number of threads that can use the CPU simultaneously.
 
 ### `thread_pool_stall_limit`
 
@@ -150,9 +188,9 @@ This variable can be used to define the number of threads that can use the CPU a
 | Scope:         | Global             |
 | Dynamic:       | No                 |
 | Data type:     | Numeric            |
-| Default value: | 500 (ms)           | 
+| Default value: | 500 (ms)           |
 
-The number of milliseconds before a running thread is considered stalled. When this limit is reached thread pool will wake up or create another thread. This is being used to prevent a long-running query from monopolizing the pool.
+Defines the number of milliseconds before a running thread is considered stalled. When this limit is reached, the thread pool will wake up or create another thread. This variable prevents a long-running query from monopolizing the pool.
 
 ## Status variables
 
@@ -173,9 +211,3 @@ This status variable shows the number of idle threads in the pool.
 | Data type:     | Numeric            |
 
 This status variable shows the number of threads in the pool.
-
-## Other reading
-
-* [Thread pool in MariaDB 5.5](https://kb.askmonty.org/en/threadpool-in-55/)
-
-* [Thread pool implementation in Oracle MySQL](https://mikaelronstrom.blogspot.com/2011_10_01_archive.html)
