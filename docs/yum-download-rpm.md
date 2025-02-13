@@ -2,7 +2,7 @@
 
 You should be aware that when you install packages manually, you must resolve and install any dependencies. This process may involve finding and installing the necessary dependencies before installing the packages. Dependencies are other packages that a package may need to function correctly. For example, a package may rely on a specific library. If that library is not installed, or if the installed library is the wrong version, the package may not work correctly.
 
-Package managers, like `APT` or `YUM` install the dependencies for you.
+Package managers, like `APT` or `DNF` install the dependencies for you.
 
 Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
 
@@ -12,12 +12,12 @@ Starting with Percona Server 8.0.33-25, the RPM builds for *RHEL* 8 and *RHEL* 9
 
 ## Download and install RPM packages
 
-The following example downloads *Percona Server for MySQL* 8.0.32-24 release packages for *RHEL* 8.
+The following example downloads *Percona Server for MySQL* {{release}} release packages for *RHEL* 8.
 
 1. Using [`Wget`](https://www.gnu.org/software/wget/), the following command downloads a specific version of Percona Server for MySQL on Red Hat Enterprise Linux 8 from the Percona website. 
 
 	```{.bash data-prompt="$"}
-	$ wget https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.32-24/binary/redhat/8/x86_64/Percona-Server-8.0.32-24-re5c6e9d2-el8-x86_64-bundle.tar
+	$ wget https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-{{release}}/binary/redhat/8/x86_64/Percona-Server-{{release}}-re5c6e9d2-el8-x86_64-bundle.tar
 	```
 
 2. The following command extracts the contents of Percona Server for MySQL tarball. The `tar` command uses these options for the extraction:
@@ -29,7 +29,7 @@ The following example downloads *Percona Server for MySQL* 8.0.32-24 release pac
     * `f` - name of the archive file
 
     ```{.bash data-prompt="$"}
-    $ tar xvf Percona-Server-8.0.32-24-re5c6e9d2-el8-x86_64-bundle.tar
+    $ tar xvf Percona-Server-{{release}}-re5c6e9d2-el8-x86_64-bundle.tar
     ```
 
 3. The following command uses the `ls` utility to list the RPM files in the current directory. The command uses the `*.rpm` pattern. The `*` is a wildcard that matches any number of characters. The `.rpm` specifies that we only want the files that end in this extension.
@@ -42,23 +42,23 @@ The following example downloads *Percona Server for MySQL* 8.0.32-24 release pac
     ??? example "Expected output"
 
         ```text
-        percona-icu-data-files-8.0.32-24.1.el8.x86_64.rpm
-        percona-mysql-router-8.0.32-24.1.el8.x86_64.rpm
-        percona-mysql-router-debuginfo-8.0.32-24.1.el8.x86_64.rpm
-        percona-server-client-8.0.32-24.1.el8.x86_64.rpm
-        percona-server-client-debuginfo-8.0.32-24.1.el8.x86_64.rpm
-        percona-server-debuginfo-8.0.32-24.1.el8.x86_64.rpm
-        percona-server-debugsource-8.0.32-24.1.el8.x86_64.rpm
-        percona-server-devel-8.0.32-24.1.el8.x86_64.rpm	
-        percona-server-rocksdb-8.0.32-24.1.el8.x86_64.rpm
-        percona-server-rocksdb-debuginfo-8.0.32-24.1.el8.x86_64.rpm
-        percona-server-server-8.0.32-24.1.el8.x86_64.rpm
-        percona-server-server-debuginfo-8.0.32-24.1.el8.x86_64.rpm
-        percona-server-shared-8.0.32-24.1.el8.x86_64.rpm
-        percona-server-shared-compat-8.0.32-24.1.el8.x86_64.rpm
-        percona-server-shared-debuginfo-8.0.32-24.1.el8.x86_64.rpm
-        percona-server-test-8.0.32-24.1.el8.x86_64.rpm
-        percona-server-test-debuginfo-8.0.32-24.1.el8.x86_64.rpm
+        percona-icu-data-files-{{release}}.1.el8.x86_64.rpm
+        percona-mysql-router-{{release}}.1.el8.x86_64.rpm
+        percona-mysql-router-debuginfo-{{release}}.1.el8.x86_64.rpm
+        percona-server-client-{{release}}.1.el8.x86_64.rpm
+        percona-server-client-debuginfo-{{release}}.1.el8.x86_64.rpm
+        percona-server-debuginfo-{{release}}.1.el8.x86_64.rpm
+        percona-server-debugsource-{{release}}.1.el8.x86_64.rpm
+        percona-server-devel-{{release}}.1.el8.x86_64.rpm	
+        percona-server-rocksdb-{{release}}.1.el8.x86_64.rpm
+        percona-server-rocksdb-debuginfo-{{release}}.1.el8.x86_64.rpm
+        percona-server-server-{{release}}.1.el8.x86_64.rpm
+        percona-server-server-debuginfo-{{release}}.1.el8.x86_64.rpm
+        percona-server-shared-{{release}}.1.el8.x86_64.rpm
+        percona-server-shared-compat-{{release}}.1.el8.x86_64.rpm
+        percona-server-shared-debuginfo-{{release}}.1.el8.x86_64.rpm
+        percona-server-test-{{release}}.1.el8.x86_64.rpm
+        percona-server-test-debuginfo-{{release}}.1.el8.x86_64.rpm
         ```
 	
 4. [Optional] Install `jemalloc`. The following command downloads a specific version of `jemalloc` for RHEL 8 from the Percona repository.
@@ -70,7 +70,7 @@ The following example downloads *Percona Server for MySQL* 8.0.32-24 release pac
 5. An EL8-based RHEL distribution or derivatives package installation requires you to disable the `mysql` module. We are installing a different version than the one provided by the module, so we must disable the module before installation. 
 
 	```{.bash data-prompt="$"}
-	$ sudo yum module disable mysql
+	$ sudo dnf module disable mysql
 	```
 
 6. The following command uses superuser privileges to install RPM packages in the current directory using the `rpm` command. The `rpm` command uses the following options:
