@@ -3,7 +3,7 @@
 Ready-to-use packages are available from the Percona Server for MySQL software
 repositories and the [download page](https://www.percona.com/downloads). 
 
-The Percona yum repository supports popular RPM-based
+The Percona YUM repository supports popular RPM-based
 operating systems. The easiest way to install the Percona RPM repository is to install an RPM configuring yum and installing the [Percona GPG key](https://repo.percona.com/yum/PERCONA-PACKAGING-KEY).
 
 We gather [Telemetry data] in the Percona packages and Docker images.
@@ -32,10 +32,18 @@ RHEL 8 and other EL8 systems enable the MySQL module by default. This module hid
 $ sudo yum module disable mysql
 ```
 
+If you are using the DNF package manager, you can disable the module using the following command:
+
+```{.bash data-prompt="$"}
+$ sudo dnf module disable mysql
+```
+
 ## Install
 
 Install from Percona Software Repository
 For more information on the Percona Software repositories and configuring Percona Repositories with `percona-release`, see the [Percona Software Repositories Documentation]. Run the following commands as a `root` user or with sudo.
+
+DNF is the default package manager in RHEL 8 and newer versions, providing a more robust and efficient package management experience.
 
 === "Install on Red Hat 7"
 
@@ -52,9 +60,9 @@ For more information on the Percona Software repositories and configuring Percon
      The first command uses `yum` to install the Percona repository from the Percona website. The second command uses the `percona-release` script to set up the `ps-80` release series of Percona Server. The third command installs Percona Server for MySQL.
 
     ```{.bash data-prompt="$"}
-    $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+    $ sudo dnf install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
     $ sudo percona-release setup ps-80
-    $ sudo yum install percona-server-server
+    $ sudo dnf install percona-server-server
     ```
 
 ## Available storage engines
@@ -67,7 +75,7 @@ For information on how to install and configure TokuDB, refer to the [TokuDB Ins
 
 For information on how to install and configure MyRocks, refer to the [Percona MyRocks Installation guide].
 
-### Percona yum Testing repository
+### Percona YUM testing repository
 
 Percona offers pre-release builds from our testing repository.
 

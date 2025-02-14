@@ -1,6 +1,6 @@
-# Install with YUM
+# Install with DNF
 
-Use the [Percona repositories] to install using YUM.
+Use the [Percona repositories] to install using DNF.
 
 ## Prerequisits
 
@@ -13,10 +13,10 @@ Use the [Percona repositories] to install using YUM.
 The "expected output" depends on the operating system. The following examples are based on Oracle Linux 9.3.
 {.power-number}
 
-1. Use the YUM package manager to install `percona-release`.
+1. Use the DNF package manager to install `percona-release`.
 
     ```{.bash data-prompt="$"}
-    $ sudo yum install -y https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+    $ sudo dnf install -y https://repo.percona.com/yum/percona-release-latest.noarch.rpm
     ```
 
     ??? example "Expected output"
@@ -92,7 +92,7 @@ The "expected output" depends on the operating system. The following examples ar
 4. Install the latest version of Percona Server for MySQL 8.0. This installation may take some time.
 
     ```{.bash data-prompt="$"}
-    $ sudo yum install -y percona-server-server
+    $ sudo dnf install -y percona-server-server
     ```
 
     ??? example "Expected output"
@@ -418,11 +418,11 @@ mysql> SELECT id, name, email, country FROM employees WHERE id > 10;
 
 Installation:
 
-* Verify repository is enabled: `sudo yum repolist`
+* Verify repository is enabled: `sudo dnf repolist`
 
-* Check for package conflicts: `sudo yum deplist percona-server-server`
+* Check for package conflicts: `sudo dnf repoquery --deplist percona-server-server`
 
-* Consult package logs: `sudo journalctl -u yum`
+* Consult package logs: `sudo journalctl -u dnf`
 
 MySQL startup:
 
@@ -432,8 +432,8 @@ MySQL startup:
 
 ## Security Steps:
 
-* Keep software updated: `sudo yum update` regularly.
-
+* Keep software updated: `sudo DNF update` regularly.
+  
 * Strong root password: Set a complex, unique password using [`mysql_secure_installation`](#secure-the-installation).
 
 * Disable unused accounts and databases: Remove unnecessary elements.
