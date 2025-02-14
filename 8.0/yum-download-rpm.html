@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
     
     
       
@@ -32,7 +32,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.d7758b05.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.8608ea7d.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
@@ -2366,11 +2366,11 @@
   
   
     <li class="md-nav__item">
-      <a href="quickstart-yum.html" class="md-nav__link">
+      <a href="quickstart-dnf.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Install with YUM
+    Install with DNF
     
   </span>
   
@@ -7319,16 +7319,16 @@
 
 <h1 id="install-percona-server-for-mysql-using-downloaded-rpm-packages">Install Percona Server for MySQL using downloaded RPM packages<a class="headerlink" href="#install-percona-server-for-mysql-using-downloaded-rpm-packages" title="Permanent link">&para;</a></h1>
 <p>You should be aware that when you install packages manually, you must resolve and install any dependencies. This process may involve finding and installing the necessary dependencies before installing the packages. Dependencies are other packages that a package may need to function correctly. For example, a package may rely on a specific library. If that library is not installed, or if the installed library is the wrong version, the package may not work correctly.</p>
-<p>Package managers, like <code>APT</code> or <code>YUM</code> install the dependencies for you.</p>
+<p>Package managers, like <code>APT</code> or <code>DNF</code> install the dependencies for you.</p>
 <p>Download the packages from <a href="https://www.percona.com/downloads">Percona Product Downloads</a>. If needed, <a href="download-instructions.html">Instructions for the Percona Product Download</a> are available.</p>
 <h2 id="version-changes">Version changes<a class="headerlink" href="#version-changes" title="Permanent link">&para;</a></h2>
 <p>Starting with Percona Server 8.0.33-25, the RPM builds for <em>RHEL</em> 8 and <em>RHEL</em> 9 contain ARM packages with the <code>aarch64.rpm</code> extension. This means that Percona Server for MySQL is available for users on ARM-based systems.</p>
 <h2 id="download-and-install-rpm-packages">Download and install RPM packages<a class="headerlink" href="#download-and-install-rpm-packages" title="Permanent link">&para;</a></h2>
-<p>The following example downloads <em>Percona Server for MySQL</em> 8.0.32-24 release packages for <em>RHEL</em> 8.</p>
+<p>The following example downloads <em>Percona Server for MySQL</em> 8.0.40-31 release packages for <em>RHEL</em> 8.</p>
 <ol>
 <li>
 <p>Using <a href="https://www.gnu.org/software/wget/"><code>Wget</code></a>, the following command downloads a specific version of Percona Server for MySQL on Red Hat Enterprise Linux 8 from the Percona website. </p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.32-24/binary/redhat/8/x86_64/Percona-Server-8.0.32-24-re5c6e9d2-el8-x86_64-bundle.tar
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.40-31/binary/redhat/8/x86_64/Percona-Server-8.0.40-31-re5c6e9d2-el8-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
@@ -7344,7 +7344,7 @@
 <p><code>f</code> - name of the archive file</p>
 </li>
 </ul>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-8.0.32-24-re5c6e9d2-el8-x86_64-bundle.tar
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-8.0.40-31-re5c6e9d2-el8-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
@@ -7354,23 +7354,23 @@
 The output should look like the following:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code>percona-icu-data-files-8.0.32-24.1.el8.x86_64.rpm
-percona-mysql-router-8.0.32-24.1.el8.x86_64.rpm
-percona-mysql-router-debuginfo-8.0.32-24.1.el8.x86_64.rpm
-percona-server-client-8.0.32-24.1.el8.x86_64.rpm
-percona-server-client-debuginfo-8.0.32-24.1.el8.x86_64.rpm
-percona-server-debuginfo-8.0.32-24.1.el8.x86_64.rpm
-percona-server-debugsource-8.0.32-24.1.el8.x86_64.rpm
-percona-server-devel-8.0.32-24.1.el8.x86_64.rpm 
-percona-server-rocksdb-8.0.32-24.1.el8.x86_64.rpm
-percona-server-rocksdb-debuginfo-8.0.32-24.1.el8.x86_64.rpm
-percona-server-server-8.0.32-24.1.el8.x86_64.rpm
-percona-server-server-debuginfo-8.0.32-24.1.el8.x86_64.rpm
-percona-server-shared-8.0.32-24.1.el8.x86_64.rpm
-percona-server-shared-compat-8.0.32-24.1.el8.x86_64.rpm
-percona-server-shared-debuginfo-8.0.32-24.1.el8.x86_64.rpm
-percona-server-test-8.0.32-24.1.el8.x86_64.rpm
-percona-server-test-debuginfo-8.0.32-24.1.el8.x86_64.rpm
+<div class="highlight"><pre><span></span><code>percona-icu-data-files-8.0.40-31.1.el8.x86_64.rpm
+percona-mysql-router-8.0.40-31.1.el8.x86_64.rpm
+percona-mysql-router-debuginfo-8.0.40-31.1.el8.x86_64.rpm
+percona-server-client-8.0.40-31.1.el8.x86_64.rpm
+percona-server-client-debuginfo-8.0.40-31.1.el8.x86_64.rpm
+percona-server-debuginfo-8.0.40-31.1.el8.x86_64.rpm
+percona-server-debugsource-8.0.40-31.1.el8.x86_64.rpm
+percona-server-devel-8.0.40-31.1.el8.x86_64.rpm 
+percona-server-rocksdb-8.0.40-31.1.el8.x86_64.rpm
+percona-server-rocksdb-debuginfo-8.0.40-31.1.el8.x86_64.rpm
+percona-server-server-8.0.40-31.1.el8.x86_64.rpm
+percona-server-server-debuginfo-8.0.40-31.1.el8.x86_64.rpm
+percona-server-shared-8.0.40-31.1.el8.x86_64.rpm
+percona-server-shared-compat-8.0.40-31.1.el8.x86_64.rpm
+percona-server-shared-debuginfo-8.0.40-31.1.el8.x86_64.rpm
+percona-server-test-8.0.40-31.1.el8.x86_64.rpm
+percona-server-test-debuginfo-8.0.40-31.1.el8.x86_64.rpm
 </code></pre></div>
 </details>
 </li>
@@ -7381,7 +7381,7 @@ percona-server-test-debuginfo-8.0.32-24.1.el8.x86_64.rpm
 </li>
 <li>
 <p>An EL8-based RHEL distribution or derivatives package installation requires you to disable the <code>mysql</code> module. We are installing a different version than the one provided by the module, so we must disable the module before installation. </p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
@@ -7406,7 +7406,7 @@ percona-server-test-debuginfo-8.0.32-24.1.el8.x86_64.rpm
   <small>
     
       Last update:
-      2024-06-21
+      2025-02-13
     
   </small>
 </div>
@@ -7507,7 +7507,7 @@ percona-server-test-debuginfo-8.0.32-24.1.el8.x86_64.rpm
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.f13b1293.min.js"></script>
+      <script src="assets/javascripts/bundle.f1b6f286.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
