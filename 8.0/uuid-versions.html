@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="A Universally Unique Identifier (UUID) is a 128-bit number used to identify information uniquely in computer systems. It is often represented as a 32-character hexadecimal string divided into five groups separated by hyphens.">
+        <meta name="description" content="The UUID_VX component in Percona Server for MySQL provides functions to work with different versions of Universally Unique Identifiers (UUIDs). It allows for:">
       
       
         <meta name="author" content="Percona LLC">
@@ -7492,6 +7492,18 @@
 
 
 <h1 id="uuid_vx-component">UUID_VX component<a class="headerlink" href="#uuid_vx-component" title="Permanent link">&para;</a></h1>
+<p>The UUID_VX component in Percona Server for MySQL provides functions to work with different versions of Universally Unique Identifiers (UUIDs). It allows for:</p>
+<ul>
+<li>
+<p>Managing any UUID version: You can handle various UUID versions, including UUIDv1, UUIDv4, and others.</p>
+</li>
+<li>
+<p>Generating UUIDs for specific versions: This includes creating time-based UUIDs (versions 1, 6, and 7) and random UUIDs (version 4).</p>
+</li>
+<li>
+<p>Enhanced support for UUID-based operations: This adds flexibility in how UUIDs are generated and used within the database.</p>
+</li>
+</ul>
 <p>A Universally Unique Identifier (UUID) is a 128-bit number used to identify information uniquely in computer systems. It is often represented as a 32-character hexadecimal string divided into five groups separated by hyphens.</p>
 <table>
 <thead>
@@ -7587,10 +7599,17 @@
 <td>Storage Space</td>
 <td>UUIDs are larger (128 bits) than traditional integer keys, consuming more storage space and memory.</td>
 </tr>
+<tr>
+<td>Poor Performance</td>
+<td>UUIDv4&rsquo;s random nature can lead to poor performance in distributed databases, as it does not follow any order.</td>
+</tr>
+<tr>
+<td>Poor Indexing</td>
+<td>UUIDv4&rsquo;s random nature can lead to poor indexing performance, as it does not follow any order.</td>
+</tr>
 </tbody>
 </table>
-<p>For better performance and efficiency in a distributed database, consider using  UUIDv7, which incorporates timestamps for some order levels.</p>
-<p>UUID version 7 (UUIDv7) creates time-ordered identifiers by encoding a Unix timestamp with millisecond precision in the first 48 bits. It uses 6 bits to specify the UUID version and variant, while the remaining 74 bits are random. This time-ordering results in nearly sequential values, which helps improve index performance and locality in distributed systems.</p>
+<p>For better performance and efficiency in a distributed database, consider using UUIDv7. UUID version 7 (UUIDv7) creates time-ordered identifiers by encoding a Unix timestamp with millisecond precision in the first 48 bits. Six bits specify the UUID version and variant, while the remaining 74 bits are random. This time-ordering results in nearly sequential values, which helps improve index performance and locality in distributed systems.</p>
 <h2 id="install-the-uuid_vx-component">Install the UUID_VX component<a class="headerlink" href="#install-the-uuid_vx-component" title="Permanent link">&para;</a></h2>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_uuid_vx_udf&#39;</span><span class="p">;</span>
 </code></pre></div>
@@ -7636,12 +7655,12 @@
 <tbody>
 <tr>
 <td><code>BIN_TO_UUID_VX()</code></td>
-<td>One string argument that must be a hexadecimal of exactly 32 characters (16 bytes)</td>
+<td>One string argument that must be hexadecimal of exactly 32 characters (16 bytes)</td>
 <td>The function returns a UUID with binary data from the argument. It returns an error for all other inputs.</td>
 </tr>
 <tr>
 <td><code>IS_MAX_UUID_VX()</code></td>
-<td>One string argument that represents a UUID in standard or hexadecimal form.</td>
+<td>One string argument representing a UUID in standard or hexadecimal form.</td>
 <td>The function returns true if the argument is a valid UUID and is a MAX UUID. It returns false for all other inputs. If the argument is NULL, it returns NULL. If the argument cannot be parsed as a UUID, the function throws an error.</td>
 </tr>
 <tr>
@@ -7651,7 +7670,7 @@
 </tr>
 <tr>
 <td><code>IS_UUID_VX()</code></td>
-<td>One string argument that represents a UUID in either standard or hexadecimal form.</td>
+<td>One string argument representing a UUID in either standard or hexadecimal form.</td>
 <td>The function returns true if the argument is a valid UUID. If the argument is NULL, it returns NULL. For any other input, it returns false.</td>
 </tr>
 <tr>
@@ -7667,11 +7686,11 @@
 <tr>
 <td><code>UUID_VX_TO_BIN()</code></td>
 <td>One string argument, formatted as a UUID or in hexadecimal form</td>
-<td>The function converts the string arugment to its binary representation.</td>
+<td>The function converts the string argument to its binary representation.</td>
 </tr>
 <tr>
 <td><code>UUID_VX_VARIANT()</code></td>
-<td>One string argument that represents a UUID in either standard or hexadecimal format.</td>
+<td>One string argument representing a UUID in either standard or hexadecimal format.</td>
 <td>The function returns the UUID version (1-8) or an error if the argument is not a valid UUID or returns NULL if the input is NULL.</td>
 </tr>
 <tr>
@@ -7733,7 +7752,7 @@
 </tr>
 <tr>
 <td><code>UUID_V3()</code></td>
-<td>One or two arguments: the first argument is a string that is hashed with MD5 and used in the UUID; the second argument is optional and specifies a namespace (integer values: DNS: 0, URL: 1, OID: 2, X.500: 3; default is 1 or URL).</td>
+<td>One or two arguments: The first argument is a string that is hashed with MD5 and used in the UUID; the second argument is optional and specifies a namespace (integer values): DNS: 0, URL: 1 (default), OID: 2, X.500: 3.</td>
 <td>Generates a version 3 UUID based on a name.  Note: MD5 is outdated and not secure. Use with caution and avoid exposing sensitive data.</td>
 </tr>
 <tr>
@@ -7893,7 +7912,7 @@
 <tr>
 <td>UUID_VX_TO_UNIXTIME()</td>
 <td>One string argument</td>
-<td>Returns a number of milliseconds since the Epoch. If the argument is not parsable as UUID v.1,6,7, the function throws an error.</td>
+<td>Returns the number of milliseconds since the Epoch. If the argument is not parsable as UUID versions 1, 6, or 7, the function throws an error.</td>
 </tr>
 </tbody>
 </table>
@@ -7945,7 +7964,7 @@
   <small>
     
       Last update:
-      2024-10-08
+      2025-02-18
     
   </small>
 </div>
