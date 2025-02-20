@@ -85,5 +85,5 @@ MyRocks does not support the following:
 
     !!! note
 
-        With MyRocks and with large tables, it is recommended to set the session variable `rocksdb_bulk_load=1` during the load to prevent running out of memory. This recommendation is because of the MyRocks large transaction limitation. For more information, see [MyRocks Data Loading](https://docs.percona.com/percona-server/8.0/myrocks/data_loading.html)
+        With MyRocks and with large tables, it is recommended to set the session variable `rocksdb_bulk_load=1` during the load to prevent running out of memory. This recommendation is because of the MyRocks large transaction limitation. For more information, see [MyRocks Data Loading](https://docs.percona.com/percona-server/8.0/myrocks/data-loading.html)
 
