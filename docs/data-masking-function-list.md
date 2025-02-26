@@ -1,8 +1,26 @@
-# Data masking component functions
+# Data masking component functions and variables
 
 The feature is in [tech preview](glossary.md#tech-preview).
 
-| **Name**                                          | **Usage**                                             |
+## Permissions
+
+In Percona Server for MySQL 8.0.41, dictionary-related functions no longer run internal queries as the root user without a password. Following MySQL best practices, many admins disable the `root` user, which previously caused these functions to stop working. The server now uses the built-in `mysql.session` user to execute dictionary queries. 
+
+However, for this to work, you need to grant the mysql.session user `SELECT`, `INSERT`, `UPDATE`, and `DELETE` privileges on the `masking_dictionaries` table.
+
+```{.bash data-prompt="mysql>"}
+mysql> GRANT SELECT, INSERT, UPDATE, DELETE ON mysql.masking_dictionaries TO 'mysql.session'@'localhost';
+```
+
+If you change the value of the `masking_functions.masking_database` system variable to something other than `mysql`, make sure to update the `GRANT` query to match the new value.
+
+```{.bash data-prompt="mysql>"}
+mysql> GRANT SELECT, INSERT, UPDATE, DELETE ON <masking_functions.masking_database>.masking_dictionaries TO 'mysql.session'@'localhost';
+```
+
+## Data masking component functions
+
+| **Name**                                          | **Details**                                             |
 |---------------------------------------------------|-------------------------------------------------------|
 | [`gen_blocklist(str, from_dictionary_name, to_dictionary_name)`](#gen_blockliststr-from_dictionary_name-to_dictionary_name) | Replace a term from a dictionary                      |
 | [`gen_dictionary(dictionary_name)`](#gen_dictionarydictionary_name) | Returns a random term from a dictionary               |
@@ -24,13 +42,19 @@ The feature is in [tech preview](glossary.md#tech-preview).
 | [`mask_ssn(str [,mask_char])`](#mask_ssnstr-mask_char)    | Masks the US Social Security number                   |
 | [`mask_uk_nin(str [,mask_char])`](#mask_uk_ninstr-mask_char)     | Masks the United Kingdom National Insurance number    |
 | [`mask_uuid(str [,mask_char])`](#mask_uuidstr-mask_char)         | Masks the Universally Unique Identifier               |
+| [`masking_dictionaries_flush()`](#masking_dictionaries_flush) | Resyncs the internal dictionary term cache |
 | [`masking_dictionary_remove(dictionary_name)`](#masking_dictionary_removedictionary_name)          | Removes the dictionary                                |
 | [`masking_dictionary_term_add(dictionary_name, term_name)`](#masking_dictionary_term_adddictionary_name-term_name)     | Adds a term to the masking dictionary                 |
 | [`masking_dictionary_term_remove(dictionary_name, term_name)`](#masking_dictionary_term_removedictionary_name-term_name)      | Removes a term from the masking dictionary            |
 
+
 ## gen_blocklist(str, from_dictionary_name, to_dictionary_name)
 
 Replaces a term from one dictionary with a randomly selected term in another dictionary.
+
+### Version update
+  
+Percona Server for MySQL 8.0.41 introduces an internal term cache. The server now uses in-memory data structures for lookups instead of querying the `<masking_functions.masking_database>.masking_dictionaries` table every time. This improvement boosts performance, especially when handling multiple rows.
 
 ### Parameters
 
@@ -65,6 +89,10 @@ mysql> SELECT gen_blocklist('apple', 'fruit', 'nut');
 ## gen_dictionary(dictionary_name)
 
 Returns a term from a dictionary selected at random.
+
+### Version update
+  
+Percona Server for MySQL 8.0.41 introduces an internal term cache. The server now uses in-memory data structures for lookups instead of querying the `<masking_functions.masking_database>.masking_dictionaries` table every time. This improvement boosts performance, especially when handling multiple rows.
 
 ### Parameters
 
@@ -760,6 +788,34 @@ mysql> SELECT mask_uuid('9a3b642c-06c6-11ee-be56-0242ac120002');
     +-------------------------------------------------------+
     ```
 
+
+## masking_dictionaries_flush()
+
+Resyncs the internal dictionary term cache.
+
+### Parameters
+
+None
+
+### Returns
+
+Returns an integer value of `1` (one) when successful.
+
+### Example
+
+```{.bash data-prompt="mysql>"}
+mysql> SELECT masking_dictionaries_flush();
+```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +------------------------------+
+    | masking_dictionaries_flush() |
+    +------------------------------+
+    |                          1   |
+    +----------------------------  +
+    ```
+    
 ## masking_dictionary_remove(dictionary_name)
 
 Removes all of the terms and then removes the dictionary. 
@@ -775,7 +831,7 @@ Requires the `MASKING_DICTIONARIES_ADMIN` privilege.
 
 ### Returns
 
-Returns a string value of `1` (one) in the `utf8mb4` character set if the operation is successful or `NULL` if the operation could not find the `dictionary_name`.
+Returns a integer value of `1` (one) if the operation is successful. Returns the integer value of `0` (zero) for a failure.
 
 ### Example
 
@@ -807,9 +863,7 @@ Adds a term to the dictionary and requires the `MASKING_DICTIONARIES_ADMIN` priv
 
 ### Returns
 
-Returns a string value of `1` (one) in the `utf8mb4` character set if the operation is successful. If the `dictionary_name` does not exist, the operation creates the dictionary.
-
-Returns `NULL` if the operation fails. An operation can fail if the `term_name` is already available in the dictionary specified by `dictionary_name`.
+Returns a integer value of `1` (one) if the operation is successful. Returns the integer value of `0` (zero) for a failure. If the `dictionary_name` does not exist, the operation creates the dictionary.
 
 The operation uses `INSERT IGNORE` and can have the following outcomes:
 
@@ -872,7 +926,7 @@ Requires the `MASKING_DICTIONARIES_ADMIN` privilege.
 
 ### Returns
 
-Returns a string value of `1` (one) in the `utf8mb4` character set if the operation is successful.
+Returns a integer value of `1` (one) if the operation is successful. Returns the integer value of `0` (zero) for a failure.
 
 Returns `NULL` if the operation fails. An operation can fail if the following occurs:
 
@@ -902,3 +956,38 @@ mysql> SELECT masking_dictionary_term_remove('trees','pine');
     |                                                     1 |
     +-------------------------------------------------------+
     ```
+
+## System variables
+
+
+| **Name**                                          | **Details**                                             |
+|---------------------------------------------------|-------------------------------------------------------|
+| [`dictionaries_flush_interval_seconds (integer, unsigned)`](#dictionaries_flush_interval_secondsinteger-unsigned) | The number of seconds between updates to the internal dictionary cache to match changes in the dictionaries table.|
+| [`masking_database(str)`](#masking_databasestr) | Set a different database name to use for the dictionaries table. |
+
+### dictionaries_flush_interval_seconds(integer, unsigned)
+
+| Option       | Description      |
+|--------------|------------------|
+| command-line | Yes              |
+| scope        | Global           |
+| data type    | unsigned integer |
+| default      | 10000            |
+
+
+Percona Server for MySQL 8.0.41 adds this variable. The number of seconds between a synchronization between the dictionaries table and the internal dictionary cache. The default value is 10,000 seconds (2 hours and 46 minutes). The minimum value is 1 second. The maximum value is 31,536,000 seconds (1 year).
+
+### masking_database(string)
+
+| Option         | Description        |
+| -------------- | ------------------ |
+| Scope:         | Global             |
+| Read, Write, or Read-Only:     | Read-Only |
+| Data type | String |
+| Default value | "mysql" |
+
+Specify the name of the database that holds the `masking_dictionaries` table. By default, it uses the `mysql` database.
+
+### Returns
+
+Returns a string value of `1` (one) when successful.
