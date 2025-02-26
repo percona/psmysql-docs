@@ -1,12 +1,12 @@
 # Install Percona Server for MySQL Pro
 
-Percona Server for MySQL Pro includes the [capabilities](psmysql-pro.md#capabilities) that are typically requested by large enterprises. Percona Server for MySQL Pro contains packages created and tested by Percona. These packages are supported only for Percona Customers with a subscription.
-
-[Become a Percona Customer](https://www.percona.com/about/contact){.md-button}
+--8<--- "pro-build-announcement.md"
 
 Review [Get more help](get-help.md) for ways that we can work with you.
 
 This document provides guidelines how to install Pro packages of Percona Server for MySQL from Percona repositories. [Check files in packages built for Percona Server for MySQL Pro :material-arrow-right:](pro-files.md){.md-button}
+
+[Install Percona Server for MySQL Pro on Amazon Linux 2023 :material-arrow-right:](install-pro-amzn.md){.md-button}
 
 ## Procedure
 
@@ -68,7 +68,7 @@ This document provides guidelines how to install Pro packages of Percona Server 
             $ sudo yum install -y percona-server-server-pro
             ```
 
-            Install other required packages. [Check files in the DEB package built for Percona Server for MySQL 8.0](apt-files.md).
+            Install other required packages. [Check files in the RPM package built for Percona Server for MySQL 8.0](yum-files.md).
 
 3. Start the server
 

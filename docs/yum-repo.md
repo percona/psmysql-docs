@@ -3,26 +3,26 @@
 Ready-to-use packages are available from the Percona Server for MySQL software
 repositories and the [download page](https://www.percona.com/downloads). 
 
-The Percona YUM repository supports popular RPM-based
+The Percona yum repository supports popular RPM-based
 operating systems. The easiest way to install the Percona RPM repository is to install an RPM configuring yum and installing the [Percona GPG key](https://repo.percona.com/yum/PERCONA-PACKAGING-KEY).
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
 Review [Get more help](get-help.md) for ways that we can work with you.
 
-## Version changes
+### Version changes 
 
 Starting with Percona Server 8.0.33-25, the RPM builds for *RHEL* 8 and *RHEL* 9 contain ARM packages with the `aarch64.rpm` extension. This means that Percona Server for MySQL is available for users on ARM-based systems.
 
-## Supported platforms
+### Supported platforms
 
 Specific information on the supported platforms, products, and versions are described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
-## Red Hat Certified
+### Red Hat Certified
 
 Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certification is based on common and secure best practices and successful interoperability with the operating system. Percona Server is listed in the [Red Hat Ecosystem Catalog](https://catalog.redhat.com/software/applications/detail/112055).
 
-## Limitations
+### Limitations
 
 The RPM packages for Red Hat Enterprise Linux 7 and the compatible derivatives do not support TLSv1.3. This version requires OpenSSL 1.1.1, which is currently unavailable on this platform.
 
@@ -32,18 +32,17 @@ RHEL 8 and other EL8 systems enable the MySQL module by default. This module hid
 $ sudo yum module disable mysql
 ```
 
-If you are using the DNF package manager, you can disable the module using the following command:
+### Percona Server for MySQL PRO 
 
-```{.bash data-prompt="$"}
-$ sudo dnf module disable mysql
-```
+--8<--- "pro-build-announcement.md"
 
-## Install
+[Install Percona Server for MySQL Pro](install-pro.md){.md-button}
 
-Install from Percona Software Repository
+[Install Percona XtraBackup Pro on Amazon Linux 2023](install-pro-amzn.md){.md-button}
+
+## Install Percona Server for MySQL from Percona `yum` repository
+
 For more information on the Percona Software repositories and configuring Percona Repositories with `percona-release`, see the [Percona Software Repositories Documentation]. Run the following commands as a `root` user or with sudo.
-
-DNF is the default package manager in RHEL 8 and newer versions, providing a more robust and efficient package management experience.
 
 === "Install on Red Hat 7"
 
@@ -60,9 +59,9 @@ DNF is the default package manager in RHEL 8 and newer versions, providing a mor
      The first command uses `yum` to install the Percona repository from the Percona website. The second command uses the `percona-release` script to set up the `ps-80` release series of Percona Server. The third command installs Percona Server for MySQL.
 
     ```{.bash data-prompt="$"}
-    $ sudo dnf install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+    $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
     $ sudo percona-release setup ps-80
-    $ sudo dnf install percona-server-server
+    $ sudo yum install percona-server-server
     ```
 
 ## Available storage engines
@@ -75,7 +74,7 @@ For information on how to install and configure TokuDB, refer to the [TokuDB Ins
 
 For information on how to install and configure MyRocks, refer to the [Percona MyRocks Installation guide].
 
-### Percona YUM testing repository
+### Percona yum Testing repository
 
 Percona offers pre-release builds from our testing repository.
 
