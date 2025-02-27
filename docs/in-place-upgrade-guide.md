@@ -2,7 +2,7 @@
 
 !!! important
 
-    An in-place upgrade is not recommended. Use a [replication upgrade](https://docs.percona.com/percona-xtradb-cluster/8.0/howtos/upgrade_guide.html).
+    An in-place upgrade is not recommended. Use a [replication upgrade](https://docs.percona.com/percona-xtradb-cluster/8.0/upgrade-guide.html).
 
 An in-place upgrade involves shutting down the 5.7 server, and replacing the server binaries, or packages, with new ones. At this point the new server version can be started on the existing data directory. If the new version is less than 8.0.16, you should run `mysql_upgrade`. Note that the server should be configured to perform a slow shutdown by setting `innodb_fast_shutdown=0` prior to shutdown. While an in-place upgrade may not be suitable for all environments, especially those environments with many variables to consider, the upgrade should work in most cases.
 
