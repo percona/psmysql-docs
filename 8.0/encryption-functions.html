@@ -8274,15 +8274,15 @@
 <p>Support for <code>pkcs1</code>, <code>oaep</code>, or <code>no</code> padding for RSA encrypt and decrypt operations</p>
 <p><details>
    <summary> <code>pkcs1</code> padding explanation</summary>
-    <code>RSAES-PKCS1-v1_5</code>](https://en.wikipedia.org/wiki/PKCS_1) RSA encryption padding scheme prevents patterns that attackers could exploit by including a random sequence of bytes which ensures that the ciphertext is different no matter how many times it is encrypted.
+    <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSAES-PKCS1-v1_5</code></a> RSA encryption padding scheme prevents patterns that attackers could exploit by including a random sequence of bytes, which ensures that the ciphertext is different no matter how many times it is encrypted.
 </details></p>
 <p><details>
-   <summary> <code>oeap</code> padding explanation</summary><br />
-    The <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSAES-OAEP</code></a>  - <a href="https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding"><code>Optimal Asymmetric Encryption Padding</code></a> RSA encryption padding scheme adds a randomized mask generation function. This function makes it more difficult for attackers to exploit weaknesses in the encryption algorithm or to recover the original message.
+   <summary> <code>oaep</code> padding explanation</summary><br />
+    The <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSAES-OAEP</code></a>  - <a href="https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding"><code>Optimal Asymmetric Encryption Padding</code></a> RSA encryption padding scheme adds a randomized mask generation function. This function makes it more difficult for attackers to exploit the encryption algorithm&rsquo;s weaknesses or recover the original message.
 </details></p>
 <p><details>
    <summary> <code>no</code> padding explanation</summary>
-   Using <code>no</code> padding means that the plaintext message is encrypted without adding an extra layer before performing the RSA encryption operation.
+   Using <code>no</code> padding means the plaintext message is encrypted without adding an extra layer before performing the RSA encryption operation.
 </details></p>
 </li>
 <li>
@@ -8293,7 +8293,7 @@
 </details>
 <details>
    <summary> <code>pkcs1_pss</code> padding explanation</summary>
-    The <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSASSA-PSS</code></a> - <a href="https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding">`Probabilistic Signature Scheme&rsquo;</a> is an RSA signature padding scheme used to add randomness to a message before signing it with a private key. This randomness helps to increase the security of the signature and make it more resistant to various attacks. 
+    The <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSASSA-PSS</code></a> - <a href="https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding">`Probabilistic Signature Scheme&rsquo;</a> is an RSA signature padding scheme used to add randomness to a message before signing it with a private key. This randomness helps to increase the security of the signature and makes it more resistant to various attacks. 
 </details></p>
 </li>
 <li>
@@ -8316,10 +8316,10 @@
 <p>When choosing key lengths, consider the following:</p>
 <ul>
 <li>
-<p>Encryption strength increases with the key size and, also, the key generation time.</p>
+<p>Encryption strength increases with the key size and also the key generation time.</p>
 </li>
 <li>
-<p>If performance is important and the functions are frequently used, use symmetric encryption. Symmetric encryption functions are faster than asymmetric encryption functions. Moreover, asymmetric encryption has restrictions on the maximum length of a message being encrypted. For example, for RSA the algorithm maximum message size is the key length in bytes (key length in bits / 8) minus 11.</p>
+<p>If performance is important and the functions are frequently used, use symmetric encryption. Symmetric encryption functions are faster than asymmetric encryption functions. Moreover, asymmetric encryption restricts the maximum length of a message being encrypted. For example, the algorithm&rsquo;s maximum message size for RSA is the key length in bytes (key length in bits / 8) minus 11.</p>
 </li>
 </ul>
 <p>The following table and sections describe the functions. For examples, see function examples.</p>
@@ -8359,7 +8359,7 @@
 </tr>
 </tbody>
 </table>
-<p>The following table describes the Encryption threshold variables which can be used to set the maximum value for a key length based on the type of encryption.</p>
+<p>The following table describes the encryption threshold variables, which can be used to set the maximum value for a key length based on the type of encryption used.</p>
 <table>
 <thead>
 <tr>
@@ -8380,7 +8380,7 @@
 </table>
 <h2 id="install-component_encryption_udf">Install component_encryption_udf<a class="headerlink" href="#install-component_encryption_udf" title="Permanent link">&para;</a></h2>
 <p>Use the <a href="https://dev.mysql.com/doc/refman/8.0/en/install-component.html">Install Component Statement</a> to add the component_encryption_udf component. The functions and variables are available. The user-defined functions and the Encryption threshold variables are auto-registered. There is no requirement to invoke <code>CREATE FUNCTION ... SONAME ...</code>.</p>
-<p>The <code>INSERT</code> privilege on the <code>mysql.component</code> system table is required to run the <code>INSTALL COMPONENT</code> statement. To register the component, the operation adds a row to this table.</p>
+<p>The <code>INSERT</code> privilege on the <code>mysql.component</code> system table is required to run the <code>INSTALL COMPONENT</code> statement. The operation adds a row to this table to register the component.</p>
 <p>The following is an example of the installation command:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
 </code></pre></div>
@@ -8397,7 +8397,7 @@
 <p>The following are the function’s parameters:</p>
 <ul>
 <li>
-<p>algorithm - the encryption algorithm supports RSA to decrypt the string.</p>
+<p>algorithm - the encryption algorithm supports RSA in decrypting the string.</p>
 </li>
 <li>
 <p>key_str - a string in the PEM format. The key string must have the following attributes:</p>
@@ -8406,7 +8406,7 @@
 <p>Valid</p>
 </li>
 <li>
-<p>Public or private key string that corresponds with the private or public key string used with the asymmetric_encrypt function.</p>
+<p>Public or private key string corresponding with the private or public key string used with the asymmetric_encrypt function.</p>
 </li>
 <li>
 <p><code>crypt_str</code> - an encrypted string produced by certain encryption functions like AES_ENCRYPT(). This string is typically stored as a binary or blog data type.</p>
@@ -8430,7 +8430,7 @@
 <p>The parameters are the following:</p>
 <ul>
 <li>
-<p>algorithm - the encryption algorithm supports RSA to encrypt the string.</p>
+<p>algorithm - the encryption algorithm supports RSA in encrypting the string.</p>
 </li>
 <li>
 <p>str - measured in bytes. The length of the string must not be greater than the key_str modulus length in bytes - 11 (additional bytes used for PKCS1 padding)</p>
@@ -8450,7 +8450,7 @@
 <p>The parameters are the following:</p>
 <ul>
 <li>
-<p>algorithm - the encryption algorithm supports either RSA or DSA to encrypt the string.</p>
+<p>algorithm - the encryption algorithm supports RSA or DSA in encrypting the string.</p>
 </li>
 <li>
 <p>digest_str - the digest binary string that is signed. Invoking create_digest generates the digest.</p>
@@ -8618,8 +8618,8 @@
 </li>
 </ul>
 <h2 id="create_asymmetric_priv_keyalgorithm-key_len-dh_parameters">create_asymmetric_priv_key(<em>algorithm, (key_len | dh_parameters)</em>)<a class="headerlink" href="#create_asymmetric_priv_keyalgorithm-key_len-dh_parameters" title="Permanent link">&para;</a></h2>
-<p>Generates a private key using the given algorithm and key length for RSA or DSA
-or Diffie-Hellman parameters for DH. For RSA or DSA, if needed, execute <code>KILL
+<p>Generates a private key using the given algorithm and key length for DH&rsquo;s RSA, DSA
+, or Diffie-Hellman parameters. For RSA or DSA, if needed, execute <code>KILL
 [QUERY|CONNECTION] &lt;id&gt;</code> to terminate a long-lasting key generation. The
 DH key generation from existing parameters is a quick operation. Therefore, it
 does not make sense to terminate that operation with <code>KILL</code>.</p>
@@ -8643,7 +8643,7 @@ does not make sense to terminate that operation with <code>KILL</code>.</p>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The key length limits are defined by OpenSSL. To change the maximum key length, use either encryption_udf.rsa_bits_threshold or encryption_udf.dsa_bits_threshold.</p>
+<p>OpenSSL defines the key length limits. To change the maximum key length, use either encryption_udf.rsa_bits_threshold or encryption_udf.dsa_bits_threshold.</p>
 </div>
 </li>
 <li>
@@ -8672,7 +8672,7 @@ the DSA keys.
 OpenSSL defines the parameter length limits. To change the
 maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 <h3 id="create_dh_parameters-output">create_dh_parameters output<a class="headerlink" href="#create_dh_parameters-output" title="Permanent link">&para;</a></h3>
-<p>A string in the PEM format and can be passed to create_asymmetric_private_key.</p>
+<p>A string in the PEM format can be passed to create_asymmetric_private_key.</p>
 <h3 id="create_dh_parameters-parameters">create_dh_parameters parameters<a class="headerlink" href="#create_dh_parameters-parameters" title="Permanent link">&para;</a></h3>
 <p>The parameters are the following:</p>
 <ul>
@@ -8819,7 +8819,7 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 </li>
 </ul>
 <h3 id="encryption-threshold-variables">Encryption threshold variables<a class="headerlink" href="#encryption-threshold-variables" title="Permanent link">&para;</a></h3>
-<p>The maximum key length limits are defined by OpenSSL. Server administrators can limit the maximum key length using the encryption threshold variables.</p>
+<p>OpenSSL defines the maximum key length limits. Server administrators can limit the maximum key length using the encryption threshold variables.</p>
 <p>The variables are automatically registered when component_encryption_udf is installed.</p>
 <table>
 <thead>
@@ -8834,7 +8834,7 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 </tbody>
 </table>
 <h3 id="encryption_udfdh_bits_threshold"><code>encryption_udf.dh_bits_threshold</code><a class="headerlink" href="#encryption_udfdh_bits_threshold" title="Permanent link">&para;</a></h3>
-<p>The variable sets the maximum limit for the create_dh_parameters user-defined function and takes precedence over the OpenSSL maximum length value.</p>
+<p>The variable sets the maximum limit for the create_dh_parameters user-defined function and precedes the OpenSSL maximum length value.</p>
 <table>
 <thead>
 <tr>
@@ -8863,7 +8863,7 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 </table>
 <p>The range for this variable is from 1024 to 10,000. The default value is 10,000.</p>
 <h3 id="encryption_udfdsa_bits_threshold">encryption_udf.dsa_bits_threshold<a class="headerlink" href="#encryption_udfdsa_bits_threshold" title="Permanent link">&para;</a></h3>
-<p>The variable sets the threshold limits for create_asymmetric_priv_key user-defined function when the function is invoked with the DSA parameter and takes precedence over the OpenSSL maximum length value.</p>
+<p>The variable sets the threshold limits for the create_asymmetric_priv_key user-defined function when it is invoked with the DSA parameter and takes precedence over the OpenSSL maximum length value.</p>
 <table>
 <thead>
 <tr>
@@ -8942,7 +8942,7 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>oeap</code></td>
+<td><code>oaep</code></td>
 <td>The message you encrypt can be as long as your RSA key size in bytes - 42 bytes.</td>
 </tr>
 <tr>
@@ -8955,11 +8955,11 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 </tr>
 </tbody>
 </table>
-<p>Similarly, <code>asymmetric_sign()</code> and <code>asymmetric_verify()</code> also have an optional <code>padding</code> parameter, which can be either <code>pkcs1</code> or <code>pkcs1_pss</code>. If not explicitly set, it follows the default based on <a href="#encryption_udf.legacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a>. You can only use the padding parameter with RSA algorithms.</p>
+<p>Similarly, <code>asymmetric_sign()</code> and <code>asymmetric_verify()</code> also have an optional <code>padding</code> parameter, either <code>pkcs1</code> or <code>pkcs1_pss</code>. If not explicitly set, it follows the default based on <a href="#encryption_udf.legacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a>. You can only use the padding parameter with RSA algorithms.</p>
 <h4 id="additional-resources">Additional resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h4>
 <p>For more information, read <a href="https://www.percona.com/blog/digital-signatures-another-layer-of-data-protection-in-percona-server-for-mysql/"><code>Digital Signatures: Another layer of Data Protection in Percona Server for MySQL</code></a></p>
 <h3 id="encryption_udfrsa_bits_threshold">encryption_udf.rsa_bits_threshold<a class="headerlink" href="#encryption_udfrsa_bits_threshold" title="Permanent link">&para;</a></h3>
-<p>The variable sets the threshold limits for the create_asymmetric_priv_key user-defined function when the function is invoked with the RSA parameter and takes precedence over the OpenSSL maximum length value.</p>
+<p>The variable sets the threshold limits for the create_asymmetric_priv_key user-defined function when invoked with the RSA parameter and takes precedence over the OpenSSL maximum length value.</p>
 <table>
 <thead>
 <tr>
@@ -8991,19 +8991,19 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 <p>Code examples for the following operations:</p>
 <ul>
 <li>
-<p>set the threshold variables</p>
+<p>Set the threshold variables</p>
 </li>
 <li>
-<p>create a private key</p>
+<p>Create a private key</p>
 </li>
 <li>
-<p>create a public key</p>
+<p>Create a public key</p>
 </li>
 <li>
-<p>encrypt data</p>
+<p>Encrypt data</p>
 </li>
 <li>
-<p>decrypt data</p>
+<p>Decrypt data</p>
 </li>
 </ul>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Set<span class="w"> </span>Global<span class="w"> </span>variable
@@ -9012,10 +9012,10 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w
 --<span class="w"> </span>Set<span class="w"> </span>Global<span class="w"> </span>variable
 mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span>encryption_udf.rsa_bits_threshold<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4096</span><span class="p">;</span>
 </code></pre></div>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Create<span class="w"> </span>private<span class="w"> </span>key
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Create<span class="w"> </span>a<span class="w"> </span>private<span class="w"> </span>key
 mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@private_key<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">)</span><span class="p">;</span>
 
---<span class="w"> </span>Create<span class="w"> </span>public<span class="w"> </span>key
+--<span class="w"> </span>Create<span class="w"> </span>a<span class="w"> </span>public<span class="w"> </span>key
 mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@public_key<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_pub_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span>@private_key<span class="o">)</span><span class="p">;</span>
 
 --<span class="w"> </span>Encrypt<span class="w"> </span>data<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>private<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>you<span class="w"> </span>can<span class="w"> </span>also<span class="w"> </span>use<span class="w"> </span>the<span class="w"> </span>public<span class="w"> </span>key<span class="o">)</span>
@@ -9050,16 +9050,16 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@verify_signature<sp
 <p>Code examples for the following operations:</p>
 <ul>
 <li>
-<p>generate a DH parameter</p>
+<p>Generate a DH parameter</p>
 </li>
 <li>
-<p>generates two DH key pairs</p>
+<p>Generate two DH key pairs</p>
 </li>
 <li>
-<p>generate a symmetric key using the public_1 and the private_2</p>
+<p>Generate a symmetric key using the public_1 and the private_2</p>
 </li>
 <li>
-<p>generate a symmetric key using the public_2 and the private_1</p>
+<p>Generate a symmetric key using the public_2 and the private_1</p>
 </li>
 </ul>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="w"> </span>--<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>DH<span class="w"> </span>parameter
@@ -9082,13 +9082,13 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span><span class="nv">sym
 <p>Code examples for the following operations:</p>
 <ul>
 <li>
-<p>create a private key using a <code>SET</code> statement</p>
+<p>Create a private key using a <code>SET</code> statement</p>
 </li>
 <li>
-<p>create a private key using a  <code>SELECT</code> statement</p>
+<p>Create a private key using a  <code>SELECT</code> statement</p>
 </li>
 <li>
-<p>create a private key using an <code>INSERT</code> statement</p>
+<p>Create a private key using an <code>INSERT</code> statement</p>
 </li>
 </ul>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@private_key1<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">)</span><span class="p">;</span>
@@ -9104,7 +9104,7 @@ mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="
   <small>
     
       Last update:
-      2025-02-26
+      2025-02-28
     
   </small>
 </div>
