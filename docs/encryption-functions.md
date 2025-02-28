@@ -10,11 +10,11 @@ Percona Server for MySQL 8.0.41 adds the following:
 
     <details>
        <summary> `pkcs1` padding explanation</summary>
-        [`RSAES-PKCS1-v1_5`](https://en.wikipedia.org/wiki/PKCS_1) RSA encryption padding scheme prevents patterns that attackers could exploit by including a random sequence of bytes which ensures that the ciphertext is different no matter how many times it is encrypted.
+        [`RSAES-PKCS1-v1_5`](https://en.wikipedia.org/wiki/PKCS_1) RSA encryption padding scheme prevents patterns that attackers could exploit by including a random sequence of bytes, which ensures that the ciphertext is different no matter how many times it is encrypted.
     </details>
     
     <details>
-       <summary> `oeap` padding explanation</summary>  
+       <summary> `oaep` padding explanation</summary>  
         The [`RSAES-OAEP`](https://en.wikipedia.org/wiki/PKCS_1)  - [`Optimal Asymmetric Encryption Padding`](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding) RSA encryption padding scheme adds a randomized mask generation function. This function makes it more difficult for attackers to exploit the encryption algorithm's weaknesses or recover the original message.
     </details>
     
@@ -404,7 +404,7 @@ The padding schemes have the following limitations:
 
 | Padding Scheme    | Details                                                                                                                                                        |
 |-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `oeap`           | The message you encrypt can be as long as your RSA key size in bytes - 42 bytes.|
+| `oaep`           | The message you encrypt can be as long as your RSA key size in bytes - 42 bytes.|
 | `no`             | The message length must exactly match your RSA key size in bytes. For example, if your key is 1024 bits (128 bytes), the message must also be 128 bytes. If it doesn’t match, it will cause an error. |
 | `pkcs1` | Your message can be equal to or smaller than the RSA key size - 11 bytes. For instance, with a 1024-bit RSA key, your message can’t be longer than 117 bytes.|
 
