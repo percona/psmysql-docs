@@ -10,17 +10,17 @@ Percona Server for MySQL 8.0.41 adds the following:
 
     <details>
        <summary> `pkcs1` padding explanation</summary>
-        `RSAES-PKCS1-v1_5`](https://en.wikipedia.org/wiki/PKCS_1) RSA encryption padding scheme prevents patterns that attackers could exploit by including a random sequence of bytes which ensures that the ciphertext is different no matter how many times it is encrypted.
+        [`RSAES-PKCS1-v1_5`](https://en.wikipedia.org/wiki/PKCS_1) RSA encryption padding scheme prevents patterns that attackers could exploit by including a random sequence of bytes, which ensures that the ciphertext is different no matter how many times it is encrypted.
     </details>
     
     <details>
-       <summary> `oeap` padding explanation</summary>  
-        The [`RSAES-OAEP`](https://en.wikipedia.org/wiki/PKCS_1)  - [`Optimal Asymmetric Encryption Padding`](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding) RSA encryption padding scheme adds a randomized mask generation function. This function makes it more difficult for attackers to exploit weaknesses in the encryption algorithm or to recover the original message.
+       <summary> `oaep` padding explanation</summary>  
+        The [`RSAES-OAEP`](https://en.wikipedia.org/wiki/PKCS_1)  - [`Optimal Asymmetric Encryption Padding`](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding) RSA encryption padding scheme adds a randomized mask generation function. This function makes it more difficult for attackers to exploit the encryption algorithm's weaknesses or recover the original message.
     </details>
     
     <details>
        <summary> `no` padding explanation</summary>
-       Using `no` padding means that the plaintext message is encrypted without adding an extra layer before performing the RSA encryption operation.
+       Using `no` padding means the plaintext message is encrypted without adding an extra layer before performing the RSA encryption operation.
     </details>
 
 * Support for `pkcs1` or `pkcs1_pss`  padding for RSA sign and verify operations
@@ -31,7 +31,7 @@ Percona Server for MySQL 8.0.41 adds the following:
     </details>
     <details>
        <summary> `pkcs1_pss` padding explanation</summary>
-        The [`RSASSA-PSS`](https://en.wikipedia.org/wiki/PKCS_1) - [`Probabilistic Signature Scheme'](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding) is an RSA signature padding scheme used to add randomness to a message before signing it with a private key. This randomness helps to increase the security of the signature and make it more resistant to various attacks. 
+        The [`RSASSA-PSS`](https://en.wikipedia.org/wiki/PKCS_1) - [`Probabilistic Signature Scheme'](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding) is an RSA signature padding scheme used to add randomness to a message before signing it with a private key. This randomness helps to increase the security of the signature and makes it more resistant to various attacks. 
     </details>
 
 * [`encryption_udf.legacy_paddding_scheme`](#encryption_udflegacy_paddding_scheme) system variable
@@ -60,9 +60,9 @@ A digest uses plaintext and generates a hash value. This hash value can verify i
 
 When choosing key lengths, consider the following:
 
-* Encryption strength increases with the key size and, also, the key generation time.
+* Encryption strength increases with the key size and also the key generation time.
 
-* If performance is important and the functions are frequently used, use symmetric encryption. Symmetric encryption functions are faster than asymmetric encryption functions. Moreover, asymmetric encryption has restrictions on the maximum length of a message being encrypted. For example, for RSA the algorithm maximum message size is the key length in bytes (key length in bits / 8) minus 11.
+* If performance is important and the functions are frequently used, use symmetric encryption. Symmetric encryption functions are faster than asymmetric encryption functions. Moreover, asymmetric encryption restricts the maximum length of a message being encrypted. For example, the algorithm's maximum message size for RSA is the key length in bytes (key length in bits / 8) minus 11.
 
 The following table and sections describe the functions. For examples, see function examples.
 
@@ -78,7 +78,7 @@ The following table and sections describe the functions. For examples, see funct
 | [create_dh_parameters(key_len)](#create_dh_parameterskey_len)  |
 | [create_digest(digest_type, str)](#create_digestdigest_type-str)  |
 
-The following table describes the Encryption threshold variables which can be used to set the maximum value for a key length based on the type of encryption.
+The following table describes the encryption threshold variables, which can be used to set the maximum value for a key length based on the type of encryption used.
 
 | Variable Name                     |
 |-----------------------------------|
@@ -90,7 +90,7 @@ The following table describes the Encryption threshold variables which can be us
 
 Use the [Install Component Statement](https://dev.mysql.com/doc/refman/8.0/en/install-component.html) to add the component_encryption_udf component. The functions and variables are available. The user-defined functions and the Encryption threshold variables are auto-registered. There is no requirement to invoke `CREATE FUNCTION ... SONAME ...`.
 
-The `INSERT` privilege on the `mysql.component` system table is required to run the `INSTALL COMPONENT` statement. To register the component, the operation adds a row to this table.
+The `INSERT` privilege on the `mysql.component` system table is required to run the `INSTALL COMPONENT` statement. The operation adds a row to this table to register the component.
 
 The following is an example of the installation command:
 
@@ -116,13 +116,13 @@ A plaintext as a string.
 
 The following are the function’s parameters:
 
-* algorithm - the encryption algorithm supports RSA to decrypt the string.
+* algorithm - the encryption algorithm supports RSA in decrypting the string.
 
 * key_str - a string in the PEM format. The key string must have the following attributes:
 
   * Valid
 
-  * Public or private key string that corresponds with the private or public key string used with the asymmetric_encrypt function.
+  * Public or private key string corresponding with the private or public key string used with the asymmetric_encrypt function.
   
   * `crypt_str` - an encrypted string produced by certain encryption functions like AES_ENCRYPT(). This string is typically stored as a binary or blog data type.
   
@@ -154,7 +154,7 @@ A ciphertext as a binary string.
 
 The parameters are the following:
 
-* algorithm - the encryption algorithm supports RSA to encrypt the string.
+* algorithm - the encryption algorithm supports RSA in encrypting the string.
 
 * str - measured in bytes. The length of the string must not be greater than the key_str modulus length in bytes - 11 (additional bytes used for PKCS1 padding)
 
@@ -174,7 +174,7 @@ A signature is a binary string.
 
 The parameters are the following:
 
-* algorithm - the encryption algorithm supports either RSA or DSA to encrypt the string.
+* algorithm - the encryption algorithm supports RSA or DSA in encrypting the string.
 
 * digest_str - the digest binary string that is signed. Invoking create_digest generates the digest.
 
@@ -233,8 +233,8 @@ The parameters are the following:
 
 ## create_asymmetric_priv_key(*algorithm, (key_len | dh_parameters)*)
 
-Generates a private key using the given algorithm and key length for RSA or DSA
-or Diffie-Hellman parameters for DH. For RSA or DSA, if needed, execute `KILL
+Generates a private key using the given algorithm and key length for DH's RSA, DSA
+, or Diffie-Hellman parameters. For RSA or DSA, if needed, execute `KILL
 [QUERY|CONNECTION] <id>` to terminate a long-lasting key generation. The
 DH key generation from existing parameters is a quick operation. Therefore, it
 does not make sense to terminate that operation with `KILL`.
@@ -257,7 +257,7 @@ The parameters are the following:
 
     !!! note 
  
-        The key length limits are defined by OpenSSL. To change the maximum key length, use either encryption_udf.rsa_bits_threshold or encryption_udf.dsa_bits_threshold.
+        OpenSSL defines the key length limits. To change the maximum key length, use either encryption_udf.rsa_bits_threshold or encryption_udf.dsa_bits_threshold.
 
 * dh_parameters - Diffie-Hellman (DH) parameters. Invoking create_dh_parameter creates the DH parameters.
 
@@ -289,7 +289,7 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.
 
 ### create_dh_parameters output
 
-A string in the PEM format and can be passed to create_asymmetric_private_key.
+A string in the PEM format can be passed to create_asymmetric_private_key.
 
 ### create_dh_parameters parameters
 
@@ -337,7 +337,7 @@ The parameters are the following:
 
 ### Encryption threshold variables
 
-The maximum key length limits are defined by OpenSSL. Server administrators can limit the maximum key length using the encryption threshold variables.
+OpenSSL defines the maximum key length limits. Server administrators can limit the maximum key length using the encryption threshold variables.
 
 The variables are automatically registered when component_encryption_udf is installed.
 
@@ -347,7 +347,7 @@ The variables are automatically registered when component_encryption_udf is inst
 
 ### `encryption_udf.dh_bits_threshold`
 
-The variable sets the maximum limit for the create_dh_parameters user-defined function and takes precedence over the OpenSSL maximum length value.
+The variable sets the maximum limit for the create_dh_parameters user-defined function and precedes the OpenSSL maximum length value.
 
 | Option       | Description      |
 |--------------|------------------|
@@ -360,7 +360,7 @@ The range for this variable is from 1024 to 10,000. The default value is 10,000.
 
 ### encryption_udf.dsa_bits_threshold
 
-The variable sets the threshold limits for create_asymmetric_priv_key user-defined function when the function is invoked with the DSA parameter and takes precedence over the OpenSSL maximum length value.
+The variable sets the threshold limits for the create_asymmetric_priv_key user-defined function when it is invoked with the DSA parameter and takes precedence over the OpenSSL maximum length value.
 
 | Option       | Description      |
 |--------------|------------------|
@@ -404,11 +404,11 @@ The padding schemes have the following limitations:
 
 | Padding Scheme    | Details                                                                                                                                                        |
 |-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `oeap`           | The message you encrypt can be as long as your RSA key size in bytes - 42 bytes.|
+| `oaep`           | The message you encrypt can be as long as your RSA key size in bytes - 42 bytes.|
 | `no`             | The message length must exactly match your RSA key size in bytes. For example, if your key is 1024 bits (128 bytes), the message must also be 128 bytes. If it doesn’t match, it will cause an error. |
 | `pkcs1` | Your message can be equal to or smaller than the RSA key size - 11 bytes. For instance, with a 1024-bit RSA key, your message can’t be longer than 117 bytes.|
 
-Similarly, `asymmetric_sign()` and `asymmetric_verify()` also have an optional `padding` parameter, which can be either `pkcs1` or `pkcs1_pss`. If not explicitly set, it follows the default based on [`encryption_udf.legacy_padding_scheme`](#encryption_udf.legacy_padding_scheme). You can only use the padding parameter with RSA algorithms.
+Similarly, `asymmetric_sign()` and `asymmetric_verify()` also have an optional `padding` parameter, either `pkcs1` or `pkcs1_pss`. If not explicitly set, it follows the default based on [`encryption_udf.legacy_padding_scheme`](#encryption_udf.legacy_padding_scheme). You can only use the padding parameter with RSA algorithms.
 
 #### Additional resources
 
@@ -416,7 +416,7 @@ Similarly, `asymmetric_sign()` and `asymmetric_verify()` also have an optional `
 
 ### encryption_udf.rsa_bits_threshold
 
-The variable sets the threshold limits for the create_asymmetric_priv_key user-defined function when the function is invoked with the RSA parameter and takes precedence over the OpenSSL maximum length value.
+The variable sets the threshold limits for the create_asymmetric_priv_key user-defined function when invoked with the RSA parameter and takes precedence over the OpenSSL maximum length value.
 
 | Option       | Description      |
 |--------------|------------------|
@@ -431,15 +431,15 @@ The range for this variable is from 1,024 to 16,384. The default value is 16,384
 
 Code examples for the following operations:
 
-* set the threshold variables
+* Set the threshold variables
 
-* create a private key
+* Create a private key
 
-* create a public key
+* Create a public key
 
-* encrypt data
+* Encrypt data
 
-* decrypt data
+* Decrypt data
 
 ```{.bash data-prompt="mysql>"}
 -- Set Global variable
@@ -450,10 +450,10 @@ mysql> SET GLOBAL encryption_udf.rsa_bits_threshold = 4096;
 ```
 
 ```{.bash data-prompt="mysql>"}
--- Create private key
+-- Create a private key
 mysql> SET @private_key = create_asymmetric_priv_key('RSA', 3072);
 
--- Create public key
+-- Create a public key
 mysql> SET @public_key = create_asymmetric_pub_key('RSA', @private_key);
 
 -- Encrypt data using the private key (you can also use the public key)
@@ -486,13 +486,13 @@ mysql> SET @verify_signature = asymmetric_verify('RSA', @digest, @signature, @pu
 
 Code examples for the following operations:
 
-* generate a DH parameter
+* Generate a DH parameter
 
-* generates two DH key pairs
+* Generate two DH key pairs
 
-* generate a symmetric key using the public_1 and the private_2
+* Generate a symmetric key using the public_1 and the private_2
 
-* generate a symmetric key using the public_2 and the private_1
+* Generate a symmetric key using the public_2 and the private_1
 
 ```{.bash data-prompt="mysql>"}
  -- Generate a DH parameter
@@ -515,11 +515,11 @@ mysql> SET symmetric_2 = asymmetric_derive(@public_2, @private_1);
 
 Code examples for the following operations:
 
-* create a private key using a `SET` statement
+* Create a private key using a `SET` statement
 
-* create a private key using a  `SELECT` statement
+* Create a private key using a  `SELECT` statement
 
-* create a private key using an `INSERT` statement
+* Create a private key using an `INSERT` statement
 
 ```{.bash data-prompt="mysql>"}
 mysql> SET @private_key1 = create_asymmetric_priv_key('RSA', 3072);
