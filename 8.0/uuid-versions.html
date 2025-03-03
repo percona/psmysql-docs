@@ -8,7 +8,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="A Universally Unique Identifier (UUID) is a 128-bit number used to identify information uniquely in computer systems. It is often represented as a 32-character hexadecimal string divided into five groups separated by hyphens.">
+        <meta name="description" content="The UUID_VX component in Percona Server for MySQL provides functions to work with different versions of Universally Unique Identifiers (UUIDs). It allows for:">
       
       
         <meta name="author" content="Percona LLC">
@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
@@ -4805,44 +4805,6 @@
   
   
   
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_8" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_12_8" id="__nav_12_8_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    UUID_VX component
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_8_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_12_8">
-            <span class="md-nav__icon md-icon"></span>
-            UUID_VX component
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-    
-  
-  
-  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -4890,6 +4852,57 @@
       On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#universally-unique-identifier-uuid-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Universally unique identifier (UUID) overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benefits-of-using-uuids" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits of using UUIDs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uuid-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      UUID versions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenges-with-uuidv4-in-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenges with UUIDv4 in databases
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Challenges with UUIDv4 in databases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advantages-of-uuidv7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advantages of UUIDv7
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#install-the-uuid_vx-component" class="md-nav__link">
@@ -4999,14 +5012,6 @@
     </ul>
   
 </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -7513,6 +7518,57 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#universally-unique-identifier-uuid-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Universally unique identifier (UUID) overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benefits-of-using-uuids" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits of using UUIDs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uuid-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      UUID versions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenges-with-uuidv4-in-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenges with UUIDv4 in databases
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Challenges with UUIDv4 in databases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advantages-of-uuidv7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advantages of UUIDv7
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-the-uuid_vx-component" class="md-nav__link">
     <span class="md-ellipsis">
       Install the UUID_VX component
@@ -7667,81 +7723,87 @@
 
 
 <h1 id="uuid_vx-component">UUID_VX component<a class="headerlink" href="#uuid_vx-component" title="Permanent link">&para;</a></h1>
-<p>A Universally Unique Identifier (UUID) is a 128-bit number used to identify information uniquely in computer systems. It is often represented as a 32-character hexadecimal string divided into five groups separated by hyphens.</p>
+<p>The <code>UUID_VX</code> component in Percona Server for MySQL provides functions to work with different versions of Universally Unique Identifiers (UUIDs). It allows for:</p>
+<ul>
+<li>
+<p>Managing any UUID version: You can handle various UUID versions, including UUIDv1, UUIDv4, and others.  </p>
+</li>
+<li>
+<p>Generating UUIDs for specific versions: This includes creating time-based UUIDs (versions 1, 6, and 7) and random UUIDs (version 4).  </p>
+</li>
+<li>
+<p>Enhancing support for UUID-based operations: This adds flexibility in how UUIDs are generated and used within the database.  </p>
+</li>
+</ul>
+<p>By utilizing <code>UUID_VX</code>, you can tailor UUID generation to suit your application&rsquo;s needs. For instance, time-based UUIDs ensure chronological ordering, which can improve indexing and query performance in distributed systems. Random UUIDs, on the other hand, provide a higher level of uniqueness and are useful for security-sensitive applications.  </p>
+<p>This component empowers developers to optimize their database operations by choosing the most appropriate UUID version for their specific scenarios.</p>
+<h2 id="universally-unique-identifier-uuid-overview">Universally unique identifier (UUID) overview<a class="headerlink" href="#universally-unique-identifier-uuid-overview" title="Permanent link">&para;</a></h2>
+<p>A universally unique identifier (UUID) is a 128-bit number used to uniquely identify information in computer systems. It is commonly represented as a 32-character hexadecimal string divided into five groups separated by hyphens.  </p>
+<h2 id="benefits-of-using-uuids">Benefits of using UUIDs<a class="headerlink" href="#benefits-of-using-uuids" title="Permanent link">&para;</a></h2>
+<p>UUIDs offer several advantages in distributed systems:  </p>
+<ul>
+<li>
+<p>Global uniqueness: UUIDs ensure that each identifier is unique across different databases and systems without needing a central authority. This prevents ID conflicts when merging data from multiple sources.  </p>
+</li>
+<li>
+<p>Decentralized generation: UUIDs can be generated independently by different systems, removing the need for coordination. This is particularly useful in distributed environments.  </p>
+</li>
+<li>
+<p>Scalability: UUIDs support distributed databases by allowing new records to be added without generating duplicate IDs, even with concurrent insertions.  </p>
+</li>
+<li>
+<p>Improved data merging: UUIDs prevent conflicts when combining data from different sources, simplifying the merging process.  </p>
+</li>
+<li>
+<p>Security: Randomly generated UUIDs (like UUIDv4) are hard to predict, adding an extra security layer when used as identifiers.  </p>
+</li>
+</ul>
+<h2 id="uuid-versions">UUID versions<a class="headerlink" href="#uuid-versions" title="Permanent link">&para;</a></h2>
+<p>The table below describes the different UUID versions and their characteristics:  </p>
 <table>
 <thead>
 <tr>
-<th>Benefit</th>
+<th>UUID version</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Global Uniqueness</td>
-<td>UUIDs ensure that each identifier is unique across different databases and systems without needing a central authority to manage the IDs. This prevents ID conflicts when merging data from multiple sources.</td>
+<td>Version 1 (time-based)</td>
+<td>- Generated using the current time and a node identifier (usually a MAC address). <br> - Ensures uniqueness over time and across nodes.</td>
 </tr>
 <tr>
-<td>Decentralized Generation</td>
-<td>Since UUIDs can be generated independently by different systems, there is no need for coordination. This is particularly useful in distributed environments where systems might not have constant communication with each other.</td>
+<td>Version 2 (DCE security)</td>
+<td>- Similar to version 1 but includes POSIX UID/GID for enhanced security.</td>
 </tr>
 <tr>
-<td>Scalability</td>
-<td>UUIDs support scalability in distributed databases. New records can be added without worrying about generating duplicate IDs, even when data is inserted concurrently across multiple nodes.</td>
+<td>Version 3 (name-based, MD5 hash)</td>
+<td>- Generated from a namespace identifier and a name (string). <br> - Uses the MD5 hashing algorithm to derive the UUID.</td>
 </tr>
 <tr>
-<td>Improved Data Merging</td>
-<td>When data from various sources is combined, UUIDs prevent conflicts, making the merging process simpler and more reliable.</td>
+<td>Version 4 (random)</td>
+<td>- Completely random UUIDs. <br> - Offers uniqueness without requiring specific inputs.</td>
 </tr>
 <tr>
-<td>Security</td>
-<td>UUIDs, especially those generated randomly (like UUIDv4), are hard to predict, adding a layer of security when used as identifiers.</td>
+<td>Version 5 (name-based, SHA-1 hash)</td>
+<td>- Similar to version 3 but uses SHA-1 instead of MD5 for a stronger hash function.</td>
+</tr>
+<tr>
+<td>Version 6 (time-ordered)</td>
+<td>- A reordered version of UUIDv1 for better indexing and storage efficiency.</td>
+</tr>
+<tr>
+<td>Version 7 (Unix epoch time)</td>
+<td>- Encodes a high-precision Unix timestamp with random data. <br> - Provides unique, time-ordered UUIDs ideal for database indexing.</td>
+</tr>
+<tr>
+<td>Version 8 (custom)</td>
+<td>- Reserved for user-defined and experimental purposes. <br> - Allows custom formats and structures.</td>
 </tr>
 </tbody>
 </table>
-<p>The following table describes the UUID versions:</p>
-<table>
-<thead>
-<tr>
-<th>UUID Version</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Version 1 (Time-based)</td>
-<td>- Generated using the current time and a node identifier (usually the MAC address). <br> - Ensures uniqueness over time and across nodes.</td>
-</tr>
-<tr>
-<td>Version 2 (DCE Security)</td>
-<td>- Similar to version 1 but includes additional information such as POSIX UID/GID. <br> - Often used in environments requiring enhanced security.</td>
-</tr>
-<tr>
-<td>Version 3 (Name-based, MD5 hash)</td>
-<td>- Generated from a namespace identifier and a name (string). <br> - Uses the MD5 hashing algorithm to ensure the UUID is derived from the namespace and name.</td>
-</tr>
-<tr>
-<td>Version 4 (Random)</td>
-<td>- Generated using random numbers. <br> - Offers high uniqueness and is easy to generate without requiring specific inputs.</td>
-</tr>
-<tr>
-<td>Version 5 (Name-based, SHA-1 hash)</td>
-<td>- Similar to version 3 but uses the SHA-1 hashing algorithm. <br> - Provides a stronger hash function than MD5.</td>
-</tr>
-<tr>
-<td>Version 6 (Time-ordered)</td>
-<td>- A reordered version of UUIDv1 for better indexing and storage efficiency. <br> - Combines timestamp and random or unique data.</td>
-</tr>
-<tr>
-<td>Version 7 (Unix Epoch Time)</td>
-<td>- Combines a high-precision timestamp with random data. <br> - Provides unique, time-ordered UUIDs that are ideal for database indexing.</td>
-</tr>
-<tr>
-<td>Version 8 (Custom)</td>
-<td>- Reserved for user-defined purposes and experimental uses. <br> - Allows custom formats and structures according to specific requirements.</td>
-</tr>
-</tbody>
-</table>
-<p>UUID version 4 (UUIDv4) generates a unique identifier using random numbers. This randomness ensures a high level of uniqueness without needing a central authority to manage IDs. However, using UUIDv4 as a primary key in a distributed database is not recommended. The random nature of UUIDv4 leads to several issues:</p>
+<h2 id="challenges-with-uuidv4-in-databases">Challenges with UUIDv4 in databases<a class="headerlink" href="#challenges-with-uuidv4-in-databases" title="Permanent link">&para;</a></h2>
+<p>While UUIDv4 provides strong uniqueness through randomness, using it as a primary key in distributed databases is generally discouraged due to the following issues:  </p>
 <table>
 <thead>
 <tr>
@@ -7751,21 +7813,33 @@
 </thead>
 <tbody>
 <tr>
-<td>Inefficient Indexing</td>
-<td>UUIDv4 does not follow any order, causing inefficient indexing. Databases struggle to keep records organized, leading to slower query performance.</td>
+<td>Inefficient indexing</td>
+<td>UUIDv4 lacks order, making it inefficient for indexing. Databases struggle to keep records organized, leading to slower query performance.</td>
 </tr>
 <tr>
 <td>Fragmentation</td>
-<td>The random distribution of UUIDv4 can cause data fragmentation, making database storage less efficient.</td>
+<td>The random distribution of UUIDv4 causes data fragmentation, reducing storage efficiency.</td>
 </tr>
 <tr>
-<td>Storage Space</td>
-<td>UUIDs are larger (128 bits) than traditional integer keys, consuming more storage space and memory.</td>
+<td>Storage overhead</td>
+<td>UUIDs (128 bits) consume more storage space than traditional integer keys, increasing memory usage.</td>
 </tr>
 </tbody>
 </table>
-<p>For better performance and efficiency in a distributed database, consider using  UUIDv7, which incorporates timestamps for some order levels.</p>
-<p>UUID version 7 (UUIDv7) creates time-ordered identifiers by encoding a Unix timestamp with millisecond precision in the first 48 bits. It uses 6 bits to specify the UUID version and variant, while the remaining 74 bits are random. This time-ordering results in nearly sequential values, which helps improve index performance and locality in distributed systems.</p>
+<p>To improve performance in distributed databases, consider using UUIDv7. UUIDv7 encodes a Unix timestamp (millisecond precision) in the first 48 bits, followed by six bits for the UUID version and variant, with the remaining 74 bits as random data. This structure makes UUIDv7 nearly sequential, improving indexing and query efficiency.</p>
+<h3 id="advantages-of-uuidv7">Advantages of UUIDv7<a class="headerlink" href="#advantages-of-uuidv7" title="Permanent link">&para;</a></h3>
+<p>The following advantages make UUIDv7 a better choice for distributed databases:</p>
+<ul>
+<li>
+<p>Time-ordered values improve indexing performance and data locality. </p>
+</li>
+<li>
+<p>Better scalability for high-insert workloads in distributed databases.</p>
+</li>
+<li>
+<p>Maintains uniqueness while allowing efficient range queries.  </p>
+</li>
+</ul>
 <h2 id="install-the-uuid_vx-component">Install the UUID_VX component<a class="headerlink" href="#install-the-uuid_vx-component" title="Permanent link">&para;</a></h2>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_uuid_vx_udf&#39;</span><span class="p">;</span>
 </code></pre></div>
@@ -7811,13 +7885,13 @@
 <tbody>
 <tr>
 <td><code>BIN_TO_UUID_VX()</code></td>
-<td>One string argument that must be a hexadecimal of exactly 32 characters (16 bytes)</td>
+<td>One string argument that must be hexadecimal of exactly 32 characters (16 bytes)</td>
 <td>The function returns a UUID with binary data from the argument. It returns an error for all other inputs.</td>
 </tr>
 <tr>
 <td><code>IS_MAX_UUID_VX()</code></td>
 <td>One string argument that represents a UUID in standard or hexadecimal form.</td>
-<td>The function returns true if the argument is a valid UUID and is a MAX UUID. It returns false for all other inputs. If the argument is NULL, it returns NULL. If the argument cannot be parsed as a UUID, the function throws an error.</td>
+<td>The function returns true if the argument is a valid UUID and is a MAX UUID. It returns false for all other inputs. If the argument is NULL, it returns NULL. The function throws an error if the argument cannot be parsed as a UUID.</td>
 </tr>
 <tr>
 <td><code>IS_NIL_UUID_VX()</code></td>
@@ -7826,7 +7900,7 @@
 </tr>
 <tr>
 <td><code>IS_UUID_VX()</code></td>
-<td>One string argument that represents a UUID in either standard or hexadecimal form.</td>
+<td>One string argument representing a UUID in either standard or hexadecimal form.</td>
 <td>The function returns true if the argument is a valid UUID. If the argument is NULL, it returns NULL. For any other input, it returns false.</td>
 </tr>
 <tr>
@@ -7842,17 +7916,17 @@
 <tr>
 <td><code>UUID_VX_TO_BIN()</code></td>
 <td>One string argument, formatted as a UUID or in hexadecimal form</td>
-<td>The function converts the string arugment to its binary representation.</td>
+<td>The function converts the string argument to its binary representation.</td>
 </tr>
 <tr>
 <td><code>UUID_VX_VARIANT()</code></td>
-<td>One string argument that represents a UUID in either standard or hexadecimal format.</td>
+<td>One string argument representing a UUID in either standard or hexadecimal format.</td>
 <td>The function returns the UUID version (1-8) or an error if the argument is not a valid UUID or returns NULL if the input is NULL.</td>
 </tr>
 <tr>
 <td><code>UUID_VX_VERSION()</code></td>
 <td>One string representing a UUID in standard or hexadecimal form.</td>
-<td>The function returns version of UUID(1-8). The function throws an error if the argument is not a valid UUID in formatted or hexadecimal form or returns a NULL if the argument is NULL. If the argument is a valid UUID string but has an unknown value (outside of the 1-8 range) the function returns <code>-1</code>.</td>
+<td>The function returns version of UUID(1-8). The function throws an error if the argument is not a valid UUID in formatted or hexadecimal form or returns a NULL if the argument is NULL. If the argument is a valid UUID string with an unknown value (outside of the 1-8 range), the function returns <code>-1</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -7909,7 +7983,7 @@
 <tr>
 <td><code>UUID_V3()</code></td>
 <td>One or two arguments: the first argument is a string that is hashed with MD5 and used in the UUID; the second argument is optional and specifies a namespace (integer values: DNS: 0, URL: 1, OID: 2, X.500: 3; default is 1 or URL).</td>
-<td>Generates a version 3 UUID based on a name.  Note: MD5 is outdated and not secure. Use with caution and avoid exposing sensitive data.</td>
+<td>Generates a version 3 UUID based on a name. Note: MD5 is outdated and not secure. Use with caution and avoid exposing sensitive data.</td>
 </tr>
 <tr>
 <td><code>UUID_V4()</code></td>
@@ -7919,7 +7993,7 @@
 <tr>
 <td><code>UUID_V5()</code></td>
 <td>One or two arguments: the first argument is a string that is hashed with SHA1 and used in the UUID; the second argument is optional and specifies a namespace (integer values: DNS: 0, URL: 1, OID: 2, X.500: 3; default is 1 or URL).</td>
-<td>Generates a version 5 UUID based on a name.  Note: SHA1 is better than MD5 but still not secure. Use with caution and avoid exposing sensitive data.</td>
+<td>Generates a version 5 UUID based on a name. Note: SHA1 is better than MD5 but still not secure. Use with caution and avoid exposing sensitive data.</td>
 </tr>
 <tr>
 <td><code>UUID_V6()</code></td>
@@ -7929,7 +8003,7 @@
 <tr>
 <td><code>UUID_V7()</code></td>
 <td>Can have either no argument or a one integer argument: the argument is the number of milliseconds to adjust the timestamp forward or backward (negative values).</td>
-<td>Generates a version 7 UUID based on a timestamp.  If there is no argument, no timestamp shift occurs. Timestamp shift can hide the actual creation time of the record.</td>
+<td>Generates a version 7 UUID based on a timestamp. If there is no argument, no timestamp shift occurs. Timestamp shift can hide the actual creation time of the record.</td>
 </tr>
 </tbody>
 </table>
@@ -8058,17 +8132,17 @@
 <tr>
 <td>UUID_VX_TO_TIMESTAMP()</td>
 <td>One string argument</td>
-<td>Returns a timestamp string like “2024-05-29 18:04:14.201”. If the argument is not parsable as UUID v.1,6,7, the function throws an error. The function always uses UTC time, regardless of system settings or time zone settings in MySQL.</td>
+<td>Returns a timestamp string like “2024-05-29 18:04:14.201”. The function throws an error if the argument is not parsable as UUID v.1,6,7. The function always uses UTC, regardless of MySQL&rsquo;s system settings or time zone settings.</td>
 </tr>
 <tr>
 <td>UUID_VX_TO_TIMESTAMP_TZ()</td>
 <td>One string argument</td>
-<td>Returns a timestamp string with the time zone like “Wed May 29 18:05:07 2024 GMT”. If the argument is not parsable as UUID v.1,6,7, the function throws an error. The function always uses UTC time (GMT time zone), regardless of system settings or time zone settings in MySQL.</td>
+<td>Returns a timestamp string with the time zone like “Wed May 29 18:05:07 2024 GMT”. The function throws an error if the argument is not parsable as UUID v.1,6,7. The function always uses UTC (GMT zone), regardless of MySQL&rsquo;s system settings or time zone settings.</td>
 </tr>
 <tr>
 <td>UUID_VX_TO_UNIXTIME()</td>
 <td>One string argument</td>
-<td>Returns a number of milliseconds since the Epoch. If the argument is not parsable as UUID v.1,6,7, the function throws an error.</td>
+<td>Returns the number of milliseconds since the Epoch. The function throws an error if the argument is not parsable as UUID v.1,6,7.</td>
 </tr>
 </tbody>
 </table>
@@ -8221,7 +8295,7 @@
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.f1b6f286.min.js"></script>
+      <script src="assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
