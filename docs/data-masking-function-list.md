@@ -972,10 +972,10 @@ mysql> SELECT masking_dictionary_term_remove('trees','pine');
 | command-line | Yes              |
 | scope        | Global           |
 | data type    | unsigned integer |
-| default      | 10000            |
+| default      | 0            |
 
 
-Percona Server for MySQL 8.0.41 adds this variable. The number of seconds between a synchronization between the dictionaries table and the internal dictionary cache. The default value is 10,000 seconds (2 hours and 46 minutes). The minimum value is 1 second. The maximum value is 31,536,000 seconds (1 year).
+Percona Server for MySQL 8.0.41 adds this variable: the number of seconds between synchronization between the dictionaries table and the internal dictionary cache. The default value is 0 seconds (disabled), and the maximum value is 31,536,000 seconds (1 year).
 
 ### masking_database(string)
 
@@ -988,6 +988,4 @@ Percona Server for MySQL 8.0.41 adds this variable. The number of seconds betwee
 
 Specify the name of the database that holds the `masking_dictionaries` table. By default, it uses the `mysql` database.
 
-### Returns
 
-Returns a string value of `1` (one) when successful.
