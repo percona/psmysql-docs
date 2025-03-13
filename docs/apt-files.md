@@ -8,5 +8,5 @@
 | percona-server-dbg           | Debug symbols for the server.                                                                                                                                                   |
 | percona-server-test          | The database test suite.                                                                                                                                                        |
 | percona-server-source        | The server source.                                                                                                                                                              |
-| libperconaserverclient21-dev | Header files needed to compile software to use the client library.                                                                                                              |
-| libperconaserverclient21     | The client-shared library. The version is incremented when there is an ABI change that requires software using the client library to be recompiled or its source code modified. |
+| libperconaserverclient22-dev | Header files needed to compile software to use the client library.                                                                                                              |
+| libperconaserverclient22     | The client-shared library. The version is incremented when there is an ABI change that requires software using the client library to be recompiled or its source code modified. |
