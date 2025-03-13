@@ -305,6 +305,8 @@ mysql> SET audit_log_filter_set_filter('filter-name', @filter);
 
 This function assigns the filter to the selected user account.
 
+Starting from Percona Server for MySQL 8.4.4, the audit_log_filter_set_user() UDF accepts account names with wildcard characters (`'%'` and `'_'`) in the host part. For example, you can use `‘usr1@%'`, `‘usr2%192.168.0.%’`, or `'usr3@%.mycorp.com'`.
+
 A user account can only have one filter. If the user account already has a filter, this function replaces the current filter. If the user account is in a current session, nothing happens. When the user account connects again the new filter is used.
 
 The user name, `%`, is the default account. The filter assigned to `%` is used by any user account without a defined filter.
