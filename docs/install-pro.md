@@ -2,7 +2,13 @@
 
 --8<--- "pro-build-announcement.md"
 
+Review [Get more help](get-help.md) for ways that we can work with you.
+
 This document provides guidelines how to install Pro packages of Percona Server for MySQL from Percona repositories. [Check files in packages built for Percona Server for MySQL Pro :material-arrow-right:](pro-files.md){.md-button}
+
+## Version changes
+
+Percona Server for MySQL 8.4.4-4 Pro build is available for the Amazon Linux 2023 (AL2023) platform. We support both AMD64 and ARM64 versions of Amazon Linux 2023.
 
 ## Procedure
 
@@ -46,7 +52,7 @@ This document provides guidelines how to install Pro packages of Percona Server 
 
             Install other required packages. [Check files in the DEB package built for Percona Server for MySQL 8.4](apt-files.md).
 
-    === "On RHEL and derivatives"
+    === "On RHEL or Amazon Linux 2023 or derivatives"
 
         1. Create the `/etc/yum.repos.d/psmysql-pro.repo` configuration file with the following contents with your [CLIENTID] and [TOKEN].
 

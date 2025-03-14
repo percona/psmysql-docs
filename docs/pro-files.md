@@ -28,3 +28,6 @@
 | percona-server-pro-debuginfo | The debug symbols.                                                   |
 | percona-server-devel-pro     | Header files needed to compile software using the client library.    |
 
+## Next steps
+
+[Install Percona Server for MySQL Pro](install-pro.md){.md-button}
