@@ -31,7 +31,7 @@ The benefits of restricting dynamic log locations in MySQL outweigh the disadvan
 | Data type     | String            |
 | Default       | empty string      |
 
-The `secure_log_path` variable controls where specific log files are stored. The expected value for this variable is a directory name as a string. By default, it is an empty string.
+The `secure_log_path` variable controls where specific log files are stored. This variable expects a directory name as a string value. By default, the value is an empty string, allowing older applications to continue functioning without requiring a secure log path.
 
 This variable affects the following options:
 
