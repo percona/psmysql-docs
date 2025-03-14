@@ -24,7 +24,7 @@ $ mysql -u -D database -p < audit_log_filter_linux_install.sql
 To verify the plugin installation, run the following command:
 
 ```{.bash data-prompt="mysql>"}
-mysql> SELECT PLUGIN_NAME, PLUGIN_STATUS FROM INFORMATION_SCHEMA.PLUGINS WHERE PLUGIN_NAME LIKE `audit%';
+mysql> SELECT PLUGIN_NAME, PLUGIN_STATUS FROM INFORMATION_SCHEMA.PLUGINS WHERE PLUGIN_NAME LIKE 'audit%';
 ```
 
 ??? example "Expected output"
