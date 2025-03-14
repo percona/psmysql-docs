@@ -31,7 +31,7 @@ Percona Server for MySQL 8.0.41 adds the following:
     </details>
     <details>
        <summary> `pkcs1_pss` padding explanation</summary>
-        The [`RSASSA-PSS`](https://en.wikipedia.org/wiki/PKCS_1) - [`Probabilistic Signature Scheme'](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding) is an RSA signature padding scheme used to add randomness to a message before signing it with a private key. This randomness helps to increase the security of the signature and makes it more resistant to various attacks. 
+        The [`RSASSA-PSS`](https://en.wikipedia.org/wiki/PKCS_1) - [`Probabilistic Signature Scheme'](https://en.wikipedia.org/wiki/Probabilistic_signature_scheme)) is an RSA signature padding scheme used to add randomness to a message before signing it with a private key. This randomness helps to increase the security of the signature and makes it more resistant to various attacks. 
     </details>
 
 * [`encryption_udf.legacy_paddding_scheme`](#encryption_udflegacy_paddding_scheme) system variable
