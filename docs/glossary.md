@@ -4,6 +4,10 @@
 
 Set of properties that guarantee database transactions are processed reliably. Stands for [Atomicity](#atomicity), [Consistency](#consistency), [Isolation](#isolation), [Durability](#durability).
 
+## Asymmetric key
+
+A pair of keys used for cryptographic purposes, consisting of a private key and a corresponding public key. The private key is used for decrypting or signing, while the public key is used for encrypting or verifying.
+
 ## Atomicity
 
 Atomicity means that database operations are applied following a “all or nothing” rule. A transaction is either fully applied or not at all.
@@ -11,6 +15,21 @@ Atomicity means that database operations are applied following a “all or nothi
 ## Consistency
 
 Consistency means that each transaction that modifies the database takes it from one consistent state to another.
+
+## Digest
+
+A digital fingerprint of a piece of data, such as a string or a file, produced by a hash function. Digests are used to verify the integrity of data and ensure it has not been tampered with or altered.
+
+## Digest string
+The string representation of a digest, often in hexadecimal format.
+
+## Digital signature
+
+A cryptographic mechanism used to verify the authenticity and integrity of a message, software, or document. It ensures that the data comes from the claimed source and has not been altered during transmission.
+
+## Diffie-Hellman key exchange
+
+A cryptographic protocol that allows two parties to establish a shared secret key over an insecure communication channel without actually exchanging the key.
 
 ## Durability
 
@@ -27,6 +46,10 @@ A referential constraint between two tables. Example: A purchase order in the pu
 ## General Availability (GA)
 
 A finalized version of the product which is made available to the general public. It is the final stage in the software release cycle.
+
+## Hash function
+
+A one-way mathematical function that takes input data of any size and produces a fixed-size string of characters, known as a digest or hash value. Hash functions are used to create digital fingerprints of data.
 
 ## Isolation
 
@@ -86,9 +109,21 @@ Non-Uniform Memory Access ([NUMA](https://en.wikipedia.org/wiki/Non-Uniform_Memo
 
 The Percona branch of [MySQL](#mysql) with performance and management improvements.
 
+## Private key
+
+A secret key used in asymmetric cryptography for decrypting or signing data. It is typically kept secure and not shared with others.
+
+## Public key
+
+A publicly available key used in asymmetric cryptography for encrypting or verifying data. It is typically shared with others and used in conjunction with a private key.
+
 ## Storage Engine
 
 A storage engine is a piece of software that implements the details of data storage and retrieval for a database system. This term is primarily used within the [MySQL](#mysql) ecosystem due to it being the first widely used relational database to have an abstraction layer around storage. It is analogous to a Virtual File System layer in an Operating System. A VFS layer allows an operating system to read and write multiple file systems (e.g. FAT, NTFS, XFS, ext3) and a Storage Engine layer allows a database server to access tables stored in different engines (for example, [MyISAM](#myisam) or InnoDB).
+
+## Symmetric key
+
+A single key used for both encrypting and decrypting data in symmetric cryptography. Symmetric keys are typically kept secret and shared between parties.
 
 ## Tech Preview
 
