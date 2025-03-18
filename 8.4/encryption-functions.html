@@ -4523,9 +4523,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#version-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version updates
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#charset-awareness" class="md-nav__link">
+    <span class="md-ellipsis">
+      Charset Awareness
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-user-defined-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use user-defined functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-component_encryption_udf" class="md-nav__link">
     <span class="md-ellipsis">
       Install component_encryption_udf
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
     </span>
   </a>
   
@@ -4706,13 +4742,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create_asymmetric_priv_keyalgorithm-key_len-dh_parameters" class="md-nav__link">
+  <a href="#create_asymmetric_priv_keyalgorithmkey_len-dh_parameters" class="md-nav__link">
     <span class="md-ellipsis">
-      create_asymmetric_priv_key(algorithm, (key_len | dh_parameters))
+      create_asymmetric_priv_key(algorithm,(key_len | dh_parameters))
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="create_asymmetric_priv_key(algorithm, (key_len | dh_parameters))">
+    <nav class="md-nav" aria-label="create_asymmetric_priv_key(algorithm,(key_len | dh_parameters))">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -4854,6 +4890,15 @@
   <a href="#encryption_udfdsa_bits_threshold" class="md-nav__link">
     <span class="md-ellipsis">
       encryption_udf.dsa_bits_threshold
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encryption_udflegacy_padding" class="md-nav__link">
+    <span class="md-ellipsis">
+      encryption_udf.legacy_padding
     </span>
   </a>
   
@@ -6829,9 +6874,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#version-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version updates
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#charset-awareness" class="md-nav__link">
+    <span class="md-ellipsis">
+      Charset Awareness
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-user-defined-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use user-defined functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-component_encryption_udf" class="md-nav__link">
     <span class="md-ellipsis">
       Install component_encryption_udf
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
     </span>
   </a>
   
@@ -7012,13 +7093,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create_asymmetric_priv_keyalgorithm-key_len-dh_parameters" class="md-nav__link">
+  <a href="#create_asymmetric_priv_keyalgorithmkey_len-dh_parameters" class="md-nav__link">
     <span class="md-ellipsis">
-      create_asymmetric_priv_key(algorithm, (key_len | dh_parameters))
+      create_asymmetric_priv_key(algorithm,(key_len | dh_parameters))
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="create_asymmetric_priv_key(algorithm, (key_len | dh_parameters))">
+    <nav class="md-nav" aria-label="create_asymmetric_priv_key(algorithm,(key_len | dh_parameters))">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -7166,6 +7247,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#encryption_udflegacy_padding" class="md-nav__link">
+    <span class="md-ellipsis">
+      encryption_udf.legacy_padding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#encryption_udfrsa_bits_threshold" class="md-nav__link">
     <span class="md-ellipsis">
       encryption_udf.rsa_bits_threshold
@@ -7257,6 +7347,71 @@
 <p>If performance is important and the functions are frequently used, use symmetric encryption. Symmetric encryption functions are faster than asymmetric encryption functions. Moreover, asymmetric encryption has restrictions on the maximum length of a message being encrypted. For example, for RSA the algorithm maximum message size is the key length in bytes (key length in bits / 8) minus 11.</p>
 </li>
 </ul>
+<h2 id="version-updates">Version updates<a class="headerlink" href="#version-updates" title="Permanent link">&para;</a></h2>
+<p>Percona Server for MySQL 8.4.4 adds the following:</p>
+<ul>
+<li>
+<p>Support for <code>pkcs1</code>, <code>oaep</code>, or <code>no</code> padding for RSA encrypt and decrypt operations</p>
+<p><details>
+   <summary> <code>pkcs1</code> padding explanation</summary>
+    <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSAES-PKCS1-v1_5</code></a> RSA encryption padding scheme prevents patterns that attackers could exploit by including a random sequence of bytes, which ensures that the ciphertext is different no matter how many times it is encrypted.
+</details>
+<details>
+   <summary> <code>oaep</code> padding explanation</summary><br />
+    The <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSAES-OAEP</code></a>  - <a href="https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding"><code>Optimal Asymmetric Encryption Padding</code></a> RSA encryption padding scheme adds a randomized mask generation function. This function makes it more difficult for attackers to exploit the encryption algorithm&rsquo;s weaknesses or recover the original message.
+</details>
+<details>
+   <summary> <code>no</code> padding explanation</summary>
+   Using <code>no</code> padding means the plaintext message is encrypted without adding an extra layer before performing the RSA encryption operation.
+</details></p>
+</li>
+<li>
+<p>Support for <code>pkcs1</code> or <code>pkcs1_pss</code>  padding for RSA sign and verify operations</p>
+<p><details>
+   <summary> <code>pkcs1</code> padding explanation</summary>
+    The <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSASSA-PKCS1-v1_5</code></a> is a deterministic RSA signature padding scheme that hashes a message, pads the hash with a specific structure, and encrypts it with the signer&rsquo;s private key for signature generation. 
+</details>
+<details>
+   <summary> <code>pkcs1_pss</code> padding explanation</summary>
+    The <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSASSA-PSS</code></a> - <a href="https://en.wikipedia.org/wiki/Probabilistic_signature_scheme">`Probabilistic Signature Scheme&rsquo;</a> is an RSA signature padding scheme used to add randomness to a message before signing it with a private key. This randomness helps to increase the security of the signature and makes it more resistant to various attacks. 
+</details></p>
+</li>
+<li>
+<p><a href="#legacy_padding"><code>encryption_udf.legacy_paddding</code></a> system variable</p>
+</li>
+<li>
+<p>Character set awareness</p>
+</li>
+</ul>
+<h2 id="charset-awareness">Charset Awareness<a class="headerlink" href="#charset-awareness" title="Permanent link">&para;</a></h2>
+<p>All component_encryption_udf functions now handle character sets intelligently:</p>
+<p>• Algorithms, digest names, padding schemes, keys, and parameters in PEM format: Automatically converted to the ASCII charset at the MySQL level before passing to the functions.</p>
+<p>• Messages, data blocks, and signatures used for digest calculation, encryption, decryption, signing, or verification: Automatically converted to the binary charset at the MySQL level before passing to the functions.</p>
+<p>• Function return values in PEM format: Assigned the ASCII charset.</p>
+<p>• Function return values for operations like digest calculation, encryption, decryption, and signing: Assigned the binary charset.</p>
+<h2 id="use-user-defined-functions">Use user-defined functions<a class="headerlink" href="#use-user-defined-functions" title="Permanent link">&para;</a></h2>
+<p>You can also use the user-defined functions with the PEM format keys generated externally by the OpenSSL utility.</p>
+<p>A digest uses plaintext and generates a hash value. This hash value can verify if the plaintext is unmodified. You can also sign or verify on digests to ensure that the original plaintext was not modified. You cannot decrypt the original text from the hash value.</p>
+<p>When choosing key lengths, consider the following:</p>
+<ul>
+<li>
+<p>Encryption strength increases with the key size and generation time.</p>
+</li>
+<li>
+<p>If performance is essential and the functions are frequently used, use symmetric encryption. Symmetric encryption functions are faster than asymmetric encryption functions. Moreover, asymmetric encryption restricts the maximum length of a message being encrypted. For example, the algorithm&rsquo;s maximum message size for RSA is the key length in bytes (key length in bits / 8) minus 11.</p>
+</li>
+</ul>
+<h2 id="install-component_encryption_udf">Install component_encryption_udf<a class="headerlink" href="#install-component_encryption_udf" title="Permanent link">&para;</a></h2>
+<p>Use the <a href="https://dev.mysql.com/doc/refman/8.4/en/install-component.html">Install Component Statement</a> to add the component_encryption_udf component. The functions and variables are available. The user-defined functions and the Encryption threshold variables are auto-registered. There is no requirement to invoke <code>CREATE FUNCTION ... SONAME ...</code>.</p>
+<p>The <code>INSERT</code> privilege on the <code>mysql.component</code> system table is required to run the <code>INSTALL COMPONENT</code> statement. The operation adds a row to this table to register the component.</p>
+<p>The following is an example of the installation command:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When you build Percona Server for MySQL from source code, the Encryption UDF component is included by default. To exclude it, use the <code>-DWITH_ENCRYPTION_UDF=OFF</code> option with cmake.</p>
+</div>
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <p>The following table and sections describe the functions. For examples, see function examples.</p>
 <table>
 <thead>
@@ -7266,35 +7421,35 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="#asymmetric_decryptalgorithm-crypt_str-key_str">asymmetric_decrypt(algorithm, crypt_str, key_str)</a></td>
+<td><a href="#asymmetric_decrypt()">asymmetric_decrypt()</a></td>
 </tr>
 <tr>
-<td><a href="#asymmetric_derivepub_key_str-priv_key_str">asymmetric_derive(pub_key_str, priv_key_str)</a></td>
+<td><a href="#asymmetric_derive()">asymmetric_derive()</a></td>
 </tr>
 <tr>
-<td><a href="#asymmetric_encryptalgorithm-str-key_str">asymmetric_encrypt(algorithm, str, key_str)</a></td>
+<td><a href="#asymmetric_encrypt()">asymmetric_encrypt()</a></td>
 </tr>
 <tr>
-<td><a href="#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type">asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type)</a></td>
+<td><a href="#asymmetric_sign()">asymmetric_sign()</a></td>
 </tr>
 <tr>
-<td><a href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type">asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type)</a></td>
+<td><a href="#asymmetric_verify()">asymmetric_verify()</a></td>
 </tr>
 <tr>
-<td><a href="#create_asymmetric_priv_keyalgorithm-key_len--dh_parameters">create_asymmetric_priv_key(algorithm, (key_len &#124; dh_parameters))</a></td>
+<td><a href="#create_asymmetric_priv_key()">create_asymmetric_priv_key()</a></td>
 </tr>
 <tr>
-<td><a href="#create_asymmetric_pub_keyalgorithm-priv_key_str">create_asymmetric_pub_key(algorithm, priv_key_str)</a></td>
+<td><a href="#create_asymmetric_pub_key()">create_asymmetric_pub_key()</a></td>
 </tr>
 <tr>
-<td><a href="#create_dh_parameterskey_len">create_dh_parameters(key_len)</a></td>
+<td><a href="#create_dh_parameters()">create_dh_parameters()</a></td>
 </tr>
 <tr>
-<td><a href="#create_digestdigest_type-str">create_digest(digest_type, str)</a></td>
+<td><a href="#create_digest()">create_digest()</a></td>
 </tr>
 </tbody>
 </table>
-<p>The following table describes the Encryption threshold variables which can be used to set the maximum value for a key length based on the type of encryption.</p>
+<p>The following table describes the encryption threshold variables which can be used to set the maximum value for a key length based on the type of encryption used.</p>
 <table>
 <thead>
 <tr>
@@ -7303,28 +7458,21 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="#encryption_udfdh_bits_threshold">encryption_udf.dh_bits_threshold</a></td>
+<td><a href="#dh_bits_threshold">encryption_udf.dh_bits_threshold</a></td>
 </tr>
 <tr>
-<td><a href="#encryption_udfdsa_bits_threshold">encryption_udf.dsa_bits_threshold</a></td>
+<td><a href="#dsa_bits_threshold">encryption_udf.dsa_bits_threshold</a></td>
 </tr>
 <tr>
-<td><a href="#encryption_udfrsa_bits_threshold">encryption_udf.rsa_bits_threshold</a></td>
+<td><a href="#legacy_padding">encryption_udf.legacy_padding</a></td>
+</tr>
+<tr>
+<td><a href="#rsa_bits_threshold">encryption_udf.rsa_bits_threshold</a></td>
 </tr>
 </tbody>
 </table>
-<h2 id="install-component_encryption_udf">Install component_encryption_udf<a class="headerlink" href="#install-component_encryption_udf" title="Permanent link">&para;</a></h2>
-<p>Use the <a href="https://dev.mysql.com/doc/refman/8.4/en/install-component.html">Install Component Statement</a> to add the component_encryption_udf component. The functions and variables are available. The user-defined functions and the Encryption threshold variables are auto-registered. There is no requirement to invoke <code>CREATE FUNCTION ... SONAME ...</code>.</p>
-<p>The <code>INSERT</code> privilege on the <code>mysql.component</code> system table is required to run the <code>INSTALL COMPONENT</code> statement. To register the component, the operation adds a row to this table.</p>
-<p>The following is an example of the installation command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you are Compiling Percona Server for MySQL from Source, the Encryption UDF component is built by default when Percona Server for MySQL is built. Specify the <code>-DWITH_ENCRYPTION_UDF=OFF</code> cmake option to exclude it.</p>
-</div>
 <h2 id="user-defined-functions-described">User-defined functions described<a class="headerlink" href="#user-defined-functions-described" title="Permanent link">&para;</a></h2>
-<h2 id="asymmetric_decryptalgorithm-crypt_str-key_str">asymmetric_decrypt(<em>algorithm, crypt_str, key_str</em>)<a class="headerlink" href="#asymmetric_decryptalgorithm-crypt_str-key_str" title="Permanent link">&para;</a></h2>
+<h2 id="asymmetric_decryptalgorithm-crypt_str-key_str"><a name="asymmetric_decrypt()" style="font-family: 'Open Sans', Arial, sans-serif;">asymmetric_decrypt(<em>algorithm, crypt_str, key_str</em>)</a><a class="headerlink" href="#asymmetric_decryptalgorithm-crypt_str-key_str" title="Permanent link">&para;</a></h2>
 <p>Decrypts an encrypted string using the algorithm and a key string.</p>
 <h3 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h3>
 <p>A plaintext as a string.</p>
@@ -7332,7 +7480,10 @@
 <p>The following are the function’s parameters:</p>
 <ul>
 <li>
-<p>algorithm - the encryption algorithm supports RSA to decrypt the string.</p>
+<p>algorithm - the encryption algorithm supports RSA in decrypting the string.</p>
+</li>
+<li>
+<p><code>crypt_str</code> - an encrypted string produced by certain encryption functions like AES_ENCRYPT(). This string is typically stored as a binary or blog data type.</p>
 </li>
 <li>
 <p>key_str - a string in the PEM format. The key string must have the following attributes:</p>
@@ -7341,17 +7492,20 @@
 <p>Valid</p>
 </li>
 <li>
-<p>Public or private key string that corresponds with the private or public key string used with the asymmetric_encrypt function.</p>
+<p>Public or private key string corresponding with the private or public key string used with the <a href="#asymmetric_encrypt()"><code>asymmetric_encrypt</code></a> function.</p>
+</li>
+<li>
+<p>padding - An optional parameter introduced in Percona Server for MySQL 8.4.4. It is used with the RSA algorithm and supports RSA encryption padding schemes like pkcs1, or oaep. If you skip this parameter, the system determines its value based on the <a href="#legacy_padding"><code>encryption_udf.legacy_padding</code></a> variable.</p>
 </li>
 </ul>
-<h2 id="asymmetric_derivepub_key_str-priv_key_str">asymmetric_derive(<em>pub_key_str, priv_key_str</em>)<a class="headerlink" href="#asymmetric_derivepub_key_str-priv_key_str" title="Permanent link">&para;</a></h2>
+<h2 id="asymmetric_derivepub_key_str-priv_key_str"><a name="asymmetric_derive()" style="font-family: 'Open Sans', Arial, sans-serif;">asymmetric_derive(<em>pub_key_str, priv_key_str</em>)</a><a class="headerlink" href="#asymmetric_derivepub_key_str-priv_key_str" title="Permanent link">&para;</a></h2>
 <p>Derives a symmetric key using a public key generated on one side and a private key generated on another.</p>
 <h3 id="asymmetric_derive-output">asymmetric_derive output<a class="headerlink" href="#asymmetric_derive-output" title="Permanent link">&para;</a></h3>
 <p>A key as a binary string.</p>
 <h3 id="asymmetric_derive-parameters">asymmetric_derive parameters<a class="headerlink" href="#asymmetric_derive-parameters" title="Permanent link">&para;</a></h3>
 <p>The <code>pub_key_str</code> must be a public key in the PEM format and generated using the Diffie-Hellman (DH) algorithm.</p>
 <p>The <code>priv_key_str</code> must be a private key in the PEM format and generated using the Diffie-Hellman (DH) algorithm.</p>
-<h2 id="asymmetric_encryptalgorithm-str-key_str">asymmetric_encrypt(<em>algorithm, str, key_str</em>)<a class="headerlink" href="#asymmetric_encryptalgorithm-str-key_str" title="Permanent link">&para;</a></h2>
+<h2 id="asymmetric_encryptalgorithm-str-key_str"><a name="asymmetric_encrypt()" style="font-family: 'Open Sans', Arial, sans-serif;">asymmetric_encrypt(<em>algorithm, str, key_str</em>)</a><a class="headerlink" href="#asymmetric_encryptalgorithm-str-key_str" title="Permanent link">&para;</a></h2>
 <p>Encrypts a string using the algorithm and a key string.</p>
 <h3 id="asymmetric_encrypt-output">asymmetric_encrypt output<a class="headerlink" href="#asymmetric_encrypt-output" title="Permanent link">&para;</a></h3>
 <p>A ciphertext as a binary string.</p>
@@ -7367,8 +7521,11 @@
 <li>
 <p>key_str - a key (either private or public) in the PEM format</p>
 </li>
+<li>
+<p>padding - An optional parameter introduced in Percona Server for MySQL 8.4.4. It is used with the RSA algorithm and supports RSA encryption padding schemes like pkcs1, or oaep. If you skip this parameter, the system determines its value based on the  <a href="#legacy_padding"><code>encryption_udf.legacy_padding</code></a> variable.</p>
+</li>
 </ul>
-<h2 id="asymmetric_signalgorithm-digest_str-priv_key_str-digest_type">asymmetric_sign(<em>algorithm, digest_str, priv_key_str, digest_type</em>)<a class="headerlink" href="#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type" title="Permanent link">&para;</a></h2>
+<h2 id="asymmetric_signalgorithm-digest_str-priv_key_str-digest_type"><a name="asymmetric_sign()" style="font-family: 'Open Sans', Arial, sans-serif;">asymmetric_sign(<em>algorithm, digest_str, priv_key_str, digest_type</em>)</a><a class="headerlink" href="#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type" title="Permanent link">&para;</a></h2>
 <p>Signs a digest string using a private key string.</p>
 <h3 id="asymmetric_sign-output">asymmetric_sign output<a class="headerlink" href="#asymmetric_sign-output" title="Permanent link">&para;</a></h3>
 <p>A signature is a binary string.</p>
@@ -7376,7 +7533,7 @@
 <p>The parameters are the following:</p>
 <ul>
 <li>
-<p>algorithm - the encryption algorithm supports either RSA or DSA to encrypt the string.</p>
+<p>algorithm - the encryption algorithm supports either RSA or DSA in encrypting the string.</p>
 </li>
 <li>
 <p>digest_str - the digest binary string that is signed. Invoking create_digest generates the digest.</p>
@@ -7513,8 +7670,11 @@
 </tbody>
 </table>
 </li>
+<li>
+<p>padding - An optional parameter introduced in Percona Server for MySQL 8.4.4. It is used with the RSA algorithm and supports RSA signature padding schemes like <code>pkcs1</code>, or <code>pkcs1_pss</code>. If you skip this parameter, the system determines its value based on the <a href="#legacy_padding"><code>encryption_udf.legacy_padding</code></a> variable.</p>
+</li>
 </ul>
-<h2 id="asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type">asymmetric_verify(<em>algorithm, digest_str, sig_str, pub_key_str, digest_type</em>)<a class="headerlink" href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type" title="Permanent link">&para;</a></h2>
+<h2 id="asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type"><a name="asymmetric_verify()" style="font-family: 'Open Sans', Arial, sans-serif;">asymmetric_verify(<em>algorithm, digest_str, sig_str, pub_key_str, digest_type</em>)</a><a class="headerlink" href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type" title="Permanent link">&para;</a></h2>
 <p>Verifies whether the signature string matches the digest string.</p>
 <h3 id="asymmetric_verify-output">asymmetric_verify output<a class="headerlink" href="#asymmetric_verify-output" title="Permanent link">&para;</a></h3>
 <p>A <code>1</code> (success) or a <code>0</code> (failure).</p>
@@ -7536,8 +7696,11 @@
 <li>
 <p>digest_type - the supported values are listed in the digest type table of create_digest</p>
 </li>
+<li>
+<p>padding - An optional parameter introduced in Percona Server for MySQL 8.4.4. It is used with the RSA algorithm and supports RSA signature padding schemes like <code>pkcs1</code>, or <code>pkcs1_pss</code>. If you skip this parameter, the system determines its value based on the <a href="#legacy_padding"><code>encryption_udf.legacy_padding</code></a> variable.</p>
+</li>
 </ul>
-<h2 id="create_asymmetric_priv_keyalgorithm-key_len-dh_parameters">create_asymmetric_priv_key(<em>algorithm, (key_len | dh_parameters)</em>)<a class="headerlink" href="#create_asymmetric_priv_keyalgorithm-key_len-dh_parameters" title="Permanent link">&para;</a></h2>
+<h2 id="create_asymmetric_priv_keyalgorithmkey_len-dh_parameters"><a name="create_asymmetric_priv_key()" style="font-family: 'Open Sans', Arial, sans-serif;">create_asymmetric_priv_key(<em>algorithm,(key_len | dh_parameters)</em>)</a><a class="headerlink" href="#create_asymmetric_priv_keyalgorithmkey_len-dh_parameters" title="Permanent link">&para;</a></h2>
 <p>Generates a private key using the given algorithm and key length for RSA or DSA
 or Diffie-Hellman parameters for DH. For RSA or DSA, if needed, execute <code>KILL
 [QUERY|CONNECTION] &lt;id&gt;</code> to terminate a long-lasting key generation. The
@@ -7570,7 +7733,7 @@ does not make sense to terminate that operation with <code>KILL</code>.</p>
 <p>dh_parameters - Diffie-Hellman (DH) parameters. Invoking create_dh_parameter creates the DH parameters.</p>
 </li>
 </ul>
-<h2 id="create_asymmetric_pub_keyalgorithm-priv_key_str">create_asymmetric_pub_key(<em>algorithm, priv_key_str</em>)<a class="headerlink" href="#create_asymmetric_pub_keyalgorithm-priv_key_str" title="Permanent link">&para;</a></h2>
+<h2 id="create_asymmetric_pub_keyalgorithm-priv_key_str"><a name="create_asymmetric_pub_key()" style="font-family: 'Open Sans', Arial, sans-serif;">create_asymmetric_pub_key(<em>algorithm, priv_key_str</em>)</a><a class="headerlink" href="#create_asymmetric_pub_keyalgorithm-priv_key_str" title="Permanent link">&para;</a></h2>
 <p>Derives a public key from the given private key using the given algorithm.</p>
 <h3 id="create_asymmetric_pub_key-output">create_asymmetric_pub_key output<a class="headerlink" href="#create_asymmetric_pub_key-output" title="Permanent link">&para;</a></h3>
 <p>The key as a string in the PEM format.</p>
@@ -7584,22 +7747,21 @@ does not make sense to terminate that operation with <code>KILL</code>.</p>
 <p>priv_key_str - must be a valid key string in the PEM format.</p>
 </li>
 </ul>
-<h2 id="create_dh_parameterskey_len">create_dh_parameters(<em>key_len</em>)<a class="headerlink" href="#create_dh_parameterskey_len" title="Permanent link">&para;</a></h2>
+<h2 id="create_dh_parameterskey_len"><a name="create_dh_parameters()" style="font-family: 'Open Sans', Arial, sans-serif;">create_dh_parameters(<em>key_len</em>)</a><a class="headerlink" href="#create_dh_parameterskey_len" title="Permanent link">&para;</a></h2>
 <p>Creates parameters for generating a Diffie-Hellman (DH) private/public key pair.
 If needed, execute <code>KILL [QUERY|CONNECTION] &lt;id&gt;</code> to terminate the generation of long-lasting parameters.</p>
 <p>Generating the DH parameters can take more time than generating the RSA keys or
 the DSA keys.
-OpenSSL defines the parameter length limits. To change the
-maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
+OpenSSL defines the parameter length limits. To change the maximum parameter length, use <a href="#dh_bits_threshold"><code>encryption_udf.dh_bits_threshold</code></a>.</p>
 <h3 id="create_dh_parameters-output">create_dh_parameters output<a class="headerlink" href="#create_dh_parameters-output" title="Permanent link">&para;</a></h3>
-<p>A string in the PEM format and can be passed to create_asymmetric_private_key.</p>
+<p>A string in the PEM format and can be passed to <a href="#create_asymmetric_priv_key()"><code>create_asymmetric_priv_key</code></a>.</p>
 <h3 id="create_dh_parameters-parameters">create_dh_parameters parameters<a class="headerlink" href="#create_dh_parameters-parameters" title="Permanent link">&para;</a></h3>
 <p>The parameters are the following:</p>
 <ul>
 <li>key_len - the range for the key length is from 1024 to 10,000. The default value is 10,000.</li>
 </ul>
-<h2 id="create_digestdigest_type-str">create_digest(<em>digest_type, str</em>)<a class="headerlink" href="#create_digestdigest_type-str" title="Permanent link">&para;</a></h2>
-<p>Creates a digest from the given string using the given digest type. The digest string can be used with asymmetric_sign and asymmetric_verify.</p>
+<h2 id="create_digestdigest_type-str"><a name="create_digest()" style="font-family: 'Open Sans', Arial, sans-serif;">create_digest(<em>digest_type, str</em>)</a><a class="headerlink" href="#create_digestdigest_type-str" title="Permanent link">&para;</a></h2>
+<p>Creates a digest from the given string using the given digest type. The digest string can be used with <a href="#asymmetric_sign()">asymmetric_sign()</a> and <a href="#asymmetric_verify()">asymmetric_verify()</a>.</p>
 <h3 id="create_digest-output">create_digest output<a class="headerlink" href="#create_digest-output" title="Permanent link">&para;</a></h3>
 <p>The digest of the given string as a binary string</p>
 <h3 id="create_digest-parameters">create_digest parameters<a class="headerlink" href="#create_digest-parameters" title="Permanent link">&para;</a></h3>
@@ -7753,8 +7915,8 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="encryption_udfdh_bits_threshold"><code>encryption_udf.dh_bits_threshold</code><a class="headerlink" href="#encryption_udfdh_bits_threshold" title="Permanent link">&para;</a></h3>
-<p>The variable sets the maximum limit for the create_dh_parameters user-defined function and takes precedence over the OpenSSL maximum length value.</p>
+<h3 id="encryption_udfdh_bits_threshold"><a name="dh_bits_threshold" style="font-family: 'Open Sans', Arial, sans-serif;">encryption_udf.dh_bits_threshold</a><a class="headerlink" href="#encryption_udfdh_bits_threshold" title="Permanent link">&para;</a></h3>
+<p>The variable sets the maximum limit for the <a href="#create_dh_parameters()">create_dh_parameters()</a> user-defined function and takes precedence over the OpenSSL maximum length value.</p>
 <table>
 <thead>
 <tr>
@@ -7782,8 +7944,8 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 </tbody>
 </table>
 <p>The range for this variable is from 1024 to 10,000. The default value is 10,000.</p>
-<h3 id="encryption_udfdsa_bits_threshold">encryption_udf.dsa_bits_threshold<a class="headerlink" href="#encryption_udfdsa_bits_threshold" title="Permanent link">&para;</a></h3>
-<p>The variable sets the threshold limits for create_asymmetric_priv_key user-defined function when the function is invoked with the DSA parameter and takes precedence over the OpenSSL maximum length value.</p>
+<h3 id="encryption_udfdsa_bits_threshold"><a name="dsa_bits_threshold" style="font-family: 'Open Sans', Arial, sans-serif;">encryption_udf.dsa_bits_threshold</a><a class="headerlink" href="#encryption_udfdsa_bits_threshold" title="Permanent link">&para;</a></h3>
+<p>The variable sets the threshold limits for <a href="#create_asymmetric_priv_key()">create_asymmetric_priv_key()</a> user-defined function when the function is invoked with the DSA parameter and takes precedence over the OpenSSL maximum length value.</p>
 <table>
 <thead>
 <tr>
@@ -7811,8 +7973,85 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 </tbody>
 </table>
 <p>The range for this variable is from 1,024 to 9,984. The default value is 9,984.</p>
-<h3 id="encryption_udfrsa_bits_threshold">encryption_udf.rsa_bits_threshold<a class="headerlink" href="#encryption_udfrsa_bits_threshold" title="Permanent link">&para;</a></h3>
-<p>The variable sets the threshold limits for the create_asymmetric_priv_key user-defined function when the function is invoked with the RSA parameter and takes precedence over the OpenSSL maximum length value.</p>
+<h3 id="encryption_udflegacy_padding"><a name="legacy_padding" style="font-family: 'Open Sans', Arial, sans-serif;">encryption_udf.legacy_padding</a><a class="headerlink" href="#encryption_udflegacy_padding" title="Permanent link">&para;</a></h3>
+<p>The variable enables or disables the legacy padding scheme for certain encryption operations.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>command-line</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>This system variable is a BOOLEAN type and set to <code>OFF</code> by default. </p>
+<p>This variable controls how the functions <a href="#asymmetric_encrypt()">asymmetric_encrypt()</a>, <a href="#asymmetric_decrypt()">asymmetric_decrypt()</a>, <a href="#asymmetric_sign()">asymmetric_sign()</a>, and <a href="#asymmetric_verify()">asymmetric_verify()</a> behave when you don’t explicitly set the padding parameter.</p>
+<ul>
+<li>
+<p>When encryption_udf.legacy_padding is OFF:</p>
+</li>
+<li>
+<p><a href="#asymmetric_encrypt()">asymmetric_encrypt()</a> and <a href="#asymmetric_decrypt()">asymmetric_decrypt()</a> use OAEP encryption padding.</p>
+</li>
+<li>
+<p><a href="#asymmetric_sign()">asymmetric_sign()</a> and <a href="#asymmetric_verify()">asymmetric_verify()</a> use PKCS1_PSS signature padding.</p>
+</li>
+<li>
+<p>When encryption_udf.legacy_padding is ON:</p>
+</li>
+<li>
+<p><a href="#asymmetric_encrypt()">asymmetric_encrypt()</a> and <a href="#asymmetric_decrypt()">asymmetric_decrypt()</a> use PKCS1 encryption padding.</p>
+</li>
+<li>
+<p><a href="#asymmetric_sign()">asymmetric_sign()</a> and <a href="#asymmetric_verify()">asymmetric_verify()</a> use PKCS1 signature padding.</p>
+</li>
+</ul>
+<p>The <a href="#asymmetric_encrypt()">asymmetric_encrypt()</a> and <a href="#asymmetric_decrypt()">asymmetric_decrypt()</a> functions, when the encryption is <code>RSA</code>, can accept an optional parameter, <code>padding</code>. You can set this parameter to <code>no</code>, <code>pkcs1</code>, or <code>oaep</code>. If you don’t specify this parameter, it defaults based on the <a href="#legacy_padding">encryption_udf.legacy_padding</a> value. </p>
+<p>The padding schemes have the following limitations:</p>
+<table>
+<thead>
+<tr>
+<th>Padding Scheme</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>oaep</code></td>
+<td>The message you encrypt can be as long as your RSA key size in bytes - 42 bytes.</td>
+</tr>
+<tr>
+<td><code>no</code></td>
+<td>The message length must exactly match your RSA key size in bytes. For example, if your key is 1024 bits (128 bytes), the message must also be 128 bytes. If it doesn’t match, it will cause an error.</td>
+</tr>
+<tr>
+<td><code>pkcs1</code></td>
+<td>Your message can be equal to or smaller than the RSA key size - 11 bytes. For instance, with a 1024-bit RSA key, your message can’t be longer than 117 bytes.</td>
+</tr>
+</tbody>
+</table>
+<p>Similarly, <a href="#asymmetric_sign()"><code>asymmetric_sign()</code></a> and <a href="#asymmetric_verify()"><code>asymmetric_verify()</code></a> also have an optional <code>padding</code> parameter, either <code>pkcs1</code> or <code>pkcs1_pss</code>. If not explicitly set, it follows the default based on <a href="#legacy_padding"><code>encryption_udf.legacy_padding</code></a>. You can only use the padding parameter with RSA algorithms.</p>
+<h4 id="additional-resources">Additional resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h4>
+<p>For more information, read <a href="https://www.percona.com/blog/digital-signatures-another-layer-of-data-protection-in-percona-server-for-mysql/"><code>Digital Signatures: Another layer of Data Protection in Percona Server for MySQL</code></a></p>
+<h3 id="encryption_udfrsa_bits_threshold"><a name="rsa_bits_threshold" style="font-family: 'Open Sans', Arial, sans-serif;">encryption_udf.rsa_bits_threshold</a><a class="headerlink" href="#encryption_udfrsa_bits_threshold" title="Permanent link">&para;</a></h3>
+<p>The variable sets the threshold limits for the <a href="#create_asymmetric_priv_key()"><code>create_asymmetric_priv_key</code></a> user-defined function when the function is invoked with the RSA parameter and takes precedence over the OpenSSL maximum length value.</p>
 <table>
 <thead>
 <tr>
@@ -7844,19 +8083,19 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 <p>Code examples for the following operations:</p>
 <ul>
 <li>
-<p>set the threshold variables</p>
+<p>Set the threshold variables</p>
 </li>
 <li>
-<p>create a private key</p>
+<p>Create a private key</p>
 </li>
 <li>
-<p>create a public key</p>
+<p>Create a public key</p>
 </li>
 <li>
-<p>encrypt data</p>
+<p>Encrypt data</p>
 </li>
 <li>
-<p>decrypt data</p>
+<p>Decrypt data</p>
 </li>
 </ul>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Set<span class="w"> </span>Global<span class="w"> </span>variable
@@ -7881,13 +8120,13 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@plaintext<span clas
 <p>Code examples for the following operations:</p>
 <ul>
 <li>
-<p>generate a digest string</p>
+<p>Generate a digest string</p>
 </li>
 <li>
-<p>generate a digest signature</p>
+<p>Generate a digest signature</p>
 </li>
 <li>
-<p>verify the signature against the digest</p>
+<p>Verify the signature against the digest</p>
 </li>
 </ul>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>digest<span class="w"> </span>string
@@ -7903,16 +8142,16 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@verify_signature<sp
 <p>Code examples for the following operations:</p>
 <ul>
 <li>
-<p>generate a DH parameter</p>
+<p>Generate a DH parameter</p>
 </li>
 <li>
-<p>generates two DH key pairs</p>
+<p>Generates two DH key pairs</p>
 </li>
 <li>
-<p>generate a symmetric key using the public_1 and the private_2</p>
+<p>Generate a symmetric key using the public_1 and the private_2</p>
 </li>
 <li>
-<p>generate a symmetric key using the public_2 and the private_1</p>
+<p>Generate a symmetric key using the public_2 and the private_1</p>
 </li>
 </ul>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="w"> </span>--<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>DH<span class="w"> </span>parameter
@@ -7935,13 +8174,13 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span><span class="nv">sym
 <p>Code examples for the following operations:</p>
 <ul>
 <li>
-<p>create a private key using a <code>SET</code> statement</p>
+<p>Create a private key using a <code>SET</code> statement</p>
 </li>
 <li>
-<p>create a private key using a  <code>SELECT</code> statement</p>
+<p>Create a private key using a  <code>SELECT</code> statement</p>
 </li>
 <li>
-<p>create a private key using an <code>INSERT</code> statement</p>
+<p>Create a private key using an <code>INSERT</code> statement</p>
 </li>
 </ul>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@private_key1<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">)</span><span class="p">;</span>
@@ -7957,7 +8196,7 @@ mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="
   <small>
     
       Last update:
-      2023-10-26
+      2025-03-18
     
   </small>
 </div>

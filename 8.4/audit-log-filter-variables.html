@@ -7353,6 +7353,7 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>audit_log_filter_set
 </details>
 <h3 id="audit_log_filter_set_useruser_name-filter_name">audit_log_filter_set_user(user_name, filter_name)<a class="headerlink" href="#audit_log_filter_set_useruser_name-filter_name" title="Permanent link">&para;</a></h3>
 <p>This function assigns the filter to the selected user account.</p>
+<p>Starting from Percona Server for MySQL 8.4.4, the audit_log_filter_set_user() UDF accepts account names with wildcard characters (<code>'%'</code> and <code>'_'</code>) in the host part. For example, you can use <code>‘usr1@%'</code>, <code>‘usr2%192.168.0.%’</code>, or <code>'usr3@%.mycorp.com'</code>.</p>
 <p>A user account can only have one filter. If the user account already has a filter, this function replaces the current filter. If the user account is in a current session, nothing happens. When the user account connects again the new filter is used.</p>
 <p>The user name, <code>%</code>, is the default account. The filter assigned to <code>%</code> is used by any user account without a defined filter.</p>
 <h4 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link">&para;</a></h4>
@@ -8249,7 +8250,7 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>audit_log_filter_set
   <small>
     
       Last update:
-      2024-11-08
+      2025-03-18
     
   </small>
 </div>
