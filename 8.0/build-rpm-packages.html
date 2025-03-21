@@ -8,21 +8,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL is an open source project to produce a distribution
-of the MySQL Server with improved performance, scalability and
-diagnostics.">
+        <meta name="description" content="This guide provides step-by-step instructions for building Percona Server for MySQL from source and packaging it as an RPM package. The guide covers setting up the build environment, downloading the source code, creating a SPEC file, building the RPM package, and verifying the installation.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/development.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/build-rpm-packages.html">
       
       
-        <link rel="prev" href="server-version-numbers.html">
+        <link rel="prev" href="yum-files.html">
       
       
-        <link rel="next" href="telemetry.html">
+        <link rel="next" href="yum-download-rpm.html">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
@@ -30,7 +28,7 @@ diagnostics.">
     
     
       
-        <title>Development of Percona Server for MySQL - Percona Server for MySQL</title>
+        <title>Build from RPM packages - Percona Server for MySQL</title>
       
     
     
@@ -93,7 +91,7 @@ diagnostics.">
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Development of Percona Server for MySQL" />
+                 <meta property="og:title" content="Percona Server for MySQL - Build from RPM packages" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.0/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png" />
 
@@ -116,7 +114,7 @@ diagnostics.">
     <div data-md-component="skip">
       
         
-        <a href="#development-of-percona-server-for-mysql" class="md-skip">
+        <a href="#build-from-rpm-packages" class="md-skip">
           Skip to content
         </a>
       
@@ -191,7 +189,7 @@ diagnostics.">
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Development of Percona Server for MySQL
+              Build from RPM packages
             
           </span>
         </div>
@@ -2724,17 +2722,19 @@ diagnostics.">
       
   
   
+    
   
   
+  
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
           <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
@@ -2749,7 +2749,7 @@ diagnostics.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             Install
@@ -3068,17 +3068,19 @@ diagnostics.">
                 
   
   
+    
   
   
+  
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" checked>
         
           
           <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
@@ -3093,7 +3095,7 @@ diagnostics.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7_4">
             <span class="md-nav__icon md-icon"></span>
             Use YUM
@@ -3148,10 +3150,31 @@ diagnostics.">
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="build-rpm-packages.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Build from RPM packages
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="build-rpm-packages.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -3161,6 +3184,100 @@ diagnostics.">
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-rpm-build-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup RPM build environment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-prepare-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download and prepare source
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-spec-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create SPEC file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-rpm-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build RPM package
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-build-configuration-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important build configuration options
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -7136,19 +7253,17 @@ diagnostics.">
       
   
   
-    
   
   
-  
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
         
           
           <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
@@ -7163,7 +7278,7 @@ diagnostics.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_17">
             <span class="md-nav__icon md-icon"></span>
             Reference
@@ -7284,31 +7399,10 @@ diagnostics.">
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Development of Percona Server for MySQL
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="development.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="development.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7318,70 +7412,6 @@ diagnostics.">
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#submit-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Submit changes
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Submit changes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overview
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#making-a-change-to-a-project" class="md-nav__link">
-    <span class="md-ellipsis">
-      Making a change to a project
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#percona-server-for-mysql" class="md-nav__link">
-    <span class="md-ellipsis">
-      Percona Server for MySQL
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -7604,44 +7634,74 @@ diagnostics.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#submit-changes" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Submit changes
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Submit changes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overview
+      Prerequisites
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#making-a-change-to-a-project" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#setup-rpm-build-environment" class="md-nav__link">
     <span class="md-ellipsis">
-      Making a change to a project
+      Setup RPM build environment
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#percona-server-for-mysql" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#download-and-prepare-source" class="md-nav__link">
     <span class="md-ellipsis">
-      Percona Server for MySQL
+      Download and prepare source
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#create-spec-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create SPEC file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-rpm-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build RPM package
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-build-configuration-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important build configuration options
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install
+    </span>
+  </a>
   
 </li>
       
@@ -7678,7 +7738,7 @@ diagnostics.">
 
 
   
-    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/development.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/build-rpm-packages.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -7687,74 +7747,357 @@ diagnostics.">
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/development.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/build-rpm-packages.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="development-of-percona-server-for-mysql">Development of Percona Server for MySQL<a class="headerlink" href="#development-of-percona-server-for-mysql" title="Permanent link">&para;</a></h1>
-<p><em>Percona Server for MySQL</em> is an open source project to produce a distribution
-of the <em>MySQL</em> Server with improved performance, scalability and
-diagnostics.</p>
-<h2 id="submit-changes">Submit changes<a class="headerlink" href="#submit-changes" title="Permanent link">&para;</a></h2>
-<p>We keep the trunk in a constant state of stability to allow for a release at
-any time and to minimize wasted time by developers due to broken code.</p>
-<h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
-<p>At Percona we use <a href="https://git-scm.com">Git</a> for source control, <a href="https://github.com/percona">GitHub</a> for code hosting, and <a href="https://jira.percona.com">Jira</a> for release management.</p>
-<p>We change our software to implement new features and/or to fix bugs. Refactoring
-could be classed either as a new feature or a bug depending on the scope of
-work.</p>
-<p>New features and bugs are targeted to specific releases. A
-release is part of a series. For example, 2.4 is a series in Percona
-XtraBackup and 2.4.15, 2.4.16, and 2.4.17 are releases in this series.</p>
-<p>Code is proposed for merging in the form of pull requests on GitHub.</p>
-<p>For <em>Percona Server for MySQL</em>, we have several Git branches on which development occurs:
-5.5, 5.6, 5.7, and 8.0. As <em>Percona Server for MySQL</em> is not a traditional project, instead
-of being a set of patches against an existing product, these branches are not
-related. In other words, we do not merge from one release branch to another. To
-have your changes in several branches, you must propose branches to each release
-branch.</p>
-<h3 id="making-a-change-to-a-project">Making a change to a project<a class="headerlink" href="#making-a-change-to-a-project" title="Permanent link">&para;</a></h3>
-<p>In this case, we are going to use <code>percona-xtrabackup</code> as an example. The
-workflow is similar for <em>Percona Server for MySQL</em>, but the patch will need to be modified
-in all release branches of <em>Percona Server for MySQL</em>.</p>
+<h1 id="build-from-rpm-packages">Build from RPM packages<a class="headerlink" href="#build-from-rpm-packages" title="Permanent link">&para;</a></h1>
+<p>This guide provides step-by-step instructions for building Percona Server for MySQL from source and packaging it as an RPM package. The guide covers setting up the build environment, downloading the source code, creating a SPEC file, building the RPM package, and verifying the installation.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>Install the required build dependencies:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="c1"># Install build dependencies</span>
+$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>groupinstall<span class="w"> </span><span class="s2">&quot;Development Tools&quot;</span>
+$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>openssl-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libaio-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>ncurses-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>boost-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>rpmdevtools<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>rpmlint<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>systemd-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>vim-common
+</code></pre></div>
+<p>On newer RHEL-based distributions, use the <code>dnf</code> package manager:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="c1"># Install build dependencies</span>
+$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>groupinstall<span class="w"> </span><span class="s2">&quot;Development Tools&quot;</span>
+$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>openssl-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libaio-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>ncurses-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>boost-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>rpmdevtools<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>rpmlint<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>systemd-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>vim-common
+</code></pre></div>
+<p>The <code>yum groupinstall</code> command installs a group of development tools using the yum package manager. The &ldquo;Development Tools&rdquo; group includes essential compilers, debuggers, and other tools required for building software.</p>
+<p>The <code>yum install</code> command installs additional packages required for building Percona Server for MySQL. These packages include CMake, OpenSSL development libraries, libaio development libraries, ncurses development libraries, Boost development libraries, rpmdevtools, rpmlint, systemd development libraries, and vim-common.</p>
+<h2 id="setup-rpm-build-environment">Setup RPM build environment<a class="headerlink" href="#setup-rpm-build-environment" title="Permanent link">&para;</a></h2>
+<p>These commands set up the necessary directory structure for building RPM packages.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="c1"># Create RPM build directory structure</span>
+$<span class="w"> </span>rpmdev-setuptree
+</code></pre></div>
+<div class="highlight"><pre><span></span><code># Directory structure created:
+# ~/rpmbuild/
+# ├── BUILD
+# ├── RPMS
+# ├── SOURCES
+# ├── SPECS
+# └── SRPMS
+</code></pre></div>
+<p>The <code>rpmdev-setuptree</code> command creates the necessary directory structure for building RPM packages. The structure includes the following directories:</p>
 <ul>
 <li>
-<p><code>git branch https://github.com/percona/percona-xtrabackup/featureX</code> (where ‘featureX’ is a
-sensible name for the task at hand)</p>
+<p><code>BUILD</code>: Where the build process takes place.</p>
 </li>
 <li>
-<p>(developer makes changes in featureX, testing locally)</p>
+<p><code>RPMS</code>: Where the finished RPM packages are stored.</p>
 </li>
 <li>
-<p>The Developer pushes to <code>https://github.com/percona/username/percona-xtrabackup/featureX</code></p>
+<p><code>SOURCES</code>: Where the source tarballs and other sources are stored.</p>
 </li>
 <li>
-<p>The developer can submit a pull request to <a href="https://github.com/percona/percona-xtrabackup">https://github.com/percona/percona-xtrabackup</a>,</p>
+<p><code>SPECS</code>: Where the SPEC files are stored.</p>
 </li>
 <li>
-<p>Code undergoes a review</p>
-</li>
-<li>
-<p>Once code is accepted, it can be merged</p>
+<p><code>SRPMS</code>: Where the source RPM packages are stored.</p>
 </li>
 </ul>
-<p>If the change also applies to a stable release (e.g. 2.4) then changes should be
-made on a branch of 2.4 and merged to a branch of the trunk. In this case, there
-should be two branches run through the param build and two merge proposals (one
-for the stable release and one with the changes merged to the trunk). This prevents
-somebody else from having to guess how to merge your changes.</p>
-<h3 id="percona-server-for-mysql">Percona Server for MySQL<a class="headerlink" href="#percona-server-for-mysql" title="Permanent link">&para;</a></h3>
-<p>The same process for <em>Percona Server for MySQL</em>, but we have several different branches
-(and merge requests).</p>
+<h2 id="download-and-prepare-source">Download and prepare source<a class="headerlink" href="#download-and-prepare-source" title="Permanent link">&para;</a></h2>
+<p>These commands help you download the necessary source files and libraries required to build Percona Server for MySQL.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="c1"># Download Percona Server source</span>
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/rpmbuild/SOURCES
+$<span class="w"> </span>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.41-32/source/tarball/percona-server-8.0.40.tar.gz
+</code></pre></div>
+<p>Change to the <code>SOURCES</code> directory within your rpmbuild environment using the cd command. Then, use the <code>wget</code> command to download the Percona Server source tarball from the specified URL. This tarball contains the source code needed to build Percona Server.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="c1"># Download boost if not included</span>
+$<span class="w"> </span>wget<span class="w"> </span>https://boostorg.jfrog.io/artifactory/main/release/1.77.0/source/boost_1_77_0.tar.gz
+</code></pre></div>
+<p>Use the <code>wget</code> command to download the Boost library tarball from the specified URL. Boost provides a set of libraries that help with various programming tasks, and you need it for building Percona Server if it&rsquo;s not already included in the source.</p>
+<h2 id="create-spec-file">Create SPEC file<a class="headerlink" href="#create-spec-file" title="Permanent link">&para;</a></h2>
+<p>This SPEC file automates the process of building, installing, and packaging Percona Server for MySQL into an RPM package, ensuring that all necessary steps and dependencies are properly managed.</p>
+<p>Create <code>~/rpmbuild/SPECS/percona-server-8.0.spec</code>:</p>
+<div class="highlight"><pre><span></span><code>%define mysql_version 8.0.40
+%define rpm_version 8.0.40
+
+Name:           percona-server
+Version:        %{mysql_version}
+Release:        1%{?dist}
+Summary:        Percona Server for MySQL
+License:        GPL-2.0
+
+Source0:        percona-server-%{mysql_version}.tar.gz
+Source1:        boost_1_77_0.tar.gz
+
+BuildRequires:  cmake
+BuildRequires:  openssl-devel
+BuildRequires:  libaio-devel
+BuildRequires:  ncurses-devel
+BuildRequires:  systemd-devel
+BuildRequires:  boost-devel
+
+%description
+Percona Server for MySQL is a free, fully compatible, enhanced, and open source drop-in replacement for MySQL.
+
+%prep
+%setup -q -n percona-server-%{mysql_version}
+
+%build
+mkdir build
+cd build
+cmake .. \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DINSTALL_LAYOUT=RPM \
+    -DWITH_SSL=system \
+    -DWITH_BOOST=../../boost_1_77_0 \
+    -DWITH_SYSTEMD=1
+
+make %{?_smp_mflags}
+
+%install
+cd build
+make DESTDIR=%{buildroot} install
+
+%files
+%{_bindir}/*
+%{_sbindir}/*
+%{_libdir}/*
+%{_datadir}/*
+%{_sysconfdir}/*
+%{_unitdir}/*
+
+%post
+/sbin/ldconfig
+%systemd_post mysqld.service
+
+%preun
+%systemd_preun mysqld.service
+
+%postun
+/sbin/ldconfig
+%systemd_postun_with_restart mysqld.service
+</code></pre></div>
+<p>The provided SPEC file outlines the instructions to build and package Percona Server for MySQL as an RPM package. Here&rsquo;s a breakdown of what each section does:</p>
+<ol>
+<li>
+<p><strong>Definitions</strong>:
+    <div class="highlight"><pre><span></span><code>%define mysql_version 8.0.40
+%define rpm_version 8.0.40
+</code></pre></div>
+    These lines define variables for the MySQL and RPM version numbers.</p>
+</li>
+<li>
+<p><strong>Package Information</strong>:
+    <div class="highlight"><pre><span></span><code>Name:           percona-server
+Version:        %{mysql_version}
+Release:        1%{?dist}
+Summary:        Percona Server for MySQL
+License:        GPL-2.0
+</code></pre></div>
+    This section provides metadata about the package, including its name, version, release number, summary, and license.</p>
+</li>
+<li>
+<p><strong>Sources</strong>:
+    <div class="highlight"><pre><span></span><code>Source0:        percona-server-%{mysql_version}.tar.gz
+Source1:        boost_1_77_0.tar.gz
+</code></pre></div>
+    These lines specify the source tarballs needed to build the package.</p>
+</li>
+<li>
+<p><strong>Build Requirements</strong>:
+    <div class="highlight"><pre><span></span><code>BuildRequires:  cmake
+BuildRequires:  openssl-devel
+BuildRequires:  libaio-devel
+BuildRequires:  ncurses-devel
+BuildRequires:  systemd-devel
+BuildRequires:  boost-devel
+</code></pre></div>
+    This section lists the packages required to build the software.</p>
+</li>
+<li>
+<p><strong>Description</strong>:
+    <div class="highlight"><pre><span></span><code>%description
+Percona Server for MySQL is a free, fully compatible, enhanced, and open source drop-in replacement for MySQL.
+</code></pre></div>
+    A brief description of the package.</p>
+</li>
+<li>
+<p><strong>Preparation</strong>:
+    <div class="highlight"><pre><span></span><code>%prep
+%setup -q -n percona-server-%{mysql_version}
+</code></pre></div>
+    This section sets up the build environment by extracting the source tarball.</p>
+</li>
+<li>
+<p><strong>Build</strong>:
+    <div class="highlight"><pre><span></span><code>%build
+mkdir build
+cd build
+cmake .. \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DINSTALL_LAYOUT=RPM \
+    -DWITH_SSL=system \
+    -DWITH_BOOST=../../boost_1_77_0 \
+    -DWITH_SYSTEMD=1
+make %{?_smp_mflags}
+</code></pre></div>
+    This section compiles the software using CMake and Make, with specific build options.</p>
+</li>
+<li>
+<p><strong>Installation</strong>:
+    <div class="highlight"><pre><span></span><code>%install
+cd build
+make DESTDIR=%{buildroot} install
+</code></pre></div>
+    This section installs the compiled software into a build root directory.</p>
+</li>
+<li>
+<p><strong>Files</strong>:
+    <div class="highlight"><pre><span></span><code>%files
+%{_bindir}/*
+%{_sbindir}/*
+%{_libdir}/*
+%{_datadir}/*
+%{_sysconfdir}/*
+%{_unitdir}/*
+</code></pre></div>
+    This section lists the files and directories included in the package.</p>
+</li>
+<li>
+<p><strong>Post-Installation and Pre-Uninstallation Scripts</strong>:
+    <div class="highlight"><pre><span></span><code>%post
+/sbin/ldconfig
+%systemd_post mysqld.service
+
+%preun
+%systemd_preun mysqld.service
+
+%postun
+/sbin/ldconfig
+%systemd_postun_with_restart mysqld.service
+</code></pre></div>
+    These scripts handle tasks to be performed after installation and before and after uninstallation, such as updating the shared library cache and managing the <code>mysqld</code> service with systemd.</p>
+</li>
+</ol>
+<h2 id="build-rpm-package">Build RPM package<a class="headerlink" href="#build-rpm-package" title="Permanent link">&para;</a></h2>
+<p>These commands help you build and verify RPM packages from a downloaded Percona Server for MySQL tar file. The first command builds the package, while the second command checks the directory to confirm that the packages are created successfully.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="c1"># Build the RPM package</span>
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/rpmbuild
+rpmbuild<span class="w"> </span>-ba<span class="w"> </span>SPECS/percona-server-8.0.spec
+</code></pre></div>
+<p>First, change to the rpmbuild directory with the <code>cd</code> command. Then, use the <code>rpmbuild -ba</code> command to build the RPM package based on the percona-server-8.0.spec file located in the SPECS directory. The <code>-ba</code> option tells rpmbuild to build both the binary and source RPM packages.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="c1"># Check for built packages</span>
+$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>RPMS/x86_64/
+</code></pre></div>
+<p>This command lists the contents of the RPMS/x86_64 directory to verify that the built RPM packages are present. The <code>ls -l</code> command lists the files in the directory, and the <code>RPMS/x86_64/</code> argument specifies the directory to list.</p>
+<h2 id="important-build-configuration-options">Important build configuration options<a class="headerlink" href="#important-build-configuration-options" title="Permanent link">&para;</a></h2>
+<p>These CMAKE options help configure the build process according to your specific requirements, ensuring that the software is installed and functions correctly on your system.</p>
+<ul>
+<li><code>-DCMAKE_INSTALL_PREFIX=/usr</code>: Installation directory</li>
+<li><code>-DINSTALL_LAYOUT=RPM</code>: RPM-specific installation layout</li>
+<li><code>-DWITH_SSL=system</code>: Use system OpenSSL</li>
+<li><code>-DWITH_BOOST</code>: Path to Boost library</li>
+<li><code>-DWITH_SYSTEMD=1</code>: Enable systemd support</li>
+</ul>
+<p>These commands are CMake options used to customize the build process for your project. Here is what each one does:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>-DCMAKE_INSTALL_PREFIX=/usr</code></strong></td>
+<td>This option sets the installation directory to <code>/usr</code>. When you install the software, the files will be placed in the <code>/usr</code> directory.</td>
+</tr>
+<tr>
+<td><strong><code>-DINSTALL_LAYOUT=RPM</code></strong></td>
+<td>This option specifies the installation layout for RPM packages. It ensures that the files are organized in a way that is compatible with RPM packaging standards.</td>
+</tr>
+<tr>
+<td><strong><code>-DWITH_SSL=system</code></strong></td>
+<td>This option tells CMake to use the system&rsquo;s OpenSSL library. Instead of compiling and using a separate OpenSSL library, it will use the one already installed on your system.</td>
+</tr>
+<tr>
+<td><strong><code>-DWITH_BOOST</code></strong></td>
+<td>This option sets the path to the Boost library. It ensures that CMake can find and use the Boost libraries during the build process.</td>
+</tr>
+<tr>
+<td><strong><code>-DWITH_SYSTEMD=1</code></strong></td>
+<td>This option enables support for systemd, the system and service manager for Linux operating systems. It allows the software to integrate with systemd for service management.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verify">Verify<a class="headerlink" href="#verify" title="Permanent link">&para;</a></h2>
+<p>These commands help you verify the integrity of the RPM package and check for any dependencies, and ensures a smooth installation process.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="c1"># Check RPM package integrity</span>
+$<span class="w"> </span>rpm<span class="w"> </span>-Kv<span class="w"> </span>RPMS/x86_64/percona-server-*.rpm
+</code></pre></div>
+<p>This command verifies the integrity of the built RPM package. The <code>-K</code> option stands for check, and <code>-v</code> is for verbose output.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="c1"># Check package dependencies</span>
+$<span class="w"> </span>rpm<span class="w"> </span>-qpR<span class="w"> </span>RPMS/x86_64/percona-server-*.rpm
+</code></pre></div>
+<p>This command lists the dependencies required by the built RPM package. The <code>-qpR</code> option queries the package for its dependencies.</p>
+<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
+<p>These steps help you install and verify the Percona Server package on your system, and ensures everything is set up correctly.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="c1"># Install built package</span>
+$<span class="w"> </span>sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>RPMS/x86_64/percona-server-*.rpm
+</code></pre></div>
+<p>This command installs the built Percona Server package. The <code>-i</code> option stands for install, <code>-v</code> for verbose, and -h shows hash marks as the package installs. Using <code>sudo</code> ensures you have the necessary administrative privileges.</p>
+<h1 id="check-the-installation">Check the installation<a class="headerlink" href="#check-the-installation" title="Permanent link">&para;</a></h1>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>percona-server
+$<span class="w"> </span>mysqld<span class="w"> </span>--version
+</code></pre></div>
+<p>This command has the following options:</p>
+<p><code>rpm -qa | grep percona-server</code>: This command lists all installed packages and filters the list to show only those related to Percona Server. The <code>rpm -qa</code> command queries all installed RPM packages, and <code>grep percona-server</code> searches for Percona Server entries.</p>
+<p><code>mysqld --version</code>: This command displays the installed version of the MySQL server, confirming the successful installation of Percona Server.</p>
+<h2 id="troubleshoot">Troubleshoot<a class="headerlink" href="#troubleshoot" title="Permanent link">&para;</a></h2>
+<p>The following are common issues encountered during the RPM build process:</p>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Troubleshooting Steps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Missing dependencies</strong></td>
+<td><code>bash $ # Install additional dependencies if needed sudo yum-builddep SPECS/percona-server-8.0.spec</code></td>
+</tr>
+<tr>
+<td><strong>Build failures</strong></td>
+<td>- Check build logs in <code>~/rpmbuild/BUILD/</code> <br> - Verify all build dependencies are installed <br> - Ensure enough disk space is available</td>
+</tr>
+<tr>
+<td><strong>Version mismatches</strong></td>
+<td>- Double-check version numbers in SPEC file <br> - Verify source tarball version matches SPEC file</td>
+</tr>
+</tbody>
+</table>
 <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2023-01-12
+      2025-01-31
     
   </small>
 </div>
