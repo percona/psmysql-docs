@@ -10,25 +10,31 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 
 --8<--- "get-help-snip.md"
 
-## Supported platforms
+### Supported platforms
 
 Specific information on the supported platforms, products, and versions are described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
-## Red Hat Certified
+### Red Hat Certified
 
 Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certification is based on common and secure best practices and successful interoperability with the operating system. Percona Server is listed in the [Red Hat Ecosystem Catalog](https://catalog.redhat.com/software/applications/detail/112055).
 
-## ARM support
+### ARM support
 
 The RPM builds for *RHEL* 8 and *RHEL* 9 contain ARM packages with the `aarch64.rpm` extension. This means that Percona Server for MySQL is available for users on ARM-based systems.
 
-## Limitations
+### Limitations
 
 RHEL 8 and other EL8 systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled to make these packages visible. The following command disables the module:
 
 ```{.bash data-prompt="$"}
 $ sudo yum module disable mysql
 ```
+
+### Percona Server for MySQL PRO 
+
+--8<--- "pro-build-announcement.md"
+
+[Install Percona Server for MySQL Pro](install-pro.md){.md-button}
 
 ## Install
 
