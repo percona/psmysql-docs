@@ -173,6 +173,21 @@ mysql> FLUSH PRIVILEGES;
 mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'rootPassword_12';
 mysql> exit
 ```
+
+If the command fails, with `ERROR 1524 (HY000): Plugin [plugin name] is not loaded.`, then check if the plugin is available.
+
+```{.sql data-prompt="mysql>"}
+mysql> SELECT PLUGIN_NAME, PLUGIN_STATUS
+       FROM INFORMATION_SCHEMA.PLUGINS
+       WHERE PLUGIN_NAME LIKE 'validate%';
+```
+
+If the result is empty or shows `DISABLED`, the plugin is not available. Switch the MySQL user to use the default authentication plugin, `caching_sha2_password` or `mysql_native_password` for your installation.
+
+```{.sql data-prompt="mysql>"}
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'rootPassword_12';
+```
+
 If, when adding the password, MySQL returns `ERROR 1819 (HY000) Your password does not satisfy the current policy`, run the following command to see policy requirement.
 
 ```{.sql data-prompt="mysql>"}
