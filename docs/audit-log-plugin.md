@@ -2,10 +2,15 @@
 
 Percona Audit Log Plugin provides monitoring and logging of connection and query
 activity that were performed on specific server. Information about the activity
-is stored in a log file. This
-implementation is alternative to the [MySQL Enterprise Audit Log Plugin](https://dev.mysql.com/doc/refman/8.0/en/audit-log.html)
+is stored in a log file. This implementation is alternative to the [MySQL Enterprise Audit Log Plugin](https://dev.mysql.com/doc/refman/8.0/en/audit-log.html). 
 
 ## Version specific information
+
+The release of [Percona Server for MySQL 8.0.34-26](release-notes/8.0.34-26.md)introduces the [Audit Log Filter plugin](audit-log-filter-overview.md). This plugin has more options and improvements. 
+
+The Audit Log Filter plugin is available in Percona Server for MySQL 8.4 as a component. 
+
+The Audit log plugin has been removed from Percona Server for MySQL 8.4. 
 
 * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
@@ -13,11 +18,13 @@ implementation is alternative to the [MySQL Enterprise Audit Log Plugin](https:/
 
 ## Install the plugin
 
-The audit Log plugin is installed, but, by default, is not enabled when you install *Percona Server for MySQL*. To check if the plugin is enabled run the following commands:
+The audit Log plugin is installed, but, by default, is not enabled when you install Percona Server for MySQL. To check if the plugin is enabled run the following command. This command searches for plugins with names containing the word "audit" in the `information_schema.PLUGINS` table. 
 
 ```{.bash data-prompt="mysql>"}
 mysql> SELECT * FROM information_schema.PLUGINS WHERE PLUGIN_NAME LIKE '%audit%';
 ```
+
+The empty result suggests that no such plugins are installed or loaded.
 
 ??? example "Expected output"
 
@@ -25,15 +32,21 @@ mysql> SELECT * FROM information_schema.PLUGINS WHERE PLUGIN_NAME LIKE '%audit%'
     Empty set (0.00 sec)
     ```
 
+This command checks for system variables whose names start with "audit." 
+
 ```{.bash data-prompt="mysql>"}
 mysql> SHOW variables LIKE 'audit%';
 ```
+
+The empty result means that no such system variables exist or are currently defined.
 
 ??? example "Expected output"
 
     ```text
     Empty set (0.01 sec)
     ```
+
+This command lists system variables with names starting with "plugin." As seen in the example output, it displays the `plugin_dir` variable, which specifies the directory path where MySQL plugins are stored.
 
 ```{.bash data-prompt="mysql>"}
 mysql> SHOW variables LIKE 'plugin%';
