@@ -9,6 +9,7 @@ Find the list of capabilities available in Percona Server for MySQL Pro:
 | Name                                | Version | Description  | 
 | ----------------------------------- | ------------- | -------------|
 | Install [Amazon Linux 2023](install-pro-amzn.md)| 8.0.41-32 | Install Percona Server for MySQL Pro on Amazon Linux 2023. We support both AMD64 and ARM64 versions of Amazon Linux 2023.|
+| [FIPS compliance](fips.md)| 8.0.40-32 | The FIPS feature has been tested on Percona Server for MySQL Pro 8.0.40-32. There are no changes to this release.|
 | [FIPS compliance](fips.md)| 8.0.40-31 | The FIPS feature has been tested on Percona Server for MySQL Pro 8.0.40-31. There are no changes to this release.|
 | [FIPS compliance](fips.md)| 8.0.39-30 | The FIPS feature has been tested on Percona Server for MySQL Pro 8.0.39-30. There are no changes to this release.|
 | [FIPS compliance](fips.md)| 8.0.37-29 | The FIPS feature has been tested on Percona Server for MySQL Pro 8.0.37-29. There are no changes to this release.|
