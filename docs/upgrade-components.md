@@ -2,30 +2,6 @@
 
 The following plugins have changed:
 
-<style>
-table {
-  table-layout: fixed; /* Ensures the table width fits within the page */
-  width: 100%; /* Sets the table to take up the full page width */
-  border-collapse: collapse;
-}
-
-th, td {
-  border: 1px solid #ddd; /* Optional: Add a border for better visibility */
-  padding: 8px; /* Optional: Add padding for readability */
-}
-
-th:first-child, td:first-child {
-  width: 1%; /* Makes the first column fit the content */
-  white-space: nowrap; /* Prevents wrapping in the first column */
-}
-
-th:nth-child(3), td:nth-child(3) {
-  width: 1%; /* Makes the third column fit the content */
-  white-space: nowrap; /* Prevents wrapping in the third column */
-}
-</style>
-
-
 | Plugin | 8.0 information | {{vers}} changes | Notes |
 |---|---|---|---|
 | `keyring_vault` | Only available as a plugin | `component_keyring_vault` | A manual upgrade path is required. For example, the plugin configuration file, specified by the `keyring_vault_config` system variable, must be transformed to a JSON format for the `component_keyring_vault.cnf`. |
