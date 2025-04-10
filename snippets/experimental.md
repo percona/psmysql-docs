@@ -1,0 +1,3 @@
+**This feature is in the experimental phase. An experimental feature is included in an experimental release for users to provide feedback. The feature is either updated, released as general availability(GA), or removed if not useful. The functionality can change from experimental to GA.**
+
+**The feature is only available in the Percona experimental repository. You should review the [Percona release configuration instructions](https://docs.percona.com/percona-software-repositories/percona-release.html)**
