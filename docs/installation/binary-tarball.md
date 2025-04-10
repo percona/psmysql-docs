@@ -15,8 +15,8 @@ You can download the binary tarball for Percona Server for MySQL release in the 
 
 | Type    | Name                                                                |Description         |
 |---------|---------------------------------------------------------------------|--------------------|
-| Full    | Percona-Server-&lt;release&gt;/private/[CLIENTID]-[TOKEN]/Percona-Server-5.7/Percona-Server-&lt;release&gt;/binary/tarball/Percona-Server-&lt;release&gt;-Linux.x86_64.glibc2.17.tar.gz   | Contains binaries, libraries, test files, and debug symbols   |
-| Minimal | Percona-Server-&lt;release&gt;/private/[CLIENTID]-[TOKEN]/Percona-Server-5.7/Percona-Server-&lt;release&gt;-Linux.x86_64.glibc2.12-minimal.tar.gz | Contains binaries, and libraries but does not include test files, or debug symbols. |
+| Full    | https://repo.percona.com/private/[CLIENTID-[TOKEN]/ps-57-eol/tarballs/Percona-Server-&lt;release&gt;/binary/tarball/Percona-Server-&lt;release&gt;-Linux.x86_64.glibc2.17.tar.gz   | Contains binaries, libraries, test files, and debug symbols   |
+| Minimal | https://repo.percona.com/private/[CLIENTID-[TOKEN]/ps-57-eol/tarballs/Percona-Server-&lt;release&gt;-Linux.x86_64.glibc2.12-minimal.tar.gz | Contains binaries, and libraries but does not include test files, or debug symbols. |
 
 Fetch and extract the correct binary tarball using your `CLIENTID` and `TOKEN`. For example, for Oracle Linux 9, use the following command:
 
