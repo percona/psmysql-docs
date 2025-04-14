@@ -1,6 +1,6 @@
 # UUID_VX component
 
-The `UUID_VX` component in Percona Server for MySQL provides functions to work with different versions of Universally Unique Identifiers (UUIDs). It allows for:
+The `UUID_VX` component in Percona Server for MySQL (available from v8.0.39-30) provides functions to work with different versions of Universally Unique Identifiers (UUIDs). It allows for:
 
 * Managing any UUID version: You can handle various UUID versions, including UUIDv1, UUIDv4, and others.  
 
