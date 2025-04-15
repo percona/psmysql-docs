@@ -1,6 +1,6 @@
 # UUID_VX component
 
-The `UUID_VX` component in Percona Server for MySQL (available from v8.0.39-30) provides functions to work with different versions of Universally Unique Identifiers (UUIDs). It allows for:
+Introduced in Percona Server for MySQL 8.0.39-30, the `UUID_VX` component provides functions for working with various versions of Universally Unique Identifiers (UUIDs). This feature allows for:
 
 * Managing any UUID version: You can handle various UUID versions, including UUIDv1, UUIDv4, and others.  
 
@@ -8,9 +8,9 @@ The `UUID_VX` component in Percona Server for MySQL (available from v8.0.39-30) 
 
 * Enhancing support for UUID-based operations: This adds flexibility in how UUIDs are generated and used within the database.  
 
-By utilizing `UUID_VX`, you can tailor UUID generation to suit your application's needs. For instance, time-based UUIDs ensure chronological ordering, which can improve indexing and query performance in distributed systems. Random UUIDs, on the other hand, provide a higher level of uniqueness and are useful for security-sensitive applications.  
+By utilizing `UUID_VX`, you can tailor UUID generation to suit your application's needs. For instance, time-based UUIDs ensure chronological ordering, which can improve indexing and query performance in distributed systems. Random UUIDs, on the other hand, provide a higher level of uniqueness and are helpful for security-sensitive applications.  
 
-This component empowers developers to optimize their database operations by choosing the most appropriate UUID version for their specific scenarios.
+This component empowers developers to optimize their database operations by choosing the most appropriate UUID version for specific scenarios.
 
 ## Universally unique identifier (UUID) overview  
 
@@ -20,11 +20,11 @@ A universally unique identifier (UUID) is a 128-bit number used to uniquely iden
 
 UUIDs offer several advantages in distributed systems:  
 
-* Global uniqueness: UUIDs ensure that each identifier is unique across different databases and systems without needing a central authority. This prevents ID conflicts when merging data from multiple sources.  
+* Global uniqueness: UUIDs ensure each identifier is unique across different databases and systems without a central authority. This prevents ID conflicts when merging data from multiple sources.  
 
-* Decentralized generation: UUIDs can be generated independently by different systems, removing the need for coordination. This is particularly useful in distributed environments.  
+* Decentralized generation: Different systems can generate UUIDs independently, removing the need for coordination. This is particularly useful in distributed environments.  
 
-* Scalability: UUIDs support distributed databases by allowing new records to be added without generating duplicate IDs, even with concurrent insertions.  
+* Scalability: UUIDs support distributed databases by adding new records without generating duplicate IDs, even with concurrent insertions.  
 
 * Improved data merging: UUIDs prevent conflicts when combining data from different sources, simplifying the merging process.  
 
@@ -51,11 +51,11 @@ While UUIDv4 provides strong uniqueness through randomness, using it as a primar
 
 | Issue | Description |
 |-------|-------------|
-| Inefficient indexing | UUIDv4 lacks order, making it inefficient for indexing. Databases struggle to keep records organized, leading to slower query performance. |
+| Inefficient indexing | UUIDv4 lacks order, making indexing inefficient. Databases struggle to keep records organized, leading to slower query performance. |
 | Fragmentation | The random distribution of UUIDv4 causes data fragmentation, reducing storage efficiency. |
 | Storage overhead | UUIDs (128 bits) consume more storage space than traditional integer keys, increasing memory usage. |
 
-To improve performance in distributed databases, consider using UUIDv7. UUIDv7 encodes a Unix timestamp (millisecond precision) in the first 48 bits, followed by six bits for the UUID version and variant, with the remaining 74 bits as random data. This structure makes UUIDv7 nearly sequential, improving indexing and query efficiency.
+Consider using UUIDv7 to improve performance in distributed databases. UUIDv7 encodes a Unix timestamp (millisecond precision) in the first 48 bits, followed by six bits for the UUID version and variant, with the remaining 74 bits as random data. This structure makes UUIDv7 nearly sequential, improving indexing and query efficiency.
 
 ### Advantages of UUIDv7 
 
@@ -65,7 +65,7 @@ The following advantages make UUIDv7 a better choice for distributed databases:
 
 * Better scalability for high-insert workloads in distributed databases.
 
-* Maintains uniqueness while allowing efficient range queries.  
+* Maintains uniqueness while allowing an efficient query range.  
 
 ## Install the UUID_VX component
 
@@ -96,7 +96,7 @@ The following functions are compatible with all UUID versions:
 | Function name        | Argument | Description |
 |----------------------|----------|---|
 | `BIN_TO_UUID_VX()` | One string argument that must be hexadecimal of exactly 32 characters (16 bytes) | The function returns a UUID with binary data from the argument. It returns an error for all other inputs. |
-| `IS_MAX_UUID_VX()`   |  One string argument that represents a UUID in standard or hexadecimal form. | The function returns true if the argument is a valid UUID and is a MAX UUID. It returns false for all other inputs. If the argument is NULL, it returns NULL. The function throws an error if the argument cannot be parsed as a UUID. |
+| `IS_MAX_UUID_VX()`   |  One string argument representing a UUID in standard or hexadecimal form. | The function returns true if the argument is a valid UUID and is a MAX UUID. It returns false for all other inputs. If the argument is NULL, it returns NULL. The function throws an error if the argument cannot be parsed as a UUID. |
 | `IS_NIL_UUID_VX()`   | One string argument representing a UUID in standard or hexadecimal form. | The function returns true if the string is a NIL UUID. If the argument is NULL, it returns NULL. If the argument is not a valid UUID, it throws an error. |
 | `IS_UUID_VX()`       | One string argument representing a UUID in either standard or hexadecimal form. | The function returns true if the argument is a valid UUID. If the argument is NULL, it returns NULL. For any other input, it returns false. |
 | `MAX_UUID_VX()`      | No argument | This function generates a MAX UUID, which has all 128 bits set to one (FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF). This function result is the opposite of the NIL UUID. |
@@ -158,8 +158,8 @@ The following functions generate specific UUID versions:
 | UUID Version | Arguement | Description |
 |--------------|-----------|---|
 | `UUID_V1()` | No argument | Generates a version 1 UUID based on a timestamp. If possible, use UUID_V7() instead. |
-| `UUID_V3()` | One or two arguments: the first argument is a string that is hashed with MD5 and used in the UUID; the second argument is optional and specifies a namespace (integer values: DNS: 0, URL: 1, OID: 2, X.500: 3; default is 1 or URL). | Generates a version 3 UUID based on a name. Note: MD5 is outdated and not secure. Use with caution and avoid exposing sensitive data. |
-| `UUID_V4()` |  No argument | The function generates a version 4 UUID using random numbers and is similar to the built-in UUID() function. |
+| `UUID_V3()` | One or two arguments: the first argument is a string that is hashed with MD5 and used in the UUID; the second argument is optional and specifies a namespace (integer values: DNS: 0, URL: 1, OID: 2, X.500: 3; default is 1 or URL). | Generates a version 3 UUID based on a name. Note: MD5 is outdated and not secure. Be sure to use caution and avoid exposing sensitive data. |
+| `UUID_V4()` |  No argument | The function generates a version 4 UUID using random numbers, similar to the built-in UUID() function. |
 | `UUID_V5()` | One or two arguments: the first argument is a string that is hashed with SHA1 and used in the UUID; the second argument is optional and specifies a namespace (integer values: DNS: 0, URL: 1, OID: 2, X.500: 3; default is 1 or URL).| Generates a version 5 UUID based on a name. Note: SHA1 is better than MD5 but still not secure. Use with caution and avoid exposing sensitive data. |
 | `UUID_V6()` |  No argument | Generates a version 6 UUID based on a timestamp. If possible, use UUID_V7() instead. |
 | `UUID_V7()` | Can have either no argument or a one integer argument: the argument is the number of milliseconds to adjust the timestamp forward or backward (negative values). | Generates a version 7 UUID based on a timestamp. If there is no argument, no timestamp shift occurs. Timestamp shift can hide the actual creation time of the record. |
@@ -200,7 +200,7 @@ mysql> SELECT uuid_v3('http://example.com');
     +--------------------------------------+
     ```
 
-UUID version 3 takes one argument and uses an explicit UUID namespace is “URL”.
+UUID version 3 takes one argument and uses an explicit UUID namespace “URL”.
 
 ```{.bash data-prompt="mysql>"}
 mysql> SELECT uuid_v3('http://example.com', 1);
@@ -320,8 +320,8 @@ The following functions are used only with time-based UUIDs, specifically versio
 
 | Function name     | Argument          | Description                                                                                                                                                    |
 |-----------------------------|---|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| UUID_VX_TO_TIMESTAMP()      | One string argument | Returns a timestamp string like “2024-05-29 18:04:14.201”. The function throws an error if the argument is not parsable as UUID v.1,6,7. The function always uses UTC, regardless of MySQL's system settings or time zone settings. |
-| UUID_VX_TO_TIMESTAMP_TZ()   | One string argument | Returns a timestamp string with the time zone like “Wed May 29 18:05:07 2024 GMT”. The function throws an error if the argument is not parsable as UUID v.1,6,7. The function always uses UTC (GMT zone), regardless of MySQL's system settings or time zone settings. |
+| UUID_VX_TO_TIMESTAMP()      | One string argument | Returns a timestamp string like “2024-05-29 18:04:14.201”. The function throws an error if the argument is not parsable as UUID v.1,6,7. The function always uses UTC, regardless of MySQL's system or time zone settings. |
+| UUID_VX_TO_TIMESTAMP_TZ()   | One string argument | Returns a timestamp string with the time zone like “Wed May 29 18:05:07 2024 GMT”. The function throws an error if the argument is not parsable as UUID v.1,6,7. The function always uses UTC (GMT zone), regardless of MySQL's system or time zone settings. |
 | UUID_VX_TO_UNIXTIME()       | One string argument | Returns the number of milliseconds since the Epoch. The function throws an error if the argument is not parsable as UUID v.1,6,7. |
 
 ### Timestamp-based function examples
