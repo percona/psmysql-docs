@@ -17,7 +17,7 @@ If you want to downgrade from Percona Server for MySQL Pro to the same version o
     2. Stop the `mysql` server.
        
         ```{.bash data-prompt="$"}
-        $ sudo systemctl stop mysql
+        $ sudo systemctl stop mysqld
         ```
 
     3. Install the server package
@@ -31,7 +31,7 @@ If you want to downgrade from Percona Server for MySQL Pro to the same version o
     4. Start the `mysql` server
 
         ```{.bash data-prompt="$"}
-        $ sudo systemctl start mysql
+        $ sudo systemctl start mysqld
         ```
 
     !!! note
@@ -40,7 +40,7 @@ If you want to downgrade from Percona Server for MySQL Pro to the same version o
         server manually. This behavior will be fixed in future releases.
        
         ```{.bash data-prompt="$"}
-        $ sudo systemctl stop mysql
+        $ sudo systemctl stop mysqld
         ```
 
 === "On RHEL and derivatives"
@@ -54,13 +54,13 @@ If you want to downgrade from Percona Server for MySQL Pro to the same version o
     2. Stop the `mysql` server.
        
         ```{.bash data-prompt="$"}
-        $ sudo systemctl stop mysql
+        $ sudo systemctl stop mysqld
         ```
 
     3. Install the server package
 
         ```{.bash data-prompt="$"}
-        $ sudo yum --allowerasing install percona-server-server
+        $ sudo dnf --allowerasing install percona-server-server
         ```
     
         Install other required packages. [Check files in the RPM package built for Percona Server for MySQL 8.0](yum-files.md).
@@ -68,5 +68,5 @@ If you want to downgrade from Percona Server for MySQL Pro to the same version o
     4. Start the `mysql` server
 
         ```{.bash data-prompt="$"}
-        $ sudo systemctl start mysql
+        $ sudo systemctl start mysqld
         ```
