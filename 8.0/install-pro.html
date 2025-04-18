@@ -21,11 +21,11 @@
         <link rel="prev" href="psmysql-pro.html">
       
       
-        <link rel="next" href="install-pro-amzn.html">
+        <link rel="next" href="pro-files.html">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.2afb09e1.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
@@ -484,8 +484,6 @@
       
         
       
-        
-      
     
     
     
@@ -597,29 +595,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="install-pro-amzn.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Install Percona Server for MySQL Pro on Amazon Linux 2023
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -8611,15 +8586,15 @@
 <p><a class="md-button" href="https://www.percona.com/about/contact">Become a Percona Customer</a></p>
 <p>Review <a href="get-help.html">Get more help</a> for ways that we can work with you.</p>
 <p>This document provides guidelines how to install Pro packages of Percona Server for MySQL from Percona repositories. <a class="md-button" href="pro-files.html">Check files in packages built for Percona Server for MySQL Pro <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p>
-<p><a class="md-button" href="install-pro-amzn.html">Install Percona Server for MySQL Pro on Amazon Linux 2023 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p>
+<p><a class="md-button" href="install-pro-amzn.md">Install Percona Server for MySQL Pro on Amazon Linux 2023 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p>
 <h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p>Request the access to the pro repository from Percona Support. You will receive the client ID and the access token which you use when downloading the packages.</p>
+<p>Request access to the pro repository from Percona Support. You will receive the client ID and the access token, which you use when downloading the packages.</p>
 </li>
 <li>
 <p>Configure the repository and install Percona Server for MySQL packages</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">On Debian and Ubuntu</label><label for="__tabbed_1_2">On RHEL and derivatives</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">On Debian or Ubuntu</label><label for="__tabbed_1_2">On RHEL, Amazon Linux 2023, or derivatives</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ol>
@@ -8634,8 +8609,8 @@
 </code></pre></div>
 </li>
 <li>
-<p>Create the <code>/etc/apt/sources.list.d/psmysql-pro.list</code> configuration file with the following contents with your [CLIENTID] and [TOKEN].</p>
-<p>To get the <code>OPERATING_SYSTEM</code> value, run <code>lsb_release -sc</code>.</p>
+<p>Create the <code>/etc/apt/sources.list.d/psmysql-pro.list</code> configuration file with the following contents, and your [CLIENTID] and [TOKEN].</p>
+<p>To find the <code>OPERATING_SYSTEM</code> value, run <code>lsb_release -sc</code>.</p>
 <div class="highlight"><span class="filename">/etc/apt/sources.list.d/psmysql-pro.list</span><pre><span></span><code><span class="na">deb http</span><span class="o">:</span><span class="s">//repo.percona.com/private/[CLIENTID]-[TOKEN]/ps-80-pro/apt/ OPERATING_SYSTEM main</span>
 </code></pre></div>
 </li>
@@ -8648,14 +8623,14 @@
 <p>Install Percona Server for MySQL packages</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server-pro
 </code></pre></div>
-<p>Install other required packages. <a href="apt-files.html">Check files in the DEB package built for Percona Server for MySQL 8.0</a>.</p>
+<p>If needed, install other required packages. <a href="apt-files.html">Review the DEB packages built for Percona Server for MySQL 8.0</a>.</p>
 </li>
 </ol>
 </div>
 <div class="tabbed-block">
 <ol>
 <li>
-<p>Create the <code>/etc/yum.repos.d/psmysql-pro.repo</code> configuration file with the following contents with your [CLIENTID] and [TOKEN].</p>
+<p>Create the <code>/etc/yum.repos.d/psmysql-pro.repo</code> configuration file with the following contents, and your [CLIENTID] and [TOKEN].</p>
 <div class="highlight"><span class="filename">/etc/yum.repos.d/psmysql-pro.repo</span><pre><span></span><code><span class="k">[ps-8.0-pro]</span>
 <span class="na">name</span><span class="o">=</span><span class="s">PS_8.0_PRO</span>
 <span class="na">baseurl</span><span class="o">=</span><span class="s">http://repo.percona.com/private/[CLIENTID]-[TOKEN]/ps-80-pro/yum/release/$releasever/RPMS/x86_64</span>
@@ -8665,7 +8640,7 @@
 </li>
 <li>
 <p>Install Percona Server for MySQL packages</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server-pro
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-server-server-pro
 </code></pre></div>
 <p>Install other required packages. <a href="yum-files.html">Check files in the RPM package built for Percona Server for MySQL 8.0</a>.</p>
 </li>
@@ -8676,12 +8651,12 @@
 </li>
 <li>
 <p>Start the server</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld
 </code></pre></div>
 </li>
 </ol>
 <h2 id="next-step">Next step<a class="headerlink" href="#next-step" title="Permanent link">&para;</a></h2>
-<p><a class="md-button" href="fips.html">Enable the FIPS mode <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p>
+<p><a class="md-button" href="fips.html">Enable FIPS mode <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p>
 
 
 
@@ -8702,7 +8677,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-02-27
+    2025-04-18
   </span>
 
     
