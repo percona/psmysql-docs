@@ -150,4 +150,33 @@ The output is the following:
 
 ![Running MkDocs](docs/_static/mkdocs.png "Running MkDocs")
 
-Open a browser and navigate to `http://127.0.0.1:8000/percona-server/8.0/` or `http://127.0.0.1:8000/percona-server/5.7/` to see the HTML files. You may need to navigate to the document that you have changed.
+Open a browser and navigate to `http://127.0.0.1:8000/percona-server/8.4/`, `http://127.0.0.1:8000/percona-server/8.0/` or `http://127.0.0.1:8000/percona-server/5.7/` to see the HTML files. You may need to navigate to the document that you have changed.
+
+### Building the PDF documentation
+
+To build the PDF documentation, open the `site/print_page.html` in your browser, for example, https://docs.percona.com/percona-server/8.4/print_page.html. Save it as PDF. Depending on the browser, you may need to select the **Export to PDF**, **Print - Save as PDF** or just **Save** and select PDF as the output format.
+
+## Repository structure
+
+The repository includes the following directories and files:
+
+- `mkdocs-base.yml` - the base configuration file. It includes general settings and documentation structure.
+- `mkdocs.yml` - configuration file. Contains the settings for building the docs with Material theme.
+- `mkdocs-pdf.yml` - configuration file. Contains the settings for building the PDF docs.
+- `docs`:
+  - `*.md` - source markdown files.
+  - `_static` - images, logos and favicons
+  - `_templates` - the template for the PDF cover page
+  - `css` - styles
+  - `js` - Javascript files
+- `_resource`:
+   - `templates`:
+     - ``styles.scss`` - styling for PDF documents
+   - `theme`:
+      - `main.html` - the layout template for hosting the documentation on Percona website
+   - `overrides` - the folder with the customized templates
+- `_resourcepdf` - the folder with customized templates for PDF output
+- `.github`:
+   - `workflows`:
+      - `main.yml` - the workflow configuration for building documentation with a GitHub action. (The documentation is built with `mike` tool to a dedicated `publish` branch)
+- `site` - this is where the output HTML files are put after the build
