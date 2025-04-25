@@ -3836,6 +3836,8 @@
       
         
       
+        
+      
     
     
     
@@ -3903,6 +3905,29 @@
   
   <span class="md-ellipsis">
     Docker environment variables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="docker-compose.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use Docker Compose and named volumes
     
   </span>
   
@@ -9661,6 +9686,15 @@
   <a href="#docker-config" class="md-nav__link">
     <span class="md-ellipsis">
       Docker environment variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Docker Compose and named volumes
     </span>
   </a>
   
@@ -22317,7 +22351,272 @@ Add one or more environment variables to the <code>docker run</code> command.</p
 </code></pre></div>
 </details>
 <p>You should use <code>Docker secrets</code> or volumes instead. </p>
-<p>Percona Server for MySQL also allows adding the <code>_FILE</code> suffix to a variable name. This suffix lets you add the value in a path so that the value cannot be inspected from outside the container.</p></section></section></section>
+<p>Percona Server for MySQL also allows adding the <code>_FILE</code> suffix to a variable name. This suffix lets you add the value in a path so that the value cannot be inspected from outside the container.</p></section><section class="print-page" id="docker-compose" heading-number="7.7.3"><h1 id="docker-compose-use-docker-compose-and-named-volumes">Use Docker Compose and named volumes<a class="headerlink" href="#docker-compose-use-docker-compose-and-named-volumes" title="Permanent link">&para;</a></h1>
+<p>Docker Compose simplifies managing containerized services. This guide shows how to run Percona Server for MySQL 8.0 with persistent storage for data, logs, and backups using named Docker volumes.</p>
+<h2 id="docker-compose-benefits">Benefits<a class="headerlink" href="#docker-compose-benefits" title="Permanent link">&para;</a></h2>
+<p>Creating a <code>docker-compose.yml</code> file offers numerous advantages for managing containerized applications effectively:</p>
+<table>
+<thead>
+<tr>
+<th>Benefit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simplifies multi-container management</td>
+<td>Define and manage multiple services (containers) in a single configuration file, making it easy to run, stop, and scale your application.</td>
+</tr>
+<tr>
+<td>Automates dependency handling</td>
+<td>Specify dependencies between services, ensuring containers start in the correct order, such as databases starting before application servers.</td>
+</tr>
+<tr>
+<td>Enhances portability</td>
+<td>Share the docker-compose.yml file across environments (development, staging, production) to ensure consistent behavior regardless of system setup.</td>
+</tr>
+<tr>
+<td>Supports scalability</td>
+<td>Easily scale services using the docker-compose up &ndash;scale command, allowing you to run multiple instances of specific containers.</td>
+</tr>
+<tr>
+<td>Improves readability</td>
+<td>Centralizes configuration in a human-readable YAML format, making it easier to understand and modify compared to command-line options.</td>
+</tr>
+<tr>
+<td>Enables reproducibility</td>
+<td>Store application settings and container configurations in version control to ensure consistent deployments.</td>
+</tr>
+<tr>
+<td>Allows persistent data</td>
+<td>Define volumes directly in the file to persist data for services, ensuring storage remains intact even when containers are stopped.</td>
+</tr>
+<tr>
+<td>Facilitates networking</td>
+<td>Automatically sets up networks for containers to communicate with each other without requiring manual configuration.</td>
+</tr>
+<tr>
+<td>Simplifies environment variables management</td>
+<td>Integrate .env files to externalize sensitive information like database passwords and access tokens.</td>
+</tr>
+<tr>
+<td>Reduces errors</td>
+<td>Avoid repetitive CLI commands by storing configurations in the file, reducing the chance of mistakes during deployment.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="docker-compose-directory-structure">Directory structure<a class="headerlink" href="#docker-compose-directory-structure" title="Permanent link">&para;</a></h2>
+<p>Docker automatically manages volumes, so you don&rsquo;t create folders manually.</p>
+<div class="highlight"><pre><span></span><code>percona-compose/
+├── .env
+└── docker-compose.yml
+</code></pre></div>
+<h3 id="docker-compose-create-env">Create .env<a class="headerlink" href="#docker-compose-create-env" title="Permanent link">&para;</a></h3>
+<p>Using an <code>.env</code> file for MySQL Docker containers has several advantages:</p>
+<table>
+<thead>
+<tr>
+<th>Benefit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Keeps sensitive data secure</td>
+<td>Stores environment variables (e.g., passwords) in an <code>.env</code> file, keeping them out of <code>docker-compose.yml</code> to avoid exposure.</td>
+</tr>
+<tr>
+<td>Simplifies configuration</td>
+<td>Centralizes environment variables, making it easier to manage and update configurations in one place.</td>
+</tr>
+<tr>
+<td>Improves portability</td>
+<td>Enables reuse of variables across different environments (development, staging, production) without changes to configuration files.</td>
+</tr>
+<tr>
+<td>Enhances readability</td>
+<td>Keeps <code>docker-compose.yml</code> or Dockerfiles cleaner by externalizing environment variables.</td>
+</tr>
+<tr>
+<td>Facilitates collaboration</td>
+<td>Allows the use of shared templates (e.g., <code>.env.example</code>) for required variables, while hiding actual secrets.</td>
+</tr>
+<tr>
+<td>Supports dynamic updates</td>
+<td>Makes it easy to update environment variables without modifying Docker configurations or scripts.</td>
+</tr>
+</tbody>
+</table>
+<p>By leveraging an <code>.env</code> file, you streamline both security and ease of use for MySQL container deployments. This approach ensures better organization and adaptability for various environments.</p>
+<div class="highlight"><pre><span></span><code>MYSQL_ROOT_PASSWORD=supersecurepassword
+MYSQL_DATABASE=mydb
+MYSQL_USER=myuser
+MYSQL_PASSWORD=myuserpassword
+</code></pre></div>
+<h3 id="docker-compose-create-docker-composeyml">Create docker-compose.yml<a class="headerlink" href="#docker-compose-create-docker-composeyml" title="Permanent link">&para;</a></h3>
+<p>By using a <code>docker-compose.yml</code> file, you streamline container orchestration, ensure consistency, and simplify collaboration across teams.</p>
+<div class="highlight"><pre><span></span><code>services:
+  mysql:
+    image: percona/percona-server:8.0
+    container_name: percona-server
+    ports:
+      - &quot;3306:3306&quot;
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - percona-data:/var/lib/mysql              # Database data
+      - percona-logs:/var/log/mysql              # MySQL logs
+      - percona-backups:/backups                 # XtraBackup output (optional, for future use)
+    restart: unless-stopped
+
+volumes:
+  percona-data:
+  percona-logs:
+  percona-backups:
+</code></pre></div>
+<h2 id="docker-compose-start-the-container">Start the Container<a class="headerlink" href="#docker-compose-start-the-container" title="Permanent link">&para;</a></h2>
+<p>The command has the following options:</p>
+<ul>
+<li>
+<p><code>up</code>: Starts the containers specified in the docker-compose.yml file.</p>
+</li>
+<li>
+<p><code>-d</code>: Runs the containers in detached mode, meaning they operate in the background.</p>
+</li>
+</ul>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<p><code>{.text .no-copy}
+[+] Running 11/11
+ ✔ mysql Pulled                                                                34.1s 
+   ✔ 56631da24b0d Pull complete                                                28.9s 
+   ✔ 5aee836c3728 Pull complete                                                28.9s 
+   ✔ a5fd539367b0 Pull complete                                                28.9s 
+   ✔ fc4a4cc146b3 Pull complete                                                28.9s 
+   ✔ 7a3939b8d92c Pull complete                                                32.1s 
+   ✔ 6fdbd2a9e883 Pull complete                                                32.1s 
+   ✔ 70ac4d191dd1 Pull complete                                                32.1s 
+   ✔ 5872370b843d Pull complete                                                32.1s 
+   ✔ 8310fa1d2765 Pull complete                                                32.1s 
+   ✔ 4437564bc659 Pull complete                                                32.2s 
+[+] Running 5/5
+ ✔ Network percona-compose_default           Created                            0.0s 
+ ✔ Volume "percona-compose_percona-data"     Created                            0.0s 
+ ✔ Volume "percona-compose_percona-logs"     Created                            0.0s 
+ ✔ Volume "percona-compose_percona-backups"  Created                            0.0s 
+ ✔ Container percona-server                  Star...                            0.3s</code></p>
+</details>
+<p>Docker automatically creates the volumes:</p>
+<p>•   percona-data: stores MySQL tables</p>
+<p>•   percona-logs: stores logs generated by the database</p>
+<p>•   percona-backups: a mount point you can use for Percona XtraBackup</p>
+<h2 id="docker-compose-connect-to-the-server-and-run-a-simple-query">Connect to the server and run a simple query<a class="headerlink" href="#docker-compose-connect-to-the-server-and-run-a-simple-query" title="Permanent link">&para;</a></h2>
+<p>After the container is up, you can connect to the running server instance using the mysql client included in the container.</p>
+<p>Run the following command to open a MySQL shell in the container:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>percona-server<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<p>You must enter the root password.</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.41-32 Percona Server (GPL), Release 32, Revision b8e378ec
+
+Copyright (c) 2009-2025 Percona LLC and/or its affiliates
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+
+mysql&gt;
+</code></pre></div>
+</details>
+<p>Run a simple query:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>DATABASES<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydb               |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.02 sec) 
+</code></pre></div>
+</details>
+<h2 id="docker-compose-create-a-test-database-and-table">Create a test database and table<a class="headerlink" href="#docker-compose-create-a-test-database-and-table" title="Permanent link">&para;</a></h2>
+<p>The following query creates a <code>test_db</code> database and <code>test_table</code>:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>test_db<span class="p">;</span>
+USE<span class="w"> </span>test_db<span class="p">;</span>
+CREATE<span class="w"> </span>TABLE<span class="w"> </span>test_table<span class="w"> </span><span class="o">(</span>id<span class="w"> </span>INT<span class="w"> </span>AUTO_INCREMENT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY,<span class="w"> </span>name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">100</span><span class="o">))</span><span class="p">;</span>
+INSERT<span class="w"> </span>INTO<span class="w"> </span>test_table<span class="w"> </span><span class="o">(</span>name<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="s1">&#39;Sample Data&#39;</span><span class="o">)</span><span class="p">;</span>
+SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>test_table<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.02 sec)
+
+Database changed
+Query OK, 0 rows affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
++----+-------------+
+| id | name        |
++----+-------------+
+|  1 | Sample Data |
++----+-------------+
+1 row in set (0.00 sec)
+
+mysql&gt; 
+</code></pre></div>
+</details>
+<p>Remember to <code>mysql&gt; exit</code> when you are finished working with the server.</p>
+<h2 id="docker-compose-use-the-backup-volume-with-xtrabackup">Use the backup volume with XtraBackup<a class="headerlink" href="#docker-compose-use-the-backup-volume-with-xtrabackup" title="Permanent link">&para;</a></h2>
+<p>When you run XtraBackup inside a container, either in the same network or another container, you can target <code>/backups</code> to store backup files.</p>
+<p>An example of using Docker to backup the server:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--volumes-from<span class="w"> </span>percona-server<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>percona_backups:/backup<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>percona/percona-xtrabackup:8.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>xtrabackup<span class="w"> </span>--backup<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--target-dir<span class="o">=</span>/backup<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--host<span class="o">=</span>percona-server<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--user<span class="o">=</span>myuser<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--password<span class="o">=</span>mypassword
+</code></pre></div>
+<h2 id="docker-compose-best-practices">Best practices<a class="headerlink" href="#docker-compose-best-practices" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Use named volumes to simplify backup and migration.</p>
+</li>
+<li>
+<p>Mount logs separately for easier troubleshooting and rotation.</p>
+</li>
+<li>
+<p>Use docker volume inspect to view volume metadata and mount points.</p>
+</li>
+</ul>
+<h2 id="docker-compose-shut-down-and-clean-up">Shut down and clean up<a class="headerlink" href="#docker-compose-shut-down-and-clean-up" title="Permanent link">&para;</a></h2>
+<p>You can stop the stack but retain volumes:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker-compose<span class="w"> </span>down
+</code></pre></div>
+<p>You can also remove all resources, including volumes:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker-compose<span class="w"> </span>down<span class="w"> </span>-v
+</code></pre></div></section></section></section>
                     <section class='print-page md-section' id='section-8' heading-number='8'>
                         <h1>Upgrade<a class='headerlink' href='#section-8' title='Permanent link'></a>
                         </h1>
@@ -59808,6 +60107,8 @@ contributions and changes from MariaDB.</p>
 .print-site-enumerate-headings #docker > h1:before { content: '7.7.1 ' }
 
 .print-site-enumerate-headings #docker-config > h1:before { content: '7.7.2 ' }
+
+.print-site-enumerate-headings #docker-compose > h1:before { content: '7.7.3 ' }
 
 .print-site-enumerate-headings #section-8 > h1:before { content: '8 ' }
 .print-site-enumerate-headings #upgrade > h1:before { content: '8.1 ' }
