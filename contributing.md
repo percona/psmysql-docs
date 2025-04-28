@@ -162,7 +162,6 @@ The repository includes the following directories and files:
 
 - `mkdocs-base.yml` - the base configuration file. It includes general settings and documentation structure.
 - `mkdocs.yml` - configuration file. Contains the settings for building the docs with Material theme.
-- `mkdocs-pdf.yml` - configuration file. Contains the settings for building the PDF docs.
 - `docs`:
   - `*.md` - source markdown files.
   - `_static` - images, logos and favicons
