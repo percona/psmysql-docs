@@ -6685,12 +6685,12 @@
   
   
     <li class="md-nav__item">
-      <a href="log-connection-error.html" class="md-nav__link">
+      <a href="too-many-connections-mysql-warning.md.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Too many connections warning
+    Too Many Connections warning in the MySQL Error Log
     
   </span>
   
@@ -10642,9 +10642,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#log-connection-error" class="md-nav__link">
+  <a href="#too-many-connections-mysql-warning.md" class="md-nav__link">
     <span class="md-ellipsis">
-      Too many connections warning
+      Too Many Connections warning in the MySQL Error Log
     </span>
   </a>
   
@@ -35294,12 +35294,42 @@ takes disk space.</p>
 <li>
 <p>Restart the server.</p>
 </li>
-</ol></section><section class="print-page" id="log-connection-error" heading-number="15.4"><h1 id="log-connection-error-too-many-connections-warning">Too many connections warning<a class="headerlink" href="#log-connection-error-too-many-connections-warning" title="Permanent link">&para;</a></h1>
-<p>If the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_log_error_verbosity">log_error_verbosity</a> system variable is set to <code>2</code> or higher, this feature generates the <code>Too many connections</code> warning in the log.</p>
-<h2 id="log-connection-error-version-specific-information">Version specific information<a class="headerlink" href="#log-connection-error-version-specific-information" title="Permanent link">&para;</a></h2>
-<ul>
-<li>8.0.12-1: The feature was ported from <em>Percona Server for MySQL</em> 5.7.</li>
-</ul></section><section class="print-page" id="stacktrace" heading-number="15.5"><!-- stacktrace: -->
+</ol></section><section class="print-page" id="too-many-connections-mysql-warning.md" heading-number="15.4"><h1 id="too-many-connections-mysql-warning.md-too-many-connections-warning-in-the-mysql-error-log">Too Many Connections warning in the MySQL Error Log<a class="headerlink" href="#too-many-connections-mysql-warning.md-too-many-connections-warning-in-the-mysql-error-log" title="Permanent link">&para;</a></h1>
+<p>When the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_log_error_verbosity">log_error_verbosity</a> system variable is set to <code>2</code> or higher, the server generates a <code>Too many connections</code> warning in the error log.</p>
+<h2 id="too-many-connections-mysql-warning.md-benefits">Benefits<a class="headerlink" href="#too-many-connections-mysql-warning.md-benefits" title="Permanent link">&para;</a></h2>
+<p>This warning provides the following benefits:</p>
+<table>
+<thead>
+<tr>
+<th>Benefit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monitoring server load</td>
+<td>The &ldquo;Too many connections&rdquo; warning provides a clear indication that the database server is experiencing a high volume of incoming connections, which can be a sign of increased server load or potential performance issues.</td>
+</tr>
+<tr>
+<td>Proactive troubleshooting</td>
+<td>By monitoring the error log for this warning, developers and DBAs can quickly identify when the server is reaching its connection limit and take appropriate actions, such as scaling up resources or optimizing connection management.</td>
+</tr>
+<tr>
+<td>Capacity planning</td>
+<td>The frequency and patterns of &ldquo;Too many connections&rdquo; warnings can help database server teams plan for future infrastructure needs, ensuring that the server can handle the expected workload without performance degradation.</td>
+</tr>
+<tr>
+<td>Identifying connection leaks</td>
+<td>Persistent &ldquo;Too many connections&rdquo; warnings may indicate a problem with connection management, such as connections not being properly closed or released. This can help identify and address potential connection leaks.</td>
+</tr>
+<tr>
+<td>Compliance and auditing</td>
+<td>The error log, including the &ldquo;Too many connections&rdquo; warnings, can be valuable for compliance and auditing purposes, providing a record of server behavior and potential issues.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="too-many-connections-mysql-warning.md-version-specific-information">Version specific information<a class="headerlink" href="#too-many-connections-mysql-warning.md-version-specific-information" title="Permanent link">&para;</a></h2>
+<p>In version 8.0.12-1, the &ldquo;Too many connections&rdquo; warning feature was ported from Percona Server for MySQL 5.7.</p></section><section class="print-page" id="stacktrace" heading-number="15.5"><!-- stacktrace: -->
 <h1 id="stacktrace-stack-trace">Stack trace<a class="headerlink" href="#stacktrace-stack-trace" title="Permanent link">&para;</a></h1>
 <p>Developers use the stack trace in the debug process, either an interactive investigation or during the post-mortem. No configuration is required to generate a stack trace.</p>
 <p>Implemented in <em>Percona Server for MySQL</em> 8.0.21-12, stack trace adds the following:</p>
@@ -59703,13 +59733,16 @@ contributions and changes from MariaDB.</p>
 <li><a href="#binlogging-replication-improvements">Binary logs and replication improvements</a></li>
 <li><a href="#binary-tarball-names">Binary tarball file names available based on the Percona Server for MySQL version</a></li>
 <li><a href="#build-apt-packages">Build APT packages</a></li>
+<li><a href="#build-rpm-packages">Build from RPM packages</a></li>
+<li><a href="#clone-plugin-limitations">Clone plugin limitations</a></li>
+<li><a href="#clone-plugin-overview">Clone plugin overview</a></li>
 <li><a href="#components-keyrings-comparison">Compare keyring components and keyring plugins</a></li>
 <li><a href="#data-masking-comparison">Compare the data masking component to the data masking plugin</a></li>
 <li><a href="#compile-percona-server">Compile Percona Server for MySQL 8.0 from source</a></li>
 <li><a href="#compressed-columns">Compressed columns with dictionaries</a></li>
 <li><a href="#copyright-and-licensing-information">Copyright and licensing information</a></li>
 <li><a href="#data-at-rest-encryption">Data at Rest Encryption</a></li>
-<li><a href="#data-masking-function-list">Data masking component functions</a></li>
+<li><a href="#data-masking-function-list">Data masking component functions and variables</a></li>
 <li><a href="#data-masking-overview">Data masking overview</a></li>
 <li><a href="#data-masking-plugin-functions">Data masking plugin functions</a></li>
 <li><a href="#upgrade-changes-deprecated">Deprecated in MySQL 8.0</a></li>
@@ -59727,7 +59760,7 @@ contributions and changes from MariaDB.</p>
 <li><a href="#encrypting-temporary-files">Encrypt temporary files</a></li>
 <li><a href="#encrypting-undo-tablespace">Encrypt the undo tablespace</a></li>
 <li><a href="#encrypting-redo-log">Encrypting the Redo Log data</a></li>
-<li><a href="#encryption-functions">Encryption functions</a></li>
+<li><a href="#encryption-functions">Encryption user-defined functions</a></li>
 <li><a href="#enforce-engine">Enforcing storage engine</a></li>
 <li><a href="#innodb-expanded-fast-index-creation">Expanded fast index creation</a></li>
 <li><a href="#extended-mysqlbinlog">Extended mysqlbinlog</a></li>
@@ -59779,6 +59812,7 @@ contributions and changes from MariaDB.</p>
 <li><a href="#binlog-space">Limiting the disk space used by binary log files</a></li>
 <li><a href="#ps-versions-comparison">List of features available in Percona Server for MySQL releases</a></li>
 <li><a href="#ps-variables">List of variables introduced in Percona Server for MySQL 8.0</a></li>
+<li><a href="#load-clone-plugin">Load the Clone plugin</a></li>
 <li><a href="#group-replication-flow-control">Manage group replication flow control</a></li>
 <li><a href="#manage-audit-log-filter">Manage the Audit Log Filter files</a></li>
 <li><a href="#removing-tokudb">Migrate and remove the TokuDB storage engine</a></li>
@@ -59817,8 +59851,8 @@ contributions and changes from MariaDB.</p>
 <li><a href="#rotating-master-key">Rotate the master key</a></li>
 <li><a href="#yum-run">Run Percona Server for MySQL</a></li>
 <li><a href="#apt-run">Run Percona Server for MySQL 8.0 after APT repository installation</a></li>
-<li><a href="#docker">Run Percona Server for MySQL in a Docker Container</a></li>
 <li><a href="#quickstart-docker">Run Percona Server for MySQL in a Docker container</a></li>
+<li><a href="#docker">Run Percona Server for MySQL in a Docker Container</a></li>
 <li><a href="#secure-log-path-variable">The secure_log_path variable</a></li>
 <li><a href="#upgrade-changes-secure">Security &amp; account management changes in MySQL 8.0</a></li>
 <li><a href="#sequence-table">SEQUENCE_TABLE(n) function</a></li>
@@ -59844,8 +59878,7 @@ contributions and changes from MariaDB.</p>
 <li><a href="#tokudb-status-variables">TokuDB status variables</a></li>
 <li><a href="#tokudb-troubleshooting">TokuDB troubleshooting</a></li>
 <li><a href="#tokudb-variables">TokuDB variables</a></li>
-<li><a href="#log-connection-error">Too many connections warning</a></li>
-<li><a href="#topic-index.md">Topic index</a></li>
+<li><a href="#too-many-connections-mysql-warning.md">Too Many Connections warning in the MySQL Error Log</a></li>
 <li><a href="#trademark-policy">Trademark policy</a></li>
 <li><a href="#trigger-updates">Trigger updates</a></li>
 <li><a href="#server-version-numbers">Understand version numbers</a></li>
@@ -59863,9 +59896,11 @@ contributions and changes from MariaDB.</p>
 <li><a href="#upgrade-standalone-packages">Upgrade using Standalone Packages</a></li>
 <li><a href="#upgrade-percona-repos">Upgrade using the Percona repositories</a></li>
 <li><a href="#apt-repo">Use an APT repository to install Percona Server for MySQL 8.0</a></li>
+<li><a href="#docker-compose">Use Docker Compose and named volumes</a></li>
 <li><a href="#advisors">Use Percona Monitoring and Management (PMM) Advisors</a></li>
 <li><a href="#percona-release">Use percona-release</a></li>
 <li><a href="#using-amz-kms">Use the Amazon Key Management Service (AWS KMS)</a></li>
+<li><a href="#clone-plugin-usage">Use the Clone plugin</a></li>
 <li><a href="#using-keyring-plugin">Use the keyring component or keyring plugin</a></li>
 <li><a href="#using-tokudb">Use TokuDB</a></li>
 <li><a href="#user-stats">User statistics</a></li>
@@ -60276,7 +60311,7 @@ contributions and changes from MariaDB.</p>
 
 .print-site-enumerate-headings #libcoredumper > h1:before { content: '15.3 ' }
 
-.print-site-enumerate-headings #log-connection-error > h1:before { content: '15.4 ' }
+.print-site-enumerate-headings #too-many-connections-mysql-warning.md > h1:before { content: '15.4 ' }
 
 .print-site-enumerate-headings #stacktrace > h1:before { content: '15.5 ' }
 

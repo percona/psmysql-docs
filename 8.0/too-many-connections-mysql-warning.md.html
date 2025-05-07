@@ -9,13 +9,13 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="If the log_error_verbosity system variable is set to 2 or higher, this feature generates the Too many connections warning in the log.">
+        <meta name="description" content="When the log_error_verbosity system variable is set to 2 or higher, the server generates a Too many connections warning in the error log.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/log-connection-error.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/too-many-connections-mysql-warning.md.html">
       
       
         <link rel="prev" href="libcoredumper.html">
@@ -29,7 +29,7 @@
     
     
       
-        <title>Too many connections warning - Percona Server for MySQL</title>
+        <title>Too Many Connections warning in the MySQL Error Log - Percona Server for MySQL</title>
       
     
     
@@ -109,7 +109,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#too-many-connections-warning" class="md-skip">
+        <a href="#too-many-connections-warning-in-the-mysql-error-log" class="md-skip">
           Skip to content
         </a>
       
@@ -206,7 +206,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Too many connections warning
+              Too Many Connections warning in the MySQL Error Log
             
           </span>
         </div>
@@ -6699,7 +6699,7 @@
   
   
   <span class="md-ellipsis">
-    Too many connections warning
+    Too Many Connections warning in the MySQL Error Log
     
   </span>
   
@@ -6707,12 +6707,12 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="log-connection-error.html" class="md-nav__link md-nav__link--active">
+      <a href="too-many-connections-mysql-warning.md.html" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
-    Too many connections warning
+    Too Many Connections warning in the MySQL Error Log
     
   </span>
   
@@ -6735,6 +6735,15 @@
       On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#version-specific-information" class="md-nav__link">
@@ -8533,6 +8542,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#version-specific-information" class="md-nav__link">
     <span class="md-ellipsis">
       Version specific information
@@ -8570,7 +8588,7 @@
 
 
   
-    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/log-connection-error.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/too-many-connections-mysql-warning.md.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -8579,19 +8597,49 @@
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/log-connection-error.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/too-many-connections-mysql-warning.md.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="too-many-connections-warning">Too many connections warning<a class="headerlink" href="#too-many-connections-warning" title="Permanent link">&para;</a></h1>
-<p>If the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_log_error_verbosity">log_error_verbosity</a> system variable is set to <code>2</code> or higher, this feature generates the <code>Too many connections</code> warning in the log.</p>
+<h1 id="too-many-connections-warning-in-the-mysql-error-log">Too Many Connections warning in the MySQL Error Log<a class="headerlink" href="#too-many-connections-warning-in-the-mysql-error-log" title="Permanent link">&para;</a></h1>
+<p>When the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_log_error_verbosity">log_error_verbosity</a> system variable is set to <code>2</code> or higher, the server generates a <code>Too many connections</code> warning in the error log.</p>
+<h2 id="benefits">Benefits<a class="headerlink" href="#benefits" title="Permanent link">&para;</a></h2>
+<p>This warning provides the following benefits:</p>
+<table>
+<thead>
+<tr>
+<th>Benefit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monitoring server load</td>
+<td>The &ldquo;Too many connections&rdquo; warning provides a clear indication that the database server is experiencing a high volume of incoming connections, which can be a sign of increased server load or potential performance issues.</td>
+</tr>
+<tr>
+<td>Proactive troubleshooting</td>
+<td>By monitoring the error log for this warning, developers and DBAs can quickly identify when the server is reaching its connection limit and take appropriate actions, such as scaling up resources or optimizing connection management.</td>
+</tr>
+<tr>
+<td>Capacity planning</td>
+<td>The frequency and patterns of &ldquo;Too many connections&rdquo; warnings can help database server teams plan for future infrastructure needs, ensuring that the server can handle the expected workload without performance degradation.</td>
+</tr>
+<tr>
+<td>Identifying connection leaks</td>
+<td>Persistent &ldquo;Too many connections&rdquo; warnings may indicate a problem with connection management, such as connections not being properly closed or released. This can help identify and address potential connection leaks.</td>
+</tr>
+<tr>
+<td>Compliance and auditing</td>
+<td>The error log, including the &ldquo;Too many connections&rdquo; warnings, can be valuable for compliance and auditing purposes, providing a record of server behavior and potential issues.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="version-specific-information">Version specific information<a class="headerlink" href="#version-specific-information" title="Permanent link">&para;</a></h2>
-<ul>
-<li>8.0.12-1: The feature was ported from <em>Percona Server for MySQL</em> 5.7.</li>
-</ul>
+<p>In version 8.0.12-1, the &ldquo;Too many connections&rdquo; warning feature was ported from Percona Server for MySQL 5.7.</p>
 
 
 
@@ -8612,7 +8660,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2023-09-27
+    2025-05-01
   </span>
 
     
