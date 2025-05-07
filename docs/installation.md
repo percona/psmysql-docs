@@ -12,4 +12,8 @@ The following guides describe the installation process for using the official Pe
 
 [Install Percona Server for MySQL on Debian and Ubuntu :material-arrow-right:](apt-repo.md){.md-button}        [Install Percona Server for MySQL on Red Hat Enterprise Linux and CentOS :material-arrow-right:](yum-repo.md){.md-button}
 
+## Other Installation Methods
+
+[Install Percona Server for MySQL from Binaries](binary-tarball-install.md){.md-button} <br>       [Compile Percona Server for MySQL from Source](source-tarball.md){.md-button} <br>       [Run Percona Server for MySQL in a Docker container](docker.md){.md-button} 
+
 [Telemetry data]: telemetry.md
