@@ -1,311 +1,604 @@
-# Encryption user-defined functions
+# Encryption functions
 
-The encryption user-defined functions (UDF) let you encrypt and decrypt data. You can choose different encryption algorithms and manage the range of data to encrypt.
+## Quick start guide
 
-## Version updates
+> ⚡ **Get Started in 5 Minutes**
+> 
+> ```sql
+> -- Install the encryption component
+> INSTALL COMPONENT 'file://component_encryption_udf';
+> 
+> -- Create keys
+> SET @private_key = create_asymmetric_priv_key('RSA', 3072);
+> SET @public_key = create_asymmetric_pub_key('RSA', @private_key);
+> 
+> -- Encrypt data
+> SET @ciphertext = asymmetric_encrypt('RSA', 'Secret message', @public_key);
+> 
+> -- Decrypt data
+> SET @plaintext = asymmetric_decrypt('RSA', @ciphertext, @private_key);
+> ```
+>
+> See [complete examples](#examples-you-can-try) for more detailed use cases.
 
-Percona Server for MySQL 8.0.41 adds the following:
+## Functions
 
-* Support for `pkcs1`, `oaep`, or `no` padding for RSA encrypt and decrypt operations
+> 🧰 **Cryptographic function library**
+>
+> The following section documents each cryptographic function available in the library. Each function is categorized by purpose with detailed implementation specifications.
 
-    <details>
-       <summary> `pkcs1` padding explanation</summary>
-        [`RSAES-PKCS1-v1_5`](https://en.wikipedia.org/wiki/PKCS_1) RSA encryption padding scheme prevents patterns that attackers could exploit by including a random sequence of bytes, which ensures that the ciphertext is different no matter how many times it is encrypted.
-    </details>
-    
-    <details>
-       <summary> `oaep` padding explanation</summary>  
-        The [`RSAES-OAEP`](https://en.wikipedia.org/wiki/PKCS_1)  - [`Optimal Asymmetric Encryption Padding`](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding) RSA encryption padding scheme adds a randomized mask generation function. This function makes it more difficult for attackers to exploit the encryption algorithm's weaknesses or recover the original message.
-    </details>
-    
-    <details>
-       <summary> `no` padding explanation</summary>
-       Using `no` padding means the plaintext message is encrypted without adding an extra layer before performing the RSA encryption operation.
-    </details>
 
-* Support for `pkcs1` or `pkcs1_pss`  padding for RSA sign and verify operations
+### Function quick reference
 
-    <details>
-       <summary> `pkcs1` padding explanation</summary>
-        The [`RSASSA-PKCS1-v1_5`](https://en.wikipedia.org/wiki/PKCS_1) is a deterministic RSA signature padding scheme that hashes a message, pads the hash with a specific structure, and encrypts it with the signer's private key for signature generation. 
-    </details>
-    <details>
-       <summary> `pkcs1_pss` padding explanation</summary>
-        The [`RSASSA-PSS`](https://en.wikipedia.org/wiki/PKCS_1) - [`Probabilistic Signature Scheme'](https://en.wikipedia.org/wiki/Probabilistic_signature_scheme) is an RSA signature padding scheme used to add randomness to a message before signing it with a private key. This randomness helps to increase the security of the signature and makes it more resistant to various attacks. 
-    </details>
+<table>
+<tr>
+<th>Category</th>
+<th>Function</th>
+<th>What It Does</th>
+<th>Common Use Case</th>
+</tr>
+<tr>
+<td rowspan="2"><strong>Encryption</strong></td>
+<td><a href="#asymmetric_encrypt">asymmetric_encrypt()</a></td>
+<td>Puts your data in a math lockbox</td>
+<td>Protecting sensitive data</td>
+</tr>
+<tr>
+<td><a href="#asymmetric_decrypt">asymmetric_decrypt()</a></td>
+<td>Opens the lockbox and gets your data back</td>
+<td>Retrieving protected data</td>
+</tr>
+<tr>
+<td rowspan="2"><strong>Key Management</strong></td>
+<td><a href="#create_asymmetric_priv_key">create_asymmetric_priv_key()</a></td>
+<td>Makes your secret key</td>
+<td>Creating your private key</td>
+</tr>
+<tr>
+<td><a href="#create_asymmetric_pub_key">create_asymmetric_pub_key()</a></td>
+<td>Creates a shareable public key</td>
+<td>Generating keys to distribute</td>
+</tr>
+<tr>
+<td rowspan="2"><strong>Digital Signatures</strong></td>
+<td><a href="#asymmetric_sign">asymmetric_sign()</a></td>
+<td>Stamps your message with your secret key</td>
+<td>Proving a message is from you</td>
+</tr>
+<tr>
+<td><a href="#asymmetric_verify">asymmetric_verify()</a></td>
+<td>Checks if a signature is real or fake</td>
+<td>Verifying message authenticity</td>
+</tr>
+</table>
 
-* [`encryption_udf.legacy_paddding_scheme`](#encryption_udflegacy_paddding_scheme) system variable
+### Asymmetric encryption functions
 
-* Character set awareness
+These functions implement public key cryptography utilizing key pairs. The encryption and decryption operations require different keys from the same key pair.
 
-Percona Server for MySQL 8.0.28-20 adds encryption functions and variables to manage the encryption range.
+| Function Name | Purpose |
+| --- | --- |
+| [asymmetric_encrypt](#asymmetric_encrypt) | Encrypts plaintext data using asymmetric cryptography. Only the corresponding key can decrypt. |
+| [asymmetric_decrypt](#asymmetric_decrypt) | Decrypts ciphertext that was encrypted with the corresponding asymmetric key. |
 
-## Charset Awareness
 
-All component_encryption_udf functions now handle character sets intelligently:
+### Asymmetric key management functions
 
-• Algorithms, digest names, padding schemes, keys, and parameters in PEM format: Automatically converted to the ASCII charset at the MySQL level before passing to the functions.
+These functions facilitate the generation and management of asymmetric cryptographic key pairs:
 
-• Messages, data blocks, and signatures used for digest calculation, encryption, decryption, signing, or verification: Automatically converted to the binary charset at the MySQL level before passing to the functions.
+| Function Name | Description |
+| --- | --- |
+| [create_asymmetric_priv_key](#create_asymmetric_priv_key) | Generates a private key with specified algorithm and security parameters |
+| [create_asymmetric_pub_key](#create_asymmetric_pub_key) | Derives the corresponding public key from a private key for distribution |
 
-• Function return values in PEM format: Assigned the ASCII charset.
 
-• Function return values for operations like digest calculation, encryption, decryption, and signing: Assigned the binary charset.
+### Digital Signature functions
 
-## Use user-defined functions
+These functions implement digital signature operations for message authentication and verification:
 
-You can also use the user-defined functions with the PEM format keys generated externally by the OpenSSL utility.
+| Function Name | Description |
+| --- | --- |
+| [asymmetric_sign](#asymmetric_sign) | Applies a cryptographic signature to a message digest using a private key |
+| [asymmetric_verify](#asymmetric_verify) | Validates the authenticity of a digital signature using the corresponding public key |
 
-A digest uses plaintext and generates a hash value. This hash value can verify if the plaintext is unmodified. You can also sign or verify on digests to ensure that the original plaintext was not modified. You cannot decrypt the original text from the hash value.
+### Diffie-Hellman functions
 
-When choosing key lengths, consider the following:
+> 🤝 **Shared secret generation**
+>
+> These functions facilitate secure key exchange between parties through the Diffie-Hellman protocol without transmitting sensitive key material.
 
-* Encryption strength increases with the key size and also the key generation time.
+| Function Name | Description | Application |
+| --- | --- | --- |
+| [asymmetric_derive](#asymmetric_derive) | Generates a shared cryptographic secret through asymmetric key combination | When implementing secure communication channels between parties |
+| [create_dh_parameters](#create_dh_parameters) | Generates the prime numbers and parameters required for Diffie-Hellman key exchange | As a prerequisite for Diffie-Hellman key generation |
 
-* If performance is important and the functions are frequently used, use symmetric encryption. Symmetric encryption functions are faster than asymmetric encryption functions. Moreover, asymmetric encryption restricts the maximum length of a message being encrypted. For example, the algorithm's maximum message size for RSA is the key length in bytes (key length in bits / 8) minus 11.
 
-The following table and sections describe the functions. For examples, see function examples.
+### Encryption threshold variables
 
-| Function Name                                                                                                                    |
-|----------------------------------------------------------------------------------------------------------------------------------|
-| [asymmetric_decrypt(algorithm, crypt_str, key_str)](#asymmetric_decryptalgorithm-crypt_str-key_str) |
-| [asymmetric_derive(pub_key_str, priv_key_str)](#asymmetric_derivepub_key_str-priv_key_str) |
-| [asymmetric_encrypt(algorithm, str, key_str)](#asymmetric_encryptalgorithm-str-key_str) |
-| [asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type)](#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type) |
-| [asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type)](#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type) |
-| [create_asymmetric_priv_key(algorithm, (key_len &#124; dh_parameters))](#create_asymmetric_priv_keyalgorithm-key_len--dh_parameters)   |
-| [create_asymmetric_pub_key(algorithm, priv_key_str)](#create_asymmetric_pub_keyalgorithm-priv_key_str)  |
-| [create_dh_parameters(key_len)](#create_dh_parameterskey_len)  |
-| [create_digest(digest_type, str)](#create_digestdigest_type-str)  |
+> ⚙️ **System configuration**
+>
+> These settings let you control how strong your encryption can be. They're like speed limits for your security system.
 
-The following table describes the encryption threshold variables, which can be used to set the maximum value for a key length based on the type of encryption used.
+Keys that are too strong might slow down your system. It's like having a super-heavy padlock that takes forever to open.
 
-| Variable Name                     |
-|-----------------------------------|
-| [encryption_udf.dh_bits_threshold](#encryption_udfdh_bits_threshold)  |
-| [encryption_udf.dsa_bits_threshold](#encryption_udfdsa_bits_threshold) |
-| [encryption_udf.rsa_bits_threshold](#encryption_udfrsa_bits_threshold) |
+<table>
+<tr>
+<th>Setting Name</th>
+<th>What It Does</th>
+<th>Default</th>
+<th>Range</th>
+<th>Performance Impact</th>
+</tr>
+<tr>
+<td><a href="#encryption_udfdh_bits_threshold">encryption_udf.dh_bits_threshold</a></td>
+<td>Sets how strong Diffie-Hellman keys can be</td>
+<td>10000</td>
+<td>1024-10000</td>
+<td>Higher values significantly increase key generation time</td>
+</tr>
+<tr>
+<td><a href="#encryption_udfdsa_bits_threshold">encryption_udf.dsa_bits_threshold</a></td>
+<td>Sets how strong DSA keys can be</td>
+<td>9984</td>
+<td>1024-9984</td>
+<td>Higher values increase key generation time</td>
+</tr>
+<tr>
+<td><a href="#encryption_udfrsa_bits_threshold">encryption_udf.rsa_bits_threshold</a></td>
+<td>Sets how strong RSA keys can be</td>
+<td>16384</td>
+<td>1024-16384</td>
+<td>Higher values increase key generation and encryption/decryption time</td>
+</tr>
+<tr>
+<td><a href="#encryption_udflegacy_padding">encryption_udf.legacy_padding</a></td>
+<td>Turns old-style padding on or off</td>
+<td>OFF</td>
+<td>ON/OFF</td>
+<td>Minor impact on encryption speed, major impact on security</td>
+</tr>
+</table>
+---
+
 
 ## Install component_encryption_udf
 
-Use the [Install Component Statement](https://dev.mysql.com/doc/refman/8.0/en/install-component.html) to add the component_encryption_udf component. The functions and variables are available. The user-defined functions and the Encryption threshold variables are auto-registered. There is no requirement to invoke `CREATE FUNCTION ... SONAME ...`.
+> 📦 **Installation Guide**
+>
+> Before you can lock up your data, you need to install your security tools.
 
-The `INSERT` privilege on the `mysql.component` system table is required to run the `INSTALL COMPONENT` statement. The operation adds a row to this table to register the component.
 
-The following is an example of the installation command:
+### Quick installation steps
 
-```{.bash data-prompt="mysql>"}
-mysql> INSTALL COMPONENT 'file://component_encryption_udf';
+1. Use a simple command to add the encryption tools
+2. Once you run the command, all the tools are ready right away
+3. Best part: You don't need to run any complex setup commands!
+
+You'll need the `INSERT` permission on the `mysql.component` table to install this. The system just adds one row to this table to remember the tools are installed.
+
+```sql
+-- Install the encryption component
+INSTALL COMPONENT 'file://component_encryption_udf';
+
+-- Verify installation
+SELECT * FROM mysql.component;
 ```
 
 !!! note
 
-    If you are Compiling Percona Server for MySQL from Source, the Encryption UDF component is built by default when Percona Server for MySQL is built. Specify the `-DWITH_ENCRYPTION_UDF=OFF` cmake option to exclude it.
+    If you're building Percona Server for MySQL from scratch, the encryption UDF component can be enabled or disabled using the `-DWITH_ENCRYPTION_UDF` CMake flag. By default, this flag is set to `ON`, meaning the encryption UDF component is built and included in the installation. If you want to build Percona Server without this component, you can disable it by setting `-DWITH_ENCRYPTION_UDF=OFF` during the CMake configuration stage of the build process.
 
 ## User-defined functions described
 
-## asymmetric_decrypt(*algorithm, crypt_str, key_str*)
+---
 
-Decrypts an encrypted string using the algorithm and a key string.
 
-### Returns
+## Asymmetric_decrypt(*algorithm, crypt_str, key_str*){asymmetric_decrypt}
 
-A plaintext as a string.
+> 🔓 **Data Decryption Function**
+>
+> This function decrypts ciphertext to recover the original plaintext using asymmetric cryptography.
 
-### Parameters
 
-The following are the function’s parameters:
+### Quick reference
 
-* algorithm - the encryption algorithm supports RSA in decrypting the string.
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| algorithm | Yes | Cryptographic algorithm identifier (currently only 'RSA') |
+| crypt_str | Yes | The encrypted data (ciphertext) to be decrypted |
+| key_str | Yes | The decryption key in PEM format |
+| padding | No | Padding scheme: 'no', 'pkcs1', or 'oaep' |
 
-* key_str - a string in the PEM format. The key string must have the following attributes:
 
-  * Valid
+### Return value
 
-  * Public or private key string corresponding with the private or public key string used with the asymmetric_encrypt function.
+The function returns the original plaintext message decoded from the ciphertext.
+
+
+### Parameter details
+
+* **algorithm** - Specifies the cryptographic algorithm to be used for decryption (currently only RSA is supported)
+
+* **key_str** - The decryption key in PEM format. Requirements:
+  * Must be properly formatted and valid
+  * Must correspond to the encryption key used (public key if encrypted with private key, or private key if encrypted with public key)
+
+* **crypt_str** - The encrypted binary data to be decrypted
+
+* **padding** - Specifies the padding scheme implemented in version 8.0.41:
+  * `no` - No padding (requires exact-size messages)
+  * `pkcs1` - PKCS#1 v1.5 padding scheme
+  * `oaep` - Optimal Asymmetric Encryption Padding (more secure)
   
-  * `crypt_str` - an encrypted string produced by certain encryption functions like AES_ENCRYPT(). This string is typically stored as a binary or blog data type.
+  If not specified, the system uses the value from the encryption_udf.legacy_padding_scheme variable.
+
+<details>
+   <summary>Example usage</summary>
+   
+   ```sql
+   -- Decrypt data using a private key
+   SET @plaintext = asymmetric_decrypt('RSA', @ciphertext, @private_key, 'oaep');
+   
+   -- Verify the decrypted result
+   SELECT @plaintext;
+   ```
+</details>
+---
+
+
+## Asymmetric_derive(*pub_key_str, priv_key_str*){asymmetric_derive}
+
+> 🤝 **Shared secret generation**
+>
+> This function implements the Diffie-Hellman key exchange protocol to establish a shared cryptographic secret between two parties without transmitting sensitive key material.
+
+
+### Quick reference
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| pub_key_str | Yes | The recipient's public key |
+| priv_key_str | Yes | The initiator's private key |
+
+
+### Required parameters
+
+* **pub_key_str** - The recipient party's public key in PEM format
+
+* **priv_key_str** - The initiator's private key in PEM format
+
+
+### Return value
+
+* Returns a cryptographic key value that will be identical for both parties when they perform their respective calculations
+
+* The function enables secure symmetric key establishment without transmitting the actual secret key
+
+<details>
+   <summary>Example usage</summary>
+   
+   ```sql
+   -- Generate a shared secret
+   SET @shared_secret = asymmetric_derive(@their_public_key, @my_private_key);
+   
+   -- Use the shared secret for symmetric encryption
+   -- Both parties will have the same shared secret
+   ```
+</details>
+---
+
+
+## Asymmetric_encrypt(*algorithm, str, key_str*){asymmetric_encrypt}
+
+> 🔒 **Data Encryption Function**
+>
+> This function transforms plaintext data into encrypted format using asymmetric cryptography. The encrypted data can only be decrypted with the corresponding key.
+
+
+### Quick reference
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| algorithm | Yes | Cryptographic algorithm identifier (currently only 'RSA') |
+| str | Yes | The plaintext message to encrypt |
+| key_str | Yes | The encryption key (public or private) in PEM format |
+| padding | No | Padding scheme: 'no', 'pkcs1', or 'oaep' |
+
+
+### Return value
+
+The function returns the encrypted ciphertext as binary data.
+
+
+### Parameter details
+
+* **algorithm** - Specifies the cryptographic algorithm to be used for encryption (currently only RSA is supported)
+
+* **str** - The plaintext data to be encrypted. Note that message length is constrained by the key size and padding scheme selected. Maximum message length must not exceed the key size minus padding overhead.
+
+* **key_str** - The encryption key in PEM format (can be either a public or private key depending on implementation requirements)
+
+* **padding** - A parameter added in version 8.0.41 that specifies the padding scheme:
+  * `no` - No padding (requires exact-size messages, not recommended for production)
+  * `pkcs1` - PKCS#1 v1.5 padding scheme (standard protection)
+  * `oaep` - Optimal Asymmetric Encryption Padding (enhanced security)
   
-* padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA encryption padding schemes like `no`, `pkcs1`, or `oaep`. If you skip this parameter, the system determines its value based on the [`encryption_udf.legacy_padding_scheme`](#encryption_udf.legacy_padding_scheme) variable.
+  If not specified, the system uses the value from the encryption_udf.legacy_padding_scheme variable.
 
-## asymmetric_derive(*pub_key_str, priv_key_str*)
+<details>
+   <summary>Example usage</summary>
+   
+   ```sql
+   -- Encrypt sensitive data using a public key
+   SET @ciphertext = asymmetric_encrypt('RSA', 'Secret message', @public_key, 'oaep');
+   
+   -- Store or transmit the encrypted data
+   INSERT INTO secure_messages VALUES (@ciphertext);
+   ```
+</details>
 
-Derives a symmetric key using a public key generated on one side and a private key generated on another.
+⚠️ **Size Limits**: Remember that your message size is limited by your key size and padding method. For a 2048-bit key with OAEP padding, your message must be smaller than (2048/8)-42 = 214 bytes.
+---
 
-### asymmetric_derive output
 
-A key as a binary string.
+## Asymmetric_sign(*algorithm, digest_str, priv_key_str, digest_type, [padding]*){asymmetric_sign}
 
-### asymmetric_derive parameters
+> ✍️ **Digital Signature Function**
+>
+> This function applies a cryptographic signature to a message digest using a private key. The signature provides authentication, non-repudiation, and integrity verification capabilities. Each signature is unique even when signing the same content multiple times.
 
-The `pub_key_str` must be a public key in the PEM format and generated using the Diffie-Hellman (DH) algorithm.
 
-The `priv_key_str` must be a private key in the PEM format and generated using the Diffie-Hellman (DH) algorithm.
+### Quick reference
 
-## asymmetric_encrypt(*algorithm, str, key_str*)
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| algorithm | Yes | Signature algorithm ('RSA' or 'DSA') |
+| digest_str | Yes | The message digest (hash value) |
+| priv_key_str | Yes | The signer's private key in PEM format |
+| digest_type | Yes | The hash algorithm identifier (e.g., 'SHA256') |
+| padding | No | For RSA only: 'pkcs1' or 'pkcs1_pss' |
 
-Encrypts a string using the algorithm and a key string.
 
-### asymmetric_encrypt output
+### Security considerations
 
-A ciphertext as a binary string.
+⚠️ **Implementation Risks**:
+* Using public key instead of private key for signing operations
+* Signing raw message data instead of message digest
+* Inconsistent algorithm selection across systems
+* Inadequate private key protection and backup procedures
 
-### asymmetric_encrypt parameters
 
-The parameters are the following:
+### Return value
 
-* algorithm - the encryption algorithm supports RSA in encrypting the string.
+The function returns a digital signature as binary data that cryptographically proves the authenticity of the message.
 
-* str - measured in bytes. The length of the string must not be greater than the key_str modulus length in bytes - 11 (additional bytes used for PKCS1 padding)
 
-* key_str - a key (either private or public) in the PEM format
+### Parameter details
 
-* padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA encryption padding schemes like `no`, `pkcs1`, or `oaep`. If you skip this parameter, the system determines its value based on the [`encryption_udf.legacy_padding_scheme`](#encryption_udf.legacy_padding_scheme) variable.
+1. **algorithm** - Specifies the signature algorithm:
+   * 'RSA' - RSA signature algorithm (widely implemented)
+   * 'DSA' - Digital Signature Algorithm (alternative implementation)
 
-## asymmetric_sign(*algorithm, digest_str, priv_key_str, digest_type*)
+2. **digest_str** - The cryptographic hash of the message 
+   * Generate using the create_digest function
+   * Always sign the digest rather than the raw message for security and performance
 
-Signs a digest string using a private key string.
+3. **priv_key_str** - The signer's private key
+   * Requires secure storage and access controls
+   * Must be in PEM format (standard key encoding format)
 
-### asymmetric_sign output
+4. **digest_type** - The hash algorithm identifier
+   * Common implementations include 'SHA256', 'SHA512', etc.
+   * Reference the digest type table for all supported algorithms
 
-A signature is a binary string.
+5. **padding** - Signature padding scheme (for RSA algorithm only)
+   * Options: 'pkcs1' or 'pkcs1_pss'
+   * Default is determined by the encryption_udf.legacy_padding_scheme setting
 
-### asymmetric_sign parameters
+<details>
+   <summary>Example usage</summary>
+   
+   ```sql
+   -- Generate a message digest
+   SET @digest = create_digest('SHA256', 'Important message');
+   
+   -- Sign the digest
+   SET @signature = asymmetric_sign('RSA', @digest, @private_key, 'SHA256', 'pkcs1_pss');
+   
+   -- Store the signature with the message
+   INSERT INTO signed_messages VALUES ('Important message', @signature);
+   ```
+</details>
 
-The parameters are the following:
+---
 
-* algorithm - the encryption algorithm supports RSA or DSA in encrypting the string.
 
-* digest_str - the digest binary string that is signed. Invoking create_digest generates the digest.
+## Asymmetric_verify(*algorithm, digest_str, sig_str, pub_key_str, digest_type, [padding]*){asymmetric_verify}
 
-* priv_key_str - the private key used to sign the digest string. The key must be in the PEM format.
+> 🔍 **Signature verification function**
+>
+> This function validates the authenticity of a digital signature by verifying it against the original message digest using the signer's public key. It provides cryptographic proof of message integrity and sender identity.
 
-* digest_type - the OpenSSL version installed on your system determines the available hash functions. The following table lists these functions:
 
-    | OpenSSL 1.0.2 | OpenSSL 1.1.0 | OpenSSL 1.1.1 | OpenSSL 3.0.x |
-    |---|---|---|---|
-    | md5 | md5 | md5 | md5 |
-    | sha1 | sha1 | sha1 | sha1 |
-    | sha224 | sha224 | sha224 | sha224 |
-    | sha384 | sha384 | sha384 | sha384 |
-    | sha512 | sha512 | sha512 | sha512 |
-    | md4 | md4 | md4 | md4 |
-    | sha | md5-sha1 | md5-sha1 | md5-sha1 |
-    | ripemd160 | ripemd160 | ripemd160 | sha512-224 |
-    | whirlpool | whirlpool | sha512-224 | sha512-256 |
-    |  | blake2b512 | sha512-256 | sha3-224 |
-    |  | blake2s256 | whirlpool | sha3-256 |
-    |  |  | sm3 | sha3-384 |
-    |  |  | blake2b512 | sha3-512 |
-    |  |  | blake2s256 |  |
-    |  |  | sha3-224 |  |
-    |  |  | sha3-384 |  |
-    |  |  | sha3-512 |  |
-    |  |  | shake128 |  |
-    |  |  | shake256 |  |
+### Quick reference
 
-
-* padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA signature padding schemes like `pkcs1`, or `pkcs1_pss`. If you skip this parameter, the system determines its value based on the [`encryption_udf.legacy_padding_scheme`](#encryption_udf.legacy_padding_scheme) variable.
-
-## asymmetric_verify(*algorithm, digest_str, sig_str, pub_key_str, digest_type*)
-
-Verifies whether the signature string matches the digest string.
-
-### asymmetric_verify output
-
-A `1` (success) or a `0` (failure).
-
-### asymmetric_verify parameters
-
-The parameters are the following:
-
-* algorithm - supports either ‘RSA’ or ‘DSA’.
-
-* digest_str - invoking create_digest generates this digest binary string.
-
-* sig_str - the signature binary string. Invoking asymmetric_sign generates this string.
-
-* pub_key_str - the signer’s public key string. This string must correspond to the private key passed to asymmetric_sign to generate the signature string. The string must be in the PEM format.
-
-* digest_type - the supported values are listed in the digest type table of create_digest
-
-* padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA signature padding schemes like `pkcs1`, or `pkcs1_pss`. If you skip this parameter, the system determines its value based on the [`encryption_udf.legacy_padding_scheme`](#encryption_udf.legacy_padding_scheme) variable.
-
-## create_asymmetric_priv_key(*algorithm, (key_len | dh_parameters)*)
-
-Generates a private key using the given algorithm and key length for DH's RSA, DSA
-, or Diffie-Hellman parameters. For RSA or DSA, if needed, execute `KILL
-[QUERY|CONNECTION] <id>` to terminate a long-lasting key generation. The
-DH key generation from existing parameters is a quick operation. Therefore, it
-does not make sense to terminate that operation with `KILL`.
-
-### create_asymmetric_priv_key output
-
-The key as a string in the PEM format.
-
-### create_asymmetric_priv_key parameters
-
-The parameters are the following:
-
-* algorithm - the supported values are ‘RSA’, ‘DSA’, or ‘DH’.
-
-* key_len - the supported key length values are the following:
-
-    * RSA - the minimum length is 1,024. The maximum length is 16,384.
-
-    * DSA - the minimum length is 1,024. The maximum length is 9,984.
-
-    !!! note 
- 
-        OpenSSL defines the key length limits. To change the maximum key length, use either encryption_udf.rsa_bits_threshold or encryption_udf.dsa_bits_threshold.
-
-* dh_parameters - Diffie-Hellman (DH) parameters. Invoking create_dh_parameter creates the DH parameters.
-
-## create_asymmetric_pub_key(*algorithm, priv_key_str*)
-
-Derives a public key from the given private key using the given algorithm.
-
-### create_asymmetric_pub_key output
-
-The key as a string in the PEM format.
-
-### create_asymmetric_pub_key parameters
-
-The parameters are the following:
-
-* algorithm - the supported values are ‘RSA’, ‘DSA’, or ‘DH’.
-
-* priv_key_str - must be a valid key string in the PEM format.
-
-## create_dh_parameters(*key_len*)
-
-Creates parameters for generating a Diffie-Hellman (DH) private/public key pair.
-If needed, execute `KILL [QUERY|CONNECTION] <id>` to terminate the generation of long-lasting parameters.
-
-Generating the DH parameters can take more time than generating the RSA keys or
-the DSA keys.
-OpenSSL defines the parameter length limits. To change the
-maximum parameter length, use encryption_udf.dh_bits_threshold.
-
-### create_dh_parameters output
-
-A string in the PEM format can be passed to create_asymmetric_private_key.
-
-### create_dh_parameters parameters
-
-The parameters are the following:
-
-* key_len - the range for the key length is from 1024 to 10,000. The default value is 10,000.
-
-## create_digest(*digest_type, str*)
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| algorithm | Yes | Signature algorithm ('RSA' or 'DSA') |
+| digest_str | Yes | The message digest (hash value) |
+| sig_str | Yes | The digital signature to verify |
+| pub_key_str | Yes | The signer's public key in PEM format |
+| digest_type | Yes | The hash algorithm identifier (e.g., 'SHA256') |
+| padding | No | For RSA only: 'pkcs1' or 'pkcs1_pss' |
+
+
+### Return value
+
+The function returns a binary verification result:
+* `1` - Signature verified successfully (authentic)
+* `0` - Signature verification failed (inauthentic or corrupted)
+
+
+### Parameter details
+
+1. **algorithm** - Specifies the signature algorithm for verification
+   * Must match the algorithm used during signature creation
+   * Supported values: 'RSA' or 'DSA'
+
+2. **digest_str** - The cryptographic hash of the message
+   * Generate using the create_digest function
+   * Must use identical hashing algorithm as used during signing
+
+3. **sig_str** - The digital signature to be verified
+   * Generated by the asymmetric_sign function
+   * Binary data containing cryptographic validation information
+
+4. **pub_key_str** - The signer's public key
+   * Must correspond to the private key used for signature creation
+   * Required in PEM format
+
+5. **digest_type** - The hash algorithm identifier
+   * Must match the algorithm used during signature creation
+   * Reference the algorithm table for supported options
+
+6. **padding** - The signature padding scheme
+   * Applicable only for RSA signatures
+   * Must match the padding scheme used during signature creation
+   * Default is determined by [`encryption_udf.legacy_padding_scheme`](#encryption_udflegacy_padding_scheme)
+
+
+### ⚠️ Common Verification Pitfalls
+
+| Mistake | What Happens | How to Avoid |
+|---------|-------------|--------------|
+| Using wrong public key | Verification always fails | Double-check key ownership |
+| Verifying tampered message | Verification correctly fails | Don't change the message after signing |
+| Using wrong digest type | Verification fails mysteriously | Use same digest type as signing |
+| Mismatched padding | Verification fails with no clear reason | Use same padding as signing |
+
+<details>
+   <summary>Example usage</summary>
+   
+   ```sql
+   -- Retrieve a signed message and its signature
+   SELECT message, signature INTO @message, @signature FROM signed_messages LIMIT 1;
+   
+   -- Generate the message digest
+   SET @digest = create_digest('SHA256', @message);
+   
+   -- Verify the signature (1 = valid, 0 = invalid)
+   SET @is_valid = asymmetric_verify('RSA', @digest, @signature, @public_key, 'SHA256', 'pkcs1_pss');
+   
+   -- Check the result
+   SELECT IF(@is_valid = 1, 'Signature is valid', 'Signature is forged or corrupted') AS verification_result;
+   ```
+</details>
+
+---
+## Create_asymmetric_priv_key(*algorithm, key_len*){create_asymmetric_priv_key}
+
+> 🔑 **Private key generation function**
+>
+> This function generates a cryptographic private key using the specified algorithm and security parameters. The private key serves as the foundation for asymmet
+
+| Mistake | Consequence | Better Approach |
+|---------|-------------|-----------------|
+| Too small key | Vulnerable to attacks | Use at least 2048 bits for RSA |
+| Too large key | Extremely slow operations | Balance security with performance |
+| Unsecured storage | Key theft | Store keys in secure, restricted locations |
+| No backup | Permanent data loss | Backup keys with proper security |
+
+### Taking too long?
+
+Some keys (especially strong ones) take a while to create. If you're getting impatient:
+
+```sql
+KILL QUERY <id>;
+-- or
+KILL CONNECTION <id>;
+```
+
+This works for RSA and DSA keys. DH keys are quick, so no worries there.
+
+<details>
+   <summary>Example usage</summary>
+   
+   ```sql
+   -- Create a 3072-bit RSA private key
+   SET @private_key = create_asymmetric_priv_key('RSA', 3072);
+   
+   -- Create a 2048-bit DSA private key
+   SET @dsa_key = create_asymmetric_priv_key('DSA', 2048);
+   
+   -- Create DH parameters and then a DH key
+   SET @dh_params = create_dh_parameters(2048);
+   SET @dh_key = create_asymmetric_priv_key('DH', 2048, @dh_params);
+   
+   -- Save your key for future use
+   INSERT INTO secure_keys (key_id, key_content) VALUES ('my_primary_key', @private_key);
+   ```
+</details>
+
+---
+
+## Create_asymmetric_pub_key(*algorithm, priv_key_str*){create_asymmetric_pub_key}
+
+> 🔓 **Public key extraction function**
+>
+> This function extracts a public key from your private key. Think of it as creating a deposit-only ATM card - people can put money in, but they can't take any out.
+
+### Quick reference
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| algorithm | Yes | Key algorithm ('RSA', 'DSA', or 'DH') |
+| priv_key_str | Yes | Your private key in PEM format |
+
+### What you get back
+
+A public key in PEM format - another block of garbled text you can freely share.
+
+### What you need to extract your public key
+
+1. **algorithm** - What kind of key are we working with?
+   * Must match the private key type: 'RSA', 'DSA', or 'DH'
+   * Get this wrong and you'll get errors
+
+2. **priv_key_str** - Your secret private key
+   * Must be in PEM
+
+## Create_dh_parameters(*key_len*){create_dh_parameters}
+
+This function creates the special math values for Diffie-Hellman keys. It's like creating a recipe that two people will follow to create identical secret sauces without ever sharing their individual ingredients.
+
+### Warning: Patience required!
+This can take a LONG time - much longer than making regular keys. Cancel with:
+```
+KILL [QUERY|CONNECTION] <id>
+```
+
+Think of it like the difference between:
+* Making regular keys = making a sandwich
+* Creating DH parameters = baking bread from scratch
+
+### What you get back
+A block of special values in PEM format. You'll use these later when creating DH keys.
+
+### What you need to create parameters
+
+**key_len** - How mathematically strong should these be?
+* Choose between 1,024 and 10,000 bits
+* Default is 10,000 (strongest but slowest)
+* Admins can adjust the maximum with encryption_udf.dh_bits_threshold
+## Create_digest(*digest_type, str*){create_digest}
 
 Creates a digest from the given string using the given digest type. The digest string can be used with asymmetric_sign and asymmetric_verify.
 
-### create_digest output
+### Create_digest output
 
 The digest of the given string as a binary string
 
-### create_digest parameters
+### Create_digest parameters
 
 The parameters are the following:
 
@@ -371,9 +664,11 @@ The variable sets the threshold limits for the create_asymmetric_priv_key user-d
 
 The range for this variable is from 1,024 to 9,984. The default value is 9,984.
 
-### encryption_udf.legacy_paddding_scheme
+### Encryption_udf.legacy_padding_scheme
 
 The variable enables or disables the legacy padding scheme for certain encryption operations.
+
+895|
 
 | Option       | Description      |
 |--------------|------------------|
@@ -386,60 +681,86 @@ This system variable is a BOOLEAN type and is set to `OFF` by default.
 
 This variable controls how the functions `asymmetric_encrypt()`, `asymmetric_decrypt()`, `asymmetric_sign()`, and `asymmetric_verify()` behave when you don’t explicitly set the padding parameter.
 
-•	When encryption_udf.legacy_padding_scheme is OFF:
+### Understanding padding schemes
 
-    • asymmetric_encrypt() and asymmetric_decrypt() use OAEP encryption padding.
+Think of padding like packing a box:
+* `oaep` is like using a big box with lots of bubble wrap
+* `no` padding is like using an exact-size box with no padding 
+* `pkcs1` is like using a box with just a thin layer of protection
 
-    • asymmetric_sign() and asymmetric_verify() use PKCS1_PSS signature padding.
+When `encryption_udf.legacy_padding_scheme` is OFF (default):
 
-•	When encryption_udf.legacy_padding_scheme is ON:
+* For locking data: Functions use `oaep` padding (the big box with lots of bubble wrap)
+* For signing data: Functions use `pkcs1_pss` padding (the fancy signature style)
 
-    • asymmetric_encrypt() and asymmetric_decrypt() use PKCS1 encryption padding.
+When `encryption_udf.legacy_padding_scheme` is ON:
 
-    • asymmetric_sign() and asymmetric_verify() use PKCS1 signature padding.
+* For locking data: Functions use `pkcs1` padding (the box with thin protection)
+* For signing data: Functions use `pkcs1` padding (the basic signature style)
 
-The `asymmetric_encrypt()` and `asymmetric_decrypt()` functions, when the encryption is `RSA`, can accept an optional parameter, `padding`. You can set this parameter to `no`, `pkcs1`, or `oaep`. If you don’t specify this parameter, it defaults based on the [`encryption_udf.legacy_padding_scheme`](#encryption_udf.legacy_padding_scheme) value. 
+You can also pick a padding style yourself in the `asymmetric_encrypt()` and `asymmetric_decrypt()` functions with RSA encryption. Just add `'no'`, `'pkcs1'`, or `'oaep'` as the last parameter. If you don't pick one, the system uses whatever `encryption_udf.legacy_padding_scheme` is set to.
 
-The padding schemes have the following limitations:
+### Size limits for each padding style
 
-| Padding Scheme    | Details                                                                                                                                                        |
-|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `oaep`           | The message you encrypt can be as long as your RSA key size in bytes - 42 bytes.|
-| `no`             | The message length must exactly match your RSA key size in bytes. For example, if your key is 1024 bits (128 bytes), the message must also be 128 bytes. If it doesn’t match, it will cause an error. |
-| `pkcs1` | Your message can be equal to or smaller than the RSA key size - 11 bytes. For instance, with a 1024-bit RSA key, your message can’t be longer than 117 bytes.|
+| Padding Box | How much can fit inside |
+|-------------|-------------------------|
+| `oaep`      | Your key size minus 42 bytes (less room, but most secure) |
+| `no`        | Must be EXACTLY your key size (like a perfect-fit box) |
+| `pkcs1`     | Your key size minus 11 bytes (more room than oaep) |
 
-Similarly, `asymmetric_sign()` and `asymmetric_verify()` also have an optional `padding` parameter, either `pkcs1` or `pkcs1_pss`. If not explicitly set, it follows the default based on [`encryption_udf.legacy_padding_scheme`](#encryption_udf.legacy_padding_scheme). You can only use the padding parameter with RSA algorithms.
+#### Example: How much fits in a pkcs1 box
 
-#### Additional resources
+Let's say you have a 1024-bit RSA key:
 
-  For more information, read [`Digital Signatures: Another layer of Data Protection in Percona Server for MySQL`](https://www.percona.com/blog/digital-signatures-another-layer-of-data-protection-in-percona-server-for-mysql/)
+1. First, convert bits to bytes:
+   * 1024 bits ÷ 8 = 128 bytes
 
-### encryption_udf.rsa_bits_threshold
+2. Then, subtract the padding space:
+   * 128 bytes - 11 bytes = 117 bytes
 
-The variable sets the threshold limits for the create_asymmetric_priv_key user-defined function when invoked with the RSA parameter and takes precedence over the OpenSSL maximum length value.
+3. Result: Your message must be 117 bytes or less
 
-| Option       | Description      |
-|--------------|------------------|
-| command-line | Yes              |
-| scope        | Global           |
-| data type    | unsigned integer |
-| default      | 16384            |
+If your message is bigger than what fits, you'll need:
+* A bigger key size, or
+* A different padding style
 
-The range for this variable is from 1,024 to 16,384. The default value is 16,384.
+### Padding for signatures
 
-### Examples
+When you sign data with `asymmetric_sign()` or verify with `asymmetric_verify()`, you can choose a padding style too:
+* `pkcs1` - the basic style
+* `pkcs1_pss` - the extra-secure style
 
-Code examples for the following operations:
+If you don't pick one, the system checks the `encryption_udf.legacy_padding_scheme` setting. You can only use padding with RSA algorithms.
 
-* Set the threshold variables
+#### Want to learn more?
 
-* Create a private key
+Check out this article: [`Digital Signatures: Another layer of Data Protection in Percona Server for MySQL`](https://www.percona.com/blog/digital-signatures-another-layer-of-data-protection-in-percona-server-for-mysql/)
 
-* Create a public key
+### Encryption_udf.rsa_bits_threshold
 
-* Encrypt data
+This setting controls how strong RSA keys can be when you create them with the create_asymmetric_priv_key function. Think of it as setting a limit on how big of a padlock you can make.
 
-* Decrypt data
+| Option       | What it means     |
+|--------------|-------------------|
+| command-line | You can set it when starting MySQL |
+| scope        | Affects the whole server |
+| data type    | A number without decimals |
+| default      | 16384 (strongest possible) |
+
+You can choose any number between 1,024 (good) and 16,384 (extremely strong). The default is set to the maximum of 16,384.
+
+## Examples you can try
+
+Here are some simple examples to help you get started:
+
+### Example 1: Setting limits and working with keys
+
+This example shows how to:
+* Set how strong keys can be
+* Create your private key (your secret key)
+* Create your public key (the key you can share)
+* Lock (encrypt) some text
+* Unlock (decrypt) it again
 
 ```{.bash data-prompt="mysql>"}
 -- Set Global variable
@@ -464,13 +785,12 @@ mysql> SET @ciphertext = asymmetric_encrypt('RSA', 'This text is secret', @priva
 mysql> SET @plaintext = asymmetric_decrypt('RSA', @ciphertext, @public_key);
 ```
 
-Code examples for the following operations:
+### Example 2: Creating digital signatures
 
-* generate a digest string
-
-* generate a digest signature
-
-* verify the signature against the digest
+This example shows how to:
+* Create a fingerprint (digest) of your message
+* Sign that fingerprint with your private key
+* Check if the signature is real
 
 ```{.bash data-prompt="mysql>"}
 -- Generate a digest string
@@ -484,15 +804,16 @@ mysql> SET @signature = asymmetric_sign('RSA', @digest, @private_key, 'SHA256');
 mysql> SET @verify_signature = asymmetric_verify('RSA', @digest, @signature, @public_key, 'SHA256');
 ```
 
-Code examples for the following operations:
+### Example 3: Creating a shared secret
 
-* Generate a DH parameter
+This example shows how two people can create the same secret key without ever sharing their private keys:
 
-* Generate two DH key pairs
+* Create the recipe (DH parameter) for making the shared secret
+* Make two sets of keys (one for each person)
+* Person 1 creates the shared secret using their private key and Person 2's public key
+* Person 2 creates the SAME shared secret using their private key and Person 1's public key
 
-* Generate a symmetric key using the public_1 and the private_2
-
-* Generate a symmetric key using the public_2 and the private_1
+This is like two people who each have half of a recipe - when combined, they both end up with the same final dish!
 
 ```{.bash data-prompt="mysql>"}
  -- Generate a DH parameter
@@ -513,13 +834,12 @@ mysql> SET symmetric_1 = asymmetric_derive(@public_1, @private_2);
 mysql> SET symmetric_2 = asymmetric_derive(@public_2, @private_1);
 ```
 
-Code examples for the following operations:
+### Example 4: Different ways to create keys
 
-* Create a private key using a `SET` statement
-
-* Create a private key using a  `SELECT` statement
-
-* Create a private key using an `INSERT` statement
+Here are three different ways to create and save your keys:
+* Using a simple variable with `SET`
+* Using a query with `SELECT INTO`
+* Saving directly to a table with `INSERT`
 
 ```{.bash data-prompt="mysql>"}
 mysql> SET @private_key1 = create_asymmetric_priv_key('RSA', 3072);
@@ -527,10 +847,14 @@ mysql> SELECT create_asymmetric_priv_key('RSA', 3072) INTO @private_key2;
 mysql> INSERT INTO key_table VALUES(create_asymmetric_priv_key('RSA', 3072));
 ```
 
-## Uninstall component_encryption_udf
+## Removing the encryption toolbox
 
-You can deactivate and uninstall the component using the [Uninstall Component statement](https://dev.mysql.com/doc/refman/8.0/en/uninstall-component.html).
+When you're done using these tools, you can remove them from your system. Think of it like uninstalling an app when you no longer need it.
+
+Use this simple command:
 
 ```{.bash data-prompt="mysql>"}
 mysql> UNINSTALL COMPONENT 'file://component_encryption_udf';
 ```
+
+This removes all the encryption functions from your MySQL server.

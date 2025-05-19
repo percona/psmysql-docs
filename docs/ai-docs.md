@@ -1,7 +1,7 @@
 # How we use artificial intelligence
 
-The technical writer oversees the integration of AI-driven tools and platforms into the documentation workflow, ensuring that AI-generated text meets the standards for clarity, coherence, and accuracy. While AI assists in tasks such as content generation, language enhancement, and formatting optimization, the technical writer is responsible for validating and refining the output to ensure its suitability for the intended audience.
+The technical writer manages how AI tools and platforms are used in the documentation process. They ensure that the text created by AI is clear, logical, and accurate. Although AI helps with generating content, improving language, and formatting, it is the technical writer who checks and improves the output to make sure it suits the audience.
 
-Throughout the documentation process, the technical writer reviews the quality and relevance of AI-generated content in detail and with critical judgment. By leveraging their expertise in language, communication, and subject matter knowledge, the technical writer collaborates with AI systems to refine and tailor the documentation to meet the specific needs and preferences of the audience.
+During the documentation process, the technical writer carefully reviews the AI-generated content for quality and relevance. Using their knowledge of language, communication, and the subject matter, they work with AI systems to adjust and improve the documentation based on what the audience needs.
 
-While AI accelerates the documentation process and enhances productivity, the technical writer verifies the information's accuracy and maintains consistency in terminology, style, and tone. The technical writer ensures that the final document reflects the company's commitment to excellence.
+Even though AI speeds up the process and boosts productivity, the technical writer makes sure that the information is correct and keeps the style, tone, and terminology consistent. They ensure that the final document meets the company's high standards.
