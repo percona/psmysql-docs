@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The encryption user-defined functions (UDF) let you encrypt and decrypt data. You can choose different encryption algorithms and manage the range of data to encrypt.">
+        <meta name="description" content="Documentation">
       
       
         <meta name="author" content="Percona LLC">
@@ -18,7 +18,7 @@
         <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/encryption-functions.html">
       
       
-        <link rel="prev" href="fido-authentication-plugin.html">
+        <link rel="prev" href="key-length-considerations.html">
       
       
         <link rel="next" href="pam-plugin.html">
@@ -29,7 +29,7 @@
     
     
       
-        <title>Encryption user-defined functions - Percona Server for MySQL</title>
+        <title>Encryption functions - Percona Server for MySQL</title>
       
     
     
@@ -109,7 +109,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#encryption-user-defined-functions" class="md-skip">
+        <a href="#encryption-functions" class="md-skip">
           Skip to content
         </a>
       
@@ -206,7 +206,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Encryption user-defined functions
+              Encryption functions
             
           </span>
         </div>
@@ -5551,6 +5551,125 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12_4" id="__nav_12_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Encryption functions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_12_4">
+            <span class="md-nav__icon md-icon"></span>
+            Encryption functions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encryption-functions-overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Encryption functions overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="digest-encryption.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cryptographic digest functions vs. encryption
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="key-length-considerations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Key length considerations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -5564,7 +5683,7 @@
   
   
   <span class="md-ellipsis">
-    Encryption user-defined functions
+    Encryption functions
     
   </span>
   
@@ -5577,7 +5696,7 @@
   
   
   <span class="md-ellipsis">
-    Encryption user-defined functions
+    Encryption functions
     
   </span>
   
@@ -5602,29 +5721,80 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#version-updates" class="md-nav__link">
+  <a href="#quick-start-guide" class="md-nav__link">
     <span class="md-ellipsis">
-      Version updates
+      Quick start guide
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#charset-awareness" class="md-nav__link">
+  <a href="#functions" class="md-nav__link">
     <span class="md-ellipsis">
-      Charset Awareness
+      Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function quick reference
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#use-user-defined-functions" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#asymmetric-encryption-functions" class="md-nav__link">
     <span class="md-ellipsis">
-      Use user-defined functions
+      Asymmetric encryption functions
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asymmetric-key-management-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Asymmetric key management functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-signature-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Digital Signature functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diffie-hellman-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diffie-Hellman functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encryption-threshold-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encryption threshold variables
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5634,6 +5804,21 @@
       Install component_encryption_udf
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Install component_encryption_udf">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-installation-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick installation steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5647,28 +5832,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#asymmetric_decryptalgorithm-crypt_str-key_str" class="md-nav__link">
+  <a href="#asymmetric_decryptalgorithm-crypt_str-key_strasymmetric_decrypt" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_decrypt(algorithm, crypt_str, key_str)
+      Asymmetric_decrypt(algorithm, crypt_str, key_str){asymmetric_decrypt}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="asymmetric_decrypt(algorithm, crypt_str, key_str)">
+    <nav class="md-nav" aria-label="Asymmetric_decrypt(algorithm, crypt_str, key_str){asymmetric_decrypt}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#returns" class="md-nav__link">
+  <a href="#quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
-      Returns
+      Quick reference
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameters" class="md-nav__link">
+  <a href="#return-value" class="md-nav__link">
     <span class="md-ellipsis">
-      Parameters
+      Return value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter details
     </span>
   </a>
   
@@ -5680,28 +5874,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#asymmetric_derivepub_key_str-priv_key_str" class="md-nav__link">
+  <a href="#asymmetric_derivepub_key_str-priv_key_strasymmetric_derive" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_derive(pub_key_str, priv_key_str)
+      Asymmetric_derive(pub_key_str, priv_key_str){asymmetric_derive}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="asymmetric_derive(pub_key_str, priv_key_str)">
+    <nav class="md-nav" aria-label="Asymmetric_derive(pub_key_str, priv_key_str){asymmetric_derive}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#asymmetric_derive-output" class="md-nav__link">
+  <a href="#quick-reference_1" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_derive output
+      Quick reference
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#asymmetric_derive-parameters" class="md-nav__link">
+  <a href="#required-parameters" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_derive parameters
+      Required parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Return value
     </span>
   </a>
   
@@ -5713,28 +5916,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#asymmetric_encryptalgorithm-str-key_str" class="md-nav__link">
+  <a href="#asymmetric_encryptalgorithm-str-key_strasymmetric_encrypt" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_encrypt(algorithm, str, key_str)
+      Asymmetric_encrypt(algorithm, str, key_str){asymmetric_encrypt}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="asymmetric_encrypt(algorithm, str, key_str)">
+    <nav class="md-nav" aria-label="Asymmetric_encrypt(algorithm, str, key_str){asymmetric_encrypt}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#asymmetric_encrypt-output" class="md-nav__link">
+  <a href="#quick-reference_2" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_encrypt output
+      Quick reference
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#asymmetric_encrypt-parameters" class="md-nav__link">
+  <a href="#return-value_2" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_encrypt parameters
+      Return value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-details_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter details
     </span>
   </a>
   
@@ -5746,28 +5958,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type" class="md-nav__link">
+  <a href="#size-limits-remember-that-your-message-size-is-limited-by-your-key-size-and-padding-method-for-a-2048-bit-key-with-oaep-padding-your-message-must-be-smaller-than-20488-42-214-bytes" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type)
+      ⚠️ Size Limits: Remember that your message size is limited by your key size and padding method. For a 2048-bit key with OAEP padding, your message must be smaller than (2048/8)-42 = 214 bytes.
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type-paddingasymmetric_sign" class="md-nav__link">
+    <span class="md-ellipsis">
+      Asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type, [padding]){asymmetric_sign}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type, [padding]){asymmetric_sign}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#asymmetric_sign-output" class="md-nav__link">
+  <a href="#quick-reference_3" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_sign output
+      Quick reference
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#asymmetric_sign-parameters" class="md-nav__link">
+  <a href="#security-considerations" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_sign parameters
+      Security considerations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Return value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-details_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter details
     </span>
   </a>
   
@@ -5779,28 +6018,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type" class="md-nav__link">
+  <a href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type-paddingasymmetric_verify" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type)
+      Asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type, [padding]){asymmetric_verify}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type)">
+    <nav class="md-nav" aria-label="Asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type, [padding]){asymmetric_verify}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#asymmetric_verify-output" class="md-nav__link">
+  <a href="#quick-reference_4" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_verify output
+      Quick reference
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#asymmetric_verify-parameters" class="md-nav__link">
+  <a href="#return-value_4" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_verify parameters
+      Return value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-details_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter details
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-verification-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Common Verification Pitfalls
     </span>
   </a>
   
@@ -5812,28 +6069,19 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create_asymmetric_priv_keyalgorithm-key_len-dh_parameters" class="md-nav__link">
+  <a href="#create_asymmetric_priv_keyalgorithm-key_lencreate_asymmetric_priv_key" class="md-nav__link">
     <span class="md-ellipsis">
-      create_asymmetric_priv_key(algorithm, (key_len | dh_parameters))
+      Create_asymmetric_priv_key(algorithm, key_len){create_asymmetric_priv_key}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="create_asymmetric_priv_key(algorithm, (key_len | dh_parameters))">
+    <nav class="md-nav" aria-label="Create_asymmetric_priv_key(algorithm, key_len){create_asymmetric_priv_key}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#create_asymmetric_priv_key-output" class="md-nav__link">
+  <a href="#taking-too-long" class="md-nav__link">
     <span class="md-ellipsis">
-      create_asymmetric_priv_key output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create_asymmetric_priv_key-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_asymmetric_priv_key parameters
+      Taking too long?
     </span>
   </a>
   
@@ -5845,28 +6093,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create_asymmetric_pub_keyalgorithm-priv_key_str" class="md-nav__link">
+  <a href="#create_asymmetric_pub_keyalgorithm-priv_key_strcreate_asymmetric_pub_key" class="md-nav__link">
     <span class="md-ellipsis">
-      create_asymmetric_pub_key(algorithm, priv_key_str)
+      Create_asymmetric_pub_key(algorithm, priv_key_str){create_asymmetric_pub_key}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="create_asymmetric_pub_key(algorithm, priv_key_str)">
+    <nav class="md-nav" aria-label="Create_asymmetric_pub_key(algorithm, priv_key_str){create_asymmetric_pub_key}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#create_asymmetric_pub_key-output" class="md-nav__link">
+  <a href="#quick-reference_5" class="md-nav__link">
     <span class="md-ellipsis">
-      create_asymmetric_pub_key output
+      Quick reference
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create_asymmetric_pub_key-parameters" class="md-nav__link">
+  <a href="#what-you-get-back" class="md-nav__link">
     <span class="md-ellipsis">
-      create_asymmetric_pub_key parameters
+      What you get back
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need-to-extract-your-public-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need to extract your public key
     </span>
   </a>
   
@@ -5878,28 +6135,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create_dh_parameterskey_len" class="md-nav__link">
+  <a href="#create_dh_parameterskey_lencreate_dh_parameters" class="md-nav__link">
     <span class="md-ellipsis">
-      create_dh_parameters(key_len)
+      Create_dh_parameters(key_len){create_dh_parameters}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="create_dh_parameters(key_len)">
+    <nav class="md-nav" aria-label="Create_dh_parameters(key_len){create_dh_parameters}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#create_dh_parameters-output" class="md-nav__link">
+  <a href="#warning-patience-required" class="md-nav__link">
     <span class="md-ellipsis">
-      create_dh_parameters output
+      Warning: Patience required!
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create_dh_parameters-parameters" class="md-nav__link">
+  <a href="#what-you-get-back_1" class="md-nav__link">
     <span class="md-ellipsis">
-      create_dh_parameters parameters
+      What you get back
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need-to-create-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need to create parameters
     </span>
   </a>
   
@@ -5911,19 +6177,19 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create_digestdigest_type-str" class="md-nav__link">
+  <a href="#create_digestdigest_type-strcreate_digest" class="md-nav__link">
     <span class="md-ellipsis">
-      create_digest(digest_type, str)
+      Create_digest(digest_type, str){create_digest}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="create_digest(digest_type, str)">
+    <nav class="md-nav" aria-label="Create_digest(digest_type, str){create_digest}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#create_digest-output" class="md-nav__link">
     <span class="md-ellipsis">
-      create_digest output
+      Create_digest output
     </span>
   </a>
   
@@ -5932,14 +6198,14 @@
           <li class="md-nav__item">
   <a href="#create_digest-parameters" class="md-nav__link">
     <span class="md-ellipsis">
-      create_digest parameters
+      Create_digest parameters
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#encryption-threshold-variables" class="md-nav__link">
+  <a href="#encryption-threshold-variables_1" class="md-nav__link">
     <span class="md-ellipsis">
       Encryption threshold variables
     </span>
@@ -5966,9 +6232,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#encryption_udflegacy_paddding_scheme" class="md-nav__link">
+  <a href="#encryption_udflegacy_padding_scheme" class="md-nav__link">
     <span class="md-ellipsis">
-      encryption_udf.legacy_paddding_scheme
+      Encryption_udf.legacy_padding_scheme
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-padding-schemes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding padding schemes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#size-limits-for-each-padding-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Size limits for each padding style
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#padding-for-signatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Padding for signatures
     </span>
   </a>
   
@@ -5977,16 +6270,7 @@
           <li class="md-nav__item">
   <a href="#encryption_udfrsa_bits_threshold" class="md-nav__link">
     <span class="md-ellipsis">
-      encryption_udf.rsa_bits_threshold
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Examples
+      Encryption_udf.rsa_bits_threshold
     </span>
   </a>
   
@@ -5998,9 +6282,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#uninstall-component_encryption_udf" class="md-nav__link">
+  <a href="#examples-you-can-try" class="md-nav__link">
     <span class="md-ellipsis">
-      Uninstall component_encryption_udf
+      Examples you can try
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples you can try">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-setting-limits-and-working-with-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 1: Setting limits and working with keys
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-creating-digital-signatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 2: Creating digital signatures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-creating-a-shared-secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 3: Creating a shared secret
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-different-ways-to-create-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 4: Different ways to create keys
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#removing-the-encryption-toolbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removing the encryption toolbox
     </span>
   </a>
   
@@ -6009,6 +6344,14 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -8929,29 +9272,80 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#version-updates" class="md-nav__link">
+  <a href="#quick-start-guide" class="md-nav__link">
     <span class="md-ellipsis">
-      Version updates
+      Quick start guide
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#charset-awareness" class="md-nav__link">
+  <a href="#functions" class="md-nav__link">
     <span class="md-ellipsis">
-      Charset Awareness
+      Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function quick reference
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#use-user-defined-functions" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#asymmetric-encryption-functions" class="md-nav__link">
     <span class="md-ellipsis">
-      Use user-defined functions
+      Asymmetric encryption functions
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asymmetric-key-management-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Asymmetric key management functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-signature-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Digital Signature functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diffie-hellman-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diffie-Hellman functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encryption-threshold-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encryption threshold variables
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -8961,6 +9355,21 @@
       Install component_encryption_udf
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Install component_encryption_udf">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-installation-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick installation steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -8974,28 +9383,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#asymmetric_decryptalgorithm-crypt_str-key_str" class="md-nav__link">
+  <a href="#asymmetric_decryptalgorithm-crypt_str-key_strasymmetric_decrypt" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_decrypt(algorithm, crypt_str, key_str)
+      Asymmetric_decrypt(algorithm, crypt_str, key_str){asymmetric_decrypt}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="asymmetric_decrypt(algorithm, crypt_str, key_str)">
+    <nav class="md-nav" aria-label="Asymmetric_decrypt(algorithm, crypt_str, key_str){asymmetric_decrypt}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#returns" class="md-nav__link">
+  <a href="#quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
-      Returns
+      Quick reference
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameters" class="md-nav__link">
+  <a href="#return-value" class="md-nav__link">
     <span class="md-ellipsis">
-      Parameters
+      Return value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter details
     </span>
   </a>
   
@@ -9007,28 +9425,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#asymmetric_derivepub_key_str-priv_key_str" class="md-nav__link">
+  <a href="#asymmetric_derivepub_key_str-priv_key_strasymmetric_derive" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_derive(pub_key_str, priv_key_str)
+      Asymmetric_derive(pub_key_str, priv_key_str){asymmetric_derive}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="asymmetric_derive(pub_key_str, priv_key_str)">
+    <nav class="md-nav" aria-label="Asymmetric_derive(pub_key_str, priv_key_str){asymmetric_derive}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#asymmetric_derive-output" class="md-nav__link">
+  <a href="#quick-reference_1" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_derive output
+      Quick reference
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#asymmetric_derive-parameters" class="md-nav__link">
+  <a href="#required-parameters" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_derive parameters
+      Required parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Return value
     </span>
   </a>
   
@@ -9040,28 +9467,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#asymmetric_encryptalgorithm-str-key_str" class="md-nav__link">
+  <a href="#asymmetric_encryptalgorithm-str-key_strasymmetric_encrypt" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_encrypt(algorithm, str, key_str)
+      Asymmetric_encrypt(algorithm, str, key_str){asymmetric_encrypt}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="asymmetric_encrypt(algorithm, str, key_str)">
+    <nav class="md-nav" aria-label="Asymmetric_encrypt(algorithm, str, key_str){asymmetric_encrypt}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#asymmetric_encrypt-output" class="md-nav__link">
+  <a href="#quick-reference_2" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_encrypt output
+      Quick reference
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#asymmetric_encrypt-parameters" class="md-nav__link">
+  <a href="#return-value_2" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_encrypt parameters
+      Return value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-details_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter details
     </span>
   </a>
   
@@ -9073,28 +9509,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type" class="md-nav__link">
+  <a href="#size-limits-remember-that-your-message-size-is-limited-by-your-key-size-and-padding-method-for-a-2048-bit-key-with-oaep-padding-your-message-must-be-smaller-than-20488-42-214-bytes" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type)
+      ⚠️ Size Limits: Remember that your message size is limited by your key size and padding method. For a 2048-bit key with OAEP padding, your message must be smaller than (2048/8)-42 = 214 bytes.
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type-paddingasymmetric_sign" class="md-nav__link">
+    <span class="md-ellipsis">
+      Asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type, [padding]){asymmetric_sign}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type, [padding]){asymmetric_sign}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#asymmetric_sign-output" class="md-nav__link">
+  <a href="#quick-reference_3" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_sign output
+      Quick reference
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#asymmetric_sign-parameters" class="md-nav__link">
+  <a href="#security-considerations" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_sign parameters
+      Security considerations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Return value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-details_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter details
     </span>
   </a>
   
@@ -9106,28 +9569,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type" class="md-nav__link">
+  <a href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type-paddingasymmetric_verify" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type)
+      Asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type, [padding]){asymmetric_verify}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type)">
+    <nav class="md-nav" aria-label="Asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type, [padding]){asymmetric_verify}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#asymmetric_verify-output" class="md-nav__link">
+  <a href="#quick-reference_4" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_verify output
+      Quick reference
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#asymmetric_verify-parameters" class="md-nav__link">
+  <a href="#return-value_4" class="md-nav__link">
     <span class="md-ellipsis">
-      asymmetric_verify parameters
+      Return value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-details_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter details
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-verification-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Common Verification Pitfalls
     </span>
   </a>
   
@@ -9139,28 +9620,19 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create_asymmetric_priv_keyalgorithm-key_len-dh_parameters" class="md-nav__link">
+  <a href="#create_asymmetric_priv_keyalgorithm-key_lencreate_asymmetric_priv_key" class="md-nav__link">
     <span class="md-ellipsis">
-      create_asymmetric_priv_key(algorithm, (key_len | dh_parameters))
+      Create_asymmetric_priv_key(algorithm, key_len){create_asymmetric_priv_key}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="create_asymmetric_priv_key(algorithm, (key_len | dh_parameters))">
+    <nav class="md-nav" aria-label="Create_asymmetric_priv_key(algorithm, key_len){create_asymmetric_priv_key}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#create_asymmetric_priv_key-output" class="md-nav__link">
+  <a href="#taking-too-long" class="md-nav__link">
     <span class="md-ellipsis">
-      create_asymmetric_priv_key output
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create_asymmetric_priv_key-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      create_asymmetric_priv_key parameters
+      Taking too long?
     </span>
   </a>
   
@@ -9172,28 +9644,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create_asymmetric_pub_keyalgorithm-priv_key_str" class="md-nav__link">
+  <a href="#create_asymmetric_pub_keyalgorithm-priv_key_strcreate_asymmetric_pub_key" class="md-nav__link">
     <span class="md-ellipsis">
-      create_asymmetric_pub_key(algorithm, priv_key_str)
+      Create_asymmetric_pub_key(algorithm, priv_key_str){create_asymmetric_pub_key}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="create_asymmetric_pub_key(algorithm, priv_key_str)">
+    <nav class="md-nav" aria-label="Create_asymmetric_pub_key(algorithm, priv_key_str){create_asymmetric_pub_key}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#create_asymmetric_pub_key-output" class="md-nav__link">
+  <a href="#quick-reference_5" class="md-nav__link">
     <span class="md-ellipsis">
-      create_asymmetric_pub_key output
+      Quick reference
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create_asymmetric_pub_key-parameters" class="md-nav__link">
+  <a href="#what-you-get-back" class="md-nav__link">
     <span class="md-ellipsis">
-      create_asymmetric_pub_key parameters
+      What you get back
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need-to-extract-your-public-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need to extract your public key
     </span>
   </a>
   
@@ -9205,28 +9686,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create_dh_parameterskey_len" class="md-nav__link">
+  <a href="#create_dh_parameterskey_lencreate_dh_parameters" class="md-nav__link">
     <span class="md-ellipsis">
-      create_dh_parameters(key_len)
+      Create_dh_parameters(key_len){create_dh_parameters}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="create_dh_parameters(key_len)">
+    <nav class="md-nav" aria-label="Create_dh_parameters(key_len){create_dh_parameters}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#create_dh_parameters-output" class="md-nav__link">
+  <a href="#warning-patience-required" class="md-nav__link">
     <span class="md-ellipsis">
-      create_dh_parameters output
+      Warning: Patience required!
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create_dh_parameters-parameters" class="md-nav__link">
+  <a href="#what-you-get-back_1" class="md-nav__link">
     <span class="md-ellipsis">
-      create_dh_parameters parameters
+      What you get back
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need-to-create-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need to create parameters
     </span>
   </a>
   
@@ -9238,19 +9728,19 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create_digestdigest_type-str" class="md-nav__link">
+  <a href="#create_digestdigest_type-strcreate_digest" class="md-nav__link">
     <span class="md-ellipsis">
-      create_digest(digest_type, str)
+      Create_digest(digest_type, str){create_digest}
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="create_digest(digest_type, str)">
+    <nav class="md-nav" aria-label="Create_digest(digest_type, str){create_digest}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#create_digest-output" class="md-nav__link">
     <span class="md-ellipsis">
-      create_digest output
+      Create_digest output
     </span>
   </a>
   
@@ -9259,14 +9749,14 @@
           <li class="md-nav__item">
   <a href="#create_digest-parameters" class="md-nav__link">
     <span class="md-ellipsis">
-      create_digest parameters
+      Create_digest parameters
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#encryption-threshold-variables" class="md-nav__link">
+  <a href="#encryption-threshold-variables_1" class="md-nav__link">
     <span class="md-ellipsis">
       Encryption threshold variables
     </span>
@@ -9293,9 +9783,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#encryption_udflegacy_paddding_scheme" class="md-nav__link">
+  <a href="#encryption_udflegacy_padding_scheme" class="md-nav__link">
     <span class="md-ellipsis">
-      encryption_udf.legacy_paddding_scheme
+      Encryption_udf.legacy_padding_scheme
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-padding-schemes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding padding schemes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#size-limits-for-each-padding-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Size limits for each padding style
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#padding-for-signatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Padding for signatures
     </span>
   </a>
   
@@ -9304,16 +9821,7 @@
           <li class="md-nav__item">
   <a href="#encryption_udfrsa_bits_threshold" class="md-nav__link">
     <span class="md-ellipsis">
-      encryption_udf.rsa_bits_threshold
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Examples
+      Encryption_udf.rsa_bits_threshold
     </span>
   </a>
   
@@ -9325,9 +9833,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#uninstall-component_encryption_udf" class="md-nav__link">
+  <a href="#examples-you-can-try" class="md-nav__link">
     <span class="md-ellipsis">
-      Uninstall component_encryption_udf
+      Examples you can try
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples you can try">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-setting-limits-and-working-with-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 1: Setting limits and working with keys
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-creating-digital-signatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 2: Creating digital signatures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-creating-a-shared-secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 3: Creating a shared secret
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-different-ways-to-create-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 4: Different ways to create keys
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#removing-the-encryption-toolbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removing the encryption toolbox
     </span>
   </a>
   
@@ -9378,424 +9937,792 @@
   
 
 
-<h1 id="encryption-user-defined-functions">Encryption user-defined functions<a class="headerlink" href="#encryption-user-defined-functions" title="Permanent link">&para;</a></h1>
-<p>The encryption user-defined functions (UDF) let you encrypt and decrypt data. You can choose different encryption algorithms and manage the range of data to encrypt.</p>
-<h2 id="version-updates">Version updates<a class="headerlink" href="#version-updates" title="Permanent link">&para;</a></h2>
-<p>Percona Server for MySQL 8.0.41 adds the following:</p>
-<ul>
-<li>
-<p>Support for <code>pkcs1</code>, <code>oaep</code>, or <code>no</code> padding for RSA encrypt and decrypt operations</p>
-<p><details>
-   <summary> <code>pkcs1</code> padding explanation</summary>
-    <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSAES-PKCS1-v1_5</code></a> RSA encryption padding scheme prevents patterns that attackers could exploit by including a random sequence of bytes, which ensures that the ciphertext is different no matter how many times it is encrypted.
-</details></p>
-<p><details>
-   <summary> <code>oaep</code> padding explanation</summary><br />
-    The <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSAES-OAEP</code></a>  - <a href="https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding"><code>Optimal Asymmetric Encryption Padding</code></a> RSA encryption padding scheme adds a randomized mask generation function. This function makes it more difficult for attackers to exploit the encryption algorithm&rsquo;s weaknesses or recover the original message.
-</details></p>
-<p><details>
-   <summary> <code>no</code> padding explanation</summary>
-   Using <code>no</code> padding means the plaintext message is encrypted without adding an extra layer before performing the RSA encryption operation.
-</details></p>
-</li>
-<li>
-<p>Support for <code>pkcs1</code> or <code>pkcs1_pss</code>  padding for RSA sign and verify operations</p>
-<p><details>
-   <summary> <code>pkcs1</code> padding explanation</summary>
-    The <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSASSA-PKCS1-v1_5</code></a> is a deterministic RSA signature padding scheme that hashes a message, pads the hash with a specific structure, and encrypts it with the signer&rsquo;s private key for signature generation. 
-</details>
-<details>
-   <summary> <code>pkcs1_pss</code> padding explanation</summary>
-    The <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSASSA-PSS</code></a> - <a href="https://en.wikipedia.org/wiki/Probabilistic_signature_scheme">`Probabilistic Signature Scheme&rsquo;</a> is an RSA signature padding scheme used to add randomness to a message before signing it with a private key. This randomness helps to increase the security of the signature and makes it more resistant to various attacks. 
-</details></p>
-</li>
-<li>
-<p><a href="#encryption_udflegacy_paddding_scheme"><code>encryption_udf.legacy_paddding_scheme</code></a> system variable</p>
-</li>
-<li>
-<p>Character set awareness</p>
-</li>
-</ul>
-<p>Percona Server for MySQL 8.0.28-20 adds encryption functions and variables to manage the encryption range.</p>
-<h2 id="charset-awareness">Charset Awareness<a class="headerlink" href="#charset-awareness" title="Permanent link">&para;</a></h2>
-<p>All component_encryption_udf functions now handle character sets intelligently:</p>
-<p>• Algorithms, digest names, padding schemes, keys, and parameters in PEM format: Automatically converted to the ASCII charset at the MySQL level before passing to the functions.</p>
-<p>• Messages, data blocks, and signatures used for digest calculation, encryption, decryption, signing, or verification: Automatically converted to the binary charset at the MySQL level before passing to the functions.</p>
-<p>• Function return values in PEM format: Assigned the ASCII charset.</p>
-<p>• Function return values for operations like digest calculation, encryption, decryption, and signing: Assigned the binary charset.</p>
-<h2 id="use-user-defined-functions">Use user-defined functions<a class="headerlink" href="#use-user-defined-functions" title="Permanent link">&para;</a></h2>
-<p>You can also use the user-defined functions with the PEM format keys generated externally by the OpenSSL utility.</p>
-<p>A digest uses plaintext and generates a hash value. This hash value can verify if the plaintext is unmodified. You can also sign or verify on digests to ensure that the original plaintext was not modified. You cannot decrypt the original text from the hash value.</p>
-<p>When choosing key lengths, consider the following:</p>
-<ul>
-<li>
-<p>Encryption strength increases with the key size and also the key generation time.</p>
-</li>
-<li>
-<p>If performance is important and the functions are frequently used, use symmetric encryption. Symmetric encryption functions are faster than asymmetric encryption functions. Moreover, asymmetric encryption restricts the maximum length of a message being encrypted. For example, the algorithm&rsquo;s maximum message size for RSA is the key length in bytes (key length in bits / 8) minus 11.</p>
-</li>
-</ul>
-<p>The following table and sections describe the functions. For examples, see function examples.</p>
+<h1 id="encryption-functions">Encryption functions<a class="headerlink" href="#encryption-functions" title="Permanent link">&para;</a></h1>
+<h2 id="quick-start-guide">Quick start guide<a class="headerlink" href="#quick-start-guide" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>⚡ <strong>Get Started in 5 Minutes</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Install the encryption component</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
+
+<span class="c1">-- Create keys</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_priv_key</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3072</span><span class="p">);</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">public_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_pub_key</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="p">);</span>
+
+<span class="c1">-- Encrypt data</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">ciphertext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_encrypt</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Secret message&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">public_key</span><span class="p">);</span>
+
+<span class="c1">-- Decrypt data</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">plaintext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_decrypt</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ciphertext</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="p">);</span>
+</code></pre></div>
+<p>See <a href="#examples-you-can-try">complete examples</a> for more detailed use cases.</p>
+</blockquote>
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🧰 <strong>Cryptographic function library</strong></p>
+<p>The following section documents each cryptographic function available in the library. Each function is categorized by purpose with detailed implementation specifications.</p>
+</blockquote>
+<h3 id="function-quick-reference">Function quick reference<a class="headerlink" href="#function-quick-reference" title="Permanent link">&para;</a></h3>
+<table>
+<tr>
+<th>Category</th>
+<th>Function</th>
+<th>What It Does</th>
+<th>Common Use Case</th>
+</tr>
+<tr>
+<td rowspan="2"><strong>Encryption</strong></td>
+<td><a href="#asymmetric_encrypt">asymmetric_encrypt()</a></td>
+<td>Puts your data in a math lockbox</td>
+<td>Protecting sensitive data</td>
+</tr>
+<tr>
+<td><a href="#asymmetric_decrypt">asymmetric_decrypt()</a></td>
+<td>Opens the lockbox and gets your data back</td>
+<td>Retrieving protected data</td>
+</tr>
+<tr>
+<td rowspan="2"><strong>Key Management</strong></td>
+<td><a href="#create_asymmetric_priv_key">create_asymmetric_priv_key()</a></td>
+<td>Makes your secret key</td>
+<td>Creating your private key</td>
+</tr>
+<tr>
+<td><a href="#create_asymmetric_pub_key">create_asymmetric_pub_key()</a></td>
+<td>Creates a shareable public key</td>
+<td>Generating keys to distribute</td>
+</tr>
+<tr>
+<td rowspan="2"><strong>Digital Signatures</strong></td>
+<td><a href="#asymmetric_sign">asymmetric_sign()</a></td>
+<td>Stamps your message with your secret key</td>
+<td>Proving a message is from you</td>
+</tr>
+<tr>
+<td><a href="#asymmetric_verify">asymmetric_verify()</a></td>
+<td>Checks if a signature is real or fake</td>
+<td>Verifying message authenticity</td>
+</tr>
+</table>
+
+<h3 id="asymmetric-encryption-functions">Asymmetric encryption functions<a class="headerlink" href="#asymmetric-encryption-functions" title="Permanent link">&para;</a></h3>
+<p>These functions implement public key cryptography utilizing key pairs. The encryption and decryption operations require different keys from the same key pair.</p>
 <table>
 <thead>
 <tr>
 <th>Function Name</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="#asymmetric_decryptalgorithm-crypt_str-key_str">asymmetric_decrypt(algorithm, crypt_str, key_str)</a></td>
+<td><a href="#asymmetric_encrypt">asymmetric_encrypt</a></td>
+<td>Encrypts plaintext data using asymmetric cryptography. Only the corresponding key can decrypt.</td>
 </tr>
 <tr>
-<td><a href="#asymmetric_derivepub_key_str-priv_key_str">asymmetric_derive(pub_key_str, priv_key_str)</a></td>
-</tr>
-<tr>
-<td><a href="#asymmetric_encryptalgorithm-str-key_str">asymmetric_encrypt(algorithm, str, key_str)</a></td>
-</tr>
-<tr>
-<td><a href="#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type">asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type)</a></td>
-</tr>
-<tr>
-<td><a href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type">asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type)</a></td>
-</tr>
-<tr>
-<td><a href="#create_asymmetric_priv_keyalgorithm-key_len--dh_parameters">create_asymmetric_priv_key(algorithm, (key_len &#124; dh_parameters))</a></td>
-</tr>
-<tr>
-<td><a href="#create_asymmetric_pub_keyalgorithm-priv_key_str">create_asymmetric_pub_key(algorithm, priv_key_str)</a></td>
-</tr>
-<tr>
-<td><a href="#create_dh_parameterskey_len">create_dh_parameters(key_len)</a></td>
-</tr>
-<tr>
-<td><a href="#create_digestdigest_type-str">create_digest(digest_type, str)</a></td>
+<td><a href="#asymmetric_decrypt">asymmetric_decrypt</a></td>
+<td>Decrypts ciphertext that was encrypted with the corresponding asymmetric key.</td>
 </tr>
 </tbody>
 </table>
-<p>The following table describes the encryption threshold variables, which can be used to set the maximum value for a key length based on the type of encryption used.</p>
+<h3 id="asymmetric-key-management-functions">Asymmetric key management functions<a class="headerlink" href="#asymmetric-key-management-functions" title="Permanent link">&para;</a></h3>
+<p>These functions facilitate the generation and management of asymmetric cryptographic key pairs:</p>
 <table>
 <thead>
 <tr>
-<th>Variable Name</th>
+<th>Function Name</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td><a href="#create_asymmetric_priv_key">create_asymmetric_priv_key</a></td>
+<td>Generates a private key with specified algorithm and security parameters</td>
+</tr>
+<tr>
+<td><a href="#create_asymmetric_pub_key">create_asymmetric_pub_key</a></td>
+<td>Derives the corresponding public key from a private key for distribution</td>
+</tr>
+</tbody>
+</table>
+<h3 id="digital-signature-functions">Digital Signature functions<a class="headerlink" href="#digital-signature-functions" title="Permanent link">&para;</a></h3>
+<p>These functions implement digital signature operations for message authentication and verification:</p>
+<table>
+<thead>
+<tr>
+<th>Function Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#asymmetric_sign">asymmetric_sign</a></td>
+<td>Applies a cryptographic signature to a message digest using a private key</td>
+</tr>
+<tr>
+<td><a href="#asymmetric_verify">asymmetric_verify</a></td>
+<td>Validates the authenticity of a digital signature using the corresponding public key</td>
+</tr>
+</tbody>
+</table>
+<h3 id="diffie-hellman-functions">Diffie-Hellman functions<a class="headerlink" href="#diffie-hellman-functions" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🤝 <strong>Shared secret generation</strong></p>
+<p>These functions facilitate secure key exchange between parties through the Diffie-Hellman protocol without transmitting sensitive key material.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Function Name</th>
+<th>Description</th>
+<th>Application</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#asymmetric_derive">asymmetric_derive</a></td>
+<td>Generates a shared cryptographic secret through asymmetric key combination</td>
+<td>When implementing secure communication channels between parties</td>
+</tr>
+<tr>
+<td><a href="#create_dh_parameters">create_dh_parameters</a></td>
+<td>Generates the prime numbers and parameters required for Diffie-Hellman key exchange</td>
+<td>As a prerequisite for Diffie-Hellman key generation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="encryption-threshold-variables">Encryption threshold variables<a class="headerlink" href="#encryption-threshold-variables" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>⚙️ <strong>System configuration</strong></p>
+<p>These settings let you control how strong your encryption can be. They&rsquo;re like speed limits for your security system.</p>
+</blockquote>
+<p>Keys that are too strong might slow down your system. It&rsquo;s like having a super-heavy padlock that takes forever to open.</p>
+<table>
+<tr>
+<th>Setting Name</th>
+<th>What It Does</th>
+<th>Default</th>
+<th>Range</th>
+<th>Performance Impact</th>
+</tr>
+<tr>
 <td><a href="#encryption_udfdh_bits_threshold">encryption_udf.dh_bits_threshold</a></td>
+<td>Sets how strong Diffie-Hellman keys can be</td>
+<td>10000</td>
+<td>1024-10000</td>
+<td>Higher values significantly increase key generation time</td>
 </tr>
 <tr>
 <td><a href="#encryption_udfdsa_bits_threshold">encryption_udf.dsa_bits_threshold</a></td>
+<td>Sets how strong DSA keys can be</td>
+<td>9984</td>
+<td>1024-9984</td>
+<td>Higher values increase key generation time</td>
 </tr>
 <tr>
 <td><a href="#encryption_udfrsa_bits_threshold">encryption_udf.rsa_bits_threshold</a></td>
+<td>Sets how strong RSA keys can be</td>
+<td>16384</td>
+<td>1024-16384</td>
+<td>Higher values increase key generation and encryption/decryption time</td>
 </tr>
-</tbody>
+<tr>
+<td><a href="#encryption_udflegacy_padding">encryption_udf.legacy_padding</a></td>
+<td>Turns old-style padding on or off</td>
+<td>OFF</td>
+<td>ON/OFF</td>
+<td>Minor impact on encryption speed, major impact on security</td>
+</tr>
 </table>
+<hr />
 <h2 id="install-component_encryption_udf">Install component_encryption_udf<a class="headerlink" href="#install-component_encryption_udf" title="Permanent link">&para;</a></h2>
-<p>Use the <a href="https://dev.mysql.com/doc/refman/8.0/en/install-component.html">Install Component Statement</a> to add the component_encryption_udf component. The functions and variables are available. The user-defined functions and the Encryption threshold variables are auto-registered. There is no requirement to invoke <code>CREATE FUNCTION ... SONAME ...</code>.</p>
-<p>The <code>INSERT</code> privilege on the <code>mysql.component</code> system table is required to run the <code>INSTALL COMPONENT</code> statement. The operation adds a row to this table to register the component.</p>
-<p>The following is an example of the installation command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
+<blockquote>
+<p>📦 <strong>Installation Guide</strong></p>
+<p>Before you can lock up your data, you need to install your security tools.</p>
+</blockquote>
+<h3 id="quick-installation-steps">Quick installation steps<a class="headerlink" href="#quick-installation-steps" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Use a simple command to add the encryption tools</li>
+<li>Once you run the command, all the tools are ready right away</li>
+<li>Best part: You don&rsquo;t need to run any complex setup commands!</li>
+</ol>
+<p>You&rsquo;ll need the <code>INSERT</code> permission on the <code>mysql.component</code> table to install this. The system just adds one row to this table to remember the tools are installed.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Install the encryption component</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
+
+<span class="c1">-- Verify installation</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you are Compiling Percona Server for MySQL from Source, the Encryption UDF component is built by default when Percona Server for MySQL is built. Specify the <code>-DWITH_ENCRYPTION_UDF=OFF</code> cmake option to exclude it.</p>
+<p>If you&rsquo;re building Percona Server for MySQL from scratch, the encryption UDF component can be enabled or disabled using the <code>-DWITH_ENCRYPTION_UDF</code> CMake flag. By default, this flag is set to <code>ON</code>, meaning the encryption UDF component is built and included in the installation. If you want to build Percona Server without this component, you can disable it by setting <code>-DWITH_ENCRYPTION_UDF=OFF</code> during the CMake configuration stage of the build process.</p>
 </div>
 <h2 id="user-defined-functions-described">User-defined functions described<a class="headerlink" href="#user-defined-functions-described" title="Permanent link">&para;</a></h2>
-<h2 id="asymmetric_decryptalgorithm-crypt_str-key_str">asymmetric_decrypt(<em>algorithm, crypt_str, key_str</em>)<a class="headerlink" href="#asymmetric_decryptalgorithm-crypt_str-key_str" title="Permanent link">&para;</a></h2>
-<p>Decrypts an encrypted string using the algorithm and a key string.</p>
-<h3 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h3>
-<p>A plaintext as a string.</p>
-<h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
-<p>The following are the function’s parameters:</p>
-<ul>
-<li>
-<p>algorithm - the encryption algorithm supports RSA in decrypting the string.</p>
-</li>
-<li>
-<p>key_str - a string in the PEM format. The key string must have the following attributes:</p>
-</li>
-<li>
-<p>Valid</p>
-</li>
-<li>
-<p>Public or private key string corresponding with the private or public key string used with the asymmetric_encrypt function.</p>
-</li>
-<li>
-<p><code>crypt_str</code> - an encrypted string produced by certain encryption functions like AES_ENCRYPT(). This string is typically stored as a binary or blog data type.</p>
-</li>
-<li>
-<p>padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA encryption padding schemes like <code>no</code>, <code>pkcs1</code>, or <code>oaep</code>. If you skip this parameter, the system determines its value based on the <a href="#encryption_udf.legacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a> variable.</p>
-</li>
-</ul>
-<h2 id="asymmetric_derivepub_key_str-priv_key_str">asymmetric_derive(<em>pub_key_str, priv_key_str</em>)<a class="headerlink" href="#asymmetric_derivepub_key_str-priv_key_str" title="Permanent link">&para;</a></h2>
-<p>Derives a symmetric key using a public key generated on one side and a private key generated on another.</p>
-<h3 id="asymmetric_derive-output">asymmetric_derive output<a class="headerlink" href="#asymmetric_derive-output" title="Permanent link">&para;</a></h3>
-<p>A key as a binary string.</p>
-<h3 id="asymmetric_derive-parameters">asymmetric_derive parameters<a class="headerlink" href="#asymmetric_derive-parameters" title="Permanent link">&para;</a></h3>
-<p>The <code>pub_key_str</code> must be a public key in the PEM format and generated using the Diffie-Hellman (DH) algorithm.</p>
-<p>The <code>priv_key_str</code> must be a private key in the PEM format and generated using the Diffie-Hellman (DH) algorithm.</p>
-<h2 id="asymmetric_encryptalgorithm-str-key_str">asymmetric_encrypt(<em>algorithm, str, key_str</em>)<a class="headerlink" href="#asymmetric_encryptalgorithm-str-key_str" title="Permanent link">&para;</a></h2>
-<p>Encrypts a string using the algorithm and a key string.</p>
-<h3 id="asymmetric_encrypt-output">asymmetric_encrypt output<a class="headerlink" href="#asymmetric_encrypt-output" title="Permanent link">&para;</a></h3>
-<p>A ciphertext as a binary string.</p>
-<h3 id="asymmetric_encrypt-parameters">asymmetric_encrypt parameters<a class="headerlink" href="#asymmetric_encrypt-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
-<ul>
-<li>
-<p>algorithm - the encryption algorithm supports RSA in encrypting the string.</p>
-</li>
-<li>
-<p>str - measured in bytes. The length of the string must not be greater than the key_str modulus length in bytes - 11 (additional bytes used for PKCS1 padding)</p>
-</li>
-<li>
-<p>key_str - a key (either private or public) in the PEM format</p>
-</li>
-<li>
-<p>padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA encryption padding schemes like <code>no</code>, <code>pkcs1</code>, or <code>oaep</code>. If you skip this parameter, the system determines its value based on the <a href="#encryption_udf.legacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a> variable.</p>
-</li>
-</ul>
-<h2 id="asymmetric_signalgorithm-digest_str-priv_key_str-digest_type">asymmetric_sign(<em>algorithm, digest_str, priv_key_str, digest_type</em>)<a class="headerlink" href="#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type" title="Permanent link">&para;</a></h2>
-<p>Signs a digest string using a private key string.</p>
-<h3 id="asymmetric_sign-output">asymmetric_sign output<a class="headerlink" href="#asymmetric_sign-output" title="Permanent link">&para;</a></h3>
-<p>A signature is a binary string.</p>
-<h3 id="asymmetric_sign-parameters">asymmetric_sign parameters<a class="headerlink" href="#asymmetric_sign-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
-<ul>
-<li>
-<p>algorithm - the encryption algorithm supports RSA or DSA in encrypting the string.</p>
-</li>
-<li>
-<p>digest_str - the digest binary string that is signed. Invoking create_digest generates the digest.</p>
-</li>
-<li>
-<p>priv_key_str - the private key used to sign the digest string. The key must be in the PEM format.</p>
-</li>
-<li>
-<p>digest_type - the OpenSSL version installed on your system determines the available hash functions. The following table lists these functions:</p>
+<hr />
+<h2 id="asymmetric_decryptalgorithm-crypt_str-key_strasymmetric_decrypt">Asymmetric_decrypt(<em>algorithm, crypt_str, key_str</em>){asymmetric_decrypt}<a class="headerlink" href="#asymmetric_decryptalgorithm-crypt_str-key_strasymmetric_decrypt" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🔓 <strong>Data Decryption Function</strong></p>
+<p>This function decrypts ciphertext to recover the original plaintext using asymmetric cryptography.</p>
+</blockquote>
+<h3 id="quick-reference">Quick reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>OpenSSL 1.0.2</th>
-<th>OpenSSL 1.1.0</th>
-<th>OpenSSL 1.1.1</th>
-<th>OpenSSL 3.0.x</th>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>md5</td>
-<td>md5</td>
-<td>md5</td>
-<td>md5</td>
+<td>algorithm</td>
+<td>Yes</td>
+<td>Cryptographic algorithm identifier (currently only &lsquo;RSA&rsquo;)</td>
 </tr>
 <tr>
-<td>sha1</td>
-<td>sha1</td>
-<td>sha1</td>
-<td>sha1</td>
+<td>crypt_str</td>
+<td>Yes</td>
+<td>The encrypted data (ciphertext) to be decrypted</td>
 </tr>
 <tr>
-<td>sha224</td>
-<td>sha224</td>
-<td>sha224</td>
-<td>sha224</td>
+<td>key_str</td>
+<td>Yes</td>
+<td>The decryption key in PEM format</td>
 </tr>
 <tr>
-<td>sha384</td>
-<td>sha384</td>
-<td>sha384</td>
-<td>sha384</td>
-</tr>
-<tr>
-<td>sha512</td>
-<td>sha512</td>
-<td>sha512</td>
-<td>sha512</td>
-</tr>
-<tr>
-<td>md4</td>
-<td>md4</td>
-<td>md4</td>
-<td>md4</td>
-</tr>
-<tr>
-<td>sha</td>
-<td>md5-sha1</td>
-<td>md5-sha1</td>
-<td>md5-sha1</td>
-</tr>
-<tr>
-<td>ripemd160</td>
-<td>ripemd160</td>
-<td>ripemd160</td>
-<td>sha512-224</td>
-</tr>
-<tr>
-<td>whirlpool</td>
-<td>whirlpool</td>
-<td>sha512-224</td>
-<td>sha512-256</td>
-</tr>
-<tr>
-<td></td>
-<td>blake2b512</td>
-<td>sha512-256</td>
-<td>sha3-224</td>
-</tr>
-<tr>
-<td></td>
-<td>blake2s256</td>
-<td>whirlpool</td>
-<td>sha3-256</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sm3</td>
-<td>sha3-384</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>blake2b512</td>
-<td>sha3-512</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>blake2s256</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sha3-224</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sha3-384</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sha3-512</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>shake128</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>shake256</td>
-<td></td>
+<td>padding</td>
+<td>No</td>
+<td>Padding scheme: &lsquo;no&rsquo;, &lsquo;pkcs1&rsquo;, or &lsquo;oaep&rsquo;</td>
 </tr>
 </tbody>
 </table>
-</li>
-<li>
-<p>padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA signature padding schemes like <code>pkcs1</code>, or <code>pkcs1_pss</code>. If you skip this parameter, the system determines its value based on the <a href="#encryption_udf.legacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a> variable.</p>
-</li>
-</ul>
-<h2 id="asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type">asymmetric_verify(<em>algorithm, digest_str, sig_str, pub_key_str, digest_type</em>)<a class="headerlink" href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type" title="Permanent link">&para;</a></h2>
-<p>Verifies whether the signature string matches the digest string.</p>
-<h3 id="asymmetric_verify-output">asymmetric_verify output<a class="headerlink" href="#asymmetric_verify-output" title="Permanent link">&para;</a></h3>
-<p>A <code>1</code> (success) or a <code>0</code> (failure).</p>
-<h3 id="asymmetric_verify-parameters">asymmetric_verify parameters<a class="headerlink" href="#asymmetric_verify-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
+<h3 id="return-value">Return value<a class="headerlink" href="#return-value" title="Permanent link">&para;</a></h3>
+<p>The function returns the original plaintext message decoded from the ciphertext.</p>
+<h3 id="parameter-details">Parameter details<a class="headerlink" href="#parameter-details" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>algorithm - supports either ‘RSA’ or ‘DSA’.</p>
+<p><strong>algorithm</strong> - Specifies the cryptographic algorithm to be used for decryption (currently only RSA is supported)</p>
 </li>
 <li>
-<p>digest_str - invoking create_digest generates this digest binary string.</p>
+<p><strong>key_str</strong> - The decryption key in PEM format. Requirements:</p>
+</li>
+<li>Must be properly formatted and valid</li>
+<li>
+<p>Must correspond to the encryption key used (public key if encrypted with private key, or private key if encrypted with public key)</p>
 </li>
 <li>
-<p>sig_str - the signature binary string. Invoking asymmetric_sign generates this string.</p>
+<p><strong>crypt_str</strong> - The encrypted binary data to be decrypted</p>
 </li>
 <li>
-<p>pub_key_str - the signer’s public key string. This string must correspond to the private key passed to asymmetric_sign to generate the signature string. The string must be in the PEM format.</p>
+<p><strong>padding</strong> - Specifies the padding scheme implemented in version 8.0.41:</p>
 </li>
-<li>
-<p>digest_type - the supported values are listed in the digest type table of create_digest</p>
-</li>
-<li>
-<p>padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA signature padding schemes like <code>pkcs1</code>, or <code>pkcs1_pss</code>. If you skip this parameter, the system determines its value based on the <a href="#encryption_udf.legacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a> variable.</p>
-</li>
+<li><code>no</code> - No padding (requires exact-size messages)</li>
+<li><code>pkcs1</code> - PKCS#1 v1.5 padding scheme</li>
+<li><code>oaep</code> - Optimal Asymmetric Encryption Padding (more secure)</li>
 </ul>
-<h2 id="create_asymmetric_priv_keyalgorithm-key_len-dh_parameters">create_asymmetric_priv_key(<em>algorithm, (key_len | dh_parameters)</em>)<a class="headerlink" href="#create_asymmetric_priv_keyalgorithm-key_len-dh_parameters" title="Permanent link">&para;</a></h2>
-<p>Generates a private key using the given algorithm and key length for DH&rsquo;s RSA, DSA
-, or Diffie-Hellman parameters. For RSA or DSA, if needed, execute <code>KILL
-[QUERY|CONNECTION] &lt;id&gt;</code> to terminate a long-lasting key generation. The
-DH key generation from existing parameters is a quick operation. Therefore, it
-does not make sense to terminate that operation with <code>KILL</code>.</p>
-<h3 id="create_asymmetric_priv_key-output">create_asymmetric_priv_key output<a class="headerlink" href="#create_asymmetric_priv_key-output" title="Permanent link">&para;</a></h3>
-<p>The key as a string in the PEM format.</p>
-<h3 id="create_asymmetric_priv_key-parameters">create_asymmetric_priv_key parameters<a class="headerlink" href="#create_asymmetric_priv_key-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
+<p>If not specified, the system uses the value from the encryption_udf.legacy_padding_scheme variable.</p>
+<details>
+   <summary>Example usage</summary>
+
+   <div class="highlight"><pre><span></span><code><span class="c1">-- Decrypt data using a private key</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">plaintext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_decrypt</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ciphertext</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;oaep&#39;</span><span class="p">);</span>
+
+<span class="c1">-- Verify the decrypted result</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">plaintext</span><span class="p">;</span>
+</code></pre></div>
+</details>
+<hr />
+<h2 id="asymmetric_derivepub_key_str-priv_key_strasymmetric_derive">Asymmetric_derive(<em>pub_key_str, priv_key_str</em>){asymmetric_derive}<a class="headerlink" href="#asymmetric_derivepub_key_str-priv_key_strasymmetric_derive" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🤝 <strong>Shared secret generation</strong></p>
+<p>This function implements the Diffie-Hellman key exchange protocol to establish a shared cryptographic secret between two parties without transmitting sensitive key material.</p>
+</blockquote>
+<h3 id="quick-reference_1">Quick reference<a class="headerlink" href="#quick-reference_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pub_key_str</td>
+<td>Yes</td>
+<td>The recipient&rsquo;s public key</td>
+</tr>
+<tr>
+<td>priv_key_str</td>
+<td>Yes</td>
+<td>The initiator&rsquo;s private key</td>
+</tr>
+</tbody>
+</table>
+<h3 id="required-parameters">Required parameters<a class="headerlink" href="#required-parameters" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>algorithm - the supported values are ‘RSA’, ‘DSA’, or ‘DH’.</p>
+<p><strong>pub_key_str</strong> - The recipient party&rsquo;s public key in PEM format</p>
 </li>
 <li>
-<p>key_len - the supported key length values are the following:</p>
+<p><strong>priv_key_str</strong> - The initiator&rsquo;s private key in PEM format</p>
+</li>
+</ul>
+<h3 id="return-value_1">Return value<a class="headerlink" href="#return-value_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>RSA - the minimum length is 1,024. The maximum length is 16,384.</p>
+<p>Returns a cryptographic key value that will be identical for both parties when they perform their respective calculations</p>
 </li>
 <li>
-<p>DSA - the minimum length is 1,024. The maximum length is 9,984.</p>
+<p>The function enables secure symmetric key establishment without transmitting the actual secret key</p>
 </li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>OpenSSL defines the key length limits. To change the maximum key length, use either encryption_udf.rsa_bits_threshold or encryption_udf.dsa_bits_threshold.</p>
-</div>
-</li>
-<li>
-<p>dh_parameters - Diffie-Hellman (DH) parameters. Invoking create_dh_parameter creates the DH parameters.</p>
-</li>
-</ul>
-<h2 id="create_asymmetric_pub_keyalgorithm-priv_key_str">create_asymmetric_pub_key(<em>algorithm, priv_key_str</em>)<a class="headerlink" href="#create_asymmetric_pub_keyalgorithm-priv_key_str" title="Permanent link">&para;</a></h2>
-<p>Derives a public key from the given private key using the given algorithm.</p>
-<h3 id="create_asymmetric_pub_key-output">create_asymmetric_pub_key output<a class="headerlink" href="#create_asymmetric_pub_key-output" title="Permanent link">&para;</a></h3>
-<p>The key as a string in the PEM format.</p>
-<h3 id="create_asymmetric_pub_key-parameters">create_asymmetric_pub_key parameters<a class="headerlink" href="#create_asymmetric_pub_key-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
+<details>
+   <summary>Example usage</summary>
+
+   <div class="highlight"><pre><span></span><code><span class="c1">-- Generate a shared secret</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">shared_secret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_derive</span><span class="p">(</span><span class="o">@</span><span class="n">their_public_key</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">my_private_key</span><span class="p">);</span>
+
+<span class="c1">-- Use the shared secret for symmetric encryption</span>
+<span class="c1">-- Both parties will have the same shared secret</span>
+</code></pre></div>
+</details>
+<hr />
+<h2 id="asymmetric_encryptalgorithm-str-key_strasymmetric_encrypt">Asymmetric_encrypt(<em>algorithm, str, key_str</em>){asymmetric_encrypt}<a class="headerlink" href="#asymmetric_encryptalgorithm-str-key_strasymmetric_encrypt" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🔒 <strong>Data Encryption Function</strong></p>
+<p>This function transforms plaintext data into encrypted format using asymmetric cryptography. The encrypted data can only be decrypted with the corresponding key.</p>
+</blockquote>
+<h3 id="quick-reference_2">Quick reference<a class="headerlink" href="#quick-reference_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>algorithm</td>
+<td>Yes</td>
+<td>Cryptographic algorithm identifier (currently only &lsquo;RSA&rsquo;)</td>
+</tr>
+<tr>
+<td>str</td>
+<td>Yes</td>
+<td>The plaintext message to encrypt</td>
+</tr>
+<tr>
+<td>key_str</td>
+<td>Yes</td>
+<td>The encryption key (public or private) in PEM format</td>
+</tr>
+<tr>
+<td>padding</td>
+<td>No</td>
+<td>Padding scheme: &lsquo;no&rsquo;, &lsquo;pkcs1&rsquo;, or &lsquo;oaep&rsquo;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="return-value_2">Return value<a class="headerlink" href="#return-value_2" title="Permanent link">&para;</a></h3>
+<p>The function returns the encrypted ciphertext as binary data.</p>
+<h3 id="parameter-details_1">Parameter details<a class="headerlink" href="#parameter-details_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>algorithm - the supported values are ‘RSA’, ‘DSA’, or ‘DH’.</p>
+<p><strong>algorithm</strong> - Specifies the cryptographic algorithm to be used for encryption (currently only RSA is supported)</p>
 </li>
 <li>
-<p>priv_key_str - must be a valid key string in the PEM format.</p>
+<p><strong>str</strong> - The plaintext data to be encrypted. Note that message length is constrained by the key size and padding scheme selected. Maximum message length must not exceed the key size minus padding overhead.</p>
 </li>
+<li>
+<p><strong>key_str</strong> - The encryption key in PEM format (can be either a public or private key depending on implementation requirements)</p>
+</li>
+<li>
+<p><strong>padding</strong> - A parameter added in version 8.0.41 that specifies the padding scheme:</p>
+</li>
+<li><code>no</code> - No padding (requires exact-size messages, not recommended for production)</li>
+<li><code>pkcs1</code> - PKCS#1 v1.5 padding scheme (standard protection)</li>
+<li><code>oaep</code> - Optimal Asymmetric Encryption Padding (enhanced security)</li>
 </ul>
-<h2 id="create_dh_parameterskey_len">create_dh_parameters(<em>key_len</em>)<a class="headerlink" href="#create_dh_parameterskey_len" title="Permanent link">&para;</a></h2>
-<p>Creates parameters for generating a Diffie-Hellman (DH) private/public key pair.
-If needed, execute <code>KILL [QUERY|CONNECTION] &lt;id&gt;</code> to terminate the generation of long-lasting parameters.</p>
-<p>Generating the DH parameters can take more time than generating the RSA keys or
-the DSA keys.
-OpenSSL defines the parameter length limits. To change the
-maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
-<h3 id="create_dh_parameters-output">create_dh_parameters output<a class="headerlink" href="#create_dh_parameters-output" title="Permanent link">&para;</a></h3>
-<p>A string in the PEM format can be passed to create_asymmetric_private_key.</p>
-<h3 id="create_dh_parameters-parameters">create_dh_parameters parameters<a class="headerlink" href="#create_dh_parameters-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
-<ul>
-<li>key_len - the range for the key length is from 1024 to 10,000. The default value is 10,000.</li>
-</ul>
-<h2 id="create_digestdigest_type-str">create_digest(<em>digest_type, str</em>)<a class="headerlink" href="#create_digestdigest_type-str" title="Permanent link">&para;</a></h2>
+<p>If not specified, the system uses the value from the encryption_udf.legacy_padding_scheme variable.</p>
+<details>
+   <summary>Example usage</summary>
+
+   <div class="highlight"><pre><span></span><code><span class="c1">-- Encrypt sensitive data using a public key</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">ciphertext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_encrypt</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Secret message&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">public_key</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;oaep&#39;</span><span class="p">);</span>
+
+<span class="c1">-- Store or transmit the encrypted data</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">secure_messages</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">ciphertext</span><span class="p">);</span>
+</code></pre></div>
+</details>
+
+<h2 id="size-limits-remember-that-your-message-size-is-limited-by-your-key-size-and-padding-method-for-a-2048-bit-key-with-oaep-padding-your-message-must-be-smaller-than-20488-42-214-bytes">⚠️ <strong>Size Limits</strong>: Remember that your message size is limited by your key size and padding method. For a 2048-bit key with OAEP padding, your message must be smaller than (2048/8)-42 = 214 bytes.<a class="headerlink" href="#size-limits-remember-that-your-message-size-is-limited-by-your-key-size-and-padding-method-for-a-2048-bit-key-with-oaep-padding-your-message-must-be-smaller-than-20488-42-214-bytes" title="Permanent link">&para;</a></h2>
+<h2 id="asymmetric_signalgorithm-digest_str-priv_key_str-digest_type-paddingasymmetric_sign">Asymmetric_sign(<em>algorithm, digest_str, priv_key_str, digest_type, [padding]</em>){asymmetric_sign}<a class="headerlink" href="#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type-paddingasymmetric_sign" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>✍️ <strong>Digital Signature Function</strong></p>
+<p>This function applies a cryptographic signature to a message digest using a private key. The signature provides authentication, non-repudiation, and integrity verification capabilities. Each signature is unique even when signing the same content multiple times.</p>
+</blockquote>
+<h3 id="quick-reference_3">Quick reference<a class="headerlink" href="#quick-reference_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>algorithm</td>
+<td>Yes</td>
+<td>Signature algorithm (&lsquo;RSA&rsquo; or &lsquo;DSA&rsquo;)</td>
+</tr>
+<tr>
+<td>digest_str</td>
+<td>Yes</td>
+<td>The message digest (hash value)</td>
+</tr>
+<tr>
+<td>priv_key_str</td>
+<td>Yes</td>
+<td>The signer&rsquo;s private key in PEM format</td>
+</tr>
+<tr>
+<td>digest_type</td>
+<td>Yes</td>
+<td>The hash algorithm identifier (e.g., &lsquo;SHA256&rsquo;)</td>
+</tr>
+<tr>
+<td>padding</td>
+<td>No</td>
+<td>For RSA only: &lsquo;pkcs1&rsquo; or &lsquo;pkcs1_pss&rsquo;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="security-considerations">Security considerations<a class="headerlink" href="#security-considerations" title="Permanent link">&para;</a></h3>
+<p>⚠️ <strong>Implementation Risks</strong>:
+* Using public key instead of private key for signing operations
+* Signing raw message data instead of message digest
+* Inconsistent algorithm selection across systems
+* Inadequate private key protection and backup procedures</p>
+<h3 id="return-value_3">Return value<a class="headerlink" href="#return-value_3" title="Permanent link">&para;</a></h3>
+<p>The function returns a digital signature as binary data that cryptographically proves the authenticity of the message.</p>
+<h3 id="parameter-details_2">Parameter details<a class="headerlink" href="#parameter-details_2" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>algorithm</strong> - Specifies the signature algorithm:</li>
+<li>&lsquo;RSA&rsquo; - RSA signature algorithm (widely implemented)</li>
+<li>
+<p>&lsquo;DSA&rsquo; - Digital Signature Algorithm (alternative implementation)</p>
+</li>
+<li>
+<p><strong>digest_str</strong> - The cryptographic hash of the message </p>
+</li>
+<li>Generate using the create_digest function</li>
+<li>
+<p>Always sign the digest rather than the raw message for security and performance</p>
+</li>
+<li>
+<p><strong>priv_key_str</strong> - The signer&rsquo;s private key</p>
+</li>
+<li>Requires secure storage and access controls</li>
+<li>
+<p>Must be in PEM format (standard key encoding format)</p>
+</li>
+<li>
+<p><strong>digest_type</strong> - The hash algorithm identifier</p>
+</li>
+<li>Common implementations include &lsquo;SHA256&rsquo;, &lsquo;SHA512&rsquo;, etc.</li>
+<li>
+<p>Reference the digest type table for all supported algorithms</p>
+</li>
+<li>
+<p><strong>padding</strong> - Signature padding scheme (for RSA algorithm only)</p>
+</li>
+<li>Options: &lsquo;pkcs1&rsquo; or &lsquo;pkcs1_pss&rsquo;</li>
+<li>Default is determined by the encryption_udf.legacy_padding_scheme setting</li>
+</ol>
+<details>
+   <summary>Example usage</summary>
+
+   <div class="highlight"><pre><span></span><code><span class="c1">-- Generate a message digest</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">digest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_digest</span><span class="p">(</span><span class="s1">&#39;SHA256&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Important message&#39;</span><span class="p">);</span>
+
+<span class="c1">-- Sign the digest</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_sign</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">digest</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SHA256&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;pkcs1_pss&#39;</span><span class="p">);</span>
+
+<span class="c1">-- Store the signature with the message</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">signed_messages</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;Important message&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">signature</span><span class="p">);</span>
+</code></pre></div>
+</details>
+
+<hr />
+<h2 id="asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type-paddingasymmetric_verify">Asymmetric_verify(<em>algorithm, digest_str, sig_str, pub_key_str, digest_type, [padding]</em>){asymmetric_verify}<a class="headerlink" href="#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type-paddingasymmetric_verify" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🔍 <strong>Signature verification function</strong></p>
+<p>This function validates the authenticity of a digital signature by verifying it against the original message digest using the signer&rsquo;s public key. It provides cryptographic proof of message integrity and sender identity.</p>
+</blockquote>
+<h3 id="quick-reference_4">Quick reference<a class="headerlink" href="#quick-reference_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>algorithm</td>
+<td>Yes</td>
+<td>Signature algorithm (&lsquo;RSA&rsquo; or &lsquo;DSA&rsquo;)</td>
+</tr>
+<tr>
+<td>digest_str</td>
+<td>Yes</td>
+<td>The message digest (hash value)</td>
+</tr>
+<tr>
+<td>sig_str</td>
+<td>Yes</td>
+<td>The digital signature to verify</td>
+</tr>
+<tr>
+<td>pub_key_str</td>
+<td>Yes</td>
+<td>The signer&rsquo;s public key in PEM format</td>
+</tr>
+<tr>
+<td>digest_type</td>
+<td>Yes</td>
+<td>The hash algorithm identifier (e.g., &lsquo;SHA256&rsquo;)</td>
+</tr>
+<tr>
+<td>padding</td>
+<td>No</td>
+<td>For RSA only: &lsquo;pkcs1&rsquo; or &lsquo;pkcs1_pss&rsquo;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="return-value_4">Return value<a class="headerlink" href="#return-value_4" title="Permanent link">&para;</a></h3>
+<p>The function returns a binary verification result:
+* <code>1</code> - Signature verified successfully (authentic)
+* <code>0</code> - Signature verification failed (inauthentic or corrupted)</p>
+<h3 id="parameter-details_3">Parameter details<a class="headerlink" href="#parameter-details_3" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>algorithm</strong> - Specifies the signature algorithm for verification</li>
+<li>Must match the algorithm used during signature creation</li>
+<li>
+<p>Supported values: &lsquo;RSA&rsquo; or &lsquo;DSA&rsquo;</p>
+</li>
+<li>
+<p><strong>digest_str</strong> - The cryptographic hash of the message</p>
+</li>
+<li>Generate using the create_digest function</li>
+<li>
+<p>Must use identical hashing algorithm as used during signing</p>
+</li>
+<li>
+<p><strong>sig_str</strong> - The digital signature to be verified</p>
+</li>
+<li>Generated by the asymmetric_sign function</li>
+<li>
+<p>Binary data containing cryptographic validation information</p>
+</li>
+<li>
+<p><strong>pub_key_str</strong> - The signer&rsquo;s public key</p>
+</li>
+<li>Must correspond to the private key used for signature creation</li>
+<li>
+<p>Required in PEM format</p>
+</li>
+<li>
+<p><strong>digest_type</strong> - The hash algorithm identifier</p>
+</li>
+<li>Must match the algorithm used during signature creation</li>
+<li>
+<p>Reference the algorithm table for supported options</p>
+</li>
+<li>
+<p><strong>padding</strong> - The signature padding scheme</p>
+</li>
+<li>Applicable only for RSA signatures</li>
+<li>Must match the padding scheme used during signature creation</li>
+<li>Default is determined by <a href="#encryption_udflegacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a></li>
+</ol>
+<h3 id="common-verification-pitfalls">⚠️ Common Verification Pitfalls<a class="headerlink" href="#common-verification-pitfalls" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>What Happens</th>
+<th>How to Avoid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Using wrong public key</td>
+<td>Verification always fails</td>
+<td>Double-check key ownership</td>
+</tr>
+<tr>
+<td>Verifying tampered message</td>
+<td>Verification correctly fails</td>
+<td>Don&rsquo;t change the message after signing</td>
+</tr>
+<tr>
+<td>Using wrong digest type</td>
+<td>Verification fails mysteriously</td>
+<td>Use same digest type as signing</td>
+</tr>
+<tr>
+<td>Mismatched padding</td>
+<td>Verification fails with no clear reason</td>
+<td>Use same padding as signing</td>
+</tr>
+</tbody>
+</table>
+<details>
+   <summary>Example usage</summary>
+
+   <div class="highlight"><pre><span></span><code><span class="c1">-- Retrieve a signed message and its signature</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="n">signature</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">@</span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">signature</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">signed_messages</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">-- Generate the message digest</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">digest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_digest</span><span class="p">(</span><span class="s1">&#39;SHA256&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">message</span><span class="p">);</span>
+
+<span class="c1">-- Verify the signature (1 = valid, 0 = invalid)</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">is_valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_verify</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">digest</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">signature</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">public_key</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SHA256&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;pkcs1_pss&#39;</span><span class="p">);</span>
+
+<span class="c1">-- Check the result</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">IF</span><span class="p">(</span><span class="o">@</span><span class="n">is_valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Signature is valid&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Signature is forged or corrupted&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">verification_result</span><span class="p">;</span>
+</code></pre></div>
+</details>
+
+<hr />
+<h2 id="create_asymmetric_priv_keyalgorithm-key_lencreate_asymmetric_priv_key">Create_asymmetric_priv_key(<em>algorithm, key_len</em>){create_asymmetric_priv_key}<a class="headerlink" href="#create_asymmetric_priv_keyalgorithm-key_lencreate_asymmetric_priv_key" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🔑 <strong>Private key generation function</strong></p>
+<p>This function generates a cryptographic private key using the specified algorithm and security parameters. The private key serves as the foundation for asymmet</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>Consequence</th>
+<th>Better Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Too small key</td>
+<td>Vulnerable to attacks</td>
+<td>Use at least 2048 bits for RSA</td>
+</tr>
+<tr>
+<td>Too large key</td>
+<td>Extremely slow operations</td>
+<td>Balance security with performance</td>
+</tr>
+<tr>
+<td>Unsecured storage</td>
+<td>Key theft</td>
+<td>Store keys in secure, restricted locations</td>
+</tr>
+<tr>
+<td>No backup</td>
+<td>Permanent data loss</td>
+<td>Backup keys with proper security</td>
+</tr>
+</tbody>
+</table>
+<h3 id="taking-too-long">Taking too long?<a class="headerlink" href="#taking-too-long" title="Permanent link">&para;</a></h3>
+<p>Some keys (especially strong ones) take a while to create. If you&rsquo;re getting impatient:</p>
+<div class="highlight"><pre><span></span><code><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">id</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="c1">-- or</span>
+<span class="n">KILL</span><span class="w"> </span><span class="k">CONNECTION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">id</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>This works for RSA and DSA keys. DH keys are quick, so no worries there.</p>
+<details>
+   <summary>Example usage</summary>
+
+   <div class="highlight"><pre><span></span><code><span class="c1">-- Create a 3072-bit RSA private key</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_priv_key</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3072</span><span class="p">);</span>
+
+<span class="c1">-- Create a 2048-bit DSA private key</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">dsa_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_priv_key</span><span class="p">(</span><span class="s1">&#39;DSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2048</span><span class="p">);</span>
+
+<span class="c1">-- Create DH parameters and then a DH key</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">dh_params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_dh_parameters</span><span class="p">(</span><span class="mi">2048</span><span class="p">);</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">dh_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_priv_key</span><span class="p">(</span><span class="s1">&#39;DH&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2048</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">dh_params</span><span class="p">);</span>
+
+<span class="c1">-- Save your key for future use</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">secure_keys</span><span class="w"> </span><span class="p">(</span><span class="n">key_id</span><span class="p">,</span><span class="w"> </span><span class="n">key_content</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;my_primary_key&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="p">);</span>
+</code></pre></div>
+</details>
+
+<hr />
+<h2 id="create_asymmetric_pub_keyalgorithm-priv_key_strcreate_asymmetric_pub_key">Create_asymmetric_pub_key(<em>algorithm, priv_key_str</em>){create_asymmetric_pub_key}<a class="headerlink" href="#create_asymmetric_pub_keyalgorithm-priv_key_strcreate_asymmetric_pub_key" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🔓 <strong>Public key extraction function</strong></p>
+<p>This function extracts a public key from your private key. Think of it as creating a deposit-only ATM card - people can put money in, but they can&rsquo;t take any out.</p>
+</blockquote>
+<h3 id="quick-reference_5">Quick reference<a class="headerlink" href="#quick-reference_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>algorithm</td>
+<td>Yes</td>
+<td>Key algorithm (&lsquo;RSA&rsquo;, &lsquo;DSA&rsquo;, or &lsquo;DH&rsquo;)</td>
+</tr>
+<tr>
+<td>priv_key_str</td>
+<td>Yes</td>
+<td>Your private key in PEM format</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-you-get-back">What you get back<a class="headerlink" href="#what-you-get-back" title="Permanent link">&para;</a></h3>
+<p>A public key in PEM format - another block of garbled text you can freely share.</p>
+<h3 id="what-you-need-to-extract-your-public-key">What you need to extract your public key<a class="headerlink" href="#what-you-need-to-extract-your-public-key" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>algorithm</strong> - What kind of key are we working with?</li>
+<li>Must match the private key type: &lsquo;RSA&rsquo;, &lsquo;DSA&rsquo;, or &lsquo;DH&rsquo;</li>
+<li>
+<p>Get this wrong and you&rsquo;ll get errors</p>
+</li>
+<li>
+<p><strong>priv_key_str</strong> - Your secret private key</p>
+</li>
+<li>Must be in PEM</li>
+</ol>
+<h2 id="create_dh_parameterskey_lencreate_dh_parameters">Create_dh_parameters(<em>key_len</em>){create_dh_parameters}<a class="headerlink" href="#create_dh_parameterskey_lencreate_dh_parameters" title="Permanent link">&para;</a></h2>
+<p>This function creates the special math values for Diffie-Hellman keys. It&rsquo;s like creating a recipe that two people will follow to create identical secret sauces without ever sharing their individual ingredients.</p>
+<h3 id="warning-patience-required">Warning: Patience required!<a class="headerlink" href="#warning-patience-required" title="Permanent link">&para;</a></h3>
+<p>This can take a LONG time - much longer than making regular keys. Cancel with:
+<div class="highlight"><pre><span></span><code>KILL [QUERY|CONNECTION] &lt;id&gt;
+</code></pre></div></p>
+<p>Think of it like the difference between:
+* Making regular keys = making a sandwich
+* Creating DH parameters = baking bread from scratch</p>
+<h3 id="what-you-get-back_1">What you get back<a class="headerlink" href="#what-you-get-back_1" title="Permanent link">&para;</a></h3>
+<p>A block of special values in PEM format. You&rsquo;ll use these later when creating DH keys.</p>
+<h3 id="what-you-need-to-create-parameters">What you need to create parameters<a class="headerlink" href="#what-you-need-to-create-parameters" title="Permanent link">&para;</a></h3>
+<p><strong>key_len</strong> - How mathematically strong should these be?
+* Choose between 1,024 and 10,000 bits
+* Default is 10,000 (strongest but slowest)
+* Admins can adjust the maximum with encryption_udf.dh_bits_threshold</p>
+<h2 id="create_digestdigest_type-strcreate_digest">Create_digest(<em>digest_type, str</em>){create_digest}<a class="headerlink" href="#create_digestdigest_type-strcreate_digest" title="Permanent link">&para;</a></h2>
 <p>Creates a digest from the given string using the given digest type. The digest string can be used with asymmetric_sign and asymmetric_verify.</p>
-<h3 id="create_digest-output">create_digest output<a class="headerlink" href="#create_digest-output" title="Permanent link">&para;</a></h3>
+<h3 id="create_digest-output">Create_digest output<a class="headerlink" href="#create_digest-output" title="Permanent link">&para;</a></h3>
 <p>The digest of the given string as a binary string</p>
-<h3 id="create_digest-parameters">create_digest parameters<a class="headerlink" href="#create_digest-parameters" title="Permanent link">&para;</a></h3>
+<h3 id="create_digest-parameters">Create_digest parameters<a class="headerlink" href="#create_digest-parameters" title="Permanent link">&para;</a></h3>
 <p>The parameters are the following:</p>
 <ul>
 <li>
@@ -9931,7 +10858,7 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 <p>str - String used to generate the digest string.</p>
 </li>
 </ul>
-<h3 id="encryption-threshold-variables">Encryption threshold variables<a class="headerlink" href="#encryption-threshold-variables" title="Permanent link">&para;</a></h3>
+<h3 id="encryption-threshold-variables_1">Encryption threshold variables<a class="headerlink" href="#encryption-threshold-variables_1" title="Permanent link">&para;</a></h3>
 <p>OpenSSL defines the maximum key length limits. Server administrators can limit the maximum key length using the encryption threshold variables.</p>
 <p>The variables are automatically registered when component_encryption_udf is installed.</p>
 <table>
@@ -10004,8 +10931,9 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 </tbody>
 </table>
 <p>The range for this variable is from 1,024 to 9,984. The default value is 9,984.</p>
-<h3 id="encryption_udflegacy_paddding_scheme">encryption_udf.legacy_paddding_scheme<a class="headerlink" href="#encryption_udflegacy_paddding_scheme" title="Permanent link">&para;</a></h3>
+<h3 id="encryption_udflegacy_padding_scheme">Encryption_udf.legacy_padding_scheme<a class="headerlink" href="#encryption_udflegacy_padding_scheme" title="Permanent link">&para;</a></h3>
 <p>The variable enables or disables the legacy padding scheme for certain encryption operations.</p>
+<p>895|</p>
 <table>
 <thead>
 <tr>
@@ -10034,91 +10962,110 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 </table>
 <p>This system variable is a BOOLEAN type and is set to <code>OFF</code> by default. </p>
 <p>This variable controls how the functions <code>asymmetric_encrypt()</code>, <code>asymmetric_decrypt()</code>, <code>asymmetric_sign()</code>, and <code>asymmetric_verify()</code> behave when you don’t explicitly set the padding parameter.</p>
-<p>•   When encryption_udf.legacy_padding_scheme is OFF:</p>
-<div class="highlight"><pre><span></span><code>• asymmetric_encrypt() and asymmetric_decrypt() use OAEP encryption padding.
-
-• asymmetric_sign() and asymmetric_verify() use PKCS1_PSS signature padding.
-</code></pre></div>
-<p>•   When encryption_udf.legacy_padding_scheme is ON:</p>
-<div class="highlight"><pre><span></span><code>• asymmetric_encrypt() and asymmetric_decrypt() use PKCS1 encryption padding.
-
-• asymmetric_sign() and asymmetric_verify() use PKCS1 signature padding.
-</code></pre></div>
-<p>The <code>asymmetric_encrypt()</code> and <code>asymmetric_decrypt()</code> functions, when the encryption is <code>RSA</code>, can accept an optional parameter, <code>padding</code>. You can set this parameter to <code>no</code>, <code>pkcs1</code>, or <code>oaep</code>. If you don’t specify this parameter, it defaults based on the <a href="#encryption_udf.legacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a> value. </p>
-<p>The padding schemes have the following limitations:</p>
+<h3 id="understanding-padding-schemes">Understanding padding schemes<a class="headerlink" href="#understanding-padding-schemes" title="Permanent link">&para;</a></h3>
+<p>Think of padding like packing a box:
+* <code>oaep</code> is like using a big box with lots of bubble wrap
+* <code>no</code> padding is like using an exact-size box with no padding 
+* <code>pkcs1</code> is like using a box with just a thin layer of protection</p>
+<p>When <code>encryption_udf.legacy_padding_scheme</code> is OFF (default):</p>
+<ul>
+<li>For locking data: Functions use <code>oaep</code> padding (the big box with lots of bubble wrap)</li>
+<li>For signing data: Functions use <code>pkcs1_pss</code> padding (the fancy signature style)</li>
+</ul>
+<p>When <code>encryption_udf.legacy_padding_scheme</code> is ON:</p>
+<ul>
+<li>For locking data: Functions use <code>pkcs1</code> padding (the box with thin protection)</li>
+<li>For signing data: Functions use <code>pkcs1</code> padding (the basic signature style)</li>
+</ul>
+<p>You can also pick a padding style yourself in the <code>asymmetric_encrypt()</code> and <code>asymmetric_decrypt()</code> functions with RSA encryption. Just add <code>'no'</code>, <code>'pkcs1'</code>, or <code>'oaep'</code> as the last parameter. If you don&rsquo;t pick one, the system uses whatever <code>encryption_udf.legacy_padding_scheme</code> is set to.</p>
+<h3 id="size-limits-for-each-padding-style">Size limits for each padding style<a class="headerlink" href="#size-limits-for-each-padding-style" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Padding Scheme</th>
-<th>Details</th>
+<th>Padding Box</th>
+<th>How much can fit inside</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>oaep</code></td>
-<td>The message you encrypt can be as long as your RSA key size in bytes - 42 bytes.</td>
+<td>Your key size minus 42 bytes (less room, but most secure)</td>
 </tr>
 <tr>
 <td><code>no</code></td>
-<td>The message length must exactly match your RSA key size in bytes. For example, if your key is 1024 bits (128 bytes), the message must also be 128 bytes. If it doesn’t match, it will cause an error.</td>
+<td>Must be EXACTLY your key size (like a perfect-fit box)</td>
 </tr>
 <tr>
 <td><code>pkcs1</code></td>
-<td>Your message can be equal to or smaller than the RSA key size - 11 bytes. For instance, with a 1024-bit RSA key, your message can’t be longer than 117 bytes.</td>
+<td>Your key size minus 11 bytes (more room than oaep)</td>
 </tr>
 </tbody>
 </table>
-<p>Similarly, <code>asymmetric_sign()</code> and <code>asymmetric_verify()</code> also have an optional <code>padding</code> parameter, either <code>pkcs1</code> or <code>pkcs1_pss</code>. If not explicitly set, it follows the default based on <a href="#encryption_udf.legacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a>. You can only use the padding parameter with RSA algorithms.</p>
-<h4 id="additional-resources">Additional resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h4>
-<p>For more information, read <a href="https://www.percona.com/blog/digital-signatures-another-layer-of-data-protection-in-percona-server-for-mysql/"><code>Digital Signatures: Another layer of Data Protection in Percona Server for MySQL</code></a></p>
-<h3 id="encryption_udfrsa_bits_threshold">encryption_udf.rsa_bits_threshold<a class="headerlink" href="#encryption_udfrsa_bits_threshold" title="Permanent link">&para;</a></h3>
-<p>The variable sets the threshold limits for the create_asymmetric_priv_key user-defined function when invoked with the RSA parameter and takes precedence over the OpenSSL maximum length value.</p>
+<h4 id="example-how-much-fits-in-a-pkcs1-box">Example: How much fits in a pkcs1 box<a class="headerlink" href="#example-how-much-fits-in-a-pkcs1-box" title="Permanent link">&para;</a></h4>
+<p>Let&rsquo;s say you have a 1024-bit RSA key:</p>
+<ol>
+<li>First, convert bits to bytes:</li>
+<li>
+<p>1024 bits ÷ 8 = 128 bytes</p>
+</li>
+<li>
+<p>Then, subtract the padding space:</p>
+</li>
+<li>
+<p>128 bytes - 11 bytes = 117 bytes</p>
+</li>
+<li>
+<p>Result: Your message must be 117 bytes or less</p>
+</li>
+</ol>
+<p>If your message is bigger than what fits, you&rsquo;ll need:
+* A bigger key size, or
+* A different padding style</p>
+<h3 id="padding-for-signatures">Padding for signatures<a class="headerlink" href="#padding-for-signatures" title="Permanent link">&para;</a></h3>
+<p>When you sign data with <code>asymmetric_sign()</code> or verify with <code>asymmetric_verify()</code>, you can choose a padding style too:
+* <code>pkcs1</code> - the basic style
+* <code>pkcs1_pss</code> - the extra-secure style</p>
+<p>If you don&rsquo;t pick one, the system checks the <code>encryption_udf.legacy_padding_scheme</code> setting. You can only use padding with RSA algorithms.</p>
+<h4 id="want-to-learn-more">Want to learn more?<a class="headerlink" href="#want-to-learn-more" title="Permanent link">&para;</a></h4>
+<p>Check out this article: <a href="https://www.percona.com/blog/digital-signatures-another-layer-of-data-protection-in-percona-server-for-mysql/"><code>Digital Signatures: Another layer of Data Protection in Percona Server for MySQL</code></a></p>
+<h3 id="encryption_udfrsa_bits_threshold">Encryption_udf.rsa_bits_threshold<a class="headerlink" href="#encryption_udfrsa_bits_threshold" title="Permanent link">&para;</a></h3>
+<p>This setting controls how strong RSA keys can be when you create them with the create_asymmetric_priv_key function. Think of it as setting a limit on how big of a padlock you can make.</p>
 <table>
 <thead>
 <tr>
 <th>Option</th>
-<th>Description</th>
+<th>What it means</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>command-line</td>
-<td>Yes</td>
+<td>You can set it when starting MySQL</td>
 </tr>
 <tr>
 <td>scope</td>
-<td>Global</td>
+<td>Affects the whole server</td>
 </tr>
 <tr>
 <td>data type</td>
-<td>unsigned integer</td>
+<td>A number without decimals</td>
 </tr>
 <tr>
 <td>default</td>
-<td>16384</td>
+<td>16384 (strongest possible)</td>
 </tr>
 </tbody>
 </table>
-<p>The range for this variable is from 1,024 to 16,384. The default value is 16,384.</p>
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<p>Code examples for the following operations:</p>
-<ul>
-<li>
-<p>Set the threshold variables</p>
-</li>
-<li>
-<p>Create a private key</p>
-</li>
-<li>
-<p>Create a public key</p>
-</li>
-<li>
-<p>Encrypt data</p>
-</li>
-<li>
-<p>Decrypt data</p>
-</li>
-</ul>
+<p>You can choose any number between 1,024 (good) and 16,384 (extremely strong). The default is set to the maximum of 16,384.</p>
+<h2 id="examples-you-can-try">Examples you can try<a class="headerlink" href="#examples-you-can-try" title="Permanent link">&para;</a></h2>
+<p>Here are some simple examples to help you get started:</p>
+<h3 id="example-1-setting-limits-and-working-with-keys">Example 1: Setting limits and working with keys<a class="headerlink" href="#example-1-setting-limits-and-working-with-keys" title="Permanent link">&para;</a></h3>
+<p>This example shows how to:
+* Set how strong keys can be
+* Create your private key (your secret key)
+* Create your public key (the key you can share)
+* Lock (encrypt) some text
+* Unlock (decrypt) it again</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Set<span class="w"> </span>Global<span class="w"> </span>variable
 mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span>encryption_udf.dh_bits_threshold<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4096</span><span class="p">;</span>
 
@@ -10138,18 +11085,11 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@ciphertext<span cla
 --<span class="w"> </span>The<span class="w"> </span>decrypted<span class="w"> </span>value<span class="w"> </span>@plaintext<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span>identical<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>original<span class="w"> </span><span class="s1">&#39;This text is secret&#39;</span>
 mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@plaintext<span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_decrypt<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span>@ciphertext,<span class="w"> </span>@public_key<span class="o">)</span><span class="p">;</span>
 </code></pre></div>
-<p>Code examples for the following operations:</p>
-<ul>
-<li>
-<p>generate a digest string</p>
-</li>
-<li>
-<p>generate a digest signature</p>
-</li>
-<li>
-<p>verify the signature against the digest</p>
-</li>
-</ul>
+<h3 id="example-2-creating-digital-signatures">Example 2: Creating digital signatures<a class="headerlink" href="#example-2-creating-digital-signatures" title="Permanent link">&para;</a></h3>
+<p>This example shows how to:
+* Create a fingerprint (digest) of your message
+* Sign that fingerprint with your private key
+* Check if the signature is real</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>digest<span class="w"> </span>string
 mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@digest<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_digest<span class="o">(</span><span class="s1">&#39;SHA256&#39;</span>,<span class="w"> </span><span class="s1">&#39;This is the text for digest&#39;</span><span class="o">)</span><span class="p">;</span>
 
@@ -10160,21 +11100,15 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@signature<span clas
 --<span class="w"> </span>The<span class="w"> </span>@verify_signature<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span>equal<span class="w"> </span>to<span class="w"> </span><span class="m">1</span>
 mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@verify_signature<span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_verify<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span>@digest,<span class="w"> </span>@signature,<span class="w"> </span>@public_key,<span class="w"> </span><span class="s1">&#39;SHA256&#39;</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
-<p>Code examples for the following operations:</p>
+<h3 id="example-3-creating-a-shared-secret">Example 3: Creating a shared secret<a class="headerlink" href="#example-3-creating-a-shared-secret" title="Permanent link">&para;</a></h3>
+<p>This example shows how two people can create the same secret key without ever sharing their private keys:</p>
 <ul>
-<li>
-<p>Generate a DH parameter</p>
-</li>
-<li>
-<p>Generate two DH key pairs</p>
-</li>
-<li>
-<p>Generate a symmetric key using the public_1 and the private_2</p>
-</li>
-<li>
-<p>Generate a symmetric key using the public_2 and the private_1</p>
-</li>
+<li>Create the recipe (DH parameter) for making the shared secret</li>
+<li>Make two sets of keys (one for each person)</li>
+<li>Person 1 creates the shared secret using their private key and Person 2&rsquo;s public key</li>
+<li>Person 2 creates the SAME shared secret using their private key and Person 1&rsquo;s public key</li>
 </ul>
+<p>This is like two people who each have half of a recipe - when combined, they both end up with the same final dish!</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="w"> </span>--<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>DH<span class="w"> </span>parameter
 <span class="w"> </span>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@dh_parameter<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_dh_parameters<span class="o">(</span><span class="m">3072</span><span class="o">)</span><span class="p">;</span>
 
@@ -10192,26 +11126,21 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span><span class="nv">sym
 --<span class="w"> </span>The<span class="w"> </span>@symmetric_2<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span>identical<span class="w"> </span>to<span class="w"> </span>@symmetric_1
 mysql&gt;<span class="w"> </span>SET<span class="w"> </span><span class="nv">symmetric_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_derive<span class="o">(</span>@public_2,<span class="w"> </span>@private_1<span class="o">)</span><span class="p">;</span>
 </code></pre></div>
-<p>Code examples for the following operations:</p>
-<ul>
-<li>
-<p>Create a private key using a <code>SET</code> statement</p>
-</li>
-<li>
-<p>Create a private key using a  <code>SELECT</code> statement</p>
-</li>
-<li>
-<p>Create a private key using an <code>INSERT</code> statement</p>
-</li>
-</ul>
+<h3 id="example-4-different-ways-to-create-keys">Example 4: Different ways to create keys<a class="headerlink" href="#example-4-different-ways-to-create-keys" title="Permanent link">&para;</a></h3>
+<p>Here are three different ways to create and save your keys:
+* Using a simple variable with <code>SET</code>
+* Using a query with <code>SELECT INTO</code>
+* Saving directly to a table with <code>INSERT</code></p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@private_key1<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">)</span><span class="p">;</span>
 mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">)</span><span class="w"> </span>INTO<span class="w"> </span>@private_key2<span class="p">;</span>
 mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>key_table<span class="w"> </span>VALUES<span class="o">(</span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">))</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="uninstall-component_encryption_udf">Uninstall component_encryption_udf<a class="headerlink" href="#uninstall-component_encryption_udf" title="Permanent link">&para;</a></h2>
-<p>You can deactivate and uninstall the component using the <a href="https://dev.mysql.com/doc/refman/8.0/en/uninstall-component.html">Uninstall Component statement</a>.</p>
+<h2 id="removing-the-encryption-toolbox">Removing the encryption toolbox<a class="headerlink" href="#removing-the-encryption-toolbox" title="Permanent link">&para;</a></h2>
+<p>When you&rsquo;re done using these tools, you can remove them from your system. Think of it like uninstalling an app when you no longer need it.</p>
+<p>Use this simple command:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
 </code></pre></div>
+<p>This removes all the encryption functions from your MySQL server.</p>
 
 
 
@@ -10232,7 +11161,7 @@ mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-03-14
+    2025-05-19
   </span>
 
     

@@ -5549,18 +5549,143 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_12_4" id="__nav_12_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Encryption functions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12_4">
+            <span class="md-nav__icon md-icon"></span>
+            Encryption functions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encryption-functions-overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Encryption functions overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="digest-encryption.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cryptographic digest functions vs. encryption
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="key-length-considerations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Key length considerations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="encryption-functions.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Encryption user-defined functions
+    Encryption functions
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -10246,11 +10371,53 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#encryption-functions" class="md-nav__link">
+  <a href="#section-12-4" class="md-nav__link">
     <span class="md-ellipsis">
-      Encryption user-defined functions
+      Encryption functions
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Encryption functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encryption-functions-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encryption functions overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digest-encryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cryptographic digest functions vs. encryption
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-length-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key length considerations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encryption-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encryption functions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -28900,424 +29067,1204 @@ plugin-load-add=authentication_fido.so
 </table>
 <p>The statement to unregister a device is as follows:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="sb">`</span>username<span class="sb">`</span>@<span class="sb">`</span>hostname<span class="sb">`</span><span class="w"> </span><span class="o">{</span><span class="m">2</span><span class="p">|</span><span class="m">3</span><span class="o">}</span><span class="w"> </span>FACTOR<span class="w"> </span>UNREGISTER<span class="p">;</span>
-</code></pre></div></section><section class="print-page" id="encryption-functions" heading-number="12.4"><h1 id="encryption-functions-encryption-user-defined-functions">Encryption user-defined functions<a class="headerlink" href="#encryption-functions-encryption-user-defined-functions" title="Permanent link">&para;</a></h1>
-<p>The encryption user-defined functions (UDF) let you encrypt and decrypt data. You can choose different encryption algorithms and manage the range of data to encrypt.</p>
-<h2 id="encryption-functions-version-updates">Version updates<a class="headerlink" href="#encryption-functions-version-updates" title="Permanent link">&para;</a></h2>
-<p>Percona Server for MySQL 8.0.41 adds the following:</p>
+</code></pre></div></section>
+                    <section class='print-page md-section' id='section-12-4' heading-number='12.4'>
+                        <h1>Encryption functions<a class='headerlink' href='#section-12-4' title='Permanent link'></a>
+                        </h1>
+                    <section class="print-page" id="encryption-functions-overview" heading-number="12.4.1"><h1 id="encryption-functions-overview-encryption-functions-overview">Encryption functions overview</h1><h2 id="encryption-functions-overview">Encryption functions overview<a class="headerlink" href="#encryption-functions-overview-encryption-functions-overview" title="Permanent link">&para;</a></h2>
+<p>This document provides comprehensive information about encryption functions that transform plaintext data into encrypted ciphertext. These functions provide robust security measures that require proper documentation to implement and maintain effectively. This guide offers the necessary information for successful implementation.</p>
+<h2 id="encryption-functions-overview-overview-of-capabilities">Overview of capabilities<a class="headerlink" href="#encryption-functions-overview-overview-of-capabilities" title="Permanent link">&para;</a></h2>
+<p>This documentation will guide you through:</p>
 <ul>
 <li>
-<p>Support for <code>pkcs1</code>, <code>oaep</code>, or <code>no</code> padding for RSA encrypt and decrypt operations</p>
-<p><details>
-   <summary> <code>pkcs1</code> padding explanation</summary>
-    <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSAES-PKCS1-v1_5</code></a> RSA encryption padding scheme prevents patterns that attackers could exploit by including a random sequence of bytes, which ensures that the ciphertext is different no matter how many times it is encrypted.
-</details></p>
-<p><details>
-   <summary> <code>oaep</code> padding explanation</summary><br />
-    The <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSAES-OAEP</code></a>  - <a href="https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding"><code>Optimal Asymmetric Encryption Padding</code></a> RSA encryption padding scheme adds a randomized mask generation function. This function makes it more difficult for attackers to exploit the encryption algorithm&rsquo;s weaknesses or recover the original message.
-</details></p>
-<p><details>
-   <summary> <code>no</code> padding explanation</summary>
-   Using <code>no</code> padding means the plaintext message is encrypted without adding an extra layer before performing the RSA encryption operation.
-</details></p>
+<p>Implementing data encryption protocols</p>
 </li>
 <li>
-<p>Support for <code>pkcs1</code> or <code>pkcs1_pss</code>  padding for RSA sign and verify operations</p>
-<p><details>
-   <summary> <code>pkcs1</code> padding explanation</summary>
-    The <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSASSA-PKCS1-v1_5</code></a> is a deterministic RSA signature padding scheme that hashes a message, pads the hash with a specific structure, and encrypts it with the signer&rsquo;s private key for signature generation. 
-</details>
+<p>Executing data decryption procedures</p>
+</li>
+<li>
+<p>Implementing digital signature authentication</p>
+</li>
+<li>
+<p>Avoiding common implementation pitfalls</p>
+</li>
+</ul>
+<p>First, let&rsquo;s review some key terms you&rsquo;ll encounter throughout this guide.</p>
+<h2 id="encryption-functions-overview-glossary-of-terms">Glossary of terms<a class="headerlink" href="#encryption-functions-overview-glossary-of-terms" title="Permanent link">&para;</a></h2>
+<p>Here&rsquo;s a quick reference guide to the cryptographic terms used in this document:</p>
+<ul>
+<li>
+<p><strong>Encryption</strong>: The process of converting readable data into a coded format that can only be decoded with the correct key.</p>
+</li>
+<li>
+<p><strong>Decryption</strong>: The reverse process of encryption, converting coded data back to its original readable form.</p>
+</li>
+<li>
+<p><strong>Symmetric Encryption</strong>: A type of encryption where the same key is used for both encryption and decryption, like a single key that locks and unlocks the same door.</p>
+</li>
+<li>
+<p><strong>Asymmetric Encryption</strong>: A type of encryption that uses a pair of keys - a public key for encryption and a private key for decryption, or vice versa.</p>
+</li>
+<li>
+<p><strong>RSA</strong> (Rivest-Shamir-Adleman): One of the most widely used asymmetric encryption algorithms, named after its creators.</p>
+</li>
+<li>
+<p><strong>DSA</strong> (Digital Signature Algorithm): An algorithm specifically designed for creating digital signatures.</p>
+</li>
+<li>
+<p><strong>DH</strong> (Diffie-Hellman): A method that allows two parties to establish a shared secret key over an insecure channel without sharing any secret information beforehand.</p>
+</li>
+<li>
+<p><strong>Digest/Hash</strong>: A fixed-size string of bytes generated from input data of any size, functioning like a digital fingerprint of the data.</p>
+</li>
+<li>
+<p><strong>Digital Signature</strong>: An electronic equivalent of a handwritten signature that uses asymmetric cryptography to verify authenticity.</p>
+</li>
+<li>
+<p><strong>Padding</strong>: Additional data added to a message before encryption to enhance security and prevent pattern analysis.</p>
+</li>
+<li>
+<p><strong>PEM Format</strong>: Privacy Enhanced Mail format, a common format for storing and sending cryptographic keys, certificates, and other data.</p>
+</li>
+</ul>
+<p>Now, let&rsquo;s examine common implementation challenges in encryption systems.</p>
+<h2 id="encryption-functions-overview-implementation-challenges">Implementation challenges<a class="headerlink" href="#encryption-functions-overview-implementation-challenges" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>⚠️ <strong>Common encryption mistakes</strong></p>
+<p>Key management is a critical aspect of encryption systems that requires rigorous planning and careful implementation.
+</p>
+</blockquote>
+<p>Here are the most common implementation issues:</p>
+<ul>
+<li>
+<p>Key loss: When decryption keys are lost, data becomes permanently inaccessible, even to authorized personnel.</p>
+</li>
+<li>
+<p>Algorithm-key mismatch: Using incompatible keys and algorithms results in decryption failures.</p>
+</li>
+<li>
+<p>Exceeding size limitations: Attempting to encrypt data larger than algorithm constraints can cause failures in both encryption and decryption processes.</p>
+</li>
+<li>
+<p>Insufficient documentation: Failing to properly document the encryption process and key management procedures can lead to system failures.</p>
+</li>
+</ul>
+<h2 id="encryption-functions-overview-version-updates">Version updates<a class="headerlink" href="#encryption-functions-overview-version-updates" title="Permanent link">&para;</a></h2>
+<p>Percona Server for MySQL 8.0.41 introduces several important new features that enhance security capabilities while requiring careful implementation.</p>
+<h3 id="encryption-functions-overview-padding-options-for-rsa-encryption">Padding options for RSA encryption<a class="headerlink" href="#encryption-functions-overview-padding-options-for-rsa-encryption" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Padding type</th>
+<th>Security level</th>
+<th>Application</th>
+<th>Characteristics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pkcs1</code></td>
+<td>Basic</td>
+<td>Legacy compatibility</td>
+<td>Standard protection with known limitations</td>
+</tr>
+<tr>
+<td><code>oaep</code></td>
+<td>High</td>
+<td>Modern applications</td>
+<td>Enhanced protection with additional security layers</td>
+</tr>
+<tr>
+<td><code>no</code></td>
+<td>None</td>
+<td>Specialized cases only</td>
+<td>No protection, vulnerable to multiple attack vectors</td>
+</tr>
+</tbody>
+</table>
+<h4 id="encryption-functions-overview-detailed-padding-explanations">Detailed padding explanations<a class="headerlink" href="#encryption-functions-overview-detailed-padding-explanations" title="Permanent link">&para;</a></h4>
 <details>
-   <summary> <code>pkcs1_pss</code> padding explanation</summary>
-    The <a href="https://en.wikipedia.org/wiki/PKCS_1"><code>RSASSA-PSS</code></a> - <a href="https://en.wikipedia.org/wiki/Probabilistic_signature_scheme">`Probabilistic Signature Scheme&rsquo;</a> is an RSA signature padding scheme used to add randomness to a message before signing it with a private key. This randomness helps to increase the security of the signature and makes it more resistant to various attacks. 
-</details></p>
-</li>
-<li>
-<p><a href="#encryption-functions-encryption_udflegacy_paddding_scheme"><code>encryption_udf.legacy_paddding_scheme</code></a> system variable</p>
-</li>
-<li>
-<p>Character set awareness</p>
-</li>
-</ul>
-<p>Percona Server for MySQL 8.0.28-20 adds encryption functions and variables to manage the encryption range.</p>
-<h2 id="encryption-functions-charset-awareness">Charset Awareness<a class="headerlink" href="#encryption-functions-charset-awareness" title="Permanent link">&para;</a></h2>
-<p>All component_encryption_udf functions now handle character sets intelligently:</p>
-<p>• Algorithms, digest names, padding schemes, keys, and parameters in PEM format: Automatically converted to the ASCII charset at the MySQL level before passing to the functions.</p>
-<p>• Messages, data blocks, and signatures used for digest calculation, encryption, decryption, signing, or verification: Automatically converted to the binary charset at the MySQL level before passing to the functions.</p>
-<p>• Function return values in PEM format: Assigned the ASCII charset.</p>
-<p>• Function return values for operations like digest calculation, encryption, decryption, and signing: Assigned the binary charset.</p>
-<h2 id="encryption-functions-use-user-defined-functions">Use user-defined functions<a class="headerlink" href="#encryption-functions-use-user-defined-functions" title="Permanent link">&para;</a></h2>
-<p>You can also use the user-defined functions with the PEM format keys generated externally by the OpenSSL utility.</p>
-<p>A digest uses plaintext and generates a hash value. This hash value can verify if the plaintext is unmodified. You can also sign or verify on digests to ensure that the original plaintext was not modified. You cannot decrypt the original text from the hash value.</p>
-<p>When choosing key lengths, consider the following:</p>
+   <summary> `pkcs1` padding: The nostalgic option</summary>
+
+   Think of `pkcs1` padding as the security equivalent of a 90s-era car alarm. It adds random stuffing to your message to stop pattern analysis, making your message look different each time. It's decent protection against casual thieves but not against determined professionals with modern tools. It's like putting your valuables in a safe that shouts "HEY! I'M A SAFE!" when touched.
+</details>
+
+<details>
+   <summary> `oaep` padding: The recommended secure option</summary>  
+
+   `oaep` padding (Optimal Asymmetric Encryption Padding) implements a mathematically robust random mask that significantly increases resistance to cryptanalysis (the science of breaking encryption). This method applies multiple layers of protection to the encrypted data, making it the recommended option for systems requiring high security standards. The additional computational overhead is justified by the enhanced security protections it provides.
+</details>
+
+<details>
+   <summary> `no` padding: Non-secure implementation option</summary>
+
+   The unpadded encryption implementation provides no additional cryptographic protection for the message content. This approach eliminates randomization elements, exposing the encrypted data to various cryptanalytic attacks including pattern analysis. This option should only be implemented in specialized circumstances where compatibility with specific systems is required or where separate security controls are implemented at another layer. Not recommended for standard security implementations.
+</details>
+
+<h3 id="encryption-functions-overview-signature-padding-options">Signature padding options<a class="headerlink" href="#encryption-functions-overview-signature-padding-options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Padding Type</th>
+<th>Security Level</th>
+<th>Characteristics</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pkcs1</code></td>
+<td>Standard</td>
+<td>Consistent signatures</td>
+<td>Compatibility with older systems</td>
+</tr>
+<tr>
+<td><code>pkcs1_pss</code></td>
+<td>High</td>
+<td>Unique signature every time</td>
+<td>Modern security needs</td>
+</tr>
+</tbody>
+</table>
+<details>
+   <summary> `pkcs1` padding: The basic signature</summary>
+
+   `pkcs1` padding for signatures is like signing your name the same way every time. It takes your message, creates a fingerprint, adds some standard framing, and locks it with your private key. It works fine until someone figures out how to copy your signature style, at which point your security is compromised. It's simple and compatible with older systems, but not the strongest option available.
+</details>
+
+<details>
+   <summary> `pkcs1_pss` padding: The signature with flair</summary>
+
+   `pkcs1_pss` padding is like adding a unique flourish to your signature every single time. Even when signing the exact same document twice, the signatures will look completely different - yet both will verify correctly. This makes signature forgery dramatically harder, as there's no consistent pattern to copy. If you're serious about security (and if you're reading this, you should be), this is your go-to option.
+</details>
+
+<h3 id="encryption-functions-overview-other-new-features">Other new features<a class="headerlink" href="#encryption-functions-overview-other-new-features" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>Encryption strength increases with the key size and also the key generation time.</p>
+<p><a href="#encryption-functions-overview-encryption_udflegacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a> system variable - provides compatibility with legacy systems and previous implementations</p>
 </li>
 <li>
-<p>If performance is important and the functions are frequently used, use symmetric encryption. Symmetric encryption functions are faster than asymmetric encryption functions. Moreover, asymmetric encryption restricts the maximum length of a message being encrypted. For example, the algorithm&rsquo;s maximum message size for RSA is the key length in bytes (key length in bits / 8) minus 11.</p>
+<p>Character set awareness - ensures proper handling of different character encodings during encryption operations</p>
 </li>
 </ul>
-<p>The following table and sections describe the functions. For examples, see function examples.</p>
+<p>Percona Server for MySQL 8.0.28-20 introduces tools for selective data encryption, allowing precise control over which data elements receive encryption protections.</p>
+<h2 id="encryption-functions-overview-character-sets-and-component-encryption-udfs">Character sets and component encryption UDFs<a class="headerlink" href="#encryption-functions-overview-character-sets-and-component-encryption-udfs" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🏭 <strong>Automated feature</strong></p>
+<p>These functions automatically manage character sets, eliminating the need for manual character encoding management during encryption operations.</p>
+</blockquote>
+<p>The implementation handles complex character set conversions internally, allowing developers to focus on encryption logic rather than encoding issues.</p>
+<h3 id="encryption-functions-overview-what-happens-to-your-input">What happens to your input<a class="headerlink" href="#encryption-functions-overview-what-happens-to-your-input" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Input Type</th>
+<th>What Happens</th>
+<th>Why It Matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Algorithms, digest names, keys</td>
+<td>Automatically converted to ASCII</td>
+<td>Prevents character encoding mismatches between encryption and decryption operations</td>
+</tr>
+<tr>
+<td>Messages and signatures</td>
+<td>Transformed into raw binary</td>
+<td>Computers process binary, not human-readable formats</td>
+</tr>
+</tbody>
+</table>
+<h3 id="encryption-functions-overview-what-you-get-back">What you get back<a class="headerlink" href="#encryption-functions-overview-what-you-get-back" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Output Type</th>
+<th>Format</th>
+<th>What to Expect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key files</td>
+<td>Human-readable ASCII text</td>
+<td>Viewable without terminal issues</td>
+</tr>
+<tr>
+<td>Encrypted messages &amp; signatures</td>
+<td>Binary data</td>
+<td>Looks like gibberish (this is correct!)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="encryption-functions-overview-external-key-management">External key management<a class="headerlink" href="#encryption-functions-overview-external-key-management" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🔒 <strong>External Key Management</strong></p>
+<p>For enhanced security, cryptographic keys can be generated outside the database server using dedicated cryptographic tools and hardware.</p>
+</blockquote>
+<p>Keys can be generated externally with OpenSSL and imported into the system. This approach separates key generation from the database environment, reducing the attack surface and allowing for specialized key generation hardware if required.</p>
+<h3 id="encryption-functions-overview-external-key-generation">External key generation<a class="headerlink" href="#encryption-functions-overview-external-key-generation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Command Example</th>
+<th>What It Creates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenSSL</td>
+<td><code>openssl genrsa -out private.pem 2048</code></td>
+<td>RSA private key</td>
+</tr>
+<tr>
+<td>OpenSSL</td>
+<td><code>openssl rsa -in private.pem -pubout -out public.pem</code></td>
+<td>RSA public key from private key</td>
+</tr>
+<tr>
+<td>OpenSSL</td>
+<td><code>openssl dsaparam -genkey 2048 -out dsaprivate.pem</code></td>
+<td>DSA private key</td>
+</tr>
+</tbody>
+</table>
+<p>Your OpenSSL-generated keys work seamlessly with these functions - just read the PEM file and pass its content to the encryption functions.</p>
+<h3 id="encryption-functions-overview-how-you-might-break-this">How you might break this<a class="headerlink" href="#encryption-functions-overview-how-you-might-break-this" title="Permanent link">&para;</a></h3>
+<p>⚠️ <strong>Common Mistakes With External Keys:</strong></p>
+<ul>
+<li>
+<p>Importing a key in the wrong format</p>
+</li>
+<li>
+<p>Using a key type incompatible with your chosen algorithm</p>
+</li>
+<li>
+<p>Forgetting to remove newlines from PEM files when storing in variables</p>
+</li>
+<li>
+<p>Storing keys directly in your database without proper protection</p>
+</li>
+</ul>
+<p>If you encounter any of these issues, you may receive a non-descriptive error message. Ensure that your keys are correctly formatted and stored securely.</p></section><section class="print-page" id="digest-encryption" heading-number="12.4.2"><h1 id="digest-encryption-cryptographic-digest-functions-vs-encryption">Cryptographic digest functions vs. encryption<a class="headerlink" href="#digest-encryption-cryptographic-digest-functions-vs-encryption" title="Permanent link">&para;</a></h1>
+<p>These two fundamental cryptographic technologies serve different security purposes and should not be confused in implementation:</p>
+<ul>
+<li>
+<p>Cryptographic Digest Functions (hashes):</p>
+<ul>
+<li>
+<p>Generate a fixed-length unique data representation that serves as a cryptographic fingerprint</p>
+</li>
+<li>
+<p>Provide data integrity verification by detecting modifications at the bit level</p>
+</li>
+<li>
+<p>Can be digitally signed to verify data origin and authenticate the source</p>
+</li>
+<li>
+<p>Implement mathematically irreversible one-way functions by design</p>
+</li>
+<li>
+<p>Common implementation error: Attempting to retrieve original data from digest values, which is mathematically impossible</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Encryption:</p>
+<ul>
+<li>
+<p>Implements reversible transformation of data using cryptographic algorithms</p>
+</li>
+<li>
+<p>Renders data unreadable without the appropriate decryption key</p>
+</li>
+<li>
+<p>Ensures complete data recovery with the correct cryptographic key</p>
+</li>
+<li>
+<p>Common implementation error: Inadequate key management leading to permanent data loss</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="digest-encryption-when-to-use-which">When to use which<a class="headerlink" href="#digest-encryption-when-to-use-which" title="Permanent link">&para;</a></h2>
+<p>Use digests when:</p>
+<ul>
+<li>
+<p>You need to verify data hasn&rsquo;t changed</p>
+</li>
+<li>
+<p>You want to store passwords (never store actual passwords, ever!)</p>
+</li>
+<li>
+<p>You need to create a digital signature</p>
+</li>
+</ul>
+<p>Use encryption when:</p>
+<ul>
+<li>
+<p>You need to keep data secret but retrieve it later</p>
+</li>
+<li>
+<p>You&rsquo;re storing sensitive information that must remain recoverable</p>
+</li>
+<li>
+<p>You need to securely transmit data over insecure channels</p>
+</li>
+</ul></section><section class="print-page" id="key-length-considerations" heading-number="12.4.3"><h1 id="key-length-considerations-key-length-considerations">Key length considerations<a class="headerlink" href="#key-length-considerations-key-length-considerations" title="Permanent link">&para;</a></h1>
+<p>Selecting appropriate cryptographic key lengths requires balancing security requirements with computational overhead. The following considerations should guide implementation decisions:</p>
+<ul>
+<li>
+<p>Key length security characteristics:</p>
+</li>
+<li>
+<p>Security strength increases exponentially with bit length - a 2048-bit RSA key provides significantly higher security than a 1024-bit key</p>
+</li>
+<li>
+<p>Computational requirements increase proportionally with key length, affecting system performance</p>
+</li>
+<li>
+<p>Security margin increases logarithmically - doubling key length provides exponentially more possible combinations</p>
+</li>
+<li>
+<p>Common implementation error: Implementing maximum key lengths for all applications without considering performance implications</p>
+</li>
+<li>
+<p>Two types of cryptographic relationships:</p>
+</li>
+<li>
+<p>Symmetric: Same key locks and unlocks (AES, etc.)</p>
+<ul>
+<li>
+<p>Like having one key that works on both sides of your door</p>
+</li>
+<li>
+<p>Blazingly fast compared to asymmetric encryption</p>
+</li>
+<li>
+<p>The problem: How do you securely share that key with other parties without exposing it during transmission</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Asymmetric: Different keys for locking and unlocking (RSA, DSA, etc.)</p>
+<ul>
+<li>
+<p>Like a safety deposit box where you have one key and the bank has another</p>
+</li>
+<li>
+<p>Significantly slower (think 1000x or more) than symmetric encryption</p>
+</li>
+<li>
+<p>But solves the key distribution problem brilliantly</p>
+</li>
+<li>
+<p>This is what we&rsquo;re focusing on in this document</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Size limits that will bite you:</p>
+<ul>
+<li>
+<p>RSA can only encrypt messages smaller than your key size (minus padding)</p>
+</li>
+<li>
+<p>A 2048-bit key can&rsquo;t encrypt a 2048-bit message - more on this particular trap later</p>
+</li>
+<li>
+<p>If you try to encrypt something too large, you&rsquo;ll get an error that explains absolutely nothing. </p>
+</li>
+</ul>
+</li>
+</ul></section><section class="print-page" id="encryption-functions" heading-number="12.4.4"><h1 id="encryption-functions-encryption-functions">Encryption functions<a class="headerlink" href="#encryption-functions-encryption-functions" title="Permanent link">&para;</a></h1>
+<h2 id="encryption-functions-quick-start-guide">Quick start guide<a class="headerlink" href="#encryption-functions-quick-start-guide" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>⚡ <strong>Get Started in 5 Minutes</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Install the encryption component</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
+
+<span class="c1">-- Create keys</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_priv_key</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3072</span><span class="p">);</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">public_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_pub_key</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="p">);</span>
+
+<span class="c1">-- Encrypt data</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">ciphertext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_encrypt</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Secret message&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">public_key</span><span class="p">);</span>
+
+<span class="c1">-- Decrypt data</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">plaintext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_decrypt</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ciphertext</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="p">);</span>
+</code></pre></div>
+<p>See <a href="#encryption-functions-examples-you-can-try">complete examples</a> for more detailed use cases.</p>
+</blockquote>
+<h2 id="encryption-functions-functions">Functions<a class="headerlink" href="#encryption-functions-functions" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🧰 <strong>Cryptographic function library</strong></p>
+<p>The following section documents each cryptographic function available in the library. Each function is categorized by purpose with detailed implementation specifications.</p>
+</blockquote>
+<h3 id="encryption-functions-function-quick-reference">Function quick reference<a class="headerlink" href="#encryption-functions-function-quick-reference" title="Permanent link">&para;</a></h3>
+<table>
+<tr>
+<th>Category</th>
+<th>Function</th>
+<th>What It Does</th>
+<th>Common Use Case</th>
+</tr>
+<tr>
+<td rowspan="2"><strong>Encryption</strong></td>
+<td><a href="#encryption-functions-asymmetric_encrypt">asymmetric_encrypt()</a></td>
+<td>Puts your data in a math lockbox</td>
+<td>Protecting sensitive data</td>
+</tr>
+<tr>
+<td><a href="#encryption-functions-asymmetric_decrypt">asymmetric_decrypt()</a></td>
+<td>Opens the lockbox and gets your data back</td>
+<td>Retrieving protected data</td>
+</tr>
+<tr>
+<td rowspan="2"><strong>Key Management</strong></td>
+<td><a href="#encryption-functions-create_asymmetric_priv_key">create_asymmetric_priv_key()</a></td>
+<td>Makes your secret key</td>
+<td>Creating your private key</td>
+</tr>
+<tr>
+<td><a href="#encryption-functions-create_asymmetric_pub_key">create_asymmetric_pub_key()</a></td>
+<td>Creates a shareable public key</td>
+<td>Generating keys to distribute</td>
+</tr>
+<tr>
+<td rowspan="2"><strong>Digital Signatures</strong></td>
+<td><a href="#encryption-functions-asymmetric_sign">asymmetric_sign()</a></td>
+<td>Stamps your message with your secret key</td>
+<td>Proving a message is from you</td>
+</tr>
+<tr>
+<td><a href="#encryption-functions-asymmetric_verify">asymmetric_verify()</a></td>
+<td>Checks if a signature is real or fake</td>
+<td>Verifying message authenticity</td>
+</tr>
+</table>
+
+<h3 id="encryption-functions-asymmetric-encryption-functions">Asymmetric encryption functions<a class="headerlink" href="#encryption-functions-asymmetric-encryption-functions" title="Permanent link">&para;</a></h3>
+<p>These functions implement public key cryptography utilizing key pairs. The encryption and decryption operations require different keys from the same key pair.</p>
 <table>
 <thead>
 <tr>
 <th>Function Name</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="#encryption-functions-asymmetric_decryptalgorithm-crypt_str-key_str">asymmetric_decrypt(algorithm, crypt_str, key_str)</a></td>
+<td><a href="#encryption-functions-asymmetric_encrypt">asymmetric_encrypt</a></td>
+<td>Encrypts plaintext data using asymmetric cryptography. Only the corresponding key can decrypt.</td>
 </tr>
 <tr>
-<td><a href="#encryption-functions-asymmetric_derivepub_key_str-priv_key_str">asymmetric_derive(pub_key_str, priv_key_str)</a></td>
-</tr>
-<tr>
-<td><a href="#encryption-functions-asymmetric_encryptalgorithm-str-key_str">asymmetric_encrypt(algorithm, str, key_str)</a></td>
-</tr>
-<tr>
-<td><a href="#encryption-functions-asymmetric_signalgorithm-digest_str-priv_key_str-digest_type">asymmetric_sign(algorithm, digest_str, priv_key_str, digest_type)</a></td>
-</tr>
-<tr>
-<td><a href="#encryption-functions-asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type">asymmetric_verify(algorithm, digest_str, sig_str, pub_key_str, digest_type)</a></td>
-</tr>
-<tr>
-<td><a href="#encryption-functions-create_asymmetric_priv_keyalgorithm-key_len--dh_parameters">create_asymmetric_priv_key(algorithm, (key_len &#124; dh_parameters))</a></td>
-</tr>
-<tr>
-<td><a href="#encryption-functions-create_asymmetric_pub_keyalgorithm-priv_key_str">create_asymmetric_pub_key(algorithm, priv_key_str)</a></td>
-</tr>
-<tr>
-<td><a href="#encryption-functions-create_dh_parameterskey_len">create_dh_parameters(key_len)</a></td>
-</tr>
-<tr>
-<td><a href="#encryption-functions-create_digestdigest_type-str">create_digest(digest_type, str)</a></td>
+<td><a href="#encryption-functions-asymmetric_decrypt">asymmetric_decrypt</a></td>
+<td>Decrypts ciphertext that was encrypted with the corresponding asymmetric key.</td>
 </tr>
 </tbody>
 </table>
-<p>The following table describes the encryption threshold variables, which can be used to set the maximum value for a key length based on the type of encryption used.</p>
+<h3 id="encryption-functions-asymmetric-key-management-functions">Asymmetric key management functions<a class="headerlink" href="#encryption-functions-asymmetric-key-management-functions" title="Permanent link">&para;</a></h3>
+<p>These functions facilitate the generation and management of asymmetric cryptographic key pairs:</p>
 <table>
 <thead>
 <tr>
-<th>Variable Name</th>
+<th>Function Name</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td><a href="#encryption-functions-create_asymmetric_priv_key">create_asymmetric_priv_key</a></td>
+<td>Generates a private key with specified algorithm and security parameters</td>
+</tr>
+<tr>
+<td><a href="#encryption-functions-create_asymmetric_pub_key">create_asymmetric_pub_key</a></td>
+<td>Derives the corresponding public key from a private key for distribution</td>
+</tr>
+</tbody>
+</table>
+<h3 id="encryption-functions-digital-signature-functions">Digital Signature functions<a class="headerlink" href="#encryption-functions-digital-signature-functions" title="Permanent link">&para;</a></h3>
+<p>These functions implement digital signature operations for message authentication and verification:</p>
+<table>
+<thead>
+<tr>
+<th>Function Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#encryption-functions-asymmetric_sign">asymmetric_sign</a></td>
+<td>Applies a cryptographic signature to a message digest using a private key</td>
+</tr>
+<tr>
+<td><a href="#encryption-functions-asymmetric_verify">asymmetric_verify</a></td>
+<td>Validates the authenticity of a digital signature using the corresponding public key</td>
+</tr>
+</tbody>
+</table>
+<h3 id="encryption-functions-diffie-hellman-functions">Diffie-Hellman functions<a class="headerlink" href="#encryption-functions-diffie-hellman-functions" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🤝 <strong>Shared secret generation</strong></p>
+<p>These functions facilitate secure key exchange between parties through the Diffie-Hellman protocol without transmitting sensitive key material.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Function Name</th>
+<th>Description</th>
+<th>Application</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#encryption-functions-asymmetric_derive">asymmetric_derive</a></td>
+<td>Generates a shared cryptographic secret through asymmetric key combination</td>
+<td>When implementing secure communication channels between parties</td>
+</tr>
+<tr>
+<td><a href="#encryption-functions-create_dh_parameters">create_dh_parameters</a></td>
+<td>Generates the prime numbers and parameters required for Diffie-Hellman key exchange</td>
+<td>As a prerequisite for Diffie-Hellman key generation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="encryption-functions-encryption-threshold-variables">Encryption threshold variables<a class="headerlink" href="#encryption-functions-encryption-threshold-variables" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>⚙️ <strong>System configuration</strong></p>
+<p>These settings let you control how strong your encryption can be. They&rsquo;re like speed limits for your security system.</p>
+</blockquote>
+<p>Keys that are too strong might slow down your system. It&rsquo;s like having a super-heavy padlock that takes forever to open.</p>
+<table>
+<tr>
+<th>Setting Name</th>
+<th>What It Does</th>
+<th>Default</th>
+<th>Range</th>
+<th>Performance Impact</th>
+</tr>
+<tr>
 <td><a href="#encryption-functions-encryption_udfdh_bits_threshold">encryption_udf.dh_bits_threshold</a></td>
+<td>Sets how strong Diffie-Hellman keys can be</td>
+<td>10000</td>
+<td>1024-10000</td>
+<td>Higher values significantly increase key generation time</td>
 </tr>
 <tr>
 <td><a href="#encryption-functions-encryption_udfdsa_bits_threshold">encryption_udf.dsa_bits_threshold</a></td>
+<td>Sets how strong DSA keys can be</td>
+<td>9984</td>
+<td>1024-9984</td>
+<td>Higher values increase key generation time</td>
 </tr>
 <tr>
 <td><a href="#encryption-functions-encryption_udfrsa_bits_threshold">encryption_udf.rsa_bits_threshold</a></td>
+<td>Sets how strong RSA keys can be</td>
+<td>16384</td>
+<td>1024-16384</td>
+<td>Higher values increase key generation and encryption/decryption time</td>
 </tr>
-</tbody>
+<tr>
+<td><a href="#encryption-functions-encryption_udflegacy_padding">encryption_udf.legacy_padding</a></td>
+<td>Turns old-style padding on or off</td>
+<td>OFF</td>
+<td>ON/OFF</td>
+<td>Minor impact on encryption speed, major impact on security</td>
+</tr>
 </table>
+<hr />
 <h2 id="encryption-functions-install-component_encryption_udf">Install component_encryption_udf<a class="headerlink" href="#encryption-functions-install-component_encryption_udf" title="Permanent link">&para;</a></h2>
-<p>Use the <a href="https://dev.mysql.com/doc/refman/8.0/en/install-component.html">Install Component Statement</a> to add the component_encryption_udf component. The functions and variables are available. The user-defined functions and the Encryption threshold variables are auto-registered. There is no requirement to invoke <code>CREATE FUNCTION ... SONAME ...</code>.</p>
-<p>The <code>INSERT</code> privilege on the <code>mysql.component</code> system table is required to run the <code>INSTALL COMPONENT</code> statement. The operation adds a row to this table to register the component.</p>
-<p>The following is an example of the installation command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
+<blockquote>
+<p>📦 <strong>Installation Guide</strong></p>
+<p>Before you can lock up your data, you need to install your security tools.</p>
+</blockquote>
+<h3 id="encryption-functions-quick-installation-steps">Quick installation steps<a class="headerlink" href="#encryption-functions-quick-installation-steps" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Use a simple command to add the encryption tools</li>
+<li>Once you run the command, all the tools are ready right away</li>
+<li>Best part: You don&rsquo;t need to run any complex setup commands!</li>
+</ol>
+<p>You&rsquo;ll need the <code>INSERT</code> permission on the <code>mysql.component</code> table to install this. The system just adds one row to this table to remember the tools are installed.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Install the encryption component</span>
+<span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
+
+<span class="c1">-- Verify installation</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you are Compiling Percona Server for MySQL from Source, the Encryption UDF component is built by default when Percona Server for MySQL is built. Specify the <code>-DWITH_ENCRYPTION_UDF=OFF</code> cmake option to exclude it.</p>
+<p>If you&rsquo;re building Percona Server for MySQL from scratch, the encryption UDF component can be enabled or disabled using the <code>-DWITH_ENCRYPTION_UDF</code> CMake flag. By default, this flag is set to <code>ON</code>, meaning the encryption UDF component is built and included in the installation. If you want to build Percona Server without this component, you can disable it by setting <code>-DWITH_ENCRYPTION_UDF=OFF</code> during the CMake configuration stage of the build process.</p>
 </div>
 <h2 id="encryption-functions-user-defined-functions-described">User-defined functions described<a class="headerlink" href="#encryption-functions-user-defined-functions-described" title="Permanent link">&para;</a></h2>
-<h2 id="encryption-functions-asymmetric_decryptalgorithm-crypt_str-key_str">asymmetric_decrypt(<em>algorithm, crypt_str, key_str</em>)<a class="headerlink" href="#encryption-functions-asymmetric_decryptalgorithm-crypt_str-key_str" title="Permanent link">&para;</a></h2>
-<p>Decrypts an encrypted string using the algorithm and a key string.</p>
-<h3 id="encryption-functions-returns">Returns<a class="headerlink" href="#encryption-functions-returns" title="Permanent link">&para;</a></h3>
-<p>A plaintext as a string.</p>
-<h3 id="encryption-functions-parameters">Parameters<a class="headerlink" href="#encryption-functions-parameters" title="Permanent link">&para;</a></h3>
-<p>The following are the function’s parameters:</p>
-<ul>
-<li>
-<p>algorithm - the encryption algorithm supports RSA in decrypting the string.</p>
-</li>
-<li>
-<p>key_str - a string in the PEM format. The key string must have the following attributes:</p>
-</li>
-<li>
-<p>Valid</p>
-</li>
-<li>
-<p>Public or private key string corresponding with the private or public key string used with the asymmetric_encrypt function.</p>
-</li>
-<li>
-<p><code>crypt_str</code> - an encrypted string produced by certain encryption functions like AES_ENCRYPT(). This string is typically stored as a binary or blog data type.</p>
-</li>
-<li>
-<p>padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA encryption padding schemes like <code>no</code>, <code>pkcs1</code>, or <code>oaep</code>. If you skip this parameter, the system determines its value based on the <a href="#encryption-functions-encryption_udf.legacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a> variable.</p>
-</li>
-</ul>
-<h2 id="encryption-functions-asymmetric_derivepub_key_str-priv_key_str">asymmetric_derive(<em>pub_key_str, priv_key_str</em>)<a class="headerlink" href="#encryption-functions-asymmetric_derivepub_key_str-priv_key_str" title="Permanent link">&para;</a></h2>
-<p>Derives a symmetric key using a public key generated on one side and a private key generated on another.</p>
-<h3 id="encryption-functions-asymmetric_derive-output">asymmetric_derive output<a class="headerlink" href="#encryption-functions-asymmetric_derive-output" title="Permanent link">&para;</a></h3>
-<p>A key as a binary string.</p>
-<h3 id="encryption-functions-asymmetric_derive-parameters">asymmetric_derive parameters<a class="headerlink" href="#encryption-functions-asymmetric_derive-parameters" title="Permanent link">&para;</a></h3>
-<p>The <code>pub_key_str</code> must be a public key in the PEM format and generated using the Diffie-Hellman (DH) algorithm.</p>
-<p>The <code>priv_key_str</code> must be a private key in the PEM format and generated using the Diffie-Hellman (DH) algorithm.</p>
-<h2 id="encryption-functions-asymmetric_encryptalgorithm-str-key_str">asymmetric_encrypt(<em>algorithm, str, key_str</em>)<a class="headerlink" href="#encryption-functions-asymmetric_encryptalgorithm-str-key_str" title="Permanent link">&para;</a></h2>
-<p>Encrypts a string using the algorithm and a key string.</p>
-<h3 id="encryption-functions-asymmetric_encrypt-output">asymmetric_encrypt output<a class="headerlink" href="#encryption-functions-asymmetric_encrypt-output" title="Permanent link">&para;</a></h3>
-<p>A ciphertext as a binary string.</p>
-<h3 id="encryption-functions-asymmetric_encrypt-parameters">asymmetric_encrypt parameters<a class="headerlink" href="#encryption-functions-asymmetric_encrypt-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
-<ul>
-<li>
-<p>algorithm - the encryption algorithm supports RSA in encrypting the string.</p>
-</li>
-<li>
-<p>str - measured in bytes. The length of the string must not be greater than the key_str modulus length in bytes - 11 (additional bytes used for PKCS1 padding)</p>
-</li>
-<li>
-<p>key_str - a key (either private or public) in the PEM format</p>
-</li>
-<li>
-<p>padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA encryption padding schemes like <code>no</code>, <code>pkcs1</code>, or <code>oaep</code>. If you skip this parameter, the system determines its value based on the <a href="#encryption-functions-encryption_udf.legacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a> variable.</p>
-</li>
-</ul>
-<h2 id="encryption-functions-asymmetric_signalgorithm-digest_str-priv_key_str-digest_type">asymmetric_sign(<em>algorithm, digest_str, priv_key_str, digest_type</em>)<a class="headerlink" href="#encryption-functions-asymmetric_signalgorithm-digest_str-priv_key_str-digest_type" title="Permanent link">&para;</a></h2>
-<p>Signs a digest string using a private key string.</p>
-<h3 id="encryption-functions-asymmetric_sign-output">asymmetric_sign output<a class="headerlink" href="#encryption-functions-asymmetric_sign-output" title="Permanent link">&para;</a></h3>
-<p>A signature is a binary string.</p>
-<h3 id="encryption-functions-asymmetric_sign-parameters">asymmetric_sign parameters<a class="headerlink" href="#encryption-functions-asymmetric_sign-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
-<ul>
-<li>
-<p>algorithm - the encryption algorithm supports RSA or DSA in encrypting the string.</p>
-</li>
-<li>
-<p>digest_str - the digest binary string that is signed. Invoking create_digest generates the digest.</p>
-</li>
-<li>
-<p>priv_key_str - the private key used to sign the digest string. The key must be in the PEM format.</p>
-</li>
-<li>
-<p>digest_type - the OpenSSL version installed on your system determines the available hash functions. The following table lists these functions:</p>
+<hr />
+<h2 id="encryption-functions-asymmetric_decryptalgorithm-crypt_str-key_strasymmetric_decrypt">Asymmetric_decrypt(<em>algorithm, crypt_str, key_str</em>){asymmetric_decrypt}<a class="headerlink" href="#encryption-functions-asymmetric_decryptalgorithm-crypt_str-key_strasymmetric_decrypt" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🔓 <strong>Data Decryption Function</strong></p>
+<p>This function decrypts ciphertext to recover the original plaintext using asymmetric cryptography.</p>
+</blockquote>
+<h3 id="encryption-functions-quick-reference">Quick reference<a class="headerlink" href="#encryption-functions-quick-reference" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>OpenSSL 1.0.2</th>
-<th>OpenSSL 1.1.0</th>
-<th>OpenSSL 1.1.1</th>
-<th>OpenSSL 3.0.x</th>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>md5</td>
-<td>md5</td>
-<td>md5</td>
-<td>md5</td>
+<td>algorithm</td>
+<td>Yes</td>
+<td>Cryptographic algorithm identifier (currently only &lsquo;RSA&rsquo;)</td>
 </tr>
 <tr>
-<td>sha1</td>
-<td>sha1</td>
-<td>sha1</td>
-<td>sha1</td>
+<td>crypt_str</td>
+<td>Yes</td>
+<td>The encrypted data (ciphertext) to be decrypted</td>
 </tr>
 <tr>
-<td>sha224</td>
-<td>sha224</td>
-<td>sha224</td>
-<td>sha224</td>
+<td>key_str</td>
+<td>Yes</td>
+<td>The decryption key in PEM format</td>
 </tr>
 <tr>
-<td>sha384</td>
-<td>sha384</td>
-<td>sha384</td>
-<td>sha384</td>
-</tr>
-<tr>
-<td>sha512</td>
-<td>sha512</td>
-<td>sha512</td>
-<td>sha512</td>
-</tr>
-<tr>
-<td>md4</td>
-<td>md4</td>
-<td>md4</td>
-<td>md4</td>
-</tr>
-<tr>
-<td>sha</td>
-<td>md5-sha1</td>
-<td>md5-sha1</td>
-<td>md5-sha1</td>
-</tr>
-<tr>
-<td>ripemd160</td>
-<td>ripemd160</td>
-<td>ripemd160</td>
-<td>sha512-224</td>
-</tr>
-<tr>
-<td>whirlpool</td>
-<td>whirlpool</td>
-<td>sha512-224</td>
-<td>sha512-256</td>
-</tr>
-<tr>
-<td></td>
-<td>blake2b512</td>
-<td>sha512-256</td>
-<td>sha3-224</td>
-</tr>
-<tr>
-<td></td>
-<td>blake2s256</td>
-<td>whirlpool</td>
-<td>sha3-256</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sm3</td>
-<td>sha3-384</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>blake2b512</td>
-<td>sha3-512</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>blake2s256</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sha3-224</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sha3-384</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>sha3-512</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>shake128</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>shake256</td>
-<td></td>
+<td>padding</td>
+<td>No</td>
+<td>Padding scheme: &lsquo;no&rsquo;, &lsquo;pkcs1&rsquo;, or &lsquo;oaep&rsquo;</td>
 </tr>
 </tbody>
 </table>
-</li>
-<li>
-<p>padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA signature padding schemes like <code>pkcs1</code>, or <code>pkcs1_pss</code>. If you skip this parameter, the system determines its value based on the <a href="#encryption-functions-encryption_udf.legacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a> variable.</p>
-</li>
-</ul>
-<h2 id="encryption-functions-asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type">asymmetric_verify(<em>algorithm, digest_str, sig_str, pub_key_str, digest_type</em>)<a class="headerlink" href="#encryption-functions-asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type" title="Permanent link">&para;</a></h2>
-<p>Verifies whether the signature string matches the digest string.</p>
-<h3 id="encryption-functions-asymmetric_verify-output">asymmetric_verify output<a class="headerlink" href="#encryption-functions-asymmetric_verify-output" title="Permanent link">&para;</a></h3>
-<p>A <code>1</code> (success) or a <code>0</code> (failure).</p>
-<h3 id="encryption-functions-asymmetric_verify-parameters">asymmetric_verify parameters<a class="headerlink" href="#encryption-functions-asymmetric_verify-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
+<h3 id="encryption-functions-return-value">Return value<a class="headerlink" href="#encryption-functions-return-value" title="Permanent link">&para;</a></h3>
+<p>The function returns the original plaintext message decoded from the ciphertext.</p>
+<h3 id="encryption-functions-parameter-details">Parameter details<a class="headerlink" href="#encryption-functions-parameter-details" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>algorithm - supports either ‘RSA’ or ‘DSA’.</p>
+<p><strong>algorithm</strong> - Specifies the cryptographic algorithm to be used for decryption (currently only RSA is supported)</p>
 </li>
 <li>
-<p>digest_str - invoking create_digest generates this digest binary string.</p>
+<p><strong>key_str</strong> - The decryption key in PEM format. Requirements:</p>
+</li>
+<li>Must be properly formatted and valid</li>
+<li>
+<p>Must correspond to the encryption key used (public key if encrypted with private key, or private key if encrypted with public key)</p>
 </li>
 <li>
-<p>sig_str - the signature binary string. Invoking asymmetric_sign generates this string.</p>
+<p><strong>crypt_str</strong> - The encrypted binary data to be decrypted</p>
 </li>
 <li>
-<p>pub_key_str - the signer’s public key string. This string must correspond to the private key passed to asymmetric_sign to generate the signature string. The string must be in the PEM format.</p>
+<p><strong>padding</strong> - Specifies the padding scheme implemented in version 8.0.41:</p>
 </li>
-<li>
-<p>digest_type - the supported values are listed in the digest type table of create_digest</p>
-</li>
-<li>
-<p>padding - An optional parameter introduced in Percona Server for MySQL 8.0.41. It is used with the RSA algorithm and supports RSA signature padding schemes like <code>pkcs1</code>, or <code>pkcs1_pss</code>. If you skip this parameter, the system determines its value based on the <a href="#encryption-functions-encryption_udf.legacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a> variable.</p>
-</li>
+<li><code>no</code> - No padding (requires exact-size messages)</li>
+<li><code>pkcs1</code> - PKCS#1 v1.5 padding scheme</li>
+<li><code>oaep</code> - Optimal Asymmetric Encryption Padding (more secure)</li>
 </ul>
-<h2 id="encryption-functions-create_asymmetric_priv_keyalgorithm-key_len-dh_parameters">create_asymmetric_priv_key(<em>algorithm, (key_len | dh_parameters)</em>)<a class="headerlink" href="#encryption-functions-create_asymmetric_priv_keyalgorithm-key_len-dh_parameters" title="Permanent link">&para;</a></h2>
-<p>Generates a private key using the given algorithm and key length for DH&rsquo;s RSA, DSA
-, or Diffie-Hellman parameters. For RSA or DSA, if needed, execute <code>KILL
-[QUERY|CONNECTION] &lt;id&gt;</code> to terminate a long-lasting key generation. The
-DH key generation from existing parameters is a quick operation. Therefore, it
-does not make sense to terminate that operation with <code>KILL</code>.</p>
-<h3 id="encryption-functions-create_asymmetric_priv_key-output">create_asymmetric_priv_key output<a class="headerlink" href="#encryption-functions-create_asymmetric_priv_key-output" title="Permanent link">&para;</a></h3>
-<p>The key as a string in the PEM format.</p>
-<h3 id="encryption-functions-create_asymmetric_priv_key-parameters">create_asymmetric_priv_key parameters<a class="headerlink" href="#encryption-functions-create_asymmetric_priv_key-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
+<p>If not specified, the system uses the value from the encryption_udf.legacy_padding_scheme variable.</p>
+<details>
+   <summary>Example usage</summary>
+
+   <div class="highlight"><pre><span></span><code><span class="c1">-- Decrypt data using a private key</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">plaintext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_decrypt</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ciphertext</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;oaep&#39;</span><span class="p">);</span>
+
+<span class="c1">-- Verify the decrypted result</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">plaintext</span><span class="p">;</span>
+</code></pre></div>
+</details>
+<hr />
+<h2 id="encryption-functions-asymmetric_derivepub_key_str-priv_key_strasymmetric_derive">Asymmetric_derive(<em>pub_key_str, priv_key_str</em>){asymmetric_derive}<a class="headerlink" href="#encryption-functions-asymmetric_derivepub_key_str-priv_key_strasymmetric_derive" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🤝 <strong>Shared secret generation</strong></p>
+<p>This function implements the Diffie-Hellman key exchange protocol to establish a shared cryptographic secret between two parties without transmitting sensitive key material.</p>
+</blockquote>
+<h3 id="encryption-functions-quick-reference_1">Quick reference<a class="headerlink" href="#encryption-functions-quick-reference_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pub_key_str</td>
+<td>Yes</td>
+<td>The recipient&rsquo;s public key</td>
+</tr>
+<tr>
+<td>priv_key_str</td>
+<td>Yes</td>
+<td>The initiator&rsquo;s private key</td>
+</tr>
+</tbody>
+</table>
+<h3 id="encryption-functions-required-parameters">Required parameters<a class="headerlink" href="#encryption-functions-required-parameters" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>algorithm - the supported values are ‘RSA’, ‘DSA’, or ‘DH’.</p>
+<p><strong>pub_key_str</strong> - The recipient party&rsquo;s public key in PEM format</p>
 </li>
 <li>
-<p>key_len - the supported key length values are the following:</p>
+<p><strong>priv_key_str</strong> - The initiator&rsquo;s private key in PEM format</p>
+</li>
+</ul>
+<h3 id="encryption-functions-return-value_1">Return value<a class="headerlink" href="#encryption-functions-return-value_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>RSA - the minimum length is 1,024. The maximum length is 16,384.</p>
+<p>Returns a cryptographic key value that will be identical for both parties when they perform their respective calculations</p>
 </li>
 <li>
-<p>DSA - the minimum length is 1,024. The maximum length is 9,984.</p>
+<p>The function enables secure symmetric key establishment without transmitting the actual secret key</p>
 </li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>OpenSSL defines the key length limits. To change the maximum key length, use either encryption_udf.rsa_bits_threshold or encryption_udf.dsa_bits_threshold.</p>
-</div>
-</li>
-<li>
-<p>dh_parameters - Diffie-Hellman (DH) parameters. Invoking create_dh_parameter creates the DH parameters.</p>
-</li>
-</ul>
-<h2 id="encryption-functions-create_asymmetric_pub_keyalgorithm-priv_key_str">create_asymmetric_pub_key(<em>algorithm, priv_key_str</em>)<a class="headerlink" href="#encryption-functions-create_asymmetric_pub_keyalgorithm-priv_key_str" title="Permanent link">&para;</a></h2>
-<p>Derives a public key from the given private key using the given algorithm.</p>
-<h3 id="encryption-functions-create_asymmetric_pub_key-output">create_asymmetric_pub_key output<a class="headerlink" href="#encryption-functions-create_asymmetric_pub_key-output" title="Permanent link">&para;</a></h3>
-<p>The key as a string in the PEM format.</p>
-<h3 id="encryption-functions-create_asymmetric_pub_key-parameters">create_asymmetric_pub_key parameters<a class="headerlink" href="#encryption-functions-create_asymmetric_pub_key-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
+<details>
+   <summary>Example usage</summary>
+
+   <div class="highlight"><pre><span></span><code><span class="c1">-- Generate a shared secret</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">shared_secret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_derive</span><span class="p">(</span><span class="o">@</span><span class="n">their_public_key</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">my_private_key</span><span class="p">);</span>
+
+<span class="c1">-- Use the shared secret for symmetric encryption</span>
+<span class="c1">-- Both parties will have the same shared secret</span>
+</code></pre></div>
+</details>
+<hr />
+<h2 id="encryption-functions-asymmetric_encryptalgorithm-str-key_strasymmetric_encrypt">Asymmetric_encrypt(<em>algorithm, str, key_str</em>){asymmetric_encrypt}<a class="headerlink" href="#encryption-functions-asymmetric_encryptalgorithm-str-key_strasymmetric_encrypt" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🔒 <strong>Data Encryption Function</strong></p>
+<p>This function transforms plaintext data into encrypted format using asymmetric cryptography. The encrypted data can only be decrypted with the corresponding key.</p>
+</blockquote>
+<h3 id="encryption-functions-quick-reference_2">Quick reference<a class="headerlink" href="#encryption-functions-quick-reference_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>algorithm</td>
+<td>Yes</td>
+<td>Cryptographic algorithm identifier (currently only &lsquo;RSA&rsquo;)</td>
+</tr>
+<tr>
+<td>str</td>
+<td>Yes</td>
+<td>The plaintext message to encrypt</td>
+</tr>
+<tr>
+<td>key_str</td>
+<td>Yes</td>
+<td>The encryption key (public or private) in PEM format</td>
+</tr>
+<tr>
+<td>padding</td>
+<td>No</td>
+<td>Padding scheme: &lsquo;no&rsquo;, &lsquo;pkcs1&rsquo;, or &lsquo;oaep&rsquo;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="encryption-functions-return-value_2">Return value<a class="headerlink" href="#encryption-functions-return-value_2" title="Permanent link">&para;</a></h3>
+<p>The function returns the encrypted ciphertext as binary data.</p>
+<h3 id="encryption-functions-parameter-details_1">Parameter details<a class="headerlink" href="#encryption-functions-parameter-details_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>algorithm - the supported values are ‘RSA’, ‘DSA’, or ‘DH’.</p>
+<p><strong>algorithm</strong> - Specifies the cryptographic algorithm to be used for encryption (currently only RSA is supported)</p>
 </li>
 <li>
-<p>priv_key_str - must be a valid key string in the PEM format.</p>
+<p><strong>str</strong> - The plaintext data to be encrypted. Note that message length is constrained by the key size and padding scheme selected. Maximum message length must not exceed the key size minus padding overhead.</p>
 </li>
+<li>
+<p><strong>key_str</strong> - The encryption key in PEM format (can be either a public or private key depending on implementation requirements)</p>
+</li>
+<li>
+<p><strong>padding</strong> - A parameter added in version 8.0.41 that specifies the padding scheme:</p>
+</li>
+<li><code>no</code> - No padding (requires exact-size messages, not recommended for production)</li>
+<li><code>pkcs1</code> - PKCS#1 v1.5 padding scheme (standard protection)</li>
+<li><code>oaep</code> - Optimal Asymmetric Encryption Padding (enhanced security)</li>
 </ul>
-<h2 id="encryption-functions-create_dh_parameterskey_len">create_dh_parameters(<em>key_len</em>)<a class="headerlink" href="#encryption-functions-create_dh_parameterskey_len" title="Permanent link">&para;</a></h2>
-<p>Creates parameters for generating a Diffie-Hellman (DH) private/public key pair.
-If needed, execute <code>KILL [QUERY|CONNECTION] &lt;id&gt;</code> to terminate the generation of long-lasting parameters.</p>
-<p>Generating the DH parameters can take more time than generating the RSA keys or
-the DSA keys.
-OpenSSL defines the parameter length limits. To change the
-maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
-<h3 id="encryption-functions-create_dh_parameters-output">create_dh_parameters output<a class="headerlink" href="#encryption-functions-create_dh_parameters-output" title="Permanent link">&para;</a></h3>
-<p>A string in the PEM format can be passed to create_asymmetric_private_key.</p>
-<h3 id="encryption-functions-create_dh_parameters-parameters">create_dh_parameters parameters<a class="headerlink" href="#encryption-functions-create_dh_parameters-parameters" title="Permanent link">&para;</a></h3>
-<p>The parameters are the following:</p>
-<ul>
-<li>key_len - the range for the key length is from 1024 to 10,000. The default value is 10,000.</li>
-</ul>
-<h2 id="encryption-functions-create_digestdigest_type-str">create_digest(<em>digest_type, str</em>)<a class="headerlink" href="#encryption-functions-create_digestdigest_type-str" title="Permanent link">&para;</a></h2>
+<p>If not specified, the system uses the value from the encryption_udf.legacy_padding_scheme variable.</p>
+<details>
+   <summary>Example usage</summary>
+
+   <div class="highlight"><pre><span></span><code><span class="c1">-- Encrypt sensitive data using a public key</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">ciphertext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_encrypt</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Secret message&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">public_key</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;oaep&#39;</span><span class="p">);</span>
+
+<span class="c1">-- Store or transmit the encrypted data</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">secure_messages</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">ciphertext</span><span class="p">);</span>
+</code></pre></div>
+</details>
+
+<h2 id="encryption-functions-size-limits-remember-that-your-message-size-is-limited-by-your-key-size-and-padding-method-for-a-2048-bit-key-with-oaep-padding-your-message-must-be-smaller-than-20488-42-214-bytes">⚠️ <strong>Size Limits</strong>: Remember that your message size is limited by your key size and padding method. For a 2048-bit key with OAEP padding, your message must be smaller than (2048/8)-42 = 214 bytes.<a class="headerlink" href="#encryption-functions-size-limits-remember-that-your-message-size-is-limited-by-your-key-size-and-padding-method-for-a-2048-bit-key-with-oaep-padding-your-message-must-be-smaller-than-20488-42-214-bytes" title="Permanent link">&para;</a></h2>
+<h2 id="encryption-functions-asymmetric_signalgorithm-digest_str-priv_key_str-digest_type-paddingasymmetric_sign">Asymmetric_sign(<em>algorithm, digest_str, priv_key_str, digest_type, [padding]</em>){asymmetric_sign}<a class="headerlink" href="#encryption-functions-asymmetric_signalgorithm-digest_str-priv_key_str-digest_type-paddingasymmetric_sign" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>✍️ <strong>Digital Signature Function</strong></p>
+<p>This function applies a cryptographic signature to a message digest using a private key. The signature provides authentication, non-repudiation, and integrity verification capabilities. Each signature is unique even when signing the same content multiple times.</p>
+</blockquote>
+<h3 id="encryption-functions-quick-reference_3">Quick reference<a class="headerlink" href="#encryption-functions-quick-reference_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>algorithm</td>
+<td>Yes</td>
+<td>Signature algorithm (&lsquo;RSA&rsquo; or &lsquo;DSA&rsquo;)</td>
+</tr>
+<tr>
+<td>digest_str</td>
+<td>Yes</td>
+<td>The message digest (hash value)</td>
+</tr>
+<tr>
+<td>priv_key_str</td>
+<td>Yes</td>
+<td>The signer&rsquo;s private key in PEM format</td>
+</tr>
+<tr>
+<td>digest_type</td>
+<td>Yes</td>
+<td>The hash algorithm identifier (e.g., &lsquo;SHA256&rsquo;)</td>
+</tr>
+<tr>
+<td>padding</td>
+<td>No</td>
+<td>For RSA only: &lsquo;pkcs1&rsquo; or &lsquo;pkcs1_pss&rsquo;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="encryption-functions-security-considerations">Security considerations<a class="headerlink" href="#encryption-functions-security-considerations" title="Permanent link">&para;</a></h3>
+<p>⚠️ <strong>Implementation Risks</strong>:
+* Using public key instead of private key for signing operations
+* Signing raw message data instead of message digest
+* Inconsistent algorithm selection across systems
+* Inadequate private key protection and backup procedures</p>
+<h3 id="encryption-functions-return-value_3">Return value<a class="headerlink" href="#encryption-functions-return-value_3" title="Permanent link">&para;</a></h3>
+<p>The function returns a digital signature as binary data that cryptographically proves the authenticity of the message.</p>
+<h3 id="encryption-functions-parameter-details_2">Parameter details<a class="headerlink" href="#encryption-functions-parameter-details_2" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>algorithm</strong> - Specifies the signature algorithm:</li>
+<li>&lsquo;RSA&rsquo; - RSA signature algorithm (widely implemented)</li>
+<li>
+<p>&lsquo;DSA&rsquo; - Digital Signature Algorithm (alternative implementation)</p>
+</li>
+<li>
+<p><strong>digest_str</strong> - The cryptographic hash of the message </p>
+</li>
+<li>Generate using the create_digest function</li>
+<li>
+<p>Always sign the digest rather than the raw message for security and performance</p>
+</li>
+<li>
+<p><strong>priv_key_str</strong> - The signer&rsquo;s private key</p>
+</li>
+<li>Requires secure storage and access controls</li>
+<li>
+<p>Must be in PEM format (standard key encoding format)</p>
+</li>
+<li>
+<p><strong>digest_type</strong> - The hash algorithm identifier</p>
+</li>
+<li>Common implementations include &lsquo;SHA256&rsquo;, &lsquo;SHA512&rsquo;, etc.</li>
+<li>
+<p>Reference the digest type table for all supported algorithms</p>
+</li>
+<li>
+<p><strong>padding</strong> - Signature padding scheme (for RSA algorithm only)</p>
+</li>
+<li>Options: &lsquo;pkcs1&rsquo; or &lsquo;pkcs1_pss&rsquo;</li>
+<li>Default is determined by the encryption_udf.legacy_padding_scheme setting</li>
+</ol>
+<details>
+   <summary>Example usage</summary>
+
+   <div class="highlight"><pre><span></span><code><span class="c1">-- Generate a message digest</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">digest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_digest</span><span class="p">(</span><span class="s1">&#39;SHA256&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Important message&#39;</span><span class="p">);</span>
+
+<span class="c1">-- Sign the digest</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_sign</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">digest</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SHA256&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;pkcs1_pss&#39;</span><span class="p">);</span>
+
+<span class="c1">-- Store the signature with the message</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">signed_messages</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;Important message&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">signature</span><span class="p">);</span>
+</code></pre></div>
+</details>
+
+<hr />
+<h2 id="encryption-functions-asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type-paddingasymmetric_verify">Asymmetric_verify(<em>algorithm, digest_str, sig_str, pub_key_str, digest_type, [padding]</em>){asymmetric_verify}<a class="headerlink" href="#encryption-functions-asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type-paddingasymmetric_verify" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🔍 <strong>Signature verification function</strong></p>
+<p>This function validates the authenticity of a digital signature by verifying it against the original message digest using the signer&rsquo;s public key. It provides cryptographic proof of message integrity and sender identity.</p>
+</blockquote>
+<h3 id="encryption-functions-quick-reference_4">Quick reference<a class="headerlink" href="#encryption-functions-quick-reference_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>algorithm</td>
+<td>Yes</td>
+<td>Signature algorithm (&lsquo;RSA&rsquo; or &lsquo;DSA&rsquo;)</td>
+</tr>
+<tr>
+<td>digest_str</td>
+<td>Yes</td>
+<td>The message digest (hash value)</td>
+</tr>
+<tr>
+<td>sig_str</td>
+<td>Yes</td>
+<td>The digital signature to verify</td>
+</tr>
+<tr>
+<td>pub_key_str</td>
+<td>Yes</td>
+<td>The signer&rsquo;s public key in PEM format</td>
+</tr>
+<tr>
+<td>digest_type</td>
+<td>Yes</td>
+<td>The hash algorithm identifier (e.g., &lsquo;SHA256&rsquo;)</td>
+</tr>
+<tr>
+<td>padding</td>
+<td>No</td>
+<td>For RSA only: &lsquo;pkcs1&rsquo; or &lsquo;pkcs1_pss&rsquo;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="encryption-functions-return-value_4">Return value<a class="headerlink" href="#encryption-functions-return-value_4" title="Permanent link">&para;</a></h3>
+<p>The function returns a binary verification result:
+* <code>1</code> - Signature verified successfully (authentic)
+* <code>0</code> - Signature verification failed (inauthentic or corrupted)</p>
+<h3 id="encryption-functions-parameter-details_3">Parameter details<a class="headerlink" href="#encryption-functions-parameter-details_3" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>algorithm</strong> - Specifies the signature algorithm for verification</li>
+<li>Must match the algorithm used during signature creation</li>
+<li>
+<p>Supported values: &lsquo;RSA&rsquo; or &lsquo;DSA&rsquo;</p>
+</li>
+<li>
+<p><strong>digest_str</strong> - The cryptographic hash of the message</p>
+</li>
+<li>Generate using the create_digest function</li>
+<li>
+<p>Must use identical hashing algorithm as used during signing</p>
+</li>
+<li>
+<p><strong>sig_str</strong> - The digital signature to be verified</p>
+</li>
+<li>Generated by the asymmetric_sign function</li>
+<li>
+<p>Binary data containing cryptographic validation information</p>
+</li>
+<li>
+<p><strong>pub_key_str</strong> - The signer&rsquo;s public key</p>
+</li>
+<li>Must correspond to the private key used for signature creation</li>
+<li>
+<p>Required in PEM format</p>
+</li>
+<li>
+<p><strong>digest_type</strong> - The hash algorithm identifier</p>
+</li>
+<li>Must match the algorithm used during signature creation</li>
+<li>
+<p>Reference the algorithm table for supported options</p>
+</li>
+<li>
+<p><strong>padding</strong> - The signature padding scheme</p>
+</li>
+<li>Applicable only for RSA signatures</li>
+<li>Must match the padding scheme used during signature creation</li>
+<li>Default is determined by <a href="#encryption-functions-encryption_udflegacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a></li>
+</ol>
+<h3 id="encryption-functions-common-verification-pitfalls">⚠️ Common Verification Pitfalls<a class="headerlink" href="#encryption-functions-common-verification-pitfalls" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>What Happens</th>
+<th>How to Avoid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Using wrong public key</td>
+<td>Verification always fails</td>
+<td>Double-check key ownership</td>
+</tr>
+<tr>
+<td>Verifying tampered message</td>
+<td>Verification correctly fails</td>
+<td>Don&rsquo;t change the message after signing</td>
+</tr>
+<tr>
+<td>Using wrong digest type</td>
+<td>Verification fails mysteriously</td>
+<td>Use same digest type as signing</td>
+</tr>
+<tr>
+<td>Mismatched padding</td>
+<td>Verification fails with no clear reason</td>
+<td>Use same padding as signing</td>
+</tr>
+</tbody>
+</table>
+<details>
+   <summary>Example usage</summary>
+
+   <div class="highlight"><pre><span></span><code><span class="c1">-- Retrieve a signed message and its signature</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="n">signature</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">@</span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">signature</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">signed_messages</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">-- Generate the message digest</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">digest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_digest</span><span class="p">(</span><span class="s1">&#39;SHA256&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">message</span><span class="p">);</span>
+
+<span class="c1">-- Verify the signature (1 = valid, 0 = invalid)</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">is_valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_verify</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">digest</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">signature</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">public_key</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SHA256&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;pkcs1_pss&#39;</span><span class="p">);</span>
+
+<span class="c1">-- Check the result</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">IF</span><span class="p">(</span><span class="o">@</span><span class="n">is_valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Signature is valid&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Signature is forged or corrupted&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">verification_result</span><span class="p">;</span>
+</code></pre></div>
+</details>
+
+<hr />
+<h2 id="encryption-functions-create_asymmetric_priv_keyalgorithm-key_lencreate_asymmetric_priv_key">Create_asymmetric_priv_key(<em>algorithm, key_len</em>){create_asymmetric_priv_key}<a class="headerlink" href="#encryption-functions-create_asymmetric_priv_keyalgorithm-key_lencreate_asymmetric_priv_key" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🔑 <strong>Private key generation function</strong></p>
+<p>This function generates a cryptographic private key using the specified algorithm and security parameters. The private key serves as the foundation for asymmet</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>Consequence</th>
+<th>Better Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Too small key</td>
+<td>Vulnerable to attacks</td>
+<td>Use at least 2048 bits for RSA</td>
+</tr>
+<tr>
+<td>Too large key</td>
+<td>Extremely slow operations</td>
+<td>Balance security with performance</td>
+</tr>
+<tr>
+<td>Unsecured storage</td>
+<td>Key theft</td>
+<td>Store keys in secure, restricted locations</td>
+</tr>
+<tr>
+<td>No backup</td>
+<td>Permanent data loss</td>
+<td>Backup keys with proper security</td>
+</tr>
+</tbody>
+</table>
+<h3 id="encryption-functions-taking-too-long">Taking too long?<a class="headerlink" href="#encryption-functions-taking-too-long" title="Permanent link">&para;</a></h3>
+<p>Some keys (especially strong ones) take a while to create. If you&rsquo;re getting impatient:</p>
+<div class="highlight"><pre><span></span><code><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">id</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="c1">-- or</span>
+<span class="n">KILL</span><span class="w"> </span><span class="k">CONNECTION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">id</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>This works for RSA and DSA keys. DH keys are quick, so no worries there.</p>
+<details>
+   <summary>Example usage</summary>
+
+   <div class="highlight"><pre><span></span><code><span class="c1">-- Create a 3072-bit RSA private key</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_priv_key</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3072</span><span class="p">);</span>
+
+<span class="c1">-- Create a 2048-bit DSA private key</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">dsa_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_priv_key</span><span class="p">(</span><span class="s1">&#39;DSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2048</span><span class="p">);</span>
+
+<span class="c1">-- Create DH parameters and then a DH key</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">dh_params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_dh_parameters</span><span class="p">(</span><span class="mi">2048</span><span class="p">);</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">dh_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_priv_key</span><span class="p">(</span><span class="s1">&#39;DH&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2048</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">dh_params</span><span class="p">);</span>
+
+<span class="c1">-- Save your key for future use</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">secure_keys</span><span class="w"> </span><span class="p">(</span><span class="n">key_id</span><span class="p">,</span><span class="w"> </span><span class="n">key_content</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;my_primary_key&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="p">);</span>
+</code></pre></div>
+</details>
+
+<hr />
+<h2 id="encryption-functions-create_asymmetric_pub_keyalgorithm-priv_key_strcreate_asymmetric_pub_key">Create_asymmetric_pub_key(<em>algorithm, priv_key_str</em>){create_asymmetric_pub_key}<a class="headerlink" href="#encryption-functions-create_asymmetric_pub_keyalgorithm-priv_key_strcreate_asymmetric_pub_key" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🔓 <strong>Public key extraction function</strong></p>
+<p>This function extracts a public key from your private key. Think of it as creating a deposit-only ATM card - people can put money in, but they can&rsquo;t take any out.</p>
+</blockquote>
+<h3 id="encryption-functions-quick-reference_5">Quick reference<a class="headerlink" href="#encryption-functions-quick-reference_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>algorithm</td>
+<td>Yes</td>
+<td>Key algorithm (&lsquo;RSA&rsquo;, &lsquo;DSA&rsquo;, or &lsquo;DH&rsquo;)</td>
+</tr>
+<tr>
+<td>priv_key_str</td>
+<td>Yes</td>
+<td>Your private key in PEM format</td>
+</tr>
+</tbody>
+</table>
+<h3 id="encryption-functions-what-you-get-back">What you get back<a class="headerlink" href="#encryption-functions-what-you-get-back" title="Permanent link">&para;</a></h3>
+<p>A public key in PEM format - another block of garbled text you can freely share.</p>
+<h3 id="encryption-functions-what-you-need-to-extract-your-public-key">What you need to extract your public key<a class="headerlink" href="#encryption-functions-what-you-need-to-extract-your-public-key" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>algorithm</strong> - What kind of key are we working with?</li>
+<li>Must match the private key type: &lsquo;RSA&rsquo;, &lsquo;DSA&rsquo;, or &lsquo;DH&rsquo;</li>
+<li>
+<p>Get this wrong and you&rsquo;ll get errors</p>
+</li>
+<li>
+<p><strong>priv_key_str</strong> - Your secret private key</p>
+</li>
+<li>Must be in PEM</li>
+</ol>
+<h2 id="encryption-functions-create_dh_parameterskey_lencreate_dh_parameters">Create_dh_parameters(<em>key_len</em>){create_dh_parameters}<a class="headerlink" href="#encryption-functions-create_dh_parameterskey_lencreate_dh_parameters" title="Permanent link">&para;</a></h2>
+<p>This function creates the special math values for Diffie-Hellman keys. It&rsquo;s like creating a recipe that two people will follow to create identical secret sauces without ever sharing their individual ingredients.</p>
+<h3 id="encryption-functions-warning-patience-required">Warning: Patience required!<a class="headerlink" href="#encryption-functions-warning-patience-required" title="Permanent link">&para;</a></h3>
+<p>This can take a LONG time - much longer than making regular keys. Cancel with:
+<div class="highlight"><pre><span></span><code>KILL [QUERY|CONNECTION] &lt;id&gt;
+</code></pre></div></p>
+<p>Think of it like the difference between:
+* Making regular keys = making a sandwich
+* Creating DH parameters = baking bread from scratch</p>
+<h3 id="encryption-functions-what-you-get-back_1">What you get back<a class="headerlink" href="#encryption-functions-what-you-get-back_1" title="Permanent link">&para;</a></h3>
+<p>A block of special values in PEM format. You&rsquo;ll use these later when creating DH keys.</p>
+<h3 id="encryption-functions-what-you-need-to-create-parameters">What you need to create parameters<a class="headerlink" href="#encryption-functions-what-you-need-to-create-parameters" title="Permanent link">&para;</a></h3>
+<p><strong>key_len</strong> - How mathematically strong should these be?
+* Choose between 1,024 and 10,000 bits
+* Default is 10,000 (strongest but slowest)
+* Admins can adjust the maximum with encryption_udf.dh_bits_threshold</p>
+<h2 id="encryption-functions-create_digestdigest_type-strcreate_digest">Create_digest(<em>digest_type, str</em>){create_digest}<a class="headerlink" href="#encryption-functions-create_digestdigest_type-strcreate_digest" title="Permanent link">&para;</a></h2>
 <p>Creates a digest from the given string using the given digest type. The digest string can be used with asymmetric_sign and asymmetric_verify.</p>
-<h3 id="encryption-functions-create_digest-output">create_digest output<a class="headerlink" href="#encryption-functions-create_digest-output" title="Permanent link">&para;</a></h3>
+<h3 id="encryption-functions-create_digest-output">Create_digest output<a class="headerlink" href="#encryption-functions-create_digest-output" title="Permanent link">&para;</a></h3>
 <p>The digest of the given string as a binary string</p>
-<h3 id="encryption-functions-create_digest-parameters">create_digest parameters<a class="headerlink" href="#encryption-functions-create_digest-parameters" title="Permanent link">&para;</a></h3>
+<h3 id="encryption-functions-create_digest-parameters">Create_digest parameters<a class="headerlink" href="#encryption-functions-create_digest-parameters" title="Permanent link">&para;</a></h3>
 <p>The parameters are the following:</p>
 <ul>
 <li>
@@ -29453,7 +30400,7 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 <p>str - String used to generate the digest string.</p>
 </li>
 </ul>
-<h3 id="encryption-functions-encryption-threshold-variables">Encryption threshold variables<a class="headerlink" href="#encryption-functions-encryption-threshold-variables" title="Permanent link">&para;</a></h3>
+<h3 id="encryption-functions-encryption-threshold-variables_1">Encryption threshold variables<a class="headerlink" href="#encryption-functions-encryption-threshold-variables_1" title="Permanent link">&para;</a></h3>
 <p>OpenSSL defines the maximum key length limits. Server administrators can limit the maximum key length using the encryption threshold variables.</p>
 <p>The variables are automatically registered when component_encryption_udf is installed.</p>
 <table>
@@ -29526,8 +30473,9 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 </tbody>
 </table>
 <p>The range for this variable is from 1,024 to 9,984. The default value is 9,984.</p>
-<h3 id="encryption-functions-encryption_udflegacy_paddding_scheme">encryption_udf.legacy_paddding_scheme<a class="headerlink" href="#encryption-functions-encryption_udflegacy_paddding_scheme" title="Permanent link">&para;</a></h3>
+<h3 id="encryption-functions-encryption_udflegacy_padding_scheme">Encryption_udf.legacy_padding_scheme<a class="headerlink" href="#encryption-functions-encryption_udflegacy_padding_scheme" title="Permanent link">&para;</a></h3>
 <p>The variable enables or disables the legacy padding scheme for certain encryption operations.</p>
+<p>895|</p>
 <table>
 <thead>
 <tr>
@@ -29556,91 +30504,110 @@ maximum parameter length, use encryption_udf.dh_bits_threshold.</p>
 </table>
 <p>This system variable is a BOOLEAN type and is set to <code>OFF</code> by default. </p>
 <p>This variable controls how the functions <code>asymmetric_encrypt()</code>, <code>asymmetric_decrypt()</code>, <code>asymmetric_sign()</code>, and <code>asymmetric_verify()</code> behave when you don’t explicitly set the padding parameter.</p>
-<p>•   When encryption_udf.legacy_padding_scheme is OFF:</p>
-<div class="highlight"><pre><span></span><code>• asymmetric_encrypt() and asymmetric_decrypt() use OAEP encryption padding.
-
-• asymmetric_sign() and asymmetric_verify() use PKCS1_PSS signature padding.
-</code></pre></div>
-<p>•   When encryption_udf.legacy_padding_scheme is ON:</p>
-<div class="highlight"><pre><span></span><code>• asymmetric_encrypt() and asymmetric_decrypt() use PKCS1 encryption padding.
-
-• asymmetric_sign() and asymmetric_verify() use PKCS1 signature padding.
-</code></pre></div>
-<p>The <code>asymmetric_encrypt()</code> and <code>asymmetric_decrypt()</code> functions, when the encryption is <code>RSA</code>, can accept an optional parameter, <code>padding</code>. You can set this parameter to <code>no</code>, <code>pkcs1</code>, or <code>oaep</code>. If you don’t specify this parameter, it defaults based on the <a href="#encryption-functions-encryption_udf.legacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a> value. </p>
-<p>The padding schemes have the following limitations:</p>
+<h3 id="encryption-functions-understanding-padding-schemes">Understanding padding schemes<a class="headerlink" href="#encryption-functions-understanding-padding-schemes" title="Permanent link">&para;</a></h3>
+<p>Think of padding like packing a box:
+* <code>oaep</code> is like using a big box with lots of bubble wrap
+* <code>no</code> padding is like using an exact-size box with no padding 
+* <code>pkcs1</code> is like using a box with just a thin layer of protection</p>
+<p>When <code>encryption_udf.legacy_padding_scheme</code> is OFF (default):</p>
+<ul>
+<li>For locking data: Functions use <code>oaep</code> padding (the big box with lots of bubble wrap)</li>
+<li>For signing data: Functions use <code>pkcs1_pss</code> padding (the fancy signature style)</li>
+</ul>
+<p>When <code>encryption_udf.legacy_padding_scheme</code> is ON:</p>
+<ul>
+<li>For locking data: Functions use <code>pkcs1</code> padding (the box with thin protection)</li>
+<li>For signing data: Functions use <code>pkcs1</code> padding (the basic signature style)</li>
+</ul>
+<p>You can also pick a padding style yourself in the <code>asymmetric_encrypt()</code> and <code>asymmetric_decrypt()</code> functions with RSA encryption. Just add <code>'no'</code>, <code>'pkcs1'</code>, or <code>'oaep'</code> as the last parameter. If you don&rsquo;t pick one, the system uses whatever <code>encryption_udf.legacy_padding_scheme</code> is set to.</p>
+<h3 id="encryption-functions-size-limits-for-each-padding-style">Size limits for each padding style<a class="headerlink" href="#encryption-functions-size-limits-for-each-padding-style" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Padding Scheme</th>
-<th>Details</th>
+<th>Padding Box</th>
+<th>How much can fit inside</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>oaep</code></td>
-<td>The message you encrypt can be as long as your RSA key size in bytes - 42 bytes.</td>
+<td>Your key size minus 42 bytes (less room, but most secure)</td>
 </tr>
 <tr>
 <td><code>no</code></td>
-<td>The message length must exactly match your RSA key size in bytes. For example, if your key is 1024 bits (128 bytes), the message must also be 128 bytes. If it doesn’t match, it will cause an error.</td>
+<td>Must be EXACTLY your key size (like a perfect-fit box)</td>
 </tr>
 <tr>
 <td><code>pkcs1</code></td>
-<td>Your message can be equal to or smaller than the RSA key size - 11 bytes. For instance, with a 1024-bit RSA key, your message can’t be longer than 117 bytes.</td>
+<td>Your key size minus 11 bytes (more room than oaep)</td>
 </tr>
 </tbody>
 </table>
-<p>Similarly, <code>asymmetric_sign()</code> and <code>asymmetric_verify()</code> also have an optional <code>padding</code> parameter, either <code>pkcs1</code> or <code>pkcs1_pss</code>. If not explicitly set, it follows the default based on <a href="#encryption-functions-encryption_udf.legacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a>. You can only use the padding parameter with RSA algorithms.</p>
-<h4 id="encryption-functions-additional-resources">Additional resources<a class="headerlink" href="#encryption-functions-additional-resources" title="Permanent link">&para;</a></h4>
-<p>For more information, read <a href="https://www.percona.com/blog/digital-signatures-another-layer-of-data-protection-in-percona-server-for-mysql/"><code>Digital Signatures: Another layer of Data Protection in Percona Server for MySQL</code></a></p>
-<h3 id="encryption-functions-encryption_udfrsa_bits_threshold">encryption_udf.rsa_bits_threshold<a class="headerlink" href="#encryption-functions-encryption_udfrsa_bits_threshold" title="Permanent link">&para;</a></h3>
-<p>The variable sets the threshold limits for the create_asymmetric_priv_key user-defined function when invoked with the RSA parameter and takes precedence over the OpenSSL maximum length value.</p>
+<h4 id="encryption-functions-example-how-much-fits-in-a-pkcs1-box">Example: How much fits in a pkcs1 box<a class="headerlink" href="#encryption-functions-example-how-much-fits-in-a-pkcs1-box" title="Permanent link">&para;</a></h4>
+<p>Let&rsquo;s say you have a 1024-bit RSA key:</p>
+<ol>
+<li>First, convert bits to bytes:</li>
+<li>
+<p>1024 bits ÷ 8 = 128 bytes</p>
+</li>
+<li>
+<p>Then, subtract the padding space:</p>
+</li>
+<li>
+<p>128 bytes - 11 bytes = 117 bytes</p>
+</li>
+<li>
+<p>Result: Your message must be 117 bytes or less</p>
+</li>
+</ol>
+<p>If your message is bigger than what fits, you&rsquo;ll need:
+* A bigger key size, or
+* A different padding style</p>
+<h3 id="encryption-functions-padding-for-signatures">Padding for signatures<a class="headerlink" href="#encryption-functions-padding-for-signatures" title="Permanent link">&para;</a></h3>
+<p>When you sign data with <code>asymmetric_sign()</code> or verify with <code>asymmetric_verify()</code>, you can choose a padding style too:
+* <code>pkcs1</code> - the basic style
+* <code>pkcs1_pss</code> - the extra-secure style</p>
+<p>If you don&rsquo;t pick one, the system checks the <code>encryption_udf.legacy_padding_scheme</code> setting. You can only use padding with RSA algorithms.</p>
+<h4 id="encryption-functions-want-to-learn-more">Want to learn more?<a class="headerlink" href="#encryption-functions-want-to-learn-more" title="Permanent link">&para;</a></h4>
+<p>Check out this article: <a href="https://www.percona.com/blog/digital-signatures-another-layer-of-data-protection-in-percona-server-for-mysql/"><code>Digital Signatures: Another layer of Data Protection in Percona Server for MySQL</code></a></p>
+<h3 id="encryption-functions-encryption_udfrsa_bits_threshold">Encryption_udf.rsa_bits_threshold<a class="headerlink" href="#encryption-functions-encryption_udfrsa_bits_threshold" title="Permanent link">&para;</a></h3>
+<p>This setting controls how strong RSA keys can be when you create them with the create_asymmetric_priv_key function. Think of it as setting a limit on how big of a padlock you can make.</p>
 <table>
 <thead>
 <tr>
 <th>Option</th>
-<th>Description</th>
+<th>What it means</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>command-line</td>
-<td>Yes</td>
+<td>You can set it when starting MySQL</td>
 </tr>
 <tr>
 <td>scope</td>
-<td>Global</td>
+<td>Affects the whole server</td>
 </tr>
 <tr>
 <td>data type</td>
-<td>unsigned integer</td>
+<td>A number without decimals</td>
 </tr>
 <tr>
 <td>default</td>
-<td>16384</td>
+<td>16384 (strongest possible)</td>
 </tr>
 </tbody>
 </table>
-<p>The range for this variable is from 1,024 to 16,384. The default value is 16,384.</p>
-<h3 id="encryption-functions-examples">Examples<a class="headerlink" href="#encryption-functions-examples" title="Permanent link">&para;</a></h3>
-<p>Code examples for the following operations:</p>
-<ul>
-<li>
-<p>Set the threshold variables</p>
-</li>
-<li>
-<p>Create a private key</p>
-</li>
-<li>
-<p>Create a public key</p>
-</li>
-<li>
-<p>Encrypt data</p>
-</li>
-<li>
-<p>Decrypt data</p>
-</li>
-</ul>
+<p>You can choose any number between 1,024 (good) and 16,384 (extremely strong). The default is set to the maximum of 16,384.</p>
+<h2 id="encryption-functions-examples-you-can-try">Examples you can try<a class="headerlink" href="#encryption-functions-examples-you-can-try" title="Permanent link">&para;</a></h2>
+<p>Here are some simple examples to help you get started:</p>
+<h3 id="encryption-functions-example-1-setting-limits-and-working-with-keys">Example 1: Setting limits and working with keys<a class="headerlink" href="#encryption-functions-example-1-setting-limits-and-working-with-keys" title="Permanent link">&para;</a></h3>
+<p>This example shows how to:
+* Set how strong keys can be
+* Create your private key (your secret key)
+* Create your public key (the key you can share)
+* Lock (encrypt) some text
+* Unlock (decrypt) it again</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Set<span class="w"> </span>Global<span class="w"> </span>variable
 mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span>encryption_udf.dh_bits_threshold<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4096</span><span class="p">;</span>
 
@@ -29660,18 +30627,11 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@ciphertext<span cla
 --<span class="w"> </span>The<span class="w"> </span>decrypted<span class="w"> </span>value<span class="w"> </span>@plaintext<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span>identical<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>original<span class="w"> </span><span class="s1">&#39;This text is secret&#39;</span>
 mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@plaintext<span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_decrypt<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span>@ciphertext,<span class="w"> </span>@public_key<span class="o">)</span><span class="p">;</span>
 </code></pre></div>
-<p>Code examples for the following operations:</p>
-<ul>
-<li>
-<p>generate a digest string</p>
-</li>
-<li>
-<p>generate a digest signature</p>
-</li>
-<li>
-<p>verify the signature against the digest</p>
-</li>
-</ul>
+<h3 id="encryption-functions-example-2-creating-digital-signatures">Example 2: Creating digital signatures<a class="headerlink" href="#encryption-functions-example-2-creating-digital-signatures" title="Permanent link">&para;</a></h3>
+<p>This example shows how to:
+* Create a fingerprint (digest) of your message
+* Sign that fingerprint with your private key
+* Check if the signature is real</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>digest<span class="w"> </span>string
 mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@digest<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_digest<span class="o">(</span><span class="s1">&#39;SHA256&#39;</span>,<span class="w"> </span><span class="s1">&#39;This is the text for digest&#39;</span><span class="o">)</span><span class="p">;</span>
 
@@ -29682,21 +30642,15 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@signature<span clas
 --<span class="w"> </span>The<span class="w"> </span>@verify_signature<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span>equal<span class="w"> </span>to<span class="w"> </span><span class="m">1</span>
 mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@verify_signature<span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_verify<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span>@digest,<span class="w"> </span>@signature,<span class="w"> </span>@public_key,<span class="w"> </span><span class="s1">&#39;SHA256&#39;</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
-<p>Code examples for the following operations:</p>
+<h3 id="encryption-functions-example-3-creating-a-shared-secret">Example 3: Creating a shared secret<a class="headerlink" href="#encryption-functions-example-3-creating-a-shared-secret" title="Permanent link">&para;</a></h3>
+<p>This example shows how two people can create the same secret key without ever sharing their private keys:</p>
 <ul>
-<li>
-<p>Generate a DH parameter</p>
-</li>
-<li>
-<p>Generate two DH key pairs</p>
-</li>
-<li>
-<p>Generate a symmetric key using the public_1 and the private_2</p>
-</li>
-<li>
-<p>Generate a symmetric key using the public_2 and the private_1</p>
-</li>
+<li>Create the recipe (DH parameter) for making the shared secret</li>
+<li>Make two sets of keys (one for each person)</li>
+<li>Person 1 creates the shared secret using their private key and Person 2&rsquo;s public key</li>
+<li>Person 2 creates the SAME shared secret using their private key and Person 1&rsquo;s public key</li>
 </ul>
+<p>This is like two people who each have half of a recipe - when combined, they both end up with the same final dish!</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="w"> </span>--<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>DH<span class="w"> </span>parameter
 <span class="w"> </span>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@dh_parameter<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_dh_parameters<span class="o">(</span><span class="m">3072</span><span class="o">)</span><span class="p">;</span>
 
@@ -29714,26 +30668,21 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span><span class="nv">sym
 --<span class="w"> </span>The<span class="w"> </span>@symmetric_2<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span>identical<span class="w"> </span>to<span class="w"> </span>@symmetric_1
 mysql&gt;<span class="w"> </span>SET<span class="w"> </span><span class="nv">symmetric_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_derive<span class="o">(</span>@public_2,<span class="w"> </span>@private_1<span class="o">)</span><span class="p">;</span>
 </code></pre></div>
-<p>Code examples for the following operations:</p>
-<ul>
-<li>
-<p>Create a private key using a <code>SET</code> statement</p>
-</li>
-<li>
-<p>Create a private key using a  <code>SELECT</code> statement</p>
-</li>
-<li>
-<p>Create a private key using an <code>INSERT</code> statement</p>
-</li>
-</ul>
+<h3 id="encryption-functions-example-4-different-ways-to-create-keys">Example 4: Different ways to create keys<a class="headerlink" href="#encryption-functions-example-4-different-ways-to-create-keys" title="Permanent link">&para;</a></h3>
+<p>Here are three different ways to create and save your keys:
+* Using a simple variable with <code>SET</code>
+* Using a query with <code>SELECT INTO</code>
+* Saving directly to a table with <code>INSERT</code></p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@private_key1<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">)</span><span class="p">;</span>
 mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">)</span><span class="w"> </span>INTO<span class="w"> </span>@private_key2<span class="p">;</span>
 mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>key_table<span class="w"> </span>VALUES<span class="o">(</span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">))</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="encryption-functions-uninstall-component_encryption_udf">Uninstall component_encryption_udf<a class="headerlink" href="#encryption-functions-uninstall-component_encryption_udf" title="Permanent link">&para;</a></h2>
-<p>You can deactivate and uninstall the component using the <a href="https://dev.mysql.com/doc/refman/8.0/en/uninstall-component.html">Uninstall Component statement</a>.</p>
+<h2 id="encryption-functions-removing-the-encryption-toolbox">Removing the encryption toolbox<a class="headerlink" href="#encryption-functions-removing-the-encryption-toolbox" title="Permanent link">&para;</a></h2>
+<p>When you&rsquo;re done using these tools, you can remove them from your system. Think of it like uninstalling an app when you no longer need it.</p>
+<p>Use this simple command:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
-</code></pre></div></section><section class="print-page" id="pam-plugin" heading-number="12.5"><h1 id="pam-plugin-pam-authentication-plugin">PAM authentication plugin<a class="headerlink" href="#pam-plugin-pam-authentication-plugin" title="Permanent link">&para;</a></h1>
+</code></pre></div>
+<p>This removes all the encryption functions from your MySQL server.</p></section></section><section class="print-page" id="pam-plugin" heading-number="12.5"><h1 id="pam-plugin-pam-authentication-plugin">PAM authentication plugin<a class="headerlink" href="#pam-plugin-pam-authentication-plugin" title="Permanent link">&para;</a></h1>
 <p>Percona PAM Authentication Plugin is a free and Open Source implementation of the <em>MySQL</em>’s authentication plugin. This plugin acts as a mediator between the <em>MySQL</em> server, the <em>MySQL</em> client, and the PAM stack. The server plugin requests authentication from the PAM stack, forwards any requests and messages from the PAM stack over the wire to the client (in cleartext) and reads back any replies for the PAM stack.</p>
 <p>PAM plugin uses dialog as its client side plugin. Dialog plugin can be loaded to any client application that uses <code>libperconaserverclient</code>/<code>libmysqlclient</code> library.</p>
 <p>Here are some of the benefits that Percona dialog plugin offers over the default one:</p>
@@ -59650,10 +60599,20 @@ contributions and changes from MariaDB.</p>
 <p>See the COPYING files accompanying the software distribution.</p></section><section class="print-page" id="glossary" heading-number="17.12"><h1 id="glossary-glossary">Glossary<a class="headerlink" href="#glossary-glossary" title="Permanent link">&para;</a></h1>
 <h2 id="glossary-acid">ACID<a class="headerlink" href="#glossary-acid" title="Permanent link">&para;</a></h2>
 <p>Set of properties that guarantee database transactions are processed reliably. Stands for <a href="#glossary-atomicity">Atomicity</a>, <a href="#glossary-consistency">Consistency</a>, <a href="#glossary-isolation">Isolation</a>, <a href="#glossary-durability">Durability</a>.</p>
+<h2 id="glossary-asymmetric-key">Asymmetric key<a class="headerlink" href="#glossary-asymmetric-key" title="Permanent link">&para;</a></h2>
+<p>A pair of keys used for cryptographic purposes, consisting of a private key and a corresponding public key. The private key is used for decrypting or signing, while the public key is used for encrypting or verifying.</p>
 <h2 id="glossary-atomicity">Atomicity<a class="headerlink" href="#glossary-atomicity" title="Permanent link">&para;</a></h2>
 <p>Atomicity means that database operations are applied following a “all or nothing” rule. A transaction is either fully applied or not at all.</p>
 <h2 id="glossary-consistency">Consistency<a class="headerlink" href="#glossary-consistency" title="Permanent link">&para;</a></h2>
 <p>Consistency means that each transaction that modifies the database takes it from one consistent state to another.</p>
+<h2 id="glossary-digest">Digest<a class="headerlink" href="#glossary-digest" title="Permanent link">&para;</a></h2>
+<p>A digital fingerprint of a piece of data, such as a string or a file, produced by a hash function. Digests are used to verify the integrity of data and ensure it has not been tampered with or altered.</p>
+<h2 id="glossary-digest-string">Digest string<a class="headerlink" href="#glossary-digest-string" title="Permanent link">&para;</a></h2>
+<p>The string representation of a digest, often in hexadecimal format.</p>
+<h2 id="glossary-digital-signature">Digital signature<a class="headerlink" href="#glossary-digital-signature" title="Permanent link">&para;</a></h2>
+<p>A cryptographic mechanism used to verify the authenticity and integrity of a message, software, or document. It ensures that the data comes from the claimed source and has not been altered during transmission.</p>
+<h2 id="glossary-diffie-hellman-key-exchange">Diffie-Hellman key exchange<a class="headerlink" href="#glossary-diffie-hellman-key-exchange" title="Permanent link">&para;</a></h2>
+<p>A cryptographic protocol that allows two parties to establish a shared secret key over an insecure communication channel without actually exchanging the key.</p>
 <h2 id="glossary-durability">Durability<a class="headerlink" href="#glossary-durability" title="Permanent link">&para;</a></h2>
 <p>Once a transaction is committed, it will remain so.</p>
 <h2 id="glossary-environment-variable">Environment Variable<a class="headerlink" href="#glossary-environment-variable" title="Permanent link">&para;</a></h2>
@@ -59662,6 +60621,8 @@ contributions and changes from MariaDB.</p>
 <p>A referential constraint between two tables. Example: A purchase order in the purchase_orders table must have been made by a customer that exists in the customers table.</p>
 <h2 id="glossary-general-availability-ga">General Availability (GA)<a class="headerlink" href="#glossary-general-availability-ga" title="Permanent link">&para;</a></h2>
 <p>A finalized version of the product which is made available to the general public. It is the final stage in the software release cycle.</p>
+<h2 id="glossary-hash-function">Hash function<a class="headerlink" href="#glossary-hash-function" title="Permanent link">&para;</a></h2>
+<p>A one-way mathematical function that takes input data of any size and produces a fixed-size string of characters, known as a digest or hash value. Hash functions are used to create digital fingerprints of data.</p>
 <h2 id="glossary-isolation">Isolation<a class="headerlink" href="#glossary-isolation" title="Permanent link">&para;</a></h2>
 <p>The Isolation requirement means that no transaction can interfere with another.</p>
 <h2 id="glossary-innodb">InnoDB<a class="headerlink" href="#glossary-innodb" title="Permanent link">&para;</a></h2>
@@ -59699,8 +60660,14 @@ contributions and changes from MariaDB.</p>
 <p>Non-Uniform Memory Access (<a href="https://en.wikipedia.org/wiki/Non-Uniform_Memory_Access">NUMA</a>) is a computer memory design used in multiprocessing, where the memory access time depends on the memory location relative to a processor. Under NUMA, a processor can access its own local memory faster than non-local memory, that is, memory local to another processor or memory shared between processors. The whole system may still operate as one unit, and all memory is basically accessible from everywhere but at a potentially higher latency and lower performance.</p>
 <h2 id="glossary-percona-server-for-mysql">Percona Server for MySQL<a class="headerlink" href="#glossary-percona-server-for-mysql" title="Permanent link">&para;</a></h2>
 <p>The Percona branch of <a href="#glossary-mysql">MySQL</a> with performance and management improvements.</p>
+<h2 id="glossary-private-key">Private key<a class="headerlink" href="#glossary-private-key" title="Permanent link">&para;</a></h2>
+<p>A secret key used in asymmetric cryptography for decrypting or signing data. It is typically kept secure and not shared with others.</p>
+<h2 id="glossary-public-key">Public key<a class="headerlink" href="#glossary-public-key" title="Permanent link">&para;</a></h2>
+<p>A publicly available key used in asymmetric cryptography for encrypting or verifying data. It is typically shared with others and used in conjunction with a private key.</p>
 <h2 id="glossary-storage-engine">Storage Engine<a class="headerlink" href="#glossary-storage-engine" title="Permanent link">&para;</a></h2>
 <p>A storage engine is a piece of software that implements the details of data storage and retrieval for a database system. This term is primarily used within the <a href="#glossary-mysql">MySQL</a> ecosystem due to it being the first widely used relational database to have an abstraction layer around storage. It is analogous to a Virtual File System layer in an Operating System. A VFS layer allows an operating system to read and write multiple file systems (e.g. FAT, NTFS, XFS, ext3) and a Storage Engine layer allows a database server to access tables stored in different engines (for example, <a href="#glossary-myisam">MyISAM</a> or InnoDB).</p>
+<h2 id="glossary-symmetric-key">Symmetric key<a class="headerlink" href="#glossary-symmetric-key" title="Permanent link">&para;</a></h2>
+<p>A single key used for both encrypting and decrypting data in symmetric cryptography. Symmetric keys are typically kept secret and shared between parties.</p>
 <h2 id="glossary-tech-preview">Tech Preview<a class="headerlink" href="#glossary-tech-preview" title="Permanent link">&para;</a></h2>
 <p>A tech preview item can be a feature, a variable, or a value within a variable. Before using this feature in production, we recommend that you test restoring production from physical backups in your environment and also use an alternative backup method for redundancy. A tech preview item is included in a release for users to provide feedback. The item is either updated, released as <a href="#glossary-general-availability-ga">general availability(GA)</a>, or removed if not useful. The functionality can change from tech preview to GA.</p>
 <h2 id="glossary-telemetry">Telemetry<a class="headerlink" href="#glossary-telemetry" title="Permanent link">&para;</a></h2>
@@ -59711,9 +60678,9 @@ contributions and changes from MariaDB.</p>
 <p>A unique identifier used to ensure no two entities share the same ID.</p>
 <h2 id="glossary-xtradb">XtraDB<a class="headerlink" href="#glossary-xtradb" title="Permanent link">&para;</a></h2>
 <p>The Percona improved version of <a href="#glossary-innodb">InnoDB</a> provides performance, features, and reliability above what is shipped by Oracle in InnoDB.</p></section><section class="print-page" id="ai-docs" heading-number="17.13"><h1 id="ai-docs-how-we-use-artificial-intelligence">How we use artificial intelligence<a class="headerlink" href="#ai-docs-how-we-use-artificial-intelligence" title="Permanent link">&para;</a></h1>
-<p>The technical writer oversees the integration of AI-driven tools and platforms into the documentation workflow, ensuring that AI-generated text meets the standards for clarity, coherence, and accuracy. While AI assists in tasks such as content generation, language enhancement, and formatting optimization, the technical writer is responsible for validating and refining the output to ensure its suitability for the intended audience.</p>
-<p>Throughout the documentation process, the technical writer reviews the quality and relevance of AI-generated content in detail and with critical judgment. By leveraging their expertise in language, communication, and subject matter knowledge, the technical writer collaborates with AI systems to refine and tailor the documentation to meet the specific needs and preferences of the audience.</p>
-<p>While AI accelerates the documentation process and enhances productivity, the technical writer verifies the information&rsquo;s accuracy and maintains consistency in terminology, style, and tone. The technical writer ensures that the final document reflects the company&rsquo;s commitment to excellence.</p></section></section><section class="print-page" id="index-contents" heading-number="18"><h1 id="index-contents-index">Index<a class="headerlink" href="#index-contents-index" title="Permanent link">&para;</a></h1>
+<p>The technical writer manages how AI tools and platforms are used in the documentation process. They ensure that the text created by AI is clear, logical, and accurate. Although AI helps with generating content, improving language, and formatting, it is the technical writer who checks and improves the output to make sure it suits the audience.</p>
+<p>During the documentation process, the technical writer carefully reviews the AI-generated content for quality and relevance. Using their knowledge of language, communication, and the subject matter, they work with AI systems to adjust and improve the documentation based on what the audience needs.</p>
+<p>Even though AI speeds up the process and boosts productivity, the technical writer makes sure that the information is correct and keeps the style, tone, and terminology consistent. They ensure that the final document meets the company&rsquo;s high standards.</p></section></section><section class="print-page" id="index-contents" heading-number="18"><h1 id="index-contents-index">Index<a class="headerlink" href="#index-contents-index" title="Permanent link">&para;</a></h1>
 <ul>
 <li><a href="#adaptive-network-buffers">Adaptive network buffers</a></li>
 <li><a href="#encrypting-threads">Advanced encryption key rotation</a></li>
@@ -60238,7 +61205,14 @@ contributions and changes from MariaDB.</p>
 
 .print-site-enumerate-headings #fido-authentication-plugin > h1:before { content: '12.3 ' }
 
-.print-site-enumerate-headings #encryption-functions > h1:before { content: '12.4 ' }
+.print-site-enumerate-headings #section-12-4 > h1:before { content: '12.4 ' }
+.print-site-enumerate-headings #encryption-functions-overview > h1:before { content: '12.4.1 ' }
+
+.print-site-enumerate-headings #digest-encryption > h1:before { content: '12.4.2 ' }
+
+.print-site-enumerate-headings #key-length-considerations > h1:before { content: '12.4.3 ' }
+
+.print-site-enumerate-headings #encryption-functions > h1:before { content: '12.4.4 ' }
 
 .print-site-enumerate-headings #pam-plugin > h1:before { content: '12.5 ' }
 

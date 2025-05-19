@@ -15,13 +15,13 @@
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/audit-log-filter-compression-encryption.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/encryption-functions-overview.html">
       
       
-        <link rel="prev" href="audit-log-filter-security.html">
+        <link rel="prev" href="fido-authentication-plugin.html">
       
       
-        <link rel="next" href="reading-audit-log-filter-files.html">
+        <link rel="next" href="digest-encryption.html">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
@@ -29,7 +29,7 @@
     
     
       
-        <title>Audit Log Filter compression and encryption - Percona Server for MySQL</title>
+        <title>Encryption functions overview - Percona Server for MySQL</title>
       
     
     
@@ -109,7 +109,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#audit-log-filter-compression-and-encryption" class="md-skip">
+        <a href="#encryption-functions-overview" class="md-skip">
           Skip to content
         </a>
       
@@ -206,7 +206,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Audit Log Filter compression and encryption
+              Encryption functions overview
             
           </span>
         </div>
@@ -1964,10 +1964,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -2005,11 +2003,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -2025,7 +2023,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Features
@@ -2059,10 +2057,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -2096,11 +2092,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
         
           
           <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
@@ -2116,7 +2112,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             Audit Log Filter
@@ -2344,32 +2340,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Audit Log Filter compression and encryption
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="audit-log-filter-compression-encryption.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="audit-log-filter-compression-encryption.html" class="md-nav__link">
         
   
   
@@ -2380,55 +2354,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#compression" class="md-nav__link">
-    <span class="md-ellipsis">
-      Compression
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#encryption" class="md-nav__link">
-    <span class="md-ellipsis">
-      Encryption
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#manually-uncompressing-and-decrypting-audit-log-filter-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      Manually uncompressing and decrypting audit log filter files
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -5093,8 +5018,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -5120,11 +5047,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
         
           
           <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
@@ -5140,7 +5067,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
             Secure
@@ -5620,8 +5547,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -5637,11 +5566,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_4" checked>
         
           
           <label class="md-nav__link" for="__nav_12_4" id="__nav_12_4_label" tabindex="0">
@@ -5657,7 +5586,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_12_4">
             <span class="md-nav__icon md-icon"></span>
             Encryption functions
@@ -5668,10 +5597,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="encryption-functions-overview.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Encryption functions overview
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="encryption-functions-overview.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -5682,6 +5631,170 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#encryption-functions-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encryption functions overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of capabilities
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#glossary-of-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Glossary of terms
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation challenges
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version updates
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Version updates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#padding-options-for-rsa-encryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Padding options for RSA encryption
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signature-padding-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Signature padding options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-new-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other new features
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#character-sets-and-component-encryption-udfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Character sets and component encryption UDFs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Character sets and component encryption UDFs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-happens-to-your-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      What happens to your input
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-get-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you get back
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-key-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      External key management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="External key management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-key-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      External key generation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-you-might-break-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      How you might break this
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -8668,8 +8781,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -8678,29 +8789,146 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#compression" class="md-nav__link">
+  <a href="#encryption-functions-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Compression
+      Encryption functions overview
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#encryption" class="md-nav__link">
+  <a href="#overview-of-capabilities" class="md-nav__link">
     <span class="md-ellipsis">
-      Encryption
+      Overview of capabilities
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#manually-uncompressing-and-decrypting-audit-log-filter-files" class="md-nav__link">
+  <a href="#glossary-of-terms" class="md-nav__link">
     <span class="md-ellipsis">
-      Manually uncompressing and decrypting audit log filter files
+      Glossary of terms
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation challenges
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version updates
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Version updates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#padding-options-for-rsa-encryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Padding options for RSA encryption
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signature-padding-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Signature padding options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-new-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other new features
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#character-sets-and-component-encryption-udfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Character sets and component encryption UDFs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Character sets and component encryption UDFs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-happens-to-your-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      What happens to your input
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-get-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you get back
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-key-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      External key management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="External key management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-key-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      External key generation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-you-might-break-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      How you might break this
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -8733,7 +8961,7 @@
 
 
   
-    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/audit-log-filter-compression-encryption.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/encryption-functions-overview.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -8742,70 +8970,293 @@
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/audit-log-filter-compression-encryption.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/encryption-functions-overview.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="audit-log-filter-compression-and-encryption">Audit Log Filter compression and encryption<a class="headerlink" href="#audit-log-filter-compression-and-encryption" title="Permanent link">&para;</a></h1>
-<h2 id="compression">Compression<a class="headerlink" href="#compression" title="Permanent link">&para;</a></h2>
-<p>You can enable compression for any <a href="audit-log-filter-formats.html">format</a> by setting the <code>audit_log_filter_compression</code> system variable when the server starts.</p>
-<p>The <code>audit_log_filter_compression</code> variable can be either of the following:</p>
+  <h1>Encryption functions overview</h1>
+
+<h2 id="encryption-functions-overview">Encryption functions overview<a class="headerlink" href="#encryption-functions-overview" title="Permanent link">&para;</a></h2>
+<p>This document provides comprehensive information about encryption functions that transform plaintext data into encrypted ciphertext. These functions provide robust security measures that require proper documentation to implement and maintain effectively. This guide offers the necessary information for successful implementation.</p>
+<h2 id="overview-of-capabilities">Overview of capabilities<a class="headerlink" href="#overview-of-capabilities" title="Permanent link">&para;</a></h2>
+<p>This documentation will guide you through:</p>
 <ul>
-<li>NONE (no compression) - the default value</li>
-<li>GZIP - uses the GNU Zip compression</li>
+<li>
+<p>Implementing data encryption protocols</p>
+</li>
+<li>
+<p>Executing data decryption procedures</p>
+</li>
+<li>
+<p>Implementing digital signature authentication</p>
+</li>
+<li>
+<p>Avoiding common implementation pitfalls</p>
+</li>
 </ul>
-<p>If compression and encryption are enabled, the plugin applies compression before encryption. If you must manually recover a file with both settings, first decrypt the file and then uncompress the file.</p>
-<h2 id="encryption">Encryption<a class="headerlink" href="#encryption" title="Permanent link">&para;</a></h2>
-<p>You can encrypt any audit log filter file in any <a href="audit-log-filter-formats.html">format</a>. The audit log filter plugin generates the initial password, but you can use user-defined passwords after that. The plugin stores the passwords in the keyring, so that feature must be enabled.</p>
-<p>Set the <code>audit_log_filter_encryption</code> system variable with the server starts. The allowed values are the following:</p>
+<p>First, let&rsquo;s review some key terms you&rsquo;ll encounter throughout this guide.</p>
+<h2 id="glossary-of-terms">Glossary of terms<a class="headerlink" href="#glossary-of-terms" title="Permanent link">&para;</a></h2>
+<p>Here&rsquo;s a quick reference guide to the cryptographic terms used in this document:</p>
 <ul>
-<li>NONE - no encryption, the default value</li>
-<li>AES - AES-256-CBC (Cipher Block Chaining) encryption</li>
+<li>
+<p><strong>Encryption</strong>: The process of converting readable data into a coded format that can only be decoded with the correct key.</p>
+</li>
+<li>
+<p><strong>Decryption</strong>: The reverse process of encryption, converting coded data back to its original readable form.</p>
+</li>
+<li>
+<p><strong>Symmetric Encryption</strong>: A type of encryption where the same key is used for both encryption and decryption, like a single key that locks and unlocks the same door.</p>
+</li>
+<li>
+<p><strong>Asymmetric Encryption</strong>: A type of encryption that uses a pair of keys - a public key for encryption and a private key for decryption, or vice versa.</p>
+</li>
+<li>
+<p><strong>RSA</strong> (Rivest-Shamir-Adleman): One of the most widely used asymmetric encryption algorithms, named after its creators.</p>
+</li>
+<li>
+<p><strong>DSA</strong> (Digital Signature Algorithm): An algorithm specifically designed for creating digital signatures.</p>
+</li>
+<li>
+<p><strong>DH</strong> (Diffie-Hellman): A method that allows two parties to establish a shared secret key over an insecure channel without sharing any secret information beforehand.</p>
+</li>
+<li>
+<p><strong>Digest/Hash</strong>: A fixed-size string of bytes generated from input data of any size, functioning like a digital fingerprint of the data.</p>
+</li>
+<li>
+<p><strong>Digital Signature</strong>: An electronic equivalent of a handwritten signature that uses asymmetric cryptography to verify authenticity.</p>
+</li>
+<li>
+<p><strong>Padding</strong>: Additional data added to a message before encryption to enhance security and prevent pattern analysis.</p>
+</li>
+<li>
+<p><strong>PEM Format</strong>: Privacy Enhanced Mail format, a common format for storing and sending cryptographic keys, certificates, and other data.</p>
+</li>
 </ul>
-<p>The AES uses the 256-bit key size.</p>
-<p>The following audit log filter functions are used with encryption:</p>
+<p>Now, let&rsquo;s examine common implementation challenges in encryption systems.</p>
+<h2 id="implementation-challenges">Implementation challenges<a class="headerlink" href="#implementation-challenges" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>⚠️ <strong>Common encryption mistakes</strong></p>
+<p>Key management is a critical aspect of encryption systems that requires rigorous planning and careful implementation.
+</p>
+</blockquote>
+<p>Here are the most common implementation issues:</p>
+<ul>
+<li>
+<p>Key loss: When decryption keys are lost, data becomes permanently inaccessible, even to authorized personnel.</p>
+</li>
+<li>
+<p>Algorithm-key mismatch: Using incompatible keys and algorithms results in decryption failures.</p>
+</li>
+<li>
+<p>Exceeding size limitations: Attempting to encrypt data larger than algorithm constraints can cause failures in both encryption and decryption processes.</p>
+</li>
+<li>
+<p>Insufficient documentation: Failing to properly document the encryption process and key management procedures can lead to system failures.</p>
+</li>
+</ul>
+<h2 id="version-updates">Version updates<a class="headerlink" href="#version-updates" title="Permanent link">&para;</a></h2>
+<p>Percona Server for MySQL 8.0.41 introduces several important new features that enhance security capabilities while requiring careful implementation.</p>
+<h3 id="padding-options-for-rsa-encryption">Padding options for RSA encryption<a class="headerlink" href="#padding-options-for-rsa-encryption" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Function name</th>
-<th>Description</th>
+<th>Padding type</th>
+<th>Security level</th>
+<th>Application</th>
+<th>Characteristics</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>audit_log_encryption_password_set()</td>
-<td>Stores the password in the keyring. If encryption is enabled, the function also rotates the log file by renaming the current log file and creating a log file encrypted with the password.</td>
+<td><code>pkcs1</code></td>
+<td>Basic</td>
+<td>Legacy compatibility</td>
+<td>Standard protection with known limitations</td>
 </tr>
 <tr>
-<td>audit_log_encryption_password_get()</td>
-<td>Invoking this function without an argument returns the current encryption password. An argument that specifies the keyring ID of an archived password or current password returns that password by ID.</td>
+<td><code>oaep</code></td>
+<td>High</td>
+<td>Modern applications</td>
+<td>Enhanced protection with additional security layers</td>
+</tr>
+<tr>
+<td><code>no</code></td>
+<td>None</td>
+<td>Specialized cases only</td>
+<td>No protection, vulnerable to multiple attack vectors</td>
 </tr>
 </tbody>
 </table>
-<p>The <code>audit_log_filter_password_history_keep_days</code> variable is used with encryption. If the variable is not zero (0) , invoking <code>audit_log_encryption_password_set()</code> causes the expiration of archived audit log passwords.</p>
-<p>When the plugin starts with encryption enabled, the plugin checks if the keyring has an audit log filter encryption password. If no password is found, the plugin generates a random password and stores this password in the keyring. Use <code>audit_log_encryption_password_get()</code> to review this password.</p>
-<p>If compression and encryption are enabled, the plugin applies compression before encryption. If you must manually recover a file with both settings, first decrypt the file and then uncompress the file.</p>
-<h2 id="manually-uncompressing-and-decrypting-audit-log-filter-files">Manually uncompressing and decrypting audit log filter files<a class="headerlink" href="#manually-uncompressing-and-decrypting-audit-log-filter-files" title="Permanent link">&para;</a></h2>
-<p>To decrypt an encrypted log file, use the openssl command. For example:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-aes-256-cbc<span class="w"> </span>-pass<span class="w"> </span>pass:password
-<span class="w">    </span>-iter<span class="w"> </span>iterations<span class="w"> </span>-md<span class="w"> </span>sha256
-<span class="w">    </span>-in<span class="w"> </span>audit.timestamp.log.pwd_id.enc
-<span class="w">    </span>-out<span class="w"> </span>audit.timestamp.log
-</code></pre></div>
-<p>To execute that command, you must obtain a password and iterations. To do this, use <code>audit_log_encryption_password_get()</code>. </p>
-<p>This function gets the encryption password, and the iterations count and returns this data as a JSON-encoded string. For example, if the audit log file name is <code>audit.20190415T151322.log.20190414T223342-2.enc</code>, the password ID is <code>{randomly-generated-alphanumeric-string}-2</code> and the keyring ID is <code>audit-log-20190414T223342-2</code>. </p>
-<p>Get the keyring password:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_encryption_password_get</span><span class="p">(</span><span class="s1">&#39;audit-log-20190414T223342-2&#39;</span><span class="p">);</span>
-</code></pre></div>
-<p>The return value of this function may look like the following:</p>
-<details class="example">
-<summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code>{&quot;password&quot;:&quot;{randomly-generated-alphanumeric-string}&quot;,&quot;iterations&quot;:568977}
-</code></pre></div>
+<h4 id="detailed-padding-explanations">Detailed padding explanations<a class="headerlink" href="#detailed-padding-explanations" title="Permanent link">&para;</a></h4>
+<details>
+   <summary> `pkcs1` padding: The nostalgic option</summary>
+
+   Think of `pkcs1` padding as the security equivalent of a 90s-era car alarm. It adds random stuffing to your message to stop pattern analysis, making your message look different each time. It's decent protection against casual thieves but not against determined professionals with modern tools. It's like putting your valuables in a safe that shouts "HEY! I'M A SAFE!" when touched.
 </details>
+
+<details>
+   <summary> `oaep` padding: The recommended secure option</summary>  
+
+   `oaep` padding (Optimal Asymmetric Encryption Padding) implements a mathematically robust random mask that significantly increases resistance to cryptanalysis (the science of breaking encryption). This method applies multiple layers of protection to the encrypted data, making it the recommended option for systems requiring high security standards. The additional computational overhead is justified by the enhanced security protections it provides.
+</details>
+
+<details>
+   <summary> `no` padding: Non-secure implementation option</summary>
+
+   The unpadded encryption implementation provides no additional cryptographic protection for the message content. This approach eliminates randomization elements, exposing the encrypted data to various cryptanalytic attacks including pattern analysis. This option should only be implemented in specialized circumstances where compatibility with specific systems is required or where separate security controls are implemented at another layer. Not recommended for standard security implementations.
+</details>
+
+<h3 id="signature-padding-options">Signature padding options<a class="headerlink" href="#signature-padding-options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Padding Type</th>
+<th>Security Level</th>
+<th>Characteristics</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pkcs1</code></td>
+<td>Standard</td>
+<td>Consistent signatures</td>
+<td>Compatibility with older systems</td>
+</tr>
+<tr>
+<td><code>pkcs1_pss</code></td>
+<td>High</td>
+<td>Unique signature every time</td>
+<td>Modern security needs</td>
+</tr>
+</tbody>
+</table>
+<details>
+   <summary> `pkcs1` padding: The basic signature</summary>
+
+   `pkcs1` padding for signatures is like signing your name the same way every time. It takes your message, creates a fingerprint, adds some standard framing, and locks it with your private key. It works fine until someone figures out how to copy your signature style, at which point your security is compromised. It's simple and compatible with older systems, but not the strongest option available.
+</details>
+
+<details>
+   <summary> `pkcs1_pss` padding: The signature with flair</summary>
+
+   `pkcs1_pss` padding is like adding a unique flourish to your signature every single time. Even when signing the exact same document twice, the signatures will look completely different - yet both will verify correctly. This makes signature forgery dramatically harder, as there's no consistent pattern to copy. If you're serious about security (and if you're reading this, you should be), this is your go-to option.
+</details>
+
+<h3 id="other-new-features">Other new features<a class="headerlink" href="#other-new-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><a href="#encryption_udflegacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a> system variable - provides compatibility with legacy systems and previous implementations</p>
+</li>
+<li>
+<p>Character set awareness - ensures proper handling of different character encodings during encryption operations</p>
+</li>
+</ul>
+<p>Percona Server for MySQL 8.0.28-20 introduces tools for selective data encryption, allowing precise control over which data elements receive encryption protections.</p>
+<h2 id="character-sets-and-component-encryption-udfs">Character sets and component encryption UDFs<a class="headerlink" href="#character-sets-and-component-encryption-udfs" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🏭 <strong>Automated feature</strong></p>
+<p>These functions automatically manage character sets, eliminating the need for manual character encoding management during encryption operations.</p>
+</blockquote>
+<p>The implementation handles complex character set conversions internally, allowing developers to focus on encryption logic rather than encoding issues.</p>
+<h3 id="what-happens-to-your-input">What happens to your input<a class="headerlink" href="#what-happens-to-your-input" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Input Type</th>
+<th>What Happens</th>
+<th>Why It Matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Algorithms, digest names, keys</td>
+<td>Automatically converted to ASCII</td>
+<td>Prevents character encoding mismatches between encryption and decryption operations</td>
+</tr>
+<tr>
+<td>Messages and signatures</td>
+<td>Transformed into raw binary</td>
+<td>Computers process binary, not human-readable formats</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-you-get-back">What you get back<a class="headerlink" href="#what-you-get-back" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Output Type</th>
+<th>Format</th>
+<th>What to Expect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key files</td>
+<td>Human-readable ASCII text</td>
+<td>Viewable without terminal issues</td>
+</tr>
+<tr>
+<td>Encrypted messages &amp; signatures</td>
+<td>Binary data</td>
+<td>Looks like gibberish (this is correct!)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="external-key-management">External key management<a class="headerlink" href="#external-key-management" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🔒 <strong>External Key Management</strong></p>
+<p>For enhanced security, cryptographic keys can be generated outside the database server using dedicated cryptographic tools and hardware.</p>
+</blockquote>
+<p>Keys can be generated externally with OpenSSL and imported into the system. This approach separates key generation from the database environment, reducing the attack surface and allowing for specialized key generation hardware if required.</p>
+<h3 id="external-key-generation">External key generation<a class="headerlink" href="#external-key-generation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Command Example</th>
+<th>What It Creates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenSSL</td>
+<td><code>openssl genrsa -out private.pem 2048</code></td>
+<td>RSA private key</td>
+</tr>
+<tr>
+<td>OpenSSL</td>
+<td><code>openssl rsa -in private.pem -pubout -out public.pem</code></td>
+<td>RSA public key from private key</td>
+</tr>
+<tr>
+<td>OpenSSL</td>
+<td><code>openssl dsaparam -genkey 2048 -out dsaprivate.pem</code></td>
+<td>DSA private key</td>
+</tr>
+</tbody>
+</table>
+<p>Your OpenSSL-generated keys work seamlessly with these functions - just read the PEM file and pass its content to the encryption functions.</p>
+<h3 id="how-you-might-break-this">How you might break this<a class="headerlink" href="#how-you-might-break-this" title="Permanent link">&para;</a></h3>
+<p>⚠️ <strong>Common Mistakes With External Keys:</strong></p>
+<ul>
+<li>
+<p>Importing a key in the wrong format</p>
+</li>
+<li>
+<p>Using a key type incompatible with your chosen algorithm</p>
+</li>
+<li>
+<p>Forgetting to remove newlines from PEM files when storing in variables</p>
+</li>
+<li>
+<p>Storing keys directly in your database without proper protection</p>
+</li>
+</ul>
+<p>If you encounter any of these issues, you may receive a non-descriptive error message. Ensure that your keys are correctly formatted and stored securely.</p>
 
 
 
@@ -8826,7 +9277,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-10-25
+    2025-05-19
   </span>
 
     

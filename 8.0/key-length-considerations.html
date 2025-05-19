@@ -9,19 +9,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="Selecting appropriate cryptographic key lengths requires balancing security requirements with computational overhead. The following considerations should guide implementation decisions:">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/audit-log-filter-compression-encryption.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/key-length-considerations.html">
       
       
-        <link rel="prev" href="audit-log-filter-security.html">
+        <link rel="prev" href="digest-encryption.html">
       
       
-        <link rel="next" href="reading-audit-log-filter-files.html">
+        <link rel="next" href="encryption-functions.html">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
@@ -29,7 +29,7 @@
     
     
       
-        <title>Audit Log Filter compression and encryption - Percona Server for MySQL</title>
+        <title>Key length considerations - Percona Server for MySQL</title>
       
     
     
@@ -109,7 +109,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#audit-log-filter-compression-and-encryption" class="md-skip">
+        <a href="#key-length-considerations" class="md-skip">
           Skip to content
         </a>
       
@@ -206,7 +206,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Audit Log Filter compression and encryption
+              Key length considerations
             
           </span>
         </div>
@@ -1964,10 +1964,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -2005,11 +2003,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -2025,7 +2023,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Features
@@ -2059,10 +2057,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -2096,11 +2092,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
         
           
           <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
@@ -2116,7 +2112,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             Audit Log Filter
@@ -2344,32 +2340,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Audit Log Filter compression and encryption
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="audit-log-filter-compression-encryption.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="audit-log-filter-compression-encryption.html" class="md-nav__link">
         
   
   
@@ -2380,55 +2354,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#compression" class="md-nav__link">
-    <span class="md-ellipsis">
-      Compression
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#encryption" class="md-nav__link">
-    <span class="md-ellipsis">
-      Encryption
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#manually-uncompressing-and-decrypting-audit-log-filter-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      Manually uncompressing and decrypting audit log filter files
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -5093,8 +5018,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -5120,11 +5047,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
         
           
           <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
@@ -5140,7 +5067,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
             Secure
@@ -5620,8 +5547,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -5637,11 +5566,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_4" checked>
         
           
           <label class="md-nav__link" for="__nav_12_4" id="__nav_12_4_label" tabindex="0">
@@ -5657,7 +5586,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_12_4">
             <span class="md-nav__icon md-icon"></span>
             Encryption functions
@@ -5714,10 +5643,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="key-length-considerations.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="key-length-considerations.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -5728,6 +5666,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -8671,41 +8610,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#compression" class="md-nav__link">
-    <span class="md-ellipsis">
-      Compression
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#encryption" class="md-nav__link">
-    <span class="md-ellipsis">
-      Encryption
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#manually-uncompressing-and-decrypting-audit-log-filter-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      Manually uncompressing and decrypting audit log filter files
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                     </div>
                     <div class="md-sidebar__inner">
@@ -8733,7 +8637,7 @@
 
 
   
-    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/audit-log-filter-compression-encryption.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/key-length-considerations.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -8742,70 +8646,80 @@
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/audit-log-filter-compression-encryption.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/key-length-considerations.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="audit-log-filter-compression-and-encryption">Audit Log Filter compression and encryption<a class="headerlink" href="#audit-log-filter-compression-and-encryption" title="Permanent link">&para;</a></h1>
-<h2 id="compression">Compression<a class="headerlink" href="#compression" title="Permanent link">&para;</a></h2>
-<p>You can enable compression for any <a href="audit-log-filter-formats.html">format</a> by setting the <code>audit_log_filter_compression</code> system variable when the server starts.</p>
-<p>The <code>audit_log_filter_compression</code> variable can be either of the following:</p>
+<h1 id="key-length-considerations">Key length considerations<a class="headerlink" href="#key-length-considerations" title="Permanent link">&para;</a></h1>
+<p>Selecting appropriate cryptographic key lengths requires balancing security requirements with computational overhead. The following considerations should guide implementation decisions:</p>
 <ul>
-<li>NONE (no compression) - the default value</li>
-<li>GZIP - uses the GNU Zip compression</li>
-</ul>
-<p>If compression and encryption are enabled, the plugin applies compression before encryption. If you must manually recover a file with both settings, first decrypt the file and then uncompress the file.</p>
-<h2 id="encryption">Encryption<a class="headerlink" href="#encryption" title="Permanent link">&para;</a></h2>
-<p>You can encrypt any audit log filter file in any <a href="audit-log-filter-formats.html">format</a>. The audit log filter plugin generates the initial password, but you can use user-defined passwords after that. The plugin stores the passwords in the keyring, so that feature must be enabled.</p>
-<p>Set the <code>audit_log_filter_encryption</code> system variable with the server starts. The allowed values are the following:</p>
+<li>
+<p>Key length security characteristics:</p>
+</li>
+<li>
+<p>Security strength increases exponentially with bit length - a 2048-bit RSA key provides significantly higher security than a 1024-bit key</p>
+</li>
+<li>
+<p>Computational requirements increase proportionally with key length, affecting system performance</p>
+</li>
+<li>
+<p>Security margin increases logarithmically - doubling key length provides exponentially more possible combinations</p>
+</li>
+<li>
+<p>Common implementation error: Implementing maximum key lengths for all applications without considering performance implications</p>
+</li>
+<li>
+<p>Two types of cryptographic relationships:</p>
+</li>
+<li>
+<p>Symmetric: Same key locks and unlocks (AES, etc.)</p>
 <ul>
-<li>NONE - no encryption, the default value</li>
-<li>AES - AES-256-CBC (Cipher Block Chaining) encryption</li>
+<li>
+<p>Like having one key that works on both sides of your door</p>
+</li>
+<li>
+<p>Blazingly fast compared to asymmetric encryption</p>
+</li>
+<li>
+<p>The problem: How do you securely share that key with other parties without exposing it during transmission</p>
+</li>
 </ul>
-<p>The AES uses the 256-bit key size.</p>
-<p>The following audit log filter functions are used with encryption:</p>
-<table>
-<thead>
-<tr>
-<th>Function name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>audit_log_encryption_password_set()</td>
-<td>Stores the password in the keyring. If encryption is enabled, the function also rotates the log file by renaming the current log file and creating a log file encrypted with the password.</td>
-</tr>
-<tr>
-<td>audit_log_encryption_password_get()</td>
-<td>Invoking this function without an argument returns the current encryption password. An argument that specifies the keyring ID of an archived password or current password returns that password by ID.</td>
-</tr>
-</tbody>
-</table>
-<p>The <code>audit_log_filter_password_history_keep_days</code> variable is used with encryption. If the variable is not zero (0) , invoking <code>audit_log_encryption_password_set()</code> causes the expiration of archived audit log passwords.</p>
-<p>When the plugin starts with encryption enabled, the plugin checks if the keyring has an audit log filter encryption password. If no password is found, the plugin generates a random password and stores this password in the keyring. Use <code>audit_log_encryption_password_get()</code> to review this password.</p>
-<p>If compression and encryption are enabled, the plugin applies compression before encryption. If you must manually recover a file with both settings, first decrypt the file and then uncompress the file.</p>
-<h2 id="manually-uncompressing-and-decrypting-audit-log-filter-files">Manually uncompressing and decrypting audit log filter files<a class="headerlink" href="#manually-uncompressing-and-decrypting-audit-log-filter-files" title="Permanent link">&para;</a></h2>
-<p>To decrypt an encrypted log file, use the openssl command. For example:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-aes-256-cbc<span class="w"> </span>-pass<span class="w"> </span>pass:password
-<span class="w">    </span>-iter<span class="w"> </span>iterations<span class="w"> </span>-md<span class="w"> </span>sha256
-<span class="w">    </span>-in<span class="w"> </span>audit.timestamp.log.pwd_id.enc
-<span class="w">    </span>-out<span class="w"> </span>audit.timestamp.log
-</code></pre></div>
-<p>To execute that command, you must obtain a password and iterations. To do this, use <code>audit_log_encryption_password_get()</code>. </p>
-<p>This function gets the encryption password, and the iterations count and returns this data as a JSON-encoded string. For example, if the audit log file name is <code>audit.20190415T151322.log.20190414T223342-2.enc</code>, the password ID is <code>{randomly-generated-alphanumeric-string}-2</code> and the keyring ID is <code>audit-log-20190414T223342-2</code>. </p>
-<p>Get the keyring password:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_encryption_password_get</span><span class="p">(</span><span class="s1">&#39;audit-log-20190414T223342-2&#39;</span><span class="p">);</span>
-</code></pre></div>
-<p>The return value of this function may look like the following:</p>
-<details class="example">
-<summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code>{&quot;password&quot;:&quot;{randomly-generated-alphanumeric-string}&quot;,&quot;iterations&quot;:568977}
-</code></pre></div>
-</details>
+</li>
+<li>
+<p>Asymmetric: Different keys for locking and unlocking (RSA, DSA, etc.)</p>
+<ul>
+<li>
+<p>Like a safety deposit box where you have one key and the bank has another</p>
+</li>
+<li>
+<p>Significantly slower (think 1000x or more) than symmetric encryption</p>
+</li>
+<li>
+<p>But solves the key distribution problem brilliantly</p>
+</li>
+<li>
+<p>This is what we&rsquo;re focusing on in this document</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Size limits that will bite you:</p>
+<ul>
+<li>
+<p>RSA can only encrypt messages smaller than your key size (minus padding)</p>
+</li>
+<li>
+<p>A 2048-bit key can&rsquo;t encrypt a 2048-bit message - more on this particular trap later</p>
+</li>
+<li>
+<p>If you try to encrypt something too large, you&rsquo;ll get an error that explains absolutely nothing. </p>
+</li>
+</ul>
+</li>
+</ul>
 
 
 
@@ -8826,7 +8740,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-10-25
+    2025-05-19
   </span>
 
     
