@@ -16,197 +16,214 @@ Also, all variables can exist in one or both of the following scopes:
 
 * *Session* scope defines how the variable affects operation for individual client connections.
 
-| Variable Name                                                                                            |
+## Variable table
+
+| Variable Name                                                                                        |
 |----------------------------------------------------------------------------------------------------------|
-| [`rocksdb_access_hint_on_compaction_start`](#rocksdb_access_hint_on_compaction_start)                    |
-| [`rocksdb_advise_random_on_open`](#rocksdb_advise_random_on_open)                                        |
-| [`rocksdb_allow_concurrent_memtable_write`](#rocksdb_allow_concurrent_memtable_write)                    |
-| [`rocksdb_allow_to_start_after_corruption`](#rocksdb_allow_to_start_after_corruption)                    |
-| [`rocksdb_allow_mmap_reads`](#rocksdb_allow_mmap_reads)                                                  |
-| [`rocksdb_allow_mmap_writes`](#rocksdb_allow_mmap_writes)                                                | 
-| [`rocksdb_allow_unsafe_alter`](#rocksdb_allow_unsafe_alter)                                              |
-| [`rocksdb_alter_column_default_inplace`](#rocksdb_alter_column_default_inplace)                          |
-| [`rocksdb_alter_table_comment_inplace`](#rocksdb_alter_table_comment_inplace)                            |
-| [`rocksdb_base_background_compactions`](#rocksdb_base_background_compactions)                            |
-| [`rocksdb_blind_delete_primary_key`](#rocksdb_blind_delete_primary_key)                                  |
-| [`rocksdb_block_cache_numshardbits`](#rocksdb_block_cache_numshardbits)                                  | 
-| [`rocksdb_block_cache_size`](#rocksdb_block_cache_size)                                                  |
-| [`rocksdb_bulk_load_fail_if_not_bottommost_level`](#rocksdb_bulk_load_fail_if_not_bottommost_level)      |
-| [`rocksdb_bulk_load_partial_index`](#rocksdb_bulk_load_partial_index)                                    |
-| [`rocksdb_bulk_load_use_sst_partitioner`](#rocksdb_bulk_load_use_sst_partitioner) |
-| [`rocksdb_block_restart_interval`](#rocksdb_block_restart_interval)                                      |
-| [`rocksdb_block_size`](#rocksdb_block_size)                                                              |
-| [`rocksdb_block_size_deviation`](#rocksdb_block_size_deviation)                                          |
-| [`rocksdb_bulk_load`](#rocksdb_bulk_load)                                                                |
-| [`rocksdb_bulk_load_allow_sk`](#rocksdb_bulk_load_allow_sk)                                              |
-| [`rocksdb_bulk_load_allow_unsorted`](#rocksdb_bulk_load_allow_unsorted)                                  |
-| [`rocksdb_bulk_load_size`](#rocksdb_bulk_load_size)                                                      |
-| [`rocksdb_bytes_per_sync`](#rocksdb_bytes_per_sync)                                                      |
-| [`rocksdb_cache_dump`](#rocksdb_cache_dump)                                                              |
-| [`rocksdb_cache_high_pri_pool_ratio`](#rocksdb_cache_high_pri_pool_ratio)                                |
-| [`rocksdb_cache_index_and_filter_blocks`](#rocksdb_cache_index_and_filter_blocks)                        |
-| [`rocksdb_cache_index_and_filter_with_high_priority`](#rocksdb_cache_index_and_filter_with_high_priority)|
-| [`rocksdb_cancel_manual_compactions`](#rocksdb_cancel_manual_compactions)                                |
-| [`rocksdb_charge_memory`](#rocksdb_charge_memory)                                                        |
-| [`rocksdb_check_iterate_bounds`](#rocksdb_check_iterate_bounds)                                          |
-| [`rocksdb_checksums_pct`](#rocksdb_checksums_pct)                                                        |
-| [`rocksdb_collect_sst_properties`](#rocksdb_collect_sst_properties)                                      |
-| [`rocksdb_column_default_value_as_expression`](#rocksdb_column_default_value_as_expression)              |
-| [`rocksdb_commit_in_the_middle`](#rocksdb_commit_in_the_middle)                                          |
-| [`rocksdb_commit_time_batch_for_recovery`](#rocksdb_commit_time_batch_for_recovery)                      |
-| [`rocksdb_compact_cf`](#rocksdb_compact_cf)                                                              |
-| [`rocksdb_compact_lzero_now`](#rocksdb_compact_lzero_now)                                                |
-| [`rocksdb_compaction_readahead_size`](#rocksdb_compaction_readahead_size)                                |
-| [`rocksdb_compaction_sequential_deletes`](#rocksdb_compaction_sequential_deletes)                        |
-| [`rocksdb_compaction_sequential_deletes_count_sd`](#rocksdb_compaction_sequential_deletes_count_sd)      |
-| [`rocksdb_compaction_sequential_deletes_file_size`](#rocksdb_compaction_sequential_deletes_file_size)    |
-| [`rocksdb_compaction_sequential_deletes_window`](#rocksdb_compaction_sequential_deletes_window)          |
-| [`rocksdb_concurrent_prepare`](#rocksdb_concurrent_prepare)                                              |
-| [`rocksdb_converter_record_cached_length`](#rocksdb_converter_record_cached_length)                      |
-| [`rocksdb_corrupt_data_action`](#rocksdb_corrupt_data_action)                                            |
-| [`rocksdb_create_checkpoint`](#rocksdb_create_checkpoint)                                                |
-| [`rocksdb_create_if_missing`](#rocksdb_create_if_missing)                                                |
-| [`rocksdb_create_missing_column_families`](#rocksdb_create_missing_column_families)                      |
-| [`rocksdb_create_temporary_checkpoint`](#rocksdb_create_temporary_checkpoint)                            |
-| [`rocksdb_datadir`](#rocksdb_datadir)                                                                    |
-| [`rocksdb_db_write_buffer_size`](#rocksdb_db_write_buffer_size)                                          |
-| [`rocksdb_deadlock_detect`](#rocksdb_deadlock_detect)                                                    |
-| [`rocksdb_deadlock_detect_depth`](#rocksdb_deadlock_detect_depth)                                        |
-| [`rocksdb_debug_cardinality_multipler`](#rocksdb_debug_cardinality_multiplier)                           |
-| [`rocksdb_debug_manual_compaction_delay`](#rocksdb_debug_manual_compaction_delay)                        |
-| [`rocksdb_debug_optimizer_no_zero_cardinality`](#rocksdb_debug_optimizer_no_zero_cardinality)            |
-| [`rocksdb_debug_ttl_ignore_pk`](#rocksdb_debug_ttl_ignore_pk)                                            |
-| [`rocksdb_debug_ttl_read_filter_ts`](#rocksdb_debug_ttl_read_filter_ts)                                  |
-| [`rocksdb_debug_ttl_rec_ts`](#rocksdb_debug_ttl_rec_ts)                                                  |
-| [`rocksdb_debug_ttl_snapshot_ts`](#rocksdb_debug_ttl_snapshot_ts)                                        |
-| [`rocksdb_default_cf_options`](#rocksdb_default_cf_options)                                              |
-| [`rocksdb_delayed_write_rate`](#rocksdb_delayed_write_rate)                                              |
-| [`rocksdb_delete_cf`](#rocksdb_delete_cf)                                                                |
-| [`rocksdb_delete_obsolete_files_period_micros`](#rocksdb_delete_obsolete_files_period_micros)            |
-| [`rocksdb_disable_file_deletions`](#rocksdb_disable_file_deletions)                                      |
-| [`rocksdb_disable_instant_ddl`](#rocksdb_disable_instant_ddl)                                            |
-| [`rocksdb_enable_bulk_load_api`](#rocksdb_enable_bulk_load_api)                                          |
-| [`rocksdb_enable_delete_range_for_drop_index`](#rocksdb_enable_delete_range_for_drop_index)              |
-| [`rocksdb_enable_insert_with_update_caching`](#rocksdb_enable_insert_with_update_caching)                |
-| [`rocksdb_enable_iterate_bounds`](#rocksdb_enable_iterate_bounds)                                        |
-| [`rocksdb_enable_pipelined_write`](#rocksdb_enable_pipelined_write)                                      |
-| [`rocksdb_enable_remove_orphaned_dropped_cfs`](#rocksdb_enable_remove_orphaned_dropped_cfs)              |
-| [`rocksdb_enable_ttl`](#rocksdb_enable_ttl)                                                              |
-| [`rocksdb_enable_ttl_read_filtering`](#rocksdb_enable_ttl_read_filtering)                                |
-| [`rocksdb_enable_thread_tracking`](#rocksdb_enable_thread_tracking)                                      |
-| [`rocksdb_enable_write_thread_adaptive_yield`](#rocksdb_enable_write_thread_adaptive_yield)              |
-| [`rocksdb_error_if_exists`](#rocksdb_error_if_exists)                                                    |
-| [`rocksdb_error_on_suboptimal_collation`](#rocksdb_error_on_suboptimal_collation)                        |
-| [`rocksdb_file_checksums`](#rocksdb_file_checksums)                                                      |
-| [`rocksdb_flush_log_at_trx_commit`](#rocksdb_flush_log_at_trx_commit)                                    |
-| [`rocksdb_flush_memtable_on_analyze`](#rocksdb_flush_memtable_on_analyze)                                |
-| [`rocksdb_force_compute_memtable_stats`](#rocksdb_force_compute_memtable_stats)                          |
-| [`rocksdb_force_compute_memtable_stats_cachetime`](#rocksdb_force_compute_memtable_stats_cachetime)      |
-| [`rocksdb_force_flush_memtable_and_lzero_now`](#rocksdb_force_flush_memtable_and_lzero_now)              |
-| [`rocksdb_force_flush_memtable_now`](#rocksdb_force_flush_memtable_now)                                  |
-| [`rocksdb_force_index_records_in_range`](#rocksdb_force_index_records_in_range)                          |
-| [`rocksdb_hash_index_allow_collision`](#rocksdb_hash_index_allow_collision)                              |
-| [`rocksdb_ignore_unknown_options`](#rocksdb_ignore_unknown_options)                                      |
-| [`rocksdb_index_type`](#rocksdb_index_type)                                                              |
-| [`rocksdb_info_log_level`](#rocksdb_info_log_level)                                                      |
-| [`rocksdb_is_fd_close_on_exec`](#rocksdb_is_fd_close_on_exec)                                            |
-| [`rocksdb_keep_log_file_num`](#rocksdb_keep_log_file_num)                                                |
-| [`rocksdb_large_prefix`](#rocksdb_large_prefix)                                                          |
-| [`rocksdb_lock_scanned_rows`](#rocksdb_lock_scanned_rows)                                                |
-| [`rocksdb_lock_wait_timeout`](#rocksdb_lock_wait_timeout)                                                |
-| [`rocksdb_log_file_time_to_roll`](#rocksdb_log_file_time_to_roll)                                        |
-| [`rocksdb_manifest_preallocation_size`](#rocksdb_manifest_preallocation_size)                            |
-| [`rocksdb_manual_compaction_bottommost_level`](#rocksdb_manual_compaction_bottommost_level)              |
-| [`rocksdb_manual_compaction_threads`](#rocksdb_manual_compaction_threads)                                |
-| [`rocksdb_manual_wal_flush`](#rocksdb_manual_wal_flush)                                                  |
-| [`rocksdb_master_skip_tx_api`](#rocksdb_master_skip_tx_api)                                              |
-| [`rocksdb_max_background_compactions`](#rocksdb_max_background_compactions)                              |
-| [`rocksdb_max_background_flushes`](#rocksdb_max_background_flushes)                                      |
-| [`rocksdb_max_background_jobs`](#rocksdb_max_background_jobs)                                            |
-| [`rocksdb_max_bottom_pri_background_compactions`](#rocksdb_max_bottom_pri_background_compactions)        |
-| [`rocksdb_max_compaction_history`](#rocksdb_max_compaction_history)                                      |
-| [`rocksdb_max_file_opening_threads`](#rocksdb_max_file_opening_threads)                                  |
-| [`rocksdb_max_latest_deadlocks`](#rocksdb_max_latest_deadlocks)                                          |
-| [`rocksdb_max_log_file_size`](#rocksdb_max_log_file_size)                                                |
-| [`rocksdb_max_manifest_file_size`](#rocksdb_max_manifest_file_size)                                      |
-| [`rocksdb_max_manual_compactions`](#rocksdb_max_manual_compactions)                                      |
-| [`rocksdb_max_open_files`](#rocksdb_max_open_files)                                                      |
-| [`rocksdb_max_row_locks`](#rocksdb_max_row_locks)                                                        |
-| [`rocksdb_max_subcompactions`](#rocksdb_max_subcompactions)                                              |
-| [`rocksdb_max_total_wal_size`](#rocksdb_max_total_wal_size)                                              |
-| [`rocksdb_merge_buf_size`](#rocksdb_merge_buf_size)                                                      |
-| [`rocksdb_merge_combine_read_size`](#rocksdb_merge_combine_read_size)                                    |
-| [`rocksdb_merge_tmp_file_removal_delay_ms`](#rocksdb_merge_tmp_file_removal_delay_ms)                    |
-| [`rocksdb_new_table_reader_for_compaction_inputs`](#rocksdb_new_table_reader_for_compaction_inputs)      |
-| [`rocksdb_no_block_cache`](#rocksdb_no_block_cache)                                                      |
-| [`rocksdb_no_create_column_family`](#rocksdb_no_create_column_family)                                    |
-| [`rocksdb_override_cf_options`](#rocksdb_override_cf_options)                                            |
-| [`rocksdb_paranoid_checks`](#rocksdb_paranoid_checks)                                                    |
-| [`rocksdb_partial_index_ignore_killed`](#rocksdb_partial_index_ignore_killed)                            |
-| [`rocksdb_partial_index_sort_max_mem`](#rocksdb_partial_index_sort_max_mem)                              |
-| [`rocksdb_pause_background_work`](#rocksdb_pause_background_work)                                        |
-| [`rocksdb_partial_index_blind_delete`](#rocksdb_partial_index_blind_delete)                              |
-| [`rocksdb_perf_context_level`](#rocksdb_perf_context_level)                                              |
-| [`rocksdb_persistent_cache_path`](#rocksdb_persistent_cache_path)                                        |
-| [`rocksdb_persistent_cache_size_mb`](#rocksdb_persistent_cache_size_mb)                                  |
-| [`rocksdb_pin_l0_filter_and_index_blocks_in_cache`](#rocksdb_pin_l0_filter_and_index_blocks_in_cache)    |
-| [`rocksdb_print_snapshot_conflict_queries`](#rocksdb_print_snapshot_conflict_queries)                    |
-| [`rocksdb_protection_bytes_per_key`](#rocksdb_protection_bytes_per_key)                                  |
-| [`rocksdb_rate_limiter_bytes_per_sec`](#rocksdb_rate_limiter_bytes_per_sec)                              |
-| [`rocksdb_read_free_rpl`](#rocksdb_read_free_rpl)                                                        |
-| [`rocksdb_read_free_rpl_tables`](#rocksdb_read_free_rpl_tables)                                          |
-| [`rocksdb_records_in_range`](#rocksdb_records_in_range)                                                  |
-| [`rocksdb_reset_stats`](#rocksdb_reset_stats)                                                            |
-| [`rocksdb_rollback_on_timeout`](#rocksdb_rollback_on_timeout)                                            |
-| [`rocksdb_rpl_skip_tx_api`](#rocksdb_rpl_skip_tx_api)                                                    |
-| [`rocksdb_seconds_between_stat_computes`](#rocksdb_seconds_between_stat_computes)                        |
-| [`rocksdb_signal_drop_index_thread`](#rocksdb_signal_drop_index_thread)                                  |
-| [`rocksdb_sim_cache_size`](#rocksdb_sim_cache_size)                                                      |
-| [`rocksdb_skip_bloom_filter_on_read`](#rocksdb_skip_bloom_filter_on_read)                                |
-| [`rocksdb_skip_fill_cache`](#rocksdb_skip_fill_cache)                                                    |
-| [`rocksdb_skip_locks_if_skip_unique_check`](#rocksdb_skip_locks_if_skip_unique_check)                    |
-| [`rocksdb_sst_mgr_rate_bytes_per_sec`](#rocksdb_sst_mgr_rate_bytes_per_sec)                              |
-| [`rocksdb_stats_dump_period_sec`](#rocksdb_stats_dump_period_sec)                                        |
-| [`rocksdb_stats_level`](#rocksdb_stats_level)                                                            |
-| [`rocksdb_stats_recalc_rate`](#rocksdb_stats_recalc_rate)                                                |
-| [`rocksdb_store_row_debug_checksums`](#rocksdb_store_row_debug_checksums)                                |
-| [`rocksdb_strict_collation_check`](#rocksdb_strict_collation_check)                                      |
-| [`rocksdb_strict_collation_exceptions`](#rocksdb_strict_collation_exceptions)                            |
-| [`rocksdb_table_cache_numshardbits`](#rocksdb_table_cache_numshardbits)                                  |
-| [`rocksdb_table_stats_background_thread_nice_value`](#rocksdb_table_stats_background_thread_nice_value)  |
-| [`rocksdb_table_stats_max_num_rows_scanned`](#rocksdb_table_stats_max_num_rows_scanned)                  |
-| [`rocksdb_table_stats_recalc_threshold_count`](#rocksdb_table_stats_recalc_threshold_count)              |
-| [`rocksdb_table_stats_recalc_threshold_pct`](#rocksdb_table_stats_recalc_threshold_pct)                  |
-| [`rocksdb_table_stats_sampling_pct`](#rocksdb_table_stats_sampling_pct)                                  |
-| [`rocksdb_table_stats_use_table_scan`](#rocksdb_table_stats_use_table_scan)                              |
-| [`rocksdb_tmpdir`](#rocksdb_tmpdir)                                                                      |
-| [`rocksdb_two_write_queues`](#rocksdb_two_write_queues)                                                  |
-| [`rocksdb_trace_block_cache_access`](#rocksdb_trace_block_cache_access)                                  |
-| [`rocksdb_trace_queries`](#rocksdb_trace_queries)                                                        |
-| [`rocksdb_trace_sst_api`](#rocksdb_trace_sst_api)                                                        |
-| [`rocksdb_track_and_verify_wals_in_manifest`](#rocksdb_track_and_verify_wals_in_manifest)                |
-| [`rocksdb_unsafe_for_binlog`](#rocksdb_unsafe_for_binlog)                                                |
-| [`rocksdb_update_cf_options`](#rocksdb_update_cf_options)                                                |
-| [`rocksdb_use_adaptive_mutex`](#rocksdb_use_adaptive_mutex)                                              |
-| [`rocksdb_use_default_sk_cf`](#rocksdb_use_default_sk_cf)                                                |
-| [`rocksdb_use_direct_io_for_flush_and_compaction`](#rocksdb_use_direct_io_for_flush_and_compaction)      |
-| [`rocksdb_use_direct_reads`](#rocksdb_use_direct_reads)                                                  |
-| [`rocksdb_use_fsync`](#rocksdb_use_fsync)                                                                |
-| [`rocksdb_use_hyper_clock_cache`](#rocksdb_use_hyper_clock_cache)                                        |
-| [`rocksdb_use_write_buffer_manager`](#rocksdb_use_write_buffer_manager)                                  |
-| [`rocksdb_validate_tables`](#rocksdb_validate_tables)                                                    |
-| [`rocksdb_verify_row_debug_checksums`](#rocksdb_verify_row_debug_checksums)                              |
-| [`rocksdb_wal_bytes_per_sync`](#rocksdb_wal_bytes_per_sync)                                              |
-| [`rocksdb_wal_dir`](#rocksdb_wal_dir)                                                                    |
-| [`rocksdb_wal_recovery_mode`](#rocksdb_wal_recovery_mode)                                                |
-| [`rocksdb_wal_size_limit_mb`](#rocksdb_wal_size_limit_mb)                                                |
-| [`rocksdb_wal_ttl_seconds`](#rocksdb_wal_ttl_seconds)                                                    |
-| [`rocksdb_whole_key_filtering`](#rocksdb_whole_key_filtering)                                            |
-| [`rocksdb_write_batch_flush_threshold`](#rocksdb_write_batch_flush_threshold)                            |
-| [`rocksdb_write_batch_max_bytes`](#rocksdb_write_batch_max_bytes)                                        |
-| [`rocksdb_write_disable_wal`](#rocksdb_write_disable_wal)                                                |
-| [`rocksdb_write_ignore_missing_column_families`](#rocksdb_write_ignore_missing_column_families)          |
-| [`rocksdb_write_policy`](#rocksdb_write_policy)                                                          |
+| [`rocksdb_access_hint_on_compaction_start`](#rocksdb_access_hint_on_compaction_start)                                                                        |
+| [`rocksdb_advise_random_on_open`](#rocksdb_advise_random_on_open)                                                                        |
+| [`rocksdb_allow_concurrent_memtable_write`](#rocksdb_allow_concurrent_memtable_write)                                                                        |
+| [`rocksdb_allow_mmap_reads`](#rocksdb_allow_mmap_reads)                                                                        |
+| [`rocksdb_allow_mmap_writes`](#rocksdb_allow_mmap_writes)                                                                        |
+| [`rocksdb_allow_to_start_after_corruption`](#rocksdb_allow_to_start_after_corruption)                                                                        |
+| [`rocksdb_allow_unsafe_alter`](#rocksdb_allow_unsafe_alter)                                                                        |
+| [`rocksdb_alter_column_default_inplace`](#rocksdb_alter_column_default_inplace)                                                                        |
+| [`rocksdb_alter_table_comment_inplace`](#rocksdb_alter_table_comment_inplace)                                                                        |
+| [`rocksdb_base_background_compactions`](#rocksdb_base_background_compactions)                                                                        |
+| [`rocksdb_blind_delete_primary_key`](#rocksdb_blind_delete_primary_key)                                                                        |
+| [`rocksdb_block_cache_numshardbits`](#rocksdb_block_cache_numshardbits)                                                                        |
+| [`rocksdb_block_cache_size`](#rocksdb_block_cache_size)                                                                        |
+| [`rocksdb_block_restart_interval`](#rocksdb_block_restart_interval)                                                                        |
+| [`rocksdb_block_size`](#rocksdb_block_size)                                                                        |
+| [`rocksdb_block_size_deviation`](#rocksdb_block_size_deviation)                                                                        |
+| [`rocksdb_bulk_load`](#rocksdb_bulk_load)                                                                        |
+| [`rocksdb_bulk_load_allow_sk`](#rocksdb_bulk_load_allow_sk)                                                                        |
+| [`rocksdb_bulk_load_allow_unsorted`](#rocksdb_bulk_load_allow_unsorted)                                                                        |
+| [`rocksdb_bulk_load_compression_parallel_threads`](#rocksdb_bulk_load_compression_parallel_threads)                                                                        |
+| [`rocksdb_bulk_load_enable_unique_key_check`](#rocksdb_bulk_load_enable_unique_key_check)                                                                        |
+| [`rocksdb_bulk_load_fail_if_not_bottommost_level`](#rocksdb_bulk_load_fail_if_not_bottommost_level)                                                                        |
+| [`rocksdb_bulk_load_partial_index`](#rocksdb_bulk_load_partial_index)                                                                        |
+| [`rocksdb_bulk_load_size`](#rocksdb_bulk_load_size)                                                                        |
+| [`rocksdb_bulk_load_use_sst_partitioner`](#rocksdb_bulk_load_use_sst_partitioner)                                                                        |
+| [`rocksdb_bytes_per_sync`](#rocksdb_bytes_per_sync)                                                                        |
+| [`rocksdb_cache_dump`](#rocksdb_cache_dump)                                                                        |
+| [`rocksdb_cache_high_pri_pool_ratio`](#rocksdb_cache_high_pri_pool_ratio)                                                                        |
+| [`rocksdb_cache_index_and_filter_blocks`](#rocksdb_cache_index_and_filter_blocks)                                                                        |
+| [`rocksdb_cache_index_and_filter_with_high_priority`](#rocksdb_cache_index_and_filter_with_high_priority)                                                                        |
+| [`rocksdb_cancel_manual_compactions`](#rocksdb_cancel_manual_compactions)                                                                        |
+| [`rocksdb_charge_memory`](#rocksdb_charge_memory)                                                                        |
+| [`rocksdb_check_iterate_bounds`](#rocksdb_check_iterate_bounds)                                                                        |
+| [`rocksdb_checksums_pct`](#rocksdb_checksums_pct)                                                                        |
+| [`rocksdb_collect_sst_properties`](#rocksdb_collect_sst_properties)                                                                        |
+| [`rocksdb_column_default_value_as_expression`](#rocksdb_column_default_value_as_expression)                                                                        |
+| [`rocksdb_commit_in_the_middle`](#rocksdb_commit_in_the_middle)                                                                        |
+| [`rocksdb_commit_time_batch_for_recovery`](#rocksdb_commit_time_batch_for_recovery)                                                                        |
+| [`rocksdb_compact_cf`](#rocksdb_compact_cf)                                                                        |
+| [`rocksdb_compact_lzero_now`](#rocksdb_compact_lzero_now)                                                                        |
+| [`rocksdb_compaction_readahead_size`](#rocksdb_compaction_readahead_size)                                                                        |
+| [`rocksdb_compaction_sequential_deletes`](#rocksdb_compaction_sequential_deletes)                                                                        |
+| [`rocksdb_compaction_sequential_deletes_count_sd`](#rocksdb_compaction_sequential_deletes_count_sd)                                                                        |
+| [`rocksdb_compaction_sequential_deletes_file_size`](#rocksdb_compaction_sequential_deletes_file_size)                                                                        |
+| [`rocksdb_compaction_sequential_deletes_window`](#rocksdb_compaction_sequential_deletes_window)                                                                        |
+| [`rocksdb_concurrent_prepare`](#rocksdb_concurrent_prepare)                                                                        |
+| [`rocksdb_converter_record_cached_length`](#rocksdb_converter_record_cached_length)                                                                        |
+| [`rocksdb_corrupt_data_action`](#rocksdb_corrupt_data_action)                                                                        |
+| [`rocksdb_create_checkpoint`](#rocksdb_create_checkpoint)                                                                        |
+| [`rocksdb_create_if_missing`](#rocksdb_create_if_missing)                                                                        |
+| [`rocksdb_create_missing_column_families`](#rocksdb_create_missing_column_families)                                                                        |
+| [`rocksdb_create_temporary_checkpoint`](#rocksdb_create_temporary_checkpoint)                                                                        |
+| [`rocksdb_datadir`](#rocksdb_datadir)                                                                        |
+| [`rocksdb_db_write_buffer_size`](#rocksdb_db_write_buffer_size)                                                                        |
+| [`rocksdb_deadlock_detect`](#rocksdb_deadlock_detect)                                                                        |
+| [`rocksdb_deadlock_detect_depth`](#rocksdb_deadlock_detect_depth)                                                                        |
+| [`rocksdb_debug_cardinality_multiplier`](#rocksdb_debug_cardinality_multiplier)                                                                        |
+| [`rocksdb_debug_manual_compaction_delay`](#rocksdb_debug_manual_compaction_delay)                                                                        |
+| [`rocksdb_debug_optimizer_no_zero_cardinality`](#rocksdb_debug_optimizer_no_zero_cardinality)                                                                        |
+| [`rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds`](#rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds)                                                                        |
+| [`rocksdb_debug_ttl_ignore_pk`](#rocksdb_debug_ttl_ignore_pk)                                                                        |
+| [`rocksdb_debug_ttl_read_filter_ts`](#rocksdb_debug_ttl_read_filter_ts)                                                                        |
+| [`rocksdb_debug_ttl_rec_ts`](#rocksdb_debug_ttl_rec_ts)                                                                        |
+| [`rocksdb_debug_ttl_snapshot_ts`](#rocksdb_debug_ttl_snapshot_ts)                                                                        |
+| [`rocksdb_default_cf_options`](#rocksdb_default_cf_options)                                                                        |
+| [`rocksdb_delayed_write_rate`](#rocksdb_delayed_write_rate)                                                                        |
+| [`rocksdb_delete_cf`](#rocksdb_delete_cf)                                                                        |
+| [`rocksdb_delete_obsolete_files_period_micros`](#rocksdb_delete_obsolete_files_period_micros)                                                                        |
+| [`rocksdb_disable_file_deletions`](#rocksdb_disable_file_deletions)                                                                        |
+| [`rocksdb_disable_instant_ddl`](#rocksdb_disable_instant_ddl)                                                                        |
+| [`rocksdb_enable_bulk_load_api`](#rocksdb_enable_bulk_load_api)                                                                        |
+| [`rocksdb_enable_delete_range_for_drop_index`](#rocksdb_enable_delete_range_for_drop_index)                                                                        |
+| [`rocksdb_enable_insert_with_update_caching`](#rocksdb_enable_insert_with_update_caching)                                                                        |
+| [`rocksdb_enable_instant_ddl`](#rocksdb_enable_instant_ddl)                                                                        |
+| [`rocksdb_enable_instant_ddl_for_append_column`](#rocksdb_enable_instant_ddl_for_append_column)                                                                        |
+| [`rocksdb_enable_instant_ddl_for_column_default_changes`](#rocksdb_enable_instant_ddl_for_column_default_changes)                                                                        |
+| [`rocksdb_enable_instant_ddl_for_drop_index_changes`](#rocksdb_enable_instant_ddl_for_drop_index_changes)                                                                        |
+| [`rocksdb_enable_instant_ddl_for_table_comment_changes`](#rocksdb_enable_instant_ddl_for_table_comment_changes)                                                                        |
+| [`rocksdb_enable_iterate_bounds`](#rocksdb_enable_iterate_bounds)                                                                        |
+| [`rocksdb_enable_pipelined_write`](#rocksdb_enable_pipelined_write)                                                                        |
+| [`rocksdb_enable_remove_orphaned_dropped_cfs`](#rocksdb_enable_remove_orphaned_dropped_cfs)                                                                        |
+| [`rocksdb_enable_thread_tracking`](#rocksdb_enable_thread_tracking)                                                                        |
+| [`rocksdb_enable_ttl`](#rocksdb_enable_ttl)                                                                        |
+| [`rocksdb_enable_ttl_read_filtering`](#rocksdb_enable_ttl_read_filtering)                                                                        |
+| [`rocksdb_enable_udt_in_mem`](#rocksdb_enable_udt_in_mem)                                                                        |
+| [`rocksdb_enable_write_thread_adaptive_yield`](#rocksdb_enable_write_thread_adaptive_yield)                                                                        |
+| [`rocksdb_error_if_exists`](#rocksdb_error_if_exists)                                                                        |
+| [`rocksdb_error_on_suboptimal_collation`](#rocksdb_error_on_suboptimal_collation)                                                                        |
+| [`rocksdb_file_checksums`](#rocksdb_file_checksums)                                                                        |
+| [`rocksdb_flush_log_at_trx_commit`](#rocksdb_flush_log_at_trx_commit)                                                                        |
+| [`rocksdb_flush_memtable_on_analyze`](#rocksdb_flush_memtable_on_analyze)                                                                        |
+| [`rocksdb_force_compute_memtable_stats`](#rocksdb_force_compute_memtable_stats)                                                                        |
+| [`rocksdb_force_compute_memtable_stats_cachetime`](#rocksdb_force_compute_memtable_stats_cachetime)                                                                        |
+| [`rocksdb_force_flush_memtable_and_lzero_now`](#rocksdb_force_flush_memtable_and_lzero_now)                                                                        |
+| [`rocksdb_force_flush_memtable_now`](#rocksdb_force_flush_memtable_now)                                                                        |
+| [`rocksdb_force_index_records_in_range`](#rocksdb_force_index_records_in_range)                                                                        |
+| [`rocksdb_hash_index_allow_collision`](#rocksdb_hash_index_allow_collision)                                                                        |
+| [`rocksdb_ignore_unknown_options`](#rocksdb_ignore_unknown_options)                                                                        |
+| [`rocksdb_index_type`](#rocksdb_index_type)                                                                        |
+| [`rocksdb_info_log_level`](#rocksdb_info_log_level)                                                                        |
+| [`rocksdb_invalid_create_option_action`](#rocksdb_invalid_create_option_action)                                                                        |
+| [`rocksdb_io_error_action`](#rocksdb_io_error_action)                                                                        |
+| [`rocksdb_is_fd_close_on_exec`](#rocksdb_is_fd_close_on_exec)                                                                        |
+| [`rocksdb_keep_log_file_num`](#rocksdb_keep_log_file_num)                                                                        |
+| [`rocksdb_large_prefix`](#rocksdb_large_prefix)                                                                        |
+| [`rocksdb_lock_scanned_rows`](#rocksdb_lock_scanned_rows)                                                                        |
+| [`rocksdb_lock_wait_timeout`](#rocksdb_lock_wait_timeout)                                                                        |
+| [`rocksdb_log_file_time_to_roll`](#rocksdb_log_file_time_to_roll)                                                                        |
+| [`rocksdb_manifest_preallocation_size`](#rocksdb_manifest_preallocation_size)                                                                        |
+| [`rocksdb_manual_compaction_bottommost_level`](#rocksdb_manual_compaction_bottommost_level)                                                                        |
+| [`rocksdb_manual_compaction_threads`](#rocksdb_manual_compaction_threads)                                                                        |
+| [`rocksdb_manual_wal_flush`](#rocksdb_manual_wal_flush)                                                                        |
+| [`rocksdb_master_skip_tx_api`](#rocksdb_master_skip_tx_api)                                                                        |
+| [`rocksdb_max_background_compactions`](#rocksdb_max_background_compactions)                                                                        |
+| [`rocksdb_max_background_flushes`](#rocksdb_max_background_flushes)                                                                        |
+| [`rocksdb_max_background_jobs`](#rocksdb_max_background_jobs)                                                                        |
+| [`rocksdb_max_bottom_pri_background_compactions`](#rocksdb_max_bottom_pri_background_compactions)                                                                        |
+| [`rocksdb_max_compaction_history`](#rocksdb_max_compaction_history)                                                                        |
+| [`rocksdb_max_file_opening_threads`](#rocksdb_max_file_opening_threads)                                                                        |
+| [`rocksdb_max_latest_deadlocks`](#rocksdb_max_latest_deadlocks)                                                                        |
+| [`rocksdb_max_log_file_size`](#rocksdb_max_log_file_size)                                                                        |
+| [`rocksdb_max_manifest_file_size`](#rocksdb_max_manifest_file_size)                                                                        |
+| [`rocksdb_max_manual_compactions`](#rocksdb_max_manual_compactions)                                                                        |
+| [`rocksdb_max_open_files`](#rocksdb_max_open_files)                                                                        |
+| [`rocksdb_max_row_locks`](#rocksdb_max_row_locks)                                                                        |
+| [`rocksdb_max_subcompactions`](#rocksdb_max_subcompactions)                                                                        |
+| [`rocksdb_max_total_wal_size`](#rocksdb_max_total_wal_size)                                                                        |
+| [`rocksdb_merge_buf_size`](#rocksdb_merge_buf_size)                                                                        |
+| [`rocksdb_merge_combine_read_size`](#rocksdb_merge_combine_read_size)                                                                        |
+| [`rocksdb_merge_tmp_file_removal_delay_ms`](#rocksdb_merge_tmp_file_removal_delay_ms)                                                                        |
+| [`rocksdb_new_table_reader_for_compaction_inputs`](#rocksdb_new_table_reader_for_compaction_inputs)                                                                        |
+| [`rocksdb_no_block_cache`](#rocksdb_no_block_cache)                                                                        |
+| [`rocksdb_no_create_column_family`](#rocksdb_no_create_column_family)                                                                        |
+| [`rocksdb_override_cf_options`](#rocksdb_override_cf_options)                                                                        |
+| [`rocksdb_paranoid_checks`](#rocksdb_paranoid_checks)                                                                        |
+| [`rocksdb_partial_index_blind_delete`](#rocksdb_partial_index_blind_delete)                                                                        |
+| [`rocksdb_partial_index_ignore_killed`](#rocksdb_partial_index_ignore_killed)                                                                        |
+| [`rocksdb_partial_index_sort_max_mem`](#rocksdb_partial_index_sort_max_mem)                                                                        |
+| [`rocksdb_pause_background_work`](#rocksdb_pause_background_work)                                                                        |
+| [`rocksdb_perf_context_level`](#rocksdb_perf_context_level)                                                                        |
+| [`rocksdb_persistent_cache_path`](#rocksdb_persistent_cache_path)                                                                        |
+| [`rocksdb_persistent_cache_size_mb`](#rocksdb_persistent_cache_size_mb)                                                                        |
+| [`rocksdb_pin_l0_filter_and_index_blocks_in_cache`](#rocksdb_pin_l0_filter_and_index_blocks_in_cache)                                                                        |
+| [`rocksdb_print_snapshot_conflict_queries`](#rocksdb_print_snapshot_conflict_queries)                                                                        |
+| [`rocksdb_protection_bytes_per_key`](#rocksdb_protection_bytes_per_key)                                                                        |
+| [`rocksdb_rate_limiter_bytes_per_sec`](#rocksdb_rate_limiter_bytes_per_sec)                                                                        |
+| [`rocksdb_read_free_rpl`](#rocksdb_read_free_rpl)                                                                        |
+| [`rocksdb_read_free_rpl_tables`](#rocksdb_read_free_rpl_tables)                                                                        |
+| [`rocksdb_records_in_range`](#rocksdb_records_in_range)                                                                        |
+| [`rocksdb_reset_stats`](#rocksdb_reset_stats)                                                                        |
+| [`rocksdb_rollback_on_timeout`](#rocksdb_rollback_on_timeout)                                                                        |
+| [`rocksdb_rpl_skip_tx_api`](#rocksdb_rpl_skip_tx_api)                                                                        |
+| [`rocksdb_seconds_between_stat_computes`](#rocksdb_seconds_between_stat_computes)                                                                        |
+| [`rocksdb_signal_drop_index_thread`](#rocksdb_signal_drop_index_thread)                                                                        |
+| [`rocksdb_sim_cache_size`](#rocksdb_sim_cache_size)                                                                        |
+| [`rocksdb_skip_bloom_filter_on_read`](#rocksdb_skip_bloom_filter_on_read)                                                                        |
+| [`rocksdb_skip_fill_cache`](#rocksdb_skip_fill_cache)                                                                        |
+| [`rocksdb_skip_locks_if_skip_unique_check`](#rocksdb_skip_locks_if_skip_unique_check)                                                                        |
+| [`rocksdb_sst_mgr_rate_bytes_per_sec`](#rocksdb_sst_mgr_rate_bytes_per_sec)                                                                        |
+| [`rocksdb_stats_dump_period_sec`](#rocksdb_stats_dump_period_sec)                                                                        |
+| [`rocksdb_stats_level`](#rocksdb_stats_level)                                                                        |
+| [`rocksdb_stats_recalc_rate`](#rocksdb_stats_recalc_rate)                                                                        |
+| [`rocksdb_store_row_debug_checksums`](#rocksdb_store_row_debug_checksums)                                                                        |
+| [`rocksdb_strict_collation_check`](#rocksdb_strict_collation_check)                                                                        |
+| [`rocksdb_strict_collation_exceptions`](#rocksdb_strict_collation_exceptions)                                                                        |
+| [`rocksdb_table_cache_numshardbits`](#rocksdb_table_cache_numshardbits)                                                                        |
+| [`rocksdb_table_stats_background_thread_nice_value`](#rocksdb_table_stats_background_thread_nice_value)                                                                        |
+| [`rocksdb_table_stats_max_num_rows_scanned`](#rocksdb_table_stats_max_num_rows_scanned)                                                                        |
+| [`rocksdb_table_stats_recalc_threshold_count`](#rocksdb_table_stats_recalc_threshold_count)                                                                        |
+| [`rocksdb_table_stats_recalc_threshold_pct`](#rocksdb_table_stats_recalc_threshold_pct)                                                                        |
+| [`rocksdb_table_stats_sampling_pct`](#rocksdb_table_stats_sampling_pct)                                                                        |
+| [`rocksdb_table_stats_skip_system_cf`](#rocksdb_table_stats_skip_system_cf)                                                                        |
+| [`rocksdb_table_stats_use_table_scan`](#rocksdb_table_stats_use_table_scan)                                                                        |
+| [`rocksdb_tmpdir`](#rocksdb_tmpdir)                                                                        |
+| [`rocksdb_trace_block_cache_access`](#rocksdb_trace_block_cache_access)                                                                        |
+| [`rocksdb_trace_queries`](#rocksdb_trace_queries)                                                                        |
+| [`rocksdb_trace_sst_api`](#rocksdb_trace_sst_api)                                                                        |
+| [`rocksdb_track_and_verify_wals_in_manifest`](#rocksdb_track_and_verify_wals_in_manifest)                                                                        |
+| [`rocksdb_two_write_queues`](#rocksdb_two_write_queues)                                                                        |
+| [`rocksdb_unsafe_for_binlog`](#rocksdb_unsafe_for_binlog)                                                                        |
+| [`rocksdb_update_cf_options`](#rocksdb_update_cf_options)                                                                        |
+| [`rocksdb_use_adaptive_mutex`](#rocksdb_use_adaptive_mutex)                                                                        |
+| [`rocksdb_use_default_sk_cf`](#rocksdb_use_default_sk_cf)                                                                        |
+| [`rocksdb_use_direct_io_for_flush_and_compaction`](#rocksdb_use_direct_io_for_flush_and_compaction)                                                                        |
+| [`rocksdb_use_direct_reads`](#rocksdb_use_direct_reads)                                                                        |
+| [`rocksdb_use_fsync`](#rocksdb_use_fsync)                                                                        |
+| [`rocksdb_use_hyper_clock_cache`](#rocksdb_use_hyper_clock_cache)                                                                        |
+| [`rocksdb_use_io_uring`](#rocksdb_use_io_uring)                                                                        |
+| [`rocksdb_use_write_buffer_manager`](#rocksdb_use_write_buffer_manager)                                                                        |
+| [`rocksdb_validate_tables`](#rocksdb_validate_tables)                                                                        |
+| [`rocksdb_verify_row_debug_checksums`](#rocksdb_verify_row_debug_checksums)                                                                        |
+| [`rocksdb_wal_bytes_per_sync`](#rocksdb_wal_bytes_per_sync)                                                                        |
+| [`rocksdb_wal_dir`](#rocksdb_wal_dir)                                                                        |
+| [`rocksdb_wal_recovery_mode`](#rocksdb_wal_recovery_mode)                                                                        |
+| [`rocksdb_wal_size_limit_mb`](#rocksdb_wal_size_limit_mb)                                                                        |
+| [`rocksdb_wal_ttl_seconds`](#rocksdb_wal_ttl_seconds)                                                                        |
+| [`rocksdb_whole_key_filtering`](#rocksdb_whole_key_filtering)                                                                        |
+| [`rocksdb_write_batch_flush_threshold`](#rocksdb_write_batch_flush_threshold)                                                                        |
+| [`rocksdb_write_batch_max_bytes`](#rocksdb_write_batch_max_bytes)                                                                        |
+| [`rocksdb_write_disable_wal`](#rocksdb_write_disable_wal)                                                                        |
+| [`rocksdb_write_ignore_missing_column_families`](#rocksdb_write_ignore_missing_column_families)                                                                        |
+| [`rocksdb_write_policy`](#rocksdb_write_policy)                                                                        |
+
+## Variable definitions
 
 ### `rocksdb_access_hint_on_compaction_start`
 
@@ -217,6 +234,8 @@ Also, all variables can exist in one or both of the following scopes:
 | Scope        | Global                                    |
 | Data type    | String or numeric                         |
 | Default      | NORMAL or 1                               |
+
+**[Removed: 8.4.5-5]** As of Percona Server for MySQL 8.4.5-5, the `rocksdb-access-hint-on-compaction-start` variable has been removed.
 
 Specifies the file access pattern once a compaction is started,
 applied to all input files of a compaction.
@@ -229,6 +248,9 @@ Possible values are:
 * `2` = `SEQUENTIAL`
 
 * `3` = `WILLNEED`
+
+
+
 
 ### `rocksdb_advise_random_on_open`
 
@@ -245,18 +267,54 @@ that the file access pattern is random,
 when a data file is opened.
 Enabled by default.
 
+
+
+
 ### `rocksdb_allow_concurrent_memtable_write`
 
-| Option       | Description                               |
-|--------------|-------------------------------------------|
-| Command-line | --rocksdb-allow-concurrent-memtable-write |
-| Dynamic      | No                                        |
-| Scope        | Global                                    |
-| Data type    | Boolean                                   |
-| Default      | OFF                                       |
+| Option                            | Description                                                                           |
+|-----------------------------------|---------------------------------------------------------------------------------------|
+| Command-line                      | --rocksdb-allow-concurrent-memtable-write                                               |
+| Dynamic                           | No                                                                                    |
+| Scope                             | Global                                                                                |
+| Data type                         | Boolean                                                                               |
+| Default                           | OFF                                                                                   |
 
-Specifies whether to allow multiple writers to update memtables in parallel.
+Specifies whether to allow multiple writers to update memtables in parallel. Disabled by default.
+
+
+### `rocksdb_allow_mmap_reads`
+
+| Option       | Description                |
+|--------------|----------------------------|
+| Command-line | --rocksdb-allow-mmap-reads |
+| Dynamic      | No                         |
+| Scope        | Global                     |
+| Data type    | Boolean                    |
+| Default      | OFF                        |
+
+Specifies whether to allow the OS to map a data file into memory for reads.
 Disabled by default.
+If you enable this, make sure that rocksdb_use_direct_reads is disabled.
+
+
+
+
+### `rocksdb_allow_mmap_writes`
+
+| Option       | Description                 |
+|--------------|-----------------------------|
+| Command-line | --rocksdb-allow-mmap-writes |
+| Dynamic      | No                          |
+| Scope        | Global                      |
+| Data type    | Boolean                     |
+| Default      | OFF                         |
+
+Specifies whether to allow the OS to map a data file into memory for writes.
+Disabled by default.
+
+
+
 
 ### `rocksdb_allow_to_start_after_corruption`
 
@@ -281,32 +339,8 @@ variable turned on in the command line.
 
     Not all memtables support concurrent writes.
 
-### `rocksdb_allow_mmap_reads`
 
-| Option       | Description                |
-|--------------|----------------------------|
-| Command-line | --rocksdb-allow-mmap-reads |
-| Dynamic      | No                         |
-| Scope        | Global                     |
-| Data type    | Boolean                    |
-| Default      | OFF                        |
 
-Specifies whether to allow the OS to map a data file into memory for reads.
-Disabled by default.
-If you enable this, make sure that rocksdb_use_direct_reads is disabled.
-
-### `rocksdb_allow_mmap_writes`
-
-| Option       | Description                 |
-|--------------|-----------------------------|
-| Command-line | --rocksdb-allow-mmap-writes |
-| Dynamic      | No                          |
-| Scope        | Global                      |
-| Data type    | Boolean                     |
-| Default      | OFF                         |
-
-Specifies whether to allow the OS to map a data file into memory for writes.
-Disabled by default.
 
 ### `rocksdb_allow_unsafe_alter`
 
@@ -320,6 +354,9 @@ Disabled by default.
 
 Enables crash unsafe INPLACE ADD|DROP partition.
 
+
+
+
 ### `rocksdb_alter_column_default_inplace`
 
 | Option       | Description                            |
@@ -331,6 +368,9 @@ Enables crash unsafe INPLACE ADD|DROP partition.
 | Default      | ON                                     |
 
 Allows an inplace alter for the `ALTER COLUMN` default operation.
+
+
+
 
 ### `rocksdb_alter_table_comment_inplace`
 
@@ -345,6 +385,9 @@ Allows an inplace alter for the `ALTER COLUMN` default operation.
 Allows changing `ALTER TABLE COMMENT` inplace.
 
 This variable is disabled (OFF) by default.
+
+
+
 
 ### `rocksdb_base_background_compactions`
 
@@ -362,6 +405,9 @@ The allowed range of values is from `-1` to `64`. The maximum value depends on t
 [rocksdb_max_background_compactions](#rocksdb_max_background_compactions) variable. This variable was
 replaced with [rocksdb_max_background_jobs](#rocksdb_max_background_jobs), which automatically
 decides how many threads to allocate toward flush/compaction.
+
+
+
 
 ### `rocksdb_blind_delete_primary_key`
 
@@ -381,6 +427,9 @@ Skips verifying if rows exists before executing deletes. The following condition
 
 * The table has only a primary key with no secondary keys
 
+
+
+
 ### `rocksdb_block_cache_numshardbits`
 
 | Option       | Description                        |
@@ -398,6 +447,9 @@ This variable specifies the number of shards ,`numShardBits`, for the block cach
 The default value is `-1`. The `-1` value means that RocksDB automatically determines the number of shards for the block cache based on the cache capacity.
 
 The minimum value is `-1` and the maximum value is `8`.
+
+
+
 
 ### `rocksdb_block_cache_size`
 
@@ -420,25 +472,8 @@ Default value is `536870912`.
 
 Maximum value is `9223372036854775807`.
 
-### `rocksdb_bulk_load_fail_if_not_bottommost_level`
 
-| Option       | Description                |
-|--------------|----------------------------|
-| Command-line | --rocksdb_bulk_load_fail_if_not_bottommost_level |
-| Dynamic      | Yes                         |
-| Scope        | Global, Session             |
-| Data type    | Boolean                     |
-| Default      | OFF                         |
 
-When this variable is enabled, the bulk load fails if an sst file created during bulk load cannot be placed to the bottommost level in the rocksdb. 
-
-This variable can be enabled or disabled only when the [`rocksdb_bulk_load`](#rocksdbbulkload) is `OFF`.
-
-This variable is disabled (OFF) by default.
-
-!!! warning
-
-    When `rocksdb_bulk_load_fail_if_not_bottommost_level` is disabled, it may cause severe performance impact.
 
 ### `rocksdb_block_restart_interval`
 
@@ -454,6 +489,9 @@ Specifies the number of keys for each set of delta encoded data.
 Default value is `16`.
 Allowed range is from `1` to `2147483647`.
 
+
+
+
 ### `rocksdb_block_size`
 
 | Option       | Description          |
@@ -467,6 +505,9 @@ Allowed range is from `1` to `2147483647`.
 Specifies the size of the data block for reading RocksDB data files.
 The default value is `16 KB`.
 The allowed range is from `1024` to `18446744073709551615` bytes.
+
+
+
 
 ### `rocksdb_block_size_deviation`
 
@@ -487,32 +528,8 @@ until there is less than 10 bits of free space remaining.
 
 Allowed range is from `1` to `2147483647`.
 
-### `rocksdb_bulk_load_allow_sk`
 
-| Option       | Description                  |
-|--------------|------------------------------|
-| Command-line | --rocksdb-bulk-load-allow-sk |
-| Dynamic      | Yes                          |
-| Scope        | Global, Session              |
-| Data type    | Boolean                      |
-| Default      | OFF                          |
 
-Enabling this variable allows secondary keys to be added using the bulk loading
-feature. This variable can be enabled or disabled only when the rocksdb_bulk_load is `OFF`.
-
-### `rocksdb_bulk_load_allow_unsorted`
-
-| Option       | Description                        |
-|--------------|------------------------------------|
-| Command-line | --rocksdb-bulk-load-allow-unsorted |
-| Dynamic      | Yes                                |
-| Scope        | Global, Session                    |
-| Data type    | Boolean                            |
-| Default      | OFF                                |
-
-By default, the bulk loader requires its input to be sorted in the primary
-key order. If enabled, unsorted inputs are allowed too, which are then
-sorted by the bulkloader itself, at a performance penalty.
 
 ### `rocksdb_bulk_load`
 
@@ -531,7 +548,102 @@ Disabled by default.
 Enable this only if you are certain that there are no row conflicts,
 for example, when setting up a new MyRocks instance from a MySQL dump.
 
-When the rocksdb_bulk_load variable is enabled, it behaves as if the variable rocksdb_commit_in_the_middle is enabled, even if the variable rocksdb_commit_in_the_middle is disabled.
+When the `rocksdb_bulk_load` variable is enabled, it behaves as if the variable `rocksdb_commit_in_the_middle` is enabled, even if the variable `rocksdb_commit_in_the_middle` is disabled.
+
+
+
+
+### `rocksdb_bulk_load_allow_sk`
+
+| Option       | Description                  |
+|--------------|------------------------------|
+| Command-line | --rocksdb-bulk-load-allow-sk |
+| Dynamic      | Yes                          |
+| Scope        | Global, Session              |
+| Data type    | Boolean                      |
+| Default      | OFF                          |
+
+Enabling this variable allows secondary keys to be added using the bulk loading
+feature. This variable can be enabled or disabled only when the rocksdb_bulk_load is `OFF`.
+
+
+
+
+### `rocksdb_bulk_load_allow_unsorted`
+
+| Option       | Description                        |
+|--------------|------------------------------------|
+| Command-line | --rocksdb-bulk-load-allow-unsorted |
+| Dynamic      | Yes                                |
+| Scope        | Global, Session                    |
+| Data type    | Boolean                            |
+| Default      | OFF                                |
+
+By default, the bulk loader requires its input to be sorted in the primary
+key order. If enabled, unsorted inputs are allowed too, which are then
+sorted by the bulkloader itself, at a performance penalty.
+
+
+
+
+### `rocksdb_bulk_load_compression_parallel_threads`
+
+| Option         | Description                                                                |
+|-----------------|----------------------------------------------------------------------------|
+| Dynamic      | Yes                                                                        |
+| Scope        | Global, Session                                                            |
+| Data type    | Numeric                                                                    |
+| Default      | 1                                                                          |
+| Minimum      | 1                                                                          |
+| Maximum      | 1024                                                                       |
+
+**[ADDED: Percona Server for MySQL 8.4.5-5]**
+
+Specifies the number of parallel worker threads used to compress SST data blocks during bulk load.
+
+
+
+
+### `rocksdb_bulk_load_enable_unique_key_check`
+
+| Option         | Description                                                              |
+|-----------------|--------------------------------------------------------------------------|
+| Dynamic      | Yes                                                                      |
+| Scope        | Global, Session                                                          |
+| Data type    | Bool                                                                     |
+| Default      | OFF                                                                      |
+
+**[ADDED: Percona Server for MySQL 8.4.5-5]**
+
+Controls whether the unique key constraint is checked during bulk loading.
+This setting can only be changed when bulk loading is disabled.
+
+
+
+
+
+### `rocksdb_bulk_load_fail_if_not_bottommost_level`
+
+| Option       | Description                |
+|--------------|----------------------------|
+| Command-line | --rocksdb_bulk_load_fail_if_not_bottommost_level |
+| Dynamic      | Yes                         |
+| Scope        | Global, Session             |
+| Data type    | Boolean                     |
+| Default      | OFF                         |
+
+When this variable is enabled, the bulk load fails if an sst file created during bulk load cannot be placed to the bottommost level in the rocksdb. 
+
+This variable can be enabled or disabled only when the [`rocksdb_bulk_load`](#rocksdbbulkload) is `OFF`.
+
+This variable is disabled (OFF) by default.
+
+!!! warning
+
+    When `rocksdb_bulk_load_fail_if_not_bottommost_level` is disabled, it may cause severe performance impact.
+
+
+
 
 ### `rocksdb_bulk_load_partial_index`
 
@@ -545,19 +657,8 @@ When the rocksdb_bulk_load variable is enabled, it behaves as if the variable ro
 
 Materializes partial index during bulk load instead of leaving the index empty.
 
-### `rocksdb_bulk_load_use_sst_partitioner`
 
-| Option       | Description         |
-|--------------|---------------------|
-| Command-line | --rocksdb_bulk_load_use_sst_partitioner |
-| Dynamic      | Yes                 |
-| Scope        | Global, Session     |
-| Data type    | Boolean             |
-| Default      | OFF                 |
 
-If enabled, this variable uses sst partitioner to split sst files to ensure bulk load sst files can be ingested to bottommost level.
-
-This variable is disabled (OFF) by default.
 
 ### `rocksdb_bulk_load_size`
 
@@ -577,6 +678,26 @@ which means that a batch can contain up to 1000 records
 before they are implicitly committed.
 Allowed range is from `1` to `1073741824`.
 
+
+
+
+### `rocksdb_bulk_load_use_sst_partitioner`
+
+| Option       | Description         |
+|--------------|---------------------|
+| Command-line | --rocksdb_bulk_load_use_sst_partitioner |
+| Dynamic      | Yes                 |
+| Scope        | Global, Session     |
+| Data type    | Boolean             |
+| Default      | OFF                 |
+
+If enabled, this variable uses sst partitioner to split sst files to ensure bulk load sst files can be ingested to bottommost level.
+
+This variable is disabled (OFF) by default.
+
+
+
+
 ### `rocksdb_bytes_per_sync`
 
 | Option       | Description              |
@@ -593,6 +714,9 @@ This operation can be used to smooth out write I/O over time.
 Default value is `0` meaning that files are never synced.
 Allowed range is up to `18446744073709551615`.
 
+
+
+
 ### `rocksdb_cache_dump`
 
 | Option       | Description          |
@@ -605,6 +729,9 @@ Allowed range is up to `18446744073709551615`.
 
 Includes RocksDB block cache content in core dump. This variable is enabled by default.
 
+
+
+
 ### `rocksdb_cache_high_pri_pool_ratio`
 
 | Option | Description |
@@ -616,6 +743,9 @@ Includes RocksDB block cache content in core dump. This variable is enabled by d
 | Default | 0.0 |
 
 This variable specifies the size of the block cache high-pri pool. The default value and minimum value is 0.0. The maximum value is 1.0.
+
+
+
 
 ### `rocksdb_cache_index_and_filter_blocks`
 
@@ -632,6 +762,9 @@ and bloomfilter data blocks from each data file.
 Enabled by default.
 If you disable this feature, RocksDB allocates additional memory to maintain these data blocks.
 
+
+
+
 ### `rocksdb_cache_index_and_filter_with_high_priority`
 
 | Option | Description |
@@ -647,6 +780,9 @@ and bloomfilter data blocks from each data file.
 Enabled by default.
 If you disable this feature, RocksDB allocates additional memory to maintain these data blocks.
 
+
+
+
 ### `rocksdb_cancel_manual_compactions`
 
 | Option       | Description                             |
@@ -658,6 +794,9 @@ If you disable this feature, RocksDB allocates additional memory to maintain the
 | Default      | OFF                                     |
 
 Cancels all ongoing manual compactions.
+
+
+
 
 ### `rocksdb_charge_memory`
 
@@ -675,6 +814,9 @@ Turns on RocksDB memory-charging related features (BlockBasedTableOptions::cache
 
 This variable is disabled (OFF) by default.
 
+
+
+
 ### `rocksdb_check_iterate_bounds`
 
 | Option       | Description             |
@@ -685,9 +827,11 @@ This variable is disabled (OFF) by default.
 | Data type    | Boolean                 |
 | Default      | ON                      |
 
-This variable has been implemented in [Percona Server for MySQL 8.3.0-1](https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html).
 
 This variable enables checking the upper and lower bounds of the RocksDB iterator during iteration. The default value in `ON` which means this variable is enabled.
+
+
+
 
 ### `rocksdb_checksums_pct`
 
@@ -703,6 +847,9 @@ Specifies the percentage of rows to be checksummed.
 Default value is `100` (checksum all rows).
 Allowed range is from `0` to `100`.
 
+
+
+
 ### `rocksdb_collect_sst_properties`
 
 | Option       | Description                      |
@@ -717,6 +864,9 @@ Specifies whether to collect statistics on each data file
 to improve optimizer behavior.
 Enabled by default.
 
+
+
+
 ### `rocksdb_column_default_value_as_expression`
 
 | Option       | Description                      |
@@ -730,6 +880,9 @@ Enabled by default.
 Allows to set a function as the default value for a column.
 
 This variable is enabled (ON) by default.
+
+
+
 
 ### `rocksdb_commit_in_the_middle`
 
@@ -751,6 +904,9 @@ This option should only be enabled at the time of data import because it may cau
 This variable is disabled by default.
 When the rocksdb_bulk_load variable is enabled, it behaves as if the variable rocksdb_commit_in_the_middle is enabled, even if the variable rocksdb_commit_in_the_middle is disabled.
 
+
+
+
 ### `rocksdb_commit_time_batch_for_recovery`
 
 | Option       | Description                              |
@@ -768,6 +924,9 @@ not.
 
     If the commit time write batch is only useful for recovery, then writing to WAL is enough.
 
+
+
+
 ### `rocksdb_compact_cf`
 
 | Option       | Description          |
@@ -779,6 +938,9 @@ not.
 | Default      |                      |
 
 Specifies the name of the column family to compact.
+
+
+
 
 ### `rocksdb_compact_lzero_now`
 
@@ -794,7 +956,12 @@ This variable has been implemented in [Percona Server for MySQL 8.3.0-1](https:/
 
 This variable acts as a trigger. Set the variable to `ON`, `rocksdb-compact-lzero-now=ON`, to immediately compact all the `Level 0` (L0) files. After all the `L0` files are compacted, the variable value automatically switches to `OFF`.
 
+
+
+
 ### `rocksdb_compaction_readahead_size`
+
+**[Changed in 8.4.5-5]** The default value of `rocksdb_compaction_readahead_size` has changed from `0` to `2097152`.
 
 | Option       | Description                         |
 |--------------|-------------------------------------|
@@ -802,10 +969,10 @@ This variable acts as a trigger. Set the variable to `ON`, `rocksdb-compact-lzer
 | Dynamic      | Yes                                 |
 | Scope        | Global                              |
 | Data type    | Numeric                             |
-| Default      | 0                                   |
+| Default      | 2097152 (Prior to 8.4.5-5, the default was 0)                                   |
 
 Specifies the size of reads to perform ahead of compaction.
-Default value is `0`.
+The default value is now `2097152`.
 Set this to at least 2 megabytes (`16777216`)
 when using MyRocks with spinning disks
 to ensure sequential reads instead of random.
@@ -814,6 +981,9 @@ Maximum allowed value is `18446744073709551615`.
 !!! note
 
     If you set this variable to a non-zero value, rocksdb_new_table_reader_for_compaction_inputs is enabled.
+
+
+
 
 ### `rocksdb_compaction_sequential_deletes`
 
@@ -844,6 +1014,9 @@ Maximum allowed value is `2000000` (two million delete markers).
     rocksdb_compaction_sequential_deletes_file_size to only perform
     compaction on large files.
 
+
+
+
 ### `rocksdb_compaction_sequential_deletes_count_sd`
 
 | Option       | Description                                      |
@@ -862,6 +1035,9 @@ Specifies whether to count single deletes as delete markers recognized by `rocks
 
 The default value is `ON` which means the variable is enabled.
 
+
+
+
 ### `rocksdb_compaction_sequential_deletes_file_size`
 
 | Option       | Description                                       |
@@ -878,6 +1054,9 @@ Default value is `0`,
 meaning that compaction is triggered regardless of file size.
 Allowed range is from `-1` to `9223372036854775807`.
 
+
+
+
 ### `rocksdb_compaction_sequential_deletes_window`
 
 | Option       | Description                                    |
@@ -892,6 +1071,9 @@ Specifies the size of the window for counting delete markers by `rocksdb_compact
 
 Allowed range is up to `2000000` (two million).
 
+
+
+
 ### `rocksdb_concurrent_prepare`
 
 | Option       | Description                  |
@@ -905,6 +1087,31 @@ Allowed range is up to `2000000` (two million).
 When enabled this variable allows/encourages threads that are using
 two-phase commit to `prepare` in parallel. This variable was
 renamed in upstream to rocksdb_two_write_queues.
+
+
+
+
+### `rocksdb_converter_record_cached_length`
+
+| Option       | Description                  |
+|--------------|------------------------------|
+| Command-line | --rocksdb_converter_record_cached_length |
+| Dynamic      | Yes                           |
+| Scope        | Global                        |
+| Data type    | Numeric                       |
+| Default      | 0                             |
+
+Specifies the maximum number of bytes to cache on table handler for encoding table record data. 
+
+If the used memory exceeds `rocksdb_converter_record_cached_length`, the memory is released when the handler is returned to the table handler cache.
+
+The minimum value is `0` (zero) that means there is no limit.
+The maximum value is `UINT64_MAX (0xffffffffffffffff)`.
+
+The default value is `0`(zero) that means there is no limit.
+
+
+
 
 ### `rocksdb_corrupt_data_action`
 
@@ -928,24 +1135,8 @@ You can select one of the following actions:
 
 The default value is `ERROR` that means the query fails with the error `HA_ERR_ROCKSDB_CORRUPT_DATA`.
 
-### `rocksdb_converter_record_cached_length`
 
-| Option       | Description                  |
-|--------------|------------------------------|
-| Command-line | --rocksdb_converter_record_cached_length |
-| Dynamic      | Yes                           |
-| Scope        | Global                        |
-| Data type    | Numeric                       |
-| Default      | 0                             |
 
-Specifies the maximum number of bytes to cache on table handler for encoding table record data. 
-
-If the used memory exceeds `rocksdb_converter_record_cached_length`, the memory is released when the handler is returned to the table handler cache.
-
-The minimum value is `0` (zero) that means there is no limit.
-The maximum value is `UINT64_MAX (0xffffffffffffffff)`.
-
-The default value is `0`(zero) that means there is no limit.
 
 ### `rocksdb_create_checkpoint`
 
@@ -960,6 +1151,9 @@ The default value is `0`(zero) that means there is no limit.
 Specifies the directory where MyRocks should create a checkpoint.
 Empty by default.
 
+
+
+
 ### `rocksdb_create_if_missing`
 
 | Option       | Description                 |
@@ -972,6 +1166,9 @@ Empty by default.
 
 Specifies whether MyRocks should create its database if it does not exist.
 Enabled by default.
+
+
+
 
 ### `rocksdb_create_missing_column_families`
 
@@ -986,6 +1183,9 @@ Enabled by default.
 Specifies whether MyRocks should create new column families
 if they do not exist.
 Disabled by default.
+
+
+
 
 ### `rocksdb_create_temporary_checkpoint`
 
@@ -1002,6 +1202,9 @@ checkpoint, or if the variable is reset to another value, the checkpoint
 will get removed. This variable should be used by backup tools. Prolonged
 use or other misuse can have serious side effects to the server instance.
 
+
+
+
 ### `rocksdb_datadir`
 
 | Option       | Description                              |
@@ -1014,6 +1217,9 @@ use or other misuse can have serious side effects to the server instance.
 
 Specifies the location of the MyRocks data directory.
 By default, it is created in the current working directory.
+
+
+
 
 ### `rocksdb_db_write_buffer_size`
 
@@ -1031,6 +1237,9 @@ to persistent media.
 The default value is `0`.
 The allowed range is up to `18446744073709551615`.
 
+
+
+
 ### `rocksdb_deadlock_detect`
 
 | Option       | Description               |
@@ -1043,6 +1252,9 @@ The allowed range is up to `18446744073709551615`.
 
 Specifies whether MyRocks should detect deadlocks.
 Disabled by default.
+
+
+
 
 ### `rocksdb_deadlock_detect_depth`
 
@@ -1057,6 +1269,9 @@ Disabled by default.
 Specifies the number of transactions deadlock detection will traverse
 through before assuming deadlock.
 
+
+
+
 ### `rocksdb_debug_cardinality_multiplier`
 
 | Option | Description |
@@ -1068,6 +1283,9 @@ through before assuming deadlock.
 | Default | 2 |
 
 The cardinality multiplier used in tests. The minimum value is 0. The maxium value is 2147483647 (INT_MAX).
+
+
+
 
 ### `rocksdb_debug_manual_compaction_delay`
 
@@ -1083,6 +1301,9 @@ Only use this variable when debugging.
 
 This variable specifies a sleep, in seconds, to simulate long-running compactions. The minimum value is 0. The maximum value is 4292967295 (UINT_MAX).
 
+
+
+
 ### `rocksdb_debug_optimizer_no_zero_cardinality`
 
 | Option       | Description                                   |
@@ -1096,6 +1317,23 @@ This variable specifies a sleep, in seconds, to simulate long-running compaction
 Specifies whether MyRocks should prevent zero cardinality
 by always overriding it with some value.
 
+
+
+### `rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds`
+
+| Option                                        | Description                                                                           |
+|-----------------------------------------------|---------------------------------------------------------------------------------------|
+| Command-line                                  | --rocksdb-debug-skip-bloom-filter-check-on-iterator-bounds                                |
+| Dynamic                                       | Yes                                                                                   |
+| Scope                                         | Global                                                                                |
+| Data type                                     | Boolean                                                                               |
+| Default                                       | OFF                                                                                   |
+
+**[ADDED: Percona Server for MySQL 8.4.5-5]**
+
+Allows setting iterator bounds in RocksDB even when the query range conditions would normally enable Bloom filter usage.
+
+
 ### `rocksdb_debug_ttl_ignore_pk`
 
 | Option       | Description                   |
@@ -1108,6 +1346,9 @@ by always overriding it with some value.
 
 For debugging purposes only. If true, compaction filtering will not occur
 on Primary Key TTL data. This variable is a no-op in non-debug builds.
+
+
+
 
 ### `rocksdb_debug_ttl_read_filter_ts`
 
@@ -1123,6 +1364,9 @@ For debugging purposes only.  Overrides the TTL read
 filtering time to time + debug_ttl_read_filter_ts.
 A value of `0` denotes that the variable is not set.
 This variable is a no-op in non-debug builds.
+
+
+
 
 ### `rocksdb_debug_ttl_rec_ts`
 
@@ -1141,6 +1385,9 @@ inserted in the  future . A value of `0` denotes that the
 variable is not set.
 This variable is a no-op in non-debug builds.
 
+
+
+
 ### `rocksdb_debug_ttl_snapshot_ts`
 
 | Option       | Description                   |
@@ -1158,6 +1405,9 @@ The value can be +/- to simulate a snapshot in the past vs a
 snapshot created in the  future . A value of `0` denotes
 that the variable is not set. This variable is a no-op in
 non-debug builds.
+
+
+
 
 ### `rocksdb_default_cf_options`
 
@@ -1178,6 +1428,9 @@ Specifies the default column family options for MyRocks. On startup, the
 server applies this option to all existing column families. This option is
 read-only at runtime.
 
+
+
+
 ### `rocksdb_delayed_write_rate`
 
 | Option       | Description                  |
@@ -1192,6 +1445,9 @@ Specifies the write rate in bytes per second, which should be used
 if MyRocks hits a soft limit or threshold for writes.
 Default value is `16777216` (16 MB/sec).
 Allowed range is from `0` to `18446744073709551615`.
+
+
+
 
 ### `rocksdb_delete_cf`
 
@@ -1211,6 +1467,9 @@ For example:
 SET @@global.ROCKSDB_DELETE_CF = 'cf_primary_key';
 ```
 
+
+
+
 ### `rocksdb_delete_obsolete_files_period_micros`
 
 | Option       | Description                                   |
@@ -1225,6 +1484,9 @@ Specifies the period in microseconds to delete obsolete files
 regardless of files removed during compaction.
 Default value is `21600000000` (6 hours).
 Allowed range is up to `9223372036854775807`.
+
+
+
 
 ### `rocksdb_disable_file_deletions`
 
@@ -1243,6 +1505,9 @@ deletions and has not re-enabled deletions, they will be explicitly
 re-enabled. This variable should be used by backup tools. Prolonged
 use or other misuse can have serious side effects to the server instance.
 
+
+
+
 ### `rocksdb_disable_instant_ddl`
 
 | Option       | Description                                   |
@@ -1251,11 +1516,16 @@ use or other misuse can have serious side effects to the server instance.
 | Dynamic      | Yes                                           |
 | Scope        | Global                                       |
 | Data type    | Boolean                                       |
-| Default      | ON                                            |
+| Default      | OFF                                            |
 
-Disables instant DDL during `ALTER TABLE` operations.
+**[Deprecated: 8.4.5-5]** The `rocksdb_disable_instant_ddl` variable is deprecated and will be removed in a future version. Its default value has changed to `OFF` as of this version.
 
-This variable is enabled (ON) by default.
+Disables Instant DDL during `ALTER TABLE` operations.
+
+Prior to Percona Server for MySQL 8.4.5-5, this variable was enabled (`ON`) by default.
+
+
+
 
 ### `rocksdb_enable_bulk_load_api`
 
@@ -1275,6 +1545,9 @@ Enabled by default.
 If disabled, bulk loading uses the normal write path via the memtable
 and does not require keys to be inserted in any order.
 
+
+
+
 ### `rocksdb_enable_delete_range_for_drop_index`
 
 | Option       | Description                                 |
@@ -1289,6 +1562,9 @@ Enables drop table / index by calling the DeleteRange.
 
 This option is disabled (OFF) by default.
 
+
+
+
 ### `rocksdb_enable_insert_with_update_caching`
 
 | Option       | Description                                 |
@@ -1301,6 +1577,87 @@ This option is disabled (OFF) by default.
 
 Specifies whether to enable optimization where the read is cached from a failed insertion attempt in INSERT ON DUPLICATE KEY UPDATE.
 
+
+
+### `rocksdb_enable_instant_ddl`
+
+| Option                      | Description                                                                           |
+|-----------------------------|---------------------------------------------------------------------------------------|
+| Command-line                | --rocksdb-enable-instant-ddl                                                          |
+| Dynamic                     | Yes                                                                                   |
+| Scope                       | Global                                                                                |
+| Data type                   | Boolean                                                                               |
+| Default                     | ON                                                                                    |
+
+**[ADDED: Percona Server for MySQL 8.4.5-5]**
+
+Enables Instant DDL during `ALTER TABLE` operations when possible. If set
+to `OFF`, no DDL operations can be executed as instant.
+
+
+### `rocksdb_enable_instant_ddl_for_append_column`
+
+| Option                                   | Description                                                                           |
+|------------------------------------------|---------------------------------------------------------------------------------------|
+| Command-line                             | --rocksdb-enable-instant-ddl-for-append-column                                        |
+| Dynamic                                  | Yes                                                                                   |
+| Scope                                    | Global                                                                                |
+| Data type                                | Boolean                                                                               |
+| Default                                  | OFF                                                                                   |
+
+**[ADDED: Percona Server for MySQL 8.4.5-5]**
+
+Enables Instant DDL specifically for appending columns during `ALTER TABLE`
+operations.
+
+
+### `rocksdb_enable_instant_ddl_for_column_default_changes`
+
+| Option                                        | Description                                                                           |
+|-----------------------------------------------|---------------------------------------------------------------------------------------|
+| Command-line                                  | --rocksdb-enable-instant-ddl-for-column-default-changes                               |
+| Dynamic                                       | Yes                                                                                   |
+| Scope                                         | Global                                                                                |
+| Data type                                     | Boolean                                                                               |
+| Default                                       | OFF                                                                                   |
+
+**[ADDED: Percona Server for MySQL 8.4.5-5]**
+
+Enables Instant DDL for changes to column defaults during `ALTER TABLE`
+operations.
+
+
+### `rocksdb_enable_instant_ddl_for_drop_index_changes`
+
+| Option                                       | Description                                                                           |
+|----------------------------------------------|---------------------------------------------------------------------------------------|
+| Command-line                                 | --rocksdb-enable-instant-ddl-for-drop-index-changes                                   |
+| Dynamic                                      | Yes                                                                                   |
+| Scope                                        | Global                                                                                |
+| Data type                                    | Boolean                                                                               |
+| Default                                      | OFF                                                                                   |
+
+**[ADDED: Percona Server for MySQL 8.4.5-5]**
+
+Enables Instant DDL for dropping indexes during `ALTER TABLE` operations.
+
+
+### `rocksdb_enable_instant_ddl_for_table_comment_changes`
+
+| Option                                         | Description                                                                           |
+|------------------------------------------------|---------------------------------------------------------------------------------------|
+| Command-line                                   | --rocksdb-enable-instant-ddl-for-table-comment-changes                                |
+| Dynamic                                        | Yes                                                                                   |
+| Scope                                          | Global                                                                                |
+| Data type                                      | Boolean                                                                               |
+| Default                                        | OFF                                                                                   |
+
+**[ADDED: Percona Server for MySQL 8.4.5-5]**
+
+Enables Instant DDL for changes to table comments during `ALTER TABLE`
+operations.
+
+
 ### `rocksdb_enable_iterate_bounds`
 
 | Option       | Description                     |
@@ -1312,6 +1669,9 @@ Specifies whether to enable optimization where the read is cached from a failed 
 | Default      | ON                              |
 
 Enables the rocksdb iterator upper bounds and lower bounds in read options.
+
+
+
 
 ### `rocksdb_enable_pipelined_write`
 
@@ -1327,6 +1687,9 @@ DBOptions::enable_pipelined_write for RocksDB.
 
 If `enable_pipelined_write` is `ON`, a separate write thread is maintained for WAL write and memtable write. A write thread first enters the WAL writer queue and then the memtable writer queue. A pending thread on the WAL writer queue only waits for the previous WAL write operations but does not wait for memtable write operations. Enabling the feature may improve write throughput and reduce latency of the prepare phase of a two-phase commit.
 
+
+
+
 ### `rocksdb_enable_remove_orphaned_dropped_cfs`
 
 | Option       | Description                                  |
@@ -1341,6 +1704,27 @@ Enables the removal of dropped column families (cfs) from metadata if the cfs do
 
 The default value is `ON`.
 
+
+
+
+### `rocksdb_enable_thread_tracking`
+
+| Option       | Description                      |
+|--------------|----------------------------------|
+| Command-line | --rocksdb-enable-thread-tracking |
+| Dynamic      | No                               |
+| Scope        | Global                           |
+| Data type    | Boolean                          |
+| Default      | OFF                              |
+
+Specifies whether to enable tracking the status of threads
+accessing the database.
+Disabled by default.
+If enabled, thread status will be available via `GetThreadList()`.
+
+
+
+
 ### `rocksdb_enable_ttl`
 
 | Option       | Description          |
@@ -1354,6 +1738,9 @@ The default value is `ON`.
 Specifies whether to keep expired TTL records during compaction.
 Enabled by default.
 If disabled, expired TTL records will be dropped during compaction.
+
+
+
 
 ### `rocksdb_enable_ttl_read_filtering`
 
@@ -1371,20 +1758,25 @@ this will allow these records to be seen, but as a result
 rows may disappear in the middle of transactions as they
 are dropped during compaction. **Use with caution.**
 
-### `rocksdb_enable_thread_tracking`
 
-| Option       | Description                      |
-|--------------|----------------------------------|
-| Command-line | --rocksdb-enable-thread-tracking |
-| Dynamic      | No                               |
-| Scope        | Global                           |
-| Data type    | Boolean                          |
-| Default      | OFF                              |
 
-Specifies whether to enable tracking the status of threads
-accessing the database.
-Disabled by default.
-If enabled, thread status will be available via `GetThreadList()`.
+### `rocksdb_enable_udt_in_mem`
+
+| Option                            | Description                                                                           |
+|-----------------------------------|---------------------------------------------------------------------------------------|
+| Command-line                      | --rocksdb-enable-udt-in-mem                                                             |
+| Dynamic                           | Yes                                                                                   |
+| Scope                             | Global                                                                                |
+| Data type                         | Boolean                                                                               |
+| Default                           | OFF                                                                                   |
+
+**[ADDED: Percona Server for MySQL 8.4.5-5]**
+
+**[Not yet implemented.]**
+
+Enables the user-defined timestamp in memtable feature to support Hybrid
+Logical Clock (HLC) snapshot reads in MyRocks.
+
 
 ### `rocksdb_enable_write_thread_adaptive_yield`
 
@@ -1402,6 +1794,9 @@ before blocking on a mutex.
 Disabled by default.
 Enable it to increase throughput for concurrent workloads.
 
+
+
+
 ### `rocksdb_error_if_exists`
 
 | Option       | Description               |
@@ -1414,6 +1809,9 @@ Enable it to increase throughput for concurrent workloads.
 
 Specifies whether to report an error when a database already exists.
 Disabled by default.
+
+
+
 
 ### `rocksdb_error_on_suboptimal_collation`
 
@@ -1429,19 +1827,34 @@ Specifies whether to report an error instead of a warning if an index is
 created on a char field where the table has a sub-optimal collation (case
 insensitive). Enabled by default.
 
+
+
+
 ### `rocksdb_file_checksums`
 
-| Option       | Description                             |
-|--------------|-----------------------------------------|
-| Command-line | --rocksdb-file-checksums                |
-| Dynamic      | No                                      |
-| Scope        | Global                                  |
-| Data type    | Boolean                                 |
-| Default      | OFF                                     |
+**[Changed in 8.4.5-5]** The `rocksdb_file_checksums` variable's default value changed from `OFF` to `CHECKSUMS_OFF`, and its data type changed to `Enum= CHECKSUMS_OFF, CHECKSUMS_WRITE_ONLY, CHECKSUMS_WRITE_AND_VERIFY`.
 
-This variable has been implemented in [Percona Server for MySQL 8.3.0-1](https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html).
+| Option        | Description                                                                                                                               |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| Command-line  | --rocksdb-file-checksums                                                                                                                  |
+| Dynamic       | No                                                                                                                                        |
+| Scope         | Global                                                                                                                                    |
+| Data type     | Enum= CHECKSUMS_OFF, CHECKSUMS_WRITE_ONLY, CHECKSUMS_WRITE_AND_VERIFY                                                                       |
+| Default       | CHECKSUMS_OFF (Prior to 8.4.5-5, the default was OFF)                                                                                      |
 
-This variable controls whether to write and check RocksDB file-level checksums. The default value is `OFF` which means the variable is disabled.
+
+This variable controls whether to write and check RocksDB file-level checksums. The possible values are:
+
+* `CHECKSUMS_OFF`: Disables checksums.
+
+* `CHECKSUMS_WRITE_ONLY`: Writes checksums but skips verification on database open.
+
+* `CHECKSUMS_WRITE_AND_VERIFY`: Writes checksums and verifies them when the database is opened.
+
+Prior to Percona Server for MySQL 8.4.5-5, the default value was `OFF`, and the data type was a Boolean (where `OFF` equated to disabled).
+
+
+
 
 ### `rocksdb_flush_log_at_trx_commit`
 
@@ -1470,6 +1883,9 @@ but reduces performance.
 
 * `2`: Sync every second.
 
+
+
+
 ### `rocksdb_flush_memtable_on_analyze`
 
 | Option       | Description                         |
@@ -1484,6 +1900,9 @@ Specifies whether to flush the memtable when running `ANALYZE` on a table.
 Enabled by default.
 This ensures accurate cardinality
 by including data in the memtable for calculating stats.
+
+
+
 
 ### `rocksdb_force_compute_memtable_stats`
 
@@ -1501,6 +1920,9 @@ used by the query optimizer.
 Enabled by default.
 This provides better accuracy, but may reduce performance.
 
+
+
+
 ### `rocksdb_force_compute_memtable_stats_cachetime`
 
 | Option       | Description                                      |
@@ -1514,6 +1936,9 @@ This provides better accuracy, but may reduce performance.
 Specifies for how long the cached value of memtable statistics should
 be used instead of computing it every time during the query plan analysis.
 
+
+
+
 ### `rocksdb_force_flush_memtable_and_lzero_now`
 
 | Option       | Description                                  |
@@ -1525,6 +1950,9 @@ be used instead of computing it every time during the query plan analysis.
 | Default      | OFF                                          |
 
 Works similar to `rocksdb_force_flush_memtable_now` but also flushes all L0 files.
+
+
+
 
 ### `rocksdb_force_flush_memtable_now`
 
@@ -1542,6 +1970,9 @@ Forces MyRocks to immediately flush all memtables out to data files.
 
     Use with caution! Write requests will be blocked until all memtables are flushed.
 
+
+
+
 ### `rocksdb_force_index_records_in_range`
 
 | Option       | Description                            |
@@ -1558,6 +1989,9 @@ Default value is `1`.
 Allowed range is from `0` to `2147483647`.
 Set to `0` if you do not want to override the returned value.
 
+
+
+
 ### `rocksdb_hash_index_allow_collision`
 
 | Option       | Description                          |
@@ -1572,6 +2006,9 @@ Specifies whether hash collisions are allowed.
 Enabled by default, which uses less memory.
 If disabled, full prefix is stored to prevent hash collisions.
 
+
+
+
 ### `rocksdb_ignore_unknown_options`
 
 | Option       | Description |
@@ -1583,6 +2020,9 @@ If disabled, full prefix is stored to prevent hash collisions.
 | Default      | ON          |
 
 When enabled, it allows RocksDB to receive unknown options and not exit.
+
+
+
 
 ### `rocksdb_index_type`
 
@@ -1599,6 +2039,9 @@ Specifies the type of indexing used by MyRocks:
 * `kBinarySearch`: Binary search (default).
 
 * `kHashSearch`: Hash search.
+
+
+
 
 ### `rocksdb_info_log_level`
 
@@ -1624,6 +2067,42 @@ log messages)
 
 * `fatal_level`: Minimum logging (only fatal error messages logged)
 
+
+
+### `rocksdb_invalid_create_option_action`
+
+| Option                                | Description                                                                           |
+|---------------------------------------|---------------------------------------------------------------------------------------|
+| Command-line                          | --rocksdb-invalid-create-option-action                                                |
+| Dynamic                               | Yes                                                                                   |
+| Scope                                 | Global                                                                                |
+| Data type                             | Enum: LOG, PUSH_WARNING, PUSH_ERROR                                                   |
+| Default                               | LOG                                                                                   |
+
+**[ADDED: Percona Server for MySQL 8.4.5-5]**
+
+Controls the behavior when creating a table encounters an error related to
+RocksDB options. You can choose to only log the error, pass the query and
+give users a warning, or fail the query.
+
+
+### `rocksdb_io_error_action`
+
+| Option                      | Description                                                                           |
+|-----------------------------|---------------------------------------------------------------------------------------|
+| Command-line                | --rocksdb-io-error-action                                                           |
+| Dynamic                     | Yes                                                                                   |
+| Scope                       | Global                                                                                |
+| Data type                   | Enum: ABORT_SERVER, IGNORE_ERROR                                                      |
+| Default                     | ABORT_SERVER                                                                        |
+
+**[ADDED: Percona Server for MySQL 8.4.5-5]**
+
+Controls the behavior when an I/O error occurs within RocksDB. By default,
+MyRocks aborts the server and refuses to start. Setting this option to
+`IGNORE_ERROR` suppresses the error instead.
+
+
 ### `rocksdb_is_fd_close_on_exec`
 
 | Option       | Description                   |
@@ -1637,19 +2116,8 @@ log messages)
 Specifies whether child processes should inherit open file jandles.
 Enabled by default.
 
-### `rocksdb_large_prefix`
 
-| Option       | Description            |
-|--------------|------------------------|
-| Command-line | --rocksdb-large-prefix |
-| Dynamic      | Yes                    |
-| Scope        | Global                 |
-| Data type    | Boolean                |
-| Default      | ON                     |
 
-This variable is deprecated in `Percona Server for MySQL 8.3.0-1` and will be removed in a future release.
-
-When enabled, this option allows index key prefixes longer than 767 bytes (up to 3072 bytes). The values for `rocksdb_large_prefix` should be the same between source and replica.
 
 ### `rocksdb_keep_log_file_num`
 
@@ -1665,6 +2133,28 @@ Specifies the maximum number of info log files to keep.
 Default value is `1000`.
 Allowed range is from `1` to `18446744073709551615`.
 
+
+
+
+### `rocksdb_large_prefix`
+
+| Option       | Description            |
+|--------------|------------------------|
+| Command-line | --rocksdb-large-prefix |
+| Dynamic      | Yes                    |
+| Scope        | Global                 |
+| Data type    | Boolean                |
+| Default      | ON                     |
+
+**[Removed: 8.4.5-5]** As of Percona Server for MySQL 8.4.5-5, the `rocksdb_large_prefix` variable has been removed.
+
+This variable is deprecated in `Percona Server for MySQL 8.3.0-1` and will be removed in a future release.
+
+When enabled, this option allows index key prefixes longer than 767 bytes (up to 3072 bytes). The values for `rocksdb_large_prefix` should be the same between source and replica.
+
+
+
+
 ### `rocksdb_lock_scanned_rows`
 
 | Option       | Description                 |
@@ -1678,6 +2168,9 @@ Allowed range is from `1` to `18446744073709551615`.
 Specifies whether to hold the lock on rows that are scanned during `UPDATE`
 and not actually updated.
 Disabled by default.
+
+
+
 
 ### `rocksdb_lock_wait_timeout`
 
@@ -1694,6 +2187,9 @@ before aborting the request.
 Default value is `1`.
 Allowed range is up to `1073741824`.
 
+
+
+
 ### `rocksdb_log_file_time_to_roll`
 
 | Option       | Description                     |
@@ -1707,6 +2203,9 @@ Allowed range is up to `1073741824`.
 Specifies the period (in seconds) for rotating the info log files.
 Default value is `0`, meaning that the log file is not rotated.
 Allowed range is up to `18446744073709551615`.
+
+
+
 
 ### `rocksdb_manifest_preallocation_size`
 
@@ -1728,6 +2227,9 @@ Allowed range is up to `18446744073709551615`.
 
     A value of `4194304` (4 MB) is reasonable to reduce random I/O on XFS.
 
+
+
+
 ### `rocksdb_manual_compaction_bottommost_level`
 
 | Option       | Description                                  |
@@ -1748,7 +2250,7 @@ Option for bottommost level compaction during manual compaction:
 
 * kForceOptimized -  Always compact bottommost level but in bottommost level avoid double-compacting files created in the same compaction
   
-### rocksdb_manual_compaction_threads
+### `rocksdb_manual_compaction_threads`
 
 | Option        | Description                         |
 | ------------- | ----------------------------------- |
@@ -1759,6 +2261,9 @@ Option for bottommost level compaction during manual compaction:
 | Default       | 0                                   |
 
 The variable defines the number of RocksDB threads to run for a manual compaction. The minimum value is 0. The maximum value is 120. 
+
+
+
 
 ### `rocksdb_manual_wal_flush`
 
@@ -1772,6 +2277,9 @@ The variable defines the number of RocksDB threads to run for a manual compactio
 
 This variable can be used to disable automatic/timed WAL flushing and instead
 rely on the application to do the flushing.
+
+
+
 
 ### `rocksdb_master_skip_tx_api`
 
@@ -1789,6 +2297,9 @@ When enabled, uses the WriteBatch API, which is faster. The session does not hol
 
     Due to the disabled row locks, improper use of the variable can cause data corruption or inconsistency.
 
+
+
+
 ### `rocksdb_max_background_compactions`
 
 | Option       | Description                          |
@@ -1805,6 +2316,9 @@ This variable was replaced
 by rocksdb_max_background_jobs, which automatically decides how
 many threads to allocate towards flush/compaction.
 
+
+
+
 ### `rocksdb_max_background_flushes`
 
 | Option       | Description                      |
@@ -1820,6 +2334,9 @@ The default value is `-1`. The allowed range is `-1` to `64`.
 This variable has been replaced
 by rocksdb_max_background_jobs, which automatically decides how
 many threads to allocate towards flush/compaction.
+
+
+
 
 ### `rocksdb_max_background_jobs`
 
@@ -1838,6 +2355,9 @@ how many threads to allocate towards flush/compaction. It was implemented to
 reduce the number of (confusing) options users and can tweak and push the
 responsibility down to RocksDB level.
 
+
+
+
 ### `rocksdb_max_bottom_pri_background_compactions`
 
 | Option       | Description                                     |
@@ -1850,6 +2370,9 @@ responsibility down to RocksDB level.
 Creates a specified number of threads, sets a lower CPU priority, and letting compactions use them. The maximum compaction concurrency is capped by `rocksdb_max_background_compactions` or `rocksdb_max_background_jobs`
 
 The minimum value is `0` and the maximum value is `64`.
+
+
+
 
 ### `rocksdb_max_compaction_history`
 
@@ -1865,6 +2388,9 @@ The minimum value is `0` and the maximum value is `UINT64_MAX`.
 
 Tracks the history for at most `rockdb_mx_compaction_history` completed compactions. The history is in the INFORMATION_SCHEMA.ROCKSDB_COMPACTION_HISTORY table.
 
+
+
+
 ### `rocksdb_max_file_opening_threads`
 
 | Option       | Description                                     |
@@ -1879,6 +2405,9 @@ This variable has been implemented in [Percona Server for MySQL 8.3.0-1](https:/
 
 This variable sets `DBOptions::max_file_opening_threads` for RocksDB. The default value is `16`. The minimum value is `1` and the maximum value is 2147483647 (`INT_MAX`).
 
+
+
+
 ### `rocksdb_max_latest_deadlocks`
 
 | Option       | Description                    |
@@ -1890,6 +2419,9 @@ This variable sets `DBOptions::max_file_opening_threads` for RocksDB. The defaul
 | Default      | 5                              |
 
 Specifies the maximum number of recent deadlocks to store.
+
+
+
 
 ### `rocksdb_max_log_file_size`
 
@@ -1908,6 +2440,9 @@ Allowed range is up to `18446744073709551615`.
 
 Also see rocksdb_log_file_time_to_roll.
 
+
+
+
 ### `rocksdb_max_manifest_file_size`
 
 | Option       | Description                      |
@@ -1923,6 +2458,9 @@ after which it is rotated.
 Default value is also the maximum, making it practically unlimited:
 only one manifest file is used.
 
+
+
+
 ### `rocksdb_max_manual_compactions`
 
 | Option       | Description                      |
@@ -1934,6 +2472,9 @@ only one manifest file is used.
 | Default      | 10                               |
 
 The variable defines the maximum number of pending plus ongoing manual compactions. The default value and the minimum value is 0. The maximum value is 4294967295 (UNIT_MAX).
+
+
+
 
 ### `rocksdb_max_open_files`
 
@@ -1958,6 +2499,9 @@ Finally, `-1` means no limit, i.e. an infinite number of file handles.
 
     Setting rocksdb_max_open_files to `-1` is dangerous, as the server may quickly run out of file handles in this case.
 
+
+
+
 ### `rocksdb_max_row_locks`
 
 | Option       | Description             |
@@ -1973,6 +2517,9 @@ before it fails.
 Default value is also the maximum, making it practically unlimited:
 transactions never fail due to row locks.
 
+
+
+
 ### `rocksdb_max_subcompactions`
 
 | Option       | Description                  |
@@ -1986,6 +2533,9 @@ transactions never fail due to row locks.
 Specifies the maximum number of threads allowed for each compaction job.
 Default value of `1` means no subcompactions (one thread per compaction job).
 Allowed range is up to `64`.
+
+
+
 
 ### `rocksdb_max_total_wal_size`
 
@@ -2001,6 +2551,9 @@ Specifies the maximum total size of WAL (write-ahead log) files,
 after which memtables are flushed.
 Default value is `2 GB`
 The allowed range is up to `9223372036854775807`.
+
+
+
 
 ### `rocksdb_merge_buf_size`
 
@@ -2020,6 +2573,9 @@ These values are sorted using merge-sort,
 with buffers set to 64 MB by default (`67108864`).
 Allowed range is from `100` to `18446744073709551615`.
 
+
+
+
 ### `rocksdb_merge_combine_read_size`
 
 | Option       | Description                       |
@@ -2036,6 +2592,9 @@ as described in rocksdb_merge_buf_size.
 Default size is 1 GB (`1073741824`).
 Allowed range is from `100` to `18446744073709551615`.
 
+
+
+
 ### `rocksdb_merge_tmp_file_removal_delay_ms`
 
 | Option       | Description                               |
@@ -2051,6 +2610,9 @@ secondary index creation, merge files are removed. By default, the file removal
 is done without any sleep, so removing GBs of merge files within <1s may
 happen, which will cause trim stalls on Flash. This variable can be used to
 rate limit the delay in milliseconds.
+
+
+
 
 ### `rocksdb_new_table_reader_for_compaction_inputs`
 
@@ -2069,6 +2631,9 @@ Enabling this may increase memory consumption,
 but will also allow pre-fetch options to be specified for compaction
 input files without impacting table readers used for user queries.
 
+
+
+
 ### `rocksdb_no_block_cache`
 
 | Option       | Description              |
@@ -2082,6 +2647,9 @@ input files without impacting table readers used for user queries.
 Specifies whether to disable the block cache for column families.
 Variable is disabled by default,
 meaning that using the block cache is allowed.
+
+
+
 
 ### `rocksdb_no_create_column_family`
 
@@ -2104,6 +2672,9 @@ If rocksdb_no_create_column_family is set to YES, no new column family will be c
 placed into the default column family. A warning is issued in this case informing that
 the specified column family does not exist and cannot be created.
 
+
+
+
 ### `rocksdb_override_cf_options`
 
 | Option       | Description                   |
@@ -2116,6 +2687,9 @@ the specified column family does not exist and cannot be created.
 
 Specifies option overrides for each column family.
 Empty by default.
+
+
+
 
 ### `rocksdb_paranoid_checks`
 
@@ -2130,6 +2704,30 @@ Empty by default.
 Specifies whether MyRocks should re-read the data file
 as soon as it is created to verify correctness.
 Enabled by default.
+
+
+
+
+### `rocksdb_partial_index_blind_delete`
+
+| Option       | Description                  |
+|--------------|------------------------------|
+| Command-line | --rocksdb_partial_index_blind_delete |
+| Dynamic      | Yes                          |
+| Scope        | Global                       |
+| Data type    | Boolean                      |
+| Default      | ON                           |
+
+If enabled, the server does not read from the partial index to check if the key exists before 
+deleting the partial index and the delete marker is unconditionally written.
+
+If the variable is disabled (OFF), the server always reads from partial index to check if key exists before 
+deleting the partial index. 
+
+This variable is enabled (ON) by default.
+
+
+
 
 ### `rocksdb_partial_index_ignore_killed`
 
@@ -2147,6 +2745,9 @@ If this variable is set to `ON`, the partial index materialization ignores the k
 
 The dafault value is `ON` which means this variable is enabled.
 
+
+
+
 ### `rocksdb_partial_index_sort_max_mem`
 
 | Option       | Description               |
@@ -2158,6 +2759,9 @@ The dafault value is `ON` which means this variable is enabled.
 | Default      | 0                        |
 
 Maximum memory to use when sorting an unmaterialized group for partial indexes. The 0(zero) value is defined as no limit.
+
+
+
 
 ### `rocksdb_pause_background_work`
 
@@ -2182,23 +2786,8 @@ for the MyRocks MTR test suites.
     blocked indefinitely until rocksdb_pause_background_work
     is set to `0`.
 
-### `rocksdb_partial_index_blind_delete`
 
-| Option       | Description                  |
-|--------------|------------------------------|
-| Command-line | --rocksdb_partial_index_blind_delete |
-| Dynamic      | Yes                          |
-| Scope        | Global                       |
-| Data type    | Boolean                      |
-| Default      | ON                           |
 
-If enabled, the server does not read from the partial index to check if the key exists before 
-deleting the partial index and the delete marker is unconditionally written.
-
-If the variable is disabled (OFF), the server always reads from partial index to check if key exists before 
-deleting the partial index. 
-
-This variable is enabled (ON) by default.
 
 ### `rocksdb_perf_context_level`
 
@@ -2222,6 +2811,9 @@ The allowed range is up to `5`.
 | 4 | Enable count stats and time stats, except for wall time or CPU time for mutexes |
 | 5 | Enable all count stats and time stats |
 
+
+
+
 ### `rocksdb_persistent_cache_path`
 
 | Option       | Description                     |
@@ -2234,6 +2826,9 @@ The allowed range is up to `5`.
 
 Specifies the path to the persistent cache.
 Set this together with rocksdb_persistent_cache_size_mb.
+
+
+
 
 ### `rocksdb_persistent_cache_size_mb`
 
@@ -2250,6 +2845,9 @@ Default is `0` (persistent cache disabled).
 Allowed range is up to `18446744073709551615`.
 Set this together with rocksdb_persistent_cache_path.
 
+
+
+
 ### `rocksdb_pin_l0_filter_and_index_blocks_in_cache`
 
 | Option       | Description                                       |
@@ -2264,6 +2862,9 @@ Specifies whether MyRocks pins the filter and index blocks in the cache
 if rocksdb_cache_index_and_filter_blocks is enabled.
 Enabled by default.
 
+
+
+
 ### `rocksdb_print_snapshot_conflict_queries`
 
 | Option       | Description                               |
@@ -2277,6 +2878,9 @@ Enabled by default.
 Specifies whether queries that generate snapshot conflicts
 should be logged to the error log.
 Disabled by default.
+
+
+
 
 ### `rocksdb_protection_bytes_per_key`
 
@@ -2294,6 +2898,9 @@ The minimum value is `0`.
 
 The maximum value is `ULONG_MAX (0xFFFFFFFF)`.
 
+
+
+
 ### `rocksdb_rate_limiter_bytes_per_sec`
 
 | Option       | Description                          |
@@ -2308,6 +2915,9 @@ Specifies the maximum rate at which MyRocks can write to media
 via memtable flushes and compaction.
 Default value is `0` (write rate is not limited).
 Allowed range is up to `9223372036854775807`.
+
+
+
 
 ### `rocksdb_read_free_rpl`
 
@@ -2329,6 +2939,9 @@ The options are the following:
 
 * PK_ONLY - Enables the variable on tables where the only key is the primary key
 
+
+
+
 ### `rocksdb_read_free_rpl_tables`
 
 | Option       | Description                    |
@@ -2346,6 +2959,9 @@ that should use read-free replication on the replica
 (that is, replication without row lookups).
 Empty by default.
 
+
+
+
 ### `rocksdb_records_in_range`
 
 | Option       | Description                |
@@ -2360,6 +2976,9 @@ Specifies the value to override the result of `records_in_range()`.
 Default value is `0`.
 Allowed range is up to `2147483647`.
 
+
+
+
 ### `rocksdb_reset_stats`
 
 | Option       | Description           |
@@ -2373,6 +2992,9 @@ Allowed range is up to `2147483647`.
 Resets MyRocks internal statistics dynamically
 (without restarting the server).
 
+
+
+
 ### `rocksdb_rollback_on_timeout`
 
 | Option       | Description                   |
@@ -2384,6 +3006,9 @@ Resets MyRocks internal statistics dynamically
 | Default      | OFF                           |
 
 By default, only the last statement on a transaction is rolled back. If `--rocksdb-rollback-on-timeout=ON`, a transaction timeout causes a rollback of the entire transaction.
+
+
+
 
 ### `rocksdb_rpl_skip_tx_api`
 
@@ -2403,6 +3028,9 @@ There are two conditions which are necessary to
 use it: row replication format and replica
 operating in super read only mode.
 
+
+
+
 ### `rocksdb_seconds_between_stat_computes`
 
 | Option       | Description                             |
@@ -2419,6 +3047,9 @@ During that time, only changed indexes are updated.
 Default value is `3600`.
 Allowed is from `0` to `4294967295`.
 
+
+
+
 ### `rocksdb_signal_drop_index_thread`
 
 | Option       | Description                        |
@@ -2430,6 +3061,9 @@ Allowed is from `0` to `4294967295`.
 | Default      | OFF                                |
 
 Signals the MyRocks drop index thread to wake up.
+
+
+
 
 ### `rocksdb_sim_cache_size`
 
@@ -2444,6 +3078,9 @@ Signals the MyRocks drop index thread to wake up.
 Enables the simulated cache, which allows us to figure out the hit/miss rate
 with a specific cache size without changing the real block cache.
 
+
+
+
 ### `rocksdb_skip_bloom_filter_on_read`
 
 | Option       | Description                         |
@@ -2456,6 +3093,9 @@ with a specific cache size without changing the real block cache.
 
 Specifies whether bloom filters should be skipped on reads.
 Disabled by default (bloom filters are not skipped).
+
+
+
 
 ### `rocksdb_skip_fill_cache`
 
@@ -2470,6 +3110,9 @@ Disabled by default (bloom filters are not skipped).
 Specifies whether to skip caching data on read requests.
 Disabled by default (caching is not skipped).
 
+
+
+
 ### `rocksdb_skip_locks_if_skip_unique_check`
 
 | Option       | Description                             |
@@ -2481,6 +3124,9 @@ Disabled by default (caching is not skipped).
 | Default      | OFF                                     |
 
 Skip row locking when unique checks are disabled.
+
+
+
 
 ### `rocksdb_sst_mgr_rate_bytes_per_sec`
 
@@ -2495,6 +3141,9 @@ Skip row locking when unique checks are disabled.
 Specifies the maximum rate for writing to data files.
 Default value is `0`. This option is not effective on HDD.
 Allowed range is from `0` to `18446744073709551615`.
+
+
+
 
 ### `rocksdb_stats_dump_period_sec`
 
@@ -2511,6 +3160,9 @@ to the info log.
 Default value is `600`.
 Allowed range is up to `2147483647`.
 
+
+
+
 ### `rocksdb_stats_level`
 
 | Option       | Description           |
@@ -2522,6 +3174,9 @@ Allowed range is up to `2147483647`.
 | Default      | 0                     |
 
 Controls the RocksDB statistics level. The default value is “0” (kExceptHistogramOrTimers), which is the fastest level. The maximum value is “4”.
+
+
+
 
 ### `rocksdb_stats_recalc_rate`
 
@@ -2536,6 +3191,9 @@ Controls the RocksDB statistics level. The default value is “0” (kExceptHist
 Specifies the number of indexes to recalculate per second. Recalculating index statistics periodically ensures it to match the actual sum from SST files.
 Default value is `0`. Allowed range is up to `4294967295`.
 
+
+
+
 ### `rocksdb_store_row_debug_checksums`
 
 | Option       | Description                         |
@@ -2549,6 +3207,9 @@ Default value is `0`. Allowed range is up to `4294967295`.
 Specifies whether to include checksums when writing index or table records.
 Disabled by default.
 
+
+
+
 ### `rocksdb_strict_collation_check`
 
 | Option       | Description                      |
@@ -2559,13 +3220,14 @@ Disabled by default.
 | Data type    | Boolean                          |
 | Default      | ON                               |
 
-This variable is removed in [Percona Server for MySQL 8.2.0-1](https://docs.percona.com/percona-server/innovation-release/release-notes/8.2.0-1.html).
-
-This variable is considered **deprecated** in Percona Server for MySQL 8.0.23-14.
+**[Removed: 8.4.5-5]** As of Percona Server for MySQL 8.4.5-5, the `rocksdb_strict_collation_check` variable has been removed.
 
 Specifies whether to check and verify
 that table indexes have proper collation settings.
 Enabled by default.
+
+
+
 
 ### `rocksdb_strict_collation_exceptions`
 
@@ -2577,14 +3239,15 @@ Enabled by default.
 | Data type    | String                                |
 | Default      |                                       |
 
-This variable is removed in [Percona Server for MySQL 8.2.0-1](https://docs.percona.com/percona-server/innovation-release/release-notes/8.2.0-1.html).
-
-This variable is considered **deprecated** in Percona Server for MySQL 8.0.23-14.
+**[Removed: 8.4.5-5]** As of Percona Server for MySQL 8.4.5-5, the `rocksdb_strict_collation_exceptions` variable has been removed.
 
 Lists tables (as a regular expression) that should be excluded
 from verifying case-sensitive collation
 enforced by rocksdb_strict_collation_check.
 Empty by default.
+
+
+
 
 ### `rocksdb_table_cache_numshardbits`
 
@@ -2600,6 +3263,9 @@ Specifies the number if table caches.
 The default value is `6`.
 The allowed range is from `0` to `19`.
 
+
+
+
 ### `rocksdb_table_stats_background_thread_nice_value`
 
 | Option       | Description                                        |
@@ -2613,6 +3279,9 @@ The allowed range is from `0` to `19`.
 The nice value for index stats.
 The minimum = -20 (THREAD_PRIO_MIN)
 The maximum = 19 (THREAD_PRIO_MAX)
+
+
+
 
 ### `rocksdb_table_stats_max_num_rows_scanned`
 
@@ -2629,6 +3298,9 @@ a cardinality calculation.
 The minimum is `0` (every modification triggers a stats recalculation).
 The maximum is `18,446,744,073,709,551,615`.
 
+
+
+
 ### `rocksdb_table_stats_recalc_threshold_count`
 
 | Option       | Description                                  |
@@ -2643,6 +3315,9 @@ The number of modified rows to trigger a stats recalculation. This is a
 dependent variable for stats recalculation.
 The minimum is `0`.
 The maximum is `18,446,744,073,709,551,615`.
+
+
+
 
 ### `rocksdb_table_stats_recalc_threshold_pct`
 
@@ -2660,6 +3335,9 @@ recalculation.
 The minimum value is `0`
 The maximum value is `100` (RDB_TBL_STATS_RECALC_THRESHOLD_PCT_MAX).
 
+
+
+
 ### `rocksdb_table_stats_sampling_pct`
 
 | Option       | Description                        |
@@ -2675,6 +3353,24 @@ when collecting statistics about table properties.
 Default value is `10`.
 Allowed range is from `0` to `100`.
 
+
+
+### `rocksdb_table_stats_skip_system_cf`
+
+| Option                            | Description                                                                           |
+|-----------------------------------|---------------------------------------------------------------------------------------|
+| Command-line                      | --rocksdb-table-stats-skip-system-cf                                                  |
+| Dynamic                           | Yes                                                                                   |
+| Scope                             | Global                                                                                |
+| Data type                         | Boolean                                                                               |
+| Default                           | OFF                                                                                   |
+
+**[ADDED: Percona Server for MySQL 8.4.5-5]**
+
+Determines whether to skip recording table statistics for the system column
+family.
+
+
 ### `rocksdb_table_stats_use_table_scan`
 
 | Option       | Description                          |
@@ -2686,6 +3382,9 @@ Allowed range is from `0` to `100`.
 | Default      | OFF.                                 |
 
 Enables table-scan-based index calculations. The default value is `OFF`.
+
+
+
 
 ### `rocksdb_tmpdir`
 
@@ -2699,6 +3398,9 @@ Enables table-scan-based index calculations. The default value is `OFF`.
 
 Specifies the path to the directory for temporary files during DDL operations.
 
+
+
+
 ### `rocksdb_trace_block_cache_access`
 
 | Option       | Description                        |
@@ -2711,6 +3413,9 @@ Specifies the path to the directory for temporary files during DDL operations.
 
 Defines the block cache trace option string. The format is sampling frequency: max_trace_file_size:trace_file_name. The sampling frequency value and max_trace_file_size value are positive integers. The block accesses are saved to the `rocksdb_datadir/block_cache_traces/trace_file_name`. The default value is an empty string.
 
+
+
+
 ### `rocksdb_trace_queries`
 
 | Option       | Description             |
@@ -2722,6 +3427,9 @@ Defines the block cache trace option string. The format is sampling frequency: m
 | Default      | &quot;&quot;            |
 
 This variable is a trace option string. The format is sampling_frequency:max_trace_file_size:trace_file_name. The sampling_frequency and max_trace_file_size are positive integers. The queries are saved to the rocksdb_datadir/queries_traces/trace_file_name.
+
+
+
 
 ### `rocksdb_trace_sst_api`
 
@@ -2737,6 +3445,9 @@ Specifies whether to generate trace output in the log
 for each call to `SstFileWriter`.
 Disabled by default.
 
+
+
+
 ### `rocksdb_track_and_verify_wals_in_manifest`
 
 | Option       | Description                                 |
@@ -2748,6 +3459,9 @@ Disabled by default.
 | Default      | ON                                          |
 
 DBOptions::track_and_verify_wals_in_manifest for RocksDB.
+
+
+
 
 ### `rocksdb_two_write_queues`
 
@@ -2761,6 +3475,9 @@ DBOptions::track_and_verify_wals_in_manifest for RocksDB.
 
 When enabled this variable allows/encourages threads that are using
 two-phase commit to `prepare` in parallel.
+
+
+
 
 ### `rocksdb_unsafe_for_binlog`
 
@@ -2776,6 +3493,9 @@ Specifies whether to allow statement-based binary logging
 which may break consistency.
 Disabled by default.
 
+
+
+
 ### `rocksdb_update_cf_options`
 
 | Option       | Description                 |
@@ -2788,6 +3508,9 @@ Disabled by default.
 
 Specifies option updates for each column family.
 Empty by default.
+
+
+
 
 ### `rocksdb_use_adaptive_mutex`
 
@@ -2802,6 +3525,9 @@ Empty by default.
 Specifies whether to use adaptive mutex which spins in user space before
 resorting to the kernel. Disabled by default.
 
+
+
+
 ### `rocksdb_use_default_sk_cf`
 
 | Option       | Description                 |
@@ -2813,6 +3539,9 @@ resorting to the kernel. Disabled by default.
 | Default      | OFF                         |
 
 Use `default_sk` column family for secondary keys.
+
+
+
 
 ### `rocksdb_use_direct_io_for_flush_and_compaction`
 
@@ -2827,6 +3556,9 @@ Use `default_sk` column family for secondary keys.
 Specifies whether to write to data files directly,
 without caches or buffers.
 Disabled by default.
+
+
+
 
 ### `rocksdb_use_direct_reads`
 
@@ -2844,6 +3576,9 @@ Disabled by default.
 If you enable this,
 make sure that rocksdb_allow_mmap_reads is disabled.
 
+
+
+
 ### `rocksdb_use_fsync`
 
 | Option       | Description         |
@@ -2857,6 +3592,9 @@ make sure that rocksdb_allow_mmap_reads is disabled.
 Specifies whether MyRocks should use `fsync` instead of `fdatasync`
 when requesting a sync of a data file.
 Disabled by default.
+
+
+
 
 ### `rocksdb_use_hyper_clock_cache`
 
@@ -2872,6 +3610,23 @@ If enabled, this variable uses HyperClockCache instead of default LRUCache for R
 
 This variable is disabled (OFF) by default.
 
+
+
+### `rocksdb_use_io_uring`
+
+| Option                  | Description                                                                           |
+|-------------------------|---------------------------------------------------------------------------------------|
+| Command-line            | --rocksdb-use-io-uring                                                                |
+| Dynamic                 | Yes                                                                                   |
+| Scope                   | Global                                                                                |
+| Data type               | Boolean                                                                               |
+| Default                 | OFF                                                                                   |
+
+**[ADDED: Percona Server for MySQL 8.4.5-5]**
+
+Enables the use of `io_uring` for RocksDB.
+
+
 ### `rocksdb_use_write_buffer_manager`
 
 | Option       | Description         |
@@ -2885,6 +3640,9 @@ This variable is disabled (OFF) by default.
 This variable is [tech preview](./glossary.md#tech-preview) and may be removed in the future releases.
 
 Allows to turn on the write buffer manager (WriteBufferManager) from `cnf` files. This variable is related to [`rocksdb_charge_memory`](#rocksdbchargememory).
+
+
+
 
 ### `rocksdb_validate_tables`
 
@@ -2907,6 +3665,9 @@ Specifies whether to verify that MySQL data dictionary is equal to the MyRocks d
 
 * `2`: verify and continue with error.
 
+
+
+
 ### `rocksdb_verify_row_debug_checksums`
 
 | Option       | Description                          |
@@ -2919,6 +3680,9 @@ Specifies whether to verify that MySQL data dictionary is equal to the MyRocks d
 
 Specifies whether to verify checksums when reading index or table records.
 Disabled by default.
+
+
+
 
 ### `rocksdb_wal_bytes_per_sync`
 
@@ -2936,6 +3700,9 @@ This operation can be used to smooth out write I/O over time.
 Default value is `0`, meaning that files are never synced.
 Allowed range is up to `18446744073709551615`.
 
+
+
+
 ### `rocksdb_wal_dir`
 
 | Option       | Description       |
@@ -2947,6 +3714,9 @@ Allowed range is up to `18446744073709551615`.
 | Default      |                   |
 
 Specifies the path to the directory where MyRocks stores WAL files.
+
+
+
 
 ### `rocksdb_wal_recovery_mode`
 
@@ -2971,6 +3741,9 @@ The following are the options:
 
 * `3`: If a corrupted WAL entry is detected, skip only the corrupted entry and continue the apply WAL entries. This option can be dangerous.
 
+
+
+
 ### `rocksdb_wal_size_limit_mb`
 
 | Option       | Description                 |
@@ -2986,6 +3759,9 @@ before attempting to flush memtables and delete the oldest files.
 Default value is `0` (never rotated).
 Allowed range is up to `9223372036854775807`.
 
+
+
+
 ### `rocksdb_wal_ttl_seconds`
 
 | Option       | Description               |
@@ -2999,6 +3775,9 @@ Allowed range is up to `9223372036854775807`.
 Specifies the timeout in seconds before deleting archived WAL files.
 Default is `0` (archived WAL files are never deleted).
 Allowed range is up to `9223372036854775807`.
+
+
+
 
 ### `rocksdb_whole_key_filtering`
 
@@ -3015,6 +3794,9 @@ instead of just the prefix.
 Enabled by default.
 Make sure that lookups use the whole key for matching.
 
+
+
+
 ### `rocksdb_write_batch_flush_threshold`
 
 | Option       | Description                           |
@@ -3026,6 +3808,9 @@ Make sure that lookups use the whole key for matching.
 | Default      | 0                                     |
 
 This variable specifies the maximum size of the write batch in bytes before flushing. Only valid if `rockdb_write_policy` is WRITE_UNPREPARED. There is no limit if the variable is set to the default setting.
+
+
+
 
 ### `rocksdb_write_batch_max_bytes`
 
@@ -3042,6 +3827,9 @@ limit. In case user exceeds the limit following error will be shown:
 `ERROR HY000: Status error 10 received from RocksDB: Operation aborted: Memory
 limit reached`.
 
+
+
+
 ### `rocksdb_write_disable_wal`
 
 | Option       | Description                 |
@@ -3055,6 +3843,9 @@ limit reached`.
 Lets you temporarily disable writes to WAL files,
 which can be useful for bulk loading.
 
+
+
+
 ### `rocksdb_write_ignore_missing_column_families`
 
 | Option       | Description                                    |
@@ -3067,6 +3858,9 @@ which can be useful for bulk loading.
 
 Specifies whether to ignore writes to column families that do not exist.
 Disabled by default (writes to non-existent column families are not ignored).
+
+
+
 
 ### `rocksdb_write_policy`
 
