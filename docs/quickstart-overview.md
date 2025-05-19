@@ -27,6 +27,8 @@ The following guides walk you through the setup process and working with a datab
 
 [Run Percona Server for MySQL 8.0 in a Docker container:material-arrow-right:](quickstart-docker.md){.md-button}
 
+[Run Percona Server for MySQL 8.0 in a Docker Compose container:material-arrow-right:](quickstart-docker-compose.md){.md-button}
+
 [Install using APT:material-arrow-right:](quickstart-apt.md){.md-button}
 
 [Install using DNF:material-arrow-right:](quickstart-dnf.md){.md-button}
