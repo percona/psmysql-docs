@@ -7099,7 +7099,7 @@
   
   
   <span class="md-ellipsis">
-    Enforcing storage engine
+    Enforce storage engine
     
   </span>
   
@@ -10924,7 +10924,7 @@
           <li class="md-nav__item">
   <a href="#enforce-engine" class="md-nav__link">
     <span class="md-ellipsis">
-      Enforcing storage engine
+      Enforce storage engine
     </span>
   </a>
   
@@ -37598,26 +37598,40 @@ exceeds innodb_compressed_columns_threshold, they will be stored in
 an uncompressed form (however, an attempt to compress them will still be made).</p>
 <p>This parameter can be tuned to skip unnecessary attempts of data
 compression for values that are known in advance by the user to have a bad
-compression ratio of their first N bytes.</p></section><section class="print-page" id="enforce-engine" heading-number="16.1.4"><h1 id="enforce-engine-enforcing-storage-engine">Enforcing storage engine<a class="headerlink" href="#enforce-engine-enforcing-storage-engine" title="Permanent link">&para;</a></h1>
-<p><em>Percona Server for MySQL</em> has implemented variable which can be used for enforcing the
-use of a specific storage engine.</p>
-<p>When this variable is specified and a user tries to create a table using an
-explicit storage engine that is not the specified enforced engine, the user
-will get either an error if the <code>NO_ENGINE_SUBSTITUTION</code> SQL mode is enabled
-or a warning if <code>NO_ENGINE_SUBSTITUTION</code> is disabled and the table
-will be created anyway using the enforced engine (this is consistent with the
-default <em>MySQL</em> way of creating the default storage engine if other engines
-are not available unless <code>NO_ENGINE_SUBSTITUTION</code> is set).</p>
-<p>In case user tries to enable <a href="#enforce-engine-enforce_storage_engine">enforce_storage_engine</a> with engine that isn’t available, system will not start.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you’re using enforce_storage_engine, you must either disable
-it before doing <code>mysql_upgrade</code> or perform <code>mysql_upgrade</code> with server
-started with <code>--skip-grants-tables</code>.</p>
-</div>
-<h2 id="enforce-engine-version-specific-information">Version specific information<a class="headerlink" href="#enforce-engine-version-specific-information" title="Permanent link">&para;</a></h2>
+compression ratio of their first N bytes.</p></section><section class="print-page" id="enforce-engine" heading-number="16.1.4"><h1 id="enforce-engine-enforce-storage-engine">Enforce storage engine<a class="headerlink" href="#enforce-engine-enforce-storage-engine" title="Permanent link">&para;</a></h1>
+<p>Percona Server for MySQL lets you enforce a specific storage engine for table creation. You do this with the <a href="#enforce-engine-enforce_storage_engine"><code>enforce_storage_engine</code></a> variable.</p>
+<h2 id="enforce-engine-benefits">Benefits<a class="headerlink" href="#enforce-engine-benefits" title="Permanent link">&para;</a></h2>
+<p>The option allows you to enforce a specific storage engine for all table creations. This ability can be useful for:</p>
+<p>When <code>enforce_storage_engine</code> is set, Percona Server behaves as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Benefit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ensuring consistency</td>
+<td>Prevents creating tables with different storage engines, ensuring consistent behavior and performance.</td>
+</tr>
+<tr>
+<td>Simplifying administration</td>
+<td>Centralizing the storage engine selection streamlines database administration procedures.</td>
+</tr>
+<tr>
+<td>Optimizing performance</td>
+<td>Improves performance when an application is designed for a specific storage engine.</td>
+</tr>
+<tr>
+<td>Compliance</td>
+<td>Enforces a specific storage engine to meet regulatory or compliance requirements.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="enforce-engine-version-information">Version information<a class="headerlink" href="#enforce-engine-version-information" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="#release-notes-percona-server-8.0.13-4-id1">Percona Server for MySQL 8.0.13-4</a>: The feature was ported from <em>Percona Server for MySQL</em> 5.7.</li>
+<li><a href="#release-notes-percona-server-8.0.13-4-id1">Percona Server for MySQL 8.0.13-4</a>: The feature was ported from Percona Server for MySQL 5.7.</li>
 </ul>
 <h2 id="enforce-engine-system-variables">System variables<a class="headerlink" href="#enforce-engine-system-variables" title="Permanent link">&para;</a></h2>
 <h3 id="enforce-engine-enforce_storage_engine"><code>enforce_storage_engine</code><a class="headerlink" href="#enforce-engine-enforce_storage_engine" title="Permanent link">&para;</a></h3>
@@ -37655,10 +37669,74 @@ started with <code>--skip-grants-tables</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is not case sensitive.</p>
+<p>This variable is not case-sensitive.</p>
+<p>When <code>enforce_storage_engine</code> is set, the server enforces specfic rules for table creation.</p>
+<p>If <a href="https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sqlmode_no_engine_substitution"><code>NO_ENGINE_SUBSTITUTION</code></a> SQL mode is enabled.</p>
+<p>The server enforces strict storage engine rules during table creation. If you specify a storage engine that differs from the enforced engine, the server will do the following:</p>
+<ul>
+<li>
+<p>Generates an error</p>
+</li>
+<li>
+<p>Does not create a table</p>
+</li>
+</ul>
+<p>If <a href="https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sqlmode_no_engine_substitution"><code>NO_ENGINE_SUBSTITUTION</code></a> SQL mode is disabled.</p>
+<p>When you specify a storage engine that differs from the enforced engine, the server does the following:</p>
+<ul>
+<li>
+<p>Creates the table using the enforced storage engine</p>
+</li>
+<li>
+<p>Issues a warning about engine substitution</p>
+</li>
+</ul>
+<p>You can check the current SQL mode settings:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>@sql_mode<span class="p">;</span>
+</code></pre></div>
+<p>The server requires a valid storage engine setting for <code>enforce_storage_engine</code>. If the storage engine is not available, the server does not start.</p>
+<p>You can check the available storage engines with the following command:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>ENGINES<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Engine      | Support | Comment
+------------|---------|------------------
+InnoDB      | DEFAULT | Supports transactions, foreign keys
+MyISAM      | YES     | MySQL storage engine
+MEMORY      | YES     | Hash based, stored in memory
+CSV         | YES     | CSV storage engine
+ARCHIVE     | YES     | Archive storage engine
+</code></pre></div>
+</details>
+<p>The <code>Support</code> column indicates the following:</p>
+<ul>
+<li>
+<p><code>DEFAULT</code>: The default engine</p>
+</li>
+<li>
+<p><code>YES</code>: Engine is supported</p>
+</li>
+<li>
+<p><code>NO</code>: Engine is not supported</p>
+</li>
+<li>
+<p><code>DISABLED</code>: Engine is disabled</p>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If you use <code>enforce_storage_engine</code>, you must either disable
+it before doing <code>mysql_upgrade</code> or run <code>mysql_upgrade</code> with the server
+started with the <code>--skip-grants-tables</code> option.</p>
+</div>
 <h2 id="enforce-engine-example">Example<a class="headerlink" href="#enforce-engine-example" title="Permanent link">&para;</a></h2>
-<p>Adding following option to <a href="#glossary-my.cnf">my.cnf</a> will start the server with InnoDB as enforced storage engine.</p>
-<div class="highlight"><pre><span></span><code>enforce_storage_engine=InnoDB
+<p>To enforce the InnoDB storage engine, add this option to your <a href="#glossary-my.cnf">my.cnf</a> file:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">enforce_storage_engine</span><span class="o">=</span><span class="s">InnoDB</span>
+</code></pre></div>
+<p>Changes to the <code>my.cnf</code> do not affect a running server. You must restart the server for the change to take effect:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
 </code></pre></div></section><section class="print-page" id="improved-memory-engine" heading-number="16.1.5"><h1 id="improved-memory-engine-improved-memory-storage-engine">Improved MEMORY storage engine<a class="headerlink" href="#improved-memory-engine-improved-memory-storage-engine" title="Permanent link">&para;</a></h1>
 <p>As of <code>MySQL</code> 5.5.15, a <em>Fixed Row Format</em> (<code>FRF</code>) is still being used in the <code>MEMORY</code> storage engine. The fixed row format imposes restrictions on the type of columns as it assigns in advance a limited amount of memory per row. This renders a <code>VARCHAR</code> field in a <code>CHAR</code> field in practice and makes it impossible to have a <code>TEXT</code> or <code>BLOB</code> field with that engine implementation.</p>
 <p>To overcome this limitation, the <em>Improved MEMORY Storage Engine</em> is introduced in this release for supporting <strong>true</strong> <code>VARCHAR</code>, <code>VARBINARY</code>, <code>TEXT</code>, and <code>BLOB</code> fields in the <code>MEMORY</code> tables.</p>
