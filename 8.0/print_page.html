@@ -2878,6 +2878,8 @@
       
         
       
+        
+      
     
     
     
@@ -2945,6 +2947,29 @@
   
   <span class="md-ellipsis">
     Run Percona Server for MySQL in a Docker container
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart-docker-compose.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Run Percona Server for MySQL with Docker Compose
     
   </span>
   
@@ -9486,6 +9511,15 @@
   <a href="#quickstart-docker" class="md-nav__link">
     <span class="md-ellipsis">
       Run Percona Server for MySQL in a Docker container
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quickstart-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run Percona Server for MySQL with Docker Compose
     </span>
   </a>
   
@@ -19482,6 +19516,7 @@ a server upgrade which changed the trigger syntax.</p></section><section class="
 <p>The following guides walk you through the setup process and working with a database for a developer. Select the installation method that works best in your environment.</p>
 <h2 id="quickstart-overview-next-steps">Next steps<a class="headerlink" href="#quickstart-overview-next-steps" title="Permanent link">&para;</a></h2>
 <p><a class="md-button" href="#quickstart-docker">Run Percona Server for MySQL 8.0 in a Docker container<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p>
+<p><a class="md-button" href="#quickstart-docker-compose">Run Percona Server for MySQL 8.0 in a Docker Compose container<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p>
 <p><a class="md-button" href="#quickstart-apt">Install using APT<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p>
 <p><a class="md-button" href="#quickstart-dnf">Install using DNF<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p>
 <p><a class="md-button" href="#quickstart-next-steps">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p></section><section class="print-page" id="quickstart-docker" heading-number="6.2"><h1 id="quickstart-docker-run-percona-server-for-mysql-in-a-docker-container">Run Percona Server for MySQL in a Docker container<a class="headerlink" href="#quickstart-docker-run-percona-server-for-mysql-in-a-docker-container" title="Permanent link">&para;</a></h1>
@@ -19864,7 +19899,661 @@ Deleted: sha256:db9672f7e12e374d5e9016b758a29d5444e8b0fd1246a6f1fc5c2b3c847dddcf
 </ul>
 <p>Remember, responsible container management and robust security practices are crucial for safeguarding your MySQL deployment. By following these guidelines, you can leverage the benefits of Docker and Percona Server while prioritizing the integrity and security of your data.</p>
 <h2 id="quickstart-docker-next-step">Next step<a class="headerlink" href="#quickstart-docker-next-step" title="Permanent link">&para;</a></h2>
-<p><a class="md-button" href="#quickstart-next-steps">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p></section><section class="print-page" id="quickstart-apt" heading-number="6.3"><h1 id="quickstart-apt-install-with-apt">Install with APT<a class="headerlink" href="#quickstart-apt-install-with-apt" title="Permanent link">&para;</a></h1>
+<p><a class="md-button" href="#quickstart-next-steps">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p></section><section class="print-page" id="quickstart-docker-compose" heading-number="6.3"><h1 id="quickstart-docker-compose-run-percona-server-for-mysql-with-docker-compose">Run Percona Server for MySQL with Docker Compose<a class="headerlink" href="#quickstart-docker-compose-run-percona-server-for-mysql-with-docker-compose" title="Permanent link">&para;</a></h1>
+<p>You are welcome to name any items to match your organization’s standards or use your table structure and data. However, if you do, the results are different from the expected results.</p>
+<details class="example">
+<summary>Docker Compose benefits</summary>
+<p>Using a Docker Compose file offers several significant benefits for managing multi-container Docker applications.</p>
+<p>One key advantage is the simplified management of multi-container applications. A single <code>docker-compose.yml</code> file defines all the services, networks, and volumes your application requires. With a single command (<code>docker-compose up</code>), you can start and manage the entire stack rather than individually managing each container. This streamlines development, testing, and deployment workflows.</p>
+<p>Docker Compose also provides declarative configuration. You define your application&rsquo;s desired state in the <code>docker-compose.yml</code> file, and Docker Compose ensures that the Docker environment matches this configuration. This declarative approach makes understanding and reproducing your application’s setup easier.</p>
+<p>Furthermore, it enables service dependencies and linking. You can explicitly define dependencies between services in the Compose file. For example, you can specify that your web application service depends on the database service. Docker Compose ensures that dependencies are started in the correct order. Services can also easily communicate with each other using their service names as hostnames within the Docker network created by Compose.</p>
+<p>Another benefit is volume and network management. Docker Compose allows you to define and manage volumes for persistent data and networks for inter-container communication within the Compose file. This ability simplifies the creation and management of these essential Docker resources.</p>
+<p>Finally, Docker Compose promotes reproducibility and portability. The <code>docker-compose.yml</code> file is a blueprint for your application&rsquo;s environment. As long as Docker and Docker Compose are installed, you can easily spin up the same application stack on different machines or environments, ensuring consistency across development, testing, and production. This ability makes collaboration and deployment significantly easier.</p>
+</details>
+<h2 id="quickstart-docker-compose-prerequisites">Prerequisites<a class="headerlink" href="#quickstart-docker-compose-prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Docker Engine 24.0 or later</p>
+</li>
+<li>
+<p>Docker Compose v2.0 or later</p>
+</li>
+<li>
+<p>2GB RAM minimum</p>
+</li>
+<li>
+<p>10GB free disk space</p>
+</li>
+<li>
+<p>Internet connection</p>
+</li>
+</ul>
+<h2 id="quickstart-docker-compose-create-a-directory">Create a directory<a class="headerlink" href="#quickstart-docker-compose-create-a-directory" title="Permanent link">&para;</a></h2>
+<p>These commands create a directory and then navigate into the directory.</p>
+<p>These commands create a directory called <code>my-percona-server</code>  and then change the location to that directory. Any new files or folders you make will go into <code>my-percona-server</code>.</p>
+<p><strong>Try this now:</strong> Copy and paste the code into your terminal and execute it.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>my-percona-server
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>my-percona-server
+</code></pre></div>
+<h2 id="quickstart-docker-compose-add-a-docker-composeyml-file">Add a docker-compose.yml file<a class="headerlink" href="#quickstart-docker-compose-add-a-docker-composeyml-file" title="Permanent link">&para;</a></h2>
+<p>These options define the Docker Compose setup&rsquo;s services, resources, and configuration.</p>
+<ul>
+<li>
+<p>Defining a single service named <code>mysql</code>.</p>
+</li>
+<li>
+<p>Specifying the Docker image <code>percona/percona-server:8.0</code> to use for the <code>mysql</code> container.</p>
+</li>
+<li>
+<p>Explicitly naming the Docker container <code>percona-mysql</code>.</p>
+</li>
+<li>
+<p>Setting environment variables within the <code>mysql</code> container for configuration:</p>
+<ul>
+<li>
+<p>Using the value of the <code>MYSQL_ROOT_PASSWORD</code> environment variable for the MySQL root password.</p>
+</li>
+<li>
+<p>Using the value of the <code>MYSQL_DATABASE</code> environment variable for the initial database name.</p>
+</li>
+<li>
+<p>Using the value of the <code>MYSQL_USER</code> environment variable for a new MySQL user.</p>
+</li>
+<li>
+<p>Using the value of the <code>MYSQL_PASSWORD</code> environment variable for the new MySQL user&rsquo;s password.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Mapping the host port specified by <code>MYSQL_PORT</code> to port <code>3306</code> inside the <code>mysql</code> container.</p>
+</li>
+<li>
+<p>Create a named volume <code>mysql_data</code> and mount it to <code>/var/lib/mysql</code> inside the container for persistent data storage.</p>
+</li>
+<li>
+<p>Defining a top-level <code>volumes</code> section for named volumes.</p>
+</li>
+<li>
+<p>Defining a named volume called <code>mysql_data</code>.</p>
+</li>
+<li>
+<p>Specifying the <code>local</code> Docker volume driver for the <code>mysql_data</code> volume.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span><span class="w">                                                                       </span>
+<span class="w">  </span><span class="nt">mysql</span><span class="p">:</span><span class="w">                                                                        </span>
+<span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-server:8.0</span><span class="w">                                           </span>
+<span class="w">  </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona-mysql</span><span class="w">                                               </span>
+<span class="w">  </span><span class="nt">environment</span><span class="p">:</span><span class="w">                                                               </span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}</span><span class="w">                              </span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_DATABASE=${MYSQL_DATABASE}</span><span class="w">                                        </span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_USER=${MYSQL_USER}</span><span class="w">                                                </span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_PASSWORD=${MYSQL_PASSWORD}</span><span class="w">                                        </span>
+<span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">                                                                     </span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;${MYSQL_PORT}:3306&quot;</span><span class="w">                                                    </span>
+<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">                                                                    </span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql_data:/var/lib/mysql</span><span class="w">  </span>
+
+<span class="nt">volumes:                                                                          mysql_data</span><span class="p">:</span><span class="w">                                                                   </span>
+<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span><span class="w">   </span>
+</code></pre></div>
+<h2 id="quickstart-docker-compose-environmental-variables-with-docker-compose">Environmental variables with Docker Compose<a class="headerlink" href="#quickstart-docker-compose-environmental-variables-with-docker-compose" title="Permanent link">&para;</a></h2>
+<p>Placing an <code>.env</code> file in the same directory as your <code>docker-compose.yml</code> file offers several advantages for managing your Dockerized application&rsquo;s configuration. Docker Compose automatically detects and loads environment variables defined in this <code>.env</code> file.</p>
+<details class="example">
+<summary>.env file benefits</summary>
+<p>One key benefit is centralized configuration. You keep environment-specific settings, such as database credentials, API keys, and port numbers, in a single, easily manageable file. This separation of configuration from your <code>docker-compose.yml</code> makes your Compose file more generic and reusable across different environments (development, testing, production).</p>
+<p>Another advantage is improved security. By storing sensitive information in an <code>.env</code> file, you avoid hardcoding these values directly into your <code>docker-compose.yml</code> or Dockerfile. This reduces the risk of accidentally exposing sensitive data in version control systems. You typically add the <code>.env</code> file to your <code>.gitignore</code> to prevent accidental commits.</p>
+<p>Furthermore, using an <code>.env</code> file enhances readability and maintainability. Your <code>docker-compose.yml</code> file becomes cleaner as it references environment variables instead of containing raw configuration values. This ability makes understanding the services and their dependencies easier without being cluttered by specific settings. When configuration changes are needed, you modify only the <code>.env</code> file, simplifying updates.</p>
+<p>Finally, this approach promotes environment-specific overrides. You can have different <code>.env</code> files for various environments (for example, <code>.env.development</code>, <code>.env.test</code>, <code>.env.production</code>). You can easily switch configurations without altering your Compose file by copying the appropriate <code>.env</code> file to <code>.env</code> before running <code>docker-compose up</code>. This ability streamlines the deployment process across various stages of your application&rsquo;s lifecycle.</p>
+</details>
+<p>Here is a definition for each of the environment variables listed in the .env file:</p>
+<table>
+<thead>
+<tr>
+<th>Environment Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MYSQL_ROOT_PASSWORD</code></td>
+<td>Sets the root user&rsquo;s password for the MySQL server. The root user has full privileges. Replace the default with a strong password in production.</td>
+</tr>
+<tr>
+<td><code>MYSQL_DATABASE</code></td>
+<td>Specifies the name of the default database created on startup (e.g., <code>myapp</code>). Applications use it to store and retrieve data.</td>
+</tr>
+<tr>
+<td><code>MYSQL_USER</code></td>
+<td>Creates a new MySQL user (e.g., <code>appuser</code>). Grant this user specific privileges based on your needs.</td>
+</tr>
+<tr>
+<td><code>MYSQL_PASSWORD</code></td>
+<td>Sets the password for <code>MYSQL_USER</code>. Replace the default with a secure value to protect access.</td>
+</tr>
+<tr>
+<td><code>MYSQL_PORT</code></td>
+<td>Defines the port MySQL listens on (default is <code>3306</code>). Change it if needed for security or conflicts.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1"># MySQL environment variables                                                   </span>
+<span class="na">MYSQL_ROOT_PASSWORD</span><span class="o">=</span><span class="s">change_this_root_password</span><span class="w">                                   </span>
+<span class="na">MYSQL_DATABASE</span><span class="o">=</span><span class="s">myapp</span><span class="w">                                                            </span>
+<span class="na">MYSQL_USER</span><span class="o">=</span><span class="s">appuser</span><span class="w">                                                              </span>
+<span class="na">MYSQL_PASSWORD</span><span class="o">=</span><span class="s">change_this_user_password</span><span class="w">                                        </span>
+<span class="na">MYSQL_PORT</span><span class="o">=</span><span class="s">3306</span><span class="w">    </span>
+</code></pre></div>
+<h2 id="quickstart-docker-compose-validate-the-docker-composeyml-file">Validate the docker-compose.yml file<a class="headerlink" href="#quickstart-docker-compose-validate-the-docker-composeyml-file" title="Permanent link">&para;</a></h2>
+<p>This command validates the syntax and configuration of your <code>docker-compose.yml</code> file.</p>
+<ul>
+<li>Executing the <code>docker-compose config</code> command.</li>
+</ul>
+<p>If your <code>docker-compose.yml</code> file is correctly formatted and all options are valid, this command will output the resolved configuration of your services, volumes, and networks. This output represents the final configuration that Docker Compose will use when you run <code>docker-compose up</code>. </p>
+<p>If your <code>docker-compose.yml</code> file contains syntax errors or invalid options, the command will instead output error messages indicating the location and nature of the problems, allowing you to correct them before attempting to start your containers.</p>
+<p><strong>Try this now:</strong> Navigate to the directory containing your <code>docker-compose.yml</code> file in your terminal and run the following command:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>docker-compose<span class="w"> </span>config
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>name: percona-mysql
+services:
+  mysql:
+    container_name: percona-mysql
+    environment:
+      MYSQL_DATABASE: myapp
+      MYSQL_PASSWORD: change_this_user_password
+      MYSQL_ROOT_PASSWORD: change_this_root_password
+      MYSQL_USER: appuser
+    image: percona/percona-server:8.0
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 3306
+        published: &quot;3306&quot;
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: mysql_data
+        target: /var/lib/mysql
+        volume: {}
+networks:
+  default:
+    name: percona-mysql_default
+volumes:
+  mysql_data:
+    name: percona-mysql_mysql_data
+    driver: local
+</code></pre></div>
+</details>
+<h2 id="quickstart-docker-compose-start-the-container">Start the container<a class="headerlink" href="#quickstart-docker-compose-start-the-container" title="Permanent link">&para;</a></h2>
+<p>This command starts the containers defined in your <code>docker-compose.yml</code> file in detached mode.</p>
+<ul>
+<li>Executing the <code>docker-compose up -d</code> command.</li>
+</ul>
+<p>Running this command instructs Docker Compose to create and start the services defined in your <code>docker-compose.yml</code> file. The <code>-d</code> flag signifies &ldquo;detached&rdquo; mode, which means the containers will run in the background, freeing up your terminal. </p>
+<p>Docker Compose will first pull any necessary images if they are not already present locally, create the containers, configure networks and volumes, and start the services. You can then interact with your application while the containers run in the background.</p>
+<p><strong>Try this now:</strong> Ensure you are in the same directory as your <code>docker-compose.yml</code> file in your terminal and run the following command:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>[+] Running 11/11
+ ✔ mysql Pulled                                                               32.3s 
+   ✔ 56631da24b0d Pull complete                                                7.5s 
+   ✔ 5aee836c3728 Pull complete                                                7.6s 
+   ✔ a5fd539367b0 Pull complete                                                7.6s 
+   ✔ fc4a4cc146b3 Pull complete                                                8.6s 
+   ✔ 7a3939b8d92c Pull complete                                               30.5s 
+   ✔ 6fdbd2a9e883 Pull complete                                               30.5s 
+   ✔ 70ac4d191dd1 Pull complete                                               30.5s 
+   ✔ 5872370b843d Pull complete                                               30.5s 
+   ✔ 8310fa1d2765 Pull complete                                               30.5s 
+   ✔ 4437564bc659 Pull complete                                               30.6s 
+[+] Running 3/3
+ ✔ Network percona-mysql_default      Creat...                                 0.0s 
+ ✔ Volume &quot;percona-mysql_mysql_data&quot;  C...                                     0.0s 
+ ✔ Container percona-mysql            Started                                  0.3s 
+</code></pre></div>
+</details>
+<h2 id="quickstart-docker-compose-connect-to-the-database">Connect to the database<a class="headerlink" href="#quickstart-docker-compose-connect-to-the-database" title="Permanent link">&para;</a></h2>
+<p>This command executes the <code>mysql</code> client command-line tool inside the running <code>mysql</code> container, allowing you to interact with the database as the <code>appuser</code>.</p>
+<ul>
+<li>
+<p>Executing the <code>docker compose exec mysql mysql</code> command to run a command within the <code>mysql</code> service container.</p>
+</li>
+<li>
+<p>Specifying the user as <code>appuser</code> using the <code>-u</code> flag.</p>
+</li>
+<li>
+<p>Specifying the password as <code>myapp</code> using the <code>-p</code> flag. Note that this way of providing the password on the command line is generally discouraged for security reasons in production environments.</p>
+</li>
+</ul>
+<p>After you enter the correct password (which you defined in your <code>.env</code> file as the value for <code>MYSQL_PASSWORD</code>), you will be connected to the MySQL server running inside the <code>percona-mysql</code> container as the appuser. You will then see the MySQL command prompt (<code>mysql&gt;</code>), allowing you to execute SQL queries against the <code>myapp</code> database (which was defined by the <code>MYSQL_DATABASE</code> environment variable).</p>
+<p><strong>Try this now:</strong> If your <code>percona-mysql</code> container is running (started with <code>docker-compose up -d</code>), copy and paste the following command into your terminal and press Enter. You will then be prompted to enter the password for the <code>appuser</code>.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>mysql<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>appuser<span class="w"> </span>-p<span class="w"> </span>myapp
+Enter<span class="w"> </span>password:
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.41-32 Percona Server (GPL), Release 32, Revision b8e378ec
+
+Copyright (c) 2009-2025 Percona LLC and/or its affiliates
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+
+mysql&gt;
+</code></pre></div>
+</details>
+<h2 id="quickstart-docker-compose-determine-the-current-database">Determine the Current Database<a class="headerlink" href="#quickstart-docker-compose-determine-the-current-database" title="Permanent link">&para;</a></h2>
+<p>This section demonstrates how to identify the database currently selected within your MySQL session using a simple SQL query.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>DATABASE<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------+
+| DATABASE() |
++------------+
+| myapp      |
++------------+
+1 row in set (0.00 sec)
+
+mysql&gt;
+</code></pre></div>
+</details>
+<h2 id="quickstart-docker-compose-create-the-employees-table">Create the employees table<a class="headerlink" href="#quickstart-docker-compose-create-the-employees-table" title="Permanent link">&para;</a></h2>
+<p>The <code>CREATE TABLE</code> statement defines a new table named <code>employees</code> in the current database. This table includes several columns to store information about employees.</p>
+<p>The first column is <code>id</code>, which stores integer values. The <code>AUTO_INCREMENT</code> attribute ensures that each new row automatically receives a unique, incrementing integer value for this column. The <code>PRIMARY KEY</code> constraint indicates that this column uniquely identifies each record in the <code>employees</code> table and does not allow null values.</p>
+<p>The next two columns, <code>first_name</code> and <code>last_name</code>, store strings of up to 50 characters. The <code>NOT NULL</code> constraint specifies that these columns must have a value for every row; they cannot be left empty.</p>
+<p>The <code>department</code> column stores strings of up to 50 characters and holds the employee&rsquo;s department. This column allows null values.</p>
+<p>The <code>salary</code> column stores decimal numbers. The <code>DECIMAL(10,2)</code> data type indicates that this column can store numbers with 10 digits, with two digits after the decimal point.</p>
+<p>Finally, the <code>hire_date</code> column stores date values, representing the employee&rsquo;s hire date.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>employees<span class="w"> </span><span class="o">(</span>
+<span class="w">    </span>id<span class="w"> </span>INT<span class="w"> </span>AUTO_INCREMENT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY,
+<span class="w">    </span>first_name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">50</span><span class="o">)</span><span class="w"> </span>NOT<span class="w"> </span>NULL,
+<span class="w">    </span>last_name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">50</span><span class="o">)</span><span class="w"> </span>NOT<span class="w"> </span>NULL,
+<span class="w">    </span>department<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">50</span><span class="o">)</span>,
+<span class="w">    </span>salary<span class="w"> </span>DECIMAL<span class="o">(</span><span class="m">10</span>,2<span class="o">)</span>,
+<span class="w">    </span>hire_date<span class="w"> </span>DATE
+<span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.03 sec)
+
+mysql&gt;
+</code></pre></div>
+</details>
+<h2 id="quickstart-docker-compose-basic-queries">Basic queries<a class="headerlink" href="#quickstart-docker-compose-basic-queries" title="Permanent link">&para;</a></h2>
+<h3 id="quickstart-docker-compose-insert-operations">Insert operations<a class="headerlink" href="#quickstart-docker-compose-insert-operations" title="Permanent link">&para;</a></h3>
+<p>The <code>INSERT INTO</code> statement adds a new row of data to the <code>employees</code> table.</p>
+<ul>
+<li>
+<p>Specifying the <code>employees</code> table as the target for the insertion.</p>
+</li>
+<li>
+<p>Listing the columns for the new data: <code>first_name</code>, <code>last_name</code>, <code>department</code>, <code>salary</code>, and <code>hire_date</code>.</p>
+</li>
+<li>
+<p>Providing the values for the new row in the order of the listed columns: <code>'John'</code>, <code>'Smith'</code>, <code>'Engineering'</code>, <code>75000.00</code>, and <code>'2024-01-15'</code>.</p>
+</li>
+</ul>
+<p><strong>Try this now:</strong> Copy and paste the code into your SQL editor and execute it.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>
+INSERT<span class="w"> </span>INTO<span class="w"> </span>employees<span class="w"> </span><span class="o">(</span>first_name,<span class="w"> </span>last_name,<span class="w"> </span>department,<span class="w"> </span>salary,<span class="w"> </span>hire_date<span class="o">)</span>
+VALUES<span class="w"> </span><span class="o">(</span><span class="s1">&#39;John&#39;</span>,<span class="w"> </span><span class="s1">&#39;Smith&#39;</span>,<span class="w"> </span><span class="s1">&#39;Engineering&#39;</span>,<span class="w"> </span><span class="m">75000</span>.00,<span class="w"> </span><span class="s1">&#39;2024-01-15&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+</code></pre></div>
+</details>
+<p>This query shows all information about the employee record you just created.
+The query works by:</p>
+<ul>
+<li>
+<p>Getting all employee data (<code>SELECT *</code> where the asterisk (*) means &ldquo;select all columns&rdquo;)</p>
+</li>
+<li>
+<p>Looking only for the most recently added record (using <code>WHERE id = LAST_INSERT_ID()</code>)</p>
+</li>
+</ul>
+<p><code>LAST_INSERT_ID()</code> is a special MySQL function that finds the ID of the last record you inserted</p>
+<p>The query results will show you the complete record of the employee you just added, including any automatically generated fields like the ID.</p>
+<p>This function only works if your employee table has an auto-increment ID column and you&rsquo;ve just performed an INSERT operation in the same session.</p>
+<p><strong>Try it now:</strong> Copy and paste this code into your SQL editor and execute it immediately after adding a new employee.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>LAST_INSERT_ID<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----+-----------+-----------+-------------+---------+------------+
+| id | first_name| last_name | department  | salary  | hire_date  |
++----+-----------+-----------+-------------+---------+------------+
+|  1 | John      | Smith     | Engineering | 75000.00| 2024-01-15|
++----+-----------+-----------+-------------+---------+------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>This query adds several new employees to your database in a single operation.
+The query works by:</p>
+<ul>
+<li>
+<p>Specifying which table to add data to (<code>INSERT INTO employees</code>)</p>
+</li>
+<li>
+<p>Listing which columns will receive data (<code>first_name, last_name, department, salary, hire_date</code>)</p>
+</li>
+<li>
+<p>Providing the values for each new employee record (<code>VALUES</code> followed by data sets in parentheses).</p>
+</li>
+</ul>
+<p>To add your employees instead, replace the values inside each set of parentheses with your employee information. You can add as many employees as needed by adding more values, separated by commas.</p>
+<p>The date format uses <code>YYYY-MM-DD</code> (Year-Month-Day), which is the standard SQL date format regardless of your country&rsquo;s date conventions.</p>
+<p><strong>Try it now:</strong> Copy and paste this code into your SQL editor and execute it to add these three employees simultaneously.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>employees<span class="w"> </span><span class="o">(</span>first_name,<span class="w"> </span>last_name,<span class="w"> </span>department,<span class="w"> </span>salary,<span class="w"> </span>hire_date<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span>
+<span class="w">  </span><span class="o">(</span><span class="s1">&#39;Sarah&#39;</span>,<span class="w"> </span><span class="s1">&#39;Johnson&#39;</span>,<span class="w"> </span><span class="s1">&#39;Marketing&#39;</span>,<span class="w"> </span><span class="m">65000</span>.00,<span class="w"> </span><span class="s1">&#39;2024-02-01&#39;</span><span class="o">)</span>,
+<span class="w">  </span><span class="o">(</span><span class="s1">&#39;Michael&#39;</span>,<span class="w"> </span><span class="s1">&#39;Brown&#39;</span>,<span class="w"> </span><span class="s1">&#39;Engineering&#39;</span>,<span class="w"> </span><span class="m">78000</span>.00,<span class="w"> </span><span class="s1">&#39;2024-01-20&#39;</span><span class="o">)</span>,
+<span class="w">  </span><span class="o">(</span><span class="s1">&#39;Lisa&#39;</span>,<span class="w"> </span><span class="s1">&#39;Davis&#39;</span>,<span class="w"> </span><span class="s1">&#39;HR&#39;</span>,<span class="w"> </span><span class="m">62000</span>.00,<span class="w"> </span><span class="s1">&#39;2024-03-10&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+</code></pre></div>
+</details>
+<p>This query gets all information about employees hired after a specific date and sorts them chronologically.
+The query works by:</p>
+<ul>
+<li>
+<p>Getting all employee data (<code>SELECT *</code> where the asterisk (*) means &ldquo;select all columns&rdquo;)</p>
+</li>
+<li>
+<p>Adding a filter that only returns employees hired on or after February 1, 2024 (using <code>WHERE hire_date &gt;= '2024-02-01'</code>)</p>
+</li>
+<li>
+<p>Sorting results by hire date from earliest to most recent (using <code>ORDER BY hire_date</code>)</p>
+</li>
+</ul>
+<p>To change the date, simply replace &lsquo;2024-02-01&rsquo; with your desired cutoff date using the <code>YYYY-MM-DD</code> format (Year-Month-Day, like &lsquo;2024-03-15&rsquo; for March 15, 2024).</p>
+<p>SQL databases use the <code>YYYY-MM-DD</code> format regardless of your country&rsquo;s date format. This international standard avoids confusion between different formats (such as <code>MM/DD/YYYY</code> or <code>DD/MM/YYYY</code>).</p>
+<p><strong>Try it now:</strong> Copy and paste this code into your SQL editor and execute it to see immediate results. </p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>
+WHERE<span class="w"> </span>hire_date<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="s1">&#39;2024-02-01&#39;</span><span class="w"> </span>
+ORDER<span class="w"> </span>BY<span class="w"> </span>hire_date<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----+------------+-----------+------------+----------+------------+
+| id | first_name | last_name | department | salary   | hire_date  |
++----+------------+-----------+------------+----------+------------+
+|  2 | Sarah      | Johnson   | Marketing  | 65000.00 | 2024-02-01 |
+|  4 | Lisa       | Davis     | HR         | 62000.00 | 2024-03-10 |
++----+------------+-----------+------------+----------+------------+
+2 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>The <code>SELECT COUNT(*)</code> statement determines the total number of records in the <code>employees</code> table.</p>
+<ul>
+<li>
+<p>Counting all rows within the <code>employees</code> table using the <code>COUNT(*)</code> function.</p>
+</li>
+<li>
+<p>Assigning the alias <code>total_employees</code> to the resulting count for clarity in the output.</p>
+</li>
+</ul>
+<p>Executing this command returns a single row with one column labeled total_employees. The value in this column represents the total number of employees currently stored in the employees table.</p>
+<p><strong>Try this now:</strong> Copy and paste the code into your SQL editor and execute it.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>COUNT<span class="o">(</span>*<span class="o">)</span><span class="w"> </span>as<span class="w"> </span>total_employees<span class="w"> </span>FROM<span class="w"> </span>employees<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-----------------+
+| total_employees |
++-----------------+
+|               4 |
++-----------------+
+1 row in set (0.01 sec)
+</code></pre></div>
+</details>
+<h3 id="quickstart-docker-compose-update-operations">Update operations<a class="headerlink" href="#quickstart-docker-compose-update-operations" title="Permanent link">&para;</a></h3>
+<p>The <code>UPDATE employees</code> statement changes information in the <code>employees</code> table.</p>
+<ul>
+<li>
+<p>Specifying the <code>employees</code> table as the one to modify.</p>
+</li>
+<li>
+<p>Setting the <code>salary</code> column to the value <code>80000.00</code>.</p>
+</li>
+<li>
+<p>Filtering the update only the row where the <code>id</code> column equals <code>1</code>.</p>
+</li>
+</ul>
+<p>Running this command modifies the record for the employee with an ID of <code>1</code>. The salary is updated to 80000.00. You will see a confirmation indicates the change.</p>
+<p><strong>Try this now:</strong> Copy and paste the code into your SQL editor and execute it.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>employees<span class="w"> </span>
+SET<span class="w"> </span><span class="nv">salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">80000</span>.00<span class="w"> </span>
+WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+Records: 1  Changed: 1  Warnings: 0
+</code></pre></div>
+</details>
+<p>The <code>SELECT</code> statement retrieves specific details for an employee from the <code>employees</code> table.</p>
+<ul>
+<li>
+<p>Selecting the <code>id</code>, <code>first_name</code>, <code>last_name</code>, and <code>salary</code> columns.</p>
+</li>
+<li>
+<p>Specifying the <code>employees</code> table as the source of the data.</p>
+</li>
+<li>
+<p>Filtering the results to show only the employee where the <code>id</code> equals <code>1</code>.</p>
+</li>
+</ul>
+<p>This command displays the <code>id</code>, <code>first_name</code>, l<code>ast_name</code>, and the updated <code>salary</code> for the employee with an id of <code>1</code>. You can verify the changes made by the previous <code>UPDATE</code> statement.</p>
+<p><strong>Try this now:</strong> Copy and paste the code into your SQL editor and execute it.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>id,<span class="w"> </span>first_name,<span class="w"> </span>last_name,<span class="w"> </span>salary<span class="w"> </span>
+FROM<span class="w"> </span>employees<span class="w"> </span>
+WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----+------------+-----------+----------+
+| id | first_name | last_name | salary   |
++----+------------+-----------+----------+
+|  1 | John       | Smith     | 80000.00 |
++----+------------+-----------+----------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>The <code>UPDATE employees</code> statement modifies the employees&rsquo; salaries in the &lsquo;Engineering&rsquo; department.</p>
+<ul>
+<li>
+<p>Specifying the <code>employees</code> table as the one to update.</p>
+</li>
+<li>
+<p>Setting the <code>salary</code> column to its current value multiplied by <code>1.05</code>, effectively increasing it by 5%.</p>
+</li>
+<li>
+<p>Filtering the update to affect only the rows where the <code>department</code> column equals <code>'Engineering'</code>.</p>
+</li>
+</ul>
+<p>Running this query increases the salary of all employees in the &lsquo;Engineering&rsquo; department by 5%. You will see a confirmation indicating the number of rows you changed.</p>
+<p><strong>Try this now:</strong> Copy and paste the code into your SQL editor and execute it.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>employees<span class="w"> </span>
+SET<span class="w"> </span><span class="nv">salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>salary<span class="w"> </span>*<span class="w"> </span><span class="m">1</span>.05<span class="w"> </span>
+WHERE<span class="w"> </span><span class="nv">department</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Engineering&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<p><div class="no-copy highlight"><pre><span></span><code>Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+</code></pre></div>
+The <code>SELECT</code> statement retrieves specific details for employees in the &lsquo;Engineering&rsquo; department.</p>
+<ul>
+<li>
+<p>Selecting the <code>id</code>, <code>first_name</code>, <code>last_name</code>, <code>department</code>, and <code>salary</code> columns.</p>
+</li>
+<li>
+<p>Specifying the <code>employees</code> table as the source of the data.</p>
+</li>
+<li>
+<p>Filtering the results to show only the employees if the <code>department</code> is equal to <code>'Engineering'</code>.</p>
+</li>
+</ul>
+<p>This command displays the <code>id</code>, <code>first_name</code>, <code>last_name</code>, <code>department</code>, and the updated <code>salary</code> for all employees in the &lsquo;Engineering&rsquo; department. </p>
+<p><strong>Try this now:</strong> Copy and paste the code into your SQL editor and execute it.</p>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>id,<span class="w"> </span>first_name,<span class="w"> </span>last_name,<span class="w"> </span>department,<span class="w"> </span>salary<span class="w"> </span>
+FROM<span class="w"> </span>employees<span class="w"> </span>
+WHERE<span class="w"> </span><span class="nv">department</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Engineering&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----+------------+-----------+-------------+----------+
+| id | first_name | last_name | department  | salary   |
++----+------------+-----------+-------------+----------+
+|  1 | John       | Smith     | Engineering | 84000.00 |
+|  3 | Michael    | Brown     | Engineering | 81900.00 |
++----+------------+-----------+-------------+----------+
+2 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>The <code>SELECT</code> statement calculates the average salary for each department in the <code>employees</code> table.</p>
+<ul>
+<li>
+<p>Selecting the <code>department</code> column.</p>
+</li>
+<li>
+<p>Calculating the average of the <code>salary</code> column using the <code>AVG()</code> function and assigning the alias <code>avg_salary</code> to the result.</p>
+</li>
+<li>
+<p>Grouping the rows by the <code>department</code> column using the <code>GROUP BY</code> clause. This grouping ensures that the average salary is calculated separately for each unique department.</p>
+</li>
+</ul>
+<p>Executing this command returns a table showing each distinct department in the employees table and the corresponding average salary for the employees within that department.</p>
+<p><strong>Try this now:</strong> Copy and paste the code into your SQL editor and execute it.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>department,<span class="w"> </span>
+<span class="w">       </span>AVG<span class="o">(</span>salary<span class="o">)</span><span class="w"> </span>as<span class="w"> </span>avg_salary<span class="w"> </span>
+FROM<span class="w"> </span>employees<span class="w"> </span>
+GROUP<span class="w"> </span>BY<span class="w"> </span>department<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-------------+--------------+
+| department  | avg_salary   |
++-------------+--------------+
+| Engineering | 82950.000000 |
+| Marketing   | 65000.000000 |
+| HR          | 62000.000000 |
++-------------+--------------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<h3 id="quickstart-docker-compose-delete-operations">Delete operations<a class="headerlink" href="#quickstart-docker-compose-delete-operations" title="Permanent link">&para;</a></h3>
+<p>If you delete a record using these queries, you cannot retrieve that record without specific rollback mechanisms in place. Exercise caution when using the <code>DELETE</code> statement.</p>
+<p>Most database systems are designed with rollback mechanisms and archives. These mechanisms change how you delete a record. The deleted record is often not entirely removed from the database. Instead, it is removed from the active data set but stored in a different table, which is an archive. This non-removal allows for potential recovery of the data if needed. Always check your database&rsquo;s documentation to understand how it handles deletions and whether rollback options are available.</p>
+<p>The <code>DELETE FROM</code> statement removes a specific record from the <code>employees</code> table.</p>
+<ul>
+<li>
+<p>Specifying the <code>employees</code> table as the target for deletion.</p>
+</li>
+<li>
+<p>Filtering the deletion only affects the row where the <code>id</code> column equals <code>4</code>.</p>
+</li>
+</ul>
+<p>Running this command removes the employee record with an id of <code>4</code> from the employees table. You will see a confirmation that one row has been affected.</p>
+<p><strong>Try this now:</strong> Copy and paste the code into your SQL editor and execute it.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DELETE<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>
+WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.00 sec)
+</code></pre></div>
+</details>
+<p>The <code>SELECT * FROM employees</code> statement attempts to retrieve all columns for a specific employee from the <code>employees</code> table.</p>
+<ul>
+<li>
+<p>Selecting all columns (<code>*</code>) from the <code>employees</code> table.</p>
+</li>
+<li>
+<p>Filtering the results to show only the employee where the <code>id</code> is equal to <code>4</code>.</p>
+</li>
+</ul>
+<p>Executing this command returns an empty set. This result is because the employee record with an id of <code>4</code> was previously removed from the table using the <code>DELETE</code> statement. Once you delete a record, that record is no longer available in the table for querying.</p>
+<p><strong>Try this now:</strong> Copy and paste the code into your SQL editor and execute it.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Empty set (0.00 sec)
+</code></pre></div>
+</details>
+<p>The <code>SELECT COUNT(*)</code> statement determines the current total number of records in the <code>employees</code> table.</p>
+<ul>
+<li>
+<p>Counting all rows within the <code>employees</code> table using the <code>COUNT(*)</code> function.</p>
+</li>
+<li>
+<p>Assigning the alias <code>remaining_employees</code> to the resulting count for clarity in the output.</p>
+</li>
+</ul>
+<p>Executing this command returns a single row with one column labeled <code>remaining_employees</code>. The value in this column represents the current total number of employees in the table after the deletion operation. You will observe that this number is one less than the total count before the deletion.</p>
+<p><strong>Try this now:</strong> Copy and paste the code into your SQL editor and execute it.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>COUNT<span class="o">(</span>*<span class="o">)</span><span class="w"> </span>as<span class="w"> </span>remaining_employees<span class="w"> </span>FROM<span class="w"> </span>employees<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+---------------------+
+| remaining_employees |
++---------------------+
+|                   3 |
++---------------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="quickstart-docker-compose-close-the-current-session">Close the current session<a class="headerlink" href="#quickstart-docker-compose-close-the-current-session" title="Permanent link">&para;</a></h2>
+<p>The <code>exit</code> command closes the current MySQL client session.</p>
+<ul>
+<li>Executing the <code>exit</code> command terminates the connection between your client and the server.</li>
+</ul>
+<p>Running this command will close your current interaction with the MySQL server, and you will return to your operating system&rsquo;s command prompt. To run more database commands, you first need to connect to the server again using the <a href="#quickstart-docker-compose-connect-to-the-database"><code>mysql</code> command followed by your login credentials</a></p>
+<p><strong>Try this now:</strong> Copy and paste the code into your SQL editor and execute it.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span><span class="nb">exit</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Bye
+</code></pre></div>
+</details>
+<h2 id="quickstart-docker-compose-stop-the-container">Stop the container<a class="headerlink" href="#quickstart-docker-compose-stop-the-container" title="Permanent link">&para;</a></h2>
+<p>Use these Docker Compose commands to stop containers, remove them without a prompt, and clean up everything.</p>
+<p>•   Stopping running containers to pause the services without deleting them.</p>
+<p>•   Removing stopped containers without confirmation to clean up resources quickly.</p>
+<p>•   Deleting all containers, networks, volumes, and images created by Compose to reset the environment completely.</p>
+<p>The first command stops the running containers. The second command deletes the stopped containers right away. The third command clears everything, including any persistent data and images created by Compose.</p>
+<p><strong>Try this now:</strong> Copy and paste the code into your terminal.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="c1"># stop running containers</span>
+docker-compose<span class="w"> </span>down
+</code></pre></div>
+<p>Use these commands to remove your setup or start fresh.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="c1"># Remove stopped containers without a prompt</span>
+docker-compose<span class="w"> </span>rm<span class="w"> </span>-f
+</code></pre></div>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="c1"># Remove everything: containers, networks, volumes, and images</span>
+docker-compose<span class="w"> </span>down<span class="w"> </span>--volumes<span class="w"> </span>--rmi<span class="w"> </span>all
+</code></pre></div></section><section class="print-page" id="quickstart-apt" heading-number="6.4"><h1 id="quickstart-apt-install-with-apt">Install with APT<a class="headerlink" href="#quickstart-apt-install-with-apt" title="Permanent link">&para;</a></h1>
 <p>Install the Percona repositories using APT.</p>
 <h2 id="quickstart-apt-prerequisits">Prerequisits<a class="headerlink" href="#quickstart-apt-prerequisits" title="Permanent link">&para;</a></h2>
 <ul>
@@ -20361,7 +21050,7 @@ VALUES
 </li>
 </ul>
 <h2 id="quickstart-apt-next-step">Next step<a class="headerlink" href="#quickstart-apt-next-step" title="Permanent link">&para;</a></h2>
-<p><a class="md-button" href="#quickstart-next-steps">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p></section><section class="print-page" id="quickstart-dnf" heading-number="6.4"><h1 id="quickstart-dnf-install-with-dnf">Install with DNF<a class="headerlink" href="#quickstart-dnf-install-with-dnf" title="Permanent link">&para;</a></h1>
+<p><a class="md-button" href="#quickstart-next-steps">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p></section><section class="print-page" id="quickstart-dnf" heading-number="6.5"><h1 id="quickstart-dnf-install-with-dnf">Install with DNF<a class="headerlink" href="#quickstart-dnf-install-with-dnf" title="Permanent link">&para;</a></h1>
 <p>Use the <a href="#percona-release">Percona repositories</a> to install using DNF.</p>
 <h2 id="quickstart-dnf-prerequisits">Prerequisits<a class="headerlink" href="#quickstart-dnf-prerequisits" title="Permanent link">&para;</a></h2>
 <ul>
@@ -20839,7 +21528,7 @@ All done!
 </code></pre></div>
 </details>
 <h2 id="quickstart-dnf-next-step">Next step<a class="headerlink" href="#quickstart-dnf-next-step" title="Permanent link">&para;</a></h2>
-<p><a class="md-button" href="#quickstart-next-steps">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p></section><section class="print-page" id="quickstart-next-steps" heading-number="6.5"><h1 id="quickstart-next-steps-next-steps">Next steps<a class="headerlink" href="#quickstart-next-steps-next-steps" title="Permanent link">&para;</a></h1>
+<p><a class="md-button" href="#quickstart-next-steps">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p></section><section class="print-page" id="quickstart-next-steps" heading-number="6.6"><h1 id="quickstart-next-steps-next-steps">Next steps<a class="headerlink" href="#quickstart-next-steps-next-steps" title="Permanent link">&para;</a></h1>
 <p>After creating a database and running queries, you have taken the first steps to become a MySQL beginner developer. However, there is still more to learn and practice to improve your skills and knowledge. Some of the next steps you can take are learning and using the following:</p>
 <ul>
 <li>
@@ -62190,11 +62879,13 @@ contributions and changes from MariaDB.</p>
 
 .print-site-enumerate-headings #quickstart-docker > h1:before { content: '6.2 ' }
 
-.print-site-enumerate-headings #quickstart-apt > h1:before { content: '6.3 ' }
+.print-site-enumerate-headings #quickstart-docker-compose > h1:before { content: '6.3 ' }
 
-.print-site-enumerate-headings #quickstart-dnf > h1:before { content: '6.4 ' }
+.print-site-enumerate-headings #quickstart-apt > h1:before { content: '6.4 ' }
 
-.print-site-enumerate-headings #quickstart-next-steps > h1:before { content: '6.5 ' }
+.print-site-enumerate-headings #quickstart-dnf > h1:before { content: '6.5 ' }
+
+.print-site-enumerate-headings #quickstart-next-steps > h1:before { content: '6.6 ' }
 
 .print-site-enumerate-headings #section-7 > h1:before { content: '7 ' }
 .print-site-enumerate-headings #installation > h1:before { content: '7.1 ' }
