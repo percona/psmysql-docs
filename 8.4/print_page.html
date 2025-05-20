@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.2afb09e1.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.342714a4.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
@@ -14247,7 +14247,7 @@ mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>PROCEDURE<span cl
 <p>To remove the component, run the following:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_js_lang&#39;</span><span class="p">;</span>
 </code></pre></div></section></section><section class="print-page" id="kill-idle-trx" heading-number="5.7"><h1 id="kill-idle-trx-kill-idle-transaction">Kill idle transaction<a class="headerlink" href="#kill-idle-trx-kill-idle-transaction" title="Permanent link">&para;</a></h1>
-<p>Database servers face a constant challenge: managing resources efficiently while maintaining system stability. The kill idle transactions timeout option is a strategic tool to address this challenge. When you set a time limit, any transaction that stays inactive beyond this limit is automatically stopped.  This action prevents forgotten or stuck transactions from slowing down your database by blocking critical cleanup processes.</p>
+<p>Database servers face a constant challenge: managing resources efficiently while maintaining system stability. The kill idle transactions timeout option is a strategic tool to address this challenge. The server automatically stops any transaction that remains inactive for longer than this limit. This action prevents forgotten or stuck transactions from slowing down your database by blocking critical cleanup processes.</p>
 <p>The option has the following benefits:</p>
 <ul>
 <li>
@@ -14269,7 +14269,7 @@ mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>PROCEDURE<span cl
 <p>Prevents unnecessary server load from dormant sessions</p>
 </li>
 </ul>
-<p>You must also be consider the following:</p>
+<p>You must also consider the following:</p>
 <ul>
 <li>
 <p>May interrupt legitimate long-running queries</p>
@@ -14287,8 +14287,21 @@ mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>PROCEDURE<span cl
 <p>Requires precise tuning for different application requirements</p>
 </li>
 </ul>
-<p>We recommend that you start with conservative timeout settings and review the logs frequently to track terminated transactions.</p>
+<p>We recommend that starting with a conservative timeout setting and reviewing the logs frequently to track terminated transactions.</p>
 <p>This feature works with all types of database storage that support transactions.</p>
+<h2 id="kill-idle-trx-best-practices">Best practices<a class="headerlink" href="#kill-idle-trx-best-practices" title="Permanent link">&para;</a></h2>
+<p>Consider these recommended practices when configuring the idle transaction timeout:</p>
+<ul>
+<li>
+<p>Starting with a higher timeout value: Begin by setting the <code>kill_idle_transaction</code> to a larger value, such as 600 seconds (10 minutes). This initial higher value provides a buffer and reduces the risk of prematurely terminating legitimate, long-running transactions while you observe your application&rsquo;s behavior under normal load.</p>
+</li>
+<li>
+<p>Monitoring logs for premature terminations: After implementing the idle transaction timeout, actively monitor the MySQL error logs for messages indicating that transactions are being killed. If you observe &ldquo;Killed idle transaction&rdquo; messages frequently for transactions that should still be active, it suggests that your timeout value is too aggressive and needs adjustment.</p>
+</li>
+<li>
+<p>Testing in a staging environment: Before applying any changes to the <code>kill_idle_transaction</code> setting in your production environment, thoroughly test the configuration in a staging or development environment that closely mirrors your production setup. This testing allows you to identify and resolve any unintended consequences, such as premature transaction terminations, without impacting your live application and data.</p>
+</li>
+</ul>
 <h2 id="kill-idle-trx-determine-the-idle-transaction-threshold">Determine the idle transaction threshold<a class="headerlink" href="#kill-idle-trx-determine-the-idle-transaction-threshold" title="Permanent link">&para;</a></h2>
 <p>When setting up a database, you must decide how long to let inactive transactions sit before ending them. This decision affects the database&rsquo;s performance.</p>
 <table>
@@ -14305,32 +14318,43 @@ mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>PROCEDURE<span cl
 </tr>
 <tr>
 <td>How many things happen at once</td>
-<td>Count how many transactions your system handles simultaneously. If it&rsquo;s a lot, you might need to end idle transactions faster to free up space for new ones.</td>
+<td>Count how many transactions your system handles simultaneously. You may need to end idle transactions faster to free up space for new ones.</td>
 </tr>
 <tr>
 <td>How it affects speed</td>
-<td>Watch how idle transactions change your database&rsquo;s speed. If they slow things down a lot, ending them sooner can help keep everything running smoothly.</td>
+<td>Monitor how idle transactions change your database&rsquo;s speed. If they noticeably slow down the database, ending these transaction can help keep everything running smoothly.</td>
 </tr>
 <tr>
 <td>What your business needs</td>
-<td>Consider what&rsquo;s important for your work. Some important transactions might need more time, so you shouldn&rsquo;t end them too quickly.</td>
+<td>What&rsquo;s important for your work. Some transactions may need more time.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="kill-idle-trx-innodb-purge">InnoDB purge<a class="headerlink" href="#kill-idle-trx-innodb-purge" title="Permanent link">&para;</a></h2>
-<p>The InnoDB purge process in MySQL removes outdated row versions (undo logs) from the system. When a transaction modifies data, InnoDB keeps old row versions for rollback and to support transactions running with multi-version concurrency control (MVCC). Once these versions are no longer needed, the purge process deletes them to free up space and improve performance.</p>
-<p>Blocking the InnoDB purge can lead to increased disk space usage and potential performance degradation. This feature helps prevent issues such by:</p>
-<ul>
-<li>
-<p>Limiting idle transactions: It kills any idle transaction after a specified threshold, ensuring transactions don’t remain idle for too long.</p>
-</li>
-<li>
-<p>Preventing mistakes: Users can’t accidentally block the InnoDB purge by leaving transactions idle.</p>
-</li>
-<li>
-<p>Improving performance: Keeping the purge process running smoothly helps maintain optimal database performance.</p>
-</li>
-</ul>
+<p>The InnoDB purge process removes outdated row versions (undo logs) from the system. When a transaction modifies data, InnoDB keeps old row versions for rollback and to support transactions running with multi-version concurrency control (MVCC). Once these versions are no longer needed, the purge process deletes them to free up space and improve performance.</p>
+<p>Blocking the InnoDB purge can lead to increased disk space usage and potential performance degradation. This feature helps prevent issues such as:</p>
+<table>
+<thead>
+<tr>
+<th>Benefit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Limiting idle transactions</td>
+<td>Kills any idle transaction after a specified threshold, ensuring transactions don’t remain idle for too long.</td>
+</tr>
+<tr>
+<td>Preventing mistakes</td>
+<td>Users can’t accidentally block the InnoDB purge by leaving transactions idle.</td>
+</tr>
+<tr>
+<td>Improving performance</td>
+<td>Keeping the purge process running smoothly helps maintain optimal database performance.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="kill-idle-trx-system-variables">System variables<a class="headerlink" href="#kill-idle-trx-system-variables" title="Permanent link">&para;</a></h2>
 <h3 id="kill-idle-trx-kill_idle_transaction"><code>kill_idle_transaction</code><a class="headerlink" href="#kill-idle-trx-kill_idle_transaction" title="Permanent link">&para;</a></h3>
 <table>
@@ -14367,7 +14391,22 @@ mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>PROCEDURE<span cl
 </tr>
 </tbody>
 </table>
-<p>If set to a non-zero value, the server kills any idle transaction after it stays idle for this number of seconds.</p></section><section class="print-page" id="percona-sequence-table" heading-number="5.8"><h1 id="percona-sequence-table-percona_sequence_tablen-function">PERCONA_SEQUENCE_TABLE(n) function<a class="headerlink" href="#percona-sequence-table-percona_sequence_tablen-function" title="Permanent link">&para;</a></h1>
+<p>If set to a non-zero value, the server kills any idle transaction after it stays idle for this number of seconds.</p>
+<h4 id="kill-idle-trx-examples">Examples<a class="headerlink" href="#kill-idle-trx-examples" title="Permanent link">&para;</a></h4>
+<p>The <code>SET GLOBAL kill_idle_transaction = 300;</code> command configures the server to automatically end any idle transaction that has lasted for 300 seconds (5 minutes). This command immediately takes effect for the current and new server sessions. An idle transaction holds resources, potentially preventing other operations from proceeding. This setting helps to release these resources if a transaction is unintentionally left open.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">kill_idle_transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">300</span><span class="p">;</span>
+</code></pre></div>
+<p>The [mysqld] section in the my.cnf configuration file allows you to set server-wide options that persist across server restarts. Adding the line kill_idle_transaction = 300 under [mysqld] makes the idle transaction timeout of 300 seconds the default setting for the server. This setting ensures that the server automatically terminates idle transactions after 5 minutes every time it starts. </p>
+<p>You must restart the server for changes in the my.cnf file to take effect. This configuration prevents long-held idle transactions from consuming resources over extended periods.</p>
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">kill_idle_transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">300</span>
+</code></pre></div>
+<h2 id="kill-idle-trx-monitor-terminated-transactions">Monitor terminated transactions<a class="headerlink" href="#kill-idle-trx-monitor-terminated-transactions" title="Permanent link">&para;</a></h2>
+<p>If the <code>kill_idle_transaction</code> setting is active and idle transactions have been terminated, this command will output any lines from the error log that contain the &ldquo;Killed idle transaction&rdquo; message. Each matching line typically includes a timestamp and details about the terminated transaction, such as its ID and the duration it was idle. </p>
+<p>If the kill_idle_transaction setting is active and idle transactions have been terminated, this command will output any lines from the error log that contain the “Killed idle transaction” message. Each matching line typically includes a timestamp and details about the terminated transaction, such as its ID and the duration it was idle.</p>
+<p>The command produces no output if the server has not terminated any idle transactions since the last log rotation or server start. Regularly checking this log helps you verify that the idle transaction option is working as expected and provides insights into transaction management within your server.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Killed idle transaction&quot;</span><span class="w"> </span>/var/log/mysql/error.log
+</code></pre></div></section><section class="print-page" id="percona-sequence-table" heading-number="5.8"><h1 id="percona-sequence-table-percona_sequence_tablen-function">PERCONA_SEQUENCE_TABLE(n) function<a class="headerlink" href="#percona-sequence-table-percona_sequence_tablen-function" title="Permanent link">&para;</a></h1>
 <p>Using the <code>PERCONA_SEQUENCE_TABLE()</code> function provides the following:</p>
 <table>
 <thead>
@@ -43995,10 +44034,10 @@ contributions and changes from MariaDB.</p>
     
     
       
-      <script id="__config" type="application/json">{"base": "/percona-server/8.4", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.edit", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"base": "/percona-server/8.4", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.edit", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
       
         <script src="js/print-site.js"></script>
       
