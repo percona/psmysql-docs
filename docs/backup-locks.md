@@ -4,7 +4,7 @@ Percona Server for MySQL offers the `LOCK TABLES FOR BACKUP` statement as a
 lightweight alternative to `FLUSH TABLES WITH READ LOCK` for both physical and
 logical backups.
 
-## FLUST TABLES WITH READ LOCK
+## FLUSH TABLES WITH READ LOCK
 
 The FLUSH TABLES WITH READ LOCK statement performs two main actions:
 
