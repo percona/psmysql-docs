@@ -597,7 +597,7 @@ sorted by the bulkloader itself, at a performance penalty.
 | Minimum      | 1                                                                          |
 | Maximum      | 1024                                                                       |
 
-**[ADDED: Percona Server for MySQL 8.4.5-5]**
+Added in Percona Server for MySQL 8.4.5-5
 
 Specifies the number of parallel worker threads used to compress SST data blocks during bulk load.
 
@@ -613,7 +613,7 @@ Specifies the number of parallel worker threads used to compress SST data blocks
 | Data type    | Bool                                                                     |
 | Default      | OFF                                                                      |
 
-**[ADDED: Percona Server for MySQL 8.4.5-5]**
+Added in Percona Server for MySQL 8.4.5-5.
 
 Controls whether the unique key constraint is checked during bulk loading.
 This setting can only be changed when bulk loading is disabled.
@@ -1329,7 +1329,7 @@ by always overriding it with some value.
 | Data type                                     | Boolean                                                                               |
 | Default                                       | OFF                                                                                   |
 
-**[ADDED: Percona Server for MySQL 8.4.5-5]**
+Added in Percona Server for MySQL 8.4.5-5
 
 Allows setting iterator bounds in RocksDB even when the query range conditions would normally enable Bloom filter usage.
 
@@ -1589,7 +1589,7 @@ Specifies whether to enable optimization where the read is cached from a failed 
 | Data type                   | Boolean                                                                               |
 | Default                     | ON                                                                                    |
 
-**[ADDED: Percona Server for MySQL 8.4.5-5]**
+Added in Percona Server for MySQL 8.4.5-5.
 
 Enables Instant DDL during `ALTER TABLE` operations when possible. If set
 to `OFF`, no DDL operations can be executed as instant.
@@ -1605,7 +1605,7 @@ to `OFF`, no DDL operations can be executed as instant.
 | Data type                                | Boolean                                                                               |
 | Default                                  | OFF                                                                                   |
 
-**[ADDED: Percona Server for MySQL 8.4.5-5]**
+Added in Percona Server for MySQL 8.4.5-5.
 
 Enables Instant DDL specifically for appending columns during `ALTER TABLE`
 operations.
@@ -1621,7 +1621,7 @@ operations.
 | Data type                                     | Boolean                                                                               |
 | Default                                       | OFF                                                                                   |
 
-**[ADDED: Percona Server for MySQL 8.4.5-5]**
+Added in Percona Server for MySQL 8.4.5-5.
 
 Enables Instant DDL for changes to column defaults during `ALTER TABLE`
 operations.
@@ -1637,7 +1637,7 @@ operations.
 | Data type                                    | Boolean                                                                               |
 | Default                                      | OFF                                                                                   |
 
-**[ADDED: Percona Server for MySQL 8.4.5-5]**
+Added in Percona Server for MySQL 8.4.5-5.
 
 Enables Instant DDL for dropping indexes during `ALTER TABLE` operations.
 
@@ -1652,7 +1652,7 @@ Enables Instant DDL for dropping indexes during `ALTER TABLE` operations.
 | Data type                                      | Boolean                                                                               |
 | Default                                        | OFF                                                                                   |
 
-**[ADDED: Percona Server for MySQL 8.4.5-5]**
+Added in Percona Server for MySQL 8.4.5-5.
 
 Enables Instant DDL for changes to table comments during `ALTER TABLE`
 operations.
@@ -1770,7 +1770,7 @@ are dropped during compaction. **Use with caution.**
 | Data type                         | Boolean                                                                               |
 | Default                           | OFF                                                                                   |
 
-**[ADDED: Percona Server for MySQL 8.4.5-5]**
+Added in Percona Server for MySQL 8.4.5-5.
 
 **[Not yet implemented.]**
 
@@ -2079,7 +2079,7 @@ log messages)
 | Data type                             | Enum: LOG, PUSH_WARNING, PUSH_ERROR                                                   |
 | Default                               | LOG                                                                                   |
 
-**[ADDED: Percona Server for MySQL 8.4.5-5]**
+Added in Percona Server for MySQL 8.4.5-5.
 
 Controls the behavior when creating a table encounters an error related to
 RocksDB options. You can choose to only log the error, pass the query and
@@ -2096,7 +2096,7 @@ give users a warning, or fail the query.
 | Data type                   | Enum: ABORT_SERVER, IGNORE_ERROR                                                      |
 | Default                     | ABORT_SERVER                                                                        |
 
-**[ADDED: Percona Server for MySQL 8.4.5-5]**
+Added in Percona Server for MySQL 8.4.5-5.
 
 Controls the behavior when an I/O error occurs within RocksDB. By default,
 MyRocks aborts the server and refuses to start. Setting this option to
@@ -3365,7 +3365,7 @@ Allowed range is from `0` to `100`.
 | Data type                         | Boolean                                                                               |
 | Default                           | OFF                                                                                   |
 
-**[ADDED: Percona Server for MySQL 8.4.5-5]**
+Added in Percona Server for MySQL 8.4.5-5.
 
 Determines whether to skip recording table statistics for the system column
 family.
@@ -3622,7 +3622,7 @@ This variable is disabled (OFF) by default.
 | Data type               | Boolean                                                                               |
 | Default                 | OFF                                                                                   |
 
-**[ADDED: Percona Server for MySQL 8.4.5-5]**
+Added in Percona Server for MySQL 8.4.5-5.
 
 Enables the use of `io_uring` for RocksDB.
 
