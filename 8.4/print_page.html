@@ -33966,6 +33966,7 @@ client operation.</p>
 <p><em>Session</em> scope defines how the variable affects operation for individual client connections.</p>
 </li>
 </ul>
+<h2 id="myrocks-server-variables-variable-table">Variable table<a class="headerlink" href="#myrocks-server-variables-variable-table" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -33983,13 +33984,13 @@ client operation.</p>
 <td><a href="#myrocks-server-variables-rocksdb_allow_concurrent_memtable_write"><code>rocksdb_allow_concurrent_memtable_write</code></a></td>
 </tr>
 <tr>
-<td><a href="#myrocks-server-variables-rocksdb_allow_to_start_after_corruption"><code>rocksdb_allow_to_start_after_corruption</code></a></td>
-</tr>
-<tr>
 <td><a href="#myrocks-server-variables-rocksdb_allow_mmap_reads"><code>rocksdb_allow_mmap_reads</code></a></td>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_allow_mmap_writes"><code>rocksdb_allow_mmap_writes</code></a></td>
+</tr>
+<tr>
+<td><a href="#myrocks-server-variables-rocksdb_allow_to_start_after_corruption"><code>rocksdb_allow_to_start_after_corruption</code></a></td>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_allow_unsafe_alter"><code>rocksdb_allow_unsafe_alter</code></a></td>
@@ -34013,15 +34014,6 @@ client operation.</p>
 <td><a href="#myrocks-server-variables-rocksdb_block_cache_size"><code>rocksdb_block_cache_size</code></a></td>
 </tr>
 <tr>
-<td><a href="#myrocks-server-variables-rocksdb_bulk_load_fail_if_not_bottommost_level"><code>rocksdb_bulk_load_fail_if_not_bottommost_level</code></a></td>
-</tr>
-<tr>
-<td><a href="#myrocks-server-variables-rocksdb_bulk_load_partial_index"><code>rocksdb_bulk_load_partial_index</code></a></td>
-</tr>
-<tr>
-<td><a href="#myrocks-server-variables-rocksdb_bulk_load_use_sst_partitioner"><code>rocksdb_bulk_load_use_sst_partitioner</code></a></td>
-</tr>
-<tr>
 <td><a href="#myrocks-server-variables-rocksdb_block_restart_interval"><code>rocksdb_block_restart_interval</code></a></td>
 </tr>
 <tr>
@@ -34040,7 +34032,22 @@ client operation.</p>
 <td><a href="#myrocks-server-variables-rocksdb_bulk_load_allow_unsorted"><code>rocksdb_bulk_load_allow_unsorted</code></a></td>
 </tr>
 <tr>
+<td><a href="#myrocks-server-variables-rocksdb_bulk_load_compression_parallel_threads"><code>rocksdb_bulk_load_compression_parallel_threads</code></a></td>
+</tr>
+<tr>
+<td><a href="#myrocks-server-variables-rocksdb_bulk_load_enable_unique_key_check"><code>rocksdb_bulk_load_enable_unique_key_check</code></a></td>
+</tr>
+<tr>
+<td><a href="#myrocks-server-variables-rocksdb_bulk_load_fail_if_not_bottommost_level"><code>rocksdb_bulk_load_fail_if_not_bottommost_level</code></a></td>
+</tr>
+<tr>
+<td><a href="#myrocks-server-variables-rocksdb_bulk_load_partial_index"><code>rocksdb_bulk_load_partial_index</code></a></td>
+</tr>
+<tr>
 <td><a href="#myrocks-server-variables-rocksdb_bulk_load_size"><code>rocksdb_bulk_load_size</code></a></td>
+</tr>
+<tr>
+<td><a href="#myrocks-server-variables-rocksdb_bulk_load_use_sst_partitioner"><code>rocksdb_bulk_load_use_sst_partitioner</code></a></td>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_bytes_per_sync"><code>rocksdb_bytes_per_sync</code></a></td>
@@ -34136,13 +34143,16 @@ client operation.</p>
 <td><a href="#myrocks-server-variables-rocksdb_deadlock_detect_depth"><code>rocksdb_deadlock_detect_depth</code></a></td>
 </tr>
 <tr>
-<td><a href="#myrocks-server-variables-rocksdb_debug_cardinality_multiplier"><code>rocksdb_debug_cardinality_multipler</code></a></td>
+<td><a href="#myrocks-server-variables-rocksdb_debug_cardinality_multiplier"><code>rocksdb_debug_cardinality_multiplier</code></a></td>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_debug_manual_compaction_delay"><code>rocksdb_debug_manual_compaction_delay</code></a></td>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_debug_optimizer_no_zero_cardinality"><code>rocksdb_debug_optimizer_no_zero_cardinality</code></a></td>
+</tr>
+<tr>
+<td><a href="#myrocks-server-variables-rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds"><code>rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds</code></a></td>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_debug_ttl_ignore_pk"><code>rocksdb_debug_ttl_ignore_pk</code></a></td>
@@ -34184,6 +34194,21 @@ client operation.</p>
 <td><a href="#myrocks-server-variables-rocksdb_enable_insert_with_update_caching"><code>rocksdb_enable_insert_with_update_caching</code></a></td>
 </tr>
 <tr>
+<td><a href="#myrocks-server-variables-rocksdb_enable_instant_ddl"><code>rocksdb_enable_instant_ddl</code></a></td>
+</tr>
+<tr>
+<td><a href="#myrocks-server-variables-rocksdb_enable_instant_ddl_for_append_column"><code>rocksdb_enable_instant_ddl_for_append_column</code></a></td>
+</tr>
+<tr>
+<td><a href="#myrocks-server-variables-rocksdb_enable_instant_ddl_for_column_default_changes"><code>rocksdb_enable_instant_ddl_for_column_default_changes</code></a></td>
+</tr>
+<tr>
+<td><a href="#myrocks-server-variables-rocksdb_enable_instant_ddl_for_drop_index_changes"><code>rocksdb_enable_instant_ddl_for_drop_index_changes</code></a></td>
+</tr>
+<tr>
+<td><a href="#myrocks-server-variables-rocksdb_enable_instant_ddl_for_table_comment_changes"><code>rocksdb_enable_instant_ddl_for_table_comment_changes</code></a></td>
+</tr>
+<tr>
 <td><a href="#myrocks-server-variables-rocksdb_enable_iterate_bounds"><code>rocksdb_enable_iterate_bounds</code></a></td>
 </tr>
 <tr>
@@ -34193,13 +34218,16 @@ client operation.</p>
 <td><a href="#myrocks-server-variables-rocksdb_enable_remove_orphaned_dropped_cfs"><code>rocksdb_enable_remove_orphaned_dropped_cfs</code></a></td>
 </tr>
 <tr>
+<td><a href="#myrocks-server-variables-rocksdb_enable_thread_tracking"><code>rocksdb_enable_thread_tracking</code></a></td>
+</tr>
+<tr>
 <td><a href="#myrocks-server-variables-rocksdb_enable_ttl"><code>rocksdb_enable_ttl</code></a></td>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_enable_ttl_read_filtering"><code>rocksdb_enable_ttl_read_filtering</code></a></td>
 </tr>
 <tr>
-<td><a href="#myrocks-server-variables-rocksdb_enable_thread_tracking"><code>rocksdb_enable_thread_tracking</code></a></td>
+<td><a href="#myrocks-server-variables-rocksdb_enable_udt_in_mem"><code>rocksdb_enable_udt_in_mem</code></a></td>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_enable_write_thread_adaptive_yield"><code>rocksdb_enable_write_thread_adaptive_yield</code></a></td>
@@ -34245,6 +34273,12 @@ client operation.</p>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_info_log_level"><code>rocksdb_info_log_level</code></a></td>
+</tr>
+<tr>
+<td><a href="#myrocks-server-variables-rocksdb_invalid_create_option_action"><code>rocksdb_invalid_create_option_action</code></a></td>
+</tr>
+<tr>
+<td><a href="#myrocks-server-variables-rocksdb_io_error_action"><code>rocksdb_io_error_action</code></a></td>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_is_fd_close_on_exec"><code>rocksdb_is_fd_close_on_exec</code></a></td>
@@ -34346,6 +34380,9 @@ client operation.</p>
 <td><a href="#myrocks-server-variables-rocksdb_paranoid_checks"><code>rocksdb_paranoid_checks</code></a></td>
 </tr>
 <tr>
+<td><a href="#myrocks-server-variables-rocksdb_partial_index_blind_delete"><code>rocksdb_partial_index_blind_delete</code></a></td>
+</tr>
+<tr>
 <td><a href="#myrocks-server-variables-rocksdb_partial_index_ignore_killed"><code>rocksdb_partial_index_ignore_killed</code></a></td>
 </tr>
 <tr>
@@ -34353,9 +34390,6 @@ client operation.</p>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_pause_background_work"><code>rocksdb_pause_background_work</code></a></td>
-</tr>
-<tr>
-<td><a href="#myrocks-server-variables-rocksdb_partial_index_blind_delete"><code>rocksdb_partial_index_blind_delete</code></a></td>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_perf_context_level"><code>rocksdb_perf_context_level</code></a></td>
@@ -34454,13 +34488,13 @@ client operation.</p>
 <td><a href="#myrocks-server-variables-rocksdb_table_stats_sampling_pct"><code>rocksdb_table_stats_sampling_pct</code></a></td>
 </tr>
 <tr>
+<td><a href="#myrocks-server-variables-rocksdb_table_stats_skip_system_cf"><code>rocksdb_table_stats_skip_system_cf</code></a></td>
+</tr>
+<tr>
 <td><a href="#myrocks-server-variables-rocksdb_table_stats_use_table_scan"><code>rocksdb_table_stats_use_table_scan</code></a></td>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_tmpdir"><code>rocksdb_tmpdir</code></a></td>
-</tr>
-<tr>
-<td><a href="#myrocks-server-variables-rocksdb_two_write_queues"><code>rocksdb_two_write_queues</code></a></td>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_trace_block_cache_access"><code>rocksdb_trace_block_cache_access</code></a></td>
@@ -34473,6 +34507,9 @@ client operation.</p>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_track_and_verify_wals_in_manifest"><code>rocksdb_track_and_verify_wals_in_manifest</code></a></td>
+</tr>
+<tr>
+<td><a href="#myrocks-server-variables-rocksdb_two_write_queues"><code>rocksdb_two_write_queues</code></a></td>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_unsafe_for_binlog"><code>rocksdb_unsafe_for_binlog</code></a></td>
@@ -34497,6 +34534,9 @@ client operation.</p>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_use_hyper_clock_cache"><code>rocksdb_use_hyper_clock_cache</code></a></td>
+</tr>
+<tr>
+<td><a href="#myrocks-server-variables-rocksdb_use_io_uring"><code>rocksdb_use_io_uring</code></a></td>
 </tr>
 <tr>
 <td><a href="#myrocks-server-variables-rocksdb_use_write_buffer_manager"><code>rocksdb_use_write_buffer_manager</code></a></td>
@@ -34542,6 +34582,7 @@ client operation.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="myrocks-server-variables-variable-definitions">Variable definitions<a class="headerlink" href="#myrocks-server-variables-variable-definitions" title="Permanent link">&para;</a></h2>
 <h3 id="myrocks-server-variables-rocksdb_access_hint_on_compaction_start"><code>rocksdb_access_hint_on_compaction_start</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_access_hint_on_compaction_start" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -34573,6 +34614,7 @@ client operation.</p>
 </tr>
 </tbody>
 </table>
+<p><strong>[Removed: 8.4.5-5]</strong> As of Percona Server for MySQL 8.4.5-5, the <code>rocksdb-access-hint-on-compaction-start</code> variable has been removed.</p>
 <p>Specifies the file access pattern once a compaction is started,
 applied to all input files of a compaction.
 Possible values are:</p>
@@ -34656,50 +34698,7 @@ Enabled by default.</p>
 </tr>
 </tbody>
 </table>
-<p>Specifies whether to allow multiple writers to update memtables in parallel.
-Disabled by default.</p>
-<h3 id="myrocks-server-variables-rocksdb_allow_to_start_after_corruption"><code>rocksdb_allow_to_start_after_corruption</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_allow_to_start_after_corruption" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;rocksdb_allow_to_start_after_corruption</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Boolean</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>OFF</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies whether to allow server to restart once MyRocks reported data
-corruption. Disabled by default.</p>
-<p>Once corruption is detected server writes marker file (named
-ROCKSDB_CORRUPTED) in the data directory and aborts. If marker file exists,
-then mysqld exits on startup with an error message. The restart failure will
-continue until the problem is solved or until mysqld is started with this
-variable turned on in the command line.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Not all memtables support concurrent writes.</p>
-</div>
+<p>Specifies whether to allow multiple writers to update memtables in parallel. Disabled by default.</p>
 <h3 id="myrocks-server-variables-rocksdb_allow_mmap_reads"><code>rocksdb_allow_mmap_reads</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_allow_mmap_reads" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -34767,6 +34766,48 @@ If you enable this, make sure that rocksdb_use_direct_reads is disabled.</p>
 </table>
 <p>Specifies whether to allow the OS to map a data file into memory for writes.
 Disabled by default.</p>
+<h3 id="myrocks-server-variables-rocksdb_allow_to_start_after_corruption"><code>rocksdb_allow_to_start_after_corruption</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_allow_to_start_after_corruption" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb_allow_to_start_after_corruption</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies whether to allow server to restart once MyRocks reported data
+corruption. Disabled by default.</p>
+<p>Once corruption is detected server writes marker file (named
+ROCKSDB_CORRUPTED) in the data directory and aborts. If marker file exists,
+then mysqld exits on startup with an error message. The restart failure will
+continue until the problem is solved or until mysqld is started with this
+variable turned on in the command line.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not all memtables support concurrent writes.</p>
+</div>
 <h3 id="myrocks-server-variables-rocksdb_allow_unsafe_alter"><code>rocksdb_allow_unsafe_alter</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_allow_unsafe_alter" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -35017,44 +35058,6 @@ which is in addition to any filesystem caching that may occur.</p>
 because that’s the size of one block.</p>
 <p>Default value is <code>536870912</code>.</p>
 <p>Maximum value is <code>9223372036854775807</code>.</p>
-<h3 id="myrocks-server-variables-rocksdb_bulk_load_fail_if_not_bottommost_level"><code>rocksdb_bulk_load_fail_if_not_bottommost_level</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_bulk_load_fail_if_not_bottommost_level" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;rocksdb_bulk_load_fail_if_not_bottommost_level</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global, Session</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Boolean</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>OFF</td>
-</tr>
-</tbody>
-</table>
-<p>When this variable is enabled, the bulk load fails if an sst file created during bulk load cannot be placed to the bottommost level in the rocksdb. </p>
-<p>This variable can be enabled or disabled only when the <a href="#myrocks-server-variables-rocksdbbulkload"><code>rocksdb_bulk_load</code></a> is <code>OFF</code>.</p>
-<p>This variable is disabled (OFF) by default.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>When <code>rocksdb_bulk_load_fail_if_not_bottommost_level</code> is disabled, it may cause severe performance impact.</p>
-</div>
 <h3 id="myrocks-server-variables-rocksdb_block_restart_interval"><code>rocksdb_block_restart_interval</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_block_restart_interval" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -35161,6 +35164,44 @@ close the block (and write to new block).
 Default value is <code>10</code>, meaning that the block is not closed
 until there is less than 10 bits of free space remaining.</p>
 <p>Allowed range is from <code>1</code> to <code>2147483647</code>.</p>
+<h3 id="myrocks-server-variables-rocksdb_bulk_load"><code>rocksdb_bulk_load</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_bulk_load" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb-bulk-load</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global, Session</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies whether to use bulk load:
+MyRocks will ignore checking keys for uniqueness
+or acquiring locks during transactions.
+Disabled by default.
+Enable this only if you are certain that there are no row conflicts,
+for example, when setting up a new MyRocks instance from a MySQL dump.</p>
+<p>When the <code>rocksdb_bulk_load</code> variable is enabled, it behaves as if the variable <code>rocksdb_commit_in_the_middle</code> is enabled, even if the variable <code>rocksdb_commit_in_the_middle</code> is disabled.</p>
 <h3 id="myrocks-server-variables-rocksdb_bulk_load_allow_sk"><code>rocksdb_bulk_load_allow_sk</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_bulk_load_allow_sk" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -35228,7 +35269,74 @@ feature. This variable can be enabled or disabled only when the rocksdb_bulk_loa
 <p>By default, the bulk loader requires its input to be sorted in the primary
 key order. If enabled, unsorted inputs are allowed too, which are then
 sorted by the bulkloader itself, at a performance penalty.</p>
-<h3 id="myrocks-server-variables-rocksdb_bulk_load"><code>rocksdb_bulk_load</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_bulk_load" title="Permanent link">&para;</a></h3>
+<h3 id="myrocks-server-variables-rocksdb_bulk_load_compression_parallel_threads"><code>rocksdb_bulk_load_compression_parallel_threads</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_bulk_load_compression_parallel_threads" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global, Session</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Numeric</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Minimum</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Maximum</td>
+<td>1024</td>
+</tr>
+</tbody>
+</table>
+<p>Added in Percona Server for MySQL 8.4.5-5</p>
+<p>Specifies the number of parallel worker threads used to compress SST data blocks during bulk load.</p>
+<h3 id="myrocks-server-variables-rocksdb_bulk_load_enable_unique_key_check"><code>rocksdb_bulk_load_enable_unique_key_check</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_bulk_load_enable_unique_key_check" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global, Session</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Bool</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>Added in Percona Server for MySQL 8.4.5-5.</p>
+<p>Controls whether the unique key constraint is checked during bulk loading.
+This setting can only be changed when bulk loading is disabled.</p>
+<h3 id="myrocks-server-variables-rocksdb_bulk_load_fail_if_not_bottommost_level"><code>rocksdb_bulk_load_fail_if_not_bottommost_level</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_bulk_load_fail_if_not_bottommost_level" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -35239,7 +35347,7 @@ sorted by the bulkloader itself, at a performance penalty.</p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>&ndash;rocksdb-bulk-load</td>
+<td>&ndash;rocksdb_bulk_load_fail_if_not_bottommost_level</td>
 </tr>
 <tr>
 <td>Dynamic</td>
@@ -35259,13 +35367,13 @@ sorted by the bulkloader itself, at a performance penalty.</p>
 </tr>
 </tbody>
 </table>
-<p>Specifies whether to use bulk load:
-MyRocks will ignore checking keys for uniqueness
-or acquiring locks during transactions.
-Disabled by default.
-Enable this only if you are certain that there are no row conflicts,
-for example, when setting up a new MyRocks instance from a MySQL dump.</p>
-<p>When the rocksdb_bulk_load variable is enabled, it behaves as if the variable rocksdb_commit_in_the_middle is enabled, even if the variable rocksdb_commit_in_the_middle is disabled.</p>
+<p>When this variable is enabled, the bulk load fails if an sst file created during bulk load cannot be placed to the bottommost level in the rocksdb. </p>
+<p>This variable can be enabled or disabled only when the <a href="#myrocks-server-variables-rocksdbbulkload"><code>rocksdb_bulk_load</code></a> is <code>OFF</code>.</p>
+<p>This variable is disabled (OFF) by default.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When <code>rocksdb_bulk_load_fail_if_not_bottommost_level</code> is disabled, it may cause severe performance impact.</p>
+</div>
 <h3 id="myrocks-server-variables-rocksdb_bulk_load_partial_index"><code>rocksdb_bulk_load_partial_index</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_bulk_load_partial_index" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -35298,39 +35406,6 @@ for example, when setting up a new MyRocks instance from a MySQL dump.</p>
 </tbody>
 </table>
 <p>Materializes partial index during bulk load instead of leaving the index empty.</p>
-<h3 id="myrocks-server-variables-rocksdb_bulk_load_use_sst_partitioner"><code>rocksdb_bulk_load_use_sst_partitioner</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_bulk_load_use_sst_partitioner" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;rocksdb_bulk_load_use_sst_partitioner</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global, Session</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Boolean</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>OFF</td>
-</tr>
-</tbody>
-</table>
-<p>If enabled, this variable uses sst partitioner to split sst files to ensure bulk load sst files can be ingested to bottommost level.</p>
-<p>This variable is disabled (OFF) by default.</p>
 <h3 id="myrocks-server-variables-rocksdb_bulk_load_size"><code>rocksdb_bulk_load_size</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_bulk_load_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -35369,6 +35444,39 @@ Default value is <code>1000</code>,
 which means that a batch can contain up to 1000 records
 before they are implicitly committed.
 Allowed range is from <code>1</code> to <code>1073741824</code>.</p>
+<h3 id="myrocks-server-variables-rocksdb_bulk_load_use_sst_partitioner"><code>rocksdb_bulk_load_use_sst_partitioner</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_bulk_load_use_sst_partitioner" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb_bulk_load_use_sst_partitioner</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global, Session</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>If enabled, this variable uses sst partitioner to split sst files to ensure bulk load sst files can be ingested to bottommost level.</p>
+<p>This variable is disabled (OFF) by default.</p>
 <h3 id="myrocks-server-variables-rocksdb_bytes_per_sync"><code>rocksdb_bytes_per_sync</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_bytes_per_sync" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -35636,7 +35744,6 @@ If you disable this feature, RocksDB allocates additional memory to maintain the
 </tr>
 </tbody>
 </table>
-<p>This variable has been implemented in <a href="https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html">Percona Server for MySQL 8.3.0-1</a>.</p>
 <p>This variable enables checking the upper and lower bounds of the RocksDB iterator during iteration. The default value in <code>ON</code> which means this variable is enabled.</p>
 <h3 id="myrocks-server-variables-rocksdb_checksums_pct"><code>rocksdb_checksums_pct</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_checksums_pct" title="Permanent link">&para;</a></h3>
 <table>
@@ -35879,6 +35986,7 @@ not.</p>
 <p>This variable has been implemented in <a href="https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html">Percona Server for MySQL 8.3.0-1</a>.</p>
 <p>This variable acts as a trigger. Set the variable to <code>ON</code>, <code>rocksdb-compact-lzero-now=ON</code>, to immediately compact all the <code>Level 0</code> (L0) files. After all the <code>L0</code> files are compacted, the variable value automatically switches to <code>OFF</code>.</p>
 <h3 id="myrocks-server-variables-rocksdb_compaction_readahead_size"><code>rocksdb_compaction_readahead_size</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_compaction_readahead_size" title="Permanent link">&para;</a></h3>
+<p><strong>[Changed in 8.4.5-5]</strong> The default value of <code>rocksdb_compaction_readahead_size</code> has changed from <code>0</code> to <code>2097152</code>.</p>
 <table>
 <thead>
 <tr>
@@ -35905,12 +36013,12 @@ not.</p>
 </tr>
 <tr>
 <td>Default</td>
-<td>0</td>
+<td>2097152 (Prior to 8.4.5-5, the default was 0)</td>
 </tr>
 </tbody>
 </table>
 <p>Specifies the size of reads to perform ahead of compaction.
-Default value is <code>0</code>.
+The default value is now <code>2097152</code>.
 Set this to at least 2 megabytes (<code>16777216</code>)
 when using MyRocks with spinning disks
 to ensure sequential reads instead of random.
@@ -36106,6 +36214,42 @@ Allowed range is from <code>-1</code> to <code>9223372036854775807</code>.</p>
 <p>When enabled this variable allows/encourages threads that are using
 two-phase commit to <code>prepare</code> in parallel. This variable was
 renamed in upstream to rocksdb_two_write_queues.</p>
+<h3 id="myrocks-server-variables-rocksdb_converter_record_cached_length"><code>rocksdb_converter_record_cached_length</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_converter_record_cached_length" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb_converter_record_cached_length</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Numeric</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the maximum number of bytes to cache on table handler for encoding table record data. </p>
+<p>If the used memory exceeds <code>rocksdb_converter_record_cached_length</code>, the memory is released when the handler is returned to the table handler cache.</p>
+<p>The minimum value is <code>0</code> (zero) that means there is no limit.
+The maximum value is <code>UINT64_MAX (0xffffffffffffffff)</code>.</p>
+<p>The default value is <code>0</code>(zero) that means there is no limit.</p>
 <h3 id="myrocks-server-variables-rocksdb_corrupt_data_action"><code>rocksdb_corrupt_data_action</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_corrupt_data_action" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -36151,42 +36295,6 @@ renamed in upstream to rocksdb_two_write_queues.</p>
 </li>
 </ul>
 <p>The default value is <code>ERROR</code> that means the query fails with the error <code>HA_ERR_ROCKSDB_CORRUPT_DATA</code>.</p>
-<h3 id="myrocks-server-variables-rocksdb_converter_record_cached_length"><code>rocksdb_converter_record_cached_length</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_converter_record_cached_length" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;rocksdb_converter_record_cached_length</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Numeric</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the maximum number of bytes to cache on table handler for encoding table record data. </p>
-<p>If the used memory exceeds <code>rocksdb_converter_record_cached_length</code>, the memory is released when the handler is returned to the table handler cache.</p>
-<p>The minimum value is <code>0</code> (zero) that means there is no limit.
-The maximum value is <code>UINT64_MAX (0xffffffffffffffff)</code>.</p>
-<p>The default value is <code>0</code>(zero) that means there is no limit.</p>
 <h3 id="myrocks-server-variables-rocksdb_create_checkpoint"><code>rocksdb_create_checkpoint</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_create_checkpoint" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -36552,6 +36660,39 @@ through before assuming deadlock.</p>
 </table>
 <p>Specifies whether MyRocks should prevent zero cardinality
 by always overriding it with some value.</p>
+<h3 id="myrocks-server-variables-rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds"><code>rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb-debug-skip-bloom-filter-check-on-iterator-bounds</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>Added in Percona Server for MySQL 8.4.5-5</p>
+<p>Allows setting iterator bounds in RocksDB even when the query range conditions would normally enable Bloom filter usage.</p>
 <h3 id="myrocks-server-variables-rocksdb_debug_ttl_ignore_pk"><code>rocksdb_debug_ttl_ignore_pk</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_debug_ttl_ignore_pk" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -36896,12 +37037,13 @@ use or other misuse can have serious side effects to the server instance.</p>
 </tr>
 <tr>
 <td>Default</td>
-<td>ON</td>
+<td>OFF</td>
 </tr>
 </tbody>
 </table>
-<p>Disables instant DDL during <code>ALTER TABLE</code> operations.</p>
-<p>This variable is enabled (ON) by default.</p>
+<p><strong>[Deprecated: 8.4.5-5]</strong> The <code>rocksdb_disable_instant_ddl</code> variable is deprecated and will be removed in a future version. Its default value has changed to <code>OFF</code> as of this version.</p>
+<p>Disables Instant DDL during <code>ALTER TABLE</code> operations.</p>
+<p>Prior to Percona Server for MySQL 8.4.5-5, this variable was enabled (<code>ON</code>) by default.</p>
 <h3 id="myrocks-server-variables-rocksdb_enable_bulk_load_api"><code>rocksdb_enable_bulk_load_api</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_enable_bulk_load_api" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -37005,6 +37147,175 @@ and does not require keys to be inserted in any order.</p>
 </tbody>
 </table>
 <p>Specifies whether to enable optimization where the read is cached from a failed insertion attempt in INSERT ON DUPLICATE KEY UPDATE.</p>
+<h3 id="myrocks-server-variables-rocksdb_enable_instant_ddl"><code>rocksdb_enable_instant_ddl</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_enable_instant_ddl" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb-enable-instant-ddl</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>ON</td>
+</tr>
+</tbody>
+</table>
+<p>Added in Percona Server for MySQL 8.4.5-5.</p>
+<p>Enables Instant DDL during <code>ALTER TABLE</code> operations when possible. If set
+to <code>OFF</code>, no DDL operations can be executed as instant.</p>
+<h3 id="myrocks-server-variables-rocksdb_enable_instant_ddl_for_append_column"><code>rocksdb_enable_instant_ddl_for_append_column</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_enable_instant_ddl_for_append_column" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb-enable-instant-ddl-for-append-column</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>Added in Percona Server for MySQL 8.4.5-5.</p>
+<p>Enables Instant DDL specifically for appending columns during <code>ALTER TABLE</code>
+operations.</p>
+<h3 id="myrocks-server-variables-rocksdb_enable_instant_ddl_for_column_default_changes"><code>rocksdb_enable_instant_ddl_for_column_default_changes</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_enable_instant_ddl_for_column_default_changes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb-enable-instant-ddl-for-column-default-changes</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>Added in Percona Server for MySQL 8.4.5-5.</p>
+<p>Enables Instant DDL for changes to column defaults during <code>ALTER TABLE</code>
+operations.</p>
+<h3 id="myrocks-server-variables-rocksdb_enable_instant_ddl_for_drop_index_changes"><code>rocksdb_enable_instant_ddl_for_drop_index_changes</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_enable_instant_ddl_for_drop_index_changes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb-enable-instant-ddl-for-drop-index-changes</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>Added in Percona Server for MySQL 8.4.5-5.</p>
+<p>Enables Instant DDL for dropping indexes during <code>ALTER TABLE</code> operations.</p>
+<h3 id="myrocks-server-variables-rocksdb_enable_instant_ddl_for_table_comment_changes"><code>rocksdb_enable_instant_ddl_for_table_comment_changes</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_enable_instant_ddl_for_table_comment_changes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb-enable-instant-ddl-for-table-comment-changes</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>Added in Percona Server for MySQL 8.4.5-5.</p>
+<p>Enables Instant DDL for changes to table comments during <code>ALTER TABLE</code>
+operations.</p>
 <h3 id="myrocks-server-variables-rocksdb_enable_iterate_bounds"><code>rocksdb_enable_iterate_bounds</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_enable_iterate_bounds" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -37103,6 +37414,41 @@ and does not require keys to be inserted in any order.</p>
 </table>
 <p>Enables the removal of dropped column families (cfs) from metadata if the cfs do not exist in the cf manager.</p>
 <p>The default value is <code>ON</code>.</p>
+<h3 id="myrocks-server-variables-rocksdb_enable_thread_tracking"><code>rocksdb_enable_thread_tracking</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_enable_thread_tracking" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb-enable-thread-tracking</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies whether to enable tracking the status of threads
+accessing the database.
+Disabled by default.
+If enabled, thread status will be available via <code>GetThreadList()</code>.</p>
 <h3 id="myrocks-server-variables-rocksdb_enable_ttl"><code>rocksdb_enable_ttl</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_enable_ttl" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -37173,7 +37519,7 @@ out during processing and in query results. Disabling
 this will allow these records to be seen, but as a result
 rows may disappear in the middle of transactions as they
 are dropped during compaction. <strong>Use with caution.</strong></p>
-<h3 id="myrocks-server-variables-rocksdb_enable_thread_tracking"><code>rocksdb_enable_thread_tracking</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_enable_thread_tracking" title="Permanent link">&para;</a></h3>
+<h3 id="myrocks-server-variables-rocksdb_enable_udt_in_mem"><code>rocksdb_enable_udt_in_mem</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_enable_udt_in_mem" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -37184,11 +37530,11 @@ are dropped during compaction. <strong>Use with caution.</strong></p>
 <tbody>
 <tr>
 <td>Command-line</td>
-<td>&ndash;rocksdb-enable-thread-tracking</td>
+<td>&ndash;rocksdb-enable-udt-in-mem</td>
 </tr>
 <tr>
 <td>Dynamic</td>
-<td>No</td>
+<td>Yes</td>
 </tr>
 <tr>
 <td>Scope</td>
@@ -37204,10 +37550,10 @@ are dropped during compaction. <strong>Use with caution.</strong></p>
 </tr>
 </tbody>
 </table>
-<p>Specifies whether to enable tracking the status of threads
-accessing the database.
-Disabled by default.
-If enabled, thread status will be available via <code>GetThreadList()</code>.</p>
+<p>Added in Percona Server for MySQL 8.4.5-5.</p>
+<p><strong>[Not yet implemented.]</strong></p>
+<p>Enables the user-defined timestamp in memtable feature to support Hybrid
+Logical Clock (HLC) snapshot reads in MyRocks.</p>
 <h3 id="myrocks-server-variables-rocksdb_enable_write_thread_adaptive_yield"><code>rocksdb_enable_write_thread_adaptive_yield</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_enable_write_thread_adaptive_yield" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -37312,6 +37658,7 @@ Disabled by default.</p>
 created on a char field where the table has a sub-optimal collation (case
 insensitive). Enabled by default.</p>
 <h3 id="myrocks-server-variables-rocksdb_file_checksums"><code>rocksdb_file_checksums</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_file_checksums" title="Permanent link">&para;</a></h3>
+<p><strong>[Changed in 8.4.5-5]</strong> The <code>rocksdb_file_checksums</code> variable&rsquo;s default value changed from <code>OFF</code> to <code>CHECKSUMS_OFF</code>, and its data type changed to <code>Enum= CHECKSUMS_OFF, CHECKSUMS_WRITE_ONLY, CHECKSUMS_WRITE_AND_VERIFY</code>.</p>
 <table>
 <thead>
 <tr>
@@ -37334,16 +37681,27 @@ insensitive). Enabled by default.</p>
 </tr>
 <tr>
 <td>Data type</td>
-<td>Boolean</td>
+<td>Enum= CHECKSUMS_OFF, CHECKSUMS_WRITE_ONLY, CHECKSUMS_WRITE_AND_VERIFY</td>
 </tr>
 <tr>
 <td>Default</td>
-<td>OFF</td>
+<td>CHECKSUMS_OFF (Prior to 8.4.5-5, the default was OFF)</td>
 </tr>
 </tbody>
 </table>
-<p>This variable has been implemented in <a href="https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html">Percona Server for MySQL 8.3.0-1</a>.</p>
-<p>This variable controls whether to write and check RocksDB file-level checksums. The default value is <code>OFF</code> which means the variable is disabled.</p>
+<p>This variable controls whether to write and check RocksDB file-level checksums. The possible values are:</p>
+<ul>
+<li>
+<p><code>CHECKSUMS_OFF</code>: Disables checksums.</p>
+</li>
+<li>
+<p><code>CHECKSUMS_WRITE_ONLY</code>: Writes checksums but skips verification on database open.</p>
+</li>
+<li>
+<p><code>CHECKSUMS_WRITE_AND_VERIFY</code>: Writes checksums and verifies them when the database is opened.</p>
+</li>
+</ul>
+<p>Prior to Percona Server for MySQL 8.4.5-5, the default value was <code>OFF</code>, and the data type was a Boolean (where <code>OFF</code> equated to disabled).</p>
 <h3 id="myrocks-server-variables-rocksdb_flush_log_at_trx_commit"><code>rocksdb_flush_log_at_trx_commit</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_flush_log_at_trx_commit" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -37760,6 +38118,76 @@ log messages)</p>
 <p><code>fatal_level</code>: Minimum logging (only fatal error messages logged)</p>
 </li>
 </ul>
+<h3 id="myrocks-server-variables-rocksdb_invalid_create_option_action"><code>rocksdb_invalid_create_option_action</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_invalid_create_option_action" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb-invalid-create-option-action</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Enum: LOG, PUSH_WARNING, PUSH_ERROR</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>LOG</td>
+</tr>
+</tbody>
+</table>
+<p>Added in Percona Server for MySQL 8.4.5-5.</p>
+<p>Controls the behavior when creating a table encounters an error related to
+RocksDB options. You can choose to only log the error, pass the query and
+give users a warning, or fail the query.</p>
+<h3 id="myrocks-server-variables-rocksdb_io_error_action"><code>rocksdb_io_error_action</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_io_error_action" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb-io-error-action</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Enum: ABORT_SERVER, IGNORE_ERROR</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>ABORT_SERVER</td>
+</tr>
+</tbody>
+</table>
+<p>Added in Percona Server for MySQL 8.4.5-5.</p>
+<p>Controls the behavior when an I/O error occurs within RocksDB. By default,
+MyRocks aborts the server and refuses to start. Setting this option to
+<code>IGNORE_ERROR</code> suppresses the error instead.</p>
 <h3 id="myrocks-server-variables-rocksdb_is_fd_close_on_exec"><code>rocksdb_is_fd_close_on_exec</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_is_fd_close_on_exec" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -37793,39 +38221,6 @@ log messages)</p>
 </table>
 <p>Specifies whether child processes should inherit open file jandles.
 Enabled by default.</p>
-<h3 id="myrocks-server-variables-rocksdb_large_prefix"><code>rocksdb_large_prefix</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_large_prefix" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;rocksdb-large-prefix</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Boolean</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>ON</td>
-</tr>
-</tbody>
-</table>
-<p>This variable is deprecated in <code>Percona Server for MySQL 8.3.0-1</code> and will be removed in a future release.</p>
-<p>When enabled, this option allows index key prefixes longer than 767 bytes (up to 3072 bytes). The values for <code>rocksdb_large_prefix</code> should be the same between source and replica.</p>
 <h3 id="myrocks-server-variables-rocksdb_keep_log_file_num"><code>rocksdb_keep_log_file_num</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_keep_log_file_num" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -37860,6 +38255,40 @@ Enabled by default.</p>
 <p>Specifies the maximum number of info log files to keep.
 Default value is <code>1000</code>.
 Allowed range is from <code>1</code> to <code>18446744073709551615</code>.</p>
+<h3 id="myrocks-server-variables-rocksdb_large_prefix"><code>rocksdb_large_prefix</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_large_prefix" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb-large-prefix</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>ON</td>
+</tr>
+</tbody>
+</table>
+<p><strong>[Removed: 8.4.5-5]</strong> As of Percona Server for MySQL 8.4.5-5, the <code>rocksdb_large_prefix</code> variable has been removed.</p>
+<p>This variable is deprecated in <code>Percona Server for MySQL 8.3.0-1</code> and will be removed in a future release.</p>
+<p>When enabled, this option allows index key prefixes longer than 767 bytes (up to 3072 bytes). The values for <code>rocksdb_large_prefix</code> should be the same between source and replica.</p>
 <h3 id="myrocks-server-variables-rocksdb_lock_scanned_rows"><code>rocksdb_lock_scanned_rows</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_lock_scanned_rows" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -38049,7 +38478,7 @@ Allowed range is up to <code>18446744073709551615</code>.</p>
 <p>kForceOptimized -  Always compact bottommost level but in bottommost level avoid double-compacting files created in the same compaction</p>
 </li>
 </ul>
-<h3 id="myrocks-server-variables-rocksdb_manual_compaction_threads">rocksdb_manual_compaction_threads<a class="headerlink" href="#myrocks-server-variables-rocksdb_manual_compaction_threads" title="Permanent link">&para;</a></h3>
+<h3 id="myrocks-server-variables-rocksdb_manual_compaction_threads"><code>rocksdb_manual_compaction_threads</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_manual_compaction_threads" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -38923,6 +39352,42 @@ Empty by default.</p>
 <p>Specifies whether MyRocks should re-read the data file
 as soon as it is created to verify correctness.
 Enabled by default.</p>
+<h3 id="myrocks-server-variables-rocksdb_partial_index_blind_delete"><code>rocksdb_partial_index_blind_delete</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_partial_index_blind_delete" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb_partial_index_blind_delete</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>ON</td>
+</tr>
+</tbody>
+</table>
+<p>If enabled, the server does not read from the partial index to check if the key exists before 
+deleting the partial index and the delete marker is unconditionally written.</p>
+<p>If the variable is disabled (OFF), the server always reads from partial index to check if key exists before 
+deleting the partial index. </p>
+<p>This variable is enabled (ON) by default.</p>
 <h3 id="myrocks-server-variables-rocksdb_partial_index_ignore_killed"><code>rocksdb_partial_index_ignore_killed</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_partial_index_ignore_killed" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -39032,42 +39497,6 @@ the client that issued the <code>rocksdb_force_flush_memtable_now=1</code> will 
 blocked indefinitely until rocksdb_pause_background_work
 is set to <code>0</code>.</p>
 </div>
-<h3 id="myrocks-server-variables-rocksdb_partial_index_blind_delete"><code>rocksdb_partial_index_blind_delete</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_partial_index_blind_delete" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;rocksdb_partial_index_blind_delete</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Boolean</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>ON</td>
-</tr>
-</tbody>
-</table>
-<p>If enabled, the server does not read from the partial index to check if the key exists before 
-deleting the partial index and the delete marker is unconditionally written.</p>
-<p>If the variable is disabled (OFF), the server always reads from partial index to check if key exists before 
-deleting the partial index. </p>
-<p>This variable is enabled (ON) by default.</p>
 <h3 id="myrocks-server-variables-rocksdb_perf_context_level"><code>rocksdb_perf_context_level</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_perf_context_level" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -39950,8 +40379,7 @@ Disabled by default.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is removed in <a href="https://docs.percona.com/percona-server/innovation-release/release-notes/8.2.0-1.html">Percona Server for MySQL 8.2.0-1</a>.</p>
-<p>This variable is considered <strong>deprecated</strong> in Percona Server for MySQL 8.0.23-14.</p>
+<p><strong>[Removed: 8.4.5-5]</strong> As of Percona Server for MySQL 8.4.5-5, the <code>rocksdb_strict_collation_check</code> variable has been removed.</p>
 <p>Specifies whether to check and verify
 that table indexes have proper collation settings.
 Enabled by default.</p>
@@ -39986,8 +40414,7 @@ Enabled by default.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is removed in <a href="https://docs.percona.com/percona-server/innovation-release/release-notes/8.2.0-1.html">Percona Server for MySQL 8.2.0-1</a>.</p>
-<p>This variable is considered <strong>deprecated</strong> in Percona Server for MySQL 8.0.23-14.</p>
+<p><strong>[Removed: 8.4.5-5]</strong> As of Percona Server for MySQL 8.4.5-5, the <code>rocksdb_strict_collation_exceptions</code> variable has been removed.</p>
 <p>Lists tables (as a regular expression) that should be excluded
 from verifying case-sensitive collation
 enforced by rocksdb_strict_collation_check.
@@ -40201,6 +40628,40 @@ The maximum value is <code>100</code> (RDB_TBL_STATS_RECALC_THRESHOLD_PCT_MAX).<
 when collecting statistics about table properties.
 Default value is <code>10</code>.
 Allowed range is from <code>0</code> to <code>100</code>.</p>
+<h3 id="myrocks-server-variables-rocksdb_table_stats_skip_system_cf"><code>rocksdb_table_stats_skip_system_cf</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_table_stats_skip_system_cf" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb-table-stats-skip-system-cf</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>Added in Percona Server for MySQL 8.4.5-5.</p>
+<p>Determines whether to skip recording table statistics for the system column
+family.</p>
 <h3 id="myrocks-server-variables-rocksdb_table_stats_use_table_scan"><code>rocksdb_table_stats_use_table_scan</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_table_stats_use_table_scan" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -40697,6 +41158,39 @@ Disabled by default.</p>
 </table>
 <p>If enabled, this variable uses HyperClockCache instead of default LRUCache for RocksDB.</p>
 <p>This variable is disabled (OFF) by default.</p>
+<h3 id="myrocks-server-variables-rocksdb_use_io_uring"><code>rocksdb_use_io_uring</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_use_io_uring" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb-use-io-uring</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>Added in Percona Server for MySQL 8.4.5-5.</p>
+<p>Enables the use of <code>io_uring</code> for RocksDB.</p>
 <h3 id="myrocks-server-variables-rocksdb_use_write_buffer_manager"><code>rocksdb_use_write_buffer_manager</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_use_write_buffer_manager" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
