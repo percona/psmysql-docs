@@ -18,6 +18,24 @@ engines, if your workload uses fast storage, such as SSD:
 
 * Ensures better IO capacity
 
+!!! important
+
+    The latest MyRocks storage engine is based on recent RocksDB source code, with minor modifications applied by Percona.
+
+    To check the RocksDB version currently used by MyRocks, run the following command:
+
+    ```{.bash data-prompt="$"}
+    $ head storage/rocksdb/rocksdb/HISTORY.md
+    ```
+
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        ...
+        ## 8.5.1 (08/31/2023)
+        ...
+        ```
+
 [Percona MyRocks Installation Guide](install-myrocks.md)
 
 [MyRocks Limitations](myrocks-limitations.md)
