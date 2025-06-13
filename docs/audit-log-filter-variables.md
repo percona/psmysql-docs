@@ -284,8 +284,8 @@ This function returns either an `OK` for success or an error message for failure
 #### Example
 
 ```{.bash data-prompt="mysql>"}
-mysql> SET @filter = '{ "filter_name": { "log": true }}'
-mysql> SET audit_log_filter_set_filter('filter-name', @filter);
+mysql> SET @filter = '{ "filter": { "log": true }}'
+mysql> SELECT audit_log_filter_set_filter('filter-name', @filter);
 ```
 
 ??? example "Expected output"
