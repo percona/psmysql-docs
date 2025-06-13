@@ -288,7 +288,7 @@ This function returns either an `OK` for success or an error message for failure
 
 ```{.bash data-prompt="mysql>"}
 mysql> SET @filter = '{ "filter_name": { "log": true }}'
-mysql> SET audit_log_filter_set_filter('filter-name', @filter);
+mysql> SELECT audit_log_filter_set_filter('filter-name', @filter);
 ```
 
 ??? example "Expected output"
@@ -342,24 +342,24 @@ mysql> SELECT audit_log_filter_set_user('user-name@localhost', 'filter-name');
 | Name |
 | --- |
 | [`audit-log-filter`](#audit-logvalue) |
-| [`audit_log_filter.buffer_size`](#audit_log_filter_buffer_size) |
-| [`audit_log_filter.compression`](#audit_log_filter_filter_compression) |
-| [`audit_log_filter.database`](#audit_log_filter.database) |
-| [`audit_log_filter.disable`](#audit_log_filter_disable) |
-| [`audit_log_filter.encryption`](#audit_log_filter_encryption) |
-| [`audit_log_filter.file`](#audit_log_filter_file) |
-| [`audit_log_filter.format`](#audit_log_filter_format) |
-| [`audit_log_filter.format_unix_timestamp`](#audit_log_filter_format_unix_timestamp) |
-| [`audit_log_filter.handler`](#audit_log_filter_handler) |
-| [`audit_log_filter.key_derivation_iterations_count_mean`](#audit_log_filter_key_derivation_iterations_count_mean) |
-| [`audit_log_filter.max_size`](#audit_log_filter_max_size) |
-| [`audit_log_filter.keep_password_history_keep_days`](#audit_log_filter_keep_password_history_keep_days) |
-| [`audit_log_filter.prune_seconds`](#audit_log_filter_prune_seconds) |
-| [`audit_log_filter.read_buffer_size`](#audit_log_filter_read_buffer_size) |
-| [`audit_log_filter.rotate_on_size`](#audit_log_filter_rotate_on_size) |
-| [`audit_log_filter.strategy`](#audit_log_filter_strategy) |
-| [`audit_log_filter.syslog_tag`](#audit_log_filter_syslog_tag) |
-| [`audit_log_filter.syslog_priority`](#audit_log_filter_syslog_priority) |
+| [`audit_log_filter.buffer_size`](#audit_log_filterbuffer_size) |
+| [`audit_log_filter.compression`](#audit_log_filtercompression) |
+| [`audit_log_filter.database`](#audit_log_filterdatabase) |
+| [`audit_log_filter.disable`](#audit_log_filterdisable) |
+| [`audit_log_filter.encryption`](#audit_log_filterencryption) |
+| [`audit_log_filter.file`](#audit_log_filterfile) |
+| [`audit_log_filter.format`](#audit_log_filterformat) |
+| [`audit_log_filter.format_unix_timestamp`](#audit_log_filterformat_unix_timestamp) |
+| [`audit_log_filter.handler`](#audit_log_filterhandler) |
+| [`audit_log_filter.key_derivation_iterations_count_mean`](#audit_log_filterkey_derivation_iterations_count_mean) |
+| [`audit_log_filter.max_size`](#audit_log_filtermax_size) |
+| [`audit_log_filter.password_history_keep_days`](#audit_log_filterpassword_history_keep_days) |
+| [`audit_log_filter.prune_seconds`](#audit_log_filterprune_seconds) |
+| [`audit_log_filter.read_buffer_size`](#audit_log_filterread_buffer_size) |
+| [`audit_log_filter.rotate_on_size`](#audit_log_filterrotate_on_size) |
+| [`audit_log_filter.strategy`](#audit_log_filterstrategy) |
+| [`audit_log_filter.syslog_tag`](#audit_log_filtersyslog_tag) |
+| [`audit_log_filter.syslog_priority`](#audit_log_filtersyslog_priority) |
 
 ### `audit_log_filter.buffer_size`
 
@@ -505,7 +505,7 @@ This option does nothing when used with other format types.
 
 Defines where the component writes the audit log filter file. The following values are available:
 
-* `FILE` - component writes the log to a location specified in [`audit_log_filter.file`](#audit_log_filter_file)
+* `FILE` - component writes the log to a location specified in [`audit_log_filter.file`](#audit_log_filterfile)
 * `SYSLOG` - component writes to the syslog
 
 
@@ -547,13 +547,15 @@ A value greater than 0 (zero) enables pruning based on size and defines the comb
 
 The value is based on 4096 (block size). A value is truncated to the nearest multiple of the block size. If the value is less than 4096, the value is treated as 0 (zero).
 
-If the values for `audit_log_filter.rotate_on_size` and `audit_log_filter.max_size` are greater than 0, we recommend that `audit_log_filter.max_size` value should be at least seven times the `audit_log_filter.rotate_on_size` value.
+If the values for [`audit_log_filter.rotate_on_size`](#audit_log_filterrotate_on_size) and [`audit_log_filter.max_size`](#audit_log_filtermax_size) are greater than 0, we recommend that `audit_log_filter.max_size` value should be at least seven times the `audit_log_filter.rotate_on_size` value.
 
 Pruning requires the following options:
 
-* `audit_log_filter.max_size`
-* `audit_log_filter.rotate_on_size`
-* `audit_log_filter.prune_seconds`
+* [`audit_log_filter.rotate_on_size`](#audit_log_filterrotate_on_size)
+
+* [`audit_log_filter.max_size`](#audit_log_filtermax_size)
+
+* [`audit_log_filter.prune_seconds`](#audit_log_filterpruneseconds)
 
 
 ### `audit_log_filter.password_history_keep_days`
@@ -574,7 +576,7 @@ The default value is 0 (zero). This value disables the expiration of passwords. 
 
 If the component starts and encryption is enabled, the component checks for an audit log filter encryption password. If a password is not found, the component generates a random password.
 
-Call `audit_log_filter_encryption_set()` to set a specific password.
+Call [`audit_log_filter_encryption_set()`](#audit_log_filter_encryption_set) to set a specific password.
 
 
 ### `audit_log_filter.prune_seconds`
@@ -598,8 +600,8 @@ A value greater than 0 enables pruning. An audit log filter file can be pruned a
 
 To enable log pruning, you must set one of the following:
 
-* Enable log rotation by setting `audit_log_filter.rotate_on_size`
-* Add a value greater than 0 (zero) for either `audit_log_filter.max_size` or `audit_log_filter.prune_seconds`
+* Enable log rotation by setting [`audit_log_filter.rotate_on_size`](audit_log_filterrotate_on_size)
+* Add a value greater than 0 (zero) for either [`audit_log_filter.max_size`](audit_log_filtermax_size) or [`audit_log_filter.prune_seconds`](audit_log_filterprune_seconds) 
 
 
 ### `audit_log_filter.read_buffer_size`
@@ -615,7 +617,7 @@ To enable log pruning, you must set one of the following:
 
 This option is only supported for JSON-format files.
 
-The size of the buffer for reading from the audit log filter file. The `audit_log_filter_read()` reads only from this buffer size.
+The size of the buffer for reading from the audit log filter file. The [`audit_log_filter_read()`](audit_log_filter_read) reads only from this buffer size.
 
 ### `audit_log_filter.rotate_on_size`
 
@@ -689,14 +691,49 @@ Defines the `priority` value for the syslog. The option has the same meaning as 
 
 The audit log filter component exposes status variables. These variables provide information on the operations.
 
-| Name | Description |
-| -- | --- |
-| `audit_log_filter_current_size` | The current size of the audit log filter file. If the log is rotated, the size is reset to 0. |
-| `audit_log_filter_direct_writes` | Identifies when the `log_strategy_type` = ASYNCHRONOUS and messages bypass the write buffer and are written directly to the log file  |
-| `audit_log_filter_max_drop_size` | In the performance logging mode, the size of the largest dropped event. |
-| `audit_log_filter_events` | The number of audit log filter events |
-| `audit_log_filter_events_filtered` | The number of filtered audit log filter component events |
-| `audit_log_filter_events_lost` | If the event is larger than the available audit log filter buffer space, the event is lost |
-| `audit_log_filter_events_written` | The number of audit log filter events written |
-| `audit_log_filter_total_size` | The total size of the events written to all audit log filter files. The number increases even when a log is rotated |
-| `audit_log_filter_write_waits` | In the asynchronous logging mode, the number of times an event waited for space in the audit log filter buffer |
+<table border="0" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th style="width: 40ch; white-space: nowrap;">Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>audit_log_filter_current_size</code></td>
+      <td>The current size of the audit log filter file. If the log is rotated, the size is reset to 0.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_direct_writes</code></td>
+      <td>Identifies when the <code>log_strategy_type</code> = ASYNCHRONOUS and messages bypass the write buffer and are written directly to the log file.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_max_drop_size</code></td>
+      <td>In the performance logging mode, the size of the largest dropped event.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_events</code></td>
+      <td>The number of audit log filter events.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_events_filtered</code></td>
+      <td>The number of filtered audit log filter component events.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_events_lost</code></td>
+      <td>If the event is larger than the available audit log filter buffer space, the event is lost.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_events_written</code></td>
+      <td>The number of audit log filter events written.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_total_size</code></td>
+      <td>The total size of the events written to all audit log filter files. The number increases even when a log is rotated.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_write_waits</code></td>
+      <td>In the asynchronous logging mode, the number of times an event waited for space in the audit log filter buffer.</td>
+    </tr>
+  </tbody>
+</table>
