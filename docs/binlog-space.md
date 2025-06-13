@@ -1,6 +1,6 @@
 # Managing binary log disk space
 
-It is a challenge to control how much disk space is used by the binary logs. The size of a binary log can vary because a single transaction must be written to a single binary log and cannot be split between multiple binary log files.
+Controlling binary log disk usage can be difficult because binary log sizes vary. The database writes each transaction in full to a single binary log file and cannot split a write across multiple files. This requirement can lead to large log files, especially when transactions are large.
 
 ## binlog_space_limit
 
@@ -14,9 +14,9 @@ It is a challenge to control how much disk space is used by the binary logs. The
 | Default value | 0 (unlimited) |
 | Maximum value - 64-bit platform | 18446744073709547520 |
 
-This variable places an upper limit on the total size in bytes of all binary logs. When the limit is reached, the oldest binary logs are purged until the total size is under the limit or only the active log remains.
+This variable sets an upper limit on the total size of all binary logs in bytes. When the combined size exceeds this limit, the server automatically purges the oldest binary logs until the total size falls below the limit or only the active log remains.
 
-The default value of `0` disables the feature. No limit is set on the log space. The binary logs accumulate indefinitely until the disk space is full.
+A default value of 0 disables this feature. In this case, the server does not enforce a size limit and continues to write binary logs until the binary logs exhaust the available disk space.
 
 ## Example
 
