@@ -17033,8 +17033,8 @@ If it does, the plugin renames the file. The plugin writes to an empty file.</p>
 <h4 id="audit-log-filter-variables-returns_8">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_8" title="Permanent link">&para;</a></h4>
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
 <h4 id="audit-log-filter-variables-example_8">Example<a class="headerlink" href="#audit-log-filter-variables-example_8" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@filter<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{ &quot;filter_name&quot;: { &quot;log&quot;: true }}&#39;</span>
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;filter-name&#39;</span>,<span class="w"> </span>@filter<span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@filter<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{ &quot;filter&quot;: { &quot;log&quot;: true }}&#39;</span>
+mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;filter-name&#39;</span>,<span class="w"> </span>@filter<span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -39512,6 +39512,20 @@ engines, if your workload uses fast storage, such as SSD:</p>
 <p>Ensures better IO capacity</p>
 </li>
 </ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The latest MyRocks storage engine is based on recent RocksDB source code, with minor modifications applied by Percona.</p>
+<p>To check the RocksDB version currently used by MyRocks, run the following command:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>head<span class="w"> </span>storage/rocksdb/rocksdb/HISTORY.md
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>...
+## 8.5.1 (08/31/2023)
+...
+</code></pre></div>
+</details>
+</div>
 <p><a href="#install-myrocks">Percona MyRocks Installation Guide</a></p>
 <p><a href="#limitations">MyRocks Limitations</a></p>
 <p><a href="#differences">Differences between Percona MyRocks and Facebook MyRocks</a></p>
