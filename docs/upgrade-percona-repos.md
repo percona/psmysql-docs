@@ -30,7 +30,7 @@ Find the instructions on how to enable the repositories in the following documen
         ```{.bash data-prompt="$"}
         $ sudo apt update
         $ sudo apt install curl
-        $ curl -0 https://repo.percona.com/apt/percona-release_latest.generic_all.deb 
+        $ curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb 
         $ sudo apt install gnupg2 lsb-release ./percona-release_latest.generic_all.deb
         $ sudo apt update
         $ sudo percona-release setup  {{pkg}}
