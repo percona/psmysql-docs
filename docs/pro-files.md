@@ -31,5 +31,3 @@
 ## Next steps
 
 [Install Percona Server for MySQL Pro](install-pro.md){.md-button}
-
-[Install Percona Server for MySQL Pro on Amazon Linux 2023](install-pro-amzn.md){.md-button}

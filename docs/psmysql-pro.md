@@ -18,8 +18,6 @@ The following capabilities have been tested for {{release}} and are available in
 
 [Install Percona Server for MySQL Pro](install-pro.md){.md-button}
 
-[Install Percona XtraBackup Pro on Amazon Linux 2023](install-pro-amzn.md){.md-button}
-
 If you already use Percona Server for MySQL, you can
 
 [Upgrade to Percona Server for MySQL Pro](upgrade-pro.md){.md-button}
