@@ -40611,7 +40611,7 @@ client operation.</p>
 <table>
 <thead>
 <tr>
-<th>Variable Name</th>
+<th>Variable</th>
 </tr>
 </thead>
 <tbody>
@@ -40784,7 +40784,7 @@ client operation.</p>
 <td><a href="#variables-rocksdb_deadlock_detect_depth"><code>rocksdb_deadlock_detect_depth</code></a></td>
 </tr>
 <tr>
-<td><a href="#variables-rocksdb_debug_cardinality_multiplier"><code>rocksdb_debug_cardinality_multipler</code></a></td>
+<td><a href="#variables-rocksdb_debug_cardinality_multipler"><code>rocksdb_debug_cardinality_multipler</code></a></td>
 </tr>
 <tr>
 <td><a href="#variables-rocksdb_debug_manual_compaction_delay"><code>rocksdb_debug_manual_compaction_delay</code></a></td>
@@ -40859,13 +40859,13 @@ client operation.</p>
 <td><a href="#variables-rocksdb_enable_remove_orphaned_dropped_cfs"><code>rocksdb_enable_remove_orphaned_dropped_cfs</code></a></td>
 </tr>
 <tr>
+<td><a href="#variables-rocksdb_enable_thread_tracking"><code>rocksdb_enable_thread_tracking</code></a></td>
+</tr>
+<tr>
 <td><a href="#variables-rocksdb_enable_ttl"><code>rocksdb_enable_ttl</code></a></td>
 </tr>
 <tr>
 <td><a href="#variables-rocksdb_enable_ttl_read_filtering"><code>rocksdb_enable_ttl_read_filtering</code></a></td>
-</tr>
-<tr>
-<td><a href="#variables-rocksdb_enable_thread_tracking"><code>rocksdb_enable_thread_tracking</code></a></td>
 </tr>
 <tr>
 <td><a href="#variables-rocksdb_enable_write_thread_adaptive_yield"><code>rocksdb_enable_write_thread_adaptive_yield</code></a></td>
@@ -41018,6 +41018,9 @@ client operation.</p>
 <td><a href="#variables-rocksdb_paranoid_checks"><code>rocksdb_paranoid_checks</code></a></td>
 </tr>
 <tr>
+<td><a href="#variables-rocksdb_partial_index_blind_delete"><code>rocksdb_partial_index_blind_delete</code></a></td>
+</tr>
+<tr>
 <td><a href="#variables-rocksdb_partial_index_ignore_killed"><code>rocksdb_partial_index_ignore_killed</code></a></td>
 </tr>
 <tr>
@@ -41025,9 +41028,6 @@ client operation.</p>
 </tr>
 <tr>
 <td><a href="#variables-rocksdb_pause_background_work"><code>rocksdb_pause_background_work</code></a></td>
-</tr>
-<tr>
-<td><a href="#variables-rocksdb_partial_index_blind_delete"><code>rocksdb_partial_index_blind_delete</code></a></td>
 </tr>
 <tr>
 <td><a href="#variables-rocksdb_perf_context_level"><code>rocksdb_perf_context_level</code></a></td>
@@ -41111,9 +41111,6 @@ client operation.</p>
 <td><a href="#variables-rocksdb_table_cache_numshardbits"><code>rocksdb_table_cache_numshardbits</code></a></td>
 </tr>
 <tr>
-<td><a href="#variables-rocksdb_table_stats_skip_system_cf"><code>rocksdb_table_stats_skip_system_cf</code></a></td>
-</tr>
-<tr>
 <td><a href="#variables-rocksdb_table_stats_background_thread_nice_value"><code>rocksdb_table_stats_background_thread_nice_value</code></a></td>
 </tr>
 <tr>
@@ -41129,13 +41126,13 @@ client operation.</p>
 <td><a href="#variables-rocksdb_table_stats_sampling_pct"><code>rocksdb_table_stats_sampling_pct</code></a></td>
 </tr>
 <tr>
+<td><a href="#variables-rocksdb_table_stats_skip_system_cf"><code>rocksdb_table_stats_skip_system_cf</code></a></td>
+</tr>
+<tr>
 <td><a href="#variables-rocksdb_table_stats_use_table_scan"><code>rocksdb_table_stats_use_table_scan</code></a></td>
 </tr>
 <tr>
 <td><a href="#variables-rocksdb_tmpdir"><code>rocksdb_tmpdir</code></a></td>
-</tr>
-<tr>
-<td><a href="#variables-rocksdb_two_write_queues"><code>rocksdb_two_write_queues</code></a></td>
 </tr>
 <tr>
 <td><a href="#variables-rocksdb_trace_block_cache_access"><code>rocksdb_trace_block_cache_access</code></a></td>
@@ -41148,6 +41145,9 @@ client operation.</p>
 </tr>
 <tr>
 <td><a href="#variables-rocksdb_track_and_verify_wals_in_manifest"><code>rocksdb_track_and_verify_wals_in_manifest</code></a></td>
+</tr>
+<tr>
+<td><a href="#variables-rocksdb_two_write_queues"><code>rocksdb_two_write_queues</code></a></td>
 </tr>
 <tr>
 <td><a href="#variables-rocksdb_unsafe_for_binlog"><code>rocksdb_unsafe_for_binlog</code></a></td>
@@ -41842,6 +41842,44 @@ close the block (and write to new block).
 Default value is <code>10</code>, meaning that the block is not closed
 until there is less than 10 bits of free space remaining.</p>
 <p>Allowed range is from <code>1</code> to <code>2147483647</code>.</p>
+<h3 id="variables-rocksdb_bulk_load"><code>rocksdb_bulk_load</code><a class="headerlink" href="#variables-rocksdb_bulk_load" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;rocksdb-bulk-load</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global, Session</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies whether to use bulk load:
+MyRocks will ignore checking keys for uniqueness
+or acquiring locks during transactions.
+Disabled by default.
+Enable this only if you are certain that there are no row conflicts,
+for example, when setting up a new MyRocks instance from a MySQL dump.</p>
+<p>When the rocksdb_bulk_load variable is enabled, it behaves as if the variable rocksdb_commit_in_the_middle is enabled, even if the variable rocksdb_commit_in_the_middle is disabled.</p>
 <h3 id="variables-rocksdb_bulk_load_allow_sk"><code>rocksdb_bulk_load_allow_sk</code><a class="headerlink" href="#variables-rocksdb_bulk_load_allow_sk" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -41984,7 +42022,7 @@ sorted by the bulkloader itself, at a performance penalty.</p>
 <p>Added in Percona Server for MySQL 8.0.42-33.</p>
 <p>Controls whether the unique key constraint is checked during bulk loading.
 This setting can only be changed when bulk loading is disabled.</p>
-<h3 id="variables-rocksdb_bulk_load"><code>rocksdb_bulk_load</code><a class="headerlink" href="#variables-rocksdb_bulk_load" title="Permanent link">&para;</a></h3>
+<h3 id="variables-rocksdb_bulk_load_1"><code>rocksdb_bulk_load</code><a class="headerlink" href="#variables-rocksdb_bulk_load_1" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
