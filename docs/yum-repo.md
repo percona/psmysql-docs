@@ -38,8 +38,6 @@ $ sudo yum module disable mysql
 
 [Install Percona Server for MySQL Pro](install-pro.md){.md-button}
 
-[Install Percona XtraBackup Pro on Amazon Linux 2023](install-pro-amzn.md){.md-button}
-
 ## Install Percona Server for MySQL from Percona `yum` repository
 
 For more information on the Percona Software repositories and configuring Percona Repositories with `percona-release`, see the [Percona Software Repositories Documentation]. Run the following commands as a `root` user or with sudo.
