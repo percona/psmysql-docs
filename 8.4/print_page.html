@@ -12454,16 +12454,18 @@ that contains these files should be accessible only to the following:</p>
 <h2 id="reading-audit-log-filter-files-functions-used-for-reading-the-files">Functions used for reading the files<a class="headerlink" href="#reading-audit-log-filter-files-functions-used-for-reading-the-files" title="Permanent link">&para;</a></h2>
 <p>The following functions read the files in the JSON-format:</p>
 <ul>
-<li><a href="#audit-log-filter-variables-audit_log_read"><code>audit_log_read</code></a> - reads audit log filter events</li>
-<li>[<code>audit_log_read_bookmark()](audit-log-filter-variables.md#audit_log_read_bookmark) - for the most recently read event, returns a bookmark. The bookmark can be passed to</code>audit_log_read()`.</li>
+<li>
+<p><a href="#audit-log-filter-variables-audit_log_read"><code>audit_log_read</code></a> - reads audit log filter events</p>
+</li>
+<li>
+<p><a href="#audit-log-filter-variables-audit_log_read_bookmark"><code>audit_log_read_bookmark</code></a> - for the most recently read event, returns a bookmark. This bookmark can be passed to <code>audit_log_read()</code>.</p>
+</li>
 </ul>
 <p>Initialize a read sequence by using a bookmark or an argument that specifies the start position:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">(</span>audit_log_read_bookmark<span class="o">())</span><span class="p">;</span>
-
-The<span class="w"> </span>following<span class="w"> </span>example<span class="w"> </span>continues<span class="w"> </span>reading<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>position:
-
-<span class="sb">```</span><span class="o">{</span>.bash<span class="w"> </span>data-prompt<span class="o">=</span><span class="s2">&quot;mysql&gt;&quot;</span><span class="o">}</span>
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<p>The following example continues reading from the current position:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">()</span><span class="p">;</span>
 </code></pre></div>
 <p>Reading a file is closed when the session ends or calling <code>audit_log_read()</code> with another argument.</p></section><section class="print-page" id="manage-audit-log-filter" heading-number="5.2.8"><h1 id="manage-audit-log-filter-manage-the-audit-log-filter-files">Manage the Audit Log Filter files<a class="headerlink" href="#manage-audit-log-filter-manage-the-audit-log-filter-files" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter files have the following potential results:</p>
@@ -12707,23 +12709,15 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_
 <p>Add filter_update_on_user_change.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_connect&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;connection&quot;,</span>
-<span class="s1">      &quot;event&quot;: {</span>
-<span class="s1">        &quot;name&quot;: &quot;connect&quot;</span>
-<span class="s1">      }</span>
-<span class="s1">    }</span>
+<span class="s1">    &quot;class&quot;: { &quot;name&quot;: &quot;connection&quot; },</span>
+<span class="s1">    &quot;event&quot;: { &quot;name&quot;: &quot;connect&quot; }</span>
 <span class="s1">  }</span>
 <span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
 
 mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_disconnect&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;connection&quot;,</span>
-<span class="s1">      &quot;event&quot;: {</span>
-<span class="s1">        &quot;name&quot;: &quot;disconnect&quot;</span>
-<span class="s1">      }</span>
-<span class="s1">    }</span>
+<span class="s1">    &quot;class&quot;: { &quot;name&quot;: &quot;connection&quot; },</span>
+<span class="s1">    &quot;event&quot;: { &quot;name&quot;: &quot;disconnect&quot; }</span>
 <span class="s1">  }</span>
 <span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
@@ -12741,7 +12735,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_
 <td>class</td>
 <td>general, connection, table_access</td>
 <td>N/A</td>
-<td>general: Server-wide events, query processing<br>connection: Login, logout, connection attempts<br>table_access: Database and table-level interactions</td>
+<td>General: Server-wide events, query processing<br>connection: Login, logout, connection attempts<br>table_access: Database and table-level interactions</td>
 </tr>
 <tr>
 <td>user</td>
@@ -12789,18 +12783,24 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_
 </table></section><section class="print-page" id="audit-log-filter-restrictions" heading-number="5.2.10"><h1 id="audit-log-filter-restrictions-audit-log-filter-restrictions">Audit Log Filter restrictions<a class="headerlink" href="#audit-log-filter-restrictions-audit-log-filter-restrictions" title="Permanent link">&para;</a></h1>
 <h2 id="audit-log-filter-restrictions-general-restrictions">General restrictions<a class="headerlink" href="#audit-log-filter-restrictions-general-restrictions" title="Permanent link">&para;</a></h2>
 <p>The Audit Log Filter has the following general restrictions:</p>
+<p>The Audit Log Filter has the following general restrictions:</p>
 <ul>
 <li>
-<p>Logs only SQL statements. Statements made by NoSQL APIs, such as the Memcached API, are not logged.</p>
+<p>Log only SQL statements. Statements made by NoSQL APIs, such as the 
+  Memcached API, are not logged.</p>
 </li>
 <li>
-<p>Logs only the top-level statement. Statements within a stored procedure or a trigger are not logged. Does not log the file contents for statements like <code>LOAD_DATA</code>.</p>
+<p>Log only the top-level statement. Statements within a stored procedure 
+  or a trigger are not logged. Do not log the file contents for statements 
+  like <code>LOAD_DATA</code>.</p>
 </li>
 <li>
-<p>If used with a cluster, the component must be installed on each server used to execute SQL on the cluster.</p>
+<p>Require the component to be installed on each server used to execute SQL 
+  on the cluster if used with a cluster.</p>
 </li>
 <li>
-<p>If used with a cluster, the application or user is responsible for aggregating all the data of each server used in the cluster.</p>
+<p>Hold the application or user responsible for aggregating all the data from 
+  each server used in the cluster if used with a cluster.</p>
 </li>
 </ul></section><section class="print-page" id="audit-log-filter-naming" heading-number="5.2.11"><h1 id="audit-log-filter-naming-audit-log-filter-file-naming-conventions">Audit Log Filter file naming conventions<a class="headerlink" href="#audit-log-filter-naming-audit-log-filter-file-naming-conventions" title="Permanent link">&para;</a></h1>
 <h2 id="audit-log-filter-naming-name-qualities">Name qualities<a class="headerlink" href="#audit-log-filter-naming-name-qualities" title="Permanent link">&para;</a></h2>
@@ -12865,16 +12865,7 @@ audit_filter.log.20230301T061400-2.enc
 <p>During initialization, the component checks if a file with that name exists. 
 If it does, the component renames the file. The component writes to an empty file.</p>
 <p>During termination, the component renames the file.</p></section><section class="print-page" id="disable-audit-log-filter" heading-number="5.2.12"><h1 id="disable-audit-log-filter-disable-audit-log-filter-logging">Disable Audit Log Filter logging<a class="headerlink" href="#disable-audit-log-filter-disable-audit-log-filter-logging" title="Permanent link">&para;</a></h1>
-<p>The <code>audit_log_filter.disable</code> system variable lets you disable or enable logging for all connections.</p>
-<p>You can set the variable in the following ways:</p>
-<ul>
-<li>Option file</li>
-<li>Command-line startup string</li>
-<li>SET statement during runtime</li>
-</ul>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span>audit_log_filter.disable<span class="w"> </span><span class="o">=</span><span class="w"> </span>true<span class="p">;</span>
-</code></pre></div>
-<p>Setting <code>audit_log_filter.disable</code> has the following effect:</p>
+<p>The <code>audit_log_filter.disable</code> system variable lets you disable or enable logging for all connections based on the value:</p>
 <table>
 <thead>
 <tr>
@@ -12884,15 +12875,29 @@ If it does, the component renames the file. The component writes to an empty fil
 </thead>
 <tbody>
 <tr>
-<td>true</td>
-<td>Generates a warning. Audit log function calls and changes in variables generate session warnings. Disables the component.</td>
+<td><code>audit_log_filter.disable = true</code></td>
+<td>Disables logging.</td>
 </tr>
 <tr>
-<td>false</td>
-<td>Re-enables the component and generates a warning. This is the default value.</td>
+<td><code>audit_log_filter.disable = false</code></td>
+<td>Enables logging.</td>
 </tr>
 </tbody>
 </table>
+<p>You can set the variable in the following ways:</p>
+<ul>
+<li>
+<p>Specify in the option file.</p>
+</li>
+<li>
+<p>Include in the command-line startup string.</p>
+</li>
+<li>
+<p>Use a SET statement during runtime.</p>
+</li>
+</ul>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span>audit_log_filter.disable<span class="w"> </span><span class="o">=</span><span class="w"> </span>true<span class="p">;</span>
+</code></pre></div>
 <h2 id="disable-audit-log-filter-privileges-required">Privileges required<a class="headerlink" href="#disable-audit-log-filter-privileges-required" title="Permanent link">&para;</a></h2>
 <p>Setting the value of <code>audit_log_filter.disable</code> at runtime requires the following:</p>
 <ul>
@@ -13112,7 +13117,7 @@ If it does, the component renames the file. The component writes to an empty fil
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
 <h4 id="audit-log-filter-variables-example_8">Example<a class="headerlink" href="#audit-log-filter-variables-example_8" title="Permanent link">&para;</a></h4>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@filter<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{ &quot;filter_name&quot;: { &quot;log&quot;: true }}&#39;</span>
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;filter-name&#39;</span>,<span class="w"> </span>@filter<span class="o">)</span><span class="p">;</span>
+mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;filter-name&#39;</span>,<span class="w"> </span>@filter<span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -13163,58 +13168,58 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>audit_log_filter_set
 <td><a href="#audit-log-filter-variables-audit-logvalue"><code>audit-log-filter</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_buffer_size"><code>audit_log_filter.buffer_size</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filterbuffer_size"><code>audit_log_filter.buffer_size</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_filter_compression"><code>audit_log_filter.compression</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filtercompression"><code>audit_log_filter.compression</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter.database"><code>audit_log_filter.database</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filterdatabase"><code>audit_log_filter.database</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_disable"><code>audit_log_filter.disable</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filterdisable"><code>audit_log_filter.disable</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_encryption"><code>audit_log_filter.encryption</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filterencryption"><code>audit_log_filter.encryption</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_file"><code>audit_log_filter.file</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filterfile"><code>audit_log_filter.file</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_format"><code>audit_log_filter.format</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filterformat"><code>audit_log_filter.format</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_format_unix_timestamp"><code>audit_log_filter.format_unix_timestamp</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filterformat_unix_timestamp"><code>audit_log_filter.format_unix_timestamp</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_handler"><code>audit_log_filter.handler</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filterhandler"><code>audit_log_filter.handler</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_key_derivation_iterations_count_mean"><code>audit_log_filter.key_derivation_iterations_count_mean</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filterkey_derivation_iterations_count_mean"><code>audit_log_filter.key_derivation_iterations_count_mean</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_max_size"><code>audit_log_filter.max_size</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filtermax_size"><code>audit_log_filter.max_size</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_keep_password_history_keep_days"><code>audit_log_filter.keep_password_history_keep_days</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filterpassword_history_keep_days"><code>audit_log_filter.password_history_keep_days</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_prune_seconds"><code>audit_log_filter.prune_seconds</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filterprune_seconds"><code>audit_log_filter.prune_seconds</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_read_buffer_size"><code>audit_log_filter.read_buffer_size</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filterread_buffer_size"><code>audit_log_filter.read_buffer_size</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_rotate_on_size"><code>audit_log_filter.rotate_on_size</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_strategy"><code>audit_log_filter.strategy</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filterstrategy"><code>audit_log_filter.strategy</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_syslog_tag"><code>audit_log_filter.syslog_tag</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filtersyslog_tag"><code>audit_log_filter.syslog_tag</code></a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_syslog_priority"><code>audit_log_filter.syslog_priority</code></a></td>
+<td><a href="#audit-log-filter-variables-audit_log_filtersyslog_priority"><code>audit_log_filter.syslog_priority</code></a></td>
 </tr>
 </tbody>
 </table>
@@ -13557,7 +13562,7 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>audit_log_filter_set
 </table>
 <p>Defines where the component writes the audit log filter file. The following values are available:</p>
 <ul>
-<li><code>FILE</code> - component writes the log to a location specified in <a href="#audit-log-filter-variables-audit_log_filter_file"><code>audit_log_filter.file</code></a></li>
+<li><code>FILE</code> - component writes the log to a location specified in <a href="#audit-log-filter-variables-audit_log_filterfile"><code>audit_log_filter.file</code></a></li>
 <li><code>SYSLOG</code> - component writes to the syslog</li>
 </ul>
 <h3 id="audit-log-filter-variables-audit_log_filterkey_derivation_iterations_count_mean"><code>audit_log_filter.key_derivation_iterations_count_mean</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filterkey_derivation_iterations_count_mean" title="Permanent link">&para;</a></h3>
@@ -13652,12 +13657,18 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>audit_log_filter_set
 <p>A value of 0 (zero) disables pruning based on size.</p>
 <p>A value greater than 0 (zero) enables pruning based on size and defines the combined size limit. When the files exceed this limit, they can be pruned.</p>
 <p>The value is based on 4096 (block size). A value is truncated to the nearest multiple of the block size. If the value is less than 4096, the value is treated as 0 (zero).</p>
-<p>If the values for <code>audit_log_filter.rotate_on_size</code> and <code>audit_log_filter.max_size</code> are greater than 0, we recommend that <code>audit_log_filter.max_size</code> value should be at least seven times the <code>audit_log_filter.rotate_on_size</code> value.</p>
+<p>If the values for <a href="#audit-log-filter-variables-audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code></a> and <a href="#audit-log-filter-variables-audit_log_filtermax_size"><code>audit_log_filter.max_size</code></a> are greater than 0, we recommend that <code>audit_log_filter.max_size</code> value should be at least seven times the <code>audit_log_filter.rotate_on_size</code> value.</p>
 <p>Pruning requires the following options:</p>
 <ul>
-<li><code>audit_log_filter.max_size</code></li>
-<li><code>audit_log_filter.rotate_on_size</code></li>
-<li><code>audit_log_filter.prune_seconds</code></li>
+<li>
+<p><a href="#audit-log-filter-variables-audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code></a></p>
+</li>
+<li>
+<p><a href="#audit-log-filter-variables-audit_log_filtermax_size"><code>audit_log_filter.max_size</code></a></p>
+</li>
+<li>
+<p><a href="#audit-log-filter-variables-audit_log_filterpruneseconds"><code>audit_log_filter.prune_seconds</code></a></p>
+</li>
 </ul>
 <h3 id="audit-log-filter-variables-audit_log_filterpassword_history_keep_days"><code>audit_log_filter.password_history_keep_days</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filterpassword_history_keep_days" title="Permanent link">&para;</a></h3>
 <table>
@@ -13694,7 +13705,7 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>audit_log_filter_set
 <p>Encrypted log files have passwords stored in the keyring. The component also stores a password history. A password does not expire, despite being past the value, in case the password is used for rotated audit logs. The operation of creating a password also archives the previous password.</p>
 <p>The default value is 0 (zero). This value disables the expiration of passwords. Passwords are retained forever. </p>
 <p>If the component starts and encryption is enabled, the component checks for an audit log filter encryption password. If a password is not found, the component generates a random password.</p>
-<p>Call <code>audit_log_filter_encryption_set()</code> to set a specific password.</p>
+<p>Call <a href="#audit-log-filter-variables-audit_log_filter_encryption_set"><code>audit_log_filter_encryption_set()</code></a> to set a specific password.</p>
 <h3 id="audit-log-filter-variables-audit_log_filterprune_seconds"><code>audit_log_filter.prune_seconds</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filterprune_seconds" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -13743,8 +13754,8 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>audit_log_filter_set
 <p>A value greater than 0 enables pruning. An audit log filter file can be pruned after this value.</p>
 <p>To enable log pruning, you must set one of the following:</p>
 <ul>
-<li>Enable log rotation by setting <code>audit_log_filter.rotate_on_size</code></li>
-<li>Add a value greater than 0 (zero) for either <code>audit_log_filter.max_size</code> or <code>audit_log_filter.prune_seconds</code></li>
+<li>Enable log rotation by setting <a href="#audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code></a></li>
+<li>Add a value greater than 0 (zero) for either <a href="#audit_log_filtermax_size"><code>audit_log_filter.max_size</code></a> or <a href="#audit_log_filterprune_seconds"><code>audit_log_filter.prune_seconds</code></a> </li>
 </ul>
 <h3 id="audit-log-filter-variables-audit_log_filterread_buffer_size"><code>audit_log_filter.read_buffer_size</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filterread_buffer_size" title="Permanent link">&para;</a></h3>
 <table>
@@ -13782,7 +13793,7 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>audit_log_filter_set
 </tbody>
 </table>
 <p>This option is only supported for JSON-format files.</p>
-<p>The size of the buffer for reading from the audit log filter file. The <code>audit_log_filter_read()</code> reads only from this buffer size.</p>
+<p>The size of the buffer for reading from the audit log filter file. The <a href="#audit_log_filter_read"><code>audit_log_filter_read()</code></a> reads only from this buffer size.</p>
 <h3 id="audit-log-filter-variables-audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filterrotate_on_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -13971,55 +13982,64 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>audit_log_filter_set
 <p>Defines the <code>priority</code> value for the syslog. The option has the same meaning as the appropriate parameter described in the <a href="https://linux.die.net/man/3/syslog">syslog(3) manual</a>.</p>
 <h2 id="audit-log-filter-variables-audit-log-filter-status-variables">Audit log filter status variables<a class="headerlink" href="#audit-log-filter-variables-audit-log-filter-status-variables" title="Permanent link">&para;</a></h2>
 <p>The audit log filter component exposes status variables. These variables provide information on the operations.</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>audit_log_filter_current_size</code></td>
-<td>The current size of the audit log filter file. If the log is rotated, the size is reset to 0.</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_direct_writes</code></td>
-<td>Identifies when the <code>log_strategy_type</code> = ASYNCHRONOUS and messages bypass the write buffer and are written directly to the log file</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_max_drop_size</code></td>
-<td>In the performance logging mode, the size of the largest dropped event.</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_events</code></td>
-<td>The number of audit log filter events</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_events_filtered</code></td>
-<td>The number of filtered audit log filter component events</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_events_lost</code></td>
-<td>If the event is larger than the available audit log filter buffer space, the event is lost</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_events_written</code></td>
-<td>The number of audit log filter events written</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_total_size</code></td>
-<td>The total size of the events written to all audit log filter files. The number increases even when a log is rotated</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_write_waits</code></td>
-<td>In the asynchronous logging mode, the number of times an event waited for space in the audit log filter buffer</td>
-</tr>
-</tbody>
+<table border="0" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th style="width: 40ch; white-space: nowrap;">Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>audit_log_filter_current_size</code></td>
+      <td>The current size of the audit log filter file. If the log is rotated, the size is reset to 0.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_direct_writes</code></td>
+      <td>Identifies when the <code>log_strategy_type</code> = ASYNCHRONOUS and messages bypass the write buffer and are written directly to the log file.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_max_drop_size</code></td>
+      <td>In the performance logging mode, the size of the largest dropped event.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_events</code></td>
+      <td>The number of audit log filter events.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_events_filtered</code></td>
+      <td>The number of filtered audit log filter component events.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_events_lost</code></td>
+      <td>If the event is larger than the available audit log filter buffer space, the event is lost.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_events_written</code></td>
+      <td>The number of audit log filter events written.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_total_size</code></td>
+      <td>The total size of the events written to all audit log filter files. The number increases even when a log is rotated.</td>
+    </tr>
+    <tr>
+      <td><code>audit_log_filter_write_waits</code></td>
+      <td>In the asynchronous logging mode, the number of times an event waited for space in the audit log filter buffer.</td>
+    </tr>
+  </tbody>
 </table></section><section class="print-page" id="uninstall-audit-log-filter" heading-number="5.2.14"><h1 id="uninstall-audit-log-filter-uninstall-audit-log-filter">Uninstall Audit Log Filter<a class="headerlink" href="#uninstall-audit-log-filter-uninstall-audit-log-filter" title="Permanent link">&para;</a></h1>
-<p>To remove the component, run the following:</p>
+<p>If you no longer need the audit log filter functionality, you can remove the component from server using the following command:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_audit_log_filter&#39;</span><span class="p">;</span>
-</code></pre></div></section></section><section class="print-page" id="binlog-space" heading-number="5.3"><h1 id="binlog-space-managing-binary-log-disk-space">Managing binary log disk space<a class="headerlink" href="#binlog-space-managing-binary-log-disk-space" title="Permanent link">&para;</a></h1>
+</code></pre></div>
+<p>This command does the following:</p>
+<ul>
+<li>
+<p><code>UNINSTALL COMPONENT</code>: This tells the server to remove a plugin or feature that was previously installed.</p>
+</li>
+<li>
+<p><code>file://component_audit_log_filter</code>: This is the identifier for the Audit Log Filter Component, which is responsible for applying rules to decide which audit log events are recorded.</p>
+</li>
+</ul></section></section><section class="print-page" id="binlog-space" heading-number="5.3"><h1 id="binlog-space-managing-binary-log-disk-space">Managing binary log disk space<a class="headerlink" href="#binlog-space-managing-binary-log-disk-space" title="Permanent link">&para;</a></h1>
 <p>Controlling binary log disk usage can be difficult because binary log sizes vary. The database writes each transaction in full to a single binary log file and cannot split a write across multiple files. This requirement can lead to large log files, especially when transactions are large.</p>
 <h2 id="binlog-space-binlog_space_limit">binlog_space_limit<a class="headerlink" href="#binlog-space-binlog_space_limit" title="Permanent link">&para;</a></h2>
 <table>

@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The audit_log_filter.disable system variable lets you disable or enable logging for all connections.">
+        <meta name="description" content="The audit_log_filter.disable system variable lets you disable or enable logging for all connections based on the value:">
       
       
         <meta name="author" content="Percona LLC">
@@ -7746,16 +7746,7 @@
 
 
 <h1 id="disable-audit-log-filter-logging">Disable Audit Log Filter logging<a class="headerlink" href="#disable-audit-log-filter-logging" title="Permanent link">&para;</a></h1>
-<p>The <code>audit_log_filter.disable</code> system variable lets you disable or enable logging for all connections.</p>
-<p>You can set the variable in the following ways:</p>
-<ul>
-<li>Option file</li>
-<li>Command-line startup string</li>
-<li>SET statement during runtime</li>
-</ul>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span>audit_log_filter.disable<span class="w"> </span><span class="o">=</span><span class="w"> </span>true<span class="p">;</span>
-</code></pre></div>
-<p>Setting <code>audit_log_filter.disable</code> has the following effect:</p>
+<p>The <code>audit_log_filter.disable</code> system variable lets you disable or enable logging for all connections based on the value:</p>
 <table>
 <thead>
 <tr>
@@ -7765,15 +7756,29 @@
 </thead>
 <tbody>
 <tr>
-<td>true</td>
-<td>Generates a warning. Audit log function calls and changes in variables generate session warnings. Disables the component.</td>
+<td><code>audit_log_filter.disable = true</code></td>
+<td>Disables logging.</td>
 </tr>
 <tr>
-<td>false</td>
-<td>Re-enables the component and generates a warning. This is the default value.</td>
+<td><code>audit_log_filter.disable = false</code></td>
+<td>Enables logging.</td>
 </tr>
 </tbody>
 </table>
+<p>You can set the variable in the following ways:</p>
+<ul>
+<li>
+<p>Specify in the option file.</p>
+</li>
+<li>
+<p>Include in the command-line startup string.</p>
+</li>
+<li>
+<p>Use a SET statement during runtime.</p>
+</li>
+</ul>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span>audit_log_filter.disable<span class="w"> </span><span class="o">=</span><span class="w"> </span>true<span class="p">;</span>
+</code></pre></div>
 <h2 id="privileges-required">Privileges required<a class="headerlink" href="#privileges-required" title="Permanent link">&para;</a></h2>
 <p>Setting the value of <code>audit_log_filter.disable</code> at runtime requires the following:</p>
 <ul>
@@ -7800,7 +7805,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2023-11-27
+    2025-06-13
   </span>
 
     
