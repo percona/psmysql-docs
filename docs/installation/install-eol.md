@@ -1,4 +1,4 @@
-# Install {{post}} releases
+# Install {{eol}} packages
 
 This document provides guidelines on installing Percona Server packages for MySQL from Percona repositories. For more information, see [{{post}}](https://www.percona.com/navigating-mysql-5-7-end-of-life).
 
