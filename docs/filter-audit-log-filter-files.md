@@ -152,30 +152,22 @@ Add filter_update_on_user_change.
 ```{.bash data-prompt="mysql>"}
 mysql> SELECT audit_log_filter_set_filter('log_connect', '{
   "filter": {
-    "class": {
-      "name": "connection",
-      "event": {
-        "name": "connect"
-      }
-    }
+    "class": { "name": "connection" },
+    "event": { "name": "connect" }
   }
 }');
 
 mysql> SELECT audit_log_filter_set_filter('log_disconnect', '{
   "filter": {
-    "class": {
-      "name": "connection",
-      "event": {
-        "name": "disconnect"
-      }
-    }
+    "class": { "name": "connection" },
+    "event": { "name": "disconnect" }
   }
 }');
 ```
 
 | Option      | Filters                                      | Example                        | Event                                     |
 |-------------|---------------------------------------------|--------------------------------|-------------------------------------------|
-| class       | general, connection, table_access           | N/A                            | general: Server-wide events, query processing<br>connection: Login, logout, connection attempts<br>table_access: Database and table-level interactions |
+| class       | general, connection, table_access           | N/A                            | General: Server-wide events, query processing<br>connection: Login, logout, connection attempts<br>table_access: Database and table-level interactions |
 | user        | Filters by MySQL user accounts              | ["admin", "readonly_user"]     | All actions performed by specified users |
 | database    | Filters by database name                    | ["sales", "inventory"]         | Operations within specified databases     |
 | table       | Filters by table name                       | ["customers", "orders"]        | Interactions with specific tables         |

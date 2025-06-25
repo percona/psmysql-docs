@@ -1,24 +1,23 @@
 # Disable Audit Log Filter logging
 
-The `audit_log_filter.disable` system variable lets you disable or enable logging for all connections.
+The `audit_log_filter.disable` system variable lets you disable or enable logging for all connections based on the value:
+
+| Value | Actions |
+|---|---|
+| `audit_log_filter.disable = true` |Disables logging. |
+| `audit_log_filter.disable = false` | Enables logging. |
 
 You can set the variable in the following ways:
 
-* Option file
-* Command-line startup string
-* SET statement during runtime
+* Specify in the option file.
 
+* Include in the command-line startup string.
+
+* Use a SET statement during runtime.
 
 ```{.bash data-prompt="mysql>"}
 mysql> SET GLOBAL audit_log_filter.disable = true;
 ```
-
-Setting `audit_log_filter.disable` has the following effect:
-
-| Value | Actions |
-|---|---|
-| true | Generates a warning. Audit log function calls and changes in variables generate session warnings. Disables the component. |
-| false | Re-enables the component and generates a warning. This is the default value. |
 
 ## Privileges required
 

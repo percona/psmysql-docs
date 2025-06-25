@@ -9,12 +9,14 @@ If the file is renamed and no longer fits the pattern, the file is ignored.
 The following functions read the files in the JSON-format:
 
 * [`audit_log_read`](audit-log-filter-variables.md#audit_log_read) - reads audit log filter events
-* [`audit_log_read_bookmark()](audit-log-filter-variables.md#audit_log_read_bookmark) - for the most recently read event, returns a bookmark. The bookmark can be passed to `audit_log_read()`.
+
+* [`audit_log_read_bookmark`](audit-log-filter-variables.md#audit_log_read_bookmark) - for the most recently read event, returns a bookmark. This bookmark can be passed to `audit_log_read()`.
 
 Initialize a read sequence by using a bookmark or an argument that specifies the start position:
 
 ```{.bash data-prompt="mysql>"}
 mysql> SELECT audit_log_read(audit_log_read_bookmark());
+```
 
 The following example continues reading from the current position:
 
