@@ -18,7 +18,7 @@ When `enforce_storage_engine` is set, Percona Server behaves as follows:
 
 ## Version information
 
-* [Percona Server for MySQL 8.0.13-4](release-notes/Percona-Server-8.0.13-4.md#id1): The feature was ported from Percona Server for MySQL 5.7.
+* [Percona Server for MySQL 8.0.13-4](release-notes/Percona-Server-8.0.13-4.md): The feature was ported from Percona Server for MySQL 5.7.
 
 ## System variables
 
@@ -99,7 +99,7 @@ The `Support` column indicates the following:
 
 ## Example
 
-To enforce the InnoDB storage engine, add this option to your [my.cnf](glossary.md#my.cnf) file:
+To enforce the InnoDB storage engine, add this option to your [my.cnf](glossary.md#mycnf) file:
 
 ```ini
 

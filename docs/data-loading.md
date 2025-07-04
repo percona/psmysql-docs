@@ -121,7 +121,7 @@ need to truncate the table and loading data again.
 
 !!! warning
 
-    If you are loading large data without enabling [rocksdb_bulk_load](variables.md#rocksdb_bulk_load) or [rocksdb_commit_in_the_middle](variables.md#rocksdb-commit-in-the-middle), please make sure transaction size is small enough. All modifications of the ongoing transactions are kept in memory.
+If you are loading large data without enabling [rocksdb_bulk_load](variables.md#rocksdb_bulk_load) or [rocksdb_commit_in_the_middle](variables.md#rocksdb_commit_in_the_middle), please make sure transaction size is small enough. All modifications of the ongoing transactions are kept in memory.
 
 ## Other reading
 
