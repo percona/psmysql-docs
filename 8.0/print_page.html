@@ -14135,7 +14135,7 @@ increased visibility. <a href="https://www.percona.com/services/support/mysql-su
 <h2 id="release-notes-percona-server-8.0.26-17-release-highlights">Release Highlights<a class="headerlink" href="#release-notes-percona-server-8.0.26-17-release-highlights" title="Permanent link">&para;</a></h2>
 <p>Percona integrates a ZenFS RocksDB plugin to Percona Server for MySQL. This
 plugin places files on a raw zoned block device (ZBD) using the MyRocks File
-System interface. Percona provides a binary release for <a href="https://www.debian.org/releases/bullseye/debian-installer/index">Debian 11.1</a>. <a href="https://zonedstorage.io/docs/distributions/overview">Other Linux distributions</a> are adding support for ZenFS, but Percona does not offer installation packages for those distributions yet. The <code>libzbd</code> package is now linked statically to the RocksDB storage engine.</p>
+System interface. Percona provides a binary release for Debian 11.1. <a href="https://zonedstorage.io/docs/distributions/overview">Other Linux distributions</a> are adding support for ZenFS, but Percona does not offer installation packages for those distributions yet. The <code>libzbd</code> package is now linked statically to the RocksDB storage engine.</p>
 <p>The following dependency libraries are updated to newer versions:</p>
 <ul>
 <li>
@@ -17706,7 +17706,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_
 <p>Encrypted log files have passwords stored in the keyring. The plugin also stores a password history. A password does not expire, despite being past the value, in case the password is used for rotated audit logs. The operation of creating a password also archives the previous password.</p>
 <p>The default value is 0 (zero). This value disables the expiration of passwords. Passwords are retained forever. </p>
 <p>If the plugin starts and encryption is enabled, the plugin checks for an audit log filter encryption password. If a password is not found, the plugin generates a random password.</p>
-<p>Call `audit_log_filter_encryption_set() to set a specific password.</p>
+<p>Call <a href="#audit-log-filter-variables-audit_log_encryption_password_setnew_password">audit_log_encryption_password_set(new_password)</a> to set a specific password.</p>
 <h3 id="audit-log-filter-variables-audit_log_filter_prune_seconds"><code>audit_log_filter_prune_seconds</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_prune_seconds" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -17948,7 +17948,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_
 </tr>
 </tbody>
 </table>
-<p>Specifies the syslog <code>facility</code> value. The option has the same meaning as the appropriate parameter described in the <a href="https://linux.die.net/man/3/syslog">syslog(3) manual</a>.</p>
+<p>Specifies the syslog <code>facility</code> value. The option has the same meaning as the appropriate parameter described in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
 <h3 id="audit-log-filter-variables-audit_log_filter_syslog_priority"><code>audit_log_filter_syslog_priority</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_syslog_priority" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -17980,7 +17980,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_
 </tr>
 </tbody>
 </table>
-<p>Defines the <code>priority</code> value for the syslog. The option has the same meaning as the appropriate parameter described in the <a href="https://linux.die.net/man/3/syslog">syslog(3) manual</a>.</p>
+<p>Defines the <code>priority</code> value for the syslog. The option has the same meaning as the appropriate parameter described in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
 <h2 id="audit-log-filter-variables-audit-log-filter-status-variables">Audit log filter status variables<a class="headerlink" href="#audit-log-filter-variables-audit-log-filter-status-variables" title="Permanent link">&para;</a></h2>
 <p>The audit log filter plugin exposes status variables. These variables provide information on the operations.</p>
 <table>
@@ -26361,7 +26361,7 @@ rocksdb_bulk_load if it is supported by the target server.</p>
 <ul>
 <li>8.0.12-1: The feature was ported from <em>Percona Server for MySQL</em> 5.7</li>
 </ul></section><section class="print-page" id="start-transaction-with-consistent-snapshot" heading-number="11.4"><h1 id="start-transaction-with-consistent-snapshot-start-transaction-with-consistent-snapshot">Start transaction with consistent snapshot<a class="headerlink" href="#start-transaction-with-consistent-snapshot-start-transaction-with-consistent-snapshot" title="Permanent link">&para;</a></h1>
-<p><em>Percona Server for MySQL</em> has ported <em>MariaDB</em> <a href="https://mariadb.com/kb/en/enhancements-for-start-transaction-with-consistent/">enhancement</a> for <code>START TRANSACTION WITH CONSISTENT SNAPSHOTS</code> feature to <em>MySQL</em> 5.6 group commit implementation. This enhancement makes binary log positions consistent with <em>InnoDB</em> transaction snapshots.</p>
+<p><em>Percona Server for MySQL</em> has ported <em>MariaDB</em> <a href="https://mariadb.com/docs/server/ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot/">enhancement</a> for <code>START TRANSACTION WITH CONSISTENT SNAPSHOTS</code> feature to <em>MySQL</em> 5.6 group commit implementation. This enhancement makes binary log positions consistent with <em>InnoDB</em> transaction snapshots.</p>
 <p>This feature is quite useful to obtain logical backups with correct positions without running a <code>FLUSH TABLES WITH READ LOCK</code>. Binary log position can be obtained by two newly implemented status variables: <a href="#start-transaction-with-consistent-snapshot-binlog_snapshot_file">Binlog_snapshot_file</a> and <a href="#start-transaction-with-consistent-snapshot-binlog_snapshot_position">Binlog_snapshot_position</a>. After starting a transaction using the <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code>, these two variables will provide you with the binlog position corresponding to the state of the database of the consistent snapshot so taken, irrespectively of which other transactions have been committed since the snapshot was taken.</p>
 <h2 id="start-transaction-with-consistent-snapshot-snapshot-cloning">Snapshot cloning<a class="headerlink" href="#start-transaction-with-consistent-snapshot-snapshot-cloning" title="Permanent link">&para;</a></h2>
 <p>The <em>Percona Server for MySQL</em> implementation extends the <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code> syntax with the optional <code>FROM SESSION</code> clause:</p>
@@ -26467,7 +26467,7 @@ rocksdb_bulk_load if it is supported by the target server.</p>
 <p>These status variables are only available when the binary log is enabled globally.</p>
 <h2 id="start-transaction-with-consistent-snapshot-other-reading">Other reading<a class="headerlink" href="#start-transaction-with-consistent-snapshot-other-reading" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://mariadb.com/kb/en/enhancements-for-start-transaction-with-consistent/">MariaDB Enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT</a></li>
+<li><a href="https://mariadb.com/docs/server/ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot/">MariaDB Enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT</a></li>
 </ul></section></section>
                     <section class='print-page md-section' id='section-12' heading-number='12'>
                         <h1>Secure<a class='headerlink' href='#section-12' title='Permanent link'></a>
@@ -34228,7 +34228,7 @@ DB=&quot;&quot;
 </div>
 </div>
 <h2 id="audit-log-plugin-stream-the-audit-log-to-syslog">Stream the audit log to syslog<a class="headerlink" href="#audit-log-plugin-stream-the-audit-log-to-syslog" title="Permanent link">&para;</a></h2>
-<p>To stream the audit log to syslog you’ll need to set audit_log_handler variable to <code>SYSLOG</code>. To control the syslog file handler, the following variables can be used: audit_log_syslog_ident, audit_log_syslog_facility, and audit_log_syslog_priority These variables have the same meaning as appropriate parameters described in the <a href="https://linux.die.net/man/3/syslog">syslog(3) manual</a>.</p>
+<p>To stream the audit log to syslog you’ll need to set audit_log_handler variable to <code>SYSLOG</code>. To control the syslog file handler, the following variables can be used: audit_log_syslog_ident, audit_log_syslog_facility, and audit_log_syslog_priority These variables have the same meaning as appropriate parameters described in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The actions for the variables: audit_log_strategy, audit_log_buffer_size, audit_log_rotate_on_size, audit_log_rotations are captured only with <code>FILE</code> handler.</p>
@@ -35060,7 +35060,7 @@ will be written to syslog.</p>
 </tbody>
 </table>
 <p>This variable is used to specify the <code>ident</code> value for syslog. This variable
-has the same meaning as the appropriate parameter described in the <a href="http://linux.die.net/man/3/syslog">syslog(3)
+has the same meaning as the appropriate parameter described in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3)
 manual</a>.</p>
 <h3 id="audit-log-plugin-audit_log_syslog_facility"><code>audit_log_syslog_facility</code><a class="headerlink" href="#audit-log-plugin-audit_log_syslog_facility" title="Permanent link">&para;</a></h3>
 <table>
@@ -35095,7 +35095,7 @@ manual</a>.</p>
 </table>
 <p>This variable is used to specify the <code>facility</code> value for syslog. This
 variable has the same meaning as the appropriate parameter described in the
-<a href="https://linux.die.net/man/3/syslog">syslog(3) manual</a>.</p>
+<a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
 <h3 id="audit-log-plugin-audit_log_syslog_priority"><code>audit_log_syslog_priority</code><a class="headerlink" href="#audit-log-plugin-audit_log_syslog_priority" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -35129,7 +35129,7 @@ variable has the same meaning as the appropriate parameter described in the
 </table>
 <p>This variable is used to specify the <code>priority</code> value for syslog. This
 variable has the same meaning as the appropriate parameter described in the
-<a href="https://linux.die.net/man/3/syslog">syslog(3) manual</a>.</p>
+<a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
 <h2 id="audit-log-plugin-status-variables">Status Variables<a class="headerlink" href="#audit-log-plugin-status-variables" title="Permanent link">&para;</a></h2>
 <h3 id="audit-log-plugin-audit_log_buffer_size_overflow"><code>Audit_log_buffer_size_overflow</code><a class="headerlink" href="#audit-log-plugin-audit_log_buffer_size_overflow" title="Permanent link">&para;</a></h3>
 <table>
