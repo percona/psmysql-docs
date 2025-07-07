@@ -391,5 +391,3 @@ percona_telemetry_disable=1
 
 Restart the server after editing the configuration file. This setting ensures that the telemetry remains disabled even after a server restart.
 
-[Percona Privacy statement]: https://www.percona.com/privacy-policy#h.e34c40q8sb1a
-[disable telemetry]: #disable-telemetry
