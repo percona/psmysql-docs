@@ -11,7 +11,7 @@ If automatic rotation is enabled, you can prune the log file. This pruning opera
 
 ## Manual log rotation
 
-The default setting for [`audit_log_filter.rotate_on_size`](audit-log-filter-variables.md#audit_log_filter_rotate_on_size) is 1GB. If this option is set to `0`, the audit log filter component does not do an automatic rotation of the log file. You must do the rotation manually with this setting.
+The default setting for [`audit_log_filter.rotate_on_size`](audit-log-filter-variables.md#audit_log_filterrotate_on_size) is 1GB. If this option is set to `0`, the audit log filter component does not do an automatic rotation of the log file. You must do the rotation manually with this setting.
 
 The `SELECT audit_log_rotate()` command renames the file and creates a new audit log filter file with the original name. You must have the `AUDIT_ADMIN` privilege. 
 

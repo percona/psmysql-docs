@@ -61,7 +61,7 @@ compared to the standard *MySQL* database server:
 | Contention-Aware Transaction Scheduling | Yes | Yes |
 | Improved Scalability By Splitting Mutexes | Yes | No |
 | [Improved MEMORY Storage Engine](improved-memory-engine.md) | Yes | No |
-| [Improved Flushing](xtradb-performance-improvements.md#multi-threaded-flusher) | Yes | No |
+| [Improved Flushing](xtradb-performance-improvements.md#multi-threaded-lru-flusher) | Yes | No |
 | Parallel Doublewrite Buffer | Yes | Yes |
 | [Configurable Fast Index Creation](innodb-expanded-fast-index-creation.md) | Yes | No |
 | Per-Column Compression for VARCHAR/BLOB and JSON | Yes | No |

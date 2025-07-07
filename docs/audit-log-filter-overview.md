@@ -4,7 +4,7 @@ The Audit Log Filter component allows you to monitor, log, and block a connectio
 
 Enabling the component produces a log file that contains a record of server activity. The log file has information on connections and databases accessed by that connection. 
 
-The component uses the `mysql` system database to store filter and user account data. Set the [`audit_log_filter.database`](audit-log-filter-variables.md#audit_log_filter.database) variable at server startup to select a different database.
+The component uses the `mysql` system database to store filter and user account data. Set the [`audit_log_filter.database`](audit-log-filter-variables.md#audit_log_filterdatabase) variable at server startup to select a different database.
 
 The `AUDIT_ADMIN` privilege is required to enable users to manage the Audit Log Filter component.
 
@@ -26,106 +26,15 @@ The Audit Log Filter component uses `mysql` system database tables in the `InnoD
 
 The `audit_log_filter` table stores the definitions of the filters and has the following column definitions:
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>HTML Table Generator</title> 
-    <style>
-        #demTable {
-            width:100%;
-            height:100%;
-            border:1px solid #b3adad;
-            border-collapse:collapse;
-            padding:5px;
-        }
-        #demTable th {
-            border:1px solid #b3adad;
-            padding:5px;
-            background: #f0f0f0;
-            color: #313030;
-        }
-        #demTable td {
-            border:1px solid #b3adad;
-            text-align:left;
-            padding:5px;
-            background: #ffffff;
-            color: #313030;
-        }
-    </style>
-</head>
-<body>
-    <table id="demTable">
-        <thead>
-            <tr>
-                <th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Column name</div></th>
-                <th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Description</div></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>&nbsp;NAME</td>
-                <td>&nbsp;Name of the filter</td>
-            </tr>
-            <tr>
-                <td>&nbsp;FILTER</td>
-                <td>&nbsp;Definition of the filter linked to the name as a JSON value</td>
-            </tr>
-        </tbody>
-    </table>
-</body>
-</html>
+| Column name | Description                                                   |
+|-------------|---------------------------------------------------------------|
+| NAME        | Name of the filter                                            |
+| FILTER      | Definition of the filter linked to the name as a JSON value  |
 
 The `audit_log_user` table stores account data and has the following column definitions:
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>HTML Table Generator</title> 
-    <style>
-        #demTable {
-            width:100%;
-            height:100%;
-            border:1px solid #b3adad;
-            border-collapse:collapse;
-            padding:5px;
-        }
-        #demTable th {
-            border:1px solid #b3adad;
-            padding:5px;
-            background: #f0f0f0;
-            color: #313030;
-        }
-        #demTable td {
-            border:1px solid #b3adad;
-            text-align:left;
-            padding:5px;
-            background: #ffffff;
-            color: #313030;
-        }
-    </style>
-</head>
-<body>
-    <table id="demTable">
-        <thead>
-            <tr>
-                <th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Column name</div></th>
-                <th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Description</div></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>&nbsp;USER</td>
-                <td>&nbsp;The account name of the user</td>
-            </tr>
-            <tr>
-                <td>&nbsp;HOST</td>
-                <td>&nbsp;The account name of the host</td>
-            </tr>
-            <tr>
-                <td>&nbsp;FILTERNAME</td>
-                <td>&nbsp;The account filter name</td>
-            </tr>
-        </tbody>
-    </table>
-</body>
-</html>
+| Column name  | Description                         |
+|--------------|-------------------------------------|
+| USER         | The account name of the user        |
+| HOST         | The account name of the host        |
+| FILTERNAME   | The account filter name             |

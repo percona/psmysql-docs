@@ -180,7 +180,7 @@ The following options are:
 
 ### jemalloc_profiling
 
-Description: Enables jemalloc profiling. The variable requires [jemalloc_detected](#jemallocdetected).
+Description: Enables jemalloc profiling. The variable requires [jemalloc_detected](#jemalloc_detected).
 
 * Command Line: –jemalloc_profiling[=(OFF|ON)]
 

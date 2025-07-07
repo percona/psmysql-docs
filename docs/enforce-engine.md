@@ -36,7 +36,7 @@ This variable is not case sensitive.
 
 ## Example
 
-Adding following option to [my.cnf](glossary.md#my.cnf) will start the server with InnoDB as enforced storage engine.
+Adding following option to [my.cnf](glossary.md#mycnf) will start the server with InnoDB as enforced storage engine.
 
 ```text
 enforce_storage_engine=InnoDB

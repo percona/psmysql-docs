@@ -963,7 +963,7 @@ mysql> SELECT masking_dictionary_term_remove('trees','pine');
 | **Name**                                          | **Details**                                             |
 |---------------------------------------------------|-------------------------------------------------------|
 | [`dictionaries_flush_interval_seconds (integer, unsigned)`](#dictionaries_flush_interval_secondsinteger-unsigned) | The number of seconds between updates to the internal dictionary cache to match changes in the dictionaries table.|
-| [`masking_database(str)`](#masking_databasestr) | Set a different database name to use for the dictionaries table. |
+| [`masking_database(string)`](#masking_databasestring) | Set a different database name to use for the dictionaries table. |
 
 ### dictionaries_flush_interval_seconds(integer, unsigned)
 

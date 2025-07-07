@@ -341,7 +341,6 @@ mysql> SELECT audit_log_filter_set_user('user-name@localhost', 'filter-name');
 
 | Name |
 | --- |
-| [`audit-log-filter`](#audit-logvalue) |
 | [`audit_log_filter.buffer_size`](#audit_log_filterbuffer_size) |
 | [`audit_log_filter.compression`](#audit_log_filtercompression) |
 | [`audit_log_filter.database`](#audit_log_filterdatabase) |
@@ -555,7 +554,7 @@ Pruning requires the following options:
 
 * [`audit_log_filter.max_size`](#audit_log_filtermax_size)
 
-* [`audit_log_filter.prune_seconds`](#audit_log_filterpruneseconds)
+* [`audit_log_filter.prune_seconds`](#audit_log_filterprune_seconds)
 
 
 ### `audit_log_filter.password_history_keep_days`
@@ -576,7 +575,7 @@ The default value is 0 (zero). This value disables the expiration of passwords. 
 
 If the component starts and encryption is enabled, the component checks for an audit log filter encryption password. If a password is not found, the component generates a random password.
 
-Call [`audit_log_filter_encryption_set()`](#audit_log_filter_encryption_set) to set a specific password.
+Call [audit_log_encryption_password_set(new_password)](#audit_log_encryption_password_setnew_password) to set a specific password.
 
 
 ### `audit_log_filter.prune_seconds`
@@ -600,8 +599,8 @@ A value greater than 0 enables pruning. An audit log filter file can be pruned a
 
 To enable log pruning, you must set one of the following:
 
-* Enable log rotation by setting [`audit_log_filter.rotate_on_size`](audit_log_filterrotate_on_size)
-* Add a value greater than 0 (zero) for either [`audit_log_filter.max_size`](audit_log_filtermax_size) or [`audit_log_filter.prune_seconds`](audit_log_filterprune_seconds) 
+* Enable log rotation by setting [`audit_log_filter.rotate_on_size`](#audit_log_filterrotate_on_size)
+* Add a value greater than 0 (zero) for either [`audit_log_filter.max_size`](#audit_log_filtermax_size) or [`audit_log_filter.prune_seconds`](#audit_log_filterprune_seconds) 
 
 
 ### `audit_log_filter.read_buffer_size`
@@ -617,7 +616,7 @@ To enable log pruning, you must set one of the following:
 
 This option is only supported for JSON-format files.
 
-The size of the buffer for reading from the audit log filter file. The [`audit_log_filter_read()`](audit_log_filter_read) reads only from this buffer size.
+The size of the buffer for reading from the audit log filter file. The `audit_log_filter_read()` reads only from this buffer size.
 
 ### `audit_log_filter.rotate_on_size`
 
@@ -672,7 +671,7 @@ Defines the Audit Log filter component's logging method. The valid values are th
 | Data type | String  |
 | Default | LOG_USER |
 
-Specifies the syslog `facility` value. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://linux.die.net/man/3/syslog).
+Specifies the syslog `facility` value. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 
 ### `audit_log_filter.syslog_priority`
@@ -685,7 +684,7 @@ Specifies the syslog `facility` value. The option has the same meaning as the ap
 | Data type | String  |
 | Default | LOG_INFO |
 
-Defines the `priority` value for the syslog. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://linux.die.net/man/3/syslog).
+Defines the `priority` value for the syslog. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ## Audit log filter status variables
 

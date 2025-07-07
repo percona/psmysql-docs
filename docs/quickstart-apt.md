@@ -491,7 +491,7 @@ mysql> SELECT name FROM employees WHERE id = 6;
 
 INSERT queries add new data to a table. They are used to populate the database with new information. INSERT queries can insert one or more rows at a time, depending on the syntax. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.
 
-Insert a row into a table and then run a [SELECT](#select-query) with a WHERE clause to verify the record was inserted.
+Insert a row into a table and then run a [SELECT](#run-a-select-query) with a WHERE clause to verify the record was inserted.
 
 ```{.bash data-prompt="mysql>"}
 mysql> INSERT INTO `employees` (`name`,`email`,`country`)
@@ -524,7 +524,7 @@ mysql> SELECT id, name, email, country FROM employees WHERE id = 11;
 
 DELETE queries remove existing data from a table. They are used to clean up the information no longer needed or relevant in the database. The DELETE queries can delete one or more rows at a time, depending on the specified conditions. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.
 
-Delete a row in the table and run a [SELECT](#select-query) with a WHERE clause to verify the deletion.
+Delete a row in the table and run a [SELECT](#run-a-select-query) with a WHERE clause to verify the deletion.
 
 ```{.bash data-prompt="mysql>"}
 mysql> DELETE FROM employees WHERE id >= 11;
