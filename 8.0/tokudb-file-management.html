@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -8931,7 +8931,7 @@
 
 
   
-    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/tokudb-file-management.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/tokudb-file-management.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -8956,9 +8956,9 @@ instructions on how to safely execute these operations.</p>
 to <a href="tokudb-file-management.html#improved-directory-layout-functionality">group data files together</a>
 within a directory that represents a single database. This feature is enabled
 by default.</p>
-<p>The <a href="tokudb-file-management.html#tokudbdircmd">tokudb_dir_cmd</a> variable can be used to edit the contents of the TokuDB/PerconaFT directory map.</p>
+<p>The <a href="tokudb-file-management.html#tokudb_dir_cmd">tokudb_dir_cmd</a> variable can be used to edit the contents of the TokuDB/PerconaFT directory map.</p>
 <h2 id="moving-tokudb-data-files-to-a-location-outside-of-the-default-mysql-datadir">Moving TokuDB data files to a location outside of the default MySQL datadir<a class="headerlink" href="#moving-tokudb-data-files-to-a-location-outside-of-the-default-mysql-datadir" title="Permanent link">&para;</a></h2>
-<p><em>TokuDB</em> uses the location specified by the <a href="tokudb-variables.html#tokudbdatadir">tokudb_data_dir</a>
+<p><em>TokuDB</em> uses the location specified by the <a href="tokudb-variables.html#tokudb_data_dir">tokudb_data_dir</a>
 variable for all of its data files. If the tokudb_data_dir variable
 is not explicitly set, <em>TokuDB</em> will use the location specified by the servers
 datadir for these files.</p>
@@ -8967,7 +8967,7 @@ datadir for these files.</p>
 directory as the <em>TokuDB</em> data files.</p>
 <p><em>TokuDB</em> data files may be moved to other locations with symlinks left behind
 in their place. If those symlinks refer to files on other physical data
-volumes, the <a href="tokudb-variables.html#tokudbfsreservepercent">tokudb_fs_reserve_percent</a> monitor will not traverse
+volumes, the <a href="tokudb-variables.html#tokudb_fs_reserve_percent">tokudb_fs_reserve_percent</a> monitor will not traverse
 the symlink and monitor the real location for adequate space in the file
 system.</p>
 <p>To safely move your TokuDB data files:</p>
@@ -8989,7 +8989,7 @@ system.</p>
 </li>
 </ol>
 <h2 id="moving-tokudb-temporary-files-to-a-location-outside-of-the-default-mysql-datadir">Moving TokuDB temporary files to a location outside of the default MySQL datadir<a class="headerlink" href="#moving-tokudb-temporary-files-to-a-location-outside-of-the-default-mysql-datadir" title="Permanent link">&para;</a></h2>
-<p><em>TokuDB</em> will use the location specified by the <a href="tokudb-variables.html#tokudbtmpdir">tokudb_tmp_dir</a>
+<p><em>TokuDB</em> will use the location specified by the <a href="tokudb-variables.html#tokudb_tmp_dir">tokudb_tmp_dir</a>
 variable for all of its temporary files. If tokudb_tmp_dir variable
 is not explicitly set, <em>TokuDB</em> will use the location specified by the
 tokudb_data_dir variable. If the tokudb_data_dir
@@ -9062,16 +9062,16 @@ changed to map the new dictionary name to the original internal file names.
 This makes it difficult to quickly match database/table/index names to their
 actual files on disk, requiring you to use the
 refTOKUDB_FILE_MAP table to cross reference.</p>
-<p>The <a href="tokudb-variables.html#tokudbdirperdb">tokudb_dir_per_db</a> variable is implemented to address this issue.</p>
-<p>When <a href="tokudb-variables.html#tokudbdirperdb">tokudb_dir_per_db</a>is enabled (<code>ON</code> by default), this is no
+<p>The <a href="tokudb-variables.html#tokudb_dir_per_db">tokudb_dir_per_db</a> variable is implemented to address this issue.</p>
+<p>When <a href="tokudb-variables.html#tokudb_dir_per_db">tokudb_dir_per_db</a>is enabled (<code>ON</code> by default), this is no
 longer the case. When you rename a table, the mapping in the <em>Percona FT</em>
 directory file will be updated and the files will be renamed on disk to reflect
 the new table name.</p>
 <h2 id="improved-directory-layout-functionality">Improved directory layout functionality<a class="headerlink" href="#improved-directory-layout-functionality" title="Permanent link">&para;</a></h2>
 <p>Many users have had issues with managing the huge volume of individual files
-that <em>TokuDB</em> and <em>Percona FT</em> use. The <a href="tokudb-variables.html#tokudbdirperdb">tokudb_dir_per_db</a> variable
+that <em>TokuDB</em> and <em>Percona FT</em> use. The <a href="tokudb-variables.html#tokudb_dir_per_db">tokudb_dir_per_db</a> variable
 addresses this issue.</p>
-<p>When <a href="tokudb-variables.html#tokudbdirperdb">tokudb_dir_per_db</a> variable is enabled (<code>ON</code> by default),
+<p>When <a href="tokudb-variables.html#tokudb_dir_per_db">tokudb_dir_per_db</a> variable is enabled (<code>ON</code> by default),
 all new tables and indices will be placed within their corresponding database
 directory within the <code>tokudb_data_dir</code> or server datadir.</p>
 <p>If you have tokudb_data_dir variable set to something other than
@@ -9194,7 +9194,7 @@ the tokudb_dir_cmd variable.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-03-22
+    2025-07-07
   </span>
 
     
@@ -9339,7 +9339,7 @@ the tokudb_dir_cmd variable.</p>
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
       
         <script src="js/print-site.js"></script>
       

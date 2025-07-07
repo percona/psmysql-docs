@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -12181,7 +12181,7 @@ server manually. This behavior will be fixed in future releases.</p>
 <li><a href="#variables-rocksdb_bulk_load_compression_parallel_threads"><code>--rocksdb_bulk_load_compression_parallel_threads</code></a></li>
 <li><a href="#variables-rocksdb_bulk_load_enable_unique_key_check"><code>--rocksdb_bulk_load_enable_unique_key_check</code></a></li>
 <li><a href="#variables-rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds"><code>--rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds</code></a></li>
-<li><a href="#variables-rocksdb_enable_udt_in_mem"><code>--rocksdb_enable_udt_in_mem</code></a></li>
+<li><code>--rocksdb_enable_udt_in_mem</code></li>
 <li><a href="#variables-rocksdb_invalid_create_option_action"><code>--rocksdb_invalid_create_option_action</code></a></li>
 <li><a href="#variables-rocksdb_io_error_action"><code>--rocksdb_io_error_action</code></a></li>
 <li><a href="#variables-rocksdb_table_stats_skip_system_cf"><code>--rocksdb_table_stats_skip_system_cf</code></a></li>
@@ -13318,7 +13318,7 @@ increased visibility. </p>
 <p><a href="https://jira.percona.com/browse/PS-7963">PS-7963</a>: The trigger definitions are not cached in the table cache when using SELECT statements. This improvement adds the following variables:</p>
 <ul>
 <li>
-<p><a href="#trigger-updates-tableopencachetriggers"><code>table_open_cache_triggers</code></a> system variable</p>
+<p><a href="#trigger-updates-table_open_cache_triggers"><code>table_open_cache_triggers</code></a> system variable</p>
 </li>
 <li>
 <p><a href="#trigger-updates-status-variables"><code>table_open_cache_triggers_hits</code>, <code>table_open_cache_triggers_misses</code>, and <code>table_open_cache_triggers_overflows</code></a> status variables</p>
@@ -13494,10 +13494,10 @@ increased visibility. </p>
 <p><a href="#ldap-authentication">SASL-based LDAP plugin</a></p>
 </li>
 <li>
-<p><a href="#ldap-system-variables.md">SASL-based LDAP variables</a></p>
+<p><a href="#ldap-sasl-variables">SASL-based LDAP variables</a></p>
 </li>
 <li>
-<p><a href="#ldap-system-variables.md">Fallback server variables for simple LDAP and SASL-based LDAP</a></p>
+<p><a href="#ldap-sasl-variables">Fallback server variables for simple LDAP and SASL-based LDAP</a></p>
 </li>
 <li>
 <p><a href="#fido-authentication-plugin">FIDO authentication plugin</a></p>
@@ -13531,13 +13531,13 @@ increased visibility. </p>
 <p><a href="https://jira.percona.com/browse/PS-8255">PS-8255</a>: Added support to enable users to authenticate using <a href="#fido-authentication-plugin">FIDO authentication</a>.</p>
 </li>
 <li>
-<p><a href="https://jira.percona.com/browse/PS-6002">PS-6002</a>: Added the global variable <a href="#group-replication-system-variables-replica-enable-event"><code>--replica-enable-event</code></a> to maintain the create/alter event state on replicas.</p>
+<p><a href="https://jira.percona.com/browse/PS-6002">PS-6002</a>: Added the global variable <a href="#group-replication-system-variables"><code>--replica-enable-event</code></a> to maintain the create/alter event state on replicas.</p>
 </li>
 <li>
-<p><a href="https://jira.percona.com/browse/PS-7980">PS-7980</a>: Added the global system variables <a href="#ldap-system-variables.md-authentication_ldap_simple_group_role_mapping"><code>--authentication_ldap_simple_group_role_mapping</code></a> and <a href="#ldap-system-variables.md-authentication_ldap_sasl_group_role_mapping"><code>--authentication_ldap_sasl_group_role_mapping</code></a>. When a user logs in with LDAP authentication, the server checks if the LDAP user is a member of any group specified in this variable. If the check is successful, the matching MySQL roles are automatically granted to the user.</p>
+<p><a href="https://jira.percona.com/browse/PS-7980">PS-7980</a>: Added the global system variables <a href="#ldap-sasl-variables"><code>--authentication_ldap_simple_group_role_mapping</code></a> and <a href="#ldap-sasl-variables"><code>--authentication_ldap_sasl_group_role_mapping</code></a>. When a user logs in with LDAP authentication, the server checks if the LDAP user is a member of any group specified in this variable. If the check is successful, the matching MySQL roles are automatically granted to the user.</p>
 </li>
 <li>
-<p><a href="https://jira.percona.com/browse/PS-8275">PS-8275</a>: Implements the ability to eject a cluster node when the node exceeds the flow control threshold by adding a <code>MAJORITY</code> mode to <a href="#group-replication-system-variables-group-replication-flow-control-mode"><code>group_replication_flow_control_mode</code></a> and a global system variable <a href="#group-replication-system-variables-group-replication-auto-evict-timeout"><code>group_replication_auto_evict_timeout</code></a>.</p>
+<p><a href="https://jira.percona.com/browse/PS-8275">PS-8275</a>: Implements the ability to eject a cluster node when the node exceeds the flow control threshold by adding a <code>MAJORITY</code> mode to <a href="#group-replication-system-variables"><code>group_replication_flow_control_mode</code></a> and a global system variable <a href="#group-replication-system-variables"><code>group_replication_auto_evict_timeout</code></a>.</p>
 </li>
 </ul>
 <h2 id="release-notes-8.0.30-22.upd-improvements">Improvements<a class="headerlink" href="#release-notes-8.0.30-22.upd-improvements" title="Permanent link">&para;</a></h2>
@@ -13552,16 +13552,16 @@ increased visibility. </p>
 <p><a href="https://jira.percona.com/browse/PS-8155">PS-8155</a>: Implements support for multiple LDAP server for the simple LDAP authentication plugin and the SASL-based LDAP authentication plugin. If the appropriate system variable is set, and if the primary server is unavailable, the authentication plugin attempts to connect and authenticate using a fallback server. A user can also specify multiple fallback servers. The following global system variables are:</p>
 </li>
 <li>
-<p><a href="#ldap-system-variables.md-authentication-ldap-simple-fallback-server-host"><code>authentication_ldap_simple_fallback_server_host</code></a></p>
+<p><a href="#ldap-sasl-variables"><code>authentication_ldap_simple_fallback_server_host</code></a></p>
 </li>
 <li>
-<p><a href="#ldap-system-variables.md-authentication-ldap-simple-fallback-server-port"><code>authentication_ldap_simple_fallback_server_port</code></a></p>
+<p><a href="#ldap-sasl-variables"><code>authentication_ldap_simple_fallback_server_port</code></a></p>
 </li>
 <li>
-<p><a href="#ldap-system-variables.md-authentication-ldap-sasl-fallback-server-host"><code>authentication_ldap_sasl_fallback_server_host</code></a></p>
+<p><a href="#ldap-sasl-variables"><code>authentication_ldap_sasl_fallback_server_host</code></a></p>
 </li>
 <li>
-<p><a href="#ldap-system-variables.md-authentication-ldap-sasl-fallback-server-port"><code>authentication_ldap_sasl_fallback_server_port</code></a></p>
+<p><a href="#ldap-sasl-variables"><code>authentication_ldap_sasl_fallback_server_port</code></a></p>
 </li>
 </ul>
 <h2 id="release-notes-8.0.30-22.upd-bug-fixes">Bug fixes<a class="headerlink" href="#release-notes-8.0.30-22.upd-bug-fixes" title="Permanent link">&para;</a></h2>
@@ -13663,10 +13663,10 @@ increased visibility. </p>
 <p><a href="#ldap-authentication">SASL-based LDAP plugin</a></p>
 </li>
 <li>
-<p><a href="#ldap-system-variables.md">SASL-based LDAP variables</a></p>
+<p><a href="#ldap-sasl-variables">SASL-based LDAP variables</a></p>
 </li>
 <li>
-<p><a href="#ldap-system-variables.md">Fallback server variables for simple LDAP and SASL-based LDAP</a></p>
+<p><a href="#ldap-sasl-variables">Fallback server variables for simple LDAP and SASL-based LDAP</a></p>
 </li>
 <li>
 <p><a href="#fido-authentication-plugin">FIDO authentication plugin</a></p>
@@ -13700,13 +13700,13 @@ increased visibility. </p>
 <p><a href="https://jira.percona.com/browse/PS-8255">PS-8255</a>: Added support to enable users to authenticate using <a href="#fido-authentication-plugin">FIDO authentication</a>.</p>
 </li>
 <li>
-<p><a href="https://jira.percona.com/browse/PS-6002">PS-6002</a>: Added the global variable <a href="#group-replication-system-variables-replica-enable-event"><code>--replica-enable-event</code></a> to maintain the create/alter event state on replicas.</p>
+<p><a href="https://jira.percona.com/browse/PS-6002">PS-6002</a>: Added the global variable <a href="#group-replication-system-variables"><code>--replica-enable-event</code></a> to maintain the create/alter event state on replicas.</p>
 </li>
 <li>
-<p><a href="https://jira.percona.com/browse/PS-7980">PS-7980</a>: Added the global system variables <a href="#ldap-system-variables.md-authentication_ldap_simple_group_role_mapping"><code>--authentication_ldap_simple_group_role_mapping</code></a> and <a href="#ldap-system-variables.md-authentication_ldap_sasl_group_role_mapping"><code>--authentication_ldap_sasl_group_role_mapping</code></a>. When a user logs in with LDAP authentication, the server checks if the LDAP user is a member of any group specified in this variable. If the check is successful, the matching MySQL roles are automatically granted to the user.</p>
+<p><a href="https://jira.percona.com/browse/PS-7980">PS-7980</a>: Added the global system variables <a href="#ldap-sasl-variables"><code>--authentication_ldap_simple_group_role_mapping</code></a> and <a href="#ldap-sasl-variables"><code>--authentication_ldap_sasl_group_role_mapping</code></a>. When a user logs in with LDAP authentication, the server checks if the LDAP user is a member of any group specified in this variable. If the check is successful, the matching MySQL roles are automatically granted to the user.</p>
 </li>
 <li>
-<p><a href="https://jira.percona.com/browse/PS-8275">PS-8275</a>: Implements the ability to eject a cluster node when the node exceeds the flow control threshold by adding a <code>MAJORITY</code> mode to <a href="#group-replication-system-variables-group-replication-flow-control-mode"><code>group_replication_flow_control_mode</code></a> and a global system variable <a href="#group-replication-system-variables-group-replication-auto-evict-timeout"><code>group_replication_auto_evict_timeout</code></a>.</p>
+<p><a href="https://jira.percona.com/browse/PS-8275">PS-8275</a>: Implements the ability to eject a cluster node when the node exceeds the flow control threshold by adding a <code>MAJORITY</code> mode to <a href="#group-replication-system-variables"><code>group_replication_flow_control_mode</code></a> and a global system variable <a href="#group-replication-system-variables"><code>group_replication_auto_evict_timeout</code></a>.</p>
 </li>
 </ul>
 <h2 id="release-notes-8.0.30-22-improvements">Improvements<a class="headerlink" href="#release-notes-8.0.30-22-improvements" title="Permanent link">&para;</a></h2>
@@ -13721,16 +13721,16 @@ increased visibility. </p>
 <p><a href="https://jira.percona.com/browse/PS-8155">PS-8155</a>: Implements support for multiple LDAP server for the simple LDAP authentication plugin and the SASL-based LDAP authentication plugin. If the appropriate system variable is set, and if the primary server is unavailable, the authentication plugin attempts to connect and authenticate using a fallback server. A user can also specify multiple fallback servers. The following global system variables are:</p>
 </li>
 <li>
-<p><a href="#ldap-system-variables.md-authentication-ldap-simple-fallback-server-host"><code>authentication_ldap_simple_fallback_server_host</code></a></p>
+<p><a href="#ldap-sasl-variables"><code>authentication_ldap_simple_fallback_server_host</code></a></p>
 </li>
 <li>
-<p><a href="#ldap-system-variables.md-authentication-ldap-simple-fallback-server-port"><code>authentication_ldap_simple_fallback_server_port</code></a></p>
+<p><a href="#ldap-sasl-variables"><code>authentication_ldap_simple_fallback_server_port</code></a></p>
 </li>
 <li>
-<p><a href="#ldap-system-variables.md-authentication-ldap-sasl-fallback-server-host"><code>authentication_ldap_sasl_fallback_server_host</code></a></p>
+<p><a href="#ldap-sasl-variables"><code>authentication_ldap_sasl_fallback_server_host</code></a></p>
 </li>
 <li>
-<p><a href="#ldap-system-variables.md-authentication-ldap-sasl-fallback-server-port"><code>authentication_ldap_sasl_fallback_server_port</code></a></p>
+<p><a href="#ldap-sasl-variables"><code>authentication_ldap_sasl_fallback_server_port</code></a></p>
 </li>
 </ul>
 <h2 id="release-notes-8.0.30-22-bug-fixes">Bug fixes<a class="headerlink" href="#release-notes-8.0.30-22-bug-fixes" title="Permanent link">&para;</a></h2>
@@ -18421,7 +18421,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w">
 <p class="admonition-title">Important</p>
 <p>This feature is a <a href="#glossary-tech-preview">tech preview</a>. Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.</p>
 </div>
-<p>Implemented in <a href="#release-notes-percona-server-8.0.25-15-id1">Percona Server for MySQL 8.0.25-15</a>, the ProcFS plugin provides access to the Linux performance counters by running SQL queries against a Percona Server for MySQL 8.0.</p>
+<p>Implemented in <a href="#release-notes-percona-server-8.0.25-15">Percona Server for MySQL 8.0.25-15</a>, the ProcFS plugin provides access to the Linux performance counters by running SQL queries against a Percona Server for MySQL 8.0.</p>
 <p>You may be unable to capture operating system metrics in certain environments, such as Cloud installations or MySQL-as-a-Service installations. These metrics are essential for complete system performance monitoring.</p>
 <p>The plugin does the following:</p>
 <ul>
@@ -18445,11 +18445,11 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w">
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>An SELinux policy or an AppArmor profile may prevent access to file locations needed by the ProcFS plugin, such as the &lsquo;/proc/sys/fs/file-nr&rsquo; directory or any sub-directories or files under &lsquo;/proc/irq/&rsquo;. Either edit the policy or profile to ensure that the plugin has the necessary access. If the policy and profile do not allow access, the plugin may may have unexpected behavior.</p>
-<p>For more information, see <a href="#selinux-selinux">Working with SELinux</a> and <a href="#apparmor-enable-apparmor">Working with AppArmor</a>.</p>
+<p>For more information, see <a href="#selinux">Working with SELinux</a> and <a href="#apparmor">Working with AppArmor</a>.</p>
 </div>
 <h2 id="procfs-plugin-using-the-procfs-plugin">Using the ProcFS plugin<a class="headerlink" href="#procfs-plugin-using-the-procfs-plugin" title="Permanent link">&para;</a></h2>
 <p>Authorized users can obtain information from individual files by specifying the exact file name within a WHERE clause. Files that are not included are ignored and considered not to exist.</p>
-<p>All files that match the <a href="#procfs-plugin-procfsfilesspec">procfs_files_spec</a> are opened, read, stored in memory, and, finally, returned to the client. It is critical to add a WHERE clause to return only specific files to limit the impact of the plugin on the server’s performance. A failure to use a WHERE clause can lead to lengthy query response times, high load, and high memory usage on the server. The WHERE clause can contain either an equality operator, the LIKE operator, or the IN operator. The LIKE operator limits file globbing. You can write file access patterns in the <a href="https://man7.org/linux/man-pages/man7/glob.7.html">glob(7) style</a>, such as <code>/sys/block/sd[a-z]/stat;/proc/version\*</code></p>
+<p>All files that match the <a href="#procfs-plugin-procfs_files_spec">procfs_files_spec</a> are opened, read, stored in memory, and, finally, returned to the client. It is critical to add a WHERE clause to return only specific files to limit the impact of the plugin on the server’s performance. A failure to use a WHERE clause can lead to lengthy query response times, high load, and high memory usage on the server. The WHERE clause can contain either an equality operator, the LIKE operator, or the IN operator. The LIKE operator limits file globbing. You can write file access patterns in the <a href="https://man7.org/linux/man-pages/man7/glob.7.html">glob(7) style</a>, such as <code>/sys/block/sd[a-z]/stat;/proc/version\*</code></p>
 <p>The following example returns the <code>proc/version</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PROCFS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">FILE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/proc/version&#39;</span><span class="p">;</span>
 </code></pre></div>
@@ -19340,7 +19340,7 @@ a server upgrade which changed the trigger syntax.</p></section><section class="
 <p>Utility user does not appear in the mysql.user table and can not be modified by any other user, including root.</p>
 </li>
 <li>
-<p>Utility user does not appear in <a href="#user-stats-id3">INFORMATION_SCHEMA.USER_STATISTICS</a>, <a href="#user-stats-client-statistics">INFORMATION_SCHEMA.CLIENT_STATISTICS</a> or THREAD_STATISTICS tables or in any <a href="https://dev.mysql.com/doc/dev/mysql-server/latest/group__performance__schema__tables.html">performance_schema tables</a>.</p>
+<p>Utility user does not appear in <a href="#user-stats-information_schemauser_statistics">INFORMATION_SCHEMA.USER_STATISTICS</a>, <a href="#user-stats-information_schemaclient_statistics">INFORMATION_SCHEMA.CLIENT_STATISTICS</a> or THREAD_STATISTICS tables or in any <a href="https://dev.mysql.com/doc/dev/mysql-server/latest/group__performance__schema__tables.html">performance_schema tables</a>.</p>
 </li>
 <li>
 <p>Utility user’s queries may appear in the general and slow logs.</p>
@@ -19364,10 +19364,10 @@ a server upgrade which changed the trigger syntax.</p></section><section class="
 <h2 id="utility-user-version-specific-information">Version specific information<a class="headerlink" href="#utility-user-version-specific-information" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p>The <a href="#utility-user-utility_user_dynamic_privileges">utility_user_dynamic_privileges</a> variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>.</p>
+<p>The <a href="#utility-user-utility_user_dynamic_privileges">utility_user_dynamic_privileges</a> variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>.</p>
 </li>
 <li>
-<p><a href="#release-notes-percona-server-8.0.17-8-id1">Percona Server for MySQL 8.0.17-8</a>: The feature was ported from <em>Percona Server for MySQL</em> 5.7.</p>
+<p><a href="#release-notes-percona-server-8.0.17-8">Percona Server for MySQL 8.0.17-8</a>: The feature was ported from <em>Percona Server for MySQL</em> 5.7.</p>
 </li>
 </ul>
 <h2 id="utility-user-system-variables">System variables<a class="headerlink" href="#utility-user-system-variables" title="Permanent link">&para;</a></h2>
@@ -19585,7 +19585,7 @@ a server upgrade which changed the trigger syntax.</p></section><section class="
 </tr>
 </tbody>
 </table>
-<p>This variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>.</p>
+<p>This variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>.</p>
 <p>This variable allows a comma-separated list of extra access dynamic privileges to grant to the utility user. The supported values for the dynamic privileges are:</p>
 <ul>
 <li>
@@ -19912,7 +19912,7 @@ Records: 10  Duplicates: 0  Warnings: 0
 </details>
 <h2 id="quickstart-docker-run-an-update-query">Run an Update query<a class="headerlink" href="#quickstart-docker-run-an-update-query" title="Permanent link">&para;</a></h2>
 <p>UPDATE queries modify existing data in a table. They are used to change or correct the information stored in the database. UPDATE queries can update one or more columns and rows simultaneously, depending on the specified conditions. They may also fail if they violate any constraints or rules defined on the table.</p>
-<p>An example of an UPDATE query and then run a <a href="#quickstart-docker-select-query">SELECT</a> with a WHERE clause to verify the update.</p>
+<p>An example of an UPDATE query and then run a <a href="#quickstart-docker-run-a-select-query">SELECT</a> with a WHERE clause to verify the update.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>employees<span class="w"> </span>SET<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Zofia Niemec&#39;</span><span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -19935,7 +19935,7 @@ Rows matched: 1  Changed: 1  Warnings: 0
 </details>
 <h2 id="quickstart-docker-run-an-insert-query">Run an INSERT query<a class="headerlink" href="#quickstart-docker-run-an-insert-query" title="Permanent link">&para;</a></h2>
 <p>INSERT queries add new data to a table. They are used to populate the database with new information. INSERT queries can insert one or more rows at a time, depending on the syntax. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.</p>
-<p>Insert a row into a table and then run a <a href="#quickstart-docker-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
+<p>Insert a row into a table and then run a <a href="#quickstart-docker-run-a-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
 VALUES
 <span class="o">(</span><span class="s2">&quot;Kenzo Sasaki&quot;</span>,<span class="s2">&quot;KenSasaki@outlook.com&quot;</span>,<span class="s2">&quot;Japan&quot;</span><span class="o">)</span><span class="p">;</span>
@@ -19959,7 +19959,7 @@ VALUES
 </details>
 <h2 id="quickstart-docker-run-a-delete-query">Run a Delete query<a class="headerlink" href="#quickstart-docker-run-a-delete-query" title="Permanent link">&para;</a></h2>
 <p>DELETE queries remove existing data from a table. They are used to clean up the information no longer needed or relevant in the database. The DELETE queries can delete one or more rows at a time, depending on the specified conditions. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.</p>
-<p>Delete a row in the table and run a <a href="#quickstart-docker-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
+<p>Delete a row in the table and run a <a href="#quickstart-docker-run-a-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DELETE<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span>id<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -21137,7 +21137,7 @@ Records: 10  Duplicates: 0  Warnings: 0
 </details>
 <h2 id="quickstart-apt-run-an-update-query">Run an Update query<a class="headerlink" href="#quickstart-apt-run-an-update-query" title="Permanent link">&para;</a></h2>
 <p>UPDATE queries modify existing data in a table. They are used to change or correct the information stored in the database. UPDATE queries can update one or more columns and rows simultaneously, depending on the specified conditions. They may also fail if they violate any constraints or rules defined on the table.</p>
-<div class="highlight"><pre><span></span><code>An example of an UPDATE query and then run a [SELECT](#select-query) with a WHERE clause to verify the update.
+<div class="highlight"><pre><span></span><code>An example of an UPDATE query and then run a [SELECT](#run-a-select-query) with a WHERE clause to verify the update.
 </code></pre></div>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>employees<span class="w"> </span>SET<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Zofia Niemec&#39;</span><span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">;</span>
 </code></pre></div>
@@ -21161,7 +21161,7 @@ Rows matched: 1  Changed: 1  Warnings: 0
 </details>
 <h2 id="quickstart-apt-run-an-insert-query">Run an INSERT query<a class="headerlink" href="#quickstart-apt-run-an-insert-query" title="Permanent link">&para;</a></h2>
 <p>INSERT queries add new data to a table and populate the database with new information. Depending on the syntax, INSERT queries can insert one or more rows at a time. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.</p>
-<p>Insert a row into a table and then run a <a href="#quickstart-apt-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
+<p>Insert a row into a table and then run a <a href="#quickstart-apt-run-a-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
 VALUES
 <span class="o">(</span><span class="s2">&quot;Kenzo Sasaki&quot;</span>,<span class="s2">&quot;KenSasaki@outlook.com&quot;</span>,<span class="s2">&quot;Japan&quot;</span><span class="o">)</span><span class="p">;</span>
@@ -21185,7 +21185,7 @@ VALUES
 </details>
 <h2 id="quickstart-apt-run-a-delete-query">Run a Delete query<a class="headerlink" href="#quickstart-apt-run-a-delete-query" title="Permanent link">&para;</a></h2>
 <p>DELETE queries remove existing data from a table. They are used to clean up information no longer needed or relevant in the database. Depending on the specified conditions, DELETE queries can delete one or more rows at a time. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.</p>
-<p>Delete a row in the table and run a <a href="#quickstart-apt-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
+<p>Delete a row in the table and run a <a href="#quickstart-apt-run-a-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DELETE<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span>id<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -21511,7 +21511,7 @@ Records: 10  Duplicates: 0  Warnings: 0
 </details>
 <h2 id="quickstart-dnf-run-an-update-query">Run an Update query<a class="headerlink" href="#quickstart-dnf-run-an-update-query" title="Permanent link">&para;</a></h2>
 <p>UPDATE queries modify existing data in a table. They are used to change or correct the information stored in the database. UPDATE queries can update one or more columns and rows simultaneously, depending on the specified conditions. They may also fail if they violate any constraints or rules defined on the table.</p>
-<div class="highlight"><pre><span></span><code>An example of an UPDATE query and then run a [SELECT](#select-query) with a WHERE clause to verify the update.
+<div class="highlight"><pre><span></span><code>An example of an UPDATE query and then run a [SELECT](#run-a-select-query) with a WHERE clause to verify the update.
 </code></pre></div>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>employees<span class="w"> </span>SET<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Zofia Niemec&#39;</span><span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">;</span>
 </code></pre></div>
@@ -21535,7 +21535,7 @@ Rows matched: 1  Changed: 1  Warnings: 0
 </details>
 <h2 id="quickstart-dnf-run-an-insert-query">Run an INSERT query<a class="headerlink" href="#quickstart-dnf-run-an-insert-query" title="Permanent link">&para;</a></h2>
 <p>INSERT queries add new data to a table and populate the database with new information. Depending on the syntax, INSERT queries can insert one or more rows at a time. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.</p>
-<p>Insert a row into a table and then run a <a href="#quickstart-dnf-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
+<p>Insert a row into a table and then run a <a href="#quickstart-dnf-run-a-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
 VALUES
 <span class="o">(</span><span class="s2">&quot;Kenzo Sasaki&quot;</span>,<span class="s2">&quot;KenSasaki@outlook.com&quot;</span>,<span class="s2">&quot;Japan&quot;</span><span class="o">)</span><span class="p">;</span>
@@ -21559,7 +21559,7 @@ VALUES
 </details>
 <h2 id="quickstart-dnf-run-a-delete-query">Run a Delete query<a class="headerlink" href="#quickstart-dnf-run-a-delete-query" title="Permanent link">&para;</a></h2>
 <p>DELETE queries remove existing data from a table. They are used to clean up the information no longer needed or relevant in the database. The DELETE queries can delete one or more rows at a time, depending on the specified conditions. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.</p>
-<p>Delete a row in the table and run a <a href="#quickstart-dnf-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
+<p>Delete a row in the table and run a <a href="#quickstart-dnf-run-a-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DELETE<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span>id<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -24038,7 +24038,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>
 </li>
 <li>
 <p>Install the storage engine packages.</p>
-<p><a href="#release-notes-percona-server-8.0.28-19-id3">Percona Server for MySQL 8.0.28-19</a> removes TokuDB. For more information, see <a href="#tokudb-intro">TokuDB Introduction</a>. </p>
+<p><a href="#release-notes-percona-server-8.0.28-19">Percona Server for MySQL 8.0.28-19</a> removes TokuDB. For more information, see <a href="#tokudb-intro">TokuDB Introduction</a>. </p>
 <p>If you used the TokuDB storage engine in Percona Server for MySQL 5.7, we recommend that you migrate to either MyRocks or InnoDB, verify the migration, and then upgrade to 8.0.</p>
 <p>If you used the MyRocks storage engine in Percona Server for MySQL 5.7, install the <code>percona-server-rocksdb</code> package:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
@@ -24106,7 +24106,7 @@ $ sudo yum install percona-server-server</code></p>
 </li>
 <li>
 <p>Install the storage engine packages.
-    <a href="#release-notes-percona-server-8.0.28-19-id3">Percona Server for MySQL 8.0.28-19</a> removes TokuDB. For more information, see <a href="#tokudb-intro">TokuDB Introduction</a>.</p>
+    <a href="#release-notes-percona-server-8.0.28-19">Percona Server for MySQL 8.0.28-19</a> removes TokuDB. For more information, see <a href="#tokudb-intro">TokuDB Introduction</a>.</p>
 <p>If you used the TokuDB storage engine in Percona Server for MySQL 5.7, we recommend that you migrate to either MyRocks or InnoDB, verify the migration, and then upgrade to 8.0.</p>
 <p>If you used the MyRocks storage engine in Percona Server for MySQL 5.7, install the <code>percona-server-rocksdb</code> package:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
@@ -25156,7 +25156,7 @@ Run the following command to prevent a service from starting at boot time:</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="#post-installation-update-root-password">Update the root password</a></td>
+<td><a href="#post-installation-update-the-root-password">Update the root password</a></td>
 </tr>
 <tr>
 <td><a href="#post-installation-secure-the-server">Secure the server</a></td>
@@ -26741,12 +26741,12 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="ldap-authentication-__tabbed_8_1" name="ldap-authentication-__tabbed_8" type="radio" /><input id="ldap-authentication-__tabbed_8_2" name="ldap-authentication-__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="ldap-authentication-__tabbed_8_1">Uninstall the simple LDAP authentication plugin</label><label for="ldap-authentication-__tabbed_8_2">Uninstall the SASL-based LDAP authentication plugin</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>If you installed the plugins at <a href="#ldap-authentication-load-the-simple-ldap-authentication-plugin-at-runtime">runtime</a>, run the following statements:</p>
+<p>If you installed the plugins at <a href="#ldap-authentication-load-the-plugins-at-runtime">runtime</a>, run the following statements:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_simple<span class="p">;</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>If you installed the plugins at <a href="#ldap-authentication-load-the-sasl-based-ldap-authentication-plugin-at-runtime">runtime</a>, run the following statements:</p>
+<p>If you installed the plugins at <a href="#ldap-authentication-load-the-plugins-at-runtime">runtime</a>, run the following statements:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_sasl<span class="p">;</span>
 </code></pre></div>
 <p>If you used <code>SET_PERSIST</code>, use <code>RESET PERSIST</code> to remove the settings.</p>
@@ -29409,7 +29409,7 @@ mysql.masking_dictionaries<span class="o">(</span>
 <td>The number of seconds between updates to the internal dictionary cache to match changes in the dictionaries table.</td>
 </tr>
 <tr>
-<td><a href="#data-masking-function-list-masking_databasestr"><code>masking_database(str)</code></a></td>
+<td><a href="#data-masking-function-list-masking_databasestring"><code>masking_database(string)</code></a></td>
 <td>Set a different database name to use for the dictionaries table.</td>
 </tr>
 </tbody>
@@ -29943,7 +29943,7 @@ plugin-load-add=authentication_fido.so
                     <section class='print-page md-section' id='section-12-4' heading-number='12.4'>
                         <h1>Encryption functions<a class='headerlink' href='#section-12-4' title='Permanent link'></a>
                         </h1>
-                    <section class="print-page" id="encryption-functions-overview" heading-number="12.4.1"><h1 id="encryption-functions-overview-encryption-functions-overview">Encryption functions overview</h1><h2 id="encryption-functions-overview">Encryption functions overview<a class="headerlink" href="#encryption-functions-overview-encryption-functions-overview" title="Permanent link">&para;</a></h2>
+                    <section class="print-page" id="encryption-functions-overview" heading-number="12.4.1"><h1 id="encryption-functions-overview-encryption-functions-overview">Encryption functions overview<a class="headerlink" href="#encryption-functions-overview-encryption-functions-overview" title="Permanent link">&para;</a></h1>
 <p>This document provides comprehensive information about encryption functions that transform plaintext data into encrypted ciphertext. These functions provide robust security measures that require proper documentation to implement and maintain effectively. This guide offers the necessary information for successful implementation.</p>
 <h2 id="encryption-functions-overview-overview-of-capabilities">Overview of capabilities<a class="headerlink" href="#encryption-functions-overview-overview-of-capabilities" title="Permanent link">&para;</a></h2>
 <p>This documentation will guide you through:</p>
@@ -30113,7 +30113,7 @@ plugin-load-add=authentication_fido.so
 <h3 id="encryption-functions-overview-other-new-features">Other new features<a class="headerlink" href="#encryption-functions-overview-other-new-features" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p><a href="#encryption-functions-overview-encryption_udflegacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a> system variable - provides compatibility with legacy systems and previous implementations</p>
+<p><a href="#encryption-functions-encryption_udflegacy_padding_scheme"><code>encryption_udf.legacy_padding_scheme</code></a> system variable - provides compatibility with legacy systems and previous implementations</p>
 </li>
 <li>
 <p>Character set awareness - ensures proper handling of different character encodings during encryption operations</p>
@@ -30377,47 +30377,53 @@ plugin-load-add=authentication_fido.so
 </blockquote>
 <h3 id="encryption-functions-function-quick-reference">Function quick reference<a class="headerlink" href="#encryption-functions-function-quick-reference" title="Permanent link">&para;</a></h3>
 <table>
+<thead>
 <tr>
 <th>Category</th>
 <th>Function</th>
 <th>What It Does</th>
 <th>Common Use Case</th>
 </tr>
+</thead>
+<tbody>
 <tr>
-<td rowspan="2"><strong>Encryption</strong></td>
-<td><a href="#encryption-functions-asymmetric_encrypt">asymmetric_encrypt()</a></td>
+<td><strong>Encryption</strong></td>
+<td><a href="#encryption-functions-asymmetric_encryptalgorithm-str-key_str">asymmetric_encrypt()</a></td>
 <td>Puts your data in a math lockbox</td>
 <td>Protecting sensitive data</td>
 </tr>
 <tr>
-<td><a href="#encryption-functions-asymmetric_decrypt">asymmetric_decrypt()</a></td>
+<td></td>
+<td><a href="#encryption-functions-asymmetric_decryptalgorithm-crypt_str-key_str">asymmetric_decrypt()</a></td>
 <td>Opens the lockbox and gets your data back</td>
 <td>Retrieving protected data</td>
 </tr>
 <tr>
-<td rowspan="2"><strong>Key Management</strong></td>
-<td><a href="#encryption-functions-create_asymmetric_priv_key">create_asymmetric_priv_key()</a></td>
+<td><strong>Key Management</strong></td>
+<td><a href="#encryption-functions-create_asymmetric_priv_keyalgorithm-key_len">create_asymmetric_priv_key()</a></td>
 <td>Makes your secret key</td>
 <td>Creating your private key</td>
 </tr>
 <tr>
-<td><a href="#encryption-functions-create_asymmetric_pub_key">create_asymmetric_pub_key()</a></td>
+<td></td>
+<td><a href="#encryption-functions-create_asymmetric_pub_keyalgorithm-priv_key_str">create_asymmetric_pub_key()</a></td>
 <td>Creates a shareable public key</td>
 <td>Generating keys to distribute</td>
 </tr>
 <tr>
-<td rowspan="2"><strong>Digital Signatures</strong></td>
-<td><a href="#encryption-functions-asymmetric_sign">asymmetric_sign()</a></td>
+<td><strong>Digital Signatures</strong></td>
+<td><a href="#encryption-functions-asymmetric_signalgorithm-digest_str-priv_key_str-digest_type-padding">asymmetric_sign()</a></td>
 <td>Stamps your message with your secret key</td>
 <td>Proving a message is from you</td>
 </tr>
 <tr>
-<td><a href="#encryption-functions-asymmetric_verify">asymmetric_verify()</a></td>
+<td></td>
+<td><a href="#encryption-functions-asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type-padding">asymmetric_verify()</a></td>
 <td>Checks if a signature is real or fake</td>
 <td>Verifying message authenticity</td>
 </tr>
+</tbody>
 </table>
-
 <h3 id="encryption-functions-asymmetric-encryption-functions">Asymmetric encryption functions<a class="headerlink" href="#encryption-functions-asymmetric-encryption-functions" title="Permanent link">&para;</a></h3>
 <p>These functions implement public key cryptography utilizing key pairs. The encryption and decryption operations require different keys from the same key pair.</p>
 <table>
@@ -30429,11 +30435,11 @@ plugin-load-add=authentication_fido.so
 </thead>
 <tbody>
 <tr>
-<td><a href="#encryption-functions-asymmetric_encrypt">asymmetric_encrypt</a></td>
+<td><a href="#encryption-functions-asymmetric_encryptalgorithm-str-key_str">asymmetric_encrypt</a></td>
 <td>Encrypts plaintext data using asymmetric cryptography. Only the corresponding key can decrypt.</td>
 </tr>
 <tr>
-<td><a href="#encryption-functions-asymmetric_decrypt">asymmetric_decrypt</a></td>
+<td><a href="#encryption-functions-asymmetric_decryptalgorithm-crypt_str-key_str">asymmetric_decrypt</a></td>
 <td>Decrypts ciphertext that was encrypted with the corresponding asymmetric key.</td>
 </tr>
 </tbody>
@@ -30449,11 +30455,11 @@ plugin-load-add=authentication_fido.so
 </thead>
 <tbody>
 <tr>
-<td><a href="#encryption-functions-create_asymmetric_priv_key">create_asymmetric_priv_key</a></td>
+<td><a href="#encryption-functions-create_asymmetric_priv_keyalgorithm-key_len">create_asymmetric_priv_key</a></td>
 <td>Generates a private key with specified algorithm and security parameters</td>
 </tr>
 <tr>
-<td><a href="#encryption-functions-create_asymmetric_pub_key">create_asymmetric_pub_key</a></td>
+<td><a href="#encryption-functions-create_asymmetric_pub_keyalgorithm-priv_key_str">create_asymmetric_pub_key</a></td>
 <td>Derives the corresponding public key from a private key for distribution</td>
 </tr>
 </tbody>
@@ -30469,11 +30475,11 @@ plugin-load-add=authentication_fido.so
 </thead>
 <tbody>
 <tr>
-<td><a href="#encryption-functions-asymmetric_sign">asymmetric_sign</a></td>
+<td><a href="#encryption-functions-asymmetric_signalgorithm-digest_str-priv_key_str-digest_type-padding">asymmetric_sign</a></td>
 <td>Applies a cryptographic signature to a message digest using a private key</td>
 </tr>
 <tr>
-<td><a href="#encryption-functions-asymmetric_verify">asymmetric_verify</a></td>
+<td><a href="#encryption-functions-asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type-padding">asymmetric_verify</a></td>
 <td>Validates the authenticity of a digital signature using the corresponding public key</td>
 </tr>
 </tbody>
@@ -30493,12 +30499,12 @@ plugin-load-add=authentication_fido.so
 </thead>
 <tbody>
 <tr>
-<td><a href="#encryption-functions-asymmetric_derive">asymmetric_derive</a></td>
+<td><a href="#encryption-functions-asymmetric_derivepub_key_str-priv_key_str">asymmetric_derive</a></td>
 <td>Generates a shared cryptographic secret through asymmetric key combination</td>
 <td>When implementing secure communication channels between parties</td>
 </tr>
 <tr>
-<td><a href="#encryption-functions-create_dh_parameters">create_dh_parameters</a></td>
+<td><a href="#encryption-functions-create_dh_parameterskey_len">create_dh_parameters</a></td>
 <td>Generates the prime numbers and parameters required for Diffie-Hellman key exchange</td>
 <td>As a prerequisite for Diffie-Hellman key generation</td>
 </tr>
@@ -30511,6 +30517,7 @@ plugin-load-add=authentication_fido.so
 </blockquote>
 <p>Keys that are too strong might slow down your system. It&rsquo;s like having a super-heavy padlock that takes forever to open.</p>
 <table>
+<thead>
 <tr>
 <th>Setting Name</th>
 <th>What It Does</th>
@@ -30518,6 +30525,8 @@ plugin-load-add=authentication_fido.so
 <th>Range</th>
 <th>Performance Impact</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td><a href="#encryption-functions-encryption_udfdh_bits_threshold">encryption_udf.dh_bits_threshold</a></td>
 <td>Sets how strong Diffie-Hellman keys can be</td>
@@ -30540,12 +30549,13 @@ plugin-load-add=authentication_fido.so
 <td>Higher values increase key generation and encryption/decryption time</td>
 </tr>
 <tr>
-<td><a href="#encryption-functions-encryption_udflegacy_padding">encryption_udf.legacy_padding</a></td>
+<td><a href="#encryption-functions-encryption_udflegacy_padding_scheme">encryption_udf.legacy_padding</a></td>
 <td>Turns old-style padding on or off</td>
 <td>OFF</td>
 <td>ON/OFF</td>
 <td>Minor impact on encryption speed, major impact on security</td>
 </tr>
+</tbody>
 </table>
 <hr />
 <h2 id="encryption-functions-install-component_encryption_udf">Install component_encryption_udf<a class="headerlink" href="#encryption-functions-install-component_encryption_udf" title="Permanent link">&para;</a></h2>
@@ -30572,7 +30582,7 @@ plugin-load-add=authentication_fido.so
 </div>
 <h2 id="encryption-functions-user-defined-functions-described">User-defined functions described<a class="headerlink" href="#encryption-functions-user-defined-functions-described" title="Permanent link">&para;</a></h2>
 <hr />
-<h2 id="encryption-functions-asymmetric_decryptalgorithm-crypt_str-key_strasymmetric_decrypt">Asymmetric_decrypt(<em>algorithm, crypt_str, key_str</em>){asymmetric_decrypt}<a class="headerlink" href="#encryption-functions-asymmetric_decryptalgorithm-crypt_str-key_strasymmetric_decrypt" title="Permanent link">&para;</a></h2>
+<h2 id="encryption-functions-asymmetric_decryptalgorithm-crypt_str-key_str">Asymmetric_decrypt(<em>algorithm, crypt_str, key_str</em>)<a class="headerlink" href="#encryption-functions-asymmetric_decryptalgorithm-crypt_str-key_str" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p>🔓 <strong>Data Decryption Function</strong></p>
 <p>This function decrypts ciphertext to recover the original plaintext using asymmetric cryptography.</p>
@@ -30645,7 +30655,7 @@ plugin-load-add=authentication_fido.so
 </code></pre></div>
 </details>
 <hr />
-<h2 id="encryption-functions-asymmetric_derivepub_key_str-priv_key_strasymmetric_derive">Asymmetric_derive(<em>pub_key_str, priv_key_str</em>){asymmetric_derive}<a class="headerlink" href="#encryption-functions-asymmetric_derivepub_key_str-priv_key_strasymmetric_derive" title="Permanent link">&para;</a></h2>
+<h2 id="encryption-functions-asymmetric_derivepub_key_str-priv_key_str">Asymmetric_derive(<em>pub_key_str, priv_key_str</em>)<a class="headerlink" href="#encryption-functions-asymmetric_derivepub_key_str-priv_key_str" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p>🤝 <strong>Shared secret generation</strong></p>
 <p>This function implements the Diffie-Hellman key exchange protocol to establish a shared cryptographic secret between two parties without transmitting sensitive key material.</p>
@@ -30701,7 +30711,7 @@ plugin-load-add=authentication_fido.so
 </code></pre></div>
 </details>
 <hr />
-<h2 id="encryption-functions-asymmetric_encryptalgorithm-str-key_strasymmetric_encrypt">Asymmetric_encrypt(<em>algorithm, str, key_str</em>){asymmetric_encrypt}<a class="headerlink" href="#encryption-functions-asymmetric_encryptalgorithm-str-key_strasymmetric_encrypt" title="Permanent link">&para;</a></h2>
+<h2 id="encryption-functions-asymmetric_encryptalgorithm-str-key_str">Asymmetric_encrypt(<em>algorithm, str, key_str</em>)<a class="headerlink" href="#encryption-functions-asymmetric_encryptalgorithm-str-key_str" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p>🔒 <strong>Data Encryption Function</strong></p>
 <p>This function transforms plaintext data into encrypted format using asymmetric cryptography. The encrypted data can only be decrypted with the corresponding key.</p>
@@ -30770,8 +30780,9 @@ plugin-load-add=authentication_fido.so
 </code></pre></div>
 </details>
 
-<h2 id="encryption-functions-size-limits-remember-that-your-message-size-is-limited-by-your-key-size-and-padding-method-for-a-2048-bit-key-with-oaep-padding-your-message-must-be-smaller-than-20488-42-214-bytes">⚠️ <strong>Size Limits</strong>: Remember that your message size is limited by your key size and padding method. For a 2048-bit key with OAEP padding, your message must be smaller than (2048/8)-42 = 214 bytes.<a class="headerlink" href="#encryption-functions-size-limits-remember-that-your-message-size-is-limited-by-your-key-size-and-padding-method-for-a-2048-bit-key-with-oaep-padding-your-message-must-be-smaller-than-20488-42-214-bytes" title="Permanent link">&para;</a></h2>
-<h2 id="encryption-functions-asymmetric_signalgorithm-digest_str-priv_key_str-digest_type-paddingasymmetric_sign">Asymmetric_sign(<em>algorithm, digest_str, priv_key_str, digest_type, [padding]</em>){asymmetric_sign}<a class="headerlink" href="#encryption-functions-asymmetric_signalgorithm-digest_str-priv_key_str-digest_type-paddingasymmetric_sign" title="Permanent link">&para;</a></h2>
+<p>⚠️ <strong>Size Limits</strong>: Remember that your message size is limited by your key size and padding method. For a 2048-bit key with OAEP padding, your message must be smaller than (2048/8)-42 = 214 bytes.</p>
+<hr />
+<h2 id="encryption-functions-asymmetric_signalgorithm-digest_str-priv_key_str-digest_type-padding">Asymmetric_sign(<em>algorithm, digest_str, priv_key_str, digest_type, [padding]</em>)<a class="headerlink" href="#encryption-functions-asymmetric_signalgorithm-digest_str-priv_key_str-digest_type-padding" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p>✍️ <strong>Digital Signature Function</strong></p>
 <p>This function applies a cryptographic signature to a message digest using a private key. The signature provides authentication, non-repudiation, and integrity verification capabilities. Each signature is unique even when signing the same content multiple times.</p>
@@ -30870,7 +30881,7 @@ plugin-load-add=authentication_fido.so
 </details>
 
 <hr />
-<h2 id="encryption-functions-asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type-paddingasymmetric_verify">Asymmetric_verify(<em>algorithm, digest_str, sig_str, pub_key_str, digest_type, [padding]</em>){asymmetric_verify}<a class="headerlink" href="#encryption-functions-asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type-paddingasymmetric_verify" title="Permanent link">&para;</a></h2>
+<h2 id="encryption-functions-asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type-padding">Asymmetric_verify(<em>algorithm, digest_str, sig_str, pub_key_str, digest_type, [padding]</em>)<a class="headerlink" href="#encryption-functions-asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type-padding" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p>🔍 <strong>Signature verification function</strong></p>
 <p>This function validates the authenticity of a digital signature by verifying it against the original message digest using the signer&rsquo;s public key. It provides cryptographic proof of message integrity and sender identity.</p>
@@ -31013,7 +31024,7 @@ plugin-load-add=authentication_fido.so
 </details>
 
 <hr />
-<h2 id="encryption-functions-create_asymmetric_priv_keyalgorithm-key_lencreate_asymmetric_priv_key">Create_asymmetric_priv_key(<em>algorithm, key_len</em>){create_asymmetric_priv_key}<a class="headerlink" href="#encryption-functions-create_asymmetric_priv_keyalgorithm-key_lencreate_asymmetric_priv_key" title="Permanent link">&para;</a></h2>
+<h2 id="encryption-functions-create_asymmetric_priv_keyalgorithm-key_len">Create_asymmetric_priv_key(<em>algorithm, key_len</em>)<a class="headerlink" href="#encryption-functions-create_asymmetric_priv_keyalgorithm-key_len" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p>🔑 <strong>Private key generation function</strong></p>
 <p>This function generates a cryptographic private key using the specified algorithm and security parameters. The private key serves as the foundation for asymmet</p>
@@ -31075,7 +31086,7 @@ plugin-load-add=authentication_fido.so
 </details>
 
 <hr />
-<h2 id="encryption-functions-create_asymmetric_pub_keyalgorithm-priv_key_strcreate_asymmetric_pub_key">Create_asymmetric_pub_key(<em>algorithm, priv_key_str</em>){create_asymmetric_pub_key}<a class="headerlink" href="#encryption-functions-create_asymmetric_pub_keyalgorithm-priv_key_strcreate_asymmetric_pub_key" title="Permanent link">&para;</a></h2>
+<h2 id="encryption-functions-create_asymmetric_pub_keyalgorithm-priv_key_str">Create_asymmetric_pub_key(<em>algorithm, priv_key_str</em>)<a class="headerlink" href="#encryption-functions-create_asymmetric_pub_keyalgorithm-priv_key_str" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p>🔓 <strong>Public key extraction function</strong></p>
 <p>This function extracts a public key from your private key. Think of it as creating a deposit-only ATM card - people can put money in, but they can&rsquo;t take any out.</p>
@@ -31116,12 +31127,12 @@ plugin-load-add=authentication_fido.so
 </li>
 <li>Must be in PEM</li>
 </ol>
-<h2 id="encryption-functions-create_dh_parameterskey_lencreate_dh_parameters">Create_dh_parameters(<em>key_len</em>){create_dh_parameters}<a class="headerlink" href="#encryption-functions-create_dh_parameterskey_lencreate_dh_parameters" title="Permanent link">&para;</a></h2>
+<h2 id="encryption-functions-create_dh_parameterskey_len">Create_dh_parameters(<em>key_len</em>)<a class="headerlink" href="#encryption-functions-create_dh_parameterskey_len" title="Permanent link">&para;</a></h2>
 <p>This function creates the special math values for Diffie-Hellman keys. It&rsquo;s like creating a recipe that two people will follow to create identical secret sauces without ever sharing their individual ingredients.</p>
 <h3 id="encryption-functions-warning-patience-required">Warning: Patience required!<a class="headerlink" href="#encryption-functions-warning-patience-required" title="Permanent link">&para;</a></h3>
-<p>This can take a LONG time - much longer than making regular keys. Cancel with:
+<p>This can take a LONG time - much longer than making regular keys. Cancel with:</p>
 <div class="highlight"><pre><span></span><code>KILL [QUERY|CONNECTION] &lt;id&gt;
-</code></pre></div></p>
+</code></pre></div>
 <p>Think of it like the difference between:
 * Making regular keys = making a sandwich
 * Creating DH parameters = baking bread from scratch</p>
@@ -31132,7 +31143,7 @@ plugin-load-add=authentication_fido.so
 * Choose between 1,024 and 10,000 bits
 * Default is 10,000 (strongest but slowest)
 * Admins can adjust the maximum with encryption_udf.dh_bits_threshold</p>
-<h2 id="encryption-functions-create_digestdigest_type-strcreate_digest">Create_digest(<em>digest_type, str</em>){create_digest}<a class="headerlink" href="#encryption-functions-create_digestdigest_type-strcreate_digest" title="Permanent link">&para;</a></h2>
+<h2 id="encryption-functions-create_digestdigest_type-str">Create_digest(<em>digest_type, str</em>)<a class="headerlink" href="#encryption-functions-create_digestdigest_type-str" title="Permanent link">&para;</a></h2>
 <p>Creates a digest from the given string using the given digest type. The digest string can be used with asymmetric_sign and asymmetric_verify.</p>
 <h3 id="encryption-functions-create_digest-output">Create_digest output<a class="headerlink" href="#encryption-functions-create_digest-output" title="Permanent link">&para;</a></h3>
 <p>The digest of the given string as a binary string</p>
@@ -33565,11 +33576,11 @@ SQL statement.</p>
 </tr>
 <tr>
 <td>Percona Server from Percona-Server-8.0.20-11 to Percona-Server-8.0.22-13 inclusive</td>
-<td><em>MySQL</em> 8.0.20 implemented its own <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-doublewrite-buffer.html">parallel doublewrite buffer</a>, which is stored in external files (#ib_16384_xxx.dblwr) and not stored in the system tablespace. Percona’s implementation was reverted. As a result, <a href="#xtradb-performance-improvements-io-bound-highly-concurrent-workloads-innodb-parallel-doublewrite-path">innodb_parallel_doublewrite_path</a> was deprecated. <br> However, <em>MySQL</em> did not implement parallel doublewrite buffer encryption at this time, so Percona reimplemented parallel doublewrite buffer encryption on top of the <em>MySQL</em> parallel doublewrite buffer implementation. Percona preserved the meaning and functionality of the <a href="#encrypting-doublewrite-buffers-innodb_parallel_dblwr_encrypt">innodb_parallel_dblwr_encrypt</a> variable.</td>
+<td><em>MySQL</em> 8.0.20 implemented its own <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-doublewrite-buffer.html">parallel doublewrite buffer</a>, which is stored in external files (#ib_16384_xxx.dblwr) and not stored in the system tablespace. Percona’s implementation was reverted. As a result, <a href="#xtradb-performance-improvements-io-bound-highly-concurrent-workloads-innodb_parallel_doublewrite_path">innodb_parallel_doublewrite_path</a> was deprecated. <br> However, <em>MySQL</em> did not implement parallel doublewrite buffer encryption at this time, so Percona reimplemented parallel doublewrite buffer encryption on top of the <em>MySQL</em> parallel doublewrite buffer implementation. Percona preserved the meaning and functionality of the <a href="#encrypting-doublewrite-buffers-innodb_parallel_dblwr_encrypt">innodb_parallel_dblwr_encrypt</a> variable.</td>
 </tr>
 <tr>
 <td>Percona-Server-8.0.12-1.alpha to Percona-Server-8.0.19-10 inclusive</td>
-<td><em>Percona Server for MySQL</em> had its own implementation of the parallel doublewrite buffer which was enabled by setting the <a href="#xtradb-performance-improvements-io-bound-highly-concurrent-workloads-innodb-parallel-doublewrite-path">innodb_parallel_doublewrite_path</a> variable. <br> Enabling the <a href="#encrypting-doublewrite-buffers-innodbparalleldblwrencrypt">innodb_parallel_dblwr_encrypt</a> controlled whether the parallel doublewrite pages were encrypted or not. In case the parallel doublewrite buffer was disabled (<a href="#xtradb-performance-improvements-io-bound-highly-concurrent-workloads-innodb-parallel-doublewrite-path">innodb_parallel_doublewrite_path</a> was set to empty string),the doublewrite buffer pages were located in the system tablespace (ibdata1). The system tablespace itself could be encrypted by setting <a href="#encrypting-system-tablespace-innodb-sys-tablespace-encrypt">innodb_sys_tablespace_encrypt</a>, which also encrypted the doublewrite buffer pages.</td>
+<td><em>Percona Server for MySQL</em> had its own implementation of the parallel doublewrite buffer which was enabled by setting the <a href="#xtradb-performance-improvements-io-bound-highly-concurrent-workloads-innodb_parallel_doublewrite_path">innodb_parallel_doublewrite_path</a> variable. <br> Enabling the <a href="#encrypting-doublewrite-buffers-innodb_parallel_dblwr_encrypt">innodb_parallel_dblwr_encrypt</a> controlled whether the parallel doublewrite pages were encrypted or not. In case the parallel doublewrite buffer was disabled (<a href="#xtradb-performance-improvements-io-bound-highly-concurrent-workloads-innodb_parallel_doublewrite_path">innodb_parallel_doublewrite_path</a> was set to empty string),the doublewrite buffer pages were located in the system tablespace (ibdata1). The system tablespace itself could be encrypted by setting <a href="#encrypting-system-tablespace-innodb_sys_tablespace_encrypt">innodb_sys_tablespace_encrypt</a>, which also encrypted the doublewrite buffer pages.</td>
 </tr>
 </tbody>
 </table>
@@ -35142,7 +35153,7 @@ variable has the same meaning as the appropriate parameter described in the
 <p>The number of times an audit log entry was either
 dropped or written directly to the file due to its size being bigger
 than audit_log_buffer_size variable.</p></section><section class="print-page" id="jemalloc-profiling" heading-number="14.2"><h1 id="jemalloc-profiling-jemalloc-memory-allocation-profiling">Jemalloc memory allocation profiling<a class="headerlink" href="#jemalloc-profiling-jemalloc-memory-allocation-profiling" title="Permanent link">&para;</a></h1>
-<p>Implemented in <a href="#release-notes-percona-server-8.0.25-15-id1">Percona Server for MySQL 8.0.25-15</a>, <em>Percona Server for MySQL</em> can take advantage of the memory-profiling ability of the jemalloc allocator. This ability provides a method to investigate memory-related issues.</p>
+<p>Implemented in <a href="#release-notes-percona-server-8.0.25-15">Percona Server for MySQL 8.0.25-15</a>, <em>Percona Server for MySQL</em> can take advantage of the memory-profiling ability of the jemalloc allocator. This ability provides a method to investigate memory-related issues.</p>
 <h2 id="jemalloc-profiling-requirements">Requirements<a class="headerlink" href="#jemalloc-profiling-requirements" title="Permanent link">&para;</a></h2>
 <p>This memory-profiling requires <a href="#jemalloc-profiling-jemalloc_detected">jemalloc_detected</a>. This read-only variable returns <code>true</code> if jemalloc with the profiling-enabled option is being used by <em>Percona Server for MySQL</em>.</p>
 <p>As root, customize jemalloc with the following flags:</p>
@@ -35335,7 +35346,7 @@ dot<span class="w"> </span>--Tpng<span class="w"> </span>/tmp/jeprof1.dot<span c
 </li>
 </ul>
 <h3 id="jemalloc-profiling-jemalloc_profiling">jemalloc_profiling<a class="headerlink" href="#jemalloc-profiling-jemalloc_profiling" title="Permanent link">&para;</a></h3>
-<p>Description: Enables jemalloc profiling. The variable requires <a href="#jemalloc-profiling-jemallocdetected">jemalloc_detected</a>.</p>
+<p>Description: Enables jemalloc profiling. The variable requires <a href="#jemalloc-profiling-jemalloc_detected">jemalloc_detected</a>.</p>
 <ul>
 <li>
 <p>Command Line: –jemalloc_profiling[=(OFF|ON)]</p>
@@ -37814,7 +37825,7 @@ compression ratio of their first N bytes.</p></section><section class="print-pag
 </table>
 <h2 id="enforce-engine-version-information">Version information<a class="headerlink" href="#enforce-engine-version-information" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="#release-notes-percona-server-8.0.13-4-id1">Percona Server for MySQL 8.0.13-4</a>: The feature was ported from Percona Server for MySQL 5.7.</li>
+<li><a href="#release-notes-percona-server-8.0.13-4">Percona Server for MySQL 8.0.13-4</a>: The feature was ported from Percona Server for MySQL 5.7.</li>
 </ul>
 <h2 id="enforce-engine-system-variables">System variables<a class="headerlink" href="#enforce-engine-system-variables" title="Permanent link">&para;</a></h2>
 <h3 id="enforce-engine-enforce_storage_engine"><code>enforce_storage_engine</code><a class="headerlink" href="#enforce-engine-enforce_storage_engine" title="Permanent link">&para;</a></h3>
@@ -37914,7 +37925,7 @@ it before doing <code>mysql_upgrade</code> or run <code>mysql_upgrade</code> wit
 started with the <code>--skip-grants-tables</code> option.</p>
 </div>
 <h2 id="enforce-engine-example">Example<a class="headerlink" href="#enforce-engine-example" title="Permanent link">&para;</a></h2>
-<p>To enforce the InnoDB storage engine, add this option to your <a href="#glossary-my.cnf">my.cnf</a> file:</p>
+<p>To enforce the InnoDB storage engine, add this option to your <a href="#glossary-mycnf">my.cnf</a> file:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">enforce_storage_engine</span><span class="o">=</span><span class="s">InnoDB</span>
 </code></pre></div>
@@ -39568,7 +39579,7 @@ plugin for <em>Percona Server for MySQL</em> 8.0 and later versions.</p>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Review the <a href="#zenfs-zenfs">Installing and configuring Percona Server for MySQL with ZenFS support</a> document for the <a href="#zenfs-zenfs-installation">Installation</a> and the <a href="#zenfs-zenfs-configure">Configuration</a> information.</p>
+<p>Review the <a href="#zenfs">Installing and configuring Percona Server for MySQL with ZenFS support</a> document for the <a href="#zenfs-installation">Installation</a> and the <a href="#zenfs-configuration">Configuration</a> information.</p>
 </div>
 <ul>
 <li>For RHEL or CentOS:</li>
@@ -39779,7 +39790,7 @@ and restart <em>Percona Server for MySQL</em>.</p>
 <p>You should also consider the following:</p>
 <ul>
 <li>
-<p>All collations are supported on <code>CHAR</code> and <code>VARCHAR</code> indexed columns. By default, MyRocks prevents creating indexes with non-binary collations (including <code>latin1</code>). You can optionally use it by setting <a href="#variables-rocksdb-strict-collation-exceptions">rocksdb_strict_collation_exceptions</a> to <code>t1</code> (table names with regex format), but non-binary covering indexes other than <code>latin1</code> (excluding <code>german1</code>) still require a primary key lookup to return the <code>CHAR</code> or <code>VARCHAR</code> column.</p>
+<p>All collations are supported on <code>CHAR</code> and <code>VARCHAR</code> indexed columns. By default, MyRocks prevents creating indexes with non-binary collations (including <code>latin1</code>). You can optionally use it by setting <a href="#variables-rocksdb_strict_collation_exceptions">rocksdb_strict_collation_exceptions</a> to <code>t1</code> (table names with regex format), but non-binary covering indexes other than <code>latin1</code> (excluding <code>german1</code>) still require a primary key lookup to return the <code>CHAR</code> or <code>VARCHAR</code> column.</p>
 </li>
 <li>
 <p>Either <code>ORDER BY DESC</code> or <code>ORDER BY ASC</code> is slow. This is because of “Prefix Key Encoding” feature in RocksDB. See <a href="https://www.slideshare.net/matsunobu/myrocks-deep-dive/58">https://www.slideshare.net/matsunobu/myrocks-deep-dive/58</a> for details. By default, ascending scan is faster and descending scan is slower. If the “reverse column family” is configured, then descending scan will be faster and ascending scan will be slower. Note that InnoDB also imposes a cost when the index is scanned in the opposite order.</p>
@@ -39953,7 +39964,7 @@ prefix. Some have the abbreviated syntax --></section><section class="print-page
 <p>RocksDB WAL file information can be seen in the
 <a href="https://dev.mysql.com/doc/refman/8.0/en/performance-schema-log-status-table.html">performance_schema.log_status</a>
 table in the <code>STORAGE ENGINE</code> column.</p>
-<p>This feature has been implemented in <a href="#release-notes-percona-server-8.0.15-6-id1">Percona Server for MySQL 8.0.15-6</a>.</p>
+<p>This feature has been implemented in <a href="#release-notes-percona-server-8.0.15-6">Percona Server for MySQL 8.0.15-6</a>.</p>
 <h2 id="myrocks-performance-schema-tables-example">Example<a class="headerlink" href="#myrocks-performance-schema-tables-example" title="Permanent link">&para;</a></h2>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span><span class="k">select</span><span class="w"> </span>*<span class="w"> </span>from<span class="w"> </span>performance_schema.log_status<span class="se">\G</span>
 </code></pre></div>
@@ -40784,7 +40795,7 @@ client operation.</p>
 <td><a href="#variables-rocksdb_deadlock_detect_depth"><code>rocksdb_deadlock_detect_depth</code></a></td>
 </tr>
 <tr>
-<td><a href="#variables-rocksdb_debug_cardinality_multipler"><code>rocksdb_debug_cardinality_multipler</code></a></td>
+<td><a href="#variables-rocksdb_debug_cardinality_multiplier"><code>rocksdb_debug_cardinality_multipler</code></a></td>
 </tr>
 <tr>
 <td><a href="#variables-rocksdb_debug_manual_compaction_delay"><code>rocksdb_debug_manual_compaction_delay</code></a></td>
@@ -41612,7 +41623,7 @@ decides how many threads to allocate toward flush/compaction.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. Skips verifying if rows exists before executing deletes. The following conditions must be met:</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. Skips verifying if rows exists before executing deletes. The following conditions must be met:</p>
 <ul>
 <li>
 <p>The variable is enabled</p>
@@ -41730,7 +41741,7 @@ because that’s the size of one block.</p>
 </table>
 <p>The variable was implemented in <a href="#release-notes-8.0.33-25">Percona Server for MySQL 8.0.33-25</a>.</p>
 <p>When this variable is enabled, the bulk load fails if an sst file created during bulk load cannot be placed to the bottommost level in the rocksdb. </p>
-<p>This variable can be enabled or disabled only when the <a href="#variables-rocksdbbulkload"><code>rocksdb_bulk_load</code></a> is <code>OFF</code>.</p>
+<p>This variable can be enabled or disabled only when the <a href="#variables-rocksdb_bulk_load"><code>rocksdb_bulk_load</code></a> is <code>OFF</code>.</p>
 <p>This variable is disabled (OFF) by default.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -42091,7 +42102,7 @@ for example, when setting up a new MyRocks instance from a MySQL dump.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.27-18-id1">Percona Server for MySQL 8.0.27-18</a>. Materializes partial index during bulk load instead of leaving the index empty.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.27-18">Percona Server for MySQL 8.0.27-18</a>. Materializes partial index during bulk load instead of leaving the index empty.</p>
 <h3 id="variables-rocksdb_bulk_load_use_sst_partitioner"><code>rocksdb_bulk_load_use_sst_partitioner</code><a class="headerlink" href="#variables-rocksdb_bulk_load_use_sst_partitioner" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -42231,7 +42242,7 @@ Allowed range is up to <code>18446744073709551615</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. Includes RocksDB block cache content in core dump. This variable is
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. Includes RocksDB block cache content in core dump. This variable is
 enabled by default.</p>
 <h3 id="variables-rocksdb_cache_high_pri_pool_ratio"><code>rocksdb_cache_high_pri_pool_ratio</code><a class="headerlink" href="#variables-rocksdb_cache_high_pri_pool_ratio" title="Permanent link">&para;</a></h3>
 <table>
@@ -42366,7 +42377,7 @@ If you disable this feature, RocksDB allocates additional memory to maintain the
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.27-18-id1">Percona Server for MySQL 8.0.27-18</a>. Cancels all ongoing manual compactions.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.27-18">Percona Server for MySQL 8.0.27-18</a>. Cancels all ongoing manual compactions.</p>
 <h3 id="variables-rocksdb_charge_memory"><code>rocksdb_charge_memory</code><a class="headerlink" href="#variables-rocksdb_charge_memory" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -42400,7 +42411,7 @@ If you disable this feature, RocksDB allocates additional memory to maintain the
 </table>
 <p>The variable was implemented in <a href="#release-notes-8.0.33-25">Percona Server for MySQL 8.0.33-25</a>.</p>
 <p>This variable is <a href="#glossary-tech-preview">tech preview</a> and may be removed in the future releases.</p>
-<p>Turns on RocksDB memory-charging related features (BlockBasedTableOptions::cache_usage_options.options.charged) from <code>cnf</code> files. This variable is related to <a href="#variables-rocksdbusewritebuffermanager"><code>rocksdb_use_write_buffer_manager</code></a>.</p>
+<p>Turns on RocksDB memory-charging related features (BlockBasedTableOptions::cache_usage_options.options.charged) from <code>cnf</code> files. This variable is related to <a href="#variables-rocksdb_use_write_buffer_manager"><code>rocksdb_use_write_buffer_manager</code></a>.</p>
 <p>This variable is disabled (OFF) by default.</p>
 <h3 id="variables-rocksdb_check_iterate_bounds"><code>rocksdb_check_iterate_bounds</code><a class="headerlink" href="#variables-rocksdb_check_iterate_bounds" title="Permanent link">&para;</a></h3>
 <table>
@@ -43120,7 +43131,7 @@ Disabled by default.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable has been implemented in <a href="#release-notes-percona-server-8.0.15-6-id1">Percona Server for MySQL 8.0.15-6</a>.
+<p>This variable has been implemented in <a href="#release-notes-percona-server-8.0.15-6">Percona Server for MySQL 8.0.15-6</a>.
 When specified it will create a temporary RocksDB ‘checkpoint’ or
 ‘snapshot’ in the datadir. If the session ends with an existing
 checkpoint, or if the variable is reset to another value, the checkpoint
@@ -43632,7 +43643,7 @@ Allowed range is from <code>0</code> to <code>18446744073709551615</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. Deletes the column family by name. The default value is “” , an empty string.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. Deletes the column family by name. The default value is “” , an empty string.</p>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code>SET @@global.ROCKSDB_DELETE_CF = &#39;cf_primary_key&#39;;
 </code></pre></div>
@@ -43702,7 +43713,7 @@ Allowed range is up to <code>9223372036854775807</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable has been implemented in <a href="#release-notes-percona-server-8.0.15-6-id1">Percona Server for MySQL 8.0.15-6</a>.
+<p>This variable has been implemented in <a href="#release-notes-percona-server-8.0.15-6">Percona Server for MySQL 8.0.15-6</a>.
 It allows a client to temporarily disable RocksDB deletion
 of old <code>WAL</code> and <code>.sst</code> files for the purposes of making a consistent
 backup. If the client session terminates for any reason after disabling
@@ -43855,7 +43866,7 @@ and does not require keys to be inserted in any order.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. Specifies whether to enable optimization where the read is cached from a failed insertion attempt in INSERT ON DUPLICATE KEY UPDATE.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. Specifies whether to enable optimization where the read is cached from a failed insertion attempt in INSERT ON DUPLICATE KEY UPDATE.</p>
 <h3 id="variables-rocksdb_enable_instant_ddl"><code>rocksdb_enable_instant_ddl</code><a class="headerlink" href="#variables-rocksdb_enable_instant_ddl" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -44053,7 +44064,7 @@ If disabled, no DDL can be executed as instant.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. Enables the rocksdb iterator upper bounds and lower bounds in read options.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. Enables the rocksdb iterator upper bounds and lower bounds in read options.</p>
 <h3 id="variables-rocksdb_enable_pipelined_write"><code>rocksdb_enable_pipelined_write</code><a class="headerlink" href="#variables-rocksdb_enable_pipelined_write" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -44085,7 +44096,7 @@ If disabled, no DDL can be executed as instant.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.25-15-id1">Percona Server for MySQL 8.0.25-15</a>.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.25-15">Percona Server for MySQL 8.0.25-15</a>.</p>
 <p>DBOptions::enable_pipelined_write for RocksDB.</p>
 <p>If <code>enable_pipelined_write</code> is <code>ON</code>, a separate write thread is maintained for WAL write and memtable write. A write thread first enters the WAL writer queue and then the memtable writer queue. A pending thread on the WAL writer queue only waits for the previous WAL write operations but does not wait for memtable write operations. Enabling the feature may improve write throughput and reduce latency of the prepare phase of a two-phase commit.</p>
 <h3 id="variables-rocksdb_enable_remove_orphaned_dropped_cfs"><code>rocksdb_enable_remove_orphaned_dropped_cfs</code><a class="headerlink" href="#variables-rocksdb_enable_remove_orphaned_dropped_cfs" title="Permanent link">&para;</a></h3>
@@ -44119,7 +44130,7 @@ If disabled, no DDL can be executed as instant.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. Enables the removal of dropped column families (cfs) from metadata if the cfs do not exist in the cf manager.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. Enables the removal of dropped column families (cfs) from metadata if the cfs do not exist in the cf manager.</p>
 <p>The default value is <code>ON</code>.</p>
 <h3 id="variables-rocksdb_enable_ttl"><code>rocksdb_enable_ttl</code><a class="headerlink" href="#variables-rocksdb_enable_ttl" title="Permanent link">&para;</a></h3>
 <table>
@@ -44982,7 +44993,7 @@ Enabled by default.</p>
 <p>When enabled, this option allows index key prefixes longer than 767 bytes (up to 3072 bytes). The values for <code>rocksdb_large_prefix</code> should be the same between source and replica.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In version <a href="#release-notes-percona-server-8.0.16-7-id1">Percona Server for MySQL 8.0.16-7</a> and later, the default value is changed to <code>ON</code>.</p>
+<p>In version <a href="#release-notes-percona-server-8.0.16-7">Percona Server for MySQL 8.0.16-7</a> and later, the default value is changed to <code>ON</code>.</p>
 </div>
 <h3 id="variables-rocksdb_keep_log_file_num"><code>rocksdb_keep_log_file_num</code><a class="headerlink" href="#variables-rocksdb_keep_log_file_num" title="Permanent link">&para;</a></h3>
 <table>
@@ -45303,7 +45314,7 @@ rely on the application to do the flushing.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. When enabled, uses the WriteBatch API, which is faster. The session does not hold any lock on row access. This variable is not effective on replica.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. When enabled, uses the WriteBatch API, which is faster. The session does not hold any lock on row access. This variable is not effective on replica.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Due to the disabled row locks, improper use of the variable can cause data corruption or inconsistency.</p>
@@ -45339,13 +45350,13 @@ rely on the application to do the flushing.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>.</p>
 <p>Sets DBOptions:: max_background_compactions for RocksDB.
 The default value is <code>-1</code> The allowed range is <code>-1</code> to <code>64</code>.
 This variable was replaced
 by rocksdb_max_background_jobs, which automatically decides how
 many threads to allocate towards flush/compaction.
-This variable was re-implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>.</p>
+This variable was re-implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>.</p>
 <h3 id="variables-rocksdb_max_background_flushes"><code>rocksdb_max_background_flushes</code><a class="headerlink" href="#variables-rocksdb_max_background_flushes" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -45377,7 +45388,7 @@ This variable was re-implemented in <a href="#release-notes-percona-server-8.0.2
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>.</p>
 <p>Sets DBOptions:: max_background_flushes for RocksDB.
 The default value is <code>-1</code>. The allowed range is <code>-1</code> to <code>64</code>.
 This variable has been replaced
@@ -45447,7 +45458,7 @@ responsibility down to RocksDB level.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. Creates a specified number of threads, sets a lower CPU priority, and letting compactions use them. The maximum compaction concurrency is capped by <code>rocksdb_max_background_compactions</code> or <code>rocksdb_max_background_jobs</code></p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. Creates a specified number of threads, sets a lower CPU priority, and letting compactions use them. The maximum compaction concurrency is capped by <code>rocksdb_max_background_compactions</code> or <code>rocksdb_max_background_jobs</code></p>
 <p>The minimum value is <code>0</code> and the maximum value is <code>64</code>.</p>
 <h3 id="variables-rocksdb_max_compaction_history"><code>rocksdb_max_compaction_history</code><a class="headerlink" href="#variables-rocksdb_max_compaction_history" title="Permanent link">&para;</a></h3>
 <table>
@@ -46149,7 +46160,7 @@ Enabled by default.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.27-18-id1">Percona Server for MySQL 8.0.27-18</a>. Maximum memory to use when sorting an unmaterialized group for partial indexes. The 0(zero) value is defined as no limit.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.27-18">Percona Server for MySQL 8.0.27-18</a>. Maximum memory to use when sorting an unmaterialized group for partial indexes. The 0(zero) value is defined as no limit.</p>
 <h3 id="variables-rocksdb_pause_background_work"><code>rocksdb_pause_background_work</code><a class="headerlink" href="#variables-rocksdb_pause_background_work" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -46531,7 +46542,7 @@ Allowed range is up to <code>9223372036854775807</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. Uses read-free replication, which allows no row lookup during
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. Uses read-free replication, which allows no row lookup during
 replication, on the replica.</p>
 <p>The options are the following:</p>
 <ul>
@@ -46576,7 +46587,7 @@ replication, on the replica.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was disabled in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. We recommend that you use <code>rocksdb_read_free_rpl</code> instead of this variable.</p>
+<p>The variable was disabled in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. We recommend that you use <code>rocksdb_read_free_rpl</code> instead of this variable.</p>
 <p>This variable lists tables (as a regular expression)
 that should use read-free replication on the replica
 (that is, replication without row lookups).
@@ -46679,7 +46690,7 @@ Allowed range is up to <code>2147483647</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. By default, only the last statement on a transaction is rolled back. If
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. By default, only the last statement on a transaction is rolled back. If
 <code>--rocksdb-rollback-on-timeout=ON</code>, a transaction timeout causes a rollback of
 the entire transaction.</p>
 <h3 id="variables-rocksdb_rpl_skip_tx_api"><code>rocksdb_rpl_skip_tx_api</code><a class="headerlink" href="#variables-rocksdb_rpl_skip_tx_api" title="Permanent link">&para;</a></h3>
@@ -47018,7 +47029,7 @@ Allowed range is up to <code>2147483647</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. Controls the RocksDB statistics level. The default value is “0” (kExceptHistogramOrTimers), which is the fastest level. The maximum value is “4”.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. Controls the RocksDB statistics level. The default value is “0” (kExceptHistogramOrTimers), which is the fastest level. The maximum value is “4”.</p>
 <h3 id="variables-rocksdb_stats_recalc_rate"><code>rocksdb_stats_recalc_rate</code><a class="headerlink" href="#variables-rocksdb_stats_recalc_rate" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -47050,7 +47061,7 @@ Allowed range is up to <code>2147483647</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. Specifies the number of indexes to recalculate per second. Recalculating index statistics periodically ensures it to match the actual sum from SST files.
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. Specifies the number of indexes to recalculate per second. Recalculating index statistics periodically ensures it to match the actual sum from SST files.
 Default value is <code>0</code>. Allowed range is up to <code>4294967295</code>.</p>
 <h3 id="variables-rocksdb_store_row_debug_checksums"><code>rocksdb_store_row_debug_checksums</code><a class="headerlink" href="#variables-rocksdb_store_row_debug_checksums" title="Permanent link">&para;</a></h3>
 <table>
@@ -47223,7 +47234,7 @@ The allowed range is from <code>0</code> to <code>19</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>.</p>
 <p>The nice value for index stats.
 The minimum = -20 (THREAD_PRIO_MIN)
 The maximum = 19 (THREAD_PRIO_MAX)</p>
@@ -47258,7 +47269,7 @@ The maximum = 19 (THREAD_PRIO_MAX)</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>.</p>
 <p>The maximum number of rows to scan in a table scan based on
 a cardinality calculation.
 The minimum is <code>0</code> (every modification triggers a stats recalculation).
@@ -47294,7 +47305,7 @@ The maximum is <code>18,446,744,073,709,551,615</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>.</p>
 <p>The number of modified rows to trigger a stats recalculation. This is a
 dependent variable for stats recalculation.
 The minimum is <code>0</code>.
@@ -47330,7 +47341,7 @@ The maximum is <code>18,446,744,073,709,551,615</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>.</p>
 <p>The percentage of the number of modified rows over the total number of rows
 to trigger stats recalculations. This is a dependent variable for stats
 recalculation.
@@ -47435,7 +47446,7 @@ Allowed range is from <code>0</code> to <code>100</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. Enables table-scan-based index calculations.
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. Enables table-scan-based index calculations.
 The default value is <code>OFF</code>.</p>
 <h3 id="variables-rocksdb_tmpdir"><code>rocksdb_tmpdir</code><a class="headerlink" href="#variables-rocksdb_tmpdir" title="Permanent link">&para;</a></h3>
 <table>
@@ -47500,7 +47511,7 @@ The default value is <code>OFF</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. Defines the block cache trace option string. The format is sampling frequency: max_trace_file_size:trace_file_name. The sampling frequency value and max_trace_file_size value are positive integers. The block accesses are saved to the <code>rocksdb_datadir/block_cache_traces/trace_file_name</code>. The default value is an empty string.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. Defines the block cache trace option string. The format is sampling frequency: max_trace_file_size:trace_file_name. The sampling frequency value and max_trace_file_size value are positive integers. The block accesses are saved to the <code>rocksdb_datadir/block_cache_traces/trace_file_name</code>. The default value is an empty string.</p>
 <h3 id="variables-rocksdb_trace_queries"><code>rocksdb_trace_queries</code><a class="headerlink" href="#variables-rocksdb_trace_queries" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -47968,7 +47979,7 @@ Disabled by default.</p>
 </table>
 <p>The variable was implemented in <a href="#release-notes-8.0.33-25">Percona Server for MySQL 8.0.33-25</a>.</p>
 <p>This variable is <a href="#glossary-tech-preview">tech preview</a> and may be removed in the future releases.</p>
-<p>Allows to turn on the write buffer manager (WriteBufferManager) from <code>cnf</code> files. This variable is related to <a href="#variables-rocksdbchargememory"><code>rocksdb_charge_memory</code></a>.</p>
+<p>Allows to turn on the write buffer manager (WriteBufferManager) from <code>cnf</code> files. This variable is related to <a href="#variables-rocksdb_charge_memory"><code>rocksdb_charge_memory</code></a>.</p>
 <h3 id="variables-rocksdb_validate_tables"><code>rocksdb_validate_tables</code><a class="headerlink" href="#variables-rocksdb_validate_tables" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -48000,7 +48011,7 @@ Disabled by default.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a>. Specifies whether to verify that MySQL data dictionary is equal to the MyRocks data dictionary.</p>
+<p>The variable was implemented in <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a>. Specifies whether to verify that MySQL data dictionary is equal to the MyRocks data dictionary.</p>
 <ul>
 <li>
 <p><code>0</code>: do not verify.</p>
@@ -48146,7 +48157,7 @@ Allowed range is up to <code>18446744073709551615</code>.</p>
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In version <a href="#release-notes-percona-server-8.0.20-11-id1">Percona Server for MySQL 8.0.20-11</a> and later, the default is changed from <code>1</code> to <code>2</code>.</p>
+<p>In version <a href="#release-notes-percona-server-8.0.20-11">Percona Server for MySQL 8.0.20-11</a> and later, the default is changed from <code>1</code> to <code>2</code>.</p>
 </div>
 <p>Specifies the level of tolerance when recovering write-ahead logs (WAL) files
 after a system crash.</p>
@@ -49267,8 +49278,8 @@ back, but some of rows are stored in the table. To restart data loading, you’l
 need to truncate the table and loading data again.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you are loading large data without enabling <a href="#variables-rocksdb_bulk_load">rocksdb_bulk_load</a> or <a href="#variables-rocksdb-commit-in-the-middle">rocksdb_commit_in_the_middle</a>, please make sure transaction size is small enough. All modifications of the ongoing transactions are kept in memory.</p>
 </div>
+<p>If you are loading large data without enabling <a href="#variables-rocksdb_bulk_load">rocksdb_bulk_load</a> or <a href="#variables-rocksdb_commit_in_the_middle">rocksdb_commit_in_the_middle</a>, please make sure transaction size is small enough. All modifications of the ongoing transactions are kept in memory.</p>
 <h2 id="data-loading-other-reading">Other reading<a class="headerlink" href="#data-loading-other-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -49318,14 +49329,14 @@ must be configured with <a href="https://zonedstorage.io/docs/linux/config">zone
 <p>Start with the installation of <em>Percona Server for MySQL</em>.</p>
 <ol>
 <li>
-<p>The steps are listed here for convenience, for an explanation, see <a href="#apt-repo-apt-install">Installing Percona Server for MySQL from Percona apt repository</a>.</p>
+<p>The steps are listed here for convenience, for an explanation, see <a href="#apt-repo-install-percona-server-for-mysql-using-apt">Installing Percona Server for MySQL from Percona apt repository</a>.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.<span class="k">$(</span>lsb_release<span class="w"> </span>-sc<span class="k">)</span>_all.deb
 $<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>./percona-release_latest.*_all.deb
 $<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps80
 </code></pre></div>
 </li>
 <li>
-<p>Install Percona Server for MySQL with MyRocks and the ZenFS plugin package. The binaries are listed in the <a href="#installation-installing-from-binary-tarball">Installing Percona Server for MySQL from a Binary Tarball</a> section of the <em>Percona Server for MySQL</em> installation instructions.</p>
+<p>Install Percona Server for MySQL with MyRocks and the ZenFS plugin package. The binaries are listed in the <a href="#binary-tarball-install">Installing Percona Server for MySQL from a Binary Tarball</a> section of the <em>Percona Server for MySQL</em> installation instructions.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 </li>
@@ -49389,7 +49400,7 @@ sda<span class="w">                       </span><span class="m">247</span>.9G<s
 <p>Don’t forget to reload the policy if you make edits:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>apparmor<span class="w"> </span>reload
 </code></pre></div>
-<p>For more information, see <a href="#apparmor-enable-apparmor">Working with AppArmor</a>.</p>
+<p>For more information, see <a href="#apparmor">Working with AppArmor</a>.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -50810,9 +50821,9 @@ instructions on how to safely execute these operations.</p>
 to <a href="#tokudb-file-management-improved-directory-layout-functionality">group data files together</a>
 within a directory that represents a single database. This feature is enabled
 by default.</p>
-<p>The <a href="#tokudb-file-management-tokudbdircmd">tokudb_dir_cmd</a> variable can be used to edit the contents of the TokuDB/PerconaFT directory map.</p>
+<p>The <a href="#tokudb-file-management-tokudb_dir_cmd">tokudb_dir_cmd</a> variable can be used to edit the contents of the TokuDB/PerconaFT directory map.</p>
 <h2 id="tokudb-file-management-moving-tokudb-data-files-to-a-location-outside-of-the-default-mysql-datadir">Moving TokuDB data files to a location outside of the default MySQL datadir<a class="headerlink" href="#tokudb-file-management-moving-tokudb-data-files-to-a-location-outside-of-the-default-mysql-datadir" title="Permanent link">&para;</a></h2>
-<p><em>TokuDB</em> uses the location specified by the <a href="#tokudb-variables-tokudbdatadir">tokudb_data_dir</a>
+<p><em>TokuDB</em> uses the location specified by the <a href="#tokudb-variables-tokudb_data_dir">tokudb_data_dir</a>
 variable for all of its data files. If the tokudb_data_dir variable
 is not explicitly set, <em>TokuDB</em> will use the location specified by the servers
 datadir for these files.</p>
@@ -50821,7 +50832,7 @@ datadir for these files.</p>
 directory as the <em>TokuDB</em> data files.</p>
 <p><em>TokuDB</em> data files may be moved to other locations with symlinks left behind
 in their place. If those symlinks refer to files on other physical data
-volumes, the <a href="#tokudb-variables-tokudbfsreservepercent">tokudb_fs_reserve_percent</a> monitor will not traverse
+volumes, the <a href="#tokudb-variables-tokudb_fs_reserve_percent">tokudb_fs_reserve_percent</a> monitor will not traverse
 the symlink and monitor the real location for adequate space in the file
 system.</p>
 <p>To safely move your TokuDB data files:</p>
@@ -50843,7 +50854,7 @@ system.</p>
 </li>
 </ol>
 <h2 id="tokudb-file-management-moving-tokudb-temporary-files-to-a-location-outside-of-the-default-mysql-datadir">Moving TokuDB temporary files to a location outside of the default MySQL datadir<a class="headerlink" href="#tokudb-file-management-moving-tokudb-temporary-files-to-a-location-outside-of-the-default-mysql-datadir" title="Permanent link">&para;</a></h2>
-<p><em>TokuDB</em> will use the location specified by the <a href="#tokudb-variables-tokudbtmpdir">tokudb_tmp_dir</a>
+<p><em>TokuDB</em> will use the location specified by the <a href="#tokudb-variables-tokudb_tmp_dir">tokudb_tmp_dir</a>
 variable for all of its temporary files. If tokudb_tmp_dir variable
 is not explicitly set, <em>TokuDB</em> will use the location specified by the
 tokudb_data_dir variable. If the tokudb_data_dir
@@ -50916,16 +50927,16 @@ changed to map the new dictionary name to the original internal file names.
 This makes it difficult to quickly match database/table/index names to their
 actual files on disk, requiring you to use the
 refTOKUDB_FILE_MAP table to cross reference.</p>
-<p>The <a href="#tokudb-variables-tokudbdirperdb">tokudb_dir_per_db</a> variable is implemented to address this issue.</p>
-<p>When <a href="#tokudb-variables-tokudbdirperdb">tokudb_dir_per_db</a>is enabled (<code>ON</code> by default), this is no
+<p>The <a href="#tokudb-variables-tokudb_dir_per_db">tokudb_dir_per_db</a> variable is implemented to address this issue.</p>
+<p>When <a href="#tokudb-variables-tokudb_dir_per_db">tokudb_dir_per_db</a>is enabled (<code>ON</code> by default), this is no
 longer the case. When you rename a table, the mapping in the <em>Percona FT</em>
 directory file will be updated and the files will be renamed on disk to reflect
 the new table name.</p>
 <h2 id="tokudb-file-management-improved-directory-layout-functionality">Improved directory layout functionality<a class="headerlink" href="#tokudb-file-management-improved-directory-layout-functionality" title="Permanent link">&para;</a></h2>
 <p>Many users have had issues with managing the huge volume of individual files
-that <em>TokuDB</em> and <em>Percona FT</em> use. The <a href="#tokudb-variables-tokudbdirperdb">tokudb_dir_per_db</a> variable
+that <em>TokuDB</em> and <em>Percona FT</em> use. The <a href="#tokudb-variables-tokudb_dir_per_db">tokudb_dir_per_db</a> variable
 addresses this issue.</p>
-<p>When <a href="#tokudb-variables-tokudbdirperdb">tokudb_dir_per_db</a> variable is enabled (<code>ON</code> by default),
+<p>When <a href="#tokudb-variables-tokudb_dir_per_db">tokudb_dir_per_db</a> variable is enabled (<code>ON</code> by default),
 all new tables and indices will be placed within their corresponding database
 directory within the <code>tokudb_data_dir</code> or server datadir.</p>
 <p>If you have tokudb_data_dir variable set to something other than
@@ -62051,13 +62062,13 @@ percona_telemetry_disable=1
 <p>This is a list of the <code>INFORMATION_SCHEMA TABLES</code> that exist in <em>Percona Server for MySQL</em> with <em>XtraDB</em>. The entry for each table points to the page in the documentation where item is described.</p>
 <ul>
 <li>
-<p><a href="#user-stats-client-statistics">INFORMATION_SCHEMA.CLIENT_STATISTICS</a></p>
+<p><a href="#user-stats-information_schemaclient_statistics">INFORMATION_SCHEMA.CLIENT_STATISTICS</a></p>
 </li>
 <li>
-<p><a href="#user-stats-index-statistics">INFORMATION_SCHEMA.GLOBAL_TEMPORARY_TABLES</a></p>
+<p><a href="#misc-info-schema-tables-information_schemaglobal_temporary_tables">INFORMATION_SCHEMA.GLOBAL_TEMPORARY_TABLES</a></p>
 </li>
 <li>
-<p>[INFORMATION_SCHEMA.INDEX_STATISTICS]</p>
+<p><a href="#user-stats-information_schemaindex_statistics">INFORMATION_SCHEMA.INDEX_STATISTICS</a></p>
 </li>
 <li>
 <p><a href="#procfs-plugin-procfs">PROCFS</a></p>
@@ -62066,31 +62077,25 @@ percona_telemetry_disable=1
 <p><a href="https://docs.percona.com/percona-server/5.7/diagnostics/response_time_distribution.html#query-response-time">INFORMATION_SCHEMA.QUERY_RESPONSE_TIME</a></p>
 </li>
 <li>
-<p><a href="#user-stats-table-statistics">INFORMATION_SCHEMA.TABLE_STATISTICS</a></p>
+<p><a href="#user-stats-information_schematable_statistics">INFORMATION_SCHEMA.TABLE_STATISTICS</a></p>
 </li>
 <li>
-<p><a href="#misc-info-schema-tables-id1">INFORMATION_SCHEMA.TEMPORARY_TABLES</a></p>
+<p><a href="#misc-info-schema-tables-information_schematemporary_tables">INFORMATION_SCHEMA.TEMPORARY_TABLES</a></p>
 </li>
 <li>
-<p>THREAD_STATISTICS</p>
+<p><a href="#user-stats-information_schemathread_statistics">INFORMATION_SCHEMA.THREAD_STATISTICS</a></p>
 </li>
 <li>
-<p><a href="#user-stats-id3">INFORMATION_SCHEMA.USER_STATISTICS</a></p>
+<p><a href="#user-stats-information_schemauser_statistics">INFORMATION_SCHEMA.USER_STATISTICS</a></p>
 </li>
 <li>
-<p>XTRADB_INTERNAL_HASH_TABLES</p>
+<p><a href="#innodb-show-status-information_schemaxtradb_internal_hash_tables">INFORMATION_SCHEMA.XTRADB_INTERNAL_HASH_TABLES</a></p>
 </li>
 <li>
-<p>XTRADB_READ_VIEW</p>
+<p><a href="#innodb-show-status-information_schemaxtradb_read_view">INFORMATION_SCHEMA.XTRADB_READ_VIEW</a></p>
 </li>
 <li>
-<p><a href="#misc-info-schema-tables-xtradb-rseg">INFORMATION_SCHEMA.XTRADB_RSEG</a></p>
-</li>
-<li>
-<p><a href="#compressed-columns-xtradb-zip-dict">INFORMATION_SCHEMA.XTRADB_ZIP_DICT</a></p>
-</li>
-<li>
-<p><a href="#compressed-columns-xtradb-zip-dict-cols">INFORMATION_SCHEMA.XTRADB_ZIP_DICT_COLS</a></p>
+<p>INFORMATION_SCHEMA.XTRADB_RSEG - removed in <a href="#release-notes-percona-server-8.0.13-3">Percona Server for MySQL 8.0.13-3</a></p>
 </li>
 </ul></section><section class="print-page" id="faq" heading-number="17.10"><h1 id="faq-frequently-asked-questions">Frequently asked questions<a class="headerlink" href="#faq-frequently-asked-questions" title="Permanent link">&para;</a></h1>
 <h2 id="faq-q-will-percona-server-for-mysql-with-xtradb-invalidate-our-mysql-support">Q: Will <em>Percona Server for MySQL</em> with <em>XtraDB</em> invalidate our <em>MySQL</em> support?<a class="headerlink" href="#faq-q-will-percona-server-for-mysql-with-xtradb-invalidate-our-mysql-support" title="Permanent link">&para;</a></h2>
@@ -63090,7 +63095,7 @@ contributions and changes from MariaDB.</p>
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
       
         <script src="js/print-site.js"></script>
       
