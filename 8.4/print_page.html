@@ -11204,7 +11204,7 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
                     <section class="print-page" id="audit-log-filter-overview" heading-number="5.2.1"><h1 id="audit-log-filter-overview-audit-log-filter-overview">Audit Log Filter overview<a class="headerlink" href="#audit-log-filter-overview-audit-log-filter-overview" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter component allows you to monitor, log, and block a connection or query actively executed on the selected server. </p>
 <p>Enabling the component produces a log file that contains a record of server activity. The log file has information on connections and databases accessed by that connection. </p>
-<p>The component uses the <code>mysql</code> system database to store filter and user account data. Set the <a href="#audit-log-filter-variables-audit_log_filter.database"><code>audit_log_filter.database</code></a> variable at server startup to select a different database.</p>
+<p>The component uses the <code>mysql</code> system database to store filter and user account data. Set the <a href="#audit-log-filter-variables-audit_log_filterdatabase"><code>audit_log_filter.database</code></a> variable at server startup to select a different database.</p>
 <p>The <code>AUDIT_ADMIN</code> privilege is required to enable users to manage the Audit Log Filter component.</p>
 <h2 id="audit-log-filter-overview-privileges">Privileges<a class="headerlink" href="#audit-log-filter-overview-privileges" title="Permanent link">&para;</a></h2>
 <p>Define the privilege at runtime at the startup of the server. The associated Audit Log Filter privilege can be unavailable if the component is not enabled.</p>
@@ -11215,120 +11215,47 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
 <h2 id="audit-log-filter-overview-audit-log-filter-tables">Audit Log Filter tables<a class="headerlink" href="#audit-log-filter-overview-audit-log-filter-tables" title="Permanent link">&para;</a></h2>
 <p>The Audit Log Filter component uses <code>mysql</code> system database tables in the <code>InnoDB</code> storage engine. These tables store user account data and filter data. When you start the server, change the component&rsquo;s database with the <code>audit_log_filter.database</code> variable.</p>
 <p>The <code>audit_log_filter</code> table stores the definitions of the filters and has the following column definitions:</p>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>HTML Table Generator</title> 
-    <style>
-        #demTable {
-            width:100%;
-            height:100%;
-            border:1px solid #b3adad;
-            border-collapse:collapse;
-            padding:5px;
-        }
-        #demTable th {
-            border:1px solid #b3adad;
-            padding:5px;
-            background: #f0f0f0;
-            color: #313030;
-        }
-        #demTable td {
-            border:1px solid #b3adad;
-            text-align:left;
-            padding:5px;
-            background: #ffffff;
-            color: #313030;
-        }
-    </style>
-
-        <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function () {
-            remove_material_navigation();remove_mkdocs_theme_navigation();generate_toc();
-        })
-        </script>
-        </head>
-<body>
-    <table id="demTable">
-        <thead>
-            <tr>
-                <th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Column name</div></th>
-                <th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Description</div></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>&nbsp;NAME</td>
-                <td>&nbsp;Name of the filter</td>
-            </tr>
-            <tr>
-                <td>&nbsp;FILTER</td>
-                <td>&nbsp;Definition of the filter linked to the name as a JSON value</td>
-            </tr>
-        </tbody>
-    </table>
-</body>
-</html>
-
+<table>
+<thead>
+<tr>
+<th>Column name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NAME</td>
+<td>Name of the filter</td>
+</tr>
+<tr>
+<td>FILTER</td>
+<td>Definition of the filter linked to the name as a JSON value</td>
+</tr>
+</tbody>
+</table>
 <p>The <code>audit_log_user</code> table stores account data and has the following column definitions:</p>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>HTML Table Generator</title> 
-    <style>
-        #demTable {
-            width:100%;
-            height:100%;
-            border:1px solid #b3adad;
-            border-collapse:collapse;
-            padding:5px;
-        }
-        #demTable th {
-            border:1px solid #b3adad;
-            padding:5px;
-            background: #f0f0f0;
-            color: #313030;
-        }
-        #demTable td {
-            border:1px solid #b3adad;
-            text-align:left;
-            padding:5px;
-            background: #ffffff;
-            color: #313030;
-        }
-    </style>
-
-        <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function () {
-            remove_material_navigation();remove_mkdocs_theme_navigation();generate_toc();
-        })
-        </script>
-        </head>
-<body>
-    <table id="demTable">
-        <thead>
-            <tr>
-                <th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Column name</div></th>
-                <th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Description</div></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>&nbsp;USER</td>
-                <td>&nbsp;The account name of the user</td>
-            </tr>
-            <tr>
-                <td>&nbsp;HOST</td>
-                <td>&nbsp;The account name of the host</td>
-            </tr>
-            <tr>
-                <td>&nbsp;FILTERNAME</td>
-                <td>&nbsp;The account filter name</td>
-            </tr>
-        </tbody>
-    </table>
-</body>
-</html></section><section class="print-page" id="install-audit-log-filter" heading-number="5.2.2"><h1 id="install-audit-log-filter-install-the-audit-log-filter">Install the Audit Log Filter<a class="headerlink" href="#install-audit-log-filter-install-the-audit-log-filter" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>Column name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USER</td>
+<td>The account name of the user</td>
+</tr>
+<tr>
+<td>HOST</td>
+<td>The account name of the host</td>
+</tr>
+<tr>
+<td>FILTERNAME</td>
+<td>The account filter name</td>
+</tr>
+</tbody>
+</table></section><section class="print-page" id="install-audit-log-filter" heading-number="5.2.2"><h1 id="install-audit-log-filter-install-the-audit-log-filter">Install the Audit Log Filter<a class="headerlink" href="#install-audit-log-filter-install-the-audit-log-filter" title="Permanent link">&para;</a></h1>
 <p>The <code>plugin_dir</code> system variable defines the component library location. If needed, at server startup, set the <code>plugin_dir</code> variable.</p>
 <p>In the <code>share</code> directory, locate the <code>audit_log_filter_linux_install.sql</code> script.</p>
 <p>At the time you run the script, you can select the database used to store the JSON filter tables.</p>
@@ -12476,7 +12403,7 @@ that contains these files should be accessible only to the following:</p>
 <p>You can manage the space by using log file rotation. This operation renames and then rotates the current log file and then uses the original name on a new current log file. You can rotate the file either manually or automatically.</p>
 <p>If automatic rotation is enabled, you can prune the log file. This pruning operation can be based on either the log file age or combined log file size.</p>
 <h2 id="manage-audit-log-filter-manual-log-rotation">Manual log rotation<a class="headerlink" href="#manage-audit-log-filter-manual-log-rotation" title="Permanent link">&para;</a></h2>
-<p>The default setting for <a href="#audit-log-filter-variables-audit_log_filter_rotate_on_size"><code>audit_log_filter.rotate_on_size</code></a> is 1GB. If this option is set to <code>0</code>, the audit log filter component does not do an automatic rotation of the log file. You must do the rotation manually with this setting.</p>
+<p>The default setting for <a href="#audit-log-filter-variables-audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code></a> is 1GB. If this option is set to <code>0</code>, the audit log filter component does not do an automatic rotation of the log file. You must do the rotation manually with this setting.</p>
 <p>The <code>SELECT audit_log_rotate()</code> command renames the file and creates a new audit log filter file with the original name. You must have the <code>AUDIT_ADMIN</code> privilege. </p>
 <p>The files are pruned if either <code>audit_log_filter.max_size</code> or <code>audit_log_filter.prune_seconds</code> have a value greater than 0 (zero) and <code>audit_log_filter.rotate_on_size</code> &gt; 0.</p>
 <p>After the files have been renamed, you must manually remove any archived audit log filter files. The renamed audit log filter files can be read by <code>audit_log_read()</code>. The <code>audit_log_read()</code> does not find the logs if the name pattern differs from the current pattern.</p></section><section class="print-page" id="filter-audit-log-filter-files" heading-number="5.2.9"><h1 id="filter-audit-log-filter-files-filter-the-audit-log-filter-logs">Filter the Audit Log Filter logs<a class="headerlink" href="#filter-audit-log-filter-files-filter-the-audit-log-filter-logs" title="Permanent link">&para;</a></h1>
@@ -13165,9 +13092,6 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_
 </thead>
 <tbody>
 <tr>
-<td><a href="#audit-log-filter-variables-audit-logvalue"><code>audit-log-filter</code></a></td>
-</tr>
-<tr>
 <td><a href="#audit-log-filter-variables-audit_log_filterbuffer_size"><code>audit_log_filter.buffer_size</code></a></td>
 </tr>
 <tr>
@@ -13667,7 +13591,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_
 <p><a href="#audit-log-filter-variables-audit_log_filtermax_size"><code>audit_log_filter.max_size</code></a></p>
 </li>
 <li>
-<p><a href="#audit-log-filter-variables-audit_log_filterpruneseconds"><code>audit_log_filter.prune_seconds</code></a></p>
+<p><a href="#audit-log-filter-variables-audit_log_filterprune_seconds"><code>audit_log_filter.prune_seconds</code></a></p>
 </li>
 </ul>
 <h3 id="audit-log-filter-variables-audit_log_filterpassword_history_keep_days"><code>audit_log_filter.password_history_keep_days</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filterpassword_history_keep_days" title="Permanent link">&para;</a></h3>
@@ -13705,7 +13629,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_
 <p>Encrypted log files have passwords stored in the keyring. The component also stores a password history. A password does not expire, despite being past the value, in case the password is used for rotated audit logs. The operation of creating a password also archives the previous password.</p>
 <p>The default value is 0 (zero). This value disables the expiration of passwords. Passwords are retained forever. </p>
 <p>If the component starts and encryption is enabled, the component checks for an audit log filter encryption password. If a password is not found, the component generates a random password.</p>
-<p>Call <a href="#audit-log-filter-variables-audit_log_filter_encryption_set"><code>audit_log_filter_encryption_set()</code></a> to set a specific password.</p>
+<p>Call <a href="#audit-log-filter-variables-audit_log_encryption_password_setnew_password">audit_log_encryption_password_set(new_password)</a> to set a specific password.</p>
 <h3 id="audit-log-filter-variables-audit_log_filterprune_seconds"><code>audit_log_filter.prune_seconds</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filterprune_seconds" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -13754,8 +13678,8 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_
 <p>A value greater than 0 enables pruning. An audit log filter file can be pruned after this value.</p>
 <p>To enable log pruning, you must set one of the following:</p>
 <ul>
-<li>Enable log rotation by setting <a href="#audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code></a></li>
-<li>Add a value greater than 0 (zero) for either <a href="#audit_log_filtermax_size"><code>audit_log_filter.max_size</code></a> or <a href="#audit_log_filterprune_seconds"><code>audit_log_filter.prune_seconds</code></a> </li>
+<li>Enable log rotation by setting <a href="#audit-log-filter-variables-audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code></a></li>
+<li>Add a value greater than 0 (zero) for either <a href="#audit-log-filter-variables-audit_log_filtermax_size"><code>audit_log_filter.max_size</code></a> or <a href="#audit-log-filter-variables-audit_log_filterprune_seconds"><code>audit_log_filter.prune_seconds</code></a> </li>
 </ul>
 <h3 id="audit-log-filter-variables-audit_log_filterread_buffer_size"><code>audit_log_filter.read_buffer_size</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filterread_buffer_size" title="Permanent link">&para;</a></h3>
 <table>
@@ -13793,7 +13717,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_
 </tbody>
 </table>
 <p>This option is only supported for JSON-format files.</p>
-<p>The size of the buffer for reading from the audit log filter file. The <a href="#audit_log_filter_read"><code>audit_log_filter_read()</code></a> reads only from this buffer size.</p>
+<p>The size of the buffer for reading from the audit log filter file. The <code>audit_log_filter_read()</code> reads only from this buffer size.</p>
 <h3 id="audit-log-filter-variables-audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filterrotate_on_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -13947,7 +13871,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_
 </tr>
 </tbody>
 </table>
-<p>Specifies the syslog <code>facility</code> value. The option has the same meaning as the appropriate parameter described in the <a href="https://linux.die.net/man/3/syslog">syslog(3) manual</a>.</p>
+<p>Specifies the syslog <code>facility</code> value. The option has the same meaning as the appropriate parameter described in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
 <h3 id="audit-log-filter-variables-audit_log_filtersyslog_priority"><code>audit_log_filter.syslog_priority</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filtersyslog_priority" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -13979,7 +13903,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_
 </tr>
 </tbody>
 </table>
-<p>Defines the <code>priority</code> value for the syslog. The option has the same meaning as the appropriate parameter described in the <a href="https://linux.die.net/man/3/syslog">syslog(3) manual</a>.</p>
+<p>Defines the <code>priority</code> value for the syslog. The option has the same meaning as the appropriate parameter described in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
 <h2 id="audit-log-filter-variables-audit-log-filter-status-variables">Audit log filter status variables<a class="headerlink" href="#audit-log-filter-variables-audit-log-filter-status-variables" title="Permanent link">&para;</a></h2>
 <p>The audit log filter component exposes status variables. These variables provide information on the operations.</p>
 <table border="0" cellpadding="6" cellspacing="0">
@@ -14821,11 +14745,11 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w">
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>An SELinux policy or an AppArmor profile may prevent access to file locations needed by the ProcFS plugin, such as the &lsquo;/proc/sys/fs/file-nr&rsquo; directory or any sub-directories or files under &lsquo;/proc/irq/&rsquo;. Either edit the policy or profile to ensure that the plugin has the necessary access. If the policy and profile do not allow access, the plugin may may have unexpected behavior.</p>
-<p>For more information, see <a href="#selinux-selinux">Working with SELinux</a> and <a href="#apparmor-enable-apparmor">Working with AppArmor</a>.</p>
+<p>For more information, see <a href="#selinux">Working with SELinux</a> and <a href="#apparmor">Working with AppArmor</a>.</p>
 </div>
 <h2 id="procfs-plugin-using-the-procfs-plugin">Using the ProcFS plugin<a class="headerlink" href="#procfs-plugin-using-the-procfs-plugin" title="Permanent link">&para;</a></h2>
 <p>Authorized users can obtain information from individual files by specifying the exact file name within a WHERE clause. Files that are not included are ignored and considered not to exist.</p>
-<p>All files that match the <a href="#procfs-plugin-procfsfilesspec">procfs_files_spec</a> are opened, read, stored in memory, and, finally, returned to the client. It is critical to add a WHERE clause to return only specific files to limit the impact of the plugin on the server’s performance. A failure to use a WHERE clause can lead to lengthy query response times, high load, and high memory usage on the server. The WHERE clause can contain either an equality operator, the LIKE operator, or the IN operator. The LIKE operator limits file globbing. You can write file access patterns in the <a href="https://man7.org/linux/man-pages/man7/glob.7.html">glob(7) style</a>, such as <code>/sys/block/sd[a-z]/stat;/proc/version\*</code></p>
+<p>All files that match the <a href="#procfs-plugin-procfs_files_spec">procfs_files_spec</a> are opened, read, stored in memory, and, finally, returned to the client. It is critical to add a WHERE clause to return only specific files to limit the impact of the plugin on the server’s performance. A failure to use a WHERE clause can lead to lengthy query response times, high load, and high memory usage on the server. The WHERE clause can contain either an equality operator, the LIKE operator, or the IN operator. The LIKE operator limits file globbing. You can write file access patterns in the <a href="https://man7.org/linux/man-pages/man7/glob.7.html">glob(7) style</a>, such as <code>/sys/block/sd[a-z]/stat;/proc/version\*</code></p>
 <p>The following example returns the <code>proc/version</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PROCFS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">FILE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/proc/version&#39;</span><span class="p">;</span>
 </code></pre></div>
@@ -15739,7 +15663,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 <p>Utility user does not appear in the mysql.user table and can not be modified by any other user, including root.</p>
 </li>
 <li>
-<p>Utility user does not appear in <a href="#user-stats-id3">INFORMATION_SCHEMA.USER_STATISTICS</a>, <a href="#user-stats-client-statistics">INFORMATION_SCHEMA.CLIENT_STATISTICS</a> or THREAD_STATISTICS tables or in any <a href="https://dev.mysql.com/doc/dev/mysql-server/latest/group__performance__schema__tables.html">performance_schema tables</a>.</p>
+<p>Utility user does not appear in <a href="#user-stats-information_schemauser_statistics">INFORMATION_SCHEMA.USER_STATISTICS</a>, <a href="#user-stats-information_schemaclient_statistics">INFORMATION_SCHEMA.CLIENT_STATISTICS</a> or THREAD_STATISTICS tables or in any <a href="https://dev.mysql.com/doc/dev/mysql-server/latest/group__performance__schema__tables.html">performance_schema tables</a>.</p>
 </li>
 <li>
 <p>Utility user’s queries may appear in the general and slow logs.</p>
@@ -16304,7 +16228,7 @@ Records: 10  Duplicates: 0  Warnings: 0
 </details>
 <h2 id="quickstart-docker-run-an-update-query">Run an Update query<a class="headerlink" href="#quickstart-docker-run-an-update-query" title="Permanent link">&para;</a></h2>
 <p>UPDATE queries modify existing data in a table. They are used to change or correct the information stored in the database. UPDATE queries can update one or more columns and rows simultaneously, depending on the specified conditions. They may also fail if they violate any constraints or rules defined on the table.</p>
-<p>An example of an UPDATE query and then run a <a href="#quickstart-docker-select-query">SELECT</a> with a WHERE clause to verify the update.</p>
+<p>An example of an UPDATE query and then run a <a href="#quickstart-docker-run-a-select-query">SELECT</a> with a WHERE clause to verify the update.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>employees<span class="w"> </span>SET<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Zofia Niemec&#39;</span><span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -16327,7 +16251,7 @@ Rows matched: 1  Changed: 1  Warnings: 0
 </details>
 <h2 id="quickstart-docker-run-an-insert-query">Run an INSERT query<a class="headerlink" href="#quickstart-docker-run-an-insert-query" title="Permanent link">&para;</a></h2>
 <p>INSERT queries add new data to a table. They are used to populate the database with new information. INSERT queries can insert one or more rows at a time, depending on the syntax. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.</p>
-<p>Insert a row into a table and then run a <a href="#quickstart-docker-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
+<p>Insert a row into a table and then run a <a href="#quickstart-docker-run-a-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
 VALUES
 <span class="o">(</span><span class="s2">&quot;Kenzo Sasaki&quot;</span>,<span class="s2">&quot;KenSasaki@outlook.com&quot;</span>,<span class="s2">&quot;Japan&quot;</span><span class="o">)</span><span class="p">;</span>
@@ -16351,7 +16275,7 @@ VALUES
 </details>
 <h2 id="quickstart-docker-run-a-delete-query">Run a Delete query<a class="headerlink" href="#quickstart-docker-run-a-delete-query" title="Permanent link">&para;</a></h2>
 <p>DELETE queries remove existing data from a table. They are used to clean up the information no longer needed or relevant in the database. The DELETE queries can delete one or more rows at a time, depending on the specified conditions. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.</p>
-<p>Delete a row in the table and run a <a href="#quickstart-docker-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
+<p>Delete a row in the table and run a <a href="#quickstart-docker-run-a-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DELETE<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span>id<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -16903,7 +16827,7 @@ Rows matched: 1  Changed: 1  Warnings: 0
 </details>
 <h2 id="quickstart-apt-run-an-insert-query">Run an INSERT query<a class="headerlink" href="#quickstart-apt-run-an-insert-query" title="Permanent link">&para;</a></h2>
 <p>INSERT queries add new data to a table. They are used to populate the database with new information. INSERT queries can insert one or more rows at a time, depending on the syntax. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.</p>
-<p>Insert a row into a table and then run a <a href="#quickstart-apt-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
+<p>Insert a row into a table and then run a <a href="#quickstart-apt-run-a-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
 VALUES
 <span class="o">(</span><span class="s2">&quot;Kenzo Sasaki&quot;</span>,<span class="s2">&quot;KenSasaki@outlook.com&quot;</span>,<span class="s2">&quot;Japan&quot;</span><span class="o">)</span><span class="p">;</span>
@@ -16927,7 +16851,7 @@ VALUES
 </details>
 <h2 id="quickstart-apt-run-a-delete-query">Run a Delete query<a class="headerlink" href="#quickstart-apt-run-a-delete-query" title="Permanent link">&para;</a></h2>
 <p>DELETE queries remove existing data from a table. They are used to clean up the information no longer needed or relevant in the database. The DELETE queries can delete one or more rows at a time, depending on the specified conditions. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.</p>
-<p>Delete a row in the table and run a <a href="#quickstart-apt-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
+<p>Delete a row in the table and run a <a href="#quickstart-apt-run-a-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DELETE<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span>id<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -16977,7 +16901,7 @@ VALUES
 </ul>
 <h2 id="quickstart-apt-next-step">Next step<a class="headerlink" href="#quickstart-apt-next-step" title="Permanent link">&para;</a></h2>
 <p><a class="md-button" href="#quickstart-next-steps">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p></section><section class="print-page" id="quickstart-yum" heading-number="6.4"><h1 id="quickstart-yum-install-percona-server-for-mysql-and-create-a-database-on-oracle-linux">Install Percona Server for MySQL and create a database on Oracle Linux<a class="headerlink" href="#quickstart-yum-install-percona-server-for-mysql-and-create-a-database-on-oracle-linux" title="Permanent link">&para;</a></h1>
-<p>Use the <a href="#percona-release.md">Percona repositories</a> to install using YUM.</p>
+<p>Use the Percona repositories to install using YUM.</p>
 <h2 id="quickstart-yum-prerequisits">Prerequisits<a class="headerlink" href="#quickstart-yum-prerequisits" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -17253,7 +17177,7 @@ Records: 10  Duplicates: 0  Warnings: 0
 </details>
 <h2 id="quickstart-yum-run-an-update-query">Run an Update query<a class="headerlink" href="#quickstart-yum-run-an-update-query" title="Permanent link">&para;</a></h2>
 <p>UPDATE queries modify existing data in a table. They are used to change or correct the information stored in the database. UPDATE queries can update one or more columns and rows simultaneously, depending on the specified conditions. They may also fail if they violate any constraints or rules defined on the table.</p>
-<div class="highlight"><pre><span></span><code>An example of an UPDATE query and then run a [SELECT](#select-query) with a WHERE clause to verify the update.
+<div class="highlight"><pre><span></span><code>An example of an UPDATE query and then run a [SELECT](#run-a-select-query) with a WHERE clause to verify the update.
 </code></pre></div>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>employees<span class="w"> </span>SET<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Zofia Niemec&#39;</span><span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">;</span>
 </code></pre></div>
@@ -17277,7 +17201,7 @@ Rows matched: 1  Changed: 1  Warnings: 0
 </details>
 <h2 id="quickstart-yum-run-an-insert-query">Run an INSERT query<a class="headerlink" href="#quickstart-yum-run-an-insert-query" title="Permanent link">&para;</a></h2>
 <p>INSERT queries add new data to a table. They are used to populate the database with new information. INSERT queries can insert one or more rows at a time, depending on the syntax. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.</p>
-<p>Insert a row into a table and then run a <a href="#quickstart-yum-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
+<p>Insert a row into a table and then run a <a href="#quickstart-yum-run-a-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
 VALUES
 <span class="o">(</span><span class="s2">&quot;Kenzo Sasaki&quot;</span>,<span class="s2">&quot;KenSasaki@outlook.com&quot;</span>,<span class="s2">&quot;Japan&quot;</span><span class="o">)</span><span class="p">;</span>
@@ -17301,7 +17225,7 @@ VALUES
 </details>
 <h2 id="quickstart-yum-run-a-delete-query">Run a Delete query<a class="headerlink" href="#quickstart-yum-run-a-delete-query" title="Permanent link">&para;</a></h2>
 <p>DELETE queries remove existing data from a table. They are used to clean up the information no longer needed or relevant in the database. The DELETE queries can delete one or more rows at a time, depending on the specified conditions. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.</p>
-<p>Delete a row in the table and run a <a href="#quickstart-yum-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
+<p>Delete a row in the table and run a <a href="#quickstart-yum-run-a-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DELETE<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span>id<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -19661,7 +19585,7 @@ Run the following command to prevent a service from starting at boot time:</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="#post-installation-update-root-password">Update the root password</a></td>
+<td><a href="#post-installation-update-the-root-password">Update the root password</a></td>
 </tr>
 <tr>
 <td><a href="#post-installation-secure-the-server">Secure the server</a></td>
@@ -23909,7 +23833,7 @@ the storage engine is using the reverse order column for a primary key.</p>
 If there is a session variable named
 <code>rocksdb_skip_fill_cache</code>, <strong>mysqldump</strong> sets the variable to <strong>1</strong>.</p>
 <p><strong>mysqldump</strong> automatically enables <code>rocksdb_bulk_load</code> if the the target server supports the variable.</p></section><section class="print-page" id="start-transaction-with-consistent-snapshot" heading-number="12.4"><h1 id="start-transaction-with-consistent-snapshot-start-transaction-with-consistent-snapshot">Start transaction with consistent snapshot<a class="headerlink" href="#start-transaction-with-consistent-snapshot-start-transaction-with-consistent-snapshot" title="Permanent link">&para;</a></h1>
-<p>Percona Server for MySQL has ported MariaDB <a href="https://mariadb.com/kb/en/enhancements-for-start-transaction-with-consistent/">enhancement</a> for <code>START TRANSACTION WITH CONSISTENT SNAPSHOTS</code> feature to the group commit implementation. This enhancement makes binary log positions consistent with InnoDB transaction snapshots.</p>
+<p>Percona Server for MySQL has ported MariaDB <a href="https://mariadb.com/docs/server/ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot/">enhancement</a> for <code>START TRANSACTION WITH CONSISTENT SNAPSHOTS</code> feature to the group commit implementation. This enhancement makes binary log positions consistent with InnoDB transaction snapshots.</p>
 <p>This feature obtains logical backups with correct positions without running a <code>FLUSH TABLES WITH READ LOCK</code>. Binary log position can be obtained by two newly implemented status variables: <a href="#start-transaction-with-consistent-snapshot-binlog_snapshot_file">Binlog_snapshot_file</a> and <a href="#start-transaction-with-consistent-snapshot-binlog_snapshot_position">Binlog_snapshot_position</a>. After starting a transaction using the <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code>, these two variables provide you with the binlog position that corresponds to the state of the database when the consistent snapshot is created and ignores which other transactions have been committed since the snapshot was created.</p>
 <h2 id="start-transaction-with-consistent-snapshot-snapshot-cloning">Snapshot cloning<a class="headerlink" href="#start-transaction-with-consistent-snapshot-snapshot-cloning" title="Permanent link">&para;</a></h2>
 <p>The Percona Server for MySQL implementation extends the <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code> syntax with the optional <code>FROM SESSION</code> clause:</p>
@@ -24258,13 +24182,13 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="ldap-authentication-__tabbed_7_1" name="ldap-authentication-__tabbed_7" type="radio" /><input id="ldap-authentication-__tabbed_7_2" name="ldap-authentication-__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="ldap-authentication-__tabbed_7_1">Uninstall the simple LDAP authentication plugin</label><label for="ldap-authentication-__tabbed_7_2">Uninstall the SASL-based LDAP authentication plugin</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>If you installed the plugins at <a href="#ldap-authentication-load-the-simple-ldap-authentication-plugin-at-runtime">runtime</a>, run the following statements:</p>
+<p>If you installed the plugins at <a href="#ldap-authentication-load-the-plugins-at-runtime">runtime</a>, run the following statements:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_simple<span class="p">;</span>
 </code></pre></div>
 <p>If you used <code>SET_PERSIST</code>, use <code>RESET PERSIST</code> to remove the settings.</p>
 </div>
 <div class="tabbed-block">
-<p>If you installed the plugins at <a href="#ldap-authentication-load-the-sasl-based-ldap-authentication-plugin-at-runtime">runtime</a>, run the following statements:</p>
+<p>If you installed the plugins at <a href="#ldap-authentication-load-the-plugins-at-runtime">runtime</a>, run the following statements:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_sasl<span class="p">;</span>
 </code></pre></div>
 <p>If you used <code>SET_PERSIST</code>, use <code>RESET PERSIST</code> to remove the settings.</p>
@@ -26863,7 +26787,7 @@ mysql.masking_dictionaries<span class="o">(</span>
 <td>The number of seconds between updates to the internal dictionary cache to match changes in the dictionaries table.</td>
 </tr>
 <tr>
-<td><a href="#data-masking-function-list-masking_databasestr"><code>masking_database(str)</code></a></td>
+<td><a href="#data-masking-function-list-masking_databasestring"><code>masking_database(string)</code></a></td>
 <td>Set a different database name to use for the dictionaries table.</td>
 </tr>
 </tbody>
@@ -29653,7 +29577,7 @@ dot<span class="w"> </span>--Tpng<span class="w"> </span>/tmp/jeprof1.dot<span c
 </li>
 </ul>
 <h3 id="jemalloc-profiling-jemalloc_profiling">jemalloc_profiling<a class="headerlink" href="#jemalloc-profiling-jemalloc_profiling" title="Permanent link">&para;</a></h3>
-<p>Description: Enables jemalloc profiling. The variable requires <a href="#jemalloc-profiling-jemallocdetected">jemalloc_detected</a>.</p>
+<p>Description: Enables jemalloc profiling. The variable requires <a href="#jemalloc-profiling-jemalloc_detected">jemalloc_detected</a>.</p>
 <ul>
 <li>
 <p>Command Line: –jemalloc_profiling[=(OFF|ON)]</p>
@@ -31600,7 +31524,7 @@ started with <code>--skip-grants-tables</code>.</p>
 </table>
 <p>This variable is not case sensitive.</p>
 <h2 id="enforce-engine-example">Example<a class="headerlink" href="#enforce-engine-example" title="Permanent link">&para;</a></h2>
-<p>Adding following option to <a href="#glossary-my.cnf">my.cnf</a> will start the server with InnoDB as enforced storage engine.</p>
+<p>Adding following option to <a href="#glossary-mycnf">my.cnf</a> will start the server with InnoDB as enforced storage engine.</p>
 <div class="highlight"><pre><span></span><code>enforce_storage_engine=InnoDB
 </code></pre></div></section><section class="print-page" id="innodb-show-status" heading-number="17.1.5"><h1 id="innodb-show-status-extended-show-engine-innodb-status">Extended show engine InnoDB status<a class="headerlink" href="#innodb-show-status-extended-show-engine-innodb-status" title="Permanent link">&para;</a></h1>
 <p>This feature reorganizes the output of <code>SHOW ENGINE INNODB STATUS</code>
@@ -33454,13 +33378,13 @@ and restart <em>Percona Server for MySQL</em>.</p>
 <p>You should also consider the following:</p>
 <ul>
 <li>
-<p>All collations are supported on <code>CHAR</code> and <code>VARCHAR</code> indexed columns. By default, MyRocks prevents creating indexes with non-binary collations (including <code>latin1</code>). You can optionally use it by setting <a href="#myrocks-server-variables-rocksdb-strict-collation-exceptions">rocksdb_strict_collation_exceptions</a> to <code>t1</code> (table names with regex format), but non-binary covering indexes other than <code>latin1</code> (excluding <code>german1</code>) still require a primary key lookup to return the <code>CHAR</code> or <code>VARCHAR</code> column.</p>
+<p>All collations are supported on <code>CHAR</code> and <code>VARCHAR</code> indexed columns. By default, MyRocks prevents creating indexes with non-binary collations (including <code>latin1</code>). You can optionally use it by setting <a href="#myrocks-server-variables-rocksdb_strict_collation_exceptions">rocksdb_strict_collation_exceptions</a> to <code>t1</code> (table names with regex format), but non-binary covering indexes other than <code>latin1</code> (excluding <code>german1</code>) still require a primary key lookup to return the <code>CHAR</code> or <code>VARCHAR</code> column.</p>
 </li>
 <li>
 <p>Either <code>ORDER BY DESC</code> or <code>ORDER BY ASC</code> is slow. This is because of “Prefix Key Encoding” feature in RocksDB. See <a href="https://www.slideshare.net/matsunobu/myrocks-deep-dive/58">https://www.slideshare.net/matsunobu/myrocks-deep-dive/58</a> for details. By default, ascending scan is faster and descending scan is slower. If the “reverse column family” is configured, then descending scan will be faster and ascending scan will be slower. Note that InnoDB also imposes a cost when the index is scanned in the opposite order.</p>
 </li>
 <li>
-<p>When converting from large MyISAM/InnoDB tables, either by using the <code>ALTER</code> or <code>INSERT INTO SELECT</code> statements it’s recommended that you check the <a href="#myrocks-data-loading-myrocks-data-loading">Data loading</a> documentation and create MyRocks tables as below (in case the table is sufficiently big it will cause the server to consume all the memory and then be terminated by the OOM killer):</p>
+<p>When converting from large MyISAM/InnoDB tables, either by using the <code>ALTER</code> or <code>INSERT INTO SELECT</code> statements it’s recommended that you check the <a href="#myrocks-data-loading-loading-data">Data loading</a> documentation and create MyRocks tables as below (in case the table is sufficiently big it will cause the server to consume all the memory and then be terminated by the OOM killer):</p>
 </li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">sql_log_bin</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
@@ -35609,7 +35533,7 @@ This setting can only be changed when bulk loading is disabled.</p>
 </tbody>
 </table>
 <p>When this variable is enabled, the bulk load fails if an sst file created during bulk load cannot be placed to the bottommost level in the rocksdb. </p>
-<p>This variable can be enabled or disabled only when the <a href="#myrocks-server-variables-rocksdbbulkload"><code>rocksdb_bulk_load</code></a> is <code>OFF</code>.</p>
+<p>This variable can be enabled or disabled only when the <a href="#myrocks-server-variables-rocksdb_bulk_load"><code>rocksdb_bulk_load</code></a> is <code>OFF</code>.</p>
 <p>This variable is disabled (OFF) by default.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -35952,7 +35876,7 @@ If you disable this feature, RocksDB allocates additional memory to maintain the
 </tbody>
 </table>
 <p>This variable is <a href="#glossary">tech preview</a> and may be removed in the future releases.</p>
-<p>Turns on RocksDB memory-charging related features (BlockBasedTableOptions::cache_usage_options.options.charged) from <code>cnf</code> files. This variable is related to <a href="#myrocks-server-variables-rocksdbusewritebuffermanager"><code>rocksdb_use_write_buffer_manager</code></a>.</p>
+<p>Turns on RocksDB memory-charging related features (BlockBasedTableOptions::cache_usage_options.options.charged) from <code>cnf</code> files. This variable is related to <a href="#myrocks-server-variables-rocksdb_use_write_buffer_manager"><code>rocksdb_use_write_buffer_manager</code></a>.</p>
 <p>This variable is disabled (OFF) by default.</p>
 <h3 id="myrocks-server-variables-rocksdb_check_iterate_bounds"><code>rocksdb_check_iterate_bounds</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_check_iterate_bounds" title="Permanent link">&para;</a></h3>
 <table>
@@ -41464,7 +41388,7 @@ Disabled by default.</p>
 </tbody>
 </table>
 <p>This variable is <a href="#glossary-tech-preview">tech preview</a> and may be removed in the future releases.</p>
-<p>Allows to turn on the write buffer manager (WriteBufferManager) from <code>cnf</code> files. This variable is related to <a href="#myrocks-server-variables-rocksdbchargememory"><code>rocksdb_charge_memory</code></a>.</p>
+<p>Allows to turn on the write buffer manager (WriteBufferManager) from <code>cnf</code> files. This variable is related to <a href="#myrocks-server-variables-rocksdb_charge_memory"><code>rocksdb_charge_memory</code></a>.</p>
 <h3 id="myrocks-server-variables-rocksdb_validate_tables"><code>rocksdb_validate_tables</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_validate_tables" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -42697,11 +42621,11 @@ killer):</p>
 <span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">rocksdb_bulk_load</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
 <p>Using <code>sql_log_bin=0</code> avoids writing to binary logs.</p>
-<p>With <a href="#myrocks-server-variables-rocksdb-bulk-load">rocksdb_bulk_load</a> set to <code>1</code>, MyRocks enters special mode to
+<p>With <a href="#myrocks-server-variables-rocksdb_bulk_load">rocksdb_bulk_load</a> set to <code>1</code>, MyRocks enters special mode to
 write all inserts into bottommost RocksDB levels, and skips writing data into
 MemTable and the following compactions. This is very efficient way to load
 data.</p>
-<p>The <a href="#myrocks-server-variables-rocksdb-bulk-load">rocksdb_bulk_load</a> mode operates with a few conditions:</p>
+<p>The <a href="#myrocks-server-variables-rocksdb_bulk_load">rocksdb_bulk_load</a> mode operates with a few conditions:</p>
 <ul>
 <li>
 <p>None of the data being bulk loaded can overlap with existing data in the
@@ -42712,7 +42636,7 @@ overlap between what is being loaded and what already exists.</p>
 </li>
 <li>
 <p>The data may not be visible until bulk load mode is ended (i.e. the
-<a href="#myrocks-server-variables-rocksdb-bulk-load">rocksdb_bulk_load</a> is set to zero again). The method that is used is building up SST files which will later be added as-is to the database. Until a particular SST has been added the data will not be visible to the rest of the system, thus issuing a <code>SELECT</code> on the table currently being
+<a href="#myrocks-server-variables-rocksdb_bulk_load">rocksdb_bulk_load</a> is set to zero again). The method that is used is building up SST files which will later be added as-is to the database. Until a particular SST has been added the data will not be visible to the rest of the system, thus issuing a <code>SELECT</code> on the table currently being
 bulk loaded will only show older data and will likely not show the most
 recently added rows. Ending the bulk load mode will cause the most recent SST
 file to be added. When bulk loading multiple tables, starting a new table
@@ -42721,7 +42645,7 @@ result, it is inadvisable to interleave <code>INSERT</code> statements to two or
 tables during bulk load mode.</p>
 </li>
 </ul>
-<p>By default, the <a href="#myrocks-server-variables-rocksdb-bulk-load">rocksdb_bulk_load</a> mode expects all data be inserted
+<p>By default, the <a href="#myrocks-server-variables-rocksdb_bulk_load">rocksdb_bulk_load</a> mode expects all data be inserted
 in primary key order (or reversed order). If the data is in the reverse order
 (i.e. the data is descending on a normally ordered primary key or is ascending
 on a reverse ordered primary key), the rows are cached in chunks to switch the
@@ -42744,21 +42668,21 @@ cost to this method.</p>
 <span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">rocksdb_bulk_load</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">rocksdb_bulk_load_allow_unsorted</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
-<p>Note that <a href="#myrocks-server-variables-rocksdb-bulk-load-allow-unsorted">rocksdb_bulk_load_allow_unsorted</a> can only be changed when
-<a href="#myrocks-server-variables-rocksdb-bulk-load">rocksdb_bulk_load</a> is disabled (set to <code>0</code>). In this case, all
+<p>Note that <a href="#myrocks-server-variables-rocksdb_bulk_load_allow_unsorted">rocksdb_bulk_load_allow_unsorted</a> can only be changed when
+<a href="#myrocks-server-variables-rocksdb_bulk_load">rocksdb_bulk_load</a> is disabled (set to <code>0</code>). In this case, all
 input data will go through an intermediate step that writes the rows to
 temporary SST files, sorts them rows in the primary key order, and then writes
 to final SST files in the correct order.</p>
 <h2 id="myrocks-data-loading-other-approaches">Other approaches<a class="headerlink" href="#myrocks-data-loading-other-approaches" title="Permanent link">&para;</a></h2>
-<p>If <a href="#myrocks-server-variables-rocksdb-commit-in-the-middle">rocksdb_commit_in_the_middle</a> is enabled, MyRocks implicitly
-commits every <a href="#myrocks-server-variables-rocksdb-bulk-load-size">rocksdb_bulk_load_size</a> records (default is <code>1,000</code>)
+<p>If <a href="#myrocks-server-variables-rocksdb_commit_in_the_middle">rocksdb_commit_in_the_middle</a> is enabled, MyRocks implicitly
+commits every <a href="#myrocks-server-variables-rocksdb_bulk_load_size">rocksdb_bulk_load_size</a> records (default is <code>1,000</code>)
 in the middle of your transaction. If your data loading fails in the middle of
 the statement (<code>LOAD DATA</code> or bulk <code>INSERT</code>), rows are not entirely rolled
 back, but some of rows are stored in the table. To restart data loading, you’ll
 need to truncate the table and loading data again.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you are loading large data without enabling <a href="#myrocks-server-variables-rocksdb-bulk-load">rocksdb_bulk_load</a> or <a href="#myrocks-server-variables-rocksdb-commit-in-the-middle">rocksdb_commit_in_the_middle</a>, please make sure transaction size is small enough. All modifications of the ongoing transactions are kept in memory.</p>
+<p>If you are loading large data without enabling <a href="#myrocks-server-variables-rocksdb_bulk_load">rocksdb_bulk_load</a> or <a href="#myrocks-server-variables-rocksdb_commit_in_the_middle">rocksdb_commit_in_the_middle</a>, please make sure transaction size is small enough. All modifications of the ongoing transactions are kept in memory.</p>
 </div>
 <h2 id="myrocks-data-loading-other-reading">Other reading<a class="headerlink" href="#myrocks-data-loading-other-reading" title="Permanent link">&para;</a></h2>
 <ul>
@@ -43746,7 +43670,7 @@ compared to the standard <em>MySQL</em> database server:</p>
 <td>No</td>
 </tr>
 <tr>
-<td><a href="#xtradb-performance-improvements-multi-threaded-flusher">Improved Flushing</a></td>
+<td><a href="#xtradb-performance-improvements-multi-threaded-lru-flusher">Improved Flushing</a></td>
 <td>Yes</td>
 <td>No</td>
 </tr>
@@ -44055,46 +43979,37 @@ somebody else from having to guess how to merge your changes.</p>
 <p>This is a list of the <code>INFORMATION_SCHEMA TABLES</code> that exist in Percona Server for MySQL with XtraDB. The entry for each table points to the page in the documentation where it’s described.</p>
 <ul>
 <li>
-<p><a href="#user-stats-client-statistics">INFORMATION_SCHEMA.CLIENT_STATISTICS</a></p>
+<p><a href="#user-stats-information_schemaclient_statistics">INFORMATION_SCHEMA.CLIENT_STATISTICS</a></p>
 </li>
 <li>
-<p><a href="#user-stats-index-statistics">INFORMATION_SCHEMA.GLOBAL_TEMPORARY_TABLES</a></p>
+<p><a href="#misc-info-schema-tables-information_schemaglobal_temporary_tables">INFORMATION_SCHEMA.GLOBAL_TEMPORARY_TABLES</a></p>
 </li>
 <li>
-<p>[INFORMATION_SCHEMA.INDEX_STATISTICS]</p>
+<p><a href="#user-stats-information_schemaindex_statistics">INFORMATION_SCHEMA.INDEX_STATISTICS</a></p>
 </li>
 <li>
 <p><a href="#procfs-plugin-procfs">PROCFS</a></p>
 </li>
 <li>
-<p><a href="https://docs.percona.com/percona-server/5.7/diagnostics/response_time_distribution.html?h=information_schema+query_response_time#information_schemaquery_response_time">INFORMATION_SCHEMA.QUERY_RESPONSE_TIME</a></p>
+<p><a href="https://docs.percona.com/percona-server/5.7/diagnostics/response_time_distribution.html#query-response-time">INFORMATION_SCHEMA.QUERY_RESPONSE_TIME</a></p>
 </li>
 <li>
-<p><a href="#user-stats-table-statistics">INFORMATION_SCHEMA.TABLE_STATISTICS</a></p>
+<p><a href="#user-stats-information_schematable_statistics">INFORMATION_SCHEMA.TABLE_STATISTICS</a></p>
 </li>
 <li>
-<p><a href="#misc-info-schema-tables-id1">INFORMATION_SCHEMA.TEMPORARY_TABLES</a></p>
+<p><a href="#misc-info-schema-tables-information_schematemporary_tables">INFORMATION_SCHEMA.TEMPORARY_TABLES</a></p>
 </li>
 <li>
-<p>THREAD_STATISTICS</p>
+<p><a href="#user-stats-information_schemathread_statistics">INFORMATION_SCHEMA.THREAD_STATISTICS</a></p>
 </li>
 <li>
-<p><a href="#user-stats-id3">INFORMATION_SCHEMA.USER_STATISTICS</a></p>
+<p><a href="#user-stats-information_schemauser_statistics">INFORMATION_SCHEMA.USER_STATISTICS</a></p>
 </li>
 <li>
-<p>XTRADB_INTERNAL_HASH_TABLES</p>
+<p><a href="#innodb-show-status-information_schemaxtradb_internal_hash_tables">INFORMATION_SCHEMA.XTRADB_INTERNAL_HASH_TABLES</a></p>
 </li>
 <li>
-<p>XTRADB_READ_VIEW</p>
-</li>
-<li>
-<p><a href="#misc-info-schema-tables-xtradb-rseg">INFORMATION_SCHEMA.XTRADB_RSEG</a></p>
-</li>
-<li>
-<p><a href="#compressed-columns-xtradb-zip-dict">INFORMATION_SCHEMA.XTRADB_ZIP_DICT</a></p>
-</li>
-<li>
-<p><a href="#compressed-columns-xtradb-zip-dict-cols">INFORMATION_SCHEMA.XTRADB_ZIP_DICT_COLS</a></p>
+<p><a href="#innodb-show-status-information_schemaxtradb_read_view">INFORMATION_SCHEMA.XTRADB_READ_VIEW</a></p>
 </li>
 </ul></section><section class="print-page" id="faq" heading-number="18.9"><h1 id="faq-frequently-asked-questions">Frequently asked questions<a class="headerlink" href="#faq-frequently-asked-questions" title="Permanent link">&para;</a></h1>
 <h2 id="faq-q-will-percona-server-for-mysql-with-xtradb-invalidate-our-mysql-support">Q: Will <em>Percona Server for MySQL</em> with <em>XtraDB</em> invalidate our <em>MySQL</em> support?<a class="headerlink" href="#faq-q-will-percona-server-for-mysql-with-xtradb-invalidate-our-mysql-support" title="Permanent link">&para;</a></h2>

@@ -7790,13 +7790,13 @@
 <p>You should also consider the following:</p>
 <ul>
 <li>
-<p>All collations are supported on <code>CHAR</code> and <code>VARCHAR</code> indexed columns. By default, MyRocks prevents creating indexes with non-binary collations (including <code>latin1</code>). You can optionally use it by setting <a href="myrocks-server-variables.html#rocksdb-strict-collation-exceptions">rocksdb_strict_collation_exceptions</a> to <code>t1</code> (table names with regex format), but non-binary covering indexes other than <code>latin1</code> (excluding <code>german1</code>) still require a primary key lookup to return the <code>CHAR</code> or <code>VARCHAR</code> column.</p>
+<p>All collations are supported on <code>CHAR</code> and <code>VARCHAR</code> indexed columns. By default, MyRocks prevents creating indexes with non-binary collations (including <code>latin1</code>). You can optionally use it by setting <a href="myrocks-server-variables.html#rocksdb_strict_collation_exceptions">rocksdb_strict_collation_exceptions</a> to <code>t1</code> (table names with regex format), but non-binary covering indexes other than <code>latin1</code> (excluding <code>german1</code>) still require a primary key lookup to return the <code>CHAR</code> or <code>VARCHAR</code> column.</p>
 </li>
 <li>
 <p>Either <code>ORDER BY DESC</code> or <code>ORDER BY ASC</code> is slow. This is because of “Prefix Key Encoding” feature in RocksDB. See <a href="https://www.slideshare.net/matsunobu/myrocks-deep-dive/58">https://www.slideshare.net/matsunobu/myrocks-deep-dive/58</a> for details. By default, ascending scan is faster and descending scan is slower. If the “reverse column family” is configured, then descending scan will be faster and ascending scan will be slower. Note that InnoDB also imposes a cost when the index is scanned in the opposite order.</p>
 </li>
 <li>
-<p>When converting from large MyISAM/InnoDB tables, either by using the <code>ALTER</code> or <code>INSERT INTO SELECT</code> statements it’s recommended that you check the <a href="myrocks-data-loading.html#myrocks-data-loading">Data loading</a> documentation and create MyRocks tables as below (in case the table is sufficiently big it will cause the server to consume all the memory and then be terminated by the OOM killer):</p>
+<p>When converting from large MyISAM/InnoDB tables, either by using the <code>ALTER</code> or <code>INSERT INTO SELECT</code> statements it’s recommended that you check the <a href="myrocks-data-loading.html#loading-data">Data loading</a> documentation and create MyRocks tables as below (in case the table is sufficiently big it will cause the server to consume all the memory and then be terminated by the OOM killer):</p>
 </li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">sql_log_bin</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
@@ -7881,7 +7881,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-04-09
+    2025-07-07
   </span>
 
     

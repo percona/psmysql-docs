@@ -7754,7 +7754,7 @@
 <p>You can manage the space by using log file rotation. This operation renames and then rotates the current log file and then uses the original name on a new current log file. You can rotate the file either manually or automatically.</p>
 <p>If automatic rotation is enabled, you can prune the log file. This pruning operation can be based on either the log file age or combined log file size.</p>
 <h2 id="manual-log-rotation">Manual log rotation<a class="headerlink" href="#manual-log-rotation" title="Permanent link">&para;</a></h2>
-<p>The default setting for <a href="audit-log-filter-variables.html#audit_log_filter_rotate_on_size"><code>audit_log_filter.rotate_on_size</code></a> is 1GB. If this option is set to <code>0</code>, the audit log filter component does not do an automatic rotation of the log file. You must do the rotation manually with this setting.</p>
+<p>The default setting for <a href="audit-log-filter-variables.html#audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code></a> is 1GB. If this option is set to <code>0</code>, the audit log filter component does not do an automatic rotation of the log file. You must do the rotation manually with this setting.</p>
 <p>The <code>SELECT audit_log_rotate()</code> command renames the file and creates a new audit log filter file with the original name. You must have the <code>AUDIT_ADMIN</code> privilege. </p>
 <p>The files are pruned if either <code>audit_log_filter.max_size</code> or <code>audit_log_filter.prune_seconds</code> have a value greater than 0 (zero) and <code>audit_log_filter.rotate_on_size</code> &gt; 0.</p>
 <p>After the files have been renamed, you must manually remove any archived audit log filter files. The renamed audit log filter files can be read by <code>audit_log_read()</code>. The <code>audit_log_read()</code> does not find the logs if the name pattern differs from the current pattern.</p>
@@ -7778,7 +7778,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2023-11-27
+    2025-07-07
   </span>
 
     

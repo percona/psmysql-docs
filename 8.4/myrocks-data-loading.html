@@ -7888,11 +7888,11 @@ killer):</p>
 <span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">rocksdb_bulk_load</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
 <p>Using <code>sql_log_bin=0</code> avoids writing to binary logs.</p>
-<p>With <a href="myrocks-server-variables.html#rocksdb-bulk-load">rocksdb_bulk_load</a> set to <code>1</code>, MyRocks enters special mode to
+<p>With <a href="myrocks-server-variables.html#rocksdb_bulk_load">rocksdb_bulk_load</a> set to <code>1</code>, MyRocks enters special mode to
 write all inserts into bottommost RocksDB levels, and skips writing data into
 MemTable and the following compactions. This is very efficient way to load
 data.</p>
-<p>The <a href="myrocks-server-variables.html#rocksdb-bulk-load">rocksdb_bulk_load</a> mode operates with a few conditions:</p>
+<p>The <a href="myrocks-server-variables.html#rocksdb_bulk_load">rocksdb_bulk_load</a> mode operates with a few conditions:</p>
 <ul>
 <li>
 <p>None of the data being bulk loaded can overlap with existing data in the
@@ -7903,7 +7903,7 @@ overlap between what is being loaded and what already exists.</p>
 </li>
 <li>
 <p>The data may not be visible until bulk load mode is ended (i.e. the
-<a href="myrocks-server-variables.html#rocksdb-bulk-load">rocksdb_bulk_load</a> is set to zero again). The method that is used is building up SST files which will later be added as-is to the database. Until a particular SST has been added the data will not be visible to the rest of the system, thus issuing a <code>SELECT</code> on the table currently being
+<a href="myrocks-server-variables.html#rocksdb_bulk_load">rocksdb_bulk_load</a> is set to zero again). The method that is used is building up SST files which will later be added as-is to the database. Until a particular SST has been added the data will not be visible to the rest of the system, thus issuing a <code>SELECT</code> on the table currently being
 bulk loaded will only show older data and will likely not show the most
 recently added rows. Ending the bulk load mode will cause the most recent SST
 file to be added. When bulk loading multiple tables, starting a new table
@@ -7912,7 +7912,7 @@ result, it is inadvisable to interleave <code>INSERT</code> statements to two or
 tables during bulk load mode.</p>
 </li>
 </ul>
-<p>By default, the <a href="myrocks-server-variables.html#rocksdb-bulk-load">rocksdb_bulk_load</a> mode expects all data be inserted
+<p>By default, the <a href="myrocks-server-variables.html#rocksdb_bulk_load">rocksdb_bulk_load</a> mode expects all data be inserted
 in primary key order (or reversed order). If the data is in the reverse order
 (i.e. the data is descending on a normally ordered primary key or is ascending
 on a reverse ordered primary key), the rows are cached in chunks to switch the
@@ -7935,21 +7935,21 @@ cost to this method.</p>
 <span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">rocksdb_bulk_load</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">rocksdb_bulk_load_allow_unsorted</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
-<p>Note that <a href="myrocks-server-variables.html#rocksdb-bulk-load-allow-unsorted">rocksdb_bulk_load_allow_unsorted</a> can only be changed when
-<a href="myrocks-server-variables.html#rocksdb-bulk-load">rocksdb_bulk_load</a> is disabled (set to <code>0</code>). In this case, all
+<p>Note that <a href="myrocks-server-variables.html#rocksdb_bulk_load_allow_unsorted">rocksdb_bulk_load_allow_unsorted</a> can only be changed when
+<a href="myrocks-server-variables.html#rocksdb_bulk_load">rocksdb_bulk_load</a> is disabled (set to <code>0</code>). In this case, all
 input data will go through an intermediate step that writes the rows to
 temporary SST files, sorts them rows in the primary key order, and then writes
 to final SST files in the correct order.</p>
 <h2 id="other-approaches">Other approaches<a class="headerlink" href="#other-approaches" title="Permanent link">&para;</a></h2>
-<p>If <a href="myrocks-server-variables.html#rocksdb-commit-in-the-middle">rocksdb_commit_in_the_middle</a> is enabled, MyRocks implicitly
-commits every <a href="myrocks-server-variables.html#rocksdb-bulk-load-size">rocksdb_bulk_load_size</a> records (default is <code>1,000</code>)
+<p>If <a href="myrocks-server-variables.html#rocksdb_commit_in_the_middle">rocksdb_commit_in_the_middle</a> is enabled, MyRocks implicitly
+commits every <a href="myrocks-server-variables.html#rocksdb_bulk_load_size">rocksdb_bulk_load_size</a> records (default is <code>1,000</code>)
 in the middle of your transaction. If your data loading fails in the middle of
 the statement (<code>LOAD DATA</code> or bulk <code>INSERT</code>), rows are not entirely rolled
 back, but some of rows are stored in the table. To restart data loading, you’ll
 need to truncate the table and loading data again.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you are loading large data without enabling <a href="myrocks-server-variables.html#rocksdb-bulk-load">rocksdb_bulk_load</a> or <a href="myrocks-server-variables.html#rocksdb-commit-in-the-middle">rocksdb_commit_in_the_middle</a>, please make sure transaction size is small enough. All modifications of the ongoing transactions are kept in memory.</p>
+<p>If you are loading large data without enabling <a href="myrocks-server-variables.html#rocksdb_bulk_load">rocksdb_bulk_load</a> or <a href="myrocks-server-variables.html#rocksdb_commit_in_the_middle">rocksdb_commit_in_the_middle</a>, please make sure transaction size is small enough. All modifications of the ongoing transactions are kept in memory.</p>
 </div>
 <h2 id="other-reading">Other reading<a class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
 <ul>
@@ -7981,7 +7981,7 @@ this document has been used as a source for writing this documentation</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2023-07-27
+    2025-07-07
   </span>
 
     

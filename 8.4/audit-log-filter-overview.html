@@ -7814,7 +7814,7 @@
 <h1 id="audit-log-filter-overview">Audit Log Filter overview<a class="headerlink" href="#audit-log-filter-overview" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter component allows you to monitor, log, and block a connection or query actively executed on the selected server. </p>
 <p>Enabling the component produces a log file that contains a record of server activity. The log file has information on connections and databases accessed by that connection. </p>
-<p>The component uses the <code>mysql</code> system database to store filter and user account data. Set the <a href="audit-log-filter-variables.html#audit_log_filter.database"><code>audit_log_filter.database</code></a> variable at server startup to select a different database.</p>
+<p>The component uses the <code>mysql</code> system database to store filter and user account data. Set the <a href="audit-log-filter-variables.html#audit_log_filterdatabase"><code>audit_log_filter.database</code></a> variable at server startup to select a different database.</p>
 <p>The <code>AUDIT_ADMIN</code> privilege is required to enable users to manage the Audit Log Filter component.</p>
 <h2 id="privileges">Privileges<a class="headerlink" href="#privileges" title="Permanent link">&para;</a></h2>
 <p>Define the privilege at runtime at the startup of the server. The associated Audit Log Filter privilege can be unavailable if the component is not enabled.</p>
@@ -7825,108 +7825,47 @@
 <h2 id="audit-log-filter-tables">Audit Log Filter tables<a class="headerlink" href="#audit-log-filter-tables" title="Permanent link">&para;</a></h2>
 <p>The Audit Log Filter component uses <code>mysql</code> system database tables in the <code>InnoDB</code> storage engine. These tables store user account data and filter data. When you start the server, change the component&rsquo;s database with the <code>audit_log_filter.database</code> variable.</p>
 <p>The <code>audit_log_filter</code> table stores the definitions of the filters and has the following column definitions:</p>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>HTML Table Generator</title> 
-    <style>
-        #demTable {
-            width:100%;
-            height:100%;
-            border:1px solid #b3adad;
-            border-collapse:collapse;
-            padding:5px;
-        }
-        #demTable th {
-            border:1px solid #b3adad;
-            padding:5px;
-            background: #f0f0f0;
-            color: #313030;
-        }
-        #demTable td {
-            border:1px solid #b3adad;
-            text-align:left;
-            padding:5px;
-            background: #ffffff;
-            color: #313030;
-        }
-    </style>
-</head>
-<body>
-    <table id="demTable">
-        <thead>
-            <tr>
-                <th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Column name</div></th>
-                <th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Description</div></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>&nbsp;NAME</td>
-                <td>&nbsp;Name of the filter</td>
-            </tr>
-            <tr>
-                <td>&nbsp;FILTER</td>
-                <td>&nbsp;Definition of the filter linked to the name as a JSON value</td>
-            </tr>
-        </tbody>
-    </table>
-</body>
-</html>
-
+<table>
+<thead>
+<tr>
+<th>Column name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NAME</td>
+<td>Name of the filter</td>
+</tr>
+<tr>
+<td>FILTER</td>
+<td>Definition of the filter linked to the name as a JSON value</td>
+</tr>
+</tbody>
+</table>
 <p>The <code>audit_log_user</code> table stores account data and has the following column definitions:</p>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>HTML Table Generator</title> 
-    <style>
-        #demTable {
-            width:100%;
-            height:100%;
-            border:1px solid #b3adad;
-            border-collapse:collapse;
-            padding:5px;
-        }
-        #demTable th {
-            border:1px solid #b3adad;
-            padding:5px;
-            background: #f0f0f0;
-            color: #313030;
-        }
-        #demTable td {
-            border:1px solid #b3adad;
-            text-align:left;
-            padding:5px;
-            background: #ffffff;
-            color: #313030;
-        }
-    </style>
-</head>
-<body>
-    <table id="demTable">
-        <thead>
-            <tr>
-                <th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Column name</div></th>
-                <th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Description</div></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>&nbsp;USER</td>
-                <td>&nbsp;The account name of the user</td>
-            </tr>
-            <tr>
-                <td>&nbsp;HOST</td>
-                <td>&nbsp;The account name of the host</td>
-            </tr>
-            <tr>
-                <td>&nbsp;FILTERNAME</td>
-                <td>&nbsp;The account filter name</td>
-            </tr>
-        </tbody>
-    </table>
-</body>
-</html>
+<table>
+<thead>
+<tr>
+<th>Column name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USER</td>
+<td>The account name of the user</td>
+</tr>
+<tr>
+<td>HOST</td>
+<td>The account name of the host</td>
+</tr>
+<tr>
+<td>FILTERNAME</td>
+<td>The account filter name</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -7947,7 +7886,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2023-11-27
+    2025-07-07
   </span>
 
     
