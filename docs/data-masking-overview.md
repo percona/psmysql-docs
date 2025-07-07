@@ -60,8 +60,3 @@ Component:
 
 [Data masking component functions](data-masking-function-list.md)
 
-Plugin:
-
-[Install data masking plugin](install-data-masking-plugin.md)
-
-[Data masking plugin funtions](data-masking-plugin-functions.md)
