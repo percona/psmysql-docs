@@ -613,7 +613,7 @@ The default value is 0 (zero). This value disables the expiration of passwords. 
 
 If the plugin starts and encryption is enabled, the plugin checks for an audit log filter encryption password. If a password is not found, the plugin generates a random password.
 
-Call `audit_log_filter_encryption_set() to set a specific password.
+Call [audit_log_encryption_password_set(new_password)](#audit_log_encryption_password_setnew_password) to set a specific password.
 
 
 ### `audit_log_filter_prune_seconds`
@@ -710,7 +710,7 @@ Defines the Audit Log filter plugin's logging method. The valid values are the f
 | Data type | String  |
 | Default | LOG_USER |
 
-Specifies the syslog `facility` value. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://linux.die.net/man/3/syslog).
+Specifies the syslog `facility` value. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 
 ### `audit_log_filter_syslog_priority`
@@ -723,7 +723,7 @@ Specifies the syslog `facility` value. The option has the same meaning as the ap
 | Data type | String  |
 | Default | LOG_INFO |
 
-Defines the `priority` value for the syslog. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://linux.die.net/man/3/syslog).
+Defines the `priority` value for the syslog. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 
 
