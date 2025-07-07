@@ -39,7 +39,7 @@ To fix this, you can use the new [`masking_dictionaries_flush()`](data-masking-f
 
 The changes also affect how row-based replication works. When dictionary changes happen on the source server, they travel through the binary log to the replica server. While the replica applies these changes to its table correctly, the dictionary term cache doesn't update right away.
 
-To handle this, there's a new system setting called  [`component_masking_functions.dictionaries_flush_interval_seconds()`](data-masking-function-list.html#dictionaries_flush_interval_secondsinteger-unsigned)
+To handle this, there's a new system setting called  [`component_masking_functions.dictionaries_flush_interval_seconds()`](data-masking-function-list.md#dictionaries_flush_interval_secondsinteger-unsigned)
 
 By default, it's set to 0. When you set it higher, the system starts a background process that refreshes the cache at your specified interval. This helps replicas stay in sync after receiving binary log updates. The value specifies the number of seconds between each sync. 
 

@@ -30,47 +30,15 @@
 
 ### Function quick reference
 
-<table>
-<tr>
-<th>Category</th>
-<th>Function</th>
-<th>What It Does</th>
-<th>Common Use Case</th>
-</tr>
-<tr>
-<td rowspan="2"><strong>Encryption</strong></td>
-<td><a href="#asymmetric_encrypt">asymmetric_encrypt()</a></td>
-<td>Puts your data in a math lockbox</td>
-<td>Protecting sensitive data</td>
-</tr>
-<tr>
-<td><a href="#asymmetric_decrypt">asymmetric_decrypt()</a></td>
-<td>Opens the lockbox and gets your data back</td>
-<td>Retrieving protected data</td>
-</tr>
-<tr>
-<td rowspan="2"><strong>Key Management</strong></td>
-<td><a href="#create_asymmetric_priv_key">create_asymmetric_priv_key()</a></td>
-<td>Makes your secret key</td>
-<td>Creating your private key</td>
-</tr>
-<tr>
-<td><a href="#create_asymmetric_pub_key">create_asymmetric_pub_key()</a></td>
-<td>Creates a shareable public key</td>
-<td>Generating keys to distribute</td>
-</tr>
-<tr>
-<td rowspan="2"><strong>Digital Signatures</strong></td>
-<td><a href="#asymmetric_sign">asymmetric_sign()</a></td>
-<td>Stamps your message with your secret key</td>
-<td>Proving a message is from you</td>
-</tr>
-<tr>
-<td><a href="#asymmetric_verify">asymmetric_verify()</a></td>
-<td>Checks if a signature is real or fake</td>
-<td>Verifying message authenticity</td>
-</tr>
-</table>
+| Category | Function   | What It Does  | Common Use Case  |
+|----------|------------|---------------|-------------------|
+| **Encryption**  | [asymmetric_encrypt()](#asymmetric_encryptalgorithm-str-key_str) | Puts your data in a math lockbox             | Protecting sensitive data   |
+|                 | [asymmetric_decrypt()](#asymmetric_decryptalgorithm-crypt_str-key_str) | Opens the lockbox and gets your data back    | Retrieving protected data   |
+| **Key Management** | [create_asymmetric_priv_key()](#create_asymmetric_priv_keyalgorithm-key_len) | Makes your secret key    | Creating your private key   |
+|               | [create_asymmetric_pub_key()](#create_asymmetric_pub_keyalgorithm-priv_key_str) | Creates a shareable public key | Generating keys to distribute |
+| **Digital Signatures** | [asymmetric_sign()](#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type-padding) | Stamps your message with your secret key   | Proving a message is from you |
+|                    | [asymmetric_verify()](#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type-padding) | Checks if a signature is real or fake  | Verifying message authenticity |
+
 
 ### Asymmetric encryption functions
 
@@ -78,8 +46,8 @@ These functions implement public key cryptography utilizing key pairs. The encry
 
 | Function Name | Purpose |
 | --- | --- |
-| [asymmetric_encrypt](#asymmetric_encrypt) | Encrypts plaintext data using asymmetric cryptography. Only the corresponding key can decrypt. |
-| [asymmetric_decrypt](#asymmetric_decrypt) | Decrypts ciphertext that was encrypted with the corresponding asymmetric key. |
+| [asymmetric_encrypt](#asymmetric_encryptalgorithm-str-key_str) | Encrypts plaintext data using asymmetric cryptography. Only the corresponding key can decrypt. |
+| [asymmetric_decrypt](#asymmetric_decryptalgorithm-crypt_str-key_str) | Decrypts ciphertext that was encrypted with the corresponding asymmetric key. |
 
 
 ### Asymmetric key management functions
@@ -88,8 +56,8 @@ These functions facilitate the generation and management of asymmetric cryptogra
 
 | Function Name | Description |
 | --- | --- |
-| [create_asymmetric_priv_key](#create_asymmetric_priv_key) | Generates a private key with specified algorithm and security parameters |
-| [create_asymmetric_pub_key](#create_asymmetric_pub_key) | Derives the corresponding public key from a private key for distribution |
+| [create_asymmetric_priv_key](#create_asymmetric_priv_keyalgorithm-key_len) | Generates a private key with specified algorithm and security parameters |
+| [create_asymmetric_pub_key](#create_asymmetric_pub_keyalgorithm-priv_key_str) | Derives the corresponding public key from a private key for distribution |
 
 
 ### Digital Signature functions
@@ -98,8 +66,8 @@ These functions implement digital signature operations for message authenticatio
 
 | Function Name | Description |
 | --- | --- |
-| [asymmetric_sign](#asymmetric_sign) | Applies a cryptographic signature to a message digest using a private key |
-| [asymmetric_verify](#asymmetric_verify) | Validates the authenticity of a digital signature using the corresponding public key |
+| [asymmetric_sign](#asymmetric_signalgorithm-digest_str-priv_key_str-digest_type-padding) | Applies a cryptographic signature to a message digest using a private key |
+| [asymmetric_verify](#asymmetric_verifyalgorithm-digest_str-sig_str-pub_key_str-digest_type-padding) | Validates the authenticity of a digital signature using the corresponding public key |
 
 ### Diffie-Hellman functions
 
@@ -109,8 +77,8 @@ These functions implement digital signature operations for message authenticatio
 
 | Function Name | Description | Application |
 | --- | --- | --- |
-| [asymmetric_derive](#asymmetric_derive) | Generates a shared cryptographic secret through asymmetric key combination | When implementing secure communication channels between parties |
-| [create_dh_parameters](#create_dh_parameters) | Generates the prime numbers and parameters required for Diffie-Hellman key exchange | As a prerequisite for Diffie-Hellman key generation |
+| [asymmetric_derive](#asymmetric_derivepub_key_str-priv_key_str) | Generates a shared cryptographic secret through asymmetric key combination | When implementing secure communication channels between parties |
+| [create_dh_parameters](#create_dh_parameterskey_len) | Generates the prime numbers and parameters required for Diffie-Hellman key exchange | As a prerequisite for Diffie-Hellman key generation |
 
 
 ### Encryption threshold variables
@@ -121,43 +89,13 @@ These functions implement digital signature operations for message authenticatio
 
 Keys that are too strong might slow down your system. It's like having a super-heavy padlock that takes forever to open.
 
-<table>
-<tr>
-<th>Setting Name</th>
-<th>What It Does</th>
-<th>Default</th>
-<th>Range</th>
-<th>Performance Impact</th>
-</tr>
-<tr>
-<td><a href="#encryption_udfdh_bits_threshold">encryption_udf.dh_bits_threshold</a></td>
-<td>Sets how strong Diffie-Hellman keys can be</td>
-<td>10000</td>
-<td>1024-10000</td>
-<td>Higher values significantly increase key generation time</td>
-</tr>
-<tr>
-<td><a href="#encryption_udfdsa_bits_threshold">encryption_udf.dsa_bits_threshold</a></td>
-<td>Sets how strong DSA keys can be</td>
-<td>9984</td>
-<td>1024-9984</td>
-<td>Higher values increase key generation time</td>
-</tr>
-<tr>
-<td><a href="#encryption_udfrsa_bits_threshold">encryption_udf.rsa_bits_threshold</a></td>
-<td>Sets how strong RSA keys can be</td>
-<td>16384</td>
-<td>1024-16384</td>
-<td>Higher values increase key generation and encryption/decryption time</td>
-</tr>
-<tr>
-<td><a href="#encryption_udflegacy_padding">encryption_udf.legacy_padding</a></td>
-<td>Turns old-style padding on or off</td>
-<td>OFF</td>
-<td>ON/OFF</td>
-<td>Minor impact on encryption speed, major impact on security</td>
-</tr>
-</table>
+| Setting Name | What It Does | Default | Range  | Performance Impact |
+|--------------|--------------|---------|--------|--------------------|
+| [encryption_udf.dh_bits_threshold](#encryption_udfdh_bits_threshold) | Sets how strong Diffie-Hellman keys can be  | 10000   | 1024-10000   | Higher values significantly increase key generation time |
+| [encryption_udf.dsa_bits_threshold](#encryption_udfdsa_bits_threshold) | Sets how strong DSA keys can be  | 9984  | 1024-9984 | Higher values increase key generation time   |
+| [encryption_udf.rsa_bits_threshold](#encryption_udfrsa_bits_threshold) | Sets how strong RSA keys can be | 16384   | 1024-16384 | Higher values increase key generation and encryption/decryption time |
+| [encryption_udf.legacy_padding](#encryption_udflegacy_padding_scheme) | Turns old-style padding on or off | OFF | ON/OFF | Minor impact on encryption speed, major impact on security  |
+
 ---
 
 
@@ -193,7 +131,7 @@ SELECT * FROM mysql.component;
 ---
 
 
-## Asymmetric_decrypt(*algorithm, crypt_str, key_str*){asymmetric_decrypt}
+## Asymmetric_decrypt(*algorithm, crypt_str, key_str*)
 
 > 🔓 **Data Decryption Function**
 >
@@ -246,7 +184,7 @@ The function returns the original plaintext message decoded from the ciphertext.
 ---
 
 
-## Asymmetric_derive(*pub_key_str, priv_key_str*){asymmetric_derive}
+## Asymmetric_derive(*pub_key_str, priv_key_str*)
 
 > 🤝 **Shared secret generation**
 >
@@ -288,7 +226,7 @@ The function returns the original plaintext message decoded from the ciphertext.
 ---
 
 
-## Asymmetric_encrypt(*algorithm, str, key_str*){asymmetric_encrypt}
+## Asymmetric_encrypt(*algorithm, str, key_str*)
 
 > 🔒 **Data Encryption Function**
 >
@@ -338,10 +276,11 @@ The function returns the encrypted ciphertext as binary data.
 </details>
 
 ⚠️ **Size Limits**: Remember that your message size is limited by your key size and padding method. For a 2048-bit key with OAEP padding, your message must be smaller than (2048/8)-42 = 214 bytes.
+
 ---
 
 
-## Asymmetric_sign(*algorithm, digest_str, priv_key_str, digest_type, [padding]*){asymmetric_sign}
+## Asymmetric_sign(*algorithm, digest_str, priv_key_str, digest_type, [padding]*)
 
 > ✍️ **Digital Signature Function**
 >
@@ -413,7 +352,7 @@ The function returns a digital signature as binary data that cryptographically p
 ---
 
 
-## Asymmetric_verify(*algorithm, digest_str, sig_str, pub_key_str, digest_type, [padding]*){asymmetric_verify}
+## Asymmetric_verify(*algorithm, digest_str, sig_str, pub_key_str, digest_type, [padding]*)
 
 > 🔍 **Signature verification function**
 >
@@ -495,7 +434,7 @@ The function returns a binary verification result:
 </details>
 
 ---
-## Create_asymmetric_priv_key(*algorithm, key_len*){create_asymmetric_priv_key}
+## Create_asymmetric_priv_key(*algorithm, key_len*)
 
 > 🔑 **Private key generation function**
 >
@@ -541,7 +480,7 @@ This works for RSA and DSA keys. DH keys are quick, so no worries there.
 
 ---
 
-## Create_asymmetric_pub_key(*algorithm, priv_key_str*){create_asymmetric_pub_key}
+## Create_asymmetric_pub_key(*algorithm, priv_key_str*)
 
 > 🔓 **Public key extraction function**
 >
@@ -567,12 +506,13 @@ A public key in PEM format - another block of garbled text you can freely share.
 2. **priv_key_str** - Your secret private key
    * Must be in PEM
 
-## Create_dh_parameters(*key_len*){create_dh_parameters}
+## Create_dh_parameters(*key_len*)
 
 This function creates the special math values for Diffie-Hellman keys. It's like creating a recipe that two people will follow to create identical secret sauces without ever sharing their individual ingredients.
 
 ### Warning: Patience required!
 This can take a LONG time - much longer than making regular keys. Cancel with:
+
 ```
 KILL [QUERY|CONNECTION] <id>
 ```
@@ -590,7 +530,8 @@ A block of special values in PEM format. You'll use these later when creating DH
 * Choose between 1,024 and 10,000 bits
 * Default is 10,000 (strongest but slowest)
 * Admins can adjust the maximum with encryption_udf.dh_bits_threshold
-## Create_digest(*digest_type, str*){create_digest}
+
+## Create_digest(*digest_type, str*)
 
 Creates a digest from the given string using the given digest type. The digest string can be used with asymmetric_sign and asymmetric_verify.
 

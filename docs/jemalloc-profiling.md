@@ -1,6 +1,6 @@
 # Jemalloc memory allocation profiling
 
-Implemented in [Percona Server for MySQL 8.0.25-15](release-notes/Percona-Server-8.0.25-15.md#id1), *Percona Server for MySQL* can take advantage of the memory-profiling ability of the jemalloc allocator. This ability provides a method to investigate memory-related issues.
+Implemented in [Percona Server for MySQL 8.0.25-15](release-notes/Percona-Server-8.0.25-15.md), *Percona Server for MySQL* can take advantage of the memory-profiling ability of the jemalloc allocator. This ability provides a method to investigate memory-related issues.
 
 ## Requirements
 
@@ -180,7 +180,7 @@ The following options are:
 
 ### jemalloc_profiling
 
-Description: Enables jemalloc profiling. The variable requires [jemalloc_detected](#jemallocdetected).
+Description: Enables jemalloc profiling. The variable requires [jemalloc_detected](#jemalloc_detected).
 
 * Command Line: –jemalloc_profiling[=(OFF|ON)]
 

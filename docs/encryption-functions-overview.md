@@ -1,8 +1,6 @@
-## Encryption functions overview
+# Encryption functions overview
 
 This document provides comprehensive information about encryption functions that transform plaintext data into encrypted ciphertext. These functions provide robust security measures that require proper documentation to implement and maintain effectively. This guide offers the necessary information for successful implementation.
-
-
 
 ## Overview of capabilities
 
@@ -16,11 +14,7 @@ This documentation will guide you through:
 
 * Avoiding common implementation pitfalls
 
-
-
-
 First, let's review some key terms you'll encounter throughout this guide.
-
 
 ## Glossary of terms
 
@@ -122,7 +116,7 @@ Percona Server for MySQL 8.0.41 introduces several important new features that e
 
 ### Other new features
 
-* [`encryption_udf.legacy_padding_scheme`](#encryption_udflegacy_padding_scheme) system variable - provides compatibility with legacy systems and previous implementations
+* [`encryption_udf.legacy_padding_scheme`](encryption-functions.md#encryption_udflegacy_padding_scheme) system variable - provides compatibility with legacy systems and previous implementations
 
 * Character set awareness - ensures proper handling of different character encodings during encryption operations
 

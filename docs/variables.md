@@ -74,7 +74,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_db_write_buffer_size`](#rocksdb_db_write_buffer_size) |
 | [`rocksdb_deadlock_detect`](#rocksdb_deadlock_detect) |
 | [`rocksdb_deadlock_detect_depth`](#rocksdb_deadlock_detect_depth) |
-| [`rocksdb_debug_cardinality_multipler`](#rocksdb_debug_cardinality_multipler) |
+| [`rocksdb_debug_cardinality_multipler`](#rocksdb_debug_cardinality_multiplier) |
 | [`rocksdb_debug_manual_compaction_delay`](#rocksdb_debug_manual_compaction_delay) |
 | [`rocksdb_debug_optimizer_no_zero_cardinality`](#rocksdb_debug_optimizer_no_zero_cardinality) |
 | [`rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds`](#rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds) |
@@ -390,7 +390,7 @@ decides how many threads to allocate toward flush/compaction.
 | Data type    | Boolean                            |
 | Default      | OFF                                |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Skips verifying if rows exists before executing deletes. The following conditions must be met:
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). Skips verifying if rows exists before executing deletes. The following conditions must be met:
 
 * The variable is enabled
 
@@ -451,7 +451,7 @@ The variable was implemented in [Percona Server for MySQL 8.0.33-25](release-not
 
 When this variable is enabled, the bulk load fails if an sst file created during bulk load cannot be placed to the bottommost level in the rocksdb. 
 
-This variable can be enabled or disabled only when the [`rocksdb_bulk_load`](#rocksdbbulkload) is `OFF`.
+This variable can be enabled or disabled only when the [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `OFF`.
 
 This variable is disabled (OFF) by default.
 
@@ -612,7 +612,7 @@ When the rocksdb_bulk_load variable is enabled, it behaves as if the variable ro
 | Data type    | Boolean             |
 | Default      | ON                  |
 
-The variable was implemented in [Percona Server for MySQL 8.0.27-18](release-notes/Percona-Server-8.0.27-18.md#id1). Materializes partial index during bulk load instead of leaving the index empty.
+The variable was implemented in [Percona Server for MySQL 8.0.27-18](release-notes/Percona-Server-8.0.27-18.md). Materializes partial index during bulk load instead of leaving the index empty.
 
 ### `rocksdb_bulk_load_use_sst_partitioner`
 
@@ -674,7 +674,7 @@ Allowed range is up to `18446744073709551615`.
 | Data type    | Boolean              |
 | Default      | ON                   |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Includes RocksDB block cache content in core dump. This variable is
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). Includes RocksDB block cache content in core dump. This variable is
 enabled by default.
 
 ### `rocksdb_cache_high_pri_pool_ratio`
@@ -729,7 +729,7 @@ If you disable this feature, RocksDB allocates additional memory to maintain the
 | Data type    | Boolean                                 |
 | Default      | OFF                                     |
 
-The variable was implemented in [Percona Server for MySQL 8.0.27-18](release-notes/Percona-Server-8.0.27-18.md#id1). Cancels all ongoing manual compactions.
+The variable was implemented in [Percona Server for MySQL 8.0.27-18](release-notes/Percona-Server-8.0.27-18.md). Cancels all ongoing manual compactions.
 
 ### `rocksdb_charge_memory`
 
@@ -745,7 +745,7 @@ The variable was implemented in [Percona Server for MySQL 8.0.33-25](release-not
 
 This variable is [tech preview](glossary.md/#tech-preview) and may be removed in the future releases.
 
-Turns on RocksDB memory-charging related features (BlockBasedTableOptions::cache_usage_options.options.charged) from `cnf` files. This variable is related to [`rocksdb_use_write_buffer_manager`](#rocksdbusewritebuffermanager).
+Turns on RocksDB memory-charging related features (BlockBasedTableOptions::cache_usage_options.options.charged) from `cnf` files. This variable is related to [`rocksdb_use_write_buffer_manager`](#rocksdb_use_write_buffer_manager).
 
 This variable is disabled (OFF) by default.
 
@@ -1082,7 +1082,7 @@ Disabled by default.
 | Scope        | Session                                  |
 | Data type    | String                                   |
 
-This variable has been implemented in [Percona Server for MySQL 8.0.15-6](release-notes/Percona-Server-8.0.15-6.md#id1).
+This variable has been implemented in [Percona Server for MySQL 8.0.15-6](release-notes/Percona-Server-8.0.15-6.md).
 When specified it will create a temporary RocksDB ‘checkpoint’ or
 ‘snapshot’ in the datadir. If the session ends with an existing
 checkpoint, or if the variable is reset to another value, the checkpoint
@@ -1303,7 +1303,7 @@ Allowed range is from `0` to `18446744073709551615`.
 | Data type    | String              |
 | Default      | “”                  |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Deletes the column family by name. The default value is “” , an empty string.
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). Deletes the column family by name. The default value is “” , an empty string.
 
 For example:
 
@@ -1336,7 +1336,7 @@ Allowed range is up to `9223372036854775807`.
 | Data type    | Boolean                                       |
 | Default      | OFF                                           |
 
-This variable has been implemented in [Percona Server for MySQL 8.0.15-6](release-notes/Percona-Server-8.0.15-6.md#id1).
+This variable has been implemented in [Percona Server for MySQL 8.0.15-6](release-notes/Percona-Server-8.0.15-6.md).
 It allows a client to temporarily disable RocksDB deletion
 of old `WAL` and `.sst` files for the purposes of making a consistent
 backup. If the client session terminates for any reason after disabling
@@ -1413,7 +1413,7 @@ This option is disabled (OFF) by default.
 | Data type    | Boolean                                     |
 | Default      | ON                                          |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Specifies whether to enable optimization where the read is cached from a failed insertion attempt in INSERT ON DUPLICATE KEY UPDATE.
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). Specifies whether to enable optimization where the read is cached from a failed insertion attempt in INSERT ON DUPLICATE KEY UPDATE.
 
 ### `rocksdb_enable_instant_ddl`
 
@@ -1496,7 +1496,7 @@ Enables instant DDL for `ALTER TABLE` operations that change table comments.
 | Data type    | Boolean                         |
 | Default      | ON                            |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Enables the rocksdb iterator upper bounds and lower bounds in read options.
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). Enables the rocksdb iterator upper bounds and lower bounds in read options.
 
 ### `rocksdb_enable_pipelined_write`
 
@@ -1508,7 +1508,7 @@ The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-not
 | Data type    | Boolean                          |
 | Default      | OFF                              |
 
-The variable was implemented in [Percona Server for MySQL 8.0.25-15](release-notes/Percona-Server-8.0.25-15.md#id1).
+The variable was implemented in [Percona Server for MySQL 8.0.25-15](release-notes/Percona-Server-8.0.25-15.md).
 
 DBOptions::enable_pipelined_write for RocksDB.
 
@@ -1524,7 +1524,7 @@ If `enable_pipelined_write` is `ON`, a separate write thread is maintained for W
 | Data type    | Boolean                                      |
 | Default      | ON                                         |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Enables the removal of dropped column families (cfs) from metadata if the cfs do not exist in the cf manager.
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). Enables the removal of dropped column families (cfs) from metadata if the cfs do not exist in the cf manager.
 
 The default value is `ON`.
 
@@ -1915,7 +1915,7 @@ When enabled, this option allows index key prefixes longer than 767 bytes (up to
 
 !!! note
 
-    In version [Percona Server for MySQL 8.0.16-7](release-notes/Percona-Server-8.0.16-7.md#id1) and later, the default value is changed to `ON`.
+    In version [Percona Server for MySQL 8.0.16-7](release-notes/Percona-Server-8.0.16-7.md) and later, the default value is changed to `ON`.
 
 ### `rocksdb_keep_log_file_num`
 
@@ -2049,7 +2049,7 @@ rely on the application to do the flushing.
 | Data type    | Boolean         |
 | Default      | OFF             |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). When enabled, uses the WriteBatch API, which is faster. The session does not hold any lock on row access. This variable is not effective on replica.
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). When enabled, uses the WriteBatch API, which is faster. The session does not hold any lock on row access. This variable is not effective on replica.
 
 !!! note
 
@@ -2065,14 +2065,14 @@ The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-not
 | Data type    | Numeric                              |
 | Default      | -1                                   |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1).
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md).
 
 Sets DBOptions:: max_background_compactions for RocksDB.
 The default value is `-1` The allowed range is `-1` to `64`.
 This variable was replaced
 by rocksdb_max_background_jobs, which automatically decides how
 many threads to allocate towards flush/compaction.
-This variable was re-implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1).
+This variable was re-implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md).
 
 ### `rocksdb_max_background_flushes`
 
@@ -2084,7 +2084,7 @@ This variable was re-implemented in [Percona Server for MySQL 8.0.20-11](release
 | Data type    | Numeric                          |
 | Default      | -1                               |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1).
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md).
 
 Sets DBOptions:: max_background_flushes for RocksDB.
 The default value is `-1`. The allowed range is `-1` to `64`.
@@ -2118,7 +2118,7 @@ responsibility down to RocksDB level.
 | Data type    | Unsigned integer                                |
 | Default      | 0                                               |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Creates a specified number of threads, sets a lower CPU priority, and letting compactions use them. The maximum compaction concurrency is capped by `rocksdb_max_background_compactions` or `rocksdb_max_background_jobs`
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). Creates a specified number of threads, sets a lower CPU priority, and letting compactions use them. The maximum compaction concurrency is capped by `rocksdb_max_background_compactions` or `rocksdb_max_background_jobs`
 
 The minimum value is `0` and the maximum value is `64`.
 
@@ -2428,7 +2428,7 @@ The dafault value is `ON` which means this variable is enabled.
 | Data type    | Unsigned Integer         |
 | Default      | 0                        |
 
-The variable was implemented in [Percona Server for MySQL 8.0.27-18](release-notes/Percona-Server-8.0.27-18.md#id1). Maximum memory to use when sorting an unmaterialized group for partial indexes. The 0(zero) value is defined as no limit.
+The variable was implemented in [Percona Server for MySQL 8.0.27-18](release-notes/Percona-Server-8.0.27-18.md). Maximum memory to use when sorting an unmaterialized group for partial indexes. The 0(zero) value is defined as no limit.
 
 ### `rocksdb_pause_background_work`
 
@@ -2594,7 +2594,7 @@ Allowed range is up to `9223372036854775807`.
 | Data type    | Enum                    |
 | Default      | OFF                     |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Uses read-free replication, which allows no row lookup during
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). Uses read-free replication, which allows no row lookup during
 replication, on the replica.
 
 The options are the following:
@@ -2615,7 +2615,7 @@ The options are the following:
 | Data type    | String                         |
 | Default      |                                |
 
-The variable was disabled in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). We recommend that you use `rocksdb_read_free_rpl` instead of this variable.
+The variable was disabled in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). We recommend that you use `rocksdb_read_free_rpl` instead of this variable.
 
 This variable lists tables (as a regular expression)
 that should use read-free replication on the replica
@@ -2659,7 +2659,7 @@ Resets MyRocks internal statistics dynamically
 | Data type    | Boolean                       |
 | Default      | OFF                           |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). By default, only the last statement on a transaction is rolled back. If
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). By default, only the last statement on a transaction is rolled back. If
 `--rocksdb-rollback-on-timeout=ON`, a transaction timeout causes a rollback of
 the entire transaction.
 
@@ -2799,7 +2799,7 @@ Allowed range is up to `2147483647`.
 | Data type    | Numeric               |
 | Default      | 0                     |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Controls the RocksDB statistics level. The default value is “0” (kExceptHistogramOrTimers), which is the fastest level. The maximum value is “4”.
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). Controls the RocksDB statistics level. The default value is “0” (kExceptHistogramOrTimers), which is the fastest level. The maximum value is “4”.
 
 ### `rocksdb_stats_recalc_rate`
 
@@ -2811,7 +2811,7 @@ The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-not
 | Data type    | Numeric                     |
 | Default      | 0                           |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Specifies the number of indexes to recalculate per second. Recalculating index statistics periodically ensures it to match the actual sum from SST files.
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). Specifies the number of indexes to recalculate per second. Recalculating index statistics periodically ensures it to match the actual sum from SST files.
 Default value is `0`. Allowed range is up to `4294967295`.
 
 ### `rocksdb_store_row_debug_checksums`
@@ -2889,7 +2889,7 @@ The allowed range is from `0` to `19`.
 | Data type    | Numeric                                            |
 | Default      | 19                                                 |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1).
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md).
 
 The nice value for index stats.
 The minimum = -20 (THREAD_PRIO_MIN)
@@ -2905,7 +2905,7 @@ The maximum = 19 (THREAD_PRIO_MAX)
 | Data type    | Numeric                                    |
 | Default      | 0                                          |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1).
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md).
 
 The maximum number of rows to scan in a table scan based on
 a cardinality calculation.
@@ -2922,7 +2922,7 @@ The maximum is `18,446,744,073,709,551,615`.
 | Data type    | Numeric                                      |
 | Default      | 100                                          |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1).
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md).
 
 The number of modified rows to trigger a stats recalculation. This is a
 dependent variable for stats recalculation.
@@ -2939,7 +2939,7 @@ The maximum is `18,446,744,073,709,551,615`.
 | Data type    | Numeric                                    |
 | Default      | 10                                         |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1).
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md).
 
 The percentage of the number of modified rows over the total number of rows
 to trigger stats recalculations. This is a dependent variable for stats
@@ -2986,7 +2986,7 @@ Skips recording table statistics for the system column family.
 | Data type    | Boolean                              |
 | Default      | OFF                                |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Enables table-scan-based index calculations.
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). Enables table-scan-based index calculations.
 The default value is `OFF`.
 
 ### `rocksdb_tmpdir`
@@ -3011,7 +3011,7 @@ Specifies the path to the directory for temporary files during DDL operations.
 | Data type    | String                             |
 | Default      | &quot;&quot;                       |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Defines the block cache trace option string. The format is sampling frequency: max_trace_file_size:trace_file_name. The sampling frequency value and max_trace_file_size value are positive integers. The block accesses are saved to the `rocksdb_datadir/block_cache_traces/trace_file_name`. The default value is an empty string.
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). Defines the block cache trace option string. The format is sampling frequency: max_trace_file_size:trace_file_name. The sampling frequency value and max_trace_file_size value are positive integers. The block accesses are saved to the `rocksdb_datadir/block_cache_traces/trace_file_name`. The default value is an empty string.
 
 ### `rocksdb_trace_queries`
 
@@ -3204,7 +3204,7 @@ The variable was implemented in [Percona Server for MySQL 8.0.33-25](release-not
 
 This variable is [tech preview](glossary.md/#tech-preview) and may be removed in the future releases.
 
-Allows to turn on the write buffer manager (WriteBufferManager) from `cnf` files. This variable is related to [`rocksdb_charge_memory`](#rocksdbchargememory).
+Allows to turn on the write buffer manager (WriteBufferManager) from `cnf` files. This variable is related to [`rocksdb_charge_memory`](#rocksdb_charge_memory).
 
 ### `rocksdb_validate_tables`
 
@@ -3216,7 +3216,7 @@ Allows to turn on the write buffer manager (WriteBufferManager) from `cnf` files
 | Data type    | Numeric                   |
 | Default      | 1                         |
 
-The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1). Specifies whether to verify that MySQL data dictionary is equal to the MyRocks data dictionary.
+The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md). Specifies whether to verify that MySQL data dictionary is equal to the MyRocks data dictionary.
 
 
 * `0`: do not verify.
@@ -3280,7 +3280,7 @@ Specifies the path to the directory where MyRocks stores WAL files.
 
 !!! note
 
-    In version [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md#id1) and later, the default is changed from `1` to `2`.
+    In version [Percona Server for MySQL 8.0.20-11](release-notes/Percona-Server-8.0.20-11.md) and later, the default is changed from `1` to `2`.
 
 Specifies the level of tolerance when recovering write-ahead logs (WAL) files
 after a system crash.
