@@ -255,7 +255,7 @@ If you installed either plugin at [server startup](#load-the-plugins-at-server-s
 
 === "Uninstall the simple LDAP authentication plugin"
 
-    If you installed the plugins at [runtime](#load-the-simple-ldap-authentication-plugin-at-runtime), run the following statements:
+    If you installed the plugins at [runtime](#load-the-plugins-at-runtime), run the following statements:
 
     ```{.bash data-prompt="mysql>"}
     mysql> UNINSTALL PLUGIN authentication_ldap_simple;
@@ -265,7 +265,7 @@ If you installed either plugin at [server startup](#load-the-plugins-at-server-s
 
 === "Uninstall the SASL-based LDAP authentication plugin"
 
-    If you installed the plugins at [runtime](#load-the-sasl-based-ldap-authentication-plugin-at-runtime), run the following statements:
+    If you installed the plugins at [runtime](#load-the-plugins-at-runtime), run the following statements:
 
     ```{.bash data-prompt="mysql>"}
     mysql> UNINSTALL PLUGIN authentication_ldap_sasl;

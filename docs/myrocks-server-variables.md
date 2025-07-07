@@ -634,7 +634,7 @@ This setting can only be changed when bulk loading is disabled.
 
 When this variable is enabled, the bulk load fails if an sst file created during bulk load cannot be placed to the bottommost level in the rocksdb. 
 
-This variable can be enabled or disabled only when the [`rocksdb_bulk_load`](#rocksdbbulkload) is `OFF`.
+This variable can be enabled or disabled only when the [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `OFF`.
 
 This variable is disabled (OFF) by default.
 
@@ -810,7 +810,7 @@ Cancels all ongoing manual compactions.
 
 This variable is [tech preview](glossary.md) and may be removed in the future releases.
 
-Turns on RocksDB memory-charging related features (BlockBasedTableOptions::cache_usage_options.options.charged) from `cnf` files. This variable is related to [`rocksdb_use_write_buffer_manager`](#rocksdbusewritebuffermanager).
+Turns on RocksDB memory-charging related features (BlockBasedTableOptions::cache_usage_options.options.charged) from `cnf` files. This variable is related to [`rocksdb_use_write_buffer_manager`](#rocksdb_use_write_buffer_manager).
 
 This variable is disabled (OFF) by default.
 
@@ -3639,7 +3639,7 @@ Enables the use of `io_uring` for RocksDB.
 
 This variable is [tech preview](./glossary.md#tech-preview) and may be removed in the future releases.
 
-Allows to turn on the write buffer manager (WriteBufferManager) from `cnf` files. This variable is related to [`rocksdb_charge_memory`](#rocksdbchargememory).
+Allows to turn on the write buffer manager (WriteBufferManager) from `cnf` files. This variable is related to [`rocksdb_charge_memory`](#rocksdb_charge_memory).
 
 
 
