@@ -613,7 +613,7 @@ The default value is 0 (zero). This value disables the expiration of passwords. 
 
 If the plugin starts and encryption is enabled, the plugin checks for an audit log filter encryption password. If a password is not found, the plugin generates a random password.
 
-Call `audit_log_filter_encryption_set() to set a specific password.
+Call [audit_log_encryption_password_set(new_password)](#audit_log_encryption_password_setnew_password) to set a specific password.
 
 
 ### `audit_log_filter_prune_seconds`
