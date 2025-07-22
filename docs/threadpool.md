@@ -129,7 +129,7 @@ By executing this command in the client, users enable the server to prioritize u
 mysql> mysql> SET GLOBAL thread_pool_high_prio_tickets = 5;
 ```
 
-Either of these configurations assign five tickets to each new connection.
+Either of these configurations assigns five tickets to each new connection.
 
 
 ### High-priority modes
@@ -338,7 +338,6 @@ Use these statements to inspect runtime thread pool behavior:
 
 ```mysql
 mysql> SHOW STATUS LIKE 'Threadpool%';
-mysql> SHOW ENGINE THREAD_POOL STATUS;
 ```
 
 These commands reveal thread activity, idle counts, and queue saturation by group.
@@ -457,7 +456,7 @@ Defines the maximum number of worker threads per group.
 
 * Allowed values: Integer ≥ `thread_pool_min_threads`
 
-* Description: Controls upper bound on thread creation. If reached, new queries wait
+* Description: Controls the upper bound on thread creation. If reached, new queries wait
   in the queue.
 
 * Default: 1000
