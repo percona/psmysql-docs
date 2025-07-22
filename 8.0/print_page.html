@@ -18844,7 +18844,7 @@ This version ported the feature from Percona Server 5.7.</p>
 <p>By executing this command in the client, users enable the server to prioritize up to five queries for processing ahead of lower-priority queries. This setting is beneficial in environments where certain operations require immediate attention. The change applies globally, affecting all new connections established after the command is executed.</p>
 <div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">thread_pool_high_prio_tickets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
-<p>Either of these configurations assign five tickets to each new connection.</p>
+<p>Either of these configurations assigns five tickets to each new connection.</p>
 <h3 id="threadpool-high-priority-modes">High-priority modes<a class="headerlink" href="#threadpool-high-priority-modes" title="Permanent link">&para;</a></h3>
 <p>The <a href="#threadpool-thread_pool_high_prio_mode"><code>thread_pool_high_prio_mode</code></a> setting is an option that manages how queries are scheduled in the thread pool using a ticket system. </p>
 <p>When this setting is turned on, the system prioritizes high-priority queries. Adjusting this setting can improve the performance of your applications, especially during busy times.</p>
@@ -19034,7 +19034,6 @@ This version ported the feature from Percona Server 5.7.</p>
 <h3 id="threadpool-observability-commands">Observability Commands<a class="headerlink" href="#threadpool-observability-commands" title="Permanent link">&para;</a></h3>
 <p>Use these statements to inspect runtime thread pool behavior:</p>
 <div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="k">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;Threadpool%&#39;</span><span class="p">;</span>
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="k">ENGINE</span><span class="w"> </span><span class="n">THREAD_POOL</span><span class="w"> </span><span class="k">STATUS</span><span class="p">;</span>
 </code></pre></div>
 <p>These commands reveal thread activity, idle counts, and queue saturation by group.</p>
 <p>Note: For dynamic variables, changes apply only to new connections. Existing sessions retain their original settings until reconnect.</p>
@@ -19168,7 +19167,7 @@ configure them both statically and dynamically.</p>
 <p>Allowed values: Integer ≥ <code>thread_pool_min_threads</code></p>
 </li>
 <li>
-<p>Description: Controls upper bound on thread creation. If reached, new queries wait
+<p>Description: Controls the upper bound on thread creation. If reached, new queries wait
   in the queue.</p>
 </li>
 <li>
