@@ -6,6 +6,11 @@ A core dump file is the documented moment of a computer when either the computer
 The `libcoredumper` is a free and Open Source fork of `google-coredumper`,
 enhanced to work on newer Linux versions, and GCC and CLANG.
 
+!!! tip "Need Help Interpreting Stack Traces?"
+    [Percona Support](https://www.percona.com/services/support) offers 
+    expert debugging and performance analysis to help you understand 
+    complex stack trace diagnostics.
+
 ### Enabling the `libcoredumper`
 
 Enable core dumps for troubleshooting purposes.
