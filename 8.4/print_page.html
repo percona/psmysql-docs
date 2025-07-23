@@ -6470,7 +6470,7 @@
   
   
   <span class="md-ellipsis">
-    Stacktrace
+    Stack trace
     
   </span>
   
@@ -9723,7 +9723,7 @@
           <li class="md-nav__item">
   <a href="#stacktrace" class="md-nav__link">
     <span class="md-ellipsis">
-      Stacktrace
+      Stack trace
     </span>
   </a>
   
@@ -31044,29 +31044,57 @@ keyword is followed by a number other than zero:</p>
                         <h1>Troubleshoot<a class='headerlink' href='#section-16' title='Permanent link'></a>
                         </h1>
                     <section class="print-page" id="advisors" heading-number="16.1"><h1 id="advisors-use-percona-monitoring-and-management-pmm-advisors">Use Percona Monitoring and Management (PMM) Advisors<a class="headerlink" href="#advisors-use-percona-monitoring-and-management-pmm-advisors" title="Permanent link">&para;</a></h1>
-<p><a href="https://www.percona.com/software/database-tools/percona-monitoring-and-management">Percona Monitoring and Management (PMM)</a> provides several categories of Advisors. Each Advisor contains a set of automated checks. These checks investigate your database settings for a specific range of possible issues.</p>
-<p><a href="https://www.percona.com/software/percona-platform">The Percona Platform</a> hosts the Advisors. </p>
-<p>The PMM Server automatically downloads the Advisors if the <code>Advisors</code> and <code>Telemetry</code> options are enabled in <code>Configuration &gt; Settings &gt; Advanced Settings</code>. Both options are enabled by default.</p>
+<p><a href="https://www.percona.com/software/database-
+tools/percona-monitoring-and-management">Percona Monitoring and Management (PMM)</a> provides several categories of Advisors. 
+Each Advisor contains a set of automated checks. These checks investigate your 
+database settings for a specific range of possible issues.</p>
+<p>The PMM Server automatically downloads the Advisors if the <code>Advisors</code> and 
+<code>Telemetry</code> options are enabled in <code>Configuration &gt; Settings &gt; Advanced Settings</code>. 
+Both options are enabled by default.</p>
+<div class="admonition note">
+<p class="admonition-title">Need Additional Guidance?</p>
+<p>If you encounter complex advisor recommendations or require expert 
+interpretation, <a href="https://www.percona.com/services/support">Percona Support</a> 
+offers professional assistance to help you optimize your database 
+configuration and resolve any identified issues.</p>
+</div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://docs.percona.com/percona-platform/advisors.html">PMM documentation - Advisor checks</a></p>
+<p><a href="https://docs.percona.com/percona-platform/
+advisors.html">PMM documentation - Advisor checks</a></p>
 </div></section><section class="print-page" id="log-connection-error" heading-number="16.2"><h1 id="log-connection-error-too-many-connections-warning">Too many connections warning<a class="headerlink" href="#log-connection-error-too-many-connections-warning" title="Permanent link">&para;</a></h1>
-<p>If the <a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_log_error_verbosity">log_error_verbosity</a> system variable is set to <code>2</code> or higher, this feature generates the <code>Too many connections</code> warning in the log.</p></section><section class="print-page" id="innodb-corrupt-table-action" heading-number="16.3"><h1 id="innodb-corrupt-table-action-handle-corrupted-tables">Handle corrupted tables<a class="headerlink" href="#innodb-corrupt-table-action-handle-corrupted-tables" title="Permanent link">&para;</a></h1>
+<p>If the <a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-">log_error_verbosity</a> system variable is set to <code>2</code> or higher, this 
+feature generates the <code>Too many connections</code> warning in the log.</p>
+<div class="admonition tip">
+<p class="admonition-title">Troubleshooting Connection Issues</p>
+<p>For comprehensive guidance on managing database connections and 
+performance, <a href="https://www.percona.com/services/support">Percona Support</a> 
+can provide expert assistance in diagnosing and resolving connection 
+management challenges.</p>
+</div>
+<p>variables.html#sysvar_log_error_verbosity</p></section><section class="print-page" id="innodb-corrupt-table-action" heading-number="16.3"><h1 id="innodb-corrupt-table-action-handle-corrupted-tables">Handle corrupted tables<a class="headerlink" href="#innodb-corrupt-table-action-handle-corrupted-tables" title="Permanent link">&para;</a></h1>
 <p>When a server subsystem tries to access a corrupted table,
-the server may crash.
-If this outcome is not desirable when a corrupted table is encountered,
-set the new system innodb_corrupt_table_action variable
-to a value which allows the ongoing operation to continue
+the server may crash. If this outcome is not desirable when a corrupted 
+table is encountered, set the new system innodb_corrupt_table_action 
+variable to a value which allows the ongoing operation to continue 
 without crashing the server.</p>
 <p>The server error log registers attempts to access corrupted table pages.</p>
 <h3 id="innodb-corrupt-table-action-interacting-with-the-innodb_force_recovery-variable">Interacting with the innodb_force_recovery variable<a class="headerlink" href="#innodb-corrupt-table-action-interacting-with-the-innodb_force_recovery-variable" title="Permanent link">&para;</a></h3>
-<p>The innodb_corrupt_table_action variable
-may work in conjunction with the innodb_force_recovery variable
-which considerably reduces
-the effect of <em>InnoDB</em> subsystems
-running in the background.</p>
-<p>If the innodb_force_recovery option is &lt;4, corrupted pages are lost and the server may continue to run due to the innodb_corrupt_table_action variable having a non-default value.</p>
-<p>For more information about the innodb_force_recovery variable, see <a href="https://dev.mysql.com/doc/refman/8.4/en/forcing-innodb-recovery.html">Forcing InnoDB Recovery</a> from the MySQL Reference Manual.</p>
+<p>The innodb_corrupt_table_action variable may work in conjunction with 
+the innodb_force_recovery variable which considerably reduces the effect 
+of <em>InnoDB</em> subsystems running in the background.</p>
+<p>If the innodb_force_recovery option is &lt;4, corrupted pages are lost and 
+the server may continue to run due to the innodb_corrupt_table_action 
+variable having a non-default value.</p>
+<div class="admonition warning">
+<p class="admonition-title">Complex Database Recovery Scenarios</p>
+<p>Navigating table corruption and recovery can be challenging. 
+<a href="https://www.percona.com/services/support">Percona Support</a> offers 
+expert guidance for complex database recovery and optimization 
+strategies.</p>
+</div>
+<p>For more information about the innodb_force_recovery variable, see 
+<a href="https://dev.mysql.com/doc/refman/8.4/en/">Forcing InnoDB Recovery</a> from the MySQL Reference Manual.</p>
 <p>This feature adds a system variable.</p>
 <h2 id="innodb-corrupt-table-action-system-variables">System variables<a class="headerlink" href="#innodb-corrupt-table-action-system-variables" title="Permanent link">&para;</a></h2>
 <h3 id="innodb-corrupt-table-action-innodb_corrupt_table_action"><code>innodb_corrupt_table_action</code><a class="headerlink" href="#innodb-corrupt-table-action-innodb_corrupt_table_action" title="Permanent link">&para;</a></h3>
@@ -31110,20 +31138,45 @@ running in the background.</p>
 </table>
 <ul>
 <li>
-<p>Enabling <code>innodb_file_per_table</code> and using the <code>assert</code> value creates an assertion failure which causes <em>XtraDB</em> to intentionally crash the server. This action is expected when detecting corrupted data in a single-table tablespace.</p>
+<p>Enabling <code>innodb_file_per_table</code> and using the <code>assert</code> value creates 
+  an assertion failure which causes <em>XtraDB</em> to intentionally crash the 
+  server. This action is expected when detecting corrupted data in a 
+  single-table tablespace.</p>
 </li>
 <li>
-<p>Enabling <code>innodb_file_per_table</code> and using the <code>warn</code> value causes <em>XtraDB</em> to pass the table corruption as <code>corrupt table</code> instead of crashing the server. Detecting the file as corrupt also disables the file I/O for that data file, except for the deletion operation.</p>
+<p>Enabling <code>innodb_file_per_table</code> and using the <code>warn</code> value causes 
+  <em>XtraDB</em> to pass the table corruption as <code>corrupt table</code> instead of 
+  crashing the server. Detecting the file as corrupt also disables the 
+  file I/O for that data file, except for the deletion operation.</p>
 </li>
 <li>
-<p>Enabling <code>innodb_file_per_table</code> and using the <code>salvage</code> value causes <em>XtraDB</em> to allow read access to the corrupted tablespace but ignores any corrupted pages.</p>
+<p>Enabling <code>innodb_file_per_table</code> and using the <code>salvage</code> value causes 
+  <em>XtraDB</em> to allow read access to the corrupted tablespace but ignores 
+  any corrupted pages.</p>
 </li>
-</ul></section><section class="print-page" id="thread-based-profiling" heading-number="16.4"><h1 id="thread-based-profiling-thread-based-profiling">Thread based profiling<a class="headerlink" href="#thread-based-profiling-thread-based-profiling" title="Permanent link">&para;</a></h1>
-<p>Percona Server for MySQL now uses thread based profiling by default, instead of process based profiling. This was implemented because with process based profiling, threads on the server, other than the one being profiled, can affect the profiling information.</p>
-<p>Thread based profiling is using the information provided by the kernel <a href="https://kernel.org/doc/man-pages/online/pages/man2/getrusage.2.html">getrusage</a> function. Since the 2.6.26 kernel version, thread based resource usage is available with the <strong>RUSAGE_THREAD</strong>. This means that the thread based profiling will be used if you’re running the 2.6.26 kernel or newer, or if the <strong>RUSAGE_THREAD</strong> has been ported back.</p>
-<p>This feature is enabled by default if your system supports it, in other cases it uses process based profiling.</p></section><section class="print-page" id="stacktrace" heading-number="16.5"><!-- stacktrace: -->
-<h1 id="stacktrace-stack-trace">Stack trace<a class="headerlink" href="#stacktrace-stack-trace" title="Permanent link">&para;</a></h1>
-<p>Developers use the stack trace in the debug process, either an interactive investigation or during the post-mortem. No configuration is required to generate a stack trace.</p>
+</ul>
+<p>forcing-innodb-recovery.html</p></section><section class="print-page" id="thread-based-profiling" heading-number="16.4"><h1 id="thread-based-profiling-thread-based-profiling">Thread based profiling<a class="headerlink" href="#thread-based-profiling-thread-based-profiling" title="Permanent link">&para;</a></h1>
+<p>Percona Server for MySQL now uses thread based profiling by default, 
+instead of process based profiling. This was implemented because with 
+process based profiling, threads on the server, other than the one being 
+profiled, can affect the profiling information.</p>
+<p>Thread based profiling is using the information provided by the kernel 
+<a href="https://kernel.org/doc/man-pages/online/pages/man2/getrusage.2.html">getrusage</a> 
+function. Since the 2.6.26 kernel version, thread based resource usage 
+is available with the <strong>RUSAGE_THREAD</strong>. This means that the thread based 
+profiling will be used if you&rsquo;re running the 2.6.26 kernel or newer, or 
+if the <strong>RUSAGE_THREAD</strong> has been ported back.</p>
+<p>This feature is enabled by default if your system supports it, in other 
+cases it uses process based profiling.</p>
+<div class="admonition note">
+<p class="admonition-title">Performance Profiling Challenges?</p>
+<p>For advanced performance tuning and profiling strategies, 
+<a href="https://www.percona.com/services/support">Percona Support</a> provides 
+expert consultation to optimize your database performance.</p>
+</div></section><section class="print-page" id="stacktrace" heading-number="16.5"><h1 id="stacktrace-stack-trace">Stack trace<a class="headerlink" href="#stacktrace-stack-trace" title="Permanent link">&para;</a></h1>
+<p>Developers use the stack trace in the debug process, either an interactive 
+investigation or during the post-mortem. No configuration is required to 
+generate a stack trace.</p>
 <p>Stack trace adds the following:</p>
 <table>
 <thead>
@@ -31135,18 +31188,58 @@ running in the background.</p>
 <tbody>
 <tr>
 <td>Prints binary BuildID</td>
-<td>The Strip utility removes unneeded sections and debugging information to reduce the size. This method is standard with containers where the size of the image is essential. The BuildID lets you resolve the stack trace when the Strip utility removes the binary symbols table.</td>
+<td>The Strip utility removes unneeded sections and debugging</td>
+</tr>
+<tr>
+<td></td>
+<td>information to reduce the size. This method is standard with</td>
+</tr>
+<tr>
+<td></td>
+<td>containers where the image size is essential. The BuildID lets</td>
+</tr>
+<tr>
+<td></td>
+<td>you resolve the stack trace when the Strip utility removes the</td>
+</tr>
+<tr>
+<td></td>
+<td>binary symbols table.</td>
 </tr>
 <tr>
 <td>Print the server version information</td>
-<td>The version information establishes the starting point for analysis. Some applications, such as MySQL, only print this information to a log on startup, and when the crash occurs, the size of the log may be large, rotated, or truncated.</td>
+<td>The version information establishes the starting point for</td>
+</tr>
+<tr>
+<td></td>
+<td>analysis. Some applications, such as MySQL, only print this</td>
+</tr>
+<tr>
+<td></td>
+<td>information to a log on startup, and when the crash occurs, the</td>
+</tr>
+<tr>
+<td></td>
+<td>log may be large, rotated, or truncated.</td>
 </tr>
 </tbody>
-</table></section><section class="print-page" id="libcoredumper" heading-number="16.6"><!-- libcoredumper: -->
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Need Help Interpreting Stack Traces?</p>
+<p><a href="https://www.percona.com/services/support">Percona Support</a> offers 
+expert debugging and performance analysis to help you understand 
+complex stack trace diagnostics.</p>
+</div></section><section class="print-page" id="libcoredumper" heading-number="16.6"><!-- libcoredumper: -->
 <h1 id="libcoredumper-using-libcoredumper">Using libcoredumper<a class="headerlink" href="#libcoredumper-using-libcoredumper" title="Permanent link">&para;</a></h1>
 <p>A core dump file is the documented moment of a computer when either the computer or an application exits. Developers examine the dump as one of the tasks when searching for the cause of a failure.</p>
 <p>The <code>libcoredumper</code> is a free and Open Source fork of <code>google-coredumper</code>,
 enhanced to work on newer Linux versions, and GCC and CLANG.</p>
+<div class="admonition tip">
+<p class="admonition-title">Need Help Interpreting Stack Traces?</p>
+<p><a href="https://www.percona.com/services/support">Percona Support</a> offers 
+expert debugging and performance analysis to help you understand 
+complex stack trace diagnostics.</p>
+</div>
 <h3 id="libcoredumper-enabling-the-libcoredumper">Enabling the <code>libcoredumper</code><a class="headerlink" href="#libcoredumper-enabling-the-libcoredumper" title="Permanent link">&para;</a></h3>
 <p>Enable core dumps for troubleshooting purposes.</p>
 <p>To enable the <code>libcoredumper</code>, add the <code>coredumper</code> variable to the
