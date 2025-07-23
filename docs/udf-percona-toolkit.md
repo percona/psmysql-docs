@@ -1,6 +1,6 @@
 # Percona Toolkit UDFs
 
-Three Percona Toolkit UDFs that provide faster checksums are provided:
+These Percona Toolkit user-defined functions (UDFs) offer faster checksum calculations compared to standard methods:
 
 * `libfnv1a_udf`
 
@@ -14,27 +14,27 @@ Three Percona Toolkit UDFs that provide faster checksums are provided:
 
 ## Installation
 
-These UDFs are part of the *Percona Server for MySQL* packages. To install one of the UDFs into the server, execute one of the following commands, depending on which UDF you want to install:
+Once the installation is complete, execute the following command to install these functions:
 
-```sql
-mysql -e "CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME 'libfnv1a_udf.so'"
-mysql -e "CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME 'libfnv_udf.so'"
-mysql -e "CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME 'libmurmur_udf.so'"
+```{.bash data-prompt="mysql>"}
+mysql> mysql -e "INSTALL COMPONENT 'file://component_percona_udf'"
 ```
-
-Executing each of these commands will install its respective UDF into the server.
 
 ## Troubleshooting
 
-If you get the error:
+If the `INSTALL COMPONENT` command fails, try these steps:
 
-??? example "Error message"
+* Check the error message for clues about what went wrong.
 
-    ```text
-    ERROR 1126 (HY000): Can't open shared library 'fnv_udf.so' (errno: 22 fnv_udf.so: cannot open shared object file: No such file or directory)
-    ```
-
-Then you may need to copy the .so file to another location in your system. Try both `/lib` and `/usr/lib`. Look at your environment’s `$LD_LIBRARY_PATH` variable for clues. If none is set, and neither `/lib` nor `/usr/lib` works, you may need to set `LD_LIBRARY_PATH` to `/lib` or `/usr/lib`.
+* Verify the component path `'file://component_percona_udf'`
+  is correct and accessible.
+  
+* Ensure you have the necessary permissions to install
+  components in MySQL.
+  
+If you're still facing issues, consider reaching out to
+  [Percona Support](https://www.percona.com/services/support)
+  for further assistance.
 
 ## Other reading
 

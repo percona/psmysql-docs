@@ -1,5 +1,7 @@
 # Upgrade using the Percona repositories
 
+[Need expert guidance for your Percona Server upgrade? Percona Support is here to help.](https://www.percona.com/services/support)
+
 We recommend using the Percona repositories to upgrade your server.
 
 Find the instructions on how to enable the repositories in the following documents:

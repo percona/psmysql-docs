@@ -1,7 +1,15 @@
 # Upgrade using standalone packages
 
 
-Make a full backup (or dump if possible) of your database. Move the database configuration file, `my.cnf`, to another direction to save it. Stop the server with `/etc/init.d/mysql stop`.
+Before beginning the upgrade process:
+
+1. Create a full backup (or dump if possible) of your database
+
+2. Move your database configuration file (`my.cnf`) to a safe location
+
+3. Stop the server using `/etc/init.d/mysql stop`
+
+For detailed upgrade procedures or if you encounter any issues during this process, our [Percona support team](https://www.percona.com/services/support) is available to assist you.
 
 === "Debian-derived distribution"
 
