@@ -1154,8 +1154,17 @@ This setting is disabled by default.  You should consider setting rocksdb_db_wri
 | Data type    | Boolean                   |
 | Default      | OFF                       |
 
-Specifies whether MyRocks should detect deadlocks.
-Disabled by default.
+The `rocksdb_deadlock_detect` option in MyRocks enables or disables deadlock detection within the RocksDB storage engine (rocksdb::TransactionOptions::deadlock_detect). 
+
+In RocksDB, multiple transactions might lock the same keys in different orders, causing a deadlock. When `rocksdb_deadlock_detect` is set to `true`, the transaction checks for potential deadlocks before attempting to acquire locks on keys. If a deadlock is detected, RocksDB aborts the transactions involved in the cycle.
+
+#### Benefits
+
+Enabling deadlock detection improves availability and performance by preventing transactions from getting stuck indefinitely or failing due to lock wait timeouts.
+
+#### Considerations
+
+Deadlock detection has a performance overhead, so it's essential to weigh the benefits of preventing deadlocks against the potential performance impact. 
 
 ### `rocksdb_deadlock_detect_depth`
 
@@ -1314,9 +1323,31 @@ read-only at runtime.
 | Data type    | Numeric                      |
 | Default      | 16777216                     |
 
-Specifies the write rate in bytes per second, which should be used
-if MyRocks hits a soft limit or threshold for writes.
-Default value is `16777216` (16 MB/sec).
+The `rocksdb_delayed_write_rate` option provides flow control to prevent
+the database from being overwhelmed by writes. This option specifies the
+write rate (in bytes per second) that RocksDB will throttle background
+writes to when entering delayed write mode. The throttling mechanism
+activates when background operations like compaction or flushes fall behind,
+indicating write pressure on the database.
+
+This option stabilizes performance and prevents write stalls by slowing
+down write operations when RocksDB struggles to keep up with incoming
+write rates. Instead of rejecting writes entirely, RocksDB delays them
+to allow background threads to catch up. Normal write speed resumes once
+background activity catches up.
+
+The default value for `rocksdb_delayed_write_rate` is `16777216` (16MB/s).
+Consider increasing this value if:
+
+* Using high-performance NVMe SSDs or having plenty of CPU cores handling
+  background threads.
+
+* Seeing application writes significantly exceeding 16 MB/s and:
+
+  * Noticing frequent delays despite underutilized disk and CPU resources
+
+  * Observing low compaction pressure while still experiencing throttling
+
 Allowed range is from `0` to `18446744073709551615`.
 
 ### `rocksdb_delete_cf`
@@ -2211,7 +2242,19 @@ This variable sets `DBOptions::max_file_opening_threads` for RocksDB. The defaul
 | Data type    | Numeric                        |
 | Default      | 5                              |
 
-Specifies the maximum number of recent deadlocks to store.
+The `rocksdb_max_latest_deadlocks` option specifies the maximum number of
+the most recent transaction deadlock events that RocksDB retains in memory
+for diagnostic purposes. When the number of recorded deadlocks exceeds this
+value, the oldest entries are discarded to make room for newer ones.
+
+This setting is primarily used for debugging and monitoring transactional
+conflicts in systems that use RocksDB. By preserving recent deadlock
+information, it helps developers and database administrators analyze and
+resolve concurrency issues.
+
+The default value is typically `5`, meaning only the last 5 deadlocks are
+stored. Increasing this value provides a more extensive history for
+analysis but also consumes more memory.
 
 ### `rocksdb_max_log_file_size`
 
