@@ -283,7 +283,7 @@ The audit Log plugin generates a log of following events.
 
 ## Stream the audit log to syslog
 
-To stream the audit log to syslog you’ll need to set audit_log_handler variable to `SYSLOG`. To control the syslog file handler, the following variables can be used: audit_log_syslog_ident, audit_log_syslog_facility, and audit_log_syslog_priority These variables have the same meaning as appropriate parameters described in the [syslog(3) manual](https://linux.die.net/man/3/syslog).
+To stream the audit log to syslog you’ll need to set audit_log_handler variable to `SYSLOG`. To control the syslog file handler, the following variables can be used: audit_log_syslog_ident, audit_log_syslog_facility, and audit_log_syslog_priority These variables have the same meaning as appropriate parameters described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 !!! note
 
@@ -879,7 +879,7 @@ will be written to syslog.
 
 This variable is used to specify the `ident` value for syslog. This variable
 has the same meaning as the appropriate parameter described in the [syslog(3)
-manual](http://linux.die.net/man/3/syslog).
+manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ### `audit_log_syslog_facility`
 
@@ -893,7 +893,7 @@ manual](http://linux.die.net/man/3/syslog).
 
 This variable is used to specify the `facility` value for syslog. This
 variable has the same meaning as the appropriate parameter described in the
-[syslog(3) manual](https://linux.die.net/man/3/syslog).
+[syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ### `audit_log_syslog_priority`
 
@@ -907,7 +907,7 @@ variable has the same meaning as the appropriate parameter described in the
 
 This variable is used to specify the `priority` value for syslog. This
 variable has the same meaning as the appropriate parameter described in the
-[syslog(3) manual](https://linux.die.net/man/3/syslog).
+[syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ## Status Variables
 

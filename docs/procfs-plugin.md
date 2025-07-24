@@ -4,7 +4,7 @@
 
     --8<--- "tech.preview.md:5:5"
 
-Implemented in [Percona Server for MySQL 8.0.25-15](release-notes/Percona-Server-8.0.25-15.md#id1), the ProcFS plugin provides access to the Linux performance counters by running SQL queries against a Percona Server for MySQL 8.0.
+Implemented in [Percona Server for MySQL 8.0.25-15](release-notes/Percona-Server-8.0.25-15.md), the ProcFS plugin provides access to the Linux performance counters by running SQL queries against a Percona Server for MySQL 8.0.
 
 You may be unable to capture operating system metrics in certain environments, such as Cloud installations or MySQL-as-a-Service installations. These metrics are essential for complete system performance monitoring.
 
@@ -38,13 +38,13 @@ GRANT ACCESS_PROCFS ON *.* TO 'user'@'host';
 
     An SELinux policy or an AppArmor profile may prevent access to file locations needed by the ProcFS plugin, such as the '/proc/sys/fs/file-nr' directory or any sub-directories or files under '/proc/irq/'. Either edit the policy or profile to ensure that the plugin has the necessary access. If the policy and profile do not allow access, the plugin may may have unexpected behavior.
 
-    For more information, see [Working with SELinux](selinux.md#selinux) and [Working with AppArmor](apparmor.md#enable-apparmor).
+    For more information, see [Working with SELinux](selinux.md) and [Working with AppArmor](apparmor.md).
 
 ## Using the ProcFS plugin
 
 Authorized users can obtain information from individual files by specifying the exact file name within a WHERE clause. Files that are not included are ignored and considered not to exist.
 
-All files that match the [procfs_files_spec](#procfsfilesspec) are opened, read, stored in memory, and, finally, returned to the client. It is critical to add a WHERE clause to return only specific files to limit the impact of the plugin on the server’s performance. A failure to use a WHERE clause can lead to lengthy query response times, high load, and high memory usage on the server. The WHERE clause can contain either an equality operator, the LIKE operator, or the IN operator. The LIKE operator limits file globbing. You can write file access patterns in the [glob(7) style](https://man7.org/linux/man-pages/man7/glob.7.html), such as `/sys/block/sd[a-z]/stat;/proc/version\*`
+All files that match the [procfs_files_spec](#procfs_files_spec) are opened, read, stored in memory, and, finally, returned to the client. It is critical to add a WHERE clause to return only specific files to limit the impact of the plugin on the server’s performance. A failure to use a WHERE clause can lead to lengthy query response times, high load, and high memory usage on the server. The WHERE clause can contain either an equality operator, the LIKE operator, or the IN operator. The LIKE operator limits file globbing. You can write file access patterns in the [glob(7) style](https://man7.org/linux/man-pages/man7/glob.7.html), such as `/sys/block/sd[a-z]/stat;/proc/version\*`
 
 The following example returns the `proc/version`:
 

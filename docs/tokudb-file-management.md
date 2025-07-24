@@ -12,11 +12,11 @@ to [group data files together](tokudb-file-management.md#improved-directory-layo
 within a directory that represents a single database. This feature is enabled
 by default.
 
-The [tokudb_dir_cmd](tokudb-file-management.md#tokudbdircmd) variable can be used to edit the contents of the TokuDB/PerconaFT directory map.
+The [tokudb_dir_cmd](tokudb-file-management.md#tokudb_dir_cmd) variable can be used to edit the contents of the TokuDB/PerconaFT directory map.
 
 ## Moving TokuDB data files to a location outside of the default MySQL datadir
 
-*TokuDB* uses the location specified by the [tokudb_data_dir](tokudb-variables.md#tokudbdatadir)
+*TokuDB* uses the location specified by the [tokudb_data_dir](tokudb-variables.md#tokudb_data_dir)
 variable for all of its data files. If the tokudb_data_dir variable
 is not explicitly set, *TokuDB* will use the location specified by the servers
 datadir for these files.
@@ -27,7 +27,7 @@ directory as the *TokuDB* data files.
 
 *TokuDB* data files may be moved to other locations with symlinks left behind
 in their place. If those symlinks refer to files on other physical data
-volumes, the [tokudb_fs_reserve_percent](tokudb-variables.md#tokudbfsreservepercent) monitor will not traverse
+volumes, the [tokudb_fs_reserve_percent](tokudb-variables.md#tokudb_fs_reserve_percent) monitor will not traverse
 the symlink and monitor the real location for adequate space in the file
 system.
 
@@ -45,7 +45,7 @@ To safely move your TokuDB data files:
 
 ## Moving TokuDB temporary files to a location outside of the default MySQL datadir
 
-*TokuDB* will use the location specified by the [tokudb_tmp_dir](tokudb-variables.md#tokudbtmpdir)
+*TokuDB* will use the location specified by the [tokudb_tmp_dir](tokudb-variables.md#tokudb_tmp_dir)
 variable for all of its temporary files. If tokudb_tmp_dir variable
 is not explicitly set, *TokuDB* will use the location specified by the
 tokudb_data_dir variable. If the tokudb_data_dir
@@ -115,9 +115,9 @@ This makes it difficult to quickly match database/table/index names to their
 actual files on disk, requiring you to use the
 refTOKUDB_FILE_MAP table to cross reference.
 
-The [tokudb_dir_per_db](tokudb-variables.md#tokudbdirperdb) variable is implemented to address this issue.
+The [tokudb_dir_per_db](tokudb-variables.md#tokudb_dir_per_db) variable is implemented to address this issue.
 
-When [tokudb_dir_per_db](tokudb-variables.md#tokudbdirperdb)is enabled (`ON` by default), this is no
+When [tokudb_dir_per_db](tokudb-variables.md#tokudb_dir_per_db)is enabled (`ON` by default), this is no
 longer the case. When you rename a table, the mapping in the *Percona FT*
 directory file will be updated and the files will be renamed on disk to reflect
 the new table name.
@@ -125,10 +125,10 @@ the new table name.
 ## Improved directory layout functionality
 
 Many users have had issues with managing the huge volume of individual files
-that *TokuDB* and *Percona FT* use. The [tokudb_dir_per_db](tokudb-variables.md#tokudbdirperdb) variable
+that *TokuDB* and *Percona FT* use. The [tokudb_dir_per_db](tokudb-variables.md#tokudb_dir_per_db) variable
 addresses this issue.
 
-When [tokudb_dir_per_db](tokudb-variables.md#tokudbdirperdb) variable is enabled (`ON` by default),
+When [tokudb_dir_per_db](tokudb-variables.md#tokudb_dir_per_db) variable is enabled (`ON` by default),
 all new tables and indices will be placed within their corresponding database
 directory within the `tokudb_data_dir` or server datadir.
 

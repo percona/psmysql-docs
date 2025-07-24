@@ -150,7 +150,7 @@ $ sudo systemctl disable mysqld
 
 | Task |
 |---|
-| [Update the root password](#update-root-password) |
+| [Update the root password](#update-the-root-password) |
 | [Secure the server](#secure-the-server) |
 | [Populate the time zone tables](#populate-the-time-zone-tables)
 

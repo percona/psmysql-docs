@@ -27,7 +27,7 @@ It is recommended to install Percona software from official repositories:
 
     !!! note
 
-        Review the [Installing and configuring Percona Server for MySQL with ZenFS support](zenfs.md#zenfs) document for the [Installation](zenfs.md#zenfs-installation) and the [Configuration](zenfs.md#zenfs-configure) information.
+        Review the [Installing and configuring Percona Server for MySQL with ZenFS support](zenfs.md) document for the [Installation](zenfs.md#installation) and the [Configuration](zenfs.md#configuration) information.
 
     * For RHEL or CentOS:
 
