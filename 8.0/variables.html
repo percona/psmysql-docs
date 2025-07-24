@@ -13159,8 +13159,28 @@ Enabled by default.</p>
 </tr>
 </tbody>
 </table>
-<p>Specifies whether to allow multiple writers to update memtables in parallel.
-Disabled by default.</p>
+<h4 id="enable-concurrent-memtable-writes">Enable concurrent memtable writes<a class="headerlink" href="#enable-concurrent-memtable-writes" title="Permanent link">&para;</a></h4>
+<p>This option is a direct bridge to RocksDB&rsquo;s <code>DBOptions::allow_concurrent_memtable_write</code>. If this setting is not enabled, MyRocks processes memtable updates sequentially, even when multiple threads issue writes simultaneously. Enabling this option allows parallel memtable updates, which can improve write throughput in multi-threaded workloads.</p>
+<h4 id="when-to-enable">When to enable<a class="headerlink" href="#when-to-enable" title="Permanent link">&para;</a></h4>
+<p>This setting is disabled by default. Consider enabling rocksdb_allow_concurrent_memtable_write in the following situations:</p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High concurrent write workload</td>
+<td>Your application has many threads or clients writing to MyRocks at the same time. Enabling this option can improve throughput and reduce latency in multi-threaded environments.</td>
+</tr>
+<tr>
+<td>Write-bound workloads</td>
+<td>If write performance is a bottleneck and CPU usage is low during writes, it may be due to serialized memtable updates. Enabling this option allows better use of CPU cores and can improve overall write performance.</td>
+</tr>
+</tbody>
+</table>
 <h3 id="rocksdb_allow_to_start_after_corruption"><code>rocksdb_allow_to_start_after_corruption</code><a class="headerlink" href="#rocksdb_allow_to_start_after_corruption" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -15014,11 +15034,20 @@ By default, it is created in the current working directory.</p>
 </tr>
 </tbody>
 </table>
-<p>Specifies the maximum size of all memtables used to store writes in MyRocks
-across all column families. When this size is reached, the data is flushed
-to persistent media.
-The default value is <code>0</code>.
-The allowed range is up to <code>18446744073709551615</code>.</p>
+<p>This option is a direct bridge to RocksDB&rsquo;s <code>DBOptions::db_write_buffer_size</code>. </p>
+<p>The <code>rocksdb_db_write_buffer_size</code> setting limits the amount of memory in memtables across all column families. MyRocks flushes the largest memtable to disk when the total size exceeds this limit. This operation helps prevent excessive memory use and makes memory behavior more predictable.</p>
+<h4 id="available-values">Available values<a class="headerlink" href="#available-values" title="Permanent link">&para;</a></h4>
+<p>The default value is <code>0</code>, which is disabled, and MyRocks does not limit the amount of memory used by memtables.</p>
+<p>Setting a non-zero value provides a safeguard against excessive memory usage. It ensures that the total memory used by memtables does not exceed the specified limit, preventing potential memory overflow issues.</p>
+<p>The maximum range is <code>18446744073709551615</code>.</p>
+<h4 id="when-to-use">When to use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h4>
+<p>This setting is disabled by default.  You should consider setting rocksdb_db_write_buffer_size under the following conditions:</p>
+<div class="highlight"><pre><span></span><code>•   Running multiple column families and controlling overall memory usage.
+
+•   Operating in shared environments or low-memory systems.
+
+•   Avoiding Out-of-Memory (OOM) issues in write-heavy workloads.
+</code></pre></div>
 <h3 id="rocksdb_deadlock_detect"><code>rocksdb_deadlock_detect</code><a class="headerlink" href="#rocksdb_deadlock_detect" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -15909,9 +15938,45 @@ If disabled, no DDL can be executed as instant.</p>
 </tr>
 </tbody>
 </table>
-<p>The variable was implemented in <a href="release-notes/Percona-Server-8.0.25-15.html">Percona Server for MySQL 8.0.25-15</a>.</p>
-<p>DBOptions::enable_pipelined_write for RocksDB.</p>
-<p>If <code>enable_pipelined_write</code> is <code>ON</code>, a separate write thread is maintained for WAL write and memtable write. A write thread first enters the WAL writer queue and then the memtable writer queue. A pending thread on the WAL writer queue only waits for the previous WAL write operations but does not wait for memtable write operations. Enabling the feature may improve write throughput and reduce latency of the prepare phase of a two-phase commit.</p>
+<h4 id="version-changes">Version changes<a class="headerlink" href="#version-changes" title="Permanent link">&para;</a></h4>
+<p>The variable was implemented in <a href="release-notes/Percona-Server-8.0.25-15.html#id1">Percona Server for MySQL 8.0.25-15</a>.</p>
+<h4 id="improving-write-throughput-with-pipelined-writes">Improving Write Throughput with Pipelined Writes<a class="headerlink" href="#improving-write-throughput-with-pipelined-writes" title="Permanent link">&para;</a></h4>
+<p>This option maps directly to RocksDB’s <code>DBOptions::enable_pipelined_write</code>. For details, see the <a href="https://github.com/facebook/rocksdb/wiki/Pipelined-Write">RocksDB documentation on Pipelined Write</a>.</p>
+<p>The pipelined write feature in RocksDB is specifically designed to enhance concurrent write throughput, but this feature only functions when the Write-Ahead Log (WAL) is enabled. Write operations normally pass through a shared queue. Each writer appends to the WAL and then updates the memtable in strict sequence. This pattern limits parallelism.</p>
+<p>With pipelined writes, RocksDB overlaps the WAL and memtable stages across<br />
+writers. As soon as one thread completes its WAL write, the next thread in<br />
+line can begin its own WAL operation—even if the previous thread has not yet<br />
+updated the memtable. This change interleaves write stages, reduces latency,<br />
+and improves overall write throughput.</p>
+<p>Enabling <code>rocksdb_enable_pipelined_write</code> activates this feature. The feature is beneficial with workloads with multiple concurrent writers and in scenarios such as the prepare phase of a two-phase commit. </p>
+<h4 id="when-to-enable-pipelined-writes">When to enable pipelined writes<a class="headerlink" href="#when-to-enable-pipelined-writes" title="Permanent link">&para;</a></h4>
+<p>Pipelined writes are disabled by default. You should consider enabling enable_pipelined_write in MyRocks under the following conditions:</p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High concurrent write workloads</td>
+<td>If your application involves many concurrent writers, pipelined writes, which overlap WAL and memtable writes, can improve throughput.</td>
+</tr>
+<tr>
+<td>Write-Ahead logging (WAL) is enabled</td>
+<td>This feature only applies when WAL is enabled. Enabling pipelined writes has no effect if you’re not using WAL.</td>
+</tr>
+<tr>
+<td>Lower latency for transactions</td>
+<td>Particularly beneficial in reducing latency during the prepare phase of two-phase commits (2PC), which is critical in transactional workloads.</td>
+</tr>
+<tr>
+<td>WAL writes are a bottleneck</td>
+<td>If profiling shows that waiting for WAL writes limits your write throughput, pipelined writes can help by decoupling WAL and memtable operations.</td>
+</tr>
+</tbody>
+</table>
 <h3 id="rocksdb_enable_remove_orphaned_dropped_cfs"><code>rocksdb_enable_remove_orphaned_dropped_cfs</code><a class="headerlink" href="#rocksdb_enable_remove_orphaned_dropped_cfs" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -20304,7 +20369,7 @@ prefix. Some have the abbreviated syntax -->
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-07-07
+    2025-07-24
   </span>
 
     
