@@ -270,8 +270,18 @@ Enabled by default.
 | Data type    | Boolean                                   |
 | Default      | OFF                                       |
 
-Specifies whether to allow multiple writers to update memtables in parallel.
-Disabled by default.
+#### Enable concurrent memtable writes
+
+This option is a direct bridge to RocksDB's `DBOptions::allow_concurrent_memtable_write`. If this setting is not enabled, MyRocks processes memtable updates sequentially, even when multiple threads issue writes simultaneously. Enabling this option allows parallel memtable updates, which can improve write throughput in multi-threaded workloads.
+
+#### When to enable
+
+This setting is disabled by default. Consider enabling rocksdb_allow_concurrent_memtable_write in the following situations:
+
+| Condition                   | Description |
+|----------------------------|-------------|
+| High concurrent write workload | Your application has many threads or clients writing to MyRocks at the same time. Enabling this option can improve throughput and reduce latency in multi-threaded environments. |
+| Write-bound workloads          | If write performance is a bottleneck and CPU usage is low during writes, it may be due to serialized memtable updates. Enabling this option allows better use of CPU cores and can improve overall write performance. |
 
 ### `rocksdb_allow_to_start_after_corruption`
 
@@ -1112,11 +1122,27 @@ By default, it is created in the current working directory.
 | Data type    | Numeric                        |
 | Default      | 0                              |
 
-Specifies the maximum size of all memtables used to store writes in MyRocks
-across all column families. When this size is reached, the data is flushed
-to persistent media.
-The default value is `0`.
-The allowed range is up to `18446744073709551615`.
+This option is a direct bridge to RocksDB's `DBOptions::db_write_buffer_size`. 
+
+The `rocksdb_db_write_buffer_size` setting limits the amount of memory in memtables across all column families. MyRocks flushes the largest memtable to disk when the total size exceeds this limit. This operation helps prevent excessive memory use and makes memory behavior more predictable.
+
+#### Available values
+
+The default value is `0`, which is disabled, and MyRocks does not limit the amount of memory used by memtables.
+
+Setting a non-zero value provides a safeguard against excessive memory usage. It ensures that the total memory used by memtables does not exceed the specified limit, preventing potential memory overflow issues.
+
+The maximum range is `18446744073709551615`.
+
+#### When to use
+
+This setting is disabled by default.  You should consider setting rocksdb_db_write_buffer_size under the following conditions:
+
+	•	Running multiple column families and controlling overall memory usage.
+	
+	•	Operating in shared environments or low-memory systems.
+	
+	•	Avoiding Out-of-Memory (OOM) issues in write-heavy workloads.
 
 ### `rocksdb_deadlock_detect`
 
@@ -1508,11 +1534,36 @@ The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-not
 | Data type    | Boolean                          |
 | Default      | OFF                              |
 
-The variable was implemented in [Percona Server for MySQL 8.0.25-15](release-notes/Percona-Server-8.0.25-15.md).
+#### Version changes
 
-DBOptions::enable_pipelined_write for RocksDB.
+The variable was implemented in [Percona Server for MySQL 8.0.25-15](release-notes/Percona-Server-8.0.25-15.md#id1).
 
-If `enable_pipelined_write` is `ON`, a separate write thread is maintained for WAL write and memtable write. A write thread first enters the WAL writer queue and then the memtable writer queue. A pending thread on the WAL writer queue only waits for the previous WAL write operations but does not wait for memtable write operations. Enabling the feature may improve write throughput and reduce latency of the prepare phase of a two-phase commit.
+#### Improving Write Throughput with Pipelined Writes
+
+This option maps directly to RocksDB’s `DBOptions::enable_pipelined_write`. For details, see the [RocksDB documentation on Pipelined Write](https://github.com/facebook/rocksdb/wiki/Pipelined-Write).
+
+
+The pipelined write feature in RocksDB is specifically designed to enhance concurrent write throughput, but this feature only functions when the Write-Ahead Log (WAL) is enabled. Write operations normally pass through a shared queue. Each writer appends to the WAL and then updates the memtable in strict sequence. This pattern limits parallelism.
+
+With pipelined writes, RocksDB overlaps the WAL and memtable stages across  
+writers. As soon as one thread completes its WAL write, the next thread in  
+line can begin its own WAL operation—even if the previous thread has not yet  
+updated the memtable. This change interleaves write stages, reduces latency,  
+and improves overall write throughput.
+
+Enabling `rocksdb_enable_pipelined_write` activates this feature. The feature is beneficial with workloads with multiple concurrent writers and in scenarios such as the prepare phase of a two-phase commit. 
+
+
+#### When to enable pipelined writes
+
+Pipelined writes are disabled by default. You should consider enabling enable_pipelined_write in MyRocks under the following conditions:
+
+| Condition                          | Description                                                                                                                       |
+|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| High concurrent write workloads    | If your application involves many concurrent writers, pipelined writes, which overlap WAL and memtable writes, can improve throughput. |
+| Write-Ahead logging (WAL) is enabled | This feature only applies when WAL is enabled. Enabling pipelined writes has no effect if you’re not using WAL.                  |
+| Lower latency for transactions | Particularly beneficial in reducing latency during the prepare phase of two-phase commits (2PC), which is critical in transactional workloads. |
+| WAL writes are a bottleneck        | If profiling shows that waiting for WAL writes limits your write throughput, pipelined writes can help by decoupling WAL and memtable operations. |
 
 ### `rocksdb_enable_remove_orphaned_dropped_cfs`
 
