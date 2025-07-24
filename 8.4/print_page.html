@@ -10480,7 +10480,8 @@
 <p><a class="md-button" href="https://www.percona.com/about/contact">Become a Percona Customer</a></p>
 <p>This document provides instructions on upgrading from Percona Server for MySQL to Percona Server for MySQL Pro.</p>
 <h2 id="upgrade-pro-preconditions">Preconditions<a class="headerlink" href="#upgrade-pro-preconditions" title="Permanent link">&para;</a></h2>
-<p>Request the access to the pro repository from Percona Support. You will receive the client ID and the access token which you use when downloading the packages.</p>
+<p>To begin, please contact <a href="https://www.percona.com/services/support">Percona Support</a> to request access to the pro repository. They&rsquo;ll provide you with the client ID and access token needed for downloading packages.</p>
+<p>For additional assistance during your upgrade process, our <a href="https://www.percona.com/services/support">Percona Support team</a> is available to help ensure a smooth transition.</p>
 <p><a class="md-button" href="#pro-files">Check files in packages built for Percona Server for MySQL Pro <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p>
 <h2 id="upgrade-pro-procedure">Procedure<a class="headerlink" href="#upgrade-pro-procedure" title="Permanent link">&para;</a></h2>
 <ol>
@@ -15621,7 +15622,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 <p>The <code>SHOW CREATE TRIGGER</code> statement displays the SQL command that created a trigger, including definitions that may no longer be understandable. For example, if a trigger was created before a server upgrade that changed the trigger syntax, this statement will still show its definition.</p>
 <h2 id="trigger-updates-additional-resources">Additional resources<a class="headerlink" href="#trigger-updates-additional-resources" title="Permanent link">&para;</a></h2>
 <p>For more information, see <a href="https://dev.mysql.com/doc/refman/8.4/en/table-cache.html">How MySQL opens and closes tables</a>.</p></section><section class="print-page" id="udf-percona-toolkit" heading-number="5.15"><h1 id="udf-percona-toolkit-percona-toolkit-udfs">Percona Toolkit UDFs<a class="headerlink" href="#udf-percona-toolkit-percona-toolkit-udfs" title="Permanent link">&para;</a></h1>
-<p>Three Percona Toolkit UDFs that provide faster checksums are provided:</p>
+<p>These Percona Toolkit user-defined functions (UDFs) offer faster checksum calculations compared to standard methods:</p>
 <ul>
 <li>
 <p><code>libfnv1a_udf</code></p>
@@ -15638,20 +15639,27 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 <li>Author/Origin: Baron Schwartz</li>
 </ul>
 <h2 id="udf-percona-toolkit-installation">Installation<a class="headerlink" href="#udf-percona-toolkit-installation" title="Permanent link">&para;</a></h2>
-<p>These UDFs are part of the <em>Percona Server for MySQL</em> packages. To install one of the UDFs into the server, execute one of the following commands, depending on which UDF you want to install:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="ss">&quot;CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME &#39;libfnv1a_udf.so&#39;&quot;</span>
-<span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="ss">&quot;CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME &#39;libfnv_udf.so&#39;&quot;</span>
-<span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="ss">&quot;CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME &#39;libmurmur_udf.so&#39;&quot;</span>
+<p>Once the installation is complete, execute the following command to install these functions:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>mysql<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;INSTALL COMPONENT &#39;file://component_percona_udf&#39;&quot;</span>
 </code></pre></div>
-<p>Executing each of these commands will install its respective UDF into the server.</p>
 <h2 id="udf-percona-toolkit-troubleshooting">Troubleshooting<a class="headerlink" href="#udf-percona-toolkit-troubleshooting" title="Permanent link">&para;</a></h2>
-<p>If you get the error:</p>
-<details class="example">
-<summary>Error message</summary>
-<div class="highlight"><pre><span></span><code>ERROR 1126 (HY000): Can&#39;t open shared library &#39;fnv_udf.so&#39; (errno: 22 fnv_udf.so: cannot open shared object file: No such file or directory)
-</code></pre></div>
-</details>
-<p>Then you may need to copy the .so file to another location in your system. Try both <code>/lib</code> and <code>/usr/lib</code>. Look at your environment’s <code>$LD_LIBRARY_PATH</code> variable for clues. If none is set, and neither <code>/lib</code> nor <code>/usr/lib</code> works, you may need to set <code>LD_LIBRARY_PATH</code> to <code>/lib</code> or <code>/usr/lib</code>.</p>
+<p>If the <code>INSTALL COMPONENT</code> command fails, try these steps:</p>
+<ul>
+<li>
+<p>Check the error message for clues about what went wrong.</p>
+</li>
+<li>
+<p>Verify the component path <code>'file://component_percona_udf'</code>
+  is correct and accessible.</p>
+</li>
+<li>
+<p>Ensure you have the necessary permissions to install
+  components in MySQL.</p>
+</li>
+</ul>
+<p>If you&rsquo;re still facing issues, consider reaching out to
+  <a href="https://www.percona.com/services/support">Percona Support</a>
+  for further assistance.</p>
 <h2 id="udf-percona-toolkit-other-reading">Other reading<a class="headerlink" href="#udf-percona-toolkit-other-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Percona Toolkit <a href="https://docs.percona.com/percona-toolkit/">documentation</a></li>
@@ -17520,9 +17528,9 @@ $<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class=
 </ol>
 <p>See <a href="https://docs.percona.com/percona-software-repositories/percona-release.html">Configuring Percona repositories with <code>percona-release</code></a> for more information.</p>
 <p>Percona Server for MySQL 8.4.x comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the <a href="#install-myrocks">Percona MyRocks Installation Guide</a>.</p>
-<p>Percona Server for MySQL contains user-defined functions from <a href="https://docs.percona.com/percona-toolkit/">Percona Toolkit</a>. These user-defined functions, <code>fnv_64</code>, <code>fnv1a_64</code>, <code>murmur_hash</code>, provide faster checksums. For more details on the user-defined functions, see <a href="#udf-percona-toolkit">Percona Toolkit UDF functions</a>.</p>
-<p>After the installation completes, run the following command to create these functions:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s2">&quot;INSTALL COMPONENT &#39;file://component_percona_udf&#39;&quot;</span>
+<p>Percona Server for MySQL includes user-defined functions (UDFs) from <a href="https://docs.percona.com/percona-toolkit/">Percona Toolkit</a>. These UDFs, <code>fnv_64</code>, <code>fnv1a_64</code>, <code>murmur_hash</code>, offer faster checksum calculations compared to standard methods. For detailed information about these user-defined functions, see <a href="#udf-percona-toolkit">Percona Toolkit UDF functions</a>.</p>
+<p>Once the installation completes, execute the following command to install these functions:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;INSTALL COMPONENT &#39;file://component_percona_udf&#39;&quot;</span>
 </code></pre></div>
 <h2 id="apt-repo-install-the-percona-testing-repository-using-apt">Install the Percona Testing repository using APT<a class="headerlink" href="#apt-repo-install-the-percona-testing-repository-using-apt" title="Permanent link">&para;</a></h2>
 <p>Percona offers pre-release builds from the testing repository. To enable it, run
@@ -18518,6 +18526,7 @@ mysql&gt;
                         </h1>
                     <section class="print-page" id="upgrade" heading-number="8.1"><h1 id="upgrade-upgrade-from-80-to-84-overview">Upgrade from 8.0 to 8.4 overview<a class="headerlink" href="#upgrade-upgrade-from-80-to-84-overview" title="Permanent link">&para;</a></h1>
 <p>Review <a href="#get-help">Get more help</a> for ways that we can work with you.</p>
+<p><a href="https://www.percona.com/services/support">Need expert guidance for your upgrade? Percona Support is here to help.</a>.</p>
 <p>Upgrading your server to 8.4 has the following benefits:</p>
 <table>
 <thead>
@@ -18580,9 +18589,11 @@ mysql&gt;
 </tr>
 </tbody>
 </table>
+<p><a href="https://www.percona.com/services/support">Concerned about upgrade risks? Percona Support can help mitigate potential issues.</a></p>
 <p>Create a test environment to verify the upgrade before you upgrade the production servers. The test environment is crucial to the success of the upgrade. There is no supported <a href="#downgrade">downgrade procedure</a>. You can try to replicate from an 8.4 version to an 8.0 version or restore a backup.</p>
 <p>Tools, such as the <a href="https://docs.percona.com/percona-toolkit/pt-upgrade.html"><code>pt-upgrade</code> tool</a> in the <a href="https://docs.percona.com/percona-toolkit/">Percona Toolkit</a>, can help with the upgrade process.</p>
 <p>We recommend upgrading to the latest version.</p>
+<p><a href="https://www.percona.com/services/support">Need personalized support during your upgrade? Contact Percona Support.</a></p>
 <p>Review the documentation for other changes between 8.0 to 8.4.</p>
 <p>Review <a href="#upgrade-strategies">Upgrade Strategies</a> for an overview of the major strategies.</p>
 <p>The following list summarizes a number of the changes in the 8.0 series and has useful guides that can help you perform a smooth upgrade. We strongly recommend reading this information:</p>
@@ -18613,17 +18624,24 @@ mysql&gt;
 </li>
 </ul>
 <p>Review other <a href="https://www.percona.com/blog/">Percona blogs</a> that contain upgrade information.</p></section><section class="print-page" id="upgrade-strategies" heading-number="8.2"><h1 id="upgrade-strategies-upgrade-strategies">Upgrade strategies<a class="headerlink" href="#upgrade-strategies-upgrade-strategies" title="Permanent link">&para;</a></h1>
-<p>There are different strategies to consider when upgrading from 8.0 to 8.4.</p>
+<p>For critical production systems, consider engaging <a href="https://www.percona.com/services/support">Percona Support</a> to assist with your upgrade process. Our experts can help ensure a smooth transition and minimize potential risks during this sensitive operation.</p>
+<h2 id="upgrade-strategies-downgrade-options">Downgrade options<a class="headerlink" href="#upgrade-strategies-downgrade-options" title="Permanent link">&para;</a></h2>
+<p>Review the <a href="#downgrade">Downgrade options</a> to ensure that your downgrade path is supported.</p>
 <h2 id="upgrade-strategies-in-place-upgrade">In-place upgrade<a class="headerlink" href="#upgrade-strategies-in-place-upgrade" title="Permanent link">&para;</a></h2>
-<p>An upgrade to 8.4 does not allow a rollback. The in-place upgrade strategy is not recommended, and it should be used only as a last resort.</p>
-<p>An in-place upgrade involves shutting down the 8.0 server, and replacing the server binaries, or packages, with new ones. At this point the new server version can be started on the existing data directory. Note that the server should be configured to perform a slow shutdown by setting <code>innodb_fast_shutdown=0</code> prior to shutdown.</p>
+<p>Use the in-place upgrade strategy only as a last resort. This approach involves shutting down the server and replacing the server binaries or packages with new ones. The new server version then starts using the existing data directory. Configure the server to perform a slow shutdown by setting <code>innodb_fast_shutdown=0</code> before shutting down.</p>
 <p>The benefits are:</p>
 <ul>
-<li>Less additional infrastructure cost compared to a new environment, but nodes must be tested.</li>
-<li>An upgrade can be completed over weeks with cool-down periods between reader node upgrades.</li>
-<li>Requires a failover of production traffic, and for minimal downtime you must have good high-availability tools.</li>
+<li>
+<p>Lower infrastructure costs compared to creating a new environment, though nodes require testing.</p>
+</li>
+<li>
+<p>Ability to complete an upgrade over weeks with cool-down periods between reader node upgrades.</p>
+</li>
+<li>
+<p>Requires a failover of production traffic, and achieving minimal downtime demands robust high-availability tools.</p>
+</li>
 </ul>
-<p>If you use XA transactions with InnoDB, running XA RECOVER before upgrading checks for uncommitted XA transactions. If results are returned, either commit or rollback the XA transactions by issuing an XA COMMIT or XA ROLLBACK statement.</p>
+<p>If you use XA transactions with InnoDB, running <code>XA RECOVER</code> before upgrading checks for uncommitted XA transactions. If results are returned, either commit or rollback the XA transactions by issuing an <code>XA COMMIT</code> or <code>XA ROLLBACK</code> statement.</p>
 <h2 id="upgrade-strategies-new-environment-with-cut-over">New environment with cut over<a class="headerlink" href="#upgrade-strategies-new-environment-with-cut-over" title="Permanent link">&para;</a></h2>
 <p>Upgrading with a new environment involves provisioning a duplicate environment with the same number of servers with the same hardware specs and same operating system as the current production nodes.</p>
 <p>On the newly provided hardware, the target MySQL version will be installed. The new environment will be set up, and the production data will be recovered. Remember that you can use pt-config-diff to verify MySQL configurations. </p>
@@ -18644,6 +18662,7 @@ At cutover time, all writes on the current source will be halted, and the applic
 <p>Requires only a single cutover window.</p>
 </li>
 </ul></section><section class="print-page" id="upgrade-components" heading-number="8.3"><h1 id="upgrade-components-upgrading-from-plugins-to-components">Upgrading from plugins to components<a class="headerlink" href="#upgrade-components-upgrading-from-plugins-to-components" title="Permanent link">&para;</a></h1>
+<p>[Need help navigating plugin to component transitions? Percona Support can assist].(https://www.percona.com/services/support)</p>
 <p>The following plugins have changed:</p>
 <table>
 <thead>
@@ -18743,6 +18762,7 @@ At cutover time, all writes on the current source will be halted, and the applic
 <p>Confirm the component in 8.4</p>
 </li>
 </ol></section><section class="print-page" id="upgrade-percona-repos" heading-number="8.4"><h1 id="upgrade-percona-repos-upgrade-using-the-percona-repositories">Upgrade using the Percona repositories<a class="headerlink" href="#upgrade-percona-repos-upgrade-using-the-percona-repositories" title="Permanent link">&para;</a></h1>
+<p><a href="https://www.percona.com/services/support">Need expert guidance for your Percona Server upgrade? Percona Support is here to help.</a></p>
 <p>We recommend using the Percona repositories to upgrade your server.</p>
 <p>Find the instructions on how to enable the repositories in the following documents:</p>
 <ul>
@@ -18849,7 +18869,19 @@ $<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>
 </div>
 </div>
 </div></section><section class="print-page" id="upgrade-standalone-packages" heading-number="8.5"><h1 id="upgrade-standalone-packages-upgrade-using-standalone-packages">Upgrade using standalone packages<a class="headerlink" href="#upgrade-standalone-packages-upgrade-using-standalone-packages" title="Permanent link">&para;</a></h1>
-<p>Make a full backup (or dump if possible) of your database. Move the database configuration file, <code>my.cnf</code>, to another direction to save it. Stop the server with <code>/etc/init.d/mysql stop</code>.</p>
+<p>Before beginning the upgrade process:</p>
+<ol>
+<li>
+<p>Create a full backup (or dump if possible) of your database</p>
+</li>
+<li>
+<p>Move your database configuration file (<code>my.cnf</code>) to a safe location</p>
+</li>
+<li>
+<p>Stop the server using <code>/etc/init.d/mysql stop</code></p>
+</li>
+</ol>
+<p>For detailed upgrade procedures or if you encounter any issues during this process, our <a href="https://www.percona.com/services/support">Percona support team</a> is available to assist you.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="upgrade-standalone-packages-__tabbed_1_1" name="upgrade-standalone-packages-__tabbed_1" type="radio" /><input id="upgrade-standalone-packages-__tabbed_1_2" name="upgrade-standalone-packages-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="upgrade-standalone-packages-__tabbed_1_1">Debian-derived distribution</label><label for="upgrade-standalone-packages-__tabbed_1_2">Red Hat-derived distributions</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -19006,38 +19038,47 @@ skip-grant-tables
 </div></section><section class="print-page" id="downgrade" heading-number="8.6"><h1 id="downgrade-downgrade-percona-server-for-mysql">Downgrade Percona Server for MySQL<a class="headerlink" href="#downgrade-downgrade-percona-server-for-mysql" title="Permanent link">&para;</a></h1>
 <p>Review <a href="#get-help">Get more help</a> for ways that we can work with you.</p>
 <p>Downgrading to a 5.7 or earlier series is not supported.</p>
-<p>The following table lists the downgrade paths:</p>
-<table>
-<thead>
-<tr>
-<th>Path</th>
-<th>Examples</th>
-<th>Methods</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Within a bugfix release series or an LTS release</td>
-<td>8.0.35 to 8.0.34</td>
-<td>in-place downgrade, logical downgrade, asynchronous replication, MySQL Clone plugin</td>
-</tr>
-<tr>
-<td>A bugfix or LTS release to the last bugfix or LTS release series</td>
-<td>8.4.x to 8.0.x</td>
-<td>logical downgrade, asynchronous replication</td>
-</tr>
-<tr>
-<td>A bugfix or LTS release to an innovation release after the last LTS series</td>
-<td>8.4.x to 8.3.0</td>
-<td>logical downgrade, asynchronous replication</td>
-</tr>
-<tr>
-<td>An innovation release to another innovation release after the last LTS series</td>
-<td>8.3.0 to 8.2.0</td>
-<td>logical downgrade, asynchronous replication</td>
-</tr>
-</tbody>
-</table>
+<p>Between versions within the same Long-Term Support (LTS) series, you can downgrade from 8.4.y LTS to 8.4.x LTS using the following methods:</p>
+<ul>
+<li>
+<p>Performing an in-place upgrade</p>
+</li>
+<li>
+<p>Creating a logical dump and loading it</p>
+</li>
+<li>
+<p>Use MySQL Clone functionality</p>
+</li>
+<li>
+<p>Set up replication between the versions</p>
+</li>
+</ul>
+<p>Between one LTS or Bugfix series to the previous LTS or Bugfix series, such as moving from 8.4.x LTS to 8.0.y, you have two primary options:</p>
+<ul>
+<li>
+<p>Create a logical dump of your data and load it into the older version</p>
+</li>
+<li>
+<p>Set up replication between the versions. </p>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This downgrade path is only supported when no new server functionality has been applied to your data.</p>
+</div>
+<p>Between an LTS or Bugfix series to an earlier Innovation series (after the previous LTS release), such as from 8.4.x LTS to 8.3.0 Innovation, you have the following options:</p>
+<ul>
+<li>
+<p>Create a logical dump of your data and load it into the older version</p>
+</li>
+<li>
+<p>Set up replication between the versions. </p>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This downgrade path is only supported when no new server functionality has been applied to your data.</p>
+</div>
 <p>We don&rsquo;t support downgrades with any 8.0.x release below 8.0.34.
 A releases in the range above 8.0.34 can be downgraded to any release within that range, including 8.0.34.</p>
 <h2 id="downgrade-downgrading-risks">Downgrading risks<a class="headerlink" href="#downgrade-downgrading-risks" title="Permanent link">&para;</a></h2>
@@ -31291,6 +31332,10 @@ reasons:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For example, operators and containers run as the process id of PID 1. If the process ID is used to identify the core file, each container crash generates a core dump that overwrites the previous core file.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Complex Core Dump Analysis?</p>
+<p><a href="https://www.percona.com/services/support">Percona Support</a> offers expert debugging and in-depth analysis of core dump diagnostics to help you resolve critical system issues.</p>
 </div>
 <h3 id="libcoredumper-disabling-the-libcoredumper">Disabling the libcoredumper<a class="headerlink" href="#libcoredumper-disabling-the-libcoredumper" title="Permanent link">&para;</a></h3>
 <p>You can disable the libcoredumper. A core file may contain sensitive data and

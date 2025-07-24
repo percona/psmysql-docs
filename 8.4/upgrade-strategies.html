@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="There are different strategies to consider when upgrading from 8.0 to 8.4.">
+        <meta name="description" content="For critical production systems, consider engaging Percona Support to assist with your upgrade process. Our experts can help ensure a smooth transition and minimize potential risks during this sensitive operation.">
       
       
         <meta name="author" content="Percona LLC">
@@ -3245,6 +3245,15 @@
       On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#downgrade-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Downgrade options
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#in-place-upgrade" class="md-nav__link">
@@ -7699,6 +7708,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#downgrade-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Downgrade options
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#in-place-upgrade" class="md-nav__link">
     <span class="md-ellipsis">
       In-place upgrade
@@ -7762,17 +7780,24 @@
 
 
 <h1 id="upgrade-strategies">Upgrade strategies<a class="headerlink" href="#upgrade-strategies" title="Permanent link">&para;</a></h1>
-<p>There are different strategies to consider when upgrading from 8.0 to 8.4.</p>
+<p>For critical production systems, consider engaging <a href="https://www.percona.com/services/support">Percona Support</a> to assist with your upgrade process. Our experts can help ensure a smooth transition and minimize potential risks during this sensitive operation.</p>
+<h2 id="downgrade-options">Downgrade options<a class="headerlink" href="#downgrade-options" title="Permanent link">&para;</a></h2>
+<p>Review the <a href="downgrade.html">Downgrade options</a> to ensure that your downgrade path is supported.</p>
 <h2 id="in-place-upgrade">In-place upgrade<a class="headerlink" href="#in-place-upgrade" title="Permanent link">&para;</a></h2>
-<p>An upgrade to 8.4 does not allow a rollback. The in-place upgrade strategy is not recommended, and it should be used only as a last resort.</p>
-<p>An in-place upgrade involves shutting down the 8.0 server, and replacing the server binaries, or packages, with new ones. At this point the new server version can be started on the existing data directory. Note that the server should be configured to perform a slow shutdown by setting <code>innodb_fast_shutdown=0</code> prior to shutdown.</p>
+<p>Use the in-place upgrade strategy only as a last resort. This approach involves shutting down the server and replacing the server binaries or packages with new ones. The new server version then starts using the existing data directory. Configure the server to perform a slow shutdown by setting <code>innodb_fast_shutdown=0</code> before shutting down.</p>
 <p>The benefits are:</p>
 <ul>
-<li>Less additional infrastructure cost compared to a new environment, but nodes must be tested.</li>
-<li>An upgrade can be completed over weeks with cool-down periods between reader node upgrades.</li>
-<li>Requires a failover of production traffic, and for minimal downtime you must have good high-availability tools.</li>
+<li>
+<p>Lower infrastructure costs compared to creating a new environment, though nodes require testing.</p>
+</li>
+<li>
+<p>Ability to complete an upgrade over weeks with cool-down periods between reader node upgrades.</p>
+</li>
+<li>
+<p>Requires a failover of production traffic, and achieving minimal downtime demands robust high-availability tools.</p>
+</li>
 </ul>
-<p>If you use XA transactions with InnoDB, running XA RECOVER before upgrading checks for uncommitted XA transactions. If results are returned, either commit or rollback the XA transactions by issuing an XA COMMIT or XA ROLLBACK statement.</p>
+<p>If you use XA transactions with InnoDB, running <code>XA RECOVER</code> before upgrading checks for uncommitted XA transactions. If results are returned, either commit or rollback the XA transactions by issuing an <code>XA COMMIT</code> or <code>XA ROLLBACK</code> statement.</p>
 <h2 id="new-environment-with-cut-over">New environment with cut over<a class="headerlink" href="#new-environment-with-cut-over" title="Permanent link">&para;</a></h2>
 <p>Upgrading with a new environment involves provisioning a duplicate environment with the same number of servers with the same hardware specs and same operating system as the current production nodes.</p>
 <p>On the newly provided hardware, the target MySQL version will be installed. The new environment will be set up, and the production data will be recovered. Remember that you can use pt-config-diff to verify MySQL configurations. </p>
@@ -7813,7 +7838,7 @@ At cutover time, all writes on the current source will be halted, and the applic
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2023-11-27
+    2025-07-23
   </span>
 
     

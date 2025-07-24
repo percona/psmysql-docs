@@ -7746,38 +7746,47 @@
 <h1 id="downgrade-percona-server-for-mysql">Downgrade Percona Server for MySQL<a class="headerlink" href="#downgrade-percona-server-for-mysql" title="Permanent link">&para;</a></h1>
 <p>Review <a href="get-help.html">Get more help</a> for ways that we can work with you.</p>
 <p>Downgrading to a 5.7 or earlier series is not supported.</p>
-<p>The following table lists the downgrade paths:</p>
-<table>
-<thead>
-<tr>
-<th>Path</th>
-<th>Examples</th>
-<th>Methods</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Within a bugfix release series or an LTS release</td>
-<td>8.0.35 to 8.0.34</td>
-<td>in-place downgrade, logical downgrade, asynchronous replication, MySQL Clone plugin</td>
-</tr>
-<tr>
-<td>A bugfix or LTS release to the last bugfix or LTS release series</td>
-<td>8.4.x to 8.0.x</td>
-<td>logical downgrade, asynchronous replication</td>
-</tr>
-<tr>
-<td>A bugfix or LTS release to an innovation release after the last LTS series</td>
-<td>8.4.x to 8.3.0</td>
-<td>logical downgrade, asynchronous replication</td>
-</tr>
-<tr>
-<td>An innovation release to another innovation release after the last LTS series</td>
-<td>8.3.0 to 8.2.0</td>
-<td>logical downgrade, asynchronous replication</td>
-</tr>
-</tbody>
-</table>
+<p>Between versions within the same Long-Term Support (LTS) series, you can downgrade from 8.4.y LTS to 8.4.x LTS using the following methods:</p>
+<ul>
+<li>
+<p>Performing an in-place upgrade</p>
+</li>
+<li>
+<p>Creating a logical dump and loading it</p>
+</li>
+<li>
+<p>Use MySQL Clone functionality</p>
+</li>
+<li>
+<p>Set up replication between the versions</p>
+</li>
+</ul>
+<p>Between one LTS or Bugfix series to the previous LTS or Bugfix series, such as moving from 8.4.x LTS to 8.0.y, you have two primary options:</p>
+<ul>
+<li>
+<p>Create a logical dump of your data and load it into the older version</p>
+</li>
+<li>
+<p>Set up replication between the versions. </p>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This downgrade path is only supported when no new server functionality has been applied to your data.</p>
+</div>
+<p>Between an LTS or Bugfix series to an earlier Innovation series (after the previous LTS release), such as from 8.4.x LTS to 8.3.0 Innovation, you have the following options:</p>
+<ul>
+<li>
+<p>Create a logical dump of your data and load it into the older version</p>
+</li>
+<li>
+<p>Set up replication between the versions. </p>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This downgrade path is only supported when no new server functionality has been applied to your data.</p>
+</div>
 <p>We don&rsquo;t support downgrades with any 8.0.x release below 8.0.34.
 A releases in the range above 8.0.34 can be downgraded to any release within that range, including 8.0.34.</p>
 <h2 id="downgrading-risks">Downgrading risks<a class="headerlink" href="#downgrading-risks" title="Permanent link">&para;</a></h2>
@@ -7828,7 +7837,7 @@ A releases in the range above 8.0.34 can be downgraded to any release within tha
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-11-21
+    2025-07-23
   </span>
 
     
