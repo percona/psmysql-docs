@@ -2,6 +2,8 @@
 
 --8<--- "get-help-snip.md"
 
+[Need expert guidance for your upgrade? Percona Support is here to help.](https://www.percona.com/services/support).
+
 Upgrading your server to {{vers}} has the following benefits:
 
 | Benefits | Description |
@@ -22,11 +24,15 @@ Not upgrading your database can have the following risks:
 | Compatibility risks | You can experience compatibility issues with hardware, operating systems, or applications since the older version is not supported on newer platforms. At some point, the database server is no longer supportable. |
 | Failure risk | A failure in either hardware, operating system, or application may force an upgrade at the wrong time. |
 
+[Concerned about upgrade risks? Percona Support can help mitigate potential issues.](https://www.percona.com/services/support)
+
 Create a test environment to verify the upgrade before you upgrade the production servers. The test environment is crucial to the success of the upgrade. There is no supported [downgrade procedure](./downgrade.md). You can try to replicate from an {{vers}} version to an 8.0 version or restore a backup.
 
 Tools, such as the [`pt-upgrade` tool](https://docs.percona.com/percona-toolkit/pt-upgrade.html) in the [Percona Toolkit](https://docs.percona.com/percona-toolkit/), can help with the upgrade process.
 
 We recommend upgrading to the latest version.
+
+[Need personalized support during your upgrade? Contact Percona Support.](https://www.percona.com/services/support)
 
 Review the documentation for other changes between 8.0 to {{vers}}.
 

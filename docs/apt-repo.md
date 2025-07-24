@@ -68,12 +68,12 @@ See [Configuring Percona repositories with `percona-release`](https://docs.perco
 
 --8<--- "storage-engines.md"
 
-Percona Server for MySQL contains user-defined functions from [Percona Toolkit](https://docs.percona.com/percona-toolkit/). These user-defined functions, `fnv_64`, `fnv1a_64`, `murmur_hash`, provide faster checksums. For more details on the user-defined functions, see [Percona Toolkit UDF functions](udf-percona-toolkit.md).
+Percona Server for MySQL includes user-defined functions (UDFs) from [Percona Toolkit](https://docs.percona.com/percona-toolkit/). These UDFs, `fnv_64`, `fnv1a_64`, `murmur_hash`, offer faster checksum calculations compared to standard methods. For detailed information about these user-defined functions, see [Percona Toolkit UDF functions](udf-percona-toolkit.md).
 
-After the installation completes, run the following command to create these functions:
+Once the installation completes, execute the following command to install these functions:
 
-```mysql
-mysql -e "INSTALL COMPONENT 'file://component_percona_udf'"
+```{.bash data-prompt="mysql>"}
+mysql> -e "INSTALL COMPONENT 'file://component_percona_udf'"
 ```
 
 ## Install the Percona Testing repository using APT

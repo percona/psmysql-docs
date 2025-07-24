@@ -1,5 +1,7 @@
 # Upgrading from plugins to components 
 
+[Need help navigating plugin to component transitions? Percona Support can assist].(https://www.percona.com/services/support)
+
 The following plugins have changed:
 
 | Plugin | 8.0 information | {{vers}} changes | Notes |

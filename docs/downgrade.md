@@ -4,14 +4,33 @@
 
 Downgrading to a 5.7 or earlier series is not supported.
 
-The following table lists the downgrade paths:
+Between versions within the same Long-Term Support (LTS) series, you can downgrade from 8.4.y LTS to 8.4.x LTS using the following methods:
 
-| Path | Examples | Methods |
-|---|---|---|
-| Within a bugfix release series or an LTS release | 8.0.35 to 8.0.34 | in-place downgrade, logical downgrade, asynchronous replication, MySQL Clone plugin |
-| A bugfix or LTS release to the last bugfix or LTS release series | 8.4.x to 8.0.x | logical downgrade, asynchronous replication |
-| A bugfix or LTS release to an innovation release after the last LTS series | 8.4.x to 8.3.0 | logical downgrade, asynchronous replication |
-| An innovation release to another innovation release after the last LTS series | 8.3.0 to 8.2.0 | logical downgrade, asynchronous replication |
+* Performing an in-place upgrade
+
+* Creating a logical dump and loading it
+
+* Use MySQL Clone functionality
+
+* Set up replication between the versions
+
+Between one LTS or Bugfix series to the previous LTS or Bugfix series, such as moving from 8.4.x LTS to 8.0.y, you have two primary options:
+
+* Create a logical dump of your data and load it into the older version
+
+* Set up replication between the versions. 
+
+!!! important "Important"
+    This downgrade path is only supported when no new server functionality has been applied to your data.
+
+Between an LTS or Bugfix series to an earlier Innovation series (after the previous LTS release), such as from 8.4.x LTS to 8.3.0 Innovation, you have the following options:
+
+* Create a logical dump of your data and load it into the older version
+
+* Set up replication between the versions. 
+
+!!! important "Important"
+    This downgrade path is only supported when no new server functionality has been applied to your data.
 
 We don't support downgrades with any 8.0.x release below 8.0.34.
 A releases in the range above 8.0.34 can be downgraded to any release within that range, including 8.0.34.

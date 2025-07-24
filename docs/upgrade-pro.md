@@ -6,7 +6,9 @@ This document provides instructions on upgrading from Percona Server for MySQL t
 
 ## Preconditions
 
-Request the access to the pro repository from Percona Support. You will receive the client ID and the access token which you use when downloading the packages.
+To begin, please contact [Percona Support](https://www.percona.com/services/support) to request access to the pro repository. They'll provide you with the client ID and access token needed for downloading packages.
+
+For additional assistance during your upgrade process, our [Percona Support team](https://www.percona.com/services/support) is available to help ensure a smooth transition.
 
 [Check files in packages built for Percona Server for MySQL Pro :material-arrow-right:](pro-files.md){.md-button}
 

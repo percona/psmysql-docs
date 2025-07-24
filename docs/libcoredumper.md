@@ -59,6 +59,10 @@ reasons:
 !!! note
 
     For example, operators and containers run as the process id of PID 1. If the process ID is used to identify the core file, each container crash generates a core dump that overwrites the previous core file.
+    
+!!! tip "Complex Core Dump Analysis?"
+
+    [Percona Support](https://www.percona.com/services/support) offers expert debugging and in-depth analysis of core dump diagnostics to help you resolve critical system issues.
 
 ### Disabling the libcoredumper
 
