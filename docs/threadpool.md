@@ -436,25 +436,11 @@ Controls how long to wait before rescheduling stalled queries.
 * This setting helps improve query responsiveness under unbalanced workloads.
 
 
-### `thread_pool_min_threads`
-
-Defines the minimum number of worker threads per group.
-
-* Allowed values: Integer ≥ 1
-
-* Description: Sets a floor for thread availability within each group.
-
-* Default: 4
-
-* This value is not dynamic.
-
-
-
 ### `thread_pool_max_threads`
 
 Defines the maximum number of worker threads per group.
 
-* Allowed values: Integer ≥ `thread_pool_min_threads`
+* Allowed values: Integer ≥ `thread_pool_max_threads`
 
 * Description: Controls the upper bound on thread creation. If reached, new queries wait
   in the queue.
