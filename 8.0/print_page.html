@@ -43236,8 +43236,12 @@ By default, it is created in the current working directory.</p>
 </tr>
 </tbody>
 </table>
-<p>Specifies whether MyRocks should detect deadlocks.
-Disabled by default.</p>
+<p>The <code>rocksdb_deadlock_detect</code> option in MyRocks enables or disables deadlock detection within the RocksDB storage engine (rocksdb::TransactionOptions::deadlock_detect). </p>
+<p>In RocksDB, multiple transactions might lock the same keys in different orders, causing a deadlock. When <code>rocksdb_deadlock_detect</code> is set to <code>true</code>, the transaction checks for potential deadlocks before attempting to acquire locks on keys. If a deadlock is detected, RocksDB aborts the transactions involved in the cycle.</p>
+<h4 id="variables-benefits">Benefits<a class="headerlink" href="#variables-benefits" title="Permanent link">&para;</a></h4>
+<p>Enabling deadlock detection improves availability and performance by preventing transactions from getting stuck indefinitely or failing due to lock wait timeouts.</p>
+<h4 id="variables-considerations">Considerations<a class="headerlink" href="#variables-considerations" title="Permanent link">&para;</a></h4>
+<p>Deadlock detection has a performance overhead, so it&rsquo;s essential to weigh the benefits of preventing deadlocks against the potential performance impact. </p>
 <h3 id="variables-rocksdb_deadlock_detect_depth"><code>rocksdb_deadlock_detect_depth</code><a class="headerlink" href="#variables-rocksdb_deadlock_detect_depth" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -43607,10 +43611,35 @@ read-only at runtime.</p>
 </tr>
 </tbody>
 </table>
-<p>Specifies the write rate in bytes per second, which should be used
-if MyRocks hits a soft limit or threshold for writes.
-Default value is <code>16777216</code> (16 MB/sec).
-Allowed range is from <code>0</code> to <code>18446744073709551615</code>.</p>
+<p>The <code>rocksdb_delayed_write_rate</code> option provides flow control to prevent
+the database from being overwhelmed by writes. This option specifies the
+write rate (in bytes per second) that RocksDB will throttle background
+writes to when entering delayed write mode. The throttling mechanism
+activates when background operations like compaction or flushes fall behind,
+indicating write pressure on the database.</p>
+<p>This option stabilizes performance and prevents write stalls by slowing
+down write operations when RocksDB struggles to keep up with incoming
+write rates. Instead of rejecting writes entirely, RocksDB delays them
+to allow background threads to catch up. Normal write speed resumes once
+background activity catches up.</p>
+<p>The default value for <code>rocksdb_delayed_write_rate</code> is <code>16777216</code> (16MB/s).
+Consider increasing this value if:</p>
+<ul>
+<li>
+<p>Using high-performance NVMe SSDs or having plenty of CPU cores handling
+  background threads.</p>
+</li>
+<li>
+<p>Seeing application writes significantly exceeding 16 MB/s and:</p>
+</li>
+<li>
+<p>Noticing frequent delays despite underutilized disk and CPU resources</p>
+</li>
+<li>
+<p>Observing low compaction pressure while still experiencing throttling</p>
+</li>
+</ul>
+<p>Allowed range is from <code>0</code> to <code>18446744073709551615</code>.</p>
 <h3 id="variables-rocksdb_delete_cf"><code>rocksdb_delete_cf</code><a class="headerlink" href="#variables-rocksdb_delete_cf" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -45592,7 +45621,17 @@ responsibility down to RocksDB level.</p>
 </tr>
 </tbody>
 </table>
-<p>Specifies the maximum number of recent deadlocks to store.</p>
+<p>The <code>rocksdb_max_latest_deadlocks</code> option specifies the maximum number of
+the most recent transaction deadlock events that RocksDB retains in memory
+for diagnostic purposes. When the number of recorded deadlocks exceeds this
+value, the oldest entries are discarded to make room for newer ones.</p>
+<p>This setting is primarily used for debugging and monitoring transactional
+conflicts in systems that use RocksDB. By preserving recent deadlock
+information, it helps developers and database administrators analyze and
+resolve concurrency issues.</p>
+<p>The default value is typically <code>5</code>, meaning only the last 5 deadlocks are
+stored. Increasing this value provides a more extensive history for
+analysis but also consumes more memory.</p>
 <h3 id="variables-rocksdb_max_log_file_size"><code>rocksdb_max_log_file_size</code><a class="headerlink" href="#variables-rocksdb_max_log_file_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
