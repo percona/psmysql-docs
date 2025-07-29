@@ -4,7 +4,7 @@
 
 Review [Get more help](get-help.md) for ways that we can work with you.
 
-This document provides guidelines how to install Pro packages of Percona Server for MySQL from Percona repositories. [Check files in packages built for Percona Server for MySQL Pro :material-arrow-right:](pro-files.md){.md-button}
+This document provides guidelines how to install Pro packages of Percona Server for MySQL from Percona repositories. [Check files in packages built for Percona Server for MySQL Pro](pro-files.md){.md-button}
 
 ## Procedure
 
@@ -76,4 +76,4 @@ This document provides guidelines how to install Pro packages of Percona Server 
 
 ## Next step
 
-[Enable FIPS mode :material-arrow-right:](fips.md){.md-button}
+[Enable FIPS mode](fips.md){.md-button}
