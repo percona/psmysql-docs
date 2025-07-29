@@ -15,3 +15,38 @@ Percona Monitoring and Management (PMM )monitors and provides actionable perform
 [Install PMM and connect your MySQL instances to it](https://docs.percona.com/percona-monitoring-and-management/3/quickstart/quickstart.html#connect-database).
 
 --8<--- "get-help-snip.md"
+
+<div data-grid markdown><div data-banner markdown>
+
+## :material-progress-download: Quickstart guide { .title }
+
+Get started quickly with our Quickstart guide.
+
+[Quickstart guide](quickstart-overview.md){ .md-button }
+
+</div><div data-banner markdown>
+
+### :material-progress-download: Installation guides { .title }
+
+Find the best installation solution with our step-by-step installation instructions.
+
+[Installation instructions](installation.md){ .md-button }
+
+</div><div data-banner markdown>
+
+### :material-backup-restore: Percona Server for MySQL Pro { .title }
+
+Enjoy the benefits of Percona Server for MySQL Pro build.
+
+[Percona Server for MySQL Pro](psmysql-pro.md){ .md-button }
+
+</div><div data-banner markdown>
+
+## :fontawesome-solid-gears: Audit Log Filter plugin { .title }
+
+Learn about the Audit Log Filter plugin that allows you to monitor, log, and block a connection or query actively executed on the selected server.
+
+[Audit Log Filter](audit-log-filter-overview.md){ .md-button}
+
+</div>
+</div>
