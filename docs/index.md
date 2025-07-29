@@ -45,3 +45,7 @@ Enjoy the benefits of Percona Server for MySQL Pro build.
 Learn about the Audit Log Filter plugin that allows you to monitor, log, and block a connection or query actively executed on the selected server.
 
 [Audit Log Filter](audit-log-filter-overview.md){ .md-button}
+
+</div>
+</div>
+
