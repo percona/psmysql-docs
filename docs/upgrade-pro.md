@@ -10,7 +10,7 @@ To begin, please contact [Percona Support](https://www.percona.com/services/supp
 
 For additional assistance during your upgrade process, our [Percona Support team](https://www.percona.com/services/support) is available to help ensure a smooth transition.
 
-[Check files in packages built for Percona Server for MySQL Pro :material-arrow-right:](pro-files.md){.md-button}
+[Check files in packages built for Percona Server for MySQL Pro](pro-files.md){.md-button}
 
 ## Procedure
 
@@ -88,4 +88,4 @@ For additional assistance during your upgrade process, our [Percona Support team
     $ sudo systemctl daemon-reload
     ```
 
-[Downgrade from Percona Server for MySQL Pro :material-arrow-right:](downgrade-from-pro.md){.md-button}
+[Downgrade from Percona Server for MySQL Pro](downgrade-from-pro.md){.md-button}
