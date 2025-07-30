@@ -71,11 +71,11 @@ To ensure that the FIPS mode is enabled, do the following:
 
 ## Next steps
 
-[Install Percona Server for MySQL Pro :material-arrow-right:](install-pro.md){.md-button}
+[Install Percona Server for MySQL Pro](install-pro.md){.md-button}
 
 If you already use Percona Server for MySQL, you can
 
-[Upgrade to Percona Server for MySQL Pro :material-arrow-right:](upgrade-pro.md){.md-button}
+[Upgrade to Percona Server for MySQL Pro](upgrade-pro.md){.md-button}
 
 
 

@@ -12,7 +12,7 @@ This document provides instructions on upgrading from Percona Server for MySQL t
 
 Request the access to the pro repository from Percona Support. You will receive the client ID and the access token which you use when downloading the packages.
 
-[Check files in packages built for Percona Server for MySQL Pro :material-arrow-right:](pro-files.md){.md-button}
+[Check files in packages built for Percona Server for MySQL Pro](pro-files.md){.md-button}
 
 ## Procedure
 
@@ -94,4 +94,4 @@ Request the access to the pro repository from Percona Support. You will receive 
 
 
 
-[Downgrade from Percona Server for MySQL Pro :material-arrow-right:](downgrade-from-pro.md){.md-button}
+[Downgrade from Percona Server for MySQL Pro](downgrade-from-pro.md){.md-button}
