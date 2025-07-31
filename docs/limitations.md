@@ -2,12 +2,27 @@
 
 The MyRocks storage engine lacks the following features compared to InnoDB:
 
-* [Online DDL](https://dev.mysql.com/doc/refman/8.0/en/innodb-online-ddl.html) is not supported due to the lack of atomic DDL support.
+* [Online DDL](https://dev.mysql.com/doc/refman/8.0/en/innodb-online-ddl.html) is generally **not supported** due to the lack of atomic DDL support.
 
-        * There is no `ALTER TABLE ... ALGORITHM=INSTANT` functionality
+    As of Percona Server for MySQL 8.0.42-33, RocksDB supports a limited set of Instant DDL operations through specific configuration variables:
 
-        * A partition management operation only supports the `COPY` algorithms, which rebuilds the partition table and moves the data based on the new `PARTITION ... VALUE` definition. In the case of `DROP PARTITION`, the data not moved to another partition is deleted.
+    * [`--rocksdb_enable_instant_ddl_for_append_column`](variables.md#rocksdb_enable_instant_ddl_for_append_column)
+    * [`--rocksdb_enable_instant_ddl_for_column_default_changes`](variables.md#rocksdb_enable_instant_ddl_for_column_default_changes)
+    * [`--rocksdb_enable_instant_ddl_for_drop_index_changes`](variables.md#rocksdb_enable_instant_ddl_for_drop_index_changes)
+    * [`--rocksdb_enable_instant_ddl_for_table_comment_changes`](variables.md#rocksdb_enable_instant_ddl_for_table_comment_changes)
 
+    However, RocksDB has important limitations compared to InnoDB's Instant DDL support. 
+    
+    * The explicit `ALTER TABLE ... ALGORITHM=INSTANT` syntax is not supported for RocksDB tables.
+
+    * As of Percona Server for MySQL 8.0.25-15, certain partition management operations support the `INPLACE` algorithm. For example, dropping a partition can now be performed without a full table rebuild.
+
+        ```sql
+        ALTER TABLE t1 ALGORITHM=INPLACE, DROP PARTITION p2;
+        ```
+        However, not all partition operations support `INPLACE`. Operations that modify the partitioning scheme, such as changing `PARTITION ... VALUES`, still require the `COPY` algorithm. In these cases, the table is rebuilt, and data is redistributed according to the new partition definition.
+
+        Note that if you use `DROP PARTITION` without reassigning data to another partition, any data contained in the dropped partition will be permanently deleted.
 
 * [ALTER TABLE .. EXCHANGE PARTITION](https://dev.mysql.com/doc/refman/8.0/en/partitioning-management-exchange.html).
 
