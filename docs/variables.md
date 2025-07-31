@@ -431,21 +431,18 @@ The minimum value is `-1` and the maximum value is `8`.
 | Option       | Description                |
 |--------------|----------------------------|
 | Command-line | --rocksdb-block-cache-size |
-| Dynamic      | No                         |
+| Dynamic      | Yes                         |
 | Scope        | Global                     |
 | Data type    | Numeric                    |
 | Default      | 536870912                  |
 
-Specifies the size of the LRU block cache for RocksDB.
-This memory is reserved for the block cache,
-which is in addition to any filesystem caching that may occur.
+This variable sets the RocksDB LRU block cache size. This memory is reserved for the block cache and supplements any filesystem caching.
 
-Minimum value is `1024`,
-because that’s the size of one block.
+The minimum value is `1024`, representing the size of a single block.
 
-Default value is `536870912`.
+The default value is `536870912`.
 
-Maximum value is `9223372036854775807`.
+The maximum value is `9223372036854775807`.
 
 ### `rocksdb_bulk_load_fail_if_not_bottommost_level`
 
