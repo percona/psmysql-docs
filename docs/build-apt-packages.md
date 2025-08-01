@@ -1,28 +1,61 @@
-# Build APT packages
+# Build DEB packages from source
 
-If you wish to build your own Debian/Ubuntu (dpkg) packages of Percona Server for MySQL,
-you first need to start with a source tarball, either from the Percona
-website or by generating your own by following the instructions above ([Installing Percona Server for MySQL from the Git Source Tree](source-tarball.md)).
+Build custom DEB packages when you need specific configuration options, patches, or want to create packages for distribution. This process compiles Percona Server from source code and creates installable DEB files.
+
+## When to build from source
+
+Advantages:
+
+ Enables custom compilation flags and configuration options
+
+* Allows integration of custom patches or modifications
+
+* Creates packages tailored for specific hardware or requirements
+
+* Provides control over included features and dependencies
+
+Disadvantages:
+
+* Requires significant build time and system resources
+
+* Demands expertise in Debian packaging and build tools
+
+* Creates maintenance overhead for updates and security patches
+
+* May introduce stability risks from custom modifications
+
+## Prerequisites
+
+Skills needed: Software development, packaging knowledge, build tools
+
+Install the required build tools and dependencies:
+
+```{.bash data-prompt="$"}
+$ sudo apt install build-essential devscripts debhelper sbuild
+$ sudo apt build-dep percona-server-server
+```
+
+## Build process
+
+Start with a source tarball from the Percona website or generate your own following the Git source tree installation instructions.
 
 Extract the source tarball:
 
 ```{.bash data-prompt="$"}
-$ tar xfz Percona-Server-{{release}}-Linux.x86_64.ssl102.tar.gz
+$ tar xfz Percona-Server-{{release}}-Linux.x86_64.tar.gz
 $ cd Percona-Server-{{release}}
 ```
 
-Copy the Debian packaging in the directory that Debian expects it to be in:
+Copy the Debian packaging files to the expected directory structure:
 
 ```{.bash data-prompt="$"}
 $ cp -ap build-ps/debian debian
 ```
-<!-- Do we need this part --->
-Update the changelog for your distribution (here we update for the unstable
-distribution - sid), setting the version number appropriately. The trailing one
-in the version number is the revision of the Debian packaging.
+
+Update the changelog for your target distribution. This example updates for the unstable distribution (sid) and sets the version number. The trailing number represents the Debian packaging revision:
 
 ```{.bash data-prompt="$"}
-$ dch -D unstable --force-distribution -v "8.0.13-3-1" "Update to 8.0.13-3"
+$ dch -D unstable --force-distribution -v "{{release}}-1" "Update to {{release}}"
 ```
 
 Build the Debian source package:
@@ -31,15 +64,16 @@ Build the Debian source package:
 $ dpkg-buildpackage -S
 ```
 
-Use sbuild to build the binary package in a chroot:
+Use sbuild to create the binary package in a clean chroot environment:
 
 ```{.bash data-prompt="$"}
-$ sbuild -d sid percona-server-{{vers}}_{{release}}.dsc
+$ sbuild -d sid percona-server-8.4_{{release}}.dsc
 ```
-
-You can give different distribution options to `dch` and `sbuild` to build binary
-packages for all Debian and Ubuntu releases.
 
 !!! note
 
-    [PAM Authentication Plugin](pam-plugin.md) is not built with the server by default. In order to build the Percona Server for MySQL with PAM plugin, an additional option `-DWITH_PAM=ON` should be used.
+    The PAM Authentication Plugin does not build with the server by default. Add the `-DWITH_PAM=ON` option to build Percona Server for MySQL with PAM plugin support.
+
+## Distribution compatibility
+
+Pass different distribution options to `dch` and `sbuild` commands to build binary packages for various Debian and Ubuntu releases. Replace `sid` with your target distribution codename (such as `bookworm`, `jammy`, or `focal`).

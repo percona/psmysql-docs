@@ -1,39 +1,66 @@
-# Install Percona Server for MySQL {{vers}} using downloaded DEB packages
+# Install Percona Server for MySQL 8.4 using DEB packages
 
-Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
+Percona distributes DEB packages in tar bundles that contain multiple related packages. Two bundle types are available:
 
-The following example downloads Percona Server for MySQL {{release}} release packages for Ubuntu 22.04:
+* Full bundle: Contains all Percona Server packages including server, client, test packages, debug symbols, and source files
+
+* Minimal bundle: Contains only the essential server and client packages needed for basic operation
+
+Choose the bundle type based on your requirements. Download the bundle to access the components you need, then extract and install the individual DEB files using your system package manager.
+
+## When to use this installation method
+
+Skills needed: Basic system administration, command line familiarity
+
+Advantages:
+
+* Provides precise version control over installed packages
+
+* Works in offline environments without internet access
+
+* Allows installation before packages appear in standard repositories
+
+* Enables administrators to validate packages before deployment
+
+Disadvantages:
+
+* Requires manual download and extraction steps
+
+* Does not receive automatic updates through the package manager
+
+* Users must manually track new releases and security updates
+
+* Takes more time than repository-based installation
+
+Download the bundle from Percona Product Downloads. Review the Instructions for the Percona Product Download if you need assistance.
+
+This example downloads Percona Server for MySQL {{release}} release packages for Ubuntu 22.04:
 
 ```{.bash data-prompt="$"}
-$ wget https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.0-1/binary/debian/jammy/x86_64/Percona-Server-8.4.0-1-r238b3c02-jammy-x86_64-bundle.tar
+$ wget https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-{{release}}/binary/debian/jammy/x86_64/Percona-Server-{{release}}-[revision hash]-jammy-x86_64-bundle.tar
 ```
 
-Unpack the download to get the packages:
+Extract the bundle to access the individual packages:
 
 ```{.bash data-prompt="$"}
-$ tar xvf Percona-Server-8.4.0-1-r71449379-buster-x86_64-bundle.tar
+$ tar xvf Percona-Server-{{release}}-[revision hash]-jammy-x86_64-bundle.tar
 ```
-??? example "Expected output"
 
-    ```text
-    libperconaserverclient21_{{release}}-1.buster_amd64.deb
-    libperconaserverclient21-dev_{{release}}-1.buster_amd64.deb
-    percona-mysql-router_{{release}}-1.buster_amd64.deb
-    percona-server-client_{{release}}-1.buster_amd64.deb
-    percona-server-common_{{release}}-1.buster_amd64.deb
-    percona-server-dbg_{{release}}-1.buster_amd64.deb
-    percona-server-rocksdb_{{release}}-1.buster_amd64.deb
-    percona-server-server_{{release}}-1.buster_amd64.deb
-    percona-server-source_{{release}}-1.buster_amd64.deb
-    percona-server-test_{{release}}-1.buster_amd64.deb
+??? example "Expected output for a full tar extraction"
+
+    ```{.text .no-copy}
+    percona-server-server_{{release}}-1.jammy_amd64.deb
+    percona-server-client_{{release}}-1.jammy_amd64.deb
+    percona-server-common_{{release}}-1.jammy_amd64.deb
+    percona-server-dbg_{{release}}-1.jammy_amd64.deb
+    percona-server-source_{{release}}-1.jammy_amd64.deb
+    percona-server-test_{{release}}-1.jammy_amd64.deb
     ```
 
-Install Percona Server for MySQL using `dpkg`. Run this command as root or use the sudo command:
+Install Percona Server for MySQL using the system package manager. Run this command as root or use sudo:
 
 ```{.bash data-prompt="$"}
-$ sudo dpkg -i *.deb
+$ sudo apt install ./*.deb
 ```
 
-!!! warning
-
-    When installing packages manually like this, you’ll need to resolve all the dependencies and install missing packages yourself. The following packages will need to be installed before you can manually install Percona Server: `mysql-common`, `libjemalloc1`, `libaio1`, and `libmecab2`.
+The package manager resolves dependencies automatically and installs all required components from the extracted files.
