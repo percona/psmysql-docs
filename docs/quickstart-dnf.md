@@ -546,5 +546,5 @@ $ sudo mysql_secure_installation
 
 
 
-[Percona Monitoring and Management]: https://docs.percona.com/percona-monitoring-and-management
+[Percona Monitoring and Management]: https://docs.percona.com/percona-monitoring-and-management/3/
 [Percona repositories]: percona-release.md
