@@ -575,4 +575,4 @@ mysql> SELECT id, name, email, country FROM employees WHERE id > 10;
 
 
 
-[Percona Monitoring and Management]: https://docs.percona.com/percona-monitoring-and-management
+[Percona Monitoring and Management]: https://docs.percona.com/percona-monitoring-and-management/3/quickstart/quickstart.html
