@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
     
     
       
@@ -16443,7 +16443,7 @@ Deleted: sha256:db9672f7e12e374d5e9016b758a29d5444e8b0fd1246a6f1fc5c2b3c847dddcf
 </li>
 </ul>
 <h2 id="quickstart-apt-installation-steps">Installation steps<a class="headerlink" href="#quickstart-apt-installation-steps" title="Permanent link">&para;</a></h2>
-<p class="power-number">The examles of the &ldquo;expected output&rdquo; depend on the operating system. The following examples are based on an installation in Ubuntu 22.04 (Jammy Jellyfish).</p>
+<p class="power-number">The examples of the &ldquo;expected output&rdquo; depend on the operating system. The following examples are based on an installation in Ubuntu 22.04 (Jammy Jellyfish).</p>
 <ol>
 <li>
 <p>Update the package index.</p>
@@ -16601,8 +16601,8 @@ After this operation, 612 MB of additional disk space will be used.
 <p><img alt="Confirm the password" src="_static/confirm-password.png" title="Confirm the password" /></p>
 </li>
 <li>
-<p>Choose the type of authentication, based on the compatibility and the security requirements of your applications.</p>
-<p>The Strong password encryption uses a more secure hashing algorithm to store and verify passwords, which makes it harder for attackers to crack them.</p>
+<p>Choose the type of authentication based on the compatibility and the security requirements of your applications.</p>
+<p>Strong password encryption uses a more secure hashing algorithm to store and verify passwords, which makes it harder for attackers to crack them.</p>
 <p>The Legacy authentication method uses the older and less secure hashing algorithm that was used in previous versions of MySQL.</p>
 <p><img alt="Type of authentication" src="_static/mysql-authentication.png" title="Select a type of authentication" /></p>
 </li>
@@ -16729,7 +16729,7 @@ Feb 16 10:24:58 vagrant systemd[1]: Started Percona Server.
 </code></pre></div>
 </li>
 <li>
-<p>Log in to the server. Use the password that you entered during the installation process, which could be <code>secret</code>orwhatever password you have selected. You do not see the characters in the password as you type.</p>
+<p>Log in to the server. Use the password you entered during the installation process, which could be <code>secret</code> or whatever you have selected. You do not see the characters in the password as you type.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
 Enter<span class="w"> </span>password:
 </code></pre></div>
@@ -16763,7 +16763,7 @@ mysql&gt;
 <li>Enforce data integrity and security using constraints, triggers, views, roles, and permissions.</li>
 <li>Optimize your data access and performance using indexes, partitions, caching, and other techniques.</li>
 </ul>
-<p>When you create a table, design your database schema carefully, changing it later may be difficult and costly. You should experiment with concurrency, transactions, locking, isolation, and other issues that may arise when multiple users access the same data. You must backup and restore your data regularly, as data loss or corruption may occur due to hardware failures, human errors, or malicious attacks.</p>
+<p>When you create a table, design your database schema carefully; changing it later may be difficult and costly. You should experiment with concurrency, transactions, locking, isolation, and other issues that may arise when multiple users access the same data. You must back up and restore your data regularly, as data loss or corruption may occur due to hardware failures, human errors, or malicious attacks.</p>
 </details>
 <p>To create a database, use the <code>CREATE DATABASE</code> statement. You can optionally specify the character set and collation for the database in the statement. After the database is created, select the database using the <code>USE</code> statement or the <code>-D</code> option in the MySQL client.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>mydb<span class="p">;</span>
@@ -16817,7 +16817,7 @@ Records: 10  Duplicates: 0  Warnings: 0
 </code></pre></div>
 </details>
 <h2 id="quickstart-apt-run-a-select-query">Run a SELECT query<a class="headerlink" href="#quickstart-apt-run-a-select-query" title="Permanent link">&para;</a></h2>
-<p>SELECT queries retrieve data from one or more tables based on specified criteria. They are the most common type of query and can be used for various purposes, such as displaying, filtering, sorting, aggregating, or joining data. SELECT queries do not modify the data in the database but can affect the performance if the query involves large or complex datasets.</p>
+<p>SELECT queries retrieve data from one or more tables based on specified criteria. They are the most common type of query and can be used for various purposes, such as displaying, filtering, sorting, aggregating, or joining data. SELECT queries do not modify the data in the database but can affect performance if they involve large or complex datasets.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;SELECT<span class="w"> </span>id,<span class="w"> </span>name,<span class="w"> </span>email,<span class="w"> </span>country<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Poland&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -16856,7 +16856,7 @@ Rows matched: 1  Changed: 1  Warnings: 0
 </code></pre></div>
 </details>
 <h2 id="quickstart-apt-run-an-insert-query">Run an INSERT query<a class="headerlink" href="#quickstart-apt-run-an-insert-query" title="Permanent link">&para;</a></h2>
-<p>INSERT queries add new data to a table. They are used to populate the database with new information. INSERT queries can insert one or more rows at a time, depending on the syntax. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.</p>
+<p>INSERT queries add new data to a table and populate the database with new information. Depending on the syntax, INSERT queries can insert one or more rows at a time. The query may fail if it violates any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.</p>
 <p>Insert a row into a table and then run a <a href="#quickstart-apt-run-a-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
 VALUES
@@ -16880,7 +16880,7 @@ VALUES
 </code></pre></div>
 </details>
 <h2 id="quickstart-apt-run-a-delete-query">Run a Delete query<a class="headerlink" href="#quickstart-apt-run-a-delete-query" title="Permanent link">&para;</a></h2>
-<p>DELETE queries remove existing data from a table. They are used to clean up the information no longer needed or relevant in the database. The DELETE queries can delete one or more rows at a time, depending on the specified conditions. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.</p>
+<p>DELETE queries remove existing data from a table. They are used to clean up information no longer needed or relevant in the database. Depending on the specified conditions, DELETE queries can delete one or more rows at a time. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.</p>
 <p>Delete a row in the table and run a <a href="#quickstart-apt-run-a-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DELETE<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span>id<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">;</span>
 </code></pre></div>
@@ -45255,12 +45255,12 @@ contributions and changes from MariaDB.</p>
     
     
       
-      <script id="__config" type="application/json">{"base": "/percona-server/8.4", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.edit", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"base": "/percona-server/8.4", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.edit", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.50899def.min.js"></script>
+      <script src="assets/javascripts/bundle.92b07e13.min.js"></script>
       
         <script src="js/print-site.js"></script>
       
