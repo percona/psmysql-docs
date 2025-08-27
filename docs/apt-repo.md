@@ -1,9 +1,10 @@
 # Use an APT repository to install Percona Server for MySQL {{vers}}
 
-Ready-to-use packages are available from the Percona Server for MySQL software
-repositories and the [Percona downloads] page.
+Ready-to-use packages are available from the Percona Server for MySQL software repositories and the [Percona downloads] page.
 
 Specific information on the supported platforms, products, and versions is described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
+
+--8<-- "percona-release.md"
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
@@ -12,6 +13,11 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 ## ARM support
 
 The DEB builds for Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, DEBIAN 11, and DEBIAN 12 contain ARM packages with the `aarch64.rpm` extension. This means that Percona Server for MySQL is available for users on ARM-based systems.
+
+## Unattended installations
+
+--8<-- "install-flag.md"
+
 
 ## Install Percona Server for MySQL using APT
 

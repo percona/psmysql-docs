@@ -2,6 +2,8 @@
 
 Use the Percona repositories to install using APT.
 
+--8<-- "percona-release.md"
+
 ## Prerequisits
 
 * Either use `sudo` or run as root
