@@ -6,6 +6,8 @@ Percona yum repository supports popular RPM-based
 operating systems. The easiest way to install the Percona RPM repository is to install an RPM
 that configures yum and installs the [Percona GPG key](https://www.percona.com/downloads/RPM-GPG-KEY-percona).
 
+--8<-- "percona-release.md"
+
 We gather [Telemetry data] in the Percona packages and Docker images.
 
 --8<--- "get-help-snip.md"
@@ -35,6 +37,10 @@ $ sudo yum module disable mysql
 --8<--- "pro-build-announcement.md"
 
 [Install Percona Server for MySQL Pro](install-pro.md){.md-button}
+
+### Unattended installations
+
+--8<-- "install-flag.md"
 
 ## Install
 
