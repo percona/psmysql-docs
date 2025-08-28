@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
     
     
       
@@ -16433,6 +16433,7 @@ Deleted: sha256:db9672f7e12e374d5e9016b758a29d5444e8b0fd1246a6f1fc5c2b3c847dddcf
 <h2 id="quickstart-docker-next-step">Next step<a class="headerlink" href="#quickstart-docker-next-step" title="Permanent link">&para;</a></h2>
 <p><a class="md-button" href="#quickstart-next-steps">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p></section><section class="print-page" id="quickstart-apt" heading-number="6.3"><h1 id="quickstart-apt-install-percona-server-for-mysql-and-create-a-database-on-ubuntu">Install Percona Server for MySQL and create a database on Ubuntu<a class="headerlink" href="#quickstart-apt-install-percona-server-for-mysql-and-create-a-database-on-ubuntu" title="Permanent link">&para;</a></h1>
 <p>Use the Percona repositories to install using APT.</p>
+<p>The <code>percona-release</code> tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the <a href="https://docs.percona.com/percona-software-repositories/index.html">Percona Software Repositories Documentation</a>.</p>
 <h2 id="quickstart-apt-prerequisits">Prerequisits<a class="headerlink" href="#quickstart-apt-prerequisits" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -16932,6 +16933,7 @@ VALUES
 <h2 id="quickstart-apt-next-step">Next step<a class="headerlink" href="#quickstart-apt-next-step" title="Permanent link">&para;</a></h2>
 <p><a class="md-button" href="#quickstart-next-steps">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p></section><section class="print-page" id="quickstart-yum" heading-number="6.4"><h1 id="quickstart-yum-install-percona-server-for-mysql-and-create-a-database-on-oracle-linux">Install Percona Server for MySQL and create a database on Oracle Linux<a class="headerlink" href="#quickstart-yum-install-percona-server-for-mysql-and-create-a-database-on-oracle-linux" title="Permanent link">&para;</a></h1>
 <p>Use the Percona repositories to install using YUM.</p>
+<p>The <code>percona-release</code> tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the <a href="https://docs.percona.com/percona-software-repositories/index.html">Percona Software Repositories Documentation</a>.</p>
 <h2 id="quickstart-yum-prerequisits">Prerequisits<a class="headerlink" href="#quickstart-yum-prerequisits" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -17498,13 +17500,18 @@ All done!
                         <h1>Use APT<a class='headerlink' href='#section-7-3' title='Permanent link'></a>
                         </h1>
                     <section class="print-page" id="apt-repo" heading-number="7.3.1"><h1 id="apt-repo-use-an-apt-repository-to-install-percona-server-for-mysql-84">Use an APT repository to install Percona Server for MySQL 8.4<a class="headerlink" href="#apt-repo-use-an-apt-repository-to-install-percona-server-for-mysql-84" title="Permanent link">&para;</a></h1>
-<p>Ready-to-use packages are available from the Percona Server for MySQL software
-repositories and the <a href="https://www.percona.com/downloads/Percona-Server-8.4/">Percona downloads</a> page.</p>
+<p>Ready-to-use packages are available from the Percona Server for MySQL software repositories and the <a href="https://www.percona.com/downloads/Percona-Server-8.4/">Percona downloads</a> page.</p>
 <p>Specific information on the supported platforms, products, and versions is described in <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle</a>.</p>
+<p>The <code>percona-release</code> tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the <a href="https://docs.percona.com/percona-software-repositories/index.html">Percona Software Repositories Documentation</a>.</p>
 <p>We gather <a href="#telemetry">Telemetry data</a> in the Percona packages and Docker images.</p>
 <p>Review <a href="#get-help">Get more help</a> for ways that we can work with you.</p>
 <h2 id="apt-repo-arm-support">ARM support<a class="headerlink" href="#apt-repo-arm-support" title="Permanent link">&para;</a></h2>
 <p>The DEB builds for Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, DEBIAN 11, and DEBIAN 12 contain ARM packages with the <code>aarch64.rpm</code> extension. This means that Percona Server for MySQL is available for users on ARM-based systems.</p>
+<h2 id="apt-repo-unattended-installations">Unattended installations<a class="headerlink" href="#apt-repo-unattended-installations" title="Permanent link">&para;</a></h2>
+<p>The <code>-y</code> flag automatically confirms all actions without prompting the user for input. This feature streamlines the execution of commands, making it particularly advantageous for scenarios where user interaction is not possible or desired, for example, unattended installations or automated scripts. While using the <code>-y</code> option eliminates confirmation prompts, the flag also removes the ability to review any changes before they are applied. Use this option only when you are confident in the command being executed.</p>
+<p>The recommended syntax for using this flag with the <code>percona-release setup</code> is: </p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>-y<span class="w"> </span>ps-84-lts<span class="w"> </span>
+</code></pre></div>
 <h2 id="apt-repo-install-percona-server-for-mysql-using-apt">Install Percona Server for MySQL using APT<a class="headerlink" href="#apt-repo-install-percona-server-for-mysql-using-apt" title="Permanent link">&para;</a></h2>
 <p class="power-number">To install Percona Server for MySQL using APT, do the following steps:</p>
 <ol>
@@ -17728,6 +17735,7 @@ repositories and the <a href="https://www.percona.com/downloads/Percona-Server-8
 Percona yum repository supports popular RPM-based
 operating systems. The easiest way to install the Percona RPM repository is to install an RPM
 that configures yum and installs the <a href="https://www.percona.com/downloads/RPM-GPG-KEY-percona">Percona GPG key</a>.</p>
+<p>The <code>percona-release</code> tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the <a href="https://docs.percona.com/percona-software-repositories/index.html">Percona Software Repositories Documentation</a>.</p>
 <p>We gather <a href="#telemetry">Telemetry data</a> in the Percona packages and Docker images.</p>
 <p>Review <a href="#get-help">Get more help</a> for ways that we can work with you.</p>
 <h3 id="yum-repo-supported-platforms">Supported platforms<a class="headerlink" href="#yum-repo-supported-platforms" title="Permanent link">&para;</a></h3>
@@ -17744,6 +17752,11 @@ that configures yum and installs the <a href="https://www.percona.com/downloads/
 <p>Percona Server for MySQL Pro includes the <a href="#psmysql-pro-capabilities">capabilities</a> that are typically requested by large enterprises. Percona Server for MySQL Pro contains packages created and tested by Percona. These packages are supported only for Percona Customers with a subscription.</p>
 <p><a class="md-button" href="https://www.percona.com/about/contact">Become a Percona Customer</a></p>
 <p><a class="md-button" href="#install-pro">Install Percona Server for MySQL Pro</a></p>
+<h3 id="yum-repo-unattended-installations">Unattended installations<a class="headerlink" href="#yum-repo-unattended-installations" title="Permanent link">&para;</a></h3>
+<p>The <code>-y</code> flag automatically confirms all actions without prompting the user for input. This feature streamlines the execution of commands, making it particularly advantageous for scenarios where user interaction is not possible or desired, for example, unattended installations or automated scripts. While using the <code>-y</code> option eliminates confirmation prompts, the flag also removes the ability to review any changes before they are applied. Use this option only when you are confident in the command being executed.</p>
+<p>The recommended syntax for using this flag with the <code>percona-release setup</code> is: </p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>-y<span class="w"> </span>ps-84-lts<span class="w"> </span>
+</code></pre></div>
 <h2 id="yum-repo-install">Install<a class="headerlink" href="#yum-repo-install" title="Permanent link">&para;</a></h2>
 <p>To install using the Percona Software repository, run the following commands either as a <code>root</code> user or, as in the example, using <code>sudo</code>.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm

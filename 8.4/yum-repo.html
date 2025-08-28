@@ -29,7 +29,7 @@ that configures yum and installs the Percona GPG key.">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
     
     
       
@@ -2768,6 +2768,15 @@ that configures yum and installs the Percona GPG key.">
   <a href="#percona-server-for-mysql-pro" class="md-nav__link">
     <span class="md-ellipsis">
       Percona Server for MySQL PRO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unattended-installations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unattended installations
     </span>
   </a>
   
@@ -7810,6 +7819,15 @@ that configures yum and installs the Percona GPG key.">
 </li>
       
         <li class="md-nav__item">
+  <a href="#unattended-installations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unattended installations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install" class="md-nav__link">
     <span class="md-ellipsis">
       Install
@@ -7893,6 +7911,7 @@ repositories and the <a href="https://www.percona.com/downloads/Percona-Server-8
 Percona yum repository supports popular RPM-based
 operating systems. The easiest way to install the Percona RPM repository is to install an RPM
 that configures yum and installs the <a href="https://www.percona.com/downloads/RPM-GPG-KEY-percona">Percona GPG key</a>.</p>
+<p>The <code>percona-release</code> tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the <a href="https://docs.percona.com/percona-software-repositories/index.html">Percona Software Repositories Documentation</a>.</p>
 <p>We gather <a href="telemetry.html">Telemetry data</a> in the Percona packages and Docker images.</p>
 <p>Review <a href="get-help.html">Get more help</a> for ways that we can work with you.</p>
 <h3 id="supported-platforms">Supported platforms<a class="headerlink" href="#supported-platforms" title="Permanent link">&para;</a></h3>
@@ -7909,6 +7928,11 @@ that configures yum and installs the <a href="https://www.percona.com/downloads/
 <p>Percona Server for MySQL Pro includes the <a href="psmysql-pro.html#capabilities">capabilities</a> that are typically requested by large enterprises. Percona Server for MySQL Pro contains packages created and tested by Percona. These packages are supported only for Percona Customers with a subscription.</p>
 <p><a class="md-button" href="https://www.percona.com/about/contact">Become a Percona Customer</a></p>
 <p><a class="md-button" href="install-pro.html">Install Percona Server for MySQL Pro</a></p>
+<h3 id="unattended-installations">Unattended installations<a class="headerlink" href="#unattended-installations" title="Permanent link">&para;</a></h3>
+<p>The <code>-y</code> flag automatically confirms all actions without prompting the user for input. This feature streamlines the execution of commands, making it particularly advantageous for scenarios where user interaction is not possible or desired, for example, unattended installations or automated scripts. While using the <code>-y</code> option eliminates confirmation prompts, the flag also removes the ability to review any changes before they are applied. Use this option only when you are confident in the command being executed.</p>
+<p>The recommended syntax for using this flag with the <code>percona-release setup</code> is: </p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>-y<span class="w"> </span>ps-84-lts<span class="w"> </span>
+</code></pre></div>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
 <p>To install using the Percona Software repository, run the following commands either as a <code>root</code> user or, as in the example, using <code>sudo</code>.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
@@ -7945,7 +7969,7 @@ release, testing, and experimental - in this case, it is the second section that
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-03-25
+    2025-08-27
   </span>
 
     
