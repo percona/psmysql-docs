@@ -3436,15 +3436,6 @@ improvements related to replication and binary logs handling. This resulted in r
 </li>
       
         <li class="md-nav__item">
-  <a href="#relay-log-position-details" class="md-nav__link">
-    <span class="md-ellipsis">
-      Relay log position details
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#source-and-connection-status-update-fix" class="md-nav__link">
     <span class="md-ellipsis">
       Source and connection status update fix
@@ -7871,15 +7862,6 @@ improvements related to replication and binary logs handling. This resulted in r
 </li>
       
         <li class="md-nav__item">
-  <a href="#relay-log-position-details" class="md-nav__link">
-    <span class="md-ellipsis">
-      Relay log position details
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#source-and-connection-status-update-fix" class="md-nav__link">
     <span class="md-ellipsis">
       Source and connection status update fix
@@ -8107,11 +8089,6 @@ condition. </p>
 regardless of whether the committed transaction has already been executed or
 not. Percona Server omits relay log position updates for the already logged
 GTIDs.</p>
-<h2 id="relay-log-position-details">Relay log position details<a class="headerlink" href="#relay-log-position-details" title="Permanent link">&para;</a></h2>
-<p>Particularly, such unconditional relay log position updates caused additional
-fsync operations in case of <code>relay-log-info-repository=TABLE</code>, and with the
-higher number of channels transmitting such duplicate (already executed)
-transactions the situation became proportionally worse. Bug fixed <a href="https://jira.percona.com/browse/PS-1786">#1786</a>, (upstream <a href="https://bugs.mysql.com/bug.php?id=85141">#85141</a>).</p>
 <h2 id="source-and-connection-status-update-fix">Source and connection status update fix<a class="headerlink" href="#source-and-connection-status-update-fix" title="Permanent link">&para;</a></h2>
 <p>Replica nodes configured to update source status and connection information
 only on log file rotation did not experience the expected reduction in load.
@@ -8442,7 +8419,7 @@ see the raw numeric value or a human-readable timestamp.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-07-21
+    2025-09-03
   </span>
 
     

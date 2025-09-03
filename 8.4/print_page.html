@@ -19186,11 +19186,6 @@ condition. </p>
 regardless of whether the committed transaction has already been executed or
 not. Percona Server omits relay log position updates for the already logged
 GTIDs.</p>
-<h2 id="binlogging-replication-improvements-relay-log-position-details">Relay log position details<a class="headerlink" href="#binlogging-replication-improvements-relay-log-position-details" title="Permanent link">&para;</a></h2>
-<p>Particularly, such unconditional relay log position updates caused additional
-fsync operations in case of <code>relay-log-info-repository=TABLE</code>, and with the
-higher number of channels transmitting such duplicate (already executed)
-transactions the situation became proportionally worse. Bug fixed <a href="https://jira.percona.com/browse/PS-1786">#1786</a>, (upstream <a href="https://bugs.mysql.com/bug.php?id=85141">#85141</a>).</p>
 <h2 id="binlogging-replication-improvements-source-and-connection-status-update-fix">Source and connection status update fix<a class="headerlink" href="#binlogging-replication-improvements-source-and-connection-status-update-fix" title="Permanent link">&para;</a></h2>
 <p>Replica nodes configured to update source status and connection information
 only on log file rotation did not experience the expected reduction in load.
