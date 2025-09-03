@@ -44,13 +44,6 @@ regardless of whether the committed transaction has already been executed or
 not. Percona Server omits relay log position updates for the already logged
 GTIDs.
 
-## Relay log position details
-
-Particularly, such unconditional relay log position updates caused additional
-fsync operations in case of `relay-log-info-repository=TABLE`, and with the
-higher number of channels transmitting such duplicate (already executed)
-transactions the situation became proportionally worse. Bug fixed [#1786](https://jira.percona.com/browse/PS-1786), (upstream [#85141](https://bugs.mysql.com/bug.php?id=85141)).
-
 ## Source and connection status update fix
 
 Replica nodes configured to update source status and connection information
