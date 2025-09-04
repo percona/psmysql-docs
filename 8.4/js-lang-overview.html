@@ -1771,6 +1771,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Convert JS data types to SQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#js-to-sql-type-conversion-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      JS to SQL type conversion rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -7734,6 +7749,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Convert JS data types to SQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#js-to-sql-type-conversion-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      JS to SQL type conversion rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -7909,71 +7939,79 @@
 </table>
 <p>When the data converts to a JS string, it automatically changes from the SQL parameter’s character set to <code>utf8mb4</code>, which JS uses.</p>
 <h2 id="convert-js-data-types-to-sql">Convert JS data types to SQL<a class="headerlink" href="#convert-js-data-types-to-sql" title="Permanent link">&para;</a></h2>
-<p>The target SQL data type defines how the system converts values. The system typically converts a JS value to one of the basic types, such as string, integer, or double, depending on the SQL data type. After the conversion, the system stores the result in the SQL parameter or return value. This step can fail if the value is too large or has an incorrect format, which will cause an error. During the process, JS strings automatically convert from <code>utf8mb4</code> to the character set of the SQL parameter.</p>
-<p>JS <code>null</code> and <code>undefined</code> values always convert to SQL <code>NULL</code> values for the target SQL type.</p>
+<p>The system uses the target SQL data type to determine how to convert each value. It typically converts a JS value into a basic type—such as a string, integer, or double—based on the specified SQL type. Once converted, the system stores the result in the corresponding SQL parameter or return value.</p>
+<p>If a value exceeds allowed limits or uses an unsupported format, the conversion fails and triggers an error. During this process, the system automatically converts JS strings from the utf8mb4 encoding to the character set defined by the SQL parameter.</p>
+<p>The system always maps JS null and undefined values to SQL NULL, regardless of the target SQL type.</p>
+<h3 id="js-to-sql-type-conversion-rules">JS to SQL type conversion rules<a class="headerlink" href="#js-to-sql-type-conversion-rules" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Target SQL data type</th>
-<th>Rules for converting JS value</th>
+<th>Target SQL Data Type</th>
+<th>Conversion Rules</th>
+<th>Explanation</th>
 <th>Example</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Integer Numbers (BOOLEAN, TINYINT, SHORTINT, MEDIUMINT, INT, BIGINT)</td>
-<td>JS Integers/Numbers: integers stored as-is, BIGINTs attempted as integers, others as strings.</td>
-<td>42 → 42 <br>  3.14 → &ldquo;3.14&rdquo; <br> true → &ldquo;true&rdquo;</td>
+<td><code>BOOLEAN</code>, <code>TINYINT</code>, <code>SHORTINT</code>, <code>MEDIUMINT</code>, <code>INT</code>, <code>BIGINT</code></td>
+<td>(Version 8.4.5) - Numbers: stored as integers<br>- Booleans: <code>true</code> → <code>1</code>, <code>false</code> → <code>0</code><br>- BigInts: stored as integers when possible<br>- Other types: converted to strings first<br>(Version 8.4.4) - JS Integers/Numbers: integers stored as-is, BigInts attempted as integers, others as strings.)</td>
+<td>Preserves native numeric forms where possible; other values default to string representation</td>
+<td><code>42</code> → <code>42</code><br><code>3.14</code> → <code>"3.14"</code><br><code>true</code> → <code>"1"</code></td>
 </tr>
 <tr>
-<td>DECIMAL</td>
-<td>Converted to strings</td>
-<td>123.45 → &ldquo;123.45&rdquo;</td>
+<td><code>DECIMAL</code></td>
+<td>- All values converted to strings<br>- Booleans: converted to <code>0</code>/<code>1</code>, then stored as doubles</td>
+<td>Supports precision formatting; special handling ensures Booleans fit numeric context</td>
+<td><code>123.45</code> → <code>"123.45"</code><br><code>true</code> → <code>1.0</code></td>
 </tr>
 <tr>
-<td>FLOAT, DOUBLE</td>
-<td>Stored as doubles for Numbers, converted to strings for other values</td>
-<td>3.14 → 3.14, &ldquo;3.14&rdquo; → &ldquo;3.14&rdquo;</td>
+<td><code>FLOAT</code>, <code>DOUBLE</code></td>
+<td>- Numbers: stored as doubles<br>- (Version 8.4.5) - Booleans: converted to <code>0</code>/<code>1</code>, then stored as doubles<br>- Others: converted to strings</td>
+<td>Treats numeric and Boolean inputs consistently using floating-point representation</td>
+<td><code>3.14</code> → <code>3.14</code><br><code>true</code> → <code>1.0</code><br><code>"3.14"</code> → <code>"3.14"</code></td>
 </tr>
 <tr>
-<td>BIT</td>
+<td><code>BIT</code></td>
 <td>Converted to SQL BIT type</td>
-<td>1 → BIT(1)</td>
+<td>Only binary-compatible values allowed</td>
+<td><code>1</code> → <code>BIT(1)</code></td>
 </tr>
 <tr>
-<td>BigInt</td>
-<td>For BigInt values: stored as integers. For other values: converted to Number then stored. Invalid Number conversions cause errors</td>
-<td>9007n → 9007, &ldquo;123&rdquo; → 123</td>
+<td><code>TIME</code>, <code>DATE</code>, <code>TIMESTAMP</code>, <code>DATETIME</code></td>
+<td>All values converted to strings</td>
+<td>Usually expects ISO date formats or equivalents</td>
+<td><code>Date()</code> → <code>"2024-01-30"</code></td>
 </tr>
 <tr>
-<td>TIME, DATE, TIMESTAMP, DATETIME</td>
-<td>Converted to strings</td>
-<td>Date() → &ldquo;2024-01-30&rdquo;</td>
+<td><code>CHAR</code>, <code>VARCHAR</code>, <code>TEXT</code>, etc.</td>
+<td>All values converted to strings<br>Charset conversion from <code>utf8mb4</code> if needed</td>
+<td>Supports text types with encoding fallback</td>
+<td><code>"hello"</code> → <code>"hello"</code></td>
 </tr>
 <tr>
-<td>CHAR, VARCHAR, TINYTEXT, TEXT, MEDIUMTEXT, ENUM</td>
-<td>Converted to strings with charset conversion if needed</td>
-<td>&ldquo;hello&rdquo; → &ldquo;hello&rdquo;</td>
+<td><code>BINARY</code>, <code>VARBINARY</code>, <code>BLOB</code>, etc.</td>
+<td>- <code>ArrayBuffer</code>/<code>View</code>: stored directly<br>- Others: converted to strings</td>
+<td>Binary data must be explicitly wrapped; others fallback to string</td>
+<td><code>buffer</code> → binary</td>
 </tr>
 <tr>
-<td>BINARY, VARBINARY, TINYBLOB, BLOB, MEDIUMBLOB, LONGBLOB</td>
-<td>ArrayBuffer/ArrayBufferView: stored directly. Other values: converted to strings</td>
-<td>buffer → binary data</td>
+<td><code>SET</code></td>
+<td>- Numbers: stored as integers/doubles<br>- BigInts: stored as integers<br>- Others: converted to strings with charset conversion if needed</td>
+<td>Tries native storage before falling back to strings</td>
+<td><code>1</code> → <code>1</code><br><code>"value"</code> → <code>"value"</code></td>
 </tr>
 <tr>
-<td>SET</td>
-<td>Numbers: stored as integers or doubles. BigInt: stored as integers. Others: converted to strings with charset conversion if needed</td>
-<td>1 → 1, &ldquo;value&rdquo; → &ldquo;value&rdquo;</td>
+<td><code>GEOMETRY</code></td>
+<td>- Valid <code>ArrayBuffer</code>/<code>View</code>: stored as binary<br>- Others: cause an error</td>
+<td>Enforces format rules to maintain spatial integrity</td>
+<td>valid buffer → <code>GEOMETRY</code></td>
 </tr>
 <tr>
-<td>GEOMETRY</td>
-<td>ArrayBuffer/ArrayBufferView: stored as binary if valid GEOMETRY. Other values: error</td>
-<td>valid buffer → GEOMETRY</td>
-</tr>
-<tr>
-<td>JSON</td>
-<td>Converted to JSON string using JSON.stringify()</td>
-<td>{key: &ldquo;value&rdquo;} → &ldquo;{&ldquo;key&rdquo;:&rdquo;value&rdquo;}&rdquo;</td>
+<td><code>JSON</code></td>
+<td>Converted using <code>JSON.stringify()</code></td>
+<td>Converts objects or arrays to serialized strings</td>
+<td><code>{key: "value"}</code> → <code>"{"key":"value"}"</code></td>
 </tr>
 </tbody>
 </table>
@@ -7997,7 +8035,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-02-25
+    2025-06-25
   </span>
 
     
