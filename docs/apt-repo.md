@@ -11,7 +11,7 @@ Percona packages and Docker images collect anonymous telemetry data to improve p
 
 --8<-- "percona-release.md"
 
-We gather [Telemetry data] in the Percona packages and Docker images.
+We gather [Telemetry data](telemetry.md) in the Percona packages and Docker images.
 
 ## ARM support
 
