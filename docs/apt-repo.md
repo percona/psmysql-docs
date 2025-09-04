@@ -5,13 +5,13 @@ Percona provides ready-to-use packages for Percona Server for MySQL 8.4 through 
 
 If you need help with installation or configuration, [Percona Support](https://www.percona.com/services/support) is available to assist you.
 
-Specific information on the supported platforms, products, and versions are available in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
+Specific information on the supported platforms, products, and versions is available in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
-Percona packages and Docker images collect anonymous telemetry data to improve product quality. For details on what is collected and how to opt out, see [Telemetry in Percona Server for MySQL].
+We gather [telemetry data](telemetry.md) in the Percona packages and Docker images to improve product quality. 
 
 --8<-- "percona-release.md"
 
-We gather [Telemetry data](telemetry.md) in the Percona packages and Docker images.
+
 
 ## ARM support
 
@@ -92,4 +92,4 @@ These builds should not be run in production. This build may not contain all of 
 
 [Percona downloads]: https://www.percona.com/downloads/Percona-Server-{{vers}}/
 
-[Telemetry in Percona Server for MySQL]: telemetry.md
+
