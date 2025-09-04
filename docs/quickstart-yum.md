@@ -2,6 +2,8 @@
 
 Use the Percona repositories to install using YUM.
 
+--8<-- "percona-release.md"
+
 ## Prerequisits
 
 * Either use `sudo` or run as root
@@ -545,4 +547,4 @@ $ sudo mysql_secure_installation
 [Choose your next steps:material-arrow-right:](quickstart-next-steps.md){.md-button}
 
 
-[Percona Monitoring and Management]: https://docs.percona.com/percona-monitoring-and-management
+[Percona Monitoring and Management]: https://docs.percona.com/percona-monitoring-and-management/3/quickstart/quickstart.html

@@ -1,5 +1,6 @@
 # Install Percona Server for MySQL {{vers}} Using APT on Debian/Ubuntu 
 
+
 Percona provides ready-to-use packages for Percona Server for MySQL 8.4 through its APT repositories, offering seamless updates and dependency resolution for Debian-based systems.
 
 If you need help with installation or configuration, [Percona Support](https://www.percona.com/services/support) is available to assist you.
@@ -8,11 +9,18 @@ Specific information on the supported platforms, products, and versions are avai
 
 Percona packages and Docker images collect anonymous telemetry data to improve product quality. For details on what is collected and how to opt out, see [Telemetry in Percona Server for MySQL].
 
+--8<-- "percona-release.md"
 
+We gather [Telemetry data] in the Percona packages and Docker images.
 
 ## ARM support
 
 Percona Server for MySQL 8.4 includes native support for the ARM64 (aarch64) architecture in its DEB packages. These packages are available for Ubuntu starting with version 20.04 and for Debian starting with version 11.
+
+
+## Unattended installations
+
+--8<-- "install-flag.md"
 
 
 ## Install Percona Server for MySQL using APT

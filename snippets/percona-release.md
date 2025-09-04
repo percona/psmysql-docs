@@ -1,3 +1,1 @@
-**The `percona-release` tool currently shows an Unknown alias specification error when you use `ps-84-lts`. The next release of the percona-release tool will fix this error.**
-
-**In the meantime, use your platform’s version of the APT or YUM package management tools instead.**
+The `percona-release` tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the [Percona Software Repositories Documentation](https://docs.percona.com/percona-software-repositories/index.html).
