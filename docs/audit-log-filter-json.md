@@ -25,18 +25,14 @@ Certain statistics, such as query time and size, are only available in the JSON 
       "command": "query"}
   },
   {
-    "timestamp": "2023-03-29 11:17:05",
-    "id": 2,
+    "timestamp": "2025-03-29 11:17:05",
+    "id": 332,
     "class": "general",
     "event": "log",
     "connection_id": 11,
     "account": { "user": "root[root] @ localhost []", "host": "localhost" },
     "login": { "user": "root[root] @ localhost []", "os": "", "ip": "", "proxy": "" },
-    "general_data": {
-      "command": "Query",
-      "sql_command": "create_table",
-      "query": "CREATE TABLE t1 (c1 INT)",
-      "status": 0}
+    "general_data": { "status": 0 }
   },
   {
     "timestamp": "2023-03-29 11:17:05",
