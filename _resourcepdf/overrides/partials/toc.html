@@ -1,0 +1,23 @@
+{% if page.toc %}
+<nav class="md-nav md-nav--secondary">
+  <label class="md-nav__title" for="__toc">Table of contents</label>
+  <ul class="md-nav__list" data-md-scrollfix>
+    {% for toc_item in page.toc %}
+      {% include "partials/toc-item.html" with context %}
+    {% endfor %}
+  </ul>
+
+  {# Edit this page link below the TOC #}
+  {% if page.edit_url %}
+  <div class="md-source-file">
+<a href="{{ page.edit_url }}" title="Improve this page" class="edit-page-box">
+  <span class="edit-page-icon">
+    {% set icon = config.theme.icon.edit or "material/file-edit-outline" %}
+    {% include ".icons/" ~ icon ~ ".svg" %}
+  </span>
+  <span class="edit-page-text">Improve this page</span>
+</a>
+  </div>
+  {% endif %}
+</nav>
+{% endif %}
