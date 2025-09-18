@@ -11,24 +11,35 @@
     line-height: 1.6;
 }
 
-/* Style the link */
 .edit-page-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6em;
+  display: inline-block; /* shrink to content width */
   text-decoration: none;
   color: var(--md-typeset-a-color);
+  cursor: pointer;
   font-size: 1.25rem;
   font-weight: 500;
   line-height: 1.4;
-  transition: color 0.2s ease;
-  cursor: pointer;
+  text-align: left; /* align left inside container */
 }
 
-/* Bigger icon, aligned with text */
+/* First line: icon + text inline */
+.edit-page-line1 {
+  padding-left: calc(0.5em);
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
 .edit-page-icon svg {
-  width: 1.4em;    
-  height: 1.4em;
+  width: 2em;   /* Bigger width */
+  height: 2em;  /* Bigger height */
   fill: currentColor;
-  vertical-align: middle;
+  display: block;
+  padding-left: calc(0.5em);
+}
+
+.edit-page-line2 {
+  padding-left: calc(4.5em);
+  line-height: 1.2;
+  white-space: nowrap;
 }
