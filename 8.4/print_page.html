@@ -12068,11 +12068,11 @@ The order of the attributes within the JSON object can vary. Certain attributes 
 </tr>
 <tr>
 <td>Improved Performance</td>
-<td>Smaller log files lead to faster log rotations and less disk I/O, which can improve overall server performance. Reduced log volume also decreases the impact of auditing on the database server itself.</td>
+<td>Smaller log files lead to faster log rotations and less disk I/O, which can improve overall server performance. Reducing log volume also decreases the impact of auditing on the database server itself.</td>
 </tr>
 <tr>
 <td>Enhanced Security Focus</td>
-<td>Instead of logging every single event (which can be overwhelming), you can focus on the most critical events. For example, you can prioritize logging events related to:<br> - Sensitive data access: Log queries that access or modify critical tables.<br> - User account activity: Monitor user logins, password changes, and privilege grants.<br> - DML operations: Log INSERT, UPDATE, and DELETE statements on specific tables.<br> - DDL operations: Log schema changes like CREATE TABLE, ALTER TABLE, and DROP TABLE.</td>
+<td>Instead of logging every single event (which can be overwhelming), you can focus on the most critical events. For example, you can prioritize logging events related to:<br> * Sensitive data access: Log queries that access or modify critical tables.<br> - User account activity: Monitor user logins, password changes, and privilege grants.<br> * DML operations: Log INSERT, UPDATE, and DELETE statements on specific tables.<br> * DDL operations: Log schema changes like CREATE TABLE, ALTER TABLE, and DROP TABLE.</td>
 </tr>
 <tr>
 <td>Simplified Log Analysis</td>
@@ -12320,7 +12320,7 @@ This array object is more concise. You should use it if you do not plan to add a
 <p>Event tracking can be more precise, which helps reduce unnecessary log noise. By focusing on the specific events that matter, you can enhance security monitoring and ensure that only the most relevant data is logged. This approach not only improves the clarity of your logs but also helps optimize performance by limiting the number of events being recorded, reducing overhead and making it easier to manage the system.</p>
 <p>It’s important to consider the performance impact of logging and how it might affect your server. Before deploying your filters in a production environment, test them thoroughly to ensure everything works as expected. </p>
 <h4 id="write-filter-definitions-inclusive-filter-example">Inclusive filter example<a class="headerlink" href="#write-filter-definitions-inclusive-filter-example" title="Permanent link">&para;</a></h4>
-<p>This filter is useful for monitoring and auditing changes to the database performed by administrative users, particularly to ensure that updates and deletions are tracked.</p>
+<p>This filter is useful for monitoring and auditing database changes made by administrative users, particularly to ensure that updates and deletions are tracked.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -12341,19 +12341,19 @@ This array object is more concise. You should use it if you do not plan to add a
 <p>&ldquo;class&rdquo;: The top-level key specifies that the filter applies to the <code>table_access</code> class. This class monitors events related to database table interactions.</p>
 </li>
 <li>
-<p>&ldquo;name&rdquo;: &ldquo;table_access&rdquo;: This defines the event class you want to track. This class captures interactions with database tables such as read, insert, update, and delete operations. Specifies the specific class of events</p>
+<p>&ldquo;name&rdquo;: &ldquo;table_access&rdquo;: This defines the event class you want to track. This class captures interactions with database tables, such as read, insert, update, and delete modifications. Specifies the specific class of events</p>
 </li>
 <li>
-<p>user: [&ldquo;admin&rdquo;]: This specifies that the filter applies only to events performed by the admin user. It restricts the filter to only log actions executed by this user.</p>
+<p>user: [&ldquo;admin&rdquo;]: This specifies that the filter applies only to events performed by the admin user and restricts the filter to only log actions executed by this user.</p>
 </li>
 <li>
-<p>operation: [&ldquo;update&rdquo;, &ldquo;delete&rdquo;]: This narrows down the filter to track only specific operations. In this case, it captures update and delete operations. Any SELECT (read) or INSERT operations on tables will not be logged, as they are excluded by this filter.</p>
+<p>event: [&ldquo;update&rdquo;, &ldquo;delete&rdquo;]: This narrows down the filter to track only specific actions. In this case, the filter captures update and delete modifications. Any SELECT (read) or INSERT modifications on tables will not be logged, as they are excluded by this filter.</p>
 </li>
 </ul>
 <p>Inclusive filters give you granular control over your MySQL audit logging, allowing you to capture exactly the information you need without overwhelming your logging system.</p>
 <h3 id="write-filter-definitions-exclusive-filters">Exclusive filters<a class="headerlink" href="#write-filter-definitions-exclusive-filters" title="Permanent link">&para;</a></h3>
 <p>Exclusive filters in the audit_log_filter for Percona Server for MySQL let you exclude certain activities from being logged, helping you reduce log size and focus on what matters most. For example, you can filter out routine operations like health checks or background processes to avoid unnecessary clutter in your logs. </p>
-<p>This example defines a filter that <code>excludes</code> (negate: true) all table access events (&ldquo;table_access&rdquo;) by the user &ldquo;readonly_user&rdquo;. Events for other users or other classes of activity are still be logged unless additional filters are defined.</p>
+<p>This example defines a filter that <code>excludes</code> (negate: true) all table access events (&ldquo;table_access&rdquo;) by the user &ldquo;readonly_user&rdquo;. Events for other users or other classes of activity are still being logged unless additional filters are defined.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -12374,24 +12374,24 @@ This array object is more concise. You should use it if you do not plan to add a
 <span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;developer&quot;</span><span class="p">],</span>
 <span class="w">        </span><span class="nt">&quot;database&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;financial&quot;</span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;operation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w">  </span><span class="c1">// Failed operations only</span>
+<span class="w">        </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span>
 <span class="w">      </span><span class="p">},</span>
 <span class="w">      </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;external_service&quot;</span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w">  </span><span class="c1">// Successful connections</span>
+<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w">  </span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>This filter captures failed update/delete operations by admin and developer users in the financial database and successful connections for the <code>external_service</code> user</p>
+<p>This filter captures failed update/delete modifications by admin and developer users in the financial database and successful connections for the <code>external_service</code> user</p>
 <h2 id="write-filter-definitions-best-practices">Best practices<a class="headerlink" href="#write-filter-definitions-best-practices" title="Permanent link">&para;</a></h2>
-<p>Following a systematic approach helps ensure successful deployment and maintenance when implementing audit log filters. Start by creating broad, inclusive filters that capture a wide range of events, giving you a comprehensive view of your database activity. For example, you might begin by logging all actions from administrative users or all operations on critical databases. As you analyze the captured data, you can refine these filters to focus on specific events, users, or operations that matter most to your organization.</p>
+<p>Following a systematic approach helps ensure successful deployment and maintenance when implementing audit log filters. Start by creating broad, inclusive filters that capture a wide range of events, giving you a comprehensive view of your database activity. For example, you might begin by logging all actions from administrative users or all changes on critical databases. As you analyze the captured data, you can refine these filters to focus on specific events, users, or changes that matter most to your organization.</p>
 <p>Testing is crucial before deploying filters in production. Set up a non-production environment that mirrors your production setup as closely as possible. This non-production environment allows you to verify that your filters capture the intended events without missing critical information. During testing, pay particular attention to how different filter combinations interact and ensure they don&rsquo;t create any unexpected gaps in your audit coverage.</p>
 <p>Log file management requires careful attention. Audit logs can grow rapidly, especially with detailed filtering configurations. Monitor your log file sizes regularly and implement appropriate rotation policies. Consider storage capacity, retention requirements, and system performance when determining how much detail to include in your logs. It&rsquo;s often helpful to calculate expected log growth based on your typical database activity and adjust your rotation policies accordingly.</p>
-<p>Performance impact is a critical consideration when implementing detailed logging. More granular filters typically require more system resources to process and store the audit data. Monitor your system&rsquo;s performance metrics while testing different filter configurations. Look for significant changes in query response times, CPU usage, or I/O operations. If you notice performance degradation, consider adjusting your filters to balance capturing necessary audit data and maintaining acceptable system performance. Remember that starting with less detailed logging is often better and gradually increasing it as needed rather than implementing overly aggressive logging that impacts system performance.</p>
+<p>Performance impact is a critical consideration when implementing detailed logging. More granular filters typically require more system resources to process and store the audit data. Monitor your system&rsquo;s performance metrics while testing different filter configurations. Look for significant changes in query response times, CPU usage, or I/O operations. If you notice performance degradation, consider adjusting your filters to balance capturing necessary audit data and maintaining acceptable system performance. Remember that starting with less detailed logging is often better and gradually increasing it as needed, rather than implementing overly aggressive logging that impacts system performance.</p>
 <h2 id="write-filter-definitions-implement-the-filter">Implement the filter<a class="headerlink" href="#write-filter-definitions-implement-the-filter" title="Permanent link">&para;</a></h2>
 <p>Here&rsquo;s how to define and implement an audit log filter:</p>
 <h3 id="write-filter-definitions-add-filter-identifier">Add filter identifier<a class="headerlink" href="#write-filter-definitions-add-filter-identifier" title="Permanent link">&para;</a></h3>
@@ -12409,13 +12409,13 @@ This array object is more concise. You should use it if you do not plan to add a
 <span class="s1">        &quot;user&quot;: [&quot;admin&quot;, &quot;finance_team&quot;],</span>
 <span class="s1">        &quot;database&quot;: [&quot;financial_db&quot;],</span>
 <span class="s1">        &quot;table&quot;: [&quot;accounts&quot;, &quot;transactions&quot;],</span>
-<span class="s1">        &quot;operation&quot;: [&quot;insert&quot;, &quot;update&quot;, &quot;delete&quot;],</span>
+<span class="s1">        &quot;event&quot;: [&quot;insert&quot;, &quot;update&quot;, &quot;delete&quot;],</span>
 <span class="s1">        &quot;status&quot;: [0, 1]</span>
 <span class="s1">      },</span>
 <span class="s1">      {</span>
 <span class="s1">        &quot;name&quot;: &quot;connection&quot;,</span>
 <span class="s1">        &quot;user&quot;: [&quot;admin&quot;, &quot;finance_team&quot;],</span>
-<span class="s1">        &quot;operation&quot;: [&quot;connect&quot;, &quot;disconnect&quot;],</span>
+<span class="s1">        &quot;event&quot;: [&quot;connect&quot;, &quot;disconnect&quot;],</span>
 <span class="s1">        &quot;status&quot;: [0, 1]</span>
 <span class="s1">      }</span>
 <span class="s1">    ]</span>
@@ -12423,17 +12423,17 @@ This array object is more concise. You should use it if you do not plan to add a
 <span class="s1">}&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The filter monitors two main types of activities. First, it watches all changes to your accounts and transactions tables. This monitoring means that the filter logs when someone adds new data, changes existing information, or removes records. You get a complete picture of who&rsquo;s touching your financial data and what they do with it.</p>
-<p>The filter doesn&rsquo;t just track successful operations—it monitors both successes and failures. This tracking gives you valuable information about attempted changes that didn&rsquo;t work out, which is helpful for troubleshooting and security monitoring.</p>
+<p>The filter tracks both successes and failures. This tracking gives you valuable information about attempted changes that didn&rsquo;t work out, which is helpful for troubleshooting and security monitoring.</p>
 <p>Here&rsquo;s what gets logged:</p>
 <ul>
 <li>
-<p>Every insert, update, and delete operation on your financial tables</p>
+<p>Every insert, update, and delete action on your financial tables</p>
 </li>
 <li>
 <p>All connection attempts from your admin and finance teams, including when they log in and out</p>
 </li>
 <li>
-<p>Whether each operation succeeded (status 0) or failed (status 1)</p>
+<p>Whether each action has succeeded (status 0) or failed (status 1)</p>
 </li>
 </ul>
 <p>The filter focuses only on activity in your <code>financial_db</code> database. This targeted approach makes it easier to find the information you need when you need it.</p>
@@ -12441,7 +12441,7 @@ This array object is more concise. You should use it if you do not plan to add a
 <p>To verify your filter:
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;audit_log_filter&#39;</span><span class="p">;</span>
 </code></pre></div></p>
-<p>To check if events are being logged, you can examine your audit log file (default location is the data directory).</p></section><section class="print-page" id="audit-log-filter-security" heading-number="5.2.5"><h1 id="audit-log-filter-security-audit-log-filter-security">Audit Log Filter security<a class="headerlink" href="#audit-log-filter-security-audit-log-filter-security" title="Permanent link">&para;</a></h1>
+<p>You can examine your audit log file (the default location is the data directory) to check if events are being logged.</p></section><section class="print-page" id="audit-log-filter-security" heading-number="5.2.5"><h1 id="audit-log-filter-security-audit-log-filter-security">Audit Log Filter security<a class="headerlink" href="#audit-log-filter-security-audit-log-filter-security" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter component generates audit log filter files. The directory 
 that contains these files should be accessible only to the following:</p>
 <ul>
