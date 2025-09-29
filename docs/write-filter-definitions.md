@@ -267,8 +267,10 @@ This filter is useful for monitoring and auditing changes to the database perfor
     "class": [
       {
         "name": "table_access",
-        "user": ["admin"],
-        "operation": ["update", "delete"]
+        "event": [ 
+          { "name": "update"},
+          { "name": "delete"}
+        ]
       }
     ]
   }
