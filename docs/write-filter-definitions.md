@@ -24,8 +24,8 @@ When you’re setting up audit log filters in Percona Server for MySQL, you use 
 | Benefit | Description |
 |---|---|
 | Reduced Log Volume and Storage | By defining specific rules for what events to log (inclusive filters), you significantly reduce the amount of data written to the audit log. This minimizes log file size, reduces storage requirements, and lowers maintenance overhead. |
-| Improved Performance | Smaller log files lead to faster log rotations and less disk I/O, which can improve overall server performance. Reduced log volume also decreases the impact of auditing on the database server itself. |
-| Enhanced Security Focus | Instead of logging every single event (which can be overwhelming), you can focus on the most critical events. For example, you can prioritize logging events related to:<br> - Sensitive data access: Log queries that access or modify critical tables.<br> - User account activity: Monitor user logins, password changes, and privilege grants.<br> - DML operations: Log INSERT, UPDATE, and DELETE statements on specific tables.<br> - DDL operations: Log schema changes like CREATE TABLE, ALTER TABLE, and DROP TABLE. |
+| Improved Performance | Smaller log files lead to faster log rotations and less disk I/O, which can improve overall server performance. Reducing log volume also decreases the impact of auditing on the database server itself. |
+| Enhanced Security Focus | Instead of logging every single event (which can be overwhelming), you can focus on the most critical events. For example, you can prioritize logging events related to:<br> * Sensitive data access: Log queries that access or modify critical tables.<br> - User account activity: Monitor user logins, password changes, and privilege grants.<br> * DML operations: Log INSERT, UPDATE, and DELETE statements on specific tables.<br> * DDL operations: Log schema changes like CREATE TABLE, ALTER TABLE, and DROP TABLE. |
 | Simplified Log Analysis | By filtering out irrelevant events, you make it easier to analyze and investigate security incidents or performance issues. You can quickly identify and focus on the most important events in the audit log. |
 | Compliance | Many compliance regulations (e.g., PCI DSS, HIPAA) require organizations to audit database activity. Well-defined audit log filters help you meet these compliance requirements by ensuring that the necessary events are being logged. |
 | Resource Optimization | By minimizing log volume and optimizing the auditing process, you can conserve valuable system resources, such as CPU, memory, and disk space. |
@@ -259,7 +259,7 @@ It’s important to consider the performance impact of logging and how it might 
 
 #### Inclusive filter example 
 
-This filter is useful for monitoring and auditing changes to the database performed by administrative users, particularly to ensure that updates and deletions are tracked.
+This filter is useful for monitoring and auditing database changes made by administrative users, particularly to ensure that updates and deletions are tracked.
 
 ```json
 {
@@ -281,11 +281,11 @@ This filter does one thing: log all update and delete operations performed by ad
 
 * "class": The top-level key specifies that the filter applies to the `table_access` class. This class monitors events related to database table interactions.
 
-* "name": "table_access": This defines the event class you want to track. This class captures interactions with database tables such as read, insert, update, and delete operations. Specifies the specific class of events
+* "name": "table_access": This defines the event class you want to track. This class captures interactions with database tables, such as read, insert, update, and delete modifications. Specifies the specific class of events
 
-* user: ["admin"]: This specifies that the filter applies only to events performed by the admin user. It restricts the filter to only log actions executed by this user.
+* user: ["admin"]: This specifies that the filter applies only to events performed by the admin user and restricts the filter to only log actions executed by this user.
 
-* operation: ["update", "delete"]: This narrows down the filter to track only specific operations. In this case, it captures update and delete operations. Any SELECT (read) or INSERT operations on tables will not be logged, as they are excluded by this filter.
+* event: ["update", "delete"]: This narrows down the filter to track only specific actions. In this case, the filter captures update and delete modifications. Any SELECT (read) or INSERT modifications on tables will not be logged, as they are excluded by this filter.
 
 Inclusive filters give you granular control over your MySQL audit logging, allowing you to capture exactly the information you need without overwhelming your logging system.
 
@@ -293,7 +293,7 @@ Inclusive filters give you granular control over your MySQL audit logging, allow
 
 Exclusive filters in the audit_log_filter for Percona Server for MySQL let you exclude certain activities from being logged, helping you reduce log size and focus on what matters most. For example, you can filter out routine operations like health checks or background processes to avoid unnecessary clutter in your logs. 
 
-This example defines a filter that `excludes` (negate: true) all table access events ("table_access") by the user "readonly_user". Events for other users or other classes of activity are still be logged unless additional filters are defined.
+This example defines a filter that `excludes` (negate: true) all table access events ("table_access") by the user "readonly_user". Events for other users or other classes of activity are still being logged unless additional filters are defined.
 
 ```json
 {
@@ -319,30 +319,30 @@ This example defines a filter that `excludes` (negate: true) all table access ev
         "name": "table_access",
         "user": ["admin", "developer"],
         "database": ["financial"],
-        "operation": ["update", "delete"],
-        "status": [1]  // Failed operations only
+        "event": ["update", "delete"],
+        "status": [1] 
       },
       {
         "name": "connection",
         "user": ["external_service"],
-        "status": [0]  // Successful connections
+        "status": [0]  
       }
     ]
   }
 }
 ```
 
-This filter captures failed update/delete operations by admin and developer users in the financial database and successful connections for the `external_service` user
+This filter captures failed update/delete modifications by admin and developer users in the financial database and successful connections for the `external_service` user
 
 ## Best practices
 
-Following a systematic approach helps ensure successful deployment and maintenance when implementing audit log filters. Start by creating broad, inclusive filters that capture a wide range of events, giving you a comprehensive view of your database activity. For example, you might begin by logging all actions from administrative users or all operations on critical databases. As you analyze the captured data, you can refine these filters to focus on specific events, users, or operations that matter most to your organization.
+Following a systematic approach helps ensure successful deployment and maintenance when implementing audit log filters. Start by creating broad, inclusive filters that capture a wide range of events, giving you a comprehensive view of your database activity. For example, you might begin by logging all actions from administrative users or all changes on critical databases. As you analyze the captured data, you can refine these filters to focus on specific events, users, or changes that matter most to your organization.
 
 Testing is crucial before deploying filters in production. Set up a non-production environment that mirrors your production setup as closely as possible. This non-production environment allows you to verify that your filters capture the intended events without missing critical information. During testing, pay particular attention to how different filter combinations interact and ensure they don't create any unexpected gaps in your audit coverage.
 
 Log file management requires careful attention. Audit logs can grow rapidly, especially with detailed filtering configurations. Monitor your log file sizes regularly and implement appropriate rotation policies. Consider storage capacity, retention requirements, and system performance when determining how much detail to include in your logs. It's often helpful to calculate expected log growth based on your typical database activity and adjust your rotation policies accordingly.
 
-Performance impact is a critical consideration when implementing detailed logging. More granular filters typically require more system resources to process and store the audit data. Monitor your system's performance metrics while testing different filter configurations. Look for significant changes in query response times, CPU usage, or I/O operations. If you notice performance degradation, consider adjusting your filters to balance capturing necessary audit data and maintaining acceptable system performance. Remember that starting with less detailed logging is often better and gradually increasing it as needed rather than implementing overly aggressive logging that impacts system performance.
+Performance impact is a critical consideration when implementing detailed logging. More granular filters typically require more system resources to process and store the audit data. Monitor your system's performance metrics while testing different filter configurations. Look for significant changes in query response times, CPU usage, or I/O operations. If you notice performance degradation, consider adjusting your filters to balance capturing necessary audit data and maintaining acceptable system performance. Remember that starting with less detailed logging is often better and gradually increasing it as needed, rather than implementing overly aggressive logging that impacts system performance.
 
 
 ## Implement the filter
@@ -374,13 +374,13 @@ SET GLOBAL audit_log_filter = '{
         "user": ["admin", "finance_team"],
         "database": ["financial_db"],
         "table": ["accounts", "transactions"],
-        "operation": ["insert", "update", "delete"],
+        "event": ["insert", "update", "delete"],
         "status": [0, 1]
       },
       {
         "name": "connection",
         "user": ["admin", "finance_team"],
-        "operation": ["connect", "disconnect"],
+        "event": ["connect", "disconnect"],
         "status": [0, 1]
       }
     ]
@@ -390,15 +390,15 @@ SET GLOBAL audit_log_filter = '{
 
 The filter monitors two main types of activities. First, it watches all changes to your accounts and transactions tables. This monitoring means that the filter logs when someone adds new data, changes existing information, or removes records. You get a complete picture of who's touching your financial data and what they do with it.
 
-The filter doesn't just track successful operations—it monitors both successes and failures. This tracking gives you valuable information about attempted changes that didn't work out, which is helpful for troubleshooting and security monitoring.
+The filter tracks both successes and failures. This tracking gives you valuable information about attempted changes that didn't work out, which is helpful for troubleshooting and security monitoring.
 
 Here's what gets logged:
 
-* Every insert, update, and delete operation on your financial tables
+* Every insert, update, and delete action on your financial tables
 
 * All connection attempts from your admin and finance teams, including when they log in and out
 
-* Whether each operation succeeded (status 0) or failed (status 1)
+* Whether each action has succeeded (status 0) or failed (status 1)
 
 The filter focuses only on activity in your `financial_db` database. This targeted approach makes it easier to find the information you need when you need it.
 
@@ -410,4 +410,4 @@ To verify your filter:
 SHOW GLOBAL VARIABLES LIKE 'audit_log_filter';
 ```
 
-To check if events are being logged, you can examine your audit log file (default location is the data directory).
+You can examine your audit log file (the default location is the data directory) to check if events are being logged.
