@@ -25,9 +25,9 @@ When you’re setting up audit log filters in Percona Server for MySQL, you use 
 |---|---|
 | Reduced Log Volume and Storage | By defining specific rules for what events to log (inclusive filters), you significantly reduce the amount of data written to the audit log. This minimizes log file size, reduces storage requirements, and lowers maintenance overhead. |
 | Improved Performance | Smaller log files lead to faster log rotations and less disk I/O, which can improve overall server performance. Reducing log volume also decreases the impact of auditing on the database server itself. |
-| Enhanced Security Focus | Instead of logging every single event (which can be overwhelming), you can focus on the most critical events. For example, you can prioritize logging events related to:<br> * Sensitive data access: Log queries that access or modify critical tables.<br> - User account activity: Monitor user logins, password changes, and privilege grants.<br> * DML operations: Log INSERT, UPDATE, and DELETE statements on specific tables.<br> * DDL operations: Log schema changes like CREATE TABLE, ALTER TABLE, and DROP TABLE. |
+| Enhanced Security Focus | Instead of logging every single event (which can be overwhelming), you can focus on the most critical events. For example, you can prioritize logging events related to:<br> * Sensitive data access: Log queries that access or modify critical tables.<br> * User account activity: Monitor user logins, password changes, and privilege grants.<br> * DML operations: Log INSERT, UPDATE, and DELETE statements on specific tables.<br> * DDL operations: Log schema changes like CREATE TABLE, ALTER TABLE, and DROP TABLE. |
 | Simplified Log Analysis | By filtering out irrelevant events, you make it easier to analyze and investigate security incidents or performance issues. You can quickly identify and focus on the most important events in the audit log. |
-| Compliance | Many compliance regulations (e.g., PCI DSS, HIPAA) require organizations to audit database activity. Well-defined audit log filters help you meet these compliance requirements by ensuring that the necessary events are being logged. |
+| Compliance | Many compliance regulations (for example, PCI DSS, HIPAA) require organizations to audit database activity. Well-defined audit log filters help you meet these compliance requirements by ensuring that the necessary events are being logged. |
 | Resource Optimization | By minimizing log volume and optimizing the auditing process, you can conserve valuable system resources, such as CPU, memory, and disk space. |
 
 ## Basic structure
@@ -319,7 +319,10 @@ This example defines a filter that `excludes` (negate: true) all table access ev
         "name": "table_access",
         "user": ["admin", "developer"],
         "database": ["financial"],
-        "event": ["update", "delete"],
+        "event": [
+          {"name":"update"},
+          {"name":"delete"}
+        ],
         "status": [1] 
       },
       {
@@ -357,8 +360,6 @@ After you name your filter with an identifier, you attach your rules. The identi
 
 Remember that when you apply new filter settings to an existing identifier, the system replaces the old settings. It doesn't add the new rules to what's already there.
 
-
-
 ```sql
 SET GLOBAL audit_log_filter_id = 'financial_tracking';
 ```
@@ -374,13 +375,20 @@ SET GLOBAL audit_log_filter = '{
         "user": ["admin", "finance_team"],
         "database": ["financial_db"],
         "table": ["accounts", "transactions"],
-        "event": ["insert", "update", "delete"],
+        "event": [
+          {"name":"insert"},
+          {"name":"update"},
+          {"name":"delete"],
+        ]
         "status": [0, 1]
       },
       {
         "name": "connection",
         "user": ["admin", "finance_team"],
-        "event": ["connect", "disconnect"],
+        "event": [
+          {"name":"connect"},
+          {"name":"disconnect"}
+        ],
         "status": [0, 1]
       }
     ]
