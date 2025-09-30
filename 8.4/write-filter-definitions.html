@@ -8031,7 +8031,7 @@
 </tr>
 <tr>
 <td>Enhanced Security Focus</td>
-<td>Instead of logging every single event (which can be overwhelming), you can focus on the most critical events. For example, you can prioritize logging events related to:<br> * Sensitive data access: Log queries that access or modify critical tables.<br> - User account activity: Monitor user logins, password changes, and privilege grants.<br> * DML operations: Log INSERT, UPDATE, and DELETE statements on specific tables.<br> * DDL operations: Log schema changes like CREATE TABLE, ALTER TABLE, and DROP TABLE.</td>
+<td>Instead of logging every single event (which can be overwhelming), you can focus on the most critical events. For example, you can prioritize logging events related to:<br> * Sensitive data access: Log queries that access or modify critical tables.<br> * User account activity: Monitor user logins, password changes, and privilege grants.<br> * DML operations: Log INSERT, UPDATE, and DELETE statements on specific tables.<br> * DDL operations: Log schema changes like CREATE TABLE, ALTER TABLE, and DROP TABLE.</td>
 </tr>
 <tr>
 <td>Simplified Log Analysis</td>
@@ -8039,7 +8039,7 @@
 </tr>
 <tr>
 <td>Compliance</td>
-<td>Many compliance regulations (e.g., PCI DSS, HIPAA) require organizations to audit database activity. Well-defined audit log filters help you meet these compliance requirements by ensuring that the necessary events are being logged.</td>
+<td>Many compliance regulations (for example, PCI DSS, HIPAA) require organizations to audit database activity. Well-defined audit log filters help you meet these compliance requirements by ensuring that the necessary events are being logged.</td>
 </tr>
 <tr>
 <td>Resource Optimization</td>
@@ -8333,7 +8333,10 @@ This array object is more concise. You should use it if you do not plan to add a
 <span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;developer&quot;</span><span class="p">],</span>
 <span class="w">        </span><span class="nt">&quot;database&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;financial&quot;</span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;update&quot;</span><span class="p">},</span>
+<span class="w">          </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;delete&quot;</span><span class="p">}</span>
+<span class="w">        </span><span class="p">],</span>
 <span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span>
 <span class="w">      </span><span class="p">},</span>
 <span class="w">      </span><span class="p">{</span>
@@ -8368,13 +8371,20 @@ This array object is more concise. You should use it if you do not plan to add a
 <span class="s1">        &quot;user&quot;: [&quot;admin&quot;, &quot;finance_team&quot;],</span>
 <span class="s1">        &quot;database&quot;: [&quot;financial_db&quot;],</span>
 <span class="s1">        &quot;table&quot;: [&quot;accounts&quot;, &quot;transactions&quot;],</span>
-<span class="s1">        &quot;event&quot;: [&quot;insert&quot;, &quot;update&quot;, &quot;delete&quot;],</span>
+<span class="s1">        &quot;event&quot;: [</span>
+<span class="s1">          {&quot;name&quot;:&quot;insert&quot;},</span>
+<span class="s1">          {&quot;name&quot;:&quot;update&quot;},</span>
+<span class="s1">          {&quot;name&quot;:&quot;delete&quot;],</span>
+<span class="s1">        ]</span>
 <span class="s1">        &quot;status&quot;: [0, 1]</span>
 <span class="s1">      },</span>
 <span class="s1">      {</span>
 <span class="s1">        &quot;name&quot;: &quot;connection&quot;,</span>
 <span class="s1">        &quot;user&quot;: [&quot;admin&quot;, &quot;finance_team&quot;],</span>
-<span class="s1">        &quot;event&quot;: [&quot;connect&quot;, &quot;disconnect&quot;],</span>
+<span class="s1">        &quot;event&quot;: [</span>
+<span class="s1">          {&quot;name&quot;:&quot;connect&quot;},</span>
+<span class="s1">          {&quot;name&quot;:&quot;disconnect&quot;}</span>
+<span class="s1">        ],</span>
 <span class="s1">        &quot;status&quot;: [0, 1]</span>
 <span class="s1">      }</span>
 <span class="s1">    ]</span>
@@ -8421,7 +8431,7 @@ This array object is more concise. You should use it if you do not plan to add a
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-09-29
+    2025-09-30
   </span>
 
     
