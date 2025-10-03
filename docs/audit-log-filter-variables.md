@@ -374,7 +374,7 @@ mysql> SELECT audit_log_filter_set_user('user-name@localhost', 'filter-name');
 | Units | byes |
 | Block size | 4096 |
 
-This variable defines the buffer size in multiples of 4096 when logging is asynchronous. The contents for events are stored in a buffer. The contents are stored until the contents are written.
+This read-only variable defines the buffer size in multiples of `4096` when logging is asynchronous. Events are temporarily stored in this buffer before being written to the log file. This variable requires a server restart to change.
 
 The component initializes a single buffer and removes the buffer when the component terminates.
 
@@ -383,13 +383,13 @@ The component initializes a single buffer and removes the buffer when the compon
 | Option name | Description |
 | --- | --- |
 | Command-line | --audit-log-filter.compression |
-| Dynamic | Yes  |
+| Dynamic | No  |
 | Scope | Global  |
 | Data type | Enumeration  |
 | Default | NONE  |
 | Valid values | NONE or GZIP |
 
-This variable defines the compression type for the audit log filter file. The values can be either `NONE`, the default value and file has no compression, or `GZIP`.
+This read-only variable defines the compression type for the audit log filter file. This variable requires a server restart to change. The values can be either `NONE`, the default value and file has no compression, or `GZIP`.
 
 
 ### `audit_log_filter.database` 
@@ -402,9 +402,11 @@ This variable defines the compression type for the audit log filter file. The va
 | Data type | String  |
 | Default | mysql  |
 
-This variable defines the audit_log_filter database. This read-only variable stores the necessary tables. Set this option at system startup. The database name cannot exceed 64 characters or be `NULL`.
+This read-only variable defines the audit_log_filter database, which stores the necessary tables. 
 
-An invalid database name prevents the use of the audit log filter component.
+The database name cannot exceed 64 characters or be `NULL`. An invalid database name prevents the use of the audit log filter component.
+
+This variable requires a server restart to change.
 
 ### `audit_log_filter.disable`
 
@@ -431,9 +433,10 @@ This variable requires the user account to have `SYSTEM_VARIABLES_ADMIN` and `AU
 | Default | NONE  |
 | Valid values | NONE or AES |
 
-This variable defines the encryption type for the audit log filter file. The values can be either of the following:
+This read-only variable defines the encryption type for the audit log filter file. This variable requires a server restart to change. The values can be either of the following:
 
 * `NONE` - the default value, no encryption
+
 * `AES` 
 
 ### `audit_log_filter.file`
@@ -446,11 +449,12 @@ This variable defines the encryption type for the audit log filter file. The val
 | Data type | String  |
 | Default | audit_filter.log  |
 
-This variable defines the name and suffix of the audit log filter file. The component writes events to this file.
+This read-only variable defines the filename of the audit log filter file. The component writes events to this file. This variable requires a server restart to change.
 
-The file name and suffix can be either of the following:
+The filename can be either of the following:
 
 * a relative path name - the component looks for this file in the data directory
+
 * a full path name - the component uses the given value
   
 If you use a full path name, ensure the directory is accessible only to users who need to view the log and the server.
@@ -468,12 +472,14 @@ For more information, see [Naming conventions](audit-log-filter-naming.md)
 | Default | NEW  |
 | Available values | OLD, NEW, JSON |
 
-This variable defines the audit log filter file format. 
+This read-only variable defines the audit log filter file format. This variable requires a server restart to change.
 
 The available values are the following: 
 
 * [OLD (old-style XML)](audit-log-filter-old.md)
-* [NEW (new-style XML)](audit-log-filter-new.md) and 
+
+* [NEW (new-style XML)](audit-log-filter-new.md)
+
 * [JSON](audit-log-filter-json.md).
 
 ### `audit_log_filter.format_unix_timestamp`
@@ -502,11 +508,11 @@ This option does nothing when used with other format types.
 | Data type | String  |
 | Default | FILE  |
 
-Defines where the component writes the audit log filter file. The following values are available:
+This read-only variable defines where the component writes the audit log filter file. This variable requires a server restart to change. The following values are available:
 
 * `FILE` - component writes the log to a location specified in [`audit_log_filter.file`](#audit_log_filterfile)
-* `SYSLOG` - component writes to the syslog
 
+* `SYSLOG` - component writes to the syslog
 
 ### `audit_log_filter.key_derivation_iterations_count_mean`
 
@@ -536,25 +542,22 @@ Defines the mean value of iterations used by the password-based derivation routi
 | Unit | bytes |
 | Block size | 4096 |
 
-Defines pruning based on the combined size of the files:
+This variable defines the maximum combined size of all audit log files before pruning occurs.
 
-The default value is 1GB. 
+**Default value:** 1GB
 
-A value of 0 (zero) disables pruning based on size.
+**Behavior:**
+* A value of 0 (zero) disables size-based pruning
+* A value greater than 0 enables pruning when the combined size of all audit log files exceeds this limit
+* Values are rounded down to the nearest multiple of 4096 bytes (block size)
+* Values less than 4096 are treated as 0 (disabled)
 
-A value greater than 0 (zero) enables pruning based on size and defines the combined size limit. When the files exceed this limit, they can be pruned.
+**Recommendation:** When both `audit_log_filter.rotate_on_size` and `audit_log_filter.max_size` are greater than 0, set `audit_log_filter.max_size` to at least seven times the `audit_log_filter.rotate_on_size` value.
 
-The value is based on 4096 (block size). A value is truncated to the nearest multiple of the block size. If the value is less than 4096, the value is treated as 0 (zero).
-
-If the values for [`audit_log_filter.rotate_on_size`](#audit_log_filterrotate_on_size) and [`audit_log_filter.max_size`](#audit_log_filtermax_size) are greater than 0, we recommend that `audit_log_filter.max_size` value should be at least seven times the `audit_log_filter.rotate_on_size` value.
-
-Pruning requires the following options:
-
-* [`audit_log_filter.rotate_on_size`](#audit_log_filterrotate_on_size)
-
-* [`audit_log_filter.max_size`](#audit_log_filtermax_size)
-
-* [`audit_log_filter.prune_seconds`](#audit_log_filterprune_seconds)
+**Pruning requirements:** To enable pruning, you must configure at least one of the following:
+* [`audit_log_filter.rotate_on_size`](#audit_log_filterrotate_on_size) - enables rotation
+* [`audit_log_filter.max_size`](#audit_log_filtermax_size) - enables size-based pruning  
+* [`audit_log_filter.prune_seconds`](#audit_log_filterprune_seconds) - enables time-based pruning
 
 
 ### `audit_log_filter.password_history_keep_days`
@@ -642,7 +645,7 @@ If you set the value to less than 4096, the component does not automatically rot
 | Data type | Enumeration  |
 | Default | ASYNCHRONOUS  |
 
-Defines the Audit Log filter component's logging method. The valid values are the following:
+This read-only variable defines the Audit Log filter component's logging method. This variable requires a server restart to change. The valid values are the following:
 
 | Values | Description |
 | --- | --- |
@@ -661,6 +664,8 @@ Defines the Audit Log filter component's logging method. The valid values are th
 | Data type    | String                          |
 | Default      | audit-filter                    |
 
+This read-only variable specifies the syslog tag value. This variable requires a server restart to change.
+
 ### `audit_log_filter.syslog_facility`
 
 | Option name | Description |
@@ -671,7 +676,7 @@ Defines the Audit Log filter component's logging method. The valid values are th
 | Data type | String  |
 | Default | LOG_USER |
 
-Specifies the syslog `facility` value. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+This read-only variable specifies the syslog `facility` value. This variable requires a server restart to change. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 
 ### `audit_log_filter.syslog_priority`
@@ -684,7 +689,7 @@ Specifies the syslog `facility` value. The option has the same meaning as the ap
 | Data type | String  |
 | Default | LOG_INFO |
 
-Defines the `priority` value for the syslog. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+This read-only variable defines the `priority` value for the syslog. This variable requires a server restart to change. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ## Audit log filter status variables
 
