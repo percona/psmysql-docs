@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The plugin_dir system variable defines the component library location. If needed, at server startup, set the plugin_dir variable.">
+        <meta name="description" content="Documentation">
       
       
         <meta name="author" content="Percona LLC">
@@ -29,7 +29,7 @@
     
     
       
-        <title>Install the Audit Log Filter - Percona Server for MySQL</title>
+        <title>Install the audit log filter - Percona Server for MySQL</title>
       
     
     
@@ -96,7 +96,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Install the Audit Log Filter" />
+                 <meta property="og:title" content="Percona Server for MySQL - Install the audit log filter" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
               
@@ -216,7 +216,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Install the Audit Log Filter
+              Install the audit log filter
             
           </span>
         </div>
@@ -1176,17 +1176,78 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Install the audit log filter
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="install-audit-log-filter.html" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
-    Install the Audit Log Filter
+    Install the audit log filter
     
   </span>
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation script
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-install-component-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative: INSTALL COMPONENT method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional information
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -7691,6 +7752,41 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation script
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-install-component-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative: INSTALL COMPONENT method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional information
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                     </div>
                   </div>
@@ -7723,20 +7819,101 @@
   
 
 
-<h1 id="install-the-audit-log-filter">Install the Audit Log Filter<a class="headerlink" href="#install-the-audit-log-filter" title="Permanent link">&para;</a></h1>
-<p>The <code>plugin_dir</code> system variable defines the component library location. If needed, at server startup, set the <code>plugin_dir</code> variable.</p>
-<p>In the <code>share</code> directory, locate the <code>audit_log_filter_linux_install.sql</code> script.</p>
-<p>At the time you run the script, you can select the database used to store the JSON filter tables.</p>
+<h1 id="install-the-audit-log-filter">Install the audit log filter<a class="headerlink" href="#install-the-audit-log-filter" title="Permanent link">&para;</a></h1>
+<h2 id="installation-script">Installation script<a class="headerlink" href="#installation-script" title="Permanent link">&para;</a></h2>
+<p>The recommended way to install the component is to use the <code>audit_log_filter_linux_install.sql</code> script, located in the <code>share</code> directory, which creates the required tables before installing the component.</p>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
+<p>The <code>plugin_dir</code> system variable defines the component library location. If needed, set the <code>plugin_dir</code> variable at server startup.</p>
+<h3 id="database-selection">Database selection<a class="headerlink" href="#database-selection" title="Permanent link">&para;</a></h3>
+<p>The script determines the target database using the following priority:</p>
 <ul>
-<li>If the component is loaded, the installation script takes the database name from the <code>audit_log_filter.database</code> variable</li>
-<li>If the component is not loaded, but passes the <code>-D db_name</code> to the mysql client when the installation script runs, uses the <code>db_name</code>.</li>
-<li>If the component is not loaded and the <code>-D</code> option is not provided, the installation script creates the required tables in the default database name <code>mysql</code>.</li>
+<li>
+<p>If the component is already loaded, the script uses the database name from the <code>audit_log_filter.database</code> variable</p>
+</li>
+<li>
+<p>If the component is not loaded, but you pass the <code>-D db_name</code> option to the mysql client when running the script, it uses the specified <code>db_name</code></p>
+</li>
+<li>
+<p>If the component is not loaded and no <code>-D</code> option is provided, you must specify the <code>mysql</code> database when running the script</p>
+</li>
 </ul>
 <p>You can also designate a different database with the <code>audit_log_filter.database</code> system variable. The database name cannot be NULL or exceed 64 characters. If the database name is invalid, the audit log filter tables are not found.</p>
-<p>To install the component, run the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_audit_log_filter&#39;</span><span class="p">;</span>
+<h3 id="install-the-component">Install the component<a class="headerlink" href="#install-the-component" title="Permanent link">&para;</a></h3>
+<p>To install the component using the script, you must specify the <code>mysql</code> database. You can do this in two ways:</p>
+<ul>
+<li>
+<p>Option 1: Run the script from the command line with the <code>-D mysql</code> option:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql<span class="w"> </span>&lt;<span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql
 </code></pre></div>
-<p>Find more information in the <a href="install-component.html">INSTALL COMPONENT</a> document.</p>
+</li>
+<li>
+<p>Option 2: Connect to <code>mysql</code> database and run the script interactively:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>use<span class="w"> </span>mysql<span class="p">;</span>
+mysql&gt;<span class="w"> </span><span class="nb">source</span><span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql<span class="p">;</span>
+</code></pre></div>
+<p>Replace <code>/path/to/mysql/share/</code> with the actual path to your MySQL installation&rsquo;s share directory.</p>
+</li>
+</ul>
+<h3 id="verify-installation">Verify installation<a class="headerlink" href="#verify-installation" title="Permanent link">&para;</a></h3>
+<p>After running the script, verify that the required tables are created:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>tables<span class="w"> </span><span class="k">in</span><span class="w"> </span>mysql<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;aud%&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------+
+| Tables_in_mysql (aud%) |
++------------------------+
+| audit_log_filter       |
+| audit_log_user         |
++------------------------+
+2 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="alternative-install-component-method">Alternative: INSTALL COMPONENT method<a class="headerlink" href="#alternative-install-component-method" title="Permanent link">&para;</a></h2>
+<p>You can also install the component using the <code>INSTALL COMPONENT</code> command, but this method does not create the required tables and will cause filter operations to fail.</p>
+<h3 id="verify-component-installation">Verify component installation<a class="headerlink" href="#verify-component-installation" title="Permanent link">&para;</a></h3>
+<p>Check that the component is properly installed:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span><span class="k">select</span><span class="w"> </span>*<span class="w"> </span>from<span class="w"> </span>mysql.component<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------------+--------------------+------------------------------------+
+| component_id | component_group_id | component_urn                      |
++--------------+--------------------+------------------------------------+
+|            1 |                  1 | file://component_percona_telemetry |
+|            2 |                  2 | file://component_audit_log_filter  |
++--------------+--------------------+------------------------------------+
+2 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<h3 id="test-filter-functionality">Test filter functionality<a class="headerlink" href="#test-filter-functionality" title="Permanent link">&para;</a></h3>
+<p>Test that the audit log filter is working correctly:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_all&#39;</span>,<span class="w"> </span><span class="s1">&#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------------------------------+
+| audit_log_filter_set_filter(&#39;log_all&#39;, &#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;) |
++---------------------------------------------------------------------+
+| ERROR: Failed to check filtering rule name existence                |
++---------------------------------------------------------------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This error occurs when the component is installed without the required tables. Using the SQL script prevents this issue.</p>
+</div>
+<h3 id="fix-missing-tables">Fix missing tables<a class="headerlink" href="#fix-missing-tables" title="Permanent link">&para;</a></h3>
+<p>If you have already installed the audit log component but are missing the required tables, you can run the <code>audit_log_filter_linux_install.sql</code> script to create the audit tables in the <code>mysql</code> database:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql<span class="w"> </span>&lt;<span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql
+</code></pre></div>
+<p>Or interactively:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>use<span class="w"> </span>mysql<span class="p">;</span>
+mysql&gt;<span class="w"> </span><span class="nb">source</span><span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql<span class="p">;</span>
+</code></pre></div>
+<p>This operation creates the missing tables without reinstalling the component.</p>
+<h2 id="additional-information">Additional information<a class="headerlink" href="#additional-information" title="Permanent link">&para;</a></h2>
 <p>To upgrade from <code>audit_log_filter</code> plugin in Percona Server 8.4 to <code>component_audit_log_filter</code> component in Percona Server 8.4, do the <a href="upgrade-components.html">manual upgrade</a>.</p>
 <p>Review <a href="get-help.html">Get more help</a> for ways that we can work with you.</p>
 
@@ -7759,7 +7936,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-11-21
+    2025-10-03
   </span>
 
     

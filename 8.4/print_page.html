@@ -1170,7 +1170,7 @@
   
   
   <span class="md-ellipsis">
-    Install the Audit Log Filter
+    Install the audit log filter
     
   </span>
   
@@ -7928,7 +7928,7 @@
           <li class="md-nav__item">
   <a href="#install-audit-log-filter" class="md-nav__link">
     <span class="md-ellipsis">
-      Install the Audit Log Filter
+      Install the audit log filter
     </span>
   </a>
   
@@ -11404,20 +11404,101 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
 <td>The account filter name</td>
 </tr>
 </tbody>
-</table></section><section class="print-page" id="install-audit-log-filter" heading-number="5.2.2"><h1 id="install-audit-log-filter-install-the-audit-log-filter">Install the Audit Log Filter<a class="headerlink" href="#install-audit-log-filter-install-the-audit-log-filter" title="Permanent link">&para;</a></h1>
-<p>The <code>plugin_dir</code> system variable defines the component library location. If needed, at server startup, set the <code>plugin_dir</code> variable.</p>
-<p>In the <code>share</code> directory, locate the <code>audit_log_filter_linux_install.sql</code> script.</p>
-<p>At the time you run the script, you can select the database used to store the JSON filter tables.</p>
+</table></section><section class="print-page" id="install-audit-log-filter" heading-number="5.2.2"><h1 id="install-audit-log-filter-install-the-audit-log-filter">Install the audit log filter<a class="headerlink" href="#install-audit-log-filter-install-the-audit-log-filter" title="Permanent link">&para;</a></h1>
+<h2 id="install-audit-log-filter-installation-script">Installation script<a class="headerlink" href="#install-audit-log-filter-installation-script" title="Permanent link">&para;</a></h2>
+<p>The recommended way to install the component is to use the <code>audit_log_filter_linux_install.sql</code> script, located in the <code>share</code> directory, which creates the required tables before installing the component.</p>
+<h3 id="install-audit-log-filter-prerequisites">Prerequisites<a class="headerlink" href="#install-audit-log-filter-prerequisites" title="Permanent link">&para;</a></h3>
+<p>The <code>plugin_dir</code> system variable defines the component library location. If needed, set the <code>plugin_dir</code> variable at server startup.</p>
+<h3 id="install-audit-log-filter-database-selection">Database selection<a class="headerlink" href="#install-audit-log-filter-database-selection" title="Permanent link">&para;</a></h3>
+<p>The script determines the target database using the following priority:</p>
 <ul>
-<li>If the component is loaded, the installation script takes the database name from the <code>audit_log_filter.database</code> variable</li>
-<li>If the component is not loaded, but passes the <code>-D db_name</code> to the mysql client when the installation script runs, uses the <code>db_name</code>.</li>
-<li>If the component is not loaded and the <code>-D</code> option is not provided, the installation script creates the required tables in the default database name <code>mysql</code>.</li>
+<li>
+<p>If the component is already loaded, the script uses the database name from the <code>audit_log_filter.database</code> variable</p>
+</li>
+<li>
+<p>If the component is not loaded, but you pass the <code>-D db_name</code> option to the mysql client when running the script, it uses the specified <code>db_name</code></p>
+</li>
+<li>
+<p>If the component is not loaded and no <code>-D</code> option is provided, you must specify the <code>mysql</code> database when running the script</p>
+</li>
 </ul>
 <p>You can also designate a different database with the <code>audit_log_filter.database</code> system variable. The database name cannot be NULL or exceed 64 characters. If the database name is invalid, the audit log filter tables are not found.</p>
-<p>To install the component, run the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_audit_log_filter&#39;</span><span class="p">;</span>
+<h3 id="install-audit-log-filter-install-the-component">Install the component<a class="headerlink" href="#install-audit-log-filter-install-the-component" title="Permanent link">&para;</a></h3>
+<p>To install the component using the script, you must specify the <code>mysql</code> database. You can do this in two ways:</p>
+<ul>
+<li>
+<p>Option 1: Run the script from the command line with the <code>-D mysql</code> option:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql<span class="w"> </span>&lt;<span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql
 </code></pre></div>
-<p>Find more information in the <a href="#install-component">INSTALL COMPONENT</a> document.</p>
+</li>
+<li>
+<p>Option 2: Connect to <code>mysql</code> database and run the script interactively:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>use<span class="w"> </span>mysql<span class="p">;</span>
+mysql&gt;<span class="w"> </span><span class="nb">source</span><span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql<span class="p">;</span>
+</code></pre></div>
+<p>Replace <code>/path/to/mysql/share/</code> with the actual path to your MySQL installation&rsquo;s share directory.</p>
+</li>
+</ul>
+<h3 id="install-audit-log-filter-verify-installation">Verify installation<a class="headerlink" href="#install-audit-log-filter-verify-installation" title="Permanent link">&para;</a></h3>
+<p>After running the script, verify that the required tables are created:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>tables<span class="w"> </span><span class="k">in</span><span class="w"> </span>mysql<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;aud%&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------+
+| Tables_in_mysql (aud%) |
++------------------------+
+| audit_log_filter       |
+| audit_log_user         |
++------------------------+
+2 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="install-audit-log-filter-alternative-install-component-method">Alternative: INSTALL COMPONENT method<a class="headerlink" href="#install-audit-log-filter-alternative-install-component-method" title="Permanent link">&para;</a></h2>
+<p>You can also install the component using the <code>INSTALL COMPONENT</code> command, but this method does not create the required tables and will cause filter operations to fail.</p>
+<h3 id="install-audit-log-filter-verify-component-installation">Verify component installation<a class="headerlink" href="#install-audit-log-filter-verify-component-installation" title="Permanent link">&para;</a></h3>
+<p>Check that the component is properly installed:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span><span class="k">select</span><span class="w"> </span>*<span class="w"> </span>from<span class="w"> </span>mysql.component<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------------+--------------------+------------------------------------+
+| component_id | component_group_id | component_urn                      |
++--------------+--------------------+------------------------------------+
+|            1 |                  1 | file://component_percona_telemetry |
+|            2 |                  2 | file://component_audit_log_filter  |
++--------------+--------------------+------------------------------------+
+2 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<h3 id="install-audit-log-filter-test-filter-functionality">Test filter functionality<a class="headerlink" href="#install-audit-log-filter-test-filter-functionality" title="Permanent link">&para;</a></h3>
+<p>Test that the audit log filter is working correctly:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_all&#39;</span>,<span class="w"> </span><span class="s1">&#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------------------------------+
+| audit_log_filter_set_filter(&#39;log_all&#39;, &#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;) |
++---------------------------------------------------------------------+
+| ERROR: Failed to check filtering rule name existence                |
++---------------------------------------------------------------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This error occurs when the component is installed without the required tables. Using the SQL script prevents this issue.</p>
+</div>
+<h3 id="install-audit-log-filter-fix-missing-tables">Fix missing tables<a class="headerlink" href="#install-audit-log-filter-fix-missing-tables" title="Permanent link">&para;</a></h3>
+<p>If you have already installed the audit log component but are missing the required tables, you can run the <code>audit_log_filter_linux_install.sql</code> script to create the audit tables in the <code>mysql</code> database:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql<span class="w"> </span>&lt;<span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql
+</code></pre></div>
+<p>Or interactively:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>use<span class="w"> </span>mysql<span class="p">;</span>
+mysql&gt;<span class="w"> </span><span class="nb">source</span><span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql<span class="p">;</span>
+</code></pre></div>
+<p>This operation creates the missing tables without reinstalling the component.</p>
+<h2 id="install-audit-log-filter-additional-information">Additional information<a class="headerlink" href="#install-audit-log-filter-additional-information" title="Permanent link">&para;</a></h2>
 <p>To upgrade from <code>audit_log_filter</code> plugin in Percona Server 8.4 to <code>component_audit_log_filter</code> component in Percona Server 8.4, do the <a href="#upgrade-components">manual upgrade</a>.</p>
 <p>Review <a href="#get-help">Get more help</a> for ways that we can work with you.</p></section>
                     <section class='print-page md-section' id='section-5-2-3' heading-number='5.2.3'>
