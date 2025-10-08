@@ -350,24 +350,31 @@ Performance impact is a critical consideration when implementing detailed loggin
 
 ## Implement the filter
 
-Here's how to define and implement an audit log filter:
+Here's how to define and implement an audit log filter in Percona Server for MySQL 8.4.6:
 
-### Add filter identifier
+### Create a filter
 
-An audit log filter identifier is your filter's unique name within the `audit_log_filter` system. You create this name to label and track your specific filter setup. The `audit_log_filter_id` system variable stores this name, and you should choose descriptive identifiers like 'finance_audit' or 'security_tracking'.
-
-After you name your filter with an identifier, you attach your rules. The identifier makes it easy to manage multiple filter setups and update them as needed. When you want to change your logging rules, you first reference your chosen identifier and then add your new filter settings.
-
-Remember that when you apply new filter settings to an existing identifier, the system replaces the old settings. It doesn't add the new rules to what's already there.
+To create an audit log filter, use the `audit_log_filter_set_filter()` function. This function takes two parameters: the filter name and the filter definition as a JSON string.
 
 ```sql
-SET GLOBAL audit_log_filter_id = 'financial_tracking';
+SELECT audit_log_filter_set_filter('log_all', '{ "filter": { "log": true } }');
 ```
 
-### Add filter definition
+### Assign filter to users
+
+To assign a filter to specific users, use the `audit_log_filter_set_user()` function. This function takes three parameters: username, userhost, and filtername.
 
 ```sql
-SET GLOBAL audit_log_filter = '{
+SELECT audit_log_filter_set_user('%', '%', 'log_all');
+```
+
+### Example: Financial tracking filter
+
+Here's a complete example of creating and assigning a comprehensive financial tracking filter:
+
+```sql
+-- Create the filter
+SELECT audit_log_filter_set_filter('financial_tracking', '{
   "filter": {
     "class": [
       {
@@ -379,7 +386,7 @@ SET GLOBAL audit_log_filter = '{
           {"name":"insert"},
           {"name":"update"},
           {"name":"delete"],
-        ]
+        ],
         "status": [0, 1]
       },
       {
@@ -393,7 +400,10 @@ SET GLOBAL audit_log_filter = '{
       }
     ]
   }
-}';
+}');
+
+-- Assign the filter to all users
+SELECT audit_log_filter_set_user('%', '%', 'financial_tracking');
 ```
 
 The filter monitors two main types of activities. First, it watches all changes to your accounts and transactions tables. This monitoring means that the filter logs when someone adds new data, changes existing information, or removes records. You get a complete picture of who's touching your financial data and what they do with it.
@@ -413,9 +423,14 @@ The filter focuses only on activity in your `financial_db` database. This target
 Tracking all these elements gives you a comprehensive view of who's accessing your financial data, what changes they're making, and whether those changes are successful. This ability is beneficial for security monitoring and compliance requirements.
 
 
-To verify your filter:
+To verify your filter, you can check the audit tables:
+
 ```sql
-SHOW GLOBAL VARIABLES LIKE 'audit_log_filter';
+-- Check created filters
+SELECT * FROM mysql.audit_log_filter;
+
+-- Check user assignments
+SELECT * FROM mysql.audit_log_user;
 ```
 
 You can examine your audit log file (the default location is the data directory) to check if events are being logged.
