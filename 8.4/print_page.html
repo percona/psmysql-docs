@@ -11544,7 +11544,7 @@ base name and you won&rsquo;t be able to easily find when the format changed.</p
 <p>The filter writes the audit log filter file in XML. The XML file uses 
 UTF-8.</p>
 <p>The <AUDIT> is the root element and this element contains 
-<AUDIT_RECORD> elements. Each <AUDIT_RECORD> element contains specific 
+&lt;AUDIT_RECORD&gt; elements. Each &lt;AUDIT_RECORD&gt; element contains specific 
 information about an event that is audited. </p>
 <p>For each new file, the Audit Log Filter component writes the XML 
 declaration and the root element tag. The component writes the closing 
@@ -11611,7 +11611,7 @@ closing element is not available.</p>
 <span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
 <span class="nt">&lt;/AUDIT&gt;</span>
 </code></pre></div>
-<p>The order of the attributes within an <AUDIT_RECORD> can vary. Certain attributes are in every element. Other attributes are optional and depend on the type of audit record.</p>
+<p>The order of the attributes within an &lt;AUDIT_RECORD&gt; can vary. Certain attributes are in every element. Other attributes are optional and depend on the type of audit record.</p>
 <p>The attributes in every element are the following:</p>
 <table>
 <thead>
@@ -11726,8 +11726,8 @@ closing element is not available.</p>
 </tr>
 </tbody>
 </table></section><section class="print-page" id="audit-log-filter-old" heading-number="5.2.3.3"><h1 id="audit-log-filter-old-audit-log-filter-format-xml-old-style">Audit Log Filter format - XML (old style)<a class="headerlink" href="#audit-log-filter-old-audit-log-filter-format-xml-old-style" title="Permanent link">&para;</a></h1>
-<p>The old style XML format uses <code>&lt;AUDIT&gt;</code> tag as the root element and adds the <code>&lt;/AUDIT&gt;</code> tag when the file closes. Each audited event is contained in an <AUDIT_RECORD> element. </p>
-<p>The order of the attributes within an <AUDIT_RECORD> can vary. Certain attributes are in every element. Other attributes are optional and depend on the type of audit record.</p>
+<p>The old style XML format uses <code>&lt;AUDIT&gt;</code> tag as the root element and adds the <code>&lt;/AUDIT&gt;</code> tag when the file closes. Each audited event is contained in an &lt;AUDIT_RECORD&gt; element. </p>
+<p>The order of the attributes within an &lt;AUDIT_RECORD&gt; can vary. Certain attributes are in every element. Other attributes are optional and depend on the type of audit record.</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
 <span class="nt">&lt;AUDIT&gt;</span>
 <span class="w">  </span><span class="nt">&lt;AUDIT_RECORD</span>
@@ -12490,15 +12490,19 @@ This array object is more concise. You should use it if you do not plan to add a
 <p>Log file management requires careful attention. Audit logs can grow rapidly, especially with detailed filtering configurations. Monitor your log file sizes regularly and implement appropriate rotation policies. Consider storage capacity, retention requirements, and system performance when determining how much detail to include in your logs. It&rsquo;s often helpful to calculate expected log growth based on your typical database activity and adjust your rotation policies accordingly.</p>
 <p>Performance impact is a critical consideration when implementing detailed logging. More granular filters typically require more system resources to process and store the audit data. Monitor your system&rsquo;s performance metrics while testing different filter configurations. Look for significant changes in query response times, CPU usage, or I/O operations. If you notice performance degradation, consider adjusting your filters to balance capturing necessary audit data and maintaining acceptable system performance. Remember that starting with less detailed logging is often better and gradually increasing it as needed, rather than implementing overly aggressive logging that impacts system performance.</p>
 <h2 id="write-filter-definitions-implement-the-filter">Implement the filter<a class="headerlink" href="#write-filter-definitions-implement-the-filter" title="Permanent link">&para;</a></h2>
-<p>Here&rsquo;s how to define and implement an audit log filter:</p>
-<h3 id="write-filter-definitions-add-filter-identifier">Add filter identifier<a class="headerlink" href="#write-filter-definitions-add-filter-identifier" title="Permanent link">&para;</a></h3>
-<p>An audit log filter identifier is your filter&rsquo;s unique name within the <code>audit_log_filter</code> system. You create this name to label and track your specific filter setup. The <code>audit_log_filter_id</code> system variable stores this name, and you should choose descriptive identifiers like &lsquo;finance_audit&rsquo; or &lsquo;security_tracking&rsquo;.</p>
-<p>After you name your filter with an identifier, you attach your rules. The identifier makes it easy to manage multiple filter setups and update them as needed. When you want to change your logging rules, you first reference your chosen identifier and then add your new filter settings.</p>
-<p>Remember that when you apply new filter settings to an existing identifier, the system replaces the old settings. It doesn&rsquo;t add the new rules to what&rsquo;s already there.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;financial_tracking&#39;</span><span class="p">;</span>
+<p>Here&rsquo;s how to define and implement an audit log filter in Percona Server for MySQL 8.4.6:</p>
+<h3 id="write-filter-definitions-create-a-filter">Create a filter<a class="headerlink" href="#write-filter-definitions-create-a-filter" title="Permanent link">&para;</a></h3>
+<p>To create an audit log filter, use the <code>audit_log_filter_set_filter()</code> function. This function takes two parameters: the filter name and the filter definition as a JSON string.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_all&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{ &quot;filter&quot;: { &quot;log&quot;: true } }&#39;</span><span class="p">);</span>
 </code></pre></div>
-<h3 id="write-filter-definitions-add-filter-definition">Add filter definition<a class="headerlink" href="#write-filter-definitions-add-filter-definition" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{</span>
+<h3 id="write-filter-definitions-assign-filter-to-users">Assign filter to users<a class="headerlink" href="#write-filter-definitions-assign-filter-to-users" title="Permanent link">&para;</a></h3>
+<p>To assign a filter to specific users, use the <code>audit_log_filter_set_user()</code> function. This function takes three parameters: username, userhost, and filtername.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;log_all&#39;</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="write-filter-definitions-example-financial-tracking-filter">Example: Financial tracking filter<a class="headerlink" href="#write-filter-definitions-example-financial-tracking-filter" title="Permanent link">&para;</a></h3>
+<p>Here&rsquo;s a complete example of creating and assigning a comprehensive financial tracking filter:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Create the filter</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;financial_tracking&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
 <span class="s1">    &quot;class&quot;: [</span>
 <span class="s1">      {</span>
@@ -12510,7 +12514,7 @@ This array object is more concise. You should use it if you do not plan to add a
 <span class="s1">          {&quot;name&quot;:&quot;insert&quot;},</span>
 <span class="s1">          {&quot;name&quot;:&quot;update&quot;},</span>
 <span class="s1">          {&quot;name&quot;:&quot;delete&quot;],</span>
-<span class="s1">        ]</span>
+<span class="s1">        ],</span>
 <span class="s1">        &quot;status&quot;: [0, 1]</span>
 <span class="s1">      },</span>
 <span class="s1">      {</span>
@@ -12524,7 +12528,10 @@ This array object is more concise. You should use it if you do not plan to add a
 <span class="s1">      }</span>
 <span class="s1">    ]</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">;</span>
+<span class="s1">}&#39;</span><span class="p">);</span>
+
+<span class="c1">-- Assign the filter to all users</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;financial_tracking&#39;</span><span class="p">);</span>
 </code></pre></div>
 <p>The filter monitors two main types of activities. First, it watches all changes to your accounts and transactions tables. This monitoring means that the filter logs when someone adds new data, changes existing information, or removes records. You get a complete picture of who&rsquo;s touching your financial data and what they do with it.</p>
 <p>The filter tracks both successes and failures. This tracking gives you valuable information about attempted changes that didn&rsquo;t work out, which is helpful for troubleshooting and security monitoring.</p>
@@ -12542,9 +12549,13 @@ This array object is more concise. You should use it if you do not plan to add a
 </ul>
 <p>The filter focuses only on activity in your <code>financial_db</code> database. This targeted approach makes it easier to find the information you need when you need it.</p>
 <p>Tracking all these elements gives you a comprehensive view of who&rsquo;s accessing your financial data, what changes they&rsquo;re making, and whether those changes are successful. This ability is beneficial for security monitoring and compliance requirements.</p>
-<p>To verify your filter:
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;audit_log_filter&#39;</span><span class="p">;</span>
-</code></pre></div></p>
+<p>To verify your filter, you can check the audit tables:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Check created filters</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_filter</span><span class="p">;</span>
+
+<span class="c1">-- Check user assignments</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_user</span><span class="p">;</span>
+</code></pre></div>
 <p>You can examine your audit log file (the default location is the data directory) to check if events are being logged.</p></section><section class="print-page" id="audit-log-filter-security" heading-number="5.2.5"><h1 id="audit-log-filter-security-audit-log-filter-security">Audit Log Filter security<a class="headerlink" href="#audit-log-filter-security-audit-log-filter-security" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter component generates audit log filter files. The directory 
 that contains these files should be accessible only to the following:</p>
