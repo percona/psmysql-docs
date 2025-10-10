@@ -4,7 +4,7 @@ The filter writes the audit log filter file in XML. The XML file uses
 UTF-8.
 
 The <AUDIT> is the root element and this element contains 
-<AUDIT_RECORD> elements. Each <AUDIT_RECORD> element contains specific 
+&lt;AUDIT_RECORD&gt; elements. Each &lt;AUDIT_RECORD&gt; element contains specific 
 information about an event that is audited. 
 
 For each new file, the Audit Log Filter component writes the XML 
@@ -76,7 +76,7 @@ closing element is not available.
 </AUDIT>
 ```
 
-The order of the attributes within an <AUDIT_RECORD> can vary. Certain attributes are in every element. Other attributes are optional and depend on the type of audit record.
+The order of the attributes within an &lt;AUDIT_RECORD&gt; can vary. Certain attributes are in every element. Other attributes are optional and depend on the type of audit record.
 
 The attributes in every element are the following:
 
