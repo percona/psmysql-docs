@@ -32,14 +32,28 @@ As of `Percona Server for MySQL 8.0.42-33`, MyRocks introduces limited support f
 
 To enable specific types of instant operations, use the following configuration options:
 
-| Configuration variable | Enables Instant DDL for  | ALGORITHM (internal only) |
+| Configuration variable | Enables Instant DDL for  | ALGORITHM required         |
 |------------------------|--------------------------|----------------------------|
-| [`rocksdb_enable_instant_ddl_for_append_column=ON`](variables.md#rocksdb_enable_instant_ddl_for_append_column) | `ALTER TABLE ... ADD COLUMN` | `INSTANT`  |
-| [`rocksdb_enable_instant_ddl_for_column_default_changes=ON`](variables.md#rocksdb_enable_instant_ddl_for_column_default_changes) | `ALTER/MODIFY COLUMN … DEFAULT` | `INSTANT` |
-| [`rocksdb_enable_instant_ddl_for_drop_index_changes=ON`](variables.md#rocksdb_enable_instant_ddl_for_drop_index_changes) | `ALTER TABLE ... DROP INDEX` | `INSTANT`  |
-| [`rocksdb_enable_instant_ddl_for_table_comment_changes=ON`](variables.md#rocksdb_enable_instant_ddl_for_table_comment_changes) | `ALTER TABLE ... COMMENT` | `INSTANT` |
+| [`rocksdb_enable_instant_ddl_for_append_column=ON`](variables.md#rocksdb_enable_instant_ddl_for_append_column) | `ALTER TABLE ... ADD COLUMN` | `ALGORITHM=INSTANT`  |
+| [`rocksdb_enable_instant_ddl_for_column_default_changes=ON`](variables.md#rocksdb_enable_instant_ddl_for_column_default_changes) | `ALTER/MODIFY COLUMN … DEFAULT` | `ALGORITHM=INSTANT` |
+| [`rocksdb_enable_instant_ddl_for_drop_index_changes=ON`](variables.md#rocksdb_enable_instant_ddl_for_drop_index_changes) | `ALTER TABLE ... DROP INDEX` | `ALGORITHM=INSTANT`  |
+| [`rocksdb_enable_instant_ddl_for_table_comment_changes=ON`](variables.md#rocksdb_enable_instant_ddl_for_table_comment_changes) | `ALTER TABLE ... COMMENT` | `ALGORITHM=INSTANT` |
 
-**Note:** MyRocks does **not support `ALGORITHM=INSTANT`** in SQL syntax. These operations behave like Instant DDL **internally**, but only if the respective configuration variables are enabled.
+**Note:** Instant DDL in MyRocks is only triggered when **both** of the following conditions are met:
+
+1. The configuration variable is set to `ON`,
+2. The `ALTER TABLE` statement explicitly includes `ALGORITHM=INSTANT`.
+
+For example:
+
+```sql
+SET GLOBAL rocksdb_enable_instant_ddl_for_table_comment_changes = ON;
+ALTER TABLE my_table COMMENT = 'New comment', ALGORITHM=INSTANT;
+```
+
+If the configuration variable is enabled (`ON`) but `ALGORITHM=INSTANT` is not specified, MyRocks will fall back to the default algorithm.
+
+Conversely, if the configuration variable is disabled (`OFF`), attempting to use `ALGORITHM=INSTANT` will result in an error.
 
 ## Unsupported InnoDB features in MyRocks
 
