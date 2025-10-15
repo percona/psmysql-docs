@@ -1,14 +1,54 @@
 # Audit Log Filter overview
 
-The Audit Log Filter plugin provides security monitoring and access control for your MySQL server. The plugin allows you to monitor database activity, log specific events, and block connections or queries based on configurable rules.
+The Audit Log Filter plugin provides comprehensive database auditing capabilities for Percona Server. The plugin allows you to monitor, log, and block connections or queries actively executed on the selected server.
+
+## What is audit log filter?
+
+The Audit Log Filter plugin enables you to:
+
+| Issue                | Description                                                                                   |
+|:----------------------|:----------------------------------------------------------------------------------------------|
+| Monitor database activity | Track all database connections, queries, and administrative actions                         |
+| Comply with regulations   | Meet compliance requirements for database auditing                                          |
+| Enhance security          | Detect suspicious activities and unauthorized access attempts                              |
+| Control access            | Block specific queries or connections based on configurable rules                          |
+| Generate reports          | Create detailed audit trails for security analysis                                        |
 
 ## What the plugin does
 
-The plugin monitors server activity and creates detailed log files containing information about:
+The plugin uses the `mysql` system database to store filter and user account data. Set the [`audit_log_filter_database`](audit-log-filter-variables.md#audit_log_filter_database) variable at server startup to select a different database. When you change the database, you must create the required tables in the new database and migrate any existing filter data.
 
 * Database connections and disconnections
 
-* SQL statements executed by users
+## System requirements
+
+* Percona Server version: 8.0.34-26 or later
+
+* Storage engine: InnoDB (for audit tables)
+
+* Privileges: SYSTEM_VARIABLES_ADMIN to configure the plugin
+
+* Disk space: Sufficient space for audit log files
+
+* Memory: Additional memory overhead for audit processing
+
+## Basic configuration
+
+The Audit Log Filter plugin uses several key configuration variables:
+
+* Dynamic variables: Can be changed at runtime using `SET GLOBAL` without restarting the server
+
+* Read-only variables: Can only be changed at server startup in the configuration file
+
+* [`audit_log_filter_enable`](audit-log-filter-variables.md#audit_log_filter_enable): Enable or disable the audit filter engine (dynamic)
+
+* [`audit_log_filter_database`](audit-log-filter-variables.md#audit_log_filter_database): Database for storing filter definitions (read-only)
+
+* [`audit_log_filter_mode`](audit-log-filter-variables.md#audit_log_filter_mode): Set to ALLOW (whitelist) or DENY (blacklist) (dynamic)
+
+* [`audit_log_filter_rotate_on_size`](audit-log-filter-variables.md#audit_log_filter_rotate_on_size): Log file rotation size limit (dynamic)
+
+## Privileges
 
 * Database objects accessed
 
@@ -92,31 +132,56 @@ The Audit Log Filter plugin is the successor to the [audit log plugin](audit-log
 
 ## Audit Log Filter tables
 
-The Audit Log Filter plugin uses `mysql` system database tables in the `InnoDB` storage engine. These tables store user account data and filter data. When you start the server, change the plugin's database with the `audit_log_filter_database` variable.
+The Audit Log Filter plugin uses `mysql` system database tables in the `InnoDB` storage engine. These tables store user account data and filter data.
 
 The `audit_log_filter` table stores the definitions of the filters and has the following column definitions:
 
-| Column name | Data type | Description |
-|-------------|-----------|-------------|
-| NAME | VARCHAR(64) | Name of the filter |
-| FILTER | JSON | Definition of the filter linked to the name as a JSON value |
+| Column name | Description |
+|:-----------:|:-----------:|
+| NAME | Name of the filter |
+| FILTER | Definition of the filter linked to the name as a JSON value |
 
 The `audit_log_user` table stores account data and has the following column definitions:
 
-| Column name | Data type | Description |
-|-------------|-----------|-------------|
-| USER | VARCHAR(32) | The account name of the user |
-| HOST | VARCHAR(255) | The account name of the host |
-| FILTERNAME | VARCHAR(64) | The account filter name |
+| Column name | Description |
+|:-----------:|:-----------:|
+| USER | The account name of the user |
+| HOST | The account name of the host |
+| FILTERNAME | The account filter name |
 
-## Next steps
+## Log formats and output
 
-To get started with the Audit Log Filter plugin:
+The Audit Log Filter plugin supports multiple log formats:
 
-1. [Install the Audit Log Filter](install-audit-log-filter.md) - Installation instructions
+* JSON format: Machine-readable format for automated processing
 
-2. [Filter Audit Log Files](filter-audit-log-filter-files.md) - Creating and managing filters
+* XML (new): Human-readable format with structured data
 
-3. [Audit Log Filter Variables](audit-log-filter-variables.md) - Configuration options
+* XML (old): Legacy XML format for backward compatibility
 
-4. [Manage Audit Log Files](manage-audit-log-filter.md) - Log file management
+The plugin logs various types of events:
+
+* Connection events: User logins, logouts, and connection failures
+
+* Query events: SQL statements executed by users
+
+* Administrative events: Server configuration changes
+
+* Error events: Failed operations and security violations
+
+## Security considerations
+
+When implementing the Audit Log Filter plugin, consider these security aspects:
+
+| Issue               | Description                                                                                   |
+|:--------------------|:----------------------------------------------------------------------------------------------|
+| Performance impact   | Audit logging adds overhead to database operations                                            |
+| Storage requirements | Audit logs can grow large; plan for log rotation and archival                                 |
+| Sensitive data       | Configure filters to avoid logging sensitive information                                     |
+| Access control       | Restrict access to audit log files and configuration                                          |
+| Backup strategy      | Include audit logs in your backup and recovery procedures                                    |
+## References
+
+[Install the Audit Log Filter](install-audit-log-filter.md)
+
+[Audit Log Filter Variables & Functions](audit-log-filter-variables.md)
