@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The Audit Log Filter plugin provides security monitoring and access control for your MySQL server. The plugin allows you to monitor database activity, log specific events, and block connections or queries based on configurable rules.">
+        <meta name="description" content="The Audit Log Filter plugin provides comprehensive database auditing capabilities for Percona Server. The plugin allows you to monitor, log, and block connections or queries actively executed on the selected server.">
       
       
         <meta name="author" content="Percona LLC">
@@ -2242,9 +2242,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-is-audit-log-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is audit log filter?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-the-plugin-does" class="md-nav__link">
     <span class="md-ellipsis">
       What the plugin does
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      System requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#privileges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Privileges
     </span>
   </a>
   
@@ -2305,9 +2341,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#log-formats-and-output" class="md-nav__link">
     <span class="md-ellipsis">
-      Next steps
+      Log formats and output
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security considerations
     </span>
   </a>
   
@@ -2500,6 +2545,29 @@
   
   
     <li class="md-nav__item">
+      <a href="audit-log-filter-variables.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Audit log filter functions, options and variables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="audit-log-filter-security.html" class="md-nav__link">
         
   
@@ -2667,29 +2735,6 @@
   
   <span class="md-ellipsis">
     Disable Audit Log Filter logging
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-variables.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Audit log filter functions, options and variables
     
   </span>
   
@@ -8832,9 +8877,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-is-audit-log-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is audit log filter?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-the-plugin-does" class="md-nav__link">
     <span class="md-ellipsis">
       What the plugin does
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      System requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#privileges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Privileges
     </span>
   </a>
   
@@ -8895,9 +8976,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#log-formats-and-output" class="md-nav__link">
     <span class="md-ellipsis">
-      Next steps
+      Log formats and output
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security considerations
     </span>
   </a>
   
@@ -8933,16 +9023,86 @@
 
 
 <h1 id="audit-log-filter-overview">Audit Log Filter overview<a class="headerlink" href="#audit-log-filter-overview" title="Permanent link">&para;</a></h1>
-<p>The Audit Log Filter plugin provides security monitoring and access control for your MySQL server. The plugin allows you to monitor database activity, log specific events, and block connections or queries based on configurable rules.</p>
+<p>The Audit Log Filter plugin provides comprehensive database auditing capabilities for Percona Server. The plugin allows you to monitor, log, and block connections or queries actively executed on the selected server.</p>
+<h2 id="what-is-audit-log-filter">What is audit log filter?<a class="headerlink" href="#what-is-audit-log-filter" title="Permanent link">&para;</a></h2>
+<p>The Audit Log Filter plugin enables you to:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Issue</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Monitor database activity</td>
+<td style="text-align: left;">Track all database connections, queries, and administrative actions</td>
+</tr>
+<tr>
+<td style="text-align: left;">Comply with regulations</td>
+<td style="text-align: left;">Meet compliance requirements for database auditing</td>
+</tr>
+<tr>
+<td style="text-align: left;">Enhance security</td>
+<td style="text-align: left;">Detect suspicious activities and unauthorized access attempts</td>
+</tr>
+<tr>
+<td style="text-align: left;">Control access</td>
+<td style="text-align: left;">Block specific queries or connections based on configurable rules</td>
+</tr>
+<tr>
+<td style="text-align: left;">Generate reports</td>
+<td style="text-align: left;">Create detailed audit trails for security analysis</td>
+</tr>
+</tbody>
+</table>
 <h2 id="what-the-plugin-does">What the plugin does<a class="headerlink" href="#what-the-plugin-does" title="Permanent link">&para;</a></h2>
-<p>The plugin monitors server activity and creates detailed log files containing information about:</p>
+<p>The plugin uses the <code>mysql</code> system database to store filter and user account data. Set the <a href="audit-log-filter-variables.html#audit_log_filter_database"><code>audit_log_filter_database</code></a> variable at server startup to select a different database. When you change the database, you must create the required tables in the new database and migrate any existing filter data.</p>
+<ul>
+<li>Database connections and disconnections</li>
+</ul>
+<h2 id="system-requirements">System requirements<a class="headerlink" href="#system-requirements" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p>Database connections and disconnections</p>
+<p>Percona Server version: 8.0.34-26 or later</p>
 </li>
 <li>
-<p>SQL statements executed by users</p>
+<p>Storage engine: InnoDB (for audit tables)</p>
 </li>
+<li>
+<p>Privileges: SYSTEM_VARIABLES_ADMIN to configure the plugin</p>
+</li>
+<li>
+<p>Disk space: Sufficient space for audit log files</p>
+</li>
+<li>
+<p>Memory: Additional memory overhead for audit processing</p>
+</li>
+</ul>
+<h2 id="basic-configuration">Basic configuration<a class="headerlink" href="#basic-configuration" title="Permanent link">&para;</a></h2>
+<p>The Audit Log Filter plugin uses several key configuration variables:</p>
+<ul>
+<li>
+<p>Dynamic variables: Can be changed at runtime using <code>SET GLOBAL</code> without restarting the server</p>
+</li>
+<li>
+<p>Read-only variables: Can only be changed at server startup in the configuration file</p>
+</li>
+<li>
+<p><a href="audit-log-filter-variables.html#audit_log_filter_enable"><code>audit_log_filter_enable</code></a>: Enable or disable the audit filter engine (dynamic)</p>
+</li>
+<li>
+<p><a href="audit-log-filter-variables.html#audit_log_filter_database"><code>audit_log_filter_database</code></a>: Database for storing filter definitions (read-only)</p>
+</li>
+<li>
+<p><a href="audit-log-filter-variables.html#audit_log_filter_mode"><code>audit_log_filter_mode</code></a>: Set to ALLOW (whitelist) or DENY (blacklist) (dynamic)</p>
+</li>
+<li>
+<p><a href="audit-log-filter-variables.html#audit_log_filter_rotate_on_size"><code>audit_log_filter_rotate_on_size</code></a>: Log file rotation size limit (dynamic)</p>
+</li>
+</ul>
+<h2 id="privileges">Privileges<a class="headerlink" href="#privileges" title="Permanent link">&para;</a></h2>
+<ul>
 <li>
 <p>Database objects accessed</p>
 </li>
@@ -9035,26 +9195,23 @@
 </li>
 </ul>
 <h2 id="audit-log-filter-tables">Audit Log Filter tables<a class="headerlink" href="#audit-log-filter-tables" title="Permanent link">&para;</a></h2>
-<p>The Audit Log Filter plugin uses <code>mysql</code> system database tables in the <code>InnoDB</code> storage engine. These tables store user account data and filter data. When you start the server, change the plugin&rsquo;s database with the <code>audit_log_filter_database</code> variable.</p>
+<p>The Audit Log Filter plugin uses <code>mysql</code> system database tables in the <code>InnoDB</code> storage engine. These tables store user account data and filter data.</p>
 <p>The <code>audit_log_filter</code> table stores the definitions of the filters and has the following column definitions:</p>
 <table>
 <thead>
 <tr>
-<th>Column name</th>
-<th>Data type</th>
-<th>Description</th>
+<th style="text-align: center;">Column name</th>
+<th style="text-align: center;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>NAME</td>
-<td>VARCHAR(64)</td>
-<td>Name of the filter</td>
+<td style="text-align: center;">NAME</td>
+<td style="text-align: center;">Name of the filter</td>
 </tr>
 <tr>
-<td>FILTER</td>
-<td>JSON</td>
-<td>Definition of the filter linked to the name as a JSON value</td>
+<td style="text-align: center;">FILTER</td>
+<td style="text-align: center;">Definition of the filter linked to the name as a JSON value</td>
 </tr>
 </tbody>
 </table>
@@ -9062,45 +9219,91 @@
 <table>
 <thead>
 <tr>
-<th>Column name</th>
-<th>Data type</th>
-<th>Description</th>
+<th style="text-align: center;">Column name</th>
+<th style="text-align: center;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>USER</td>
-<td>VARCHAR(32)</td>
-<td>The account name of the user</td>
+<td style="text-align: center;">USER</td>
+<td style="text-align: center;">The account name of the user</td>
 </tr>
 <tr>
-<td>HOST</td>
-<td>VARCHAR(255)</td>
-<td>The account name of the host</td>
+<td style="text-align: center;">HOST</td>
+<td style="text-align: center;">The account name of the host</td>
 </tr>
 <tr>
-<td>FILTERNAME</td>
-<td>VARCHAR(64)</td>
-<td>The account filter name</td>
+<td style="text-align: center;">FILTERNAME</td>
+<td style="text-align: center;">The account filter name</td>
 </tr>
 </tbody>
 </table>
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<p>To get started with the Audit Log Filter plugin:</p>
-<ol>
+<h2 id="log-formats-and-output">Log formats and output<a class="headerlink" href="#log-formats-and-output" title="Permanent link">&para;</a></h2>
+<p>The Audit Log Filter plugin supports multiple log formats:</p>
+<ul>
 <li>
-<p><a href="install-audit-log-filter.html">Install the Audit Log Filter</a> - Installation instructions</p>
+<p>JSON format: Machine-readable format for automated processing</p>
 </li>
 <li>
-<p><a href="filter-audit-log-filter-files.html">Filter Audit Log Files</a> - Creating and managing filters</p>
+<p>XML (new): Human-readable format with structured data</p>
 </li>
 <li>
-<p><a href="audit-log-filter-variables.html">Audit Log Filter Variables</a> - Configuration options</p>
+<p>XML (old): Legacy XML format for backward compatibility</p>
+</li>
+</ul>
+<p>The plugin logs various types of events:</p>
+<ul>
+<li>
+<p>Connection events: User logins, logouts, and connection failures</p>
 </li>
 <li>
-<p><a href="manage-audit-log-filter.html">Manage Audit Log Files</a> - Log file management</p>
+<p>Query events: SQL statements executed by users</p>
 </li>
-</ol>
+<li>
+<p>Administrative events: Server configuration changes</p>
+</li>
+<li>
+<p>Error events: Failed operations and security violations</p>
+</li>
+</ul>
+<h2 id="security-considerations">Security considerations<a class="headerlink" href="#security-considerations" title="Permanent link">&para;</a></h2>
+<p>When implementing the Audit Log Filter plugin, consider these security aspects:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Issue</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Performance impact</td>
+<td style="text-align: left;">Audit logging adds overhead to database operations</td>
+</tr>
+<tr>
+<td style="text-align: left;">Storage requirements</td>
+<td style="text-align: left;">Audit logs can grow large; plan for log rotation and archival</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sensitive data</td>
+<td style="text-align: left;">Configure filters to avoid logging sensitive information</td>
+</tr>
+<tr>
+<td style="text-align: left;">Access control</td>
+<td style="text-align: left;">Restrict access to audit log files and configuration</td>
+</tr>
+<tr>
+<td style="text-align: left;">Backup strategy</td>
+<td style="text-align: left;">Include audit logs in your backup and recovery procedures</td>
+</tr>
+<tr>
+<td style="text-align: left;">## References</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p><a href="install-audit-log-filter.html">Install the Audit Log Filter</a></p>
+<p><a href="audit-log-filter-variables.html">Audit Log Filter Variables &amp; Functions</a></p>
 
 
 
@@ -9121,7 +9324,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-09-22
+    2025-10-15
   </span>
 
     

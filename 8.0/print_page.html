@@ -2382,6 +2382,29 @@
   
   
     <li class="md-nav__item">
+      <a href="audit-log-filter-variables.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Audit log filter functions, options and variables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="audit-log-filter-security.html" class="md-nav__link">
         
   
@@ -2549,29 +2572,6 @@
   
   <span class="md-ellipsis">
     Disable Audit Log Filter logging
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-variables.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Audit log filter functions, options and variables
     
   </span>
   
@@ -9374,6 +9374,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#audit-log-filter-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audit log filter functions, options and variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#audit-log-filter-security" class="md-nav__link">
     <span class="md-ellipsis">
       Audit Log Filter security
@@ -9440,15 +9449,6 @@
   <a href="#disable-audit-log-filter" class="md-nav__link">
     <span class="md-ellipsis">
       Disable Audit Log Filter logging
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#audit-log-filter-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      Audit log filter functions, options and variables
     </span>
   </a>
   
@@ -15911,16 +15911,86 @@ and expanded fast index creation.</p>
                         <h1>Audit Log Filter<a class='headerlink' href='#section-5-2' title='Permanent link'></a>
                         </h1>
                     <section class="print-page" id="audit-log-filter-overview" heading-number="5.2.1"><h1 id="audit-log-filter-overview-audit-log-filter-overview">Audit Log Filter overview<a class="headerlink" href="#audit-log-filter-overview-audit-log-filter-overview" title="Permanent link">&para;</a></h1>
-<p>The Audit Log Filter plugin provides security monitoring and access control for your MySQL server. The plugin allows you to monitor database activity, log specific events, and block connections or queries based on configurable rules.</p>
+<p>The Audit Log Filter plugin provides comprehensive database auditing capabilities for Percona Server. The plugin allows you to monitor, log, and block connections or queries actively executed on the selected server.</p>
+<h2 id="audit-log-filter-overview-what-is-audit-log-filter">What is audit log filter?<a class="headerlink" href="#audit-log-filter-overview-what-is-audit-log-filter" title="Permanent link">&para;</a></h2>
+<p>The Audit Log Filter plugin enables you to:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Issue</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Monitor database activity</td>
+<td style="text-align: left;">Track all database connections, queries, and administrative actions</td>
+</tr>
+<tr>
+<td style="text-align: left;">Comply with regulations</td>
+<td style="text-align: left;">Meet compliance requirements for database auditing</td>
+</tr>
+<tr>
+<td style="text-align: left;">Enhance security</td>
+<td style="text-align: left;">Detect suspicious activities and unauthorized access attempts</td>
+</tr>
+<tr>
+<td style="text-align: left;">Control access</td>
+<td style="text-align: left;">Block specific queries or connections based on configurable rules</td>
+</tr>
+<tr>
+<td style="text-align: left;">Generate reports</td>
+<td style="text-align: left;">Create detailed audit trails for security analysis</td>
+</tr>
+</tbody>
+</table>
 <h2 id="audit-log-filter-overview-what-the-plugin-does">What the plugin does<a class="headerlink" href="#audit-log-filter-overview-what-the-plugin-does" title="Permanent link">&para;</a></h2>
-<p>The plugin monitors server activity and creates detailed log files containing information about:</p>
+<p>The plugin uses the <code>mysql</code> system database to store filter and user account data. Set the <a href="#audit-log-filter-variables-audit_log_filter_database"><code>audit_log_filter_database</code></a> variable at server startup to select a different database. When you change the database, you must create the required tables in the new database and migrate any existing filter data.</p>
+<ul>
+<li>Database connections and disconnections</li>
+</ul>
+<h2 id="audit-log-filter-overview-system-requirements">System requirements<a class="headerlink" href="#audit-log-filter-overview-system-requirements" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p>Database connections and disconnections</p>
+<p>Percona Server version: 8.0.34-26 or later</p>
 </li>
 <li>
-<p>SQL statements executed by users</p>
+<p>Storage engine: InnoDB (for audit tables)</p>
 </li>
+<li>
+<p>Privileges: SYSTEM_VARIABLES_ADMIN to configure the plugin</p>
+</li>
+<li>
+<p>Disk space: Sufficient space for audit log files</p>
+</li>
+<li>
+<p>Memory: Additional memory overhead for audit processing</p>
+</li>
+</ul>
+<h2 id="audit-log-filter-overview-basic-configuration">Basic configuration<a class="headerlink" href="#audit-log-filter-overview-basic-configuration" title="Permanent link">&para;</a></h2>
+<p>The Audit Log Filter plugin uses several key configuration variables:</p>
+<ul>
+<li>
+<p>Dynamic variables: Can be changed at runtime using <code>SET GLOBAL</code> without restarting the server</p>
+</li>
+<li>
+<p>Read-only variables: Can only be changed at server startup in the configuration file</p>
+</li>
+<li>
+<p><a href="#audit-log-filter-variables-audit_log_filter_enable"><code>audit_log_filter_enable</code></a>: Enable or disable the audit filter engine (dynamic)</p>
+</li>
+<li>
+<p><a href="#audit-log-filter-variables-audit_log_filter_database"><code>audit_log_filter_database</code></a>: Database for storing filter definitions (read-only)</p>
+</li>
+<li>
+<p><a href="#audit-log-filter-variables-audit_log_filter_mode"><code>audit_log_filter_mode</code></a>: Set to ALLOW (whitelist) or DENY (blacklist) (dynamic)</p>
+</li>
+<li>
+<p><a href="#audit-log-filter-variables-audit_log_filter_rotate_on_size"><code>audit_log_filter_rotate_on_size</code></a>: Log file rotation size limit (dynamic)</p>
+</li>
+</ul>
+<h2 id="audit-log-filter-overview-privileges">Privileges<a class="headerlink" href="#audit-log-filter-overview-privileges" title="Permanent link">&para;</a></h2>
+<ul>
 <li>
 <p>Database objects accessed</p>
 </li>
@@ -16013,26 +16083,23 @@ and expanded fast index creation.</p>
 </li>
 </ul>
 <h2 id="audit-log-filter-overview-audit-log-filter-tables">Audit Log Filter tables<a class="headerlink" href="#audit-log-filter-overview-audit-log-filter-tables" title="Permanent link">&para;</a></h2>
-<p>The Audit Log Filter plugin uses <code>mysql</code> system database tables in the <code>InnoDB</code> storage engine. These tables store user account data and filter data. When you start the server, change the plugin&rsquo;s database with the <code>audit_log_filter_database</code> variable.</p>
+<p>The Audit Log Filter plugin uses <code>mysql</code> system database tables in the <code>InnoDB</code> storage engine. These tables store user account data and filter data.</p>
 <p>The <code>audit_log_filter</code> table stores the definitions of the filters and has the following column definitions:</p>
 <table>
 <thead>
 <tr>
-<th>Column name</th>
-<th>Data type</th>
-<th>Description</th>
+<th style="text-align: center;">Column name</th>
+<th style="text-align: center;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>NAME</td>
-<td>VARCHAR(64)</td>
-<td>Name of the filter</td>
+<td style="text-align: center;">NAME</td>
+<td style="text-align: center;">Name of the filter</td>
 </tr>
 <tr>
-<td>FILTER</td>
-<td>JSON</td>
-<td>Definition of the filter linked to the name as a JSON value</td>
+<td style="text-align: center;">FILTER</td>
+<td style="text-align: center;">Definition of the filter linked to the name as a JSON value</td>
 </tr>
 </tbody>
 </table>
@@ -16040,71 +16107,176 @@ and expanded fast index creation.</p>
 <table>
 <thead>
 <tr>
-<th>Column name</th>
-<th>Data type</th>
-<th>Description</th>
+<th style="text-align: center;">Column name</th>
+<th style="text-align: center;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>USER</td>
-<td>VARCHAR(32)</td>
-<td>The account name of the user</td>
+<td style="text-align: center;">USER</td>
+<td style="text-align: center;">The account name of the user</td>
 </tr>
 <tr>
-<td>HOST</td>
-<td>VARCHAR(255)</td>
-<td>The account name of the host</td>
+<td style="text-align: center;">HOST</td>
+<td style="text-align: center;">The account name of the host</td>
 </tr>
 <tr>
-<td>FILTERNAME</td>
-<td>VARCHAR(64)</td>
-<td>The account filter name</td>
+<td style="text-align: center;">FILTERNAME</td>
+<td style="text-align: center;">The account filter name</td>
 </tr>
 </tbody>
 </table>
-<h2 id="audit-log-filter-overview-next-steps">Next steps<a class="headerlink" href="#audit-log-filter-overview-next-steps" title="Permanent link">&para;</a></h2>
-<p>To get started with the Audit Log Filter plugin:</p>
+<h2 id="audit-log-filter-overview-log-formats-and-output">Log formats and output<a class="headerlink" href="#audit-log-filter-overview-log-formats-and-output" title="Permanent link">&para;</a></h2>
+<p>The Audit Log Filter plugin supports multiple log formats:</p>
+<ul>
+<li>
+<p>JSON format: Machine-readable format for automated processing</p>
+</li>
+<li>
+<p>XML (new): Human-readable format with structured data</p>
+</li>
+<li>
+<p>XML (old): Legacy XML format for backward compatibility</p>
+</li>
+</ul>
+<p>The plugin logs various types of events:</p>
+<ul>
+<li>
+<p>Connection events: User logins, logouts, and connection failures</p>
+</li>
+<li>
+<p>Query events: SQL statements executed by users</p>
+</li>
+<li>
+<p>Administrative events: Server configuration changes</p>
+</li>
+<li>
+<p>Error events: Failed operations and security violations</p>
+</li>
+</ul>
+<h2 id="audit-log-filter-overview-security-considerations">Security considerations<a class="headerlink" href="#audit-log-filter-overview-security-considerations" title="Permanent link">&para;</a></h2>
+<p>When implementing the Audit Log Filter plugin, consider these security aspects:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Issue</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Performance impact</td>
+<td style="text-align: left;">Audit logging adds overhead to database operations</td>
+</tr>
+<tr>
+<td style="text-align: left;">Storage requirements</td>
+<td style="text-align: left;">Audit logs can grow large; plan for log rotation and archival</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sensitive data</td>
+<td style="text-align: left;">Configure filters to avoid logging sensitive information</td>
+</tr>
+<tr>
+<td style="text-align: left;">Access control</td>
+<td style="text-align: left;">Restrict access to audit log files and configuration</td>
+</tr>
+<tr>
+<td style="text-align: left;">Backup strategy</td>
+<td style="text-align: left;">Include audit logs in your backup and recovery procedures</td>
+</tr>
+<tr>
+<td style="text-align: left;">## References</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p><a href="#install-audit-log-filter">Install the Audit Log Filter</a></p>
+<p><a href="#audit-log-filter-variables">Audit Log Filter Variables &amp; Functions</a></p></section><section class="print-page" id="install-audit-log-filter" heading-number="5.2.2"><h1 id="install-audit-log-filter-install-the-audit-log-filter">Install the Audit Log Filter<a class="headerlink" href="#install-audit-log-filter-install-the-audit-log-filter" title="Permanent link">&para;</a></h1>
+<h2 id="install-audit-log-filter-installation-script">Installation script<a class="headerlink" href="#install-audit-log-filter-installation-script" title="Permanent link">&para;</a></h2>
+<p>The recommended way to install the plugin is to use the <code>audit_log_filter_linux_install.sql</code> script, located in the share directory, which creates the required tables before installing the plugin.</p>
+<h3 id="install-audit-log-filter-prerequisites">Prerequisites<a class="headerlink" href="#install-audit-log-filter-prerequisites" title="Permanent link">&para;</a></h3>
+<p>The <code>plugin_dir</code> system variable defines the plugin library location. When you need a custom location, set the <code>plugin_dir</code> variable at server startup.</p>
+<h3 id="install-audit-log-filter-database-selection">Database selection<a class="headerlink" href="#install-audit-log-filter-database-selection" title="Permanent link">&para;</a></h3>
+<p>The script determines the target database using the following priority:</p>
 <ol>
 <li>
-<p><a href="#install-audit-log-filter">Install the Audit Log Filter</a> - Installation instructions</p>
+<p>When the plugin is already loaded, the script uses the database name from the <code>audit_log_filter_database</code> variable</p>
 </li>
 <li>
-<p><a href="#filter-audit-log-filter-files">Filter Audit Log Files</a> - Creating and managing filters</p>
+<p>When the plugin is not loaded, but you pass the <code>-D db_name</code> option to the mysql client when running the script, the script uses the specified <code>db_name</code></p>
 </li>
 <li>
-<p><a href="#audit-log-filter-variables">Audit Log Filter Variables</a> - Configuration options</p>
+<p>When the plugin is not loaded and no <code>-D</code> option is provided, you must specify the <code>mysql</code> database when running the script</p>
 </li>
-<li>
-<p><a href="#manage-audit-log-filter">Manage Audit Log Files</a> - Log file management</p>
-</li>
-</ol></section><section class="print-page" id="install-audit-log-filter" heading-number="5.2.2"><h1 id="install-audit-log-filter-install-the-audit-log-filter">Install the Audit Log Filter<a class="headerlink" href="#install-audit-log-filter-install-the-audit-log-filter" title="Permanent link">&para;</a></h1>
-<p>The <code>plugin_dir</code> system variable defines the plugin library location. If needed, at server startup, set the <code>plugin_dir</code> variable.</p>
-<p>When upgrading a MySQL installation, plugins are not automatically upgraded. You may need to manually load the plugin after the MySQL upgrade.</p>
-<p>In the <code>share</code> directory, locate the <code>audit_log_filter_linux_install.sql</code>script.</p>
-<p>Implemented in 8.0.34, at the time you run the script, you can select the database used to store the JSON filter tables. </p>
-<ul>
-<li>If the plugin is loaded, the installation script takes the database name from the <code>audit_log_filter_database</code> variable</li>
-<li>If the plugin is not loaded, but passes the <code>-D db_name</code> to the mysql client when the installation script runs, uses the <code>db_name</code>.</li>
-<li>If the plugin is not loaded and the <code>-D</code> option is not provided, the installation script creates the required tables in the default database name <code>mysql</code>.</li>
-</ul>
-<p>You can also designate a different database with the <code>audit_log_filter_database</code> system variable. The database name cannot be NULL or exceed 64 characters. If the database name is invalid, the audit log filter tables are not found.</p>
-<p>With 8.0.34 and higher, use this command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>-D<span class="w"> </span>database<span class="w"> </span>-p<span class="w"> </span>&lt;<span class="w"> </span>audit_log_filter_linux_install.sql
+</ol>
+<p>You can also designate a different database with the <code>audit_log_filter_database</code> system variable. The database name cannot be NULL or exceed 64 characters. When the database name is invalid, the audit log filter tables are not found.</p>
+<h3 id="install-audit-log-filter-install-the-component">Install the component<a class="headerlink" href="#install-audit-log-filter-install-the-component" title="Permanent link">&para;</a></h3>
+<p>To install the plugin using the script, you must specify the <code>mysql</code> database. You can do this in two ways:</p>
+<p>Option 1: Run the script from the command line with the <code>-D mysql</code> option:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql<span class="w"> </span>&lt;<span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql
 </code></pre></div>
-<p>To verify the plugin installation, run the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>PLUGIN_NAME,<span class="w"> </span>PLUGIN_STATUS<span class="w"> </span>FROM<span class="w"> </span>INFORMATION_SCHEMA.PLUGINS<span class="w"> </span>WHERE<span class="w"> </span>PLUGIN_NAME<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;audit%&#39;</span><span class="p">;</span>
+<p>Option 2: Connect to <code>mysql</code> database and run the script interactively:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">source</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="k">to</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">audit_log_filter_linux_install</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code>+--------------------+---------------+
-| PLUGIN_NAME        | PLUGIN_STATUS |
-+--------------------+---------------+
-| audit_log_filter   | ACTIVE        |
-+--------------------+---------------+
+<p>Replace <code>/path/to/mysql/share/</code> with the actual path to your MySQL installation&rsquo;s share directory.</p>
+<h3 id="install-audit-log-filter-verify-installation">Verify installation<a class="headerlink" href="#install-audit-log-filter-verify-installation" title="Permanent link">&para;</a></h3>
+<p>After you run the script, verify that the required tables are created:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;aud%&#39;</span><span class="p">;</span>
 </code></pre></div>
-</details>
-<p>After the installation, you can use the <code>--audit_log_filter</code> option when restarting the server. To prevent the server from not running the plugin use <code>--audit_log_filter</code> with either the <code>FORCE</code> or the <code>FORCE_PLUS_PERMANENT</code> values.</p></section>
+<p>Expected output:</p>
+<div class="highlight"><pre><span></span><code>+------------------------+
+| Tables_in_mysql (aud%) |
++------------------------+
+| audit_log_filter       |
+| audit_log_user         |
++------------------------+
+2 rows in set (0.00 sec)
+</code></pre></div>
+<h2 id="install-audit-log-filter-alternative-install-plugin-method">Alternative: INSTALL PLUGIN method<a class="headerlink" href="#install-audit-log-filter-alternative-install-plugin-method" title="Permanent link">&para;</a></h2>
+<p>You can also install the plugin using the <code>INSTALL PLUGIN</code> command, but this method does not create the required tables and will cause filter operations to fail.</p>
+<h3 id="install-audit-log-filter-verify-plugin-installation">Verify plugin installation<a class="headerlink" href="#install-audit-log-filter-verify-plugin-installation" title="Permanent link">&para;</a></h3>
+<p>Check that the plugin is properly installed:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">PLUGINS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;audit_log_filter&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Expected output:</p>
+<div class="highlight"><pre><span></span><code>+-------------------+----------+--------------------+
+| Name              | Status   | Type               |
++-------------------+----------+--------------------+
+| audit_log_filter  | ACTIVE   | AUDIT              |
++-------------------+----------+--------------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+<h3 id="install-audit-log-filter-test-filter-functionality">Test filter functionality<a class="headerlink" href="#install-audit-log-filter-test-filter-functionality" title="Permanent link">&para;</a></h3>
+<p>Test that the audit log filter is working correctly:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_all&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>Expected output:</p>
+<div class="highlight"><pre><span></span><code>+---------------------------------------------------------------------+
+| audit_log_filter_set_filter(&#39;log_all&#39;, &#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;) |
++---------------------------------------------------------------------+
+| ERROR: Failed to check filtering rule name existence                |
++---------------------------------------------------------------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This error occurs when the plugin is installed without the required tables. Using the SQL script prevents this issue.</p>
+</div>
+<h3 id="install-audit-log-filter-fix-missing-tables">Fix missing tables<a class="headerlink" href="#install-audit-log-filter-fix-missing-tables" title="Permanent link">&para;</a></h3>
+<p>When you have already installed the audit log plugin but are missing the required tables, you can run the <code>audit_log_filter_linux_install.sql</code> script to create the audit tables in the <code>mysql</code> database:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql<span class="w"> </span>&lt;<span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql
+</code></pre></div>
+<p>Or interactively:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">source</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="k">to</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">audit_log_filter_linux_install</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
+</code></pre></div>
+<p>This operation creates the missing tables without reinstalling the plugin.</p>
+<h2 id="install-audit-log-filter-additional-information">Additional information<a class="headerlink" href="#install-audit-log-filter-additional-information" title="Permanent link">&para;</a></h2>
+<p>For information about upgrading the audit log filter plugin, see the upgrade documentation.</p>
+<h2 id="install-audit-log-filter-references">References<a class="headerlink" href="#install-audit-log-filter-references" title="Permanent link">&para;</a></h2>
+<p><a href="#audit-log-filter-overview">Audit Log Filter Overview</a></p>
+<p><a href="#audit-log-filter-variables">Audit Log Filter Variables &amp; Functions</a></p></section>
                     <section class='print-page md-section' id='section-5-2-3' heading-number='5.2.3'>
                         <h1>Formats<a class='headerlink' href='#section-5-2-3' title='Permanent link'></a>
                         </h1>
@@ -16735,7 +16907,1495 @@ The order of the attributes within the JSON object can vary. Certain attributes 
 <td>Defines a UTC value in the <code>YYYY-MM_DD hh:mm:ss</code> format</td>
 </tr>
 </tbody>
-</table></section></section><section class="print-page" id="audit-log-filter-security" heading-number="5.2.4"><h1 id="audit-log-filter-security-audit-log-filter-security">Audit Log Filter security<a class="headerlink" href="#audit-log-filter-security-audit-log-filter-security" title="Permanent link">&para;</a></h1>
+</table></section></section><section class="print-page" id="audit-log-filter-variables" heading-number="5.2.4"><h1 id="audit-log-filter-variables-audit-log-filter-functions-options-and-variables">Audit log filter functions, options and variables<a class="headerlink" href="#audit-log-filter-variables-audit-log-filter-functions-options-and-variables" title="Permanent link">&para;</a></h1>
+<p>All audit log functions return a string value that shows the operation result. The
+string &ldquo;OK&rdquo; indicates successful completion. &ldquo;ERROR: message&rdquo; indicates failure
+with an accompanying error message.</p>
+<p>Audit‑log functions always accept and return strings in <code>utf8mb4</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Plugin compatibility</p>
+<p><strong>Important</strong>: The audit log filter functions, options, and variables are designed specifically for the <code>audit log filter</code> plugin.
+They cannot be used with the <code>audit log</code> plugin. These functions are
+designed to operate on specific data types and structures that are unique to
+the <code>audit log filter</code> plugin. Attempting to use these functions with the <code>audit log</code> plugin can result in errors because the functions would
+operate on the wrong data format.</p>
+</div>
+<p>The following sections describe the audit log filter plugin functionality organized by purpose:</p>
+<h2 id="audit-log-filter-variables-plugin-management">Plugin management<a class="headerlink" href="#audit-log-filter-variables-plugin-management" title="Permanent link">&para;</a></h2>
+<p>Controls how the audit log filter plugin is loaded and configured.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#audit-log-filter-variables-audit-log-filter"><code>audit-log-filter</code></a></td>
+<td>Option</td>
+<td>Plugin loading behavior</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_database"><code>audit_log_filter_database</code></a></td>
+<td>Variable</td>
+<td>Database for configuration tables</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_disable"><code>audit_log_filter_disable</code></a></td>
+<td>Variable</td>
+<td>Disable plugin logging</td>
+</tr>
+</tbody>
+</table>
+<h2 id="audit-log-filter-variables-filter-management">Filter management<a class="headerlink" href="#audit-log-filter-variables-filter-management" title="Permanent link">&para;</a></h2>
+<p>Create, configure, and manage audit filters and user assignments.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a></td>
+<td>Function</td>
+<td>Create or update filters</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_remove_filterfilter_name"><code>audit_log_filter_remove_filter()</code></a></td>
+<td>Function</td>
+<td>Remove filters</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_set_useruser_name-filter_name"><code>audit_log_filter_set_user()</code></a></td>
+<td>Function</td>
+<td>Assign filters to users</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_remove_useruser_name"><code>audit_log_filter_remove_user()</code></a></td>
+<td>Function</td>
+<td>Remove user filter assignments</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_flush"><code>audit_log_filter_flush()</code></a></td>
+<td>Function</td>
+<td>Apply filter changes</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_filter_id"><code>audit_log_filter_filter_id</code></a></td>
+<td>Variable</td>
+<td>Current session filter ID</td>
+</tr>
+</tbody>
+</table>
+<h2 id="audit-log-filter-variables-log-reading-and-navigation">Log reading and navigation<a class="headerlink" href="#audit-log-filter-variables-log-reading-and-navigation" title="Permanent link">&para;</a></h2>
+<p>Read audit logs and navigate through log entries.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_read"><code>audit_log_read()</code></a></td>
+<td>Function</td>
+<td>Read audit log entries</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_read_bookmark"><code>audit_log_read_bookmark()</code></a></td>
+<td>Function</td>
+<td>Get current log position</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_read_buffer_size"><code>audit_log_filter_read_buffer_size</code></a></td>
+<td>Variable</td>
+<td>Read buffer size</td>
+</tr>
+</tbody>
+</table>
+<h2 id="audit-log-filter-variables-log-file-management">Log file management<a class="headerlink" href="#audit-log-filter-variables-log-file-management" title="Permanent link">&para;</a></h2>
+<p>Configure log file location, rotation, and maintenance.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_rotate"><code>audit_log_rotate()</code></a></td>
+<td>Function</td>
+<td>Manually rotate log files</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_file"><code>audit_log_filter_file</code></a></td>
+<td>Variable</td>
+<td>Log file name and location</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_max_size"><code>audit_log_filter_max_size</code></a></td>
+<td>Variable</td>
+<td>Maximum total log size</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_rotate_on_size"><code>audit_log_filter_rotate_on_size</code></a></td>
+<td>Variable</td>
+<td>Auto-rotation size threshold</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_prune_seconds"><code>audit_log_filter_prune_seconds</code></a></td>
+<td>Variable</td>
+<td>Log file retention time</td>
+</tr>
+</tbody>
+</table>
+<h2 id="audit-log-filter-variables-output-format-and-destination">Output format and destination<a class="headerlink" href="#audit-log-filter-variables-output-format-and-destination" title="Permanent link">&para;</a></h2>
+<p>Configure how audit logs are formatted and where they are sent.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_format"><code>audit_log_filter_format</code></a></td>
+<td>Variable</td>
+<td>Log format (JSON, XML)</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_format_unix_timestamp"><code>audit_log_filter_format_unix_timestamp</code></a></td>
+<td>Variable</td>
+<td>Include UNIX timestamps</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_handler"><code>audit_log_filter_handler</code></a></td>
+<td>Variable</td>
+<td>Output destination (FILE/SYSLOG)</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_syslog_tag"><code>audit_log_filter_syslog_tag</code></a></td>
+<td>Variable</td>
+<td>Syslog tag</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_syslog_priority"><code>audit_log_filter_syslog_priority</code></a></td>
+<td>Variable</td>
+<td>Syslog priority</td>
+</tr>
+</tbody>
+</table>
+<h2 id="audit-log-filter-variables-performance-and-buffering">Performance and buffering<a class="headerlink" href="#audit-log-filter-variables-performance-and-buffering" title="Permanent link">&para;</a></h2>
+<p>Optimize audit logging performance and memory usage.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_buffer_size"><code>audit_log_filter_buffer_size</code></a></td>
+<td>Variable</td>
+<td>Write buffer size</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_strategy"><code>audit_log_filter_strategy</code></a></td>
+<td>Variable</td>
+<td>Logging strategy</td>
+</tr>
+</tbody>
+</table>
+<h2 id="audit-log-filter-variables-encryption-and-security">Encryption and security<a class="headerlink" href="#audit-log-filter-variables-encryption-and-security" title="Permanent link">&para;</a></h2>
+<p>Configure encryption for audit log files and manage encryption keys.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_encryption_password_getkeyring_id"><code>audit_log_encryption_password_get()</code></a></td>
+<td>Function</td>
+<td>Get encryption password</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_encryption_password_setnew_password"><code>audit_log_encryption_password_set()</code></a></td>
+<td>Function</td>
+<td>Set encryption password</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_encryption"><code>audit_log_filter_encryption</code></a></td>
+<td>Variable</td>
+<td>Encryption type</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_key_derivation_iterations_count_mean"><code>audit_log_filter_key_derivation_iterations_count_mean</code></a></td>
+<td>Variable</td>
+<td>Key derivation iterations</td>
+</tr>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_password_history_keep_days"><code>audit_log_filter_password_history_keep_days</code></a></td>
+<td>Variable</td>
+<td>Password retention period</td>
+</tr>
+</tbody>
+</table>
+<h2 id="audit-log-filter-variables-compression">Compression<a class="headerlink" href="#audit-log-filter-variables-compression" title="Permanent link">&para;</a></h2>
+<p>Configure compression for audit log files.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#audit-log-filter-variables-audit_log_filter_compression"><code>audit_log_filter_compression</code></a></td>
+<td>Variable</td>
+<td>Compression type</td>
+</tr>
+</tbody>
+</table>
+<h2 id="audit-log-filter-variables-plugin-management_1">Plugin management<a class="headerlink" href="#audit-log-filter-variables-plugin-management_1" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-variables-audit-log-filter"><code>audit-log-filter</code><a class="headerlink" href="#audit-log-filter-variables-audit-log-filter" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter[=value]</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Enumeration</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>ON</td>
+</tr>
+</tbody>
+</table>
+<p>This option determines how, at startup, the server loads the <code>audit_log_filter</code>
+plugin. The plugin must be registered.</p>
+<p>The valid values are the following:</p>
+<ul>
+<li>
+<p><code>ON</code> - Load the plugin if it is available</p>
+</li>
+<li>
+<p><code>OFF</code> - Do not load the plugin</p>
+</li>
+<li>
+<p><code>FORCE</code> - Load the plugin even if it has been disabled</p>
+</li>
+<li>
+<p><code>FORCE_PLUS_PERMANENT</code> - Load the plugin and prevent it from being unloaded</p>
+</li>
+</ul>
+<h3 id="audit-log-filter-variables-audit_log_filter_database"><code>audit_log_filter_database</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_database" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-database</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>mysql</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the database name where the audit log filter plugin stores its
+configuration tables. This is a read-only variable that you must set at system startup.
+The database name cannot exceed 64 characters or be <code>NULL</code>.</p>
+<p>An invalid database name prevents the audit log filter plugin from functioning.</p>
+<h3 id="audit-log-filter-variables-audit_log_filter_disable"><code>audit_log_filter_disable</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_disable" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-disable</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>This variable disables the plugin logging for all connections and any sessions.</p>
+<p>This variable requires the user account to have <code>SYSTEM_VARIABLES_ADMIN</code> and
+<code>AUDIT_ADMIN</code> privileges.</p>
+<h2 id="audit-log-filter-variables-filter-management_1">Filter management<a class="headerlink" href="#audit-log-filter-variables-filter-management_1" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition">audit_log_filter_set_filter(filter_name, definition)<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition" title="Permanent link">&para;</a></h3>
+<p>This function, when provided with a filter name and definition, adds the filter.</p>
+<p>The new filter has a different filter ID. Generates an error if the filter name
+exists.</p>
+<h4 id="audit-log-filter-variables-parameters">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><code>filter_name</code> - a selected filter name as a string.</p>
+</li>
+<li>
+<p><code>definition</code> - the filter definition as a <code>JSON</code> value. The <code>JSON</code> structure defines
+  the filtering rules, including which events to log, block, or exclude. Example:
+  <code>{"filter": {"log": true, "block": false}}</code></p>
+</li>
+</ul>
+<h4 id="audit-log-filter-variables-returns">Returns<a class="headerlink" href="#audit-log-filter-variables-returns" title="Permanent link">&para;</a></h4>
+<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
+<h4 id="audit-log-filter-variables-example">Example<a class="headerlink" href="#audit-log-filter-variables-example" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@filter<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{ &quot;filter&quot;: { &quot;log&quot;: true }}&#39;</span>
+</code></pre></div>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;filter-name&#39;</span>,<span class="w"> </span>@filter<span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------+
+| audit_log_filter_set_filter(&#39;filter-name&#39;, @filter)  |
++-------------------------------------------------------------+
+| OK                                                          |
++-------------------------------------------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit-log-filter-variables-audit_log_filter_remove_filterfilter_name">audit_log_filter_remove_filter(filter_name)<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_remove_filterfilter_name" title="Permanent link">&para;</a></h3>
+<p>This function removes the selected filter from the current set of filters.</p>
+<p>When you remove a filter, any user accounts that were assigned to that filter are
+affected as follows:</p>
+<ul>
+<li>
+<p>The filter assignments for those user accounts are removed from the <code>audit_log_filter_user</code> table</p>
+</li>
+<li>
+<p>For user accounts currently in active sessions, the filter is immediately
+  detached and they will use the default filter behavior</p>
+</li>
+<li>
+<p>For user accounts not in active sessions, those user accounts will use the default filter behavior when they establish new connections in the future</p>
+</li>
+</ul>
+<h4 id="audit-log-filter-variables-parameters_1">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_1" title="Permanent link">&para;</a></h4>
+<p><code>filter_name</code> - a selected filter name as a string.</p>
+<h4 id="audit-log-filter-variables-returns_1">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_1" title="Permanent link">&para;</a></h4>
+<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
+<p>If the filter name does not exist, no error is generated.</p>
+<h4 id="audit-log-filter-variables-example_1">Example<a class="headerlink" href="#audit-log-filter-variables-example_1" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_remove_filter<span class="o">(</span><span class="s1">&#39;filter-name&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------+
+| audit_log_filter_remove_filter(&#39;filter-name&#39;)  |
++------------------------------------------------+
+| OK                                             |
++------------------------------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit-log-filter-variables-audit_log_filter_set_useruser_name-filter_name">audit_log_filter_set_user(user_name, filter_name)<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_set_useruser_name-filter_name" title="Permanent link">&para;</a></h3>
+<p>This function assigns the filter to the selected user account.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Starting from Percona Server for MySQL 8.0.42, <code>audit_log_filter_set_user()</code> accepts account names with wildcard characters (<code>'%'</code> and <code>'_'</code>) in the host part. For example, you can use <code>'usr1@%'</code>, <code>'usr2%192.168.0.%'</code>, or `&rsquo;usr3@%.mycorp.com&rsquo;.</p>
+</div>
+<p>A user account can only have one filter. If the user account already has a filter, this function replaces the current filter. The behavior depends on the user&rsquo;s session status:</p>
+<ul>
+<li>
+<p>Active sessions: The filter change does not take effect immediately. The current session continues using the old filter.</p>
+</li>
+<li>
+<p>Future connections: When the user account establishes a new connection, the new filter will be applied.</p>
+</li>
+</ul>
+<p>The user name, <code>%</code>, is the default account. The filter assigned to <code>%</code> is used
+by any user account without a defined filter.</p>
+<h4 id="audit-log-filter-variables-parameters_2">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><code>user_name</code> - a selected user name in either the <code>user_name</code>@<code>host_name</code> format or <code>%</code>.</p>
+</li>
+<li>
+<p><code>filter_name</code> - a selected filter name as a string.</p>
+</li>
+</ul>
+<h4 id="audit-log-filter-variables-returns_2">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_2" title="Permanent link">&para;</a></h4>
+<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
+<h4 id="audit-log-filter-variables-example_2">Example<a class="headerlink" href="#audit-log-filter-variables-example_2" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_user<span class="o">(</span><span class="s1">&#39;user-name@localhost&#39;</span>,<span class="w"> </span><span class="s1">&#39;filter-name&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------------+
+| audit_log_filter_set_user(&#39;user-name@localhost&#39;, &#39;filter-name&#39;)  |
++-------------------------------------------------------------------+
+| OK                                                                |
++-------------------------------------------------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit-log-filter-variables-audit_log_filter_remove_useruser_name">audit_log_filter_remove_user(user_name)<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_remove_useruser_name" title="Permanent link">&para;</a></h3>
+<p>This function removes the assignment of a filter from the selected user account.</p>
+<p>If the user account is in a current session, they are not affected. New sessions
+for this user account use the default account filter or are not logged.</p>
+<p>If the user-name is <code>%</code>, the default account filter is removed.</p>
+<h4 id="audit-log-filter-variables-parameters_3">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_3" title="Permanent link">&para;</a></h4>
+<p><code>user_name</code> - a selected user name in either the <code>user_name</code>@<code>host_name</code> format or <code>%</code>.</p>
+<h4 id="audit-log-filter-variables-returns_3">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_3" title="Permanent link">&para;</a></h4>
+<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
+<p>If the user_name has no filter assigned, no error is generated.</p>
+<h4 id="audit-log-filter-variables-example_3">Example<a class="headerlink" href="#audit-log-filter-variables-example_3" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_remove_user<span class="o">(</span><span class="s1">&#39;user-name@localhost&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------------+
+| audit_log_filter_remove_user(&#39;user-name@localhost&#39;)  |
++------------------------------------------------------+
+| OK                                                   |
++------------------------------------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit-log-filter-variables-audit_log_filter_flush">audit_log_filter_flush()<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_flush" title="Permanent link">&para;</a></h3>
+<p>This function updates the audit log filter tables and makes any changes
+operational.</p>
+<p>Modifying the audit log filter tables directly with <code>INSERT</code>, <code>UPDATE</code>, or
+<code>DELETE</code> does not implement the modifications immediately. The tables must be
+flushed to have those changes take effect.</p>
+<p>This function forces reloading all filters and should only be used if someone
+has modified the tables directly.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Avoid using this function. This function performs an operation that is similar
+to uninstalling and reinstalling the plugin. Filters are detached from all
+current sessions. To restart logging, the current sessions must either
+disconnect and reconnect or do a change-user operation.</p>
+</div>
+<h4 id="audit-log-filter-variables-parameters_4">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_4" title="Permanent link">&para;</a></h4>
+<p>None.</p>
+<h4 id="audit-log-filter-variables-returns_4">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_4" title="Permanent link">&para;</a></h4>
+<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
+<h4 id="audit-log-filter-variables-example_4">Example<a class="headerlink" href="#audit-log-filter-variables-example_4" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_flush<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------------------------+
+| audit_log_filter_flush() |
++--------------------------+
+| OK                       |
++--------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit-log-filter-variables-audit_log_filter_filter_id"><code>audit_log_filter_filter_id</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_filter_id" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-file-id</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Session</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>4292967295</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the internal ID of the audit log filter in the current
+session.</p>
+<p>The default value is 0 (zero) - the session has no assigned filter.</p>
+<h2 id="audit-log-filter-variables-log-reading-and-navigation_1">Log reading and navigation<a class="headerlink" href="#audit-log-filter-variables-log-reading-and-navigation_1" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-variables-audit_log_read">audit_log_read()<a class="headerlink" href="#audit-log-filter-variables-audit_log_read" title="Permanent link">&para;</a></h3>
+<p>If the audit log filter format is JSON, this function reads the audit log and
+returns an array of the audit events as a JSON string. Generates an error if the
+format is not JSON.</p>
+<h4 id="audit-log-filter-variables-parameters_5">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_5" title="Permanent link">&para;</a></h4>
+<p>None. If the start position is not provided, the read continues from the current
+position.</p>
+<p>Optional: You can specify a starting position for the read with <code>start</code> or a
+<code>timestamp</code> and an <code>id</code>. Both items are considered a bookmark and can be used to
+identify an event. You must include both (<code>timestamp</code> and <code>id</code>) or an error is
+generated. If the <code>timestamp</code> does not include a <code>time</code> section, the function
+assumes the time is <code>00:00</code>.</p>
+<p>You can also provide a <code>max_array_length</code> to limit the number of log events.</p>
+<p>Call <a href="#audit-log-filter-variables-audit_log_read_bookmark"><code>audit_log_read_bookmark()</code></a> to return the most
+recently written event.</p>
+<h4 id="audit-log-filter-variables-returns_5">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_5" title="Permanent link">&para;</a></h4>
+<p>This function returns a string of a <code>JSON</code> array of the audit events, or a <code>JSON</code>
+NULL value. Returns <code>NULL</code> and generates an error if the call fails.</p>
+<h4 id="audit-log-filter-variables-example_5">Example<a class="headerlink" href="#audit-log-filter-variables-example_5" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------------------------------------+
+| audit_log_read()                                                             |
++------------------------------------------------------------------------------+
+| [{&quot;timestamp&quot; : &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10, &quot;class&quot;:&quot;connection&quot;,      |
+|  &quot;connection_id&quot;: 1, &quot;user&quot;: &quot;root@localhost&quot;, &quot;host&quot;: &quot;localhost&quot;,         |
+|  &quot;command_class&quot;: &quot;select&quot;, &quot;sqltext&quot;: &quot;SELECT * FROM users&quot;}]             |
++------------------------------------------------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">(</span>audit_log_read_bookmark<span class="o">())</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------------------------------------+
+| audit_log_read(audit_log_read_bookmark())                                   |
++------------------------------------------------------------------------------+
+| [{&quot;timestamp&quot; : &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10, &quot;class&quot;:&quot;connection&quot;,      |
+|  &quot;connection_id&quot;: 1, &quot;user&quot;: &quot;root@localhost&quot;, &quot;host&quot;: &quot;localhost&quot;,         |
+|  &quot;command_class&quot;: &quot;select&quot;, &quot;sqltext&quot;: &quot;SELECT * FROM users&quot;}]             |
++------------------------------------------------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">(</span><span class="s1">&#39;{&quot;timestamp&quot;: &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10}&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------------------------------------+
+| audit_log_read(&#39;{&quot;timestamp&quot;: &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10}&#39;)           |
++------------------------------------------------------------------------------+
+| [{&quot;timestamp&quot; : &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10, &quot;class&quot;:&quot;connection&quot;,      |
+|  &quot;connection_id&quot;: 1, &quot;user&quot;: &quot;root@localhost&quot;, &quot;host&quot;: &quot;localhost&quot;,         |
+|  &quot;command_class&quot;: &quot;select&quot;, &quot;sqltext&quot;: &quot;SELECT * FROM users&quot;}]             |
++------------------------------------------------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">(</span><span class="s1">&#39;{&quot;timestamp&quot;: &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10}&#39;</span>,<span class="w"> </span><span class="m">100</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="audit-log-filter-variables-audit_log_read_bookmark">audit_log_read_bookmark()<a class="headerlink" href="#audit-log-filter-variables-audit_log_read_bookmark" title="Permanent link">&para;</a></h3>
+<p>This function provides a bookmark for the most recently written audit log event
+as a JSON string. Generates an error if the format is not JSON.</p>
+<p>If this function is used with <a href="#audit-log-filter-variables-audit_log_read"><code>audit_log_read()</code></a>, the
+<code>audit_log_read()</code> function starts reading at that position.</p>
+<h4 id="audit-log-filter-variables-parameters_6">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_6" title="Permanent link">&para;</a></h4>
+<p>None.</p>
+<h4 id="audit-log-filter-variables-returns_6">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_6" title="Permanent link">&para;</a></h4>
+<p>This function returns a <code>JSON</code> string containing a bookmark for success or
+<code>NULL</code> and an error for failure.</p>
+<h4 id="audit-log-filter-variables-example_6">Example<a class="headerlink" href="#audit-log-filter-variables-example_6" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read_bookmark<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----------------------------------------------------+
+| audit_log_read_bookmark()                          |
++----------------------------------------------------+
+| {&quot;timestamp&quot; : &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10 }   |
++----------------------------------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit-log-filter-variables-audit_log_filter_read_buffer_size"><code>audit_log_filter_read_buffer_size</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_read_buffer_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-read-buffer-size</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>Bytes</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>32768</td>
+</tr>
+</tbody>
+</table>
+<p>This option is only supported for JSON-format files.</p>
+<p>The size of the buffer for reading from the audit log filter file. The <code>audit_log_read()</code> function reads only from this buffer size.</p>
+<h2 id="audit-log-filter-variables-log-file-management_1">Log file management<a class="headerlink" href="#audit-log-filter-variables-log-file-management_1" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-variables-audit_log_rotate">audit_log_rotate()<a class="headerlink" href="#audit-log-filter-variables-audit_log_rotate" title="Permanent link">&para;</a></h3>
+<p>This function rotates the current audit log file. The current file is renamed
+with a timestamp suffix. A new empty log file is created with the original name.</p>
+<h4 id="audit-log-filter-variables-parameters_7">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_7" title="Permanent link">&para;</a></h4>
+<p>None.</p>
+<h4 id="audit-log-filter-variables-returns_7">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_7" title="Permanent link">&para;</a></h4>
+<p>This function returns the renamed file name.</p>
+<h4 id="audit-log-filter-variables-example_7">Example<a class="headerlink" href="#audit-log-filter-variables-example_7" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_rotate<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----------------------------------+
+| audit_log_rotate()               |
++----------------------------------+
+| audit_filter.log.20250901120000  |
++----------------------------------+
+</code></pre></div>
+</details>
+<h3 id="audit-log-filter-variables-audit_log_filter_file"><code>audit_log_filter_file</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_file" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-file</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>audit_filter.log</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the name of the audit log filter file. The plugin writes events to this file.</p>
+<p>The file name can be specified in either of the following ways:</p>
+<ul>
+<li>
+<p>Relative path: The plugin creates the file in the MySQL data directory</p>
+</li>
+<li>
+<p>Full path: The plugin uses the exact path you specify</p>
+</li>
+</ul>
+<p>If you use a full path, ensure the directory is accessible only to users who need
+to view the log and the MySQL server.</p>
+<p>For more information, see <a href="#audit-log-filter-naming">Naming conventions</a></p>
+<h3 id="audit-log-filter-variables-audit_log_filter_max_size"><code>audit_log_filter_max_size</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_max_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-max-size</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>1GB</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>18446744073709551615</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>bytes</td>
+</tr>
+<tr>
+<td>Block size</td>
+<td>4096</td>
+</tr>
+</tbody>
+</table>
+<p>Defines pruning based on the combined size of the files:</p>
+<p>The default value is 1GB.</p>
+<p>A value of 0 (zero) disables pruning based on size.</p>
+<p>A value greater than 0 (zero) enables pruning based on size and defines the combined size limit. When the files exceed this limit, they can be pruned.</p>
+<p>The value is based on 4096 (block size). A value is truncated to the nearest multiple of the block size. If the value is less than 4096, the value is treated as 0 (zero).</p>
+<p>If the values for <code>audit_log_filter_rotate_on_size</code> and <code>audit_log_filter_max_size</code> are greater than 0, we recommend that <code>audit_log_filter_max_size</code> value should be at least seven times the <code>audit_log_filter_rotate_on_size</code> value.</p>
+<p>Pruning requires the following options:</p>
+<ul>
+<li><code>audit_log_filter_max_size</code></li>
+<li><code>audit_log_filter_rotate_on_size</code></li>
+<li><code>audit_log_filter_prune_seconds</code></li>
+</ul>
+<h3 id="audit-log-filter-variables-audit_log_filter_rotate_on_size"><code>audit_log_filter_rotate_on_size</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_rotate_on_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-rotate-on-size</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>1GB</td>
+</tr>
+</tbody>
+</table>
+<p>Performs an automatic log file rotation based on the size. The default value is 1GB. If the value is greater than 0, when the log file size exceeds the value, the plugin renames the current file and opens a new log file using the original name.</p>
+<p>If you set the value to less than 4096, the plugin does not automatically rotate the log files. You can rotate the log files manually using <a href="#audit-log-filter-variables-audit_log_rotate"><code>audit_log_rotate()</code></a>. If the value is not a multiple of 4096, the plugin truncates the value to the nearest multiple.</p>
+<h3 id="audit-log-filter-variables-audit_log_filter_prune_seconds"><code>audit_log_filter_prune_seconds</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_prune_seconds" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-prune-seconds</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>1844674073709551615</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>seconds</td>
+</tr>
+</tbody>
+</table>
+<p>Defines when the audit log filter file is pruned. This pruning is based on the age of the file. The value is measured in seconds.</p>
+<p>A value of 0 (zero) is the default and disables pruning. The maximum value is 18446744073709551615.</p>
+<p>A value greater than 0 enables pruning. An audit log filter file can be pruned after this value.</p>
+<p>To enable log pruning, you must set one of the following:</p>
+<ul>
+<li>Enable log rotation by setting <code>audit_log_filter_rotate_on_size</code></li>
+<li>Add a value greater than 0 (zero) for either <code>audit_log_filter_max_size</code> or <code>audit_log_filter_prune_seconds</code></li>
+</ul>
+<h2 id="audit-log-filter-variables-output-format-and-destination_1">Output Format and Destination<a class="headerlink" href="#audit-log-filter-variables-output-format-and-destination_1" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-variables-audit_log_filter_format"><code>audit_log_filter_format</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_format" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-format</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Enumeration</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NEW</td>
+</tr>
+<tr>
+<td>Available values</td>
+<td>OLD, NEW, JSON</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the audit log filter file format.</p>
+<p>The available values are the
+following:</p>
+<ul>
+<li>
+<p><a href="#audit-log-filter-old">OLD (old-style XML)</a></p>
+</li>
+<li>
+<p><a href="#audit-log-filter-new">NEW (new-style XML)</a></p>
+</li>
+<li>
+<p><a href="#audit-log-filter-json">JSON</a>.</p>
+</li>
+</ul>
+<h3 id="audit-log-filter-variables-audit_log_filter_format_unix_timestamp"><code>audit_log_filter_format_unix_timestamp</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_format_unix_timestamp" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-format-unix-timestamp</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>This option is only supported for JSON-format files. This option does nothing when used with other format types.</p>
+<p>Enabling this option adds a <code>time</code> field to JSON-format files. The integer
+represents the UNIX timestamp value and indicates the date and time when the
+audit event was generated. Changing the value causes a file rotation because all
+records must either have or do not have the <code>time</code> field. This option requires
+the <code>AUDIT_ADMIN</code> and <code>SYSTEM_VARIABLES_ADMIN</code> privileges.</p>
+<h3 id="audit-log-filter-variables-audit_log_filter_handler"><code>audit_log_filter_handler</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_handler" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-handler</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>FILE</td>
+</tr>
+</tbody>
+</table>
+<p>Defines where the plugin writes the audit log filter file. The following values are
+available:</p>
+<ul>
+<li>
+<p><code>FILE</code> - plugin writes the log to a location specified in <a href="#audit-log-filter-variables-audit_log_filter_file"><code>audit_log_filter_file</code></a></p>
+</li>
+<li>
+<p><code>SYSLOG</code> - plugin writes to the syslog</p>
+</li>
+</ul>
+<p>When using <code>SYSLOG</code>, the plugin uses the syslog facility and priority settings
+defined by <code>audit_log_filter_syslog_facility</code> and <code>audit_log_filter_syslog_priority</code>
+variables. The syslog tag is controlled by <code>audit_log_filter_syslog_tag</code>.</p>
+<h3 id="audit-log-filter-variables-audit_log_filter_syslog_tag"><code>audit_log_filter_syslog_tag</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_syslog_tag" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-syslog-tag=</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>audit-filter</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the syslog tag value used when writing audit log entries to syslog.
+This tag appears in syslog entries to identify the source of the audit log
+messages. The default value is &ldquo;audit-filter&rdquo;.</p>
+<h3 id="audit-log-filter-variables-audit_log_filter_syslog_priority"><code>audit_log_filter_syslog_priority</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_syslog_priority" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-syslog-priority</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>LOG_INFO</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the <code>priority</code> value for the syslog. The option has the same meaning as the appropriate parameter described in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
+<h2 id="audit-log-filter-variables-performance-and-buffering_1">Performance and buffering<a class="headerlink" href="#audit-log-filter-variables-performance-and-buffering_1" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-variables-audit_log_filter_buffer_size"><code>audit_log_filter_buffer_size</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_buffer_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-buffer-size</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>1048576</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>4096</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>18446744073709547520</td>
+</tr>
+<tr>
+<td>Units</td>
+<td>bytes</td>
+</tr>
+<tr>
+<td>Block size</td>
+<td>4096</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the buffer size in multiples of 4096 when logging is asynchronous. Audit events are temporarily stored in this buffer before being
+written to the log file, which improves performance by reducing disk I/O operations.</p>
+<p>The plugin initializes a single buffer and removes the buffer when the plugin terminates.</p>
+<h3 id="audit-log-filter-variables-audit_log_filter_strategy"><code>audit_log_filter_strategy</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_strategy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-strategy</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Enumeration</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>ASYNCHRONOUS</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the Audit Log filter plugin&rsquo;s logging method. The valid values are the following:</p>
+<table>
+<thead>
+<tr>
+<th>Values</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASYNCHRONOUS</td>
+<td>Waits until there is buffer space available (default, best performance)</td>
+</tr>
+<tr>
+<td>PERFORMANCE</td>
+<td>Drops audit events if buffer is full (fastest, may lose events)</td>
+</tr>
+<tr>
+<td>SEMISYNCHRONOUS</td>
+<td>Allows OS caching, calls sync() periodically (balanced)</td>
+</tr>
+<tr>
+<td>SYNCHRONOUS</td>
+<td>Calls sync() after each event (safest, slowest performance)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="audit-log-filter-variables-encryption-and-security_1">Encryption and security<a class="headerlink" href="#audit-log-filter-variables-encryption-and-security_1" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-variables-audit_log_encryption_password_getkeyring_id">audit_log_encryption_password_get(keyring_id)<a class="headerlink" href="#audit-log-filter-variables-audit_log_encryption_password_getkeyring_id" title="Permanent link">&para;</a></h3>
+<p>This function returns the encryption password. Any keyring plugin or keyring
+component can be used. The plugin or component must be enabled. If the plugin
+or component is not enabled, an error occurs.</p>
+<h4 id="audit-log-filter-variables-parameters_8">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_8" title="Permanent link">&para;</a></h4>
+<p><code>keyring_id</code> - optional parameter. If omitted, the function returns the current
+encryption password. If provided, specify the keyring ID to retrieve a specific
+encryption password (current or archived). The keyring ID is a string identifier
+used by the keyring system to distinguish between different stored passwords.</p>
+<h4 id="audit-log-filter-variables-returns_8">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_8" title="Permanent link">&para;</a></h4>
+<p>This function returns a JSON object with the following structure:
+- <code>password</code>: The encryption password as a string
+- <code>iterations</code>: The number of iterations used for password derivation (integer)</p>
+<h4 id="audit-log-filter-variables-example_8">Example<a class="headerlink" href="#audit-log-filter-variables-example_8" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_encryption_password_get<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------+
+| audit_log_encryption_password_get()         |
++---------------------------------------------+
+| {&quot;password&quot;:&quot;passw0rd&quot;,&quot;iterations&quot;:5689}   |
++---------------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_encryption_password_get<span class="o">(</span><span class="s1">&#39;current_key&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="audit-log-filter-variables-security-considerations">Security considerations<a class="headerlink" href="#audit-log-filter-variables-security-considerations" title="Permanent link">&para;</a></h4>
+<p>This function returns sensitive encryption passwords. Ensure proper access controls
+are in place. The returned password should be handled securely and not logged or
+stored in plain text. Only users with appropriate privileges should execute this
+function.</p>
+<h3 id="audit-log-filter-variables-audit_log_encryption_password_setnew_password">audit_log_encryption_password_set(new_password)<a class="headerlink" href="#audit-log-filter-variables-audit_log_encryption_password_setnew_password" title="Permanent link">&para;</a></h3>
+<p>This function sets the encryption password and stores the new password in the
+keyring.</p>
+<h4 id="audit-log-filter-variables-parameters_9">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_9" title="Permanent link">&para;</a></h4>
+<p><code>new_password</code> - the new password as a string. The maximum length is 766 bytes.</p>
+<h4 id="audit-log-filter-variables-returns_9">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_9" title="Permanent link">&para;</a></h4>
+<p>This function returns a string. An <code>OK</code> indicates a success. <code>ERROR</code> indicates
+a failure.</p>
+<h4 id="audit-log-filter-variables-example_9">Example<a class="headerlink" href="#audit-log-filter-variables-example_9" title="Permanent link">&para;</a></h4>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_encryption_password_set<span class="o">(</span><span class="s1">&#39;passw0rd&#39;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------------------+
+| audit_log_encryption_password_set(&#39;passw0rd&#39;)       |
++-----------------------------------------------------+
+| OK                                                  |
++-----------------------------------------------------+
+</code></pre></div>
+</details>
+<h4 id="audit-log-filter-variables-security-considerations_1">Security considerations<a class="headerlink" href="#audit-log-filter-variables-security-considerations_1" title="Permanent link">&para;</a></h4>
+<p>This function stores sensitive encryption passwords in the keyring. Ensure the
+password meets security requirements (sufficient length, complexity). The password
+is used to encrypt audit log files and should be kept secure. Only users with
+appropriate privileges should execute this function.</p>
+<h3 id="audit-log-filter-variables-audit_log_filter_encryption"><code>audit_log_filter_encryption</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_encryption" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-encryption</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Enumeration</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NONE</td>
+</tr>
+<tr>
+<td>Valid values</td>
+<td>NONE or AES</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the encryption type for the audit log filter file. The
+values can be either of the following:</p>
+<ul>
+<li><code>NONE</code> - the default value, no encryption</li>
+<li><code>AES</code> - uses AES-256 encryption for audit log files</li>
+</ul>
+<p>When encryption is enabled, the plugin uses AES-256 encryption to secure audit log
+files. The encryption keys are managed through the MySQL keyring system. Ensure
+that a keyring plugin is installed and configured before enabling encryption.</p>
+<h3 id="audit-log-filter-variables-audit_log_filter_key_derivation_iterations_count_mean"><code>audit_log_filter_key_derivation_iterations_count_mean</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_key_derivation_iterations_count_mean" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-key-derivation-iterations-count-mean</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>60000</td>
+</tr>
+<tr>
+<td>Minimum value</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>1000000</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the average number of iterations used when deriving encryption keys from
+passwords. The actual iteration count is randomly generated and varies by no more
+than 10% from this mean value.</p>
+<p>Higher values provide better security but require more CPU time for key derivation.
+The default value of 60000 provides a good balance between security and performance.
+For high-security environments, consider increasing this value to 100000 or higher.</p>
+<h3 id="audit-log-filter-variables-audit_log_filter_password_history_keep_days"><code>audit_log_filter_password_history_keep_days</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_password_history_keep_days" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-password-history-keep-days</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Defines when passwords may be removed and measured in days.</p>
+<p>Encrypted log files have passwords stored in the keyring. The plugin also stores a password history. A password does not expire, despite being past the value, in case the password is used for rotated audit logs. The operation of creating a password also archives the previous password.</p>
+<p>The default value is 0 (zero). This value disables the expiration of passwords. Passwords are retained forever.</p>
+<p>If the plugin starts and encryption is enabled, the plugin checks for an audit log filter encryption password. If a password is not found, the plugin generates a random password.</p>
+<p>Call <a href="#audit-log-filter-variables-audit_log_encryption_password_setnew_password">audit_log_encryption_password_set(new_password)</a> to set a specific password.</p>
+<h2 id="audit-log-filter-variables-compression_1">Compression<a class="headerlink" href="#audit-log-filter-variables-compression_1" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-variables-audit_log_filter_compression"><code>audit_log_filter_compression</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_compression" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>&ndash;audit-log-filter-compression</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Enumeration</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>NONE</td>
+</tr>
+<tr>
+<td>Valid values</td>
+<td>NONE or GZIP</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the compression type for the audit log filter file. The
+values can be either <code>NONE</code>, the default value and file has no compression, or
+<code>GZIP</code>.</p>
+<h2 id="audit-log-filter-variables-audit-log-filter-status-variables">Audit log filter status variables<a class="headerlink" href="#audit-log-filter-variables-audit-log-filter-status-variables" title="Permanent link">&para;</a></h2>
+<p>The audit log filter plugin exposes status variables. These variables provide information on the operations.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>audit_log_filter_current_size</code></td>
+<td>The current size of the audit log filter file. If the log is rotated, the size is reset to 0.</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_direct_writes</code></td>
+<td>Identifies when the <code>log_strategy_type</code> = ASYNCHRONOUS and messages bypass the write buffer and are written directly to the log file</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_max_drop_size</code></td>
+<td>In the performance logging mode, the size of the largest dropped event.</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_events</code></td>
+<td>The number of audit log filter events</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_events_filtered</code></td>
+<td>The number of filtered audit log filter plugin events</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_events_lost</code></td>
+<td>If the event is larger than the available audit log filter buffer space, the event is lost</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_events_written</code></td>
+<td>The number of audit log filter events written</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_total_size</code></td>
+<td>The total size of the events written to all audit log filter files. The number increases even when a log is rotated</td>
+</tr>
+<tr>
+<td><code>audit_log_filter_write_waits</code></td>
+<td>In the asynchronous logging mode, the number of times an event waited for space in the audit log filter buffer</td>
+</tr>
+</tbody>
+</table></section><section class="print-page" id="audit-log-filter-security" heading-number="5.2.5"><h1 id="audit-log-filter-security-audit-log-filter-security">Audit Log Filter security<a class="headerlink" href="#audit-log-filter-security-audit-log-filter-security" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter plugin generates audit log filter files. The directory 
 that contains these files should be accessible only to the following:</p>
 <ul>
@@ -16747,7 +18407,7 @@ that contains these files should be accessible only to the following:</p>
 </li>
 </ul>
 <p>The files are not encrypted by default and may contain sensitive information.</p>
-<p>The default name for the file in the data directory is <code>audit_filter.log</code>. If needed, use the <code>audit_log_filter_file</code> system variable at server startup to change the location. Due to the log rotation, multiple audit log files may exist.</p></section><section class="print-page" id="audit-log-filter-compression-encryption" heading-number="5.2.5"><h1 id="audit-log-filter-compression-encryption-audit-log-filter-compression-and-encryption">Audit Log Filter compression and encryption<a class="headerlink" href="#audit-log-filter-compression-encryption-audit-log-filter-compression-and-encryption" title="Permanent link">&para;</a></h1>
+<p>The default name for the file in the data directory is <code>audit_filter.log</code>. If needed, use the <code>audit_log_filter_file</code> system variable at server startup to change the location. Due to the log rotation, multiple audit log files may exist.</p></section><section class="print-page" id="audit-log-filter-compression-encryption" heading-number="5.2.6"><h1 id="audit-log-filter-compression-encryption-audit-log-filter-compression-and-encryption">Audit Log Filter compression and encryption<a class="headerlink" href="#audit-log-filter-compression-encryption-audit-log-filter-compression-and-encryption" title="Permanent link">&para;</a></h1>
 <h2 id="audit-log-filter-compression-encryption-compression">Compression<a class="headerlink" href="#audit-log-filter-compression-encryption-compression" title="Permanent link">&para;</a></h2>
 <p>You can enable compression for any <a href="#audit-log-filter-formats">format</a> by setting the <code>audit_log_filter_compression</code> system variable when the server starts.</p>
 <p>The <code>audit_log_filter_compression</code> variable can be either of the following:</p>
@@ -16803,7 +18463,7 @@ that contains these files should be accessible only to the following:</p>
 <summary>Expected output</summary>
 <div class="highlight"><pre><span></span><code>{&quot;password&quot;:&quot;{randomly-generated-alphanumeric-string}&quot;,&quot;iterations&quot;:568977}
 </code></pre></div>
-</details></section><section class="print-page" id="reading-audit-log-filter-files" heading-number="5.2.6"><h1 id="reading-audit-log-filter-files-reading-audit-log-filter-files">Reading Audit Log Filter files<a class="headerlink" href="#reading-audit-log-filter-files-reading-audit-log-filter-files" title="Permanent link">&para;</a></h1>
+</details></section><section class="print-page" id="reading-audit-log-filter-files" heading-number="5.2.7"><h1 id="reading-audit-log-filter-files-reading-audit-log-filter-files">Reading Audit Log Filter files<a class="headerlink" href="#reading-audit-log-filter-files-reading-audit-log-filter-files" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter functions can provide a SQL interface to read JSON-format audit log files. The functions cannot read log files in other formats. Configuring the plugin for JSON logging lets the functions use the directory that contains the current audit log filter file and search in that location for readable files. The value of the <code>audit_log_filter_file</code> system variable provides the file location, base name, and the suffix and then searches for names that match the pattern.</p>
 <p>If the file is renamed and no longer fits the pattern, the file is ignored.</p>
 <h2 id="reading-audit-log-filter-files-functions-used-for-reading-the-files">Functions used for reading the files<a class="headerlink" href="#reading-audit-log-filter-files-functions-used-for-reading-the-files" title="Permanent link">&para;</a></h2>
@@ -16820,7 +18480,7 @@ The<span class="w"> </span>following<span class="w"> </span>example<span class="
 <span class="sb">```</span><span class="o">{</span>.bash<span class="w"> </span>data-prompt<span class="o">=</span><span class="s2">&quot;mysql&gt;&quot;</span><span class="o">}</span>
 mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">()</span><span class="p">;</span>
 </code></pre></div>
-<p>Reading a file is closed when the session ends or calling <code>audit_log_read()</code> with another argument.</p></section><section class="print-page" id="manage-audit-log-filter" heading-number="5.2.7"><h1 id="manage-audit-log-filter-manage-the-audit-log-filter-files">Manage the Audit Log Filter files<a class="headerlink" href="#manage-audit-log-filter-manage-the-audit-log-filter-files" title="Permanent link">&para;</a></h1>
+<p>Reading a file is closed when the session ends or calling <code>audit_log_read()</code> with another argument.</p></section><section class="print-page" id="manage-audit-log-filter" heading-number="5.2.8"><h1 id="manage-audit-log-filter-manage-the-audit-log-filter-files">Manage the Audit Log Filter files<a class="headerlink" href="#manage-audit-log-filter-manage-the-audit-log-filter-files" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter files have the following potential results:</p>
 <ul>
 <li>Consume a large amount of disk space</li>
@@ -16832,7 +18492,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<sp
 <p>The default setting for <a href="#audit-log-filter-variables-audit_log_filter_rotate_on_size"><code>audit_log_filter_rotate_on_size</code></a> is 1GB. If this option is set to <code>0</code>, the audit log filter plugin does not do an automatic rotation of the log file. You must do the rotation manually with this setting.</p>
 <p>The <code>SELECT audit_log_rotate()</code> command renames the file and creates a new audit log filter file with the original name. You must have the <code>AUDIT_ADMIN</code> privilege. </p>
 <p>The files are pruned if either <code>audit_log_filter_max_size</code> or <code>audit_log_filter_prune_seconds</code> have a value greater than 0 (zero) and <code>audit_log_filter_rotate_on_size</code> &gt; 0.</p>
-<p>After the files have been renamed, you must manually remove any archived audit log filter files. The renamed audit log filter files can be read by <code>audit_log_read()</code>. The <code>audit_log_read()</code> does not find the logs if the name pattern differs from the current pattern.</p></section><section class="print-page" id="filter-audit-log-filter-files" heading-number="5.2.8"><h1 id="filter-audit-log-filter-files-filter-the-audit-log-filter-logs">Filter the Audit Log Filter logs<a class="headerlink" href="#filter-audit-log-filter-files-filter-the-audit-log-filter-logs" title="Permanent link">&para;</a></h1>
+<p>After the files have been renamed, you must manually remove any archived audit log filter files. The renamed audit log filter files can be read by <code>audit_log_read()</code>. The <code>audit_log_read()</code> does not find the logs if the name pattern differs from the current pattern.</p></section><section class="print-page" id="filter-audit-log-filter-files" heading-number="5.2.9"><h1 id="filter-audit-log-filter-files-filter-the-audit-log-filter-logs">Filter the Audit Log Filter logs<a class="headerlink" href="#filter-audit-log-filter-files-filter-the-audit-log-filter-logs" title="Permanent link">&para;</a></h1>
 <p>The audit filter log filtering is based on rules. The filter rule definition has the ability to include or exclude events based on the following attributes:</p>
 <ul>
 <li>User account</li>
@@ -16889,7 +18549,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<sp
 <h2 id="filter-audit-log-filter-files-using-the-audit-log-filter-functions">Using the audit log filter functions<a class="headerlink" href="#filter-audit-log-filter-files-using-the-audit-log-filter-functions" title="Permanent link">&para;</a></h2>
 <p>With a new connection, the audit log filter plugin finds the user account name in the filter assignments. If a filter has been assigned, the plugin uses that filter. If no filter has been assigned, but there is a default account filter, the plugin uses that filter. If there is no filter assigned, and there is no default account filter, then the plugin does not process any event.</p>
 <p>The default account is represented by <code>%</code> as the account name.</p>
-<p>You can assign filters to a specific user account or disassociate a user account from a filter. To disassociate a user account, either unassign a filter or assign a different filter. If you remove a filter, that filter is unassigned from all users, including current users in current sessions.</p></section><section class="print-page" id="audit-log-filter-restrictions" heading-number="5.2.9"><h1 id="audit-log-filter-restrictions-audit-log-filter-restrictions">Audit Log Filter restrictions<a class="headerlink" href="#audit-log-filter-restrictions-audit-log-filter-restrictions" title="Permanent link">&para;</a></h1>
+<p>You can assign filters to a specific user account or disassociate a user account from a filter. To disassociate a user account, either unassign a filter or assign a different filter. If you remove a filter, that filter is unassigned from all users, including current users in current sessions.</p></section><section class="print-page" id="audit-log-filter-restrictions" heading-number="5.2.10"><h1 id="audit-log-filter-restrictions-audit-log-filter-restrictions">Audit Log Filter restrictions<a class="headerlink" href="#audit-log-filter-restrictions-audit-log-filter-restrictions" title="Permanent link">&para;</a></h1>
 <h2 id="audit-log-filter-restrictions-general-restrictions">General restrictions<a class="headerlink" href="#audit-log-filter-restrictions-general-restrictions" title="Permanent link">&para;</a></h2>
 <p>The Audit Log Filter has the following general restrictions:</p>
 <ul>
@@ -16905,7 +18565,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<sp
 <li>
 <p>If used with a cluster, the application or user is responsible for aggregating all the data of each server used in the cluster.</p>
 </li>
-</ul></section><section class="print-page" id="audit-log-filter-naming" heading-number="5.2.10"><h1 id="audit-log-filter-naming-audit-log-filter-file-naming-conventions">Audit Log Filter file naming conventions<a class="headerlink" href="#audit-log-filter-naming-audit-log-filter-file-naming-conventions" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="audit-log-filter-naming" heading-number="5.2.11"><h1 id="audit-log-filter-naming-audit-log-filter-file-naming-conventions">Audit Log Filter file naming conventions<a class="headerlink" href="#audit-log-filter-naming-audit-log-filter-file-naming-conventions" title="Permanent link">&para;</a></h1>
 <h2 id="audit-log-filter-naming-name-qualities">Name qualities<a class="headerlink" href="#audit-log-filter-naming-name-qualities" title="Permanent link">&para;</a></h2>
 <p>The audit log filter file name has the following qualities:</p>
 <ul>
@@ -16967,7 +18627,7 @@ audit_filter.log.20230301T061400-2.enc
 <h2 id="audit-log-filter-naming-renaming-operations">Renaming operations<a class="headerlink" href="#audit-log-filter-naming-renaming-operations" title="Permanent link">&para;</a></h2>
 <p>During initialization, the plugin checks if a file with that name exists. 
 If it does, the plugin renames the file. The plugin writes to an empty file.</p>
-<p>During termination, the plugin renames the file.</p></section><section class="print-page" id="disable-audit-log-filter" heading-number="5.2.11"><h1 id="disable-audit-log-filter-disable-audit-log-filter-logging">Disable Audit Log Filter logging<a class="headerlink" href="#disable-audit-log-filter-disable-audit-log-filter-logging" title="Permanent link">&para;</a></h1>
+<p>During termination, the plugin renames the file.</p></section><section class="print-page" id="disable-audit-log-filter" heading-number="5.2.12"><h1 id="disable-audit-log-filter-disable-audit-log-filter-logging">Disable Audit Log Filter logging<a class="headerlink" href="#disable-audit-log-filter-disable-audit-log-filter-logging" title="Permanent link">&para;</a></h1>
 <p>The <code>audit_log_filter_disable</code> system variable lets you disable or enable logging for all connections.</p>
 <p>You can set the variable in the following ways:</p>
 <ul>
@@ -17001,1202 +18661,7 @@ If it does, the plugin renames the file. The plugin writes to an empty file.</p>
 <ul>
 <li><code>AUDIT_ADMIN</code> privilege</li>
 <li><code>SYSTEM_VARIABLES_ADMIN</code> privilege</li>
-</ul></section><section class="print-page" id="audit-log-filter-variables" heading-number="5.2.12"><h1 id="audit-log-filter-variables-audit-log-filter-functions-options-and-variables">Audit log filter functions, options and variables<a class="headerlink" href="#audit-log-filter-variables-audit-log-filter-functions-options-and-variables" title="Permanent link">&para;</a></h1>
-<p>The following sections describe the <a href="#audit-log-filter-variables-audit-log-filter-functions">functions</a>, <a href="#audit-log-filter-variables-audit-log-filter-options-and-variables">options, and variables</a> available in the audit log filter plugin.</p>
-<h2 id="audit-log-filter-variables-audit-log-filter-functions">Audit log filter functions<a class="headerlink" href="#audit-log-filter-variables-audit-log-filter-functions" title="Permanent link">&para;</a></h2>
-<p>The following audit log filter functions are available.</p>
-<table>
-<thead>
-<tr>
-<th>Function name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_encryption_password_getkeyring_id">audit_log_encryption_password_get(keyring_id)</a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_encryption_password_setnew_password">audit_log_encryption_password_set(new_password)</a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_flush">audit_log_filter_flush()</a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_read">audit_log_read()</a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_read_bookmark">audit_log_read_bookmark()</a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_remove_filterfilter_name">audit_log_filter_remove_filter(filter_name)</a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_remove_useruser_name">audit_log_filter_remove_user(user_name)</a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_rotate">audit_log_rotate()</a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition">audit_log_filter_set_filter(filter_name, definition)</a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_set_useruser_name-filter_name">audit_log_filter_set_user(user_name, filter_name)</a></td>
-</tr>
-</tbody>
-</table>
-<h3 id="audit-log-filter-variables-audit_log_encryption_password_getkeyring_id">audit_log_encryption_password_get(keyring_id)<a class="headerlink" href="#audit-log-filter-variables-audit_log_encryption_password_getkeyring_id" title="Permanent link">&para;</a></h3>
-<p>This function returns the encryption password. Any keyring plugin or keyring component can be used, but the plugin or component must be enabled. If the plugin or component is not enabled, an error occurs.</p>
-<h4 id="audit-log-filter-variables-parameters">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters" title="Permanent link">&para;</a></h4>
-<p><code>keyring_id</code> - If the function does not contain a keyring_id, the function returns the current encryption password. You can also request a specific encryption password with the keyring ID of either the current password or an archived password.</p>
-<h4 id="audit-log-filter-variables-returns">Returns<a class="headerlink" href="#audit-log-filter-variables-returns" title="Permanent link">&para;</a></h4>
-<p>This function returns a JSON object containing the password, iterations count used by the password.</p>
-<h4 id="audit-log-filter-variables-example">Example<a class="headerlink" href="#audit-log-filter-variables-example" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_encryption_password_get<span class="o">()</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------+
-| audit_log_encryption_password_get()         |
-+---------------------------------------------+
-| {&quot;password&quot;:&quot;passw0rd&quot;,&quot;iterations&quot;:5689}   |
-+---------------------------------------------+
-</code></pre></div>
-</details>
-<h3 id="audit-log-filter-variables-audit_log_encryption_password_setnew_password">audit_log_encryption_password_set(new_password)<a class="headerlink" href="#audit-log-filter-variables-audit_log_encryption_password_setnew_password" title="Permanent link">&para;</a></h3>
-<p>This function sets the encryption password and stores the new password in the keyring. </p>
-<h4 id="audit-log-filter-variables-parameters_1">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_1" title="Permanent link">&para;</a></h4>
-<p><code>password</code> - the password as a string. The maximum length is 766 bytes.</p>
-<h4 id="audit-log-filter-variables-returns_1">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_1" title="Permanent link">&para;</a></h4>
-<p>This function returns a string. An <code>OK</code> indicates a success. <code>ERROR</code> indicates a failure.</p>
-<h4 id="audit-log-filter-variables-example_1">Example<a class="headerlink" href="#audit-log-filter-variables-example_1" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_encryption_password_set<span class="o">(</span>passw0rd<span class="o">)</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------------------+
-| audit_log_encryption_password_set(passw0rd)         |
-+-----------------------------------------------------+
-| OK                                                  |
-+-----------------------------------------------------+
-</code></pre></div>
-</details>
-<h3 id="audit-log-filter-variables-audit_log_filter_flush">audit_log_filter_flush()<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_flush" title="Permanent link">&para;</a></h3>
-<p>This function updates the audit log filter tables and makes any changes operational. </p>
-<p>Modifying the audit log filter tables directly with <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code> does not implement the modifications immediately. The tables must be flushed to have those changes take effect. </p>
-<p>This function forces reloading all filters and should only be used if someone has modified the tables directly. </p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Avoid using this function. This function performs an operation that is similar to uninstalling and reinstalling the plugin. Filters are detached from all current sessions. To restart logging, the current sessions must either disconnect and reconnect or do a change-user operation. </p>
-</div>
-<h4 id="audit-log-filter-variables-parameters_2">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_2" title="Permanent link">&para;</a></h4>
-<p>None.</p>
-<h4 id="audit-log-filter-variables-returns_2">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_2" title="Permanent link">&para;</a></h4>
-<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
-<h4 id="audit-log-filter-variables-example_2">Example<a class="headerlink" href="#audit-log-filter-variables-example_2" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_flush<span class="o">()</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------+
-| audit_log_filter_flush() |
-+--------------------------+
-| OK                       |
-+--------------------------+
-</code></pre></div>
-</details>
-<h3 id="audit-log-filter-variables-audit_log_read">audit_log_read()<a class="headerlink" href="#audit-log-filter-variables-audit_log_read" title="Permanent link">&para;</a></h3>
-<p>If the audit log filter format is JSON, this function reads the audit log and returns an array of the audit events as a JSON string. Generates an error if the format is not JSON.</p>
-<h4 id="audit-log-filter-variables-parameters_3">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_3" title="Permanent link">&para;</a></h4>
-<p>None. If the start position is not provided, the read continues from the current position. </p>
-<p>Optional: You can specify a starting position for the read with <code>start</code> or a <code>timestamp</code> and an <code>id</code>, both items are considered a bookmark and can be used to identify an event. You must include both (<code>timestamp</code> and <code>id</code>) or an error is generated. If the <code>timestamp</code> does not include a <code>time</code> section, the function assumes  the time is <code>00:00</code>.</p>
-<p>You can also provide a <code>max_array_length</code> to limit the number of log events.</p>
-<p>Call<a href="#audit-log-filter-variables-audit_log_read_bookmark"><code>audit_log_read_bookmark()</code></a> to return the most recently written event.</p>
-<h4 id="audit-log-filter-variables-returns_3">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_3" title="Permanent link">&para;</a></h4>
-<p>This function returns a string of a JSON array of the audit events, or a JSON NULL value. Returns <code>NULL</code> and generates an error if the call fails.</p>
-<h4 id="audit-log-filter-variables-example_3">Example<a class="headerlink" href="#audit-log-filter-variables-example_3" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">(</span>audit_log_read_bookmark<span class="o">())</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------------------------------------+
-| audit_log_read(audit_log_read_bookmark())                                   |
-+------------------------------------------------------------------------------+
-| [{&quot;timestamp&quot; : &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10,&quot;class&quot;:&quot;connection&quot;,]       |
-+------------------------------------------------------------------------------+
-</code></pre></div>
-</details>
-<h3 id="audit-log-filter-variables-audit_log_read_bookmark">audit_log_read_bookmark()<a class="headerlink" href="#audit-log-filter-variables-audit_log_read_bookmark" title="Permanent link">&para;</a></h3>
-<p>This function provides a bookmark for the most recently written audit log event as a JSON string. Generates an error if the format is not JSON.</p>
-<p>If this function is used with [<code>audit_log_read()](#audit_log_read), the</code>audit_log_read()` function starts reading at that position.</p>
-<h4 id="audit-log-filter-variables-parameters_4">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_4" title="Permanent link">&para;</a></h4>
-<p>None.</p>
-<h4 id="audit-log-filter-variables-returns_4">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_4" title="Permanent link">&para;</a></h4>
-<p>This function returns a <code>JSON</code> string containing a bookmark for success or  <code>NULL</code> and an error for failure.</p>
-<h4 id="audit-log-filter-variables-example_4">Example<a class="headerlink" href="#audit-log-filter-variables-example_4" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read_bookmark<span class="o">()</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------------------------------------+
-| audit_log_read_bookmark()                          |
-+----------------------------------------------------+
-| {&quot;timestamp&quot; : &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10 }   |
-+----------------------------------------------------+
-</code></pre></div>
-</details>
-<h3 id="audit-log-filter-variables-audit_log_filter_remove_filterfilter_name">audit_log_filter_remove_filter(filter_name)<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_remove_filterfilter_name" title="Permanent link">&para;</a></h3>
-<p>This function removes the selected filter from the current set of filters.</p>
-<p>If user accounts are assigned the selected filter, the user accounts are no longer filtered. The user accounts are removed from <code>audit_log_filter_user</code>. If the user accounts are in a current session, they are detached from the selected filter and no longer logged.</p>
-<h4 id="audit-log-filter-variables-parameters_5">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_5" title="Permanent link">&para;</a></h4>
-<p><code>filter_name</code> - a selected filter name as a string.</p>
-<h4 id="audit-log-filter-variables-returns_5">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_5" title="Permanent link">&para;</a></h4>
-<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
-<p>If the filter name does not exist, no error is generated. </p>
-<h4 id="audit-log-filter-variables-example_5">Example<a class="headerlink" href="#audit-log-filter-variables-example_5" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_remove_filter<span class="o">(</span><span class="s1">&#39;filter-name&#39;</span><span class="o">)</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------+
-| audit_log_filter_remove_filter(&#39;filter-name&#39;)  |
-+------------------------------------------------+
-| OK                                             |
-+------------------------------------------------+
-</code></pre></div>
-</details>
-<h3 id="audit-log-filter-variables-audit_log_filter_remove_useruser_name">audit_log_filter_remove_user(user_name)<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_remove_useruser_name" title="Permanent link">&para;</a></h3>
-<p>This function removes the assignment of a filter from the selected user account.</p>
-<p>If the user account is in a current session, they are not affected. New sessions for this user account use the default account filter or are not logged.</p>
-<p>If the user-name is <code>%</code>, the default account filter is removed.</p>
-<h4 id="audit-log-filter-variables-parameters_6">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_6" title="Permanent link">&para;</a></h4>
-<p><code>user_name</code> - a selected user name in either the <code>user_name</code>@<code>host_name</code> format or <code>%</code>.</p>
-<h4 id="audit-log-filter-variables-returns_6">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_6" title="Permanent link">&para;</a></h4>
-<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
-<p>If the user_name has no filter assigned, no error is generated. </p>
-<h4 id="audit-log-filter-variables-example_6">Example<a class="headerlink" href="#audit-log-filter-variables-example_6" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_remove_user<span class="o">(</span><span class="s1">&#39;user-name@localhost&#39;</span><span class="o">)</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------------+
-| audit_log_filter_remove_user(&#39;user-name@localhost&#39;)  |
-+------------------------------------------------------+
-| OK                                                   |
-+------------------------------------------------------+
-</code></pre></div>
-</details>
-<h3 id="audit-log-filter-variables-audit_log_rotate">audit_log_rotate()<a class="headerlink" href="#audit-log-filter-variables-audit_log_rotate" title="Permanent link">&para;</a></h3>
-<h4 id="audit-log-filter-variables-parameters_7">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_7" title="Permanent link">&para;</a></h4>
-<p>None.</p>
-<h4 id="audit-log-filter-variables-returns_7">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_7" title="Permanent link">&para;</a></h4>
-<p>This function returns renamed file name.</p>
-<h4 id="audit-log-filter-variables-example_7">Example<a class="headerlink" href="#audit-log-filter-variables-example_7" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_rotate<span class="o">()</span><span class="p">;</span>
-</code></pre></div>
-<h3 id="audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition">audit_log_filter_set_filter(filter_name, definition)<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition" title="Permanent link">&para;</a></h3>
-<p>This function, when provided with a filter name and definition, adds the filter. </p>
-<p>The new filter has a different filter ID. Generates an error if the filter name exists.</p>
-<h4 id="audit-log-filter-variables-parameters_8">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_8" title="Permanent link">&para;</a></h4>
-<ul>
-<li>
-<p><code>filter_name</code> - a selected filter name as a string.</p>
-</li>
-<li>
-<p><code>definition</code> - Defines the definition as a JSON value.</p>
-</li>
-</ul>
-<h4 id="audit-log-filter-variables-returns_8">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_8" title="Permanent link">&para;</a></h4>
-<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
-<h4 id="audit-log-filter-variables-example_8">Example<a class="headerlink" href="#audit-log-filter-variables-example_8" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@filter<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{ &quot;filter&quot;: { &quot;log&quot;: true }}&#39;</span>
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;filter-name&#39;</span>,<span class="w"> </span>@filter<span class="o">)</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------+
-| audit_log_filter_set_filter(&#39;filter-name&#39;, @filter)  |
-+-------------------------------------------------------------+
-| OK                                                          |
-+-------------------------------------------------------------+
-</code></pre></div>
-</details>
-<h3 id="audit-log-filter-variables-audit_log_filter_set_useruser_name-filter_name">audit_log_filter_set_user(user_name, filter_name)<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_set_useruser_name-filter_name" title="Permanent link">&para;</a></h3>
-<p>This function assigns the filter to the selected user account.</p>
-<p>Starting from Percona Server for MySQL 8.0.42, the audit_log_filter_set_user() UDF accepts account names with wildcard characters (<code>'%'</code> and <code>'_'</code>) in the host part. For example, you can use <code>‘usr1@%'</code>, <code>‘usr2%192.168.0.%’</code>, or <code>'usr3@%.mycorp.com'</code>.</p>
-<p>A user account can only have one filter. If the user account already has a filter, this function replaces the current filter. If the user account is in a current session, nothing happens. When the user account connects again the new filter is used.</p>
-<p>The user name, <code>%</code>, is the default account. The filter assigned to <code>%</code> is used by any user account without a defined filter.</p>
-<h4 id="audit-log-filter-variables-parameters_9">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_9" title="Permanent link">&para;</a></h4>
-<ul>
-<li>
-<p><code>user_name</code> - a selected user name in either the <code>user_name</code>@<code>host_name</code> format or <code>%</code>.</p>
-</li>
-<li>
-<p><code>filter_name</code> - a selected filter name as a string.</p>
-</li>
-</ul>
-<h4 id="audit-log-filter-variables-returns_9">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_9" title="Permanent link">&para;</a></h4>
-<p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
-<h4 id="audit-log-filter-variables-example_9">Example<a class="headerlink" href="#audit-log-filter-variables-example_9" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_user<span class="o">(</span><span class="s1">&#39;user-name@localhost&#39;</span>,<span class="w"> </span><span class="s1">&#39;filter-name&#39;</span><span class="o">)</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------------+
-| audit_log_filter_set_user(&#39;user-name@localhost&#39;, &#39;filter-name&#39;)  |
-+-------------------------------------------------------------------+
-| OK                                                                |
-+-------------------------------------------------------------------+
-</code></pre></div>
-</details>
-<h2 id="audit-log-filter-variables-audit-log-filter-options-and-variables">Audit log filter options and variables<a class="headerlink" href="#audit-log-filter-variables-audit-log-filter-options-and-variables" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="#audit-log-filter-variables-audit-log-filter"><code>audit-log-filter</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_buffer_size"><code>audit_log_filter_buffer_size</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_compression"><code>audit_log_filter_compression</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_database"><code>audit_log_filter_database</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_disable"><code>audit_log_filter_disable</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_encryption"><code>audit_log_filter_encryption</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_file"><code>audit_log_filter_file</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_filter_id"><code>audit_log_filter_filter_id</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_format"><code>audit_log_filter_format</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_format_unix_timestamp"><code>audit_log_filter_format_unix_timestamp</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_handler"><code>audit_log_filter_handler</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_key_derivation_iterations_count_mean"><code>audit_log_filter_key_derivation_iterations_count_mean</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_max_size"><code>audit_log_filter_max_size</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_password_history_keep_days"><code>audit_log_filter_password_history_keep_days</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_prune_seconds"><code>audit_log_filter_prune_seconds</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_read_buffer_size"><code>audit_log_filter_read_buffer_size</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_rotate_on_size"><code>audit_log_filter_rotate_on_size</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_strategy"><code>audit_log_filter_strategy</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_syslog_tag"><code>audit_log_filter_syslog_tag</code></a></td>
-</tr>
-<tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_syslog_priority"><code>audit_log_filter_syslog_priority</code></a></td>
-</tr>
-</tbody>
-</table>
-<h3 id="audit-log-filter-variables-audit-log-filter"><code>audit-log-filter</code><a class="headerlink" href="#audit-log-filter-variables-audit-log-filter" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter[=value]</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td></td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Enumeration</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>ON</td>
-</tr>
-</tbody>
-</table>
-<p>This option determines how, at startup, the server loads the <code>audit_log_filter</code> plugin. The plugin must be registered. </p>
-<p>The valid values are the following:</p>
-<ul>
-<li>ON</li>
-<li>OFF</li>
-<li>FORCE</li>
-<li>FORCE_PLUS_PERMANENT</li>
-</ul>
-<h3 id="audit-log-filter-variables-audit_log_filter_buffer_size"><code>audit_log_filter_buffer_size</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_buffer_size" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-buffer-size</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Integer</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>1048576</td>
-</tr>
-<tr>
-<td>Minimum value</td>
-<td>4096</td>
-</tr>
-<tr>
-<td>Maximum value</td>
-<td>18446744073709547520</td>
-</tr>
-<tr>
-<td>Units</td>
-<td>byes</td>
-</tr>
-<tr>
-<td>Block size</td>
-<td>4096</td>
-</tr>
-</tbody>
-</table>
-<p>This variable defines the buffer size in multiples of 4096 when logging is asynchronous. The contents for events are stored in a buffer. The contents are stored until the contents are written.</p>
-<p>The plugin initializes a single buffer and removes the buffer when the plugin terminates.</p>
-<h3 id="audit-log-filter-variables-audit_log_filter_compression"><code>audit_log_filter_compression</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_compression" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-compression</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Enumeration</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>NONE</td>
-</tr>
-<tr>
-<td>Valid values</td>
-<td>NONE or GZIP</td>
-</tr>
-</tbody>
-</table>
-<p>This variable defines the compression type for the audit log filter file. The values can be either <code>NONE</code>, the default value and file has no compression, or <code>GZIP</code>.</p>
-<h3 id="audit-log-filter-variables-audit_log_filter_database"><code>audit_log_filter_database</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_database" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-database</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>String</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>mysql</td>
-</tr>
-</tbody>
-</table>
-<p>This variable defines the audit_log_filter database. This read-only variable stores the necessary tables. Set this option at system startup. The database name cannot exceed 64 characters or be <code>NULL</code>.</p>
-<p>An invalid database name prevents the use of audit log filter plugin.</p>
-<h3 id="audit-log-filter-variables-audit_log_filter_disable"><code>audit_log_filter_disable</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_disable" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-disable</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Boolean</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>OFF</td>
-</tr>
-</tbody>
-</table>
-<p>This variable disables the plugin logging for all connections and any sessions. </p>
-<p>This variable requires the user account to have <code>SYSTEM_VARIABLES_ADMIN</code> and <code>AUDIT_ADMIN</code> privileges.</p>
-<h3 id="audit-log-filter-variables-audit_log_filter_encryption"><code>audit_log_filter_encryption</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_encryption" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-encryption</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Enumeration</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>NONE</td>
-</tr>
-<tr>
-<td>Valid values</td>
-<td>NONE or AES</td>
-</tr>
-</tbody>
-</table>
-<p>This variable defines the encryption type for the audit log filter file. The values can be either of the following:</p>
-<ul>
-<li><code>NONE</code> - the default value, no encryption</li>
-<li><code>AES</code> </li>
-</ul>
-<h3 id="audit-log-filter-variables-audit_log_filter_file"><code>audit_log_filter_file</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_file" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-file</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>String</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>audit_filter.log</td>
-</tr>
-</tbody>
-</table>
-<p>This variable defines the name and suffix of the audit log filter file. The plugin writes events to this file.</p>
-<p>The file name and suffix can be either of the following:</p>
-<ul>
-<li>a relative path name - the plugin looks for this file in the data directory</li>
-<li>a full path name - the plugin uses the given value</li>
-</ul>
-<p>If you use a full path name, ensure the directory is accessible only to users who need to view the log and the server.</p>
-<p>For more information, see <a href="#audit-log-filter-naming">Naming conventions</a></p>
-<h3 id="audit-log-filter-variables-audit_log_filter_filter_id"><code>audit_log_filter_filter_id</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_filter_id" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-file-id</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Session</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Integer</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Minimum value</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Maximum value</td>
-<td>4292967295</td>
-</tr>
-</tbody>
-</table>
-<p>This variable defines the internal ID of the audit log filter in the current session.</p>
-<p>The default value is 0 (zero) - the session has no assigned filter.</p>
-<h3 id="audit-log-filter-variables-audit_log_filter_format"><code>audit_log_filter_format</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_format" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-format</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Enumeration</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>NEW</td>
-</tr>
-<tr>
-<td>Available values</td>
-<td>OLD, NEW, JSON</td>
-</tr>
-</tbody>
-</table>
-<p>This variable defines the audit log filter file format. </p>
-<p>The available values are the following: </p>
-<ul>
-<li><a href="#audit-log-filter-old">OLD (old-style XML)</a></li>
-<li><a href="#audit-log-filter-new">NEW (new-style XML)</a> and </li>
-<li><a href="#audit-log-filter-json">JSON</a>.</li>
-</ul>
-<h3 id="audit-log-filter-variables-audit_log_filter_format_unix_timestamp"><code>audit_log_filter_format_unix_timestamp</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_format_unix_timestamp" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-format-unix-timestamp</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Boolean</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>OFF</td>
-</tr>
-</tbody>
-</table>
-<p>This option is only supported for JSON-format files.</p>
-<p>Enabling this option adds a <code>time</code> field to JSON-format files. The integer represents the UNIX timestamp value and indicates the date and time when the audit event was generated. Changing the value causes a file rotation because all records must either have or do not have the <code>time</code> field. This option requires the <code>AUDIT_ADMIN</code> and <code>SYSTEM_VARIABLES_ADMIN</code> privileges.</p>
-<p>This option does nothing when used with other format types.</p>
-<h3 id="audit-log-filter-variables-audit_log_filter_handler"><code>audit_log_filter_handler</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_handler" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-handler</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>String</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>FILE</td>
-</tr>
-</tbody>
-</table>
-<p>Defines where the plugin writes the audit log filter file. The following values are available:</p>
-<ul>
-<li><code>FILE</code> - plugin writes the log to a location specified in <a href="#audit-log-filter-variables-audit_log_filter_file"><code>audit_log_filter_file</code></a></li>
-<li><code>SYSLOG</code> - plugin writes to the syslog</li>
-</ul>
-<h3 id="audit-log-filter-variables-audit_log_filter_key_derivation_iterations_count_mean"><code>audit_log_filter_key_derivation_iterations_count_mean</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_key_derivation_iterations_count_mean" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-key-derivation-iterations-count-mean</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Integer</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>60000</td>
-</tr>
-<tr>
-<td>Minimum value</td>
-<td>1000</td>
-</tr>
-<tr>
-<td>Maximum value</td>
-<td>1000000</td>
-</tr>
-</tbody>
-</table>
-<p>Defines the mean value of iterations used by the password-based derivation routine while calculating the encryption key and iv values. A random number represents the actual iteration count and deviates no more than 10% from this value.</p>
-<h3 id="audit-log-filter-variables-audit_log_filter_max_size"><code>audit_log_filter_max_size</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_max_size" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-max-size</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Integer</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>1GB</td>
-</tr>
-<tr>
-<td>Minimum value</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Maximum value</td>
-<td>18446744073709551615</td>
-</tr>
-<tr>
-<td>Unit</td>
-<td>bytes</td>
-</tr>
-<tr>
-<td>Block size</td>
-<td>4096</td>
-</tr>
-</tbody>
-</table>
-<p>Defines pruning based on the combined size of the files:</p>
-<p>The default value is 1GB. </p>
-<p>A value of 0 (zero) disables pruning based on size.</p>
-<p>A value greater than 0 (zero) enables pruning based on size and defines the combined size limit. When the files exceed this limit, they can be pruned.</p>
-<p>The value is based on 4096 (block size). A value is truncated to the nearest multiple of the block size. If the value is less than 4096, the value is treated as 0 (zero).</p>
-<p>If the values for <code>audit_log_filter_rotate_on_size</code> and <code>audit_log_filter_max_size</code> are greater than 0, we recommend that <code>audit_log_filter_max_size</code> value should be at least seven times the <code>audit_log_filter_rotate_on_size</code> value.</p>
-<p>Pruning requires the following options:</p>
-<ul>
-<li><code>audit_log_filter_max_size</code></li>
-<li><code>audit_log_filter_rotate_on_size</code></li>
-<li><code>audit_log_filter_prune_seconds</code></li>
-</ul>
-<h3 id="audit-log-filter-variables-audit_log_filter_password_history_keep_days"><code>audit_log_filter_password_history_keep_days</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_password_history_keep_days" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-password-history-keep-days</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Integer</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>Defines when passwords may be removed and measured in days.</p>
-<p>Encrypted log files have passwords stored in the keyring. The plugin also stores a password history. A password does not expire, despite being past the value, in case the password is used for rotated audit logs. The operation of creating a password also archives the previous password.</p>
-<p>The default value is 0 (zero). This value disables the expiration of passwords. Passwords are retained forever. </p>
-<p>If the plugin starts and encryption is enabled, the plugin checks for an audit log filter encryption password. If a password is not found, the plugin generates a random password.</p>
-<p>Call <a href="#audit-log-filter-variables-audit_log_encryption_password_setnew_password">audit_log_encryption_password_set(new_password)</a> to set a specific password.</p>
-<h3 id="audit-log-filter-variables-audit_log_filter_prune_seconds"><code>audit_log_filter_prune_seconds</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_prune_seconds" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-prune-seconds</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Integer</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Minimum value</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Maximum value</td>
-<td>1844674073709551615</td>
-</tr>
-<tr>
-<td>Unit</td>
-<td>seconds</td>
-</tr>
-</tbody>
-</table>
-<p>Defines when the audit log filter file is pruned. This pruning is based on the age of the file. The value is measured in seconds. </p>
-<p>A value of 0 (zero) is the default and disables pruning. The maximum value is 18446744073709551615.</p>
-<p>A value greater than 0 enables pruning. An audit log filter file can be pruned after this value.</p>
-<p>To enable log pruning, you must set one of the following:</p>
-<ul>
-<li>Enable log rotation by setting `audit_log_filter_rotate_on_size</li>
-<li>Add a value greater than 0 (zero) for either <code>audit_log_filter_max_size</code> or <code>audit_log_filter_prune_seconds</code></li>
-</ul>
-<h3 id="audit-log-filter-variables-audit_log_filter_read_buffer_size"><code>audit_log_filter_read_buffer_size</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_read_buffer_size" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-read-buffer-size</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Integer</td>
-</tr>
-<tr>
-<td>Unit</td>
-<td>Bytes</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>32768</td>
-</tr>
-</tbody>
-</table>
-<p>This option is only supported for JSON-format files.</p>
-<p>The size of the buffer for reading from the audit log filter file. The <code>audit_log_filter_read()</code> reads only from this buffer size.</p>
-<h3 id="audit-log-filter-variables-audit_log_filter_rotate_on_size"><code>audit_log_filter_rotate_on_size</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_rotate_on_size" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-rotate-on-size</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Integer</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>1GB</td>
-</tr>
-</tbody>
-</table>
-<p>Performs an automatic log file rotation based on the size. The default value is 1GB. If the value is greater than 0, when the log file size exceeds the value, the plugin renames the current file and opens a new log file using the original name.</p>
-<p>If you set the value to less than 4096, the plugin does not automatically rotate the log files. You can rotate the log files manually using <a href="#audit-log-filter-variables-audit_log_rotate"><code>audit_log_rotate()</code></a>. If the value is not a multiple of 4096, the plugin truncates the value to the nearest multiple.</p>
-<h3 id="audit-log-filter-variables-audit_log_filter_strategy"><code>audit_log_filter_strategy</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_strategy" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-strategy</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Enumeration</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>ASYNCHRONOUS</td>
-</tr>
-</tbody>
-</table>
-<p>Defines the Audit Log filter plugin&rsquo;s logging method. The valid values are the following:</p>
-<table>
-<thead>
-<tr>
-<th>Values</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ASYNCHRONOUS</td>
-<td>Waits until there is outer buffer space</td>
-</tr>
-<tr>
-<td>PERFORMANCE</td>
-<td>If the outer buffer does not have enough space, drops requests</td>
-</tr>
-<tr>
-<td>SEMISYNCHRONOUS</td>
-<td>Operating system permits caching</td>
-</tr>
-<tr>
-<td>SYNCHRONOUS</td>
-<td>Each request calls <code>sync()</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="audit-log-filter-variables-audit_log_filter_syslog_tag"><code>audit_log_filter_syslog_tag</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_syslog_tag" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-syslog-tag=</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>String</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>audit-filter</td>
-</tr>
-</tbody>
-</table>
-<h3 id="audit-log-filter-variables-audit_log_filter_syslog_facility"><code>audit_log_filter_syslog_facility</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_syslog_facility" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-syslog-facility</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>String</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>LOG_USER</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the syslog <code>facility</code> value. The option has the same meaning as the appropriate parameter described in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
-<h3 id="audit-log-filter-variables-audit_log_filter_syslog_priority"><code>audit_log_filter_syslog_priority</code><a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_syslog_priority" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command-line</td>
-<td>&ndash;audit-log-filter-syslog-priority</td>
-</tr>
-<tr>
-<td>Dynamic</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>String</td>
-</tr>
-<tr>
-<td>Default</td>
-<td>LOG_INFO</td>
-</tr>
-</tbody>
-</table>
-<p>Defines the <code>priority</code> value for the syslog. The option has the same meaning as the appropriate parameter described in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
-<h2 id="audit-log-filter-variables-audit-log-filter-status-variables">Audit log filter status variables<a class="headerlink" href="#audit-log-filter-variables-audit-log-filter-status-variables" title="Permanent link">&para;</a></h2>
-<p>The audit log filter plugin exposes status variables. These variables provide information on the operations.</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>audit_log_filter_current_size</code></td>
-<td>The current size of the audit log filter file. If the log is rotated, the size is reset to 0.</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_direct_writes</code></td>
-<td>Identifies when the <code>log_strategy_type</code> = ASYNCHRONOUS and messages bypass the write buffer and are written directly to the log file</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_max_drop_size</code></td>
-<td>In the performance logging mode, the size of the largest dropped event.</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_events</code></td>
-<td>The number of audit log filter events</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_events_filtered</code></td>
-<td>The number of filtered audit log filter plugin events</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_events_lost</code></td>
-<td>If the event is larger than the available audit log filter buffer space, the event is lost</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_events_written</code></td>
-<td>The number of audit log filter events written</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_total_size</code></td>
-<td>The total size of the events written to all audit log filter files. The number increases even when a log is rotated</td>
-</tr>
-<tr>
-<td><code>audit_log_filter_write_waits</code></td>
-<td>In the asynchronous logging mode, the number of times an event waited for space in the audit log filter buffer</td>
-</tr>
-</tbody>
-</table></section><section class="print-page" id="uninstall-audit-log-filter" heading-number="5.2.13"><h1 id="uninstall-audit-log-filter-uninstall-audit-log-filter">Uninstall Audit Log Filter<a class="headerlink" href="#uninstall-audit-log-filter-uninstall-audit-log-filter" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="uninstall-audit-log-filter" heading-number="5.2.13"><h1 id="uninstall-audit-log-filter-uninstall-audit-log-filter">Uninstall Audit Log Filter<a class="headerlink" href="#uninstall-audit-log-filter-uninstall-audit-log-filter" title="Permanent link">&para;</a></h1>
 <p>To remove the plugin, run the following:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DROP<span class="w"> </span>TABLE<span class="w"> </span>IF<span class="w"> </span>EXISTS<span class="w"> </span>mysql.audit_log_user<span class="p">;</span>
 mysql&gt;<span class="w"> </span>DROP<span class="w"> </span>TABLE<span class="w"> </span>IF<span class="w"> </span>EXISTS<span class="w"> </span>mysql.audit_log_filter<span class="p">;</span>
@@ -62777,23 +63242,23 @@ contributions and changes from MariaDB.</p>
 
 .print-site-enumerate-headings #audit-log-filter-json > h1:before { content: '5.2.3.4 ' }
 
-.print-site-enumerate-headings #audit-log-filter-security > h1:before { content: '5.2.4 ' }
+.print-site-enumerate-headings #audit-log-filter-variables > h1:before { content: '5.2.4 ' }
 
-.print-site-enumerate-headings #audit-log-filter-compression-encryption > h1:before { content: '5.2.5 ' }
+.print-site-enumerate-headings #audit-log-filter-security > h1:before { content: '5.2.5 ' }
 
-.print-site-enumerate-headings #reading-audit-log-filter-files > h1:before { content: '5.2.6 ' }
+.print-site-enumerate-headings #audit-log-filter-compression-encryption > h1:before { content: '5.2.6 ' }
 
-.print-site-enumerate-headings #manage-audit-log-filter > h1:before { content: '5.2.7 ' }
+.print-site-enumerate-headings #reading-audit-log-filter-files > h1:before { content: '5.2.7 ' }
 
-.print-site-enumerate-headings #filter-audit-log-filter-files > h1:before { content: '5.2.8 ' }
+.print-site-enumerate-headings #manage-audit-log-filter > h1:before { content: '5.2.8 ' }
 
-.print-site-enumerate-headings #audit-log-filter-restrictions > h1:before { content: '5.2.9 ' }
+.print-site-enumerate-headings #filter-audit-log-filter-files > h1:before { content: '5.2.9 ' }
 
-.print-site-enumerate-headings #audit-log-filter-naming > h1:before { content: '5.2.10 ' }
+.print-site-enumerate-headings #audit-log-filter-restrictions > h1:before { content: '5.2.10 ' }
 
-.print-site-enumerate-headings #disable-audit-log-filter > h1:before { content: '5.2.11 ' }
+.print-site-enumerate-headings #audit-log-filter-naming > h1:before { content: '5.2.11 ' }
 
-.print-site-enumerate-headings #audit-log-filter-variables > h1:before { content: '5.2.12 ' }
+.print-site-enumerate-headings #disable-audit-log-filter > h1:before { content: '5.2.12 ' }
 
 .print-site-enumerate-headings #uninstall-audit-log-filter > h1:before { content: '5.2.13 ' }
 
