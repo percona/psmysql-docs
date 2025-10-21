@@ -1,0 +1,55 @@
+<div class="rating-widget" style="
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  border-radius: 0.2rem;
+  margin-bottom: 16px;
+  font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
+  font-size: 15px;
+  color: #000;
+  text-align: center;
+">
+  <div style="margin-bottom: 4px; font-weight: bold; color: #0E5FB5;">
+    Do you like Percona docs?
+  </div>
+  <div class="rating-stars" style="display: inline-block;">
+    {% for i in range(1,6) %}
+      <span class="star" data-rating="{{ i }}" style="
+        font-size: 24px;
+        cursor: pointer;
+        margin: 0 2px;
+        color: #000;
+        display: inline-block;
+      ">☆</span>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const stars = document.querySelectorAll(".rating-stars .star");
+  stars.forEach((star) => {
+    const rating = parseInt(star.dataset.rating, 10);
+
+    star.addEventListener("mouseover", () => {
+      stars.forEach((s, index) => {
+        s.innerHTML = index < rating ? "★" : "☆";
+        s.style.color = index < rating ? "#0E5FB5" : "#000";
+      });
+    });
+
+    star.addEventListener("mouseleave", () => {
+      stars.forEach((s) => {
+        s.innerHTML = "☆";
+        s.style.color = "#000";
+      });
+    });
+
+    star.addEventListener("click", () => {
+      const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfhscELpzoXB4uyh9pXNmXSeqKc10IH_DxmAoaVGID85sO0Aw/viewform";
+      const ratingURL = `${formURL}?entry.303027158=${rating}`;
+      window.open(ratingURL, "_blank");
+    });
+  });
+});
+</script>
