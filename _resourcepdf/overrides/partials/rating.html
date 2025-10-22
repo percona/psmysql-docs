@@ -1,22 +1,23 @@
+<!-- Feedback Widget -->
 <div class="rating-widget" style="
-  background: #fff;
-  border: 1px solid #ddd;
+  background: var(--md-default-bg-color);
+  border: 0.05rem solid var(--md-default-fg-color--lightest);
   padding: 10px 15px;
   border-radius: 0.2rem;
   margin-bottom: 16px;
   font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
-  font-size: 15px;
-  color: #000;
+  font-size: 16px;
   text-align: center;
+  transition: all 0.2s ease-out;
 ">
-  <div style="
+
+  <div class="rating-title" style="
     margin-bottom: 4px;
-    font-weight: bold;
-    color: #0E5FB5;
-    font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
     font-size: 15px;
+    font-weight: bold;
+    /* Removed inline color to use CSS */
   ">
-    Do you like Percona docs?
+    Rate this page
   </div>
 
   <div class="rating-stars" style="display: inline-block;">
@@ -25,37 +26,33 @@
         font-size: 24px;
         cursor: pointer;
         margin: 0 2px;
-        color: #000;
         display: inline-block;
-        font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
       ">☆</span>
     {% endfor %}
   </div>
 
-  <!-- Notification container -->
   <div id="feedback-notification" style="
     display: none;
     margin-top: 10px;
-    color: green;
+    color: var(--md-typeset-a-color);
     font-weight: 500;
-    font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
     font-size: 14px;
-  ">Thank you for your feedback</div>
+  ">Thanks for your feedback</div>
 
   <div id="feedback-form" style="
     display: none;
     margin-top: 12px;
     text-align: left;
     position: relative;
-    border: 1px solid #ccc;
+    border: 0.05rem solid var(--md-default-fg-color--lightest);
     padding: 12px;
     border-radius: 6px;
-    background: #f9f9f9;
+    background: var(--md-default-bg-color);
     width: 100%;
     box-sizing: border-box;
-    font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
+    transition: all 0.2s ease-out;
   ">
-    <button id="close-feedback" aria-label="Close feedback form" title="Close" style="
+    <button id="close-feedback" title="Close" style="
       position: absolute;
       top: 8px;
       right: 8px;
@@ -64,12 +61,11 @@
       font-size: 20px;
       font-weight: bold;
       cursor: pointer;
-      color: #999;
+      color: var(--md-default-fg-color--light);
       line-height: 1;
-      font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
     ">×</button>
 
-    <div style="margin-bottom: 10px; font-weight: normal; font-size: 15px;">
+    <div style="margin-bottom: 10px; font-size: 15px;">
       Was this page helpful?
     </div>
 
@@ -80,16 +76,17 @@
       margin-bottom: 12px;
       resize: vertical;
       font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
+      color: var(--md-default-fg-color);
+      background: var(--md-default-bg-color);
+      border: 0.05rem solid var(--md-default-fg-color--lightest);
     "></textarea>
 
     <label for="feedback-email" style="
       display: block;
-      font-weight: 500;
       font-size: 15px;
       margin-bottom: 4px;
-      font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
     ">
-      Email <span style="font-weight: normal; color: #666;">(optional)</span>
+      Email <span style="color: var(--md-default-fg-color--light);">(optional)</span>
     </label>
 
     <input type="email" id="feedback-email" placeholder="you@example.com" style="
@@ -98,28 +95,87 @@
       padding: 6px;
       margin-bottom: 12px;
       font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
+      color: var(--md-default-fg-color);
+      background: var(--md-default-bg-color);
+      border: 0.05rem solid var(--md-default-fg-color--lightest);
     " />
 
-    <button id="submit-feedback" style="
-      padding: 5px 10px;
-      font-size: 14px;
-      background-color: #0E5FB5;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-      font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
-    ">
-      Send
-    </button>
+<button id="submit-feedback" style="
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: var(--md-typeset-a-color);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
+">
+  Send
+</button>
 
     <div id="feedback-status" style="
       margin-top: 8px;
       font-size: 13px;
-      font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
     "></div>
   </div>
 </div>
+
+<style>
+  /* Hover shadow like data-banner */
+  .rating-widget:hover,
+  #feedback-form:hover {
+    box-shadow:
+      0px 1px 10px 0px rgba(0, 0, 0, 0.12),
+      0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+      0px 2px 4px -1px rgba(0, 0, 0, 0.20);
+  }
+
+  /* Default star colors */
+  .rating-stars .star {
+    color: var(--md-default-fg-color);
+    transition: color 0.2s ease-out;
+  }
+
+  /* Active/hovered stars */
+  .rating-stars .star.active,
+  .rating-stars .star.hovered {
+    color: var(--md-typeset-a-color, #0E5FB5);
+  }
+
+  /* Rate this page text color matches stars in light mode */
+  .rating-widget .rating-title {
+    color: var(--md-typeset-a-color, #0E5FB5);
+  }
+
+  /* Dark mode */
+  @media (prefers-color-scheme: dark) {
+    /* Rate this page text */
+    .rating-widget .rating-title {
+      color: var(--md-typeset-a-color, #93C7FF) !important;
+    }
+    /* Stars active and hovered fill color */
+    .rating-stars .star.active,
+    .rating-stars .star.hovered {
+      color: var(--md-typeset-a-color, #93C7FF) !important;
+    }
+
+    /* Feedback form text */
+    #feedback-form,
+    #feedback-form textarea,
+    #feedback-form input,
+    #feedback-form label,
+    #feedback-form button,
+    #feedback-form div {
+      color: var(--md-typeset-a-color, #93C7FF) !important;
+      border-color: #666 !important;
+      background: var(--md-default-bg-color) !important;
+    }
+
+    /* Close button color */
+    #close-feedback {
+      color: var(--md-typeset-a-color, #93C7FF) !important;
+    }
+  }
+</style>
 
 <script>
 function initFeedbackWidget() {
@@ -135,7 +191,6 @@ function initFeedbackWidget() {
   if (!stars.length || !feedbackForm) return;
 
   const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfhscELpzoXB4uyh9pXNmXSeqKc10IH_DxmAoaVGID85sO0Aw/formResponse";
-
   const fieldIds = {
     rating: "entry.303027158",
     pageUrl: "entry.295622433",
@@ -145,6 +200,15 @@ function initFeedbackWidget() {
 
   let selectedRating = 0;
   let notificationTimeout;
+
+  function showNotification(msg) {
+    notification.textContent = msg;
+    notification.style.display = "block";
+    clearTimeout(notificationTimeout);
+    notificationTimeout = setTimeout(() => {
+      notification.style.display = "none";
+    }, 3000);
+  }
 
   function sendRatingOnly(rating) {
     const formData = new FormData();
@@ -160,15 +224,6 @@ function initFeedbackWidget() {
     });
   }
 
-  function showNotification(msg) {
-    notification.textContent = msg;
-    notification.style.display = "block";
-    clearTimeout(notificationTimeout);
-    notificationTimeout = setTimeout(() => {
-      notification.style.display = "none";
-    }, 3000);
-  }
-
   function submitFeedback(rating, feedbackText = "", email = "") {
     const formData = new FormData();
     formData.append(fieldIds.rating, rating);
@@ -181,7 +236,7 @@ function initFeedbackWidget() {
       mode: "no-cors",
       body: formData
     }).then(() => {
-      statusDiv.style.color = "green";
+      statusDiv.style.color = "";
       statusDiv.textContent = "Thanks for your feedback!";
       feedbackTextarea.value = "";
       emailInput.value = "";
@@ -189,11 +244,12 @@ function initFeedbackWidget() {
       selectedRating = 0;
 
       stars.forEach((s) => {
-        s.innerHTML = "☆";
-        s.style.color = "#000";
+        s.textContent = "☆";
+        s.classList.remove("active");
+        s.classList.remove("hovered");
       });
     }).catch(() => {
-      statusDiv.style.color = "red";
+      statusDiv.style.color = "";
       statusDiv.textContent = "Error sending feedback.";
     });
   }
@@ -203,15 +259,26 @@ function initFeedbackWidget() {
 
     star.addEventListener("mouseover", () => {
       stars.forEach((s, index) => {
-        s.innerHTML = index < rating ? "★" : "☆";
-        s.style.color = index < rating ? "#0E5FB5" : "#000";
+        s.textContent = index < rating ? "★" : "☆";
+        if(index < rating) {
+          s.classList.add("hovered");
+          s.classList.remove("active");
+        } else {
+          s.classList.remove("hovered");
+          s.classList.remove("active");
+        }
       });
     });
 
     star.addEventListener("mouseleave", () => {
       stars.forEach((s, index) => {
-        s.innerHTML = index < selectedRating ? "★" : "☆";
-        s.style.color = index < selectedRating ? "#0E5FB5" : "#000";
+        s.textContent = index < selectedRating ? "★" : "☆";
+        if(index < selectedRating) {
+          s.classList.add("active");
+        } else {
+          s.classList.remove("active");
+        }
+        s.classList.remove("hovered");
       });
     });
 
@@ -219,12 +286,17 @@ function initFeedbackWidget() {
       selectedRating = rating;
 
       stars.forEach((s, index) => {
-        s.innerHTML = index < rating ? "★" : "☆";
-        s.style.color = index < rating ? "#0E5FB5" : "#000";
+        s.textContent = index < rating ? "★" : "☆";
+        if(index < rating) {
+          s.classList.add("active");
+        } else {
+          s.classList.remove("active");
+        }
+        s.classList.remove("hovered");
       });
 
       sendRatingOnly(rating);
-      showNotification("Thank you for your feedback");
+      showNotification("Thanks for your feedback");
       feedbackForm.style.display = "block";
       statusDiv.textContent = "";
     });
@@ -232,13 +304,12 @@ function initFeedbackWidget() {
 
   submitButton.addEventListener("click", () => {
     if (!selectedRating) return;
-
     const feedbackText = feedbackTextarea.value.trim();
     const email = emailInput.value.trim();
 
     if (selectedRating < 5 && !feedbackText) {
-      statusDiv.style.color = "red";
-      statusDiv.textContent = "Please enter feedback before sending.";
+      statusDiv.style.color = "";
+      statusDiv.textContent = "Write feedback before sending.";
       return;
     }
 
@@ -253,16 +324,17 @@ function initFeedbackWidget() {
     selectedRating = 0;
 
     stars.forEach((s) => {
-      s.innerHTML = "☆";
-      s.style.color = "#000";
+      s.textContent = "☆";
+      s.classList.remove("active");
+      s.classList.remove("hovered");
     });
   });
 }
 
-// Run on full page load
+// Init on load
 document.addEventListener("DOMContentLoaded", initFeedbackWidget);
 
-// Run on every page change in MkDocs Material
+// Re-init on page change (MkDocs Material support)
 if (typeof document$ !== 'undefined') {
   document$.subscribe(() => {
     initFeedbackWidget();
