@@ -9,9 +9,16 @@
   color: #000;
   text-align: center;
 ">
-  <div style="margin-bottom: 4px; font-weight: bold; color: #0E5FB5;">
+  <div style="
+    margin-bottom: 4px;
+    font-weight: bold;
+    color: #0E5FB5;
+    font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
+    font-size: 15px;
+  ">
     Do you like Percona docs?
   </div>
+
   <div class="rating-stars" style="display: inline-block;">
     {% for i in range(1,6) %}
       <span class="star" data-rating="{{ i }}" style="
@@ -20,14 +27,177 @@
         margin: 0 2px;
         color: #000;
         display: inline-block;
+        font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
       ">☆</span>
     {% endfor %}
+  </div>
+
+  <!-- Notification container -->
+  <div id="feedback-notification" style="
+    display: none;
+    margin-top: 10px;
+    color: green;
+    font-weight: 500;
+    font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
+    font-size: 14px;
+  ">Thank you for your feedback</div>
+
+  <div id="feedback-form" style="
+    display: none;
+    margin-top: 12px;
+    text-align: left;
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 12px;
+    border-radius: 6px;
+    background: #f9f9f9;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
+  ">
+    <button id="close-feedback" aria-label="Close feedback form" title="Close" style="
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+      line-height: 1;
+      font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
+    ">×</button>
+
+    <div style="margin-bottom: 10px; font-weight: normal; font-size: 15px;">
+      Was this page helpful?
+    </div>
+
+    <textarea id="feedback-text" rows="3" placeholder="Write your feedback here..." style="
+      width: 100%;
+      font-size: 14px;
+      padding: 6px;
+      margin-bottom: 12px;
+      resize: vertical;
+      font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
+    "></textarea>
+
+    <label for="feedback-email" style="
+      display: block;
+      font-weight: 500;
+      font-size: 15px;
+      margin-bottom: 4px;
+      font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
+    ">
+      Email <span style="font-weight: normal; color: #666;">(optional)</span>
+    </label>
+
+    <input type="email" id="feedback-email" placeholder="you@example.com" style="
+      width: 100%;
+      font-size: 14px;
+      padding: 6px;
+      margin-bottom: 12px;
+      font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
+    " />
+
+    <button id="submit-feedback" style="
+      padding: 5px 10px;
+      font-size: 14px;
+      background-color: #0E5FB5;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
+    ">
+      Send
+    </button>
+
+    <div id="feedback-status" style="
+      margin-top: 8px;
+      font-size: 13px;
+      font-family: 'Poppins','Roboto',Arial,Helvetica,sans-serif;
+    "></div>
   </div>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+function initFeedbackWidget() {
   const stars = document.querySelectorAll(".rating-stars .star");
+  const feedbackForm = document.getElementById("feedback-form");
+  const feedbackTextarea = document.getElementById("feedback-text");
+  const emailInput = document.getElementById("feedback-email");
+  const submitButton = document.getElementById("submit-feedback");
+  const statusDiv = document.getElementById("feedback-status");
+  const closeButton = document.getElementById("close-feedback");
+  const notification = document.getElementById("feedback-notification");
+
+  if (!stars.length || !feedbackForm) return;
+
+  const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfhscELpzoXB4uyh9pXNmXSeqKc10IH_DxmAoaVGID85sO0Aw/formResponse";
+
+  const fieldIds = {
+    rating: "entry.303027158",
+    pageUrl: "entry.295622433",
+    feedback: "entry.2131350495",
+    email: "entry.1689727303"
+  };
+
+  let selectedRating = 0;
+  let notificationTimeout;
+
+  function sendRatingOnly(rating) {
+    const formData = new FormData();
+    formData.append(fieldIds.rating, rating);
+    formData.append(fieldIds.pageUrl, window.location.href);
+
+    fetch(formURL, {
+      method: "POST",
+      mode: "no-cors",
+      body: formData
+    }).catch(() => {
+      console.warn("Rating failed to submit silently.");
+    });
+  }
+
+  function showNotification(msg) {
+    notification.textContent = msg;
+    notification.style.display = "block";
+    clearTimeout(notificationTimeout);
+    notificationTimeout = setTimeout(() => {
+      notification.style.display = "none";
+    }, 3000);
+  }
+
+  function submitFeedback(rating, feedbackText = "", email = "") {
+    const formData = new FormData();
+    formData.append(fieldIds.rating, rating);
+    formData.append(fieldIds.pageUrl, window.location.href);
+    formData.append(fieldIds.feedback, feedbackText);
+    if (email) formData.append(fieldIds.email, email);
+
+    fetch(formURL, {
+      method: "POST",
+      mode: "no-cors",
+      body: formData
+    }).then(() => {
+      statusDiv.style.color = "green";
+      statusDiv.textContent = "Thanks for your feedback!";
+      feedbackTextarea.value = "";
+      emailInput.value = "";
+      feedbackForm.style.display = "none";
+      selectedRating = 0;
+
+      stars.forEach((s) => {
+        s.innerHTML = "☆";
+        s.style.color = "#000";
+      });
+    }).catch(() => {
+      statusDiv.style.color = "red";
+      statusDiv.textContent = "Error sending feedback.";
+    });
+  }
+
   stars.forEach((star) => {
     const rating = parseInt(star.dataset.rating, 10);
 
@@ -39,17 +209,63 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     star.addEventListener("mouseleave", () => {
-      stars.forEach((s) => {
-        s.innerHTML = "☆";
-        s.style.color = "#000";
+      stars.forEach((s, index) => {
+        s.innerHTML = index < selectedRating ? "★" : "☆";
+        s.style.color = index < selectedRating ? "#0E5FB5" : "#000";
       });
     });
 
     star.addEventListener("click", () => {
-      const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfhscELpzoXB4uyh9pXNmXSeqKc10IH_DxmAoaVGID85sO0Aw/viewform";
-      const ratingURL = `${formURL}?entry.303027158=${rating}`;
-      window.open(ratingURL, "_blank");
+      selectedRating = rating;
+
+      stars.forEach((s, index) => {
+        s.innerHTML = index < rating ? "★" : "☆";
+        s.style.color = index < rating ? "#0E5FB5" : "#000";
+      });
+
+      sendRatingOnly(rating);
+      showNotification("Thank you for your feedback");
+      feedbackForm.style.display = "block";
+      statusDiv.textContent = "";
     });
   });
-});
+
+  submitButton.addEventListener("click", () => {
+    if (!selectedRating) return;
+
+    const feedbackText = feedbackTextarea.value.trim();
+    const email = emailInput.value.trim();
+
+    if (selectedRating < 5 && !feedbackText) {
+      statusDiv.style.color = "red";
+      statusDiv.textContent = "Please enter feedback before sending.";
+      return;
+    }
+
+    submitFeedback(selectedRating, feedbackText, email);
+  });
+
+  closeButton.addEventListener("click", () => {
+    feedbackForm.style.display = "none";
+    feedbackTextarea.value = "";
+    emailInput.value = "";
+    statusDiv.textContent = "";
+    selectedRating = 0;
+
+    stars.forEach((s) => {
+      s.innerHTML = "☆";
+      s.style.color = "#000";
+    });
+  });
+}
+
+// Run on full page load
+document.addEventListener("DOMContentLoaded", initFeedbackWidget);
+
+// Run on every page change in MkDocs Material
+if (typeof document$ !== 'undefined') {
+  document$.subscribe(() => {
+    initFeedbackWidget();
+  });
+}
 </script>
