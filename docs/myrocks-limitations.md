@@ -1,13 +1,60 @@
 # MyRocks limitations
 
-The MyRocks storage engine lacks the following features compared to InnoDB:
+## Online DDL limitations
 
-* [Online DDL](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-online-ddl.html) is not supported due to the lack of atomic DDL support.
+MyRocks has limited support for [Online DDL operations](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-online-ddl.html) due to the lack of [atomic DDL](./glossary.md#atomic-ddl-data-definition-language). As a result the schema changes are more restricted compared to InnoDB.
 
-    * There is no `ALTER TABLE ... ALGORITHM=INSTANT` functionality
+### Traditional MyRocks DDL behavior
 
-    * A partition management operation only supports the `COPY` algorithms, which rebuilds the partition table and moves the data based on the new `PARTITION ... VALUE` definition. In the case of `DROP PARTITION`, the data not moved to another partition is deleted.
+| Operation type      | Examples                                         | ALGORITHM                   |
+|---------------------|--------------------------------------------------|-----------------------------|
+| Index operations    | `ADD INDEX`, `DROP INDEX`, `RENAME INDEX`        | `INPLACE` (always)          |
+| Column changes      | `ADD COLUMN`, `DROP COLUMN`, `MODIFY COLUMN`     | `COPY` (full table rebuild) |
+| Metadata changes    | `RENAME TABLE`, some `RENAME COLUMN` operations  | May be `INSTANT`            |
 
+**Note:** MyRocks does not support [atomic DDL](./glossary.md#atomic-ddl-data-definition-language). Even metadata-only operations may require a full table rebuild, depending on the nature of the change.
+
+### Partition management support
+
+MyRocks supports `INPLACE` partition management for certain operations:
+
+```sql
+ALTER TABLE t1 DROP PARTITION p1, ALGORITHM=INPLACE;
+ALTER TABLE t1 ADD PARTITION (PARTITION p2 VALUES LESS THAN (MAXVALUE)), ALGORITHM=INPLACE;
+```
+These operations does not require a full table rebuild. However, operations that modify partitioning schemes, such as changing `VALUES LESS THAN`, fall back to the `COPY` algorithm.
+
+**Note:** Dropping a partition permanently deletes any data stored in it unless that data is reassigned to another partition.
+
+### Instant DDL support    
+
+MyRocks provides limited Instant DDL support that is disabled by default, and you can activate the specific instant operations you need by setting the appropriate configuration variables.
+
+| Configuration variable | Enables Instant DDL for  |
+|------------------------|--------------------------|
+| [`rocksdb_enable_instant_ddl_for_append_column=ON`](myrocks-server-variables.md#rocksdb_enable_instant_ddl_for_append_column) | `ALTER TABLE ... ADD COLUMN` |
+| [`rocksdb_enable_instant_ddl_for_column_default_changes=ON`](myrocks-server-variables.md#rocksdb_enable_instant_ddl_for_column_default_changes) | `ALTER/MODIFY COLUMN … DEFAULT` |
+| [`rocksdb_enable_instant_ddl_for_drop_index_changes=ON`](myrocks-server-variables.md#rocksdb_enable_instant_ddl_for_drop_index_changes) | `ALTER TABLE ... DROP INDEX` |
+| [`rocksdb_enable_instant_ddl_for_table_comment_changes=ON`](myrocks-server-variables.md#rocksdb_enable_instant_ddl_for_table_comment_changes) | `ALTER TABLE ... COMMENT` |
+
+**Note:** Instant DDL in MyRocks is applied only when **both** of the following conditions are met:
+
+* The configuration variable is set to `ON`.
+* The `ALTER TABLE` statement explicitly includes `ALGORITHM=INSTANT`.
+
+For example:
+
+```sql
+SET GLOBAL rocksdb_enable_instant_ddl_for_table_comment_changes = ON;
+ALTER TABLE my_table COMMENT = 'New comment', ALGORITHM=INSTANT;
+```
+
+If either condition is missing:
+
+* When the variable is `ON` but `ALGORITHM=INSTANT` is omitted, MyRocks falls back to the default (non‑instant) algorithm.
+* When the variable is `OFF`, any `ALTER TABLE … ALGORITHM=INSTANT` statement fails with an error.
+
+## Unsupported InnoDB features in MyRocks
 
 * [ALTER TABLE .. EXCHANGE PARTITION](https://dev.mysql.com/doc/refman/{{vers}}/en/partitioning-management-exchange.html).
 
