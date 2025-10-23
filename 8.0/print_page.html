@@ -40353,15 +40353,90 @@ and restart <em>Percona Server for MySQL</em>.</p>
 <p><strong>Percona Server for MySQL</strong> 8.0.23-14 adds support for <a href="https://dev.mysql.com/doc/refman/8.0/en/data-type-defaults.html">explicit DEFAULT value expressions</a>. From version 8.0.13-3 to version 8.0.22-13, MyRocks did not support these expressions.</p>
 </li>
 </ul></section><section class="print-page" id="limitations" heading-number="16.2.4"><h1 id="limitations-myrocks-limitations">MyRocks limitations<a class="headerlink" href="#limitations-myrocks-limitations" title="Permanent link">&para;</a></h1>
-<p>The MyRocks storage engine lacks the following features compared to InnoDB:</p>
-<ul>
-<li>
-<p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-online-ddl.html">Online DDL</a> is not supported due to the lack of atomic DDL support.</p>
-<div class="highlight"><pre><span></span><code>* There is no `ALTER TABLE ... ALGORITHM=INSTANT` functionality
-
-* A partition management operation only supports the `COPY` algorithms, which rebuilds the partition table and moves the data based on the new `PARTITION ... VALUE` definition. In the case of `DROP PARTITION`, the data not moved to another partition is deleted.
+<h2 id="limitations-online-ddl-limitations">Online DDL limitations<a class="headerlink" href="#limitations-online-ddl-limitations" title="Permanent link">&para;</a></h2>
+<p>MyRocks has limited support for <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-online-ddl.html">Online DDL operations</a> due to the lack of atomic DDL. As a result the schema changes are more restricted compared to InnoDB.</p>
+<h3 id="limitations-traditional-myrocks-ddl-behavior">Traditional MyRocks DDL behavior<a class="headerlink" href="#limitations-traditional-myrocks-ddl-behavior" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operation type</th>
+<th>Examples</th>
+<th>ALGORITHM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Index operations</td>
+<td><code>ADD INDEX</code>, <code>DROP INDEX</code>, <code>RENAME INDEX</code></td>
+<td><code>INPLACE</code> (always)</td>
+</tr>
+<tr>
+<td>Column changes</td>
+<td><code>ADD COLUMN</code>, <code>DROP COLUMN</code>, <code>MODIFY COLUMN</code></td>
+<td><code>COPY</code> (full table rebuild)</td>
+</tr>
+<tr>
+<td>Metadata changes</td>
+<td><code>RENAME TABLE</code>, some <code>RENAME COLUMN</code> operations</td>
+<td>May be <code>INSTANT</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> MyRocks does not support atomic DDL. Even metadata-only operations may require a full table rebuild, depending on the nature of the change.</p>
+<h3 id="limitations-partition-management-support">Partition management support<a class="headerlink" href="#limitations-partition-management-support" title="Permanent link">&para;</a></h3>
+<p>As of <code>Percona Server for MySQL 8.0.25-15</code>, MyRocks supports <code>INPLACE</code> partition management for certain operations:</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="n">PARTITION</span><span class="w"> </span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">ALGORITHM</span><span class="o">=</span><span class="n">INPLACE</span><span class="p">;</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="n">PARTITION</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">LESS</span><span class="w"> </span><span class="k">THAN</span><span class="w"> </span><span class="p">(</span><span class="k">MAXVALUE</span><span class="p">)),</span><span class="w"> </span><span class="n">ALGORITHM</span><span class="o">=</span><span class="n">INPLACE</span><span class="p">;</span>
 </code></pre></div>
-</li>
+The aforementioned operations no longer require a full table rebuild. However, operations that modify partitioning schemes, such as changing <code>VALUES LESS THAN</code>, still fall back to the <code>COPY</code> algorithm.</p>
+<p><strong>Note:</strong> Dropping a partition permanently deletes any data stored in it unless that data is reassigned to another partition.</p>
+<h3 id="limitations-instant-ddl-support">Instant DDL support<a class="headerlink" href="#limitations-instant-ddl-support" title="Permanent link">&para;</a></h3>
+<p>As of <code>Percona Server for MySQL 8.0.42-33</code>, MyRocks introduces limited support for Instant DDL, which is disabled by default and controlled via configuration variables.</p>
+<p>To enable specific types of instant operations, use the following configuration options:</p>
+<table>
+<thead>
+<tr>
+<th>Configuration variable</th>
+<th>Enables Instant DDL for</th>
+<th>ALGORITHM required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#variables-rocksdb_enable_instant_ddl_for_append_column"><code>rocksdb_enable_instant_ddl_for_append_column=ON</code></a></td>
+<td><code>ALTER TABLE ... ADD COLUMN</code></td>
+<td><code>ALGORITHM=INSTANT</code></td>
+</tr>
+<tr>
+<td><a href="#variables-rocksdb_enable_instant_ddl_for_column_default_changes"><code>rocksdb_enable_instant_ddl_for_column_default_changes=ON</code></a></td>
+<td><code>ALTER/MODIFY COLUMN … DEFAULT</code></td>
+<td><code>ALGORITHM=INSTANT</code></td>
+</tr>
+<tr>
+<td><a href="#variables-rocksdb_enable_instant_ddl_for_drop_index_changes"><code>rocksdb_enable_instant_ddl_for_drop_index_changes=ON</code></a></td>
+<td><code>ALTER TABLE ... DROP INDEX</code></td>
+<td><code>ALGORITHM=INSTANT</code></td>
+</tr>
+<tr>
+<td><a href="#variables-rocksdb_enable_instant_ddl_for_table_comment_changes"><code>rocksdb_enable_instant_ddl_for_table_comment_changes=ON</code></a></td>
+<td><code>ALTER TABLE ... COMMENT</code></td>
+<td><code>ALGORITHM=INSTANT</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> Instant DDL in MyRocks is only triggered when <strong>both</strong> of the following conditions are met:</p>
+<ol>
+<li>The configuration variable is set to <code>ON</code>,</li>
+<li>The <code>ALTER TABLE</code> statement explicitly includes <code>ALGORITHM=INSTANT</code>.</li>
+</ol>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">rocksdb_enable_instant_ddl_for_table_comment_changes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">my_table</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;New comment&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">ALGORITHM</span><span class="o">=</span><span class="n">INSTANT</span><span class="p">;</span>
+</code></pre></div>
+<p>If the configuration variable is enabled (<code>ON</code>) but <code>ALGORITHM=INSTANT</code> is not specified, MyRocks will fall back to the default algorithm.</p>
+<p>Conversely, if the configuration variable is disabled (<code>OFF</code>), attempting to use <code>ALGORITHM=INSTANT</code> will result in an error.</p>
+<h2 id="limitations-unsupported-innodb-features-in-myrocks">Unsupported InnoDB features in MyRocks<a class="headerlink" href="#limitations-unsupported-innodb-features-in-myrocks" title="Permanent link">&para;</a></h2>
+<ul>
 <li>
 <p><a href="https://dev.mysql.com/doc/refman/8.0/en/partitioning-management-exchange.html">ALTER TABLE .. EXCHANGE PARTITION</a>.</p>
 </li>
