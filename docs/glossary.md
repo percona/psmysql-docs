@@ -12,6 +12,12 @@ A pair of keys used for cryptographic purposes, consisting of a private key and 
 
 Atomicity means that database operations are applied following a “all or nothing” rule. A transaction is either fully applied or not at all.
 
+## Atomic DDL (Data Definition Language)
+
+Atomic DDL refers to the concept where DDL operations such as `CREATE`, `ALTER`, `DROP`, or `RENAME` statements are executed in a way that ensures atomicity, meaning they either fully succeed or have no effect at all.
+
+This means that if a DDL statement fails, the database automatically rolls back any partial changes, leaving the schema in a consistent state.
+
 ## Consistency
 
 Consistency means that each transaction that modifies the database takes it from one consistent state to another.
