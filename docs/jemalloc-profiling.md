@@ -118,7 +118,7 @@ Run the following command:
 
 ```shell
 jeprof --dot /usr/sbin/mysqld /tmp/jeprof_mysqld.1.0.170013202213 > /tmp/jeprof1.dot
-dot --Tpng /tmp/jeprof1.dot > /tmp/jeprof1.png
+dot -Tpng /tmp/jeprof1.dot > /tmp/jeprof1.png
 ```
 
 !!! note
