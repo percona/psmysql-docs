@@ -39,6 +39,14 @@
     font-size: 14px;
   ">Thanks for your feedback</div>
 
+<div id="feedback-submit-notification" style="
+display: none;
+margin-top: 10px;
+color: var(--md-typeset-a-color);
+font-weight: 500;
+font-size: 14px;
+">Thank you! The feedback has been submitted.</div>
+
   <div id="feedback-form" style="
     display: none;
     margin-top: 12px;
@@ -52,22 +60,27 @@
     box-sizing: border-box;
     transition: all 0.2s ease-out;
   ">
-    <button id="close-feedback" title="Close" style="
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: transparent;
-      border: none;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      color: var(--md-default-fg-color--light);
-      line-height: 1;
-    ">×</button>
-
-    <div style="margin-bottom: 10px; font-size: 15px;">
-      Was this page helpful?
-    </div>
+<button id="close-feedback" title="Close" style="
+position: absolute;
+top: -10px;
+right: -10px;
+background: var(--md-default-bg-color);
+border: 0.05rem solid var(--md-default-fg-color--lightest);
+border-radius: 50%;
+width: 24px;
+height: 24px;
+font-size: 18px;
+font-weight: bold;
+cursor: pointer;
+color: var(--md-default-fg-color--light);
+line-height: 1;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+">
+×
+</button>
 
     <textarea id="feedback-text" rows="3" placeholder="Write your feedback here..." style="
       width: 100%;
@@ -187,6 +200,7 @@ function initFeedbackWidget() {
   const statusDiv = document.getElementById("feedback-status");
   const closeButton = document.getElementById("close-feedback");
   const notification = document.getElementById("feedback-notification");
+  const submitNotification = document.getElementById("feedback-submit-notification");
 
   if (!stars.length || !feedbackForm) return;
 
@@ -237,7 +251,6 @@ function initFeedbackWidget() {
       body: formData
     }).then(() => {
       statusDiv.style.color = "";
-      statusDiv.textContent = "Thanks for your feedback!";
       feedbackTextarea.value = "";
       emailInput.value = "";
       feedbackForm.style.display = "none";
@@ -248,6 +261,13 @@ function initFeedbackWidget() {
         s.classList.remove("active");
         s.classList.remove("hovered");
       });
+
+  // ✅ Show post-submit thank-you notification
+  submitNotification.style.display = "block";
+  clearTimeout(notificationTimeout);
+  notificationTimeout = setTimeout(() => {
+    submitNotification.style.display = "none";
+  }, 4000);
     }).catch(() => {
       statusDiv.style.color = "";
       statusDiv.textContent = "Error sending feedback.";
@@ -296,7 +316,6 @@ function initFeedbackWidget() {
       });
 
       sendRatingOnly(rating);
-      showNotification("Thanks for your feedback");
       feedbackForm.style.display = "block";
       statusDiv.textContent = "";
     });
