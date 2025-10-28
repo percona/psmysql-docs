@@ -20063,9 +20063,9 @@ improvements related to replication and binary logs handling. This resulted in r
 <p>The same statement might affect different rows on the primary and replicas</p>
 </li>
 </ul>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>table1<span class="w"> </span>LIMIT<span class="w"> </span><span class="m">10</span><span class="w"> </span>SET<span class="w"> </span><span class="nv">col1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;value&#39;</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span>DELETE<span class="w"> </span>FROM<span class="w"> </span>table1<span class="w"> </span>LIMIT<span class="w"> </span><span class="m">5</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>table2<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>table1<span class="w"> </span>LIMIT<span class="w"> </span><span class="m">3</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>UPDATE<span class="w"> </span>table1<span class="w"> </span>LIMIT<span class="w"> </span><span class="m">10</span><span class="w"> </span>SET<span class="w"> </span><span class="nv">col1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;value&#39;</span><span class="p">;</span>
+DELETE<span class="w"> </span>FROM<span class="w"> </span>table1<span class="w"> </span>LIMIT<span class="w"> </span><span class="m">5</span><span class="p">;</span>
+INSERT<span class="w"> </span>INTO<span class="w"> </span>table2<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>table1<span class="w"> </span>LIMIT<span class="w"> </span><span class="m">3</span><span class="p">;</span>
 </code></pre></div>
 <p>To make these statements safe for statement-based replication, you should do one of the following:</p>
 <ul>
@@ -20076,9 +20076,9 @@ mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="
 <p>Add an ORDER BY clause to make the result set deterministic</p>
 </li>
 </ul>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>table1<span class="w"> </span>SET<span class="w"> </span><span class="nv">col1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;value&#39;</span><span class="w"> </span>ORDER<span class="w"> </span>BY<span class="w"> </span>id<span class="w"> </span>LIMIT<span class="w"> </span><span class="m">10</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span>DELETE<span class="w"> </span>FROM<span class="w"> </span>table1<span class="w"> </span>ORDER<span class="w"> </span>BY<span class="w"> </span>id<span class="w"> </span>LIMIT<span class="w"> </span><span class="m">5</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>table2<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>table1<span class="w"> </span>ORDER<span class="w"> </span>BY<span class="w"> </span>id<span class="w"> </span>LIMIT<span class="w"> </span><span class="m">3</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>UPDATE<span class="w"> </span>table1<span class="w"> </span>SET<span class="w"> </span><span class="nv">col1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;value&#39;</span><span class="w"> </span>ORDER<span class="w"> </span>BY<span class="w"> </span>id<span class="w"> </span>LIMIT<span class="w"> </span><span class="m">10</span><span class="p">;</span>
+DELETE<span class="w"> </span>FROM<span class="w"> </span>table1<span class="w"> </span>ORDER<span class="w"> </span>BY<span class="w"> </span>id<span class="w"> </span>LIMIT<span class="w"> </span><span class="m">5</span><span class="p">;</span>
+INSERT<span class="w"> </span>INTO<span class="w"> </span>table2<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>table1<span class="w"> </span>ORDER<span class="w"> </span>BY<span class="w"> </span>id<span class="w"> </span>LIMIT<span class="w"> </span><span class="m">3</span><span class="p">;</span>
 </code></pre></div>
 <p>The exception is when the LIMIT is used with an ORDER BY clause that uses a unique key - in this case, the statement becomes deterministic and safe for statement-based replication.</p>
 <p>Percona Server for MySQL acknowledges statements as safe when they include either an <code>ORDER BY PK</code> or <code>WHERE</code> 
@@ -20226,14 +20226,14 @@ log. </p>
 </ul>
 <h3 id="binlogging-replication-improvements-enable-binlog_ddl_skip_rewrite">Enable <code>binlog_ddl_skip_rewrite</code><a class="headerlink" href="#binlogging-replication-improvements-enable-binlog_ddl_skip_rewrite" title="Permanent link">&para;</a></h3>
 <p>You can enable <code>binlog_ddl_skip_rewrite</code> at runtime:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Check<span class="w"> </span>current<span class="w"> </span>setting
-mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>VARIABLES<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;binlog_ddl_skip_rewrite&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>--<span class="w"> </span>Check<span class="w"> </span>current<span class="w"> </span>setting
+SHOW<span class="w"> </span>VARIABLES<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;binlog_ddl_skip_rewrite&#39;</span><span class="p">;</span>
 
 --<span class="w"> </span>Enable<span class="w"> </span>feature
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">binlog_ddl_skip_rewrite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>ON<span class="p">;</span>
+SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">binlog_ddl_skip_rewrite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>ON<span class="p">;</span>
 
 --<span class="w"> </span>Disable<span class="w"> </span>feature
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">binlog_ddl_skip_rewrite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>OFF<span class="p">;</span>
+SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">binlog_ddl_skip_rewrite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>OFF<span class="p">;</span>
 </code></pre></div>
 <p>to enable the variable permanently, add the following line to the <code>my.cnf</code> configuration file:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
@@ -20246,147 +20246,225 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w
 </div>
 <h3 id="binlogging-replication-improvements-example-usage">Example usage<a class="headerlink" href="#binlogging-replication-improvements-example-usage" title="Permanent link">&para;</a></h3>
 <p>The following code block demonstrates how to enable <code>binlog_ddl_skip_rewrite</code> and shows the feature&rsquo;s effect on a <code>DROP TABLE</code> statement:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span><span class="nv">binlog_ddl_skip_rewrite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>ON<span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SET<span class="w"> </span><span class="nv">binlog_ddl_skip_rewrite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>ON<span class="p">;</span>
 /*comment<span class="w"> </span>at<span class="w"> </span>start*/DROP<span class="w"> </span>TABLE<span class="w"> </span>t<span class="w"> </span>/*comment<span class="w"> </span>at<span class="w"> </span>end*/<span class="p">;</span>
 </code></pre></div>
 <h2 id="binlogging-replication-improvements-point-in-time-recovery-with-binlog_utils_udf">Point-in-Time Recovery with <code>binlog_utils_udf</code><a class="headerlink" href="#binlogging-replication-improvements-point-in-time-recovery-with-binlog_utils_udf" title="Permanent link">&para;</a></h2>
-<p>Use the binlog_utils_udf component to assist with Point-in-Time Recovery (PiTR).
-The component installs user-defined functions (UDFs) that help you map GTIDs to
-binary log files and inspect the contents and timestamps of binlog files.</p>
-<h3 id="binlogging-replication-improvements-functions">Functions<a class="headerlink" href="#binlogging-replication-improvements-functions" title="Permanent link">&para;</a></h3>
+<p>Point-in-Time Recovery (PiTR) allows you to restore a database to any specific moment in time using binary logs. The <code>binlog_utils_udf</code> component provides user-defined functions (UDFs) that simplify PiTR operations by helping you:</p>
+<ul>
+<li>Map Global Transaction Identifiers (GTIDs) to specific binary log files</li>
+<li>Inspect binary log contents and timestamps</li>
+<li>Locate the exact binary log files needed for recovery operations</li>
+</ul>
+<p>These functions are particularly useful when you need to determine which binary log files contain specific transactions or events during recovery planning.</p>
+<h3 id="binlogging-replication-improvements-prerequisites">Prerequisites<a class="headerlink" href="#binlogging-replication-improvements-prerequisites" title="Permanent link">&para;</a></h3>
+<p>Before using the <code>binlog_utils_udf</code> component, ensure the following requirements are met:</p>
+<ul>
+<li>
+<p>Percona Server for MySQL: The component is only available in Percona Server for MySQL, not in standard MySQL</p>
+</li>
+<li>
+<p>Binary logging enabled: The server must have binary logging enabled (<code>log_bin</code> system variable set to <code>ON</code>)</p>
+</li>
+<li>
+<p>GTID enabled: For GTID-related functions, GTID must be enabled (<code>gtid_mode</code> set to <code>ON</code>)</p>
+</li>
+<li>
+<p>MySQL privileges: You need <code>SYSTEM_VARIABLES_ADMIN</code> privilege to install components. For binary log operations, <code>BINLOG_ADMIN</code> privilege may also be required. The <code>SUPER</code> privilege is deprecated in MySQL 8.0+ and should be replaced with specific dynamic privileges</p>
+</li>
+</ul>
+<h4 id="binlogging-replication-improvements-install-the-component">Install the component<a class="headerlink" href="#binlogging-replication-improvements-install-the-component" title="Permanent link">&para;</a></h4>
+<p>Install the component on each server where you plan to use these functions:</p>
+<div class="highlight"><pre><span></span><code>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_binlog_utils_udf&#39;</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="binlogging-replication-improvements-verify-installation">Verify installation<a class="headerlink" href="#binlogging-replication-improvements-verify-installation" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>mysql.component<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;file://component_binlog_utils_udf&#39;</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>ROUTINE_NAME<span class="w"> </span>FROM<span class="w"> </span>INFORMATION_SCHEMA.ROUTINES<span class="w"> </span>
+<span class="w">    </span>-&gt;<span class="w"> </span>WHERE<span class="w"> </span>ROUTINE_NAME<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;get_%&#39;</span><span class="w"> </span>AND<span class="w"> </span><span class="nv">ROUTINE_TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;FUNCTION&#39;</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="binlogging-replication-improvements-available-functions">Available functions<a class="headerlink" href="#binlogging-replication-improvements-available-functions" title="Permanent link">&para;</a></h3>
+<p>The <code>binlog_utils_udf</code> component provides six functions for binary log analysis and GTID mapping:</p>
 <table>
 <thead>
 <tr>
 <th>Function</th>
 <th>Returns</th>
 <th>Description</th>
+<th>Use Case</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>get_binlog_by_gtid(gtid)</td>
+<td><a href="#binlogging-replication-improvements-find-binary-log-by-gtid"><code>get_binlog_by_gtid(gtid)</code></a></td>
 <td>STRING (binlog name)</td>
-<td>Returns the binlog file that contains the specified GTID.</td>
+<td>Returns the binary log file that contains the specified GTID.</td>
+<td>Find which binary log contains a specific transaction</td>
 </tr>
 <tr>
-<td>get_last_gtid_from_binlog(binlog)</td>
+<td><a href="#binlogging-replication-improvements-get-last-gtid-from-binary-log"><code>get_last_gtid_from_binlog(binlog)</code></a></td>
 <td>STRING (GTID)</td>
-<td>Returns the last GTID found in the specified binlog.</td>
+<td>Returns the last GTID found in the specified binary log.</td>
+<td>Identify the final transaction in a binary log file</td>
 </tr>
 <tr>
-<td>get_gtid_set_by_binlog(binlog)</td>
+<td><a href="#binlogging-replication-improvements-get-all-gtids-from-binary-log"><code>get_gtid_set_by_binlog(binlog)</code></a></td>
 <td>STRING (GTID set)</td>
-<td>Returns all GTIDs found in the specified binlog.</td>
+<td>Returns all GTIDs found in the specified binary log.</td>
+<td>Get complete list of transactions in a binary log</td>
 </tr>
 <tr>
-<td>get_binlog_by_gtid_set(gtid_set)</td>
+<td><a href="#binlogging-replication-improvements-find-binary-log-by-gtid-set"><code>get_binlog_by_gtid_set(gtid_set)</code></a></td>
 <td>STRING (binlog name)</td>
-<td>Returns the first binlog file that contains at least one GTID from the specified set.</td>
+<td>Returns the first binary log file that contains at least one GTID from the specified set.</td>
+<td>Find binary log containing any transaction from a GTID set</td>
 </tr>
 <tr>
-<td>get_first_record_timestamp_by_binlog(binlog)</td>
+<td><a href="#binlogging-replication-improvements-get-first-event-timestamp"><code>get_first_record_timestamp_by_binlog(binlog)</code></a></td>
 <td>INTEGER (timestamp)</td>
-<td>Returns the timestamp of the first event in the specified binlog.</td>
+<td>Returns the timestamp of the first event in the specified binary log.</td>
+<td>Determine when a binary log file started</td>
 </tr>
 <tr>
-<td>get_last_record_timestamp_by_binlog(binlog)</td>
+<td><a href="#binlogging-replication-improvements-get-last-event-timestamp"><code>get_last_record_timestamp_by_binlog(binlog)</code></a></td>
 <td>INTEGER (timestamp)</td>
-<td>Returns the timestamp of the last event in the specified binlog.</td>
+<td>Returns the timestamp of the last event in the specified binary log.</td>
+<td>Determine when a binary log file ended</td>
 </tr>
 </tbody>
 </table>
-<h3 id="binlogging-replication-improvements-notes">Notes<a class="headerlink" href="#binlogging-replication-improvements-notes" title="Permanent link">&para;</a></h3>
+<h3 id="binlogging-replication-improvements-important-notes">Important notes<a class="headerlink" href="#binlogging-replication-improvements-important-notes" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>Timestamp-returning functions provide values with microsecond precision in
-UNIX time. Each value represents the number of microseconds since
-1970-01-01 00:00:00 UTC.</p>
+<p>CAST requirement: When using these user-defined functions, you must use CAST to return a result. String functions require <code>CAST(...AS CHAR)</code> and timestamp functions require <code>CAST(...AS UNSIGNED)</code>.</p>
 </li>
 <li>
-<p>Functions that accept a binlog name require a short file name only. Do not
-include a path. If the input contains a path separator (/), the server
-returns an error.</p>
+<p>Timestamp precision: Timestamp-returning functions provide values with microsecond precision in UNIX time format. Each value represents the number of microseconds since 1970-01-01 00:00:00 UTC.</p>
 </li>
 <li>
-<p>The server reads binlogs from the current binlog directory defined by the
-@@log_bin_basename system variable.</p>
+<p>Binary log file names: Functions that accept a binary log name require only the short file name (for example, <code>binlog.000001</code>). Do not include the full path. If the input contains a path separator (<code>/</code>), the server returns an error.</p>
 </li>
 <li>
-<p>Functions that return a binlog file name return the short name (no path).</p>
+<p>Binary log directory: The server reads binary logs from the directory defined by the <code>@@log_bin_basename</code> system variable.</p>
+</li>
+<li>
+<p>Return values: Functions that return binary log file names return only the short name without the path.</p>
+</li>
+<li>
+<p>Performance considerations: These functions read binary log files directly from disk. For large binary log files, the functions may take several seconds to complete.</p>
 </li>
 </ul>
-<h3 id="binlogging-replication-improvements-install-the-component">Install the component<a class="headerlink" href="#binlogging-replication-improvements-install-the-component" title="Permanent link">&para;</a></h3>
-<p>Install the component once on each server where you want to use these UDFs.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_binlog_utils_udf&#39;</span><span class="p">;</span>
+<h3 id="binlogging-replication-improvements-simplifying-udf-usage-without-cast">Simplifying UDF usage without CAST()<a class="headerlink" href="#binlogging-replication-improvements-simplifying-udf-usage-without-cast" title="Permanent link">&para;</a></h3>
+<p>While CAST() is required for proper function execution, you can configure your MySQL client to handle data type conversions automatically, reducing the need to use CAST() explicitly in your queries.</p>
+<h4 id="binlogging-replication-improvements-configure-the-mysql-client">Configure the MySQL client<a class="headerlink" href="#binlogging-replication-improvements-configure-the-mysql-client" title="Permanent link">&para;</a></h4>
+<p>You can set the appropriate client character set and collation to simplify UDF usage:</p>
+<div class="highlight"><pre><span></span><code>--<span class="w"> </span>Set<span class="w"> </span>client<span class="w"> </span>character<span class="w"> </span><span class="nb">set</span>
+SET<span class="w"> </span><span class="nv">character_set_client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;utf8mb4&#39;</span><span class="p">;</span>
+
+--<span class="w"> </span>Set<span class="w"> </span>client<span class="w"> </span>collation
+SET<span class="w"> </span><span class="nv">collation_connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;utf8mb4_general_ci&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>You can confirm installation by checking the list of registered functions:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>ROUTINE_NAME<span class="w"> </span>FROM<span class="w"> </span>INFORMATION_SCHEMA.ROUTINES<span class="w"> </span><span class="se">\G</span>
+<p>Alternatively, you can configure these settings in your MySQL client configuration file (e.g., <code>~/.my.cnf</code> or <code>/etc/mysql/my.cnf</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="k">[client]</span>
+<span class="na">default-character-set</span><span class="o">=</span><span class="s">utf8mb4</span>
+<span class="na">default-collation</span><span class="o">=</span><span class="s">utf8mb4_general_ci</span>
 </code></pre></div>
+<p>By configuring these settings, the MySQL client can handle data type conversions more effectively, allowing you to use the UDF functions without explicit CAST() statements in many cases.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While client configuration can simplify usage, CAST() will still work and may be necessary in some scenarios. The choice between using CAST() explicitly or relying on client configuration depends on your specific use case and preferences.</p>
+</div>
 <h3 id="binlogging-replication-improvements-usage-examples">Usage examples<a class="headerlink" href="#binlogging-replication-improvements-usage-examples" title="Permanent link">&para;</a></h3>
-<p>Replace the sample arguments with values from your environment. The examples
-show the typical way to call each function. For clarity, results are aliased.</p>
-<h4 id="binlogging-replication-improvements-get_binlog_by_gtid">get_binlog_by_gtid()<a class="headerlink" href="#binlogging-replication-improvements-get_binlog_by_gtid" title="Permanent link">&para;</a></h4>
-<p>Locate the binlog that contains a GTID:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>get_binlog_by_gtid<span class="o">(</span><span class="s1">&#39;UUID-GROUP:1&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>binlog<span class="p">;</span>
+<p>The following examples demonstrate how to use each function. Replace the sample arguments with values from your environment. All examples include CAST statements for proper function execution, though these may be optional if you&rsquo;ve configured your MySQL client as described in the <a href="#binlogging-replication-improvements-simplifying-udf-usage-without-cast">Simplifying UDF usage without CAST()</a> section.</p>
+<h4 id="binlogging-replication-improvements-find-binary-log-by-gtid">Find binary log by GTID<a class="headerlink" href="#binlogging-replication-improvements-find-binary-log-by-gtid" title="Permanent link">&para;</a></h4>
+<p>Use <code>get_binlog_by_gtid()</code> to locate which binary log file contains a specific transaction:</p>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>CAST<span class="o">(</span>get_binlog_by_gtid<span class="o">(</span><span class="s1">&#39;550e8400-e29b-41d4-a716-446655440000:123&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>CHAR<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>binlog<span class="p">;</span>
 </code></pre></div>
-<h4 id="binlogging-replication-improvements-get_last_gtid_from_binlog">get_last_gtid_from_binlog()<a class="headerlink" href="#binlogging-replication-improvements-get_last_gtid_from_binlog" title="Permanent link">&para;</a></h4>
-<p>Return the last GTID in a binlog</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>get_last_gtid_from_binlog<span class="o">(</span><span class="s1">&#39;binlog.000001&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>last_gtid<span class="p">;</span>
+<p>Use case: When you know a specific GTID and need to find which binary log file contains that transaction for recovery purposes.</p>
+<h4 id="binlogging-replication-improvements-get-last-gtid-from-binary-log">Get last GTID from binary log<a class="headerlink" href="#binlogging-replication-improvements-get-last-gtid-from-binary-log" title="Permanent link">&para;</a></h4>
+<p>Use <code>get_last_gtid_from_binlog()</code> to find the final transaction in a specific binary log file:</p>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>CAST<span class="o">(</span>get_last_gtid_from_binlog<span class="o">(</span><span class="s1">&#39;binlog.000001&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>CHAR<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>last_gtid<span class="p">;</span>
 </code></pre></div>
-<h4 id="binlogging-replication-improvements-get_gtid_set_by_binlog">get_gtid_set_by_binlog()<a class="headerlink" href="#binlogging-replication-improvements-get_gtid_set_by_binlog" title="Permanent link">&para;</a></h4>
-<p>Return all GTIDs in a binlog</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>get_gtid_set_by_binlog<span class="o">(</span><span class="s1">&#39;binlog.000001&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>gtid_set<span class="p">;</span>
+<p>Use case: Determine the last transaction processed in a binary log file before rotating to the next file.</p>
+<h4 id="binlogging-replication-improvements-get-all-gtids-from-binary-log">Get all GTIDs from binary log<a class="headerlink" href="#binlogging-replication-improvements-get-all-gtids-from-binary-log" title="Permanent link">&para;</a></h4>
+<p>Use <code>get_gtid_set_by_binlog()</code> to retrieve all GTIDs contained in a specific binary log file:</p>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>CAST<span class="o">(</span>get_gtid_set_by_binlog<span class="o">(</span><span class="s1">&#39;binlog.000001&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>CHAR<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>gtid_set<span class="p">;</span>
 </code></pre></div>
-<h4 id="binlogging-replication-improvements-get_binlog_by_gtid_set">get_binlog_by_gtid_set()<a class="headerlink" href="#binlogging-replication-improvements-get_binlog_by_gtid_set" title="Permanent link">&para;</a></h4>
-<p>Find a binlog that contains any GTID in a set</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>get_binlog_by_gtid_set<span class="o">(</span><span class="s1">&#39;UUID1:7,UUID1:8&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>binlog<span class="p">;</span>
+<p>Use case: Get a complete list of all transactions in a binary log file for analysis or replication setup.</p>
+<h4 id="binlogging-replication-improvements-find-binary-log-by-gtid-set">Find binary log by GTID set<a class="headerlink" href="#binlogging-replication-improvements-find-binary-log-by-gtid-set" title="Permanent link">&para;</a></h4>
+<p>Use <code>get_binlog_by_gtid_set()</code> to find the first binary log file that contains any GTID from a specified set:</p>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>CAST<span class="o">(</span>get_binlog_by_gtid_set<span class="o">(</span><span class="s1">&#39;550e8400-e29b-41d4-a716-446655440000:7,550e8400-e29b-41d4-a716-446655440000:8&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>CHAR<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>binlog<span class="p">;</span>
 </code></pre></div>
-<h4 id="binlogging-replication-improvements-get_first_record_timestamp_by_binlog-and-get_last_record_timestamp_by_binlogbinlog">get_first_record_timestamp_by_binlog() and get_last_record_timestamp_by_binlog(binlog)<a class="headerlink" href="#binlogging-replication-improvements-get_first_record_timestamp_by_binlog-and-get_last_record_timestamp_by_binlogbinlog" title="Permanent link">&para;</a></h4>
-<p>Get the first event timestamp from a binlog. The function returns microseconds since the UNIX epoch. Use the tabs below to
-see the raw numeric value or a human-readable timestamp.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="binlogging-replication-improvements-__tabbed_1_1" name="binlogging-replication-improvements-__tabbed_1" type="radio" /><input id="binlogging-replication-improvements-__tabbed_1_2" name="binlogging-replication-improvements-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="binlogging-replication-improvements-__tabbed_1_1">Raw Timestamp</label><label for="binlogging-replication-improvements-__tabbed_1_2">Human-Readable</label></div>
+<p>Use case: When you have a set of GTIDs and need to find which binary log file contains at least one of those transactions.</p>
+<h4 id="binlogging-replication-improvements-get-binary-log-timestamps">Get binary log timestamps<a class="headerlink" href="#binlogging-replication-improvements-get-binary-log-timestamps" title="Permanent link">&para;</a></h4>
+<p>Use timestamp functions to determine when events occurred in binary log files. These functions return microsecond-precision timestamps in UNIX time format.</p>
+<h5 id="binlogging-replication-improvements-get-first-event-timestamp">Get first event timestamp<a class="headerlink" href="#binlogging-replication-improvements-get-first-event-timestamp" title="Permanent link">&para;</a></h5>
+<p>Find when the first event was written to a binary log file:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="binlogging-replication-improvements-__tabbed_1_1" name="binlogging-replication-improvements-__tabbed_1" type="radio" /><input id="binlogging-replication-improvements-__tabbed_1_2" name="binlogging-replication-improvements-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="binlogging-replication-improvements-__tabbed_1_1">Raw Timestamp (Microseconds)</label><label for="binlogging-replication-improvements-__tabbed_1_2">Human-Readable Format</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>get_first_record_timestamp_by_binlog<span class="o">(</span><span class="s1">&#39;binlog.000001&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>raw_ts<span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>CAST<span class="o">(</span>get_first_record_timestamp_by_binlog<span class="o">(</span><span class="s1">&#39;binlog.000001&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>UNSIGNED<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>raw_ts<span class="p">;</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>FROM_UNIXTIME<span class="o">(</span>
-<span class="w">    </span>get_first_record_timestamp_by_binlog<span class="o">(</span><span class="s1">&#39;binlog.000001&#39;</span><span class="o">)</span><span class="w"> </span>DIV<span class="w"> </span><span class="m">1000000</span>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>FROM_UNIXTIME<span class="o">(</span>
+<span class="w">    </span>CAST<span class="o">(</span>get_first_record_timestamp_by_binlog<span class="o">(</span><span class="s1">&#39;binlog.000001&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>UNSIGNED<span class="o">)</span><span class="w"> </span>DIV<span class="w"> </span><span class="m">1000000</span>
 <span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>first_event_ts<span class="p">;</span>
 </code></pre></div>
 </div>
 </div>
 </div>
-<p>Get the last event timestamp from a binlog</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="binlogging-replication-improvements-__tabbed_2_1" name="binlogging-replication-improvements-__tabbed_2" type="radio" /><input id="binlogging-replication-improvements-__tabbed_2_2" name="binlogging-replication-improvements-__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="binlogging-replication-improvements-__tabbed_2_1">Raw Timestamp</label><label for="binlogging-replication-improvements-__tabbed_2_2">Human-Readable</label></div>
+<p>Use case: Determine when a binary log file started receiving events, useful for recovery planning.</p>
+<h5 id="binlogging-replication-improvements-get-last-event-timestamp">Get last event timestamp<a class="headerlink" href="#binlogging-replication-improvements-get-last-event-timestamp" title="Permanent link">&para;</a></h5>
+<p>Find when the last event was written to a binary log file:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="binlogging-replication-improvements-__tabbed_2_1" name="binlogging-replication-improvements-__tabbed_2" type="radio" /><input id="binlogging-replication-improvements-__tabbed_2_2" name="binlogging-replication-improvements-__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="binlogging-replication-improvements-__tabbed_2_1">Raw Timestamp (Microseconds)</label><label for="binlogging-replication-improvements-__tabbed_2_2">Human-Readable Format</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>get_last_record_timestamp_by_binlog<span class="o">(</span><span class="s1">&#39;binlog.000001&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>raw_ts<span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>CAST<span class="o">(</span>get_last_record_timestamp_by_binlog<span class="o">(</span><span class="s1">&#39;binlog.000001&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>UNSIGNED<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>raw_ts<span class="p">;</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>FROM_UNIXTIME<span class="o">(</span>
-<span class="w">    </span>get_last_record_timestamp_by_binlog<span class="o">(</span><span class="s1">&#39;binlog.000001&#39;</span><span class="o">)</span><span class="w"> </span>DIV<span class="w"> </span><span class="m">1000000</span>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>FROM_UNIXTIME<span class="o">(</span>
+<span class="w">    </span>CAST<span class="o">(</span>get_last_record_timestamp_by_binlog<span class="o">(</span><span class="s1">&#39;binlog.000001&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>UNSIGNED<span class="o">)</span><span class="w"> </span>DIV<span class="w"> </span><span class="m">1000000</span>
 <span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>last_event_ts<span class="p">;</span>
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------+
-| binlog        |
-+---------------+
-| binlog.000001 |
-+---------------+
+</div>
+</div>
+</div>
+<p>Use case: Determine when a binary log file stopped receiving events, useful for understanding binary log rotation timing.</p>
+<h3 id="binlogging-replication-improvements-troubleshooting">Troubleshooting<a class="headerlink" href="#binlogging-replication-improvements-troubleshooting" title="Permanent link">&para;</a></h3>
+<h4 id="binlogging-replication-improvements-common-issues">Common issues<a class="headerlink" href="#binlogging-replication-improvements-common-issues" title="Permanent link">&para;</a></h4>
+<p>Function returns NULL: This usually indicates that the specified GTID or binary log file does not exist. Verify that:</p>
+<ul>
+<li>
+<p>The GTID format is correct (UUID:transaction_id)</p>
+</li>
+<li>
+<p>The binary log file exists in the binary log directory</p>
+</li>
+<li>
+<p>GTID is enabled on the server</p>
+</li>
+</ul>
+<p>Error: &ldquo;Unknown function&rdquo;: The component is not installed. Install the component using the <code>INSTALL COMPONENT</code> command.</p>
+<p>Error: &ldquo;Access denied&rdquo;: You need <code>SYSTEM_VARIABLES_ADMIN</code> privilege to install the component and <code>BINLOG_ADMIN</code> privilege for binary log operations. The <code>SUPER</code> privilege is deprecated in MySQL 8.0+.</p>
+<p>Performance issues: These functions read binary log files directly from disk. For large binary log files, expect execution times of several seconds.</p>
+<h4 id="binlogging-replication-improvements-verify-binary-log-files">Verify binary log files<a class="headerlink" href="#binlogging-replication-improvements-verify-binary-log-files" title="Permanent link">&para;</a></h4>
+<p>Check which binary log files are available:</p>
+<div class="highlight"><pre><span></span><code>SHOW<span class="w"> </span>BINARY<span class="w"> </span>LOGS<span class="p">;</span>
 </code></pre></div>
-</details>
-</div>
-</div>
-</div>
-<p>Actual values depend on your server state and binlog contents.</p>
+<h4 id="binlogging-replication-improvements-check-gtid-status">Check GTID status<a class="headerlink" href="#binlogging-replication-improvements-check-gtid-status" title="Permanent link">&para;</a></h4>
+<p>Verify GTID is enabled:</p>
+<div class="highlight"><pre><span></span><code>SHOW<span class="w"> </span>VARIABLES<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;gtid_mode&#39;</span><span class="p">;</span>
+</code></pre></div>
 <h3 id="binlogging-replication-improvements-uninstall-the-component">Uninstall the component<a class="headerlink" href="#binlogging-replication-improvements-uninstall-the-component" title="Permanent link">&para;</a></h3>
-<p>Remove the component and all associated UDFs:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_binlog_utils_udf&#39;</span><span class="p">;</span>
+<p>Remove the component and all associated functions:</p>
+<div class="highlight"><pre><span></span><code>UNINSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_binlog_utils_udf&#39;</span><span class="p">;</span>
 </code></pre></div>
+<p>Verify removal:</p>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>mysql.component<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;file://component_binlog_utils_udf&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>The query should return no rows if the component is successfully uninstalled.</p>
 <h2 id="binlogging-replication-improvements-limitations">Limitations<a class="headerlink" href="#binlogging-replication-improvements-limitations" title="Permanent link">&para;</a></h2>
 <p>For the following variables, do not define values with one or more dot (.) characters:</p>
 <ul>
