@@ -2,41 +2,149 @@
 
 --8<--- "get-help-snip.md"
 
-[Need expert guidance for your upgrade? Percona Support is here to help.](https://www.percona.com/services/support).
+[Need expert guidance for your upgrade? Percona Support is ready to assist you every step of the way.](https://www.percona.com/services/support).
 
-Upgrading your server to {{vers}} has the following benefits:
+## Why upgrade to Percona Server for MySQL {{vers}} LTS
 
-| Benefits | Description |
-| --- | --- |
-| Security fixes | These patches and updates protect your data from cyberattacks and address vulnerabilities or bugs in the database software.|
-| New or improved features | You have access to new or improved features that enhance the functionality, performance, and availability of the database. |
-| Reduced labor | You can automate some routine tasks. |
-| Relevance | Your customers and stakeholders have changing needs and expectations. Using the latest version can help to deliver solutions faster. |
-| Reduced operational costs | An upgraded database server can help reduce your operational costs because the server has improved efficiency and scalability. |
+Long‑Term Support (LTS) releases focus on stability, predictable security patches, and a clearly defined maintenance horizon—essential qualities for production databases. Moving from 8.0 to 8.4 isn’t just a simple version bump: new defaults, deprecated options, and behavior changes can affect performance and break existing scripts. Treat the upgrade as a small project: plan the steps, pick the method that matches your downtime window, and verify the result.
 
-Not upgrading your database can have the following risks:
+## Benefits of upgrading to Percona Server for MySQL 8.4
 
-| Risks | Description |
-| --- | --- |
-| Security risks | Your database server is vulnerable to cyberattacks because you do not receive security fixes. These attacks can result in data breaches, data loss, and data corruption. These actions can harm the organization's reputation and lose money. |
-| Service risks | You do not benefit from new or improved features. This risk may cause poor user experience, reduced productivity, and increased downtime. |
-| Support risks | You are limited in support access. This risk can result in longer resolution times, unresolved issues, and higher support costs. |
-| Compatibility risks | You can experience compatibility issues with hardware, operating systems, or applications since the older version is not supported on newer platforms. At some point, the database server is no longer supportable. |
-| Failure risk | A failure in either hardware, operating system, or application may force an upgrade at the wrong time. |
+| Benefit              | What it means for you                                                                 |
+|-----------------------|----------------------------------------------------------------------------------------|
+| Security fixes        | Patches close known vulnerabilities, keeping your data safe from attacks.             |
+| New or enhanced features | Access to functionality that improves performance, reliability, and overall capability. |
+| Less manual effort    | Automation tools let you handle routine tasks without hands-on intervention.          |
+| Stay relevant         | The latest version helps you meet evolving customer expectations and deliver solutions more quickly. |
+| Lower operational cost | Improved efficiency, and scalability translate into cheaper day-to-day operations.     |
 
-[Concerned about upgrade risks? Percona Support can help mitigate potential issues.](https://www.percona.com/services/support)
+## Risks of staying on an older version
 
-Create a test environment to verify the upgrade before you upgrade the production servers. The test environment is crucial to the success of the upgrade. There is no supported [downgrade procedure](./downgrade.md). You can try to replicate from an {{vers}} version to an 8.0 version or restore a backup.
 
-Tools, such as the [`pt-upgrade` tool](https://docs.percona.com/percona-toolkit/pt-upgrade.html) in the [Percona Toolkit](https://docs.percona.com/percona-toolkit/), can help with the upgrade process.
+| Risk                    | Potential impact                                                                                                                 |
+|--------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| Security exposure        | Without the latest patches, attackers can breach, corrupt, or destroy data, harming reputation and causing financial loss.       |
+| Feature stagnation       | Missing new capabilities can lead to slower performance, lower productivity, and more frequent outages.                          |
+| Reduced support          | Older versions receive less vendor assistance, resulting in longer troubleshooting times and higher support expenses.            |
+| Compatibility problems   | New hardware, operating system releases, or third-party applications may not work with an outdated Percona Server version, eventually leaving the server unsupported. |
+| Unplanned upgrade pressure | Unexpected hardware or OS failures can force a rushed upgrade, increasing the chance of errors.                                |
 
-We recommend upgrading to the latest version.
+[Concerned about these risks? 
+Percona Support can help assess and mitigate them.](https://www.percona.com/services/support)
 
-[Need personalized support during your upgrade? Contact Percona Support.](https://www.percona.com/services/support)
 
-Review the documentation for other changes between 8.0 to {{vers}}.
+## Upgrade workflow
 
-Review [Upgrade Strategies](./upgrade-strategies.md) for an overview of the major strategies.
+Follow this step-by-step workflow to plan and execute your upgrade from 8.0 to {{vers}}:
+
+### Step 1: Understand what's changing
+
+Review these documents to understand breaking changes, removed features, and compatibility issues:
+
+* [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md) - Review behavioral changes, removed features, and removed variables that may affect your applications
+
+* [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md) - Verify third-party tool compatibility
+
+* [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md) - Understand configuration changes that may impact performance
+
+* [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md) - Review toolkit changes if you use Percona Toolkit
+
+### Step 2: Complete pre-upgrade preparation
+
+Work through the pre-upgrade checks in the [upgrade checklist](./upgrade-checklist-8.4.md). This includes:
+
+* Verifying authentication methods and client compatibility
+
+* Updating replication scripts (MASTER/SLAVE → SOURCE/REPLICA syntax)
+
+* Identifying and addressing removed features or variables
+
+* Reviewing configuration defaults
+
+* Testing backups and restore procedures
+
+* Planning plugin-to-component transitions (if applicable)
+
+### Step 3: Choose your upgrade strategy
+
+Select the upgrade method that best fits your environment:
+
+* [Upgrade strategies](./upgrade-strategies.md) - Overview of in-place, logical dump/restore, and side-by-side methods
+
+* [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md) - Verify your upgrade path is supported
+
+### Step 4: Execute the upgrade
+
+Follow the step-by-step procedures for your chosen method:
+
+* [Upgrade procedures for {{vers}}](./upgrade-procedures.md) - Detailed procedures for repository-based or standalone package upgrades
+
+### Step 5: Validate the upgrade
+
+After completing the upgrade, complete the post-upgrade validation steps in the [upgrade checklist](./upgrade-checklist-8.4.md#post-upgrade-validation). These steps include:
+
+* Verifying connectivity and authentication
+
+* Checking replication health (if applicable)
+
+* Re-creating spatial indexes
+
+* Validating performance baselines
+
+* Reviewing logs and metrics
+
+* Testing backup and recovery
+
+### Additional reference materials
+
+* [Upgrade from plugins to components](./upgrade-components.md) - Guide for migrating from plugins to components
+
+* [Downgrade options](./downgrade.md) - Information about downgrading if needed
+
+### Tooling to de-risk your upgrade
+
+* [`pt-upgrade`](https://docs.percona.com/percona-toolkit/pt-upgrade.html) – compares query plans and execution behavior between Percona Server 8.0 and {{vers}}
+
+* [Percona XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup)  – creates hot backups and lets you test restores without downtime.
+
+* A full dry-run workflow - backup → restore on 8.4 → run smoke/load tests → validate → practice rollback.
+
+These purpose‑built tools let you spot regressions early and ensure a reliable fallback plan.
+
+## Test environment is mandatory
+
+Set up a sandbox and run the upgrade there first. This isolated environment is essential for a successful migration. If you ever need to revert to the previous version, note that there is no fully supported in-place [downgrade procedure](./downgrade.md) from Percona Server for MySQL 8.4 to an earlier major version. The most reliable rollback method is to restore a backup taken before the upgrade, or to use a logical dump/load or replication into the older version. Because binary compatibility may not be preserved when new features or data-format changes have been applied, the safest approach is to provision a fresh instance of the older version and reload your data, rather than expecting a simple “undo” of the upgrade.
+
+We strongly advise upgrading to the latest LTS release (Percona Server for MySQL {{vers}}) to stay secure, performant, and fully supported.
+
+
+[Need personalized support during your upgrade? Contact Percona Support for a detailed migration plan.](https://www.percona.com/services/support)
+
+## Further reading
+
+Review these upgrade-related documents:
+
+* [Upgrade checklist for {{vers}}](./upgrade-checklist-8.4.md)
+
+* [Upgrade procedures for {{vers}}](./upgrade-procedures.md)
+
+* [Upgrade strategies](./upgrade-strategies.md)
+
+* [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md)
+
+* [Upgrade from plugins to components](./upgrade-components.md)
+
+* [Downgrade options](./downgrade.md)
+
+* [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md)
+
+* [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md)
+
+* [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
+
+* [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md)
+
+### Additional MySQL documentation
 
 The following list summarizes a number of the changes in the 8.0 series and has useful guides that can help you perform a smooth upgrade. We strongly recommend reading this information:
 
