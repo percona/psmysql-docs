@@ -40552,7 +40552,7 @@ and restart <em>Percona Server for MySQL</em>.</p>
 </li>
 </ul></section><section class="print-page" id="limitations" heading-number="16.2.4"><h1 id="limitations-myrocks-limitations">MyRocks limitations<a class="headerlink" href="#limitations-myrocks-limitations" title="Permanent link">&para;</a></h1>
 <h2 id="limitations-online-ddl-limitations">Online DDL limitations<a class="headerlink" href="#limitations-online-ddl-limitations" title="Permanent link">&para;</a></h2>
-<p>MyRocks has limited support for <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-online-ddl.html">Online DDL operations</a> due to the lack of atomic DDL. As a result the schema changes are more restricted compared to InnoDB.</p>
+<p>MyRocks has limited support for <a href="https://dev.mysql.com/doc/refman/{{ vers }}/en/innodb-online-ddl.html">Online DDL operations</a> due to the lack of <a href="#glossary-atomic-ddl-data-definition-language">atomic DDL</a>. As a result the schema changes are more restricted compared to InnoDB.</p>
 <h3 id="limitations-traditional-myrocks-ddl-behavior">Traditional MyRocks DDL behavior<a class="headerlink" href="#limitations-traditional-myrocks-ddl-behavior" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -40580,59 +40580,64 @@ and restart <em>Percona Server for MySQL</em>.</p>
 </tr>
 </tbody>
 </table>
-<p><strong>Note:</strong> MyRocks does not support atomic DDL. Even metadata-only operations may require a full table rebuild, depending on the nature of the change.</p>
+<p><strong>Note:</strong> MyRocks does not support <a href="#glossary-atomic-ddl-data-definition-language">atomic DDL</a>. Even metadata-only operations may require a full table rebuild, depending on the nature of the change.</p>
 <h3 id="limitations-partition-management-support">Partition management support<a class="headerlink" href="#limitations-partition-management-support" title="Permanent link">&para;</a></h3>
 <p>As of <code>Percona Server for MySQL 8.0.25-15</code>, MyRocks supports <code>INPLACE</code> partition management for certain operations:</p>
 <p><div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="n">PARTITION</span><span class="w"> </span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">ALGORITHM</span><span class="o">=</span><span class="n">INPLACE</span><span class="p">;</span>
 <span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="n">PARTITION</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">LESS</span><span class="w"> </span><span class="k">THAN</span><span class="w"> </span><span class="p">(</span><span class="k">MAXVALUE</span><span class="p">)),</span><span class="w"> </span><span class="n">ALGORITHM</span><span class="o">=</span><span class="n">INPLACE</span><span class="p">;</span>
 </code></pre></div>
-The aforementioned operations no longer require a full table rebuild. However, operations that modify partitioning schemes, such as changing <code>VALUES LESS THAN</code>, still fall back to the <code>COPY</code> algorithm.</p>
+These operations no longer require a full table rebuild. However, operations that modify partitioning schemes, such as changing <code>VALUES LESS THAN</code>, still fall back to the <code>COPY</code> algorithm.</p>
 <p><strong>Note:</strong> Dropping a partition permanently deletes any data stored in it unless that data is reassigned to another partition.</p>
 <h3 id="limitations-instant-ddl-support">Instant DDL support<a class="headerlink" href="#limitations-instant-ddl-support" title="Permanent link">&para;</a></h3>
-<p>As of <code>Percona Server for MySQL 8.0.42-33</code>, MyRocks introduces limited support for Instant DDL, which is disabled by default and controlled via configuration variables.</p>
-<p>To enable specific types of instant operations, use the following configuration options:</p>
+<p>As of <code>Percona Server for MySQL 8.0.42-33</code>, MyRocks provides limited Instant DDL support that is disabled by default, and you can activate the specific instant operations you need by setting the appropriate configuration variables.</p>
 <table>
 <thead>
 <tr>
 <th>Configuration variable</th>
 <th>Enables Instant DDL for</th>
-<th>ALGORITHM required</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><a href="#variables-rocksdb_enable_instant_ddl_for_append_column"><code>rocksdb_enable_instant_ddl_for_append_column=ON</code></a></td>
 <td><code>ALTER TABLE ... ADD COLUMN</code></td>
-<td><code>ALGORITHM=INSTANT</code></td>
 </tr>
 <tr>
 <td><a href="#variables-rocksdb_enable_instant_ddl_for_column_default_changes"><code>rocksdb_enable_instant_ddl_for_column_default_changes=ON</code></a></td>
 <td><code>ALTER/MODIFY COLUMN … DEFAULT</code></td>
-<td><code>ALGORITHM=INSTANT</code></td>
 </tr>
 <tr>
 <td><a href="#variables-rocksdb_enable_instant_ddl_for_drop_index_changes"><code>rocksdb_enable_instant_ddl_for_drop_index_changes=ON</code></a></td>
 <td><code>ALTER TABLE ... DROP INDEX</code></td>
-<td><code>ALGORITHM=INSTANT</code></td>
 </tr>
 <tr>
 <td><a href="#variables-rocksdb_enable_instant_ddl_for_table_comment_changes"><code>rocksdb_enable_instant_ddl_for_table_comment_changes=ON</code></a></td>
 <td><code>ALTER TABLE ... COMMENT</code></td>
-<td><code>ALGORITHM=INSTANT</code></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Note:</strong> Instant DDL in MyRocks is only triggered when <strong>both</strong> of the following conditions are met:</p>
-<ol>
-<li>The configuration variable is set to <code>ON</code>,</li>
-<li>The <code>ALTER TABLE</code> statement explicitly includes <code>ALGORITHM=INSTANT</code>.</li>
-</ol>
+<p><strong>Note:</strong> Instant DDL in MyRocks is applied only when <strong>both</strong> of the following conditions are met:</p>
+<ul>
+<li>
+<p>The configuration variable is set to <code>ON</code>.</p>
+</li>
+<li>
+<p>The <code>ALTER TABLE</code> statement explicitly includes <code>ALGORITHM=INSTANT</code>.</p>
+</li>
+</ul>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">rocksdb_enable_instant_ddl_for_table_comment_changes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
 <span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">my_table</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;New comment&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">ALGORITHM</span><span class="o">=</span><span class="n">INSTANT</span><span class="p">;</span>
 </code></pre></div>
-<p>If the configuration variable is enabled (<code>ON</code>) but <code>ALGORITHM=INSTANT</code> is not specified, MyRocks will fall back to the default algorithm.</p>
-<p>Conversely, if the configuration variable is disabled (<code>OFF</code>), attempting to use <code>ALGORITHM=INSTANT</code> will result in an error.</p>
+<p>If either condition is missing:</p>
+<ul>
+<li>
+<p>When the variable is <code>ON</code> but <code>ALGORITHM=INSTANT</code> is omitted, MyRocks falls back to the default (non‑instant) algorithm.</p>
+</li>
+<li>
+<p>When the variable is <code>OFF</code>, any <code>ALTER TABLE … ALGORITHM=INSTANT</code> statement fails with an error.</p>
+</li>
+</ul>
 <h2 id="limitations-unsupported-innodb-features-in-myrocks">Unsupported InnoDB features in MyRocks<a class="headerlink" href="#limitations-unsupported-innodb-features-in-myrocks" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -63111,6 +63116,9 @@ contributions and changes from MariaDB.</p>
 <p>A pair of keys used for cryptographic purposes, consisting of a private key and a corresponding public key. The private key is used for decrypting or signing, while the public key is used for encrypting or verifying.</p>
 <h2 id="glossary-atomicity">Atomicity<a class="headerlink" href="#glossary-atomicity" title="Permanent link">&para;</a></h2>
 <p>Atomicity means that database operations are applied following a “all or nothing” rule. A transaction is either fully applied or not at all.</p>
+<h2 id="glossary-atomic-ddl-data-definition-language">Atomic DDL (Data Definition Language)<a class="headerlink" href="#glossary-atomic-ddl-data-definition-language" title="Permanent link">&para;</a></h2>
+<p>Atomic DDL refers to the concept where DDL operations such as <code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>, or <code>RENAME</code> statements are executed in a way that ensures atomicity, meaning they either fully succeed or have no effect at all.</p>
+<p>This means that if a DDL statement fails, the database automatically rolls back any partial changes, leaving the schema in a consistent state.</p>
 <h2 id="glossary-consistency">Consistency<a class="headerlink" href="#glossary-consistency" title="Permanent link">&para;</a></h2>
 <p>Consistency means that each transaction that modifies the database takes it from one consistent state to another.</p>
 <h2 id="glossary-digest">Digest<a class="headerlink" href="#glossary-digest" title="Permanent link">&para;</a></h2>
