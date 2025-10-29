@@ -22,7 +22,7 @@ As of `Percona Server for MySQL 8.0.25-15`, MyRocks supports `INPLACE` partition
 ALTER TABLE t1 DROP PARTITION p1, ALGORITHM=INPLACE;
 ALTER TABLE t1 ADD PARTITION (PARTITION p2 VALUES LESS THAN (MAXVALUE)), ALGORITHM=INPLACE;
 ```
-The mentioned operations no longer require a full table rebuild. However, operations that modify partitioning schemes, such as changing `VALUES LESS THAN`, still fall back to the `COPY` algorithm.
+These operations no longer require a full table rebuild. However, operations that modify partitioning schemes, such as changing `VALUES LESS THAN`, still fall back to the `COPY` algorithm.
 
 **Note:** Dropping a partition permanently deletes any data stored in it unless that data is reassigned to another partition.
 
