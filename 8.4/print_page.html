@@ -30454,8 +30454,8 @@ INFORMATION_SCHEMA.SCHEMATA<span class="w"> </span>WHERE<span class="w"> </span>
 <p>Using <code>LD_PRELOAD</code>. Build the library, configure the malloc configuration with the <code>prof:true</code> string, and then use <code>LD_PRELOAD</code> to  preload the <code>libjemalloc.so</code> library. The libprocess <code>MemoryProfiler</code> class detects the library automatically and enables the profiling support.</p>
 <p>The following is an example of the required commands:</p>
 <div class="highlight"><pre><span></span><code>./configure --enable-stats --enable-prof &amp;&amp; make &amp;&amp; make install
-MALLOC_CONF=prof:true
-LD_PRELOAD=/usr/lib/libjemalloc.so
+export MALLOC_CONF=prof:true
+export LD_PRELOAD=/usr/lib/libjemalloc.so
 </code></pre></div>
 <!-- note:
 
@@ -30496,25 +30496,45 @@ Ensure the ``libjemalloc.so`` exists in the LD path. -->
 +--------+-------------+-------------+-------------+-------------+
 | small  | 23578872    | 586156      | 0           | 2649417     |
 | large  | 367382528   | 2218        | 0           | 6355        |
-| huge   | 0           | 0           | 0           | |
+| huge   | 0           | 0           | 0           | 0 |
 +--------+-------------+-------------+-------------+-------------+
 3 rows in set (0.00 sec)
 </code></pre></div>
 </details>
 <h2 id="jemalloc-profiling-dumping-the-profile">Dumping the profile<a class="headerlink" href="#jemalloc-profiling-dumping-the-profile" title="Permanent link">&para;</a></h2>
 <p>The profiling samples the <code>malloc()</code> calls and stores the sampled stack traces in a separate location in memory. These samples can be dumped into the filesystem. A dump returns a detailed view of the state of the memory.</p>
-<p>The process is global; therefore, only a single concurrent run is available and only the most recent runs are stored on disk.</p>
+<p>The process is global; therefore, only a single concurrent run is available. Each dump creates a new file with a unique timestamp, and previous dumps are retained unless manually deleted.</p>
 <p>Use the following command to create a profile dump file:</p>
 <div class="highlight"><pre><span></span><code><span class="n">flush</span><span class="w"> </span><span class="n">memory</span><span class="w"> </span><span class="n">profile</span><span class="p">;</span>
 </code></pre></div>
 <p>The generated memory profile dumps are written to the /tmp directory.</p>
-<p>You can analyze the dump files with <code>jeprof</code> program, which must be installed on the host system in the appropriate path. This program is a perl script that post-processes the dump files in their raw format. The program has no connection to the <code>jemalloc</code> library and the version numbers are not required to match.</p>
+<p>You can analyze the dump files with <code>jeprof</code> program, which must be installed on the host system and available in the system PATH. This program is a C program that post-processes the dump files in their raw format. While jeprof can work with dumps from different jemalloc versions, compatibility issues may occur with significantly different versions.</p>
 <p>To verify the dump, run the following command:</p>
 <div class="highlight"><pre><span></span><code>ls<span class="w"> </span>/tmp/jeprof_mysqld*
-/tmp/jeprof_mysqld.1.0.170013202213
-jeprof<span class="w"> </span>--show_bytes<span class="w"> </span>/tmp/jeprof_mysqld.1.0.170013202213<span class="w"> </span>jeprof.*.heap
 </code></pre></div>
-<p>You can also access the memory profile to plot a graph of the memory use. This ability requires that <code>jeprof</code> and <code>dot</code> are in the /tmp path. For the graph to display useful information, the binary file must contain symbol information.</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>/tmp/jeprof_mysqld.1.0.170013202213
+</code></pre></div>
+</details>
+<p>Then analyze the profile:</p>
+<div class="highlight"><pre><span></span><code>jeprof<span class="w"> </span>--show_bytes<span class="w"> </span>/usr/sbin/mysqld<span class="w"> </span>/tmp/jeprof_mysqld.1.0.170013202213
+</code></pre></div>
+<p>You can also access the memory profile to plot a graph of the memory use. This ability requires that <code>jeprof</code> and <code>dot</code> are available in the system PATH. For the graph to display useful information, the binary file must contain debug symbol information.</p>
+<div class="admonition warning">
+<p class="admonition-title">Important considerations</p>
+<ul>
+<li>
+<p>Ensure the MySQL process has write permissions to <code>/tmp</code></p>
+</li>
+<li>
+<p>Profile dumps can be large; monitor available disk space</p>
+</li>
+<li>
+<p>Profiling has performance overhead and should be used judiciously</p>
+</li>
+</ul>
+</div>
 <p>Run the following command:</p>
 <div class="highlight"><pre><span></span><code>jeprof<span class="w"> </span>--dot<span class="w"> </span>/usr/sbin/mysqld<span class="w"> </span>/tmp/jeprof_mysqld.1.0.170013202213<span class="w"> </span>&gt;<span class="w"> </span>/tmp/jeprof1.dot
 dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span class="w"> </span>&gt;<span class="w"> </span>/tmp/jeprof1.png
