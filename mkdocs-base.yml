@@ -117,7 +117,13 @@ markdown_extensions:
 plugins:
   search: 
     separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
-  git-revision-date: {}
+  git-revision-date-localized:
+    enable_creation_date: true
+    enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
+  git-committers:
+    enabled: !ENV [CI, false]
+    repository: percona/psmysql-docs
+    branch: "8.4"
   meta-descriptions:
     export_csv: false
     quiet: false
