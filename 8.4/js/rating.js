@@ -1,5 +1,9 @@
 function initFeedbackWidget() {
-  const stars = document.querySelectorAll(".rating-stars .star");
+  const widget = document.querySelector(".rating-stars");
+  if (!widget || widget.dataset.initialized === "true") return; // ✅ already initialized
+  widget.dataset.initialized = "true";
+
+  const stars = widget.querySelectorAll(".star");
   const feedbackForm = document.getElementById("feedback-form");
   const feedbackTextarea = document.getElementById("feedback-text");
   const emailInput = document.getElementById("feedback-email");
@@ -21,6 +25,7 @@ function initFeedbackWidget() {
 
   let selectedRating = 0;
   let notificationTimeout;
+  let ratingLocked = false; // 🔒 cooldown lock
 
   function showNotification(msg) {
     notification.textContent = msg;
@@ -69,12 +74,11 @@ function initFeedbackWidget() {
         s.classList.remove("hovered");
       });
 
-  // ✅ Show post-submit thank-you notification
-  submitNotification.style.display = "block";
-  clearTimeout(notificationTimeout);
-  notificationTimeout = setTimeout(() => {
-    submitNotification.style.display = "none";
-  }, 4000);
+      submitNotification.style.display = "block";
+      clearTimeout(notificationTimeout);
+      notificationTimeout = setTimeout(() => {
+        submitNotification.style.display = "none";
+      }, 4000);
     }).catch(() => {
       statusDiv.style.color = "";
       statusDiv.textContent = "Error sending feedback.";
@@ -85,6 +89,7 @@ function initFeedbackWidget() {
     const rating = parseInt(star.dataset.rating, 10);
 
     star.addEventListener("mouseover", () => {
+      if (ratingLocked) return;
       stars.forEach((s, index) => {
         s.textContent = index < rating ? "★" : "☆";
         if(index < rating) {
@@ -98,6 +103,7 @@ function initFeedbackWidget() {
     });
 
     star.addEventListener("mouseleave", () => {
+      if (ratingLocked) return;
       stars.forEach((s, index) => {
         s.textContent = index < selectedRating ? "★" : "☆";
         if(index < selectedRating) {
@@ -110,6 +116,9 @@ function initFeedbackWidget() {
     });
 
     star.addEventListener("click", () => {
+      if (ratingLocked) return;
+      ratingLocked = true; // 🔒 lock stars for 10 seconds
+
       selectedRating = rating;
 
       stars.forEach((s, index) => {
@@ -125,6 +134,10 @@ function initFeedbackWidget() {
       sendRatingOnly(rating);
       feedbackForm.style.display = "block";
       statusDiv.textContent = "";
+
+      setTimeout(() => {
+        ratingLocked = false; // ⏱ unlock after 10 seconds
+      }, 10000);
     });
   });
 
@@ -148,6 +161,7 @@ function initFeedbackWidget() {
     emailInput.value = "";
     statusDiv.textContent = "";
     selectedRating = 0;
+    ratingLocked = false;
 
     stars.forEach((s) => {
       s.textContent = "☆";
