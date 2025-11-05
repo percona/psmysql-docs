@@ -10,10 +10,10 @@ As root, customize jemalloc with the following flags:
 
 | Option            | Description                        |
 | ----------------- | ---------------------------------- |
-| –enable-stats     | Enables statistics-gathering ability  |
-| –enable-prof      | Enables heap profiling and the ability to detect leaks.|
+| --enable-stats     | Enables statistics-gathering ability  |
+| --enable-prof      | Enables heap profiling and the ability to detect leaks.|
 
-Using `LD_PRELOAD`. Build the library, configure the malloc configuration with the `prof:true` string, and then use `LD_PRELOAD` to  preload the `libjemalloc.so` library. The libprocess `MemoryProfiler` class detects the library automatically and enables the profiling support.
+Using `LD_PRELOAD`. Build the library, configure the malloc configuration with the `prof:true` string, and then use `LD_PRELOAD` to preload the `libjemalloc.so` library. Percona Server for MySQL detects jemalloc with profiling enabled automatically when properly configured.
 
 The following is an example of the required commands:
 
@@ -40,7 +40,7 @@ To enable jemalloc profiling in a MySQL client, run the following command:
 set global jemalloc_profiling=on;
 ```
 
-The malloc_stats_totals table returns the statistics, in bytes, of the memory usage. The command takes no parameters and returns the results as a table.
+The `malloc_stats_totals` table provides statistics, in bytes, of the memory usage.
 
 The following example commands display this result:
 
@@ -55,15 +55,15 @@ SELECT * FROM malloc_stats_totals;
 ??? example "Expected output"
 
     ```{.text .no-copy}
-    +----+------------+------------+------------+-------------+------------+
-    | id | ALLOCATION | MAPPED     | RESIDENT   | RETAINED    | METADATA   |
-    +----+------------+------------+------------+-------------+------------+
-    |  1 | 390977528  | 405291008  | 520167424  | 436813824   | 9933744    |
-    +----+------------+------------+------------+-------------+------------+
+    +------------+------------+------------+------------+-------------+------------+
+    | ALLOCATED  | ACTIVE     | MAPPED     | RESIDENT   | RETAINED    | METADATA   |
+    +------------+------------+------------+------------+-------------+------------+
+    | 390977528  | 391012352  | 405291008  | 520167424  | 436813824   | 9933744    |
+    +------------+------------+------------+------------+-------------+------------+
     1 row in set (0.00 sec)
     ```
 
-The [malloc_stats](#malloc_stats) table returns the cumulative totals, in bytes, of several statistics per type of arena. The command takes no parameters and returns the results as a table.
+The [malloc_stats](#malloc_stats) table provides cumulative totals, in bytes, of several statistics per allocation size type (small, large, and huge).
 
 The following example commands display this result:
 
@@ -156,7 +156,7 @@ The current stats for allocations. All measurements are in bytes.
 | Column Name          | Description                                |
 | -------------------- | ------------------------------------------------------------------- |
 | ALLOCATED            | The total amount the application allocated |
-| ACTIVE               | The total amount allocated by the application of active pages. A multiple of the page size and this value is greater than or equal to the stats.allocated value. The sum does not include allocator metadata pages and stats.arenas.&#60;i&#62;.pdirty or stats.arenas.&#60;i&#62;.pmuzzy. |
+| ACTIVE               | The total amount allocated by the application of active pages. A multiple of the page size and this value is greater than or equal to the stats.allocated value. The sum does not include allocator metadata pages and stats.arenas.[i].pdirty or stats.arenas.[i].pmuzzy. |
 | MAPPED               | The total amount in chunks that are mapped by the allocator in active extents. This value does not include inactive chunks. The value is at least as large as the stats.active and is a multiple of the chunk size. |
 | RESIDENT             | A maximum number the allocator has mapped in physically resident data pages. All allocator metadata pages and unused dirty pages are included in this value. Pages may not be physically resident if they correspond to demand-zeroed virtual memory that has not yet been touched. This value is a maximum rather than a precise value and is a multiple of the page size. The value is greater than the stats.active.|
 | RETAINED                       | The amount retained by the virtual memory mappings of the operating system. This value does not include any returned mappings. This type of memory, usually de-committed, untouched, or purged. The value is associated with physical memory and is excluded from mapped memory statistics.  |
@@ -164,7 +164,7 @@ The current stats for allocations. All measurements are in bytes.
 
 ## malloc_stats
 
-The cumulative number of allocations requested or allocations returned for a running instance.
+The cumulative statistics for allocations and deallocations for a running instance.
 
 | Column Name           | Description                                         |
 | --------------------- | --------------------------------------------------- |
@@ -188,7 +188,7 @@ Description: This read-only variable returns `true` if jemalloc with profiling e
 
 * The environment variable `MALLOC_CONF` is set to `prof:true`.
 
-The following options are:
+Properties:
 
 * Scope: Global
 
@@ -200,7 +200,7 @@ The following options are:
 
 Description: Enables jemalloc profiling. The variable requires [jemalloc_detected](#jemalloc_detected).
 
-* Command Line: –jemalloc_profiling[=(OFF|ON)]
+* Command Line: --jemalloc_profiling[=(OFF|ON)]
 
 * Config File: Yes
 
