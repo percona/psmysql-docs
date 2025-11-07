@@ -49,7 +49,7 @@ The following example downloads *Percona Server for MySQL* {{release}} release `
         ```
 	
 
-4. Install `jemalloc` with the following command, if needed:
+4. Install `jemalloc` with the following command, if needed. See [When to install jemalloc](#when-to-install-jemalloc) for guidance:
 	
 	```{.bash data-prompt="$"}
 	$ wget https://repo.percona.com/yum/release/8/RPMS/x86_64/jemalloc-3.6.0-1.el8.x86_64.rpm
@@ -70,3 +70,31 @@ The following example downloads *Percona Server for MySQL* {{release}} release `
 	!!! note
 	
 	    When installing packages manually, you must make sure to resolve all dependencies and install any missing packages yourself.
+
+## When to install jemalloc
+
+`jemalloc` is an alternative memory allocator that can improve performance and reduce memory fragmentation in certain scenarios. Consider the following when deciding whether to install `jemalloc`:
+
+### Install jemalloc when:
+
+* You have high-concurrency workloads with many threads
+
+* You experience memory fragmentation issues that impact performance
+
+* You run multi-threaded applications that perform frequent memory allocation and deallocation
+
+* You want to use [memory profiling features](jemalloc-profiling.md) to investigate memory-related issues.
+
+* You observe performance degradation related to memory allocation in your current setup
+
+### Do not install jemalloc when:
+
+* Your current memory allocator (typically glibc malloc) performs adequately for your workload
+
+* You have single-threaded or low-concurrency workloads where jemalloc's benefits are minimal
+
+* You encounter compatibility issues with jemalloc in your environment
+
+* You need to debug memory issues that may be complicated by using an alternative allocator
+
+* Your system is already optimized and stable with the default memory allocator
