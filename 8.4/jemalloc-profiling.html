@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
     
     
       
@@ -8139,16 +8139,16 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </thead>
 <tbody>
 <tr>
-<td>–enable-stats</td>
+<td>&ndash;enable-stats</td>
 <td>Enables statistics-gathering ability</td>
 </tr>
 <tr>
-<td>–enable-prof</td>
+<td>&ndash;enable-prof</td>
 <td>Enables heap profiling and the ability to detect leaks.</td>
 </tr>
 </tbody>
 </table>
-<p>Using <code>LD_PRELOAD</code>. Build the library, configure the malloc configuration with the <code>prof:true</code> string, and then use <code>LD_PRELOAD</code> to  preload the <code>libjemalloc.so</code> library. The libprocess <code>MemoryProfiler</code> class detects the library automatically and enables the profiling support.</p>
+<p>Using <code>LD_PRELOAD</code>. Build the library, configure the malloc configuration with the <code>prof:true</code> string, and then use <code>LD_PRELOAD</code> to preload the <code>libjemalloc.so</code> library. Percona Server for MySQL detects jemalloc with profiling enabled automatically when properly configured.</p>
 <p>The following is an example of the required commands:</p>
 <div class="highlight"><pre><span></span><code>./configure --enable-stats --enable-prof &amp;&amp; make &amp;&amp; make install
 export MALLOC_CONF=prof:true
@@ -8164,7 +8164,7 @@ Ensure the ``libjemalloc.so`` exists in the LD path. -->
 <p>To enable jemalloc profiling in a MySQL client, run the following command:</p>
 <div class="highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">jemalloc_profiling</span><span class="o">=</span><span class="k">on</span><span class="p">;</span>
 </code></pre></div>
-<p>The malloc_stats_totals table returns the statistics, in bytes, of the memory usage. The command takes no parameters and returns the results as a table.</p>
+<p>The <code>malloc_stats_totals</code> table provides statistics, in bytes, of the memory usage.</p>
 <p>The following example commands display this result:</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">;</span>
 </code></pre></div>
@@ -8172,15 +8172,15 @@ Ensure the ``libjemalloc.so`` exists in the LD path. -->
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----+------------+------------+------------+-------------+------------+
-| id | ALLOCATION | MAPPED     | RESIDENT   | RETAINED    | METADATA   |
-+----+------------+------------+------------+-------------+------------+
-|  1 | 390977528  | 405291008  | 520167424  | 436813824   | 9933744    |
-+----+------------+------------+------------+-------------+------------+
+<div class="no-copy highlight"><pre><span></span><code>+------------+------------+------------+------------+-------------+------------+
+| ALLOCATED  | ACTIVE     | MAPPED     | RESIDENT   | RETAINED    | METADATA   |
++------------+------------+------------+------------+-------------+------------+
+| 390977528  | 391012352  | 405291008  | 520167424  | 436813824   | 9933744    |
++------------+------------+------------+------------+-------------+------------+
 1 row in set (0.00 sec)
 </code></pre></div>
 </details>
-<p>The <a href="#malloc_stats">malloc_stats</a> table returns the cumulative totals, in bytes, of several statistics per type of arena. The command takes no parameters and returns the results as a table.</p>
+<p>The <a href="#malloc_stats">malloc_stats</a> table provides cumulative totals, in bytes, of several statistics per allocation size type (small, large, and huge).</p>
 <p>The following example commands display this result:</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">;</span>
 </code></pre></div>
@@ -8259,7 +8259,7 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 </tr>
 <tr>
 <td>ACTIVE</td>
-<td>The total amount allocated by the application of active pages. A multiple of the page size and this value is greater than or equal to the stats.allocated value. The sum does not include allocator metadata pages and stats.arenas.&#60;i&#62;.pdirty or stats.arenas.&#60;i&#62;.pmuzzy.</td>
+<td>The total amount allocated by the application of active pages. A multiple of the page size and this value is greater than or equal to the stats.allocated value. The sum does not include allocator metadata pages and stats.arenas.[i].pdirty or stats.arenas.[i].pmuzzy.</td>
 </tr>
 <tr>
 <td>MAPPED</td>
@@ -8280,7 +8280,7 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 </tbody>
 </table>
 <h2 id="malloc_stats">malloc_stats<a class="headerlink" href="#malloc_stats" title="Permanent link">&para;</a></h2>
-<p>The cumulative number of allocations requested or allocations returned for a running instance.</p>
+<p>The cumulative statistics for allocations and deallocations for a running instance.</p>
 <table>
 <thead>
 <tr>
@@ -8326,7 +8326,7 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 <p>The environment variable <code>MALLOC_CONF</code> is set to <code>prof:true</code>.</p>
 </li>
 </ul>
-<p>The following options are:</p>
+<p>Properties:</p>
 <ul>
 <li>
 <p>Scope: Global</p>
@@ -8342,7 +8342,7 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 <p>Description: Enables jemalloc profiling. The variable requires <a href="#jemalloc_detected">jemalloc_detected</a>.</p>
 <ul>
 <li>
-<p>Command Line: –jemalloc_profiling[=(OFF|ON)]</p>
+<p>Command Line: &ndash;jemalloc_profiling[=(OFF|ON)]</p>
 </li>
 <li>
 <p>Config File: Yes</p>
@@ -8386,7 +8386,7 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 30, 2025 10:35:44 UTC">October 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 5, 2025 10:44:05 UTC">November 5, 2025</span>
   </span>
 
     

@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
     
     
       
@@ -18979,7 +18979,7 @@ percona-server-test-debuginfo-8.4.6-6.1.el8.x86_64.rpm
 </details>
 </li>
 <li>
-<p>Install <code>jemalloc</code> with the following command, if needed:</p>
+<p>Install <code>jemalloc</code> with the following command, if needed. See <a href="#yum-download-rpm-when-to-install-jemalloc">When to install jemalloc</a> for guidance:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://repo.percona.com/yum/release/8/RPMS/x86_64/jemalloc-3.6.0-1.el8.x86_64.rpm
 </code></pre></div>
 </li>
@@ -18997,7 +18997,45 @@ percona-server-test-debuginfo-8.4.6-6.1.el8.x86_64.rpm
 <p>When installing packages manually, you must make sure to resolve all dependencies and install any missing packages yourself.</p>
 </div>
 </li>
-</ol></section><section class="print-page" id="yum-run" heading-number="7.4.4"><h1 id="yum-run-run-percona-server-for-mysql">Run Percona Server for MySQL<a class="headerlink" href="#yum-run-run-percona-server-for-mysql" title="Permanent link">&para;</a></h1>
+</ol>
+<h2 id="yum-download-rpm-when-to-install-jemalloc">When to install jemalloc<a class="headerlink" href="#yum-download-rpm-when-to-install-jemalloc" title="Permanent link">&para;</a></h2>
+<p><code>jemalloc</code> is an alternative memory allocator that can improve performance and reduce memory fragmentation in certain scenarios. Consider the following when deciding whether to install <code>jemalloc</code>:</p>
+<h3 id="yum-download-rpm-install-jemalloc-when">Install jemalloc when:<a class="headerlink" href="#yum-download-rpm-install-jemalloc-when" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>You have high-concurrency workloads with many threads</p>
+</li>
+<li>
+<p>You experience memory fragmentation issues that impact performance</p>
+</li>
+<li>
+<p>You run multi-threaded applications that perform frequent memory allocation and deallocation</p>
+</li>
+<li>
+<p>You want to use <a href="#jemalloc-profiling">memory profiling features</a> to investigate memory-related issues.</p>
+</li>
+<li>
+<p>You observe performance degradation related to memory allocation in your current setup</p>
+</li>
+</ul>
+<h3 id="yum-download-rpm-do-not-install-jemalloc-when">Do not install jemalloc when:<a class="headerlink" href="#yum-download-rpm-do-not-install-jemalloc-when" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Your current memory allocator (typically glibc malloc) performs adequately for your workload</p>
+</li>
+<li>
+<p>You have single-threaded or low-concurrency workloads where jemalloc&rsquo;s benefits are minimal</p>
+</li>
+<li>
+<p>You encounter compatibility issues with jemalloc in your environment</p>
+</li>
+<li>
+<p>You need to debug memory issues that may be complicated by using an alternative allocator</p>
+</li>
+<li>
+<p>Your system is already optimized and stable with the default memory allocator</p>
+</li>
+</ul></section><section class="print-page" id="yum-run" heading-number="7.4.4"><h1 id="yum-run-run-percona-server-for-mysql">Run Percona Server for MySQL<a class="headerlink" href="#yum-run-run-percona-server-for-mysql" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL stores the data files in <code>/var/lib/mysql/</code> by
 default. The configuration file used to manage Percona Server for MySQL is the <code>/etc/my.cnf</code>.</p>
 <p class="power-number">The following commands start, provide the server status, stop the server, and restart the server.</p>
@@ -30665,16 +30703,16 @@ INFORMATION_SCHEMA.SCHEMATA<span class="w"> </span>WHERE<span class="w"> </span>
 </thead>
 <tbody>
 <tr>
-<td>–enable-stats</td>
+<td>&ndash;enable-stats</td>
 <td>Enables statistics-gathering ability</td>
 </tr>
 <tr>
-<td>–enable-prof</td>
+<td>&ndash;enable-prof</td>
 <td>Enables heap profiling and the ability to detect leaks.</td>
 </tr>
 </tbody>
 </table>
-<p>Using <code>LD_PRELOAD</code>. Build the library, configure the malloc configuration with the <code>prof:true</code> string, and then use <code>LD_PRELOAD</code> to  preload the <code>libjemalloc.so</code> library. The libprocess <code>MemoryProfiler</code> class detects the library automatically and enables the profiling support.</p>
+<p>Using <code>LD_PRELOAD</code>. Build the library, configure the malloc configuration with the <code>prof:true</code> string, and then use <code>LD_PRELOAD</code> to preload the <code>libjemalloc.so</code> library. Percona Server for MySQL detects jemalloc with profiling enabled automatically when properly configured.</p>
 <p>The following is an example of the required commands:</p>
 <div class="highlight"><pre><span></span><code>./configure --enable-stats --enable-prof &amp;&amp; make &amp;&amp; make install
 export MALLOC_CONF=prof:true
@@ -30690,7 +30728,7 @@ Ensure the ``libjemalloc.so`` exists in the LD path. -->
 <p>To enable jemalloc profiling in a MySQL client, run the following command:</p>
 <div class="highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">jemalloc_profiling</span><span class="o">=</span><span class="k">on</span><span class="p">;</span>
 </code></pre></div>
-<p>The malloc_stats_totals table returns the statistics, in bytes, of the memory usage. The command takes no parameters and returns the results as a table.</p>
+<p>The <code>malloc_stats_totals</code> table provides statistics, in bytes, of the memory usage.</p>
 <p>The following example commands display this result:</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">;</span>
 </code></pre></div>
@@ -30698,15 +30736,15 @@ Ensure the ``libjemalloc.so`` exists in the LD path. -->
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----+------------+------------+------------+-------------+------------+
-| id | ALLOCATION | MAPPED     | RESIDENT   | RETAINED    | METADATA   |
-+----+------------+------------+------------+-------------+------------+
-|  1 | 390977528  | 405291008  | 520167424  | 436813824   | 9933744    |
-+----+------------+------------+------------+-------------+------------+
+<div class="no-copy highlight"><pre><span></span><code>+------------+------------+------------+------------+-------------+------------+
+| ALLOCATED  | ACTIVE     | MAPPED     | RESIDENT   | RETAINED    | METADATA   |
++------------+------------+------------+------------+-------------+------------+
+| 390977528  | 391012352  | 405291008  | 520167424  | 436813824   | 9933744    |
++------------+------------+------------+------------+-------------+------------+
 1 row in set (0.00 sec)
 </code></pre></div>
 </details>
-<p>The <a href="#jemalloc-profiling-malloc_stats">malloc_stats</a> table returns the cumulative totals, in bytes, of several statistics per type of arena. The command takes no parameters and returns the results as a table.</p>
+<p>The <a href="#jemalloc-profiling-malloc_stats">malloc_stats</a> table provides cumulative totals, in bytes, of several statistics per allocation size type (small, large, and huge).</p>
 <p>The following example commands display this result:</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">;</span>
 </code></pre></div>
@@ -30785,7 +30823,7 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 </tr>
 <tr>
 <td>ACTIVE</td>
-<td>The total amount allocated by the application of active pages. A multiple of the page size and this value is greater than or equal to the stats.allocated value. The sum does not include allocator metadata pages and stats.arenas.&#60;i&#62;.pdirty or stats.arenas.&#60;i&#62;.pmuzzy.</td>
+<td>The total amount allocated by the application of active pages. A multiple of the page size and this value is greater than or equal to the stats.allocated value. The sum does not include allocator metadata pages and stats.arenas.[i].pdirty or stats.arenas.[i].pmuzzy.</td>
 </tr>
 <tr>
 <td>MAPPED</td>
@@ -30806,7 +30844,7 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 </tbody>
 </table>
 <h2 id="jemalloc-profiling-malloc_stats">malloc_stats<a class="headerlink" href="#jemalloc-profiling-malloc_stats" title="Permanent link">&para;</a></h2>
-<p>The cumulative number of allocations requested or allocations returned for a running instance.</p>
+<p>The cumulative statistics for allocations and deallocations for a running instance.</p>
 <table>
 <thead>
 <tr>
@@ -30852,7 +30890,7 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 <p>The environment variable <code>MALLOC_CONF</code> is set to <code>prof:true</code>.</p>
 </li>
 </ul>
-<p>The following options are:</p>
+<p>Properties:</p>
 <ul>
 <li>
 <p>Scope: Global</p>
@@ -30868,7 +30906,7 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 <p>Description: Enables jemalloc profiling. The variable requires <a href="#jemalloc-profiling-jemalloc_detected">jemalloc_detected</a>.</p>
 <ul>
 <li>
-<p>Command Line: –jemalloc_profiling[=(OFF|ON)]</p>
+<p>Command Line: &ndash;jemalloc_profiling[=(OFF|ON)]</p>
 </li>
 <li>
 <p>Config File: Yes</p>

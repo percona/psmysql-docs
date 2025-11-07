@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
     
     
       
@@ -2755,6 +2755,19 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Downloaded RPM packages
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="yum-download-rpm.html" class="md-nav__link md-nav__link--active">
         
   
@@ -2766,6 +2779,36 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-install-jemalloc" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to install jemalloc
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -7914,6 +7957,23 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-install-jemalloc" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to install jemalloc
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                     </div>
                   </div>
@@ -7984,7 +8044,7 @@ percona-server-test-debuginfo-8.4.6-6.1.el8.x86_64.rpm
 </details>
 </li>
 <li>
-<p>Install <code>jemalloc</code> with the following command, if needed:</p>
+<p>Install <code>jemalloc</code> with the following command, if needed. See <a href="#when-to-install-jemalloc">When to install jemalloc</a> for guidance:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://repo.percona.com/yum/release/8/RPMS/x86_64/jemalloc-3.6.0-1.el8.x86_64.rpm
 </code></pre></div>
 </li>
@@ -8003,6 +8063,44 @@ percona-server-test-debuginfo-8.4.6-6.1.el8.x86_64.rpm
 </div>
 </li>
 </ol>
+<h2 id="when-to-install-jemalloc">When to install jemalloc<a class="headerlink" href="#when-to-install-jemalloc" title="Permanent link">&para;</a></h2>
+<p><code>jemalloc</code> is an alternative memory allocator that can improve performance and reduce memory fragmentation in certain scenarios. Consider the following when deciding whether to install <code>jemalloc</code>:</p>
+<h3 id="install-jemalloc-when">Install jemalloc when:<a class="headerlink" href="#install-jemalloc-when" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>You have high-concurrency workloads with many threads</p>
+</li>
+<li>
+<p>You experience memory fragmentation issues that impact performance</p>
+</li>
+<li>
+<p>You run multi-threaded applications that perform frequent memory allocation and deallocation</p>
+</li>
+<li>
+<p>You want to use <a href="jemalloc-profiling.html">memory profiling features</a> to investigate memory-related issues.</p>
+</li>
+<li>
+<p>You observe performance degradation related to memory allocation in your current setup</p>
+</li>
+</ul>
+<h3 id="do-not-install-jemalloc-when">Do not install jemalloc when:<a class="headerlink" href="#do-not-install-jemalloc-when" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Your current memory allocator (typically glibc malloc) performs adequately for your workload</p>
+</li>
+<li>
+<p>You have single-threaded or low-concurrency workloads where jemalloc&rsquo;s benefits are minimal</p>
+</li>
+<li>
+<p>You encounter compatibility issues with jemalloc in your environment</p>
+</li>
+<li>
+<p>You need to debug memory issues that may be complicated by using an alternative allocator</p>
+</li>
+<li>
+<p>Your system is already optimized and stable with the default memory allocator</p>
+</li>
+</ul>
 
 
 
@@ -8025,7 +8123,7 @@ percona-server-test-debuginfo-8.4.6-6.1.el8.x86_64.rpm
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 19, 2024 10:17:30 UTC">December 19, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 5, 2025 10:44:05 UTC">November 5, 2025</span>
   </span>
 
     
