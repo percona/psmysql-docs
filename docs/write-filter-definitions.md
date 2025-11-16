@@ -365,7 +365,7 @@ SELECT audit_log_filter_set_filter('log_all', '{ "filter": { "log": true } }');
 To assign a filter to specific users, use the `audit_log_filter_set_user()` function. This function takes three parameters: username, userhost, and filtername.
 
 ```sql
-SELECT audit_log_filter_set_user('%', '%', 'log_all');
+SELECT audit_log_filter_set_user('%', 'log_all');
 ```
 
 ### Example: Financial tracking filter
