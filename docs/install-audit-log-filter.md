@@ -63,6 +63,10 @@ mysql> show tables in mysql like 'aud%';
 
 You can also install the component using the `INSTALL COMPONENT` command, but this method does not create the required tables and will cause filter operations to fail.
 
+```mysql
+INSTALL COMPONENT 'file://audit_log_filter'
+```
+
 ### Verify component installation
 
 Check that the component is properly installed:
