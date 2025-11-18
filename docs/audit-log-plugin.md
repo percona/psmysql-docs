@@ -843,7 +843,7 @@ Set the `audit_log_handler` to FILE to enable this variable.
 | -------------- | ------------------ |
 | Command Line:  | Yes                |
 | Scope:         | Global             |
-| Dynamic:       | No                 |
+| Dynamic:       | Yes                |
 | Data type      | Numeric            |
 | Default value   | 0                  |
 
