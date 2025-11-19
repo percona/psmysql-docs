@@ -684,7 +684,7 @@ This variable is used to specify the filename that’s going to store the audit 
 | Data type      | String             |
 | Default value   | OFF                |
 
-When this variable is set to `ON` log file will be closed and reopened. This can be used for manual log rotation.
+When this variable is set to `ON` log file will be closed and reopened.
 
 ### `audit_log_buffer_size`
 
