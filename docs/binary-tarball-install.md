@@ -12,7 +12,7 @@ Fetch and extract the correct binary tarball. For example, for Debian 10:
 $ wget https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.26-16/binary/tarball/Percona-Server-8.0.26-16-Linux.x86_64.glibc2.12.tar.gz
 ```
 
-## Install Percona Server for MySQL Pro from a binary tarball
+<!-- ## Install Percona Server for MySQL Pro from a binary tarball
 
 You can download the required binary tarball for Percona Server for MySQL Pro using your `CLIENTID` and `TOKEN` in the following link https://repo.percona.com/private/[CLIENTID]-[TOKEN]/ps-80-pro/tarballs/.
 
@@ -20,4 +20,4 @@ Fetch and extract the correct binary tarball using your `CLIENTID` and `TOKEN`. 
 
 ```{.bash data-prompt="$"}
 wget https://repo.percona.com/private/[CLIENTID]-[TOKEN]/ps-80-pro/tarballs/Percona-Server-{{pro_release}}/Percona-Server-Pro-{{pro_release}}-Linux.x86_64.glibc2.34-debug.tar.gz
-```
+``` -->

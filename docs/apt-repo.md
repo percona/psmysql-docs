@@ -25,6 +25,20 @@ Starting with [Percona Server 8.0.37-29](release-notes/8.0.37-29.md), the follow
 
 ## Install Percona Server for MySQL using APT
 
+Run the following commands as a `root` user or with sudo:
+
+```{.bash}
+sudo apt update
+sudo apt install curl
+curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+sudo apt install gnupg2 lsb-release ./percona-release_latest.generic_all.deb
+sudo apt update
+sudo percona-release setup ps80
+sudo apt install percona-server-server
+```
+
+The following sections provide detailed explanations for each step:
+
 1. This command line instruction uses the `apt` command to update the package lists for upgrades and new package installations.
 
 	*	`sudo` is a command that allows you to run programs with the security privileges of another user, by default, as the superuser. Updating the package lists typically requires superuser or 'root' privileges.
@@ -34,50 +48,50 @@ Starting with [Percona Server 8.0.37-29](release-notes/8.0.37-29.md), the follow
 	* `update` option resynchronizes the package index files from the sources specified in the system's `sources.list` file. You should run this command regularly to get the latest package updates.
 
 
-	```{.bash data-prompt="$"}
-	$ sudo apt update
+	```{.bash}
+	sudo apt update
 	```
 
 2. This command line instruction uses superuser privileges to install the `curl` package using the `apt` package manager. `curl` is a command-line tool used to transfer data using various network protocols.
 
-	```{.bash data-prompt="$"}
-	$ sudo apt install curl
+	```{.bash}
+	sudo apt install curl
 	```
 	
 3. This command line instruction uses `curl` to download the `percona-release_latest.generic_all.deb` file from the `https://repo.percona.com/apt` location.
 
 	The `-0` option saves the downloaded file with the same name used in the URL.
 
-	```{.bash data-prompt="$"}
-	$ curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+	```{.bash}
+	curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 	```
 
 4. The following command uses the `apt` command to install multiple packages. `gnupg2` is the GNU Privacy Guard that provides cryptographic privacy and authentication. `lsb-release` is a Linux utility that provides certain Linux Standard Base (LSB) and distribution-specific information. `./percona-release_latest.generic_all.deb` is a Debian package in the current directory. 
 
 
-	```{.bash data-prompt="$"}
-	$ sudo apt install gnupg2 lsb-release ./percona-release_latest.generic_all.deb
+	```{.bash}
+	sudo apt install gnupg2 lsb-release ./percona-release_latest.generic_all.deb
 	```
     
 
 5. The following command uses superuser privileges to update the package lists from the repositories so that the system knows about the latest versions of packages and their dependencies.
 
-	```{.bash data-prompt="$"}
-	$ sudo apt update
+	```{.bash}
+	sudo apt update
 	```
 
 6. This command line instruction uses `percona-release` command, a tool provided by Percona, to set up a specific Percona Server version. 
 
-	```{.bash data-prompt="$"}
-	$ sudo percona-release setup ps80
+	```{.bash}
+	sudo percona-release setup ps80
 	```
 
 7. You can check the repository setup for the Percona original release list in `/etc/apt/sources.list.d/percona-original-release.list`. The APT system uses this file to know where to find updates and new packages for Percona software.
 
 8. This command uses the `apt` command to install the `percona-server-server` package.
 
-	```{.bash data-prompt="$"}
-	$ sudo apt install percona-server-server
+	```{.bash}
+	sudo apt install percona-server-server
 	```
 
 See [Configuring Percona repositories with `percona-release`](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
@@ -99,8 +113,8 @@ mysql -e "CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME 'libmurmur_udf.so'"
 
 Percona offers pre-release builds from the testing repository. As a superuser, run `percona-release` with the `testing` argument to enable it.
 
-```{.bash data-prompt="$"}
-$ sudo percona-release enable ps80 testing
+```{.bash}
+sudo percona-release enable ps80 testing
 ```
 
 Do not run testing repository builds in production. The build may not contain all the features available in the final release and may change without notice.
