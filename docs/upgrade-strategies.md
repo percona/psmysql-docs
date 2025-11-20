@@ -38,3 +38,70 @@ The new environment strategy has the following pros and cons:
 * Allows upgrade of hardware easily.
 
 * Requires only a single cutover window.
+
+## 8.0 → {{vers}} migration methods
+
+Choose the approach that matches your downtime budget, risk tolerance, and rollback needs. Always rehearse in a non-production environment first.
+
+> **Note**: For a complete overview of supported upgrade paths and methods, see [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md).
+
+### In-place upgrade (stop/replace/start)
+
+Downtime: short to moderate
+
+Risk: higher (shared data directory; fewer rollback options)
+
+Use when: the environment is simple, downtime is acceptable, and you have strong backups and validation.
+
+Prerequisites:
+
+* Complete [Upgrade checklist](./upgrade-checklist-8.4.md) pre-upgrade checks
+* Set `innodb_fast_shutdown=0` for a clean shutdown
+* Verified backup and restore
+
+Rollback: restore backup and revert binaries.
+
+### Logical dump and restore (clean rebuild)
+
+Downtime: moderate to high (data size dependent)
+
+Risk: moderate (clean metadata; slower for large datasets)
+
+Use when: you want a pristine {{vers}} instance and can accept longer downtime.
+
+Prerequisites:
+
+* Sufficient capacity for parallel dump/restore
+* Application maintenance window sized to data volume
+
+Rollback: keep 8.0 online until validation completes; redirect traffic back if needed.
+
+### Side-by-side with replication and controlled cutover
+
+Downtime: minimal (cutover only)
+
+Risk: lower (new environment; defined fallback until fail-forward)
+
+Use when: you need the smallest outage and can provision a parallel environment.
+
+Prerequisites:
+
+* Build a new {{vers}} environment; establish replication from 8.0
+* Validate workload on the replica(s) and rehearse failover
+
+Cutover: stop writes on 8.0, allow replica to catch up, redirect traffic (VIP/DNS), then promote {{vers}}.
+
+Rollback: if issues arise before fail-forward, redirect traffic back to 8.0 and resume writes.
+
+## Further reading
+
+* [Upgrade overview](./upgrade.md)
+* [Upgrade checklist for {{vers}}](./upgrade-checklist-8.4.md)
+* [Upgrade procedures for {{vers}}](./upgrade-procedures.md)
+* [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md)
+* [Upgrade from plugins to components](./upgrade-components.md)
+* [Downgrade options](./downgrade.md)
+* [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md)
+* [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md)
+* [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
+* [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md)

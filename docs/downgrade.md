@@ -33,7 +33,7 @@ Between an LTS or Bugfix series to an earlier Innovation series (after the previ
     This downgrade path is only supported when no new server functionality has been applied to your data.
 
 We don't support downgrades with any 8.0.x release below 8.0.34.
-A releases in the range above 8.0.34 can be downgraded to any release within that range, including 8.0.34.
+Releases in the range above 8.0.34 can be downgraded to any release within that range, including 8.0.34.
 
 ## Downgrading risks
 
@@ -45,3 +45,16 @@ Downgrading has the following risks:
 | Incompatibility | If you use any feature or improvement in the latest version, downgrading could result in incompatibility issues. |
 | Performance | Downgrading may result in a loss of performance |
 | Security | Newer versions have security updates that are not available in the older versions, which could lead to exposure. |
+
+## Further reading
+
+* [Upgrade overview](./upgrade.md)
+* [Upgrade checklist for {{vers}}](./upgrade-checklist-8.4.md)
+* [Upgrade procedures for {{vers}}](./upgrade-procedures.md)
+* [Upgrade strategies](./upgrade-strategies.md)
+* [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md)
+* [Upgrade from plugins to components](./upgrade-components.md)
+* [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md)
+* [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md)
+* [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
+* [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md)
