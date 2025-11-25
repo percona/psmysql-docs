@@ -11973,11 +11973,22 @@ variable has the same meaning as the appropriate parameter described in the
 <td>Default value</td>
 <td>LOG_INFO</td>
 </tr>
+<tr>
+<td>Allowed values</td>
+<td><code>LOG_EMERG</code>, <code>LOG_ALERT</code>, <code>LOG_CRIT</code>, <code>LOG_ERR</code>, <code>LOG_WARNING</code>, <code>LOG_NOTICE</code>, <code>LOG_INFO</code>, <code>LOG_DEBUG</code></td>
+</tr>
 </tbody>
 </table>
-<p>This variable is used to specify the <code>priority</code> value for syslog. This
-variable has the same meaning as the appropriate parameter described in the
-<a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
+<p>This variable is used to specify the severity level for syslog. The
+<code>audit_log_syslog_priority</code> variable does not include the facility; it only
+selects the severity level (<code>LOG_EMERG</code> … <code>LOG_DEBUG</code>).</p>
+<p>The full syslog priority that <code>syslog()</code> receives is built internally by OR-ing
+the configured facility (<code>audit_log_syslog_facility</code>) with this level.</p>
+<p>The default <code>LOG_INFO</code> means &ldquo;ordinary informational messages&rdquo;; you can raise or
+lower the level as needed, while the facility stays at its default unless you
+change it explicitly.</p>
+<p>For more details about syslog priority levels, see the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3)
+manual</a>.</p>
 <h2 id="status-variables">Status Variables<a class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
 <h3 id="audit_log_buffer_size_overflow"><code>Audit_log_buffer_size_overflow</code><a class="headerlink" href="#audit_log_buffer_size_overflow" title="Permanent link">&para;</a></h3>
 <table>
@@ -12023,7 +12034,7 @@ than audit_log_buffer_size variable.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 19, 2025 13:01:28 UTC">November 19, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 25, 2025 12:08:03 UTC">November 25, 2025</span>
   </span>
 
     
