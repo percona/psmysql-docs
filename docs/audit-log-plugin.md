@@ -904,10 +904,21 @@ variable has the same meaning as the appropriate parameter described in the
 | Dynamic:       | No                 |
 | Data type      | String             |
 | Default value   | LOG_INFO           |
+| Allowed values | `LOG_EMERG`, `LOG_ALERT`, `LOG_CRIT`, `LOG_ERR`, `LOG_WARNING`, `LOG_NOTICE`, `LOG_INFO`, `LOG_DEBUG` |
 
-This variable is used to specify the `priority` value for syslog. This
-variable has the same meaning as the appropriate parameter described in the
-[syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+This variable is used to specify the severity level for syslog. The
+`audit_log_syslog_priority` variable does not include the facility; it only
+selects the severity level (`LOG_EMERG` … `LOG_DEBUG`).
+
+The full syslog priority that `syslog()` receives is built internally by OR-ing
+the configured facility (`audit_log_syslog_facility`) with this level.
+
+The default `LOG_INFO` means "ordinary informational messages"; you can raise or
+lower the level as needed, while the facility stays at its default unless you
+change it explicitly.
+
+For more details about syslog priority levels, see the [syslog(3)
+manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ## Status Variables
 
