@@ -14,10 +14,12 @@ Starting with Percona Server 8.0.33-25, the RPM builds for *RHEL* 8 and *RHEL* 9
 
 The following example downloads *Percona Server for MySQL* {{release}} release packages for *RHEL* 8.
 
-1. Using [`Wget`](https://www.gnu.org/software/wget/), the following command downloads a specific version of Percona Server for MySQL on Red Hat Enterprise Linux 8 from the Percona website. 
+1. Using [`Wget`](https://www.gnu.org/software/wget/), the following command downloads a specific version of Percona Server for MySQL on Red Hat Enterprise Linux 8 from the Percona website.
+
+    The download filename includes a `<revision-identifier>` value. This value is *build-specific* and must be obtained from the [Percona Product Downloads](https://www.percona.com/downloads) page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required `<revision identifier>` under the **Download all packages** button. For more details, see the [Instructions for Percona Product Downloads](download-instructions.md).
 
 	```{.bash data-prompt="$"}
-	$ wget https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-{{release}}/binary/redhat/8/x86_64/Percona-Server-{{release}}-re5c6e9d2-el8-x86_64-bundle.tar
+	$ wget https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-{{release}}/binary/redhat/8/x86_64/Percona-Server-{{release}}-<revision identifier>-el8-x86_64-bundle.tar
 	```
 
 2. The following command extracts the contents of Percona Server for MySQL tarball. The `tar` command uses these options for the extraction:
@@ -29,7 +31,7 @@ The following example downloads *Percona Server for MySQL* {{release}} release p
     * `f` - name of the archive file
 
     ```{.bash data-prompt="$"}
-    $ tar xvf Percona-Server-{{release}}-re5c6e9d2-el8-x86_64-bundle.tar
+    $ tar xvf Percona-Server-{{release}}-<revision identifier>-el8-x86_64-bundle.tar
     ```
 
 3. The following command uses the `ls` utility to list the RPM files in the current directory. The command uses the `*.rpm` pattern. The `*` is a wildcard that matches any number of characters. The `.rpm` specifies that we only want the files that end in this extension.
