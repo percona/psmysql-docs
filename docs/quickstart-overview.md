@@ -16,7 +16,8 @@ You can also do the following:
 
 * [Download and install Percona Server for MySQL packages for your operating system](installation.md)
 
-* Work with [the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Helm] or [the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Minikube] to find out more about the Percona Operator.
+* Work with [the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Helm :octicons-link-external-16:](https://docs.percona.com/percona-operator-for-mysql/ps/helm.html) or [the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Minikube :octicons-link-external-16:](https://docs.percona.com/percona-operator-for-mysql/ps/minikube.html
+) to find out more about the Percona Operator.
 
 
 ## Steps for first-time users
@@ -34,8 +35,4 @@ The following guides walk you through the setup process and working with a datab
 [Install using DNF:material-arrow-right:](quickstart-dnf.md){.md-button}
 
 [Choose your next steps:material-arrow-right:](quickstart-next-steps.md){.md-button}
-
-  
-[the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Helm]: https://docs.percona.com/percona-operator-for-mysql/ps/helm.html
-
-[the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Minikube]: https://docs.percona.com/percona-operator-for-mysql/ps/minikube.html
+ 

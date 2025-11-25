@@ -22,9 +22,9 @@ Not upgrading your database can have the following risks:
 
 Review [Get more help](get-help.md) for ways that we can work with you.
 
-Create a test environment to verify the upgrade before you upgrade the production servers. The test environment is crucial to the success of the upgrade. There is no supported [downgrade procedure](./downgrade.md). You can try to [replicate from an 8.0 version to 5.7](https://www.percona.com/blog/replicating-mysql-8-0-mysql-5-7/) or restore a backup.
+Create a test environment to verify the upgrade before you upgrade the production servers. The test environment is crucial to the success of the upgrade. There is no supported [downgrade procedure](./downgrade.md). You can try to [replicate from an 8.0 version to 5.7 :octicons-link-external-16:](https://www.percona.com/blog/replicating-mysql-8-0-mysql-5-7/) or restore a backup.
 
-[Several tools](./upgrade-pt.md) in the [Percona Toolkit](https://docs.percona.com/percona-toolkit/) can help with the upgrade process.
+[Several tools](./upgrade-pt.md) in the [Percona Toolkit :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/) can help with the upgrade process.
 
 We recommend upgrading to the latest version. The following topics describe the major changes from 5.7 to 8.0:
 
@@ -40,27 +40,27 @@ Review [Upgrade Strategies](./upgrade-strategies.md) for an overview of the majo
 
 The following list summarizes a number of the changes in the 8.0 series and has useful guides that can help you perform a smooth upgrade. We strongly recommend reading this information:
 
-* [Upgrading MySQL](https://dev.mysql.com/doc/refman/8.0/en/upgrading.html)
+* [Upgrading MySQL :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/upgrading.html)
 
-* [Before You Begin](https://dev.mysql.com/doc/refman/8.0/en/upgrade-before-you-begin.html)
+* [Before You Begin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/upgrade-before-you-begin.html)
 
-* [Upgrade Paths](https://dev.mysql.com/doc/refman/8.0/en/upgrade-paths.html)
+* [Upgrade Paths :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/upgrade-paths.html)
 
-* [Changes in MySQL 8.0](https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html)
+* [Changes in MySQL 8.0 :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html)
 
-* [Preparing your Installation for Upgrade](https://dev.mysql.com/doc/refman/8.0/en/upgrade-prerequisites.html)
+* [Preparing your Installation for Upgrade :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/upgrade-prerequisites.html)
 
-* [MySQL 8 Minor Version Upgrades Are ONE-WAY Only](https://www.percona.com/blog/2020/01/10/mysql-8-minor-version-upgrades-are-one-way-only/)
+* [MySQL 8 Minor Version Upgrades Are ONE-WAY Only :octicons-link-external-16:](https://www.percona.com/blog/2020/01/10/mysql-8-minor-version-upgrades-are-one-way-only/)
 
-* [Percona Utilities That Make Major MySQL Version Upgrades Easier](https://www.percona.com/blog/percona-utilities-that-make-major-mysql-version-upgrades-easier/)
+* [Percona Utilities That Make Major MySQL Version Upgrades Easier :octicons-link-external-16:](https://www.percona.com/blog/percona-utilities-that-make-major-mysql-version-upgrades-easier/)
 
-* [Percona Server for MySQL 8.0 Release notes](https://docs.percona.com/percona-server/latest/release-notes/release-notes_index.html)
+* [Percona Server for MySQL 8.0 Release notes :octicons-link-external-16:](https://docs.percona.com/percona-server/latest/release-notes/release-notes_index.html)
 
-* [Upgrade Troubleshooting](https://dev.mysql.com/doc/refman/8.0/en/upgrade-troubleshooting.html)
+* [Upgrade Troubleshooting :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/upgrade-troubleshooting.html)
 
-* [Rebuilding or Repairing Tables or Indexes](https://dev.mysql.com/doc/refman/8.0/en/rebuilding-tables.html)
+* [Rebuilding or Repairing Tables or Indexes :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/rebuilding-tables.html)
 
-Review other [Percona blogs](https://www.percona.com/blog/) that contain upgrade information.
+Review other [Percona blogs :octicons-link-external-16:](https://www.percona.com/blog/) that contain upgrade information.
 
 Implemented in Percona Server for MySQL 8.0.15-5, *Percona Server for MySQL* uses the upstream implementation of binary log file encryption and relay log file encryption.
 

@@ -3,7 +3,7 @@
 Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. For more information, see the [TokuDB Introduction](tokudb-intro.md) and [TokuDB version changes](tokudb-version-changes.md). 
 
     
-*TokuDB* is integrated with [Performance Schema](https://dev.mysql.com/doc/refman/8.0/en/innodb-performance-schema.html)
+*TokuDB* is integrated with [Performance Schema :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/innodb-performance-schema.html)
 
 This integration can be used for profiling additional *TokuDB* operations.
 

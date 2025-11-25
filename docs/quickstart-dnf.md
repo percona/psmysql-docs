@@ -438,7 +438,7 @@ MySQL startup:
 
 * Disable unused accounts and databases: Remove unnecessary elements.
 
-* Monitor Server Activity: Employ tools, like [Percona Monitoring and Management], and logs to monitor server activity for suspicious behavior.
+* Monitor Server Activity: Employ tools, like [Percona Monitoring and Management :octicons-link-external-16:](https://docs.percona.com/percona-monitoring-and-management/3/), and logs to monitor server activity for suspicious behavior.
 
 * Backup data regularly: Ensure robust backups for disaster recovery.
 
@@ -545,6 +545,4 @@ $ sudo mysql_secure_installation
 [Choose your next steps:material-arrow-right:](quickstart-next-steps.md){.md-button}
 
 
-
-[Percona Monitoring and Management]: https://docs.percona.com/percona-monitoring-and-management/3/
 [Percona repositories]: percona-release.md

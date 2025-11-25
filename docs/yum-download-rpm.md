@@ -4,7 +4,7 @@ You should be aware that when you install packages manually, you must resolve an
 
 Package managers, like `APT` or `DNF` install the dependencies for you.
 
-Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
+Download the packages from [Percona Product Downloads :octicons-link-external-16:](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
 
 ## Version changes
 
@@ -14,9 +14,9 @@ Starting with Percona Server 8.0.33-25, the RPM builds for *RHEL* 8 and *RHEL* 9
 
 The following example downloads *Percona Server for MySQL* {{release}} release packages for *RHEL* 8.
 
-1. Using [`Wget`](https://www.gnu.org/software/wget/), the following command downloads a specific version of Percona Server for MySQL on Red Hat Enterprise Linux 8 from the Percona website.
+1. Using [`Wget` :octicons-link-external-16:](https://www.gnu.org/software/wget/), the following command downloads a specific version of Percona Server for MySQL on Red Hat Enterprise Linux 8 from the Percona website.
 
-    The download filename includes a `<revision-identifier>` value. This value is *build-specific* and must be obtained from the [Percona Product Downloads](https://www.percona.com/downloads) page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required `<revision identifier>` under the **Download all packages** button. For more details, see the [Instructions for Percona Product Downloads](download-instructions.md).
+    The download filename includes a `<revision-identifier>` value. This value is *build-specific* and must be obtained from the [Percona Product Downloads :octicons-link-external-16:](https://www.percona.com/downloads) page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required `<revision identifier>` under the **Download all packages** button. For more details, see the [Instructions for Percona Product Downloads :octicons-link-external-16:](download-instructions.md).
 
 	```{.bash data-prompt="$"}
 	$ wget https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-{{release}}/binary/redhat/8/x86_64/Percona-Server-{{release}}-<revision identifier>-el8-x86_64-bundle.tar

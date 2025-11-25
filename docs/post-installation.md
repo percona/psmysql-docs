@@ -16,7 +16,7 @@ Depending on the type of installation, you may need to do the following tasks:
 
 If you install the server using either the source distribution or generic binary distribution files, the data directory is not initialized, and you must run the initialization process after installation.
 
-Run mysqld with the [–initialize](https://dev.mysql.com/doc/refman/8.0/en/server-options.html#option_mysqld_initialize) option or the [initialize-insecure](https://dev.mysql.com/doc/refman/8.0/en/server-options.html#option_mysqld_initialize-insecure) option.
+Run mysqld with the [–initialize :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/server-options.html#option_mysqld_initialize) option or the [initialize-insecure :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/server-options.html#option_mysqld_initialize-insecure) option.
 
 Executing `mysqld` with either option does the following:
 
@@ -42,7 +42,7 @@ You should run the following steps with the `mysql` login.
 	```
 
 
-1. Create a directory for the MySQL files. The [secure_file_priv](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_secure_file_priv) uses the directory path as a value.
+1. Create a directory for the MySQL files. The [secure_file_priv :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_secure_file_priv) uses the directory path as a value.
 	
 	```{.bash data-prompt="$"}
 	$ mkdir mydata
@@ -72,9 +72,9 @@ You should run the following steps with the `mysql` login.
 
 After you have initialized the data directory, and the server is started, you can run tests on the server.
 
-This section assumes you have used the default installation settings. If you have modified the installation, navigate to the installation location. You can also add the location by [Setting the Environment Variables](https://dev.mysql.com/doc/refman/8.0/en/setting-environment-variables.html).
+This section assumes you have used the default installation settings. If you have modified the installation, navigate to the installation location. You can also add the location by [Setting the Environment Variables :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/setting-environment-variables.html).
 
-You can use the [mysqladmin](https://dev.mysql.com/doc/refman/8.0/en/mysqladmin.html) client to access the server.
+You can use the [mysqladmin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/mysqladmin.html) client to access the server.
 
 If you have issues connecting to the server, use the `root` user and the root account password.
 
@@ -98,7 +98,7 @@ $ sudo mysqladmin -u root -p version
     Open tables: 59  Queries per second avg: 0.0000
     ```
 
-Use [mysqlshow](https://dev.mysql.com/doc/refman/8.0/en/mysqlshow.html) to display database and table information.
+Use [mysqlshow :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/mysqlshow.html) to display database and table information.
 
 ```{.bash data-prompt="$"}
 $ sudo mysqlshow -u root -p
@@ -193,7 +193,7 @@ $ mysql -u root -p
 
 ### Secure the server
 
-The [mysql_secure_installation](https://dev.mysql.com/doc/refman/8.0/en/mysql-secure-installation.html)
+The [mysql_secure_installation :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/mysql-secure-installation.html)
 script improves the security of the instance.
 
 The script does the following:
@@ -243,12 +243,12 @@ If you install the server using either the source distribution or the
 generic binary distribution files, the installation creates the time zone
 tables, but the tables are not populated.
 
-The [mysql_tzinfo_to_sql](https://dev.mysql.com/doc/refman/8.0/en/mysql-tzinfo-to-sql.html) program
+The [mysql_tzinfo_to_sql :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/mysql-tzinfo-to-sql.html) program
 populates the tables from the `zoneinfo` directory data available in Linux.
 
 A common method to populate the tables is to add the zoneinfo directory path
 to `mysql_tzinfo_to_sql` and then send the output into
-the [mysql system schema](https://dev.mysql.com/doc/refman/8.0/en/system-schema.html).
+the [mysql system schema :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/system-schema.html).
 
 The example assumes you are running the command with the `root` account.
 The account must have the privileges for modifying the `mysql`

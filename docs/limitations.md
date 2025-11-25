@@ -2,7 +2,7 @@
 
 ## Online DDL limitations
 
-MyRocks has limited support for [Online DDL operations](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-online-ddl.html) due to the lack of [atomic DDL](./glossary.md#atomic-ddl-data-definition-language). As a result the schema changes are more restricted compared to InnoDB.
+MyRocks has limited support for [Online DDL operations :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-online-ddl.html) due to the lack of [atomic DDL](./glossary.md#atomic-ddl-data-definition-language). As a result the schema changes are more restricted compared to InnoDB.
 
 ### Traditional MyRocks DDL behavior
 
@@ -58,29 +58,29 @@ If either condition is missing:
 
 ## Unsupported InnoDB features in MyRocks
 
-* [ALTER TABLE .. EXCHANGE PARTITION](https://dev.mysql.com/doc/refman/8.0/en/partitioning-management-exchange.html).
+* [ALTER TABLE .. EXCHANGE PARTITION :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/partitioning-management-exchange.html).
 
-* [SAVEPOINT](https://dev.mysql.com/doc/refman/8.0/en/savepoint.html)
+* [SAVEPOINT :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/savepoint.html)
 
-* [Transportable tablespace](https://dev.mysql.com/doc/refman/8.0/en/innodb-table-import.html)
+* [Transportable tablespace :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/innodb-table-import.html)
 
-* [Foreign keys](https://dev.mysql.com/doc/refman/8.0/en/create-table-foreign-keys.html)
+* [Foreign keys :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/create-table-foreign-keys.html)
 
-* [Spatial indexes](https://dev.mysql.com/doc/refman/8.0/en/using-spatial-indexes.html)
+* [Spatial indexes :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/using-spatial-indexes.html)
 
-* [Fulltext indexes](https://dev.mysql.com/doc/refman/8.0/en/innodb-fulltext-index.html)
+* [Fulltext indexes :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/innodb-fulltext-index.html)
 
-* [Gap locks](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-gap-locks)
+* [Gap locks :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-gap-locks)
 
-* [Group Replication](https://dev.mysql.com/doc/refman/8.0/en/group-replication.html)
+* [Group Replication :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/group-replication.html)
 
-* [Partial Update of LOB in InnoDB](https://dev.mysql.com/blog-archive/mysql-8-0-optimizing-small-partial-update-of-lob-in-innodb/)
+* [Partial Update of LOB in InnoDB :octicons-link-external-16:](https://dev.mysql.com/blog-archive/mysql-8-0-optimizing-small-partial-update-of-lob-in-innodb/)
 
 You should also consider the following:
 
 * All collations are supported on ``CHAR`` and ``VARCHAR`` indexed columns. By default, MyRocks prevents creating indexes with non-binary collations (including `latin1`). You can optionally use it by setting [rocksdb_strict_collation_exceptions](variables.md#rocksdb_strict_collation_exceptions) to `t1` (table names with regex format), but non-binary covering indexes other than `latin1` (excluding `german1`) still require a primary key lookup to return the `CHAR` or `VARCHAR` column.
 
-* Either `ORDER BY DESC` or `ORDER BY ASC` is slow. This is because of “Prefix Key Encoding” feature in RocksDB. See [https://www.slideshare.net/matsunobu/myrocks-deep-dive/58](https://www.slideshare.net/matsunobu/myrocks-deep-dive/58) for details. By default, ascending scan is faster and descending scan is slower. If the “reverse column family” is configured, then descending scan will be faster and ascending scan will be slower. Note that InnoDB also imposes a cost when the index is scanned in the opposite order.
+* Either `ORDER BY DESC` or `ORDER BY ASC` is slow. This is because of “Prefix Key Encoding” feature in RocksDB. See [https://www.slideshare.net/matsunobu/myrocks-deep-dive/58 :octicons-link-external-16:](https://www.slideshare.net/matsunobu/myrocks-deep-dive/58) for details. By default, ascending scan is faster and descending scan is slower. If the “reverse column family” is configured, then descending scan will be faster and ascending scan will be slower. Note that InnoDB also imposes a cost when the index is scanned in the opposite order.
 
 * When converting from large MyISAM/InnoDB tables, either by using the `ALTER` or `INSERT INTO SELECT` statements it’s recommended that you check the [Data loading](data-loading.md#myrocks-data-loading) documentation and create MyRocks tables as below (in case the table is sufficiently big it will cause the server to consume all the memory and then be terminated by the OOM killer):
 
@@ -106,7 +106,7 @@ You should also consider the following:
 
     !!! admonition "See also"
 
-        [MySQL Documentation: Preparing Your Installation for Upgrade](https://dev.mysql.com/doc/refman/8.0/en/upgrade-prerequisites.html)
+        [MySQL Documentation: Preparing Your Installation for Upgrade :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/upgrade-prerequisites.html)
 
 * **Percona Server for MySQL** 8.0 and Unicode 9.0.0 standards have defined a change in the handling of binary collations. These collations are handled as NO PAD, trailing spaces are included in key comparisons. A binary collation comparison may result in two unique rows inserted and does not generate a\`DUP_ENTRY\` error. MyRocks key encoding and comparison does not account for this character set attribute.
 
@@ -114,13 +114,13 @@ You should also consider the following:
 
 MyRocks does not support the following:
 
-* Operating as either a source or a replica in any replication topology that is not exclusively row-based. Statement-based and mixed-format binary logging is not supported. For more information, see [Replication Formats](https://dev.mysql.com/doc/refman/8.0/en/replication-formats.html).
+* Operating as either a source or a replica in any replication topology that is not exclusively row-based. Statement-based and mixed-format binary logging is not supported. For more information, see [Replication Formats :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/replication-formats.html).
 
-* Using [multi-valued indexes](https://dev.mysql.com/doc/refman/8.0/en/create-index.html#create-index-multi-valued). Implemented in **Percona Server for MySQL** 8.0.17, InnoDB supports this feature.
+* Using [multi-valued indexes :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/create-index.html#create-index-multi-valued). Implemented in **Percona Server for MySQL** 8.0.17, InnoDB supports this feature.
 
-* Using [spatial data types](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) .
+* Using [spatial data types :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) .
 
-* Using the [Clone Plugin](https://dev.mysql.com/doc/refman/8.0/en/clone-plugin.html) and the Clone Plugin API.  As of **Percona Server for MySQL** 8.0.17, InnoDB supports either these features.
+* Using the [Clone Plugin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/clone-plugin.html) and the Clone Plugin API.  As of **Percona Server for MySQL** 8.0.17, InnoDB supports either these features.
 
 * Using encryption in tables. At this time, during an `ALTER TABLE` operation, MyRocks mistakenly detects all InnoDB tables as encrypted. Therefore, any attempt to `ALTER` an InnoDB table to MyRocks fails.
 
@@ -134,5 +134,5 @@ MyRocks does not support the following:
 
     !!! note
 
-        With MyRocks and with large tables, it is recommended to set the session variable `rocksdb_bulk_load=1` during the load to prevent running out of memory. This recommendation is because of the MyRocks large transaction limitation. For more information, see [MyRocks Data Loading](https://docs.percona.com/percona-server/8.0/myrocks/data-loading.html)
+        With MyRocks and with large tables, it is recommended to set the session variable `rocksdb_bulk_load=1` during the load to prevent running out of memory. This recommendation is because of the MyRocks large transaction limitation. For more information, see [MyRocks Data Loading :octicons-link-external-16:](https://docs.percona.com/percona-server/8.0/myrocks/data-loading.html)
 

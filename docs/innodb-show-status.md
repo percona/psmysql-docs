@@ -13,7 +13,7 @@ This feature modified the `SHOW ENGINE INNODB STATUS` command as follows:
 
 ## Other information
 
-* Author / Origin: Baron Schwartz, [https://lists.mysql.com/internals/35174](https://lists.mysql.com/internals/35174)
+* Author / Origin: Baron Schwartz, [https://lists.mysql.com/internals/35174 :octicons-link-external-16:](https://lists.mysql.com/internals/35174)
 
 ## System variables
 
@@ -364,7 +364,7 @@ buffer pool.
 | Data type | Numeric     |
 
 This variable shows the total number of buffer pool pages which are considered
-to be old according to the [Making the Buffer Pool Scan Resistant manual page](https://dev.mysql.com/doc/refman/8.0/en/innodb-performance-midpoint_insertion.html).
+to be old according to the [Making the Buffer Pool Scan Resistant manual page :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/innodb-performance-midpoint_insertion.html).
 
 ### TRANSACTIONS
 
@@ -467,6 +467,6 @@ InnoDB/XtraDB hash tables.
 
 ## Other reading
 
-* [SHOW INNODB STATUS walk through](https://www.percona.com/blog/show-innodb-status-walk-through/)
+* [SHOW INNODB STATUS walk through :octicons-link-external-16:](https://www.percona.com/blog/show-innodb-status-walk-through/)
 
-* [Table locks in SHOW INNODB STATUS](https://www.percona.com/blog/table-locks-in-show-innodb-status/)
+* [Table locks in SHOW INNODB STATUS :octicons-link-external-16:](https://www.percona.com/blog/table-locks-in-show-innodb-status/)

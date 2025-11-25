@@ -3,11 +3,11 @@
 As of Percona Server for MySQL 8.0.30-22, the `Amazon Key Management Service (AWS KMS)` feature is [Generally Available (GA)](glossary.md#general-availability-ga). 
 
 **Percona Server for MySQL** 8.0.28-20 adds support for the [Amazon Key
-Management Service (AWS KMS)](https://aws.amazon.com/kms/). Percona Server
+Management Service (AWS KMS) :octicons-link-external-16:](https://aws.amazon.com/kms/). Percona Server
 generates the keyring keys. Amazon Web Services (AWS) encrypts the keyring data.
 
 The AWS KMS lets you create and manage cryptographic keys across AWS services. For more information, see the
-[AWS Key Management Service Documentation](https://docs.aws.amazon.com/kms/).
+[AWS Key Management Service Documentation :octicons-link-external-16:](https://docs.aws.amazon.com/kms/).
 
 To use the AWS KMS component, do the following:
 
@@ -21,7 +21,7 @@ either by its ID, alias (the key can have any number of aliases), or ARN.
 You should only load the AWS KMS component with a manifest file. The server uses
 this manifest file, and the component consults its configuration file during initialization.
 
-For more information, see [Installing and Uninstalling Components](https://dev.mysql.com/doc/refman/8.0/en/component-loading.html)
+For more information, see [Installing and Uninstalling Components :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/component-loading.html)
 
 You should create a global manifest file named `mysqld.my` in the installation directory and, optionally, create a local manifest file, also named `mysqld.my` in a data directory.
 
@@ -88,7 +88,7 @@ following:
 
     * ARN
 
-For more information, see [Finding the key ID and key ARN](https://docs.aws.amazon.com/kms/latest/developerguide/find-cmk-id-arn.html).
+For more information, see [Finding the key ID and key ARN :octicons-link-external-16:](https://docs.aws.amazon.com/kms/latest/developerguide/find-cmk-id-arn.html).
 
 * region - the AWS where the KMS is stored. Any HTTP request connects to this region.
 
@@ -113,4 +113,4 @@ The following **JSON** is an example of a configuration file:
 }
 ```
 
-For more information, see [Keyring Component installation](https://dev.mysql.com/doc/refman/8.0/en/keyring-component-installation.html)
+For more information, see [Keyring Component installation :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/keyring-component-installation.html)

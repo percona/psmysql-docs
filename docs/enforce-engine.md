@@ -37,7 +37,7 @@ This variable is not case-sensitive.
 
 When `enforce_storage_engine` is set, the server enforces specfic rules for table creation.
 
-If [`NO_ENGINE_SUBSTITUTION`](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sqlmode_no_engine_substitution) SQL mode is enabled.
+If [`NO_ENGINE_SUBSTITUTION` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sqlmode_no_engine_substitution) SQL mode is enabled.
 
 The server enforces strict storage engine rules during table creation. If you specify a storage engine that differs from the enforced engine, the server will do the following:
 
@@ -45,7 +45,7 @@ The server enforces strict storage engine rules during table creation. If you sp
 
 * Does not create a table
 
-If [`NO_ENGINE_SUBSTITUTION`](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sqlmode_no_engine_substitution) SQL mode is disabled.
+If [`NO_ENGINE_SUBSTITUTION` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sqlmode_no_engine_substitution) SQL mode is disabled.
 
 When you specify a storage engine that differs from the enforced engine, the server does the following:
 
