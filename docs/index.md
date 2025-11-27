@@ -32,11 +32,11 @@ Find the best installation solution with our step-by-step installation instructi
 
 </div><div data-banner markdown>
 
-### :material-backup-restore: Percona Server for MySQL Pro { .title }
+### :material-arrow-up: Upgrade instructions { .title }
 
-Enjoy the benefits of Percona Server for MySQL Pro build.
+Upgrade your Percona Server for MySQL installation with our comprehensive upgrade guides.
 
-[Percona Server for MySQL Pro](psmysql-pro.md){ .md-button }
+[Upgrade instructions](upgrade.md){ .md-button }
 
 </div><div data-banner markdown>
 

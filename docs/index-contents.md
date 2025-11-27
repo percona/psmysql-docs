@@ -36,7 +36,7 @@
   - [Differences between Percona MyRocks and Facebook MyRocks](differences.md)
   - [Disable Audit Log Filter logging](disable-audit-log-filter.md)
   - [Docker environment variables](docker-config.md)
-  - [Downgrade from Percona Server for MySQL Pro](downgrade-from-pro.md)
+  <!-- - [Downgrade from Percona Server for MySQL Pro](downgrade-from-pro.md) -->
   - [Downgrade Percona Server for MySQL](downgrade.md)
   - [Encrypt Binary Log Files and Relay Log Files](encrypting-binlogs.md)
   - [Encrypt doublewrite buffers](encrypting-doublewrite-buffers.md)
@@ -56,7 +56,7 @@
   - [Extended SHOW GRANTS](extended-show-grants.md)
   - [Fast updates with TokuDB](fast-updates.md)
   - [FIDO authentication plugin](fido-authentication-plugin.md)
-  - [Files in packages built for Percona Server for MySQL Pro](pro-files.md)
+  <!-- - [Files in packages built for Percona Server for MySQL Pro](pro-files.md) -->
   - [Files in the DEB package built for Percona Server for MySQL 8.0](apt-files.md)
   - [Files in the RPM package built for Percona Server for MySQL 8.0](yum-files.md)
   - [Filter the Audit Log Filter logs](filter-audit-log-filter-files.md)
@@ -83,7 +83,7 @@
   - [Install Percona Server for MySQL 8.0 from a binary tarball](binary-tarball-install.md)
   - [Install Percona Server for MySQL 8.0 using downloaded DEB packages](apt-download-deb.md)
   - [Install Percona Server for MySQL from a source tarball](source-tarball.md)
-  - [Install Percona Server for MySQL Pro](install-pro.md)
+  <!-- - [Install Percona Server for MySQL Pro](install-pro.md) -->
   - [Install Percona Server for MySQL using downloaded RPM packages](yum-download-rpm.md)
   - [Install the Audit Log Filter](install-audit-log-filter.md)
   - [Install the data masking component](install-data-masking-component.md)
@@ -119,7 +119,7 @@
   - [Percona Server for MySQL 8.0 - Documentation](index.md)
   - [Percona Server for MySQL feature comparison](feature-comparison.md)
   - [Percona Server for MySQL in-place upgrade guide: from 5.7 to 8.0](in-place-upgrade-guide.md)
-  - [Percona Server for MySQL Pro](psmysql-pro.md)
+  <!-- - [Percona Server for MySQL Pro](psmysql-pro.md) -->
   - [Percona TokuBackup](toku-backup.md)
   - [Percona Toolkit UDFs](udf-percona-toolkit.md)
   - [Percona Tools that can help with an upgrade](upgrade-pt.md)
@@ -178,7 +178,7 @@
   - [Upgrade from 5.7 to 8.0 overview](upgrade.md)
   - [Upgrade from systems that use the MyRocks or TokuDB storage engine and partitioned tables](upgrade-tokudb-myrocks.md)
   - [Upgrade strategies](upgrade-strategies.md)
-  - [Upgrade to Percona Server for MySQL Pro](upgrade-pro.md)
+  <!-- - [Upgrade to Percona Server for MySQL Pro](upgrade-pro.md) -->
   - [Upgrade using Standalone Packages](upgrade-standalone-packages.md)
   - [Upgrade using the Percona repositories](upgrade-percona-repos.md)
   - [Use an APT repository to install Percona Server for MySQL 8.0](apt-repo.md)
