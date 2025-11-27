@@ -7389,6 +7389,8 @@
       
         
       
+        
+      
     
     
     
@@ -7499,7 +7501,35 @@
   <span class="md-ellipsis">
     
   
-    Misc. INFORMATION_SCHEMA tables
+    Additional INFORMATION_SCHEMA tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="misc-performance-schema-tables.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Additional PERFORMANCE_SCHEMA tables
   
 
     
@@ -7564,10 +7594,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_6" >
         
           
-          <label class="md-nav__link" for="__nav_13_5" id="__nav_13_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_13_6" id="__nav_13_6_label" tabindex="0">
             
   
   
@@ -7585,8 +7615,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_13_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -12715,7 +12745,18 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   <a href="#misc-info-schema-tables" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Misc. INFORMATION_SCHEMA tables
+        Additional INFORMATION_SCHEMA tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misc-performance-schema-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional PERFORMANCE_SCHEMA tables
       
     </span>
   </a>
@@ -12734,7 +12775,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
         
           <li class="md-nav__item">
-  <a href="#section-13-5" class="md-nav__link">
+  <a href="#section-13-6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Slow query log
@@ -37945,128 +37986,173 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 <h2 id="jemalloc-profiling-disable-profiling">Disable profiling<a class="headerlink" href="#jemalloc-profiling-disable-profiling" title="Permanent link">&para;</a></h2>
 <p>To disable jemalloc profiling, in a MySQL client, run the following command:</p>
 <div class="highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">jemalloc_profiling</span><span class="o">=</span><span class="k">off</span><span class="p">;</span>
-</code></pre></div></section><section class="print-page" id="misc-info-schema-tables" heading-number="13.3"><h1 id="misc-info-schema-tables-misc-information_schema-tables">Misc. INFORMATION_SCHEMA tables<a class="headerlink" href="#misc-info-schema-tables-misc-information_schema-tables" title="Permanent link">&para;</a></h1>
-<p>This page lists the <code>INFORMATION_SCHEMA</code> tables added to standard <em>MySQL</em> by <em>Percona Server for MySQL</em> that don’t exist elsewhere in the documentation.</p>
+</code></pre></div></section><section class="print-page" id="misc-info-schema-tables" heading-number="13.3"><h1 id="misc-info-schema-tables-additional-information_schema-tables">Additional INFORMATION_SCHEMA tables<a class="headerlink" href="#misc-info-schema-tables-additional-information_schema-tables" title="Permanent link">&para;</a></h1>
+<p>This page lists the <code>INFORMATION_SCHEMA</code> tables added to standard <em>MySQL</em> by <em>Percona Server for MySQL</em> that don&rsquo;t exist elsewhere in the documentation.</p>
 <h2 id="misc-info-schema-tables-temporary-tables">Temporary tables<a class="headerlink" href="#misc-info-schema-tables-temporary-tables" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>This feature implementation is considered tech preview quality.</strong></p>
 </div>
 <p>Only the temporary tables that were explicitly created with CREATE TEMPORARY TABLE or ALTER TABLE are shown, and not the ones created to process complex queries.</p>
+<p>These tables were added in Percona Server for MySQL 8.0.12-1.</p>
 <h3 id="misc-info-schema-tables-information_schemaglobal_temporary_tables"><code>INFORMATION_SCHEMA.GLOBAL_TEMPORARY_TABLES</code><a class="headerlink" href="#misc-info-schema-tables-information_schemaglobal_temporary_tables" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Column Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>‘SESSION_ID’</td>
-<td>‘MySQL connection id’</td>
-</tr>
-<tr>
-<td>‘TABLE_SCHEMA’</td>
-<td>‘Schema in which the temporary table is created’</td>
-</tr>
-<tr>
-<td>‘TABLE_NAME’</td>
-<td>‘Name of the temporary table’</td>
-</tr>
-<tr>
-<td>‘ENGINE’</td>
-<td>‘Engine of the temporary table’</td>
-</tr>
-<tr>
-<td>‘NAME’</td>
-<td>‘Internal name of the temporary table’</td>
-</tr>
-<tr>
-<td>‘TABLE_ROWS’</td>
-<td>‘Number of rows of the temporary table’</td>
-</tr>
-<tr>
-<td>‘AVG_ROW_LENGTH’</td>
-<td>‘Average row length of the temporary table’</td>
-</tr>
-<tr>
-<td>‘DATA_LENGTH’</td>
-<td>‘Size of the data (Bytes)’</td>
-</tr>
-<tr>
-<td>‘INDEX_LENGTH’</td>
-<td>‘Size of the indexes (Bytes)’</td>
-</tr>
-<tr>
-<td>‘CREATE_TIME’</td>
-<td>‘Date and time of creation of the temporary table’</td>
-</tr>
-<tr>
-<td>‘UPDATE_TIME’</td>
-<td>‘Date and time of the latest update of the temporary table’</td>
-</tr>
-</tbody>
-</table>
-<p>The feature was ported from <em>Percona Server for MySQL</em> 5.7 in 8.0.12-1.</p>
-<p>This table holds information on the temporary tables that exist for all connections. You don’t need the <code>SUPER</code> privilege to query this table.</p>
+<p>The GLOBAL_TEMPORARY_TABLES table has these columns:</p>
+<ul>
+<li>
+<p><code>SESSION_ID</code><br />
+  MySQL connection id.</p>
+</li>
+<li>
+<p><code>TABLE_SCHEMA</code><br />
+  Schema in which the temporary table is created.</p>
+</li>
+<li>
+<p><code>TABLE_NAME</code><br />
+  Name of the temporary table.</p>
+</li>
+<li>
+<p><code>ENGINE</code><br />
+  Engine of the temporary table.</p>
+</li>
+<li>
+<p><code>NAME</code><br />
+  Internal name of the temporary table.</p>
+</li>
+<li>
+<p><code>TABLE_ROWS</code><br />
+  Number of rows of the temporary table.</p>
+</li>
+<li>
+<p><code>AVG_ROW_LENGTH</code><br />
+  Average row length of the temporary table.</p>
+</li>
+<li>
+<p><code>DATA_LENGTH</code><br />
+  Size of the data (Bytes).</p>
+</li>
+<li>
+<p><code>INDEX_LENGTH</code><br />
+  Size of the indexes (Bytes).</p>
+</li>
+<li>
+<p><code>CREATE_TIME</code><br />
+  Date and time of creation of the temporary table.</p>
+</li>
+<li>
+<p><code>UPDATE_TIME</code><br />
+  Date and time of the latest update of the temporary table.</p>
+</li>
+</ul>
+<p>This table holds information on the temporary tables that exist for all connections. You don&rsquo;t need the <code>SUPER</code> privilege to query this table.</p>
 <h3 id="misc-info-schema-tables-information_schematemporary_tables"><code>INFORMATION_SCHEMA.TEMPORARY_TABLES</code><a class="headerlink" href="#misc-info-schema-tables-information_schematemporary_tables" title="Permanent link">&para;</a></h3>
+<p>The TEMPORARY_TABLES table has these columns:</p>
+<ul>
+<li>
+<p><code>SESSION_ID</code><br />
+  MySQL connection id.</p>
+</li>
+<li>
+<p><code>TABLE_SCHEMA</code><br />
+  Schema in which the temporary table is created.</p>
+</li>
+<li>
+<p><code>TABLE_NAME</code><br />
+  Name of the temporary table.</p>
+</li>
+<li>
+<p><code>ENGINE</code><br />
+  Engine of the temporary table.</p>
+</li>
+<li>
+<p><code>NAME</code><br />
+  Internal name of the temporary table.</p>
+</li>
+<li>
+<p><code>TABLE_ROWS</code><br />
+  Number of rows of the temporary table.</p>
+</li>
+<li>
+<p><code>AVG_ROW_LENGTH</code><br />
+  Average row length of the temporary table.</p>
+</li>
+<li>
+<p><code>DATA_LENGTH</code><br />
+  Size of the data (Bytes).</p>
+</li>
+<li>
+<p><code>INDEX_LENGTH</code><br />
+  Size of the indexes (Bytes).</p>
+</li>
+<li>
+<p><code>CREATE_TIME</code><br />
+  Date and time of creation of the temporary table.</p>
+</li>
+<li>
+<p><code>UPDATE_TIME</code><br />
+  Date and time of the latest update of the temporary table.</p>
+</li>
+</ul>
+<p>This table holds information on the temporary tables existing for the running connection.</p></section><section class="print-page" id="misc-performance-schema-tables" heading-number="13.4"><h1 id="misc-performance-schema-tables-additional-performance_schema-tables">Additional PERFORMANCE_SCHEMA tables<a class="headerlink" href="#misc-performance-schema-tables-additional-performance_schema-tables" title="Permanent link">&para;</a></h1>
+<p>This page lists the <code>performance_schema</code> tables added to standard <em>MySQL</em> by <em>Percona Server for MySQL</em> that don&rsquo;t exist elsewhere in the documentation.</p>
+<h2 id="misc-performance-schema-tables-account-failed-login-lock-status">Account failed login lock status<a class="headerlink" href="#misc-performance-schema-tables-account-failed-login-lock-status" title="Permanent link">&para;</a></h2>
+<h3 id="misc-performance-schema-tables-performance_schemaaccount_failed_login_lock_status"><code>performance_schema.account_failed_login_lock_status</code><a class="headerlink" href="#misc-performance-schema-tables-performance_schemaaccount_failed_login_lock_status" title="Permanent link">&para;</a></h3>
+<p>The <code>performance_schema.account_failed_login_lock_status</code> table is implemented in Percona Server for MySQL 8.0.44-35. This table exposes information about temporary account locking from the MySQL internal Access Control List (ACL) cache. </p>
+<p>This table is read-only. Users require global, per-database, or per-table <code>SELECT</code> privilege on this table to access its contents.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If an account is locked using the <code>CREATE USER</code> or <code>ALTER USER</code> statements with the <code>ACCOUNT LOCK</code> clause, this status is not captured in this table. The server records the <code>ACCOUNT LOCK</code> state in the <code>mysql.user</code> table.</p>
+</div>
 <table>
 <thead>
 <tr>
 <th>Column Name</th>
+<th>Data Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>‘SESSION_ID’</td>
-<td>‘MySQL connection id’</td>
+<td><code>USER</code></td>
+<td><code>CHAR(..)</code></td>
+<td>Identifies the user account described by the table row</td>
 </tr>
 <tr>
-<td>‘TABLE_SCHEMA’</td>
-<td>‘Schema in which the temporary table is created’</td>
+<td><code>HOST</code></td>
+<td><code>CHAR(..)</code></td>
+<td>Identifies the user account described by the table row</td>
 </tr>
 <tr>
-<td>‘TABLE_NAME’</td>
-<td>‘Name of the temporary table’</td>
+<td><code>IS_TRACKING_ACTIVE</code></td>
+<td><code>enum('YES','NO')</code></td>
+<td>Indicates whether failed login tracking is enabled for the account</td>
 </tr>
 <tr>
-<td>‘ENGINE’</td>
-<td>‘Engine of the temporary table’</td>
+<td><code>MAX_ATTEMPTS</code></td>
+<td><code>INTEGER</code></td>
+<td>Maximum number of failed login attempts allowed before account is locked (corresponds to FAILED_LOGIN_ATTEMPTS clause value in CREATE USER or ALTER USER statement)</td>
 </tr>
 <tr>
-<td>‘NAME’</td>
-<td>‘Internal name of the temporary table’</td>
+<td><code>PASSWORD_LOCK_DAYS</code></td>
+<td><code>INTEGER</code></td>
+<td>Number of days for which account will be temporarily locked after exceeding the MAX_ATTEMPTS limit. Set to -1 if account is locked forever (corresponds to PASSWORD_LOCK_TIME clause value in CREATE USER or ALTER USER statement)</td>
 </tr>
 <tr>
-<td>‘TABLE_ROWS’</td>
-<td>‘Number of rows of the temporary table’</td>
+<td><code>IS_LOCKED</code></td>
+<td><code>BOOLEAN</code></td>
+<td>Indicates if account is temporarily locked by failed login lock tracking. NULL if tracking is not enabled for account</td>
 </tr>
 <tr>
-<td>‘AVG_ROW_LENGTH’</td>
-<td>‘Average row length of the temporary table’</td>
+<td><code>REMAINING_ATTEMPTS</code></td>
+<td><code>INTEGER</code></td>
+<td>Number of failed login attempts remaining before account will be locked. NULL if tracking is not enabled for account</td>
 </tr>
 <tr>
-<td>‘DATA_LENGTH’</td>
-<td>‘Size of the data (Bytes)’</td>
-</tr>
-<tr>
-<td>‘INDEX_LENGTH’</td>
-<td>‘Size of the indexes (Bytes)’</td>
-</tr>
-<tr>
-<td>‘CREATE_TIME’</td>
-<td>‘Date and time of creation of the temporary table’</td>
-</tr>
-<tr>
-<td>‘UPDATE_TIME’</td>
-<td>‘Date and time of the latest update of the temporary table’</td>
+<td><code>REMAINING_DAYS_LOCKED</code></td>
+<td><code>INTEGER</code></td>
+<td>Number of days for which account is locked due to failed login lock tracking. -1 means that account is locked &ldquo;forever&rdquo; (until server restart/FLUSH PRIVILEGES or specific account unlock). NULL if tracking is not enabled for account</td>
 </tr>
 </tbody>
-</table>
-<p>The feature was ported from <em>Percona Server for MySQL</em> 5.7 in 8.0.12-1.</p>
-<p>This table holds information on the temporary tables existing for the running connection.</p></section><section class="print-page" id="process-list" heading-number="13.4"><h1 id="process-list-process-list">Process list<a class="headerlink" href="#process-list-process-list" title="Permanent link">&para;</a></h1>
+</table></section><section class="print-page" id="process-list" heading-number="13.5"><h1 id="process-list-process-list">Process list<a class="headerlink" href="#process-list-process-list" title="Permanent link">&para;</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>MySQL 8.0.22 provides the Performance Schema <a href="https://dev.mysql.com/doc/refman/8.0/en/performance-schema-processlist-table.html"><code>processlist</code> table</a> which can be directly queried.</p>
@@ -38150,10 +38236,10 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 +----+------+-----------+--------------------+---------+------+-----------+---------------------------+---------+-----------+---------------+
 </code></pre></div>
 </details></section>
-                    <section class='print-page md-section' id='section-13-5' heading-number='13.5'>
-                        <h1>Slow query log<a class='headerlink' href='#section-13-5' title='Permanent link'></a>
+                    <section class='print-page md-section' id='section-13-6' heading-number='13.6'>
+                        <h1>Slow query log<a class='headerlink' href='#section-13-6' title='Permanent link'></a>
                         </h1>
-                    <section class="print-page" id="improved-slow-query-log" heading-number="13.5.1"><h1 id="improved-slow-query-log-improved-slow-query-log">Improved slow query log<a class="headerlink" href="#improved-slow-query-log-improved-slow-query-log" title="Permanent link">&para;</a></h1>
+                    <section class="print-page" id="improved-slow-query-log" heading-number="13.6.1"><h1 id="improved-slow-query-log-improved-slow-query-log">Improved slow query log<a class="headerlink" href="#improved-slow-query-log-improved-slow-query-log" title="Permanent link">&para;</a></h1>
 <p>This feature adds microsecond time resolution and additional statistics to the slow query log output. It lets you turn the slow query log on or off at runtime, adds logging for the replica SQL thread, and adds fine-grained control over what and how much to log into the slow query log.</p>
 <p>You can use the Percona Toolkit <a href="https://docs.percona.com/percona-toolkit/pt-query-digest.html">pt-query-digest</a> tool to aggregate similar queries together and report on those that consume the most execution time.</p>
 <h2 id="improved-slow-query-log-version-specific-information">Version specific information<a class="headerlink" href="#improved-slow-query-log-version-specific-information" title="Permanent link">&para;</a></h2>
@@ -38348,7 +38434,7 @@ query successfully completes. This keyword is followed by a number other than ze
 </tr>
 </tbody>
 </table>
-<p>If the query did not use <em>InnoDB</em> tables, that information is written into the log instead of the above statistics.</p></section><section class="print-page" id="slow-extended" heading-number="13.5.2"><h1 id="slow-extended-slow-query-log-variables">Slow query log variables<a class="headerlink" href="#slow-extended-slow-query-log-variables" title="Permanent link">&para;</a></h1>
+<p>If the query did not use <em>InnoDB</em> tables, that information is written into the log instead of the above statistics.</p></section><section class="print-page" id="slow-extended" heading-number="13.6.2"><h1 id="slow-extended-slow-query-log-variables">Slow query log variables<a class="headerlink" href="#slow-extended-slow-query-log-variables" title="Permanent link">&para;</a></h1>
 <p>This feature adds microsecond time resolution and additional statistics to the slow query log output. It lets you enable or disable the slow query log at runtime, adds logging for the replica SQL thread, and adds fine-grained control over what and how much to log into the slow query log.</p>
 <h2 id="slow-extended-system-variables">System Variables<a class="headerlink" href="#slow-extended-system-variables" title="Permanent link">&para;</a></h2>
 <h3 id="slow-extended-log_slow_filter"><code>log_slow_filter</code><a class="headerlink" href="#slow-extended-log_slow_filter" title="Permanent link">&para;</a></h3>
@@ -38788,7 +38874,7 @@ CALL improved_sp_log();
 </tr>
 </tbody>
 </table>
-<p>This variable can be used to specify the query execution time after which the query will be written to the slow query log. It can be used to specify an additional execution time threshold for the slow query log, that, when exceeded, will cause a query to be logged unconditionally, that is, <code>log_slow_rate_limit</code> will not apply to it.</p></section><section class="print-page" id="slowlog-rotation" heading-number="13.5.3"><h1 id="slowlog-rotation-slow-query-log-rotation-and-expiration">Slow query log rotation and expiration<a class="headerlink" href="#slowlog-rotation-slow-query-log-rotation-and-expiration" title="Permanent link">&para;</a></h1>
+<p>This variable can be used to specify the query execution time after which the query will be written to the slow query log. It can be used to specify an additional execution time threshold for the slow query log, that, when exceeded, will cause a query to be logged unconditionally, that is, <code>log_slow_rate_limit</code> will not apply to it.</p></section><section class="print-page" id="slowlog-rotation" heading-number="13.6.3"><h1 id="slowlog-rotation-slow-query-log-rotation-and-expiration">Slow query log rotation and expiration<a class="headerlink" href="#slowlog-rotation-slow-query-log-rotation-and-expiration" title="Permanent link">&para;</a></h1>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>This feature is a <a href="#glossary-tech-preview">tech preview</a>. Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.</p>
@@ -38879,7 +38965,7 @@ CALL improved_sp_log();
 </tbody>
 </table>
 <p>This variable limits the total amount of slow query log files and is used with <code>max_slowlog_size</code>.</p>
-<p>The server creates and adds slow query logs until it reaches the range’s upper value. When the upper value is reached, the server creates a new slow query log file with a higher sequence number and deletes the log file with the lowest sequence number, maintaining the total amount defined in the range.</p></section></section><section class="print-page" id="user-stats" heading-number="13.6"><h1 id="user-stats-user-statistics">User statistics<a class="headerlink" href="#user-stats-user-statistics" title="Permanent link">&para;</a></h1>
+<p>The server creates and adds slow query logs until it reaches the range’s upper value. When the upper value is reached, the server creates a new slow query log file with a higher sequence number and deletes the log file with the lowest sequence number, maintaining the total amount defined in the range.</p></section></section><section class="print-page" id="user-stats" heading-number="13.7"><h1 id="user-stats-user-statistics">User statistics<a class="headerlink" href="#user-stats-user-statistics" title="Permanent link">&para;</a></h1>
 <p>This feature adds several <code>INFORMATION_SCHEMA</code> tables, several commands, and the userstat variable. The tables and commands can be used to understand the server activity better and identify the source of the load.</p>
 <p>The functionality is disabled by default and must be enabled by setting <code>userstat</code> to <code>ON</code>. It works by keeping several hash tables in memory. To avoid contention over global mutexes, each connection has its own local statistics, which are occasionally merged into the global statistics, and the local statistics are then reset to 0.</p>
 <h2 id="user-stats-version-specific-information">Version specific information<a class="headerlink" href="#user-stats-version-specific-information" title="Permanent link">&para;</a></h2>
@@ -65587,16 +65673,18 @@ contributions and changes from MariaDB.</p>
 
 .print-site-enumerate-headings #misc-info-schema-tables > h1:before { content: '13.3 ' }
 
-.print-site-enumerate-headings #process-list > h1:before { content: '13.4 ' }
+.print-site-enumerate-headings #misc-performance-schema-tables > h1:before { content: '13.4 ' }
 
-.print-site-enumerate-headings #section-13-5 > h1:before { content: '13.5 ' }
-.print-site-enumerate-headings #improved-slow-query-log > h1:before { content: '13.5.1 ' }
+.print-site-enumerate-headings #process-list > h1:before { content: '13.5 ' }
 
-.print-site-enumerate-headings #slow-extended > h1:before { content: '13.5.2 ' }
+.print-site-enumerate-headings #section-13-6 > h1:before { content: '13.6 ' }
+.print-site-enumerate-headings #improved-slow-query-log > h1:before { content: '13.6.1 ' }
 
-.print-site-enumerate-headings #slowlog-rotation > h1:before { content: '13.5.3 ' }
+.print-site-enumerate-headings #slow-extended > h1:before { content: '13.6.2 ' }
 
-.print-site-enumerate-headings #user-stats > h1:before { content: '13.6 ' }
+.print-site-enumerate-headings #slowlog-rotation > h1:before { content: '13.6.3 ' }
+
+.print-site-enumerate-headings #user-stats > h1:before { content: '13.7 ' }
 
 .print-site-enumerate-headings #section-14 > h1:before { content: '14 ' }
 .print-site-enumerate-headings #advisors > h1:before { content: '14.1 ' }

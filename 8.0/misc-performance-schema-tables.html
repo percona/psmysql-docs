@@ -9,40 +9,37 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL 8.0.22-13
-includes all the features and bug fixes available in
-MySQL 8.0.22 Community Edition
-in addition to enterprise-grade features developed by Percona.">
+        <meta name="description" content="This page lists the performance_schema tables added to standard MySQL by Percona Server for MySQL that don’t exist elsewhere in the documentation.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/release-notes/Percona-Server-8.0.22-13.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.0/misc-performance-schema-tables.html">
       
       
-        <link rel="prev" href="Percona-Server-8.0.23-14.html">
+        <link rel="prev" href="misc-info-schema-tables.html">
       
       
-        <link rel="next" href="Percona-Server-8.0.21-12.html">
+        <link rel="next" href="process-list.html">
       
       
         
       
       
-      <link rel="icon" href="../assets/mysql-fav.svg">
+      <link rel="icon" href="assets/mysql-fav.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
       
-        <title>Percona Server for MySQL 8.0.22-13 (2020-12-14) - Percona Server for MySQL</title>
+        <title>Additional PERFORMANCE_SCHEMA tables - Percona Server for MySQL</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -61,27 +58,27 @@ in addition to enterprise-grade features developed by Percona.">
       
     
     
-      <link rel="stylesheet" href="../css/print-site.css">
+      <link rel="stylesheet" href="css/print-site.css">
     
-      <link rel="stylesheet" href="../css/print-site-material.css">
+      <link rel="stylesheet" href="css/print-site-material.css">
     
       <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.3/css/line.css">
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     
-      <link rel="stylesheet" href="../css/design.css">
+      <link rel="stylesheet" href="css/design.css">
     
-      <link rel="stylesheet" href="../css/osano.css">
+      <link rel="stylesheet" href="css/osano.css">
     
-      <link rel="stylesheet" href="../css/extra.css">
+      <link rel="stylesheet" href="css/extra.css">
     
-      <link rel="stylesheet" href="../css/nocopy.css">
+      <link rel="stylesheet" href="css/nocopy.css">
     
-      <link rel="stylesheet" href="../css/mysql.css">
+      <link rel="stylesheet" href="css/mysql.css">
     
-      <link rel="stylesheet" href="../css/rating.css">
+      <link rel="stylesheet" href="css/rating.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -103,7 +100,7 @@ in addition to enterprise-grade features developed by Percona.">
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Percona Server for MySQL 8.0.22-13 (2020-12-14)" />
+                 <meta property="og:title" content="Percona Server for MySQL - Additional PERFORMANCE_SCHEMA tables" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.0/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png" />
 
@@ -126,7 +123,7 @@ in addition to enterprise-grade features developed by Percona.">
     <div data-md-component="skip">
       
         
-        <a href="#percona-server-for-mysql-8022-13-2020-12-14" class="md-skip">
+        <a href="#additional-performance_schema-tables" class="md-skip">
           Skip to content
         </a>
       
@@ -195,14 +192,14 @@ in addition to enterprise-grade features developed by Percona.">
 
     <!-- Link to home -->
     <a
-      href="../index.html"
+      href="index.html"
       title="Percona Server for MySQL"
       class="md-header__button md-logo"
       aria-label="Percona Server for MySQL"
       data-md-component="logo"
     >
       
-  <img src="../assets/mysql-mark.svg" alt="logo">
+  <img src="assets/mysql-mark.svg" alt="logo">
 
     </a>
 
@@ -215,7 +212,7 @@ in addition to enterprise-grade features developed by Percona.">
     <!-- Header title -->
     <div class="md-header__title">
       <div class="md-header__ellipsis">
-        <a href="../index.html" class="md-header__topic">
+        <a href="index.html" class="md-header__topic">
           <span class="md-ellipsis">
             Percona Server for MySQL
           </span>
@@ -223,7 +220,7 @@ in addition to enterprise-grade features developed by Percona.">
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Percona Server for MySQL 8.0.22-13 (2020-12-14)
+              Additional PERFORMANCE_SCHEMA tables
             
           </span>
         </div>
@@ -367,9 +364,9 @@ in addition to enterprise-grade features developed by Percona.">
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../index.html" title="Percona Server for MySQL" class="md-nav__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
+    <a href="index.html" title="Percona Server for MySQL" class="md-nav__button md-logo" aria-label="Percona Server for MySQL" data-md-component="logo">
       
-  <img src="../assets/mysql-mark.svg" alt="logo">
+  <img src="assets/mysql-mark.svg" alt="logo">
 
     </a>
     Percona Server for MySQL
@@ -396,7 +393,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../index.html" class="md-nav__link">
+      <a href="index.html" class="md-nav__link">
         
   
   
@@ -423,7 +420,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../get-help.html" class="md-nav__link">
+      <a href="get-help.html" class="md-nav__link">
         
   
   
@@ -447,10 +444,8 @@ in addition to enterprise-grade features developed by Percona.">
       
   
   
-    
   
   
-  
     
     
       
@@ -488,11 +483,11 @@ in addition to enterprise-grade features developed by Percona.">
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -513,7 +508,7 @@ in addition to enterprise-grade features developed by Percona.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -531,7 +526,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="release-notes_index.html" class="md-nav__link">
+      <a href="release-notes/release-notes_index.html" class="md-nav__link">
         
   
   
@@ -559,7 +554,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.43-34.html" class="md-nav__link">
+      <a href="release-notes/8.0.43-34.html" class="md-nav__link">
         
   
   
@@ -587,7 +582,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.42-33.html" class="md-nav__link">
+      <a href="release-notes/8.0.42-33.html" class="md-nav__link">
         
   
   
@@ -615,7 +610,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.41-32.html" class="md-nav__link">
+      <a href="release-notes/8.0.41-32.html" class="md-nav__link">
         
   
   
@@ -643,7 +638,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.40-31.html" class="md-nav__link">
+      <a href="release-notes/8.0.40-31.html" class="md-nav__link">
         
   
   
@@ -671,7 +666,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.39-30.html" class="md-nav__link">
+      <a href="release-notes/8.0.39-30.html" class="md-nav__link">
         
   
   
@@ -699,7 +694,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.38.html" class="md-nav__link">
+      <a href="release-notes/8.0.38.html" class="md-nav__link">
         
   
   
@@ -727,7 +722,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.37-29.html" class="md-nav__link">
+      <a href="release-notes/8.0.37-29.html" class="md-nav__link">
         
   
   
@@ -755,7 +750,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.36-28.html" class="md-nav__link">
+      <a href="release-notes/8.0.36-28.html" class="md-nav__link">
         
   
   
@@ -844,7 +839,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.35-27.html" class="md-nav__link">
+      <a href="release-notes/8.0.35-27.html" class="md-nav__link">
         
   
   
@@ -872,7 +867,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.34-26.html" class="md-nav__link">
+      <a href="release-notes/8.0.34-26.html" class="md-nav__link">
         
   
   
@@ -900,7 +895,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.33-25.upd.html" class="md-nav__link">
+      <a href="release-notes/8.0.33-25.upd.html" class="md-nav__link">
         
   
   
@@ -928,7 +923,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.33-25.html" class="md-nav__link">
+      <a href="release-notes/8.0.33-25.html" class="md-nav__link">
         
   
   
@@ -956,7 +951,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.32-24.html" class="md-nav__link">
+      <a href="release-notes/8.0.32-24.html" class="md-nav__link">
         
   
   
@@ -984,7 +979,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.31-23.html" class="md-nav__link">
+      <a href="release-notes/8.0.31-23.html" class="md-nav__link">
         
   
   
@@ -1083,7 +1078,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.30-22.upd.html" class="md-nav__link">
+      <a href="release-notes/8.0.30-22.upd.html" class="md-nav__link">
         
   
   
@@ -1111,7 +1106,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.30-22.html" class="md-nav__link">
+      <a href="release-notes/8.0.30-22.html" class="md-nav__link">
         
   
   
@@ -1139,7 +1134,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="8.0.29-21.html" class="md-nav__link">
+      <a href="release-notes/8.0.29-21.html" class="md-nav__link">
         
   
   
@@ -1167,7 +1162,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.28-20.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.28-20.html" class="md-nav__link">
         
   
   
@@ -1195,7 +1190,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.28-19.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.28-19.html" class="md-nav__link">
         
   
   
@@ -1223,7 +1218,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.27-18.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.27-18.html" class="md-nav__link">
         
   
   
@@ -1251,7 +1246,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.26-17.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.26-17.html" class="md-nav__link">
         
   
   
@@ -1342,7 +1337,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.26-16.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.26-16.html" class="md-nav__link">
         
   
   
@@ -1370,7 +1365,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.25-15.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.25-15.html" class="md-nav__link">
         
   
   
@@ -1398,7 +1393,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.23-14.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.23-14.html" class="md-nav__link">
         
   
   
@@ -1431,10 +1426,8 @@ in addition to enterprise-grade features developed by Percona.">
                 
   
   
-    
   
   
-  
     
     
       
@@ -1450,11 +1443,11 @@ in addition to enterprise-grade features developed by Percona.">
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_13" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_13" >
         
           
           <label class="md-nav__link" for="__nav_3_13" id="__nav_3_13_label" tabindex="0">
@@ -1475,7 +1468,7 @@ in addition to enterprise-grade features developed by Percona.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_13_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_13_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_13">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1490,37 +1483,10 @@ in addition to enterprise-grade features developed by Percona.">
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Percona Server for MySQL 8.0.22-13 (2020-12-14)
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="Percona-Server-8.0.22-13.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="release-notes/Percona-Server-8.0.22-13.html" class="md-nav__link">
         
   
   
@@ -1536,61 +1502,6 @@ in addition to enterprise-grade features developed by Percona.">
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#new-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        New Features
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#improvements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Improvements
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bugs-fixed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bugs Fixed
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1603,7 +1514,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.21-12.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.21-12.html" class="md-nav__link">
         
   
   
@@ -1631,7 +1542,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.20-11.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.20-11.html" class="md-nav__link">
         
   
   
@@ -1659,7 +1570,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.19-10.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.19-10.html" class="md-nav__link">
         
   
   
@@ -1758,7 +1669,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.18-9.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.18-9.html" class="md-nav__link">
         
   
   
@@ -1786,7 +1697,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.17-8.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.17-8.html" class="md-nav__link">
         
   
   
@@ -1814,7 +1725,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.16-7.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.16-7.html" class="md-nav__link">
         
   
   
@@ -1842,7 +1753,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.15-6.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.15-6.html" class="md-nav__link">
         
   
   
@@ -1870,7 +1781,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.15-5.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.15-5.html" class="md-nav__link">
         
   
   
@@ -1898,7 +1809,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.14.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.14.html" class="md-nav__link">
         
   
   
@@ -1926,7 +1837,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.13-4.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.13-4.html" class="md-nav__link">
         
   
   
@@ -2015,7 +1926,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.13-3.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.13-3.html" class="md-nav__link">
         
   
   
@@ -2043,7 +1954,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="Percona-Server-8.0.12-2rc1.html" class="md-nav__link">
+      <a href="release-notes/Percona-Server-8.0.12-2rc1.html" class="md-nav__link">
         
   
   
@@ -2167,7 +2078,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../adaptive-network-buffers.html" class="md-nav__link">
+      <a href="adaptive-network-buffers.html" class="md-nav__link">
         
   
   
@@ -2270,7 +2181,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../audit-log-filter-overview.html" class="md-nav__link">
+      <a href="audit-log-filter-overview.html" class="md-nav__link">
         
   
   
@@ -2298,7 +2209,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../install-audit-log-filter.html" class="md-nav__link">
+      <a href="install-audit-log-filter.html" class="md-nav__link">
         
   
   
@@ -2383,7 +2294,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../audit-log-filter-formats.html" class="md-nav__link">
+      <a href="audit-log-filter-formats.html" class="md-nav__link">
         
   
   
@@ -2411,7 +2322,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../audit-log-filter-new.html" class="md-nav__link">
+      <a href="audit-log-filter-new.html" class="md-nav__link">
         
   
   
@@ -2439,7 +2350,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../audit-log-filter-old.html" class="md-nav__link">
+      <a href="audit-log-filter-old.html" class="md-nav__link">
         
   
   
@@ -2467,7 +2378,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../audit-log-filter-json.html" class="md-nav__link">
+      <a href="audit-log-filter-json.html" class="md-nav__link">
         
   
   
@@ -2503,7 +2414,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../audit-log-filter-variables.html" class="md-nav__link">
+      <a href="audit-log-filter-variables.html" class="md-nav__link">
         
   
   
@@ -2531,7 +2442,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../audit-log-filter-security.html" class="md-nav__link">
+      <a href="audit-log-filter-security.html" class="md-nav__link">
         
   
   
@@ -2559,7 +2470,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../audit-log-filter-compression-encryption.html" class="md-nav__link">
+      <a href="audit-log-filter-compression-encryption.html" class="md-nav__link">
         
   
   
@@ -2587,7 +2498,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../reading-audit-log-filter-files.html" class="md-nav__link">
+      <a href="reading-audit-log-filter-files.html" class="md-nav__link">
         
   
   
@@ -2615,7 +2526,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../manage-audit-log-filter.html" class="md-nav__link">
+      <a href="manage-audit-log-filter.html" class="md-nav__link">
         
   
   
@@ -2643,7 +2554,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../filter-audit-log-filter-files.html" class="md-nav__link">
+      <a href="filter-audit-log-filter-files.html" class="md-nav__link">
         
   
   
@@ -2671,7 +2582,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../audit-log-filter-restrictions.html" class="md-nav__link">
+      <a href="audit-log-filter-restrictions.html" class="md-nav__link">
         
   
   
@@ -2699,7 +2610,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../audit-log-filter-naming.html" class="md-nav__link">
+      <a href="audit-log-filter-naming.html" class="md-nav__link">
         
   
   
@@ -2727,7 +2638,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../disable-audit-log-filter.html" class="md-nav__link">
+      <a href="disable-audit-log-filter.html" class="md-nav__link">
         
   
   
@@ -2755,7 +2666,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../uninstall-audit-log-filter.html" class="md-nav__link">
+      <a href="uninstall-audit-log-filter.html" class="md-nav__link">
         
   
   
@@ -2791,7 +2702,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../binlog-space.html" class="md-nav__link">
+      <a href="binlog-space.html" class="md-nav__link">
         
   
   
@@ -2819,7 +2730,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../extended-mysqlbinlog.html" class="md-nav__link">
+      <a href="extended-mysqlbinlog.html" class="md-nav__link">
         
   
   
@@ -2847,7 +2758,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../extended-select-into-outfile.html" class="md-nav__link">
+      <a href="extended-select-into-outfile.html" class="md-nav__link">
         
   
   
@@ -2875,7 +2786,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../fips.html" class="md-nav__link">
+      <a href="fips.html" class="md-nav__link">
         
   
   
@@ -2903,7 +2814,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../innodb-expanded-fast-index-creation.html" class="md-nav__link">
+      <a href="innodb-expanded-fast-index-creation.html" class="md-nav__link">
         
   
   
@@ -2931,7 +2842,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../kill-idle-trx.html" class="md-nav__link">
+      <a href="kill-idle-trx.html" class="md-nav__link">
         
   
   
@@ -2959,7 +2870,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../percona-sequence-table.html" class="md-nav__link">
+      <a href="percona-sequence-table.html" class="md-nav__link">
         
   
   
@@ -2987,7 +2898,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../procfs-plugin.html" class="md-nav__link">
+      <a href="procfs-plugin.html" class="md-nav__link">
         
   
   
@@ -3015,7 +2926,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../proxy-protocol-support.html" class="md-nav__link">
+      <a href="proxy-protocol-support.html" class="md-nav__link">
         
   
   
@@ -3043,7 +2954,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../sequence-table.html" class="md-nav__link">
+      <a href="sequence-table.html" class="md-nav__link">
         
   
   
@@ -3071,7 +2982,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../threadpool.html" class="md-nav__link">
+      <a href="threadpool.html" class="md-nav__link">
         
   
   
@@ -3099,7 +3010,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../trigger-updates.html" class="md-nav__link">
+      <a href="trigger-updates.html" class="md-nav__link">
         
   
   
@@ -3127,7 +3038,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../udf-percona-toolkit.html" class="md-nav__link">
+      <a href="udf-percona-toolkit.html" class="md-nav__link">
         
   
   
@@ -3155,7 +3066,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../utility-user.html" class="md-nav__link">
+      <a href="utility-user.html" class="md-nav__link">
         
   
   
@@ -3251,7 +3162,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../quickstart-overview.html" class="md-nav__link">
+      <a href="quickstart-overview.html" class="md-nav__link">
         
   
   
@@ -3279,7 +3190,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../quickstart-docker.html" class="md-nav__link">
+      <a href="quickstart-docker.html" class="md-nav__link">
         
   
   
@@ -3307,7 +3218,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../quickstart-docker-compose.html" class="md-nav__link">
+      <a href="quickstart-docker-compose.html" class="md-nav__link">
         
   
   
@@ -3335,7 +3246,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../quickstart-apt.html" class="md-nav__link">
+      <a href="quickstart-apt.html" class="md-nav__link">
         
   
   
@@ -3363,7 +3274,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../quickstart-dnf.html" class="md-nav__link">
+      <a href="quickstart-dnf.html" class="md-nav__link">
         
   
   
@@ -3391,7 +3302,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../quickstart-next-steps.html" class="md-nav__link">
+      <a href="quickstart-next-steps.html" class="md-nav__link">
         
   
   
@@ -3489,7 +3400,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../installation.html" class="md-nav__link">
+      <a href="installation.html" class="md-nav__link">
         
   
   
@@ -3570,7 +3481,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../download-instructions.html" class="md-nav__link">
+      <a href="download-instructions.html" class="md-nav__link">
         
   
   
@@ -3598,7 +3509,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../percona-release.html" class="md-nav__link">
+      <a href="percona-release.html" class="md-nav__link">
         
   
   
@@ -3697,7 +3608,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../apt-repo.html" class="md-nav__link">
+      <a href="apt-repo.html" class="md-nav__link">
         
   
   
@@ -3725,7 +3636,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../apt-files.html" class="md-nav__link">
+      <a href="apt-files.html" class="md-nav__link">
         
   
   
@@ -3753,7 +3664,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../build-apt-packages.html" class="md-nav__link">
+      <a href="build-apt-packages.html" class="md-nav__link">
         
   
   
@@ -3781,7 +3692,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../apt-download-deb.html" class="md-nav__link">
+      <a href="apt-download-deb.html" class="md-nav__link">
         
   
   
@@ -3809,7 +3720,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../apt-pinning.html" class="md-nav__link">
+      <a href="apt-pinning.html" class="md-nav__link">
         
   
   
@@ -3837,7 +3748,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../apt-run.html" class="md-nav__link">
+      <a href="apt-run.html" class="md-nav__link">
         
   
   
@@ -3865,7 +3776,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../apt-uninstall-server.html" class="md-nav__link">
+      <a href="apt-uninstall-server.html" class="md-nav__link">
         
   
   
@@ -3962,7 +3873,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../yum-repo.html" class="md-nav__link">
+      <a href="yum-repo.html" class="md-nav__link">
         
   
   
@@ -3990,7 +3901,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../yum-files.html" class="md-nav__link">
+      <a href="yum-files.html" class="md-nav__link">
         
   
   
@@ -4018,7 +3929,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../build-rpm-packages.html" class="md-nav__link">
+      <a href="build-rpm-packages.html" class="md-nav__link">
         
   
   
@@ -4046,7 +3957,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../yum-download-rpm.html" class="md-nav__link">
+      <a href="yum-download-rpm.html" class="md-nav__link">
         
   
   
@@ -4074,7 +3985,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../yum-run.html" class="md-nav__link">
+      <a href="yum-run.html" class="md-nav__link">
         
   
   
@@ -4102,7 +4013,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../yum-uninstall.html" class="md-nav__link">
+      <a href="yum-uninstall.html" class="md-nav__link">
         
   
   
@@ -4191,7 +4102,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../binary-tarball-install.html" class="md-nav__link">
+      <a href="binary-tarball-install.html" class="md-nav__link">
         
   
   
@@ -4219,7 +4130,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../binary-tarball-names.html" class="md-nav__link">
+      <a href="binary-tarball-names.html" class="md-nav__link">
         
   
   
@@ -4308,7 +4219,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../source-tarball.html" class="md-nav__link">
+      <a href="source-tarball.html" class="md-nav__link">
         
   
   
@@ -4336,7 +4247,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../compile-percona-server.html" class="md-nav__link">
+      <a href="compile-percona-server.html" class="md-nav__link">
         
   
   
@@ -4427,7 +4338,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../docker.html" class="md-nav__link">
+      <a href="docker.html" class="md-nav__link">
         
   
   
@@ -4455,7 +4366,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../docker-config.html" class="md-nav__link">
+      <a href="docker-config.html" class="md-nav__link">
         
   
   
@@ -4483,7 +4394,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../docker-compose.html" class="md-nav__link">
+      <a href="docker-compose.html" class="md-nav__link">
         
   
   
@@ -4599,7 +4510,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../upgrade.html" class="md-nav__link">
+      <a href="upgrade.html" class="md-nav__link">
         
   
   
@@ -4627,7 +4538,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-plan.html" class="md-nav__link">
+      <a href="upgrade-plan.html" class="md-nav__link">
         
   
   
@@ -4655,7 +4566,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-strategies.html" class="md-nav__link">
+      <a href="upgrade-strategies.html" class="md-nav__link">
         
   
   
@@ -4742,7 +4653,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-changes-general.html" class="md-nav__link">
+      <a href="upgrade-changes-general.html" class="md-nav__link">
         
   
   
@@ -4770,7 +4681,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-changes-innodb.html" class="md-nav__link">
+      <a href="upgrade-changes-innodb.html" class="md-nav__link">
         
   
   
@@ -4798,7 +4709,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-changes-secure.html" class="md-nav__link">
+      <a href="upgrade-changes-secure.html" class="md-nav__link">
         
   
   
@@ -4826,7 +4737,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-changes-deprecated.html" class="md-nav__link">
+      <a href="upgrade-changes-deprecated.html" class="md-nav__link">
         
   
   
@@ -4854,7 +4765,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-changes-removed.html" class="md-nav__link">
+      <a href="upgrade-changes-removed.html" class="md-nav__link">
         
   
   
@@ -4890,7 +4801,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-pt.html" class="md-nav__link">
+      <a href="upgrade-pt.html" class="md-nav__link">
         
   
   
@@ -4918,7 +4829,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../in-place-upgrade-guide.html" class="md-nav__link">
+      <a href="in-place-upgrade-guide.html" class="md-nav__link">
         
   
   
@@ -4946,7 +4857,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-cutover.html" class="md-nav__link">
+      <a href="upgrade-cutover.html" class="md-nav__link">
         
   
   
@@ -4974,7 +4885,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-percona-repos.html" class="md-nav__link">
+      <a href="upgrade-percona-repos.html" class="md-nav__link">
         
   
   
@@ -5002,7 +4913,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-tokudb-myrocks.html" class="md-nav__link">
+      <a href="upgrade-tokudb-myrocks.html" class="md-nav__link">
         
   
   
@@ -5030,7 +4941,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-standalone-packages.html" class="md-nav__link">
+      <a href="upgrade-standalone-packages.html" class="md-nav__link">
         
   
   
@@ -5058,7 +4969,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../downgrade.html" class="md-nav__link">
+      <a href="downgrade.html" class="md-nav__link">
         
   
   
@@ -5086,7 +4997,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../downgrade-from-pro.html" class="md-nav__link">
+      <a href="downgrade-from-pro.html" class="md-nav__link">
         
   
   
@@ -5178,7 +5089,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../apparmor.html" class="md-nav__link">
+      <a href="apparmor.html" class="md-nav__link">
         
   
   
@@ -5206,7 +5117,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../binlogging-replication-improvements.html" class="md-nav__link">
+      <a href="binlogging-replication-improvements.html" class="md-nav__link">
         
   
   
@@ -5234,7 +5145,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../post-installation.html" class="md-nav__link">
+      <a href="post-installation.html" class="md-nav__link">
         
   
   
@@ -5262,7 +5173,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../selinux.html" class="md-nav__link">
+      <a href="selinux.html" class="md-nav__link">
         
   
   
@@ -5352,7 +5263,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../extended-show-grants.html" class="md-nav__link">
+      <a href="extended-show-grants.html" class="md-nav__link">
         
   
   
@@ -5380,7 +5291,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../uninstall-component.html" class="md-nav__link">
+      <a href="uninstall-component.html" class="md-nav__link">
         
   
   
@@ -5516,7 +5427,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../clone-plugin-overview.html" class="md-nav__link">
+      <a href="clone-plugin-overview.html" class="md-nav__link">
         
   
   
@@ -5544,7 +5455,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../load-clone-plugin.html" class="md-nav__link">
+      <a href="load-clone-plugin.html" class="md-nav__link">
         
   
   
@@ -5572,7 +5483,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../clone-plugin-usage.html" class="md-nav__link">
+      <a href="clone-plugin-usage.html" class="md-nav__link">
         
   
   
@@ -5600,7 +5511,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../clone-plugin-limitations.html" class="md-nav__link">
+      <a href="clone-plugin-limitations.html" class="md-nav__link">
         
   
   
@@ -5708,7 +5619,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../backup-restore-overview.html" class="md-nav__link">
+      <a href="backup-restore-overview.html" class="md-nav__link">
         
   
   
@@ -5736,7 +5647,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../backup-locks.html" class="md-nav__link">
+      <a href="backup-locks.html" class="md-nav__link">
         
   
   
@@ -5764,7 +5675,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../extended-mysqldump.html" class="md-nav__link">
+      <a href="extended-mysqldump.html" class="md-nav__link">
         
   
   
@@ -5792,7 +5703,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../start-transaction-with-consistent-snapshot.html" class="md-nav__link">
+      <a href="start-transaction-with-consistent-snapshot.html" class="md-nav__link">
         
   
   
@@ -5949,7 +5860,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../ldap-authentication.html" class="md-nav__link">
+      <a href="ldap-authentication.html" class="md-nav__link">
         
   
   
@@ -5977,7 +5888,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../ldap-sasl-variables.html" class="md-nav__link">
+      <a href="ldap-sasl-variables.html" class="md-nav__link">
         
   
   
@@ -6005,7 +5916,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../ldap-simple-variables.html" class="md-nav__link">
+      <a href="ldap-simple-variables.html" class="md-nav__link">
         
   
   
@@ -6098,7 +6009,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../data-masking-overview.html" class="md-nav__link">
+      <a href="data-masking-overview.html" class="md-nav__link">
         
   
   
@@ -6126,7 +6037,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../data-masking-comparison.html" class="md-nav__link">
+      <a href="data-masking-comparison.html" class="md-nav__link">
         
   
   
@@ -6209,7 +6120,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../install-data-masking-component.html" class="md-nav__link">
+      <a href="install-data-masking-component.html" class="md-nav__link">
         
   
   
@@ -6237,7 +6148,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../data-masking-function-list.html" class="md-nav__link">
+      <a href="data-masking-function-list.html" class="md-nav__link">
         
   
   
@@ -6265,7 +6176,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../uninstall-data-masking-component.html" class="md-nav__link">
+      <a href="uninstall-data-masking-component.html" class="md-nav__link">
         
   
   
@@ -6354,7 +6265,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../install-data-masking-plugin.html" class="md-nav__link">
+      <a href="install-data-masking-plugin.html" class="md-nav__link">
         
   
   
@@ -6382,7 +6293,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../data-masking-plugin-functions.html" class="md-nav__link">
+      <a href="data-masking-plugin-functions.html" class="md-nav__link">
         
   
   
@@ -6426,7 +6337,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../fido-authentication-plugin.html" class="md-nav__link">
+      <a href="fido-authentication-plugin.html" class="md-nav__link">
         
   
   
@@ -6511,7 +6422,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../encryption-functions-overview.html" class="md-nav__link">
+      <a href="encryption-functions-overview.html" class="md-nav__link">
         
   
   
@@ -6539,7 +6450,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../digest-encryption.html" class="md-nav__link">
+      <a href="digest-encryption.html" class="md-nav__link">
         
   
   
@@ -6567,7 +6478,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../key-length-considerations.html" class="md-nav__link">
+      <a href="key-length-considerations.html" class="md-nav__link">
         
   
   
@@ -6595,7 +6506,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../encryption-functions.html" class="md-nav__link">
+      <a href="encryption-functions.html" class="md-nav__link">
         
   
   
@@ -6631,7 +6542,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../pam-plugin.html" class="md-nav__link">
+      <a href="pam-plugin.html" class="md-nav__link">
         
   
   
@@ -6659,7 +6570,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../ssl-improvement.html" class="md-nav__link">
+      <a href="ssl-improvement.html" class="md-nav__link">
         
   
   
@@ -6687,7 +6598,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../secure-log-path-variable.html" class="md-nav__link">
+      <a href="secure-log-path-variable.html" class="md-nav__link">
         
   
   
@@ -6715,7 +6626,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../uuid-versions.html" class="md-nav__link">
+      <a href="uuid-versions.html" class="md-nav__link">
         
   
   
@@ -6796,7 +6707,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../data-at-rest-encryption.html" class="md-nav__link">
+      <a href="data-at-rest-encryption.html" class="md-nav__link">
         
   
   
@@ -6903,7 +6814,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../components-keyrings-comparison.html" class="md-nav__link">
+      <a href="components-keyrings-comparison.html" class="md-nav__link">
         
   
   
@@ -6931,7 +6842,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../using-keyring-plugin.html" class="md-nav__link">
+      <a href="using-keyring-plugin.html" class="md-nav__link">
         
   
   
@@ -6959,7 +6870,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../using-kmip.html" class="md-nav__link">
+      <a href="using-kmip.html" class="md-nav__link">
         
   
   
@@ -6987,7 +6898,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../using-amz-kms.html" class="md-nav__link">
+      <a href="using-amz-kms.html" class="md-nav__link">
         
   
   
@@ -7015,7 +6926,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../encrypting-tables.html" class="md-nav__link">
+      <a href="encrypting-tables.html" class="md-nav__link">
         
   
   
@@ -7043,7 +6954,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../encrypting-tablespaces.html" class="md-nav__link">
+      <a href="encrypting-tablespaces.html" class="md-nav__link">
         
   
   
@@ -7071,7 +6982,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../encrypting-system-tablespace.html" class="md-nav__link">
+      <a href="encrypting-system-tablespace.html" class="md-nav__link">
         
   
   
@@ -7099,7 +7010,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../encrypting-temporary-files.html" class="md-nav__link">
+      <a href="encrypting-temporary-files.html" class="md-nav__link">
         
   
   
@@ -7127,7 +7038,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../encrypting-binlogs.html" class="md-nav__link">
+      <a href="encrypting-binlogs.html" class="md-nav__link">
         
   
   
@@ -7155,7 +7066,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../encrypting-redo-log.html" class="md-nav__link">
+      <a href="encrypting-redo-log.html" class="md-nav__link">
         
   
   
@@ -7183,7 +7094,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../encrypting-undo-tablespace.html" class="md-nav__link">
+      <a href="encrypting-undo-tablespace.html" class="md-nav__link">
         
   
   
@@ -7211,7 +7122,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../rotating-master-key.html" class="md-nav__link">
+      <a href="rotating-master-key.html" class="md-nav__link">
         
   
   
@@ -7239,7 +7150,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../encrypting-threads.html" class="md-nav__link">
+      <a href="encrypting-threads.html" class="md-nav__link">
         
   
   
@@ -7267,7 +7178,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../encrypting-doublewrite-buffers.html" class="md-nav__link">
+      <a href="encrypting-doublewrite-buffers.html" class="md-nav__link">
         
   
   
@@ -7295,7 +7206,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../verifying-encryption.html" class="md-nav__link">
+      <a href="verifying-encryption.html" class="md-nav__link">
         
   
   
@@ -7399,7 +7310,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../group-replication-flow-control.html" class="md-nav__link">
+      <a href="group-replication-flow-control.html" class="md-nav__link">
         
   
   
@@ -7427,7 +7338,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../group-replication-system-variables.html" class="md-nav__link">
+      <a href="group-replication-system-variables.html" class="md-nav__link">
         
   
   
@@ -7459,8 +7370,10 @@ in addition to enterprise-grade features developed by Percona.">
       
   
   
+    
   
   
+  
     
     
       
@@ -7482,11 +7395,11 @@ in addition to enterprise-grade features developed by Percona.">
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
         
           
           <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
@@ -7507,7 +7420,7 @@ in addition to enterprise-grade features developed by Percona.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_13">
             <span class="md-nav__icon md-icon"></span>
             
@@ -7525,7 +7438,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../audit-log-plugin.html" class="md-nav__link">
+      <a href="audit-log-plugin.html" class="md-nav__link">
         
   
   
@@ -7553,7 +7466,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../jemalloc-profiling.html" class="md-nav__link">
+      <a href="jemalloc-profiling.html" class="md-nav__link">
         
   
   
@@ -7581,7 +7494,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../misc-info-schema-tables.html" class="md-nav__link">
+      <a href="misc-info-schema-tables.html" class="md-nav__link">
         
   
   
@@ -7606,10 +7519,37 @@ in addition to enterprise-grade features developed by Percona.">
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../misc-performance-schema-tables.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Additional PERFORMANCE_SCHEMA tables
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="misc-performance-schema-tables.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -7625,6 +7565,39 @@ in addition to enterprise-grade features developed by Percona.">
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#account-failed-login-lock-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Account failed login lock status
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -7637,7 +7610,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../process-list.html" class="md-nav__link">
+      <a href="process-list.html" class="md-nav__link">
         
   
   
@@ -7720,7 +7693,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../improved-slow-query-log.html" class="md-nav__link">
+      <a href="improved-slow-query-log.html" class="md-nav__link">
         
   
   
@@ -7748,7 +7721,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../slow-extended.html" class="md-nav__link">
+      <a href="slow-extended.html" class="md-nav__link">
         
   
   
@@ -7776,7 +7749,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../slowlog-rotation.html" class="md-nav__link">
+      <a href="slowlog-rotation.html" class="md-nav__link">
         
   
   
@@ -7812,7 +7785,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../user-stats.html" class="md-nav__link">
+      <a href="user-stats.html" class="md-nav__link">
         
   
   
@@ -7908,7 +7881,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../advisors.html" class="md-nav__link">
+      <a href="advisors.html" class="md-nav__link">
         
   
   
@@ -7936,7 +7909,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../innodb-corrupt-table-action.html" class="md-nav__link">
+      <a href="innodb-corrupt-table-action.html" class="md-nav__link">
         
   
   
@@ -7964,7 +7937,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../libcoredumper.html" class="md-nav__link">
+      <a href="libcoredumper.html" class="md-nav__link">
         
   
   
@@ -7992,7 +7965,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../too-many-connections-mysql-warning.md.html" class="md-nav__link">
+      <a href="too-many-connections-mysql-warning.md.html" class="md-nav__link">
         
   
   
@@ -8020,7 +7993,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../stacktrace.html" class="md-nav__link">
+      <a href="stacktrace.html" class="md-nav__link">
         
   
   
@@ -8048,7 +8021,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../thread-based-profiling.html" class="md-nav__link">
+      <a href="thread-based-profiling.html" class="md-nav__link">
         
   
   
@@ -8215,7 +8188,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../aio-page-requests.html" class="md-nav__link">
+      <a href="aio-page-requests.html" class="md-nav__link">
         
   
   
@@ -8243,7 +8216,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../changed-page-tracking.html" class="md-nav__link">
+      <a href="changed-page-tracking.html" class="md-nav__link">
         
   
   
@@ -8271,7 +8244,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../compressed-columns.html" class="md-nav__link">
+      <a href="compressed-columns.html" class="md-nav__link">
         
   
   
@@ -8299,7 +8272,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../enforce-engine.html" class="md-nav__link">
+      <a href="enforce-engine.html" class="md-nav__link">
         
   
   
@@ -8327,7 +8300,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../improved-memory-engine.html" class="md-nav__link">
+      <a href="improved-memory-engine.html" class="md-nav__link">
         
   
   
@@ -8355,7 +8328,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../innodb-fragmentation-count.html" class="md-nav__link">
+      <a href="innodb-fragmentation-count.html" class="md-nav__link">
         
   
   
@@ -8383,7 +8356,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../innodb-fts-improvements.html" class="md-nav__link">
+      <a href="innodb-fts-improvements.html" class="md-nav__link">
         
   
   
@@ -8411,7 +8384,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../innodb-io.html" class="md-nav__link">
+      <a href="innodb-io.html" class="md-nav__link">
         
   
   
@@ -8439,7 +8412,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../innodb-show-status.html" class="md-nav__link">
+      <a href="innodb-show-status.html" class="md-nav__link">
         
   
   
@@ -8467,7 +8440,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../percona-xtradb.html" class="md-nav__link">
+      <a href="percona-xtradb.html" class="md-nav__link">
         
   
   
@@ -8495,7 +8468,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../prefix-index-queries-optimization.html" class="md-nav__link">
+      <a href="prefix-index-queries-optimization.html" class="md-nav__link">
         
   
   
@@ -8523,7 +8496,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../query-limit-records.html" class="md-nav__link">
+      <a href="query-limit-records.html" class="md-nav__link">
         
   
   
@@ -8551,7 +8524,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../show-engines.html" class="md-nav__link">
+      <a href="show-engines.html" class="md-nav__link">
         
   
   
@@ -8579,7 +8552,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../xtradb-performance-improvements-io-bound-highly-concurrent-workloads.html" class="md-nav__link">
+      <a href="xtradb-performance-improvements-io-bound-highly-concurrent-workloads.html" class="md-nav__link">
         
   
   
@@ -8690,7 +8663,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../myrocks-index.html" class="md-nav__link">
+      <a href="myrocks-index.html" class="md-nav__link">
         
   
   
@@ -8718,7 +8691,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../install-myrocks.html" class="md-nav__link">
+      <a href="install-myrocks.html" class="md-nav__link">
         
   
   
@@ -8746,7 +8719,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../added-features.html" class="md-nav__link">
+      <a href="added-features.html" class="md-nav__link">
         
   
   
@@ -8774,7 +8747,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../limitations.html" class="md-nav__link">
+      <a href="limitations.html" class="md-nav__link">
         
   
   
@@ -8802,7 +8775,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../differences.html" class="md-nav__link">
+      <a href="differences.html" class="md-nav__link">
         
   
   
@@ -8830,7 +8803,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../myrocks-column-family.html" class="md-nav__link">
+      <a href="myrocks-column-family.html" class="md-nav__link">
         
   
   
@@ -8858,7 +8831,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../myrocks-performance-schema-tables.html" class="md-nav__link">
+      <a href="myrocks-performance-schema-tables.html" class="md-nav__link">
         
   
   
@@ -8886,7 +8859,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../information-schema-tables.html" class="md-nav__link">
+      <a href="information-schema-tables.html" class="md-nav__link">
         
   
   
@@ -8914,7 +8887,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../variables.html" class="md-nav__link">
+      <a href="variables.html" class="md-nav__link">
         
   
   
@@ -8942,7 +8915,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../status-variables.html" class="md-nav__link">
+      <a href="status-variables.html" class="md-nav__link">
         
   
   
@@ -8970,7 +8943,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../gap-locks-detection.html" class="md-nav__link">
+      <a href="gap-locks-detection.html" class="md-nav__link">
         
   
   
@@ -8998,7 +8971,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../data-loading.html" class="md-nav__link">
+      <a href="data-loading.html" class="md-nav__link">
         
   
   
@@ -9026,7 +8999,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../zenfs.html" class="md-nav__link">
+      <a href="zenfs.html" class="md-nav__link">
         
   
   
@@ -9145,7 +9118,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../tokudb-intro.html" class="md-nav__link">
+      <a href="tokudb-intro.html" class="md-nav__link">
         
   
   
@@ -9173,7 +9146,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../tokudb-version-changes.html" class="md-nav__link">
+      <a href="tokudb-version-changes.html" class="md-nav__link">
         
   
   
@@ -9201,7 +9174,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../tokudb-quickstart.html" class="md-nav__link">
+      <a href="tokudb-quickstart.html" class="md-nav__link">
         
   
   
@@ -9229,7 +9202,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../tokudb-installation.html" class="md-nav__link">
+      <a href="tokudb-installation.html" class="md-nav__link">
         
   
   
@@ -9257,7 +9230,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../using-tokudb.html" class="md-nav__link">
+      <a href="using-tokudb.html" class="md-nav__link">
         
   
   
@@ -9285,7 +9258,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../fast-updates.html" class="md-nav__link">
+      <a href="fast-updates.html" class="md-nav__link">
         
   
   
@@ -9313,7 +9286,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../tokudb-files-file-types.html" class="md-nav__link">
+      <a href="tokudb-files-file-types.html" class="md-nav__link">
         
   
   
@@ -9341,7 +9314,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../tokudb-file-management.html" class="md-nav__link">
+      <a href="tokudb-file-management.html" class="md-nav__link">
         
   
   
@@ -9369,7 +9342,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../tokudb-background-analyze-table.html" class="md-nav__link">
+      <a href="tokudb-background-analyze-table.html" class="md-nav__link">
         
   
   
@@ -9397,7 +9370,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../tokudb-variables.html" class="md-nav__link">
+      <a href="tokudb-variables.html" class="md-nav__link">
         
   
   
@@ -9425,7 +9398,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../tokudb-status-variables.html" class="md-nav__link">
+      <a href="tokudb-status-variables.html" class="md-nav__link">
         
   
   
@@ -9453,7 +9426,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../tokudb-fractal-tree-indexing.html" class="md-nav__link">
+      <a href="tokudb-fractal-tree-indexing.html" class="md-nav__link">
         
   
   
@@ -9481,7 +9454,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../tokudb-troubleshooting.html" class="md-nav__link">
+      <a href="tokudb-troubleshooting.html" class="md-nav__link">
         
   
   
@@ -9509,7 +9482,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../tokudb-performance-schema.html" class="md-nav__link">
+      <a href="tokudb-performance-schema.html" class="md-nav__link">
         
   
   
@@ -9537,7 +9510,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../tokudb-faq.html" class="md-nav__link">
+      <a href="tokudb-faq.html" class="md-nav__link">
         
   
   
@@ -9565,7 +9538,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../removing-tokudb.html" class="md-nav__link">
+      <a href="removing-tokudb.html" class="md-nav__link">
         
   
   
@@ -9593,7 +9566,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../toku-backup.html" class="md-nav__link">
+      <a href="toku-backup.html" class="md-nav__link">
         
   
   
@@ -9711,7 +9684,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../reserved-words.html" class="md-nav__link">
+      <a href="reserved-words.html" class="md-nav__link">
         
   
   
@@ -9739,7 +9712,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../ps-variables.html" class="md-nav__link">
+      <a href="ps-variables.html" class="md-nav__link">
         
   
   
@@ -9767,7 +9740,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../ps-versions-comparison.html" class="md-nav__link">
+      <a href="ps-versions-comparison.html" class="md-nav__link">
         
   
   
@@ -9795,7 +9768,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../feature-comparison.html" class="md-nav__link">
+      <a href="feature-comparison.html" class="md-nav__link">
         
   
   
@@ -9823,7 +9796,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../server-version-numbers.html" class="md-nav__link">
+      <a href="server-version-numbers.html" class="md-nav__link">
         
   
   
@@ -9851,7 +9824,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../development.html" class="md-nav__link">
+      <a href="development.html" class="md-nav__link">
         
   
   
@@ -9879,7 +9852,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../telemetry.html" class="md-nav__link">
+      <a href="telemetry.html" class="md-nav__link">
         
   
   
@@ -9907,7 +9880,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../trademark-policy.html" class="md-nav__link">
+      <a href="trademark-policy.html" class="md-nav__link">
         
   
   
@@ -9935,7 +9908,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../index-info-schema-tables.html" class="md-nav__link">
+      <a href="index-info-schema-tables.html" class="md-nav__link">
         
   
   
@@ -9963,7 +9936,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../faq.html" class="md-nav__link">
+      <a href="faq.html" class="md-nav__link">
         
   
   
@@ -9991,7 +9964,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../copyright-and-licensing-information.html" class="md-nav__link">
+      <a href="copyright-and-licensing-information.html" class="md-nav__link">
         
   
   
@@ -10019,7 +9992,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../glossary.html" class="md-nav__link">
+      <a href="glossary.html" class="md-nav__link">
         
   
   
@@ -10047,7 +10020,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../ai-docs.html" class="md-nav__link">
+      <a href="ai-docs.html" class="md-nav__link">
         
   
   
@@ -10082,7 +10055,7 @@ in addition to enterprise-grade features developed by Percona.">
   
   
     <li class="md-nav__item">
-      <a href="../index-contents.html" class="md-nav__link">
+      <a href="index-contents.html" class="md-nav__link">
         
   
   
@@ -10342,7 +10315,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
                     <div class="md-sidebar__inner">
                       <div data-banner="data-banner">
   <div class="actions">
-    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/release-notes/Percona-Server-8.0.22-13.md" title="Edit this page on GitHub" class="edit-page-link">
+    <a href="https://github.com/percona/psmysql-docs/edit/8.0/docs/misc-performance-schema-tables.md" title="Edit this page on GitHub" class="edit-page-link">
       <span class="edit-page-icon">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
@@ -10382,32 +10355,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#new-features" class="md-nav__link">
+  <a href="#account-failed-login-lock-status" class="md-nav__link">
     <span class="md-ellipsis">
       
-        New Features
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#improvements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Improvements
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bugs-fixed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bugs Fixed
+        Account failed login lock status
       
     </span>
   </a>
@@ -10437,50 +10388,74 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/release-notes/Percona-Server-8.0.22-13.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/8.0/docs/misc-performance-schema-tables.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="percona-server-for-mysql-8022-13-2020-12-14">Percona Server for MySQL 8.0.22-13 (2020-12-14)<a class="headerlink" href="#percona-server-for-mysql-8022-13-2020-12-14" title="Permanent link">&para;</a></h1>
-<ul>
-<li><strong>Installation</strong> <a href="https://www.percona.com/doc/percona-server/8.0/installation.html">Installing Percona Server for MySQL</a></li>
-</ul>
-<p><a href="https://www.percona.com/software/mysql-database/percona-server">Percona Server for MySQL</a> 8.0.22-13
-includes all the features and bug fixes available in
-<a href="https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-22.html">MySQL 8.0.22 Community Edition</a>
-in addition to enterprise-grade features developed by Percona.</p>
-<h2 id="new-features">New Features<a class="headerlink" href="#new-features" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://jira.percona.com/browse/PS-7162">PS-7162</a>: Implement user-defined functions for Point-in-time Recovery in PXC operator</li>
-</ul>
-<h2 id="improvements">Improvements<a class="headerlink" href="#improvements" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://jira.percona.com/browse/PS-7348">PS-7348</a>: Create a set of C++ classes/macros that would simplify the creation of new user-defined functions</li>
-</ul>
-<h2 id="bugs-fixed">Bugs Fixed<a class="headerlink" href="#bugs-fixed" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><a href="https://jira.percona.com/browse/PS-7346">PS-7346</a>: Correct the buffer calculation for the audit plugin used when large queries are executed(PS-5395).</p>
-</li>
-<li>
-<p><a href="https://jira.percona.com/browse/PS-7300">PS-7300</a>: Modify Session temporary tablespace truncation on connection disconnect to reduce high CPU usage (Upstream <a href="http://bugs.mysql.com/bug.php?id=98869">#98869</a>)</p>
-</li>
-<li>
-<p><a href="https://jira.percona.com/browse/PS-7304">PS-7304</a>: Correct package to include coredumper.a as a dependency of libperconaserverclient20-dev (Thanks to user Martin for reporting this issue)</p>
-</li>
-<li>
-<p><a href="https://jira.percona.com/browse/PS-7236">PS-7236</a>: Correct grouping by GROUP BY processing with timezone (Thanks to user larrabee for reporting this issue) (Upstream <a href="http://bugs.mysql.com/bug.php?id=101105">#101105</a>)</p>
-</li>
-<li>
-<p><a href="https://jira.percona.com/browse/PS-7286">PS-7286</a>: Modify to check for boundaries for encryption_key_id</p>
-</li>
-<li>
-<p><a href="https://jira.percona.com/browse/PS-7317">PS-7317</a>: Add explicit_default_counter=10000 to innodb.table_encrypt_* MTR tests</p>
-</li>
-</ul>
+<h1 id="additional-performance_schema-tables">Additional PERFORMANCE_SCHEMA tables<a class="headerlink" href="#additional-performance_schema-tables" title="Permanent link">&para;</a></h1>
+<p>This page lists the <code>performance_schema</code> tables added to standard <em>MySQL</em> by <em>Percona Server for MySQL</em> that don&rsquo;t exist elsewhere in the documentation.</p>
+<h2 id="account-failed-login-lock-status">Account failed login lock status<a class="headerlink" href="#account-failed-login-lock-status" title="Permanent link">&para;</a></h2>
+<h3 id="performance_schemaaccount_failed_login_lock_status"><code>performance_schema.account_failed_login_lock_status</code><a class="headerlink" href="#performance_schemaaccount_failed_login_lock_status" title="Permanent link">&para;</a></h3>
+<p>The <code>performance_schema.account_failed_login_lock_status</code> table is implemented in Percona Server for MySQL 8.0.44-35. This table exposes information about temporary account locking from the MySQL internal Access Control List (ACL) cache. </p>
+<p>This table is read-only. Users require global, per-database, or per-table <code>SELECT</code> privilege on this table to access its contents.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If an account is locked using the <code>CREATE USER</code> or <code>ALTER USER</code> statements with the <code>ACCOUNT LOCK</code> clause, this status is not captured in this table. The server records the <code>ACCOUNT LOCK</code> state in the <code>mysql.user</code> table.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Column Name</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>USER</code></td>
+<td><code>CHAR(..)</code></td>
+<td>Identifies the user account described by the table row</td>
+</tr>
+<tr>
+<td><code>HOST</code></td>
+<td><code>CHAR(..)</code></td>
+<td>Identifies the user account described by the table row</td>
+</tr>
+<tr>
+<td><code>IS_TRACKING_ACTIVE</code></td>
+<td><code>enum('YES','NO')</code></td>
+<td>Indicates whether failed login tracking is enabled for the account</td>
+</tr>
+<tr>
+<td><code>MAX_ATTEMPTS</code></td>
+<td><code>INTEGER</code></td>
+<td>Maximum number of failed login attempts allowed before account is locked (corresponds to FAILED_LOGIN_ATTEMPTS clause value in CREATE USER or ALTER USER statement)</td>
+</tr>
+<tr>
+<td><code>PASSWORD_LOCK_DAYS</code></td>
+<td><code>INTEGER</code></td>
+<td>Number of days for which account will be temporarily locked after exceeding the MAX_ATTEMPTS limit. Set to -1 if account is locked forever (corresponds to PASSWORD_LOCK_TIME clause value in CREATE USER or ALTER USER statement)</td>
+</tr>
+<tr>
+<td><code>IS_LOCKED</code></td>
+<td><code>BOOLEAN</code></td>
+<td>Indicates if account is temporarily locked by failed login lock tracking. NULL if tracking is not enabled for account</td>
+</tr>
+<tr>
+<td><code>REMAINING_ATTEMPTS</code></td>
+<td><code>INTEGER</code></td>
+<td>Number of failed login attempts remaining before account will be locked. NULL if tracking is not enabled for account</td>
+</tr>
+<tr>
+<td><code>REMAINING_DAYS_LOCKED</code></td>
+<td><code>INTEGER</code></td>
+<td>Number of days for which account is locked due to failed login lock tracking. -1 means that account is locked &ldquo;forever&rdquo; (until server restart/FLUSH PRIVILEGES or specific account unlock). NULL if tracking is not enabled for account</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -10503,7 +10478,7 @@ in addition to enterprise-grade features developed by Percona.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 22, 2022 12:09:29 UTC">September 22, 2022</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2025 16:51:00 UTC">November 27, 2025</span>
   </span>
 
     
@@ -10513,7 +10488,7 @@ in addition to enterprise-grade features developed by Percona.</p>
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 22, 2022 12:09:29 UTC">September 22, 2022</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2025 16:51:00 UTC">November 27, 2025</span>
   </span>
 
     
@@ -10603,22 +10578,22 @@ in addition to enterprise-grade features developed by Percona.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
       
-        <script src="../js/print-site.js"></script>
+        <script src="js/print-site.js"></script>
       
-        <script src="../js/version-select.js"></script>
+        <script src="js/version-select.js"></script>
       
-        <script src="../js/promptremover.js"></script>
+        <script src="js/promptremover.js"></script>
       
-        <script src="../js/consent.js"></script>
+        <script src="js/consent.js"></script>
       
-        <script src="../js/rating.js"></script>
+        <script src="js/rating.js"></script>
       
     
 

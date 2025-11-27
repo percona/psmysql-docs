@@ -21,7 +21,7 @@
         <link rel="prev" href="jemalloc-profiling.html">
       
       
-        <link rel="next" href="process-list.html">
+        <link rel="next" href="misc-performance-schema-tables.html">
       
       
         
@@ -32,7 +32,7 @@
     
     
       
-        <title>Misc. INFORMATION_SCHEMA tables - Percona Server for MySQL</title>
+        <title>Additional INFORMATION_SCHEMA tables - Percona Server for MySQL</title>
       
     
     
@@ -100,7 +100,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Misc. INFORMATION_SCHEMA tables" />
+                 <meta property="og:title" content="Percona Server for MySQL - Additional INFORMATION_SCHEMA tables" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.0/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.0/_static/percona-mysql-logo.png" />
 
@@ -123,7 +123,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#misc-information_schema-tables" class="md-skip">
+        <a href="#additional-information_schema-tables" class="md-skip">
           Skip to content
         </a>
       
@@ -220,7 +220,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Misc. INFORMATION_SCHEMA tables
+              Additional INFORMATION_SCHEMA tables
             
           </span>
         </div>
@@ -7389,6 +7389,8 @@
       
         
       
+        
+      
     
     
     
@@ -7508,7 +7510,7 @@
   <span class="md-ellipsis">
     
   
-    Misc. INFORMATION_SCHEMA tables
+    Additional INFORMATION_SCHEMA tables
   
 
     
@@ -7526,7 +7528,7 @@
   <span class="md-ellipsis">
     
   
-    Misc. INFORMATION_SCHEMA tables
+    Additional INFORMATION_SCHEMA tables
   
 
     
@@ -7568,6 +7570,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="misc-performance-schema-tables.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Additional PERFORMANCE_SCHEMA tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -7624,10 +7654,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_6" >
         
           
-          <label class="md-nav__link" for="__nav_13_5" id="__nav_13_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_13_6" id="__nav_13_6_label" tabindex="0">
             
   
   
@@ -7645,8 +7675,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_13_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -10365,127 +10395,112 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="misc-information_schema-tables">Misc. INFORMATION_SCHEMA tables<a class="headerlink" href="#misc-information_schema-tables" title="Permanent link">&para;</a></h1>
-<p>This page lists the <code>INFORMATION_SCHEMA</code> tables added to standard <em>MySQL</em> by <em>Percona Server for MySQL</em> that don’t exist elsewhere in the documentation.</p>
+<h1 id="additional-information_schema-tables">Additional INFORMATION_SCHEMA tables<a class="headerlink" href="#additional-information_schema-tables" title="Permanent link">&para;</a></h1>
+<p>This page lists the <code>INFORMATION_SCHEMA</code> tables added to standard <em>MySQL</em> by <em>Percona Server for MySQL</em> that don&rsquo;t exist elsewhere in the documentation.</p>
 <h2 id="temporary-tables">Temporary tables<a class="headerlink" href="#temporary-tables" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>This feature implementation is considered tech preview quality.</strong></p>
 </div>
 <p>Only the temporary tables that were explicitly created with CREATE TEMPORARY TABLE or ALTER TABLE are shown, and not the ones created to process complex queries.</p>
+<p>These tables were added in Percona Server for MySQL 8.0.12-1.</p>
 <h3 id="information_schemaglobal_temporary_tables"><code>INFORMATION_SCHEMA.GLOBAL_TEMPORARY_TABLES</code><a class="headerlink" href="#information_schemaglobal_temporary_tables" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Column Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>‘SESSION_ID’</td>
-<td>‘MySQL connection id’</td>
-</tr>
-<tr>
-<td>‘TABLE_SCHEMA’</td>
-<td>‘Schema in which the temporary table is created’</td>
-</tr>
-<tr>
-<td>‘TABLE_NAME’</td>
-<td>‘Name of the temporary table’</td>
-</tr>
-<tr>
-<td>‘ENGINE’</td>
-<td>‘Engine of the temporary table’</td>
-</tr>
-<tr>
-<td>‘NAME’</td>
-<td>‘Internal name of the temporary table’</td>
-</tr>
-<tr>
-<td>‘TABLE_ROWS’</td>
-<td>‘Number of rows of the temporary table’</td>
-</tr>
-<tr>
-<td>‘AVG_ROW_LENGTH’</td>
-<td>‘Average row length of the temporary table’</td>
-</tr>
-<tr>
-<td>‘DATA_LENGTH’</td>
-<td>‘Size of the data (Bytes)’</td>
-</tr>
-<tr>
-<td>‘INDEX_LENGTH’</td>
-<td>‘Size of the indexes (Bytes)’</td>
-</tr>
-<tr>
-<td>‘CREATE_TIME’</td>
-<td>‘Date and time of creation of the temporary table’</td>
-</tr>
-<tr>
-<td>‘UPDATE_TIME’</td>
-<td>‘Date and time of the latest update of the temporary table’</td>
-</tr>
-</tbody>
-</table>
-<p>The feature was ported from <em>Percona Server for MySQL</em> 5.7 in 8.0.12-1.</p>
-<p>This table holds information on the temporary tables that exist for all connections. You don’t need the <code>SUPER</code> privilege to query this table.</p>
+<p>The GLOBAL_TEMPORARY_TABLES table has these columns:</p>
+<ul>
+<li>
+<p><code>SESSION_ID</code><br />
+  MySQL connection id.</p>
+</li>
+<li>
+<p><code>TABLE_SCHEMA</code><br />
+  Schema in which the temporary table is created.</p>
+</li>
+<li>
+<p><code>TABLE_NAME</code><br />
+  Name of the temporary table.</p>
+</li>
+<li>
+<p><code>ENGINE</code><br />
+  Engine of the temporary table.</p>
+</li>
+<li>
+<p><code>NAME</code><br />
+  Internal name of the temporary table.</p>
+</li>
+<li>
+<p><code>TABLE_ROWS</code><br />
+  Number of rows of the temporary table.</p>
+</li>
+<li>
+<p><code>AVG_ROW_LENGTH</code><br />
+  Average row length of the temporary table.</p>
+</li>
+<li>
+<p><code>DATA_LENGTH</code><br />
+  Size of the data (Bytes).</p>
+</li>
+<li>
+<p><code>INDEX_LENGTH</code><br />
+  Size of the indexes (Bytes).</p>
+</li>
+<li>
+<p><code>CREATE_TIME</code><br />
+  Date and time of creation of the temporary table.</p>
+</li>
+<li>
+<p><code>UPDATE_TIME</code><br />
+  Date and time of the latest update of the temporary table.</p>
+</li>
+</ul>
+<p>This table holds information on the temporary tables that exist for all connections. You don&rsquo;t need the <code>SUPER</code> privilege to query this table.</p>
 <h3 id="information_schematemporary_tables"><code>INFORMATION_SCHEMA.TEMPORARY_TABLES</code><a class="headerlink" href="#information_schematemporary_tables" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Column Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>‘SESSION_ID’</td>
-<td>‘MySQL connection id’</td>
-</tr>
-<tr>
-<td>‘TABLE_SCHEMA’</td>
-<td>‘Schema in which the temporary table is created’</td>
-</tr>
-<tr>
-<td>‘TABLE_NAME’</td>
-<td>‘Name of the temporary table’</td>
-</tr>
-<tr>
-<td>‘ENGINE’</td>
-<td>‘Engine of the temporary table’</td>
-</tr>
-<tr>
-<td>‘NAME’</td>
-<td>‘Internal name of the temporary table’</td>
-</tr>
-<tr>
-<td>‘TABLE_ROWS’</td>
-<td>‘Number of rows of the temporary table’</td>
-</tr>
-<tr>
-<td>‘AVG_ROW_LENGTH’</td>
-<td>‘Average row length of the temporary table’</td>
-</tr>
-<tr>
-<td>‘DATA_LENGTH’</td>
-<td>‘Size of the data (Bytes)’</td>
-</tr>
-<tr>
-<td>‘INDEX_LENGTH’</td>
-<td>‘Size of the indexes (Bytes)’</td>
-</tr>
-<tr>
-<td>‘CREATE_TIME’</td>
-<td>‘Date and time of creation of the temporary table’</td>
-</tr>
-<tr>
-<td>‘UPDATE_TIME’</td>
-<td>‘Date and time of the latest update of the temporary table’</td>
-</tr>
-</tbody>
-</table>
-<p>The feature was ported from <em>Percona Server for MySQL</em> 5.7 in 8.0.12-1.</p>
+<p>The TEMPORARY_TABLES table has these columns:</p>
+<ul>
+<li>
+<p><code>SESSION_ID</code><br />
+  MySQL connection id.</p>
+</li>
+<li>
+<p><code>TABLE_SCHEMA</code><br />
+  Schema in which the temporary table is created.</p>
+</li>
+<li>
+<p><code>TABLE_NAME</code><br />
+  Name of the temporary table.</p>
+</li>
+<li>
+<p><code>ENGINE</code><br />
+  Engine of the temporary table.</p>
+</li>
+<li>
+<p><code>NAME</code><br />
+  Internal name of the temporary table.</p>
+</li>
+<li>
+<p><code>TABLE_ROWS</code><br />
+  Number of rows of the temporary table.</p>
+</li>
+<li>
+<p><code>AVG_ROW_LENGTH</code><br />
+  Average row length of the temporary table.</p>
+</li>
+<li>
+<p><code>DATA_LENGTH</code><br />
+  Size of the data (Bytes).</p>
+</li>
+<li>
+<p><code>INDEX_LENGTH</code><br />
+  Size of the indexes (Bytes).</p>
+</li>
+<li>
+<p><code>CREATE_TIME</code><br />
+  Date and time of creation of the temporary table.</p>
+</li>
+<li>
+<p><code>UPDATE_TIME</code><br />
+  Date and time of the latest update of the temporary table.</p>
+</li>
+</ul>
 <p>This table holds information on the temporary tables existing for the running connection.</p>
 
 
@@ -10509,7 +10524,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 12, 2023 15:39:59 UTC">January 12, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2025 16:51:00 UTC">November 27, 2025</span>
   </span>
 
     
