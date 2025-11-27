@@ -20,7 +20,7 @@ running in the background.
 If the innodb_force_recovery option is <4, corrupted pages are lost and the server may continue to run due to the innodb_corrupt_table_action variable having a non-default value.
 
 For more information about the innodb_force_recovery variable,
-see [Forcing InnoDB Recovery](https://dev.mysql.com/doc/refman/5.5/en/forcing-innodb-recovery.html)
+see [Forcing InnoDB Recovery :octicons-link-external-16:](https://dev.mysql.com/doc/refman/5.5/en/forcing-innodb-recovery.html)
 from the MySQL Reference Manual.
 
 This feature adds a new system variable.

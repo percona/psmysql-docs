@@ -13,7 +13,7 @@ non-deterministic result or not, and switches from statement-based logging
 to row-based one. *Percona Server for MySQL* is more accurate, it acknowledges such
 instructions as safe when they include `ORDER BY PK` or `WHERE`
 condition. This fix has been ported from the upstream bug report
-[#42415](https://bugs.mysql.com/bug.php?id=42415) ([#44](https://jira.percona.com/browse/PS-44)).
+[#42415 :octicons-link-external-16:](https://bugs.mysql.com/bug.php?id=42415) ([#44 :octicons-link-external-16:](https://jira.percona.com/browse/PS-44)).
 
 ## Performance improvement on relay log position update
 
@@ -29,8 +29,8 @@ GTIDs.
 Particularly, such unconditional relay log position updates caused additional
 fsync operations in case of `relay-log-info-repository=TABLE`, and with the
 higher number of channels transmitting such duplicate (already executed)
-transactions the situation became proportionally worse. Bug fixed [#1786](https://jira.percona.com/browse/PS-1786)
-(upstream [#85141](https://bugs.mysql.com/bug.php?id=85141)).
+transactions the situation became proportionally worse. Bug fixed [#1786 :octicons-link-external-16:](https://jira.percona.com/browse/PS-1786)
+(upstream [#85141 :octicons-link-external-16:](https://bugs.mysql.com/bug.php?id=85141)).
 
 ## Performance improvement on source and connection status updates
 
@@ -51,8 +51,8 @@ Heartbeats sent to the replica to skip GTID events which it had already executed
 previously, were evaluated as relay log rotation events and reacted with
 `mysql.slave_master_info` table sync. This inaccuracy could produce huge (up
 to 5 times on some setups) increase in write load on the replica, before this
-problem was fixed in *Percona Server for MySQL*. Bug fixed [#1812](https://jira.percona.com/browse/PS-1812) (upstream
-[#85158](https://bugs.mysql.com/bug.php?id=85158)).
+problem was fixed in *Percona Server for MySQL*. Bug fixed [#1812 :octicons-link-external-16:](https://jira.percona.com/browse/PS-1812) (upstream
+[#85158 :octicons-link-external-16:](https://bugs.mysql.com/bug.php?id=85158)).
 
 ## Write `FLUSH` commands to the binary log
 
@@ -224,7 +224,7 @@ By configuring these settings, the MySQL client can handle data type conversions
 
 All functions returning timestamps return their values as microsecond precision UNIX time. In other words, they represent the number of microseconds since 1-JAN-1970.
 
-All functions accepting a binlog name as a parameter accept only short names, without a path component. If the path separator ('/') is found in the input, an error is returned. This restriction serves the purpose of limiting the locations from which binlogs can be read. They are always read from the current binlog directory ([@@log_bin_basename system variable](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_log_bin_basename)).
+All functions accepting a binlog name as a parameter accept only short names, without a path component. If the path separator ('/') is found in the input, an error is returned. This restriction serves the purpose of limiting the locations from which binlogs can be read. They are always read from the current binlog directory ([@@log_bin_basename system variable :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_log_bin_basename)).
 
 All functions returning binlog file names return the name in short form, without a path component.
 
@@ -529,8 +529,8 @@ The query should return no rows if the plugin is successfully uninstalled.
 
 For the following variables, do not define values with one or more dot (.) characters:
 
-* [log_bin](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin)
+* [log_bin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin)
 
-* [log_bin_index](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin-index)
+* [log_bin_index :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin-index)
 
 A value defined with these characters is handled differently in *MySQL* and Percona XtraBackup and can cause unpredictable behavior.

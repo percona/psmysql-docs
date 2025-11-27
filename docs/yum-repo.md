@@ -1,10 +1,10 @@
 # Install from Percona Software repository
 
 Ready-to-use packages are available from the Percona Server for MySQL software
-repositories and the [download page](https://www.percona.com/downloads). 
+repositories and the [download page :octicons-link-external-16:](https://www.percona.com/downloads). 
 
 The Percona yum repository supports popular RPM-based
-operating systems. The easiest way to install the Percona RPM repository is to install an RPM configuring yum and installing the [Percona GPG key](https://repo.percona.com/yum/PERCONA-PACKAGING-KEY).
+operating systems. The easiest way to install the Percona RPM repository is to install an RPM configuring yum and installing the [Percona GPG key :octicons-link-external-16:](https://repo.percona.com/yum/PERCONA-PACKAGING-KEY).
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
@@ -16,11 +16,11 @@ Starting with Percona Server 8.0.33-25, the RPM builds for *RHEL* 8 and *RHEL* 9
 
 ### Supported platforms
 
-Specific information on the supported platforms, products, and versions are described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
+Specific information on the supported platforms, products, and versions are described in [Percona Software and Platform Lifecycle :octicons-link-external-16:](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
 ### Red Hat Certified
 
-Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certification is based on common and secure best practices and successful interoperability with the operating system. Percona Server is listed in the [Red Hat Ecosystem Catalog](https://catalog.redhat.com/software/applications/detail/112055).
+Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certification is based on common and secure best practices and successful interoperability with the operating system. Percona Server is listed in the [Red Hat Ecosystem Catalog :octicons-link-external-16:](https://catalog.redhat.com/software/applications/detail/112055).
 
 <!-- ### Percona Server for MySQL PRO 
 
@@ -30,7 +30,7 @@ Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certi
 
 ## Install Percona Server for MySQL from Percona `yum` repository
 
-For more information on the Percona Software repositories and configuring Percona Repositories with `percona-release`, see the [Percona Software Repositories Documentation]. Run the following commands as a `root` user or with sudo.
+For more information on the Percona Software repositories and configuring Percona Repositories with `percona-release`, see the [Percona Software Repositories Documentation :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/index.html). Run the following commands as a `root` user or with sudo.
 
 !!! note "RHEL 8 and EL8 systems"
     RHEL 8 and other EL8 systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled before installing Percona Server for MySQL. The installation instructions for RHEL 8 or later include this step.
@@ -84,7 +84,6 @@ There are three sections in this file:
 You must install the Percona repository first if the installation has not been done already.
 
 [Telemetry data]: telemetry.md
-[Percona Software Repositories Documentation]: https://docs.percona.com/percona-software-repositories/index.html
 
 [TokuDB version changes]: tokudb-version-changes.md
 [TokuDB Installation guide]: tokudb-installation.md

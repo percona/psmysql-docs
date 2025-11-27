@@ -7,7 +7,7 @@ default. The configuration file used to manage Percona Server for MySQL is the `
 
 You would use `systemctl` to manage system services and daemons in a Linux environment. It provides a systematic and unified interface for controlling the state of services and checking their status. With `systemctl`, you can start a service to initiate its operations, stop it to terminate its operations, restart it to refresh its state, and check the status to monitor its performance and health. This command is essential for system administrators who need precise control over service management tasks.
 
-The RHEL distributions and derivatives come with [systemd](https:/freedesktop.org/wiki/Software/systemd/) as the default system and service manager. 
+The RHEL distributions and derivatives come with [systemd :octicons-link-external-16:](https:/freedesktop.org/wiki/Software/systemd/) as the default system and service manager. 
 
 `systemctl` is a command-line utility that is used to control the systemd system and service manager. It's a primary tool for managing services on Linux distributions that use systemd.
 
@@ -35,4 +35,4 @@ For information on SELinux, see [Working with SELinux](selinux.md).
 The RHEL 8 distributions and derivatives have added a [system-wide cryptographic policies component]. This component lets administrators manage the cryptographic compliance of the entire system with a single command. This ability simplifies the task of meeting specific security requirements for cryptographic algorithms.
 
 
-[system-wide cryptographic policies component]: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening
+[system-wide cryptographic policies component :octicons-link-external-16:]: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening

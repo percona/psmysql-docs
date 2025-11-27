@@ -4,7 +4,7 @@ Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storag
 
 ## Migrate to MyRocks
 
-To migrate data use the [mysqldump](https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html) client utility or the tools in the [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) to dump and restore the database.
+To migrate data use the [mysqldump :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html) client utility or the tools in the [MySQL Workbench :octicons-link-external-16:](https://dev.mysql.com/downloads/workbench/) to dump and restore the database.
 
 We recommended migrating to the MyRocks storage engine. Follow these steps to migrate the data:
 

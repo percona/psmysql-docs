@@ -2,7 +2,7 @@
 
 Percona Audit Log Plugin provides monitoring and logging of connection and query
 activity that were performed on specific server. Information about the activity
-is stored in a log file. This implementation is alternative to the [MySQL Enterprise Audit Log Plugin](https://dev.mysql.com/doc/refman/8.0/en/audit-log.html). 
+is stored in a log file. This implementation is alternative to the [MySQL Enterprise Audit Log Plugin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/audit-log.html). 
 
 ## Version specific information
 
@@ -283,7 +283,7 @@ The audit Log plugin generates a log of following events.
 
 ## Stream the audit log to syslog
 
-To stream the audit log to syslog you’ll need to set audit_log_handler variable to `SYSLOG`. To control the syslog file handler, the following variables can be used: audit_log_syslog_ident, audit_log_syslog_facility, and audit_log_syslog_priority These variables have the same meaning as appropriate parameters described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+To stream the audit log to syslog you’ll need to set audit_log_handler variable to `SYSLOG`. To control the syslog file handler, the following variables can be used: audit_log_syslog_ident, audit_log_syslog_facility, and audit_log_syslog_priority These variables have the same meaning as appropriate parameters described in the [syslog(3) manual :octicons-link-external-16:](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 !!! note
 
@@ -879,7 +879,7 @@ will be written to syslog.
 
 This variable is used to specify the `ident` value for syslog. This variable
 has the same meaning as the appropriate parameter described in the [syslog(3)
-manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+manual :octicons-link-external-16:](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ### `audit_log_syslog_facility`
 
@@ -893,7 +893,7 @@ manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 This variable is used to specify the `facility` value for syslog. This
 variable has the same meaning as the appropriate parameter described in the
-[syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+[syslog(3) manual :octicons-link-external-16:](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ### `audit_log_syslog_priority`
 
@@ -918,7 +918,7 @@ lower the level as needed, while the facility stays at its default unless you
 change it explicitly.
 
 For more details about syslog priority levels, see the [syslog(3)
-manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+manual :octicons-link-external-16:](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ## Status Variables
 

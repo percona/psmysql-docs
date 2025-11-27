@@ -1,9 +1,9 @@
 # Use an APT repository to install Percona Server for MySQL 8.0
 
 Ready-to-use packages are available from the Percona Server for MySQL software
-repositories and the [Percona downloads](https://www.percona.com/downloads/Percona-Server-8.0/) page.
+repositories and the [Percona downloads :octicons-link-external-16:](https://www.percona.com/downloads/Percona-Server-8.0/) page.
 
-Specific information on the supported platforms, products, and versions is described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
+Specific information on the supported platforms, products, and versions is described in [Percona Software and Platform Lifecycle :octicons-link-external-16:](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
@@ -11,7 +11,7 @@ Review [Get more help](get-help.md) for ways that we can work with you.
 
 ## Version changes
 
-Starting with [Percona Server 8.0.37-29](release-notes/8.0.37-29.md), the following operating systems on [Percona Software Download](https://www.percona.com/downloads) include ARM64 packages with the `arm64.deb` extension:
+Starting with [Percona Server 8.0.37-29](release-notes/8.0.37-29.md), the following operating systems on [Percona Software Download :octicons-link-external-16:](https://www.percona.com/downloads) include ARM64 packages with the `arm64.deb` extension:
 
 * Debian GNU/Linux 12.0
 
@@ -94,12 +94,12 @@ The following sections provide detailed explanations for each step:
 	sudo apt install percona-server-server
 	```
 
-See [Configuring Percona repositories with `percona-release`](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
+See [Configuring Percona repositories with `percona-release` :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
 
 
 Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. For more information, see the [TokuDB Introduction](tokudb-intro.md) and [TokuDB version changes](tokudb-version-changes.md). 
 
-Percona Server for MySQL contains user-defined functions from the [Percona Toolkit](https://docs.percona.com/percona-toolkit/). These user-defined functions provide faster checksums. For more details on the user-defined functions, see [Percona Toolkit UDF functions](udf-percona-toolkit.md).
+Percona Server for MySQL contains user-defined functions from the [Percona Toolkit :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/). These user-defined functions provide faster checksums. For more details on the user-defined functions, see [Percona Toolkit UDF functions](udf-percona-toolkit.md).
 
 After the installation completes, run the following commands to create these functions:
 

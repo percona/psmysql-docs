@@ -1581,7 +1581,7 @@ The variable was implemented in [Percona Server for MySQL 8.0.25-15](./release-n
 
 #### Improving Write Throughput with Pipelined Writes
 
-This option maps directly to RocksDB’s `DBOptions::enable_pipelined_write`. For details, see the [RocksDB documentation on Pipelined Write](https://github.com/facebook/rocksdb/wiki/Pipelined-Write).
+This option maps directly to RocksDB’s `DBOptions::enable_pipelined_write`. For details, see the [RocksDB documentation on Pipelined Write :octicons-link-external-16:](https://github.com/facebook/rocksdb/wiki/Pipelined-Write).
 
 
 The pipelined write feature in RocksDB is specifically designed to enhance concurrent write throughput, but this feature only functions when the Write-Ahead Log (WAL) is enabled. Write operations normally pass through a shared queue. Each writer appends to the WAL and then updates the memtable in strict sequence. This pattern limits parallelism.
@@ -1760,7 +1760,7 @@ This variable controls whether to write and check RocksDB file-level checksums. 
 | Default      | 1                                 |
 
 Specifies whether to sync on every transaction commit,
-similar to [innodb_flush_log_at_trx_commit](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit).
+similar to [innodb_flush_log_at_trx_commit :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit).
 Enabled by default, which ensures ACID compliance.
 
 Possible values:

@@ -4,7 +4,7 @@ A binary tarball contains a group of files, including the source code, bundled t
 
 See the list of the [binary tarball available based on the Percona Server for MySQL version](binary-tarball-names.md) to select the right tarball for your environment.
     
-You can download the binary tarballs from the `Linux - Generic` [section](https://www.percona.com/downloads) on the download page.
+You can download the binary tarballs from the `Linux - Generic` [section :octicons-link-external-16:](https://www.percona.com/downloads) on the download page.
 
 Fetch and extract the correct binary tarball. For example, for Debian 10:
 

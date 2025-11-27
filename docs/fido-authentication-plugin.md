@@ -23,11 +23,11 @@ The plugin and library file names are listed in the following table.
 
 ## Install the FIDO authentication plugin
 
-The library file must be stored in the directory named by the [`plugin_dir`](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_plugin_dir) variable. 
+The library file must be stored in the directory named by the [`plugin_dir` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_plugin_dir) variable. 
 
 === "At server startup"
 
-    At server startup, use the [`--plugin_load_add`](https://dev.mysql.com/doc/refman/8.0/en/server-options.html#option_mysqld_plugin-load-add) option with the library name. The option must be added each time the server starts.
+    At server startup, use the [`--plugin_load_add` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/server-options.html#option_mysqld_plugin-load-add) option with the library name. The option must be added each time the server starts.
 
 === "Edit my.cnf and restart the server"
 
@@ -47,7 +47,7 @@ The library file must be stored in the directory named by the [`plugin_dir`](htt
 
 ### Verify installation
 
-Use the [`SHOW PLUGINS`](https://dev.mysql.com/doc/refman/8.0/en/show-plugins.html) statement or query the `INFORMATION_SCHEMA.PLUGINS` table to verify that the plugin was loaded successfully and is active.
+Use the [`SHOW PLUGINS` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/show-plugins.html) statement or query the `INFORMATION_SCHEMA.PLUGINS` table to verify that the plugin was loaded successfully and is active.
 
 Check the server error log if the plugin is not loaded.
 
@@ -77,7 +77,7 @@ If FIDO is used as the only method of authentication, the method does not use a 
 
 The user creates an account with the `PASSWORDLESS_USER_ADMIN` privilege and the `CREATE USER` privilege. 
 
-The first element of the `authentication_policy` value must be an asterisk(*). Do not start with the plugin name. For information about configuring the `authentication policy` value, see [Configuring the Multifactor Authentication Policy](https://dev.mysql.com/doc/refman/8.0/en/multifactor-authentication.html#multifactor-authentication-policy).
+The first element of the `authentication_policy` value must be an asterisk(*). Do not start with the plugin name. For information about configuring the `authentication policy` value, see [Configuring the Multifactor Authentication Policy :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/multifactor-authentication.html#multifactor-authentication-policy).
 
 You must include the `INITIAL AUTHENTICATION IDENTIFIED BY` clause in the `CREATE USER` statement. The server does accept the statement without the clause but the account is unusable because the user cannot connect to the server to register the device. 
 

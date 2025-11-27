@@ -19,4 +19,4 @@ Pin-Priority: 1001
 
 Save this file and update your package lists with `sudo apt update`. Finally, install Percona Server for MySQL 8.0 with `sudo apt install percona-server-server-8.0`, and apt will adhere to your pinning preferences.
 
-For more information, see [debian wiki on AptConfiguration](https://wiki.debian.org/AptConfiguration?action=show&redirect=AptPreferences).
+For more information, see [debian wiki on AptConfiguration :octicons-link-external-16:](https://wiki.debian.org/AptConfiguration?action=show&redirect=AptPreferences).

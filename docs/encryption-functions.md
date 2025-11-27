@@ -675,7 +675,7 @@ If you don't pick one, the system checks the `encryption_udf.legacy_padding_sche
 
 #### Want to learn more?
 
-Check out this article: [`Digital Signatures: Another layer of Data Protection in Percona Server for MySQL`](https://www.percona.com/blog/digital-signatures-another-layer-of-data-protection-in-percona-server-for-mysql/)
+Check out this article: [`Digital Signatures: Another layer of Data Protection in Percona Server for MySQL` :octicons-link-external-16:](https://www.percona.com/blog/digital-signatures-another-layer-of-data-protection-in-percona-server-for-mysql/)
 
 ### Encryption_udf.rsa_bits_threshold
 

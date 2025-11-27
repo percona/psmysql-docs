@@ -1,6 +1,6 @@
 # Using the Key Management Interoperability Protocol (KMIP)
 
-**Percona Server for MySQL** 8.0.27-18 adds support for the [OASIS Key Management Interoperability Protocol (KMIP)](https://docs.oasis-open.org/kmip/kmip-spec/v2.0/os/kmip-spec-v2.0-os.html). This implementation was tested with the [PyKMIP server](https://pykmip.readthedocs.io/en/latest/server.html) and the [HashiCorp Vault Enterprise KMIP Secrets Engine](https://www.vaultproject.io/docs/secrets/kmip).
+**Percona Server for MySQL** 8.0.27-18 adds support for the [OASIS Key Management Interoperability Protocol (KMIP) :octicons-link-external-16:](https://docs.oasis-open.org/kmip/kmip-spec/v2.0/os/kmip-spec-v2.0-os.html). This implementation was tested with the [PyKMIP server :octicons-link-external-16:](https://pykmip.readthedocs.io/en/latest/server.html) and the [HashiCorp Vault Enterprise KMIP Secrets Engine :octicons-link-external-16:](https://www.vaultproject.io/docs/secrets/kmip).
 
 KMIP enables communication between key management systems and the database server. The protocol can do the following:
 
@@ -63,4 +63,4 @@ The configuration settings are either in a global configuration file or a local 
 }
 ```
 
-For more information, see [Keyring Component installation](https://dev.mysql.com/doc/refman/8.0/en/keyring-component-installation.html)
+For more information, see [Keyring Component installation :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/keyring-component-installation.html)

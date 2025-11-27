@@ -1,11 +1,11 @@
 # Use the keyring component or keyring plugin
 
-The `keyring_vault` plugin can store the encryption keys inside the [HashiCorp Vault](https://www.hashicorp.com/products/vault/data-protection).
+The `keyring_vault` plugin can store the encryption keys inside the [HashiCorp Vault :octicons-link-external-16:](https://www.hashicorp.com/products/vault/data-protection).
 
 !!! admonition "See also"
 
-    [Hashicorp Documentation: Installing Vault](https://www.vaultproject.io/docs/install/index.html)<br>
-    [Hashicorp Documentation: Production Hardening](https://learn.hashicorp.com/vault/operations/production-hardening)
+    [Hashicorp Documentation: Installing Vault :octicons-link-external-16:](https://www.vaultproject.io/docs/install/index.html)<br>
+    [Hashicorp Documentation: Production Hardening :octicons-link-external-16:](https://learn.hashicorp.com/vault/operations/production-hardening)
 
 
 *Percona Server for MySQL* may use either of the following plugins:
@@ -18,7 +18,7 @@ The `keyring_vault` plugin can store the encryption keys inside the [HashiCorp V
 
     The `keyring_file` plugin should not be used for regulatory compliance.
 
-To install the plugin, follow the [installing and uninstalling plugins](https://dev.mysql.com/doc/refman/8.0/en/plugin-loading.html) instructions.
+To install the plugin, follow the [installing and uninstalling plugins :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/plugin-loading.html) instructions.
 
 ## Load the keyring plugin
 
@@ -148,7 +148,7 @@ If you use `KV Secrets` Engine 2 (kv-v2)` you can upgrade with *Percona Server f
 A user-created key deletion is only possible using the keyring_udf plugin, which deletes the key from the in-memory hash map and the Vault server.
 You cannot delete system keys, such as the master key.
 
-This plugin supports the SQL interface for keyring key management described in the [General-Purpose Keyring Key-Management Functions](https://dev.mysql.com/doc/refman/8.0/en/keyring-functions-general-purpose.html)
+This plugin supports the SQL interface for keyring key management described in the [General-Purpose Keyring Key-Management Functions :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/keyring-functions-general-purpose.html)
 manual.
 The plugin library contains user-defined keyring functions allowing access to the internal keyring service functions. To enable the functions, you
 must enable the `keyring_udf` plugin:
@@ -165,7 +165,7 @@ You must also create keyring encryption user-defined functions.
 
 ## Use the keyring_file component
 
-See [keyring component installation](https://dev.mysql.com/doc/refman/8.0/en/keyring-component-installation.html) for information on installing the component.
+See [keyring component installation :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/keyring-component-installation.html) for information on installing the component.
 
 !!! warning
 
@@ -173,7 +173,7 @@ See [keyring component installation](https://dev.mysql.com/doc/refman/8.0/en/key
 
 !!! admonition "See also"
 
-    [MySQL Documentation: Using the keyring_file component](https://dev.mysql.com/doc/refman/8.0/en/keyring-file-component.html)
+    [MySQL Documentation: Using the keyring_file component :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/keyring-file-component.html)
 
 ## System variables
 

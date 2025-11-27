@@ -10,7 +10,7 @@ When installing packages manually, you must resolve all the dependencies and ins
 
 * `libmecab2`.
 
-Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
+Download the packages from [Percona Product Downloads :octicons-link-external-16:](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
 
 1. The following example uses `Wget` to download the Percona Server 8.0 bundle from the specified URL. The bundle is a tar archive containing the Percona Server 8.0.31-23 binary for Debian Buster (x86_64 architecture):
 

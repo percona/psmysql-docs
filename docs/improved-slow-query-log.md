@@ -2,7 +2,7 @@
 
 This feature adds microsecond time resolution and additional statistics to the slow query log output. It lets you turn the slow query log on or off at runtime, adds logging for the replica SQL thread, and adds fine-grained control over what and how much to log into the slow query log.
 
-You can use the Percona Toolkit [pt-query-digest](https://docs.percona.com/percona-toolkit/pt-query-digest.html) tool to aggregate similar queries together and report on those that consume the most execution time.
+You can use the Percona Toolkit [pt-query-digest :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/pt-query-digest.html) tool to aggregate similar queries together and report on those that consume the most execution time.
 
 ## Version specific information
 

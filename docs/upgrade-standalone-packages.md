@@ -127,7 +127,7 @@ Make a full backup (or dump if possible) of your database. Move the database con
         $ rpm -qa | grep '^mysql-'| xargs rpm -e --nodeps`
         ```
 
-    3. Download the packages of the desired series for your architecture from the [download page](https://www.percona.com/downloads/Percona-Server-8.0/). The easiest way is to download the bundle which contains all the packages. The following example downloads Percona Server for MySQL 8.0.29-21 release packages for CentOS 8:
+    3. Download the packages of the desired series for your architecture from the [download page :octicons-link-external-16:](https://www.percona.com/downloads/Percona-Server-8.0/). The easiest way is to download the bundle which contains all the packages. The following example downloads Percona Server for MySQL 8.0.29-21 release packages for CentOS 8:
 
         ```{.bash data-prompt="$"}
         $ wget https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-8.0.29-21/binary/redhat/8/x86_64/Percona-Server-8.0.29-21-rc59f87d2854-el8-x86_64-bundle.tar
@@ -176,7 +176,7 @@ Make a full backup (or dump if possible) of your database. Move the database con
 
         Starting with Percona Server for MySQL 8.0.16-7, `mysql_upgrade` is deprecated. After this version, no operation occurs and this utility generates a message. The mysqld binary automatically runs the upgrade process if needed. 
 
-        To find more information, see [MySQL Upgrade Process Upgrades](https://dev.mysql.com/doc/refman/8.0/en/upgrading-what-is-upgraded.html)
+        To find more information, see [MySQL Upgrade Process Upgrades :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/upgrading-what-is-upgraded.html)
 
         If you are upgrading to a Percona Server for MySQL version before 8.0.16-7, run
         `mysql_upgrade` to migrate to the new grant tables and 

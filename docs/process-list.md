@@ -2,7 +2,7 @@
 
 !!! note
 
-    MySQL 8.0.22 provides the Performance Schema [`processlist` table](https://dev.mysql.com/doc/refman/8.0/en/performance-schema-processlist-table.html) which can be directly queried.
+    MySQL 8.0.22 provides the Performance Schema [`processlist` table :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/performance-schema-processlist-table.html) which can be directly queried.
 
 This page describes Percona changes to both the standard *MySQL* `SHOW PROCESSLIST` command and the standard *MySQL* `INFORMATION_SCHEMA` table `PROCESSLIST`.
 
@@ -33,7 +33,7 @@ This table implements modifications to the standard MySQL `INFORMATION_SCHEMA` t
 
 ## Example output
 
-Table [PROCESSLIST](https://docs.percona.com/percona-server/8.0/process-list.html#processlist):
+Table [PROCESSLIST :octicons-link-external-16:](https://docs.percona.com/percona-server/8.0/process-list.html#processlist):
 
 ```{.bash data-prompt="mysql>"}
 mysql> SELECT * FROM INFORMATION_SCHEMA.PROCESSLIST;

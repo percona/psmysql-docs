@@ -143,7 +143,7 @@ If you used the TokuDB storage engine in Percona Server for MySQL 5.7, we recomm
         
         Starting with Percona Server for MySQL 8.0.16-7, `mysql_upgrade` is deprecated. After this version, no operation occurs and this utility generates a message. The mysqld binary automatically runs the upgrade process if needed. 
 
-        To find more information, see [MySQL Upgrade Process Upgrades](https://dev.mysql.com/doc/refman/8.0/en/upgrading-what-is-upgraded.html)
+        To find more information, see [MySQL Upgrade Process Upgrades :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/upgrading-what-is-upgraded.html)
 
         If you are upgrading to a Percona Server for MySQL version before 8.0.16-7, you can start the mysql service using `service mysql start`. Use `mysql_upgrade` to migrate to the new grant tables. The `mysql_upgrade` rebuilds the required indexes and does the required modifications:
         

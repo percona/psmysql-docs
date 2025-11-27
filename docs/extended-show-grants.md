@@ -112,4 +112,4 @@ mysql> SHOW EFFECTIVE GRANTS;
 
 ## Other reading
 
-* [#53645](https://bugs.mysql.com/bug.php?id=53645) - `SHOW GRANTS` not displaying all the applicable grants
+* [#53645 :octicons-link-external-16:](https://bugs.mysql.com/bug.php?id=53645) - `SHOW GRANTS` not displaying all the applicable grants

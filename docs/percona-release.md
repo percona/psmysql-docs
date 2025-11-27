@@ -1,6 +1,6 @@
 # Use percona-release
 
-A user of Percona Server for MySQL prioritizes efficiency and reliability. Installing the software directly offers a baseline solution, but for enhanced control, convenience, and security, use the [Percona Software repositories and the percona-release tool]. The percona-release tool method provides simplified, secure, and efficient Percona Server for MySQL installation and experience.
+A user of Percona Server for MySQL prioritizes efficiency and reliability. Installing the software directly offers a baseline solution, but for enhanced control, convenience, and security, use the [Percona Software repositories and the percona-release tool :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/index.html). The percona-release tool method provides simplified, secure, and efficient Percona Server for MySQL installation and experience.
 
 ## Effortless Repository Management
 
@@ -41,7 +41,3 @@ All packages within Percona repositories are digitally signed, further bolsterin
 
 Percona actively releases security updates for its software. By using percona-release, you gain access to these critical updates when they become available, helping you maintain a secure and stable database environment.
 
-
-
-
-[Percona Software repositories and the percona-release tool]: https://docs.percona.com/percona-software-repositories/index.html

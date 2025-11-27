@@ -34,11 +34,11 @@ For this document, container refers to the Docker container and instance refers 
 
 Review [Get more help](get-help.md) for ways that we can work with you.
 
-*Percona Server for MySQL* has an official Docker image hosted on [Docker Hub](https://hub.docker.com/r/percona/percona-server/). If you want the latest version, use the `latest` tag. You can reference a specific version using the [Docker tag filter for the 8.0 versions](https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name=8.0).
+*Percona Server for MySQL* has an official Docker image hosted on [Docker Hub :octicons-link-external-16:](https://hub.docker.com/r/percona/percona-server/). If you want the latest version, use the `latest` tag. You can reference a specific version using the [Docker tag filter for the 8.0 versions :octicons-link-external-16:](https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name=8.0).
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
-Make sure that you are using the latest version of Docker. The `apt` and `yum` versions may be outdated and cause errors. [Install Docker](https://docs.docker.com/get-docker/) on your system.
+Make sure that you are using the latest version of Docker. The `apt` and `yum` versions may be outdated and cause errors. [Install Docker :octicons-link-external-16:](https://docs.docker.com/get-docker/) on your system.
 
 ## Starting a detached container
 
@@ -97,7 +97,7 @@ You can access the server when you see the `ready for connections` information i
 
 ### Percona Server for MySQL ARM64
 
-Percona Server for MySQL is available in the ARM64 architecture. You can find the version and architecture on [Docker Hub Percona/Percona-Server Tags](https://hub.docker.com/r/percona/percona-server/tags). Docker Hub provides images for multiple OS/ARCH combinations, letting you select the version and architecture that aligns with your specific system. Docker Hub has two elements for identifying and managing container images: tags and OS/ARCH. 
+Percona Server for MySQL is available in the ARM64 architecture. You can find the version and architecture on [Docker Hub Percona/Percona-Server Tags :octicons-link-external-16:](https://hub.docker.com/r/percona/percona-server/tags). Docker Hub provides images for multiple OS/ARCH combinations, letting you select the version and architecture that aligns with your specific system. Docker Hub has two elements for identifying and managing container images: tags and OS/ARCH. 
 
 Tags are labels attached to Docker images. The tag identifies the different versions of the same image.
 
@@ -333,7 +333,7 @@ If you have a non-shell process running, interrupt the process with `CTRL-C` bef
 
 ## Stopping the container
 
-The [docker stop](https://docs.docker.com/engine/reference/commandline/stop/) container command sends a TERM signal, then waits 10 seconds and sends a KILL signal. The following example stops the `ps` container:
+The [docker stop :octicons-link-external-16:](https://docs.docker.com/engine/reference/commandline/stop/) container command sends a TERM signal, then waits 10 seconds and sends a KILL signal. The following example stops the `ps` container:
 
 ```{.bash data-prompt="$"}
 $ docker stop ps
@@ -354,6 +354,6 @@ $ docker rm ps
 ```
 ## For more information
 
-Review the [Docker Docs](https://docs.docker.com/)
+Review the [Docker Docs :octicons-link-external-16:](https://docs.docker.com/)
 
 [Telemetry data]: telemetry.md

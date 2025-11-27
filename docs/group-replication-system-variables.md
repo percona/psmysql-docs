@@ -78,7 +78,7 @@ The "MAJORITY" value is in [tech preview](glossary.md#tech-preview) mode. Before
 
 The variable specifies the mode use for flow control.
 
-*Percona Server for MySQL* 8.0.30-22 adds the "MAJORITY" value to the [group_replication_flow_control_mode](https://dev.mysql.com/doc/refman/8.0/en/group-replication-options.html#sysvar_group_replication_flow_control_mode) variable. In "MAJORITY" mode, [flow control](group-replication-flow-control.md) is activated only if the majority, more than half the number of members, exceed the flow control threshold. The other values are not changed.
+*Percona Server for MySQL* 8.0.30-22 adds the "MAJORITY" value to the [group_replication_flow_control_mode :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/group-replication-options.html#sysvar_group_replication_flow_control_mode) variable. In "MAJORITY" mode, [flow control](group-replication-flow-control.md) is activated only if the majority, more than half the number of members, exceed the flow control threshold. The other values are not changed.
 
 ## group_replication_xcom_ssl_accept_retries
 

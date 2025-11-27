@@ -10,6 +10,6 @@ The following is a list of the latest supported features:
 
     * Using a global variable `rocksdb_cancel_manual_compactions` to cancel all ongoing manual compactions.
 
-* **Percona Server for MySQL** 8.0.23-14 adds supported for [Generated Columns](https://dev.mysql.com/doc/refman/8.0/en/create-table-generated-columns.html) and index are supported. Generated columns are not supported in versions earlier than 8.0.23-14.
+* **Percona Server for MySQL** 8.0.23-14 adds supported for [Generated Columns :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/create-table-generated-columns.html) and index are supported. Generated columns are not supported in versions earlier than 8.0.23-14.
 
-* **Percona Server for MySQL** 8.0.23-14 adds support for [explicit DEFAULT value expressions](https://dev.mysql.com/doc/refman/8.0/en/data-type-defaults.html). From version 8.0.13-3 to version 8.0.22-13, MyRocks did not support these expressions.
+* **Percona Server for MySQL** 8.0.23-14 adds support for [explicit DEFAULT value expressions :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/data-type-defaults.html). From version 8.0.13-3 to version 8.0.22-13, MyRocks did not support these expressions.

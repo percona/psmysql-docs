@@ -4,7 +4,7 @@ As of `MySQL` 5.5.15, a *Fixed Row Format* (`FRF`) is still being used in the `M
 
 To overcome this limitation, the *Improved MEMORY Storage Engine* is introduced in this release for supporting **true** `VARCHAR`, `VARBINARY`, `TEXT`, and `BLOB` fields in the `MEMORY` tables.
 
-This implementation is based on the *Dynamic Row Format* (`DFR`) introduced by the [mysql-heap-dynamic-rows](https://code.google.com/p/mysql-heap-dynamic-rows/) patch.
+This implementation is based on the *Dynamic Row Format* (`DFR`) introduced by the [mysql-heap-dynamic-rows :octicons-link-external-16:](https://code.google.com/p/mysql-heap-dynamic-rows/) patch.
 
 `DFR` is used to store column values in a variable-length form, thus helping to decrease the memory footprint of those columns and making possible `BLOB` and `TEXT` fields and real `VARCHAR` and `VARBINARY`.
 
@@ -184,4 +184,4 @@ Total chunk length is always aligned to the next `sizeof(uchar\*)`.
 
 !!! admonition "See also"
 
-    [Dynamic row format for MEMORY tables](https://www.mysqlperformanceblog.com/2011/09/06/dynamic-row-format-for-memory-tables/)
+    [Dynamic row format for MEMORY tables :octicons-link-external-16:](https://www.mysqlperformanceblog.com/2011/09/06/dynamic-row-format-for-memory-tables/)

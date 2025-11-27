@@ -79,7 +79,7 @@ If the `glibc2` version from your operating system is not listed, then this Perc
     | Debian 11.1       | Able to run the ZenFS plugin                                                                      |
     | Ubuntu 20.04.3    | Requires the 5.11 HWE kernel patched with the allow blk-zoned ioctls without CAPT_SYS_ADMIN patch |
 
-    If you do not enable the ZenFS functionality on Ubuntu 20.04, the binaries with ZenFS support can run on the standard 5.4 kernel. [Other Linux distributions](https://zonedstorage.io/docs/distributions/linux/) are adding support for ZenFS, but Percona does not provide installation packages for those distributions.
+    If you do not enable the ZenFS functionality on Ubuntu 20.04, the binaries with ZenFS support can run on the standard 5.4 kernel. [Other Linux distributions :octicons-link-external-16:](https://zonedstorage.io/docs/distributions/linux/) are adding support for ZenFS, but Percona does not provide installation packages for those distributions.
 
 === "8.0.20-11 to 8.0.25-17"
 

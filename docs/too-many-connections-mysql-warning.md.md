@@ -1,6 +1,6 @@
 # Too Many Connections warning in the MySQL Error Log
 
-When the [log_error_verbosity](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_log_error_verbosity) system variable is set to `2` or higher, the server generates a `Too many connections` warning in the error log.
+When the [log_error_verbosity :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_log_error_verbosity) system variable is set to `2` or higher, the server generates a `Too many connections` warning in the error log.
 
 ## Benefits
 
