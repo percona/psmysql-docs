@@ -10589,8 +10589,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The zone storage model organizes the SSD into a set of zones that are uniform in size and uses the Zoned Namespaces (ZNS) technology. ZNS is optimized for an SSD and exposes this zoned block storage interface between the host and SSD. ZNS enables smart data placement. Writes are sequential within a zone.</p>
 <p>ZenFS is a file system plugin for RocksDB which uses the RocksDB file system to place files into zones on a raw zoned block device (ZBD). The plugin adds native support for ZNS, avoids on device garbage collection, and minimizes write amplification. File data is stored in a set of extents. Within a zone, extents are a contiguous part of the address space. Garbage collection is an option, but this selection can cause write amplification.</p>
 <p>ZenFS depends on the <code>libzbd</code> user library and requires a Linux kernel implementation that supports NVMe Zoned Namespaces. The kernel
-must be configured with <a href="https://zonedstorage.io/docs/linux/config">zone block device support enabled</a>.</p>
-<p>Read the <a href="https://documents.westerndigital.com/content/dam/doc-library/en_us/assets/public/western-digital/collateral/company/western-digital-zns-ssd-perconal-blogpost.pdf">Western Digital and Percona deliver Utrastar DC ZN540 Zoned Namespace SSD support for Percona Server for MySQL</a> PDF for more information.</p>
+must be configured with <a href="https://zonedstorage.io/docs/linux/config">zone block device support enabled <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<p>Read the <a href="https://documents.westerndigital.com/content/dam/doc-library/en_us/assets/public/western-digital/collateral/company/western-digital-zns-ssd-perconal-blogpost.pdf">Western Digital and Percona deliver Utrastar DC ZN540 Zoned Namespace SSD support for Percona Server for MySQL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> PDF for more information.</p>
 <p>The following procedure installs Percona Server for MySQL and then configures
 <code>--rocksdb-fs-uri=zenfs://dev:&lt;short_block_device_name&gt;</code> for data storage.</p>
 <div class="admonition note">
@@ -10617,7 +10617,7 @@ must be configured with <a href="https://zonedstorage.io/docs/linux/config">zone
 </tbody>
 </table>
 <p>If the ZenFS functionality is not enabled on Ubuntu 20.04, the binaries with ZenFS support can run on the standard 5.4 kernel.</p>
-<p><a href="https://zonedstorage.io/docs/distributions/overview">Other Linux distributions</a> are adding support for ZenFS, but Percona does not provide installation packages for those distributions.</p>
+<p><a href="https://zonedstorage.io/docs/distributions/overview">Other Linux distributions <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> are adding support for ZenFS, but Percona does not provide installation packages for those distributions.</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>Start with the installation of <em>Percona Server for MySQL</em>.</p>
 <ol>
@@ -10642,7 +10642,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class=
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p>Identify your ZBD device, <block_device_name>, with <a href="https://manpages.debian.org/stretch/util-linux/lsblk.8.en.html">lsblk</a>. Add the <code>-o</code> option and specify which columns to print.</p>
+<p>Identify your ZBD device, <block_device_name>, with <a href="https://manpages.debian.org/stretch/util-linux/lsblk.8.en.html">lsblk <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Add the <code>-o</code> option and specify which columns to print.</p>
 <p>In the example, the <code>NAME</code> column returns the block device name, the <code>SIZE</code> column returns the size of the device, and the <code>ZONED</code> column returns information if the device uses the zone model. The value, <code>host-managed</code>, identifies a ZBD model.</p>
 <div class="highlight"><pre><span></span><code>lsblk<span class="w"> </span>-o<span class="w"> </span>NAME,SIZE,ZONED
 NAME<span class="w">                    </span>SIZE<span class="w">  </span>ZONED
@@ -10948,11 +10948,11 @@ Space<span class="w"> </span>amplification:<span class="w"> </span><span class="
 <h2 id="known-limitations">Known limitations<a class="headerlink" href="#known-limitations" title="Permanent link">&para;</a></h2>
 <p>After a reboot the NVME ZBD configuration (“/dev/nvme02” in our examples) can disappear. The issue is OS-dependent and can be managed by the system administrators. One or more of the following events may have occurred:</p>
 <ul>
-<li>A reboot changes the active “scheduler” from “[mq-deadline]”. The following steps <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_storage_devices/setting-the-disk-scheduler_managing-storage-devices#setting-the-disk-scheduler-using-udev-rules_setting-the-disk-scheduler">reset the disk scheduler in RedHat using udev rules</a>. For Ubuntu, see <a href="https://wiki.archlinux.org/title/Improving_performance#Input/output_schedulers">Input/output schedulers</a>.</li>
+<li>A reboot changes the active “scheduler” from “[mq-deadline]”. The following steps <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_storage_devices/setting-the-disk-scheduler_managing-storage-devices#setting-the-disk-scheduler-using-udev-rules_setting-the-disk-scheduler">reset the disk scheduler in RedHat using udev rules <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. For Ubuntu, see <a href="https://wiki.archlinux.org/title/Improving_performance#Input/output_schedulers">Input/output schedulers <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</li>
 </ul>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p>For more information, review <a href="https://www.golinuxcloud.com/how-to-change-io-scheduler-permanently-linux/">Change I/O scheduler</a>.</p>
+<p>For more information, review <a href="https://www.golinuxcloud.com/how-to-change-io-scheduler-permanently-linux/">Change I/O scheduler <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 </div>
 <ul>
 <li>A reboot resets the device permissions from “640/mysql:mysql” to “660/root:disk”.</li>
@@ -10979,7 +10979,7 @@ Space<span class="w"> </span>amplification:<span class="w"> </span><span class="
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 7, 2025 11:11:15 UTC">July 7, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2025 17:02:12 UTC">November 27, 2025</span>
   </span>
 
     
@@ -11095,6 +11095,8 @@ Space<span class="w"> </span>amplification:<span class="w"> </span><span class="
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
 

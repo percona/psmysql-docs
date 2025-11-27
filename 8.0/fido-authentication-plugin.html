@@ -10524,11 +10524,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <h2 id="install-the-fido-authentication-plugin">Install the FIDO authentication plugin<a class="headerlink" href="#install-the-fido-authentication-plugin" title="Permanent link">&para;</a></h2>
-<p>The library file must be stored in the directory named by the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_plugin_dir"><code>plugin_dir</code></a> variable. </p>
+<p>The library file must be stored in the directory named by the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_plugin_dir"><code>plugin_dir</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> variable. </p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">At server startup</label><label for="__tabbed_1_2">Edit my.cnf and restart the server</label><label for="__tabbed_1_3">Load the plugin at runtime</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>At server startup, use the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-options.html#option_mysqld_plugin-load-add"><code>--plugin_load_add</code></a> option with the library name. The option must be added each time the server starts.</p>
+<p>At server startup, use the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-options.html#option_mysqld_plugin-load-add"><code>--plugin_load_add</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> option with the library name. The option must be added each time the server starts.</p>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>[mysqld]
@@ -10544,7 +10544,7 @@ plugin-load-add=authentication_fido.so
 </div>
 </div>
 <h3 id="verify-installation">Verify installation<a class="headerlink" href="#verify-installation" title="Permanent link">&para;</a></h3>
-<p>Use the <a href="https://dev.mysql.com/doc/refman/8.0/en/show-plugins.html"><code>SHOW PLUGINS</code></a> statement or query the <code>INFORMATION_SCHEMA.PLUGINS</code> table to verify that the plugin was loaded successfully and is active.</p>
+<p>Use the <a href="https://dev.mysql.com/doc/refman/8.0/en/show-plugins.html"><code>SHOW PLUGINS</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> statement or query the <code>INFORMATION_SCHEMA.PLUGINS</code> table to verify that the plugin was loaded successfully and is active.</p>
 <p>Check the server error log if the plugin is not loaded.</p>
 <h2 id="use-fido-authentication">Use FIDO authentication<a class="headerlink" href="#use-fido-authentication" title="Permanent link">&para;</a></h2>
 <p>FIDO can be used with non-FIDO authentication. See <a href="#use-fido-authentication-with-non-fido-authentication">Use FIDO authentication with non-FIDO authentication</a>. FIDO can be used to create 1FA accounts that do not require passwords. For instructions, see <a href="#use-fido-authentication-as-the-only-method">Use FIDO</a>.</p>
@@ -10559,7 +10559,7 @@ plugin-load-add=authentication_fido.so
 <h3 id="use-fido-authentication-as-the-only-method">Use FIDO authentication as the only method<a class="headerlink" href="#use-fido-authentication-as-the-only-method" title="Permanent link">&para;</a></h3>
 <p>If FIDO is used as the only method of authentication, the method does not use a password. The authentication uses a method such as a biometric scan or a security key.</p>
 <p>The user creates an account with the <code>PASSWORDLESS_USER_ADMIN</code> privilege and the <code>CREATE USER</code> privilege. </p>
-<p>The first element of the <code>authentication_policy</code> value must be an asterisk(*). Do not start with the plugin name. For information about configuring the <code>authentication policy</code> value, see <a href="https://dev.mysql.com/doc/refman/8.0/en/multifactor-authentication.html#multifactor-authentication-policy">Configuring the Multifactor Authentication Policy</a>.</p>
+<p>The first element of the <code>authentication_policy</code> value must be an asterisk(*). Do not start with the plugin name. For information about configuring the <code>authentication policy</code> value, see <a href="https://dev.mysql.com/doc/refman/8.0/en/multifactor-authentication.html#multifactor-authentication-policy">Configuring the Multifactor Authentication Policy <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>You must include the <code>INITIAL AUTHENTICATION IDENTIFIED BY</code> clause in the <code>CREATE USER</code> statement. The server does accept the statement without the clause but the account is unusable because the user cannot connect to the server to register the device. </p>
 <p>The <code>CREATE USER</code> syntax is the following:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span>&lt;username&gt;@&lt;hostname&gt;<span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>authentication_fido<span class="w"> </span>INITIAL<span class="w"> </span>AUTHENTICATION<span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;&lt;password&gt;&#39;</span><span class="p">;</span>
@@ -10610,7 +10610,7 @@ plugin-load-add=authentication_fido.so
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 12, 2023 15:39:59 UTC">January 12, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2025 17:02:12 UTC">November 27, 2025</span>
   </span>
 
     
@@ -10726,6 +10726,8 @@ plugin-load-add=authentication_fido.so
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
 

@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL has ported MariaDB enhancement for START TRANSACTION WITH CONSISTENT SNAPSHOTS feature to MySQL 5.6 group commit implementation. This enhancement makes binary log positions consistent with InnoDB transaction snapshots.">
+        <meta name="description" content="Percona Server for MySQL has ported MariaDB enhancement  for START TRANSACTION WITH CONSISTENT SNAPSHOTS feature to MySQL 5.6 group commit implementation. This enhancement makes binary log positions consistent with InnoDB transaction snapshots.">
       
       
         <meta name="author" content="Percona LLC">
@@ -10514,7 +10514,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="start-transaction-with-consistent-snapshot">Start transaction with consistent snapshot<a class="headerlink" href="#start-transaction-with-consistent-snapshot" title="Permanent link">&para;</a></h1>
-<p><em>Percona Server for MySQL</em> has ported <em>MariaDB</em> <a href="https://mariadb.com/docs/server/ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot/">enhancement</a> for <code>START TRANSACTION WITH CONSISTENT SNAPSHOTS</code> feature to <em>MySQL</em> 5.6 group commit implementation. This enhancement makes binary log positions consistent with <em>InnoDB</em> transaction snapshots.</p>
+<p><em>Percona Server for MySQL</em> has ported <em>MariaDB</em> <a href="https://mariadb.com/docs/server/ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot/">enhancement <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for <code>START TRANSACTION WITH CONSISTENT SNAPSHOTS</code> feature to <em>MySQL</em> 5.6 group commit implementation. This enhancement makes binary log positions consistent with <em>InnoDB</em> transaction snapshots.</p>
 <p>This feature is quite useful to obtain logical backups with correct positions without running a <code>FLUSH TABLES WITH READ LOCK</code>. Binary log position can be obtained by two newly implemented status variables: <a href="#binlog_snapshot_file">Binlog_snapshot_file</a> and <a href="#binlog_snapshot_position">Binlog_snapshot_position</a>. After starting a transaction using the <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code>, these two variables will provide you with the binlog position corresponding to the state of the database of the consistent snapshot so taken, irrespectively of which other transactions have been committed since the snapshot was taken.</p>
 <h2 id="snapshot-cloning">Snapshot cloning<a class="headerlink" href="#snapshot-cloning" title="Permanent link">&para;</a></h2>
 <p>The <em>Percona Server for MySQL</em> implementation extends the <code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code> syntax with the optional <code>FROM SESSION</code> clause:</p>
@@ -10620,7 +10620,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>These status variables are only available when the binary log is enabled globally.</p>
 <h2 id="other-reading">Other reading<a class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://mariadb.com/docs/server/ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot/">MariaDB Enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT</a></li>
+<li><a href="https://mariadb.com/docs/server/ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot/">MariaDB Enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
 </ul>
 
 
@@ -10644,7 +10644,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 7, 2025 15:04:50 UTC">July 7, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2025 17:02:12 UTC">November 27, 2025</span>
   </span>
 
     
@@ -10760,6 +10760,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
 

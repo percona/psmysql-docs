@@ -10454,7 +10454,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="known-issues">Known Issues<a class="headerlink" href="#known-issues" title="Permanent link">&para;</a></h2>
 <p><strong>Replication and binary logging</strong>: <em>TokuDB</em> supports binary logging and replication with one restriction. <em>TokuDB</em> does not implement a lock on the auto-increment function, so concurrent insert statements with one or more of the statements inserting multiple rows may result in a non-deterministic interleaving of the auto-increment values. When running replication with these concurrent inserts, the auto-increment values on the replica table may not match the auto-increment values on the source table. Note that this is only an issue with Statement Based Replication (SBR), and not Row Based Replication (RBR).</p>
 <p>For more information about auto-increment and replication, see the <em>MySQL</em>
-Reference Manual: <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-auto-increment-handling.html">AUTO_INCREMENT handling in InnoDB</a>.</p>
+Reference Manual: <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-auto-increment-handling.html">AUTO_INCREMENT handling in InnoDB <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>In addition, when using the <code>REPLACE INTO</code> or <code>INSERT IGNORE</code> on tables with no secondary indexes or tables where secondary indexes are subsets of the primary, the session variable tokudb_pk_insert_mode controls whether row based replication will work.</p>
 <p><strong>Uninformative error message</strong>: The <code>LOAD DATA INFILE</code> command can sometimes</p>
 <div class="highlight"><pre><span></span><code>produce `ERROR 1030 (HY000): Got error 1 from storage engine`. The message
@@ -10494,9 +10494,9 @@ unique_checks to off turns off uniqueness checking on secondary
 indexes only. Turning off uniqueness checking on the primary key can provide
 large performance boosts, but it should only be done when the primary key is
 known to be unique.</p>
-<p><strong>Group Replication</strong>: <em>TokuDB</em> storage engine doesn’t support <a href="https://dev.mysql.com/doc/refman/8.0/en/group-replication.html">Group Replication</a>.</p>
-<p>As of 8.0.17, InnoDB supports <a href="https://dev.mysql.com/doc/refman/8.0/en/create-index.html#create-index-multi-valued">multi-valued indexes</a>. TokuDB does not support this feature.</p>
-<p>As of 8.0.17, InnoDB supports the <a href="https://dev.mysql.com/doc/refman/8.0/en/clone-plugin.html">Clone Plugin</a> and the Clone Plugin API. TokuDB tables do not support either of these features.</p>
+<p><strong>Group Replication</strong>: <em>TokuDB</em> storage engine doesn’t support <a href="https://dev.mysql.com/doc/refman/8.0/en/group-replication.html">Group Replication <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<p>As of 8.0.17, InnoDB supports <a href="https://dev.mysql.com/doc/refman/8.0/en/create-index.html#create-index-multi-valued">multi-valued indexes <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. TokuDB does not support this feature.</p>
+<p>As of 8.0.17, InnoDB supports the <a href="https://dev.mysql.com/doc/refman/8.0/en/clone-plugin.html">Clone Plugin <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> and the Clone Plugin API. TokuDB tables do not support either of these features.</p>
 <h2 id="lock-visualization-in-tokudb">Lock Visualization in TokuDB<a class="headerlink" href="#lock-visualization-in-tokudb" title="Permanent link">&para;</a></h2>
 <p><em>TokuDB</em> uses key range locks to implement serializable transactions, which are
 acquired as the transaction progresses. The locks are released when the
@@ -10542,7 +10542,7 @@ lock conflict with some other transaction:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TOKUDB_LOCK_WAITS</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="supporting-explicit-default-value-expressions-as-of-8013-3">Supporting explicit DEFAULT value expressions as of 8.0.13-3<a class="headerlink" href="#supporting-explicit-default-value-expressions-as-of-8013-3" title="Permanent link">&para;</a></h3>
-<p>TokuDB does not support <a href="https://dev.mysql.com/doc/refman/8.0/en/data-type-defaults.html">explicit DEFAULT value expressions</a> as of verion 8.0.13-3.</p>
+<p>TokuDB does not support <a href="https://dev.mysql.com/doc/refman/8.0/en/data-type-defaults.html">explicit DEFAULT value expressions <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> as of verion 8.0.13-3.</p>
 <h3 id="the-tokudb_lock_timeout_debug-session-variable">The tokudb_lock_timeout_debug session variable<a class="headerlink" href="#the-tokudb_lock_timeout_debug-session-variable" title="Permanent link">&para;</a></h3>
 <p>The tokudb_lock_timeout_debug session variable controls how lock
 timeouts and lock deadlocks seen by the database client are reported.</p>
@@ -11848,7 +11848,7 @@ process because of something uninstrumented.</p></td>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 8, 2024 14:59:29 UTC">April 8, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2025 17:02:12 UTC">November 27, 2025</span>
   </span>
 
     
@@ -11964,6 +11964,8 @@ process because of something uninstrumented.</p></td>
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
 

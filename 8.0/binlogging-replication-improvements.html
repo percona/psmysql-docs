@@ -10569,7 +10569,7 @@ non-deterministic result or not, and switches from statement-based logging
 to row-based one. <em>Percona Server for MySQL</em> is more accurate, it acknowledges such
 instructions as safe when they include <code>ORDER BY PK</code> or <code>WHERE</code>
 condition. This fix has been ported from the upstream bug report
-<a href="https://bugs.mysql.com/bug.php?id=42415">#42415</a> (<a href="https://jira.percona.com/browse/PS-44">#44</a>).</p>
+<a href="https://bugs.mysql.com/bug.php?id=42415">#42415 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> (<a href="https://jira.percona.com/browse/PS-44">#44 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>).</p>
 <h2 id="performance-improvement-on-relay-log-position-update">Performance improvement on relay log position update<a class="headerlink" href="#performance-improvement-on-relay-log-position-update" title="Permanent link">&para;</a></h2>
 <h3 id="relay-log-position-fix">Relay log position fix<a class="headerlink" href="#relay-log-position-fix" title="Permanent link">&para;</a></h3>
 <p><em>MySQL</em> always updated relay log position in multi-source replications setups
@@ -10580,8 +10580,8 @@ GTIDs.</p>
 <p>Particularly, such unconditional relay log position updates caused additional
 fsync operations in case of <code>relay-log-info-repository=TABLE</code>, and with the
 higher number of channels transmitting such duplicate (already executed)
-transactions the situation became proportionally worse. Bug fixed <a href="https://jira.percona.com/browse/PS-1786">#1786</a>
-(upstream <a href="https://bugs.mysql.com/bug.php?id=85141">#85141</a>).</p>
+transactions the situation became proportionally worse. Bug fixed <a href="https://jira.percona.com/browse/PS-1786">#1786 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
+(upstream <a href="https://bugs.mysql.com/bug.php?id=85141">#85141 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>).</p>
 <h2 id="performance-improvement-on-source-and-connection-status-updates">Performance improvement on source and connection status updates<a class="headerlink" href="#performance-improvement-on-source-and-connection-status-updates" title="Permanent link">&para;</a></h2>
 <h3 id="source-and-connection-status-update-fix">Source and connection status update fix<a class="headerlink" href="#source-and-connection-status-update-fix" title="Permanent link">&para;</a></h3>
 <p>Replica nodes configured to update source status and connection information
@@ -10597,8 +10597,8 @@ Heartbeats sent to the replica to skip GTID events which it had already executed
 previously, were evaluated as relay log rotation events and reacted with
 <code>mysql.slave_master_info</code> table sync. This inaccuracy could produce huge (up
 to 5 times on some setups) increase in write load on the replica, before this
-problem was fixed in <em>Percona Server for MySQL</em>. Bug fixed <a href="https://jira.percona.com/browse/PS-1812">#1812</a> (upstream
-<a href="https://bugs.mysql.com/bug.php?id=85158">#85158</a>).</p>
+problem was fixed in <em>Percona Server for MySQL</em>. Bug fixed <a href="https://jira.percona.com/browse/PS-1812">#1812 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> (upstream
+<a href="https://bugs.mysql.com/bug.php?id=85158">#85158 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>).</p>
 <h2 id="write-flush-commands-to-the-binary-log">Write <code>FLUSH</code> commands to the binary log<a class="headerlink" href="#write-flush-commands-to-the-binary-log" title="Permanent link">&para;</a></h2>
 <p><code>FLUSH</code> commands, such as <code>FLUSH SLOW LOGS</code>, are not written to the
 binary log if the system variable binlog_skip_flush_commands is set
@@ -10825,7 +10825,7 @@ about what else affects the writing of <code>FLUSH</code> commands to the binary
 </code></pre></div>
 <p>By configuring these settings, the MySQL client can handle data type conversions more effectively, allowing you to use the UDF functions without explicit CAST() statements in many cases. While client configuration can simplify usage, CAST() will still work and may be necessary in some scenarios. The choice between using CAST() explicitly or relying on client configuration depends on your specific use case and preferences.</p>
 <p>All functions returning timestamps return their values as microsecond precision UNIX time. In other words, they represent the number of microseconds since 1-JAN-1970.</p>
-<p>All functions accepting a binlog name as a parameter accept only short names, without a path component. If the path separator (&lsquo;/&rsquo;) is found in the input, an error is returned. This restriction serves the purpose of limiting the locations from which binlogs can be read. They are always read from the current binlog directory (<a href="https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_log_bin_basename">@@log_bin_basename system variable</a>).</p>
+<p>All functions accepting a binlog name as a parameter accept only short names, without a path component. If the path separator (&lsquo;/&rsquo;) is found in the input, an error is returned. This restriction serves the purpose of limiting the locations from which binlogs can be read. They are always read from the current binlog directory (<a href="https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_log_bin_basename">@@log_bin_basename system variable <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>).</p>
 <p>All functions returning binlog file names return the name in short form, without a path component.</p>
 <h4 id="get_binlog_by_gtid">get_binlog_by_gtid<a class="headerlink" href="#get_binlog_by_gtid" title="Permanent link">&para;</a></h4>
 <p>Syntax:</p>
@@ -11063,10 +11063,10 @@ about what else affects the writing of <code>FLUSH</code> commands to the binary
 <p>For the following variables, do not define values with one or more dot (.) characters:</p>
 <ul>
 <li>
-<p><a href="https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin">log_bin</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin">log_bin <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </li>
 <li>
-<p><a href="https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin-index">log_bin_index</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin-index">log_bin_index <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </li>
 </ul>
 <p>A value defined with these characters is handled differently in <em>MySQL</em> and Percona XtraBackup and can cause unpredictable behavior.</p>
@@ -11092,7 +11092,7 @@ about what else affects the writing of <code>FLUSH</code> commands to the binary
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 19, 2025 08:30:17 UTC">September 19, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2025 17:02:12 UTC">November 27, 2025</span>
   </span>
 
     
@@ -11107,6 +11107,39 @@ about what else affects the writing of <code>FLUSH</code> commands to the binary
 
     
     
+    
+      
+  <span class="md-source-file__fact">
+    
+      
+  <span class="md-icon" title="Contributors">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+  </span>
+  <span>GitHub</span>
+
+    
+    <nav>
+      
+        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
+          
+          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
+        </a>
+      
+        <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
+          
+          <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
+      
+        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
+          
+          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
+        </a>
+      
+      
+      
+    </nav>
+  </span>
+
     
   </aside>
 
@@ -11208,6 +11241,8 @@ about what else affects the writing of <code>FLUSH</code> commands to the binary
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
 

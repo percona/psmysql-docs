@@ -10548,10 +10548,10 @@ engine that provides indexing-based query improvements, offers online schema
 modifications, and reduces replica lag for both hard disk drives and flash
 memory. This storage engine is specifically designed for high performance on
 write-intensive workloads which is achieved with Fractal Tree indexing. To learn
-more about Fractal Tree indexing, you can visit the following <a href="https://en.wikipedia.org/wiki/Fractal_tree_index">Wikipedia page</a>.</p>
+more about Fractal Tree indexing, you can visit the following <a href="https://en.wikipedia.org/wiki/Fractal_tree_index">Wikipedia page <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Only the <a href="https://www.percona.com/downloads/Percona-Server-8.0/LATEST/">Percona supplied</a> <em>TokuDB</em> engine should be used with <em>Percona Server for MySQL</em> 8.0. A <em>TokuDB</em> engine downloaded from other sources is not compatible. <em>TokuDB</em> file formats are not the same across <em>MySQL</em> variants. Migrating from one variant to any other variant requires a logical data dump and reload.</p>
+<p>Only the <a href="https://www.percona.com/downloads/Percona-Server-8.0/LATEST/">Percona supplied <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> <em>TokuDB</em> engine should be used with <em>Percona Server for MySQL</em> 8.0. A <em>TokuDB</em> engine downloaded from other sources is not compatible. <em>TokuDB</em> file formats are not the same across <em>MySQL</em> variants. Migrating from one variant to any other variant requires a logical data dump and reload.</p>
 </div>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <h3 id="libjemalloc-library"><code>libjemalloc</code> library<a class="headerlink" href="#libjemalloc-library" title="Permanent link">&para;</a></h3>
@@ -10570,7 +10570,7 @@ malloc-lib= /path/to/jemalloc
 </code></pre></div>
 <h3 id="transparent-huge-pages">Transparent huge pages<a class="headerlink" href="#transparent-huge-pages" title="Permanent link">&para;</a></h3>
 <p><em>TokuDB</em> won’t be able to start if the transparent huge pages are
-enabled. <a href="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Performance_Tuning_Guide/s-memory-transhuge.html">Transparent huge pages</a>
+enabled. <a href="https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Performance_Tuning_Guide/s-memory-transhuge.html">Transparent huge pages <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
 is a feature available in the newer kernel versions. You can check if
 the Transparent huge pages are enabled with: <code>cat /sys/kernel/mm/transparent_hugepage/enabled</code></p>
 <p>If transparent huge pages are enabled and you try to start the TokuDB
@@ -10578,7 +10578,7 @@ engine you’ll get the following message in you <code>error.log</code>:</p>
 <div class="highlight"><pre><span></span><code>Transparent huge pages are enabled, according to /sys/kernel/mm/redhat_transparent_hugepage/enabled
 Transparent huge pages are enabled, according to /sys/kernel/mm/transparent_hugepage/enabled
 </code></pre></div>
-<p>You can <a href="https://access.redhat.com/solutions/46111">disable</a>
+<p>You can <a href="https://access.redhat.com/solutions/46111">disable <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
 transparent huge pages permanently by passing
 <code>transparent_hugepage=never</code> to the kernel in your bootloader</p>
 <div class="admonition note">
@@ -10686,7 +10686,7 @@ running <strong>mysqlcheck</strong>: <code>mysqlcheck -u root -p --all-databases
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 22, 2024 13:45:35 UTC">March 22, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 27, 2025 17:02:12 UTC">November 27, 2025</span>
   </span>
 
     
@@ -10802,6 +10802,8 @@ running <strong>mysqlcheck</strong>: <code>mysqlcheck -u root -p --all-databases
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
 
