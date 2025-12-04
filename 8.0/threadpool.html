@@ -10647,9 +10647,7 @@ This version ported the feature from Percona Server 5.7.</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">thread_pool_stall_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">100</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">thread_pool_stall_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
-</code></pre></div>
-<p>This value, in milliseconds, limits how long a task can stall before being redistributed. As with other thread pool settings, existing sessions retain their previous values.</p>
+<p>This value, in milliseconds, limits how long a task can stall before being redistributed. This setting requires a server restart to take effect.</p>
 <h2 id="thread-pool-configuration-reference-sheet">Thread Pool Configuration Reference Sheet<a class="headerlink" href="#thread-pool-configuration-reference-sheet" title="Permanent link">&para;</a></h2>
 <p>A quick overview of system variables available for configuring the thread pool in Percona Server for MySQL.</p>
 <h2>General Variables</h2>
@@ -10675,7 +10673,7 @@ This version ported the feature from Percona Server 5.7.</p>
     </tr>
     <tr>
       <td><code><a href="#thread_pool_size">thread_pool_size</a></code></td>
-      <td><code>16</code></td>
+      <td><code>Number of CPU cores</code></td>
       <td>Global</td>
       <td>No</td>
       <td>Yes</td>
@@ -10739,17 +10737,17 @@ This version ported the feature from Percona Server 5.7.</p>
   <tbody>
     <tr>
         <td><code><a href="#thread_pool_max_threads">thread_pool_max_threads</a></code></td>
-      <td><code>1000</code></td>
+      <td><code>100000</code></td>
       <td>Global</td>
-      <td>No</td>
       <td>Yes</td>
-      <td>Maximum number of worker threads per group.</td>
+      <td>Yes</td>
+      <td>Maximum number of worker threads across all thread groups.</td>
     </tr>
     <tr>
         <td><code><a href="#thread_pool_stall_limit">thread_pool_stall_limit</a></code></td>
-      <td><code>6</code></td>
+      <td><code>500</code></td>
       <td>Global</td>
-      <td>Yes</td>
+      <td>No</td>
       <td>Yes</td>
       <td>Wait time in milliseconds before reassigning stalled queries.</td>
     </tr>
@@ -10862,7 +10860,7 @@ configure them both statically and dynamically.</p>
   worker threads.</p>
 </li>
 <li>
-<p>Default: 16</p>
+<p>Default: Number of CPU cores detected on the system at server startup</p>
 </li>
 <li>
 <p>This value is static and requires a server restart.</p>
@@ -10926,35 +10924,32 @@ configure them both statically and dynamically.</p>
   it to another group.</p>
 </li>
 <li>
-<p>Default: 6</p>
+<p>Default: 500</p>
 </li>
 <li>
-<p>This setting can be configured statically.</p>
-</li>
-<li>
-<p>This setting can be configured dynamically.</p>
+<p>This setting is not dynamic and requires a server restart.</p>
 </li>
 <li>
 <p>This setting helps improve query responsiveness under unbalanced workloads.</p>
 </li>
 </ul>
 <h3 id="thread_pool_max_threads"><code>thread_pool_max_threads</code><a class="headerlink" href="#thread_pool_max_threads" title="Permanent link">&para;</a></h3>
-<p>Defines the maximum number of worker threads per group.</p>
+<p>Defines the maximum number of worker threads across all thread groups combined.</p>
 <ul>
 <li>
-<p>Allowed values: Integer ≥ <code>thread_pool_max_threads</code></p>
+<p>Allowed values: Integer ≥ 1</p>
 </li>
 <li>
-<p>Description: Controls the upper bound on thread creation. If reached, new queries wait
-  in the queue.</p>
+<p>Description: Controls the upper bound on total thread creation across all thread groups. If reached, new queries wait in the queue.</p>
 </li>
 <li>
-<p>Default: 1000</p>
+<p>Default: 100000</p>
 </li>
 <li>
-<p>This setting is not dynamic and requires a server restart.</p>
+<p>This setting can be configured in the configuration file or changed dynamically at runtime using <code>SET GLOBAL</code>.</p>
 </li>
 </ul>
+<p><strong>Note:</strong> The default value of 100000 is the maximum total number of worker threads across all thread groups. Consider setting a lower value based on your system&rsquo;s capacity and workload requirements to avoid resource exhaustion.</p>
 <p>Use these variables together to tune concurrency, queue behavior, and scheduling
 control based on your workload and connection volume.</p>
 
@@ -10979,7 +10974,7 @@ control based on your workload and connection volume.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 24, 2025 07:02:54 UTC">July 24, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 4, 2025 10:43:53 UTC">December 4, 2025</span>
   </span>
 
     
