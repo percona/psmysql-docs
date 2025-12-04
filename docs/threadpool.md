@@ -148,11 +148,7 @@ Administrators can fine-tune thread pool behavior by adjusting dynamic and stati
 thread_pool_stall_limit = 100
 ```
 
-```mysql
-mysql> SET GLOBAL thread_pool_stall_limit = 100;
-```
-
-This value, in milliseconds, limits how long a task can stall before being redistributed. As with other thread pool settings, existing sessions retain their previous values.
+This value, in milliseconds, limits how long a task can stall before being redistributed. This setting requires a server restart to take effect.
 
 
 ## Thread Pool Configuration Reference Sheet
@@ -182,7 +178,7 @@ A quick overview of system variables available for configuring the thread pool i
     </tr>
     <tr>
       <td><code><a href="#thread_pool_size">thread_pool_size</a></code></td>
-      <td><code>16</code></td>
+      <td><code>Number of CPU cores</code></td>
       <td>Global</td>
       <td>No</td>
       <td>Yes</td>
@@ -246,17 +242,17 @@ A quick overview of system variables available for configuring the thread pool i
   <tbody>
     <tr>
         <td><code><a href="#thread_pool_max_threads">thread_pool_max_threads</a></code></td>
-      <td><code>1000</code></td>
+      <td><code>100000</code></td>
       <td>Global</td>
-      <td>No</td>
       <td>Yes</td>
-      <td>Maximum number of worker threads per group.</td>
+      <td>Yes</td>
+      <td>Maximum number of worker threads across all thread groups.</td>
     </tr>
     <tr>
         <td><code><a href="#thread_pool_stall_limit">thread_pool_stall_limit</a></code></td>
-      <td><code>6</code></td>
+      <td><code>500</code></td>
       <td>Global</td>
-      <td>Yes</td>
+      <td>No</td>
       <td>Yes</td>
       <td>Wait time in milliseconds before reassigning stalled queries.</td>
     </tr>
@@ -374,7 +370,7 @@ Defines the number of thread groups.
 * Description: Each group manages client connections with its own listener and
   worker threads.
 
-* Default: 16
+* Default: Number of CPU cores detected on the system at server startup
 
 * This value is static and requires a server restart.
 
@@ -427,28 +423,26 @@ Controls how long to wait before rescheduling stalled queries.
 * Description: If a query remains blocked beyond this time, the pool may redistribute
   it to another group.
 
-* Default: 6
+* Default: 500
 
-* This setting can be configured statically.
-
-* This setting can be configured dynamically.
+* This setting is not dynamic and requires a server restart.
 
 * This setting helps improve query responsiveness under unbalanced workloads.
 
 
 ### `thread_pool_max_threads`
 
-Defines the maximum number of worker threads per group.
+Defines the maximum number of worker threads across all thread groups combined.
 
-* Allowed values: Integer ≥ `thread_pool_max_threads`
+* Allowed values: Integer ≥ 1
 
-* Description: Controls the upper bound on thread creation. If reached, new queries wait
-  in the queue.
+* Description: Controls the upper bound on total thread creation across all thread groups. If reached, new queries wait in the queue.
 
-* Default: 1000
+* Default: 100000
 
-* This setting is not dynamic and requires a server restart.
+* This setting can be configured in the configuration file or changed dynamically at runtime using `SET GLOBAL`.
 
+**Note:** The default value of 100000 is the maximum total number of worker threads across all thread groups. Consider setting a lower value based on your system's capacity and workload requirements to avoid resource exhaustion.
 
 
 Use these variables together to tune concurrency, queue behavior, and scheduling
