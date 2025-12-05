@@ -6,7 +6,7 @@ is stored in a log file. This implementation is alternative to the [MySQL Enterp
 
 ## Version specific information
 
-The release of [Percona Server for MySQL 8.0.34-26](release-notes/8.0.34-26.md)introduces the [Audit Log Filter plugin](audit-log-filter-overview.md). This plugin has more options and improvements. 
+The release of [Percona Server for MySQL 8.0.34-26](release-notes/8.0.34-26.md) introduces the [Audit Log Filter plugin](audit-log-filter-overview.md). This plugin has more options and improvements. 
 
 The Audit Log Filter plugin is available in Percona Server for MySQL 8.4 as a component. 
 
