@@ -20,12 +20,13 @@ variable having a non-default value.
 
 !!! warning "Complex Database Recovery Scenarios"
     Navigating table corruption and recovery can be challenging. 
-    [Percona Support](https://www.percona.com/services/support) offers 
+    [Percona Support :octicons-link-external-16:](https://www.percona.com/services/support) offers 
     expert guidance for complex database recovery and optimization 
     strategies.
 
 For more information about the innodb_force_recovery variable, see 
-[Forcing InnoDB Recovery] from the MySQL Reference Manual.
+[Forcing InnoDB Recovery :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/
+forcing-innodb-recovery.html) from the MySQL Reference Manual.
 
 This feature adds a system variable.
 
@@ -56,6 +57,3 @@ This feature adds a system variable.
 * Enabling `innodb_file_per_table` and using the `salvage` value causes 
   *XtraDB* to allow read access to the corrupted tablespace but ignores 
   any corrupted pages.
-
-[Forcing InnoDB Recovery]: https://dev.mysql.com/doc/refman/{{vers}}/en/
-forcing-innodb-recovery.html

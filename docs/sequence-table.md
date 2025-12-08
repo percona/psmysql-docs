@@ -19,11 +19,11 @@ To maintain compatibility with existing third-party software, `SEQUENCE_TABLE` i
 
 ## Table functions
 
-The function is an inline table-valued function. This function creates a temporary table with multiple rows. You can use this function within a single SELECT statement. Oracle MySQL Server only has the `JSON_TABLE` table function. The Percona Server for MySQL has the `JSON_TABLE` and `SEQUENCE_TABLE()` table functions. A single SELECT statement generates a multi-row result set. In contrast, a scalar function (like [EXP(x)](https://dev.mysql.com/doc/refman/8.4/en/mathematical-functions.html#function_exp) or [LOWER(str)](https://dev.mysql.com/doc/refman/8.4/en/string-functions.html#function_lower) always returns a single value of a specific data type.
+The function is an inline table-valued function. This function creates a temporary table with multiple rows. You can use this function within a single SELECT statement. Oracle MySQL Server only has the [`JSON_TABLE` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/json-table-functions.html) table function. The Percona Server for MySQL has the `JSON_TABLE` and `SEQUENCE_TABLE()` table functions. A single SELECT statement generates a multi-row result set. In contrast, a scalar function (like [EXP(x) :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/mathematical-functions.html#function_exp) or [LOWER(str) :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/string-functions.html#function_lower) always returns a single value of a specific data type.
 
 ## Syntax
 
-As with any [derived tables](https://dev.mysql.com/doc/refman/8.4/en/derived-tables.html), a table function requires an [alias](https://dev.mysql.com/doc/refman/8.4/en/identifiers.html) in the `SELECT` statement.
+As with any [derived tables :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/derived-tables.html), a table function requires an [alias :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/identifiers.html) in the `SELECT` statement.
 
 The result set is a single column with the predefined column name `value` of type `BIGINT UNSIGNED`. You can reference the `value` column in `SELECT` statements. The following statements are valid. Using `n` as the number of generated values, the following is the basic syntax:
 
@@ -190,5 +190,4 @@ mysql> SELECT * FROM t1;
 
 Sequences are helpful for various purposes, such as populating tables and generating test data.
 
-[`JSON_TABLE()`]: https://dev.mysql.com/doc/refman/8.4/en/json-table-functions.html
 [`PERCONA_SEQUENCE_TABLE()`]: percona-sequence-table.md

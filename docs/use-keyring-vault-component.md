@@ -1,6 +1,6 @@
 # Use the keyring vault component
 
-The `keyring_vault` component extends the server capabilities and provides an interface for the database with a [HashiCorp Vault] server to store key and secure encryption keys. 
+The `keyring_vault` component extends the server capabilities and provides an interface for the database with a [HashiCorp Vault :octicons-link-external-16:](https://www.hashicorp.com/products/vault/data-protection) server to store key and secure encryption keys. 
 
 --8<--- "keyring-components-installation.md"
 
@@ -31,11 +31,11 @@ The following is an example of a local manifest file:
 
 The configuration settings are either in a global configuration file or a local configuration file.
 
-The component communicates with the [Hashicorp Vault server](https://developer.hashicorp.com/vault/docs/install). Prepare the certificate and key files for a secure HTTPS connection to the server. You must have an organizational Certificate Authority (CA), a private vault key, and certificate for the Hashicorp Vault server instance. 
+The component communicates with the [Hashicorp Vault server :octicons-link-external-16:](https://developer.hashicorp.com/vault/docs/install). Prepare the certificate and key files for a secure HTTPS connection to the server. You must have an organizational Certificate Authority (CA), a private vault key, and certificate for the Hashicorp Vault server instance. 
 
-You can use [OpenSSL](https://www.openssl.org/docs/man3.0/index.html) to generate these files or use existing files. The key files contain sensitive information. Store these key files and the password used to create each key in a secure location. 
+You can use [OpenSSL :octicons-link-external-16:](https://www.openssl.org/docs/man3.0/index.html) to generate these files or use existing files. The key files contain sensitive information. Store these key files and the password used to create each key in a secure location. 
 
-You can use the Hashicorp Vault to [build your own CA](https://developer.hashicorp.com/vault/tutorials/secrets-management/pki-engine), if needed, and then create a Hashicorp Vault server certificate.
+You can use the Hashicorp Vault to [build your own CA :octicons-link-external-16:](https://developer.hashicorp.com/vault/tutorials/secrets-management/pki-engine), if needed, and then create a Hashicorp Vault server certificate.
 
 
 The `component_keyring_vault.cnf` file contains the following information:
@@ -110,10 +110,8 @@ Use either of the following methods:
 
 !!! admonition "See also"
 
-    [Hashicorp Documentation: Installing Vault]
+    [Hashicorp Documentation: Installing Vault :octicons-link-external-16:](https://www.vaultproject.io/docs/install/index.html)
         
-    [Hashicorp Documentation: Production Hardening]
-
-[Hashicorp Documentation: Installing Vault]: https://www.vaultproject.io/docs/install/index.html
-[Hashicorp Documentation: Production Hardening]: https://learn.hashicorp.com/vault/operations/production-hardening
-[HashiCorp Vault]: https://www.hashicorp.com/products/vault/data-protection
+    [Hashicorp Documentation: Production Hardening :octicons-link-external-16:](https://learn.hashicorp.com/vault/operations/production-hardening
+)
+ 

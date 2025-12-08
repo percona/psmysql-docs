@@ -1,6 +1,6 @@
 # Upgrade strategies
 
-For critical production systems, consider engaging [Percona Support](https://www.percona.com/services/support) to assist with your upgrade process. Our experts can help ensure a smooth transition and minimize potential risks during this sensitive operation.
+For critical production systems, consider engaging [Percona Support :octicons-link-external-16:](https://www.percona.com/services/support) to assist with your upgrade process. Our experts can help ensure a smooth transition and minimize potential risks during this sensitive operation.
 
 ## Downgrade options
 

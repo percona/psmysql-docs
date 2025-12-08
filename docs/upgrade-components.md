@@ -1,6 +1,6 @@
 # Upgrade from plugins to components 
 
-[Need help navigating plugin to component transitions? Percona Support can assist.](https://www.percona.com/services/support)
+[Need help navigating plugin to component transitions? Percona Support can assist :octicons-link-external-16:](https://www.percona.com/services/support).
 
 Percona Server for MySQL {{vers}} introduces a shift from plugins to components for several key features, a change that requires a manual transition during the upgrade process. It is generally recommended to transition to the component version of a feature in the 8.0 series before performing the upgrade to {{vers}} if both a plugin and a component are available for that feature.
 

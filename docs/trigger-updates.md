@@ -2,9 +2,9 @@
 
 In MySQL, the system efficiently handles multiple client queries to the same table by opening separate table instances for each query. This prevents delays and conflicts. The use of a "Table Cache" speeds up access by reducing the need to repeatedly open and close tables, improving overall performance.
 
-The [table_open_cache] system variable controls the number of tables MySQL can keep open simultaneously across all threads. By increasing this setting, MySQL can handle more open files, although this requires more file descriptors. Despite a soft limit, MySQL can temporarily exceed it if queries demand more open tables. Upon query completion, MySQL automatically manages the cache by closing the least recently used tables.
+The [table_open_cache :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_table_open_cache) system variable controls the number of tables MySQL can keep open simultaneously across all threads. By increasing this setting, MySQL can handle more open files, although this requires more file descriptors. Despite a soft limit, MySQL can temporarily exceed it if queries demand more open tables. Upon query completion, MySQL automatically manages the cache by closing the least recently used tables.
 
-The [table_open_cache_instances] system variable controls the number of open table cache instances in MySQL. By splitting the open tables cache into smaller segments (table_open_cache divided by table_open_cache_instances), sessions can access only one instance at a time for DML operations, reducing contention and improving performance when many sessions are running. For systems with 16 or more CPU cores, a value of 8 or 16 is recommended. However, if many large triggers are causing high memory usage, setting this variable to 1 can help limit memory consumption.
+The [table_open_cache_instances :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_table_open_cache_instances) system variable controls the number of open table cache instances in MySQL. By splitting the open tables cache into smaller segments (table_open_cache divided by table_open_cache_instances), sessions can access only one instance at a time for DML operations, reducing contention and improving performance when many sessions are running. For systems with 16 or more CPU cores, a value of 8 or 16 is recommended. However, if many large triggers are causing high memory usage, setting this variable to 1 can help limit memory consumption.
 
 When a table with triggers is opened in the Table Cache, it also reads the trigger definitions and links the open table instance to its specific trigger instances. When a connection executes a Data Manipulation Language (DML) statement that activates a trigger, that connection uses its own instance of the trigger body for that particular table instance. This method of caching both the open table instances and their associated trigger bodies can unexpectedly use a significant amount of memory.
 
@@ -59,9 +59,4 @@ The `SHOW CREATE TRIGGER` statement displays the SQL command that created a trig
 
 ## Additional resources
 
-For more information, see [How MySQL opens and closes tables].
-
-[table_open_cache]: https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_table_open_cache
-[table_open_cache_instances]: https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_table_open_cache_instances
-
-[How MySQL opens and closes tables]: https://dev.mysql.com/doc/refman/{{vers}}/en/table-cache.html
+For more information, see [How MySQL opens and closes tables :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/table-cache.html).

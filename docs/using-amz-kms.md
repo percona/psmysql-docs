@@ -1,10 +1,10 @@
 # Use the Amazon Key Management Service (AWS KMS)
 
-Percona Server for MySQL supports the [Amazon Key Management Service (AWS KMS)](https://aws.amazon.com/kms/). Percona Server
+Percona Server for MySQL supports the [Amazon Key Management Service (AWS KMS) :octicons-link-external-16:](https://aws.amazon.com/kms/). Percona Server
 generates the keyring keys. Amazon Web Services (AWS) encrypts the keyring data.
 
 The AWS KMS lets you create and manage cryptographic keys across AWS services. For more information, see the
-[AWS Key Management Service Documentation](https://docs.aws.amazon.com/kms/).
+[AWS Key Management Service Documentation :octicons-link-external-16:](https://docs.aws.amazon.com/kms/).
 
 To use the AWS KMS component, do the following:
 
@@ -17,7 +17,7 @@ either by its ID, alias (the key can have any number of aliases), or ARN.
 
 --8<--- "keyring-components-installation.md"
 
-For more information, see [Installing and Uninstalling Components].
+For more information, see [Installing and Uninstalling Components :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/component-loading.html).
 
 The following example is a global manifest file that does not use local
 manifests:
@@ -65,7 +65,7 @@ following:
 
     * ARN
 
-For more information, see [Finding the key ID and key ARN](https://docs.aws.amazon.com/kms/latest/developerguide/find-cmk-id-arn.html).
+For more information, see [Finding the key ID and key ARN :octicons-link-external-16:](https://docs.aws.amazon.com/kms/latest/developerguide/find-cmk-id-arn.html).
 
 * region - the AWS where the KMS is stored. Any HTTP request connect to this region.
 
@@ -90,7 +90,4 @@ For more information, see [Finding the key ID and key ARN](https://docs.aws.amaz
      }
      ```
 
-For more information, see [Keyring Component installation].
-
-[Installing and Uninstalling Components]: https://dev.mysql.com/doc/refman/{{vers}}/en/component-loading.html
-[Keyring Component installation]: https://dev.mysql.com/doc/refman/{{vers}}/en/keyring-component-installation.html
+For more information, see [Keyring Component installation :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/keyring-component-installation.html).

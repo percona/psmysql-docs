@@ -1,10 +1,10 @@
 # Use an RPM repository to install Percona Server for MySQL {{vers}}
 
-Ready-to-use packages are available from the Percona Server for MySQL software repositories and the [Percona downloads] page. 
+Ready-to-use packages are available from the Percona Server for MySQL software repositories and the [Percona downloads :octicons-link-external-16:](https://www.percona.com/downloads/) page. 
 
-The Percona yum repository supports popular RPM-based operating systems. The easiest way to install the Percona RPM repository is to install an RPM that configures yum and installs the [Percona GPG key](https://www.percona.com/downloads/RPM-GPG-KEY-percona).
+The Percona yum repository supports popular RPM-based operating systems. The easiest way to install the Percona RPM repository is to install an RPM that configures yum and installs the [Percona GPG key :octicons-link-external-16:](https://www.percona.com/downloads/RPM-GPG-KEY-percona).
 
-Specific information on the supported platforms, products, and versions is described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
+Specific information on the supported platforms, products, and versions is described in [Percona Software and Platform Lifecycle :octicons-link-external-16:](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
 --8<-- "percona-release.md"
 
@@ -31,7 +31,7 @@ The packages are signed with GPG keys for security. The installation process aut
 
 ## Red Hat certified
 
-Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certification is based on common and secure best practices and successful interoperability with the operating system. Percona Server is listed in the [Red Hat Ecosystem Catalog](https://catalog.redhat.com/software/applications/detail/112055).
+Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certification is based on common and secure best practices and successful interoperability with the operating system. Percona Server is listed in the [Red Hat Ecosystem Catalog :octicons-link-external-16:](https://catalog.redhat.com/software/applications/detail/112055).
 
 ## ARM support
 
@@ -189,7 +189,7 @@ DNF is the default package manager for RHEL 8 and newer systems. To install Perc
 
 	* Review error messages for specific issues
 
-See [Configuring Percona repositories with `percona-release`](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
+See [Configuring Percona repositories with `percona-release` :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
 
 ## Install using YUM (RHEL 7 and older)
 
@@ -325,7 +325,7 @@ After successful installation, see [Post-installation](post-installation.md) for
 
 ## Install Percona Toolkit UDFs (optional)
 
-Percona Server for MySQL includes user-defined functions (UDFs) from [Percona Toolkit](https://docs.percona.com/percona-toolkit/). These UDFs provide faster checksum calculations:
+Percona Server for MySQL includes user-defined functions (UDFs) from [Percona Toolkit :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/). These UDFs provide faster checksum calculations:
 
 * `fnv_64`: Fast hash function
 
@@ -406,7 +406,5 @@ $ sudo yum update
 	Last metadata expiration check: 0:01:23 ago on Mon Jan 15 10:30:00 2024.
 	All packages are up to date.
 	```
-
-[Percona downloads]: https://www.percona.com/downloads/Percona-Server-{{vers}}/
 
 [Telemetry data]: telemetry.md

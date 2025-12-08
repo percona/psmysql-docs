@@ -1,6 +1,6 @@
 # Running Percona Server for MySQL in a Docker Container
 
-Percona Server for MySQL has an official Docker image hosted on [Docker Hub](https://hub.docker.com/r/percona/percona-server/). Download a specific version by adding the [Docker tag filter for the {{vers}} versions]. 
+Percona Server for MySQL has an official Docker image hosted on [Docker Hub :octicons-link-external-16:](https://hub.docker.com/r/percona/percona-server/). Download a specific version by adding the [Docker tag filter for the {{vers}} versions :octicons-link-external-16:](https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name={{vers}}). 
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
@@ -252,7 +252,5 @@ $ docker rm ps
 ## For more information
 
 Review the [Docker Docs](https://docs.docker.com/)
-
-[Docker tag filter for the {{vers}} versions]: https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name={{vers}}
 
 [Telemetry data]: telemetry.md

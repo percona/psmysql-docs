@@ -75,7 +75,7 @@ mysql> CREATE TABLESPACE tablespace_name ENCRYPTION='Y';
 
 All tables contained in the tablespace are either encrypted or not encrypted.
 You cannot encrypt only some of the tables in a general tablespace. This
-feature extends the  [CREATE TABLESPACE](https://dev.mysql.com/doc/refman/8.0/en/create-tablespace.html) statement to
+feature extends the  [CREATE TABLESPACE :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/create-tablespace.html) statement to
 accept the `ENCRYPTION='Y/N'` option.
 
 The option is a tablespace attribute and is not allowed with the `CREATE TABLE` or `SHOW CREATE TABLE` statement except with file-per-table tablespaces.

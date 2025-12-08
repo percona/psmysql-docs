@@ -1,6 +1,6 @@
 # Start transaction with consistent snapshot
 
-Percona Server for MySQL has ported MariaDB [enhancement](https://mariadb.com/docs/server/ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot/) for `START TRANSACTION WITH CONSISTENT SNAPSHOTS` feature to the group commit implementation. This enhancement makes binary log positions consistent with InnoDB transaction snapshots.
+Percona Server for MySQL has ported MariaDB [enhancement :octicons-link-external-16:](https://mariadb.com/docs/server/ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot/) for `START TRANSACTION WITH CONSISTENT SNAPSHOTS` feature to the group commit implementation. This enhancement makes binary log positions consistent with InnoDB transaction snapshots.
 
 This feature obtains logical backups with correct positions without running a `FLUSH TABLES WITH READ LOCK`. Binary log position can be obtained by two newly implemented status variables: [Binlog_snapshot_file](#binlog_snapshot_file) and [Binlog_snapshot_position](#binlog_snapshot_position). After starting a transaction using the `START TRANSACTION WITH CONSISTENT SNAPSHOT`, these two variables provide you with the binlog position that corresponds to the state of the database when the consistent snapshot is created and ignores which other transactions have been committed since the snapshot was created.
 

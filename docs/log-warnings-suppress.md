@@ -32,10 +32,10 @@ In the future, the ability to optionally disable additional warnings may also be
 
 ## Related reading
 
-* [MySQL bug 42851](https://bugs.mysql.com/bug.php?id=42851)
+* [MySQL bug 42851 :octicons-link-external-16:](https://bugs.mysql.com/bug.php?id=42851)
 
-* [MySQL InnoDB replication](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-and-mysql-replication.html)
+* [MySQL InnoDB replication :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-and-mysql-replication.html)
 
-* [InnoDB Startup Options and System Variables](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-parameters.html)
+* [InnoDB Startup Options and System Variables :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-parameters.html)
 
-* [InnoDB Error Handling](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-error-handling.html)
+* [InnoDB Error Handling :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-error-handling.html)

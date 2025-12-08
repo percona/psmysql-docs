@@ -2,7 +2,7 @@
 
 --8<--- "get-help-snip.md"
 
-[Need expert guidance for your upgrade? Percona Support is ready to assist you every step of the way.](https://www.percona.com/services/support).
+[Need expert guidance for your upgrade? Percona Support is ready to assist you every step of the way :octicons-link-external-16:](https://www.percona.com/services/support).
 
 ## Why upgrade to Percona Server for MySQL {{vers}} LTS
 
@@ -30,7 +30,7 @@ Long‑Term Support (LTS) releases focus on stability, predictable security patc
 | Unplanned upgrade pressure | Unexpected hardware or OS failures can force a rushed upgrade, increasing the chance of errors.                                |
 
 [Concerned about these risks? 
-Percona Support can help assess and mitigate them.](https://www.percona.com/services/support)
+Percona Support can help assess and mitigate them :octicons-link-external-16:](https://www.percona.com/services/support).
 
 
 ## Upgrade workflow
@@ -103,9 +103,9 @@ After completing the upgrade, complete the post-upgrade validation steps in the 
 
 ### Tooling to de-risk your upgrade
 
-* [`pt-upgrade`](https://docs.percona.com/percona-toolkit/pt-upgrade.html) – compares query plans and execution behavior between Percona Server 8.0 and {{vers}}
+* [`pt-upgrade` :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/pt-upgrade.html) – compares query plans and execution behavior between Percona Server 8.0 and {{vers}}
 
-* [Percona XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup)  – creates hot backups and lets you test restores without downtime.
+* [Percona XtraBackup :octicons-link-external-16:](https://www.percona.com/software/mysql-database/percona-xtrabackup)  – creates hot backups and lets you test restores without downtime.
 
 * A full dry-run workflow - backup → restore on 8.4 → run smoke/load tests → validate → practice rollback.
 
@@ -118,7 +118,7 @@ Set up a sandbox and run the upgrade there first. This isolated environment is e
 We strongly advise upgrading to the latest LTS release (Percona Server for MySQL {{vers}}) to stay secure, performant, and fully supported.
 
 
-[Need personalized support during your upgrade? Contact Percona Support for a detailed migration plan.](https://www.percona.com/services/support)
+[Need personalized support during your upgrade? Contact Percona Support for a detailed migration plan :octicons-link-external-16:](https://www.percona.com/services/support).
 
 ## Further reading
 
@@ -148,21 +148,21 @@ Review these upgrade-related documents:
 
 The following list summarizes a number of the changes in the 8.0 series and has useful guides that can help you perform a smooth upgrade. We strongly recommend reading this information:
 
-* [Upgrading MySQL](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading.html)
+* [Upgrading MySQL :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading.html)
 
-* [Before You Begin](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-before-you-begin.html)
+* [Before You Begin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-before-you-begin.html)
 
-* [Upgrade Paths](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-paths.html)
+* [Upgrade Paths :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-paths.html)
 
-* [Changes in MySQL 8.0](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-from-previous-series.html)
+* [Changes in MySQL 8.0 :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-from-previous-series.html)
 
-* [Preparing your Installation for Upgrade](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-prerequisites.html)
+* [Preparing your Installation for Upgrade :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-prerequisites.html)
 
-* [Percona Server for MySQL {{vers}} Release notes](https://docs.percona.com/percona-server/latest/release-notes/release-notes_index.html)
+* [Percona Server for MySQL {{vers}} Release notes :octicons-link-external-16:](https://docs.percona.com/percona-server/latest/release-notes/release-notes_index.html)
 
-* [Upgrade Troubleshooting](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-troubleshooting.html)
+* [Upgrade Troubleshooting :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-troubleshooting.html)
 
-* [Rebuilding or Repairing Tables or Indexes](https://dev.mysql.com/doc/refman/{{vers}}/en/rebuilding-tables.html)
+* [Rebuilding or Repairing Tables or Indexes :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/rebuilding-tables.html)
 
-Review other [Percona blogs](https://www.percona.com/blog/) that contain upgrade information.
+Review other [Percona blogs :octicons-link-external-16:](https://www.percona.com/blog/) that contain upgrade information.
 
