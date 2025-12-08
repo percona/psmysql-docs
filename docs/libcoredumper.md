@@ -7,7 +7,7 @@ The `libcoredumper` is a free and Open Source fork of `google-coredumper`,
 enhanced to work on newer Linux versions, and GCC and CLANG.
 
 !!! tip "Need Help Interpreting Stack Traces?"
-    [Percona Support](https://www.percona.com/services/support) offers 
+    [Percona Support :octicons-link-external-16:](https://www.percona.com/services/support) offers 
     expert debugging and performance analysis to help you understand 
     complex stack trace diagnostics.
 
@@ -62,7 +62,7 @@ reasons:
     
 !!! tip "Complex Core Dump Analysis?"
 
-    [Percona Support](https://www.percona.com/services/support) offers expert debugging and in-depth analysis of core dump diagnostics to help you resolve critical system issues.
+    [Percona Support :octicons-link-external-16:](https://www.percona.com/services/support) offers expert debugging and in-depth analysis of core dump diagnostics to help you resolve critical system issues.
 
 ### Disabling the libcoredumper
 

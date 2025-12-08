@@ -69,8 +69,6 @@ This variable shows the total seek distance when moving between pages.
 
 ## Related reading
 
-* [InnoDB: look after fragmentation](https://www.percona.com/blog/2009/11/05/innodb-look-after-fragmentation/)
+* [InnoDB: look after fragmentation :octicons-link-external-16:](https://www.percona.com/blog/2009/11/05/innodb-look-after-fragmentation/)
 
-* [Defragmenting a Table]
-
-[Defragmenting a Table]: https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-file-defragmenting.html
+* [Defragmenting a Table :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-file-defragmenting.html)

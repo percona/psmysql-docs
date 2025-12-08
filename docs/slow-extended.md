@@ -2,7 +2,7 @@
 
 This feature adds microsecond time resolution and additional statistics to the slow query log output. It lets you enable or disable the slow query log at runtime, adds logging for the replica SQL thread, and adds fine-grained control over what and how much to log into the slow query log.
 
-You can use Percona-Toolkit’s [pt-query-digest](https://docs.percona.com/percona-toolkit/pt-query-digest.html) tool to aggregate similar queries together and report on those that consume the most execution time.
+You can use Percona-Toolkit’s [pt-query-digest :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/pt-query-digest.html) tool to aggregate similar queries together and report on those that consume the most execution time.
 
 
 ## System Variables
@@ -401,10 +401,10 @@ If the query did not use *InnoDB* tables, that information is written into the l
 ## Related reading
 
 
-* [Impact of logging on MySQL’s performance](https://www.percona.com/blog/impact-of-logging-on-mysql%E2%80%99s-performance/)
+* [Impact of logging on MySQL’s performance :octicons-link-external-16:](https://www.percona.com/blog/impact-of-logging-on-mysql%E2%80%99s-performance/)
 
 
-* [log_slow_filter Usage](https://www.percona.com/blog/finding-what-created_tmp_disk_tables-with-log_slow_filter/)
+* [log_slow_filter Usage :octicons-link-external-16:](https://www.percona.com/blog/finding-what-created_tmp_disk_tables-with-log_slow_filter/)
 
 
-* [Added microseconds to the slow query log event time](https://perconadev.atlassian.net/browse/PS-1136)
+* [Added microseconds to the slow query log event time :octicons-link-external-16:](https://perconadev.atlassian.net/browse/PS-1136)

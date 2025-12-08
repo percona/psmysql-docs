@@ -4,13 +4,10 @@ A binary tarball contains a group of files, including the source code, bundled t
 
 See the list of the [binary tarball available based on the Percona Server for MySQL version](binary-tarball-names.md) to select the right tarball for your environment.
     
-You can download the binary tarballs from the `Linux - Generic` [section] on the download page.
+You can download the binary tarballs from the `Linux - Generic` [section :octicons-link-external-16:](https://www.percona.com/downloads/Percona-Server-{{vers}}/LATEST/binary/tarball/) on the download page.
 
 Fetch and extract the correct binary tarball. For example for Ubuntu 22.04:
 
 ```{.bash data-prompt="$"}
 $ wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/tarball/Percona-Server-{{release}}-Linux.x86_64.glibc2.35.tar.gz
 ```
-
-[section]: https://www.percona.com/downloads/Percona-Server-{{vers}}/LATEST/binary/tarball/
-

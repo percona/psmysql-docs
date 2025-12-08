@@ -28,7 +28,7 @@ You must provide at least one environment variable to access the database, such 
 
 If needed, you can replace the `secret` password with a [stronger password](#security-measures).
 
-For this document, we add the `{{tag}}` tag. In Docker, a tag is a label assigned to an image and is used to maintain different versions of an image. If we did not add a tag, Docker uses `latest` as the default tag and downloads the latest image from [percona/percona-server on the Docker Hub].
+For this document, we add the `{{tag}}` tag. In Docker, a tag is a label assigned to an image and is used to maintain different versions of an image. If we did not add a tag, Docker uses `latest` as the default tag and downloads the latest image from [percona/percona-server on the Docker Hub :octicons-link-external-16:](https://hub.docker.com/r/percona/percona-server).
 
 To run the Docker ARM64 version of Percona Server for MySQL, use the `{{arm_tag}}` tag instead of `{{tag}}`.
 
@@ -405,8 +405,3 @@ Remember, responsible container management and robust security practices are cru
 ## Next step
 
 [Choose your next steps:material-arrow-right:](quickstart-next-steps.md){.md-button}
-
-
-[Percona Server for MySQL documentation]: https://docs.percona.com/percona-server/8.4/
-
-[percona/percona-server on the Docker Hub]: https://hub.docker.com/r/percona/percona-server

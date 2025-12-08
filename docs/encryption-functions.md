@@ -20,11 +20,11 @@ Percona Server for MySQL 8.4.4 adds the following:
 
     <details>
        <summary> `pkcs1` padding explanation</summary>
-        [`RSAES-PKCS1-v1_5`](https://en.wikipedia.org/wiki/PKCS_1) RSA encryption padding scheme prevents patterns that attackers could exploit by including a random sequence of bytes, which ensures that the ciphertext is different no matter how many times it is encrypted.
+        [`RSAES-PKCS1-v1_5` :octicons-link-external-16:](https://en.wikipedia.org/wiki/PKCS_1) RSA encryption padding scheme prevents patterns that attackers could exploit by including a random sequence of bytes, which ensures that the ciphertext is different no matter how many times it is encrypted.
     </details>
     <details>
        <summary> `oaep` padding explanation</summary>  
-        The [`RSAES-OAEP`](https://en.wikipedia.org/wiki/PKCS_1)  - [`Optimal Asymmetric Encryption Padding`](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding) RSA encryption padding scheme adds a randomized mask generation function. This function makes it more difficult for attackers to exploit the encryption algorithm's weaknesses or recover the original message.
+        The [`RSAES-OAEP` :octicons-link-external-16:](https://en.wikipedia.org/wiki/PKCS_1)  - [`Optimal Asymmetric Encryption Padding` :octicons-link-external-16:](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding) RSA encryption padding scheme adds a randomized mask generation function. This function makes it more difficult for attackers to exploit the encryption algorithm's weaknesses or recover the original message.
     </details>
     <details>
        <summary> `no` padding explanation</summary>
@@ -35,11 +35,11 @@ Percona Server for MySQL 8.4.4 adds the following:
 
     <details>
        <summary> `pkcs1` padding explanation</summary>
-        The [`RSASSA-PKCS1-v1_5`](https://en.wikipedia.org/wiki/PKCS_1) is a deterministic RSA signature padding scheme that hashes a message, pads the hash with a specific structure, and encrypts it with the signer's private key for signature generation. 
+        The [`RSASSA-PKCS1-v1_5` :octicons-link-external-16:](https://en.wikipedia.org/wiki/PKCS_1) is a deterministic RSA signature padding scheme that hashes a message, pads the hash with a specific structure, and encrypts it with the signer's private key for signature generation. 
     </details>
     <details>
        <summary> `pkcs1_pss` padding explanation</summary>
-        The [`RSASSA-PSS`](https://en.wikipedia.org/wiki/PKCS_1) - [`Probabilistic Signature Scheme'](https://en.wikipedia.org/wiki/Probabilistic_signature_scheme) is an RSA signature padding scheme used to add randomness to a message before signing it with a private key. This randomness helps to increase the security of the signature and makes it more resistant to various attacks. 
+        The [`RSASSA-PSS` :octicons-link-external-16:](https://en.wikipedia.org/wiki/PKCS_1) - [`Probabilistic Signature Scheme' :octicons-link-external-16:](https://en.wikipedia.org/wiki/Probabilistic_signature_scheme) is an RSA signature padding scheme used to add randomness to a message before signing it with a private key. This randomness helps to increase the security of the signature and makes it more resistant to various attacks. 
     </details>
 
 * [`encryption_udf.legacy_paddding`](#legacy_padding) system variable
@@ -72,7 +72,7 @@ When choosing key lengths, consider the following:
 
 ## Install component_encryption_udf
 
-Use the [Install Component Statement] to add the component_encryption_udf component. The functions and variables are available. The user-defined functions and the Encryption threshold variables are auto-registered. There is no requirement to invoke `CREATE FUNCTION ... SONAME ...`.
+Use the [Install Component Statement](https://dev.mysql.com/doc/refman/{{vers}}/en/install-component.html) to add the component_encryption_udf component. The functions and variables are available. The user-defined functions and the Encryption threshold variables are auto-registered. There is no requirement to invoke `CREATE FUNCTION ... SONAME ...`.
 
 The `INSERT` privilege on the `mysql.component` system table is required to run the `INSTALL COMPONENT` statement. The operation adds a row to this table to register the component.
 
@@ -540,11 +540,8 @@ mysql> INSERT INTO key_table VALUES(create_asymmetric_priv_key('RSA', 3072));
 
 ## Uninstall component_encryption_udf
 
-You can deactivate and uninstall the component using the [Uninstall Component statement].
+You can deactivate and uninstall the component using the [Uninstall Component statement](https://dev.mysql.com/doc/refman/{{vers}}/en/uninstall-component.html).
 
 ```{.bash data-prompt="mysql>"}
 mysql> UNINSTALL COMPONENT 'file://component_encryption_udf';
 ```
-
-[Install Component Statement]: https://dev.mysql.com/doc/refman/{{vers}}/en/install-component.html
-[Uninstall Component statement]: https://dev.mysql.com/doc/refman/{{vers}}/en/uninstall-component.html

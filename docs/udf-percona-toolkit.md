@@ -33,9 +33,9 @@ If the `INSTALL COMPONENT` command fails, try these steps:
   components in MySQL.
   
 If you're still facing issues, consider reaching out to
-  [Percona Support](https://www.percona.com/services/support)
+  [Percona Support :octicons-link-external-16:](https://www.percona.com/services/support)
   for further assistance.
 
 ## Other reading
 
-* Percona Toolkit [documentation](https://docs.percona.com/percona-toolkit/)
+* Percona Toolkit [documentation :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/)

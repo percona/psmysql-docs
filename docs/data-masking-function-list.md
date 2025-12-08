@@ -168,7 +168,7 @@ None.
 
 ### Returns
 
-Returns a Canada SIN formatted in three groups of three digits (for example, 123-456-789) in the `utf8mb4` character set. To ensure the number is consistent, the number is verified with the [Luhn algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm).
+Returns a Canada SIN formatted in three groups of three digits (for example, 123-456-789) in the `utf8mb4` character set. To ensure the number is consistent, the number is verified with the [Luhn algorithm :octicons-link-external-16:](https://en.wikipedia.org/wiki/Luhn_algorithm).
 
 ### Example
 

@@ -6,10 +6,10 @@ A version number identifies the innovtion product release. The product contains 
 |---|---|---|
 | Base version | Minor build version |
 
-Percona uses semantic version numbering, which follows the pattern of base version and build version. Percona assigns unique, non-negative integers in increasing order for each version release. The version number combines the base [MySQL {{vers}}](https://dev.mysql.com/doc/relnotes/mysql/{{vers}}/en/) version number and the minor build version.
+Percona uses semantic version numbering, which follows the pattern of base version and build version. Percona assigns unique, non-negative integers in increasing order for each version release. The version number combines the base [MySQL {{vers}} :octicons-link-external-16:](https://dev.mysql.com/doc/relnotes/mysql/{{vers}}/en/) version number and the minor build version.
 
 The version numbers for Percona Server for MySQL {{release}} define the following information:
 
-* Base version - the leftmost numbers indicate [MySQL {{vers}}](https://dev.mysql.com/doc/relnotes/mysql/{{vers}}/en/) version used as a base. 
+* Base version - the leftmost numbers indicate [MySQL {{vers}} :octicons-link-external-16:](https://dev.mysql.com/doc/relnotes/mysql/{{vers}}/en/) version used as a base. 
 
 * Minor build version - an internal number that increases by one every time Percona Server for MySQL is released.
