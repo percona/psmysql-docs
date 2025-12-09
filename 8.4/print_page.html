@@ -15640,7 +15640,9 @@ If it does, the component renames the file. The component writes to an empty fil
 </details>
 <h3 id="audit-log-filter-variables-audit_log_read_bookmark">audit_log_read_bookmark()<a class="headerlink" href="#audit-log-filter-variables-audit_log_read_bookmark" title="Permanent link">&para;</a></h3>
 <p>This function provides a bookmark for the most recently written audit log event as a JSON string. Generates an error if the format is not JSON.</p>
-<p>If this function is used with [<code>audit_log_read()](#audit_log_read), the</code>audit_log_read()` function starts reading at that position.</p>
+<p>When this function is used with <a href="#audit-log-filter-variables-audit_log_read"><code>audit_log_read()</code></a>, the read starts reading at the specified position.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="n">audit_log_read_bookmark</span><span class="p">());</span>
+</code></pre></div>
 <h4 id="audit-log-filter-variables-parameters_4">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_4" title="Permanent link">&para;</a></h4>
 <p>None.</p>
 <h4 id="audit-log-filter-variables-returns_4">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_4" title="Permanent link">&para;</a></h4>
