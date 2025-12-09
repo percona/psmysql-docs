@@ -15596,11 +15596,7 @@ If it does, the component renames the file. The component writes to an empty fil
 <h3 id="audit-log-filter-variables-audit_log_filter_flush">audit_log_filter_flush()<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_flush" title="Permanent link">&para;</a></h3>
 <p>This function updates the audit log filter tables and makes any changes operational. </p>
 <p>Modifying the audit log filter tables directly with <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code> does not implement the modifications immediately. The tables must be flushed to have those changes take effect. </p>
-<p>This function forces reloading all filters and should only be used if someone has modified the tables directly. </p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Avoid using this function. This function performs an operation that is similar to uninstalling and reinstalling the component. Filters are detached from all current sessions. To restart logging, the current sessions must either disconnect and reconnect or do a change-user operation. </p>
-</div>
+<p>This function forces reloading all filters and should only be used if someone has modified the tables directly.</p>
 <h4 id="audit-log-filter-variables-parameters_2">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_2" title="Permanent link">&para;</a></h4>
 <p>None.</p>
 <h4 id="audit-log-filter-variables-returns_2">Returns<a class="headerlink" href="#audit-log-filter-variables-returns_2" title="Permanent link">&para;</a></h4>
