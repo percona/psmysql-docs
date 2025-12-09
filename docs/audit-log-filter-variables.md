@@ -82,11 +82,7 @@ This function updates the audit log filter tables and makes any changes operatio
 
 Modifying the audit log filter tables directly with `INSERT`, `UPDATE`, or `DELETE` does not implement the modifications immediately. The tables must be flushed to have those changes take effect. 
 
-This function forces reloading all filters and should only be used if someone has modified the tables directly. 
-
-!!! important
-
-    Avoid using this function. This function performs an operation that is similar to uninstalling and reinstalling the component. Filters are detached from all current sessions. To restart logging, the current sessions must either disconnect and reconnect or do a change-user operation. 
+This function forces reloading all filters and should only be used if someone has modified the tables directly.
 
 #### Parameters
 
