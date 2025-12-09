@@ -150,7 +150,11 @@ mysql> SELECT audit_log_read(audit_log_read_bookmark());
 
 This function provides a bookmark for the most recently written audit log event as a JSON string. Generates an error if the format is not JSON.
 
-If this function is used with [`audit_log_read()](#audit_log_read), the `audit_log_read()` function starts reading at that position.
+When this function is used with [`audit_log_read()`](#audit_log_read), the read starts reading at the specified position.
+
+```sql
+SELECT audit_log_read(audit_log_read_bookmark());
+```
 
 #### Parameters
 
