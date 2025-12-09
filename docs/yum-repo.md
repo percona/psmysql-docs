@@ -41,13 +41,6 @@ The RPM builds contain ARM packages with the `aarch64.rpm` extension.
 
 RHEL 8+ and other EL8+ systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled to make these packages visible.
 
-
-## Percona Server for MySQL PRO
-
---8<--- "pro-build-announcement.md"
-
-[Install Percona Server for MySQL Pro](install-pro.md){.md-button}
-
 ## Unattended installations
 
 --8<-- "install-flag.md"

@@ -37,9 +37,6 @@ The following guides walk you through the setup process and working with a datab
 [Choose your next steps:material-arrow-right:](quickstart-next-steps.md){.md-button}
 
 
-
-
-
 [the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Helm]: https://docs.percona.com/percona-operator-for-mysql/ps/helm.html
 
 [the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Minikube]: https://docs.percona.com/percona-operator-for-mysql/ps/minikube.html
