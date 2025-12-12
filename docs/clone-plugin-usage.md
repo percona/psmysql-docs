@@ -33,7 +33,7 @@ This command creates a full copy of all databases in the source directory.
 On the source server, create a user with the necessary privileges:
 
 ```{.bash data-prompt="mysql>"}
-mysql> CLONECREATE USER clone_user@'%' IDENTIFIED BY 'password';
+mysql> CREATE USER clone_user@'%' IDENTIFIED BY 'password';
 mysql> GRANT CLONE_ADMIN ON *.* TO clone_user@'%';
 ```
 
