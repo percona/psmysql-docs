@@ -27928,17 +27928,59 @@ buffered-error-log-filename=/var/lib/mysqld-logs/buffered_log
 <p>When replicating a large number of transactions, the Clone plugin may be a more efficient solution. </p>
 <h2 id="clone-plugin-install-the-clone-plugin">Install the Clone plugin<a class="headerlink" href="#clone-plugin-install-the-clone-plugin" title="Permanent link">&para;</a></h2>
 <p>The Clone plugin must be installed on both the donor and the joiner servers at either server startup or at runtime. To install the plugin at runtime, run the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>clone<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">&#39;mysql_clone.so&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;mysql_clone.so&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>Review the INFORMATION_SCHEMA.PLUGINS table or run the <code>SHOW PLUGINS</code> command to verify the installation. The following is an example of querying the PLUGINS table.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>PLUGIN_NAME,<span class="w"> </span>PLUGIN_STATUS<span class="w"> </span>FROM<span class="w"> </span>INFORMATION_SCHEMA.PLUGINS<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">PLUGIN_NAME</span><span class="o">=</span><span class="s1">&#39;clone&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="o">=</span><span class="s1">&#39;clone&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The result lists the Clone plugin and the status.</p>
 <h2 id="clone-plugin-clone-data">Clone data<a class="headerlink" href="#clone-plugin-clone-data" title="Permanent link">&para;</a></h2>
 <p>The SQL statement used to clone data depends on if the operation is local or remote. The following code is an example of cloning data from a remote server:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CLONE<span class="w"> </span>INSTANCE<span class="w"> </span>FROM<span class="w"> </span><span class="sb">`</span>root@remote.server:13336<span class="sb">`</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="sb">`</span>user<span class="sb">`</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">CLONE</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">root</span><span class="o">@</span><span class="n">remote</span><span class="p">.</span><span class="n">server</span><span class="p">:</span><span class="mi">13336</span><span class="o">`</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="p">;</span>
 </code></pre></div>
-<p>Replace the user name, host name, and port number with the settings from the donor server.</p></section>
+<p>Replace the user name, host name, and port number with the settings from the donor server.</p>
+<h2 id="clone-plugin-limitations">Limitations<a class="headerlink" href="#clone-plugin-limitations" title="Permanent link">&para;</a></h2>
+<p>The MySQL 8.4 clone plugin enforces several functional and scope limitations that define which instances administrators clone and which data or metadata a clone operation includes.</p>
+<h2 id="clone-plugin-version-and-instance-limits">Version and instance limits<a class="headerlink" href="#clone-plugin-version-and-instance-limits" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>The clone plugin only supports cloning within the same MySQL server series, so administrators clone between patch releases such as 8.4.1 and 8.4.13, but not between different major series such as 8.0 and 8.4.</p>
+</li>
+<li>
+<p>Each clone operation targets only one MySQL instance, and a single operation never clones multiple instances at once.</p>
+</li>
+</ul>
+<h2 id="clone-plugin-network-and-protocol-restrictions">Network and protocol restrictions<a class="headerlink" href="#clone-plugin-network-and-protocol-restrictions" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>The clone plugin uses the classic MySQL protocol, so the X Protocol port defined by <code>mysqlx_port</code> does not serve as the donor port in remote cloning operations with <code>CLONE INSTANCE</code> .</p>
+</li>
+<li>
+<p>The donor MySQL server instance does not accept clone connections that pass through MySQL Router, so administrators connect directly to the donor.</p>
+</li>
+</ul>
+<h2 id="clone-plugin-configuration-and-logs-excluded">Configuration and logs excluded<a class="headerlink" href="#clone-plugin-configuration-and-logs-excluded" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>The clone plugin preserves the configuration of the recipient server instance, so a clone operation does not copy the donor server configuration or persisted system variable settings.</p>
+</li>
+<li>
+<p>The plugin does not copy binary logs, so the recipient does not receive the donor’s binary log files as part of the clone .</p>
+</li>
+</ul>
+<h2 id="clone-plugin-storage-engine-behavior">Storage engine behavior<a class="headerlink" href="#clone-plugin-storage-engine-behavior" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>The clone plugin copies only data stored in the InnoDB storage engine and excludes data that other storage engines store.</p>
+</li>
+<li>
+<p>The plugin creates <code>MyISAM</code> and <code>CSV</code> tables on the recipient as empty tables, even when those tables reside in special schemas such as the <code>sys</code> schema .</p>
+</li>
+</ul>
+<h2 id="clone-plugin-local-cloning-and-tablespaces">Local cloning and tablespaces<a class="headerlink" href="#clone-plugin-local-cloning-and-tablespaces" title="Permanent link">&para;</a></h2>
+<ul>
+<li>During local cloning, the clone plugin does not support general tablespaces that use an absolute path, because cloning those tablespaces would create a conflicting file that uses the same absolute path on the destination host.</li>
+</ul></section>
                     <section class='print-page md-section' id='section-11-5' heading-number='11.5'>
                         <h1>Manage components<a class='headerlink' href='#section-11-5' title='Permanent link'></a>
                         </h1>
