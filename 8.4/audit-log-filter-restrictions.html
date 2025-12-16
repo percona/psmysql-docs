@@ -9668,6 +9668,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>As by default the content of the <code>mysql.audit_log_filter</code> and <code>mysql.audit_log_user</code> tables may be replicated from source to replica and may affect audit log rules created on the replica, it is recommended to configure replication in such a way that the changes in these tables are simply ignored.</p>
 <p>Please notice that just changing the content of these tables (via replication channel) is not enough to automatically make changes to in-memory data structures in the <code>audit_log_filter</code> component that store information about active audit log filtering rules. However, this may happen after component reloading / server restart or manually calling <code>audit_log_filter_flush()</code>.</p>
+<ul>
+<li>Filter only on string values. The audit log filter does not filter on integer values. All filter criteria must be specified as strings, even when the underlying value is numeric. For example, <code>connection_id</code> values must be specified as strings (for example, <code>"123"</code> rather than <code>123</code>), and status values must be specified as <code>"0"</code> or <code>"1"</code> rather than <code>0</code> or <code>1</code>. If you use integer values in your filter definition, you will see the error: <code>ERROR: Incorrect rule definition.</code></li>
+</ul>
 
 
 
@@ -9690,7 +9693,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 1, 2025 13:37:03 UTC">October 1, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 5, 2025 12:19:23 UTC">December 5, 2025</span>
   </span>
 
     

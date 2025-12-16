@@ -10040,6 +10040,10 @@ This array object is more concise. You should use it if you do not plan to add a
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Filter definition</p>
+<p>In the filter definitions shown in this example, status values are displayed as integers for readability, but they must be specified as strings in your actual filter definitions (for example, <code>"status": ["0"]</code> or <code>"status": ["1"]</code>). The audit log filter does not filter on integer values, only on string values. This applies to all numeric filter criteria, including <code>connection_id</code>, <code>thread_id</code>, and <code>status</code>. If you use integer values, you will see the error: <code>ERROR: Incorrect rule definition.</code></p>
+</div>
 <p>This filter captures failed update/delete modifications by admin and developer users in the financial database and successful connections for the <code>external_service</code> user</p>
 <h2 id="best-practices">Best practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <p>Following a systematic approach helps ensure successful deployment and maintenance when implementing audit log filters. Start by creating broad, inclusive filters that capture a wide range of events, giving you a comprehensive view of your database activity. For example, you might begin by logging all actions from administrative users or all changes on critical databases. As you analyze the captured data, you can refine these filters to focus on specific events, users, or changes that matter most to your organization.</p>
@@ -10086,8 +10090,12 @@ This array object is more concise. You should use it if you do not plan to add a
 <span class="s1">    ]</span>
 <span class="s1">  }</span>
 <span class="s1">}&#39;</span><span class="p">);</span>
-
-<span class="c1">-- Assign the filter to all users</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Filter definition</p>
+<p>In the filter definition shown in this example, status values are displayed as integers (<code>[0, 1]</code>) for readability, but they must be specified as strings in your actual filter definitions (for example, <code>"status": ["0", "1"]</code>). The audit log filter does not filter on integer values, only on string values. This applies to all numeric filter criteria, including <code>connection_id</code>, <code>thread_id</code>, and <code>status</code>. If you use integer values, you will see the error: <code>ERROR: Incorrect rule definition.</code></p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Assign the filter to all users</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;financial_tracking&#39;</span><span class="p">);</span>
 </code></pre></div>
 <p>The filter monitors two main types of activities. First, it watches all changes to your accounts and transactions tables. This monitoring means that the filter logs when someone adds new data, changes existing information, or removes records. You get a complete picture of who&rsquo;s touching your financial data and what they do with it.</p>
@@ -10136,7 +10144,7 @@ This array object is more concise. You should use it if you do not plan to add a
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 16, 2025 21:41:23 UTC">November 16, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 5, 2025 12:19:23 UTC">December 5, 2025</span>
   </span>
 
     
