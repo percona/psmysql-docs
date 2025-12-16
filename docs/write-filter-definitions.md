@@ -335,6 +335,9 @@ This example defines a filter that `excludes` (negate: true) all table access ev
 }
 ```
 
+!!! note "Filter definition"
+    In the filter definitions shown in this example, status values are displayed as integers for readability, but they must be specified as strings in your actual filter definitions (for example, `"status": ["0"]` or `"status": ["1"]`). The audit log filter does not filter on integer values, only on string values. This applies to all numeric filter criteria, including `connection_id`, `thread_id`, and `status`. If you use integer values, you will see the error: `ERROR: Incorrect rule definition.`
+
 This filter captures failed update/delete modifications by admin and developer users in the financial database and successful connections for the `external_service` user
 
 ## Best practices
@@ -401,7 +404,12 @@ SELECT audit_log_filter_set_filter('financial_tracking', '{
     ]
   }
 }');
+```
 
+!!! note "Filter definition"
+    In the filter definition shown in this example, status values are displayed as integers (`[0, 1]`) for readability, but they must be specified as strings in your actual filter definitions (for example, `"status": ["0", "1"]`). The audit log filter does not filter on integer values, only on string values. This applies to all numeric filter criteria, including `connection_id`, `thread_id`, and `status`. If you use integer values, you will see the error: `ERROR: Incorrect rule definition.`
+
+```sql
 -- Assign the filter to all users
 SELECT audit_log_filter_set_user('%', '%', 'financial_tracking');
 ```
