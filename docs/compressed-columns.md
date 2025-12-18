@@ -1,3 +1,19 @@
+---
+title: Compressed columns with dictionaries
+description: The `per-column compression` feature is a data type modifier, independent
+  from user-level SQL and *InnoDB* data compression, that causes the data stored in
+  the column to be compressed on writing to st.
+slug: compressed-columns
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Compressed columns with dictionaries
 
 The `per-column compression` feature is a data type modifier, independent from

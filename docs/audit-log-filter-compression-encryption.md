@@ -1,3 +1,21 @@
+---
+title: Audit Log Filter compression and encryption
+description: You can enable compression for any format by setting the `audit_log_filter.compression`
+  system variable when the server starts.
+slug: audit-log-filter-compression-encryption
+category: Secure
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- encryption
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Audit Log Filter compression and encryption
 
 ## Compression

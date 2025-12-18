@@ -1,3 +1,19 @@
+---
+title: Handle corrupted tables
+description: When a server subsystem tries to access a corrupted table, the server
+  may crash.
+slug: innodb-corrupt-table-action
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Handle corrupted tables
 
 When a server subsystem tries to access a corrupted table,

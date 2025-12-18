@@ -1,3 +1,19 @@
+---
+title: Uninstall the component
+description: 'The following steps uninstall the component: {.power-number}.'
+slug: uninstall-data-masking-component
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- installation
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Uninstall the component
 
 The following steps uninstall the component:

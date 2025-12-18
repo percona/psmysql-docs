@@ -1,3 +1,19 @@
+---
+title: Slow query log
+description: This feature adds microsecond time resolution and additional statistics
+  to the slow query log output.
+slug: slow-extended
+category: Monitor
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Slow query log
 
 This feature adds microsecond time resolution and additional statistics to the slow query log output. It lets you enable or disable the slow query log at runtime, adds logging for the replica SQL thread, and adds fine-grained control over what and how much to log into the slow query log.

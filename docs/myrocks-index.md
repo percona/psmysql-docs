@@ -1,3 +1,20 @@
+---
+title: 'RocksDB: Percona MyRocks introduction'
+description: MyRocks is a storage engine for MySQL based on RocksDB, an embeddable,
+  persistent key-value store.
+slug: myrocks-index
+stability: stable
+technical_preview: false
+tags:
+- myrocks
+- percona-server
+- rocksdb
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Percona MyRocks introduction
 
 [MyRocks](https://myrocks.io) is a storage engine

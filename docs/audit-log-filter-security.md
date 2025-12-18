@@ -1,3 +1,19 @@
+---
+title: Audit Log Filter security
+description: The Audit Log Filter component generates audit log filter files. The
+  directory that contains these files should be accessible only to the following:.
+slug: audit-log-filter-security
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Audit Log Filter security
 
 The Audit Log Filter component generates audit log filter files. The directory 

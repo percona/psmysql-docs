@@ -1,3 +1,17 @@
+---
+title: Prefix index queries optimization
+description: Facebook patch for *MySQL*.
+slug: prefix-index-queries-optimization
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Prefix index queries optimization
 
 *Percona Server for MySQL* has ported Prefix Index Queries Optimization feature from
@@ -29,5 +43,3 @@ cluster lookup.
 
 This variable shows the number of times prefix optimization avoided
 triggering cluster lookup.
-
-

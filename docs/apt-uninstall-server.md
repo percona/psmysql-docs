@@ -1,3 +1,23 @@
+---
+title: Uninstall Percona Server for MySQL {{vers}} using the APT package manager
+description: To uninstall Percona Server for MySQL you’ll need to remove all the installed
+  packages. Removing packages with apt remove does not remove the configuration and
+  data files.
+slug: apt-uninstall-server
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- apt
+- debian
+- installation
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Uninstall Percona Server for MySQL {{vers}} using the APT package manager
 
 To uninstall Percona Server for MySQL you’ll need to remove all the installed

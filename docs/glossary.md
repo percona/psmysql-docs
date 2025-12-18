@@ -1,3 +1,18 @@
+---
+title: Glossary
+description: Set of properties that guarantee database transactions are processed
+  reliably. Stands for Atomicity, Consistency, Isolation, Durability.
+slug: glossary
+stability: tech-preview
+technical_preview: true
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Glossary
 
 ## ACID

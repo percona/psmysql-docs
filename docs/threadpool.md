@@ -1,3 +1,19 @@
+---
+title: Thread pool
+description: Thread pooling can improve performance and scalability for MySQL databases.
+  This technique reuses a fixed number of threads to handle multiple client connections
+  and execute statements.
+slug: threadpool
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Thread pool
 
 Thread pooling can improve performance and scalability for MySQL databases. This technique reuses a fixed number of threads to handle multiple client connections and execute statements. It reduces the overhead of creating and destroying threads and avoids the contention and context switching that can occur when there are too many threads.

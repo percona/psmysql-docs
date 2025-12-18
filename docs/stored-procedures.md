@@ -1,3 +1,18 @@
+---
+title: Stored Procedures
+description: A stored procedure is a set of pre-defined SQL statements stored in the
+  database and executed as a single unit.
+slug: stored-procedures
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Stored Procedures
 
 A stored procedure is a set of pre-defined SQL statements stored in the database and executed as a single unit. It allows users to execute complex operations without rewriting the same code multiple times.

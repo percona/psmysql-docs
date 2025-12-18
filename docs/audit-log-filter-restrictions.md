@@ -1,3 +1,18 @@
+---
+title: Audit Log Filter restrictions
+description: The Audit Log Filter has the following general restrictions:.
+slug: audit-log-filter-restrictions
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Audit Log Filter restrictions
 
 ## General restrictions

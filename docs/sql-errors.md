@@ -1,3 +1,20 @@
+---
+title: Common SQL errors
+description: Error handling in SQL commands involves managing and responding to errors
+  that may occur during database operations.
+slug: sql-errors
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- sql
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Common SQL errors
 
 Error handling in SQL commands involves managing and responding to errors that may occur during database operations. It ensures that the database remains consistent and provides feedback to users when errors occur.

@@ -1,3 +1,20 @@
+---
+title: Troubleshoot SELinux issues
+description: Relabeling the entire file system is updating SELinux contexts for all
+  files and directories. This operation ensures that SELinux can enforce its policies
+  correctly.
+slug: troubleshoot-selinux
+category: Troubleshoot
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Troubleshoot SELinux issues
 
 --8<--- "get-help-snip.md"
@@ -126,5 +143,3 @@ $ restorecon -Rv /path/to/secure_file_priv
 ```
 
    
-
-

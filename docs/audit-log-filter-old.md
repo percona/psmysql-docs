@@ -1,3 +1,20 @@
+---
+title: Audit Log Filter format - XML (old style)
+description: The old style XML format uses `<AUDIT>` tag as the root element and adds
+  the `</AUDIT>` tag when the file closes. Each audited event is contained in an &lt;AUDIT_RECORD&gt;
+  element.
+slug: audit-log-filter-old
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Audit Log Filter format - XML (old style)
 
 The old style XML format uses `<AUDIT>` tag as the root element and adds the `</AUDIT>` tag when the file closes. Each audited event is contained in an &lt;AUDIT_RECORD&gt; element. 

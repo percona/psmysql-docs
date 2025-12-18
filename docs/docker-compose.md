@@ -1,3 +1,23 @@
+---
+title: Use Docker Compose and named volumes
+description: Docker Compose simplifies managing containerized services. This guide
+  shows how to run Percona Server for MySQL 8.4 with persistent storage for data,
+  logs, and backups using named Docker volumes.
+slug: docker-compose
+category: Install
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- docker
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Use Docker Compose and named volumes
 
 Docker Compose simplifies managing containerized services. This guide shows how to run Percona Server for MySQL 8.4 with persistent storage for data, logs, and backups using named Docker volumes.

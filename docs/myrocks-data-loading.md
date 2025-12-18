@@ -1,3 +1,21 @@
+---
+title: 'RocksDB: Data loading'
+description: By default, MyRocks configurations are optimized for short transactions,
+  and not for data loading. MyRocks has a couple of special session variables to speed
+  up data loading dramatically.
+slug: myrocks-data-loading
+stability: stable
+technical_preview: false
+tags:
+- myrocks
+- percona-server
+- rocksdb
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Data loading
 
 By default, MyRocks configurations are optimized for short transactions,

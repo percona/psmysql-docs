@@ -1,3 +1,18 @@
+---
+title: SEQUENCE_TABLE(n) function
+description: Using `SEQUENCE_TABLE()` function provides the following:.
+slug: sequence-table
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # SEQUENCE_TABLE(n) function
 
 Using `SEQUENCE_TABLE()` function provides the following:

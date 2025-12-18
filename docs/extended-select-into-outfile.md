@@ -1,3 +1,18 @@
+---
+title: Extended SELECT INTO OUTFILE/DUMPFILE
+description: Percona Server for MySQL extends the `SELECT INTO ... OUTFILE` and `SELECT
+  INTO DUMPFILE` [commands] to add support for UNIX sockets and named pipes.
+slug: extended-select-into-outfile
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Extended SELECT INTO OUTFILE/DUMPFILE
 
 Percona Server for MySQL extends the `SELECT INTO ... OUTFILE` and `SELECT INTO

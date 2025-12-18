@@ -1,3 +1,18 @@
+---
+title: Secure Percona Server for MySQL with SELinux
+description: Understanding SELinux labels and their components (user, role, type,
+  sensitivity level) Importance of SELinux context for administrators and users.
+slug: selinux
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Secure Percona Server for MySQL with SELinux
 
 Understanding SELinux labels and their components (user, role, type, sensitivity level)

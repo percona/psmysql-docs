@@ -1,3 +1,18 @@
+---
+title: Audit Log Filter file naming conventions
+description: The audit log filter file name has the following qualities:.
+slug: audit-log-filter-naming
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Audit Log Filter file naming conventions
 
 ## Name qualities
@@ -57,5 +72,3 @@ During initialization, the component checks if a file with that name exists.
 If it does, the component renames the file. The component writes to an empty file.
 
 During termination, the component renames the file.
-
-

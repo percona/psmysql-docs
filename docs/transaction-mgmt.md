@@ -1,3 +1,18 @@
+---
+title: Transaction management
+description: A database transaction is a unit of work performed within a database
+  management system (DBMS) that must be executed atomically and consistently.
+slug: transaction-mgmt
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Transaction management
 
 A database transaction is a unit of work performed within a database management system (DBMS) that must be executed atomically and consistently. A transaction represents a series of operations (such as queries, inserts, updates, or deletes) that are treated as a single, indivisible unit. Transactions ensure data integrity by guaranteeing that all of the transaction's operations are completed successfully and permanently saved to the database (committed) or none of them are applied (rolled back).

@@ -1,3 +1,20 @@
+---
+title: Percona Toolkit updates for {{vers}}
+description: Percona Toolkit has been updated to support MySQL {{vers}}, addressing
+  terminology, deprecations, and authentication improvements.
+slug: percona-toolkit-8.4-updates
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Percona Toolkit updates for {{vers}}
 
 Percona Toolkit has been updated to support MySQL {{vers}}, addressing terminology, deprecations, and authentication improvements. If your automation or runbooks use these tools, plan updates alongside the database upgrade.
@@ -39,4 +56,3 @@ Aliases with the old names remain for a transition period; update scripts and ru
 * [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md)
 * [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md)
 * [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
-

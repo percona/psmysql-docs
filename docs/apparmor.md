@@ -1,3 +1,18 @@
+---
+title: Secure Percona Server for MySQL with AppArmor
+description: The operating system has a Discretionary Access Controls (DAC) system.
+  AppArmor supplements the DAC with a Mandatory Access Control (MAC) system.
+slug: apparmor
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Secure Percona Server for MySQL with AppArmor
 
 The operating system has a Discretionary Access Controls (DAC) system. AppArmor supplements the DAC with a Mandatory Access Control (MAC) system. AppArmor is the default security module for Ubuntu or Debian systems and uses profiles to define how programs access resources.

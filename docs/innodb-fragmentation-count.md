@@ -1,3 +1,18 @@
+---
+title: InnoDB page fragmentation counters
+description: secondary index. This means that the physical ordering of the index pages
+  on the disk is not same as the index ordering of the records on the pages.
+slug: innodb-fragmentation-count
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # InnoDB page fragmentation counters
 
 *InnoDB* page fragmentation is caused by random insertion or deletion from a

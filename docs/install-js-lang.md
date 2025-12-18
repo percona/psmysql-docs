@@ -1,3 +1,24 @@
+---
+title: Install js_lang component
+description: The `plugin_dir` system variable specifies where the component library
+  is located. If you need to, you should set the `plugin_dir` variable when you start
+  the server.
+slug: install-js-lang
+category: Install
+since: '8.4'
+until: null
+stability: tech-preview
+technical_preview: true
+tags:
+- installation
+- percona-server
+- tech-preview
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Install js_lang component
 
 --8<--- "experimental.md"

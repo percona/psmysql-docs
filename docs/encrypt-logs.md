@@ -1,3 +1,19 @@
+---
+title: Log encryption
+description: Describes the redo log encryption and the undo log encryption.
+slug: encrypt-logs
+category: Secure
+stability: stable
+technical_preview: false
+tags:
+- encryption
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Log encryption
 
 Describes the redo log encryption and the undo log encryption.
@@ -58,4 +74,3 @@ The server requires the keyring component used to encrypt log data until that da
 | Default      | OFF                       |
 
 This system variable defines the encryption status for the undo log data. The default setting is `OFF`, which disables the encryption.
-

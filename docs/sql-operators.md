@@ -1,3 +1,20 @@
+---
+title: SQL operators
+description: SQL operators are symbols or keywords used to perform operations on data
+  in SQL queries.
+slug: sql-operators
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- sql
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # SQL operators
 
 ## Purpose of SQL Operators

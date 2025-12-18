@@ -1,3 +1,17 @@
+---
+title: Utility user
+description: This user has a mixed and special scope of abilities and protection:.
+slug: utility-user
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Utility user
 
 *Percona Server for MySQL* has implemented ability to have a *MySQL* user who has system access to do administrative tasks but limited access to user schema. This feature is especially useful to those operating *MySQL* As A Service.

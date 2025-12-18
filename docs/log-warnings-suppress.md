@@ -1,3 +1,18 @@
+---
+title: Suppress warning messages
+description: This feature is intended to provide a general mechanism (using `log_warnings_silence`)
+  to disable certain warning messages to the log file.
+slug: log-warnings-suppress
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Suppress warning messages
 
 This feature is intended to provide a general mechanism (using `log_warnings_silence`) to disable certain warning messages to the log file. Currently, it is only implemented for disabling message #1592 warnings. This feature does not influence warnings delivered to a client. Please note that warning code needs to be a string:

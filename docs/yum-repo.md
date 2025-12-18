@@ -1,3 +1,23 @@
+---
+title: Use an RPM repository to install Percona Server for MySQL {{vers}}
+description: Ready-to-use packages are available from the Percona Server for MySQL
+  software repositories and the [Percona downloads] page.
+slug: yum-repo
+category: Install
+stability: tech-preview
+technical_preview: true
+tags:
+- centos
+- percona-server
+- rhel
+- tech-preview
+- yum
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Use an RPM repository to install Percona Server for MySQL {{vers}}
 
 Ready-to-use packages are available from the Percona Server for MySQL software repositories and the [Percona downloads] page. 

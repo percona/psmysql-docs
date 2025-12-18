@@ -1,3 +1,21 @@
+---
+title: FIPS compliance
+description: The Federal Information Processing Standards (FIPS) are a set of U.S.
+  government standards that ensure the security of computer systems for non-military
+  government agencies and contractors.
+slug: fips
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # FIPS compliance
 
 --8<--- "pro-build-announcement.md"

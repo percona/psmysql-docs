@@ -1,3 +1,18 @@
+---
+title: DELETE statement
+description: The DELETE statement removes one or more rows from a table based on specified
+  conditions.
+slug: delete
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # DELETE statement
 
 The DELETE statement removes one or more rows from a table based on specified conditions. It allows developers to selectively delete data from a table, providing a way to manage and maintain the database by removing unnecessary or outdated records.

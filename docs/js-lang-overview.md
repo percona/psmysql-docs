@@ -1,3 +1,22 @@
+---
+title: JS stored procedure and function overview
+description: Integrating stored procedures and functions in JS within a MySQL-compatible
+  database provides a versatile and practical approach to managing complex data processing
+  tasks.
+slug: js-lang-overview
+since: '8.4'
+until: null
+stability: tech-preview
+technical_preview: true
+tags:
+- percona-server
+- tech-preview
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # JS stored procedure and function overview
 
 --8<--- "experimental.md"

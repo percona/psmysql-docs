@@ -1,3 +1,17 @@
+---
+title: Limit the estimation of records in a Query
+description: <!--- still tech preview?--->.
+slug: query-limit-records
+stability: tech-preview
+technical_preview: true
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 <!--- still tech preview?--->
 
 # Limit the estimation of records in a Query

@@ -1,3 +1,19 @@
+---
+title: Filter the Audit Log Filter logs
+description: The audit filter log filtering is based on rules. The filter rule definition
+  has the ability to include or exclude events based on the following attributes:.
+slug: filter-audit-log-filter-files
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Filter the Audit Log Filter logs
 
 The audit filter log filtering is based on rules. The filter rule definition has the ability to include or exclude events based on the following attributes:
@@ -175,4 +191,3 @@ mysql> SELECT audit_log_filter_set_filter('log_disconnect', '{
 | status      | 0: Successful queries<br>1: Failed queries   | N/A                            | Query execution result filtering          |
 | thread_id   | Filters by specific MySQL thread identifiers | ["12345", "67890"]             | Actions within a particular database thread |
 | query_time  | Filters based on query execution duration   | N/A                            | Long-running or quick queries             |
-

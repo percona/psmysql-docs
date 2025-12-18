@@ -1,3 +1,18 @@
+---
+title: Show storage engines
+description: This feature changes the comment field displayed when the `SHOW STORAGE
+  ENGINES` command is executed and *XtraDB* is the storage engine.
+slug: show-engines
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Show storage engines
 
 This feature changes the comment field displayed when the `SHOW STORAGE ENGINES` command is executed and *XtraDB* is the storage engine.

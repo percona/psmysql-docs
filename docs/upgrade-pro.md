@@ -1,3 +1,22 @@
+---
+title: Upgrade to Percona Server for MySQL Pro
+description: This document provides instructions on upgrading from Percona Server
+  for MySQL to Percona Server for MySQL Pro.
+slug: upgrade-pro
+category: Upgrade
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- upgrade
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Upgrade to Percona Server for MySQL Pro
 
 --8<--- "pro-build-announcement.md"

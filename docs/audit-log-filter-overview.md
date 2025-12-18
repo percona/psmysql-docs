@@ -1,3 +1,19 @@
+---
+title: Audit Log Filter overview
+description: The Audit Log Filter component allows you to monitor, log, and block
+  a connection or query actively executed on the selected server.
+slug: audit-log-filter-overview
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Audit Log Filter overview
 
 The Audit Log Filter component allows you to monitor, log, and block a connection or query actively executed on the selected server. 

@@ -1,3 +1,19 @@
+---
+title: Install the data masking component
+description: The component has the following parts:.
+slug: install-data-masking-component
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- installation
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Install the data masking component
 
 The component has the following parts:

@@ -1,3 +1,19 @@
+---
+title: FIDO authentication plugin
+description: Percona Server for MySQL supports the Fast Identify Online (FIDO) authentication
+  method that uses a plugin. The FIDO authentication provides a set of standards that
+  reduces the reliance on passwords.
+slug: fido-authentication-plugin
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # FIDO authentication plugin
 
 Percona Server for MySQL supports the Fast Identify Online (FIDO) authentication method that uses a plugin. The FIDO authentication provides a set of standards that reduces the reliance on passwords.

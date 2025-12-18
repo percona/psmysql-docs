@@ -1,3 +1,18 @@
+---
+title: Data masking component functions and variables
+description: The feature is in tech preview.
+slug: data-masking-function-list
+stability: tech-preview
+technical_preview: true
+tags:
+- percona-server
+- tech-preview
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Data masking component functions and variables
 
 The feature is in [tech preview](glossary.md#tech-preview).
@@ -987,4 +1002,3 @@ Percona Server for MySQL 8.4.4-1 adds this variable. The number of seconds betwe
 | Default value | "mysql" |
 
 Specify the name of the database that holds the `masking_dictionaries` table. By default, it uses the `mysql` database.
-

@@ -1,3 +1,21 @@
+---
+title: Uninstall Audit Log Filter
+description: If you no longer need the audit log filter functionality, you can remove
+  the component from server using the following command:.
+slug: uninstall-audit-log-filter
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- installation
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Uninstall Audit Log Filter
 
 If you no longer need the audit log filter functionality, you can remove the component from server using the following command:

@@ -1,3 +1,22 @@
+---
+title: Apt pinning the Percona Server for MySQL {{vers}} packages
+description: Pinning allows you to stay on a release and get packages from a different
+  version. In some cases, you can pin selected packages and avoid accidentally upgrading
+  all the packages.
+slug: apt-pinning
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- apt
+- debian
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Apt pinning the Percona Server for MySQL {{vers}} packages
 
 Pinning allows you to stay on a release and get packages from a different version. In some cases, you can pin selected packages and avoid accidentally upgrading all the packages. 

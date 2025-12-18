@@ -1,3 +1,22 @@
+---
+title: Percona MyRocks installation guide
+description: Percona MyRocks is distributed as a separate package that can be enabled
+  as a plugin for Percona Server for MySQL {{vers}} and later versions.
+slug: install-myrocks
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- installation
+- myrocks
+- percona-server
+- rocksdb
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Percona MyRocks installation guide
 
 Percona MyRocks is distributed as a separate package that can be enabled as a

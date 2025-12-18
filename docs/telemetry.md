@@ -1,3 +1,19 @@
+---
+title: Telemetry on Percona Server for MySQL
+description: Percona telemetry fills in the gaps in our understanding of how you use
+  Percona Server for MySQL to improve our products. Participation in the anonymous
+  program is optional.
+slug: telemetry
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Telemetry on Percona Server for MySQL
 
 Percona telemetry fills in the gaps in our understanding of how you use Percona Server for MySQL to improve our products. Participation in the anonymous program is optional. You can opt-out if you prefer to not share this information.

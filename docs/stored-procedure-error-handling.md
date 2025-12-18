@@ -1,3 +1,19 @@
+---
+title: Error handling in stored procedures
+description: Error handling in stored procedures allows developers to gracefully handle
+  exceptions and errors that may occur during the execution of the procedure.
+slug: stored-procedure-error-handling
+category: Troubleshoot
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Error handling in stored procedures
 
 Error handling in stored procedures allows developers to gracefully handle exceptions and errors that may occur during the execution of the procedure. It enables better control over error messages and the ability to perform custom actions in response to errors.

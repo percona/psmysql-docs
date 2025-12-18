@@ -1,3 +1,19 @@
+---
+title: Troubleshoot SQL code
+description: To troubleshoot SQL code, follow these steps:.
+slug: troubleshooting-sql
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- sql
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Troubleshoot SQL code
 
 --8<--- "get-help-snip.md"

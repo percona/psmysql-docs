@@ -1,3 +1,19 @@
+---
+title: Audit Log Filter format - XML (new style)
+description: The filter writes the audit log filter file in XML. The XML file uses
+  UTF-8.
+slug: audit-log-filter-new
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Audit Log Filter format - XML (new style)
 
 The filter writes the audit log filter file in XML. The XML file uses 

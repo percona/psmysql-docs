@@ -1,3 +1,18 @@
+---
+title: Enforcing storage engine
+description: Percona Server for MySQL implements a variable to enforce the use of
+  a specific storage engine.
+slug: enforce-engine
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Enforcing storage engine
 
 Percona Server for MySQL implements a variable to enforce the

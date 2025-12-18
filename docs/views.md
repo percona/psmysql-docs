@@ -1,3 +1,17 @@
+---
+title: Views
+description: A view is a virtual table generated from a SQL query.
+slug: views
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Views
 
 A view is a virtual table generated from a SQL query. It allows users to simplify complex queries, hide sensitive data, and provide a customized view of the database without altering the underlying schema.

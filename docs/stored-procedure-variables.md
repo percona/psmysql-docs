@@ -1,3 +1,18 @@
+---
+title: Variables in stored procedures, functions, and triggers
+description: To add a variable in MySQL, you use the `DECLARE` keyword within the
+  context of a stored program, such as a stored procedure, function, or trigger.
+slug: stored-procedure-variables
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Variables in stored procedures, functions, and triggers
 
 To add a variable in MySQL, you use the `DECLARE` keyword within the context of a stored program, such as a stored procedure, function, or trigger. The `DECLARE` keyword is used to define a new variable along with its data type and optionally, its initial value.

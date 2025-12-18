@@ -1,3 +1,17 @@
+---
+title: List of features available in Percona Server for MySQL releases
+description: <!--  do we need this doc? -->.
+slug: percona-server-versions-comparison
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 <!--  do we need this doc? -->
 
 # List of features available in Percona Server for MySQL releases

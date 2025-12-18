@@ -1,3 +1,20 @@
+---
+title: Post-installation
+description: Depending on the type of installation, you may need to do the following
+  tasks:.
+slug: post-installation
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- installation
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Post-installation
 
 Depending on the type of installation, you may need to do the following tasks:

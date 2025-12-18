@@ -1,3 +1,21 @@
+---
+title: Running Percona Server for MySQL in a Docker Container
+description: Percona Server for MySQL has an official Docker image hosted on Docker
+  Hub. Download a specific version by adding the [Docker tag filter for the {{vers}}
+  versions].
+slug: docker
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- docker
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Running Percona Server for MySQL in a Docker Container
 
 Percona Server for MySQL has an official Docker image hosted on [Docker Hub](https://hub.docker.com/r/percona/percona-server/). Download a specific version by adding the [Docker tag filter for the {{vers}} versions]. 

@@ -1,3 +1,22 @@
+---
+title: Use an APT repository to install Percona Server for MySQL {{vers}}
+description: Ready-to-use packages are available from the Percona Server for MySQL
+  software repositories and the [Percona downloads] page.
+slug: apt-repo
+category: Install
+stability: tech-preview
+technical_preview: true
+tags:
+- apt
+- debian
+- percona-server
+- tech-preview
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Use an APT repository to install Percona Server for MySQL {{vers}}
 
 Ready-to-use packages are available from the Percona Server for MySQL software repositories and the [Percona downloads] page.

@@ -1,3 +1,20 @@
+---
+title: Index of INFORMATION_SCHEMA tables
+description: This is a list of the `INFORMATION_SCHEMA TABLES` that exist in Percona
+  Server for MySQL with XtraDB. The entry for each table points to the page in the
+  documentation where it’s described.
+slug: index-info-schema-tables
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Index of INFORMATION_SCHEMA tables
 
 This is a list of the `INFORMATION_SCHEMA TABLES` that exist in Percona Server for MySQL with XtraDB. The entry for each table points to the page in the documentation where it’s described.
@@ -23,4 +40,3 @@ This is a list of the `INFORMATION_SCHEMA TABLES` that exist in Percona Server f
 * [INFORMATION_SCHEMA.XTRADB_INTERNAL_HASH_TABLES](innodb-show-status.md#information_schemaxtradb_internal_hash_tables)
 
 * [INFORMATION_SCHEMA.XTRADB_READ_VIEW](innodb-show-status.md#information_schemaxtradb_read_view)
-

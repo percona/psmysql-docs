@@ -1,3 +1,23 @@
+---
+title: MySQL upgrade paths and supported methods
+description: MySQL supports different upgrade paths depending on the source and target
+  versions. Choose the appropriate method based on your current version and target.
+slug: mysql-upgrade-paths
+category: Upgrade
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- sql
+- upgrade
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # MySQL upgrade paths and supported methods
 
 MySQL supports different upgrade paths depending on the source and target versions. Choose the appropriate method based on your current version and target.

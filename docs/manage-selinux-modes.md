@@ -1,3 +1,18 @@
+---
+title: Manage SELinux modes
+description: SELinux, or Security-Enhanced Linux, is a security module that provides
+  access control policies.
+slug: manage-selinux-modes
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Manage SELinux modes
 
 SELinux, or Security-Enhanced Linux, is a security module that provides access control policies. It enhances the system's security by allowing administrators to define rules restricting how applications and users can access resources. SELinux operates in three different modes: Disabled, Permissive, and Enforcing.

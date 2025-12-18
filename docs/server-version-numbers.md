@@ -1,3 +1,18 @@
+---
+title: Understand version numbers
+description: A version number identifies the innovtion product release. The product
+  contains the latest features, improvements, and bug fixes at the time of that release.
+slug: server-version-numbers
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Understand version numbers
 
 A version number identifies the innovtion product release. The product contains the latest features, improvements, and bug fixes at the time of that release.

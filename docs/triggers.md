@@ -1,3 +1,18 @@
+---
+title: Triggers
+description: A trigger is a database object that automatically performs a specified
+  action in response to certain events on a table or view.
+slug: triggers
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Triggers
 
 

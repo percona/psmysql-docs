@@ -1,3 +1,20 @@
+---
+title: Next steps
+description: After creating a database and running queries, you have taken the first
+  steps to become a MySQL beginner developer.
+slug: quickstart-next-steps
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Next steps
 
 After creating a database and running queries, you have taken the first steps to become a MySQL beginner developer. However, there is still more to learn and practice to improve your skills and knowledge. Some of the next steps you can take are learning and using the following:

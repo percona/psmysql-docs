@@ -1,3 +1,19 @@
+---
+title: Percona Server for MySQL {{vers}} variables
+description: '| Name | Cmd-Line | Option File | Var Scope | Dynamic | | --- | ---
+  | --- | --- | --- | | csv_mode | Yes | Yes | Both | Yes | | enforce_storage_engine
+  | Yes | Yes | Global | No | | expand_fast_index_c.'
+slug: percona-server-system-variables
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Percona Server for MySQL {{vers}} variables
 
 ## System variables

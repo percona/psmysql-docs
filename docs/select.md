@@ -1,3 +1,19 @@
+---
+title: SELECT statement
+description: The syntax of a SELECT statement in MySQL is straightforward. You start
+  with the keyword SELECT, followed by the columns from which you want to retrieve
+  data.
+slug: select
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # SELECT statement
 
 The syntax of a SELECT statement in MySQL is straightforward. You start with the keyword SELECT, followed by the columns from which you want to retrieve data. You can specify the table from which to retrieve data using the FROM keyword. Optionally, you can include conditions to filter the results using the WHERE clause.

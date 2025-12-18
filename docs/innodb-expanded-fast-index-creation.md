@@ -1,3 +1,18 @@
+---
+title: Expanded fast index creation
+description: Percona has implemented several changes related to *MySQL*’s fast index
+  creation feature.
+slug: innodb-expanded-fast-index-creation
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Expanded fast index creation
 
 Percona has implemented several changes related to *MySQL*’s fast index creation
@@ -88,5 +103,3 @@ this case *InnoDB* picks such an index as the clustered one.
     [Improved InnoDB fast index creation](https://www.mysqlperformanceblog.com/2011/11/06/improved-innodb-fast-index-creation/)
 
     [Thinking about running OPTIMIZE on your InnoDB Table? Stop!](https://www.mysqlperformanceblog.com/2010/12/09/thinking-about-running-optimize-on-your-innodb-table-stop/) 
-
-

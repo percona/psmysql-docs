@@ -1,3 +1,19 @@
+---
+title: Using LDAP authentication plugins
+description: LDAP (Lightweight Directory Access Protocol) provides an alternative
+  method to access existing directory servers, which maintain information about individuals,
+  groups, and organizations.
+slug: ldap-authentication
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Using LDAP authentication plugins
 
 LDAP (Lightweight Directory Access Protocol) provides an alternative method to

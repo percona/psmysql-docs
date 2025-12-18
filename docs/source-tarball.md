@@ -1,3 +1,17 @@
+---
+title: Install Percona Server for MySQL from a source tarball
+description: Fetch and extract the source tarball. For example:.
+slug: source-tarball
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Install Percona Server for MySQL from a source tarball
 
 Fetch and extract the source tarball. For example:

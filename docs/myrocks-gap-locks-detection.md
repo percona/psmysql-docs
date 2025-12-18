@@ -1,3 +1,19 @@
+---
+title: 'RocksDB: Gap locks detection'
+description: The [Gap locks] detection is based on a Facebook *MySQL* patch.
+slug: myrocks-gap-locks-detection
+stability: stable
+technical_preview: false
+tags:
+- myrocks
+- percona-server
+- rocksdb
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Gap locks detection
 
 The [Gap locks] detection is based on a Facebook *MySQL* patch.

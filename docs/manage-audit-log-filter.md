@@ -1,3 +1,18 @@
+---
+title: Manage the Audit Log Filter files
+description: The Audit Log Filter files have the following potential results:.
+slug: manage-audit-log-filter
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Manage the Audit Log Filter files
 
 The Audit Log Filter files have the following potential results:

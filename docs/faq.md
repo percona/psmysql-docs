@@ -1,3 +1,18 @@
+---
+title: Frequently asked questions
+description: 'A: We don’t know the details of your support contract. You should check
+  with your *Oracle* representative.'
+slug: faq
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Frequently asked questions
 
 ## Q: Will *Percona Server for MySQL* with *XtraDB* invalidate our *MySQL* support?
@@ -30,4 +45,3 @@ taken from. The password can be seen and updated in
 replication replica using *Percona XtraBackup* see [this how-to].
 
 [this how-to]: https://docs.percona.com/percona-xtrabackup/innovation-release/set-up-replication.html
-

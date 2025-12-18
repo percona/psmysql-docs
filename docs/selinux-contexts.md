@@ -1,3 +1,19 @@
+---
+title: SELinux contexts and labels
+description: Viewing SELinux Contexts Example of viewing SELinux context for a process
+  using ps command Listing SELinux Types or Domains Explanation of SELinux type security
+  property Example of listing SELinux typ.
+slug: selinux-contexts
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # SELinux contexts and labels
 
 Viewing SELinux Contexts

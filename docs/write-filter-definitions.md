@@ -1,3 +1,21 @@
+---
+title: Write audit_log_filter definitons
+description: When you’re setting up audit log filters in Percona Server for MySQL,
+  you use JSON values to define those filters. At their core, a filter is just a JSON
+  object with a very simple structure.
+slug: write-filter-definitions
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Write audit_log_filter definitons
 
 When you’re setting up audit log filters in Percona Server for MySQL, you use JSON values to define those filters. At their core, a filter is just a JSON object with a very simple structure.

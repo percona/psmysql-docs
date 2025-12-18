@@ -1,3 +1,21 @@
+---
+title: Common SQL commands
+description: 'SQL commands used by MySQL can be categorized into different types based
+  on their purposes: Data Definition Language (DDL), Data Manipulation Language (DML),
+  Data Control Language (DCL), and Transacti.'
+slug: common-sql
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- sql
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Common SQL commands
 
 SQL commands used by MySQL can be categorized into different types based on their purposes: Data Definition Language (DDL), Data Manipulation Language (DML), Data Control Language (DCL), and Transaction Control Language (TCL).

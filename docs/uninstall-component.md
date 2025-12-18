@@ -1,3 +1,19 @@
+---
+title: UNINSTALL COMPONENT
+description: The `UNINSTALL COMPONENT` does the following:.
+slug: uninstall-component
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- installation
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # UNINSTALL COMPONENT
 
 The `UNINSTALL COMPONENT` does the following:
@@ -24,6 +40,3 @@ mysql > UNINSTALL COMPONENT 'file://componentA' ;
 ```
 
 Find more information in the [UNINSTALL COMPONENT](uninstall-component.md) document.
-
-
-

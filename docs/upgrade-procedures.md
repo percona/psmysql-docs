@@ -1,3 +1,22 @@
+---
+title: Upgrade procedures for {{vers}}
+description: Need expert guidance for your Percona Server upgrade? Percona Support
+  is here to help.
+slug: upgrade-procedures
+category: Upgrade
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- upgrade
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Upgrade procedures for {{vers}}
 
 [Need expert guidance for your Percona Server upgrade? Percona Support is here to help.](https://www.percona.com/services/support)
@@ -312,4 +331,3 @@ After completing the upgrade, follow the post-upgrade validation steps in the [u
 * [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md)
 * [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
 * [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md)
-

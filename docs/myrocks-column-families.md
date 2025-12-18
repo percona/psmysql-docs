@@ -1,3 +1,21 @@
+---
+title: 'RocksDB: MyRocks column families'
+description: key-value pairs within the log structured merge tree data structure.
+  This is a flat data structure that requires that keys be unique throughout the whole
+  data structure.
+slug: myrocks-column-families
+stability: stable
+technical_preview: false
+tags:
+- myrocks
+- percona-server
+- rocksdb
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # MyRocks column families
 
 *MyRocks* stores all data in a single server instance as a collection of

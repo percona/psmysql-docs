@@ -1,3 +1,19 @@
+---
+title: Multiple page asynchronous I/O requests
+description: The I/O unit size in *InnoDB* is only one page, even if the server doing
+  read ahead. A 16KB I/O unit size is too small for sequential reads, and less efficient
+  than a larger I/O unit size.
+slug: aio-page-requests
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Multiple page asynchronous I/O requests
 
 The I/O unit size in *InnoDB* is only one page, even if the server doing read ahead. A 16KB

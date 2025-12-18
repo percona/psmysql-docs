@@ -1,3 +1,18 @@
+---
+title: Percona Toolkit UDFs
+description: These Percona Toolkit user-defined functions (UDFs) offer faster checksum
+  calculations compared to standard methods:.
+slug: udf-percona-toolkit
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Percona Toolkit UDFs
 
 These Percona Toolkit user-defined functions (UDFs) offer faster checksum calculations compared to standard methods:

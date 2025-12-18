@@ -1,3 +1,17 @@
+---
+title: LDAP authentication plugin system variables
+description: The installation adds the following variables:.
+slug: ldap-system-variables
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # LDAP authentication plugin system variables
 
 ## Authentication system variables
@@ -494,4 +508,3 @@ If this variable is enabled, the plugin connects to the server with TLS.
 | Default      | uid                                   |
 
 The attribute name that specifies the user names in LDAP directory entries in simple LDAP authentication.
-

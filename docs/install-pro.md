@@ -1,3 +1,21 @@
+---
+title: Install Percona Server for MySQL Pro
+description: Review Get more help for ways that we can work with you.
+slug: install-pro
+category: Install
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- installation
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Install Percona Server for MySQL Pro
 
 --8<--- "pro-build-announcement.md"

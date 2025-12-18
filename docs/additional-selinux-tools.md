@@ -1,3 +1,18 @@
+---
+title: Additional SELinux tools and management
+description: To install SELinux management tools on Red Hat Enterprise Linux 8 or
+  later, run the following command as root:.
+slug: additional-selinux-tools
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Additional SELinux tools and management
 
 ## Installing SELinux management tools

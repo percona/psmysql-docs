@@ -1,3 +1,20 @@
+---
+title: Encrypt temporary files
+description: For InnoDB user-created temporary tables are created in a temporary tablespace
+  file and use the `innodb_temp_tablespace_encrypt` variable.
+slug: encrypt-temporary-files
+category: Secure
+stability: stable
+technical_preview: false
+tags:
+- encryption
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Encrypt temporary files
 
 For InnoDB user-created temporary tables are created in a temporary tablespace

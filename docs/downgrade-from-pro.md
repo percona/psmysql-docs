@@ -1,3 +1,21 @@
+---
+title: Downgrade from Percona Server for MySQL Pro
+description: If you want to downgrade from Percona Server for MySQL Pro to the same
+  version of Percona Server for MySQL, do the following:.
+slug: downgrade-from-pro
+category: Upgrade
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Downgrade from Percona Server for MySQL Pro
 
 If you want to downgrade from Percona Server for MySQL Pro to the same version of Percona Server for MySQL, do the following:

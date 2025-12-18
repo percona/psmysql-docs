@@ -1,3 +1,21 @@
+---
+title: 'RocksDB: MyRocks status variables'
+description: MyRocks status variables provide details about the inner workings of
+  the storage engine and they can be useful in tuning the storage engine to a particular
+  environment.
+slug: myrocks-status-variables
+stability: stable
+technical_preview: false
+tags:
+- myrocks
+- percona-server
+- rocksdb
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # MyRocks status variables
 
 MyRocks status variables provide details

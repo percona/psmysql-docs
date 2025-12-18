@@ -1,3 +1,17 @@
+---
+title: Percona Server for MySQL feature comparison
+description: <!--- Check whether we need this doc --->.
+slug: feature-comparison
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 <!--- Check whether we need this doc --->
 # Percona Server for MySQL feature comparison
 

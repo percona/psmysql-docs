@@ -1,3 +1,18 @@
+---
+title: Managing AppArmor profiles
+description: While AppArmor profiles help secure your MySQL server, misconfiguring
+  them can lead to unexpected behavior and potential security vulnerabilities.
+slug: manage-apparmor-profiles
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Managing AppArmor profiles
 
 ## Understanding AppArmor Risks in MySQL Development

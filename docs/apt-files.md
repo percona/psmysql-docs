@@ -1,3 +1,20 @@
+---
+title: Files in the DEB package built for Percona Server for MySQL {{vers}}
+description: '| Package                      | Contains                                                                                                                                                               .'
+slug: apt-files
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- apt
+- debian
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Files in the DEB package built for Percona Server for MySQL {{vers}}
 
 | Package                      | Contains                                                                                                                                                                        |

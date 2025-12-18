@@ -1,3 +1,20 @@
+---
+title: 'RocksDB: Differences between Percona MyRocks and Facebook MyRocks'
+description: The original MyRocks was developed by Facebook and works with their implementation
+  of MySQL.
+slug: myrocks-differences
+stability: stable
+technical_preview: false
+tags:
+- myrocks
+- percona-server
+- rocksdb
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Differences between Percona MyRocks and Facebook MyRocks
 
 The original MyRocks was developed by Facebook

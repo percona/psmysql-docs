@@ -1,3 +1,22 @@
+---
+title: Build APT packages
+description: If you wish to build your own Debian/Ubuntu (dpkg) packages of Percona
+  Server for MySQL, you first need to start with a source tarball, either from the
+  Percona website or by generating your own by fol.
+slug: build-apt-packages
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- apt
+- debian
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Build APT packages
 
 If you wish to build your own Debian/Ubuntu (dpkg) packages of Percona Server for MySQL,

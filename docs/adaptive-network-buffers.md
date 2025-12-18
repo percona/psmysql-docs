@@ -1,3 +1,22 @@
+---
+title: Adaptive network buffers
+description: To find the buffer size of the current connection, use the `network_buffer_length`
+  status variable. Add `SHOW GLOBAL` to review the cumulative buffer sizes for all
+  connections.
+slug: adaptive-network-buffers
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- apt
+- debian
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Adaptive network buffers
 
 To find the buffer size of the current connection, use the `network_buffer_length` status variable. Add `SHOW GLOBAL` to review the cumulative buffer sizes for all connections. This variable can help to estimate the maximum size of the network buffer’s overhead.

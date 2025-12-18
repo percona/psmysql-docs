@@ -1,3 +1,19 @@
+---
+title: How we use artificial intelligence
+description: The technical writer oversees the integration of AI-driven tools and
+  platforms into the documentation workflow, ensuring that AI-generated text meets
+  the standards for clarity, coherence, and accuracy.
+slug: ai-docs
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # How we use artificial intelligence
 
 The technical writer oversees the integration of AI-driven tools and platforms into the documentation workflow, ensuring that AI-generated text meets the standards for clarity, coherence, and accuracy. While AI assists in tasks such as content generation, language enhancement, and formatting optimization, the technical writer is responsible for validating and refining the output to ensure its suitability for the intended audience.

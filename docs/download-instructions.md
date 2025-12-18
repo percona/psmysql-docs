@@ -1,3 +1,17 @@
+---
+title: Percona Product Download Instructions
+description: Do the following steps to select the software:.
+slug: download-instructions
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Percona Product Download Instructions
 
 ## Select the software

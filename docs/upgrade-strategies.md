@@ -1,3 +1,20 @@
+---
+title: Upgrade strategies
+description: For critical production systems, consider engaging Percona Support to
+  assist with your upgrade process.
+slug: upgrade-strategies
+category: Upgrade
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- upgrade
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Upgrade strategies
 
 For critical production systems, consider engaging [Percona Support](https://www.percona.com/services/support) to assist with your upgrade process. Our experts can help ensure a smooth transition and minimize potential risks during this sensitive operation.

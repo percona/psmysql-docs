@@ -1,3 +1,23 @@
+---
+title: Yum repository package list - Percona Server for MySQL {{vers}}
+description: '| Package Name | Description | |---------------|-------------| | percona-icu-data-files
+  | Provides ICU (International Components for Unicode) data files required by Percona
+  Server for locale, collatio.'
+slug: yum-files
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- centos
+- percona-server
+- rhel
+- yum
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Yum repository package list - Percona Server for MySQL {{vers}}
 
 

@@ -1,3 +1,18 @@
+---
+title: Thread based profiling
+description: Percona Server for MySQL now uses thread based profiling by default,
+  instead of process based profiling.
+slug: thread-based-profiling
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Thread based profiling
 
 Percona Server for MySQL now uses thread based profiling by default, 
@@ -19,4 +34,3 @@ cases it uses process based profiling.
     For advanced performance tuning and profiling strategies, 
     [Percona Support](https://www.percona.com/services/support) provides 
     expert consultation to optimize your database performance.
-

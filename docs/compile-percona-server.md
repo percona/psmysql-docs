@@ -1,3 +1,17 @@
+---
+title: Compile Percona Server for MySQL from source
+description: The following instructions install Percona Server for MySQL {{vers}}.
+slug: compile-percona-server
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Compile Percona Server for MySQL from source
 
 The following instructions install Percona Server for MySQL {{vers}}.

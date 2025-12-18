@@ -1,3 +1,20 @@
+---
+title: Audit Log Filter format - JSON
+description: The JSON format has one top-level JSON array, which contain JSON objects
+  with key-value pairs. These objects represent an event in the audit. Some pairs
+  are listed in every audit record.
+slug: audit-log-filter-json
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Audit Log Filter format - JSON
 
 The JSON format has one top-level JSON array, which contain JSON objects with key-value pairs. These objects represent an event in the audit. Some pairs are listed in every audit record. The audit record type determines if other key-value pairs are listed. The order of the pairs within an audit record is not guaranteed. The value description may be truncated.
@@ -110,4 +127,3 @@ The possible attributes in a JSON object are the following:
 | `table_access_data` | Defines access to a table |
 | `time` | Defines an integer that represents a UNIX timestamp |
 | `timestamp` | Defines a UTC value in the `YYYY-MM_DD hh:mm:ss` format |
-

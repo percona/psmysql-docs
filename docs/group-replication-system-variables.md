@@ -1,3 +1,25 @@
+---
+title: Group replication system variables
+description: '| variable name | |---| | group_replication_auto_evict_timeout | | group_replication_certification_loop_chunk_size
+  | | group_replication_certification_loop_sleep_time | | group_replication_flow_contro.'
+slug: group-replication-system-variables
+category: Replicate
+stability: tech-preview
+technical_preview: true
+tags:
+- percona-server
+- replication
+- tech-preview
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+technical_preview_variables:
+- group_replication_auto_evict_timeout
+technical_preview_values:
+- MAJORITY
+---
+
+
 # Group replication system variables
 
 

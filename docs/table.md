@@ -1,3 +1,20 @@
+---
+title: Introduction to database tables
+description: A database table is a collection of data organized into rows and columns.
+  Each table consists of records (rows) and fields (columns). Tables help organize
+  and manage data efficiently.
+slug: table
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Introduction to database tables
 
 A database table is a collection of data organized into rows and columns. Each table consists of records (rows) and fields (columns). Tables help organize and manage data efficiently.

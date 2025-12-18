@@ -1,3 +1,24 @@
+---
+title: 'RocksDB: MyRocks server variables'
+description: The MyRocks server variables expose configuration of the underlying RocksDB
+  engine. There several ways to set these variables:.
+slug: myrocks-server-variables
+stability: tech-preview
+technical_preview: true
+tags:
+- myrocks
+- percona-server
+- rocksdb
+- tech-preview
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+technical_preview_variables:
+- rocksdb_charge_memory
+- rocksdb_use_write_buffer_manager
+---
+
+
 # MyRocks server variables
 
 The MyRocks server variables expose configuration of the underlying RocksDB engine. There several ways to set these variables:

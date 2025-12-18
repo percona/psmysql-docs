@@ -1,3 +1,19 @@
+---
+title: Stack trace
+description: Developers use the stack trace in the debug process, either an interactive
+  investigation or during the post-mortem. No configuration is required to generate
+  a stack trace.
+slug: stacktrace
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Stack trace
 
 Developers use the stack trace in the debug process, either an interactive 

@@ -1,3 +1,18 @@
+---
+title: User statistics
+description: This feature adds several `INFORMATION_SCHEMA` tables, several commands,
+  and the userstat variable.
+slug: user-stats
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # User statistics
 
 This feature adds several `INFORMATION_SCHEMA` tables, several commands, and the userstat variable. The tables and commands can be used to understand the server activity better and identify the source of the load.

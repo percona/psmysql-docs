@@ -1,3 +1,19 @@
+---
+title: AppArmor profile modes
+description: AppArmor profile modes determine how applications interact with system
+  resources. You can mix enforce mode profiles and complain mode profiles in your
+  server.
+slug: apparmor-profiles
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # AppArmor profile modes
 
 AppArmor profile modes determine how applications interact with system resources. You can mix enforce mode profiles and complain mode profiles in your server. 
@@ -32,4 +48,3 @@ Understanding these modes helps MySQL developers ensure that their applications 
 [Disable AppArmor](disable-apparmor.md)<br>
 [Configure AppArmor](configure-apparmor.md)<br>
 [Troubleshoot AppArmor](troubleshoot-apparmor.md)
-

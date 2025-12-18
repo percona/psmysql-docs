@@ -1,3 +1,18 @@
+---
+title: MySQL Clone plugin
+description: The MySQL Clone plugin lets you clone data from either a local server
+  or from a remote server.
+slug: clone-plugin
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # MySQL Clone plugin
 
 The MySQL Clone plugin lets you clone data from either a local server or from a remote server. The plugin creates a physical snapshot of the data stored in InnoDB, which includes schemas, tables, tablespaces, and data dictionary metadata. The cloned data is a functional data directory and can be used for provisioning a server .

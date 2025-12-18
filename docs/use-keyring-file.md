@@ -1,3 +1,18 @@
+---
+title: Use the keyring file component
+description: The `keyring_file` component is part of the component-based MySQL infrastructure
+  which extends the server capabilities.
+slug: use-keyring-file
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Use the keyring file component
 
 The `keyring_file` component is part of the component-based MySQL infrastructure which extends the server capabilities.

@@ -1,3 +1,19 @@
+---
+title: Troubleshoot AppArmor profiles
+description: Troubleshooting AppArmor profiles ensure that applications can access
+  necessary resources without compromising system security.
+slug: troubleshoot-apparmor
+category: Troubleshoot
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Troubleshoot AppArmor profiles
 
 Troubleshooting AppArmor profiles ensure that applications can access necessary resources without compromising system security. 

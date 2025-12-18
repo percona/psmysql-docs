@@ -1,3 +1,20 @@
+---
+title: SQL conventions
+description: Sure, here's a description of common SQL style conventions with examples
+  using common MySQL commands:.
+slug: sql-conventions
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- sql
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # SQL conventions
 
 Sure, here's a description of common SQL style conventions with examples using common MySQL commands:

@@ -1,3 +1,21 @@
+---
+title: Encrypt binary log files and relay log files
+description: Encrypt the binary log files and the relay log files to protect them
+  from unauthorized viewing. The encryption uses the Advanced Encryption Standard
+  (AES) symmetric block cipher algorithm.
+slug: encrypt-binary-relay-log-files
+category: Secure
+stability: stable
+technical_preview: false
+tags:
+- encryption
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Encrypt binary log files and relay log files
 
 Encrypt the binary log files and the relay log files to protect them from unauthorized viewing. The encryption uses the Advanced Encryption Standard (AES) symmetric block cipher algorithm. Instead of bits, this algorithm works on bytes.
@@ -27,14 +45,4 @@ If the server is running, the `BINLOG_ENCRYPTION_ADMIN` privilege is required to
 This system variable enables binary log file encryption and relay log file encryption on the server. The default value is `OFF`. You can enable encryption for relay log files on a replica without a binary log.
 
 If you set the `binlog_encryption` to `OFF`, the server immediately rotates the binary log file and relay log files and all logging is not encrypted. For any previously encrypted files, the server can still read them and they are not decrypted. 
-
-
-
-
-
-
-
-
-
-
 

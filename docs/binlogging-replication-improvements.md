@@ -1,3 +1,20 @@
+---
+title: Binary logs and replication improvements
+description: Due to continuous development, Percona Server for MySQL incorporated
+  a number of improvements related to replication and binary logs handling.
+slug: binlogging-replication-improvements
+category: Replicate
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- replication
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Binary logs and replication improvements
 
 Due to continuous development, Percona Server for MySQL incorporated a number of

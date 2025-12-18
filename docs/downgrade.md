@@ -1,3 +1,18 @@
+---
+title: Downgrade Percona Server for MySQL
+description: Downgrading to a 5.7 or earlier series is not supported.
+slug: downgrade
+category: Upgrade
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Downgrade Percona Server for MySQL
 
 --8<--- "get-help-snip.md"

@@ -1,3 +1,19 @@
+---
+title: 'RocksDB: Updated supported features'
+description: The following is a list of the latest supported features:.
+slug: myrocks-added-features
+stability: stable
+technical_preview: false
+tags:
+- myrocks
+- percona-server
+- rocksdb
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Updated supported features
 
 The following is a list of the latest supported features:

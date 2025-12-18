@@ -1,3 +1,22 @@
+---
+title: Percona Server for MySQL Pro
+description: The following capabilities have been tested for {{release}} and are available
+  in Percona Server for MySQL Pro:.
+slug: psmysql-pro
+category: Develop
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- sql
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Percona Server for MySQL Pro
 
 --8<--- "pro-build-announcement.md"

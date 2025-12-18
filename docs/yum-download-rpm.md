@@ -1,3 +1,22 @@
+---
+title: Install Percona Server for MySQL using downloaded RPM packages
+description: Download the packages from Percona Product Downloads. If needed, Instructions
+  for the Percona Product Download are available.
+slug: yum-download-rpm
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- centos
+- percona-server
+- rhel
+- yum
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Install Percona Server for MySQL using downloaded RPM packages
 
 Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.

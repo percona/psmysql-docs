@@ -1,3 +1,20 @@
+---
+title: Upgrade from 8.0 to {{vers}} overview
+description: Need expert guidance for your upgrade? Percona Support is ready to assist
+  you every step of the way..
+slug: upgrade
+category: Upgrade
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- upgrade
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Upgrade from 8.0 to {{vers}} overview
 
 --8<--- "get-help-snip.md"
@@ -165,4 +182,3 @@ The following list summarizes a number of the changes in the 8.0 series and has 
 * [Rebuilding or Repairing Tables or Indexes](https://dev.mysql.com/doc/refman/{{vers}}/en/rebuilding-tables.html)
 
 Review other [Percona blogs](https://www.percona.com/blog/) that contain upgrade information.
-

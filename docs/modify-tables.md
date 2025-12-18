@@ -1,3 +1,19 @@
+---
+title: Modify a table
+description: The `ALTER TABLE` command acts like a toolkit that allows you to change
+  the structure of existing tables.
+slug: modify-tables
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Modify a table
 
 The `ALTER TABLE` command acts like a toolkit that allows you to change the structure of existing tables. You can add new sections (columns), remove old ones, or change how information is stored [(data types)](data-types-basic.md). This command helps you adapt your database to new needs or improve efficiency.

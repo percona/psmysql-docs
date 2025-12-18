@@ -1,3 +1,21 @@
+---
+title: Get help from Percona
+description: Our documentation guides are packed with information, but they can’t
+  cover everything you need to know about Percona Server for MySQL. They also won’t
+  cover every scenario you might come across.
+slug: get-help
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Get help from Percona
 
 Our documentation guides are packed with information, but they can’t cover everything you need to know about Percona Server for MySQL. They also won’t cover every scenario you might come across. Don’t be afraid to try things out and ask questions when you get stuck.

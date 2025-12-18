@@ -1,3 +1,20 @@
+---
+title: Performance Schema MyRocks changes
+description: RocksDB WAL file information can be seen in the performance_schema.log_status
+  table in the `STORAGE ENGINE` column.
+slug: performance-schema-myrocks-changes
+stability: stable
+technical_preview: false
+tags:
+- myrocks
+- percona-server
+- rocksdb
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Performance Schema MyRocks changes
 
 RocksDB WAL file information can be seen in the

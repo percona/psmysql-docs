@@ -1,3 +1,18 @@
+---
+title: Support for PROXY protocol
+description: The proxy protocol allows an intermediate proxying server speaking proxy
+  protocol (ie. HAProxy) between the server and the ultimate client (i.e.
+slug: proxy-protocol-support
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Support for PROXY protocol
 
 The proxy protocol allows an intermediate proxying server speaking proxy protocol (ie. HAProxy) between the server and the ultimate client (i.e. mysql client etc) to provide the source client address to the server, which normally would only see the proxying server address instead.

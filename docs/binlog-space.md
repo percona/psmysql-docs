@@ -1,3 +1,18 @@
+---
+title: Managing binary log disk space
+description: Controlling binary log disk usage can be difficult because binary log
+  sizes vary.
+slug: binlog-space
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Managing binary log disk space
 
 Controlling binary log disk usage can be difficult because binary log sizes vary. The database writes each transaction in full to a single binary log file and cannot split a write across multiple files. This requirement can lead to large log files, especially when transactions are large.

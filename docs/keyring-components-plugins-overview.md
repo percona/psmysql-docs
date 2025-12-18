@@ -1,3 +1,18 @@
+---
+title: Keyring components overview
+description: Percona Server supports a keyring that enables internal server components
+  to store sensitive information securely for later retrieval.
+slug: keyring-components-plugins-overview
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Keyring components overview
 
 Percona Server supports a keyring that enables internal server components to store sensitive information securely for later retrieval.

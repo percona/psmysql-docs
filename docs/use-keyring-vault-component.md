@@ -1,3 +1,19 @@
+---
+title: Use the keyring vault component
+description: The `keyring_vault` component extends the server capabilities and provides
+  an interface for the database with a [HashiCorp Vault] server to store key and secure
+  encryption keys.
+slug: use-keyring-vault-component
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Use the keyring vault component
 
 The `keyring_vault` component extends the server capabilities and provides an interface for the database with a [HashiCorp Vault] server to store key and secure encryption keys. 

@@ -1,3 +1,18 @@
+---
+title: Index
+slug: index-contents
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Index
 
 - [Adaptive network buffers](adaptive-network-buffers.md)

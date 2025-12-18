@@ -1,3 +1,20 @@
+---
+title: Data at Rest Encryption
+description: Data security is a concern for institutions and organizations. `Transparent
+  Data Encryption (TDE)` or `Data at Rest Encryption` encrypts data files.
+slug: data-at-rest-encryption
+category: Secure
+stability: stable
+technical_preview: false
+tags:
+- encryption
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Data at Rest Encryption
 
 Data security is a concern for institutions and organizations. `Transparent

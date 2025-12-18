@@ -1,3 +1,18 @@
+---
+title: Development of Percona Server for MySQL
+description: Percona Server for MySQL is an open source project to produce a distribution
+  of the *MySQL* Server with improved performance, scalability and diagnostics.
+slug: development
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Development of Percona Server for MySQL
 
 Percona Server for MySQL is an open source project to produce a distribution

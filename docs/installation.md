@@ -1,3 +1,20 @@
+---
+title: Install Percona Server for MySQL
+description: Before installing, read the Percona Server for MySQL {{vers}} Release
+  notes.
+slug: installation
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- installation
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Install Percona Server for MySQL
 
 Before installing, read the [Percona Server for MySQL {{vers}} Release notes](release-notes/release-notes-index.md).

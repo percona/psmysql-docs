@@ -1,3 +1,19 @@
+---
+title: Common data types
+description: Choosing the correct data type for each column ensures data accuracy,
+  efficiency, and reliability within the database. The following describes the purpose
+  of a data type in Percona Server for MySQL:.
+slug: data-types-basic
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Common data types
 
 Choosing the correct data type for each column ensures data accuracy, efficiency, and reliability within the database. The following describes the purpose of a data type in Percona Server for MySQL:

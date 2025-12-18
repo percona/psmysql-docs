@@ -1,3 +1,20 @@
+---
+title: Verify the encryption for tables, tablespaces, and schemas
+description: If a general tablespace contains tables, check the table information
+  to see if the table is encrypted.
+slug: verify-encryption
+category: Secure
+stability: tech-preview
+technical_preview: true
+tags:
+- encryption
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Verify the encryption for tables, tablespaces, and schemas
 
 If a general tablespace contains tables, check the table information to see if

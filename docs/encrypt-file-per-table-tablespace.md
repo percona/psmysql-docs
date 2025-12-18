@@ -1,3 +1,21 @@
+---
+title: Encrypt File-Per-Table Tablespace
+description: The file_per_table tablespace inherits the default schema encryption
+  setting. Use the `ENCRYPTION` clause in the  in `CREATE TABLE` statement to explicitly
+  set the encryption.
+slug: encrypt-file-per-table-tablespace
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- encryption
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Encrypt File-Per-Table Tablespace
 
 The file_per_table tablespace inherits the default schema encryption setting. Use the `ENCRYPTION` clause in the  in `CREATE TABLE` statement to explicitly set the encryption.

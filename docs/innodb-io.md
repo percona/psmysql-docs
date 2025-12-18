@@ -1,3 +1,18 @@
+---
+title: Improved InnoDB I/O scalability
+description: Because *InnoDB* is a complex storage engine it must be configured properly
+  in order to perform at its best. Some points are not configurable in standard.
+slug: innodb-io
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Improved InnoDB I/O scalability
 
 Because *InnoDB* is a complex storage engine it must be configured properly in
@@ -55,4 +70,3 @@ Checkpoint age      4243362
 0 pending log writes, 0 pending chkp writes
 ...
 ```
-

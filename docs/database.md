@@ -1,3 +1,20 @@
+---
+title: Introduction to Databases and SQL
+description: A database in the server is a structured collection of data. It helps
+  store, organize, and manage various types of information like customer details,
+  product inventories, financial records, and more.
+slug: database
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Introduction to Databases and SQL
 
 ## Introduction to databases

@@ -1,3 +1,18 @@
+---
+title: Extended show engine InnoDB status
+description: This feature reorganizes the output of `SHOW ENGINE INNODB STATUS` to
+  improve readability and to provide additional information.
+slug: innodb-show-status
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Extended show engine InnoDB status
 
 This feature reorganizes the output of `SHOW ENGINE INNODB STATUS`

@@ -1,3 +1,18 @@
+---
+title: InnoDB full-text search improvements
+description: By default, all Full-Text Search indexes check the [stopwords list],
+  to see if any indexed elements contain words on that list.
+slug: innodb-fts-improvements
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # InnoDB full-text search improvements
 
 # Ignoring stopword list

@@ -1,3 +1,19 @@
+---
+title: Isolation levels
+description: In databases, isolation levels define how transactions interact with
+  each other and the data they access. They determine the level of concurrency and
+  consistency in a multi-user database environment.
+slug: isolation-levels
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Isolation levels
 
 In databases, isolation levels define how transactions interact with each other and the data they access. They determine the level of concurrency and consistency in a multi-user database environment.

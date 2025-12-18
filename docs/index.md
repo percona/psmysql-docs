@@ -1,3 +1,18 @@
+---
+title: Percona Server for MySQL {{vers}} - Documentation
+description: 'This documentation is for the latest release: Percona Server for MySQL
+  {{release}} (Release Notes).'
+slug: index
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Percona Server for MySQL {{vers}} - Documentation
 
 !!! note ""

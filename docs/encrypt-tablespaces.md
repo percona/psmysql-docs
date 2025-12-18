@@ -1,3 +1,20 @@
+---
+title: Encrypt schema or general tablespace
+description: Percona Server for MySQL uses the same encryption architecture as MySQL,
+  a two-tier system consisting of a master key and tablespace keys.
+slug: encrypt-tablespaces
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- encryption
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Encrypt schema or general tablespace
 
 Percona Server for MySQL uses the same encryption architecture as MySQL, a two-tier system consisting of a master key and tablespace keys. The master key can be changed, or rotated in the keyring, as needed. Each tablespace key, when

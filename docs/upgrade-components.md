@@ -1,3 +1,20 @@
+---
+title: Upgrade from plugins to components
+description: Need help navigating plugin to component transitions? Percona Support
+  can assist.
+slug: upgrade-components
+category: Upgrade
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- upgrade
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Upgrade from plugins to components 
 
 [Need help navigating plugin to component transitions? Percona Support can assist.](https://www.percona.com/services/support)

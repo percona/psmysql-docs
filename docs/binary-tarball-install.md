@@ -1,3 +1,20 @@
+---
+title: Install Percona Server for MySQL {{vers}} from a binary tarball
+description: A binary tarball contains a group of files, including the source code,
+  bundled together into one file using the `tar` command and compressed using `gzip`.
+slug: binary-tarball-install
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- installation
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Install Percona Server for MySQL {{vers}} from a binary tarball
 
 A binary tarball contains a group of files, including the source code, bundled together into one file using the `tar` command and compressed using `gzip`. 
@@ -13,4 +30,3 @@ $ wget https://downloads.percona.com/downloads/Percona-Server-innovative-release
 ```
 
 [section]: https://www.percona.com/downloads/Percona-Server-{{vers}}/LATEST/binary/tarball/
-

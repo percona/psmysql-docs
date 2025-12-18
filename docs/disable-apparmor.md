@@ -1,3 +1,18 @@
+---
+title: Disable AppArmor
+description: Using AppArmor might seem like an extra step, but if you disable it,
+  your server could face security risks.
+slug: disable-apparmor
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Disable AppArmor
 
 ## Disable AppArmor Risks

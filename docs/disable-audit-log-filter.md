@@ -1,3 +1,19 @@
+---
+title: Disable Audit Log Filter logging
+description: The `audit_log_filter.disable` system variable lets you disable or enable
+  logging for all connections based on the value:.
+slug: disable-audit-log-filter
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Disable Audit Log Filter logging
 
 The `audit_log_filter.disable` system variable lets you disable or enable logging for all connections based on the value:

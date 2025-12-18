@@ -1,3 +1,21 @@
+---
+title: JS stored function or procedure
+description: Once the component's installed, you can write stored functions and procedures
+  in JavaScript. The syntax looks like this:.
+slug: js-lang-procedures
+since: '8.4'
+until: null
+stability: tech-preview
+technical_preview: true
+tags:
+- percona-server
+- tech-preview
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # JS stored function or procedure
 
 --8<--- "experimental.md"
@@ -33,4 +51,3 @@ $$
 ```
 
 You can modify or delete stored programs in JS by using the standard `ALTER PROCEDURE/FUNCTION` and `DROP PROCEDURE/FUNCTION` statements. These statements do not require the `CREATE_JS_ROUTINE` privilege.
-

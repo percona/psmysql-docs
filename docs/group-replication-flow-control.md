@@ -1,3 +1,21 @@
+---
+title: Manage group replication flow control
+description: In replication, flow control prevents one member from falling too far
+  behind the cluster and avoids excessive buffering. A cluster is not required to
+  keep members in sync together for replication.
+slug: group-replication-flow-control
+category: Replicate
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- replication
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Manage group replication flow control
 
 In replication, flow control prevents one member from falling too far behind the cluster and avoids excessive buffering. A cluster is not required to keep members in sync together for replication. The pending transactions in the relay log only increase for the lagging replica. Each member sends statistics to the group.

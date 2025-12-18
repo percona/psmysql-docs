@@ -1,3 +1,20 @@
+---
+title: Install the audit log filter
+description: The recommended way to install the component is to use the `audit_log_filter_linux_install.
+slug: install-audit-log-filter
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- installation
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Install the audit log filter
 
 ## Installation script

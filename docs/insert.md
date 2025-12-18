@@ -1,3 +1,18 @@
+---
+title: INSERT statement
+description: In MySQL, the INSERT statement adds new rows of data to a table. It follows
+  a simple syntax pattern that beginners can easily understand.
+slug: insert
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # INSERT statement
 
 In MySQL, the INSERT statement adds new rows of data to a table. It follows a simple syntax pattern that beginners can easily understand.

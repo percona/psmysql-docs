@@ -1,3 +1,19 @@
+---
+title: Binary tarball file names available based on the Percona Server for MySQL version
+description: For later of Percona Server for MySQL, the tar files are organized by
+  the `glibc2` version. You can find this version on your operating system with the
+  following command:.
+slug: binary-tarball-names
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Binary tarball file names available based on the Percona Server for MySQL version 
 
 For later of Percona Server for MySQL, the tar files are organized by the `glibc2` version. You can find this version on your operating system with the following command:

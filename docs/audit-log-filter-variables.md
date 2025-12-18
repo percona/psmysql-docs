@@ -1,3 +1,19 @@
+---
+title: Audit log filter functions, options, and variables
+description: The following sections describe the functions, options, and variables
+  available in the audit log filter component.
+slug: audit-log-filter-variables
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Audit log filter functions, options, and variables
 
 The following sections describe the [functions](#audit-log-filter-functions), [options, and variables](#audit-log-filter-options-and-variables) available in the audit log filter component.

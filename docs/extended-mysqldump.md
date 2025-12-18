@@ -1,3 +1,21 @@
+---
+title: Extended mysqldump
+description: When used together with the `–single-transaction` option, the lock-for-backup
+  option makes `mysqldump` issue `LOCK TABLES FOR BACKUP` before starting the dump
+  operation to prevent unsafe statements th.
+slug: extended-mysqldump
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- sql
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Extended mysqldump
 
 ## Backup locks support
@@ -30,4 +48,3 @@ If there is a session variable named
 `rocksdb_skip_fill_cache`, **mysqldump** sets the variable to **1**.
 
 **mysqldump** automatically enables `rocksdb_bulk_load` if the the target server supports the variable.
-

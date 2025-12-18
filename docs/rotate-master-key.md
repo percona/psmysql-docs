@@ -1,3 +1,18 @@
+---
+title: Rotate the master encryption key
+description: Rotate the master encryption key periodically and if the key has been
+  compromised.
+slug: rotate-master-key
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Rotate the master encryption key
 
 Rotate the master encryption key periodically and if the key has been compromised.

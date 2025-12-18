@@ -1,3 +1,18 @@
+---
+title: Extended SET VAR optimizer hint
+description: Percona Server for MySQL extends the `SET_VAR` introduced in MySQL {{vers}}
+  effectively replacing the `SET STATEMENT ... FOR` statement.
+slug: extended-set-var
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Extended SET VAR optimizer hint
 
 Percona Server for MySQL extends the `SET_VAR` introduced in MySQL {{vers}}

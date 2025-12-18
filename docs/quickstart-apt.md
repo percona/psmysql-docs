@@ -1,3 +1,22 @@
+---
+title: Install Percona Server for MySQL and create a database on Ubuntu
+description: Use the Percona repositories to install using APT.
+slug: quickstart-apt
+category: Install
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- apt
+- debian
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Install Percona Server for MySQL and create a database on Ubuntu
 
 Use the Percona repositories to install using APT.

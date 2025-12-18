@@ -1,3 +1,20 @@
+---
+title: Create a table
+description: Creating a table is essential to organizing and storing your data effectively
+  when working with a database. Here's a step-by-step guide on how to create a table
+  in such a database:.
+slug: create-table
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Create a table
 
 Creating a table is essential to organizing and storing your data effectively when working with a database. Here's a step-by-step guide on how to create a table in such a database:

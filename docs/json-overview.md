@@ -1,3 +1,19 @@
+---
+title: JSON in Percona Server for MySQL
+description: JSON stands for JavaScript Object Notation. It is a lightweight data-interchange
+  format that is easy for humans to read and write. It is also easy for machines to
+  parse and generate.
+slug: json-overview
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # JSON in Percona Server for MySQL
 
 JSON stands for JavaScript Object Notation. It is a lightweight data-interchange format that is easy for humans to read and write. It is also easy for machines to parse and generate. Percona Server for MySQL supports JSON data type, allowing you to store JSON documents in your database. 

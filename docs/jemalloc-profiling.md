@@ -1,3 +1,19 @@
+---
+title: Jemalloc memory allocation profiling
+description: Percona Server for MySQL can take advantage of the memory-profiling ability
+  of the jemalloc allocator. This ability provides a method to investigate memory-related
+  issues.
+slug: jemalloc-profiling
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Jemalloc memory allocation profiling
 
 Percona Server for MySQL can take advantage of the memory-profiling ability of the jemalloc allocator. This ability provides a method to investigate memory-related issues.

@@ -1,3 +1,17 @@
+---
+title: Configure AppArmor
+description: Only edit `/etc/apparmor.d/local/usr.sbin.mysql`.
+slug: configure-apparmor
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Configure AppArmor
 
 ## Edit profile
@@ -240,4 +254,3 @@ $ systemctl restart mysqld
 [Manage AppArmor Profiles](manage-apparmor-profiles.md)<br>
 [Disable AppArmor](disable-apparmor.md)<br>
 [Troubleshoot AppArmor](troubleshoot-apparmor.md)
-

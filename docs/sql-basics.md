@@ -1,3 +1,21 @@
+---
+title: SQL basics
+description: SQL stands for Structured Query Language. It's a powerful tool used to
+  communicate with databases. Think of a database as a digital filing cabinet where
+  you store and organize information.
+slug: sql-basics
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- sql
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # SQL basics
 
 SQL stands for Structured Query Language. It's a powerful tool used to communicate with databases. Think of a database as a digital filing cabinet where you store and organize information. SQL is like the language you use to talk to that filing cabinet and ask questions or tell it what you want to do with the data inside.

@@ -1,3 +1,19 @@
+---
+title: Improved MEMORY storage engine
+description: A *Fixed Row Format* (`FRF`) is used in the `MEMORY` storage engine.
+  The fixed row format imposes restrictions on the type of columns as it assigns in
+  advance a limited amount of memory per row.
+slug: improved-memory-engine
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Improved MEMORY storage engine
 
 A *Fixed Row Format* (`FRF`) is used in the `MEMORY` storage engine. The fixed row format imposes restrictions on the type of columns as it assigns in advance a limited amount of memory per row. This renders a `VARCHAR` field in a `CHAR` field in practice and makes it impossible to have a `TEXT` or `BLOB` field with that engine implementation.

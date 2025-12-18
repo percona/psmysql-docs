@@ -1,3 +1,19 @@
+---
+title: Trigger updates
+description: In MySQL, the system efficiently handles multiple client queries to the
+  same table by opening separate table instances for each query. This prevents delays
+  and conflicts.
+slug: trigger-updates
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Trigger updates
 
 In MySQL, the system efficiently handles multiple client queries to the same table by opening separate table instances for each query. This prevents delays and conflicts. The use of a "Table Cache" speeds up access by reducing the need to repeatedly open and close tables, improving overall performance.

@@ -1,3 +1,20 @@
+---
+title: SQL syntax
+description: SQL (Structured Query Language) is a standardized language used to communicate
+  with databases.
+slug: sql-syntax
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- sql
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # SQL syntax 
 
 SQL (Structured Query Language) is a standardized language used to communicate with databases. Percona Server for MySQL follows SQL syntax, which consists of commands and statements for performing various operations on databases and their objects.

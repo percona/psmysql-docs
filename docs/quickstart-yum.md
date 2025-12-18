@@ -1,3 +1,23 @@
+---
+title: Install Percona Server for MySQL and create a database on Oracle Linux
+description: Use the Percona repositories to install using YUM.
+slug: quickstart-yum
+category: Install
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- centos
+- percona-server
+- rhel
+- yum
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Install Percona Server for MySQL and create a database on Oracle Linux
 
 Use the Percona repositories to install using YUM.

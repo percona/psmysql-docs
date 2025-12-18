@@ -1,3 +1,21 @@
+---
+title: JS privileges
+description: Privileges control what users can do. You use them to give specific permissions
+  to different users.
+slug: js-lang-privileges
+since: '8.4'
+until: null
+stability: tech-preview
+technical_preview: true
+tags:
+- percona-server
+- tech-preview
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # JS privileges
 
 --8<--- "experimental.md"

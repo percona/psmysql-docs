@@ -1,3 +1,18 @@
+---
+title: Start transaction with consistent snapshot
+description: Percona Server for MySQL has ported MariaDB enhancement for `START TRANSACTION
+  WITH CONSISTENT SNAPSHOTS` feature to the group commit implementation.
+slug: start-transaction-with-consistent-snapshot
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Start transaction with consistent snapshot
 
 Percona Server for MySQL has ported MariaDB [enhancement](https://mariadb.com/docs/server/ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot/) for `START TRANSACTION WITH CONSISTENT SNAPSHOTS` feature to the group commit implementation. This enhancement makes binary log positions consistent with InnoDB transaction snapshots.
@@ -53,5 +68,3 @@ This server variable is implemented to help other utilities detect if the server
 | Data type      | Numeric            |
 
 These status variables are only available when the binary log is enabled globally.
-
-

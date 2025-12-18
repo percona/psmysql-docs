@@ -1,3 +1,18 @@
+---
+title: The Percona XtraDB storage engine
+description: Percona XtraDB is an enhanced version of the *InnoDB* storage engine,
+  designed to better scale on modern hardware.
+slug: percona-xtradb
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # The Percona XtraDB storage engine
 
 Percona XtraDB is an enhanced version of the *InnoDB* storage engine, designed

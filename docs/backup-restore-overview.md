@@ -1,3 +1,21 @@
+---
+title: Backup and restore overview
+description: Backups are data snapshots that are taken at a specific time and are
+  stored in a common location in a common format. A backup is only useful for a defined
+  time.
+slug: backup-restore-overview
+category: Back up and restore
+stability: stable
+technical_preview: false
+tags:
+- backup
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Backup and restore overview
 
 Backups are data snapshots that are taken at a specific time and are stored in a common location in a common 

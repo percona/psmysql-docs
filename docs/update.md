@@ -1,3 +1,19 @@
+---
+title: UPDATE statement
+description: The UPDATE statement modifies existing records in a table. It allows
+  developers to change the values of one or more columns in a specific row or set
+  of rows based on certain conditions.
+slug: update
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # UPDATE statement
 
 ## Purpose of the UPDATE Statement

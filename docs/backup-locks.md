@@ -1,3 +1,21 @@
+---
+title: Backup locks
+description: Percona Server for MySQL offers the `LOCK TABLES FOR BACKUP` statement
+  as a lightweight alternative to `FLUSH TABLES WITH READ LOCK` for both physical
+  and logical backups.
+slug: backup-locks
+category: Back up and restore
+stability: stable
+technical_preview: false
+tags:
+- backup
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Backup locks
 
 Percona Server for MySQL offers the `LOCK TABLES FOR BACKUP` statement as a

@@ -1,3 +1,20 @@
+---
+title: Authentication methods
+description: An authentication method is a way to verify the identity of a user trying
+  to access the database.
+slug: authentication-methods
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Authentication methods
 
 An authentication method is a way to verify the identity of a user trying to access the database. It defines how the server checks if the credentials provided are correct and whether the user can connect.
@@ -26,4 +43,3 @@ Either of these ways let you continue using the authentication method if needed,
 | Kerberos Authentication          | Uses the Kerberos protocol for authentication. Provides strong security and single sign-on across multiple services. Common in enterprise environments but requires a complex Kerberos infrastructure.                                                              |
 | FIDO Pluggable Authentication    | Supports FIDO (Fast IDentity Online) authentication devices. Used in high-security environments for robust two-factor authentication. Requires special hardware like security keys and may face user resistance.                                                          |
 | Auth Socket Authentication       | Uses the operating system's socket-based authentication, matching the connecting user with the system user that owns the MySQL process. Ideal for local administrative access but limited to local machine use and not suitable for remote or multi-user environments.        |
-

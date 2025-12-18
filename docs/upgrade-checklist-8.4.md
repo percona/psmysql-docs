@@ -1,3 +1,22 @@
+---
+title: Upgrade checklist for {{vers}}
+description: Thorough preparation and validation reduce risk more than any cutover
+  tactic. Use this checklist to guide your upgrade from 8.
+slug: upgrade-checklist-8.4
+category: Upgrade
+since: '8.4'
+until: null
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+- upgrade
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Upgrade checklist for {{vers}}
 
 Thorough preparation and validation reduce risk more than any cutover tactic. Use this checklist to guide your upgrade from 8.0 to {{vers}}, validating each item in staging before upgrading production.
@@ -157,4 +176,3 @@ Run these checks immediately after upgrading from 8.0 to {{vers}} and before wid
 * [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md)
 * [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
 * [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md)
-

@@ -1,3 +1,18 @@
+---
+title: PAM authentication plugin
+description: Percona PAM Authentication Plugin is a free and Open Source implementation
+  of the *MySQL*’s authentication plugin.
+slug: pam-plugin
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # PAM authentication plugin
 
 Percona PAM Authentication Plugin is a free and Open Source implementation of the *MySQL*’s authentication plugin. This plugin acts as a mediator between the *MySQL* server, the *MySQL* client, and the PAM stack. The server plugin requests authentication from the PAM stack, forwards any requests and messages from the PAM stack over the wire to the client (in cleartext) and reads back any replies for the PAM stack.
@@ -96,5 +111,3 @@ echo 1 /proc/sys/vm/overcommit_memory
 ```
 
 and by adding the `vm.overcommit_memory = 1` to `/etc/sysctl.conf` to make the change permanent after reboot. Authentication of internal (i.e. non PAM) accounts continues to work fine when `mysqld` reaches this memory utilization level. *NOTE:* Setting the `vm.overcommit_memory` to `1` will cause kernel to perform no memory overcommit handling which could increase the potential for memory overload and invoking of OOM killer.
-
-

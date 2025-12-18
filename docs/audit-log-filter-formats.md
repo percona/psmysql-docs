@@ -1,3 +1,19 @@
+---
+title: Audit Log Filter file format overview
+description: When an auditable event occurs, the component writes a record to the
+  log file.
+slug: audit-log-filter-formats
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Audit Log Filter file format overview
 
 When an auditable event occurs, the component writes a record to the log file.
@@ -21,4 +37,3 @@ the `audit_log_filter.file` name. For example, changing the `audit_log_filter.fo
 to JSON, change the `audit_log_filter.file` to `audit.json`. If you don't change 
 the `audit_log_filter.file` name, then all audit log filter files have the same 
 base name and you won't be able to easily find when the format changed.
-

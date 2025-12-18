@@ -1,3 +1,19 @@
+---
+title: Kill idle transaction
+description: 'Database servers face a constant challenge: managing resources efficiently
+  while maintaining system stability. The kill idle transactions timeout option is
+  a strategic tool to address this challenge.'
+slug: kill-idle-trx
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Kill idle transaction
 
 Database servers face a constant challenge: managing resources efficiently while maintaining system stability. The kill idle transactions timeout option is a strategic tool to address this challenge. The server automatically stops any transaction that remains inactive for longer than this limit. This action prevents forgotten or stuck transactions from slowing down your database by blocking critical cleanup processes.

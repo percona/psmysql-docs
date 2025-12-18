@@ -1,3 +1,19 @@
+---
+title: Reading Audit Log Filter files
+description: The Audit Log Filter functions can provide a SQL interface to read JSON-format
+  audit log files. The functions cannot read log files in other formats.
+slug: reading-audit-log-filter-files
+stability: stable
+technical_preview: false
+tags:
+- audit-log
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Reading Audit Log Filter files
 
 The Audit Log Filter functions can provide a SQL interface to read JSON-format audit log files. The functions cannot read log files in other formats. Configuring the component for JSON logging lets the functions use the directory that contains the current audit log filter file and search in that location for readable files. The value of the `audit_log_filter.file` system variable provides the file location, base name, and the suffix and then searches for names that match the pattern.
@@ -25,4 +41,3 @@ mysql> SELECT audit_log_read();
 ```
 
 Reading a file is closed when the session ends or calling `audit_log_read()` with another argument.
-

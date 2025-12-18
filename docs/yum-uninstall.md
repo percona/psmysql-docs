@@ -1,3 +1,23 @@
+---
+title: Uninstall Percona Server for MySQL
+description: To completely uninstall Percona Server for MySQL, remove all the installed
+  packages and data files. {.power-number}.
+slug: yum-uninstall
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- centos
+- installation
+- percona-server
+- rhel
+- yum
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Uninstall Percona Server for MySQL
 
 To completely uninstall Percona Server for MySQL, remove all the installed packages and data files.

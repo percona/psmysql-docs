@@ -1,3 +1,21 @@
+---
+title: 'RocksDB: MyRocks Information Schema tables'
+description: When you install the MyRocks plugin for *MySQL*, the Information Schema
+  is extended to include the following tables:.
+slug: myrocks-information-schema-tables
+category: Develop
+stability: stable
+technical_preview: false
+tags:
+- myrocks
+- percona-server
+- rocksdb
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # MyRocks Information Schema tables
 
 When you install the MyRocks plugin for *MySQL*, the

@@ -1,3 +1,18 @@
+---
+title: Data masking overview
+description: Data masking protects sensitive information by restricting data access
+  to authorized users only.
+slug: data-masking-overview
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Data masking overview
 
 Data masking protects sensitive information by restricting data access to authorized users only. When you need to present, demonstrate, or test software without revealing actual data, masking creates safe versions of your data. The masking process changes values while keeping the same data format, making the original values impossible to recover. This security approach reduces organizational risk because any exposed data becomes worthless to unauthorized parties.
@@ -59,4 +74,3 @@ Component:
 [Install the data masking component](install-data-masking-component.md)
 
 [Data masking component functions](data-masking-function-list.md)
-

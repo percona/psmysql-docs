@@ -1,3 +1,19 @@
+---
+title: Restrict dynamic log file locations
+description: The `secure_log_path` system variable plays a crucial role in enhancing
+  the security and organization of log files within a MySQL database environment by
+  restricting where dynamic log files can be sto.
+slug: restrict-dynamic-log-locations
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Restrict dynamic log file locations
 
 The `secure_log_path` system variable plays a crucial role in enhancing the security and organization of log files within a MySQL database environment by restricting where dynamic log files can be stored.
@@ -119,4 +135,3 @@ Run the following commands as root:
         -rw-r-----. 1 mysql mysqld-logs 240 Aug 18 11:56 localhost-slow.log
         -rw-r-----. 1 mysql mysqld-logs 565 Aug 18 11:56 localhost.log
         ```
-

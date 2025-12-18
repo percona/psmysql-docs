@@ -1,3 +1,23 @@
+---
+title: Troubleshoot JS procedures and functions
+description: The component includes a set of User-Defined Functions (UDFs) that retrieve
+  and clear information about the last JS error that occurred in the current connection
+  for the current user.
+slug: js-lang-troubleshoot
+category: Troubleshoot
+since: '8.4'
+until: null
+stability: tech-preview
+technical_preview: true
+tags:
+- percona-server
+- tech-preview
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Troubleshoot JS procedures and functions
 
 --8<--- "experimental.md"

@@ -1,3 +1,18 @@
+---
+title: Use Percona Monitoring and Management (PMM) Advisors
+description: '[Percona Monitoring and Management (PMM)](https://www.percona.com/software/database-
+  tools/percona-monitoring-and-management) provides several categories of Advisors.'
+slug: advisors
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Use Percona Monitoring and Management (PMM) Advisors
 
 [Percona Monitoring and Management (PMM)](https://www.percona.com/software/database-

@@ -1,3 +1,21 @@
+---
+title: Install Percona Server for MySQL {{vers}} using downloaded DEB packages
+description: Download the packages from Percona Product Downloads. If needed, Instructions
+  for the Percona Product Download are available.
+slug: apt-download-deb
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- apt
+- debian
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Install Percona Server for MySQL {{vers}} using downloaded DEB packages
 
 Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.

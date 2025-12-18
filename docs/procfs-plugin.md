@@ -1,3 +1,18 @@
+---
+title: The ProcFS plugin
+description: The ProcFS plugin provides access to the Linux performance counters by
+  running SQL queries against a Percona Server for MySQL {{vers}}.
+slug: procfs-plugin
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # The ProcFS plugin
 
 The ProcFS plugin provides access to the Linux performance counters by running SQL queries against a Percona Server for MySQL {{vers}}.

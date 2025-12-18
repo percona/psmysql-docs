@@ -1,3 +1,21 @@
+---
+title: Docker environment variables
+description: When running a Docker container with Percona Server, you can adjust the
+  configuration of the instance Add one or more environment variables to the `docker
+  run` command.
+slug: docker-config
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- docker
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Docker environment variables
 
 When running a Docker container with Percona Server,
@@ -45,7 +63,3 @@ $ docker inspect ps
 You should use `Docker secrets` or volumes instead. 
 
 Percona Server for MySQL also allows adding the `_FILE` suffix to a variable name. This suffix lets you add the value in a path so that the value cannot be inspected from outside the container.
-
-
-
-

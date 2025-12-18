@@ -1,3 +1,19 @@
+---
+title: Copyright and licensing information
+description: Percona Server for MySQL documentation is (C)2009-2025 Percona LLC and/or
+  its affiliates and is distributed under the Creative Commons Attribution 4.0 International
+  License.
+slug: copyright-and-licensing-information
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Copyright and licensing information
 
 ## Documentation licensing

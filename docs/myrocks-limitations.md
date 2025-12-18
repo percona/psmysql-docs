@@ -1,3 +1,20 @@
+---
+title: 'RocksDB: MyRocks limitations'
+description: MyRocks has limited support for Online DDL operations due to the lack
+  of atomic DDL. As a result the schema changes are more restricted compared to InnoDB.
+slug: myrocks-limitations
+stability: stable
+technical_preview: false
+tags:
+- myrocks
+- percona-server
+- rocksdb
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # MyRocks limitations
 
 ## Online DDL limitations
@@ -133,4 +150,3 @@ MyRocks does not support the following:
     !!! note
 
         With MyRocks and with large tables, it is recommended to set the session variable `rocksdb_bulk_load=1` during the load to prevent running out of memory. This recommendation is because of the MyRocks large transaction limitation. For more information, see [MyRocks Data Loading](myrocks-data-loading.md)
-

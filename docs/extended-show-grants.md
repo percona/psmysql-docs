@@ -1,3 +1,17 @@
+---
+title: Review effective privileges with SHOW EFFECTIVE GRANTS
+description: In MySQL, `SHOW GRANTS` has the following limitations:.
+slug: extended-show-grants
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Review effective privileges with SHOW EFFECTIVE GRANTS
 
 In MySQL, `SHOW GRANTS` has the following limitations:

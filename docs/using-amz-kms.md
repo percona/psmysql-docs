@@ -1,3 +1,19 @@
+---
+title: Use the Amazon Key Management Service (AWS KMS)
+description: Percona Server for MySQL supports the Amazon Key Management Service (AWS
+  KMS). Percona Server generates the keyring keys. Amazon Web Services (AWS) encrypts
+  the keyring data.
+slug: using-amz-kms
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Use the Amazon Key Management Service (AWS KMS)
 
 Percona Server for MySQL supports the [Amazon Key Management Service (AWS KMS)](https://aws.amazon.com/kms/). Percona Server

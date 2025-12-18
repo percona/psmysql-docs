@@ -1,3 +1,22 @@
+---
+title: Run Percona Server for MySQL {{vers}} after APT repository installation
+description: Percona Server for MySQL stores the data files in `/var/lib/mysql/` by
+  default. You can find the configuration file that is used to manage Percona Server
+  for MySQL in `/etc/mysql/my.cnf`.
+slug: apt-run
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- apt
+- debian
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Run Percona Server for MySQL {{vers}} after APT repository installation
 
 Percona Server for MySQL stores the data files in `/var/lib/mysql/` by
@@ -35,4 +54,3 @@ Run the following commands as root or by using the sudo command
 ## Working with AppArmor
 
 For information on AppArmor, see [Working with AppArmor](apparmor.md).
-

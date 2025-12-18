@@ -1,3 +1,18 @@
+---
+title: Functions
+description: A function in MySQL is a reusable block of code that performs a specific
+  task and returns a value.
+slug: functions
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Functions
 
 A function in MySQL is a reusable block of code that performs a specific task and returns a value. It allows users to encapsulate logic, modularize code, and perform complex calculations or data manipulations.

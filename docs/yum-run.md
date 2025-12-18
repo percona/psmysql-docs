@@ -1,3 +1,22 @@
+---
+title: Run Percona Server for MySQL
+description: Percona Server for MySQL stores the data files in `/var/lib/mysql/` by
+  default. The configuration file used to manage Percona Server for MySQL is the `/etc/my.cnf`.
+slug: yum-run
+category: Install
+stability: stable
+technical_preview: false
+tags:
+- centos
+- percona-server
+- rhel
+- yum
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # Run Percona Server for MySQL
 
 Percona Server for MySQL stores the data files in `/var/lib/mysql/` by

@@ -1,3 +1,18 @@
+---
+title: XtraDB performance improvements for I/O-bound highly-concurrent workloads
+description: In highly-concurrent I/O-bound workloads the following situation may
+  happen:.
+slug: xtradb-performance-improvements
+stability: stable
+technical_preview: false
+tags:
+- percona-server
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # XtraDB performance improvements for I/O-bound highly-concurrent workloads
 
 ## Priority refill for the buffer pool free list
@@ -77,4 +92,3 @@ consequently all associated code is deleted.
 | Data type:     | Boolean            |
 
 This variable can be added to the configuration file.
-

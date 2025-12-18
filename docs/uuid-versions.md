@@ -1,3 +1,19 @@
+---
+title: UUID_VX component
+description: A Universally Unique Identifier (UUID) is a 128-bit number used to identify
+  information uniquely in computer systems.
+slug: uuid-versions
+stability: tech-preview
+technical_preview: true
+tags:
+- percona-server
+- tech-preview
+author: Percona Documentation Team
+last_modified: '2025-12-18'
+draft: false
+---
+
+
 # UUID_VX component
 
 A Universally Unique Identifier (UUID) is a 128-bit number used to identify information uniquely in computer systems. It is often represented as a 32-character hexadecimal string divided into five groups separated by hyphens.
