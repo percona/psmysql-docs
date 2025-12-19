@@ -1,6 +1,6 @@
 # Percona Server for MySQL {{vers}} release notes index
 
-* [Percona Server for MySQL 8.4.7-7 (2025-12-)](8.4.7-7.md)
+* [Percona Server for MySQL 8.4.7-7 (2025-12-22)](8.4.7-7.md)
 
 * [Percona Server for MySQL 8.4.6-6 (2025-09-08)](8.4.6-6.md)
 
