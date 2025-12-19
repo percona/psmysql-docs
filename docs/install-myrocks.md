@@ -20,17 +20,17 @@ It is recommended to install Percona software from official repositories:
 
 2. Install Percona MyRocks using the corresponding package manager:
 
-    * For Debian or Ubuntu:
+    === "Debian or Ubuntu"
 
-    ```{.bash data-prompt="$"}
-    $ sudo apt install percona-server-rocksdb
-    ```
+        ```{.bash data-prompt="$"}
+        $ sudo apt install percona-server-rocksdb
+        ```
 
-    * For RHEL or CentOS:
+    === "RHEL or derivatives"
 
-    ```{.bash data-prompt="$"}
-    $ sudo yum install percona-server-rocksdb
-    ```
+        ```{.bash data-prompt="$"}
+        $ sudo dnf install percona-server-rocksdb
+        ```
 
 After installation, you should see the following output:
 
@@ -162,17 +162,17 @@ $ sudo ps-admin --disable-rocksdb -u root -pPassw0rd
 After the engine plugins have been uninstalled,
 remove the Percona MyRocks package:
 
-* For Debian or Ubuntu:
+    === "Debian or Ubuntu"
 
-    ```{.bash data-prompt="$"}
-    $ sudo apt remove percona-server-rocksdb-{{vers}}
-    ```
+        ```{.bash data-prompt="$"}
+        $ sudo apt remove percona-server-rocksdb-{{vers}}
+        ```
 
-* For RHEL or CentOS:
+    === "RHEL or CentOS"
 
-    ```{.bash data-prompt="$"}
-    $ sudo yum remove percona-server-rocksdb-80.x86_64
-    ```
+        ```{.bash data-prompt="$"}
+        $ sudo yum remove percona-server-rocksdb-80.x86_64
+        ```
 
 Finally, remove all the [MyRocks Server Variables](myrocks-server-variables.md#myrocks-server-variables)
 from the configuration file (`my.cnf`)
