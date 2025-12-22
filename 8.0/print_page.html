@@ -14001,6 +14001,10 @@ If these two counts differ, the formula calculates the wrong capacity, leading t
 <p><a href="https://perconadev.atlassian.net/browse/PS-10227">PS-10227</a>: An unexpected server exit occurred when <code>rocksdb_table_stats_skip_system_cf</code> was enabled. Previously, enabling this option left the system column‑family pointer null during RocksDB recovery, causing an assertion failure in <code>Rdb_cf_manager::get_cf()</code> and aborting <code>mysqld</code> with signal 6. The fix introduced proper initialization and safety checks for the system column family, allowing the server to start normally while still skipping system‑CF statistics.</p>
 </li>
 </ul>
+<h2 id="release-notes-8.0.44-35-deprecations-and-removal">Deprecations and removal<a class="headerlink" href="#release-notes-8.0.44-35-deprecations-and-removal" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The <a href="#audit-log-plugin">audit log plugin</a> is deprecated and could be removed in a future release.</li>
+</ul>
 <h2 id="release-notes-8.0.44-35-packaging-and-build-notes">Packaging and build notes<a class="headerlink" href="#release-notes-8.0.44-35-packaging-and-build-notes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
