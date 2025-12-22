@@ -41,13 +41,6 @@ The RPM builds contain ARM packages with the `aarch64.rpm` extension.
 
 RHEL 8+ and other EL8+ systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled to make these packages visible.
 
-
-## Percona Server for MySQL PRO
-
---8<--- "pro-build-announcement.md"
-
-[Install Percona Server for MySQL Pro](install-pro.md){.md-button}
-
 ## Unattended installations
 
 --8<-- "install-flag.md"
@@ -81,7 +74,7 @@ DNF is the default package manager for RHEL 8 and newer systems. To install Perc
 1. If needed, If the module is listed as [e]nabled, it can cause conflicts with Percona's packages. You must reset the module to its default state before proceeding.
 
 	```{.bash data-prompt="$"}
-	$ sudo dnf module reset mysql
+	$ sudo dnf module disable mysql
 	```
 
 	??? example "Expected output"

@@ -243,16 +243,16 @@ Use this method when you cannot use repositories or need to install from manuall
         rpm -qa | grep '^mysql-' | xargs rpm -e --nodeps
         ```
 
-    3. Download the packages of the desired series for your architecture from the [download page :octicons-link-external-16:](https://www.percona.com/downloads). The easiest way is to download the bundle which contains all the packages. The following example downloads Percona Server for MySQL {{release}} packages for CentOS 9:
+    3. Download the packages of the desired series for your architecture from the [download page :octicons-link-external-16:](https://www.percona.com/downloads). The easiest way is to download the bundle which contains all the packages. The following example downloads Percona Server for MySQL {{release}} packages for RHEL 9:
 
         ```{.bash}
-        wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/redhat/9/x86_64/Percona-Server-{{release}}-r582ebeef-el9-x86_64-bundle.tar
+        wget https://downloads.percona.com/downloads/Percona-Server-{{vers}}/Percona-Server-{{release}}/binary/redhat/9/x86_64/Percona-Server-{{release}}-r9927a2fb-el9-x86_64-bundle.tar
         ```
 
     4. Unpack the bundle to get the packages:
 
         ```{.bash}
-        tar xvf Percona-Server-{{release}}-r582ebeef-el9-x86_64-bundle.tar
+        tar xvf Percona-Server-{{release}}-r9927a2fb-el9-x86_64-bundle.tar
         ```
 
         After you unpack the bundle, you should see the following packages:

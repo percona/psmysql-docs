@@ -35,4 +35,3 @@ The following guides walk you through the setup process and working with a datab
 [Install and create database (Oracle Linux):material-arrow-right:](quickstart-yum.md){.md-button}
 
 [Choose your next steps:material-arrow-right:](quickstart-next-steps.md){.md-button}
-

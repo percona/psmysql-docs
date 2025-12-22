@@ -82,11 +82,7 @@ This function updates the audit log filter tables and makes any changes operatio
 
 Modifying the audit log filter tables directly with `INSERT`, `UPDATE`, or `DELETE` does not implement the modifications immediately. The tables must be flushed to have those changes take effect. 
 
-This function forces reloading all filters and should only be used if someone has modified the tables directly. 
-
-!!! important
-
-    Avoid using this function. This function performs an operation that is similar to uninstalling and reinstalling the component. Filters are detached from all current sessions. To restart logging, the current sessions must either disconnect and reconnect or do a change-user operation. 
+This function forces reloading all filters and should only be used if someone has modified the tables directly.
 
 #### Parameters
 
@@ -150,7 +146,11 @@ mysql> SELECT audit_log_read(audit_log_read_bookmark());
 
 This function provides a bookmark for the most recently written audit log event as a JSON string. Generates an error if the format is not JSON.
 
-If this function is used with [`audit_log_read()](#audit_log_read), the `audit_log_read()` function starts reading at that position.
+When this function is used with [`audit_log_read()`](#audit_log_read), the read starts reading at the specified position.
+
+```sql
+SELECT audit_log_read(audit_log_read_bookmark());
+```
 
 #### Parameters
 
@@ -629,9 +629,9 @@ The size of the buffer for reading from the audit log filter file. The `audit_lo
 | Dynamic | Yes  |
 | Scope | Global  |
 | Data type | Integer |
-| Default | 1GB  |
+| Default | 1073741824  |
 
-Performs an automatic log file rotation based on the size. The default value is 1GB. If the value is greater than 0, when the log file size exceeds the value, the component renames the current file and opens a new log file using the original name.
+Performs an automatic log file rotation based on the size. The default value is 1073741824. If the value is greater than 0, when the log file size exceeds the value, the component renames the current file and opens a new log file using the original name.
 
 If you set the value to less than 4096, the component does not automatically rotate the log files. You can rotate the log files manually using [`audit_log_rotate()`](#audit_log_rotate). If the value is not a multiple of 4096, the component truncates the value to the nearest multiple.
 
