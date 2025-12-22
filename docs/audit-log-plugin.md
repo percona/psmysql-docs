@@ -1,20 +1,24 @@
 # Audit log plugin
 
+!!! important "Deprecated: Use Audit Log Filter Plugin"
+
+    **This feature is deprecated and may be removed in a later version.** We recommend using the [Audit Log Filter plugin](audit-log-filter-overview.md) instead of this plugin.
+
+    The Audit Log Filter plugin was introduced in [Percona Server for MySQL 8.0.34-26](release-notes/8.0.34-26.md) with more options and improvements.
+
 Percona Audit Log Plugin provides monitoring and logging of connection and query
 activity that were performed on specific server. Information about the activity
-is stored in a log file. This implementation is alternative to the [MySQL Enterprise Audit Log Plugin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/audit-log.html). 
+is stored in a log file. This implementation is alternative to the [MySQL Enterprise Audit Log Plugin](https://dev.mysql.com/doc/refman/8.0/en/audit-log.html).
 
 ## Version specific information
-
-The release of [Percona Server for MySQL 8.0.34-26](release-notes/8.0.34-26.md) introduces the [Audit Log Filter plugin](audit-log-filter-overview.md). This plugin has more options and improvements. 
-
-The Audit Log Filter plugin is available in Percona Server for MySQL 8.4 as a component. 
-
-The Audit log plugin has been removed from Percona Server for MySQL 8.4. 
 
 * 8.0.12-1: The feature was ported from *Percona Server for MySQL* 5.7.
 
 * [Percona Server for MySQL 8.0.15-6](release-notes/Percona-Server-8.0.15-6.md): The Audit_log_buffer_size_overflow variable was implemented.
+
+## Migration to Percona Server for MySQL 8.4
+
+As of [Percona Server for MySQL 8.4.7-7](https://docs.percona.com/percona-server/8.4/release-notes/8.4.7-7.html), the Audit Log plugin is available, but this plugin is deprecated and may be removed in a future release. We recommend migrating to the [Audit Log Filter component](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html).
 
 ## Install the plugin
 
