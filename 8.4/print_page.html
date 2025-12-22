@@ -7530,6 +7530,8 @@
       
         
       
+        
+      
     
     
     
@@ -7724,7 +7726,35 @@
   <span class="md-ellipsis">
     
   
-    Misc. INFORMATION_SCHEMA tables
+    Additional INFORMATION_SCHEMA tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="additional-performance-schema-tables.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Additional PERFORMANCE_SCHEMA tables
   
 
     
@@ -12091,7 +12121,18 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   <a href="#misc-info-schema-tables" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Misc. INFORMATION_SCHEMA tables
+        Additional INFORMATION_SCHEMA tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-performance-schema-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional PERFORMANCE_SCHEMA tables
       
     </span>
   </a>
@@ -36748,8 +36789,8 @@ keyword is followed by a number other than zero:</p>
 | 12 | root | localhost | information_schema | Query   |    0 | executing | select * from processlist |       0 |         0 |             0 |
 +----+------+-----------+--------------------+---------+------+-----------+---------------------------+---------+-----------+---------------+
 </code></pre></div>
-</details></section><section class="print-page" id="misc-info-schema-tables" heading-number="15.6"><h1 id="misc-info-schema-tables-misc-information_schema-tables">Misc. INFORMATION_SCHEMA tables<a class="headerlink" href="#misc-info-schema-tables-misc-information_schema-tables" title="Permanent link">&para;</a></h1>
-<p>This page lists the <code>INFORMATION_SCHEMA</code> tables added to standard <em>MySQL</em> by <em>Percona Server for MySQL</em> that don’t exist elsewhere in the documentation.</p>
+</details></section><section class="print-page" id="misc-info-schema-tables" heading-number="15.6"><h1 id="misc-info-schema-tables-additional-information_schema-tables">Additional INFORMATION_SCHEMA tables<a class="headerlink" href="#misc-info-schema-tables-additional-information_schema-tables" title="Permanent link">&para;</a></h1>
+<p>This document lists the additional <code>INFORMATION_SCHEMA</code> tables provided by Percona Server for MySQL that are not documented elsewhere in this documentation.</p>
 <h2 id="misc-info-schema-tables-temporary-tables">Temporary tables<a class="headerlink" href="#misc-info-schema-tables-temporary-tables" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -36811,7 +36852,7 @@ keyword is followed by a number other than zero:</p>
 </tr>
 </tbody>
 </table>
-<p>This table holds information on the temporary tables that exist for all connections. You don’t need the <code>SUPER</code> privilege to query this table.</p>
+<p>This table holds information on the temporary tables that exist for all connections. No special privileges are required to query this table.</p>
 <h3 id="misc-info-schema-tables-information_schematemporary_tables"><code>INFORMATION_SCHEMA.TEMPORARY_TABLES</code><a class="headerlink" href="#misc-info-schema-tables-information_schematemporary_tables" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -36867,7 +36908,66 @@ keyword is followed by a number other than zero:</p>
 </tr>
 </tbody>
 </table>
-<p>This table holds information on the temporary tables existing for the running connection.</p></section></section>
+<p>This table holds information on the temporary tables existing for the running connection.</p></section><section class="print-page" id="additional-performance-schema-tables" heading-number="15.7"><h1 id="additional-performance-schema-tables-additional-performance_schema-tables">Additional PERFORMANCE_SCHEMA tables<a class="headerlink" href="#additional-performance-schema-tables-additional-performance_schema-tables" title="Permanent link">&para;</a></h1>
+<p>This document lists the additional <code>PERFORMANCE_SCHEMA</code> tables provided by Percona Server for MySQL that are not documented elsewhere.</p>
+<h3 id="additional-performance-schema-tables-performance_schemaaccount_failed_login_lock_status"><code>performance_schema.account_failed_login_lock_status</code><a class="headerlink" href="#additional-performance-schema-tables-performance_schemaaccount_failed_login_lock_status" title="Permanent link">&para;</a></h3>
+<p>The <code>performance_schema.account_failed_login_lock_status</code> table is available in Percona Server for MySQL 8.4.7-7 and later. The table exposes information about temporary account locking from the MySQL internal Access Control List (ACL) cache. </p>
+<p>This table is read-only. Users need <code>SELECT</code> privilege on the <code>performance_schema</code> database or on this specific table to access its contents.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If an account is locked using the <code>CREATE USER</code> or <code>ALTER USER</code> statements with the <code>ACCOUNT LOCK</code> clause, the <code>ACCOUNT LOCK</code> status is not captured in the <code>account_failed_login_lock_status</code> table. The server records the <code>ACCOUNT LOCK</code> state in the <code>mysql.user</code> table.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Column Name</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>USER</code></td>
+<td><code>CHAR(..)</code></td>
+<td>The MySQL user name</td>
+</tr>
+<tr>
+<td><code>HOST</code></td>
+<td><code>CHAR(..)</code></td>
+<td>The MySQL host name</td>
+</tr>
+<tr>
+<td><code>IS_TRACKING_ACTIVE</code></td>
+<td><code>enum('YES','NO')</code></td>
+<td>Indicates whether failed login tracking is enabled for the account</td>
+</tr>
+<tr>
+<td><code>MAX_ATTEMPTS</code></td>
+<td><code>INTEGER</code></td>
+<td>Maximum number of failed login attempts allowed before account is locked (corresponds to FAILED_LOGIN_ATTEMPTS clause value in CREATE USER statement)</td>
+</tr>
+<tr>
+<td><code>PASSWORD_LOCK_DAYS</code></td>
+<td><code>INTEGER</code></td>
+<td>Number of days for which account will be temporarily locked after exceeding the MAX_ATTEMPTS limit. Set to -1 if account is locked forever (corresponds to PASSWORD_LOCK_TIME clause value in CREATE USER)</td>
+</tr>
+<tr>
+<td><code>IS_LOCKED</code></td>
+<td><code>BOOLEAN</code></td>
+<td>Indicates if account is temporarily locked by failed login lock tracking. NULL if tracking is not enabled for account</td>
+</tr>
+<tr>
+<td><code>REMAINING_ATTEMPTS</code></td>
+<td><code>INTEGER</code></td>
+<td>Number of failed login attempts remaining before account will be locked. NULL if tracking is not enabled for account</td>
+</tr>
+<tr>
+<td><code>REMAINING_DAYS_LOCKED</code></td>
+<td><code>INTEGER</code></td>
+<td>Number of days for which account is locked due to failed login lock tracking. -1 means that account is locked &ldquo;forever&rdquo; (until server restart/FLUSH PRIVILEGES or specific account unlock). NULL if tracking is not enabled for account</td>
+</tr>
+</tbody>
+</table></section></section>
                     <section class='print-page md-section' id='section-16' heading-number='16'>
                         <h1>Troubleshoot<a class='headerlink' href='#section-16' title='Permanent link'></a>
                         </h1>
@@ -50874,6 +50974,8 @@ contributions and changes from MariaDB.</p>
 .print-site-enumerate-headings #process-list > h1:before { content: '15.5 ' }
 
 .print-site-enumerate-headings #misc-info-schema-tables > h1:before { content: '15.6 ' }
+
+.print-site-enumerate-headings #additional-performance-schema-tables > h1:before { content: '15.7 ' }
 
 .print-site-enumerate-headings #section-16 > h1:before { content: '16 ' }
 .print-site-enumerate-headings #advisors > h1:before { content: '16.1 ' }
