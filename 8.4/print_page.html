@@ -7528,6 +7528,8 @@
       
         
       
+        
+      
     
     
     
@@ -7567,6 +7569,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-plugin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit log plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -12001,6 +12031,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
     <nav class="md-nav" aria-label="Monitor">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#audit-log-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audit log plugin
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#jemalloc-profiling" class="md-nav__link">
@@ -33974,7 +34015,1183 @@ INFORMATION_SCHEMA.SCHEMATA<span class="w"> </span>WHERE<span class="w"> </span>
                     <section class='print-page md-section' id='section-15' heading-number='15'>
                         <h1>Monitor<a class='headerlink' href='#section-15' title='Permanent link'></a>
                         </h1>
-                    <section class="print-page" id="jemalloc-profiling" heading-number="15.1"><h1 id="jemalloc-profiling-jemalloc-memory-allocation-profiling">Jemalloc memory allocation profiling<a class="headerlink" href="#jemalloc-profiling-jemalloc-memory-allocation-profiling" title="Permanent link">&para;</a></h1>
+                    <section class="print-page" id="audit-log-plugin" heading-number="15.1"><h1 id="audit-log-plugin-audit-log-plugin">Audit log plugin<a class="headerlink" href="#audit-log-plugin-audit-log-plugin" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Deprecation notice</p>
+<p>The audit log plugin is deprecated in Percona Server for MySQL 8.4 and will be removed in a future release. This deprecation is due to the availability of the <a href="#audit-log-filter-overview">audit log filter component</a>, which is the recommended replacement. Users should migrate to this component, which provides equivalent functionality with enhanced flexibility, performance, and filtering capabilities, ensuring continued support for auditing and compliance requirements.</p>
+<p>This deprecation affects all installations that rely on the audit log plugin for event logging, compliance auditing, or activity tracking. The plugin will continue to function, but no further development or maintenance is planned.</p>
+<p>The audit log plugin and the audit log filter component use different configuration variables and options.</p>
+<ul>
+<li>
+<p>Do not attempt to use audit log filter variables, options, or configuration syntax with the deprecated audit log plugin. Doing so can lead to startup failures, unexpected behavior, or data loss.</p>
+</li>
+<li>
+<p>Do not install both audit log plugin and audit log filter component simultaneously.</p>
+</li>
+</ul>
+<p>The audit‑log entries may look different from the 8.0 entries. The audit log plugin itself has not changed, but other server components have, and those changes affect the log output. For example, 8.4 logs a <code>SELECT $$</code> statement each time a client connects because the client now supports “dollar‑quoted” strings. This feature did not exist in 8.0.</p>
+<p>Percona does not plan to modify 8.4 audit logs to match the format or content of 8.0 logs.</p>
+</div>
+<p>Percona Audit Log Plugin provides monitoring and logging of connection and query activity that were performed on specific server. Information about the activity is stored in a log file. </p>
+<h2 id="audit-log-plugin-install-the-plugin">Install the plugin<a class="headerlink" href="#audit-log-plugin-install-the-plugin" title="Permanent link">&para;</a></h2>
+<p>The audit Log plugin is installed, but, by default, is not enabled when you install Percona Server for MySQL. To check if the plugin is enabled run the following command. This command searches for plugins with names containing the word &ldquo;audit&rdquo; in the <code>information_schema.PLUGINS</code> table. </p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>information_schema.PLUGINS<span class="w"> </span>WHERE<span class="w"> </span>PLUGIN_NAME<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;%audit%&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>The empty result suggests that no such plugins are installed or loaded.</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Empty set (0.00 sec)
+</code></pre></div>
+</details>
+<p>This command checks for system variables whose names start with &ldquo;audit.&rdquo; </p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>variables<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;audit%&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>The empty result means that no such system variables exist or are currently defined.</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Empty set (0.01 sec)
+</code></pre></div>
+</details>
+<p>This command lists system variables with names starting with &ldquo;plugin.&rdquo; As seen in the example output, it displays the <code>plugin_dir</code> variable, which specifies the directory path where MySQL plugins are stored.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>variables<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;plugin%&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+---------------+------------------------+
+| Variable_name | Value                  |
++---------------+------------------------+
+| plugin_dir    | /usr/lib/mysql/plugin/ |
++---------------+------------------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The location of the MySQL plugin directory depends on the operating system and may be different on your system.</p>
+</div>
+<p>The following command enables the plugin:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>audit_log<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">&#39;audit_log.so&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Run the following command to verify if the plugin was installed correctly:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>information_schema.PLUGINS<span class="w"> </span>WHERE<span class="w"> </span>PLUGIN_NAME<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;%audit%&#39;</span><span class="se">\G</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>*************************** 1. row ***************************
+        PLUGIN_NAME: audit_log
+        PLUGIN_VERSION: 0.2
+        PLUGIN_STATUS: ACTIVE
+        PLUGIN_TYPE: AUDIT
+PLUGIN_TYPE_VERSION: 4.1
+        PLUGIN_LIBRARY: audit_log.so
+PLUGIN_LIBRARY_VERSION: 1.7
+        PLUGIN_AUTHOR: Percona LLC and/or its affiliates.
+    PLUGIN_DESCRIPTION: Audit log
+        PLUGIN_LICENSE: GPL
+        LOAD_OPTION: ON
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>You can review the audit log variables with the following command:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>variables<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;audit%&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+-----------------------------+---------------+
+| Variable_name               | Value         |
++-----------------------------+---------------+
+| audit_log_buffer_size       | 1048576       |
+| audit_log_exclude_accounts  |               |
+| audit_log_exclude_commands  |               |
+| audit_log_exclude_databases |               |
+| audit_log_file              | audit.log     |
+| audit_log_flush             | OFF           |
+| audit_log_format            | OLD           |
+| audit_log_handler           | FILE          |
+| audit_log_include_accounts  |               |
+| audit_log_include_commands  |               |
+| audit_log_include_databases |               |
+| audit_log_policy            | ALL           |
+| audit_log_rotate_on_size    | 0             |
+| audit_log_rotations         | 0             |
+| audit_log_strategy          | ASYNCHRONOUS  |
+| audit_log_syslog_facility   | LOG_USER      |
+| audit_log_syslog_ident      | percona-audit |
+| audit_log_syslog_priority   | LOG_INFO      |
++-----------------------------+---------------+
+18 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="audit-log-plugin-log-format">Log format<a class="headerlink" href="#audit-log-plugin-log-format" title="Permanent link">&para;</a></h2>
+<p>The plugin supports the following log formats: <code>OLD</code>, <code>NEW</code>, <code>JSON</code>, and <code>CSV</code>. The <code>OLD</code> format and the <code>NEW</code> format are based on XML. The <code>OLD</code> format defines each log record with XML attributes. The <code>NEW</code> format defines each log record with XML tags. The information logged is the same for all four formats. The audit_log_format variable controls the log format choice.</p>
+<h3 id="audit-log-plugin-format-examples">Format examples<a class="headerlink" href="#audit-log-plugin-format-examples" title="Permanent link">&para;</a></h3>
+<p>The following formats are available:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="audit-log-plugin-__tabbed_1_1" name="audit-log-plugin-__tabbed_1" type="radio" /><input id="audit-log-plugin-__tabbed_1_2" name="audit-log-plugin-__tabbed_1" type="radio" /><input id="audit-log-plugin-__tabbed_1_3" name="audit-log-plugin-__tabbed_1" type="radio" /><input id="audit-log-plugin-__tabbed_1_4" name="audit-log-plugin-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="audit-log-plugin-__tabbed_1_1">Old log format</label><label for="audit-log-plugin-__tabbed_1_2">New log format</label><label for="audit-log-plugin-__tabbed_1_3">JSON format</label><label for="audit-log-plugin-__tabbed_1_4">CSV format</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>&lt;AUDIT_RECORD
+NAME=&quot;Query&quot;
+RECORD=&quot;3_2021-06-30T11:56:53&quot;
+TIMESTAMP=&quot;2021-06-30T11:57:14 UTC&quot;
+COMMAND_CLASS=&quot;select&quot;
+CONNECTION_ID=&quot;3&quot;
+STATUS=&quot;0&quot;
+SQLTEXT=&quot;select * from information_schema.PLUGINS where PLUGIN_NAME like &#39;%audit%&#39;&quot;
+USER=&quot;root[root] @ localhost []&quot;
+HOST=&quot;localhost&quot;
+OS_USER=&quot;&quot;
+IP=&quot;&quot;
+DB=&quot;&quot;
+/&gt;
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>&lt;AUDIT_RECORD&gt;
+&lt;NAME&gt;Query&lt;/NAME&gt;
+&lt;RECORD&gt;16684_2021-06-30T16:07:41&lt;/RECORD&gt;
+&lt;TIMESTAMP&gt;2021-06-30T16:08:06 UTC&lt;/TIMESTAMP&gt;
+&lt;COMMAND_CLASS&gt;select&lt;/COMMAND_CLASS&gt;
+&lt;CONNECTION_ID&gt;2&lt;/CONNECTION_ID&gt;
+&lt;STATUS&gt;0&lt;/STATUS&gt;
+&lt;SQLTEXT&gt;select id, holder from one&lt;/SQLTEXT&gt;
+&lt;USER&gt;root[root] @ localhost []&lt;/USER&gt;
+&lt;HOST&gt;localhost&lt;/HOST&gt;
+&lt;OS_USER&gt;&lt;/OS_USER&gt;
+&lt;IP&gt;&lt;/IP&gt;
+&lt;DB&gt;&lt;/DB&gt;
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>{&quot;audit_record&quot;:{&quot;name&quot;:&quot;Query&quot;,&quot;record&quot;:&quot;13149_2021-06-30T15:03:11&quot;,&quot;timestamp&quot;:&quot;2021-06-30T15:07:58 UTC&quot;,&quot;command_class&quot;:&quot;show_databases&quot;,&quot;connection_id&quot;:&quot;2&quot;,&quot;status&quot;:0,&quot;sqltext&quot;:&quot;show databases&quot;,&quot;user&quot;:&quot;root[root] @ localhost []&quot;,&quot;host&quot;:&quot;localhost&quot;,&quot;os_user&quot;:&quot;&quot;,&quot;ip&quot;:&quot;&quot;,&quot;db&quot;:&quot;&quot;}}
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>&quot;Query&quot;,&quot;22567_2021-06-30T16:10:09&quot;,&quot;2021-06-30T16:19:00 UTC&quot;,&quot;select&quot;,&quot;2&quot;,0,&quot;select count(*) from one&quot;,&quot;root[root] @ localhost []&quot;,&quot;localhost&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="audit-log-plugin-audit-log-events">Audit log events<a class="headerlink" href="#audit-log-plugin-audit-log-events" title="Permanent link">&para;</a></h2>
+<p>The audit Log plugin generates a log of following events.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="audit-log-plugin-__tabbed_2_1" name="audit-log-plugin-__tabbed_2" type="radio" /><input id="audit-log-plugin-__tabbed_2_2" name="audit-log-plugin-__tabbed_2" type="radio" /><input id="audit-log-plugin-__tabbed_2_3" name="audit-log-plugin-__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="audit-log-plugin-__tabbed_2_1">Audit</label><label for="audit-log-plugin-__tabbed_2_2">Connect or Disconnect</label><label for="audit-log-plugin-__tabbed_2_3">Query</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Audit event indicates that audit logging started or finished. <code>NAME</code> field will be <code>Audit</code> when logging started and <code>NoAudit</code> when logging finished. Audit record also includes server version and command-line arguments.</p>
+<div class="highlight"><pre><span></span><code>??? example &quot;Audit event&quot;
+
+    ```text
+    &lt;AUDIT_RECORD
+    NAME=&quot;Audit&quot;
+    RECORD=&quot;1_2021-06-30T11:56:53&quot;
+    TIMESTAMP=&quot;2021-06-30T11:56:53 UTC&quot;
+    MYSQL_VERSION=&quot;5.7.34-37&quot;
+    STARTUP_OPTIONS=&quot;--daemonize --pid-file=/var/run/mysqld/mysqld.pid&quot;
+    OS_VERSION=&quot;x86_64-debian-linux-gnu&quot;
+    /&gt;
+    ```
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Connect record event will have <code>NAME</code> field <code>Connect</code> when user logged in or login failed, or <code>Quit</code> when connection is closed.</p>
+<p>The additional fields for this event are the following:</p>
+<div class="highlight"><pre><span></span><code>* `CONNECTION_ID`
+
+* `STATUS`
+
+* `USER`
+
+* `PRIV_USER`
+
+* `OS_LOGIN`
+
+* `PROXY_USER`
+
+* `HOST`
+
+* `IP`
+</code></pre></div>
+<p>The value for <code>STATUS</code> is <code>0</code> for successful logins and non-zero for failed logins.</p>
+<details class="example">
+<summary>Disconnect event</summary>
+<div class="highlight"><pre><span></span><code>&lt;AUDIT_RECORD
+NAME=&quot;Quit&quot;
+RECORD=&quot;5_2021-06-29T19:33:03&quot;
+TIMESTAMP=&quot;2021-06-29T19:34:38Z&quot;
+CONNECTION_ID=&quot;14&quot;
+STATUS=&quot;0&quot;
+USER=&quot;root&quot;
+PRIV_USER=&quot;root&quot;
+OS_LOGIN=&quot;&quot;
+PROXY_USER=&quot;&quot;
+HOST=&quot;localhost&quot;
+IP=&quot;&quot;
+DB=&quot;&quot;
+/&gt;
+</code></pre></div>
+</details>
+</div>
+<div class="tabbed-block">
+<p>Additional fields for this event are: <code>COMMAND_CLASS</code> (values come from the <code>com_status_vars</code> array in the `sql/mysqld.cc`` file in a MySQL source distribution.</p>
+<p>Examples are <code>select</code>, <code>alter_table</code>, <code>create_table</code>, etc.), <code>CONNECTION_ID</code>, <code>STATUS</code> (indicates an error when the vaule is non-zero), <code>SQLTEXT</code> (text of SQL-statement), <code>USER</code>, <code>HOST</code>, <code>OS_USER</code>, <code>IP</code>.</p>
+<p>The possible values for the <code>NAME</code> name field for this event are <code>Query</code>, <code>Prepare</code>, <code>Execute</code>, <code>Change user</code>, etc.</p>
+<details class="example">
+<summary>Query event</summary>
+<div class="highlight"><pre><span></span><code>&lt;AUDIT_RECORD
+NAME=&quot;Query&quot;
+RECORD=&quot;4_2021-06-29T19:33:03&quot;
+TIMESTAMP=&quot;2021-06-29T19:33:34Z&quot;
+COMMAND_CLASS=&quot;show_variables&quot;
+CONNECTION_ID=&quot;14&quot;
+STATUS=&quot;0&quot;
+SQLTEXT=&quot;show variables like &#39;audit%&#39;&quot;
+USER=&quot;root[root] @ localhost []&quot;
+HOST=&quot;localhost&quot;
+OS_USER=&quot;&quot;
+IP=&quot;&quot;
+DB=&quot;&quot;
+/&gt;
+</code></pre></div>
+</details>
+</div>
+</div>
+</div>
+<h2 id="audit-log-plugin-stream-the-audit-log-to-syslog">Stream the audit log to syslog<a class="headerlink" href="#audit-log-plugin-stream-the-audit-log-to-syslog" title="Permanent link">&para;</a></h2>
+<p>To stream the audit log to syslog you’ll need to set audit_log_handler variable to <code>SYSLOG</code>. To control the syslog file handler, the following variables can be used: audit_log_syslog_ident, audit_log_syslog_facility, and audit_log_syslog_priority These variables have the same meaning as appropriate parameters described in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The actions for the variables: audit_log_strategy, audit_log_buffer_size, audit_log_rotate_on_size, audit_log_rotations are captured only with <code>FILE</code> handler.</p>
+</div>
+<h2 id="audit-log-plugin-filter-methods">Filter methods<a class="headerlink" href="#audit-log-plugin-filter-methods" title="Permanent link">&para;</a></h2>
+<p>You can filter the results by the following methods.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="audit-log-plugin-__tabbed_3_1" name="audit-log-plugin-__tabbed_3" type="radio" /><input id="audit-log-plugin-__tabbed_3_2" name="audit-log-plugin-__tabbed_3" type="radio" /><input id="audit-log-plugin-__tabbed_3_3" name="audit-log-plugin-__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="audit-log-plugin-__tabbed_3_1">Filter by user</label><label for="audit-log-plugin-__tabbed_3_2">Filter by SQL command type</label><label for="audit-log-plugin-__tabbed_3_3">Filtering by database</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The filtering by user feature adds two new global variables:
+audit_log_include_accounts and
+audit_log_exclude_accounts to specify which user accounts should be
+included or excluded from audit logging.</p>
+<p>Only one of these variables can contain a list of users to be either included or excluded, while the other must be <code>NULL</code>. If one of the variables is set to be not <code>NULL</code> (contains a list of users), the attempt to set another one fails. An empty string means an empty list.</p>
+<p>Changes of audit_log_include_accounts and audit_log_exclude_accounts do not apply to existing server connections.</p>
+</div>
+<div class="tabbed-block">
+<p>The filtering by SQL command type adds two new global variables:
+<a href="#audit-log-plugin-audit_log_include_commands">audit_log_include_commands</a> and
+<a href="#audit-log-plugin-audit_log_exclude_commands">audit_log_exclude_commands</a> to specify which command types should be included or excluded from audit logging.</p>
+<p>Only one of these variables can contain a list of command types to be
+either included or excluded, while the other needs to be <code>NULL</code>. If one of
+the variables is set to be not <code>NULL</code> (contains a list of command types),
+the attempt to set another one will fail. An empty string is defined as an empty list.</p>
+<p>If both the audit_log_exclude_commands variable and the
+audit_log_include_commands variable are <code>NULL</code>, all commands are logged.</p>
+</div>
+<div class="tabbed-block">
+<p>The filtering by an SQL database is implemented by two global variables:
+audit_log_include_databases and
+audit_log_exclude_databases to specify which databases should be included or excluded from audit logging.</p>
+<p>Only one of these variables can contain a list of databases to be either
+included or excluded, while the other needs to be <code>NULL</code>. If one of the
+variables is set to be not <code>NULL</code> (contains a list of databases), the
+attempt to set another one will fail. Empty string means an empty list.</p>
+<p>If query is accessing any of databases listed in
+audit_log_include_databases, the query will be logged.
+If query is accessing only databases listed in
+audit_log_exclude_databases, the query will not be logged.
+<code>CREATE TABLE</code> statements are logged unconditionally.</p>
+<p>Changes of audit_log_include_databases and
+audit_log_exclude_databases do not apply to existing server
+connections.</p>
+</div>
+</div>
+</div>
+<h2 id="audit-log-plugin-filter-examples">Filter examples<a class="headerlink" href="#audit-log-plugin-filter-examples" title="Permanent link">&para;</a></h2>
+<p>The following are examples of the different filters.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked="checked" id="audit-log-plugin-__tabbed_4_1" name="audit-log-plugin-__tabbed_4" type="radio" /><input id="audit-log-plugin-__tabbed_4_2" name="audit-log-plugin-__tabbed_4" type="radio" /><input id="audit-log-plugin-__tabbed_4_3" name="audit-log-plugin-__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="audit-log-plugin-__tabbed_4_1">Filter by user</label><label for="audit-log-plugin-__tabbed_4_2">Filter by SQL command type</label><label for="audit-log-plugin-__tabbed_4_3">Filter by database</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The following example adds users who will be monitored:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_include_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user1@localhost,root@localhost&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<p>If you try to add users to both the include list and the exclude list, the server returns the following error:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user1@localhost,root@localhost&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>ERROR 1231 (42000): Variable &#39;audit_log_exclude_accounts&#39; can&#39;t be set to the value of &#39;user1@localhost,root@localhost&#39;
+</code></pre></div>
+</details>
+<p>To switch from filtering by included user list to the excluded user list or back,
+first set the currently active filtering variable to <code>NULL</code>:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_include_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>NULL<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user1@localhost,root@localhost&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&#39;user&#39;@&#39;host&#39;&quot;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;&#39;user&#39;&#39;@&#39;&#39;host&#39;&#39;&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;\&#39;</span>user<span class="se">\&#39;</span>@<span class="se">\&#39;</span>host<span class="se">\&#39;</span><span class="err">&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<p>To see which user accounts have been added to the exclude list, run the following command:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>@@audit_log_exclude_accounts<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+------------------------------+
+| @@audit_log_exclude_accounts |
++------------------------------+
+| &#39;user&#39;@&#39;host&#39;                |
++------------------------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>Account names from mysql.user table are logged in the
+audit log. For example when you create a user:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;user1&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;111&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<p>When <code>user1</code> connects from <code>localhost</code>, the user is listed:</p>
+<div class="highlight"><pre><span></span><code>&lt;AUDIT_RECORD
+NAME=&quot;Connect&quot;
+RECORD=&quot;2_2021-06-30T11:56:53&quot;
+TIMESTAMP=&quot;2021-06-30T11:56:53 UTC&quot;
+CONNECTION_ID=&quot;6&quot;
+STATUS=&quot;0&quot;
+USER=&quot;user1&quot; ;; this is a &#39;user&#39; part of account
+PRIV_USER=&quot;user1&quot;
+OS_LOGIN=&quot;&quot;
+PROXY_USER=&quot;&quot;
+HOST=&quot;localhost&quot; ;; this is a &#39;host&#39; part of account
+IP=&quot;&quot;
+DB=&quot;&quot;
+/&gt;
+</code></pre></div>
+<p>To exclude <code>user1</code> from logging in Percona Server for MySQL 8.4, set:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user1@%&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>The value can be <code>NULL</code> or comma separated list of accounts in form
+<code>user@host</code> or <code>'user'@'host'</code> (if user or host contains comma).</p>
+</div>
+<div class="tabbed-block">
+<p>The available command types can be listed by running:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>name<span class="w"> </span>FROM<span class="w"> </span>performance_schema.setup_instruments<span class="w"> </span>WHERE<span class="w"> </span>name<span class="w"> </span>LIKE<span class="w"> </span><span class="s2">&quot;statement/sql/%&quot;</span><span class="w"> </span>ORDER<span class="w"> </span>BY<span class="w"> </span>name<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+------------------------------------------+
+| name                                     |
++------------------------------------------+
+| statement/sql/alter_db                   |
+| statement/sql/alter_db_upgrade           |
+| statement/sql/alter_event                |
+| statement/sql/alter_function             |
+| statement/sql/alter_procedure            |
+| statement/sql/alter_server               |
+| statement/sql/alter_table                |
+| statement/sql/alter_tablespace           |
+| statement/sql/alter_user                 |
+| statement/sql/analyze                    |
+| statement/sql/assign_to_keycache         |
+| statement/sql/begin                      |
+| statement/sql/binlog                     |
+| statement/sql/call_procedure             |
+| statement/sql/change_db                  |
+| statement/sql/change_master              |
+...
+| statement/sql/xa_rollback                |
+| statement/sql/xa_start                   |
++------------------------------------------+
+145 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>You can add commands to the <code>include</code> filter by running:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_include_commands</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;set_option,create_db&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Create a database with the following command:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>sample<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>&lt;AUDIT_RECORD&gt;
+&lt;NAME&gt;Query&lt;/NAME&gt;
+&lt;RECORD&gt;24320_2021-06-30T17:44:46&lt;/RECORD&gt;
+&lt;TIMESTAMP&gt;2021-06-30T17:45:16 UTC&lt;/TIMESTAMP&gt;
+&lt;COMMAND_CLASS&gt;create_db&lt;/COMMAND_CLASS&gt;
+&lt;CONNECTION_ID&gt;2&lt;/CONNECTION_ID&gt;
+&lt;STATUS&gt;0&lt;/STATUS&gt;
+&lt;SQLTEXT&gt;CREATE DATABASE sample&lt;/SQLTEXT&gt;
+&lt;USER&gt;root[root] @ localhost []&lt;/USER&gt;
+&lt;HOST&gt;localhost&lt;/HOST&gt;
+&lt;OS_USER&gt;&lt;/OS_USER&gt;
+&lt;IP&gt;&lt;/IP&gt;
+&lt;DB&gt;&lt;/DB&gt;
+&lt;/AUDIT_RECORD&gt;
+</code></pre></div>
+</details>
+<p>To switch the command type filtering type from included type list to the excluded list
+or back, first reset the currently-active list to <code>NULL</code>:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_include_commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>NULL<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_commands</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;set_option,create_db&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<p>A stored procedure has the <code>call_procedure</code> command type. All
+the statements executed within the procedure have the same type
+<code>call_procedure</code> as well.</p>
+</div>
+<div class="tabbed-block">
+<p>To add databases to be monitored, run:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_include_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;test,mysql,db1&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="note">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_include_databases</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;db1&#39;</span>,<span class="s1">&#39;db3&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<p>If you you try to add databases to both include and exclude lists server will
+show you the following error:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;test,mysql,db1&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Error message</summary>
+<div class="highlight"><pre><span></span><code>ERROR 1231 (42000): Variable &#39;audit_log_exclude_databases can&#39;t be set to the value of &#39;test,mysql,db1&#39;
+</code></pre></div>
+</details>
+<p>To switch from filtering by included database list to the excluded one or back,
+first set the currently active filtering variable to <code>NULL</code>:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_include_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>NULL<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;test,mysql,db1&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+</div>
+</div>
+</div>
+<h2 id="audit-log-plugin-system-variables">System variables<a class="headerlink" href="#audit-log-plugin-system-variables" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-plugin-audit_log_strategy"><code>audit_log_strategy</code><a class="headerlink" href="#audit-log-plugin-audit_log_strategy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default value</td>
+<td>ASYNCHRONOUS</td>
+</tr>
+<tr>
+<td>Allowed values</td>
+<td><code>ASYNCHRONOUS</code>, <code>PERFORMANCE</code>, <code>SEMISYNCHRONOUS</code>, <code>SYNCHRONOUS</code></td>
+</tr>
+</tbody>
+</table>
+<p>This variable is used to specify the audit log strategy, possible values are:</p>
+<ul>
+<li>
+<p><code>ASYNCHRONOUS</code> - (default) log using memory buffer, do not drop messages if buffer is full</p>
+</li>
+<li>
+<p><code>PERFORMANCE</code> - log using memory buffer, drop messages if buffer is full</p>
+</li>
+<li>
+<p><code>SEMISYNCHRONOUS</code> - log directly to file, do not flush and sync every event</p>
+</li>
+<li>
+<p><code>SYNCHRONOUS</code> - log directly to file, flush and sync every event</p>
+</li>
+</ul>
+<p>This variable has effect only when audit_log_handler is set to <code>FILE</code>.</p>
+<h3 id="audit-log-plugin-audit_log_file"><code>audit_log_file</code><a class="headerlink" href="#audit-log-plugin-audit_log_file" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default value</td>
+<td>audit.log</td>
+</tr>
+</tbody>
+</table>
+<p>This variable is used to specify the filename that’s going to store the audit log. It can contain the path relative to the datadir or absolute path.</p>
+<h3 id="audit-log-plugin-audit_log_flush"><code>audit_log_flush</code><a class="headerlink" href="#audit-log-plugin-audit_log_flush" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default value</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>When this variable is set to <code>ON</code> log file will be closed and reopened.</p>
+<h3 id="audit-log-plugin-audit_log_buffer_size"><code>audit_log_buffer_size</code><a class="headerlink" href="#audit-log-plugin-audit_log_buffer_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Numeric</td>
+</tr>
+<tr>
+<td>Default value</td>
+<td>1 Mb</td>
+</tr>
+</tbody>
+</table>
+<p>This variable can be used to specify the size of memory buffer used for logging, used when audit_log_strategy variable is set to <code>ASYNCHRONOUS</code> or <code>PERFORMANCE</code> values. This variable has effect only when audit_log_handler is set to <code>FILE</code>.</p>
+<h3 id="audit-log-plugin-audit_log_exclude_accounts"><code>audit_log_exclude_accounts</code><a class="headerlink" href="#audit-log-plugin-audit_log_exclude_accounts" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>This variable is used to specify the list of users for which
+Filtering by user is applied. The value can be <code>NULL</code> or comma
+separated list of accounts in form <code>user@host</code> or <code>'user'@'host'</code> (if user
+or host contains comma). If this variable is set, then
+audit_log_include_accounts must be unset, and vice versa.</p>
+<h3 id="audit-log-plugin-audit_log_exclude_commands"><code>audit_log_exclude_commands</code><a class="headerlink" href="#audit-log-plugin-audit_log_exclude_commands" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>This variable is used to specify the list of commands for which
+Filtering by SQL command type is applied. The value can be <code>NULL</code> or
+comma separated list of commands. If this variable is set, then
+audit_log_include_commands must be unset, and vice versa.</p>
+<h3 id="audit-log-plugin-audit_log_exclude_databases"><code>audit_log_exclude_databases</code><a class="headerlink" href="#audit-log-plugin-audit_log_exclude_databases" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>Use this variable to specify the databases to be filtered. The value can be NULL or a comma-separated list of databases if you set this variable, unset <code>audit_log_include_databases</code>, and vice versa.</p>
+<h3 id="audit-log-plugin-audit_log_format"><code>audit_log_format</code><a class="headerlink" href="#audit-log-plugin-audit_log_format" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default value</td>
+<td>OLD</td>
+</tr>
+<tr>
+<td>Allowed values</td>
+<td><code>OLD</code>, <code>NEW</code>, <code>CSV</code>, <code>JSON</code></td>
+</tr>
+</tbody>
+</table>
+<p>This variable is used to specify the audit log format. The audit log plugin
+supports four log formats: <code>OLD</code>, <code>NEW</code>, <code>JSON</code>, and <code>CSV</code>. <code>OLD</code> and
+<code>NEW</code> formats are based on XML, where the former outputs log record properties
+as XML attributes and the latter as XML tags. Information logged is the same in
+all four formats.</p>
+<h3 id="audit-log-plugin-audit_log_include_accounts"><code>audit_log_include_accounts</code><a class="headerlink" href="#audit-log-plugin-audit_log_include_accounts" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>This variable is used to specify the list of users for which
+Filtering by user is applied. The value can be <code>NULL</code> or comma
+separated list of accounts in form <code>user@host</code> or <code>'user'@'host'</code> (if user
+or host contains comma). If this variable is set, then
+audit_log_exclude_accounts must be unset, and vice versa.</p>
+<h3 id="audit-log-plugin-audit_log_include_commands"><code>audit_log_include_commands</code><a class="headerlink" href="#audit-log-plugin-audit_log_include_commands" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>This variable is used to specify the list of commands for which
+Filtering by SQL command type is applied. The value can be <code>NULL</code> or
+comma separated list of commands. If this variable is set, then
+audit_log_exclude_commands must be unset, and vice versa.</p>
+<h3 id="audit-log-plugin-audit_log_include_databases"><code>audit_log_include_databases</code><a class="headerlink" href="#audit-log-plugin-audit_log_include_databases" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the list of databases to be filtered. You can set the value to NULL or a comma-separated list of databases. If you set this variable, you must unset <code>audit_log_exclude_databases</code>; the opposite is true.</p>
+<h3 id="audit-log-plugin-audit_log_policy"><code>audit_log_policy</code><a class="headerlink" href="#audit-log-plugin-audit_log_policy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>ALL</td>
+</tr>
+<tr>
+<td>Allowed values</td>
+<td><code>ALL</code>, <code>LOGINS</code>, <code>QUERIES</code>, <code>NONE</code></td>
+</tr>
+</tbody>
+</table>
+<p>This variable is used to specify which events should be logged. Possible values
+are:</p>
+<ul>
+<li>
+<p><code>ALL</code> - all events will be logged</p>
+</li>
+<li>
+<p><code>LOGINS</code> - only logins will be logged</p>
+</li>
+<li>
+<p><code>QUERIES</code> - only queries will be logged</p>
+</li>
+<li>
+<p><code>NONE</code> - no events will be logged</p>
+</li>
+</ul>
+<h3 id="audit-log-plugin-audit_log_rotate_on_size"><code>audit_log_rotate_on_size</code><a class="headerlink" href="#audit-log-plugin-audit_log_rotate_on_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Numeric</td>
+</tr>
+<tr>
+<td>Default value</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>This variable is measured in bytes and specifies the maximum size of the audit log file. Upon reaching
+this size, the audit log will be rotated. The rotated log files are present in
+the same directory as the current log file. The sequence number is appended to
+the log file name upon rotation. </p>
+<p>If the value is set to 0 (the default), the audit log files won’t rotate.</p>
+<p>Set the <code>audit_log_handler</code> to FILE to enable this variable.</p>
+<h3 id="audit-log-plugin-audit_log_rotations"><code>audit_log_rotations</code><a class="headerlink" href="#audit-log-plugin-audit_log_rotations" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Numeric</td>
+</tr>
+<tr>
+<td>Default value</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>This variable is used to specify how many log files should be kept when
+audit_log_rotate_on_size variable is set to non-zero value. This
+variable has effect only when audit_log_handler is set to <code>FILE</code>.</p>
+<h3 id="audit-log-plugin-audit_log_handler"><code>audit_log_handler</code><a class="headerlink" href="#audit-log-plugin-audit_log_handler" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default value</td>
+<td>FILE</td>
+</tr>
+<tr>
+<td>Allowed values</td>
+<td><code>FILE</code>, <code>SYSLOG</code></td>
+</tr>
+</tbody>
+</table>
+<p>This variable is used to configure where the audit log will be written. If it is
+set to <code>FILE</code>, the log will be written into a file specified by
+audit_log_file variable. If it is set to <code>SYSLOG</code>, the audit log
+will be written to syslog.</p>
+<h3 id="audit-log-plugin-audit_log_syslog_ident"><code>audit_log_syslog_ident</code><a class="headerlink" href="#audit-log-plugin-audit_log_syslog_ident" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default value</td>
+<td>percona-audit</td>
+</tr>
+</tbody>
+</table>
+<p>This variable is used to specify the <code>ident</code> value for syslog. This variable
+has the same meaning as the appropriate parameter described in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3)
+manual</a>.</p>
+<h3 id="audit-log-plugin-audit_log_syslog_facility"><code>audit_log_syslog_facility</code><a class="headerlink" href="#audit-log-plugin-audit_log_syslog_facility" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default value</td>
+<td>LOG_USER</td>
+</tr>
+</tbody>
+</table>
+<p>This variable is used to specify the <code>facility</code> value for syslog. This
+variable has the same meaning as the appropriate parameter described in the
+<a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
+<h3 id="audit-log-plugin-audit_log_syslog_priority"><code>audit_log_syslog_priority</code><a class="headerlink" href="#audit-log-plugin-audit_log_syslog_priority" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>String</td>
+</tr>
+<tr>
+<td>Default value</td>
+<td>LOG_INFO</td>
+</tr>
+<tr>
+<td>Allowed values</td>
+<td><code>LOG_EMERG</code>, <code>LOG_ALERT</code>, <code>LOG_CRIT</code>, <code>LOG_ERR</code>, <code>LOG_WARNING</code>, <code>LOG_NOTICE</code>, <code>LOG_INFO</code>, <code>LOG_DEBUG</code></td>
+</tr>
+</tbody>
+</table>
+<p>This variable is used to specify the severity level for syslog. The
+<code>audit_log_syslog_priority</code> variable does not include the facility; it only
+selects the severity level (<code>LOG_EMERG</code> … <code>LOG_DEBUG</code>).</p>
+<p>The full syslog priority that <code>syslog()</code> receives is built internally by OR-ing
+the configured facility (<code>audit_log_syslog_facility</code>) with this level.</p>
+<p>The default <code>LOG_INFO</code> means &ldquo;ordinary informational messages&rdquo;; you can raise or
+lower the level as needed, while the facility stays at its default unless you
+change it explicitly.</p>
+<p>For more details about syslog priority levels, see the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3)
+manual</a>.</p>
+<h2 id="audit-log-plugin-status-variables">Status Variables<a class="headerlink" href="#audit-log-plugin-status-variables" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-plugin-audit_log_buffer_size_overflow"><code>Audit_log_buffer_size_overflow</code><a class="headerlink" href="#audit-log-plugin-audit_log_buffer_size_overflow" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Numeric</td>
+</tr>
+</tbody>
+</table>
+<p>The number of times an audit log entry was either
+dropped or written directly to the file due to its size being bigger
+than audit_log_buffer_size variable.</p></section><section class="print-page" id="jemalloc-profiling" heading-number="15.2"><h1 id="jemalloc-profiling-jemalloc-memory-allocation-profiling">Jemalloc memory allocation profiling<a class="headerlink" href="#jemalloc-profiling-jemalloc-memory-allocation-profiling" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL can take advantage of the memory-profiling ability of the jemalloc allocator. This ability provides a method to investigate memory-related issues.</p>
 <h2 id="jemalloc-profiling-requirements">Requirements<a class="headerlink" href="#jemalloc-profiling-requirements" title="Permanent link">&para;</a></h2>
 <p>This memory-profiling requires <a href="#jemalloc-profiling-jemalloc_detected">jemalloc_detected</a>. This read-only variable returns <code>true</code> if jemalloc with the profiling-enabled option is being used by <em>Percona Server for MySQL</em>.</p>
@@ -34212,7 +35429,7 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 <h2 id="jemalloc-profiling-disable-profiling">Disable profiling<a class="headerlink" href="#jemalloc-profiling-disable-profiling" title="Permanent link">&para;</a></h2>
 <p>To disable jemalloc profiling, in a MySQL client, run the following command:</p>
 <div class="highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">jemalloc_profiling</span><span class="o">=</span><span class="k">off</span><span class="p">;</span>
-</code></pre></div></section><section class="print-page" id="user-stats" heading-number="15.2"><h1 id="user-stats-user-statistics">User statistics<a class="headerlink" href="#user-stats-user-statistics" title="Permanent link">&para;</a></h1>
+</code></pre></div></section><section class="print-page" id="user-stats" heading-number="15.3"><h1 id="user-stats-user-statistics">User statistics<a class="headerlink" href="#user-stats-user-statistics" title="Permanent link">&para;</a></h1>
 <p>This feature adds several <code>INFORMATION_SCHEMA</code> tables, several commands, and the userstat variable. The tables and commands can be used to understand the server activity better and identify the source of the load.</p>
 <p>The functionality is disabled by default and must be enabled by setting <code>userstat</code> to <code>ON</code>. It works by keeping several hash tables in memory. To avoid contention over global mutexes, each connection has its own local statistics, which are occasionally merged into the global statistics, and the local statistics are then reset to 0.</p>
 <h2 id="user-stats-system-variables">System variables<a class="headerlink" href="#user-stats-system-variables" title="Permanent link">&para;</a></h2>
@@ -34875,7 +36092,7 @@ CONCURRENT_CONNECTIONS: 0
 </tr>
 </tbody>
 </table>
-<p>The Com_show_user_statistics statement counter variable indicates the number of times the statement <code>SHOW USER_STATISTICS</code> has been executed.</p></section><section class="print-page" id="slow-extended" heading-number="15.3"><h1 id="slow-extended-slow-query-log">Slow query log<a class="headerlink" href="#slow-extended-slow-query-log" title="Permanent link">&para;</a></h1>
+<p>The Com_show_user_statistics statement counter variable indicates the number of times the statement <code>SHOW USER_STATISTICS</code> has been executed.</p></section><section class="print-page" id="slow-extended" heading-number="15.4"><h1 id="slow-extended-slow-query-log">Slow query log<a class="headerlink" href="#slow-extended-slow-query-log" title="Permanent link">&para;</a></h1>
 <p>This feature adds microsecond time resolution and additional statistics to the slow query log output. It lets you enable or disable the slow query log at runtime, adds logging for the replica SQL thread, and adds fine-grained control over what and how much to log into the slow query log.</p>
 <p>You can use Percona-Toolkit’s <a href="https://docs.percona.com/percona-toolkit/pt-query-digest.html">pt-query-digest</a> tool to aggregate similar queries together and report on those that consume the most execution time.</p>
 <h2 id="slow-extended-system-variables">System Variables<a class="headerlink" href="#slow-extended-system-variables" title="Permanent link">&para;</a></h2>
@@ -35456,7 +36673,7 @@ keyword is followed by a number other than zero:</p>
 <li>
 <p><a href="https://perconadev.atlassian.net/browse/PS-1136">Added microseconds to the slow query log event time</a></p>
 </li>
-</ul></section><section class="print-page" id="process-list" heading-number="15.4"><h1 id="process-list-process-list">Process list<a class="headerlink" href="#process-list-process-list" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="process-list" heading-number="15.5"><h1 id="process-list-process-list">Process list<a class="headerlink" href="#process-list-process-list" title="Permanent link">&para;</a></h1>
 <p>This page describes Percona changes to both the standard <em>MySQL</em> <code>SHOW PROCESSLIST</code> command and the standard <em>MySQL</em> <code>INFORMATION_SCHEMA</code> table <code>PROCESSLIST</code>.</p>
 <h2 id="process-list-information_schema-tables">INFORMATION_SCHEMA Tables<a class="headerlink" href="#process-list-information_schema-tables" title="Permanent link">&para;</a></h2>
 <p><code>INFORMATION_SCHEMA.PROCESSLIST</code></p>
@@ -35531,7 +36748,7 @@ keyword is followed by a number other than zero:</p>
 | 12 | root | localhost | information_schema | Query   |    0 | executing | select * from processlist |       0 |         0 |             0 |
 +----+------+-----------+--------------------+---------+------+-----------+---------------------------+---------+-----------+---------------+
 </code></pre></div>
-</details></section><section class="print-page" id="misc-info-schema-tables" heading-number="15.5"><h1 id="misc-info-schema-tables-misc-information_schema-tables">Misc. INFORMATION_SCHEMA tables<a class="headerlink" href="#misc-info-schema-tables-misc-information_schema-tables" title="Permanent link">&para;</a></h1>
+</details></section><section class="print-page" id="misc-info-schema-tables" heading-number="15.6"><h1 id="misc-info-schema-tables-misc-information_schema-tables">Misc. INFORMATION_SCHEMA tables<a class="headerlink" href="#misc-info-schema-tables-misc-information_schema-tables" title="Permanent link">&para;</a></h1>
 <p>This page lists the <code>INFORMATION_SCHEMA</code> tables added to standard <em>MySQL</em> by <em>Percona Server for MySQL</em> that don’t exist elsewhere in the documentation.</p>
 <h2 id="misc-info-schema-tables-temporary-tables">Temporary tables<a class="headerlink" href="#misc-info-schema-tables-temporary-tables" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
@@ -49646,15 +50863,17 @@ contributions and changes from MariaDB.</p>
 .print-site-enumerate-headings #encrypt-binary-relay-log-files > h1:before { content: '14.3.1 ' }
 
 .print-site-enumerate-headings #section-15 > h1:before { content: '15 ' }
-.print-site-enumerate-headings #jemalloc-profiling > h1:before { content: '15.1 ' }
+.print-site-enumerate-headings #audit-log-plugin > h1:before { content: '15.1 ' }
 
-.print-site-enumerate-headings #user-stats > h1:before { content: '15.2 ' }
+.print-site-enumerate-headings #jemalloc-profiling > h1:before { content: '15.2 ' }
 
-.print-site-enumerate-headings #slow-extended > h1:before { content: '15.3 ' }
+.print-site-enumerate-headings #user-stats > h1:before { content: '15.3 ' }
 
-.print-site-enumerate-headings #process-list > h1:before { content: '15.4 ' }
+.print-site-enumerate-headings #slow-extended > h1:before { content: '15.4 ' }
 
-.print-site-enumerate-headings #misc-info-schema-tables > h1:before { content: '15.5 ' }
+.print-site-enumerate-headings #process-list > h1:before { content: '15.5 ' }
+
+.print-site-enumerate-headings #misc-info-schema-tables > h1:before { content: '15.6 ' }
 
 .print-site-enumerate-headings #section-16 > h1:before { content: '16 ' }
 .print-site-enumerate-headings #advisors > h1:before { content: '16.1 ' }
