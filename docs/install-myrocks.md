@@ -26,7 +26,7 @@ It is recommended to install Percona software from official repositories:
     $ sudo apt install percona-server-rocksdb
     ```
 
-    * For RHEL or CentOS:
+    * For RHEL:
 
     ```{.bash data-prompt="$"}
     $ sudo yum install percona-server-rocksdb
@@ -168,7 +168,7 @@ remove the Percona MyRocks package:
     $ sudo apt remove percona-server-rocksdb-{{vers}}
     ```
 
-* For RHEL or CentOS:
+* For RHEL:
 
     ```{.bash data-prompt="$"}
     $ sudo yum remove percona-server-rocksdb-80.x86_64
