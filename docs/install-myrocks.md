@@ -15,7 +15,7 @@ plugin for *Percona Server for MySQL* 8.0 and later versions.
 
 It is recommended to install Percona software from official repositories:
 
-1. Configure Percona repositories as described in [Percona Software Repositories Documentation](https://docs.percona.com/percona-software-repositories/index.html).
+1. Configure Percona repositories as described in [Percona Software Repositories Documentation :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/index.html).
 
 2. Install Percona MyRocks using the corresponding package manager:
 
@@ -112,7 +112,7 @@ for every table that you create.
 
 ### Install MyRocks plugins
 
-You can install MyRocks manually with a series of [INSTALL PLUGIN](https://dev.mysql.com/doc/refman/8.0/en/install-plugin.html) statements. You must have the `INSERT` privilege for the `mysql.plugin` system table.
+You can install MyRocks manually with a series of [INSTALL PLUGIN :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/install-plugin.html) statements. You must have the `INSERT` privilege for the `mysql.plugin` system table.
 
 The following statements install MyRocks:
 
@@ -183,7 +183,7 @@ and restart *Percona Server for MySQL*.
 
 ### Uninstall MyRocks plugins
 
-You can [uninstall the plugins](https://dev.mysql.com/doc/refman/8.0/en/uninstall-plugin.html) for MyRocks. You must have the `DELETE` privilege for the `mysql.plugin` system table.
+You can [uninstall the plugins :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/uninstall-plugin.html) for MyRocks. You must have the `DELETE` privilege for the `mysql.plugin` system table.
 
 The following statements remove the MyRocks plugins:
 

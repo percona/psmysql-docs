@@ -300,7 +300,7 @@ Use a selected dictionary to generate random terms. The dictionary must be loade
 
 * Must contain at least one entry
 
-Copy the dictionary files to a directory accessible to MySQL. Percona Server for MySQL* 8.0.21-12 enabled using the `secure-file-priv` option for gen_dictionary_load(). The [secure-file-priv](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_secure_file_priv) option defines the directories where gen_dictionary_load() loads the dictionary files.
+Copy the dictionary files to a directory accessible to MySQL. Percona Server for MySQL* 8.0.21-12 enabled using the `secure-file-priv` option for gen_dictionary_load(). The [secure-file-priv :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_secure_file_priv) option defines the directories where gen_dictionary_load() loads the dictionary files.
 
 !!! note
 

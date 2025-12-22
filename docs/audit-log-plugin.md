@@ -287,7 +287,7 @@ The audit Log plugin generates a log of following events.
 
 ## Stream the audit log to syslog
 
-To stream the audit log to syslog you’ll need to set audit_log_handler variable to `SYSLOG`. To control the syslog file handler, the following variables can be used: audit_log_syslog_ident, audit_log_syslog_facility, and audit_log_syslog_priority These variables have the same meaning as appropriate parameters described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+To stream the audit log to syslog you’ll need to set audit_log_handler variable to `SYSLOG`. To control the syslog file handler, the following variables can be used: audit_log_syslog_ident, audit_log_syslog_facility, and audit_log_syslog_priority These variables have the same meaning as appropriate parameters described in the [syslog(3) manual :octicons-link-external-16:](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 !!! note
 
@@ -688,7 +688,7 @@ This variable is used to specify the filename that’s going to store the audit 
 | Data type      | String             |
 | Default value   | OFF                |
 
-When this variable is set to `ON` log file will be closed and reopened. This can be used for manual log rotation.
+When this variable is set to `ON` log file will be closed and reopened.
 
 ### `audit_log_buffer_size`
 
@@ -847,7 +847,7 @@ Set the `audit_log_handler` to FILE to enable this variable.
 | -------------- | ------------------ |
 | Command Line:  | Yes                |
 | Scope:         | Global             |
-| Dynamic:       | No                 |
+| Dynamic:       | Yes                |
 | Data type      | Numeric            |
 | Default value   | 0                  |
 
@@ -883,7 +883,7 @@ will be written to syslog.
 
 This variable is used to specify the `ident` value for syslog. This variable
 has the same meaning as the appropriate parameter described in the [syslog(3)
-manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+manual :octicons-link-external-16:](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ### `audit_log_syslog_facility`
 
@@ -897,7 +897,7 @@ manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 This variable is used to specify the `facility` value for syslog. This
 variable has the same meaning as the appropriate parameter described in the
-[syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+[syslog(3) manual :octicons-link-external-16:](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ### `audit_log_syslog_priority`
 
@@ -908,10 +908,21 @@ variable has the same meaning as the appropriate parameter described in the
 | Dynamic:       | No                 |
 | Data type      | String             |
 | Default value   | LOG_INFO           |
+| Allowed values | `LOG_EMERG`, `LOG_ALERT`, `LOG_CRIT`, `LOG_ERR`, `LOG_WARNING`, `LOG_NOTICE`, `LOG_INFO`, `LOG_DEBUG` |
 
-This variable is used to specify the `priority` value for syslog. This
-variable has the same meaning as the appropriate parameter described in the
-[syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+This variable is used to specify the severity level for syslog. The
+`audit_log_syslog_priority` variable does not include the facility; it only
+selects the severity level (`LOG_EMERG` … `LOG_DEBUG`).
+
+The full syslog priority that `syslog()` receives is built internally by OR-ing
+the configured facility (`audit_log_syslog_facility`) with this level.
+
+The default `LOG_INFO` means "ordinary informational messages"; you can raise or
+lower the level as needed, while the facility stays at its default unless you
+change it explicitly.
+
+For more details about syslog priority levels, see the [syslog(3)
+manual :octicons-link-external-16:](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ## Status Variables
 

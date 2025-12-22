@@ -12,7 +12,7 @@ Thousands of enterprises trust Percona Server for MySQL to provide better perfor
 
 Percona Monitoring and Management (PMM )monitors and provides actionable performance data for MySQL variants, including Percona Server for MySQL, Percona XtraDB Cluster, Oracle MySQL Community Edition, Oracle MySQL Enterprise Edition, and MariaDB. PMM captures metrics and data for the InnoDB, XtraDB, and MyRocks storage engines, and has specialized dashboards for specific engine details.
 
-[Get started with PMM](https://docs.percona.com/percona-monitoring-and-management/3/quickstart/quickstart.html)
+[Get started with PMM :octicons-link-external-16:](https://docs.percona.com/percona-monitoring-and-management/3/quickstart/quickstart.html)
 
 <div data-grid markdown><div data-banner markdown>
 
@@ -32,11 +32,11 @@ Find the best installation solution with our step-by-step installation instructi
 
 </div><div data-banner markdown>
 
-### :material-backup-restore: Percona Server for MySQL Pro { .title }
+### :material-arrow-up: Upgrade instructions { .title }
 
-Enjoy the benefits of Percona Server for MySQL Pro build.
+Upgrade your Percona Server for MySQL installation with our comprehensive upgrade guides.
 
-[Percona Server for MySQL Pro](psmysql-pro.md){ .md-button }
+[Upgrade instructions](upgrade.md){ .md-button }
 
 </div><div data-banner markdown>
 

@@ -727,7 +727,7 @@ messages. The default value is "audit-filter".
 | Data type | String  |
 | Default | LOG_INFO |
 
-Defines the `priority` value for the syslog. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+Defines the `priority` value for the syslog. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual :octicons-link-external-16:](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ## Performance and buffering
 

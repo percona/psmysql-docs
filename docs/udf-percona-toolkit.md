@@ -42,4 +42,4 @@ Then you may need to copy the .so file to another location in your system. Try b
 
 ## Other reading
 
-* *Percona Toolkit* [documentation](https://docs.percona.com/percona-toolkit/)
+* *Percona Toolkit* [documentation :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/)

@@ -77,7 +77,7 @@ As of *Percona Server for MySQL* 8.0.20-11, the parallel doublewrite buffer is r
 | Data type:     | String             |
 | Default        | `xb_doublewrite`   |
 
-As of *Percona Server for MySQL* 8.0.20-11, this variable is considered **deprecated** and has no effect. You should use [innodb_doublewrite_dir](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_doublewrite_dir).
+As of *Percona Server for MySQL* 8.0.20-11, this variable is considered **deprecated** and has no effect. You should use [innodb_doublewrite_dir :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_doublewrite_dir).
 
 This variable is used to specify the location of the parallel doublewrite file.
 It accepts both absolute and relative paths. In the latter case they are
@@ -100,9 +100,9 @@ This variable can be added to the configuration file.
 
 ## Other reading
 
-* Bug [#74637](https://bugs.mysql.com/bug.php?id=74637) - make dirty page flushing more adaptive
+* Bug [#74637 :octicons-link-external-16:](https://bugs.mysql.com/bug.php?id=74637) - make dirty page flushing more adaptive
 
-* Bug [#67808](https://bugs.mysql.com/bug.php?id=67808) - in innodb engine, double write and multi-buffer pool
+* Bug [#67808 :octicons-link-external-16:](https://bugs.mysql.com/bug.php?id=67808) - in innodb engine, double write and multi-buffer pool
 instance reduce concurrency
 
-* Bug [#69232](https://bugs.mysql.com/bug.php?id=69232) - buf_dblwr->mutex can be splited into two
+* Bug [#69232 :octicons-link-external-16:](https://bugs.mysql.com/bug.php?id=69232) - buf_dblwr->mutex can be splited into two

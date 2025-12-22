@@ -6,7 +6,7 @@ This user has a mixed and special scope of abilities and protection:
 
 * Utility user does not appear in the mysql.user table and can not be modified by any other user, including root.
 
-* Utility user does not appear in [INFORMATION_SCHEMA.USER_STATISTICS](user-stats.md#information_schemauser_statistics), [INFORMATION_SCHEMA.CLIENT_STATISTICS](user-stats.md#information_schemaclient_statistics) or THREAD_STATISTICS tables or in any [performance_schema tables](https://dev.mysql.com/doc/dev/mysql-server/latest/group__performance__schema__tables.html).
+* Utility user does not appear in [INFORMATION_SCHEMA.USER_STATISTICS](user-stats.md#information_schemauser_statistics), [INFORMATION_SCHEMA.CLIENT_STATISTICS](user-stats.md#information_schemaclient_statistics) or THREAD_STATISTICS tables or in any [performance_schema tables :octicons-link-external-16:](https://dev.mysql.com/doc/dev/mysql-server/latest/group__performance__schema__tables.html).
 
 * Utility user’s queries may appear in the general and slow logs.
 
@@ -47,7 +47,7 @@ In order to have the ability for a special type of MySQL user, which will have a
 
 Specifies a MySQL user that will be added to the internal list of users and recognized as the utility user.
 
-Option [utility_user](#utility_user) specifies the user which the system  creates and recognizes as the utility user. The host in the utility user specification follows conventions described in the [MySQL manual](https://dev.mysql.com/doc/refman/8.0/en/connection-access.html). For example, the conventions allow wildcards and IP masks. Anonymous user names are not permitted to be used for the utility user name.
+Option [utility_user](#utility_user) specifies the user which the system  creates and recognizes as the utility user. The host in the utility user specification follows conventions described in the [MySQL manual :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/connection-access.html). For example, the conventions allow wildcards and IP masks. Anonymous user names are not permitted to be used for the utility user name.
 
 This user must not be an exact match to any other user that exists in the mysql.user table. If the server detects that the user specified with this option exactly matches any user within the mysql.user table on start up, the server reports an error and exits gracefully.
 

@@ -10,7 +10,7 @@ By understanding these types of telemetry systems and their respective features,
 
 You control whether to share this information. The program is optional. You can disable either or both telemetry systems if you don't want to share anonymous data.
 
-Percona protects your privacy. They don't gather personal information. All collected data is anonymous, preventing the identification of individual users or servers. Our [Percona Privacy policy](https://www.percona.com/privacy-policy) provides more details on data handling.
+Percona protects your privacy. They don't gather personal information. All collected data is anonymous, preventing the identification of individual users or servers. Our [Percona Privacy policy :octicons-link-external-16:](https://www.percona.com/privacy-policy) provides more details on data handling.
 
 Percona includes the telemetry systems only in software packages, compressed archives (tarballs), and Docker images.
 

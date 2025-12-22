@@ -6,9 +6,9 @@
     
     Starting with Percona Server for MySQL 8.0.27, the page tracking feature is deprecated and may be removed in future versions.
 
-    We recommend using the MySQL page tracking feature. For more information, see [MySQL InnoDB Clone and page tracking](https://dev.mysql.com/blog-archive/innodb-clone-and-page-tracking/).
+    We recommend using the MySQL page tracking feature. For more information, see [MySQL InnoDB Clone and page tracking :octicons-link-external-16:(https://dev.mysql.com/blog-archive/innodb-clone-and-page-tracking/).
 
-*XtraDB* now tracks the pages that have changes written to them according to the redo log. This information is written out in special changed page bitmap files. This information can be used to speed up incremental backups using [Percona XtraBackup](https://docs.percona.com/percona-xtrabackup/) by removing the need to scan whole data files to find the changed pages. Changed page tracking is done by a new *XtraDB* worker thread that reads and parses log records between checkpoints. The tracking is controlled by a new read-only server variable [innodb_track_changed_pages](#innodb_track_changed_pages).
+*XtraDB* now tracks the pages that have changes written to them according to the redo log. This information is written out in special changed page bitmap files. This information can be used to speed up incremental backups using [Percona XtraBackup :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/) by removing the need to scan whole data files to find the changed pages. Changed page tracking is done by a new *XtraDB* worker thread that reads and parses log records between checkpoints. The tracking is controlled by a new read-only server variable [innodb_track_changed_pages](#innodb_track_changed_pages).
 
 Bitmap filename format used for changed page tracking is `ib_modified_log_<seq>_<startlsn>.xdb`. The first number is the sequence number of the bitmap log file and the *startlsn* number is the starting LSN number of data tracked in that file. Example of the bitmap log files should look like this:
 

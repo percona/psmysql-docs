@@ -153,7 +153,7 @@ When *MySQL* is shut down, a copy of the *MySQL* data directory, the *TokuDB* da
 
 ### Hot Backup using mylvmbackup
 
-The **mylvmbackup** utility, located on [Launchpad](https://launchpad.net/), works with *TokuDB*. It does all of the magic required to get consistent copies of all of the *MySQL* tables, including *MyISAM* tables, *InnoDB* tables, etc., creates the LVM snapshots, and backs up the snapshots.
+The **mylvmbackup** utility, located on [Launchpad :octicons-link-external-16:](https://launchpad.net/), works with *TokuDB*. It does all of the magic required to get consistent copies of all of the *MySQL* tables, including *MyISAM* tables, *InnoDB* tables, etc., creates the LVM snapshots, and backs up the snapshots.
 
 ### Logical Snapshots
 
@@ -203,7 +203,7 @@ The maximum row size is 32 MiB.
 
 ### Can the data directories reside on a disk that is NFS or CIFS mounted?
 
-Yes, we do have customers in production with NFS & CIFS volumes today. However, both of these disk types can pose a challenge to performance and data integrity due to their complexity. If you’re seeking performance, the switching infrastructure and protocols of a traditional network were not conceptualized for low response times and can be very difficult to troubleshoot. If you’re concerned with data integrity, the possible data caching at the NFS level can cause inconsistencies between the logs and data files that may never be detected in the event of a crash. If you are thinking of using a NFS or CIFS mount, we would recommend that you use synchronous mount options, which are available from the NFS mount man page, but these settings may decrease performance. For further discussion please look [here](https://www.percona.com/blog/storing-mysql-binary-logs-on-nfs-volume/).
+Yes, we do have customers in production with NFS & CIFS volumes today. However, both of these disk types can pose a challenge to performance and data integrity due to their complexity. If you’re seeking performance, the switching infrastructure and protocols of a traditional network were not conceptualized for low response times and can be very difficult to troubleshoot. If you’re concerned with data integrity, the possible data caching at the NFS level can cause inconsistencies between the logs and data files that may never be detected in the event of a crash. If you are thinking of using a NFS or CIFS mount, we would recommend that you use synchronous mount options, which are available from the NFS mount man page, but these settings may decrease performance. For further discussion please look [here :octicons-link-external-16:](https://www.percona.com/blog/storing-mysql-binary-logs-on-nfs-volume/).
 
 ## Using Other Storage Engines
 
@@ -215,7 +215,7 @@ Yes, we do have customers in production with NFS & CIFS volumes today. However, 
 
 The Federated Storage Engine can also be used, however it is disabled by default in *MySQL*. It can be enabled by either running mysqld with `--federated` as a command line parameter, or by putting `federated` in the `[mysqld]` section of the `my.cnf` file.
 
-For more information see the *MySQL* 8.0 Reference Manual: [FEDERATED Storage Engine](https://dev.mysql.com/doc/refman/8.0/en/federated-storage-engine.html).
+For more information see the *MySQL* 8.0 Reference Manual: [FEDERATED Storage Engine :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/federated-storage-engine.html).
 
 ## Using MySQL Patches with TokuDB
 

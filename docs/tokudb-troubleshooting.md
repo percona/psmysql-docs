@@ -8,7 +8,7 @@ Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storag
 **Replication and binary logging**: *TokuDB* supports binary logging and replication with one restriction. *TokuDB* does not implement a lock on the auto-increment function, so concurrent insert statements with one or more of the statements inserting multiple rows may result in a non-deterministic interleaving of the auto-increment values. When running replication with these concurrent inserts, the auto-increment values on the replica table may not match the auto-increment values on the source table. Note that this is only an issue with Statement Based Replication (SBR), and not Row Based Replication (RBR).
 
 For more information about auto-increment and replication, see the *MySQL*
-Reference Manual: [AUTO_INCREMENT handling in InnoDB](https://dev.mysql.com/doc/refman/8.0/en/innodb-auto-increment-handling.html).
+Reference Manual: [AUTO_INCREMENT handling in InnoDB :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/innodb-auto-increment-handling.html).
 
 In addition, when using the `REPLACE INTO` or `INSERT IGNORE` on tables with no secondary indexes or tables where secondary indexes are subsets of the primary, the session variable tokudb_pk_insert_mode controls whether row based replication will work.
 
@@ -58,11 +58,11 @@ indexes only. Turning off uniqueness checking on the primary key can provide
 large performance boosts, but it should only be done when the primary key is
 known to be unique.
 
-**Group Replication**: *TokuDB* storage engine doesn’t support [Group Replication](https://dev.mysql.com/doc/refman/8.0/en/group-replication.html).
+**Group Replication**: *TokuDB* storage engine doesn’t support [Group Replication :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/group-replication.html).
 
-As of 8.0.17, InnoDB supports [multi-valued indexes](https://dev.mysql.com/doc/refman/8.0/en/create-index.html#create-index-multi-valued). TokuDB does not support this feature.
+As of 8.0.17, InnoDB supports [multi-valued indexes :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/create-index.html#create-index-multi-valued). TokuDB does not support this feature.
 
-As of 8.0.17, InnoDB supports the [Clone Plugin](https://dev.mysql.com/doc/refman/8.0/en/clone-plugin.html) and the Clone Plugin API. TokuDB tables do not support either of these features.
+As of 8.0.17, InnoDB supports the [Clone Plugin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/clone-plugin.html) and the Clone Plugin API. TokuDB tables do not support either of these features.
 
 ## Lock Visualization in TokuDB
 
@@ -132,7 +132,7 @@ SELECT * FROM INFORMATION_SCHEMA.TOKUDB_LOCK_WAITS;
 
 ### Supporting explicit DEFAULT value expressions as of 8.0.13-3
 
-TokuDB does not support [explicit DEFAULT value expressions](https://dev.mysql.com/doc/refman/8.0/en/data-type-defaults.html) as of verion 8.0.13-3.
+TokuDB does not support [explicit DEFAULT value expressions :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/data-type-defaults.html) as of verion 8.0.13-3.
 
 ### The tokudb_lock_timeout_debug session variable
 

@@ -4,7 +4,7 @@ The following instructions install Percona Server for MySQL 8.0.
 
 ## Install Percona Server for MySQL from the Git Source Tree
 
-Percona uses the [Github](https://github.com/) revision
+Percona uses the [Github :octicons-link-external-16:](https://github.com/) revision
 control system for development. To build the latest Percona Server for MySQL
 from the source tree, you will need `git` installed on your system.
 

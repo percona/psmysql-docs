@@ -30,7 +30,7 @@ Run the following commands as root or by using the sudo command
 
 !!! note
 
-    Debian 9.0 (stretch) and Ubuntu 18.04 LTS (bionic) come with [systemd](http://freedesktop.org/wiki/Software/systemd/) as the default system and service manager. You can invoke all the above commands with `systemctl` instead of `service`. Currently, both are supported.
+    Debian 9.0 (stretch) and Ubuntu 18.04 LTS (bionic) come with [systemd :octicons-link-external-16:](http://freedesktop.org/wiki/Software/systemd/) as the default system and service manager. You can invoke all the above commands with `systemctl` instead of `service`. Currently, both are supported.
 
 ## Working with AppArmor
 
