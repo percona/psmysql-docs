@@ -9628,7 +9628,7 @@ any user (even by those with the <code>SUPER</code> privilege) are not written t
 binary log regardless of the value of the binlog_skip_flush_commands variable.</p>
 </li>
 </ul>
-<p>An attempt to run a <code>FLUSH</code> command without either <a href="https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html#priv_super"><code>SUPER</code></a> or <a href="https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html#priv_reload"><code>RELOAD</code></a>
+<p>An attempt to run a <code>FLUSH</code> command without either <a href="https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html#priv_super :octicons-link-external-16:"><code>SUPER</code></a> or <a href="https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html#priv_reload :octicons-link-external-16:"><code>RELOAD</code></a>
 privileges results in the <code>ER_SPECIFIC_ACCESS_DENIED_ERROR</code> exception
 regardless of the value of the <code>binlog_skip_flush_commands</code> variable.</p>
 <h3 id="binlog_skip_flush_commands">binlog_skip_flush_commands<a class="headerlink" href="#binlog_skip_flush_commands" title="Permanent link">&para;</a></h3>
@@ -9864,7 +9864,7 @@ log. </p>
 <p>Binary log file names: Functions that accept a binary log name require only the short file name (for example, <code>binlog.000001</code>). Do not include the full path. If the input contains a path separator (<code>/</code>), the server returns an error.</p>
 </li>
 <li>
-<p>Binary log directory: The server reads binary logs from the directory defined by the <code>@@log_bin_basename</code> system variable.</p>
+<p>Binary log directory: The server reads binary logs from the directory defined by the <a href="https://dev.mysql.com/doc/refman/8.4/en/replication-options-binary-log.html#sysvar_log_bin_basename :octicons-link-external-16:"><code>@@log_bin_basename</code></a> system variable.</p>
 </li>
 <li>
 <p>Return values: Functions that return binary log file names return only the short name without the path.</p>
@@ -9988,10 +9988,10 @@ SET<span class="w"> </span><span class="nv">collation_connection</span><span cla
 <p>For the following variables, do not define values with one or more dot (.) characters:</p>
 <ul>
 <li>
-<p><a href="https://dev.mysql.com/doc/refman/8.4/en/replication-options-binary-log.html#option_mysqld_log-bin">log_bin</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/replication-options-binary-log.html#option_mysqld_log-bin">log_bin <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </li>
 <li>
-<p><a href="https://dev.mysql.com/doc/refman/8.4/en/replication-options-binary-log.html#option_mysqld_log-bin-index">log_bin_index</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/replication-options-binary-log.html#option_mysqld_log-bin-index">log_bin_index <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </li>
 </ul>
 <p>A value defined with the dot (.) character is handled differently in MySQL and Percona XtraBackup and can cause unpredictable behavior.</p>
@@ -10017,7 +10017,7 @@ SET<span class="w"> </span><span class="nv">collation_connection</span><span cla
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 3, 2025 11:20:26 UTC">December 3, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 19:10:16 UTC">December 22, 2025</span>
   </span>
 
     
@@ -10045,11 +10045,6 @@ SET<span class="w"> </span><span class="nv">collation_connection</span><span cla
     
     <nav>
       
-        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
-          
-          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
-        </a>
-      
         <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
           
           <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
@@ -10058,6 +10053,11 @@ SET<span class="w"> </span><span class="nv">collation_connection</span><span cla
         <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
           
           <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
+      
+        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
+          
+          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
         </a>
       
       
@@ -10165,6 +10165,8 @@ SET<span class="w"> </span><span class="nv">collation_connection</span><span cla
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
 

@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The keyring_vault component extends the server capabilities and provides an interface for the database with a HashiCorp Vault server to store key and secure encryption keys.">
+        <meta name="description" content="The keyring_vault component extends the server capabilities and provides an interface for the database with a HashiCorp Vault  server to store key and secure encryption keys.">
       
       
         <meta name="author" content="Percona LLC">
@@ -9370,7 +9370,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="use-the-keyring-vault-component">Use the keyring vault component<a class="headerlink" href="#use-the-keyring-vault-component" title="Permanent link">&para;</a></h1>
-<p>The <code>keyring_vault</code> component extends the server capabilities and provides an interface for the database with a <a href="https://www.hashicorp.com/products/vault/data-protection">HashiCorp Vault</a> server to store key and secure encryption keys. </p>
+<p>The <code>keyring_vault</code> component extends the server capabilities and provides an interface for the database with a <a href="https://www.hashicorp.com/products/vault/data-protection">HashiCorp Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> server to store key and secure encryption keys. </p>
 <p>The component must be installed with a manifest. A keyring component is not loaded with the <code>--early-plugin-load</code> option on the server. The server uses a manifest and the component consults its configuration file during initialization. You should only load a keyring component with a manifest file. Do not use the <code>INSTALL_COMPONENT</code> statement, which loads the keyring components too late in the startup sequence of the server. For example, <code>InnoDB</code> requires the component, but because the components are registered in the <code>mysql.component</code> table, this table is loaded after <code>InnoDB</code> initialization.</p>
 <p>You should create a global manifest file named <code>mysqld.my</code> in the installation directory and, optionally, create a local manifest file, also named <code>mysqld.my</code> in a data directory.</p>
 <p>To install a keyring component, do the following:</p>
@@ -9404,9 +9404,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="p">}</span>
 </code></pre></div>
 <p>The configuration settings are either in a global configuration file or a local configuration file.</p>
-<p>The component communicates with the <a href="https://developer.hashicorp.com/vault/docs/install">Hashicorp Vault server</a>. Prepare the certificate and key files for a secure HTTPS connection to the server. You must have an organizational Certificate Authority (CA), a private vault key, and certificate for the Hashicorp Vault server instance. </p>
-<p>You can use <a href="https://www.openssl.org/docs/man3.0/index.html">OpenSSL</a> to generate these files or use existing files. The key files contain sensitive information. Store these key files and the password used to create each key in a secure location. </p>
-<p>You can use the Hashicorp Vault to <a href="https://developer.hashicorp.com/vault/tutorials/secrets-management/pki-engine">build your own CA</a>, if needed, and then create a Hashicorp Vault server certificate.</p>
+<p>The component communicates with the <a href="https://developer.hashicorp.com/vault/docs/install">Hashicorp Vault server <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Prepare the certificate and key files for a secure HTTPS connection to the server. You must have an organizational Certificate Authority (CA), a private vault key, and certificate for the Hashicorp Vault server instance. </p>
+<p>You can use <a href="https://www.openssl.org/docs/man3.0/index.html">OpenSSL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> to generate these files or use existing files. The key files contain sensitive information. Store these key files and the password used to create each key in a secure location. </p>
+<p>You can use the Hashicorp Vault to <a href="https://developer.hashicorp.com/vault/tutorials/secrets-management/pki-engine">build your own CA <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>, if needed, and then create a Hashicorp Vault server certificate.</p>
 <p>The <code>component_keyring_vault.cnf</code> file contains the following information:</p>
 <ul>
 <li>
@@ -9498,9 +9498,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://www.vaultproject.io/docs/install/index.html">Hashicorp Documentation: Installing Vault</a></p>
-<p><a href="https://learn.hashicorp.com/vault/operations/production-hardening">Hashicorp Documentation: Production Hardening</a></p>
+<p><a href="https://www.vaultproject.io/docs/install/index.html">Hashicorp Documentation: Installing Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+<p>[Hashicorp Documentation: Production Hardening <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span>](https://learn.hashicorp.com/vault/operations/production-hardening</p>
 </div>
+<p>)</p>
 
 
 
@@ -9523,7 +9524,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 9, 2025 11:37:57 UTC">January 9, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 19:10:16 UTC">December 22, 2025</span>
   </span>
 
     
@@ -9638,6 +9639,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
 

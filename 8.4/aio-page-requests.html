@@ -9464,11 +9464,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The I/O unit size in <em>InnoDB</em> is only one page, even if the server doing read ahead. A 16KB
 I/O unit size is too small for sequential reads, and less efficient than a larger I/O unit size. <em>InnoDB</em> uses Linux asynchronous I/O (<code>aio</code>) by default. By submitting multiple, consecutive 16KB read requests at the same time, Linux internally merges the requests and
 reads more efficiently. </p>
-<p>This feature is able to submit multiple page I/O requests and works in the background. You can manage the feature with the <a href="https://dev.mysql.com/doc/refman/8.4/en/innodb-performance-read_ahead.html">linear read-ahead technique</a>. This technique adds pages to the buffer pool based on the buffer pool pages being accessed sequentially. The [<code>innodb_read_ahead_threshold</code>] configuration parameter controls this operation.</p>
-<p><a href="http://yoshinorimatsunobu.blogspot.hr/2013/10/making-full-table-scan-10x-faster-in.html">On a HDD RAID 1+0 environment</a>,
+<p>This feature is able to submit multiple page I/O requests and works in the background. You can manage the feature with the [linear read-ahead technique]. This technique adds pages to the buffer pool based on the buffer pool pages being accessed sequentially. The <a href="https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_read_ahead_threshold"><code>innodb_read_ahead_threshold</code></a> configuration parameter controls this operation.</p>
+<p><a href="http://yoshinorimatsunobu.blogspot.hr/2013/10/making-full-table-scan-10x-faster-in.html">On a HDD RAID 1+0 environment <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>,
 more than 1000MB/s disk reads can be achieved by submitting 64 consecutive pages
-requests at once, while only
-160MB/s disk reads is shown by submitting single page request.</p>
+requests at once, while only 160MB/s disk reads is shown by submitting single page request.</p>
 <h2 id="status-variables">Status variables<a class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
 <h3 id="innodb_buffered_aio_submitted"><code>Innodb_buffered_aio_submitted</code><a class="headerlink" href="#innodb_buffered_aio_submitted" title="Permanent link">&para;</a></h3>
 <table>
@@ -9493,10 +9492,10 @@ requests at once, while only
 <h2 id="other-reading">Other reading<a class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p><a href="https://yoshinorimatsunobu.blogspot.hr/2013/10/making-full-table-scan-10x-faster-in.html">Making full table scan 10x faster in InnoDB</a></p>
+<p><a href="https://yoshinorimatsunobu.blogspot.hr/2013/10/making-full-table-scan-10x-faster-in.html">Making full table scan 10x faster in InnoDB <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </li>
 <li>
-<p><a href="https://bugs.mysql.com/bug.php?id=68659">Bug #68659  InnoDB Linux native aio should submit more i/o requests at once</a></p>
+<p><a href="https://bugs.mysql.com/bug.php?id=68659">Bug #68659  InnoDB Linux native aio should submit more i/o requests at once <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </li>
 </ul>
 
@@ -9521,7 +9520,7 @@ requests at once, while only
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 26, 2023 13:54:36 UTC">October 26, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 19:10:16 UTC">December 22, 2025</span>
   </span>
 
     
@@ -9664,6 +9663,8 @@ requests at once, while only
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
 
