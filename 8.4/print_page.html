@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -32,7 +32,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -39913,7 +39913,6 @@ decides how many threads to allocate toward flush/compaction.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable has been implemented in <a href="https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html">Percona Server for MySQL 8.3.0-1</a>.</p>
 <p>This variable specifies the number of shards ,<code>numShardBits</code>, for the block cache in RocksDB. The cache is sharded into <code>2^numShardBits</code> shards by the key hash.</p>
 <p>The default value is <code>-1</code>. The <code>-1</code> value means that RocksDB automatically determines the number of shards for the block cache based on the cache capacity.</p>
 <p>The minimum value is <code>-1</code> and the maximum value is <code>8</code>.</p>
@@ -40020,6 +40019,8 @@ Allowed range is from <code>1</code> to <code>2147483647</code>.</p>
 <p>Specifies the size of the data block for reading RocksDB data files.
 The default value is <code>16 KB</code>.
 The allowed range is from <code>1024</code> to <code>18446744073709551615</code> bytes.</p>
+<h4 id="myrocks-server-variables-version-changes">Version changes<a class="headerlink" href="#myrocks-server-variables-version-changes" title="Permanent link">&para;</a></h4>
+<p>In Percona Server for MySQL 8.4.7-7, the maximum value was changed to <code>4294967296</code> bytes (4 GiB).</p>
 <h3 id="myrocks-server-variables-rocksdb_block_size_deviation"><code>rocksdb_block_size_deviation</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_block_size_deviation" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -40877,7 +40878,6 @@ not.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable has been implemented in <a href="https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html">Percona Server for MySQL 8.3.0-1</a>.</p>
 <p>This variable acts as a trigger. Set the variable to <code>ON</code>, <code>rocksdb-compact-lzero-now=ON</code>, to immediately compact all the <code>Level 0</code> (L0) files. After all the <code>L0</code> files are compacted, the variable value automatically switches to <code>OFF</code>.</p>
 <h3 id="myrocks-server-variables-rocksdb_compaction_readahead_size"><code>rocksdb_compaction_readahead_size</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_compaction_readahead_size" title="Permanent link">&para;</a></h3>
 <p><strong>[Changed in 8.4.5-5]</strong> The default value of <code>rocksdb_compaction_readahead_size</code> has changed from <code>0</code> to <code>2097152</code>.</p>
@@ -40952,10 +40952,6 @@ Maximum allowed value is <code>18446744073709551615</code>.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In version <a href="https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html">Percona Server for MySQL 8.3.0-1</a> and later, the default value is changed from <code>0</code> to <code>149999</code>.</p>
-</div>
 <p>Specifies the threshold to trigger compaction on a file if it has more than this number of sequential delete markers.</p>
 <p>The default value is <code>149999</code>.</p>
 <p>Maximum allowed value is <code>2000000</code> (two million delete markers).</p>
@@ -40999,10 +40995,6 @@ compaction on large files.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In version <a href="https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html">Percona Server for MySQL 8.3.0-1</a> and later, the default value is changed from <code>OFF</code> to <code>ON</code>.</p>
-</div>
 <p>Specifies whether to count single deletes as delete markers recognized by <code>rocksdb_compaction_sequential_deletes</code>.</p>
 <p>The default value is <code>ON</code> which means the variable is enabled.</p>
 <h3 id="myrocks-server-variables-rocksdb_compaction_sequential_deletes_file_size"><code>rocksdb_compaction_sequential_deletes_file_size</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_compaction_sequential_deletes_file_size" title="Permanent link">&para;</a></h3>
@@ -41487,7 +41479,9 @@ through before assuming deadlock.</p>
 </tr>
 </tbody>
 </table>
-<p>The cardinality multiplier used in tests. The minimum value is 0. The maxium value is 2147483647 (INT_MAX).</p>
+<p>The cardinality multiplier used in tests. The minimum value is 0. The maximum value is 2147483647 (INT_MAX).</p>
+<h4 id="myrocks-server-variables-version-changes_1">Version changes<a class="headerlink" href="#myrocks-server-variables-version-changes_1" title="Permanent link">&para;</a></h4>
+<p>In Percona Server for MySQL 8.4.7-7, the minimum value was changed to <code>1</code>.</p>
 <h3 id="myrocks-server-variables-rocksdb_debug_manual_compaction_delay"><code>rocksdb_debug_manual_compaction_delay</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_debug_manual_compaction_delay" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -43675,8 +43669,9 @@ responsibility down to RocksDB level.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable has been implemented in <a href="https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html">Percona Server for MySQL 8.3.0-1</a>.</p>
 <p>This variable sets <code>DBOptions::max_file_opening_threads</code> for RocksDB. The default value is <code>16</code>. The minimum value is <code>1</code> and the maximum value is 2147483647 (<code>INT_MAX</code>).</p>
+<h4 id="myrocks-server-variables-version-changes_2">Version changes<a class="headerlink" href="#myrocks-server-variables-version-changes_2" title="Permanent link">&para;</a></h4>
+<p>In Percona Server for MySQL 8.4.7-7, the maximum value was changed to <code>262144</code>.</p>
 <h3 id="myrocks-server-variables-rocksdb_max_latest_deadlocks"><code>rocksdb_max_latest_deadlocks</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_max_latest_deadlocks" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -44313,7 +44308,6 @@ deleting the partial index. </p>
 </tr>
 </tbody>
 </table>
-<p>This variable has been implemented in <a href="https://docs.percona.com/percona-server/innovation-release/release-notes/8.3.0-1.html">Percona Server for MySQL 8.3.0-1</a>.</p>
 <p>If this variable is set to <code>ON</code>, the partial index materialization ignores the killed flag and continues materialization until completion. If queries are killed during materialization due to timeout, the work done so far is wasted, and the killed query will likely be retried later, hitting the same issue.</p>
 <p>The dafault value is <code>ON</code> which means this variable is enabled.</p>
 <h3 id="myrocks-server-variables-rocksdb_partial_index_sort_max_mem"><code>rocksdb_partial_index_sort_max_mem</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_partial_index_sort_max_mem" title="Permanent link">&para;</a></h3>
@@ -49799,12 +49793,12 @@ contributions and changes from MariaDB.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "/percona-server/8.4", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "/percona-server/8.4", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="js/print-site.js"></script>
       
