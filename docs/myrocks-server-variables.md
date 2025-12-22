@@ -1860,7 +1860,7 @@ Prior to Percona Server for MySQL 8.4.5-5, the default value was `OFF`, and the 
 | Default      | 1                                 |
 
 Specifies whether to sync on every transaction commit,
-similar to [innodb_flush_log_at_trx_commit](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit).
+similar to [innodb_flush_log_at_trx_commit :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit).
 Enabled by default, which ensures ACID compliance.
 
 Possible values:

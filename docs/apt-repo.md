@@ -1,8 +1,8 @@
 # Use an APT repository to install Percona Server for MySQL {{vers}}
 
-Ready-to-use packages are available from the Percona Server for MySQL software repositories and the [Percona downloads] page.
+Ready-to-use packages are available from the Percona Server for MySQL software repositories and the [Percona downloads :octicons-link-external-16:](https://www.percona.com/downloads/Percona-Server-{{vers}}/) page.
 
-Specific information on the supported platforms, products, and versions is described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
+Specific information on the supported platforms, products, and versions is described in [Percona Software and Platform Lifecycle :octicons-link-external-16:](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
 --8<-- "percona-release.md"
 
@@ -272,7 +272,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	* Review error messages for specific issues
 
-See [Configuring Percona repositories with `percona-release`](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
+See [Configuring Percona repositories with `percona-release` :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
 
 --8<--- "storage-engines.md"
 
@@ -282,7 +282,7 @@ After successful installation, see [Post-installation](post-installation.md) for
 
 ## Install Percona Toolkit UDFs (Optional)
 
-Percona Server for MySQL includes user-defined functions (UDFs) from [Percona Toolkit](https://docs.percona.com/percona-toolkit/). These UDFs provide faster checksum calculations:
+Percona Server for MySQL includes user-defined functions (UDFs) from [Percona Toolkit :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/). These UDFs provide faster checksum calculations:
 
 * `fnv_64`: Fast hash function
 
@@ -376,7 +376,5 @@ $ sudo apt update
 	Reading state information... Done
 	All packages are up to date.
 	```
-
-[Percona downloads]: https://www.percona.com/downloads/Percona-Server-{{vers}}/
 
 [Telemetry data]: telemetry.md

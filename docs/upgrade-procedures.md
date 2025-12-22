@@ -1,6 +1,6 @@
 # Upgrade procedures for {{vers}}
 
-[Need expert guidance for your Percona Server upgrade? Percona Support is here to help.](https://www.percona.com/services/support)
+[Need expert guidance for your Percona Server upgrade? Percona Support is here to help :octicons-link-external-16:](https://www.percona.com/services/support).
 
 This document provides step-by-step procedures for upgrading Percona Server for MySQL using either Percona repositories (recommended) or standalone packages.
 
@@ -17,7 +17,7 @@ Before beginning the upgrade process:
 
 !!! warning "Critical"
 
-    Always test the upgrade process in a non-production environment first. For detailed upgrade procedures or if you encounter any issues during this process, our [Percona Support team](https://www.percona.com/services/support) is available to assist you.
+    Always test the upgrade process in a non-production environment first. For detailed upgrade procedures or if you encounter any issues during this process, our [Percona Support team :octicons-link-external-16:](https://www.percona.com/services/support) is available to assist you.
 
 ## Using Percona repositories (recommended)
 
@@ -62,7 +62,7 @@ Find the instructions on how to enable the repositories in the following documen
         sudo apt install percona-server-rocksdb
         ```
 
-    6. The mysqld binary automatically runs the upgrade process if needed. To find more information, see [MySQL Upgrade Process](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-what-is-upgraded.html).
+    6. The mysqld binary automatically runs the upgrade process if needed. To find more information, see [MySQL Upgrade Process :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-what-is-upgraded.html).
 
     7. Restart the service:
 
@@ -120,7 +120,7 @@ Find the instructions on how to enable the repositories in the following documen
 
     8. Modify your configuration file, `my.cnf`, as needed (for example, remove deprecated variables, update settings for {{vers}}). If you were using plugins that have been replaced by components in {{vers}}, plan the transition to components. See [Upgrade from plugins to components](./upgrade-components.md) for details.
 
-    9. The mysqld binary automatically runs the upgrade process if needed. To find more information, see [MySQL Upgrade Process](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-what-is-upgraded.html).
+    9. The mysqld binary automatically runs the upgrade process if needed. To find more information, see [MySQL Upgrade Process :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-what-is-upgraded.html).
 
     10. Restart the server:
 
@@ -200,7 +200,7 @@ Use this method when you cannot use repositories or need to install from manuall
             * `zlib1g-dev`
             * `libaio1`
 
-    6. The mysqld binary automatically runs the upgrade process if needed. To find more information, see [MySQL Upgrade Process](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-what-is-upgraded.html).
+    6. The mysqld binary automatically runs the upgrade process if needed. To find more information, see [MySQL Upgrade Process :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-what-is-upgraded.html).
 
     7. Restart the service:
 
@@ -243,7 +243,7 @@ Use this method when you cannot use repositories or need to install from manuall
         rpm -qa | grep '^mysql-' | xargs rpm -e --nodeps
         ```
 
-    3. Download the packages of the desired series for your architecture from the [download page](https://www.percona.com/downloads). The easiest way is to download the bundle which contains all the packages. The following example downloads Percona Server for MySQL {{release}} packages for RHEL 9:
+    3. Download the packages of the desired series for your architecture from the [download page :octicons-link-external-16:](https://www.percona.com/downloads). The easiest way is to download the bundle which contains all the packages. The following example downloads Percona Server for MySQL {{release}} packages for RHEL 9:
 
         ```{.bash}
         wget https://downloads.percona.com/downloads/Percona-Server-{{vers}}/Percona-Server-{{release}}/binary/redhat/9/x86_64/Percona-Server-{{release}}-r9927a2fb-el9-x86_64-bundle.tar
@@ -286,7 +286,7 @@ Use this method when you cannot use repositories or need to install from manuall
 
         RHEL or derivatives automatically backs up the previous configuration file to `/etc/my.cnf.rpmsave` and installs the default `my.cnf`. After the upgrade/install process completes, you can restore your configuration from the backup (after removing all unsupported system variables).
 
-    7. The mysqld binary automatically runs the upgrade process if needed. To find more information, see [MySQL Upgrade Process](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-what-is-upgraded.html).
+    7. The mysqld binary automatically runs the upgrade process if needed. To find more information, see [MySQL Upgrade Process :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-what-is-upgraded.html).
 
     8. Restart the server:
 

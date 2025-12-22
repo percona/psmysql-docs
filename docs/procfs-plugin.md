@@ -40,7 +40,7 @@ GRANT ACCESS_PROCFS ON *.* TO 'user'@'host';
 
 Authorized users can obtain information from individual files by specifying the exact file name within a WHERE clause. Files that are not included are ignored and considered not to exist.
 
-All files that match the [procfs_files_spec](#procfs_files_spec) are opened, read, stored in memory, and, finally, returned to the client. It is critical to add a WHERE clause to return only specific files to limit the impact of the plugin on the server’s performance. A failure to use a WHERE clause can lead to lengthy query response times, high load, and high memory usage on the server. The WHERE clause can contain either an equality operator, the LIKE operator, or the IN operator. The LIKE operator limits file globbing. You can write file access patterns in the [glob(7) style](https://man7.org/linux/man-pages/man7/glob.7.html), such as `/sys/block/sd[a-z]/stat;/proc/version\*`
+All files that match the [procfs_files_spec](#procfs_files_spec) are opened, read, stored in memory, and, finally, returned to the client. It is critical to add a WHERE clause to return only specific files to limit the impact of the plugin on the server’s performance. A failure to use a WHERE clause can lead to lengthy query response times, high load, and high memory usage on the server. The WHERE clause can contain either an equality operator, the LIKE operator, or the IN operator. The LIKE operator limits file globbing. You can write file access patterns in the [glob(7) style :octicons-link-external-16:](https://man7.org/linux/man-pages/man7/glob.7.html), such as `/sys/block/sd[a-z]/stat;/proc/version\*`
 
 The following example returns the `proc/version`:
 

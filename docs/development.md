@@ -11,7 +11,7 @@ any time and to minimize wasted time by developers due to broken code.
 
 ### Overview
 
-At Percona we use [Git](https://git-scm.com) for source control, [GitHub](https://github.com/percona) for code hosting, and [Jira](https://jira.percona.com) for release management.
+At Percona we use [Git :octicons-link-external-16:](https://git-scm.com) for source control, [GitHub :octicons-link-external-16:](https://github.com/percona) for code hosting, and [Jira :octicons-link-external-16:](https://perconadev.atlassian.net/) for release management.
 
 We change our software to implement new features and/or to fix bugs. Refactoring
 could be classed either as a new feature or a bug depending on the scope of

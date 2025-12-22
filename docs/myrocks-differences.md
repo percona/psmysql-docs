@@ -6,7 +6,7 @@ and works with their implementation of MySQL.
 and includes the following differences from the original implementation:
 
 * The behavior of the `START TRANSACTION WITH CONSISTENT SNAPSHOT` statement
-depends on the [transaction isolation level](https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html).
+depends on the [transaction isolation level :octicons-link-external-16:](https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html).
 
 | Storage Engine| Transaction isolation level |                              |
 | ------------- | --------------------------- | ---------------------------- |

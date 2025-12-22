@@ -18,9 +18,9 @@ You can use stored procedures and functions written in JS with a MySQL-compatibl
 
 ## Limitations
 
-The JS procedure parameters cannot be [JS reserved words](https://developer.mozilla.org/en-US/docs/Web/JS/Reference/Lexical_grammar#reserved_words) and must be [legal JS identifiers](https://www.capscode.in/blog/valid-identifier-in-js).
+The JS procedure parameters cannot be [JS reserved words :octicons-link-external-16:](https://developer.mozilla.org/en-US/docs/Web/JS/Reference/Lexical_grammar#reserved_words) and must be [legal JS identifiers :octicons-link-external-16:](https://www.capscode.in/blog/valid-identifier-in-js).
 
-Our implementation offers the same level of JS support as the V8 engine inside the context of a database engine. You can check out the details at [v8.dev/docs](https://v8.dev/docs) and [tc39.es/ecma262](https://v8.dev/docs). Developers have access to standard operators, data types, objects (such as Math), and functions defined in the ECMAScript standard. However, objects and modules specific to Node.NS or DOM, which are only available in browsers, are not accessible. 
+Our implementation offers the same level of JS support as the V8 engine inside the context of a database engine. You can check out the details at [v8.dev/docs :octicons-link-external-16:](https://v8.dev/docs) and [tc39.es/ecma262 :octicons-link-external-16:](https://v8.dev/docs). Developers have access to standard operators, data types, objects (such as Math), and functions defined in the ECMAScript standard. However, objects and modules specific to Node.NS or DOM, which are only available in browsers, are not accessible. 
 
 In a typical database environment, direct access to external files (like reading or writing files on the server's file system) is restricted. Our implementation adheres to a trusted external routine language policy, ensuring routines cannot perform operations beyond what is normally possible for database users. Consequently, file or network I/O operations are not supported within our routines.
 

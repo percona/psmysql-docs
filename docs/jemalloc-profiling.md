@@ -141,13 +141,13 @@ dot -Tpng /tmp/jeprof1.dot > /tmp/jeprof1.png
 
 !!! note
 
-    An example of [allocation graph](https://github.com/jemalloc/jemalloc/wiki/Use-Case%3A-Leak-Checking).
+    An example of [allocation graph :octicons-link-external-16:](https://github.com/jemalloc/jemalloc/wiki/Use-Case%3A-Leak-Checking).
 
 ## PERFORMANCE_SCHEMA tables
 
 The following tables are implemented to retrieve memory allocation statistics for a running instance or return the cumulative number of allocations requested or allocations returned for a running instance.
 
-More information about the stats that are returned can be found in [jemalloc](https://jemalloc.net/jemalloc.3.html).
+More information about the stats that are returned can be found in [jemalloc :octicons-link-external-16:](https://jemalloc.net/jemalloc.3.html).
 
 ## malloc_stats_totals
 

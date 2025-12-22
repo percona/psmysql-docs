@@ -1,6 +1,6 @@
 # Use the Key Management Interoperability Protocol (KMIP)
 
-Percona Server for MySQL supports the [OASIS Key Management Interoperability Protocol (KMIP)](https://docs.oasis-open.org/kmip/kmip-spec/v2.0/os/kmip-spec-v2.0-os.html). This implementation was tested with the [PyKMIP server](https://pykmip.readthedocs.io/en/latest/server.html) and the [HashiCorp Vault Enterprise KMIP Secrets Engine](https://www.vaultproject.io/docs/secrets/kmip).
+Percona Server for MySQL supports the [OASIS Key Management Interoperability Protocol (KMIP) :octicons-link-external-16:](https://docs.oasis-open.org/kmip/kmip-spec/v2.0/os/kmip-spec-v2.0-os.html). This implementation was tested with the [PyKMIP server :octicons-link-external-16:](https://pykmip.readthedocs.io/en/latest/server.html) and the [HashiCorp Vault Enterprise KMIP Secrets Engine :octicons-link-external-16:](https://www.vaultproject.io/docs/secrets/kmip).
 
 KMIP enables communication between key management systems and the database server. The protocol can do the following:
 
@@ -12,7 +12,7 @@ KMIP enables communication between key management systems and the database serve
 
 --8<--- "keyring-components-installation.md"
 
-For more information, see [Installing and Uninstalling Components].
+For more information, see [Installing and Uninstalling Components :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/component-loading.html).
 
 The following is an example of a global manifest file that does not use local manifests:
 
@@ -53,7 +53,4 @@ The configuration settings are either in a global configuration file or a local 
      }
      ```
 
-For more information, see [Keyring Component installation].
-
-[Installing and Uninstalling Components]: https://dev.mysql.com/doc/refman/{{vers}}/en/component-loading.html
-[Keyring Component installation]: https://dev.mysql.com/doc/refman/{{vers}}/en/keyring-component-installation.html
+For more information, see [Keyring Component installation :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/keyring-component-installation.html).

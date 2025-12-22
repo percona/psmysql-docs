@@ -4,7 +4,7 @@
 
 Do the following steps to select the software:
 
-1. Open [Percona Software Downloads](https://www.percona.com/downloads)
+1. Open [Percona Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads)
 2. Locate the Percona Software, for example, Percona Server for MySQL
 3. In `Select Product`, select the which product, for example, Percona Server {{vers}}
 4. In `Select Product Version`, select the version, for example, PERCONA-SERVER-{{release}}

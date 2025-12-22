@@ -6,7 +6,7 @@ Percona telemetry fills in the gaps in our understanding of how you use Percona 
 
 At this time, telemetry is added only to the Percona packages and Docker images. Percona Server for MySQL collects only information about the installation environment. Future releases may add additional metrics.
 
-Be assured that access to this raw data is rigorously controlled. Percona does not collect personal data. All data is anonymous and cannot be traced to a specific user. To learn more about our privacy practices, read our [Percona Privacy statement].
+Be assured that access to this raw data is rigorously controlled. Percona does not collect personal data. All data is anonymous and cannot be traced to a specific user. To learn more about our privacy practices, read our [Percona Privacy statement :octicons-link-external-16:](https://www.percona.com/privacy-policy#h.e34c40q8sb1a).
 
 An example of the data collected is the following:
 
@@ -49,5 +49,3 @@ Telemetry is enabled by default. If you decide not to send usage data to Percona
     ```{.bash data-prompt="$"}
     $ docker run -d -e MYSQL_ROOT_PASSWORD=test1234# -e PERCONA_TELEMETRY_DISABLE=1 -e --name=percona-server percona/percona-server:8.1
     ```
-
-[Percona Privacy statement]: https://www.percona.com/privacy-policy#h.e34c40q8sb1a

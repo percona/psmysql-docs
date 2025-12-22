@@ -329,7 +329,7 @@ buffer pool.
 | Data type | Numeric     |
 
 This variable shows the total number of buffer pool pages which are considered
-to be old according to the [Making the Buffer Pool Scan Resistant manual page].
+to be old according to the [Making the Buffer Pool Scan Resistant manual page](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-performance-midpoint_insertion.html).
 
 ### TRANSACTIONS
 
@@ -419,9 +419,6 @@ InnoDB/XtraDB hash tables.
 
 ## Other reading
 
-* [SHOW INNODB STATUS walk through](https://www.percona.com/blog/show-innodb-status-walk-through/)
+* [SHOW INNODB STATUS walk through :octicons-link-external-16:](https://www.percona.com/blog/show-innodb-status-walk-through/)
 
-* [Table locks in SHOW INNODB STATUS](https://www.percona.com/blog/table-locks-in-show-innodb-status/)
-
-
-[Making the Buffer Pool Scan Resistant manual page]: https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-performance-midpoint_insertion.html
+* [Table locks in SHOW INNODB STATUS :octicons-link-external-16:](https://www.percona.com/blog/table-locks-in-show-innodb-status/)

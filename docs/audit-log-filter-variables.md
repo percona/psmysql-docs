@@ -676,7 +676,7 @@ This read-only variable specifies the syslog tag value. This variable requires a
 | Data type | String  |
 | Default | LOG_USER |
 
-This read-only variable specifies the syslog `facility` value. This variable requires a server restart to change. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+This read-only variable specifies the syslog `facility` value. This variable requires a server restart to change. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual :octicons-link-external-16:](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 
 ### `audit_log_filter.syslog_priority`
@@ -689,7 +689,7 @@ This read-only variable specifies the syslog `facility` value. This variable req
 | Data type | String  |
 | Default | LOG_INFO |
 
-This read-only variable defines the `priority` value for the syslog. This variable requires a server restart to change. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+This read-only variable defines the `priority` value for the syslog. This variable requires a server restart to change. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual :octicons-link-external-16:](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ## Audit log filter status variables
 

@@ -1,10 +1,10 @@
 # Percona MyRocks introduction
 
-[MyRocks](https://myrocks.io) is a storage engine
-for [MySQL](https://www.mysql.com) based on [RocksDB](https://rocksdb.org/),
+[MyRocks :octicons-link-external-16:](https://myrocks.io) is a storage engine
+for [MySQL :octicons-link-external-16:](https://www.mysql.com) based on [RocksDB :octicons-link-external-16:](https://rocksdb.org/),
 an embeddable, persistent key-value store.
 *Percona MyRocks* is an implementation
-for [Percona Server for MySQL](https://www.percona.com/software/percona-server).
+for [Percona Server for MySQL :octicons-link-external-16:](https://www.percona.com/software/percona-server).
 
 The RocksDB store is based on the log-structured merge-tree (or LSM
 tree). It is optimized for fast storage and combines outstanding

@@ -70,7 +70,7 @@ log regardless of the value of the binlog_skip_flush_command variable.
 any user (even by those with the `SUPER` privilege) are not written to the
 binary log regardless of the value of the binlog_skip_flush_commands variable.
 
-An attempt to run a `FLUSH` command without either [`SUPER`](https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html#priv_super) or [`RELOAD`](https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html#priv_reload)
+An attempt to run a `FLUSH` command without either [`SUPER`](https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html#priv_super :octicons-link-external-16:) or [`RELOAD`](https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html#priv_reload :octicons-link-external-16:)
 privileges results in the `ER_SPECIFIC_ACCESS_DENIED_ERROR` exception
 regardless of the value of the `binlog_skip_flush_commands` variable.
 
@@ -231,7 +231,7 @@ The `binlog_utils_udf` component provides six functions for binary log analysis 
 
 * Binary log file names: Functions that accept a binary log name require only the short file name (for example, `binlog.000001`). Do not include the full path. If the input contains a path separator (`/`), the server returns an error.
 
-* Binary log directory: The server reads binary logs from the directory defined by the `@@log_bin_basename` system variable.
+* Binary log directory: The server reads binary logs from the directory defined by the [`@@log_bin_basename`](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#sysvar_log_bin_basename :octicons-link-external-16:) system variable.
 
 * Return values: Functions that return binary log file names return only the short name without the path.
 
@@ -408,14 +408,8 @@ The query should return no rows if the component is successfully uninstalled.
 
 For the following variables, do not define values with one or more dot (.) characters:
 
-* [log_bin]
+* [log_bin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#option_mysqld_log-bin)
 
-* [log_bin_index]
+* [log_bin_index :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#option_mysqld_log-bin-index)
 
 A value defined with the dot (.) character is handled differently in MySQL and Percona XtraBackup and can cause unpredictable behavior.
-
-[@@log_bin_basename system variable]: https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#sysvar_log_bin_basename
-
-[log_bin]: https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#option_mysqld_log-bin
-
-[log_bin_index]: https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#option_mysqld_log-bin-index
