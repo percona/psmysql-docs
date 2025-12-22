@@ -1,11 +1,10 @@
 # Binary logs and replication improvements
 
-Due to continuous development, Percona Server for MySQL incorporated a number of
-improvements related to replication and binary logs handling. This resulted in replication specifics, which distinguishes it from MySQL.
+Due to continuous development, Percona Server for MySQL has incorporated a number of improvements related to replication and binary log handling. These improvements result in replication-specific behaviors that distinguish Percona Server for MySQL from standard MySQL.
 
 ## Statements with a `LIMIT` clause
 
-In MySQL 8.0, any UPDATE/DELETE/INSERT ... SELECT statements that include a LIMIT clause are indeed considered unsafe for statement-based replication. These statements will cause MySQL to automatically switch from statement-based logging to row-based logging if binlog_format is set to MIXED.
+In MySQL 8.4, any UPDATE/DELETE/INSERT ... SELECT statements that include a LIMIT clause are indeed considered unsafe for statement-based replication. These statements will cause MySQL to automatically switch from statement-based logging to row-based logging if binlog_format is set to MIXED.
 
 Here's why:
 
@@ -13,7 +12,9 @@ Here's why:
 
 * The same statement might affect different rows on the primary and replicas
 
-```{.bash}
+Run these example statements in the MySQL client:
+
+```sql
 UPDATE table1 LIMIT 10 SET col1 = 'value';
 DELETE FROM table1 LIMIT 5;
 INSERT INTO table2 SELECT * FROM table1 LIMIT 3;
@@ -25,7 +26,9 @@ To make these statements safe for statement-based replication, you should do one
 
 * Add an ORDER BY clause to make the result set deterministic
 
-```{.bash}
+Run these example statements in the MySQL client:
+
+```sql
 UPDATE table1 SET col1 = 'value' ORDER BY id LIMIT 10;
 DELETE FROM table1 ORDER BY id LIMIT 5;
 INSERT INTO table2 SELECT * FROM table1 ORDER BY id LIMIT 3;
@@ -86,7 +89,7 @@ log.
 
 The `binlog_skip_flush_commands` setting does not impact the following commands because they are never recorded in the binary log:
 
-*	`FLUSH LOGS`
+* `FLUSH LOGS`
 	
 * `FLUSH BINARY LOGS`
 	
@@ -130,7 +133,7 @@ When enabled, all single-table `DROP TABLE` DDL statements are logged in the bin
 
 You can enable `binlog_ddl_skip_rewrite` at runtime:
 
-```{.bash}
+```sql
 -- Check current setting
 SHOW VARIABLES LIKE 'binlog_ddl_skip_rewrite';
 
@@ -156,9 +159,9 @@ After making this change, restart the MySQL service for it to take effect.
 
 ### Example usage
 
-The following code block demonstrates how to enable `binlog_ddl_skip_rewrite` and shows the feature's effect on a `DROP TABLE` statement:
+The following code demonstrates how to enable `binlog_ddl_skip_rewrite` and shows the feature's effect on a `DROP TABLE` statement. Run these commands in the MySQL client:
 
-```{.bash}
+```sql
 SET binlog_ddl_skip_rewrite = ON;
 /*comment at start*/DROP TABLE t /*comment at end*/;
 ```
@@ -189,19 +192,22 @@ Before using the `binlog_utils_udf` component, ensure the following requirements
 
 Install the component on each server where you plan to use these functions:
 
-```{.bash}
+```sql
 INSTALL COMPONENT 'file://component_binlog_utils_udf';
 ```
 
 #### Verify installation
 
-```{.bash}
+Run this command in the MySQL client:
+
+```sql
 SELECT * FROM mysql.component WHERE component_urn = 'file://component_binlog_utils_udf';
 ```
 
-```{.bash}
-SELECT ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES 
-    -> WHERE ROUTINE_NAME LIKE 'get_%' AND ROUTINE_TYPE = 'FUNCTION';
+Alternatively, run this command to view all installed components:
+
+```sql
+SELECT * FROM mysql.component;
 ```
 
 ### Available functions
@@ -271,7 +277,7 @@ The following examples demonstrate how to use each function. Replace the sample 
 
 Use `get_binlog_by_gtid()` to locate which binary log file contains a specific transaction:
 
-```{.bash}
+```sql
 SELECT CAST(get_binlog_by_gtid('550e8400-e29b-41d4-a716-446655440000:123') AS CHAR) AS binlog;
 ```
 
@@ -281,7 +287,7 @@ Use case: When you know a specific GTID and need to find which binary log file c
 
 Use `get_last_gtid_from_binlog()` to find the final transaction in a specific binary log file:
 
-```{.bash}
+```sql
 SELECT CAST(get_last_gtid_from_binlog('binlog.000001') AS CHAR) AS last_gtid;
 ```
 
@@ -291,7 +297,7 @@ Use case: Determine the last transaction processed in a binary log file before r
 
 Use `get_gtid_set_by_binlog()` to retrieve all GTIDs contained in a specific binary log file:
 
-```{.bash}
+```sql
 SELECT CAST(get_gtid_set_by_binlog('binlog.000001') AS CHAR) AS gtid_set;
 ```
 
@@ -301,7 +307,7 @@ Use case: Get a complete list of all transactions in a binary log file for analy
 
 Use `get_binlog_by_gtid_set()` to find the first binary log file that contains any GTID from a specified set:
 
-```{.bash}
+```sql
 SELECT CAST(get_binlog_by_gtid_set('550e8400-e29b-41d4-a716-446655440000:7,550e8400-e29b-41d4-a716-446655440000:8') AS CHAR) AS binlog;
 ```
 
@@ -316,12 +322,12 @@ Use timestamp functions to determine when events occurred in binary log files. T
 Find when the first event was written to a binary log file:
 
 === "Raw Timestamp (Microseconds)"
-    ```{.bash}
+    ```sql
     SELECT CAST(get_first_record_timestamp_by_binlog('binlog.000001') AS UNSIGNED) AS raw_ts;
     ```
 
 === "Human-Readable Format"
-    ```{.bash}
+    ```sql
     SELECT FROM_UNIXTIME(
         CAST(get_first_record_timestamp_by_binlog('binlog.000001') AS UNSIGNED) DIV 1000000
     ) AS first_event_ts;
@@ -334,12 +340,12 @@ Use case: Determine when a binary log file started receiving events, useful for 
 Find when the last event was written to a binary log file:
 
 === "Raw Timestamp (Microseconds)"
-    ```{.bash}
+    ```sql
     SELECT CAST(get_last_record_timestamp_by_binlog('binlog.000001') AS UNSIGNED) AS raw_ts;
     ```
 
 === "Human-Readable Format"
-    ```{.bash}
+    ```sql
     SELECT FROM_UNIXTIME(
         CAST(get_last_record_timestamp_by_binlog('binlog.000001') AS UNSIGNED) DIV 1000000
     ) AS last_event_ts;
@@ -370,7 +376,7 @@ Performance issues: These functions read binary log files directly from disk. Fo
 
 Check which binary log files are available:
 
-```{.bash}
+```sql
 SHOW BINARY LOGS;
 ```
 
@@ -378,7 +384,7 @@ SHOW BINARY LOGS;
 
 Verify GTID is enabled:
 
-```{.bash}
+```sql
 SHOW VARIABLES LIKE 'gtid_mode';
 ```
 
@@ -386,13 +392,13 @@ SHOW VARIABLES LIKE 'gtid_mode';
 
 Remove the component and all associated functions:
 
-```{.bash}
+```sql
 UNINSTALL COMPONENT 'file://component_binlog_utils_udf';
 ```
 
-Verify removal:
+Verify removal. Run this command in the MySQL client:
 
-```{.bash}
+```sql
 SELECT * FROM mysql.component WHERE component_urn = 'file://component_binlog_utils_udf';
 ```
 

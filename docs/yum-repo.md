@@ -74,7 +74,7 @@ DNF is the default package manager for RHEL 8 and newer systems. To install Perc
 1. If needed, If the module is listed as [e]nabled, it can cause conflicts with Percona's packages. You must reset the module to its default state before proceeding.
 
 	```{.bash data-prompt="$"}
-	$ sudo dnf module reset mysql
+	$ sudo dnf module disable mysql
 	```
 
 	??? example "Expected output"

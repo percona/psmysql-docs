@@ -69,6 +69,9 @@ You can assign filters to a specific user account or disassociate a user account
 | status Filter    | `0`: Successful operations                                                      |
 |                  | `1`: Failed operations                                                          |
 
+!!! note "Filter definition"
+    Status values must be specified as strings (for example, `"0"`, `"1"`). The audit log filter does not filter on integer values, only on string values. If you use integer values, you will see the error: `ERROR: Incorrect rule definition.`
+
 ### Examples
 
 Create simple filters
@@ -175,4 +178,7 @@ mysql> SELECT audit_log_filter_set_filter('log_disconnect', '{
 | status      | 0: Successful queries<br>1: Failed queries   | N/A                            | Query execution result filtering          |
 | thread_id   | Filters by specific MySQL thread identifiers | ["12345", "67890"]             | Actions within a particular database thread |
 | query_time  | Filters based on query execution duration   | N/A                            | Long-running or quick queries             |
+
+!!! note "Filter definition"
+    Status, thread ID, and connection ID values must be specified as strings (for example, `"0"`, `"1"`, `"12345"`). The audit log filter does not filter on integer values, only on string values. If you use integer values, you will see the error: `ERROR: Incorrect rule definition.`
 
