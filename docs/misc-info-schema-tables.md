@@ -1,6 +1,6 @@
-# Misc. INFORMATION_SCHEMA tables
+# Additional INFORMATION_SCHEMA tables
 
-This page lists the `INFORMATION_SCHEMA` tables added to standard *MySQL* by *Percona Server for MySQL* that don’t exist elsewhere in the documentation.
+This document lists the additional `INFORMATION_SCHEMA` tables provided by Percona Server for MySQL that are not documented elsewhere in this documentation.
 
 ## Temporary tables
 
@@ -26,7 +26,7 @@ Only the temporary tables that were explicitly created with CREATE TEMPORARY TAB
 | ‘CREATE_TIME’    | ‘Date and time of creation of the temporary table’          |
 | ‘UPDATE_TIME’    | ‘Date and time of the latest update of the temporary table’ |
 
-This table holds information on the temporary tables that exist for all connections. You don’t need the `SUPER` privilege to query this table.
+This table holds information on the temporary tables that exist for all connections. No special privileges are required to query this table.
 
 ### `INFORMATION_SCHEMA.TEMPORARY_TABLES`
 
