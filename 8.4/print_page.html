@@ -2924,7 +2924,7 @@
   <span class="md-ellipsis">
     
   
-    Files in DEB package
+    DEB package list
   
 
     
@@ -10464,7 +10464,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   <a href="#apt-files" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Files in DEB package
+        DEB package list
       
     </span>
   </a>
@@ -20698,46 +20698,58 @@ Building dependency tree... Done
 Reading state information... Done
 All packages are up to date.
 </code></pre></div>
-</details></section><section class="print-page" id="apt-files" heading-number="7.3.2"><h1 id="apt-files-files-in-the-deb-package-built-for-percona-server-for-mysql-84">Files in the DEB package built for Percona Server for MySQL 8.4<a class="headerlink" href="#apt-files-files-in-the-deb-package-built-for-percona-server-for-mysql-84" title="Permanent link">&para;</a></h1>
+</details></section><section class="print-page" id="apt-files" heading-number="7.3.2"><h1 id="apt-files-deb-repository-package-list-percona-server-for-mysql-84">DEB repository package list - Percona Server for MySQL 8.4<a class="headerlink" href="#apt-files-deb-repository-package-list-percona-server-for-mysql-84" title="Permanent link">&para;</a></h1>
 <table>
 <thead>
 <tr>
-<th>Package</th>
-<th>Contains</th>
+<th>Package Name</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>percona-server-server</td>
-<td>The database server itself, the mysqld binary and associated files.</td>
-</tr>
-<tr>
-<td>percona-server-common</td>
-<td>The files common to the server and client.</td>
-</tr>
-<tr>
-<td>percona-server-client</td>
-<td>The command line client.</td>
-</tr>
-<tr>
-<td>percona-server-dbg</td>
-<td>Debug symbols for the server.</td>
-</tr>
-<tr>
-<td>percona-server-test</td>
-<td>The database test suite.</td>
-</tr>
-<tr>
-<td>percona-server-source</td>
-<td>The server source.</td>
+<td>libperconaserverclient22</td>
+<td>The shared client library used by Percona Server and MySQL client programs. Applications that connect to MySQL servers dynamically link to this library.</td>
 </tr>
 <tr>
 <td>libperconaserverclient22-dev</td>
-<td>Header files needed to compile software to use the client library.</td>
+<td>Development headers and static libraries for building software that links against libperconaserverclient22. Needed when compiling client applications using the MySQL C API.</td>
 </tr>
 <tr>
-<td>libperconaserverclient22</td>
-<td>The client-shared library. The version is incremented when there is an ABI change that requires software using the client library to be recompiled or its source code modified.</td>
+<td>percona-mysql-router</td>
+<td>A lightweight middleware that routes connections between applications and backend MySQL or Percona Server instances. Used in high availability and cluster setups.</td>
+</tr>
+<tr>
+<td>percona-server-client</td>
+<td>The command-line client utilities, including mysql, mysqldump, and related tools for interacting with a Percona Server instance.</td>
+</tr>
+<tr>
+<td>percona-server-common</td>
+<td>Common configuration files, character sets, and data shared among multiple Percona Server packages. Installed automatically as a dependency.</td>
+</tr>
+<tr>
+<td>percona-server-dbg</td>
+<td>Debug symbols for the Percona Server binaries. Useful for developers or support teams when diagnosing crashes or profiling performance.</td>
+</tr>
+<tr>
+<td>percona-server-rocksdb</td>
+<td>The RocksDB storage engine plugin for Percona Server, providing high-performance key-value storage optimized for fast writes.</td>
+</tr>
+<tr>
+<td>percona-server-server</td>
+<td>The main Percona Server daemon (mysqld) and supporting files. This is the actual database server that runs and manages data.</td>
+</tr>
+<tr>
+<td>percona-server-source</td>
+<td>The source code package for Percona Server, often used for auditing, compliance, or custom builds.</td>
+</tr>
+<tr>
+<td>percona-server-test</td>
+<td>A suite of functional and regression tests used to verify server correctness and compatibility. Useful for QA or CI environments.</td>
+</tr>
+<tr>
+<td>percona-telemetry-agent</td>
+<td>A lightweight agent that collects anonymous usage and performance data to help Percona improve the product. Optional; can be disabled if desired.</td>
 </tr>
 </tbody>
 </table></section><section class="print-page" id="build-apt-packages" heading-number="7.3.3"><h1 id="build-apt-packages-build-apt-packages">Build APT packages<a class="headerlink" href="#build-apt-packages-build-apt-packages" title="Permanent link">&para;</a></h1>
