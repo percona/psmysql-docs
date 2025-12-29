@@ -22,4 +22,5 @@ However, it is important to note that at this time, the creation of JS triggers 
 - [Install js_lang component](install-js-lang.md)
 - [Uninstall the js_lang component](uninstall-js-lang.md)
 - [js_lang stored function or procedure](js-lang-procedures.md)
+- [js_lang component system variables](js-lang-variables.md)
 - [Troubleshoot js_lang procedures and functions](js-lang-troubleshoot.md)

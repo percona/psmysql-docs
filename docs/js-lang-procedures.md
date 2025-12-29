@@ -40,5 +40,6 @@ You can modify or delete stored programs in JS by using the standard `ALTER PROC
 - [Install js_lang component](install-js-lang.md)
 - [Uninstall the js_lang component](uninstall-js-lang.md)
 - [js_lang privileges](js-lang-privileges.md)
+- [js_lang component system variables](js-lang-variables.md)
 - [Troubleshoot js_lang procedures and functions](js-lang-troubleshoot.md)
 

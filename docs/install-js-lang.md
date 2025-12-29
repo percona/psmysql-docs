@@ -22,4 +22,5 @@ For more details, check out [INSTALL COMPONENT](install-component.md).
 - [Uninstall the js_lang component](uninstall-js-lang.md)
 - [js_lang stored function or procedure](js-lang-procedures.md)
 - [js_lang privileges](js-lang-privileges.md)
+- [js_lang component system variables](js-lang-variables.md)
 - [Troubleshoot js_lang procedures and functions](js-lang-troubleshoot.md)

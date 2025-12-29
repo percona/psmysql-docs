@@ -74,10 +74,22 @@ The system always maps JS null and undefined values to SQL NULL, regardless of t
 | `GEOMETRY` | - Valid `ArrayBuffer`/`View`: stored as binary<br>- Others: cause an error | Enforces format rules to maintain spatial integrity | valid buffer → `GEOMETRY` |
 | `JSON` | Converted using `JSON.stringify()` | Converts objects or arrays to serialized strings | `{key: "value"}` → `"{"key":"value"}"` |
 
+## System variables
+
+The js_lang component provides the following system variables for configuring JS routine execution:
+
+| Variable name | Description | Default |
+|---|---|---|
+| [`js_lang.max_mem_size`](js-lang-variables.md#js_langmax_mem_size) | Maximum memory size (soft limit) for JS routines | 8 MB |
+| [`js_lang.max_mem_size_hard_limit_factor`](js-lang-variables.md#js_langmax_mem_size_hard_limit_factor) | Hard limit factor for memory allocation | 0 (disabled) |
+
+These variables help prevent runaway scripts from consuming excessive memory or CPU time. For detailed information about each variable, including configuration options and examples, see [js_lang component system variables](js-lang-variables.md).
+
 ## Further reading
 
 - [Install js_lang component](install-js-lang.md)
 - [Uninstall the js_lang component](uninstall-js-lang.md)
 - [js_lang stored function or procedure](js-lang-procedures.md)
 - [js_lang privileges](js-lang-privileges.md)
+- [js_lang component system variables](js-lang-variables.md)
 - [Troubleshoot js_lang procedures and functions](js-lang-troubleshoot.md)

@@ -16,4 +16,5 @@ mysql> UNINSTALL COMPONENT 'file://component_js_lang';
 - [Install js_lang component](install-js-lang.md)
 - [js_lang stored function or procedure](js-lang-procedures.md)
 - [js_lang privileges](js-lang-privileges.md)
+- [js_lang component system variables](js-lang-variables.md)
 - [Troubleshoot js_lang procedures and functions](js-lang-troubleshoot.md)

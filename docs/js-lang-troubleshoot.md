@@ -25,3 +25,4 @@ If the `MAX_EXECUTION_TIME` timeout is exceeded for a statement running a JS rou
 - [Uninstall the js_lang component](uninstall-js-lang.md)
 - [js_lang stored function or procedure](js-lang-procedures.md)
 - [js_lang privileges](js-lang-privileges.md)
+- [js_lang component system variables](js-lang-variables.md)
