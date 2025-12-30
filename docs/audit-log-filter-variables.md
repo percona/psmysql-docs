@@ -511,6 +511,8 @@ mysql> SELECT audit_log_read_bookmark();
 | Data type | Integer  |
 | Unit | Bytes |
 | Default | 32768  |
+| Minimum value | 0 |
+| Maximum value | 18446744073709551615 |
 
 This option is only supported for JSON-format files.
 
@@ -611,6 +613,10 @@ Pruning requires the following options:
 | Scope | Global  |
 | Data type | Integer |
 | Default | 1GB  |
+| Minimum value | 0 |
+| Maximum value | 18446744073709551615 |
+| Unit | bytes |
+| Block size | 4096 |
 
 Performs an automatic log file rotation based on the size. The default value is 1GB. If the value is greater than 0, when the log file size exceeds the value, the plugin renames the current file and opens a new log file using the original name.
 
@@ -626,7 +632,7 @@ If you set the value to less than 4096, the plugin does not automatically rotate
 | Data type | Integer  |
 | Default | 0  |
 | Minimum value | 0 |
-| Maximum value | 1844674073709551615 |
+| Maximum value | 18446744073709551615 |
 | Unit | seconds |
 
 Defines when the audit log filter file is pruned. This pruning is based on the age of the file. The value is measured in seconds.
@@ -904,6 +910,9 @@ For high-security environments, consider increasing this value to 100000 or high
 | Scope | Global  |
 | Data type | Integer  |
 | Default | 0  |
+| Minimum value | 0 |
+| Maximum value | 18446744073709551615 |
+| Unit | days |
 
 Defines when passwords may be removed and measured in days.
 
