@@ -33,8 +33,8 @@ mysql -u root -p -D mysql < /path/to/mysql/share/audit_log_filter_linux_install.
 Option 2: Connect to `mysql` database and run the script interactively:
 
 ```sql
-mysql> use mysql;
-mysql> source /path/to/mysql/share/audit_log_filter_linux_install.sql;
+use mysql;
+source /path/to/mysql/share/audit_log_filter_linux_install.sql;
 ```
 
 Replace `/path/to/mysql/share/` with the actual path to your MySQL installation's share directory.
@@ -44,7 +44,7 @@ Replace `/path/to/mysql/share/` with the actual path to your MySQL installation'
 After you run the script, verify that the required tables are created:
 
 ```sql
-mysql> show tables in mysql like 'aud%';
+SHOW tables in mysql like 'aud%';
 ```
 
 Expected output:
@@ -68,17 +68,19 @@ You can also install the plugin using the `INSTALL PLUGIN` command, but this met
 Check that the plugin is properly installed:
 
 ```sql
-mysql> SHOW PLUGINS LIKE 'audit_log_filter';
+SELECT PLUGIN_NAME, PLUGIN_STATUS, PLUGIN_TYPE 
+FROM information_schema.PLUGINS 
+WHERE PLUGIN_NAME = 'audit_log_filter';
 ```
 
 Expected output:
 
 ```
-+-------------------+----------+--------------------+
-| Name              | Status   | Type               |
-+-------------------+----------+--------------------+
-| audit_log_filter  | ACTIVE   | AUDIT              |
-+-------------------+----------+--------------------+
++-------------------+----------------+-------------+
+| PLUGIN_NAME       | PLUGIN_STATUS  | PLUGIN_TYPE |
++-------------------+----------------+-------------+
+| audit_log_filter  | ACTIVE         | AUDIT       |
++-------------------+----------------+-------------+
 1 row in set (0.00 sec)
 ```
 
@@ -87,7 +89,7 @@ Expected output:
 Test that the audit log filter is working correctly:
 
 ```sql
-mysql> SELECT audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}');
+SELECT audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}');
 ```
 
 Expected output:
@@ -116,8 +118,8 @@ mysql -u root -p -D mysql < /path/to/mysql/share/audit_log_filter_linux_install.
 Or interactively:
 
 ```sql
-mysql> use mysql;
-mysql> source /path/to/mysql/share/audit_log_filter_linux_install.sql;
+use mysql;
+source /path/to/mysql/share/audit_log_filter_linux_install.sql;
 ```
 
 This operation creates the missing tables without reinstalling the plugin.
