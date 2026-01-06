@@ -18009,13 +18009,13 @@ and expanded fast index creation.</p>
 <div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql<span class="w"> </span>&lt;<span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql
 </code></pre></div>
 <p>Option 2: Connect to <code>mysql</code> database and run the script interactively:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span>
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">source</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="k">to</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">audit_log_filter_linux_install</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span>
+<span class="k">source</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="k">to</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">audit_log_filter_linux_install</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
 </code></pre></div>
 <p>Replace <code>/path/to/mysql/share/</code> with the actual path to your MySQL installation&rsquo;s share directory.</p>
 <h3 id="install-audit-log-filter-verify-installation">Verify installation<a class="headerlink" href="#install-audit-log-filter-verify-installation" title="Permanent link">&para;</a></h3>
 <p>After you run the script, verify that the required tables are created:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;aud%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;aud%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>Expected output:</p>
 <div class="highlight"><pre><span></span><code>+------------------------+
@@ -18030,19 +18030,21 @@ and expanded fast index creation.</p>
 <p>You can also install the plugin using the <code>INSTALL PLUGIN</code> command, but this method does not create the required tables and will cause filter operations to fail.</p>
 <h3 id="install-audit-log-filter-verify-plugin-installation">Verify plugin installation<a class="headerlink" href="#install-audit-log-filter-verify-plugin-installation" title="Permanent link">&para;</a></h3>
 <p>Check that the plugin is properly installed:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">PLUGINS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;audit_log_filter&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_TYPE</span><span class="w"> </span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">PLUGINS</span><span class="w"> </span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;audit_log_filter&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>Expected output:</p>
-<div class="highlight"><pre><span></span><code>+-------------------+----------+--------------------+
-| Name              | Status   | Type               |
-+-------------------+----------+--------------------+
-| audit_log_filter  | ACTIVE   | AUDIT              |
-+-------------------+----------+--------------------+
+<div class="highlight"><pre><span></span><code>+-------------------+----------------+-------------+
+| PLUGIN_NAME       | PLUGIN_STATUS  | PLUGIN_TYPE |
++-------------------+----------------+-------------+
+| audit_log_filter  | ACTIVE         | AUDIT       |
++-------------------+----------------+-------------+
 1 row in set (0.00 sec)
 </code></pre></div>
 <h3 id="install-audit-log-filter-test-filter-functionality">Test filter functionality<a class="headerlink" href="#install-audit-log-filter-test-filter-functionality" title="Permanent link">&para;</a></h3>
 <p>Test that the audit log filter is working correctly:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_all&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_all&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;</span><span class="p">);</span>
 </code></pre></div>
 <p>Expected output:</p>
 <div class="highlight"><pre><span></span><code>+---------------------------------------------------------------------+
@@ -18061,8 +18063,8 @@ and expanded fast index creation.</p>
 <div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql<span class="w"> </span>&lt;<span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql
 </code></pre></div>
 <p>Or interactively:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span>
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">source</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="k">to</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">audit_log_filter_linux_install</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span>
+<span class="k">source</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="k">to</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">audit_log_filter_linux_install</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
 </code></pre></div>
 <p>This operation creates the missing tables without reinstalling the plugin.</p>
 <h2 id="install-audit-log-filter-additional-information">Additional information<a class="headerlink" href="#install-audit-log-filter-additional-information" title="Permanent link">&para;</a></h2>
@@ -66043,7 +66045,7 @@ contributions and changes from MariaDB.</p>
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
       <div class="md-copyright__highlight">
-   <a href='https://percona.com' target='_blank'>Percona LLC and/or its affiliates, </a> &copy; 2025 — <a href="#" onclick="Osano.cm.showDrawer('osano-cm-dom-info-dialog-open')">Cookie Preferences</a>
+   <a href='https://percona.com' target='_blank'>Percona LLC and/or its affiliates, </a> &copy; 2026 — <a href="#" onclick="Osano.cm.showDrawer('osano-cm-dom-info-dialog-open')">Cookie Preferences</a>
       </div>
     
       Made with
