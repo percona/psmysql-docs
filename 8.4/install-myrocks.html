@@ -2858,7 +2858,7 @@ plugin for Percona Server for MySQL 8.4 and later versions.">
   <span class="md-ellipsis">
     
   
-    Use YUM
+    Use DNF
   
 
     
@@ -2874,7 +2874,7 @@ plugin for Percona Server for MySQL 8.4 and later versions.">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Use YUM
+    Use DNF
   
 
           </label>
@@ -2894,7 +2894,7 @@ plugin for Percona Server for MySQL 8.4 and later versions.">
   <span class="md-ellipsis">
     
   
-    Use RPM repositories
+    Install using DNF
   
 
     
@@ -9525,16 +9525,18 @@ plugin for Percona Server for MySQL 8.4 and later versions.</p>
 </li>
 <li>
 <p>Install Percona MyRocks using the corresponding package manager:</p>
-<ul>
-<li>For Debian or Ubuntu:</li>
-</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Debian or Ubuntu</label><label for="__tabbed_1_2">RHEL or derivatives</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
 </code></pre></div>
-<ul>
-<li>For RHEL:</li>
-</ul>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
+</div>
+<div class="tabbed-block">
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
 </code></pre></div>
+</div>
+</div>
+</div>
 </li>
 </ol>
 <p>After installation, you should see the following output:</p>
@@ -9642,18 +9644,18 @@ INFO: Successfully uninstalled RocksDB engine plugin.
 </details>
 <p>After the engine plugins have been uninstalled,
 remove the Percona MyRocks package:</p>
-<ul>
-<li>
-<p>For Debian or Ubuntu:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span>percona-server-rocksdb-8.4
+<div class="highlight"><pre><span></span><code>=== &quot;Debian or Ubuntu&quot;
+
+    ```{.bash data-prompt=&quot;$&quot;}
+    $ sudo apt remove percona-server-rocksdb-8.4
+    ```
+
+=== &quot;RHEL or derivatives&quot;
+
+    ```{.bash data-prompt=&quot;$&quot;}
+    $ sudo yum remove percona-server-rocksdb-80.x86_64
+    ```
 </code></pre></div>
-</li>
-<li>
-<p>For RHEL:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>remove<span class="w"> </span>percona-server-rocksdb-80.x86_64
-</code></pre></div>
-</li>
-</ul>
 <p>Finally, remove all the <a href="myrocks-server-variables.html#myrocks-server-variables">MyRocks Server Variables</a>
 from the configuration file (<code>my.cnf</code>)
 and restart <em>Percona Server for MySQL</em>.</p>
