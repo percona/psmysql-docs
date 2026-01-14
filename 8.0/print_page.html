@@ -2166,6 +2166,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -2434,6 +2440,90 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="write-audit-log-filter-definitions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Write audit log filter definitions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-advanced.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced audit log filter definitions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit log filter reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -11024,6 +11114,39 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
         
           <li class="md-nav__item">
+  <a href="#write-audit-log-filter-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write audit log filter definitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit-log-filter-advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced audit log filter definitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit-log-filter-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audit log filter reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#audit-log-filter-variables" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -18715,7 +18838,1857 @@ The order of the attributes within the JSON object can vary. Certain attributes 
 <td>Defines a UTC value in the <code>YYYY-MM_DD hh:mm:ss</code> format</td>
 </tr>
 </tbody>
-</table></section></section><section class="print-page" id="audit-log-filter-variables" heading-number="4.2.4"><h1 id="audit-log-filter-variables-audit-log-filter-functions-options-and-variables">Audit log filter functions, options and variables<a class="headerlink" href="#audit-log-filter-variables-audit-log-filter-functions-options-and-variables" title="Permanent link">&para;</a></h1>
+</table></section></section><section class="print-page" id="write-audit-log-filter-definitions" heading-number="4.2.4"><h1 id="write-audit-log-filter-definitions-write-audit-log-filter-definitions">Write audit log filter definitions<a class="headerlink" href="#write-audit-log-filter-definitions-write-audit-log-filter-definitions" title="Permanent link">&para;</a></h1>
+<p>Audit log filters control which database activities get logged, reducing log size and storage costs. Instead of logging everything (which creates huge files), you can log only what matters to you.</p>
+<p>Why use filters?
+* Reduce log size and storage costs</p>
+<ul>
+<li>
+<p>Focus on security events and data changes</p>
+</li>
+<li>
+<p>Meet compliance requirements without noise</p>
+</li>
+<li>
+<p>Improve performance by reducing I/O overhead</p>
+</li>
+</ul>
+<p>Prerequisites:
+* Percona Server for MySQL with audit log filter plugin installed</p>
+<ul>
+<li>
+<p><code>AUDIT_ADMIN</code> privilege</p>
+</li>
+<li>
+<p>Basic understanding of JSON syntax</p>
+</li>
+</ul>
+<h2 id="write-audit-log-filter-definitions-quick-start-5-minutes">Quick start (5 minutes)<a class="headerlink" href="#write-audit-log-filter-definitions-quick-start-5-minutes" title="Permanent link">&para;</a></h2>
+<h3 id="write-audit-log-filter-definitions-step-1-create-the-filter">Step 1: Create the filter<a class="headerlink" href="#write-audit-log-filter-definitions-step-1-create-the-filter" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">my_filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: [</span>
+<span class="s1">      {</span>
+<span class="s1">        &quot;name&quot;: &quot;connection&quot;,</span>
+<span class="s1">        &quot;log&quot;: true</span>
+<span class="s1">      }</span>
+<span class="s1">    ]</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;user_connections&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">my_filter</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="write-audit-log-filter-definitions-step-2-assign-to-users">Step 2: Assign to users<a class="headerlink" href="#write-audit-log-filter-definitions-step-2-assign-to-users" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;user1&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;user_connections&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;user2@localhost&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;user_connections&#39;</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="write-audit-log-filter-definitions-step-3-test-your-filter">Step 3: Test your filter<a class="headerlink" href="#write-audit-log-filter-definitions-step-3-test-your-filter" title="Permanent link">&para;</a></h3>
+<p>Open a new connection as the filtered user:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>user1<span class="w"> </span>-p<span class="w"> </span>-h<span class="w"> </span>localhost
+</code></pre></div>
+<p>Run any statement, e.g.:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+<p>Inspect the audit log (adjust the path if you configured a custom one):</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/mysql/audit_filter.log
+</code></pre></div>
+<p>You should see connection events in the log. The entry will look roughly like:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;event&gt;</span>
+<span class="w">  </span><span class="nt">&lt;class&gt;</span>connection<span class="nt">&lt;/class&gt;</span>
+<span class="w">  </span><span class="nt">&lt;type&gt;</span>connect<span class="nt">&lt;/type&gt;</span>
+<span class="w">  </span><span class="nt">&lt;user&gt;</span>user1@%<span class="nt">&lt;/user&gt;</span>
+<span class="w">  </span>…
+<span class="nt">&lt;/event&gt;</span>
+</code></pre></div>
+<p>Note: The default log format is New Style XML. If you prefer JSON output, set the format in <code>my.cnf</code> and restart the server:</p>
+<div class="highlight"><pre><span></span><code><span class="na">audit_log_format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">JSON</span>
+</code></pre></div>
+<p>Note: <code>audit_log_format</code> is not a dynamic variable and requires a server restart to change.</p>
+<p>What this does: Creates a filter that logs connection events for users <code>user1</code> and <code>user2</code>, then assigns the filter to those users. When they connect, those connection activities will be logged according to the filter rules. Note that SELECT queries are not logged by this filter since it only includes the <code>connection</code> event class.</p>
+<h2 id="write-audit-log-filter-definitions-json-filter-structure">JSON filter structure<a class="headerlink" href="#write-audit-log-filter-definitions-json-filter-structure" title="Permanent link">&para;</a></h2>
+<p>Every filter follows this pattern:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Event types you can filter:</p>
+<ul>
+<li>
+<p><code>"connection"</code> - User logins/logouts (track who accesses the database)</p>
+</li>
+<li>
+<p><code>"general"</code> - SQL queries and commands (monitor all database activity)</p>
+</li>
+<li>
+<p><code>"table_access"</code> - Table operations (SELECT, INSERT, UPDATE, DELETE)</p>
+</li>
+<li>
+<p><code>"query"</code> - Query execution details (debug slow queries)</p>
+</li>
+</ul>
+<p>Optional fields:</p>
+<ul>
+<li>
+<p><code>"user"</code> - Array of usernames to track</p>
+</li>
+<li>
+<p><code>"host"</code> - Array of client IPs to track  </p>
+</li>
+<li>
+<p><code>"event"</code> - Array of specific event subclasses to track</p>
+</li>
+<li>
+<p><code>"log"</code> - Set to <code>true</code> or <code>false</code> to enable/disable logging for this class</p>
+</li>
+</ul>
+<h2 id="write-audit-log-filter-definitions-common-patterns">Common patterns<a class="headerlink" href="#write-audit-log-filter-definitions-common-patterns" title="Permanent link">&para;</a></h2>
+<p>Log everything (good for testing):
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>Track specific users only:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access1&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;insert&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>Monitor data changes only:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access2&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;insert&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>Track specific operations:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access3&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;insert&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h2 id="write-audit-log-filter-definitions-troubleshooting">Troubleshooting<a class="headerlink" href="#write-audit-log-filter-definitions-troubleshooting" title="Permanent link">&para;</a></h2>
+<p>Check your setup:
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_filter</span><span class="p">;</span><span class="w">  </span><span class="c1">-- See all filters</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_user</span><span class="p">;</span><span class="w">    </span><span class="c1">-- See user assignments</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">plugins</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">plugin_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;audit_log_filter&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Check plugin status</span>
+</code></pre></div></p>
+<p>Common issues and solutions:</p>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No events in log</td>
+<td>Filter not assigned to user</td>
+<td>Run: <code>SELECT audit_log_filter_set_user('user@host', 'filter_name');</code></td>
+</tr>
+<tr>
+<td>Access denied</td>
+<td>Missing privileges</td>
+<td>Grant <code>AUDIT_ADMIN</code> privilege to your user</td>
+</tr>
+<tr>
+<td>JSON syntax error</td>
+<td>Invalid JSON format</td>
+<td>Validate JSON with a JSON validator</td>
+</tr>
+<tr>
+<td>Filter not working</td>
+<td>Plugin not loaded</td>
+<td>Check: <code>SELECT * FROM information_schema.plugins WHERE plugin_name = 'audit_log';</code></td>
+</tr>
+</tbody>
+</table>
+<p>To verify your filter is working, you can create a simple test filter that logs general events (so you can test with SELECT statements):</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* 1️⃣ Create a filter set (you can name it anything) */</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_create</span><span class="p">(</span><span class="s1">&#39;test_filter&#39;</span><span class="p">);</span>
+
+<span class="cm">/* 2️⃣ Define a very simple filter that logs every general‑event */</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">simple_json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: {</span>
+<span class="s1">      &quot;name&quot;: &quot;general&quot;,</span>
+<span class="s1">      &quot;log&quot;: true</span>
+<span class="s1">    }</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="p">;</span>
+
+<span class="cm">/* 3️⃣ Attach the JSON to the filter set */</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;test_filter&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">simple_json</span><span class="p">);</span>
+
+<span class="cm">/* 4️⃣ Bind the filter set to a user (make sure the user exists) */</span>
+<span class="c1">-- Example user creation, if you don&#39;t already have it:</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="s1">&#39;user1&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;My$tr0ngP@ssw0rd!&#39;</span><span class="p">;</span>
+<span class="c1">-- Now associate the filter:</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;user1&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test_filter&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>Then follow the testing steps in the <a href="#write-audit-log-filter-definitions-quick-start-5-minutes">Quick start (5 minutes)</a> section.</p>
+<h2 id="write-audit-log-filter-definitions-advanced-default-filters">Advanced: Default filters<a class="headerlink" href="#write-audit-log-filter-definitions-advanced-default-filters" title="Permanent link">&para;</a></h2>
+<p>Create a filter that applies to ALL users who don&rsquo;t have a specific filter:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">default_filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;filter&quot;: {</span>
+<span class="s1">    &quot;class&quot;: { &quot;name&quot;: &quot;general&quot; }</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;default_filter&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">default_filter</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;default_filter&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>This configuration creates a default filter that logs general events for any user not explicitly assigned a different filter.</p>
+<h2 id="write-audit-log-filter-definitions-reference">Reference<a class="headerlink" href="#write-audit-log-filter-definitions-reference" title="Permanent link">&para;</a></h2>
+<p>Core functions:
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;user@host&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;filter_name&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_filter</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_user</span><span class="p">(</span><span class="s1">&#39;user@host&#39;</span><span class="p">);</span>
+</code></pre></div></p>
+<p>Log management:
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">rotate_on_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1073741824</span><span class="p">;</span><span class="w">  </span><span class="c1">-- 1GB per file</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">max_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2147483648</span><span class="p">;</span><span class="w">        </span><span class="c1">-- 2GB total</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">prune_seconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">604800</span><span class="p">;</span><span class="w">       </span><span class="c1">-- 7 days</span>
+</code></pre></div></p>
+<p>Quick workflow:</p>
+<ol>
+<li>
+<p>Create filter with <code>audit_log_filter_set_filter()</code></p>
+</li>
+<li>
+<p>Assign to users with <code>audit_log_filter_set_user()</code></p>
+</li>
+<li>
+<p>Test by connecting and checking <code>/var/lib/mysql/audit_filter.log</code></p>
+</li>
+</ol>
+<h2 id="write-audit-log-filter-definitions-cheat-sheet">Cheat sheet<a class="headerlink" href="#write-audit-log-filter-definitions-cheat-sheet" title="Permanent link">&para;</a></h2>
+<h3 id="write-audit-log-filter-definitions-quick-setup-tldr">Quick setup (TL;DR)<a class="headerlink" href="#write-audit-log-filter-definitions-quick-setup-tldr" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 1. Create a filter</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{&quot;filter&quot;:{&quot;class&quot;:[{&quot;name&quot;:&quot;connection&quot;,&quot;log&quot;:true}]}}&#39;</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;my_filter&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">filter</span><span class="p">);</span>
+
+<span class="c1">-- 2. Assign to user</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;user1&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;my_filter&#39;</span><span class="p">);</span>
+
+<span class="c1">-- 3. Test the filter</span>
+<span class="c1">-- Connect as user1, run SELECT 1;, check /var/lib/mysql/audit_filter.log</span>
+</code></pre></div>
+<h3 id="write-audit-log-filter-definitions-all-commands">All commands<a class="headerlink" href="#write-audit-log-filter-definitions-all-commands" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Create/remove filters</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_filter</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
+
+<span class="c1">-- Assign/remove users</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;user@host&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;filter_name&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_user</span><span class="p">(</span><span class="s1">&#39;user@host&#39;</span><span class="p">);</span>
+
+<span class="c1">-- Check status</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_filter</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_user</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">plugins</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">plugin_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;audit_log&#39;</span><span class="p">;</span>
+
+<span class="c1">-- Log management</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">rotate_on_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1073741824</span><span class="p">;</span><span class="w">  </span><span class="c1">-- 1GB</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">max_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2147483648</span><span class="p">;</span><span class="w">        </span><span class="c1">-- 2GB</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">prune_seconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">604800</span><span class="p">;</span><span class="w">       </span><span class="c1">-- 7 days</span>
+</code></pre></div>
+<h3 id="write-audit-log-filter-definitions-common-json-patterns">Common JSON patterns<a class="headerlink" href="#write-audit-log-filter-definitions-common-json-patterns" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="mi">--</span><span class="w"> </span><span class="err">Log</span><span class="w"> </span><span class="err">every</span><span class="kc">t</span><span class="err">hi</span><span class="kc">n</span><span class="err">g</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+
+<span class="mi">--</span><span class="w"> </span><span class="err">Track</span><span class="w"> </span><span class="err">speci</span><span class="kc">f</span><span class="err">ic</span><span class="w"> </span><span class="err">opera</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span>
+<span class="p">{</span><span class="nt">&quot;filter&quot;</span><span class="p">:{</span><span class="nt">&quot;class&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span><span class="nt">&quot;event&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;insert&quot;</span><span class="p">},{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;update&quot;</span><span class="p">},{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;delete&quot;</span><span class="p">}]}]}}</span>
+
+<span class="mi">--</span><span class="w"> </span><span class="err">Log</span><span class="w"> </span><span class="err">co</span><span class="kc">nne</span><span class="err">c</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">eve</span><span class="kc">nts</span><span class="w"> </span><span class="err">o</span><span class="kc">nl</span><span class="err">y</span>
+<span class="p">{</span><span class="nt">&quot;filter&quot;</span><span class="p">:{</span><span class="nt">&quot;class&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;connection&quot;</span><span class="p">,</span><span class="nt">&quot;event&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;connect&quot;</span><span class="p">},{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;disconnect&quot;</span><span class="p">}]}]}}</span>
+</code></pre></div>
+<h2 id="write-audit-log-filter-definitions-related-topics">Related topics<a class="headerlink" href="#write-audit-log-filter-definitions-related-topics" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="#audit-log-filter-overview">Audit Log Filter Overview</a> - Introduction to audit log filtering concepts</p>
+</li>
+<li>
+<p><a href="#audit-log-filter-advanced">Advanced Audit Log Filter Definitions</a> - Advanced features and complex configurations</p>
+</li>
+<li>
+<p><a href="#audit-log-filter-reference">Audit Log Filter Reference</a> - Complete reference tables and technical details</p>
+</li>
+</ul></section><section class="print-page" id="audit-log-filter-advanced" heading-number="4.2.5"><h1 id="audit-log-filter-advanced-advanced-audit-log-filter-definitions">Advanced audit log filter definitions<a class="headerlink" href="#audit-log-filter-advanced-advanced-audit-log-filter-definitions" title="Permanent link">&para;</a></h1>
+<p>This guide covers advanced features for MySQL audit log filters, including conditional logging, event blocking, field replacement, and dynamic filter management.</p>
+<h2 id="audit-log-filter-advanced-inclusive-and-exclusive-logging">Inclusive and exclusive logging<a class="headerlink" href="#audit-log-filter-advanced-inclusive-and-exclusive-logging" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-advanced-basic-logging-control">Basic logging control<a class="headerlink" href="#audit-log-filter-advanced-basic-logging-control" title="Permanent link">&para;</a></h3>
+<p>Use the <code>log</code> field to control whether events are recorded. The first example enables logging of all events. The second example disables all logging:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="audit-log-filter-advanced-selective-class-logging">Selective class logging<a class="headerlink" href="#audit-log-filter-advanced-selective-class-logging" title="Permanent link">&para;</a></h3>
+<p>Log only specific event classes:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="audit-log-filter-advanced-mixed-logging-control">Mixed logging control<a class="headerlink" href="#audit-log-filter-advanced-mixed-logging-control" title="Permanent link">&para;</a></h3>
+<p>Combine global and class-specific logging controls:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="audit-log-filter-advanced-testing-event-field-values">Testing event field values<a class="headerlink" href="#audit-log-filter-advanced-testing-event-field-values" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-advanced-field-value-matching">Field value matching<a class="headerlink" href="#audit-log-filter-advanced-field-value-matching" title="Permanent link">&para;</a></h3>
+<p>Test specific field values within events:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;insert&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sensitive_data&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="audit-log-filter-advanced-multiple-field-conditions">Multiple field conditions<a class="headerlink" href="#audit-log-filter-advanced-multiple-field-conditions" title="Permanent link">&para;</a></h3>
+<p>Test multiple field conditions using logical operators:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;and&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_sql_command.str&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;create_user&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">},</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_host.str&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Note:</strong> User filtering is not available for <code>general</code> class events because the user information is in the top-level <code>account</code> object, not in the <code>general_data</code> structure that filter fields reference. User filtering (<code>user.str</code>) is also not available for <code>table_access</code> events. To filter by user, use <code>connection</code> events instead.</p>
+<h2 id="audit-log-filter-advanced-blocking-execution-of-specific-events">Blocking execution of specific events<a class="headerlink" href="#audit-log-filter-advanced-blocking-execution-of-specific-events" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-advanced-event-blocking-with-abort">Event blocking with abort<a class="headerlink" href="#audit-log-filter-advanced-event-blocking-with-abort" title="Permanent link">&para;</a></h3>
+<p>Prevent execution of specific events:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;abort&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="audit-log-filter-advanced-conditional-blocking">Conditional blocking<a class="headerlink" href="#audit-log-filter-advanced-conditional-blocking" title="Permanent link">&para;</a></h3>
+<p>Block events based on field conditions:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;abort&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;critical_table&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="audit-log-filter-advanced-logical-operators">Logical operators<a class="headerlink" href="#audit-log-filter-advanced-logical-operators" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-advanced-and-operations">AND operations<a class="headerlink" href="#audit-log-filter-advanced-and-operations" title="Permanent link">&para;</a></h3>
+<p>Require multiple conditions to be true:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;and&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_sql_command.str&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alter_user&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">},</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_command.str&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Query&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="audit-log-filter-advanced-or-operations">OR operations<a class="headerlink" href="#audit-log-filter-advanced-or-operations" title="Permanent link">&para;</a></h3>
+<p>Log if any condition is true:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;insert&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;or&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;users&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">},</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;payments&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="audit-log-filter-advanced-not-operations">NOT operations<a class="headerlink" href="#audit-log-filter-advanced-not-operations" title="Permanent link">&para;</a></h3>
+<p>Invert condition results:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;not&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_sql_command.str&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;select&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="audit-log-filter-advanced-complex-logical-combinations">Complex logical combinations<a class="headerlink" href="#audit-log-filter-advanced-complex-logical-combinations" title="Permanent link">&para;</a></h3>
+<p>Combine multiple logical operators:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;and&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;or&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                  </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;users&quot;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                  </span><span class="p">},</span>
+<span class="w">                  </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;accounts&quot;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">              </span><span class="p">},</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;not&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_database.str&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;system&quot;</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="audit-log-filter-advanced-predefined-functions">Predefined functions<a class="headerlink" href="#audit-log-filter-advanced-predefined-functions" title="Permanent link">&para;</a></h2>
+<p>Apply functions to field values for pattern matching and filtering. This example uses the <code>string_find</code> function to log only <code>general|status</code> events where <code>general_sql_command.str</code> starts with <code>show_</code>, capturing all SHOW statements (such as <code>SHOW TABLES</code>, <code>SHOW DATABASES</code>, <code>SHOW VARIABLES</code>, etc.):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;function&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string_find&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;general_sql_command.str&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;show_&quot;</span>
+<span class="w">              </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="audit-log-filter-advanced-event-field-value-replacement">Event field value replacement<a class="headerlink" href="#audit-log-filter-advanced-event-field-value-replacement" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-advanced-basic-field-replacement">Basic field replacement<a class="headerlink" href="#audit-log-filter-advanced-basic-field-replacement" title="Permanent link">&para;</a></h3>
+<p>Replace sensitive field values in audit logs. This example replaces SQL statement text in <code>general|status</code> events with query digests using the <code>query_digest</code> function, hiding the actual query content:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_query.str&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;replace&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;function&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query_digest&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="audit-log-filter-advanced-conditional-replacement">Conditional replacement<a class="headerlink" href="#audit-log-filter-advanced-conditional-replacement" title="Permanent link">&para;</a></h3>
+<p>Replace values only under specific conditions. This example replaces SQL statement text with query digests, but only for statements that do NOT match the digest <code>SELECT ?</code>. Simple SELECT queries matching this digest keep their original text, while all other statements are replaced with their digest:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_query.str&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;not&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;function&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query_digest&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SELECT ?&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;replace&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;function&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query_digest&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="audit-log-filter-advanced-multiple-field-replacement">Multiple field replacement<a class="headerlink" href="#audit-log-filter-advanced-multiple-field-replacement" title="Permanent link">&para;</a></h3>
+<p>Replace query text with digests across multiple event classes. This example replaces SQL statement text in both <code>general</code> and <code>table_access</code> events with their query digests, ensuring that all query text in the audit log is replaced with digests regardless of event class. The <code>general</code> class uses <code>general_query.str</code> while <code>table_access</code> uses <code>query.str</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_query.str&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;replace&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;function&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query_digest&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query.str&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;replace&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;function&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query_digest&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="audit-log-filter-advanced-dynamic-filter-replacement">Dynamic filter replacement<a class="headerlink" href="#audit-log-filter-advanced-dynamic-filter-replacement" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-advanced-basic-filter-replacement">Basic filter replacement<a class="headerlink" href="#audit-log-filter-advanced-basic-filter-replacement" title="Permanent link">&para;</a></h3>
+<p>Create filters that can change dynamically. This example monitors <code>table_access</code> events for <code>update</code> or <code>delete</code> operations on <code>temp_1</code> or <code>temp_2</code> tables. When these conditions are met, the filter switches to logging only the corresponding <code>general|status</code> event, then returns to the main filter:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;main&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;main&quot;</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;activate&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;or&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;temp_1&quot;</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;temp_2&quot;</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;main&quot;</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;activate&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;or&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;temp_1&quot;</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;temp_2&quot;</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="audit-log-filter-advanced-conditional-filter-activation">Conditional filter activation<a class="headerlink" href="#audit-log-filter-advanced-conditional-filter-activation" title="Permanent link">&para;</a></h3>
+<p>Activate different filters based on conditions. This example monitors <code>table_access|insert</code> events and only activates enhanced logging (logging the <code>general|status</code> event) when inserts occur on the <code>financial_data</code> table:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;insert&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;activate&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;financial_data&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="audit-log-filter-advanced-advanced-filtering-patterns">Advanced filtering patterns<a class="headerlink" href="#audit-log-filter-advanced-advanced-filtering-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-advanced-account-management-monitoring">Account management monitoring<a class="headerlink" href="#audit-log-filter-advanced-account-management-monitoring" title="Permanent link">&para;</a></h3>
+<p>Monitor specific account management operations. This filter logs <code>alter_user</code>, <code>create_user</code>, and <code>drop_user</code> commands while replacing the SQL statement text with query digests to hide credential and data values:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_query.str&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;replace&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;function&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query_digest&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">},</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;or&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_sql_command.str&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alter_user&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">},</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_sql_command.str&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;create_user&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">},</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_sql_command.str&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop_user&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="audit-log-filter-advanced-data-modification-tracking">Data modification tracking<a class="headerlink" href="#audit-log-filter-advanced-data-modification-tracking" title="Permanent link">&para;</a></h3>
+<p>Track only data modification operations, excluding the audit log table itself. This filter logs all <code>insert</code>, <code>update</code>, and <code>delete</code> operations on <code>table_access</code> events, except those targeting the <code>audit_log</code> table to prevent recursive logging:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;insert&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;not&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;audit_log&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;not&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;audit_log&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;not&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;audit_log&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="audit-log-filter-advanced-best-practices">Best practices<a class="headerlink" href="#audit-log-filter-advanced-best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-advanced-performance-considerations">Performance considerations<a class="headerlink" href="#audit-log-filter-advanced-performance-considerations" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Use specific field conditions to reduce processing overhead</p>
+</li>
+<li>
+<p>Avoid overly complex logical combinations</p>
+</li>
+<li>
+<p>Test filter performance with production workloads</p>
+</li>
+</ul>
+<h3 id="audit-log-filter-advanced-security-guidelines">Security guidelines<a class="headerlink" href="#audit-log-filter-advanced-security-guidelines" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Replace sensitive data in audit logs using field replacement</p>
+</li>
+<li>
+<p>Block dangerous operations when appropriate</p>
+</li>
+<li>
+<p>Use dynamic filters for temporary security measures</p>
+</li>
+</ul>
+<h3 id="audit-log-filter-advanced-maintenance-tips">Maintenance tips<a class="headerlink" href="#audit-log-filter-advanced-maintenance-tips" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Document complex filter logic</p>
+</li>
+<li>
+<p>Test filters in non-production environments</p>
+</li>
+<li>
+<p>Monitor filter performance impact</p>
+</li>
+<li>
+<p>Use filter references for maintainable configurations</p>
+</li>
+</ul>
+<h2 id="audit-log-filter-advanced-troubleshooting-advanced-filters">Troubleshooting advanced filters<a class="headerlink" href="#audit-log-filter-advanced-troubleshooting-advanced-filters" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-advanced-common-issues">Common issues<a class="headerlink" href="#audit-log-filter-advanced-common-issues" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Filter not activating: Check <code>activate</code> conditions</p>
+</li>
+<li>
+<p>Unexpected blocking: Verify <code>abort</code> field conditions  </p>
+</li>
+<li>
+<p>Performance problems: Simplify logical operators</p>
+</li>
+<li>
+<p>Replacement not working: Check field names and function syntax</p>
+</li>
+</ol>
+<h3 id="audit-log-filter-advanced-debugging-steps">Debugging steps<a class="headerlink" href="#audit-log-filter-advanced-debugging-steps" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Test filter conditions individually</p>
+</li>
+<li>
+<p>Use simple filters first, then add complexity</p>
+</li>
+<li>
+<p>Check MySQL error logs for filter syntax errors</p>
+</li>
+<li>
+<p>Verify field names match actual event structure</p>
+</li>
+</ol>
+<h3 id="audit-log-filter-advanced-testing-advanced-filters">Testing advanced filters<a class="headerlink" href="#audit-log-filter-advanced-testing-advanced-filters" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Test filter activation</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_filter</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;your_filter&#39;</span><span class="p">;</span>
+
+<span class="c1">-- Check filter assignments</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_user</span><span class="p">;</span>
+
+<span class="c1">-- Monitor audit log output</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">plugins</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">plugin_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;audit_log&#39;</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="audit-log-filter-advanced-authentication-stage-considerations">Authentication stage considerations<a class="headerlink" href="#audit-log-filter-advanced-authentication-stage-considerations" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-advanced-pre-authenticate-stage-behavior">Pre-authenticate stage behavior<a class="headerlink" href="#audit-log-filter-advanced-pre-authenticate-stage-behavior" title="Permanent link">&para;</a></h3>
+<p>During the pre-authenticate stage, no authenticated user is associated with the event. This behavior affects filter application:</p>
+<ul>
+<li>
+<p>User-specific filters cannot be applied during pre-authentication</p>
+</li>
+<li>
+<p>Default rule for <code>%</code> is selected instead of user-specific rules</p>
+</li>
+<li>
+<p>This behavior applies to both connection and general events</p>
+</li>
+</ul>
+<h3 id="audit-log-filter-advanced-example-scenario">Example scenario<a class="headerlink" href="#audit-log-filter-advanced-example-scenario" title="Permanent link">&para;</a></h3>
+<p>If you have a filter assigned to <code>excludeUserTest@</code> but the event occurs before authentication, the system will use the default rule for <code>%</code> instead of the <code>excludeUserTest@</code> rule, because no authenticated user exists yet. This example shows a connection filter that would be used as the default:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="audit-log-filter-advanced-best-practices_1">Best practices<a class="headerlink" href="#audit-log-filter-advanced-best-practices_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Design default filters to handle pre-authentication events appropriately</p>
+</li>
+<li>
+<p>Create a default filter assigned to <code>%</code>@<code>%</code> that logs connection events</p>
+</li>
+<li>
+<p>Use global logging controls for events that occur before user authentication</p>
+</li>
+<li>
+<p>Example: <code>{"filter":{"class":[{"name":"connection","log":true}]}}</code></p>
+</li>
+<li>
+<p>Use global logging controls for events that occur before user authentication</p>
+</li>
+<li>
+<p>Set <code>log: true</code> at the filter level for connection events</p>
+</li>
+<li>
+<p>Avoid user-specific conditions in default filters</p>
+</li>
+<li>
+<p>Test with anonymous connections to verify behavior</p>
+</li>
+<li>
+<p>Test filter behavior during connection establishment phases</p>
+</li>
+<li>
+<p>Connect without authentication to test default filter behavior</p>
+</li>
+<li>
+<p>Verify that connection events are logged according to default rules</p>
+</li>
+<li>
+<p>Check that user-specific filters don&rsquo;t interfere with pre-authentication</p>
+</li>
+<li>
+<p>Consider authentication timing when designing user-specific filters</p>
+</li>
+<li>
+<p>Remember that user-specific filters only apply after successful authentication</p>
+</li>
+<li>
+<p>Design filters that work for both authenticated and pre-authenticated scenarios</p>
+</li>
+<li>
+<p>Use the Reference guide for complete field names and event types</p>
+</li>
+</ol>
+<h2 id="audit-log-filter-advanced-related-topics">Related topics<a class="headerlink" href="#audit-log-filter-advanced-related-topics" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="#audit-log-filter-overview">Audit Log Filter Overview</a> - Introduction to audit log filtering concepts</p>
+</li>
+<li>
+<p><a href="#write-audit-log-filter-definitions">Write Audit Log Filter Definitions</a> - Quick start guide for basic filter creation</p>
+</li>
+<li>
+<p><a href="#audit-log-filter-reference">Audit Log Filter Reference</a> - Complete reference tables and technical details</p>
+</li>
+</ul></section><section class="print-page" id="audit-log-filter-reference" heading-number="4.2.6"><h1 id="audit-log-filter-reference-audit-log-filter-reference">Audit log filter reference<a class="headerlink" href="#audit-log-filter-reference-audit-log-filter-reference" title="Permanent link">&para;</a></h1>
+<p>This reference guide provides comprehensive tables and technical details for MySQL audit log filter definitions. Use this reference guide as a quick lookup for field names, event types, functions, and system variables.</p>
+<h2 id="audit-log-filter-reference-event-class-and-subclass-combinations">Event class and subclass combinations<a class="headerlink" href="#audit-log-filter-reference-event-class-and-subclass-combinations" title="Permanent link">&para;</a></h2>
+<p>The following table shows which event subclasses are valid for each event class in audit log filters:</p>
+<table>
+<thead>
+<tr>
+<th>Event Class</th>
+<th>Event Subclass</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td>connect</td>
+<td>Client connection established</td>
+</tr>
+<tr>
+<td>connection</td>
+<td>disconnect</td>
+<td>Client connection terminated</td>
+</tr>
+<tr>
+<td>connection</td>
+<td>change_user</td>
+<td>User changed during session</td>
+</tr>
+<tr>
+<td>general</td>
+<td>status</td>
+<td>General status events (queries, commands)</td>
+</tr>
+<tr>
+<td>table_access</td>
+<td>read</td>
+<td>Table read operations (SELECT)</td>
+</tr>
+<tr>
+<td>table_access</td>
+<td>insert</td>
+<td>Table insert operations (INSERT)</td>
+</tr>
+<tr>
+<td>table_access</td>
+<td>update</td>
+<td>Table update operations (UPDATE)</td>
+</tr>
+<tr>
+<td>table_access</td>
+<td>delete</td>
+<td>Table delete operations (DELETE)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="audit-log-filter-reference-usage-examples">Usage examples<a class="headerlink" href="#audit-log-filter-reference-usage-examples" title="Permanent link">&para;</a></h3>
+<p>Log all connection events:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connect&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;disconnect&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>Log only data modification operations:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;insert&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h2 id="audit-log-filter-reference-available-field-names-by-event-type">Available field names by event type<a class="headerlink" href="#audit-log-filter-reference-available-field-names-by-event-type" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-reference-connection-event-fields">Connection event fields<a class="headerlink" href="#audit-log-filter-reference-connection-event-fields" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field Name</th>
+<th>Data Type</th>
+<th>Description</th>
+<th>Example Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>status</code></td>
+<td>integer</td>
+<td>Event status (0 for OK, non-zero for failure)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>connection_id</code></td>
+<td>integer</td>
+<td>Unique connection identifier</td>
+<td><code>12345</code></td>
+</tr>
+<tr>
+<td><code>user.str</code></td>
+<td>string</td>
+<td>Username for the connection</td>
+<td><code>"admin"</code></td>
+</tr>
+<tr>
+<td><code>host.str</code></td>
+<td>string</td>
+<td>Client hostname</td>
+<td><code>"localhost"</code></td>
+</tr>
+<tr>
+<td><code>ip.str</code></td>
+<td>string</td>
+<td>Client IP address</td>
+<td><code>"192.168.1.100"</code></td>
+</tr>
+<tr>
+<td><code>database.str</code></td>
+<td>string</td>
+<td>Database name specified at connect</td>
+<td><code>"myapp"</code></td>
+</tr>
+<tr>
+<td><code>connection_type</code></td>
+<td>integer</td>
+<td>Connection type (1=TCP/IP, 4=SSL)</td>
+<td><code>1</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="audit-log-filter-reference-general-event-fields">General event fields<a class="headerlink" href="#audit-log-filter-reference-general-event-fields" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field Name</th>
+<th>Data Type</th>
+<th>Description</th>
+<th>Example Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>general_error_code</code></td>
+<td>integer</td>
+<td>Event status (0 for OK, non-zero for failure)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>general_thread_id</code></td>
+<td>integer</td>
+<td>Connection/thread ID</td>
+<td><code>12345</code></td>
+</tr>
+<tr>
+<td><code>general_command.str</code></td>
+<td>string</td>
+<td>Command name (Query, Execute)</td>
+<td><code>"Query"</code></td>
+</tr>
+<tr>
+<td><code>general_query.str</code></td>
+<td>string</td>
+<td>SQL statement text</td>
+<td><code>"SELECT * FROM users"</code></td>
+</tr>
+<tr>
+<td><code>general_host.str</code></td>
+<td>string</td>
+<td>Host executing query</td>
+<td><code>"localhost"</code></td>
+</tr>
+<tr>
+<td><code>general_sql_command.str</code></td>
+<td>string</td>
+<td>SQL command type</td>
+<td><code>"select"</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> User filtering (<code>user.str</code>) is not available for <code>general</code> class events. The user information appears in the top-level <code>account</code> object in the audit log output, but it is not accessible as a filterable field for <code>general</code> events. User filtering is also not available for <code>table_access</code> events. To filter by user, use <code>connection</code> events instead.</p>
+<h3 id="audit-log-filter-reference-table-access-event-fields">Table access event fields<a class="headerlink" href="#audit-log-filter-reference-table-access-event-fields" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field Name</th>
+<th>Data Type</th>
+<th>Description</th>
+<th>Example Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>connection_id</code></td>
+<td>integer</td>
+<td>Event connection ID</td>
+<td><code>12345</code></td>
+</tr>
+<tr>
+<td><code>sql_command_id</code></td>
+<td>integer</td>
+<td>SQL command ID</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>query.str</code></td>
+<td>string</td>
+<td>SQL statement text</td>
+<td><code>"INSERT INTO users VALUES (...)"</code></td>
+</tr>
+<tr>
+<td><code>table_database.str</code></td>
+<td>string</td>
+<td>Database containing table</td>
+<td><code>"myapp"</code></td>
+</tr>
+<tr>
+<td><code>table_name.str</code></td>
+<td>string</td>
+<td>Name of accessed table</td>
+<td><code>"users"</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="audit-log-filter-reference-field-usage-examples">Field usage examples<a class="headerlink" href="#audit-log-filter-reference-field-usage-examples" title="Permanent link">&para;</a></h3>
+<p>Filter by specific table:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;insert&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sensitive_data&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>Filter by database:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;insert&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;read&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_database.str&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;production&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h2 id="audit-log-filter-reference-predefined-functions-reference">Predefined functions reference<a class="headerlink" href="#audit-log-filter-reference-predefined-functions-reference" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-reference-query-digest-function">Query digest function<a class="headerlink" href="#audit-log-filter-reference-query-digest-function" title="Permanent link">&para;</a></h3>
+<p>The <code>query_digest</code> function provides statement digest functionality for audit log filters.</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Arguments</th>
+<th>Return Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>query_digest</code></td>
+<td>none</td>
+<td>string</td>
+<td>Returns digest of current statement</td>
+</tr>
+<tr>
+<td><code>query_digest</code></td>
+<td><code>"digest"</code></td>
+<td>boolean</td>
+<td>Compares current statement digest with provided digest</td>
+</tr>
+</tbody>
+</table>
+<p>Usage Examples:</p>
+<p>Replace statement text with digest:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_query.str&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;replace&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;function&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query_digest&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h2 id="audit-log-filter-reference-system-variables-reference">System variables reference<a class="headerlink" href="#audit-log-filter-reference-system-variables-reference" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-reference-audit-log-filter-configuration-variables">Audit log filter configuration variables<a class="headerlink" href="#audit-log-filter-reference-audit-log-filter-configuration-variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable_name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>audit_log_filter_buffer_size</td>
+<td>1048576</td>
+</tr>
+<tr>
+<td>audit_log_filter_compression</td>
+<td>NONE</td>
+</tr>
+<tr>
+<td>audit_log_filter_database</td>
+<td>mysql</td>
+</tr>
+<tr>
+<td>audit_log_filter_disable</td>
+<td>OFF</td>
+</tr>
+<tr>
+<td>audit_log_filter_encryption</td>
+<td>NONE</td>
+</tr>
+<tr>
+<td>audit_log_filter_file</td>
+<td>audit_filter.log</td>
+</tr>
+<tr>
+<td>audit_log_filter_filter_id</td>
+<td>1</td>
+</tr>
+<tr>
+<td>audit_log_filter_format</td>
+<td>NEW</td>
+</tr>
+<tr>
+<td>audit_log_filter_format_unix_timestamp</td>
+<td>OFF</td>
+</tr>
+<tr>
+<td>audit_log_filter_handler</td>
+<td>FILE</td>
+</tr>
+<tr>
+<td>audit_log_filter_key_derivation_iterations_count_mean</td>
+<td>600000</td>
+</tr>
+<tr>
+<td>audit_log_filter_max_size</td>
+<td>1073741824</td>
+</tr>
+<tr>
+<td>audit_log_filter_password_history_keep_days</td>
+<td>0</td>
+</tr>
+<tr>
+<td>audit_log_filter_prune_seconds</td>
+<td>0</td>
+</tr>
+<tr>
+<td>audit_log_filter_read_buffer_size</td>
+<td>32768</td>
+</tr>
+<tr>
+<td>audit_log_filter_rotate_on_size</td>
+<td>1073741824</td>
+</tr>
+<tr>
+<td>audit_log_filter_strategy</td>
+<td>ASYNCHRONOUS</td>
+</tr>
+<tr>
+<td>audit_log_filter_syslog_facility</td>
+<td>LOG_USER</td>
+</tr>
+<tr>
+<td>audit_log_filter_syslog_priority</td>
+<td>LOG_INFO</td>
+</tr>
+<tr>
+<td>audit_log_filter_syslog_tag</td>
+<td>audit-filter</td>
+</tr>
+</tbody>
+</table>
+<h3 id="audit-log-filter-reference-log-file-management-examples">Log file management examples<a class="headerlink" href="#audit-log-filter-reference-log-file-management-examples" title="Permanent link">&para;</a></h3>
+<p>Configure 1GB file rotation:
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter_rotate_on_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1073741824</span><span class="p">;</span>
+</code></pre></div></p>
+<p>Set 2GB total log size limit:
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter_max_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2147483648</span><span class="p">;</span>
+</code></pre></div></p>
+<p>Remove logs older than 7 days:
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter_prune_seconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">604800</span><span class="p">;</span>
+</code></pre></div></p>
+<h2 id="audit-log-filter-reference-logical-operators-reference">Logical operators reference<a class="headerlink" href="#audit-log-filter-reference-logical-operators-reference" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-reference-supported-logical-operators">Supported logical operators<a class="headerlink" href="#audit-log-filter-reference-supported-logical-operators" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Syntax</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>and</code></td>
+<td><code>{"and": [condition1, condition2]}</code></td>
+<td>All conditions must be true</td>
+<td><code>{"and": [{"field": {"name": "user.str", "value": "admin"}}, {"field": {"name": "table_name.str", "value": "users"}}]}</code></td>
+</tr>
+<tr>
+<td><code>or</code></td>
+<td><code>{"or": [condition1, condition2]}</code></td>
+<td>Any condition can be true</td>
+<td><code>{"or": [{"field": {"name": "table_name.str", "value": "users"}}, {"field": {"name": "table_name.str", "value": "accounts"}}]}</code></td>
+</tr>
+<tr>
+<td><code>not</code></td>
+<td><code>{"not": condition}</code></td>
+<td>Inverts the condition result</td>
+<td><code>{"not": {"field": {"name": "general_sql_command.str", "value": "select"}}}</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="audit-log-filter-reference-complex-logical-examples">Complex logical examples<a class="headerlink" href="#audit-log-filter-reference-complex-logical-examples" title="Permanent link">&para;</a></h3>
+<p>Log admin operations on sensitive tables:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;or&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;users&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;payments&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Note:</strong> User filtering (<code>user.str</code>) is not available for <code>table_access</code> events. To restrict this filter to specific users (e.g., &ldquo;admin&rdquo;), assign the filter only to those users using <code>audit_log_filter_set_user('admin@localhost', 'filter_name')</code> instead of filtering by user within the filter definition.</p>
+<h2 id="audit-log-filter-reference-field-value-testing-patterns">Field value testing patterns<a class="headerlink" href="#audit-log-filter-reference-field-value-testing-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-reference-common-field-value-tests">Common field value tests<a class="headerlink" href="#audit-log-filter-reference-common-field-value-tests" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Use Case</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exact match</td>
+<td>Filter by specific values</td>
+<td><code>{"field": {"name": "user.str", "value": "admin"}}</code></td>
+</tr>
+<tr>
+<td>Multiple values</td>
+<td>Filter by any of several values</td>
+<td><code>{"or": [{"field": {"name": "table_name.str", "value": "users"}}, {"field": {"name": "table_name.str", "value": "accounts"}}]}</code></td>
+</tr>
+<tr>
+<td>Exclude values</td>
+<td>Filter out specific values</td>
+<td><code>{"not": {"field": {"name": "general_sql_command.str", "value": "select"}}}</code></td>
+</tr>
+<tr>
+<td>Function-based</td>
+<td>Use predefined functions</td>
+<td><code>{"function": {"name": "query_digest", "args": "SELECT ?"}}</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="audit-log-filter-reference-field-value-examples">Field value examples<a class="headerlink" href="#audit-log-filter-reference-field-value-examples" title="Permanent link">&para;</a></h3>
+<p>Log all operations except SELECT statements:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;not&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_sql_command.str&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;select&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>Log operations on multiple sensitive tables:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;insert&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;read&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;or&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;financial_data&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_credentials&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;payment_info&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h2 id="audit-log-filter-reference-dynamic-filter-reference">Dynamic filter reference<a class="headerlink" href="#audit-log-filter-reference-dynamic-filter-reference" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-reference-filter-replacement-patterns">Filter replacement patterns<a class="headerlink" href="#audit-log-filter-reference-filter-replacement-patterns" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Description</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"id": "filter_name"</code></td>
+<td>Assigns unique identifier to filter</td>
+<td>Referencing filters in dynamic replacements</td>
+</tr>
+<tr>
+<td><code>"ref": "filter_name"</code></td>
+<td>References another filter by ID</td>
+<td>Returning to original filter after temporary replacement</td>
+</tr>
+<tr>
+<td><code>"activate": condition</code></td>
+<td>Condition for filter activation</td>
+<td>Triggering filter changes based on events</td>
+</tr>
+</tbody>
+</table>
+<h3 id="audit-log-filter-reference-dynamic-filter-example">Dynamic filter example<a class="headerlink" href="#audit-log-filter-reference-dynamic-filter-example" title="Permanent link">&para;</a></h3>
+<p>Temporary enhanced logging for specific operations:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;monitor_sensitive&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;insert&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;monitor_sensitive&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">},</span>
+<span class="w">          </span><span class="nt">&quot;activate&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_name.str&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sensitive_data&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h2 id="audit-log-filter-reference-print-and-replace-operations">Print and replace operations<a class="headerlink" href="#audit-log-filter-reference-print-and-replace-operations" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-reference-print-control-options">Print control options<a class="headerlink" href="#audit-log-filter-reference-print-control-options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"print": true</code></td>
+<td>Include field in audit log</td>
+<td>Default behavior for most fields</td>
+</tr>
+<tr>
+<td><code>"print": false</code></td>
+<td>Exclude field from audit log</td>
+<td>Hide sensitive information</td>
+</tr>
+<tr>
+<td><code>"replace": value</code></td>
+<td>Replace field value</td>
+<td>Mask or transform sensitive data</td>
+</tr>
+</tbody>
+</table>
+<h3 id="audit-log-filter-reference-field-replacement-examples">Field replacement examples<a class="headerlink" href="#audit-log-filter-reference-field-replacement-examples" title="Permanent link">&para;</a></h3>
+<p>Replace SQL statements with digests:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_query.str&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;replace&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;function&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query_digest&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>Conditional field replacement:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general_query.str&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;print&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;not&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;function&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query_digest&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SELECT ?&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;replace&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;function&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query_digest&quot;</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h2 id="audit-log-filter-reference-troubleshooting-reference">Troubleshooting reference<a class="headerlink" href="#audit-log-filter-reference-troubleshooting-reference" title="Permanent link">&para;</a></h2>
+<h3 id="audit-log-filter-reference-common-field-name-issues">Common field name issues<a class="headerlink" href="#audit-log-filter-reference-common-field-name-issues" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Solution</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Field not found</td>
+<td>Check field name spelling and event type</td>
+<td>Use <code>table_name.str</code> for table_access events, not <code>table_name</code></td>
+</tr>
+<tr>
+<td>Wrong data type</td>
+<td>Verify field data type in reference</td>
+<td><code>connection_id</code> is integer, not string</td>
+</tr>
+<tr>
+<td>Case sensitivity</td>
+<td>Field names are case-sensitive</td>
+<td>Use <code>general_query.str</code>, not <code>General_Query.str</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="audit-log-filter-reference-validation-commands">Validation commands<a class="headerlink" href="#audit-log-filter-reference-validation-commands" title="Permanent link">&para;</a></h3>
+<p>Check filter syntax:
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;test_filter&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;filter&quot;:{&quot;class&quot;:{&quot;name&quot;:&quot;connection&quot;}}}&#39;</span><span class="p">);</span>
+</code></pre></div></p>
+<p>Verify filter assignment:
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_filter</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;your_filter&#39;</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_user</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">filter_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;your_filter&#39;</span><span class="p">;</span>
+</code></pre></div></p>
+<p>Test filter activation:</p>
+<ol>
+<li>
+<p>Connect as test user and run operations</p>
+</li>
+<li>
+<p>Check audit log file for expected entries</p>
+</li>
+<li>
+<p>Verify filter behavior matches expectations</p>
+</li>
+</ol>
+<h2 id="audit-log-filter-reference-related-topics">Related topics<a class="headerlink" href="#audit-log-filter-reference-related-topics" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="#audit-log-filter-overview">Audit Log Filter Overview</a> - Introduction to audit log filtering concepts</p>
+</li>
+<li>
+<p><a href="#write-audit-log-filter-definitions">Write Audit Log Filter Definitions</a> - Quick start guide for basic filter creation</p>
+</li>
+<li>
+<p><a href="#audit-log-filter-advanced">Advanced Audit Log Filter Definitions</a> - Advanced features and complex configurations</p>
+</li>
+</ul></section><section class="print-page" id="audit-log-filter-variables" heading-number="4.2.7"><h1 id="audit-log-filter-variables-audit-log-filter-functions-options-and-variables">Audit log filter functions, options and variables<a class="headerlink" href="#audit-log-filter-variables-audit-log-filter-functions-options-and-variables" title="Permanent link">&para;</a></h1>
 <p>All audit log functions return a string value that shows the operation result. The
 string &ldquo;OK&rdquo; indicates successful completion. &ldquo;ERROR: message&rdquo; indicates failure
 with an accompanying error message.</p>
@@ -20203,7 +22176,7 @@ values can be either <code>NONE</code>, the default value and file has no compre
 <td>In the asynchronous logging mode, the number of times an event waited for space in the audit log filter buffer</td>
 </tr>
 </tbody>
-</table></section><section class="print-page" id="audit-log-filter-security" heading-number="4.2.5"><h1 id="audit-log-filter-security-audit-log-filter-security">Audit Log Filter security<a class="headerlink" href="#audit-log-filter-security-audit-log-filter-security" title="Permanent link">&para;</a></h1>
+</table></section><section class="print-page" id="audit-log-filter-security" heading-number="4.2.8"><h1 id="audit-log-filter-security-audit-log-filter-security">Audit Log Filter security<a class="headerlink" href="#audit-log-filter-security-audit-log-filter-security" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter plugin generates audit log filter files. The directory 
 that contains these files should be accessible only to the following:</p>
 <ul>
@@ -20215,7 +22188,7 @@ that contains these files should be accessible only to the following:</p>
 </li>
 </ul>
 <p>The files are not encrypted by default and may contain sensitive information.</p>
-<p>The default name for the file in the data directory is <code>audit_filter.log</code>. If needed, use the <code>audit_log_filter_file</code> system variable at server startup to change the location. Due to the log rotation, multiple audit log files may exist.</p></section><section class="print-page" id="audit-log-filter-compression-encryption" heading-number="4.2.6"><h1 id="audit-log-filter-compression-encryption-audit-log-filter-compression-and-encryption">Audit Log Filter compression and encryption<a class="headerlink" href="#audit-log-filter-compression-encryption-audit-log-filter-compression-and-encryption" title="Permanent link">&para;</a></h1>
+<p>The default name for the file in the data directory is <code>audit_filter.log</code>. If needed, use the <code>audit_log_filter_file</code> system variable at server startup to change the location. Due to the log rotation, multiple audit log files may exist.</p></section><section class="print-page" id="audit-log-filter-compression-encryption" heading-number="4.2.9"><h1 id="audit-log-filter-compression-encryption-audit-log-filter-compression-and-encryption">Audit Log Filter compression and encryption<a class="headerlink" href="#audit-log-filter-compression-encryption-audit-log-filter-compression-and-encryption" title="Permanent link">&para;</a></h1>
 <h2 id="audit-log-filter-compression-encryption-compression">Compression<a class="headerlink" href="#audit-log-filter-compression-encryption-compression" title="Permanent link">&para;</a></h2>
 <p>You can enable compression for any <a href="#audit-log-filter-formats">format</a> by setting the <code>audit_log_filter_compression</code> system variable when the server starts.</p>
 <p>The <code>audit_log_filter_compression</code> variable can be either of the following:</p>
@@ -20271,7 +22244,7 @@ that contains these files should be accessible only to the following:</p>
 <summary>Expected output</summary>
 <div class="highlight"><pre><span></span><code>{&quot;password&quot;:&quot;{randomly-generated-alphanumeric-string}&quot;,&quot;iterations&quot;:568977}
 </code></pre></div>
-</details></section><section class="print-page" id="reading-audit-log-filter-files" heading-number="4.2.7"><h1 id="reading-audit-log-filter-files-reading-audit-log-filter-files">Reading Audit Log Filter files<a class="headerlink" href="#reading-audit-log-filter-files-reading-audit-log-filter-files" title="Permanent link">&para;</a></h1>
+</details></section><section class="print-page" id="reading-audit-log-filter-files" heading-number="4.2.10"><h1 id="reading-audit-log-filter-files-reading-audit-log-filter-files">Reading Audit Log Filter files<a class="headerlink" href="#reading-audit-log-filter-files-reading-audit-log-filter-files" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter functions can provide a SQL interface to read JSON-format audit log files. The functions cannot read log files in other formats. Configuring the plugin for JSON logging lets the functions use the directory that contains the current audit log filter file and search in that location for readable files. The value of the <code>audit_log_filter_file</code> system variable provides the file location, base name, and the suffix and then searches for names that match the pattern.</p>
 <p>If the file is renamed and no longer fits the pattern, the file is ignored.</p>
 <h2 id="reading-audit-log-filter-files-functions-used-for-reading-the-files">Functions used for reading the files<a class="headerlink" href="#reading-audit-log-filter-files-functions-used-for-reading-the-files" title="Permanent link">&para;</a></h2>
@@ -20282,13 +22255,91 @@ that contains these files should be accessible only to the following:</p>
 </ul>
 <p>Initialize a read sequence by using a bookmark or an argument that specifies the start position:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">(</span>audit_log_read_bookmark<span class="o">())</span><span class="p">;</span>
-
-The<span class="w"> </span>following<span class="w"> </span>example<span class="w"> </span>continues<span class="w"> </span>reading<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>position:
-
-<span class="sb">```</span><span class="o">{</span>.bash<span class="w"> </span>data-prompt<span class="o">=</span><span class="s2">&quot;mysql&gt;&quot;</span><span class="o">}</span>
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">()</span><span class="p">;</span>
 </code></pre></div>
-<p>Reading a file is closed when the session ends or calling <code>audit_log_read()</code> with another argument.</p></section><section class="print-page" id="manage-audit-log-filter" heading-number="4.2.8"><h1 id="manage-audit-log-filter-manage-the-audit-log-filter-files">Manage the Audit Log Filter files<a class="headerlink" href="#manage-audit-log-filter-manage-the-audit-log-filter-files" title="Permanent link">&para;</a></h1>
+<p>The following example continues reading from the current position:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+<p>Reading a file is closed when the session ends or calling <code>audit_log_read()</code> with another argument.</p>
+<h2 id="reading-audit-log-filter-files-using-jq-to-process-json-audit-logs">Using jq to process JSON audit logs<a class="headerlink" href="#reading-audit-log-filter-files-using-jq-to-process-json-audit-logs" title="Permanent link">&para;</a></h2>
+<p>The <code>jq</code> utility is a command-line JSON processor that provides an alternative way to read and analyze JSON-format audit log files. This is useful for filtering, searching, and formatting audit log data from the command line.</p>
+<div class="admonition note">
+<p class="admonition-title">Important</p>
+<p><code>jq</code> can only parse audit log files that are closed, meaning they are not currently being used by the MySQL server. If you run <code>jq</code> commands on an open file (one that the server is actively writing to), <code>jq</code> will not be able to parse that file.</p>
+</div>
+<h3 id="reading-audit-log-filter-files-installing-jq">Installing jq<a class="headerlink" href="#reading-audit-log-filter-files-installing-jq" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="reading-audit-log-filter-files-__tabbed_1_1" name="reading-audit-log-filter-files-__tabbed_1" type="radio" /><input id="reading-audit-log-filter-files-__tabbed_1_2" name="reading-audit-log-filter-files-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="reading-audit-log-filter-files-__tabbed_1_1">RHEL/CentOS</label><label for="reading-audit-log-filter-files-__tabbed_1_2">Debian/Ubuntu</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>jq
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>jq
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="reading-audit-log-filter-files-example-usage">Example usage<a class="headerlink" href="#reading-audit-log-filter-files-example-usage" title="Permanent link">&para;</a></h3>
+<p>Extract all connection events:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>audit_filter.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[]|select(.class==&quot;connection&quot;)&#39;</span>
+</code></pre></div>
+<p>Find all events for a specific user:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>data/audit_filter.20251007T121752.log.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[] | select((.account.user // &quot;&quot;) | contains(&quot;root&quot;))&#39;</span>
+<span class="o">{</span>
+<span class="w">  </span><span class="s2">&quot;timestamp&quot;</span>:<span class="w"> </span><span class="s2">&quot;2025-10-07 11:15:27&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">4</span>,
+<span class="w">  </span><span class="s2">&quot;class&quot;</span>:<span class="w"> </span><span class="s2">&quot;general&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;event&quot;</span>:<span class="w"> </span><span class="s2">&quot;log&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;connection_id&quot;</span>:<span class="w"> </span><span class="m">11</span>,
+<span class="w">  </span><span class="s2">&quot;account&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;user&quot;</span>:<span class="w"> </span><span class="s2">&quot;[root] @ localhost []&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;host&quot;</span>:<span class="w"> </span><span class="s2">&quot;localhost&quot;</span>
+<span class="w">  </span><span class="o">}</span>,
+<span class="w">  </span><span class="s2">&quot;login&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;user&quot;</span>:<span class="w"> </span><span class="s2">&quot;[root] @ localhost []&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;ip&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;proxy&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">  </span><span class="o">}</span>,
+<span class="w">  </span><span class="s2">&quot;general_data&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;status&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="w">  </span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>Filter events by SQL command type:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>data/audit_filter.20251007T121752.log.json<span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[]|select(.query_data.sql_command==&quot;select&quot;)&#39;</span>
+<span class="o">{</span>
+<span class="w">  </span><span class="s2">&quot;timestamp&quot;</span>:<span class="w"> </span><span class="s2">&quot;2025-10-07 11:15:27&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">10</span>,
+<span class="w">  </span><span class="s2">&quot;class&quot;</span>:<span class="w"> </span><span class="s2">&quot;query&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;event&quot;</span>:<span class="w"> </span><span class="s2">&quot;query_start&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;connection_id&quot;</span>:<span class="w"> </span><span class="m">11</span>,
+<span class="w">  </span><span class="s2">&quot;query_data&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;query&quot;</span>:<span class="w"> </span><span class="s2">&quot;select @@version_comment limit 1&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;status&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">    </span><span class="s2">&quot;sql_command&quot;</span>:<span class="w"> </span><span class="s2">&quot;select&quot;</span>
+<span class="w">  </span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>Extract only INSERT operations on specific tables:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>data/audit_filter.20260109T131132.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[]|select(.class==&quot;table_access&quot; and .event==&quot;insert&quot; or (.table_access_data.table_database // &quot;&quot;)==&quot;test&quot;)&#39;</span>
+<span class="o">{</span>
+<span class="w">  </span><span class="s2">&quot;timestamp&quot;</span>:<span class="w"> </span><span class="s2">&quot;2026-01-09 13:10:59&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">80</span>,
+<span class="w">  </span><span class="s2">&quot;class&quot;</span>:<span class="w"> </span><span class="s2">&quot;table_access&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;event&quot;</span>:<span class="w"> </span><span class="s2">&quot;insert&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;connection_id&quot;</span>:<span class="w"> </span><span class="m">12</span>,
+<span class="w">  </span><span class="s2">&quot;table_access_data&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;db&quot;</span>:<span class="w"> </span><span class="s2">&quot;test&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;table&quot;</span>:<span class="w"> </span><span class="s2">&quot;t1&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;query&quot;</span>:<span class="w"> </span><span class="s2">&quot;INSERT INTO t1 VALUES (1)&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;sql_command&quot;</span>:<span class="w"> </span><span class="s2">&quot;insert&quot;</span>
+<span class="w">  </span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>Pretty-print the entire audit log:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>audit_filter.log.20251007T121752.log.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>less
+</code></pre></div>
+<p>For more <code>jq</code> examples and syntax, see the <a href="https://stedolan.github.io/jq/manual/">jq documentation</a>.</p></section><section class="print-page" id="manage-audit-log-filter" heading-number="4.2.11"><h1 id="manage-audit-log-filter-manage-the-audit-log-filter-files">Manage the Audit Log Filter files<a class="headerlink" href="#manage-audit-log-filter-manage-the-audit-log-filter-files" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter files have the following potential results:</p>
 <ul>
 <li>Consume a large amount of disk space</li>
@@ -20300,7 +22351,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<sp
 <p>The default setting for <a href="#audit-log-filter-variables-audit_log_filter_rotate_on_size"><code>audit_log_filter_rotate_on_size</code></a> is 1GB. If this option is set to <code>0</code>, the audit log filter plugin does not do an automatic rotation of the log file. You must do the rotation manually with this setting.</p>
 <p>The <code>SELECT audit_log_rotate()</code> command renames the file and creates a new audit log filter file with the original name. You must have the <code>AUDIT_ADMIN</code> privilege. </p>
 <p>The files are pruned if either <code>audit_log_filter_max_size</code> or <code>audit_log_filter_prune_seconds</code> have a value greater than 0 (zero) and <code>audit_log_filter_rotate_on_size</code> &gt; 0.</p>
-<p>After the files have been renamed, you must manually remove any archived audit log filter files. The renamed audit log filter files can be read by <code>audit_log_read()</code>. The <code>audit_log_read()</code> does not find the logs if the name pattern differs from the current pattern.</p></section><section class="print-page" id="filter-audit-log-filter-files" heading-number="4.2.9"><h1 id="filter-audit-log-filter-files-filter-the-audit-log-filter-logs">Filter the Audit Log Filter logs<a class="headerlink" href="#filter-audit-log-filter-files-filter-the-audit-log-filter-logs" title="Permanent link">&para;</a></h1>
+<p>After the files have been renamed, you must manually remove any archived audit log filter files. The renamed audit log filter files can be read by <code>audit_log_read()</code>. The <code>audit_log_read()</code> does not find the logs if the name pattern differs from the current pattern.</p></section><section class="print-page" id="filter-audit-log-filter-files" heading-number="4.2.12"><h1 id="filter-audit-log-filter-files-filter-the-audit-log-filter-logs">Filter the Audit Log Filter logs<a class="headerlink" href="#filter-audit-log-filter-files-filter-the-audit-log-filter-logs" title="Permanent link">&para;</a></h1>
 <p>The audit filter log filtering is based on rules. The filter rule definition has the ability to include or exclude events based on the following attributes:</p>
 <ul>
 <li>User account</li>
@@ -20357,7 +22408,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<sp
 <h2 id="filter-audit-log-filter-files-using-the-audit-log-filter-functions">Using the audit log filter functions<a class="headerlink" href="#filter-audit-log-filter-files-using-the-audit-log-filter-functions" title="Permanent link">&para;</a></h2>
 <p>With a new connection, the audit log filter plugin finds the user account name in the filter assignments. If a filter has been assigned, the plugin uses that filter. If no filter has been assigned, but there is a default account filter, the plugin uses that filter. If there is no filter assigned, and there is no default account filter, then the plugin does not process any event.</p>
 <p>The default account is represented by <code>%</code> as the account name.</p>
-<p>You can assign filters to a specific user account or disassociate a user account from a filter. To disassociate a user account, either unassign a filter or assign a different filter. If you remove a filter, that filter is unassigned from all users, including current users in current sessions.</p></section><section class="print-page" id="audit-log-filter-restrictions" heading-number="4.2.10"><h1 id="audit-log-filter-restrictions-audit-log-filter-restrictions">Audit Log Filter restrictions<a class="headerlink" href="#audit-log-filter-restrictions-audit-log-filter-restrictions" title="Permanent link">&para;</a></h1>
+<p>You can assign filters to a specific user account or disassociate a user account from a filter. To disassociate a user account, either unassign a filter or assign a different filter. If you remove a filter, that filter is unassigned from all users, including current users in current sessions.</p></section><section class="print-page" id="audit-log-filter-restrictions" heading-number="4.2.13"><h1 id="audit-log-filter-restrictions-audit-log-filter-restrictions">Audit Log Filter restrictions<a class="headerlink" href="#audit-log-filter-restrictions-audit-log-filter-restrictions" title="Permanent link">&para;</a></h1>
 <h2 id="audit-log-filter-restrictions-general-restrictions">General restrictions<a class="headerlink" href="#audit-log-filter-restrictions-general-restrictions" title="Permanent link">&para;</a></h2>
 <p>The Audit Log Filter has the following general restrictions:</p>
 <ul>
@@ -20373,7 +22424,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<sp
 <li>
 <p>If used with a cluster, the application or user is responsible for aggregating all the data of each server used in the cluster.</p>
 </li>
-</ul></section><section class="print-page" id="audit-log-filter-naming" heading-number="4.2.11"><h1 id="audit-log-filter-naming-audit-log-filter-file-naming-conventions">Audit Log Filter file naming conventions<a class="headerlink" href="#audit-log-filter-naming-audit-log-filter-file-naming-conventions" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="audit-log-filter-naming" heading-number="4.2.14"><h1 id="audit-log-filter-naming-audit-log-filter-file-naming-conventions">Audit Log Filter file naming conventions<a class="headerlink" href="#audit-log-filter-naming-audit-log-filter-file-naming-conventions" title="Permanent link">&para;</a></h1>
 <h2 id="audit-log-filter-naming-name-qualities">Name qualities<a class="headerlink" href="#audit-log-filter-naming-name-qualities" title="Permanent link">&para;</a></h2>
 <p>The audit log filter file name has the following qualities:</p>
 <ul>
@@ -20435,7 +22486,7 @@ audit_filter.log.20230301T061400-2.enc
 <h2 id="audit-log-filter-naming-renaming-operations">Renaming operations<a class="headerlink" href="#audit-log-filter-naming-renaming-operations" title="Permanent link">&para;</a></h2>
 <p>During initialization, the plugin checks if a file with that name exists. 
 If it does, the plugin renames the file. The plugin writes to an empty file.</p>
-<p>During termination, the plugin renames the file.</p></section><section class="print-page" id="disable-audit-log-filter" heading-number="4.2.12"><h1 id="disable-audit-log-filter-disable-audit-log-filter-logging">Disable Audit Log Filter logging<a class="headerlink" href="#disable-audit-log-filter-disable-audit-log-filter-logging" title="Permanent link">&para;</a></h1>
+<p>During termination, the plugin renames the file.</p></section><section class="print-page" id="disable-audit-log-filter" heading-number="4.2.15"><h1 id="disable-audit-log-filter-disable-audit-log-filter-logging">Disable Audit Log Filter logging<a class="headerlink" href="#disable-audit-log-filter-disable-audit-log-filter-logging" title="Permanent link">&para;</a></h1>
 <p>The <code>audit_log_filter_disable</code> system variable lets you disable or enable logging for all connections.</p>
 <p>You can set the variable in the following ways:</p>
 <ul>
@@ -20469,7 +22520,7 @@ If it does, the plugin renames the file. The plugin writes to an empty file.</p>
 <ul>
 <li><code>AUDIT_ADMIN</code> privilege</li>
 <li><code>SYSTEM_VARIABLES_ADMIN</code> privilege</li>
-</ul></section><section class="print-page" id="uninstall-audit-log-filter" heading-number="4.2.13"><h1 id="uninstall-audit-log-filter-uninstall-audit-log-filter">Uninstall Audit Log Filter<a class="headerlink" href="#uninstall-audit-log-filter-uninstall-audit-log-filter" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="uninstall-audit-log-filter" heading-number="4.2.16"><h1 id="uninstall-audit-log-filter-uninstall-audit-log-filter">Uninstall Audit Log Filter<a class="headerlink" href="#uninstall-audit-log-filter-uninstall-audit-log-filter" title="Permanent link">&para;</a></h1>
 <p>To remove the plugin, run the following:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DROP<span class="w"> </span>TABLE<span class="w"> </span>IF<span class="w"> </span>EXISTS<span class="w"> </span>mysql.audit_log_user<span class="p">;</span>
 mysql&gt;<span class="w"> </span>DROP<span class="w"> </span>TABLE<span class="w"> </span>IF<span class="w"> </span>EXISTS<span class="w"> </span>mysql.audit_log_filter<span class="p">;</span>
@@ -65572,25 +67623,31 @@ contributions and changes from MariaDB.</p>
 
 .print-site-enumerate-headings #audit-log-filter-json > h1:before { content: '4.2.3.4 ' }
 
-.print-site-enumerate-headings #audit-log-filter-variables > h1:before { content: '4.2.4 ' }
+.print-site-enumerate-headings #write-audit-log-filter-definitions > h1:before { content: '4.2.4 ' }
 
-.print-site-enumerate-headings #audit-log-filter-security > h1:before { content: '4.2.5 ' }
+.print-site-enumerate-headings #audit-log-filter-advanced > h1:before { content: '4.2.5 ' }
 
-.print-site-enumerate-headings #audit-log-filter-compression-encryption > h1:before { content: '4.2.6 ' }
+.print-site-enumerate-headings #audit-log-filter-reference > h1:before { content: '4.2.6 ' }
 
-.print-site-enumerate-headings #reading-audit-log-filter-files > h1:before { content: '4.2.7 ' }
+.print-site-enumerate-headings #audit-log-filter-variables > h1:before { content: '4.2.7 ' }
 
-.print-site-enumerate-headings #manage-audit-log-filter > h1:before { content: '4.2.8 ' }
+.print-site-enumerate-headings #audit-log-filter-security > h1:before { content: '4.2.8 ' }
 
-.print-site-enumerate-headings #filter-audit-log-filter-files > h1:before { content: '4.2.9 ' }
+.print-site-enumerate-headings #audit-log-filter-compression-encryption > h1:before { content: '4.2.9 ' }
 
-.print-site-enumerate-headings #audit-log-filter-restrictions > h1:before { content: '4.2.10 ' }
+.print-site-enumerate-headings #reading-audit-log-filter-files > h1:before { content: '4.2.10 ' }
 
-.print-site-enumerate-headings #audit-log-filter-naming > h1:before { content: '4.2.11 ' }
+.print-site-enumerate-headings #manage-audit-log-filter > h1:before { content: '4.2.11 ' }
 
-.print-site-enumerate-headings #disable-audit-log-filter > h1:before { content: '4.2.12 ' }
+.print-site-enumerate-headings #filter-audit-log-filter-files > h1:before { content: '4.2.12 ' }
 
-.print-site-enumerate-headings #uninstall-audit-log-filter > h1:before { content: '4.2.13 ' }
+.print-site-enumerate-headings #audit-log-filter-restrictions > h1:before { content: '4.2.13 ' }
+
+.print-site-enumerate-headings #audit-log-filter-naming > h1:before { content: '4.2.14 ' }
+
+.print-site-enumerate-headings #disable-audit-log-filter > h1:before { content: '4.2.15 ' }
+
+.print-site-enumerate-headings #uninstall-audit-log-filter > h1:before { content: '4.2.16 ' }
 
 .print-site-enumerate-headings #binlog-space > h1:before { content: '4.3 ' }
 
