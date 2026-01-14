@@ -1,59 +1,63 @@
-# Use an RPM repository to install Percona Server for MySQL {{vers}}
+# Install using DNF
 
-Ready-to-use packages are available from the Percona Server for MySQL software repositories and the [Percona downloads :octicons-link-external-16:](https://www.percona.com/downloads/) page. 
+!!! important "Installation Method"
+    This guide describes **standard OS installation** on RPM-based operating systems (RHEL, CentOS, Rocky Linux, etc.) using DNF. Ready-to-use packages are available from the Percona Server for MySQL software repositories and the [Percona downloads] page. On RHEL 8+ systems, DNF has superseded YUM, but `yum` commands continue to work as they are aliased to `dnf`.
+    
+    **For containerized deployments:**
 
-The Percona yum repository supports popular RPM-based operating systems. The easiest way to install the Percona RPM repository is to install an RPM that configures yum and installs the [Percona GPG key :octicons-link-external-16:](https://www.percona.com/downloads/RPM-GPG-KEY-percona).
+    * For Docker containers, see [Running Percona Server for MySQL in a Docker Container](docker.md).
 
-Specific information on the supported platforms, products, and versions is described in [Percona Software and Platform Lifecycle :octicons-link-external-16:](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
+    * For Kubernetes deployments, refer to the documentation for [Percona Operator based on Percona Server for MySQL](https://docs.percona.com/percona-operator-for-mysql/ps/) or [Percona Operator based on Percona XtraDB Cluster](https://docs.percona.com/percona-operator-for-mysql/pxc/).
+
 
 --8<-- "percona-release.md"
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
---8<--- "get-help-snip.md"
+--8<-- "get-help-snip.md"
 
 ## Prerequisites
 
-Before installing Percona Server for MySQL, ensure you have the following:
-
 ### Required permissions
 
-* `sudo` access: You need administrator privileges to install packages and configure system services
-
-* Root access: Some commands require root privileges or sudo access
+You need either `sudo` access or root access to install packages and configure system services. The installation commands in this guide use `sudo`, but you can run them as the root user if you prefer.
 
 ### Package verification
 
-The packages are signed with GPG keys for security. The installation process automatically handles key verification, but you can manually verify packages if needed.
+The packages are signed with GPG keys for security. The installation process automatically installs the [Percona GPG key](https://www.percona.com/downloads/RPM-GPG-KEY-percona) and handles key verification, but you can manually verify packages if needed.
 
 !!! note "Security Note"
     Always download packages from official Percona repositories to ensure authenticity and security.
 
-## Red Hat certified
 
-Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certification is based on common and secure best practices and successful interoperability with the operating system. Percona Server is listed in the [Red Hat Ecosystem Catalog :octicons-link-external-16:](https://catalog.redhat.com/software/applications/detail/112055).
-
-## ARM support
-
-The RPM builds contain ARM packages with the `aarch64.rpm` extension.
 
 ## Limitations
 
 RHEL 8+ and other EL8+ systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled to make these packages visible.
 
-## Unattended installations
+!!! important "Checking the MySQL Module"
+    RHEL 8+ systems enable the MySQL module by default, which can hide or conflict with Percona's packages. The first installation step below shows you how to check if the module is enabled. If you see an **[e]** marker, you must disable the module before proceeding. If you only see **[d]** (default), you can proceed.
 
---8<-- "install-flag.md"
+<!--
+## Percona Server for MySQL PRO
+
+--8<-- "pro-build-announcement.md"
+
+[Install Percona Server for MySQL Pro](install-pro.md){.md-button}
+-->
 
 ## Install using DNF (RHEL 8+)
 
-DNF is the default package manager for RHEL 8 and newer systems. To install Percona Server for MySQL using DNF, follow these steps:
+!!! note "Standard OS Installation"
+    The following steps install Percona Server for MySQL directly on the host operating system using DNF. These instructions are for standard OS installations, not for Kubernetes pods or containerized environments.
+
+All commands in this guide use `sudo` for privilege elevation. Follow these steps:
 {.power-number}
 
 1. Verify that the MySQL module is currently enabled on your system:
 
 	```{.bash data-prompt="$"}
-	$ sudo dnf module list mysql
+	sudo dnf module list mysql
 	```
 
 	??? example "Expected output"
@@ -71,10 +75,10 @@ DNF is the default package manager for RHEL 8 and newer systems. To install Perc
 
         The [d] next to the server profile indicates that this is the default stream. A module is only considered enabled if an [e] is present. If you see [e], it means the module is active.
 
-1. If needed, If the module is listed as [e]nabled, it can cause conflicts with Percona's packages. You must reset the module to its default state before proceeding.
+2. [Optional] If the module is listed as [e]nabled, it can cause conflicts with Percona's packages. You must disable the module before proceeding.
 
 	```{.bash data-prompt="$"}
-	$ sudo dnf module disable mysql
+	sudo dnf module disable mysql
 	```
 
 	??? example "Expected output"
@@ -86,12 +90,12 @@ DNF is the default package manager for RHEL 8 and newer systems. To install Perc
         Complete!
 		```
 
-        The dnf module `reset` command is used to return a module to its initial state, effectively disabling it. If the module was not enabled to begin with (as shown in the dnf module list output without [e]), this command will have "Nothing to do," which is the expected and desired result. You can then proceed with your installation.
+        The `dnf module disable` command disables the MySQL module. If the module was not enabled to begin with (as shown in the dnf module list output without [e]), this command will display "Nothing to do," which is the expected result. You can then proceed with your installation.
 
 2. Install the Percona repository package:
 
 	```{.bash data-prompt="$"}
-	$ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+	sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 	```
 
 	??? example "Expected output"
@@ -118,7 +122,7 @@ DNF is the default package manager for RHEL 8 and newer systems. To install Perc
 
 	If this step fails:
 
-	* Check your internet connection
+	* Check your internet connection.
 
 	* Verify the URL is accessible: `curl -I https://repo.percona.com/yum/percona-release-latest.noarch.rpm`
 
@@ -127,7 +131,7 @@ DNF is the default package manager for RHEL 8 and newer systems. To install Perc
 3. Enable the Percona Server for MySQL repository:
 
 	```{.bash data-prompt="$"}
-	$ sudo percona-release enable-only {{pkg}} release
+	sudo percona-release enable-only {{pkg}} release
 	```
 
 	??? example "Expected output"
@@ -142,14 +146,14 @@ DNF is the default package manager for RHEL 8 and newer systems. To install Perc
 
 	* Check if percona-release is properly installed: `which percona-release`
 
-	* Verify the package name is correct for your version
+	* Verify the package name is correct for your version.
 
-	* Check for any error messages in the output
+	* Check for any error messages in the output.
 
 4. Install the server package:
 
 	```{.bash data-prompt="$"}
-	$ sudo yum install percona-server-server
+	sudo yum install percona-server-server
 	```
 
 	??? example "Expected output"
@@ -174,147 +178,41 @@ DNF is the default package manager for RHEL 8 and newer systems. To install Perc
 
 	If this step fails:
 
-	* Check available packages: `yum search percona-server`
+	* Check available packages: `yum search percona-server`.
 
-	* Ensure the repository is properly configured
+	* Ensure the repository is properly configured.
 
-	* Check for package conflicts with existing MySQL installations
+	* Check for package conflicts with existing MySQL installations.
 
-	* Review error messages for specific issues
+	* Review error messages for specific issues.
 
 See [Configuring Percona repositories with `percona-release` :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
 
-## Install using YUM (RHEL 7 and older)
+[Post-installation configuration](post-installation.md){.md-button}
 
-YUM is the package manager for RHEL 7 and older systems. To install Percona Server for MySQL using YUM, follow these steps:
-{.power-number}
+--8<-- "storage-engines.md"
 
-1. Install the Percona repository package:
+## Unattended installations
 
-	```{.bash data-prompt="$"}
-	$ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-	```
-
-	??? example "Expected output"
-
-		```{.text .no-copy}
-		Loaded plugins: fastestmirror, langpacks
-		Loading mirror speeds from cached hostfile
-		percona-release-latest.noarch.rpm                                                                  | 15 kB  00:00:00
-		Examining /var/tmp/yum-root-12345/percona-release-latest.noarch.rpm: percona-release-1.0-27.noarch
-		Marking /var/tmp/yum-root-12345/percona-release-latest.noarch.rpm to be installed
-		Resolving Dependencies
-		--> Running transaction check
-		---> Package percona-release.noarch 0:1.0-27 will be installed
-		--> Finished Dependency Resolution
-		Dependencies Resolved
-		================================================================================
-		Package                    Architecture  Version        Repository        Size
-		================================================================================
-		Installing:
-		 percona-release           noarch        1.0-27         @commandline      15 k
-		================================================================================
-		Total download size: 15 k
-		Installed size: 15 k
-		Is this ok [y/N]: y
-		Downloading packages:
-		Running transaction check
-		Running transaction test
-		Transaction test succeeded.
-		Running transaction
-		  Installing : percona-release-1.0-27.noarch                                              1/1
-		  Verifying  : percona-release-1.0-27.noarch                                              1/1
-		Installed:
-		  percona-release.noarch 0:1.0-27
-		Complete!
-		```
-
-	If this step fails:
-
-	* Check your internet connection
-
-	* Verify the URL is accessible: `curl -I https://repo.percona.com/yum/percona-release-latest.noarch.rpm`
-
-	* Ensure you have sufficient disk space: `df -h`
-
-2. Enable the Percona Server for MySQL repository:
-
-	```{.bash data-prompt="$"}
-	$ sudo percona-release enable-only {{pkg}} release
-	$ sudo percona-release enable tools release
-	```
-
-	??? example "Expected output"
-
-		```{.text .no-copy}
-		* Enabling Percona Server for MySQL 8.4 LTS repository
-		* Enabling Percona Tools repository
-		* Running yum update...
-		Loaded plugins: fastestmirror, langpacks
-		Loading mirror speeds from cached hostfile
-		All packages are up to date.
-		```
-
-	If this step fails:
-
-	* Check if percona-release is properly installed: `which percona-release`
-
-	* Verify the package name is correct for your version
-
-	* Check for any error messages in the output
-
-3. Install the server package:
-
-	```{.bash data-prompt="$"}
-	$ sudo yum install percona-server-server
-	```
-
-	??? example "Expected output"
-
-		```{.text .no-copy}
-		Loaded plugins: fastestmirror, langpacks
-		Loading mirror speeds from cached hostfile
-		Resolving Dependencies
-		--> Running transaction check
-		---> Package percona-server-server.x86_64 0:8.4.5-5.el7 will be installed
-		--> Finished Dependency Resolution
-		Dependencies Resolved
-		================================================================================
-		Package                    Architecture  Version        Repository        Size
-		================================================================================
-		Installing:
-		 percona-server-server     x86_64        8.4.5-5.el7    percona-release   45 M
-		================================================================================
-		Total download size: 45 M
-		Installed size: 234 M
-		Is this ok [y/N]: y
-		Downloading packages:
-		Running transaction check
-		Running transaction test
-		Transaction test succeeded.
-		Running transaction
-		  Installing : percona-server-server-8.4.5-5.el7.x86_64                              1/1
-		  Verifying  : percona-server-server-8.4.5-5.el7.x86_64                              1/1
-		Installed:
-		  percona-server-server.x86_64 0:8.4.5-5.el7
-		Complete!
-		```
-
-	If this step fails:
-
-	* Check available packages: `yum search percona-server`
-
-	* Ensure the repository is properly configured
-
-	* Check for package conflicts with existing MySQL installations
-
-	* Review error messages for specific issues
-
---8<--- "storage-engines.md"
+--8<-- "install-flag.md"
 
 ## Next steps
 
-After successful installation, see [Post-installation](post-installation.md) for detailed steps to configure and secure your Percona Server for MySQL installation.
+After a successful installation, refer to the [Post-installation](post-installation.md) documentation for detailed steps to configure and secure your Percona Server for MySQL installation.
+
+## Additional information
+
+### Red Hat certified
+
+Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certification is based on common and secure best practices, as well as successful interoperability with the operating system. Percona Server is listed in the [Red Hat Ecosystem Catalog](https://catalog.redhat.com/software/applications/detail/112055).
+
+### ARM support
+
+The RPM builds contain ARM packages with the `aarch64.rpm` extension.
+
+### Supported platforms
+
+Specific information on the supported platforms, products, and versions ican be found in the [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql) document.
 
 ## Install Percona Toolkit UDFs (optional)
 
@@ -326,12 +224,12 @@ Percona Server for MySQL includes user-defined functions (UDFs) from [Percona To
 
 * `murmur_hash`: High-performance hash function
 
-User-Defined Functions (UDFs) are custom functions you can add to MySQL to extend its capabilities. These particular UDFs are useful for data integrity checks and performance monitoring.
+User-defined functions (UDFs) are custom functions you can add to MySQL to extend its capabilities. These particular UDFs are useful for data integrity checks and performance monitoring.
 
 To install these functions after installation:
 
 ```{.sql data-prompt="mysql>"}
-mysql> INSTALL COMPONENT 'file://component_percona_udf';
+INSTALL COMPONENT 'file://component_percona_udf';
 ```
 
 ??? example "Expected output"
@@ -353,16 +251,16 @@ Do not use testing repositories in production environments. Testing builds are p
 
 Percona offers pre-release builds from the testing repository for advanced users who want to:
 
-* Test new features before official release
+* Test new features before official release.
 
-* Evaluate upcoming improvements
+* Evaluate upcoming improvements.
 
-* Provide feedback on development versions
+* Provide feedback on development versions.
 
 To enable the testing repository:
 
 ```{.bash data-prompt="$"}
-$ sudo percona-release enable {{pkg}} testing
+sudo percona-release enable {{pkg}} testing
 ```
 
 ??? example "Expected output"
@@ -376,9 +274,9 @@ $ sudo percona-release enable {{pkg}} testing
 
 Please be aware of the following limitations when using the testing repository:
 
-* Features may change without notice
+* Features may change without notice.
 
-* Not all features from the final release may be included
+* Not all features from the final release may be included.
 
 * May contain experimental or incomplete functionality
 
@@ -387,8 +285,8 @@ Please be aware of the following limitations when using the testing repository:
 To disable the testing repository and return to stable releases:
 
 ```{.bash data-prompt="$"}
-$ sudo percona-release disable testing
-$ sudo yum update
+sudo percona-release disable testing
+sudo yum update
 ```
 
 ??? example "Expected output"
