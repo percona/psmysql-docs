@@ -85,8 +85,8 @@ this case *InnoDB* picks such an index as the clustered one.
 
 !!! admonition "See also"
 
-    [Improved InnoDB fast index creation](https://www.mysqlperformanceblog.com/2011/11/06/improved-innodb-fast-index-creation/)
+    [Improved InnoDB fast index creation :octicons-link-external-16:](https://www.mysqlperformanceblog.com/2011/11/06/improved-innodb-fast-index-creation/)
 
-    [Thinking about running OPTIMIZE on your InnoDB Table? Stop!](https://www.mysqlperformanceblog.com/2010/12/09/thinking-about-running-optimize-on-your-innodb-table-stop/) 
+    [Thinking about running OPTIMIZE on your InnoDB Table? Stop! :octicons-link-external-16:](https://www.mysqlperformanceblog.com/2010/12/09/thinking-about-running-optimize-on-your-innodb-table-stop/) 
 
 

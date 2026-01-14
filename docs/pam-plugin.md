@@ -10,7 +10,7 @@ Here are some of the benefits that Percona dialog plugin offers over the default
 
 * It can use the password which is passed to *MySQL* client via “-p” parameter.
 
-* Dialog client [installation bug](https://bugs.mysql.com/bug.php?id=60745) has been fixed.
+* Dialog client [installation bug :octicons-link-external-16:](https://bugs.mysql.com/bug.php?id=60745) has been fixed.
 
 
 Percona offers two versions of this plugin:
@@ -87,9 +87,9 @@ This feature enables using secondary groups in the mapping part of the authentic
 
 ## Known issues
 
-Default mysql stack size is not enough to handle `pam_encryptfs` module. The workaround is to increase the *MySQL* stack size by setting the [thread-stack](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_thread_stack) variable to at least `512KB` or by increasing the old value by `256KB`.
+Default mysql stack size is not enough to handle `pam_encryptfs` module. The workaround is to increase the *MySQL* stack size by setting the [thread-stack :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_thread_stack) variable to at least `512KB` or by increasing the old value by `256KB`.
 
-PAM authentication can fail with `mysqld: pam_unix(mysqld:account): Fork failed: Cannot allocate memory` error in the `/var/log/secure` even when there is enough memory available. Current workaround is to set [vm.overcommit_memory](https://www.kernel.org/doc/Documentation/vm/overcommit-accounting) to `1`:
+PAM authentication can fail with `mysqld: pam_unix(mysqld:account): Fork failed: Cannot allocate memory` error in the `/var/log/secure` even when there is enough memory available. Current workaround is to set [vm.overcommit_memory :octicons-link-external-16:](https://www.kernel.org/doc/Documentation/vm/overcommit-accounting) to `1`:
 
 ```text
 echo 1 /proc/sys/vm/overcommit_memory

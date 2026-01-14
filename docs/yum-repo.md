@@ -9,6 +9,7 @@
 
     * For Kubernetes deployments, refer to the documentation for [Percona Operator based on Percona Server for MySQL](https://docs.percona.com/percona-operator-for-mysql/ps/) or [Percona Operator based on Percona XtraDB Cluster](https://docs.percona.com/percona-operator-for-mysql/pxc/).
 
+
 --8<-- "percona-release.md"
 
 We gather [Telemetry data] in the Percona packages and Docker images.
@@ -27,6 +28,8 @@ The packages are signed with GPG keys for security. The installation process aut
 
 !!! note "Security Note"
     Always download packages from official Percona repositories to ensure authenticity and security.
+
+
 
 ## Limitations
 
@@ -183,7 +186,7 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 	* Review error messages for specific issues.
 
-See [Configuring Percona repositories with `percona-release`](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
+See [Configuring Percona repositories with `percona-release` :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
 
 [Post-installation configuration](post-installation.md){.md-button}
 
@@ -213,7 +216,7 @@ Specific information on the supported platforms, products, and versions ican be 
 
 ## Install Percona Toolkit UDFs (optional)
 
-Percona Server for MySQL includes user-defined functions (UDFs) from [Percona Toolkit](https://docs.percona.com/percona-toolkit/). These UDFs provide faster checksum calculations:
+Percona Server for MySQL includes user-defined functions (UDFs) from [Percona Toolkit :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/). These UDFs provide faster checksum calculations:
 
 * `fnv_64`: Fast hash function
 
@@ -294,7 +297,5 @@ sudo yum update
 	Last metadata expiration check: 0:01:23 ago on Mon Jan 15 10:30:00 2024.
 	All packages are up to date.
 	```
-
-[Percona downloads]: https://www.percona.com/downloads/Percona-Server-{{vers}}/
 
 [Telemetry data]: telemetry.md

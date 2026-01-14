@@ -569,12 +569,9 @@ mysql> SELECT id, name, email, country FROM employees WHERE id > 10;
 
 * Keep Software Updated: Maintain Percona Server and related packages updated with security patches.
 
-* Monitor Server Activity: Employ tools, like [Percona Monitoring and Management], and logs to monitor server activity for suspicious behavior.
+* Monitor Server Activity: Employ tools, like [Percona Monitoring and Management :octicons-link-external-16:](https://docs.percona.com/percona-monitoring-and-management/3/quickstart/quickstart.html), and logs to monitor server activity for suspicious behavior.
 
 ## Next step
 
 [Choose your next steps:material-arrow-right:](quickstart-next-steps.md){.md-button}
 
-
-
-[Percona Monitoring and Management]: https://docs.percona.com/percona-monitoring-and-management/3/quickstart/quickstart.html

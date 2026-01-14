@@ -629,9 +629,9 @@ The size of the buffer for reading from the audit log filter file. The `audit_lo
 | Dynamic | Yes  |
 | Scope | Global  |
 | Data type | Integer |
-| Default | 1GB  |
+| Default | 1073741824  |
 
-Performs an automatic log file rotation based on the size. The default value is 1GB. If the value is greater than 0, when the log file size exceeds the value, the component renames the current file and opens a new log file using the original name.
+Performs an automatic log file rotation based on the size. The default value is 1073741824. If the value is greater than 0, when the log file size exceeds the value, the component renames the current file and opens a new log file using the original name.
 
 If you set the value to less than 4096, the component does not automatically rotate the log files. You can rotate the log files manually using [`audit_log_rotate()`](#audit_log_rotate). If the value is not a multiple of 4096, the component truncates the value to the nearest multiple.
 
@@ -676,7 +676,7 @@ This read-only variable specifies the syslog tag value. This variable requires a
 | Data type | String  |
 | Default | LOG_USER |
 
-This read-only variable specifies the syslog `facility` value. This variable requires a server restart to change. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+This read-only variable specifies the syslog `facility` value. This variable requires a server restart to change. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual :octicons-link-external-16:](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 
 ### `audit_log_filter.syslog_priority`
@@ -689,7 +689,7 @@ This read-only variable specifies the syslog `facility` value. This variable req
 | Data type | String  |
 | Default | LOG_INFO |
 
-This read-only variable defines the `priority` value for the syslog. This variable requires a server restart to change. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+This read-only variable defines the `priority` value for the syslog. This variable requires a server restart to change. The option has the same meaning as the appropriate parameter described in the [syslog(3) manual :octicons-link-external-16:](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ## Audit log filter status variables
 

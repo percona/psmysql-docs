@@ -1,5 +1,3 @@
-# MkDocs configuration for Netlify builds
-
 site_name: Percona Server for MySQL
 site_description: Documentation
 site_author: Percona LLC
@@ -119,6 +117,7 @@ markdown_extensions:
 plugins:
   search: 
     separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  open-in-new-tab: {}
   git-revision-date-localized:
     enable_creation_date: true
     enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
@@ -173,18 +172,10 @@ extra:
 
 nav:
   - Home: index.md
-  - Percona Server for MySQL PRO:
-      - psmysql-pro.md
-      - Install Percona Server for MySQL Pro:
-        - install-pro.md
-        - pro-files.md
-      - Pro build features:
-        - fips.md
-      - upgrade-pro.md
-      - downgrade-from-pro.md
   - get-help.md
   - Release notes:
     - Release notes index: release-notes/release-notes-index.md
+    - release-notes/8.4.7-7.md
     - release-notes/8.4.6-6.md
     - release-notes/8.4.5-5.md
     - release-notes/8.4.4-4.md
@@ -216,9 +207,11 @@ nav:
     - binlog-space.md
     - extended-select-into-outfile.md
     - innodb-expanded-fast-index-creation.md
+    - fips.md
     - JS language support:
       - js-lang-overview.md
       - install-js-lang.md
+      - js-lang-variables.md
       - js-lang-privileges.md
       - js-lang-procedures.md
       - js-lang-troubleshoot.md
@@ -245,7 +238,7 @@ nav:
       - download-instructions.md
     - Use APT:
       - Use APT repositories: apt-repo.md
-      - Files in DEB package: apt-files.md
+      - DEB package list: apt-files.md
       - build-apt-packages.md
       - Downloaded DEB packages: apt-download-deb.md
       - Apt pinning: apt-pinning.md
@@ -280,6 +273,7 @@ nav:
     - upgrade-procedures.md
     - upgrade-components.md
     - downgrade.md
+    - downgrade-from-pro.md
   - Post-Installation:
     - binlogging-replication-improvements.md
     - post-installation.md
@@ -377,11 +371,13 @@ nav:
     - Replication Security:
       - encrypt-binary-relay-log-files.md
   - Monitor:
+    - audit-log-plugin.md
     - jemalloc-profiling.md
     - user-stats.md
     - slow-extended.md
     - process-list.md
     - misc-info-schema-tables.md
+    - additional-performance-schema-tables.md
   - Troubleshoot:
     - advisors.md
     - log-connection-error.md

@@ -6,7 +6,7 @@ process based profiling, threads on the server, other than the one being
 profiled, can affect the profiling information.
 
 Thread based profiling is using the information provided by the kernel 
-[getrusage](https://kernel.org/doc/man-pages/online/pages/man2/getrusage.2.html) 
+[getrusage :octicons-link-external-16:](https://kernel.org/doc/man-pages/online/pages/man2/getrusage.2.html) 
 function. Since the 2.6.26 kernel version, thread based resource usage 
 is available with the **RUSAGE_THREAD**. This means that the thread based 
 profiling will be used if you're running the 2.6.26 kernel or newer, or 
@@ -17,6 +17,6 @@ cases it uses process based profiling.
 
 !!! note "Performance Profiling Challenges?"
     For advanced performance tuning and profiling strategies, 
-    [Percona Support](https://www.percona.com/services/support) provides 
+    [Percona Support :octicons-link-external-16:](https://www.percona.com/services/support) provides 
     expert consultation to optimize your database performance.
 

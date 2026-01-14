@@ -1,6 +1,6 @@
-# JS stored function or procedure
+# js_lang stored function or procedure
 
---8<--- "experimental.md"
+--8<--- "tech.preview.md:5:5"
 
 Once the component's installed, you can write stored functions and procedures in JavaScript. The syntax looks like this:
 
@@ -33,4 +33,13 @@ $$
 ```
 
 You can modify or delete stored programs in JS by using the standard `ALTER PROCEDURE/FUNCTION` and `DROP PROCEDURE/FUNCTION` statements. These statements do not require the `CREATE_JS_ROUTINE` privilege.
+
+## Further reading
+
+- [js_lang stored procedure and function overview](js-lang-overview.md)
+- [Install js_lang component](install-js-lang.md)
+- [Uninstall the js_lang component](uninstall-js-lang.md)
+- [js_lang privileges](js-lang-privileges.md)
+- [js_lang component system variables](js-lang-variables.md)
+- [Troubleshoot js_lang procedures and functions](js-lang-troubleshoot.md)
 

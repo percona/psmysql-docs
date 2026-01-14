@@ -489,7 +489,7 @@ database.
 
 ### `rocksdb_rate_limit_delay_millis`
 
-This variable was removed in *Percona Server for MySQL* [Percona Server 5.7.23-23](https://docs.percona.com/percona-server/5.7/release-notes/Percona-Server-5.7.23-23.html#id1).
+This variable was removed in *Percona Server for MySQL* [Percona Server 5.7.23-23 :octicons-link-external-16:](https://docs.percona.com/percona-server/5.7/release-notes/Percona-Server-5.7.23-23.html).
 
 ### `rocksdb_row_lock_deadlocks`
 

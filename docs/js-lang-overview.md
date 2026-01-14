@@ -1,26 +1,26 @@
-# JS stored procedure and function overview
+# js_lang stored procedure and function overview
 
---8<--- "experimental.md"
+--8<--- "tech.preview.md:5:5"
 
-Integrating stored procedures and functions in JS within a MySQL-compatible database provides a versatile and practical approach to managing complex data processing tasks. This method significantly enhances performance, allowing developers to execute intricate operations more efficiently. For those proficient in JS, this approach streamlines the development process, reducing the load on client applications and optimizing overall system performance. By employing stored procedures and functions, developers achieve faster data processing and facilitate more manageable maintenance and scalability, making it an ideal solution for those skilled in JS.
+You can use stored procedures and functions written in JS with a MySQL-compatible database. This feature helps you manage complex data processing tasks. This method improves performance. This method lets developers run complex operations faster. If you know JS, you can use your existing skills. Using stored procedures and functions reduces the work done by client applications. Using stored procedures and functions also improves overall system performance. Using stored procedures and functions helps developers process data faster. Using stored procedures and functions also makes maintenance and scaling easier. This approach is a good solution for developers who know JS.
 
 | Benefit                            | Description                                                                                   |
 |------------------------------------|-----------------------------------------------------------------------------------------------|
-| Familiarity                        | Developers who are already proficient in JS can leverage their existing skills.               |
-| Efficiency                         | JS allows for more efficient execution of complex data processing tasks.                      |
-| Performance                        | Stored procedures and functions in JS can enhance database performance by reducing client load.|
-| Reusability                        | Encapsulated logic in stored procedures and functions can be reused across multiple applications.|
-| Scalability                        | Facilitates easier maintenance and scalability of database operations.                        |
-| Simplified Development Process     | Streamlines the development process, making it more manageable for those skilled in JS.       |
-| Integration with Client Applications| Seamless integration with client applications, reducing the need for additional processing.   |
-| Optimization                       | Optimizes overall system performance through efficient data processing.                       |
+| Familiarity                        | Developers who already know JS can use their existing skills.                                 |
+| Efficiency                         | JS can run complex data processing tasks more efficiently.                                    |
+| Performance                        | Stored procedures and functions in JS improve database performance. They reduce the work done by client applications.|
+| Reusability                        | You can write code once in stored procedures and functions. Then you can use that code in multiple applications.|
+| Scalability                        | Using stored procedures and functions makes database operations easier to maintain and scale.  |
+| Simplified Development Process     | This feature makes development easier for developers who know JS.                              |
+| Integration with Client Applications| Stored procedures and functions work well with client applications. You need less additional processing.|
+| Optimization                       | This feature improves overall system performance through efficient data processing.            |
 
 
 ## Limitations
 
-The JS procedure parameters cannot be [JS reserved words](https://developer.mozilla.org/en-US/docs/Web/JS/Reference/Lexical_grammar#reserved_words) and must be [legal JS identifiers](https://www.capscode.in/blog/valid-identifier-in-js).
+The JS procedure parameters cannot be [JS reserved words :octicons-link-external-16:](https://developer.mozilla.org/en-US/docs/Web/JS/Reference/Lexical_grammar#reserved_words) and must be [legal JS identifiers :octicons-link-external-16:](https://www.capscode.in/blog/valid-identifier-in-js).
 
-Our implementation offers the same level of JS support as the V8 engine inside the context of a database engine. You can check out the details at [v8.dev/docs](https://v8.dev/docs) and [tc39.es/ecma262](https://v8.dev/docs). Developers have access to standard operators, data types, objects (such as Math), and functions defined in the ECMAScript standard. However, objects and modules specific to Node.NS or DOM, which are only available in browsers, are not accessible. 
+Our implementation offers the same level of JS support as the V8 engine inside the context of a database engine. You can check out the details at [v8.dev/docs :octicons-link-external-16:](https://v8.dev/docs) and [tc39.es/ecma262 :octicons-link-external-16:](https://v8.dev/docs). Developers have access to standard operators, data types, objects (such as Math), and functions defined in the ECMAScript standard. However, objects and modules specific to Node.NS or DOM, which are only available in browsers, are not accessible. 
 
 In a typical database environment, direct access to external files (like reading or writing files on the server's file system) is restricted. Our implementation adheres to a trusted external routine language policy, ensuring routines cannot perform operations beyond what is normally possible for database users. Consequently, file or network I/O operations are not supported within our routines.
 
@@ -73,3 +73,23 @@ The system always maps JS null and undefined values to SQL NULL, regardless of t
 | `SET` | - Numbers: stored as integers/doubles<br>- BigInts: stored as integers<br>- Others: converted to strings with charset conversion if needed | Tries native storage before falling back to strings | `1` → `1`<br>`"value"` → `"value"` |
 | `GEOMETRY` | - Valid `ArrayBuffer`/`View`: stored as binary<br>- Others: cause an error | Enforces format rules to maintain spatial integrity | valid buffer → `GEOMETRY` |
 | `JSON` | Converted using `JSON.stringify()` | Converts objects or arrays to serialized strings | `{key: "value"}` → `"{"key":"value"}"` |
+
+## System variables
+
+The js_lang component provides the following system variables for configuring JS routine execution:
+
+| Variable name | Description | Default |
+|---|---|---|
+| [`js_lang.max_mem_size`](js-lang-variables.md#js_langmax_mem_size) | Maximum memory size (soft limit) for JS routines | 8 MB |
+| [`js_lang.max_mem_size_hard_limit_factor`](js-lang-variables.md#js_langmax_mem_size_hard_limit_factor) | Hard limit factor for memory allocation | 0 (disabled) |
+
+These variables help prevent runaway scripts from consuming excessive memory or CPU time. For detailed information about each variable, including configuration options and examples, see [js_lang component system variables](js-lang-variables.md).
+
+## Further reading
+
+- [Install js_lang component](install-js-lang.md)
+- [Uninstall the js_lang component](uninstall-js-lang.md)
+- [js_lang stored function or procedure](js-lang-procedures.md)
+- [js_lang privileges](js-lang-privileges.md)
+- [js_lang component system variables](js-lang-variables.md)
+- [Troubleshoot js_lang procedures and functions](js-lang-troubleshoot.md)

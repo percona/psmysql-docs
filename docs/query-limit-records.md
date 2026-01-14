@@ -12,7 +12,7 @@ partition. This process can result in more pages read and more disk I/O, if the
 buffer pool must fetch the pages from disk. This process increases the query
 time if there are a large number of partitions.
 
-The addition of two variables makes it possible to override [records_in_range](https://dev.mysql.com/doc/internals/en/records-in-range.html) which
+The addition of two variables makes it possible to override [records_in_range :octicons-link-external-16:](https://dev.mysql.com/doc/internals/en/records-in-range.html) which
 effectively bypasses the process.
 
 !!! warning
@@ -77,7 +77,7 @@ In specific scenarios, the optimizer chooses to scan a table instead of using a 
 
 * WHERE clause contains multiple range conditions
 
-The [optimizer_switch](https://dev.mysql.com/doc/refman/{{vers}}/en/switchable-optimizations.html) controls the optimizer behavior. The favor_range_scan switch arbitrarily lowers the cost of a range scan by a factor of 10.
+The [optimizer_switch :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/switchable-optimizations.html) controls the optimizer behavior. The favor_range_scan switch arbitrarily lowers the cost of a range scan by a factor of 10.
 
 The available values are:
 

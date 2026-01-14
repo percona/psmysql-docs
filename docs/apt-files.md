@@ -1,12 +1,16 @@
-# Files in the DEB package built for Percona Server for MySQL {{vers}}
+# DEB repository package list - Percona Server for MySQL {{vers}} 
 
-| Package                      | Contains                                                                                                                                                                        |
-|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| percona-server-server   | The database server itself, the mysqld binary and associated files.                                                                                                             |
-| percona-server-common        | The files common to the server and client.                                                                                                                                      |
-| percona-server-client        | The command line client.                                                                                                                                                        |
-| percona-server-dbg           | Debug symbols for the server.                                                                                                                                                   |
-| percona-server-test          | The database test suite.                                                                                                                                                        |
-| percona-server-source        | The server source.                                                                                                                                                              |
-| libperconaserverclient22-dev | Header files needed to compile software to use the client library.                                                                                                              |
-| libperconaserverclient22     | The client-shared library. The version is incremented when there is an ABI change that requires software using the client library to be recompiled or its source code modified. |
+
+| Package Name | Description |
+|---------------|-------------|
+| libperconaserverclient22 | The shared client library used by Percona Server and MySQL client programs. Applications that connect to MySQL servers dynamically link to this library. |
+| libperconaserverclient22-dev | Development headers and static libraries for building software that links against libperconaserverclient22. Needed when compiling client applications using the MySQL C API. |
+| percona-mysql-router | A lightweight middleware that routes connections between applications and backend MySQL or Percona Server instances. Used in high availability and cluster setups. |
+| percona-server-client | The command-line client utilities, including mysql, mysqldump, and related tools for interacting with a Percona Server instance. |
+| percona-server-common | Common configuration files, character sets, and data shared among multiple Percona Server packages. Installed automatically as a dependency. |
+| percona-server-dbg | Debug symbols for the Percona Server binaries. Useful for developers or support teams when diagnosing crashes or profiling performance. |
+| percona-server-rocksdb | The RocksDB storage engine plugin for Percona Server, providing high-performance key-value storage optimized for fast writes. |
+| percona-server-server | The main Percona Server daemon (mysqld) and supporting files. This is the actual database server that runs and manages data. |
+| percona-server-source | The source code package for Percona Server, often used for auditing, compliance, or custom builds. |
+| percona-server-test | A suite of functional and regression tests used to verify server correctness and compatibility. Useful for QA or CI environments. |
+| percona-telemetry-agent | A lightweight agent that collects anonymous usage and performance data to help Percona improve the product. Optional; can be disabled if desired. |

@@ -47,7 +47,7 @@ Complete these checks before starting the upgrade process.
 **Action**:
 
 - [ ] Scan object names and queries for unquoted usage; quote or rename as needed.
-- [ ] See: [Keywords and Reserved Words in MySQL {{vers}}](https://dev.mysql.com/doc/refman/{{vers}}/en/keywords.html) for the complete list of reserved keywords.
+- [ ] See: [Keywords and Reserved Words in MySQL {{vers}} :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/keywords.html) for the complete list of reserved keywords.
 
 
 ### Schema constraints

@@ -1,6 +1,6 @@
 # Install Percona Server for MySQL using downloaded RPM packages
 
-Download the packages from [Percona Product Downloads](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
+Download the packages from [Percona Product Downloads :octicons-link-external-16:](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
 
 The RPM builds for *RHEL* 8 and *RHEL* 9 contain ARM packages with the aarch64.rpm extension. This means that Percona Server for MySQL is available for users on ARM-based systems.
 
@@ -9,7 +9,7 @@ The following example downloads *Percona Server for MySQL* {{release}} release `
 
 1. Use `wget` to download the tar file.
 
-    The download filename includes a `<revision-identifier>` value. This value is *build-specific* and must be obtained from the [Percona Product Downloads](https://www.percona.com/downloads) page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required `<revision identifier>` under the **Download all packages** button. For more details, see the [Instructions for Percona Product Downloads](download-instructions.md).
+    The download filename includes a `<revision-identifier>` value. This value is *build-specific* and must be obtained from the [Percona Product Downloads :octicons-link-external-16:](https://www.percona.com/downloads) page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required `<revision identifier>` under the **Download all packages** button. For more details, see the [Instructions for Percona Product Downloads](download-instructions.md).
 
 	```{.bash data-prompt="$"}
 	$ wget https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-{{release}}/binary/redhat/8/x86_64/Percona-Server-{{release}}-<revision identifier>-el8-x86_64-bundle.tar
