@@ -12,11 +12,11 @@ engine that provides indexing-based query improvements, offers online schema
 modifications, and reduces replica lag for both hard disk drives and flash
 memory. This storage engine is specifically designed for high performance on
 write-intensive workloads which is achieved with Fractal Tree indexing. To learn
-more about Fractal Tree indexing, you can visit the following [Wikipedia page](https://en.wikipedia.org/wiki/Fractal_tree_index).
+more about Fractal Tree indexing, you can visit the following [Wikipedia page :octicons-link-external-16:](https://en.wikipedia.org/wiki/Fractal_tree_index).
 
 !!! warning
 
-    Only the [Percona supplied](https://www.percona.com/downloads/Percona-Server-8.0/LATEST/) *TokuDB* engine should be used with *Percona Server for MySQL* 8.0. A *TokuDB* engine downloaded from other sources is not compatible. *TokuDB* file formats are not the same across *MySQL* variants. Migrating from one variant to any other variant requires a logical data dump and reload.
+    Only the [Percona supplied :octicons-link-external-16:](https://www.percona.com/downloads/Percona-Server-8.0/LATEST/) *TokuDB* engine should be used with *Percona Server for MySQL* 8.0. A *TokuDB* engine downloaded from other sources is not compatible. *TokuDB* file formats are not the same across *MySQL* variants. Migrating from one variant to any other variant requires a logical data dump and reload.
 
 ## Prerequisites
 
@@ -43,7 +43,7 @@ malloc-lib= /path/to/jemalloc
 ### Transparent huge pages
 
 *TokuDB* won’t be able to start if the transparent huge pages are
-enabled. [Transparent huge pages](https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Performance_Tuning_Guide/s-memory-transhuge.html)
+enabled. [Transparent huge pages :octicons-link-external-16:](https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Performance_Tuning_Guide/s-memory-transhuge.html)
 is a feature available in the newer kernel versions. You can check if
 the Transparent huge pages are enabled with: `cat /sys/kernel/mm/transparent_hugepage/enabled`
 
@@ -55,7 +55,7 @@ Transparent huge pages are enabled, according to /sys/kernel/mm/redhat_transpare
 Transparent huge pages are enabled, according to /sys/kernel/mm/transparent_hugepage/enabled
 ```
 
-You can [disable](https://access.redhat.com/solutions/46111)
+You can [disable :octicons-link-external-16:](https://access.redhat.com/solutions/46111)
 transparent huge pages permanently by passing
 `transparent_hugepage=never` to the kernel in your bootloader
 

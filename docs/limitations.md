@@ -1,37 +1,86 @@
 # MyRocks limitations
 
-The MyRocks storage engine lacks the following features compared to InnoDB:
+## Online DDL limitations
 
-* [Online DDL](https://dev.mysql.com/doc/refman/8.0/en/innodb-online-ddl.html) is not supported due to the lack of atomic DDL support.
+MyRocks has limited support for [Online DDL operations :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-online-ddl.html) due to the lack of [atomic DDL](./glossary.md#atomic-ddl-data-definition-language). As a result the schema changes are more restricted compared to InnoDB.
 
-        * There is no `ALTER TABLE ... ALGORITHM=INSTANT` functionality
+### Traditional MyRocks DDL behavior
 
-        * A partition management operation only supports the `COPY` algorithms, which rebuilds the partition table and moves the data based on the new `PARTITION ... VALUE` definition. In the case of `DROP PARTITION`, the data not moved to another partition is deleted.
+| Operation type      | Examples                                         | ALGORITHM                   |
+|---------------------|--------------------------------------------------|-----------------------------|
+| Index operations    | `ADD INDEX`, `DROP INDEX`, `RENAME INDEX`        | `INPLACE` (always)          |
+| Column changes      | `ADD COLUMN`, `DROP COLUMN`, `MODIFY COLUMN`     | `COPY` (full table rebuild) |
+| Metadata changes    | `RENAME TABLE`, some `RENAME COLUMN` operations  | May be `INSTANT`            |
 
+**Note:** MyRocks does not support [atomic DDL](./glossary.md#atomic-ddl-data-definition-language). Even metadata-only operations may require a full table rebuild, depending on the nature of the change.
 
-* [ALTER TABLE .. EXCHANGE PARTITION](https://dev.mysql.com/doc/refman/8.0/en/partitioning-management-exchange.html).
+### Partition management support
 
-* [SAVEPOINT](https://dev.mysql.com/doc/refman/8.0/en/savepoint.html)
+As of `Percona Server for MySQL 8.0.25-15`, MyRocks supports `INPLACE` partition management for certain operations:
 
-* [Transportable tablespace](https://dev.mysql.com/doc/refman/8.0/en/innodb-table-import.html)
+```sql
+ALTER TABLE t1 DROP PARTITION p1, ALGORITHM=INPLACE;
+ALTER TABLE t1 ADD PARTITION (PARTITION p2 VALUES LESS THAN (MAXVALUE)), ALGORITHM=INPLACE;
+```
+These operations no longer require a full table rebuild. However, operations that modify partitioning schemes, such as changing `VALUES LESS THAN`, still fall back to the `COPY` algorithm.
 
-* [Foreign keys](https://dev.mysql.com/doc/refman/8.0/en/create-table-foreign-keys.html)
+**Note:** Dropping a partition permanently deletes any data stored in it unless that data is reassigned to another partition.
 
-* [Spatial indexes](https://dev.mysql.com/doc/refman/8.0/en/using-spatial-indexes.html)
+### Instant DDL support    
 
-* [Fulltext indexes](https://dev.mysql.com/doc/refman/8.0/en/innodb-fulltext-index.html)
+As of `Percona Server for MySQL 8.0.42-33`, MyRocks provides limited Instant DDL support that is disabled by default, and you can activate the specific instant operations you need by setting the appropriate configuration variables.
 
-* [Gap locks](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-gap-locks)
+| Configuration variable | Enables Instant DDL for  |
+|------------------------|--------------------------|
+| [`rocksdb_enable_instant_ddl_for_append_column=ON`](variables.md#rocksdb_enable_instant_ddl_for_append_column) | `ALTER TABLE ... ADD COLUMN` |
+| [`rocksdb_enable_instant_ddl_for_column_default_changes=ON`](variables.md#rocksdb_enable_instant_ddl_for_column_default_changes) | `ALTER/MODIFY COLUMN … DEFAULT` |
+| [`rocksdb_enable_instant_ddl_for_drop_index_changes=ON`](variables.md#rocksdb_enable_instant_ddl_for_drop_index_changes) | `ALTER TABLE ... DROP INDEX` |
+| [`rocksdb_enable_instant_ddl_for_table_comment_changes=ON`](variables.md#rocksdb_enable_instant_ddl_for_table_comment_changes) | `ALTER TABLE ... COMMENT` |
 
-* [Group Replication](https://dev.mysql.com/doc/refman/8.0/en/group-replication.html)
+**Note:** Instant DDL in MyRocks is applied only when **both** of the following conditions are met:
 
-* [Partial Update of LOB in InnoDB](https://dev.mysql.com/blog-archive/mysql-8-0-optimizing-small-partial-update-of-lob-in-innodb/)
+* The configuration variable is set to `ON`.
+
+* The `ALTER TABLE` statement explicitly includes `ALGORITHM=INSTANT`.
+
+For example:
+
+```sql
+SET GLOBAL rocksdb_enable_instant_ddl_for_table_comment_changes = ON;
+ALTER TABLE my_table COMMENT = 'New comment', ALGORITHM=INSTANT;
+```
+
+If either condition is missing:
+
+* When the variable is `ON` but `ALGORITHM=INSTANT` is omitted, MyRocks falls back to the default (non‑instant) algorithm.
+
+* When the variable is `OFF`, any `ALTER TABLE … ALGORITHM=INSTANT` statement fails with an error.
+
+## Unsupported InnoDB features in MyRocks
+
+* [ALTER TABLE .. EXCHANGE PARTITION :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/partitioning-management-exchange.html).
+
+* [SAVEPOINT :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/savepoint.html)
+
+* [Transportable tablespace :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/innodb-table-import.html)
+
+* [Foreign keys :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/create-table-foreign-keys.html)
+
+* [Spatial indexes :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/using-spatial-indexes.html)
+
+* [Fulltext indexes :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/innodb-fulltext-index.html)
+
+* [Gap locks :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-gap-locks)
+
+* [Group Replication :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/group-replication.html)
+
+* [Partial Update of LOB in InnoDB :octicons-link-external-16:](https://dev.mysql.com/blog-archive/mysql-8-0-optimizing-small-partial-update-of-lob-in-innodb/)
 
 You should also consider the following:
 
 * All collations are supported on ``CHAR`` and ``VARCHAR`` indexed columns. By default, MyRocks prevents creating indexes with non-binary collations (including `latin1`). You can optionally use it by setting [rocksdb_strict_collation_exceptions](variables.md#rocksdb_strict_collation_exceptions) to `t1` (table names with regex format), but non-binary covering indexes other than `latin1` (excluding `german1`) still require a primary key lookup to return the `CHAR` or `VARCHAR` column.
 
-* Either `ORDER BY DESC` or `ORDER BY ASC` is slow. This is because of “Prefix Key Encoding” feature in RocksDB. See [https://www.slideshare.net/matsunobu/myrocks-deep-dive/58](https://www.slideshare.net/matsunobu/myrocks-deep-dive/58) for details. By default, ascending scan is faster and descending scan is slower. If the “reverse column family” is configured, then descending scan will be faster and ascending scan will be slower. Note that InnoDB also imposes a cost when the index is scanned in the opposite order.
+* Either `ORDER BY DESC` or `ORDER BY ASC` is slow. This is because of “Prefix Key Encoding” feature in RocksDB. See [https://www.slideshare.net/matsunobu/myrocks-deep-dive/58 :octicons-link-external-16:](https://www.slideshare.net/matsunobu/myrocks-deep-dive/58) for details. By default, ascending scan is faster and descending scan is slower. If the “reverse column family” is configured, then descending scan will be faster and ascending scan will be slower. Note that InnoDB also imposes a cost when the index is scanned in the opposite order.
 
 * When converting from large MyISAM/InnoDB tables, either by using the `ALTER` or `INSERT INTO SELECT` statements it’s recommended that you check the [Data loading](data-loading.md#myrocks-data-loading) documentation and create MyRocks tables as below (in case the table is sufficiently big it will cause the server to consume all the memory and then be terminated by the OOM killer):
 
@@ -57,7 +106,7 @@ You should also consider the following:
 
     !!! admonition "See also"
 
-        [MySQL Documentation: Preparing Your Installation for Upgrade](https://dev.mysql.com/doc/refman/8.0/en/upgrade-prerequisites.html)
+        [MySQL Documentation: Preparing Your Installation for Upgrade :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/upgrade-prerequisites.html)
 
 * **Percona Server for MySQL** 8.0 and Unicode 9.0.0 standards have defined a change in the handling of binary collations. These collations are handled as NO PAD, trailing spaces are included in key comparisons. A binary collation comparison may result in two unique rows inserted and does not generate a\`DUP_ENTRY\` error. MyRocks key encoding and comparison does not account for this character set attribute.
 
@@ -65,13 +114,13 @@ You should also consider the following:
 
 MyRocks does not support the following:
 
-* Operating as either a source or a replica in any replication topology that is not exclusively row-based. Statement-based and mixed-format binary logging is not supported. For more information, see [Replication Formats](https://dev.mysql.com/doc/refman/8.0/en/replication-formats.html).
+* Operating as either a source or a replica in any replication topology that is not exclusively row-based. Statement-based and mixed-format binary logging is not supported. For more information, see [Replication Formats :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/replication-formats.html).
 
-* Using [multi-valued indexes](https://dev.mysql.com/doc/refman/8.0/en/create-index.html#create-index-multi-valued). Implemented in **Percona Server for MySQL** 8.0.17, InnoDB supports this feature.
+* Using [multi-valued indexes :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/create-index.html#create-index-multi-valued). Implemented in **Percona Server for MySQL** 8.0.17, InnoDB supports this feature.
 
-* Using [spatial data types](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) .
+* Using [spatial data types :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) .
 
-* Using the [Clone Plugin](https://dev.mysql.com/doc/refman/8.0/en/clone-plugin.html) and the Clone Plugin API.  As of **Percona Server for MySQL** 8.0.17, InnoDB supports either these features.
+* Using the [Clone Plugin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/clone-plugin.html) and the Clone Plugin API.  As of **Percona Server for MySQL** 8.0.17, InnoDB supports either these features.
 
 * Using encryption in tables. At this time, during an `ALTER TABLE` operation, MyRocks mistakenly detects all InnoDB tables as encrypted. Therefore, any attempt to `ALTER` an InnoDB table to MyRocks fails.
 
@@ -85,5 +134,5 @@ MyRocks does not support the following:
 
     !!! note
 
-        With MyRocks and with large tables, it is recommended to set the session variable `rocksdb_bulk_load=1` during the load to prevent running out of memory. This recommendation is because of the MyRocks large transaction limitation. For more information, see [MyRocks Data Loading](https://docs.percona.com/percona-server/8.0/myrocks/data-loading.html)
+        With MyRocks and with large tables, it is recommended to set the session variable `rocksdb_bulk_load=1` during the load to prevent running out of memory. This recommendation is because of the MyRocks large transaction limitation. For more information, see [MyRocks Data Loading :octicons-link-external-16:](https://docs.percona.com/percona-server/8.0/myrocks/data-loading.html)
 

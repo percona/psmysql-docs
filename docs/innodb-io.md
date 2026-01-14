@@ -42,7 +42,7 @@ The following values are allowed:
 
     On an ext4 filesystem, set `innodb_log_write_ahead_size` to match the filesystem's write-ahead block size. This variable avoids `unaligned AIO/DIO` warnings.
 
-Starting from *Percona Server for MySQL* 8.0.20-11, the [innodb_flush_method](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_flush_method) affects doublewrite buffers exactly the same as in *MySQL* 8.0.20.
+Starting from *Percona Server for MySQL* 8.0.20-11, the [innodb_flush_method :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_flush_method) affects doublewrite buffers exactly the same as in *MySQL* 8.0.20.
 
 ## Status variables
 

@@ -17,9 +17,6 @@ theme:
   font:
     text: Roboto
     code: Roboto Mono
-  icon:
-    edit: material/file-edit-outline
-    view: material/file-eye-outline
   
   palette:
     - media: "(prefers-color-scheme)"
@@ -54,7 +51,7 @@ theme:
     - navigation.indexes
     - content.tooltips
     - content.tabs.link
-    - content.action.edit
+#    - content.action.edit
     - content.action.view
     - content.code.copy
     - content.code.annotate
@@ -68,18 +65,20 @@ extra_css:
   - css/extra.css
   - css/nocopy.css
   - css/mysql.css
+  - css/rating.css
 
 extra_javascript:
   - js/version-select.js
   - js/promptremover.js
   - js/consent.js
+  - js/rating.js
 
 markdown_extensions:
   attr_list: {}
   toc:
     permalink: true
     title: On this page
-    toc_depth: 3
+    toc_depth: 2
   md_in_html: {}
   admonition: {}
   footnotes: {}
@@ -115,7 +114,14 @@ markdown_extensions:
 plugins:
   search:
     separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
-  git-revision-date: {}
+  open-in-new-tab: {}
+  git-revision-date-localized:
+    enable_creation_date: true
+    enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
+  git-committers:
+    enabled: !ENV [CI, false]
+    repository: percona/psmysql-docs
+    branch: "8.0"
   meta-descriptions:
     export_csv: false
     quiet: false
@@ -159,18 +165,10 @@ extra:
 
 nav:
   - Home: index.md
-  - Percona Server for MySQL PRO:
-    - psmysql-pro.md
-    - Install Percona Server for MySQL Pro:
-      - install-pro.md
-      - pro-files.md
-    - Pro build features:
-      - fips.md
-    - upgrade-pro.md
-    - downgrade-from-pro.md
   - get-help.md
   - Release notes:
     - Release notes index: release-notes/release-notes_index.md
+    - release-notes/8.0.44-35.md
     - release-notes/8.0.43-34.md
     - release-notes/8.0.42-33.md
     - release-notes/8.0.41-32.md
@@ -227,6 +225,7 @@ nav:
           - write-audit-log-filter-definitions.md
           - audit-log-filter-advanced.md
           - audit-log-filter-reference.md
+          - audit-log-filter-variables.md
           - audit-log-filter-security.md
           - audit-log-filter-compression-encryption.md
           - reading-audit-log-filter-files.md
@@ -235,11 +234,12 @@ nav:
           - audit-log-filter-restrictions.md
           - audit-log-filter-naming.md
           - disable-audit-log-filter.md
-          - audit-log-filter-variables.md
+
           - uninstall-audit-log-filter.md
         - binlog-space.md
         - extended-mysqlbinlog.md
         - extended-select-into-outfile.md
+        - fips.md
         - innodb-expanded-fast-index-creation.md
         - kill-idle-trx.md
         - percona-sequence-table.md
@@ -257,7 +257,6 @@ nav:
        - quickstart-apt.md
        - quickstart-dnf.md
        - quickstart-next-steps.md
-
   - Install:
       - Install Percona Server for MySQL from repositories: installation.md
       - Before you start:
@@ -306,6 +305,7 @@ nav:
       - upgrade-tokudb-myrocks.md
       - upgrade-standalone-packages.md
       - downgrade.md
+      - downgrade-from-pro.md
   - Post-Installation:
       - apparmor.md
       - binlogging-replication-improvements.md
@@ -375,6 +375,8 @@ nav:
       - audit-log-plugin.md
       - jemalloc-profiling.md
       - misc-info-schema-tables.md
+      - misc-performance-schema-tables.md
+  
       - process-list.md
       - Slow query log:
         - improved-slow-query-log.md

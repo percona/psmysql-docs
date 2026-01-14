@@ -61,10 +61,10 @@ If the server is stopped or down, you can copy the datadir with the `cp` command
 
 A logical backup contains the structural details. This type of backup contains tables, views, procedures, and functions. 
 
-Tools like [`mysqldump`](https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html) , 
-[`mydumper`](https://github.com/mydumper/mydumper), 
-[`mysqlpump`](https://dev.mysql.com/doc/refman/5.7/en/mysqlpump.html), and 
-[`mysql shell`](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-utilities-dump-instance-schema.html) 
+Tools like [`mysqldump` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html) , 
+[`mydumper` :octicons-link-external-16:](https://github.com/mydumper/mydumper), 
+[`mysqlpump` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/5.7/en/mysqlpump.html), and 
+[`mysql shell` :octicons-link-external-16:](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-utilities-dump-instance-schema.html) 
 take a logical backup.
 
 ### Comparison

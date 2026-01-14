@@ -125,6 +125,6 @@ If you are loading large data without enabling [rocksdb_bulk_load](variables.md#
 
 ## Other reading
 
-* [Data Loading](https://github.com/facebook/mysql-5.6/wiki/Data-Loading) - this document has been used as a source for writing this documentation
+* [Data Loading :octicons-link-external-16:](https://github.com/facebook/mysql-5.6/wiki/Data-Loading) - this document has been used as a source for writing this documentation
 
-* [ALTER TABLE … ENGINE=ROCKSDB uses too much memory](https://github.com/facebook/mysql-5.6/issues/692)
+* [ALTER TABLE … ENGINE=ROCKSDB uses too much memory :octicons-link-external-16:](https://github.com/facebook/mysql-5.6/issues/692)

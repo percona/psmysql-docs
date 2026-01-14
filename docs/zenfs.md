@@ -13,9 +13,9 @@ The zone storage model organizes the SSD into a set of zones that are uniform in
 ZenFS is a file system plugin for RocksDB which uses the RocksDB file system to place files into zones on a raw zoned block device (ZBD). The plugin adds native support for ZNS, avoids on device garbage collection, and minimizes write amplification. File data is stored in a set of extents. Within a zone, extents are a contiguous part of the address space. Garbage collection is an option, but this selection can cause write amplification.
 
 ZenFS depends on the `libzbd` user library and requires a Linux kernel implementation that supports NVMe Zoned Namespaces. The kernel
-must be configured with [zone block device support enabled](https://zonedstorage.io/docs/linux/config).
+must be configured with [zone block device support enabled :octicons-link-external-16:](https://zonedstorage.io/docs/linux/config).
 
-Read the [Western Digital and Percona deliver Utrastar DC ZN540 Zoned Namespace SSD support for Percona Server for MySQL](https://documents.westerndigital.com/content/dam/doc-library/en_us/assets/public/western-digital/collateral/company/western-digital-zns-ssd-perconal-blogpost.pdf) PDF for more information.
+Read the [Western Digital and Percona deliver Utrastar DC ZN540 Zoned Namespace SSD support for Percona Server for MySQL :octicons-link-external-16:](https://documents.westerndigital.com/content/dam/doc-library/en_us/assets/public/western-digital/collateral/company/western-digital-zns-ssd-perconal-blogpost.pdf) PDF for more information.
 
 The following procedure installs Percona Server for MySQL and then configures
 `--rocksdb-fs-uri=zenfs://dev:<short_block_device_name>` for data storage.
@@ -34,7 +34,7 @@ For the moment, the ZenFS plugin can be enabled in following distributions:
 
 If the ZenFS functionality is not enabled on Ubuntu 20.04, the binaries with ZenFS support can run on the standard 5.4 kernel.
 
-[Other Linux distributions](https://zonedstorage.io/docs/distributions/overview) are adding support for ZenFS, but Percona does not provide installation packages for those distributions.
+[Other Linux distributions :octicons-link-external-16:](https://zonedstorage.io/docs/distributions/overview) are adding support for ZenFS, but Percona does not provide installation packages for those distributions.
 
 ## Installation
 
@@ -62,7 +62,7 @@ Start with the installation of *Percona Server for MySQL*.
 
 ## Configuration
 
-1. Identify your ZBD device, <block_device_name>, with [lsblk](https://manpages.debian.org/stretch/util-linux/lsblk.8.en.html). Add the `-o` option and specify which columns to print.
+1. Identify your ZBD device, <block_device_name>, with [lsblk :octicons-link-external-16:](https://manpages.debian.org/stretch/util-linux/lsblk.8.en.html). Add the `-o` option and specify which columns to print.
 
     In the example, the `NAME` column returns the block device name, the `SIZE` column returns the size of the device, and the `ZONED` column returns information if the device uses the zone model. The value, `host-managed`, identifies a ZBD model.
 
@@ -318,10 +318,10 @@ $ zenfs restore --zbd=${NULLB} --path="/home/user/bkp/" --restore_path=/
 
 After a reboot the NVME ZBD configuration (“/dev/nvme02” in our examples) can disappear. The issue is OS-dependent and can be managed by the system administrators. One or more of the following events may have occurred:
 
-* A reboot changes the active “scheduler” from “[mq-deadline]”. The following steps [reset the disk scheduler in RedHat using udev rules](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_storage_devices/setting-the-disk-scheduler_managing-storage-devices#setting-the-disk-scheduler-using-udev-rules_setting-the-disk-scheduler). For Ubuntu, see [Input/output schedulers](https://wiki.archlinux.org/title/Improving_performance#Input/output_schedulers).
+* A reboot changes the active “scheduler” from “[mq-deadline]”. The following steps [reset the disk scheduler in RedHat using udev rules :octicons-link-external-16:](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_storage_devices/setting-the-disk-scheduler_managing-storage-devices#setting-the-disk-scheduler-using-udev-rules_setting-the-disk-scheduler). For Ubuntu, see [Input/output schedulers :octicons-link-external-16:](https://wiki.archlinux.org/title/Improving_performance#Input/output_schedulers).
 
 !!! admonition "See also"
 
-    For more information, review [Change I/O scheduler](https://www.golinuxcloud.com/how-to-change-io-scheduler-permanently-linux/).
+    For more information, review [Change I/O scheduler :octicons-link-external-16:](https://www.golinuxcloud.com/how-to-change-io-scheduler-permanently-linux/).
 
 * A reboot resets the device permissions from “640/mysql:mysql” to “660/root:disk”.

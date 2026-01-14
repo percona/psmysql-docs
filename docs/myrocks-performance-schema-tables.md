@@ -1,7 +1,7 @@
 # Performance Schema MyRocks changes
 
 RocksDB WAL file information can be seen in the
-[performance_schema.log_status](https://dev.mysql.com/doc/refman/8.0/en/performance-schema-log-status-table.html)
+[performance_schema.log_status :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/performance-schema-log-status-table.html)
 table in the `STORAGE ENGINE` column.
 
 This feature has been implemented in [Percona Server for MySQL 8.0.15-6](release-notes/Percona-Server-8.0.15-6.md).

@@ -9,17 +9,17 @@ such as covering and clustering indexes. It’s worth investing some time to
 optimize index definitions to get the best performance from *MySQL* and
 *TokuDB*. Here are some resources to get you started:
 
-* “Understanding Indexing” by Zardosht Kasheff ([video](https://vimeo.com/26454091))
+* “Understanding Indexing” by Zardosht Kasheff ([video :octicons-link-external-16:](https://vimeo.com/26454091))
 
-* [Rule of Thumb for Choosing Column Order in Indexes](https://www.percona.com/blog/a-rule-of-thumb-for-choosing-column-order-in-indexes/)
+* [Rule of Thumb for Choosing Column Order in Indexes :octicons-link-external-16:](https://www.percona.com/blog/a-rule-of-thumb-for-choosing-column-order-in-indexes/)
 
-* [Covering Indexes: Orders-of-Magnitude Improvements](https://www.percona.com/blog/covering_indexes_orders_of_magnitude_improvements/)
+* [Covering Indexes: Orders-of-Magnitude Improvements :octicons-link-external-16:](https://www.percona.com/blog/covering_indexes_orders_of_magnitude_improvements/)
 
-* [Introducing Multiple Clustering Indexes](https://www.percona.com/blog/introducing_multiple_clustering_indexes/)
+* [Introducing Multiple Clustering Indexes :octicons-link-external-16:](https://www.percona.com/blog/introducing_multiple_clustering_indexes/)
 
-* [Clustering Indexes vs. Covering Indexes](https://www.percona.com/blog/clustering_indexes_vs_covering_indexes/)
+* [Clustering Indexes vs. Covering Indexes :octicons-link-external-16:](https://www.percona.com/blog/clustering_indexes_vs_covering_indexes/)
 
-* [How Clustering Indexes Sometimes Helps UPDATE and DELETE Performance](https://www.percona.com/blog/how_clustering_indexes_sometimes_help_update_and_delete_performance/)
+* [How Clustering Indexes Sometimes Helps UPDATE and DELETE Performance :octicons-link-external-16:](https://www.percona.com/blog/how_clustering_indexes_sometimes_help_update_and_delete_performance/)
 
 * *High Performance MySQL, 3rd Edition* by Baron Schwartz, Peter Zaitsev, Vadim
 Tkachenko, Copyright 2012, O’Reilly Media. See Chapter 5, *Indexing for High
@@ -89,7 +89,7 @@ query.
 
 *TokuDB* makes clustering indexes feasible because of its excellent compression
 and very high indexing rates. For more information about using clustering
-indexes, see [Introducing Multiple Clustering Indexes](https://www.percona.com/blog/introducing_multiple_clustering_indexes/).
+indexes, see [Introducing Multiple Clustering Indexes :octicons-link-external-16:](https://www.percona.com/blog/introducing_multiple_clustering_indexes/).
 
 ## Hot Index Creation
 
@@ -423,7 +423,7 @@ To convert an existing table to use the *TokuDB* engine, run `ALTER
 TABLE... ENGINE=TokuDB`. If you wish to load from a file, use `LOAD DATA
 INFILE` and not `mysqldump`. Using `mysqldump` will be much slower. To
 create a file that can be loaded with `LOAD DATA INFILE`, refer to the `INTO
-OUTFILE` option of the [SELECT Syntax](https://dev.mysql.com/doc/refman/8.0/en/select.html).
+OUTFILE` option of the [SELECT Syntax :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/select.html).
 
 !!! note
 

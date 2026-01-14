@@ -42,6 +42,4 @@ The mysql_plugin utility was removed. Alternatives include loading plugins at se
 
 The `resolveip` utility is removed. `nslookup`, host, or dig can be used instead.
 
-Review [Features removed in MySQL 8.0] for more information
-
-[Features removed in MySQL 8.0]: https://dev.mysql.com/doc/refman/8.0/en/mysql-nutshell.html#mysql-nutshell-removals
+Review [Features removed in MySQL 8.0 :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/mysql-nutshell.html#mysql-nutshell-removals) for more information

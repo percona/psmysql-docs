@@ -17,10 +17,10 @@ Using `LD_PRELOAD`. Build the library, configure the malloc configuration with t
 
 The following is an example of the required commands:
 
-```text
+```shell
 ./configure --enable-stats --enable-prof && make && make install
-MALLOC_CONF=prof:true
-LD_PRELOAD=/usr/lib/libjemalloc.so
+export MALLOC_CONF=prof:true
+export LD_PRELOAD=/usr/lib/libjemalloc.so
 ```
 
 <!-- note:
@@ -83,7 +83,7 @@ mysql> SELECT * FROM malloc_stats ORDER BY TYPE DESC LIMIT 3;
     +--------+-------------+-------------+-------------+-------------+
     | small  | 23578872    | 586156      | 0           | 2649417     |
     | large  | 367382528   | 2218        | 0           | 6355        |
-    | huge   | 0           | 0           | 0           | |
+    | huge   | 0           | 0           | 0           | 0 |
     +--------+-------------+-------------+-------------+-------------+
     3 rows in set (0.00 sec)
     ```
@@ -92,7 +92,7 @@ mysql> SELECT * FROM malloc_stats ORDER BY TYPE DESC LIMIT 3;
 
 The profiling samples the `malloc()` calls and stores the sampled stack traces in a separate location in memory. These samples can be dumped into the filesystem. A dump returns a detailed view of the state of the memory.
 
-The process is global; therefore, only a single concurrent run is available and only the most recent runs are stored on disk.
+The process is global; therefore, only a single concurrent run is available. Each dump creates a new file with a unique timestamp, and previous dumps are retained unless manually deleted.
 
 Use the following command to create a profile dump file:
 
@@ -102,34 +102,52 @@ flush memory profile;
 
 The generated memory profile dumps are written to the /tmp directory.
 
-You can analyze the dump files with `jeprof` program, which must be installed on the host system in the appropriate path. This program is a perl script that post-processes the dump files in their raw format. The program has no connection to the `jemalloc` library and the version numbers are not required to match.
+You can analyze the dump files with `jeprof` program, which must be installed on the host system and available in the system PATH. This program is a C program that post-processes the dump files in their raw format. While jeprof can work with dumps from different jemalloc versions, compatibility issues may occur with significantly different versions.
 
 To verify the dump, run the following command:
 
 ```shell
 ls /tmp/jeprof_mysqld*
-/tmp/jeprof_mysqld.1.0.170013202213
-jeprof --show_bytes /tmp/jeprof_mysqld.1.0.170013202213 jeprof.*.heap
 ```
 
-You can also access the memory profile to plot a graph of the memory use. This ability requires that `jeprof` and `dot` are in the /tmp path. For the graph to display useful information, the binary file must contain symbol information.
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    /tmp/jeprof_mysqld.1.0.170013202213
+    ```
+
+Then analyze the profile:
+
+```shell
+jeprof --show_bytes /usr/sbin/mysqld /tmp/jeprof_mysqld.1.0.170013202213
+```
+
+You can also access the memory profile to plot a graph of the memory use. This ability requires that `jeprof` and `dot` are available in the system PATH. For the graph to display useful information, the binary file must contain debug symbol information.
+
+!!! warning "Important considerations"
+
+    * Ensure the MySQL process has write permissions to `/tmp`
+
+    * Profile dumps can be large; monitor available disk space
+
+    * Profiling has performance overhead and should be used judiciously
 
 Run the following command:
 
 ```shell
 jeprof --dot /usr/sbin/mysqld /tmp/jeprof_mysqld.1.0.170013202213 > /tmp/jeprof1.dot
-dot --Tpng /tmp/jeprof1.dot > /tmp/jeprof1.png
+dot -Tpng /tmp/jeprof1.dot > /tmp/jeprof1.png
 ```
 
 !!! note
 
-    An example of [allocation graph](https://github.com/jemalloc/jemalloc/wiki/Use-Case%3A-Leak-Checking).
+    An example of [allocation graph :octicons-link-external-16:](https://github.com/jemalloc/jemalloc/wiki/Use-Case%3A-Leak-Checking).
 
 ## PERFORMANCE_SCHEMA tables
 
 In 8.0.25.14, the following tables are implemented to retrieve memory allocation statistics for a running instance or return the cumulative number of allocations requested or allocations returned for a running instance.
 
-More information about the stats that are returned can be found in [jemalloc](https://jemalloc.net/jemalloc.3.html).
+More information about the stats that are returned can be found in [jemalloc :octicons-link-external-16:](https://jemalloc.net/jemalloc.3.html).
 
 ## malloc_stats_totals
 

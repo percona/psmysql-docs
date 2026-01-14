@@ -60,7 +60,7 @@ compared to the standard *MySQL* database server:
 | Contention-Aware Transaction Scheduling | Yes | Yes |
 | Improved Scalability By Splitting Mutexes | Yes | No |
 | [Improved MEMORY Storage Engine](improved-memory-engine.md) | Yes | No |
-| [Improved Flushing](https://docs.percona.com/percona-server/8.0/xtradb-performance-improvements-io-bound-highly-concurrent-workloads.html) | Yes | No |
+| [Improved Flushing :octicons-link-external-16:](https://docs.percona.com/percona-server/8.0/xtradb-performance-improvements-io-bound-highly-concurrent-workloads.html) | Yes | No |
 | Parallel Doublewrite Buffer | Yes | Yes |
 | [Configurable Fast Index Creation](innodb-expanded-fast-index-creation.md)) | Yes | No |
 | Per-Column Compression for VARCHAR/BLOB and JSON | Yes | No |

@@ -490,9 +490,16 @@ Allowed range is from `1` to `2147483647`.
 | Data type    | Numeric              |
 | Default      | 16 KB                |
 
-Specifies the size of the data block for reading RocksDB data files.
+Specifies the size of the data blocks used for storing and reading RocksDB data files. Larger block sizes can improve compression efficiency and reduce metadata overhead, but may increase memory usage and read amplification.
+
 The default value is `16 KB`.
-The allowed range is from `1024` to `18446744073709551615` bytes.
+The allowed range is from `1024` to `4294967296` bytes (4GiB).
+
+#### Version change
+
+As of Percona Server for MySQL 8.0.44-35, the maximum value has been reduced from `18446744073709551615` bytes to `4294967296` bytes (4GiB).
+
+For versions before 8.0.44-35, the allowed range is from `1024` to `18446744073709551615` bytes.
 
 ### `rocksdb_block_size_deviation`
 
@@ -1186,7 +1193,13 @@ through before assuming deadlock.
 | Data type | UINT |
 | Default | 2 |
 
-The cardinality multiplier used in tests. The minimum value is 0. The maxium value is 2147483647 (INT_MAX).
+The cardinality multiplier used in tests. The minimum value is 1. The maxium value is 2147483647 (INT_MAX).
+
+#### Version change
+
+As of Percona Server for MySQL 8.0.44-35, the minimum value has been changed from 0 to 1.
+
+For versions before 8.0.44-35, the minimum value is 0.
 
 ### `rocksdb_debug_manual_compaction_delay`
 
@@ -1564,11 +1577,11 @@ The variable was implemented in [Percona Server for MySQL 8.0.20-11](release-not
 
 #### Version changes
 
-The variable was implemented in [Percona Server for MySQL 8.0.25-15](release-notes/Percona-Server-8.0.25-15.md#id1).
+The variable was implemented in [Percona Server for MySQL 8.0.25-15](./release-notes/Percona-Server-8.0.25-15.md).
 
 #### Improving Write Throughput with Pipelined Writes
 
-This option maps directly to RocksDB’s `DBOptions::enable_pipelined_write`. For details, see the [RocksDB documentation on Pipelined Write](https://github.com/facebook/rocksdb/wiki/Pipelined-Write).
+This option maps directly to RocksDB’s `DBOptions::enable_pipelined_write`. For details, see the [RocksDB documentation on Pipelined Write :octicons-link-external-16:](https://github.com/facebook/rocksdb/wiki/Pipelined-Write).
 
 
 The pipelined write feature in RocksDB is specifically designed to enhance concurrent write throughput, but this feature only functions when the Write-Ahead Log (WAL) is enabled. Write operations normally pass through a shared queue. Each writer appends to the WAL and then updates the memtable in strict sequence. This pattern limits parallelism.
@@ -1747,7 +1760,7 @@ This variable controls whether to write and check RocksDB file-level checksums. 
 | Default      | 1                                 |
 
 Specifies whether to sync on every transaction commit,
-similar to [innodb_flush_log_at_trx_commit](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit).
+similar to [innodb_flush_log_at_trx_commit :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit).
 Enabled by default, which ensures ACID compliance.
 
 Possible values:
@@ -2007,8 +2020,14 @@ When enabled, this option allows index key prefixes longer than 767 bytes (up to
 | Default      | 1000                        |
 
 Specifies the maximum number of info log files to keep.
-Default value is `1000`.
-Allowed range is from `1` to `18446744073709551615`.
+The default number is `1000`.
+The allowed range is from `1` to `18446744073709551615`.
+
+#### Version change
+
+As of Percona Server for MySQL 8.0.44-35, Percona Server sets the minimum value to `1`.
+
+For versions before 8.0.44-35, the minimum value was `0`.
 
 ### `rocksdb_lock_scanned_rows`
 
@@ -2227,7 +2246,16 @@ Tracks the history for at most `rockdb_mx_compaction_history` completed compacti
 
 This variable has been implemented in [Percona Server for MySQL 8.0.36-28](.//release-notes/8.0.36-28.md).
 
-This variable sets `DBOptions::max_file_opening_threads` for RocksDB. The default value is `16`. The minimum value is `1` and the maximum value is 2147483647 (`INT_MAX`).
+This variable sets `DBOptions::max_file_opening_threads` for RocksDB, controlling the maximum number of threads that can be used to open files concurrently. This helps improve performance when opening multiple files simultaneously.
+
+The default value is `16`.
+The minimum value is `1` and the maximum value is `262144`.
+
+#### Version change
+
+As of Percona Server for MySQL 8.0.44-35, the maximum value has been reduced from `2147483647` (`INT_MAX`) to `262144`.
+
+For versions before 8.0.44-35, the maximum value was `2147483647` (`INT_MAX`).
 
 ### `rocksdb_max_latest_deadlocks`
 
