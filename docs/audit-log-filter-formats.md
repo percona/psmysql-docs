@@ -16,8 +16,8 @@ Set with the `audit_log_filter.format` system variable at startup. The available
 
 By default, the file contents in the new-style XML format are not compressed or encrypted.
 
-Changing the `audit_log_filter.format`, you should also change 
-the `audit_log_filter.file` name. For example, changing the `audit_log_filter.format` 
+When changing the `audit_log_filter.format`, it is recommended that you also change 
+the `audit_log_filter.file` name. For example, when changing the `audit_log_filter.format` 
 to JSON, change the `audit_log_filter.file` to `audit.json`. If you don't change 
 the `audit_log_filter.file` name, then all audit log filter files have the same 
 base name and you won't be able to easily find when the format changed.

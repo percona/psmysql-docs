@@ -31,6 +31,8 @@ The following audit log filter functions are used with encryption:
 
 The `audit_log_filter.password_history_keep_days` variable is used with encryption. If the variable is not zero (0), invoking `audit_log_encryption_password_set()` causes the expiration of archived audit log passwords.
 
+When an archived password expires, the component removes it from the keyring. If a password is removed from the keyring, you cannot decrypt audit log files that were encrypted with that password. However, passwords that are still in use for rotated audit log files do not expire, even if they are past the expiration date specified by `password_history_keep_days`.
+
 When the component starts with encryption enabled, the component checks if the keyring has an audit log filter encryption password. If no password is found, the component generates a random password and stores this password in the keyring. Use `audit_log_encryption_password_get()` to review this password.
 
 If compression and encryption are enabled, the component applies compression before encryption. If you must manually recover a file with both settings, first decrypt the file and then uncompress the file.
@@ -52,8 +54,8 @@ This function gets the encryption password, and the iterations count and returns
 
 Get the keyring password:
 
-```mysql
-mysql> SELECT audit_log_encryption_password_get('audit-log-20190414T223342-2');
+```sql
+SELECT audit_log_encryption_password_get('audit-log-20190414T223342-2');
 ```
 
 The return value of this function may look like the following:

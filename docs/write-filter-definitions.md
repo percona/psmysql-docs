@@ -237,6 +237,46 @@ The table shows the available event classes and their subclasses:
 
 This setup gives you the flexibility to monitor the exact events that are important to you while controlling logging behavior in a detailed way.
 
+## Filterable fields by event class
+
+The following table shows all filterable fields available for each event class and subclass. All numeric fields must be specified as strings in filter definitions.
+
+| Event Class | Event Subclass | Field Name | Data Type | Always Present | Filterable | Example Values | Notes |
+|-------------|---------------|------------|-----------|----------------|------------|----------------|-------|
+| `connection` | `connect` | `user` | string | Yes | Yes | `"admin"`, `"user1"` | Username |
+| `connection` | `connect` | `host` | string | Yes | Yes | `"192.168.1.1"`, `"localhost"` | Host/IP address |
+| `connection` | `connect` | `connection_id` | integer (as string) | Yes | Yes | `"12345"` | Connection identifier |
+| `connection` | `connect` | `status` | integer (as string) | Yes | Yes | `"0"` (success), `"1"` (failure) | Connection status |
+| `connection` | `change_user` | `user` | string | Yes | Yes | `"admin"`, `"user1"` | New username |
+| `connection` | `change_user` | `host` | string | Yes | Yes | `"192.168.1.1"` | Host/IP address |
+| `connection` | `change_user` | `connection_id` | integer (as string) | Yes | Yes | `"12345"` | Connection identifier |
+| `connection` | `disconnect` | `user` | string | Yes | Yes | `"admin"` | Username |
+| `connection` | `disconnect` | `host` | string | Yes | Yes | `"192.168.1.1"` | Host/IP address |
+| `connection` | `disconnect` | `connection_id` | integer (as string) | Yes | Yes | `"12345"` | Connection identifier |
+| `table_access` | `read` | `user` | string | Yes | Yes | `"admin"`, `"readonly_user"` | Username |
+| `table_access` | `read` | `database` | string | Yes | Yes | `"mydb"`, `"financial_db"` | Database name |
+| `table_access` | `read` | `table` | string | Yes | Yes | `"customers"`, `"orders"` | Table name |
+| `table_access` | `read` | `status` | integer (as string) | Yes | Yes | `"0"` (success), `"1"` (failure) | Query status |
+| `table_access` | `insert` | `user` | string | Yes | Yes | `"admin"` | Username |
+| `table_access` | `insert` | `database` | string | Yes | Yes | `"mydb"` | Database name |
+| `table_access` | `insert` | `table` | string | Yes | Yes | `"customers"` | Table name |
+| `table_access` | `insert` | `status` | integer (as string) | Yes | Yes | `"0"`, `"1"` | Query status |
+| `table_access` | `update` | `user` | string | Yes | Yes | `"admin"` | Username |
+| `table_access` | `update` | `database` | string | Yes | Yes | `"mydb"` | Database name |
+| `table_access` | `update` | `table` | string | Yes | Yes | `"customers"` | Table name |
+| `table_access` | `update` | `status` | integer (as string) | Yes | Yes | `"0"`, `"1"` | Query status |
+| `table_access` | `delete` | `user` | string | Yes | Yes | `"admin"` | Username |
+| `table_access` | `delete` | `database` | string | Yes | Yes | `"mydb"` | Database name |
+| `table_access` | `delete` | `table` | string | Yes | Yes | `"customers"` | Table name |
+| `table_access` | `delete` | `status` | integer (as string) | Yes | Yes | `"0"`, `"1"` | Query status |
+| `general` | `status` | `user` | string | Yes | Yes | `"admin"` | Username |
+| `general` | `status` | `status` | integer (as string) | Yes | Yes | `"0"` (success), `"1"` (failure) | Query execution status |
+| `general` | `command` | `user` | string | Yes | Yes | `"admin"` | Username |
+| `general` | `command` | `command` | string | Yes | Yes | `"SELECT"`, `"INSERT"`, `"UPDATE"` | SQL command type |
+
+!!! note "Field filtering"
+    All numeric fields (like `connection_id`, `thread_id`, `status`) must be specified as strings in filter definitions. Use `"123"` not `123`, and `"0"` not `0`.
+
 ### Inclusive filters
 
 Inclusive filters capture specific database events you want to log. They allow you to precisely target and record only the actions you care about.
@@ -339,6 +379,426 @@ This example defines a filter that `excludes` (negate: true) all table access ev
     In the filter definitions shown in this example, status values are displayed as integers for readability, but they must be specified as strings in your actual filter definitions (for example, `"status": ["0"]` or `"status": ["1"]`). The audit log filter does not filter on integer values, only on string values. This applies to all numeric filter criteria, including `connection_id`, `thread_id`, and `status`. If you use integer values, you will see the error: `ERROR: Incorrect rule definition.`
 
 This filter captures failed update/delete modifications by admin and developer users in the financial database and successful connections for the `external_service` user
+
+## Advanced filter patterns
+
+The following examples demonstrate complex filter patterns for real-world scenarios.
+
+### Combining multiple conditions
+
+**Log all failed queries from specific users:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "general",
+        "user": ["app_user", "web_user"],
+        "event": [{"name": "status"}],
+        "status": ["1"]
+      }
+    ]
+  }
+}
+```
+
+**Block all DDL operations on production database:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "table_access",
+        "database": ["production_db"],
+        "event": [{"name": "ddl"}],
+        "abort": true
+      }
+    ]
+  }
+}
+```
+
+**Log all connections except from specific IP range:**
+```json
+{
+  "filter": {
+    "log": false,
+    "class": [
+      {
+        "name": "connection",
+        "event": [{"name": "connect"}],
+        "host": ["192.168.100.%"],
+        "negate": true,
+        "log": true
+      }
+    ]
+  }
+}
+```
+
+**Log all table access in financial database, but exclude read operations:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "table_access",
+        "database": ["financial_db"],
+        "event": [
+          {"name": "insert"},
+          {"name": "update"},
+          {"name": "delete"}
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Filtering by connection ID or thread ID
+
+**Log all operations from a specific connection:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "table_access",
+        "connection_id": ["12345"]
+      }
+    ]
+  }
+}
+```
+
+**Log all operations from specific threads:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "general",
+        "thread_id": ["67890", "67891"]
+      }
+    ]
+  }
+}
+```
+
+!!! note "Connection and thread IDs"
+    Connection IDs and thread IDs must be specified as strings in filter definitions, even though they are numeric values.
+
+### Nested filters with multiple classes
+
+**Comprehensive security audit filter:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "connection",
+        "event": [
+          {"name": "connect"},
+          {"name": "disconnect"}
+        ],
+        "user": ["admin", "dba", "security_team"]
+      },
+      {
+        "name": "table_access",
+        "database": ["financial_db", "customer_db"],
+        "event": [
+          {"name": "update"},
+          {"name": "delete"}
+        ],
+        "status": ["0", "1"]
+      },
+      {
+        "name": "general",
+        "event": [{"name": "status"}],
+        "status": ["1"]
+      }
+    ]
+  }
+}
+```
+
+This filter logs:
+* All connections and disconnections from admin, dba, and security_team users
+* All update and delete operations (successful and failed) in financial_db and customer_db
+* All failed queries (status = 1) from any user
+
+### Using wildcards in filters
+
+**Log all operations on tables matching a pattern:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "table_access",
+        "table": ["customer_%", "order_%", "payment_%"]
+      }
+    ]
+  }
+}
+```
+
+**Exclude operations on temporary tables:**
+```json
+{
+  "filter": {
+    "log": false,
+    "class": [
+      {
+        "name": "table_access",
+        "table": ["tmp_%", "temp_%"],
+        "negate": true,
+        "log": true
+      }
+    ]
+  }
+}
+```
+
+## Blocking queries and connections
+
+The Audit Log Filter component can not only log events but also block queries or connections that match specific filter rules. This blocking capability provides an additional layer of security by preventing unauthorized or dangerous operations.
+
+### How blocking works
+
+When a filter includes an `abort` item set to `true`, matching queries or connections are blocked before execution. The blocked operation is still logged to the audit log, but the query does not execute.
+
+### Blocking syntax
+
+Add an `abort` item to your filter definition to enable blocking:
+
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "table_access",
+        "event": [{"name": "ddl"}],
+        "abort": true
+      }
+    ]
+  }
+}
+```
+
+This filter example blocks all Data Definition Language (DDL) operations such as `DROP TABLE`, `ALTER TABLE`, etc.
+
+### Which events can be blocked
+
+Most event classes support blocking, including:
+
+* `table_access` - Block table operations (read, write, DDL)
+
+* `general` - Block general commands
+
+* `connection` - Block connection attempts
+
+* `query` - Block specific queries
+
+!!! note "Blocking limitations"
+    Some events may not support blocking, or blocking may have limited effect. Test your blocking filters in a non-production environment before deploying.
+
+### Interaction with AUDIT_ABORT_EXEMPT
+
+Users with the `AUDIT_ABORT_EXEMPT` privilege (or `SYSTEM_USER` privilege) are exempt from blocking. Their queries execute even if they match a blocking filter. This exemption behavior ensures administrators can always regain access if filters are misconfigured.
+
+Example scenario:
+
+1. A filter is configured to block all `DROP TABLE` statements
+
+2. A regular user attempts `DROP TABLE customers;` → Query is blocked and logged
+
+3. An administrator with `AUDIT_ABORT_EXEMPT` attempts the same query → Query executes and is logged
+
+### Blocking examples
+
+Block all DROP TABLE statements:
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "table_access",
+        "event": [{"name": "ddl"}],
+        "abort": true
+      }
+    ]
+  }
+}
+```
+
+Block connections from specific IP range:
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "connection",
+        "event": [{"name": "connect"}],
+        "host": ["192.168.100.%"],
+        "abort": true
+      }
+    ]
+  }
+}
+```
+
+Block failed queries from specific users:
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "general",
+        "event": [{"name": "status"}],
+        "user": ["suspicious_user"],
+        "status": ["1"],
+        "abort": true
+      }
+    ]
+  }
+}
+```
+
+!!! warning "Blocking configuration"
+
+    Misconfigured blocking filters can lock you out of the system. Always test blocking filters in a non-production environment first, and ensure at least one user account has `AUDIT_ABORT_EXEMPT` privilege.
+
+## Common filter definition errors
+
+The following examples show common mistakes and how to fix them.
+
+### Using integers instead of strings
+
+**Incorrect:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "general",
+        "status": [0, 1]
+      }
+    ]
+  }
+}
+```
+
+**Error:** `ERROR: Incorrect rule definition.`
+
+**Correct:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "general",
+        "status": ["0", "1"]
+      }
+    ]
+  }
+}
+```
+
+### Invalid event class or subclass name
+
+**Incorrect:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "table_access",
+        "event": [{"name": "select"}]
+      }
+    ]
+  }
+}
+```
+
+**Error:** Invalid event subclass. Use `read` instead of `select`.
+
+**Correct:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "table_access",
+        "event": [{"name": "read"}]
+      }
+    ]
+  }
+}
+```
+
+### Malformed JSON
+
+**Incorrect:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "connection"
+        "event": [{"name": "connect"}]
+      }
+    ]
+  }
+}
+```
+
+**Error:** Missing comma after `"connection"`.
+
+**Correct:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "connection",
+        "event": [{"name": "connect"}]
+      }
+    ]
+  }
+}
+```
+
+### Missing required fields
+
+**Incorrect:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "event": [{"name": "connect"}]
+      }
+    ]
+  }
+}
+```
+
+**Error:** Missing `name` field in class definition.
+
+**Correct:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "connection",
+        "event": [{"name": "connect"}]
+      }
+    ]
+  }
+}
+```
 
 ## Best practices
 

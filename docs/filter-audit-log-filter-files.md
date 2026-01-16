@@ -31,6 +31,240 @@ Filter definitions are `JSON` values.
 
 The function, `audit_log_filter_flush()`, forces reloading all filters and should only be invoked when modifying the audit tables. This function affects all users. Users in current sessions must either execute change-user or disconnect and reconnect.
 
+## Function behavior and edge cases
+
+### audit_log_filter_set_filter()
+
+**Behavior when filter name already exists:**
+* If a filter with the same name already exists, the function returns an error
+* To update an existing filter, you must first remove it, then create a new one with the same name
+* Alternatively, modify the filter directly in the `mysql.audit_log_filter` table and call `audit_log_filter_flush()`
+
+**Example:**
+```sql
+-- First attempt creates the filter
+SELECT audit_log_filter_set_filter('my_filter', '{"filter": {"log": true}}');
+-- Returns: OK
+
+-- Second attempt with same name fails
+SELECT audit_log_filter_set_filter('my_filter', '{"filter": {"log": false}}');
+-- Returns: ERROR: Filter 'my_filter' already exists
+```
+
+### audit_log_filter_set_user()
+
+**Wildcard support (8.4.4+):**
+Starting from Percona Server for MySQL 8.4.4, `audit_log_filter_set_user()` accepts wildcard characters (`%` and `_`) in the host part of user accounts.
+
+**Examples:**
+```sql
+-- Match user from any host
+SELECT audit_log_filter_set_user('admin@%', 'log_all');
+
+-- Match user from specific IP subnet
+SELECT audit_log_filter_set_user('user@192.168.0.%', 'log_all');
+
+-- Match user from specific domain
+SELECT audit_log_filter_set_user('user@%.example.com', 'log_all');
+
+-- Match user with underscore in hostname
+SELECT audit_log_filter_set_user('user@db_server_1', 'log_all');
+```
+
+**Behavior when assigning filter to non-existent user:**
+* The function succeeds even if the user account doesn't exist
+* The filter assignment is stored in `mysql.audit_log_user` table
+* When the user connects, the filter is applied
+* If the user never connects, the assignment remains but has no effect
+
+**Behavior when user is in current session:**
+* If a user is currently connected, changing their filter assignment does not affect their current session
+* The new filter takes effect when:
+  * The user disconnects and reconnects, or
+  * The user executes `CHANGE_USER` command
+
+### audit_log_filter_remove_filter()
+
+**Behavior when filter is assigned to users:**
+* When you remove a filter, it is automatically unassigned from all users (including the default `%` account)
+* Current sessions are detached from the filter immediately
+* New connections for affected users fall back to:
+  * Default filter (if one exists), or
+  * No filtering (if no default exists)
+
+**Example:**
+```sql
+-- Remove filter that's assigned to multiple users
+SELECT audit_log_filter_remove_filter('log_all');
+-- All users assigned to 'log_all' are now unassigned
+-- Current sessions continue without filter
+-- New connections use default filter or no filtering
+```
+
+### audit_log_filter_remove_user()
+
+**Behavior:**
+* Removing a user's filter assignment does not affect their current session
+* New sessions for the user will use:
+  * Default filter (if one exists), or
+  * No filtering (if no default exists)
+
+**Removing default filter:**
+* To remove the default filter, use: `SELECT audit_log_filter_remove_user('%');`
+* This affects all users without specific filter assignments
+
+## Modifying filters via tables vs functions
+
+You can modify audit log filters in two ways: using functions or by directly modifying the audit tables.
+
+### Using functions (recommended)
+
+**Advantages:**
+* Validation of filter definitions
+* Immediate effect (no flush required)
+* Error messages for invalid configurations
+* Atomic operations
+
+**Example:**
+```sql
+SELECT audit_log_filter_set_filter('my_filter', '{"filter": {"log": true}}');
+-- Filter is immediately active
+```
+
+### Direct table modification
+
+**When to use:**
+* Bulk updates of multiple filters
+* Script-based configuration management
+* Replication scenarios (with caution)
+
+**Important:**
+* Changes to `mysql.audit_log_filter` or `mysql.audit_log_user` tables do not take effect automatically
+* You must call `audit_log_filter_flush()` after making table changes
+* No validation is performed on filter definitions
+* Invalid JSON in filter definitions can cause errors
+
+**Example:**
+```sql
+-- Direct table modification
+INSERT INTO mysql.audit_log_filter (NAME, FILTER) 
+VALUES ('my_filter', '{"filter": {"log": true}}');
+
+-- Must flush to activate
+SELECT audit_log_filter_flush();
+```
+
+### Replication implications
+
+**Default behavior:**
+* By default, `mysql.audit_log_filter` and `mysql.audit_log_user` tables are replicated
+* Changes on the source server replicate to replica servers
+* However, replicated table changes do not automatically activate filters on the replica
+
+**What happens:**
+1. Source server: Filter is created and activated
+2. Replication: Table changes are replicated to replica
+3. Replica server: Filter exists in table but is NOT active in memory
+4. Replica server: Must call `audit_log_filter_flush()` or restart server to activate
+
+**Recommendation:**
+Configure replication to ignore audit log filter tables:
+```ini
+# In my.cnf
+replicate-ignore-table=mysql.audit_log_filter
+replicate-ignore-table=mysql.audit_log_user
+```
+
+This ensures:
+* Each server has independent filter configuration
+* No conflicts between source and replica filters
+* Better control over audit logging on each server
+
+## Translating 8.0 include/exclude variables to JSON filters
+
+If you're migrating from Percona Server 8.0 plugin to 8.4 component, you need to convert old include/exclude variables to JSON filter definitions.
+
+### Variable mapping table
+
+| 8.0 Plugin Variable | 8.4 Component JSON Filter | Example |
+|---------------------|---------------------------|---------|
+| `audit_log_include_accounts` | `"user": ["user1", "user2"]` | Include specific users |
+| `audit_log_exclude_accounts` | `"user": ["user1"], "negate": true` | Exclude specific users |
+| `audit_log_include_commands` | `"class": {"name": "general"}, "event": {"name": "command"}` | Include specific commands |
+| `audit_log_exclude_commands` | `"class": {"name": "general"}, "event": {"name": "command"}, "negate": true` | Exclude specific commands |
+| `audit_log_include_databases` | `"database": ["db1", "db2"]` | Include specific databases |
+| `audit_log_exclude_databases` | `"database": ["db1"], "negate": true` | Exclude specific databases |
+
+### Migration examples
+
+**8.0 Configuration:**
+```ini
+audit_log_include_accounts = admin@localhost, dba@%
+audit_log_exclude_databases = test, temp
+```
+
+**8.4 JSON Filter:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "general",
+        "user": ["admin", "dba"],
+        "database": ["test", "temp"],
+        "negate": true
+      }
+    ]
+  }
+}
+```
+
+**8.0 Configuration:**
+```ini
+audit_log_include_commands = SELECT, INSERT, UPDATE, DELETE
+audit_log_exclude_accounts = readonly_user@%
+```
+
+**8.4 JSON Filter:**
+```json
+{
+  "filter": {
+    "class": [
+      {
+        "name": "general",
+        "event": [{"name": "command"}],
+        "user": ["readonly_user"],
+        "negate": true
+      }
+    ]
+  }
+}
+```
+
+### Complete migration procedure
+
+1. **Document current 8.0 configuration:**
+   * List all `audit_log_include_*` and `audit_log_exclude_*` variables
+   * Note their values
+
+2. **Convert to JSON filters:**
+   * Use the mapping table above
+   * Create filter definitions for each include/exclude rule
+   * Combine related rules into single filters where possible
+
+3. **Test filters:**
+   * Create filters in a test environment
+   * Verify they match the behavior of old plugin configuration
+   * Adjust as needed
+
+4. **Deploy to production:**
+   * Install 8.4 component
+   * Create JSON filters
+   * Assign filters to users
+   * Verify functionality
+
+For complete migration instructions, see [Migration Guide](audit-log-filter-migration.md).
+
 ## Constraints
 
 The `component_audit_log_filter` component must be enabled and the audit tables must exist to use the audit log filter functions. The user account must have the required privileges. 

@@ -695,49 +695,285 @@ This read-only variable defines the `priority` value for the syslog. This variab
 
 The audit log filter component exposes status variables. These variables provide information on the operations.
 
-<table border="0" cellpadding="6" cellspacing="0">
-  <thead>
-    <tr>
-      <th style="width: 40ch; white-space: nowrap;">Name</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>audit_log_filter_current_size</code></td>
-      <td>The current size of the audit log filter file. If the log is rotated, the size is reset to 0.</td>
-    </tr>
-    <tr>
-      <td><code>audit_log_filter_direct_writes</code></td>
-      <td>Identifies when the <code>log_strategy_type</code> = ASYNCHRONOUS and messages bypass the write buffer and are written directly to the log file.</td>
-    </tr>
-    <tr>
-      <td><code>audit_log_filter_max_drop_size</code></td>
-      <td>In the performance logging mode, the size of the largest dropped event.</td>
-    </tr>
-    <tr>
-      <td><code>audit_log_filter_events</code></td>
-      <td>The number of audit log filter events.</td>
-    </tr>
-    <tr>
-      <td><code>audit_log_filter_events_filtered</code></td>
-      <td>The number of filtered audit log filter component events.</td>
-    </tr>
-    <tr>
-      <td><code>audit_log_filter_events_lost</code></td>
-      <td>If the event is larger than the available audit log filter buffer space, the event is lost.</td>
-    </tr>
-    <tr>
-      <td><code>audit_log_filter_events_written</code></td>
-      <td>The number of audit log filter events written.</td>
-    </tr>
-    <tr>
-      <td><code>audit_log_filter_total_size</code></td>
-      <td>The total size of the events written to all audit log filter files. The number increases even when a log is rotated.</td>
-    </tr>
-    <tr>
-      <td><code>audit_log_filter_write_waits</code></td>
-      <td>In the asynchronous logging mode, the number of times an event waited for space in the audit log filter buffer.</td>
-    </tr>
-  </tbody>
-</table>
+| Name | Description |
+|------|-------------|
+| `audit_log_filter_current_size` | The current size of the audit log filter file. If the log is rotated, the size is reset to 0. |
+| `audit_log_filter_direct_writes` | Identifies when the `log_strategy_type` = ASYNCHRONOUS and messages bypass the write buffer and are written directly to the log file. |
+| `audit_log_filter_max_drop_size` | In the performance logging mode, the size of the largest dropped event. |
+| `audit_log_filter_events` | The number of audit log filter events. |
+| `audit_log_filter_events_filtered` | The number of filtered audit log filter component events. |
+| `audit_log_filter_events_lost` | If the event is larger than the available audit log filter buffer space, the event is lost. |
+| `audit_log_filter_events_written` | The number of audit log filter events written. |
+| `audit_log_filter_total_size` | The total size of the events written to all audit log filter files. The number increases even when a log is rotated. |
+| `audit_log_filter_write_waits` | In the asynchronous logging mode, the number of times an event waited for space in the audit log filter buffer. |
+
+## Monitoring and interpreting status variables
+
+Status variables provide valuable insights into audit log filter performance and health. Use them to monitor, troubleshoot, and optimize your audit logging configuration.
+
+### Key metrics and their meanings
+
+#### `audit_log_filter_events`
+
+**What it measures:** Total number of events processed by the audit log filter component.
+
+**Normal values:** Varies based on database activity. Should increase steadily during normal operation.
+
+**When to be concerned:**
+* Value is 0 when you expect events to be logged → Check filter configuration
+* Sudden drop to 0 → Component may be disabled or filters misconfigured
+
+**How to use:**
+```sql
+-- Monitor event count over time
+SHOW STATUS LIKE 'audit_log_filter_events';
+-- Compare with previous values to track activity
+```
+
+#### `audit_log_filter_events_written`
+
+**What it measures:** Number of events actually written to log files.
+
+**Normal values:** Should be less than or equal to `audit_log_filter_events` (some events may be filtered out).
+
+**When to be concerned:**
+* Much lower than `events` → Many events are being filtered (may be expected)
+* Zero when `events` is non-zero → Writing may be disabled or file issues
+
+**How to use:**
+```sql
+-- Check write ratio
+SELECT 
+  VARIABLE_VALUE as events_written
+FROM performance_schema.global_status 
+WHERE VARIABLE_NAME = 'audit_log_filter_events_written';
+```
+
+#### `audit_log_filter_events_filtered`
+
+**What it measures:** Number of events filtered out (not written to log).
+
+**Normal values:** Depends on filter configuration. Higher values indicate filters are working.
+
+**When to be concerned:**
+* Very high ratio of filtered to total events → Filters may be too restrictive
+* Zero when you expect filtering → Filters may not be working correctly
+
+**How to use:**
+```sql
+-- Calculate filter effectiveness
+SELECT 
+  (SELECT VARIABLE_VALUE FROM performance_schema.global_status 
+   WHERE VARIABLE_NAME = 'audit_log_filter_events_filtered') /
+  (SELECT VARIABLE_VALUE FROM performance_schema.global_status 
+   WHERE VARIABLE_NAME = 'audit_log_filter_events') * 100 
+AS filter_percentage;
+```
+
+#### `audit_log_filter_events_lost`
+
+**What it measures:** Number of events lost due to buffer overflow.
+
+**Normal values:** Should be 0. Any non-zero value indicates a problem.
+
+**When to be concerned:**
+* **Any value > 0** → Events are being lost, immediate action required
+* Increasing value → Buffer is consistently too small
+
+**How to fix:**
+1. Increase buffer size:
+   ```sql
+   -- Check current buffer size
+   SHOW VARIABLES LIKE 'audit_log_filter.buffer_size';
+   -- Increase in my.cnf (requires restart)
+   audit_log_filter.buffer_size = 2097152  -- 2MB
+   ```
+
+2. Reduce logging scope (more selective filters)
+
+3. Use PERFORMANCE strategy (drops events instead of blocking):
+   ```sql
+   -- Set strategy to PERFORMANCE (requires restart)
+   audit_log_filter.strategy = PERFORMANCE
+   ```
+
+**Example monitoring:**
+```sql
+-- Alert if events are being lost
+SELECT 
+  CASE 
+    WHEN VARIABLE_VALUE > 0 THEN 'ALERT: Events being lost!'
+    ELSE 'OK: No events lost'
+  END as status
+FROM performance_schema.global_status 
+WHERE VARIABLE_NAME = 'audit_log_filter_events_lost';
+```
+
+#### `audit_log_filter_write_waits`
+
+**What it measures:** Number of times events waited for buffer space in asynchronous mode.
+
+**Normal values:** Should be low or 0. Occasional waits are acceptable under high load.
+
+**When to be concerned:**
+* Consistently increasing → Performance degradation, buffer too small
+* High values during normal operation → Need to optimize configuration
+
+**How to use:**
+```sql
+-- Monitor write waits
+SHOW STATUS LIKE 'audit_log_filter_write_waits';
+
+-- If consistently high:
+-- 1. Increase buffer size
+-- 2. Reduce logging scope
+-- 3. Consider PERFORMANCE strategy
+```
+
+#### `audit_log_filter_current_size`
+
+**What it measures:** Current size of the active log file in bytes.
+
+**Normal values:** Varies based on activity and rotation settings.
+
+**When to be concerned:**
+* Approaching `rotate_on_size` → Rotation will occur soon
+* Very large without rotation → Rotation may not be configured
+
+**How to use:**
+```sql
+-- Check current file size
+SHOW STATUS LIKE 'audit_log_filter_current_size';
+
+-- Compare with rotation size
+SHOW VARIABLES LIKE 'audit_log_filter.rotate_on_size';
+
+-- Calculate percentage
+SELECT 
+  (SELECT VARIABLE_VALUE FROM performance_schema.global_status 
+   WHERE VARIABLE_NAME = 'audit_log_filter_current_size') /
+  (SELECT VARIABLE_VALUE FROM performance_schema.global_variables 
+   WHERE VARIABLE_NAME = 'audit_log_filter_rotate_on_size') * 100 
+AS rotation_percentage;
+```
+
+#### `audit_log_filter_total_size`
+
+**What it measures:** Total size of all events written across all log files (including rotated).
+
+**Normal values:** Continuously increases as events are logged.
+
+**When to be concerned:**
+* Approaching `max_size` (if configured) → Pruning will occur
+* Very large → May need to adjust pruning settings
+
+**How to use:**
+```sql
+-- Monitor total size
+SHOW STATUS LIKE 'audit_log_filter_total_size';
+
+-- Compare with max_size limit
+SHOW VARIABLES LIKE 'audit_log_filter.max_size';
+```
+
+#### `audit_log_filter_max_drop_size`
+
+**What it measures:** Size of the largest event that was dropped (PERFORMANCE strategy only).
+
+**Normal values:** 0 if PERFORMANCE strategy not used, or size of largest dropped event.
+
+**When to be concerned:**
+* Large values → Very large events are being dropped
+* May indicate queries with large result sets or long statements
+
+**How to use:**
+```sql
+-- Check if large events are being dropped
+SHOW STATUS LIKE 'audit_log_filter_max_drop_size';
+
+-- If using PERFORMANCE strategy and seeing drops:
+-- Consider increasing buffer size or using ASYNCHRONOUS strategy
+```
+
+### Monitoring best practices
+
+1. **Regular monitoring:**
+   ```sql
+   -- Create monitoring query
+   SELECT 
+     'Events Processed' as metric,
+     VARIABLE_VALUE as value
+   FROM performance_schema.global_status 
+   WHERE VARIABLE_NAME = 'audit_log_filter_events'
+   UNION ALL
+   SELECT 
+     'Events Written',
+     VARIABLE_VALUE
+   FROM performance_schema.global_status 
+   WHERE VARIABLE_NAME = 'audit_log_filter_events_written'
+   UNION ALL
+   SELECT 
+     'Events Lost',
+     VARIABLE_VALUE
+   FROM performance_schema.global_status 
+   WHERE VARIABLE_NAME = 'audit_log_filter_events_lost';
+   ```
+
+2. **Set up alerts:**
+   * Alert if `events_lost > 0`
+   * Alert if `write_waits` increases rapidly
+   * Alert if `current_size` approaches rotation limit
+
+3. **Track trends:**
+   * Monitor values over time
+   * Identify patterns (peak hours, etc.)
+   * Adjust configuration based on trends
+
+4. **Performance tuning:**
+   * If `events_lost > 0`: Increase buffer size
+   * If high `write_waits`: Reduce logging scope or increase buffer
+   * If high CPU: Use more selective filters
+   * If high disk I/O: Enable compression
+
+### Troubleshooting with status variables
+
+**Problem: No events being logged**
+
+```sql
+-- Check if events are being processed
+SHOW STATUS LIKE 'audit_log_filter_events';
+-- If 0: Check if component is enabled, filters are configured
+
+-- Check if events are being written
+SHOW STATUS LIKE 'audit_log_filter_events_written';
+-- If 0 but events > 0: Check file permissions, disk space
+```
+
+**Problem: Events being lost**
+
+```sql
+-- Check lost events
+SHOW STATUS LIKE 'audit_log_filter_events_lost';
+-- If > 0: Increase buffer size immediately
+
+-- Check buffer size
+SHOW VARIABLES LIKE 'audit_log_filter.buffer_size';
+-- Increase if too small
+```
+
+**Problem: Performance degradation**
+
+```sql
+-- Check write waits
+SHOW STATUS LIKE 'audit_log_filter_write_waits';
+-- If high: Reduce logging scope or increase buffer
+
+-- Check filter effectiveness
+SELECT 
+  (SELECT VARIABLE_VALUE FROM performance_schema.global_status 
+   WHERE VARIABLE_NAME = 'audit_log_filter_events_filtered') /
+  (SELECT VARIABLE_VALUE FROM performance_schema.global_status 
+   WHERE VARIABLE_NAME = 'audit_log_filter_events') * 100 
+AS filter_percentage;
+-- High percentage means filters are working well
+```
