@@ -34,6 +34,8 @@ recreated later, after copying the data. The following restrictions apply:
 of the current `ALTER TABLE` statement, the optimization is disabled for all
 keys.
 
+* If the table is partitioned, the optimization is disabled for all keys.
+
 ## `OPTIMIZE TABLE`
 
 Internally, `OPTIMIZE TABLE` is mapped to `ALTER TABLE ... ENGINE=innodb`
@@ -56,6 +58,9 @@ necessary when copying the data to a temporary table;
 * `ALTER TABLE` and `OPTIMIZE TABLE` always process tables containing
 foreign keys as if [expand_fast_index_creation](#expanded-fast-index-creation) is OFF to avoid
 dropping keys that are part of a FOREIGN KEY constraint;
+
+* `ALTER TABLE` and `OPTIMIZE TABLE` always process partitioned tables as if
+[expand_fast_index_creation](#expanded-fast-index-creation) is OFF;
 
 * **mysqldump --innodb-optimize-keys** ignores foreign keys because
 *InnoDB* requires a full table rebuild on foreign key changes. So adding them
