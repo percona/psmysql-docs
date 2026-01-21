@@ -8,15 +8,17 @@ The following UDFs are helpful for debugging JS code.
 
 * `JS_GET_LAST_ERROR()`: Returns the error message for the last JS error that occurred in the current connection for the current user.
 
-* `JS_GET_LAST_ERROR_INFO()`: Provides detailed information about the last JS error that occurred in the current connection for the current user including the error message, the exact line and column where the problem occurred, and the stack trace if available.
+* `JS_GET_LAST_ERROR_INFO()`: Returns extended information about the last JS error that occurred in the current connection for the current user. In addition to the error message, it tries to provide the exact line and column where the problem occurred, as well as the stack trace if available.
 
 * `JS_CLEAR_LAST_ERROR()`: Resets the information about the last JS error for the current connection and user, as if no error had occurred.
 
-To terminate a connection or statement executing a JS routine, you can take immediate action to abort the execution, ensuring that any unintended operations can be swiftly stopped.
+## Terminating JS routine execution
 
-This functionality is crucial for managing and controlling the execution of routines, ensuring that any unintended or potentially harmful operations can be swiftly terminated to maintain the stability and performance of the database environment.
+You can terminate the execution of a JS routine in the following ways:
 
-If the `MAX_EXECUTION_TIME` timeout is exceeded for a statement running a JS routine, the execution aborts execution without much delay. You can use this option to limit the execution time of a JS routine that's performing a long computation.
+1. You can kill a connection or statement that executes a JS routine using `KILL` or `KILL QUERY`, and the execution is aborted without much delay. For example, you can use `KILL QUERY` to abort a JS routine executing a long or infinite loop.
+
+2. Exceeding the `MAX_EXECUTION_TIME` timeout (if present) for a statement that executes a JS routine aborts execution without much delay. For example, this option can be used to limit the execution time of a JS routine performing a long computation.
 
 ## Further reading
 
