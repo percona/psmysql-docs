@@ -16264,6 +16264,9 @@ recreated later, after copying the data. The following restrictions apply:</p>
 of the current <code>ALTER TABLE</code> statement, the optimization is disabled for all
 keys.</p>
 </li>
+<li>
+<p>If the table is partitioned, the optimization is disabled for all keys.</p>
+</li>
 </ul>
 <h2 id="innodb-expanded-fast-index-creation-optimize-table"><code>OPTIMIZE TABLE</code><a class="headerlink" href="#innodb-expanded-fast-index-creation-optimize-table" title="Permanent link">&para;</a></h2>
 <p>Internally, <code>OPTIMIZE TABLE</code> is mapped to <code>ALTER TABLE ... ENGINE=innodb</code>
@@ -16285,6 +16288,10 @@ necessary when copying the data to a temporary table;</p>
 <p><code>ALTER TABLE</code> and <code>OPTIMIZE TABLE</code> always process tables containing
 foreign keys as if <a href="#innodb-expanded-fast-index-creation-expanded-fast-index-creation">expand_fast_index_creation</a> is OFF to avoid
 dropping keys that are part of a FOREIGN KEY constraint;</p>
+</li>
+<li>
+<p><code>ALTER TABLE</code> and <code>OPTIMIZE TABLE</code> always process partitioned tables as if
+<a href="#innodb-expanded-fast-index-creation-expanded-fast-index-creation">expand_fast_index_creation</a> is OFF;</p>
 </li>
 <li>
 <p><strong>mysqldump &ndash;innodb-optimize-keys</strong> ignores foreign keys because
