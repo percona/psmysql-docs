@@ -1642,6 +1642,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -1762,21 +1766,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#convert-sql-data-types-to-js" class="md-nav__link">
+  <a href="#type-conversions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Convert SQL data types to JS
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#convert-js-data-types-to-sql" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Convert JS data types to SQL
+        Type conversions
       
     </span>
   </a>
@@ -1788,6 +1781,39 @@
     <span class="md-ellipsis">
       
         System variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-defined-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User-defined functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#console-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Console API
       
     </span>
   </a>
@@ -1913,6 +1939,62 @@
     
   
     js_lang stored function or procedure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="js-lang-type-conversions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    js_lang type conversions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="js-lang-console-api.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    js_lang Console API
   
 
     
@@ -9494,21 +9576,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#convert-sql-data-types-to-js" class="md-nav__link">
+  <a href="#type-conversions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Convert SQL data types to JS
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#convert-js-data-types-to-sql" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Convert JS data types to SQL
+        Type conversions
       
     </span>
   </a>
@@ -9520,6 +9591,39 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-ellipsis">
       
         System variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-defined-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User-defined functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#console-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Console API
       
     </span>
   </a>
@@ -9618,158 +9722,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>In a typical database environment, direct access to external files (like reading or writing files on the server&rsquo;s file system) is restricted. Our implementation adheres to a trusted external routine language policy, ensuring routines cannot perform operations beyond what is normally possible for database users. Consequently, file or network I/O operations are not supported within our routines.</p>
 <p>Our system supports asynchronous JS code, but it does not work well for database routines. Since everything runs on the same thread and there is nothing to wait for asynchronously, using asynchronous code is unnecessary and not recommended.</p>
 <p>We always run JS code in strict mode, and developers cannot disable or change this setting.</p>
-<h2 id="convert-sql-data-types-to-js">Convert SQL data types to JS<a class="headerlink" href="#convert-sql-data-types-to-js" title="Permanent link">&para;</a></h2>
-<p>SQL and JS use different data types, so our implementation converts values when passing SQL parameters to JS and back. The following rules explain how these conversions work:</p>
-<p>SQL <code>NULL</code> values are converted to JS <code>null</code> values.</p>
-<table>
-<thead>
-<tr>
-<th>SQL type</th>
-<th>JS return type</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>BOOLEAN, TINYINT, SHORTINT, MEDIUMINT, INT</td>
-<td>Number</td>
-<td></td>
-</tr>
-<tr>
-<td>BIGINT</td>
-<td>Number or BigInt</td>
-<td>Number for values [-2^53-1, 2^53-1], BigInt otherwise</td>
-</tr>
-<tr>
-<td>DECIMAL</td>
-<td>String</td>
-<td></td>
-</tr>
-<tr>
-<td>FLOAT, DOUBLE</td>
-<td>Number</td>
-<td></td>
-</tr>
-<tr>
-<td>BIT(k)</td>
-<td>Number or BigInt</td>
-<td>Number for k ≤ 53, BigInt for k &gt; 53</td>
-</tr>
-<tr>
-<td>TIME, DATE, TIMESTAMP, DATETIME</td>
-<td>String</td>
-<td></td>
-</tr>
-<tr>
-<td>YEAR</td>
-<td>Number</td>
-<td></td>
-</tr>
-<tr>
-<td>CHAR, VARCHAR, TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT</td>
-<td>String</td>
-<td>Fails if length exceeds 2^29 - 24</td>
-</tr>
-<tr>
-<td>BINARY, VARBINARY, TINYBLOB, BLOB, MEDIUMBLOB, LONGBLOB</td>
-<td>DataView</td>
-<td></td>
-</tr>
-<tr>
-<td>ENUM, SET</td>
-<td>String</td>
-<td></td>
-</tr>
-<tr>
-<td>GEOMETRY and spatial types</td>
-<td>DataView</td>
-<td></td>
-</tr>
-<tr>
-<td>JSON</td>
-<td>Object</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>When the data converts to a JS string, it automatically changes from the SQL parameter’s character set to <code>utf8mb4</code>, which JS uses.</p>
-<h2 id="convert-js-data-types-to-sql">Convert JS data types to SQL<a class="headerlink" href="#convert-js-data-types-to-sql" title="Permanent link">&para;</a></h2>
-<p>The system uses the target SQL data type to determine how to convert each value. It typically converts a JS value into a basic type—such as a string, integer, or double—based on the specified SQL type. Once converted, the system stores the result in the corresponding SQL parameter or return value.</p>
-<p>If a value exceeds allowed limits or uses an unsupported format, the conversion fails and triggers an error. During this process, the system automatically converts JS strings from the utf8mb4 encoding to the character set defined by the SQL parameter.</p>
-<p>The system always maps JS null and undefined values to SQL NULL, regardless of the target SQL type.</p>
-<h3 id="js-to-sql-type-conversion-rules">JS to SQL type conversion rules<a class="headerlink" href="#js-to-sql-type-conversion-rules" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Target SQL Data Type</th>
-<th>Conversion Rules</th>
-<th>Explanation</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>BOOLEAN</code>, <code>TINYINT</code>, <code>SHORTINT</code>, <code>MEDIUMINT</code>, <code>INT</code>, <code>BIGINT</code></td>
-<td>(Version 8.4.5) - Numbers: stored as integers<br>- Booleans: <code>true</code> → <code>1</code>, <code>false</code> → <code>0</code><br>- BigInts: stored as integers when possible<br>- Other types: converted to strings first<br>(Version 8.4.4) - JS Integers/Numbers: integers stored as-is, BigInts attempted as integers, others as strings.)</td>
-<td>Preserves native numeric forms where possible; other values default to string representation</td>
-<td><code>42</code> → <code>42</code><br><code>3.14</code> → <code>"3.14"</code><br><code>true</code> → <code>"1"</code></td>
-</tr>
-<tr>
-<td><code>DECIMAL</code></td>
-<td>- All values converted to strings<br>- Booleans: converted to <code>0</code>/<code>1</code>, then stored as doubles</td>
-<td>Supports precision formatting; special handling ensures Booleans fit numeric context</td>
-<td><code>123.45</code> → <code>"123.45"</code><br><code>true</code> → <code>1.0</code></td>
-</tr>
-<tr>
-<td><code>FLOAT</code>, <code>DOUBLE</code></td>
-<td>- Numbers: stored as doubles<br>- (Version 8.4.5) - Booleans: converted to <code>0</code>/<code>1</code>, then stored as doubles<br>- Others: converted to strings</td>
-<td>Treats numeric and Boolean inputs consistently using floating-point representation</td>
-<td><code>3.14</code> → <code>3.14</code><br><code>true</code> → <code>1.0</code><br><code>"3.14"</code> → <code>"3.14"</code></td>
-</tr>
-<tr>
-<td><code>BIT</code></td>
-<td>Converted to SQL BIT type</td>
-<td>Only binary-compatible values allowed</td>
-<td><code>1</code> → <code>BIT(1)</code></td>
-</tr>
-<tr>
-<td><code>TIME</code>, <code>DATE</code>, <code>TIMESTAMP</code>, <code>DATETIME</code></td>
-<td>All values converted to strings</td>
-<td>Usually expects ISO date formats or equivalents</td>
-<td><code>Date()</code> → <code>"2024-01-30"</code></td>
-</tr>
-<tr>
-<td><code>CHAR</code>, <code>VARCHAR</code>, <code>TEXT</code>, etc.</td>
-<td>All values converted to strings<br>Charset conversion from <code>utf8mb4</code> if needed</td>
-<td>Supports text types with encoding fallback</td>
-<td><code>"hello"</code> → <code>"hello"</code></td>
-</tr>
-<tr>
-<td><code>BINARY</code>, <code>VARBINARY</code>, <code>BLOB</code>, etc.</td>
-<td>- <code>ArrayBuffer</code>/<code>View</code>: stored directly<br>- Others: converted to strings</td>
-<td>Binary data must be explicitly wrapped; others fallback to string</td>
-<td><code>buffer</code> → binary</td>
-</tr>
-<tr>
-<td><code>SET</code></td>
-<td>- Numbers: stored as integers/doubles<br>- BigInts: stored as integers<br>- Others: converted to strings with charset conversion if needed</td>
-<td>Tries native storage before falling back to strings</td>
-<td><code>1</code> → <code>1</code><br><code>"value"</code> → <code>"value"</code></td>
-</tr>
-<tr>
-<td><code>GEOMETRY</code></td>
-<td>- Valid <code>ArrayBuffer</code>/<code>View</code>: stored as binary<br>- Others: cause an error</td>
-<td>Enforces format rules to maintain spatial integrity</td>
-<td>valid buffer → <code>GEOMETRY</code></td>
-</tr>
-<tr>
-<td><code>JSON</code></td>
-<td>Converted using <code>JSON.stringify()</code></td>
-<td>Converts objects or arrays to serialized strings</td>
-<td><code>{key: "value"}</code> → <code>"{"key":"value"}"</code></td>
-</tr>
-</tbody>
-</table>
+<h2 id="type-conversions">Type conversions<a class="headerlink" href="#type-conversions" title="Permanent link">&para;</a></h2>
+<p>SQL and JS use different data types, so the js_lang component converts values when passing SQL parameters to JS and back. SQL <code>NULL</code> values are converted to JS <code>null</code> values, and JS <code>null</code> and <code>undefined</code> values are always mapped to SQL <code>NULL</code>. When converting to JS strings, data is automatically converted from the SQL parameter&rsquo;s character set to <code>utf8mb4</code>.</p>
+<p>For detailed information about type conversions, including complete conversion tables and rules, see <a href="js-lang-type-conversions.html">js_lang type conversions</a>.</p>
 <h2 id="system-variables">System variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
 <p>The js_lang component provides the following system variables for configuring JS routine execution:</p>
 <table>
@@ -9793,7 +9748,41 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<p>These variables help prevent runaway scripts from consuming excessive memory or CPU time. For detailed information about each variable, including configuration options and examples, see <a href="js-lang-variables.html">js_lang component system variables</a>.</p>
+<p>The <code>js_lang.max_mem_size</code> variable sets a soft limit on memory usage per JS environment. The <code>js_lang.max_mem_size_hard_limit_factor</code> variable (settable only at start-up) allows you to override V8&rsquo;s internal hard memory limit, though this is not recommended for most users.</p>
+<p>These variables help prevent runaway scripts from consuming excessive memory or CPU time. For detailed information about each variable, including configuration options, examples, and memory limit behavior, see <a href="js-lang-variables.html">js_lang component system variables</a>.</p>
+<h2 id="status-variables">Status variables<a class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
+<p>The js_lang component provides global status variables for monitoring JS routine execution:</p>
+<ul>
+<li><strong>Memory usage</strong>: <code>js_lang_total_heap_size</code>, <code>js_lang_peak_total_heap_size</code>, <code>js_lang_used_heap_size</code>, <code>js_lang_peak_used_heap_size</code>, <code>js_lang_external_memory_size</code>, <code>js_lang_peak_external_memory_size</code></li>
+<li><strong>Contexts</strong>: <code>js_lang_contexts</code>, <code>js_lang_peak_contexts</code></li>
+<li><strong>Call count</strong>: <code>js_lang_stored_program_call_count</code></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Status variable values are approximate as they are refreshed at Isolate creation/destruction and GC time, not on each operation.</p>
+</div>
+<h2 id="user-defined-functions">User-defined functions<a class="headerlink" href="#user-defined-functions" title="Permanent link">&para;</a></h2>
+<p>The js_lang component includes a set of User-Defined Functions (UDFs) that retrieve and clear information about the last JS error that occurred in the current connection for the current user. This information updates each time a JS error occurs for the current connection and user. Successful execution of JS code does not change this state.</p>
+<p>The following UDFs are helpful for debugging JS code:</p>
+<ul>
+<li>
+<p><code>JS_GET_LAST_ERROR()</code>: Returns the error message for the last JS error that occurred in the current connection for the current user.</p>
+</li>
+<li>
+<p><code>JS_GET_LAST_ERROR_INFO()</code>: Returns extended information about the last JS error that occurred in the current connection for the current user. In addition to the error message, it tries to provide the exact line and column where the problem occurred, as well as the stack trace if available.</p>
+</li>
+<li>
+<p><code>JS_CLEAR_LAST_ERROR()</code>: Resets the information about the last JS error for the current connection and user, as if no error had occurred.</p>
+</li>
+<li>
+<p><code>JS_GET_MEMORY_USAGE_JSON()</code>: Returns information about memory usage by the JS environment (isolate) for the current user and connection pair, as well as total memory usage by all JS environments in the server, in the form of a JSON object. The returned object includes <code>local</code> (per-environment) and <code>global</code> (aggregated) memory statistics with heap sizes, external memory, and context counts. If there is no JS environment for the current user-connection pair, the <code>local</code> member is <code>null</code>.</p>
+</li>
+</ul>
+<p>For more information about using these functions for troubleshooting, see <a href="js-lang-troubleshoot.html">Troubleshoot js_lang procedures and functions</a>.</p>
+<h2 id="console-api">Console API<a class="headerlink" href="#console-api" title="Permanent link">&para;</a></h2>
+<p>The js_lang component provides support for the JS Console API as described at <a href="https://console.spec.whatwg.org/">console.spec.whatwg.org <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. The Console API provides debugging support including logging, timers, and counters. Users can use methods of the JS console object to write messages to the console log, and then inspect this log using UDFs.</p>
+<p>Our implementation supports logging calls (<code>assert()</code>, <code>clear()</code>, <code>debug()</code>, <code>error()</code>, <code>info()</code>, <code>log()</code>, <code>warn()</code>), counting (<code>count()</code>, <code>countReset()</code>), grouping (<code>group()</code>, <code>groupCollapsed()</code>, <code>groupEnd()</code>), and timing (<code>time()</code>, <code>timeLog()</code>, <code>timeEnd()</code>). Each user-connection pair has its own separate console log instance, with size limits controlled by the <code>js_lang.max_console_log_size</code> variable.</p>
+<p>For detailed information about the Console API, including supported calls, format specifiers, log severity levels, and UDFs for accessing console logs, see <a href="js-lang-console-api.html">js_lang Console API</a>.</p>
 <h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="install-js-lang.html">Install js_lang component</a></li>
@@ -9801,6 +9790,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li><a href="js-lang-procedures.html">js_lang stored function or procedure</a></li>
 <li><a href="js-lang-privileges.html">js_lang privileges</a></li>
 <li><a href="js-lang-variables.html">js_lang component system variables</a></li>
+<li><a href="js-lang-type-conversions.html">js_lang type conversions</a></li>
+<li><a href="js-lang-console-api.html">js_lang Console API</a></li>
 <li><a href="js-lang-troubleshoot.html">Troubleshoot js_lang procedures and functions</a></li>
 </ul>
 
@@ -9825,7 +9816,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 29, 2025 13:59:19 UTC">December 29, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 21, 2026 11:03:17 UTC">January 21, 2026</span>
   </span>
 
     
