@@ -28,51 +28,11 @@ Our system supports asynchronous JS code, but it does not work well for database
 
 We always run JS code in strict mode, and developers cannot disable or change this setting.
 
-## Convert SQL data types to JS
+## Type conversions
 
-SQL and JS use different data types, so our implementation converts values when passing SQL parameters to JS and back. The following rules explain how these conversions work:
+SQL and JS use different data types, so the js_lang component converts values when passing SQL parameters to JS and back. SQL `NULL` values are converted to JS `null` values, and JS `null` and `undefined` values are always mapped to SQL `NULL`. When converting to JS strings, data is automatically converted from the SQL parameter's character set to `utf8mb4`.
 
-SQL `NULL` values are converted to JS `null` values.
-
-| SQL type | JS return type | Notes |
-|-----------|----------------|--------|
-| BOOLEAN, TINYINT, SHORTINT, MEDIUMINT, INT | Number | |
-| BIGINT | Number or BigInt | Number for values [-2^53-1, 2^53-1], BigInt otherwise |
-| DECIMAL | String | |
-| FLOAT, DOUBLE | Number | |
-| BIT(k) | Number or BigInt | Number for k ≤ 53, BigInt for k > 53 |
-| TIME, DATE, TIMESTAMP, DATETIME | String | |
-| YEAR | Number | |
-| CHAR, VARCHAR, TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT | String | Fails if length exceeds 2^29 - 24 |
-| BINARY, VARBINARY, TINYBLOB, BLOB, MEDIUMBLOB, LONGBLOB | DataView | |
-| ENUM, SET | String | |
-| GEOMETRY and spatial types | DataView | |
-| JSON | Object | |
-
-When the data converts to a JS string, it automatically changes from the SQL parameter’s character set to `utf8mb4`, which JS uses.
-
-## Convert JS data types to SQL
-
-The system uses the target SQL data type to determine how to convert each value. It typically converts a JS value into a basic type—such as a string, integer, or double—based on the specified SQL type. Once converted, the system stores the result in the corresponding SQL parameter or return value.
-
-If a value exceeds allowed limits or uses an unsupported format, the conversion fails and triggers an error. During this process, the system automatically converts JS strings from the utf8mb4 encoding to the character set defined by the SQL parameter.
-
-The system always maps JS null and undefined values to SQL NULL, regardless of the target SQL type.
-
-### JS to SQL type conversion rules
-
-| Target SQL Data Type | Conversion Rules | Explanation | Example |
-|--------------------------|----------------------|------------------|-------------|
-| `BOOLEAN`, `TINYINT`, `SHORTINT`, `MEDIUMINT`, `INT`, `BIGINT` | (Version 8.4.5) - Numbers: stored as integers<br>- Booleans: `true` → `1`, `false` → `0`<br>- BigInts: stored as integers when possible<br>- Other types: converted to strings first<br>(Version 8.4.4) - JS Integers/Numbers: integers stored as-is, BigInts attempted as integers, others as strings.) | Preserves native numeric forms where possible; other values default to string representation | `42` → `42`<br>`3.14` → `"3.14"`<br>`true` → `"1"` |
-| `DECIMAL` | - All values converted to strings<br>- Booleans: converted to `0`/`1`, then stored as doubles | Supports precision formatting; special handling ensures Booleans fit numeric context | `123.45` → `"123.45"`<br>`true` → `1.0` |
-| `FLOAT`, `DOUBLE` | - Numbers: stored as doubles<br>- (Version 8.4.5) - Booleans: converted to `0`/`1`, then stored as doubles<br>- Others: converted to strings | Treats numeric and Boolean inputs consistently using floating-point representation | `3.14` → `3.14`<br>`true` → `1.0`<br>`"3.14"` → `"3.14"` |
-| `BIT` | Converted to SQL BIT type | Only binary-compatible values allowed | `1` → `BIT(1)` |
-| `TIME`, `DATE`, `TIMESTAMP`, `DATETIME` | All values converted to strings | Usually expects ISO date formats or equivalents | `Date()` → `"2024-01-30"` |
-| `CHAR`, `VARCHAR`, `TEXT`, etc. | All values converted to strings<br>Charset conversion from `utf8mb4` if needed | Supports text types with encoding fallback | `"hello"` → `"hello"` |
-| `BINARY`, `VARBINARY`, `BLOB`, etc. | - `ArrayBuffer`/`View`: stored directly<br>- Others: converted to strings | Binary data must be explicitly wrapped; others fallback to string | `buffer` → binary |
-| `SET` | - Numbers: stored as integers/doubles<br>- BigInts: stored as integers<br>- Others: converted to strings with charset conversion if needed | Tries native storage before falling back to strings | `1` → `1`<br>`"value"` → `"value"` |
-| `GEOMETRY` | - Valid `ArrayBuffer`/`View`: stored as binary<br>- Others: cause an error | Enforces format rules to maintain spatial integrity | valid buffer → `GEOMETRY` |
-| `JSON` | Converted using `JSON.stringify()` | Converts objects or arrays to serialized strings | `{key: "value"}` → `"{"key":"value"}"` |
+For detailed information about type conversions, including complete conversion tables and rules, see [js_lang type conversions](js-lang-type-conversions.md).
 
 ## System variables
 
@@ -83,7 +43,44 @@ The js_lang component provides the following system variables for configuring JS
 | [`js_lang.max_mem_size`](js-lang-variables.md#js_langmax_mem_size) | Maximum memory size (soft limit) for JS routines | 8 MB |
 | [`js_lang.max_mem_size_hard_limit_factor`](js-lang-variables.md#js_langmax_mem_size_hard_limit_factor) | Hard limit factor for memory allocation | 0 (disabled) |
 
-These variables help prevent runaway scripts from consuming excessive memory or CPU time. For detailed information about each variable, including configuration options and examples, see [js_lang component system variables](js-lang-variables.md).
+The `js_lang.max_mem_size` variable sets a soft limit on memory usage per JS environment. The `js_lang.max_mem_size_hard_limit_factor` variable (settable only at start-up) allows you to override V8's internal hard memory limit, though this is not recommended for most users.
+
+These variables help prevent runaway scripts from consuming excessive memory or CPU time. For detailed information about each variable, including configuration options, examples, and memory limit behavior, see [js_lang component system variables](js-lang-variables.md).
+
+## Status variables
+
+The js_lang component provides global status variables for monitoring JS routine execution:
+
+* **Memory usage**: `js_lang_total_heap_size`, `js_lang_peak_total_heap_size`, `js_lang_used_heap_size`, `js_lang_peak_used_heap_size`, `js_lang_external_memory_size`, `js_lang_peak_external_memory_size`
+* **Contexts**: `js_lang_contexts`, `js_lang_peak_contexts`
+* **Call count**: `js_lang_stored_program_call_count`
+
+!!! note
+    Status variable values are approximate as they are refreshed at Isolate creation/destruction and GC time, not on each operation.
+
+## User-defined functions
+
+The js_lang component includes a set of User-Defined Functions (UDFs) that retrieve and clear information about the last JS error that occurred in the current connection for the current user. This information updates each time a JS error occurs for the current connection and user. Successful execution of JS code does not change this state.
+
+The following UDFs are helpful for debugging JS code:
+
+* `JS_GET_LAST_ERROR()`: Returns the error message for the last JS error that occurred in the current connection for the current user.
+
+* `JS_GET_LAST_ERROR_INFO()`: Returns extended information about the last JS error that occurred in the current connection for the current user. In addition to the error message, it tries to provide the exact line and column where the problem occurred, as well as the stack trace if available.
+
+* `JS_CLEAR_LAST_ERROR()`: Resets the information about the last JS error for the current connection and user, as if no error had occurred.
+
+* `JS_GET_MEMORY_USAGE_JSON()`: Returns information about memory usage by the JS environment (isolate) for the current user and connection pair, as well as total memory usage by all JS environments in the server, in the form of a JSON object. The returned object includes `local` (per-environment) and `global` (aggregated) memory statistics with heap sizes, external memory, and context counts. If there is no JS environment for the current user-connection pair, the `local` member is `null`.
+
+For more information about using these functions for troubleshooting, see [Troubleshoot js_lang procedures and functions](js-lang-troubleshoot.md).
+
+## Console API
+
+The js_lang component provides support for the JS Console API as described at [console.spec.whatwg.org :octicons-link-external-16:](https://console.spec.whatwg.org/). The Console API provides debugging support including logging, timers, and counters. Users can use methods of the JS console object to write messages to the console log, and then inspect this log using UDFs.
+
+Our implementation supports logging calls (`assert()`, `clear()`, `debug()`, `error()`, `info()`, `log()`, `warn()`), counting (`count()`, `countReset()`), grouping (`group()`, `groupCollapsed()`, `groupEnd()`), and timing (`time()`, `timeLog()`, `timeEnd()`). Each user-connection pair has its own separate console log instance, with size limits controlled by the `js_lang.max_console_log_size` variable.
+
+For detailed information about the Console API, including supported calls, format specifiers, log severity levels, and UDFs for accessing console logs, see [js_lang Console API](js-lang-console-api.md).
 
 ## Further reading
 
@@ -92,4 +89,6 @@ These variables help prevent runaway scripts from consuming excessive memory or 
 - [js_lang stored function or procedure](js-lang-procedures.md)
 - [js_lang privileges](js-lang-privileges.md)
 - [js_lang component system variables](js-lang-variables.md)
+- [js_lang type conversions](js-lang-type-conversions.md)
+- [js_lang Console API](js-lang-console-api.md)
 - [Troubleshoot js_lang procedures and functions](js-lang-troubleshoot.md)
