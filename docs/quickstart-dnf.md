@@ -56,6 +56,7 @@ The "expected output" depends on the operating system. The following examples ar
 2. Use the `percona-release` tool to set up the repository for Percona Server for MySQL 8.0.
 
     ```{.bash data-prompt="$"}
+    $ echo "REPOSITORIES=\"tools\"" | sudo tee /etc/default/percona-release
     $ sudo percona-release setup ps-80
     ```
 
