@@ -28,10 +28,13 @@ The following guides walk you through the setup process and working with a datab
 
 ## Next steps
 
-[Run and create database (container):material-arrow-right:](quickstart-docker.md){.md-button}
+[Run Percona Server for MySQL with Docker:material-arrow-right:](quickstart-docker.md){.md-button}
 
-[Install and create database (Ubuntu):material-arrow-right:](quickstart-apt.md){.md-button}
+[Install Percona Server for MySQL on Ubuntu:material-arrow-right:](quickstart-apt.md){.md-button}
 
-[Install and create database (Oracle Linux):material-arrow-right:](quickstart-yum.md){.md-button}
+[Install Percona Server for MySQL on Oracle Linux:material-arrow-right:](quickstart-yum.md){.md-button}
 
-[Choose your next steps:material-arrow-right:](quickstart-next-steps.md){.md-button}
+## Additional resources
+
+- [Clean up your installation](quickstart-cleanup.md)
+- [Next steps](quickstart-next-steps.md)
