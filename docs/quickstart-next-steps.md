@@ -63,3 +63,11 @@ Percona Operator for MySQL and Percona Operator for MySQL based on Percona XtraD
 Percona Everest is an open-source cloud-native database platform that helps developers deploy code faster, scale deployments rapidly, and reduce database administration overhead while regaining control over their data, database configuration, and DBaaS costs.
 
 [Percona Everest :octicons-link-external-16:](https://docs.percona.com/everest/index.html)
+
+## Other installation methods
+
+- [Quickstart - Overview](quickstart-overview.md)
+- [Run Percona Server for MySQL with Docker](quickstart-docker.md)
+- [Install Percona Server for MySQL on Ubuntu](quickstart-apt.md)
+- [Install Percona Server for MySQL on Oracle Linux](quickstart-yum.md)
+- [Clean up your installation](quickstart-cleanup.md)
