@@ -1,6 +1,6 @@
 # Clean up your installation
 
-If you want to remove Percona Server for MySQL and clean up your system, follow the steps below for your installation method.
+Clean up is optional. If you want to remove Percona Server for MySQL and clean up your system, follow the steps below for your installation method.
 
 !!! warning
 
@@ -63,42 +63,7 @@ If you want to remove Percona Server for MySQL and clean up your system, follow 
             myvol
             ```
 
-=== "YUM or DNF"
-
-    If you installed Percona Server for MySQL using YUM or DNF on Oracle Linux or RHEL, follow these steps:
-
-    1. Stop the Percona Server for MySQL service:
-
-        ```shell
-        sudo systemctl stop mysql
-        ```
-
-    2. Remove the packages:
-
-        ```shell
-        sudo yum remove percona-server*
-        ```
-
-        Or if you're using DNF:
-
-        ```shell
-        sudo dnf remove percona-server*
-        ```
-
-        These commands remove the packages but leave data files behind. If you want to remove data files as well, continue to step 3.
-
-    3. [Optional] Remove data and configuration files:
-
-        !!! warning
-
-            This step permanently deletes all data files (databases, tables, logs, etc.). Ensure you have a backup if you need this data.
-
-        ```shell
-        sudo rm -rf /var/lib/mysql
-        sudo rm -f /etc/my.cnf
-        ```
-
-=== "APT"
+=== "Ubuntu (APT)"
 
     If you installed Percona Server for MySQL using APT on Ubuntu or Debian, follow these steps:
 
@@ -139,13 +104,53 @@ If you want to remove Percona Server for MySQL and clean up your system, follow 
         sudo rm -f /etc/mysql/my.cnf
         ```
 
+=== "Oracle Linux (YUM or DNF)"
+
+    If you installed Percona Server for MySQL using YUM or DNF on Oracle Linux or RHEL, follow these steps:
+
+    1. Stop the Percona Server for MySQL service:
+
+        ```shell
+        sudo systemctl stop mysql
+        ```
+
+    2. Remove the packages:
+
+        ```shell
+        sudo yum remove percona-server*
+        ```
+
+        Or if you're using DNF:
+
+        ```shell
+        sudo dnf remove percona-server*
+        ```
+
+        These commands remove the packages but leave data files behind. If you want to remove data files as well, continue to step 3.
+
+    3. [Optional] Remove data and configuration files:
+
+        !!! warning
+
+            This step permanently deletes all data files (databases, tables, logs, etc.). Ensure you have a backup if you need this data.
+
+        ```shell
+        sudo rm -rf /var/lib/mysql
+        sudo rm -f /etc/my.cnf
+        ```
+
 ## Next steps
 
 [Next steps](quickstart-next-steps.md)
 
-## Additional references
+## Additional resources
 
-- [Quickstart - Overview](quickstart-overview.md)
-- [Run Percona Server for MySQL with Docker](quickstart-docker.md)
-- [Install Percona Server for MySQL on Ubuntu](quickstart-apt.md)
-- [Install Percona Server for MySQL on Oracle Linux](quickstart-yum.md)
+* [Quickstart - Overview](quickstart-overview.md)
+
+* [Run Percona Server for MySQL with Docker](quickstart-docker.md)
+
+* [Install Percona Server for MySQL on Ubuntu](quickstart-apt.md)
+
+* [Install Percona Server for MySQL on Oracle Linux](quickstart-yum.md)
+
+* [Work with a database](quickstart-database-script.md)

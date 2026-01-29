@@ -1,16 +1,20 @@
-# Create a database
+# Work with a database
 
 ??? Example "Benefits and what to watch out for when creating databases and tables"
 
     Creating a database and table provides the following benefits:
 
-    - Store and organize your data in a structured and consistent way.
-    - Query and manipulate your data using SQL statements like SELECT, INSERT, UPDATE, and DELETE.
-    - Use primary keys to uniquely identify records.
+    * Store and organize your data in a structured and consistent way.
+
+    * Query and manipulate your data using SQL statements like SELECT, INSERT, UPDATE, and DELETE.
+
+    * Use primary keys to uniquely identify records.
 
     This quickstart demonstrates basic database operations. As you advance, you can add constraints, triggers, views, indexes, and other features to enforce data integrity, improve security, and optimize performance.
 
     When you create a table, design your database schema carefully, as changing the schema later may be difficult and costly. You should also backup and restore your data regularly, as data loss or corruption may occur due to hardware failures, human errors, or malicious attacks.
+
+You are welcome to name any items to match your organization's standards or use your table structure and data. If you do, the results are different from the expected results.
 
 To create a database, use the `CREATE DATABASE` statement. After the database is created, select the database using the `USE` statement.
 
@@ -342,12 +346,21 @@ GROUP BY d.name;
 
 ## Next step
 
-[Clean up your installation](quickstart-cleanup.md)
+* [Clean up your installation](quickstart-cleanup.md) (optional)
 
-## Additional references
+* [Next steps](quickstart-next-steps.md)
 
-- [Quickstart - Overview](quickstart-overview.md)
-- [Run Percona Server for MySQL with Docker](quickstart-docker.md)
-- [Install Percona Server for MySQL on Ubuntu](quickstart-apt.md)
-- [Install Percona Server for MySQL on Oracle Linux](quickstart-yum.md)
-- [Next steps](quickstart-next-steps.md)
+## Additional resources
+
+* [Quickstart - Overview](quickstart-overview.md)
+
+* [Run Percona Server for MySQL with Docker](quickstart-docker.md)
+
+* [Install Percona Server for MySQL on Ubuntu](quickstart-apt.md)
+
+* [Install Percona Server for MySQL on Oracle Linux](quickstart-yum.md)
+
+* [Clean up your installation](quickstart-cleanup.md)
+
+* [Next steps](quickstart-next-steps.md)
+

@@ -2,6 +2,8 @@
 
 Use the Percona repositories to install using APT.
 
+Quickstart path: Step 1 — Install. Next: [Work with a database](quickstart-database-script.md) (step 2).
+
 --8<-- "percona-release.md"
 
 ## Prerequisites
@@ -10,96 +12,144 @@ Use the Percona repositories to install using APT.
 
 * Stable Internet access
 
+
 ## Installation steps
 
 {.power-number}
 
 1. Update the package index:
 
-    ```{.bash data-prompt="$"}
-    $ sudo apt update
+    ```shell
+    sudo apt update
     ```
 
 2. Install curl:
 
-    ```{.bash data-prompt="$"}
-    $ sudo apt install -y curl
+    ```shell
+    sudo apt install -y curl
     ```
 
 3. Download and install the `percona-release` repository package:
 
-    ```{.bash data-prompt="$"}
-    $ curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
-    $ sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb
+    ```shell
+    curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+    sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb
     ```
 
 4. Set up the Percona Server for MySQL 8.4 repository:
 
-    ```{.bash data-prompt="$"}
-    $ sudo percona-release setup {{pkg}}
+    ```shell
+    sudo percona-release setup {{pkg}}
     ```
 
 5. Enable the Percona Server for MySQL release repository:
 
-    ```{.bash data-prompt="$"}
-    $ sudo percona-release enable {{pkg}} release
-    $ sudo apt update
+    ```shell
+    sudo percona-release enable {{pkg}} release
+    sudo apt update
     ```
 
 6. Install Percona Server for MySQL:
 
-    ```{.bash data-prompt="$"}
-    $ sudo apt install -y percona-server-server
+    ```shell
+    sudo apt install -y percona-server-server
     ```
 
     During installation, you will be prompted to:
-    - Enter a root password (use `secret` for these examples, or choose your own)
-    - Confirm the password
-    - Choose authentication method (Strong password encryption recommended)
+
+    * Enter a root password (use `secret` for these examples, or choose your own)
+
+    * Confirm the password
+
+    * Choose authentication method (Strong password encryption recommended)
 
 7. [Optional] Secure the installation:
 
     Run the `mysql_secure_installation` script to improve security. The script helps you:
-    - Set a password for the root user
-    - Select a password validation policy level
-    - Remove anonymous users
-    - Disable root login remotely
-    - Remove the test database
-    - Reload the privilege table
 
-    ```{.bash data-prompt="$"}
-    $ sudo mysql_secure_installation
+    * Set a password for the root user
+
+    * Select a password validation policy level
+
+    * Remove anonymous users
+
+    * Disable root login remotely
+
+    * Remove the test database
+
+    * Reload the privilege table
+
+    ```shell
+    sudo mysql_secure_installation
     ```
 
 8. Check the service status and restart if needed:
 
-    ```{.bash data-prompt="$"}
-    $ sudo systemctl status mysql
-    $ sudo systemctl restart mysql
+    ```shell
+    sudo systemctl status mysql
+    sudo systemctl restart mysql
     ```
 
 9. Log in to the server using the password you set during installation:
 
-    ```{.bash data-prompt="$"}
-    $ mysql -uroot -p
+    ```shell
+    mysql -uroot -p
     Enter password:
     ```
 
-## Next steps
+## Work with a database
 
-The steps below walk you through creating a database and running basic queries. You can also open the [Create a database](quickstart-database-script.md) script in its own page.
+The steps below walk you through creating a database and running basic queries. You can also open the [Work with a database](quickstart-database-script.md) script in its own page.
 
 --8<-- "quickstart-database-script.md"
 
+[Work with a database:material-arrow-right:](quickstart-database-script.md){.md-button}
+
 ## Troubleshooting
 
-* Connection Issues: Double-check credentials, ensure service is running, and verify firewall configurations if applicable.
+* **Connection issues**
 
-* Permission Errors: Grant necessary permissions to users using GRANT statements within the MySQL shell.
+    * Check that the MySQL service is running:
 
-* Package Installation Issues: Refer to Percona documentation and online forums for specific error messages and solutions.
+        ```shell
+        sudo systemctl status mysql
+        ```
 
-##Security best practices
+    * If the service is not active, start it:
+
+        ```shell
+        sudo systemctl start mysql
+        ```
+
+    * Try connecting with the password you set during installation:
+
+        ```shell
+        mysql -uroot -p
+        Enter password:
+        ```
+
+* **Permission errors**
+
+    If MySQL reports that a user lacks permission to perform an action, grant the needed privilege. For example, to allow a user to create databases from the MySQL shell:
+
+    ```sql
+    GRANT CREATE ON *.* TO 'username'@'localhost';
+    FLUSH PRIVILEGES;
+    ```
+
+    Replace `username` with your MySQL user name.
+
+* **Package installation issues**
+
+    Check the system log for errors during installation:
+
+    ```shell
+    sudo journalctl -u mysql -n 50
+    ```
+
+    For specific error messages, see the [Percona Server for MySQL documentation](index.md) or the [Percona community forum](https://forums.percona.com/).
+
+## Security best practices
 
 * Strong Passwords: Utilize complex and unique passwords for all users, especially the root account.
 
@@ -115,10 +165,13 @@ The steps below walk you through creating a database and running basic queries. 
 
 ## Additional resources
 
-- [Quickstart - Overview](quickstart-overview.md)
-- [Create a database](quickstart-database-script.md)
-- [Run Percona Server for MySQL with Docker](quickstart-docker.md)
-- [Install Percona Server for MySQL on Oracle Linux](quickstart-yum.md)
-- [Clean up your installation](quickstart-cleanup.md)
-- [Next steps](quickstart-next-steps.md)
+* [Quickstart - Overview](quickstart-overview.md)
+
+* [Run Percona Server for MySQL with Docker](quickstart-docker.md)
+
+* [Install Percona Server for MySQL on Oracle Linux](quickstart-yum.md)
+
+* [Clean up your installation](quickstart-cleanup.md)
+
+* [Next steps](quickstart-next-steps.md)
 
