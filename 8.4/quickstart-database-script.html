@@ -9,23 +9,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Viewing SELinux Contexts
-Example of viewing SELinux context for a process using ps command
-Listing SELinux Types or Domains
-Explanation of SELinux type security property
-Example of listing SELinux types associated with MySQL directories and files">
+        <meta name="description" content="Creating a database and table provides the following benefits:">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.4/selinux-contexts.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.4/quickstart-database-script.html">
       
       
-        <link rel="prev" href="selinux.html">
+        <link rel="prev" href="quickstart-yum.html">
       
       
-        <link rel="next" href="manage-selinux-modes.html">
+        <link rel="next" href="quickstart-cleanup.html">
       
       
         
@@ -36,7 +32,7 @@ Example of listing SELinux types associated with MySQL directories and files">
     
     
       
-        <title>SELinux contexts and labels - Percona Server for MySQL</title>
+        <title>Quickstart - Work with a database - Percona Server for MySQL</title>
       
     
     
@@ -104,7 +100,7 @@ Example of listing SELinux types associated with MySQL directories and files">
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - SELinux contexts and labels" />
+                 <meta property="og:title" content="Percona Server for MySQL - Quickstart - Work with a database" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
               
@@ -127,7 +123,7 @@ Example of listing SELinux types associated with MySQL directories and files">
     <div data-md-component="skip">
       
         
-        <a href="#selinux-contexts-and-labels" class="md-skip">
+        <a href="#create-a-database" class="md-skip">
           Skip to content
         </a>
       
@@ -224,7 +220,7 @@ Example of listing SELinux types associated with MySQL directories and files">
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              SELinux contexts and labels
+              Quickstart - Work with a database
             
           </span>
         </div>
@@ -2237,8 +2233,10 @@ Example of listing SELinux types associated with MySQL directories and files">
       
   
   
+    
   
   
+  
     
     
       
@@ -2260,11 +2258,11 @@ Example of listing SELinux types associated with MySQL directories and files">
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -2285,7 +2283,7 @@ Example of listing SELinux types associated with MySQL directories and files">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2412,10 +2410,37 @@ Example of listing SELinux types associated with MySQL directories and files">
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="quickstart-database-script.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart - Work with a database
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="quickstart-database-script.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2431,6 +2456,149 @@ Example of listing SELinux types associated with MySQL directories and files">
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#create-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#insert-data-into-the-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insert data into the tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#view-all-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View all data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#join-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Join tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-a-select-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run a SELECT query
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-an-update-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run an Update query
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-an-insert-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run an INSERT query
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-a-delete-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run a Delete query
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#count-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Count records
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next step
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional references
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4018,10 +4186,8 @@ Example of listing SELinux types associated with MySQL directories and files">
       
   
   
-    
   
   
-  
     
     
       
@@ -4037,11 +4203,11 @@ Example of listing SELinux types associated with MySQL directories and files">
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
@@ -4062,7 +4228,7 @@ Example of listing SELinux types associated with MySQL directories and files">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4370,10 +4536,8 @@ Example of listing SELinux types associated with MySQL directories and files">
                 
   
   
-    
   
   
-  
     
     
       
@@ -4391,11 +4555,11 @@ Example of listing SELinux types associated with MySQL directories and files">
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_4" >
         
           
           <label class="md-nav__link" for="__nav_8_4" id="__nav_8_4_label" tabindex="0">
@@ -4416,7 +4580,7 @@ Example of listing SELinux types associated with MySQL directories and files">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4459,37 +4623,10 @@ Example of listing SELinux types associated with MySQL directories and files">
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    SELinux contexts and labels
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="selinux-contexts.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="selinux-contexts.html" class="md-nav__link">
         
   
   
@@ -4505,39 +4642,6 @@ Example of listing SELinux types associated with MySQL directories and files">
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#list-selinux-types-or-domains" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        List SELinux Types or Domains
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -9511,7 +9615,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
                       <div data-banner="data-banner" class="edit-contrib-banner">
   <div class="banner-content">
     <!-- Edit link centered -->
-    <a href="https://github.com/percona/psmysql-docs/edit/8.4/docs/selinux-contexts.md" title="Edit this page on GitHub" class="edit-page-link">
+    <a href="https://github.com/percona/psmysql-docs/edit/8.4/docs/quickstart-database-script.md" title="Edit this page on GitHub" class="edit-page-link">
       <span class="edit-page-icon">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
@@ -9563,10 +9667,120 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#list-selinux-types-or-domains" class="md-nav__link">
+  <a href="#create-tables" class="md-nav__link">
     <span class="md-ellipsis">
       
-        List SELinux Types or Domains
+        Create tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#insert-data-into-the-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insert data into the tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#view-all-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View all data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#join-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Join tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-a-select-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run a SELECT query
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-an-update-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run an Update query
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-an-insert-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run an INSERT query
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-a-delete-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run a Delete query
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#count-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Count records
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next step
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional references
       
     </span>
   </a>
@@ -9596,52 +9810,282 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/8.4/docs/selinux-contexts.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/8.4/docs/quickstart-database-script.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="selinux-contexts-and-labels">SELinux contexts and labels<a class="headerlink" href="#selinux-contexts-and-labels" title="Permanent link">&para;</a></h1>
-<p>Viewing SELinux Contexts
-Example of viewing SELinux context for a process using ps command
-Listing SELinux Types or Domains
-Explanation of SELinux type security property
-Example of listing SELinux types associated with MySQL directories and files</p>
-<p>SELinux context is like a label that tells the system how to handle files, processes, and other resources. For example, it determines which processes can access certain files and what actions they can perform on them. Understanding SELinux context helps you know how your applications interact with the system and ensures that they have the necessary permissions to function correctly. It&rsquo;s like giving each item on your computer a tag that says what it is and what it&rsquo;s allowed to do. So when your application tries to access a file, SELinux checks its context to see if it&rsquo;s allowed. If the context matches what&rsquo;s expected, the action is allowed; if not, it&rsquo;s denied. So knowing the SELinux context is essential for managing security and troubleshooting issues on your system.</p>
-<h3 id="viewing-selinux-context-for-a-process-using-ps-command">Viewing SELinux context for a process using ps command<a class="headerlink" href="#viewing-selinux-context-for-a-process-using-ps-command" title="Permanent link">&para;</a></h3>
-<p>To view the SELinux context for a process using the <code>ps</code> command, you can add the <code>-Z</code> option to display the context information. Here&rsquo;s how you can do it:</p>
-<div class="highlight"><pre><span></span><code>$ ps -eZ | grep &lt;process_name&gt;
-</code></pre></div>
-<p>Replace <code>&lt;process_name&gt;</code> with the process name you want to check. For example, if you want to see the SELinux context for the MySQL process, you would use:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mysqld
-</code></pre></div>
-<p>The output displays the SELinux context for the specified process and typically consists of four parts: user, role, type (or domain), and sensitivity level.</p>
+<h1 id="create-a-database">Create a database<a class="headerlink" href="#create-a-database" title="Permanent link">&para;</a></h1>
 <details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>system_u:system_r:mysqld_t:s0    3356 ?        00:00:01 mysqld
-</code></pre></div>
-</details>
+<summary>Benefits and what to watch out for when creating databases and tables</summary>
+<p>Creating a database and table provides the following benefits:</p>
 <ul>
-<li><code>system_u</code> represents the user context.</li>
-<li><code>system_r</code> represents the role context.</li>
-<li><code>mysqld_t</code> represents the type (or domain) context.</li>
-<li><code>s0</code> represents the sensitivity level.</li>
+<li>Store and organize your data in a structured and consistent way.</li>
+<li>Query and manipulate your data using SQL statements like SELECT, INSERT, UPDATE, and DELETE.</li>
+<li>Use primary keys to uniquely identify records.</li>
 </ul>
-<p>This information helps you understand how SELinux enforces security policies for the specified process.</p>
-<h2 id="list-selinux-types-or-domains">List SELinux Types or Domains<a class="headerlink" href="#list-selinux-types-or-domains" title="Permanent link">&para;</a></h2>
-<p>SELinux types or domains categorize different resources on the system, such as files, directories, and processes. Each type or domain has specific permissions and restrictions associated with it, determining how resources interact with each other. To list SELinux types or domains associated with files, you can use the <code>ls</code> command with the <code>-Z</code> option. For example:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>-laZ<span class="w"> </span>/var/lib/mysql
+<p>This quickstart demonstrates basic database operations. As you advance, you can add constraints, triggers, views, indexes, and other features to enforce data integrity, improve security, and optimize performance.</p>
+<p>When you create a table, design your database schema carefully, as changing the schema later may be difficult and costly. You should also backup and restore your data regularly, as data loss or corruption may occur due to hardware failures, human errors, or malicious attacks.</p>
+</details>
+<p>To create a database, use the <code>CREATE DATABASE</code> statement. After the database is created, select the database using the <code>USE</code> statement.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">mydb</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>drwxr-x--x. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql
-drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-files
-drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring
+<div class="highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
 </code></pre></div>
 </details>
-<p>This command lists the files and directories under <code>/var/lib/mysql</code> along with their SELinux context, which includes the type or domain associated with each resource. Understanding these types or domains helps manage SELinux policies and ensure proper access control for MySQL-related resources.</p>
+<div class="highlight"><pre><span></span><code><span class="n">USE</span><span class="w"> </span><span class="n">mydb</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Database changed
+</code></pre></div>
+</details>
+<h2 id="create-tables">Create tables<a class="headerlink" href="#create-tables" title="Permanent link">&para;</a></h2>
+<p>Create tables using the <code>CREATE TABLE</code> statement. You can specify data types, constraints, indexes, and other options for each column.</p>
+<p>First, create the <code>departments</code> table:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">departments</span><span class="o">`</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<span class="w">    </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+<span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+</code></pre></div>
+</details>
+<p>Next, create the <code>employees</code> table with a foreign key to the departments table:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">employees</span><span class="o">`</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<span class="w">    </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">    </span><span class="o">`</span><span class="n">department_id</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">    </span><span class="o">`</span><span class="n">country</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+<span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">),</span>
+<span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">department_id</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="o">`</span><span class="n">departments</span><span class="o">`</span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected, 1 warning (0.03 sec)
+</code></pre></div>
+</details>
+<h2 id="insert-data-into-the-tables">Insert data into the tables<a class="headerlink" href="#insert-data-into-the-tables" title="Permanent link">&para;</a></h2>
+<p>Insert data into the <code>departments</code> table first:</p>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">departments</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&quot;Engineering&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&quot;Sales&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&quot;Marketing&quot;</span><span class="p">);</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+</code></pre></div>
+</details>
+<p>Insert data into the <code>employees</code> table using the <code>INSERT INTO</code> SQL statement. This statement adds multiple records into a table in one statement.</p>
+<p>Insert data into the table using the <code>INSERT INTO</code> SQL statement. This statement adds multiple records into a table in one statement.</p>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">employees</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">department_id</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">country</span><span class="o">`</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&quot;Erasmus Richardson&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="ss">&quot;England&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&quot;Jenna French&quot;</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="ss">&quot;Canada&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&quot;Alfred Dejesus&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="ss">&quot;Austria&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&quot;Hamilton Puckett&quot;</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="ss">&quot;Canada&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&quot;Michal Brzezinski&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="ss">&quot;Poland&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&quot;Zofia Lis&quot;</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="ss">&quot;Poland&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&quot;Aisha Yakubu&quot;</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="ss">&quot;Nigeria&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&quot;Miguel Cardenas&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="ss">&quot;Peru&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&quot;Luke Jansen&quot;</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="ss">&quot;Netherlands&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="ss">&quot;Roger Pettersen&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="ss">&quot;Norway&quot;</span><span class="p">);</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 10 rows affected (0.02 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+</code></pre></div>
+</details>
+<h2 id="view-all-data">View all data<a class="headerlink" href="#view-all-data" title="Permanent link">&para;</a></h2>
+<p>To view all records in a table, use <code>SELECT *</code> to retrieve all columns:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+----+---------------------+--------------+------------+
+| id | name                | department_id| country    |
++----+---------------------+--------------+------------+
+|  1 | Erasmus Richardson |            1 | England    |
+|  2 | Jenna French        |            2 | Canada     |
+|  3 | Alfred Dejesus      |            1 | Austria    |
+|  4 | Hamilton Puckett    |            3 | Canada     |
+|  5 | Michal Brzezinski   |            1 | Poland     |
+|  6 | Zofia Lis           |            2 | Poland     |
+|  7 | Aisha Yakubu        |            3 | Nigeria    |
+|  8 | Miguel Cardenas     |            1 | Peru       |
+|  9 | Luke Jansen         |            2 | Netherlands|
+| 10 | Roger Pettersen     |            1 | Norway     |
++----+---------------------+--------------+------------+
+10 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="join-tables">Join tables<a class="headerlink" href="#join-tables" title="Permanent link">&para;</a></h2>
+<p>JOIN queries combine data from multiple tables based on a related column. Use JOINs to retrieve data from related tables in a single query.</p>
+<p>Join the <code>employees</code> and <code>departments</code> tables to display employee names with their department names:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">country</span><span class="w"> </span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"> </span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+----+---------------------+------------+------------+
+| id | name                | department | country    |
++----+---------------------+------------+------------+
+|  1 | Erasmus Richardson | Engineering| England    |
+|  2 | Jenna French        | Sales      | Canada     |
+|  3 | Alfred Dejesus      | Engineering| Austria    |
+|  4 | Hamilton Puckett    | Marketing  | Canada     |
+|  5 | Michal Brzezinski   | Engineering| Poland     |
+|  6 | Zofia Lis           | Sales      | Poland     |
+|  7 | Aisha Yakubu        | Marketing  | Nigeria    |
+|  8 | Miguel Cardenas     | Engineering| Peru       |
+|  9 | Luke Jansen         | Sales      | Netherlands|
+| 10 | Roger Pettersen     | Engineering| Norway     |
++----+---------------------+------------+------------+
+10 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="run-a-select-query">Run a SELECT query<a class="headerlink" href="#run-a-select-query" title="Permanent link">&para;</a></h2>
+<p>SELECT queries retrieve data from one or more tables based on specified criteria. They are the most common type of query and can be used for various purposes, such as displaying, filtering, sorting, aggregating, or joining data. SELECT queries do not modify the data in the database but can affect the performance if the query involves large or complex datasets.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">country</span><span class="w"> </span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"> </span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id</span><span class="w"> </span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Poland&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+----+-------------------+------------+---------+
+| id | name              | department | country |
++----+-------------------+------------+---------+
+|  5 | Michal Brzezinski | Engineering| Poland  |
+|  6 | Zofia Lis         | Sales      | Poland  |
++----+-------------------+------------+---------+
+2 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="run-an-update-query">Run an Update query<a class="headerlink" href="#run-an-update-query" title="Permanent link">&para;</a></h2>
+<p>UPDATE queries modify existing data in a table. They are used to change or correct the information stored in the database. UPDATE queries can update one or more columns and rows simultaneously, depending on the specified conditions. They may also fail if they violate any constraints or rules defined on the table.</p>
+<p>Run an UPDATE query to change a record, and then run a <a href="#run-a-select-query">SELECT</a> with a WHERE clause to verify the update.</p>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Zofia Niemec&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+--------------+
+| name         |
++--------------+
+| Zofia Niemec |
++--------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="run-an-insert-query">Run an INSERT query<a class="headerlink" href="#run-an-insert-query" title="Permanent link">&para;</a></h2>
+<p>INSERT queries add new data to a table. They are used to populate the database with new information. INSERT queries can insert one or more rows at a time, depending on the syntax. INSERT queries may fail if they violate any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.</p>
+<p>Insert a row into a table and then run a <a href="#run-a-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">employees</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">department_id</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">country</span><span class="o">`</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="ss">&quot;Kenzo Sasaki&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="ss">&quot;Japan&quot;</span><span class="p">);</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">country</span><span class="w"> </span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"> </span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id</span><span class="w"> </span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+----+--------------+------------+---------+
+| id | name         | department | country |
++----+--------------+------------+---------+
+| 11 | Kenzo Sasaki | Engineering| Japan   |
++----+--------------+------------+---------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="run-a-delete-query">Run a Delete query<a class="headerlink" href="#run-a-delete-query" title="Permanent link">&para;</a></h2>
+<p>DELETE queries remove existing data from a table. They are used to clean up the information no longer needed or relevant in the database. The DELETE queries can delete one or more rows at a time, depending on the specified conditions. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.</p>
+<p>Delete a row in the table and run a <a href="#run-a-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
+<div class="highlight"><pre><span></span><code><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">country</span><span class="w"> </span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"> </span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id</span><span class="w"> </span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>Empty set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="count-records">Count records<a class="headerlink" href="#count-records" title="Permanent link">&para;</a></h2>
+<p>Use the <code>COUNT()</code> function to count the number of records that match a condition:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+----------+
+| COUNT(*) |
++----------+
+|       10 |
++----------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">employee_count</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+------------+---------------+
+| department | employee_count|
++------------+---------------+
+| Engineering|             5 |
+| Sales      |             3 |
+| Marketing  |             2 |
++------------+---------------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="next-step">Next step<a class="headerlink" href="#next-step" title="Permanent link">&para;</a></h2>
+<p><a href="quickstart-cleanup.html">Clean up your installation</a></p>
+<h2 id="additional-references">Additional references<a class="headerlink" href="#additional-references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="quickstart-overview.html">Quickstart - Overview</a></li>
+<li><a href="quickstart-docker.html">Run Percona Server for MySQL with Docker</a></li>
+<li><a href="quickstart-apt.html">Install Percona Server for MySQL on Ubuntu</a></li>
+<li><a href="quickstart-yum.html">Install Percona Server for MySQL on Oracle Linux</a></li>
+<li><a href="quickstart-next-steps.html">Next steps</a></li>
+</ul>
 
 
 
@@ -9664,7 +10108,7 @@ drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 14, 2024 10:22:11 UTC">May 14, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 28, 2026 14:36:55 UTC">January 28, 2026</span>
   </span>
 
     
@@ -9674,7 +10118,7 @@ drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 14, 2024 10:22:11 UTC">May 14, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 28, 2026 14:36:55 UTC">January 28, 2026</span>
   </span>
 
     
