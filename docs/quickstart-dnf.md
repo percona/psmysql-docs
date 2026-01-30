@@ -72,7 +72,6 @@ The "expected output" depends on the operating system. The following examples ar
         missing groups or modules: mysql
         DNF mysql module was disabled
         * Enabling the Percona Server 8.0 repository
-        * Enabling the Percona Tools repository
         <*> All done!
         ```
 
@@ -99,7 +98,7 @@ The "expected output" depends on the operating system. The following examples ar
 
         ```{.text .no-copy}
         Percona Server 8.0 release/x86_64 YUM repository                                             1.0 MB/s | 2.3 MB     00:02
-        Percona Tools release/x86_64 YUM repository                                                  761 kB/s | 1.1 MB     00:01
+        ...
         Last metadata expiration check: 0:00:01 ago on Fri 16 Feb 2024 03:07:45 PM UTC.
         Dependencies resolved.
         …

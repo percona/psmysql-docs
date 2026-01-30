@@ -116,7 +116,7 @@ The  "expected output" depends on the operating system. The following examples a
         ```{.text .no-copy}
         * Disabling all Percona Repositories
         * Enabling the Percona Server 8.0 repository
-        * Enabling the Percona Tools repository
+        ...
         Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
         Hit:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease
         Hit:3 http://repo.percona.com/prel/apt jammy InRelease
