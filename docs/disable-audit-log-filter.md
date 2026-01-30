@@ -15,8 +15,8 @@ You can set the variable in the following ways:
 
 * Use a SET statement during runtime.
 
-```{.bash data-prompt="mysql>"}
-mysql> SET GLOBAL audit_log_filter.disable = true;
+```sql
+SET GLOBAL audit_log_filter.disable = true;
 ```
 
 ## Privileges required

@@ -38,8 +38,8 @@ To create a database on a server, a user must have the `CREATE` privilege. This 
 
 You use the `CREATE DATABASE` command to create a new database in the server. This command tells the server to create a new database with the specified name. For example, to create a database named `my_database`, you execute the following command:
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE DATABASE my_database;
+```sql
+CREATE DATABASE my_database;
 ```
 
 This command creates a new, empty database called `my_database`. You can then start adding tables and data to this database.
@@ -48,8 +48,8 @@ This command creates a new, empty database called `my_database`. You can then st
 
 After creating a database, you need to select it to start working with it. Use the `USE` command to specify which database you want to use for your SQL statements. For example, to select the `my_database` database, you execute the following command:
 
-```{.bash data-prompt="mysql>"}
-mysql> USE my_database;
+```sql
+USE my_database;
 ```
 
 This command tells the server to use `my_database` for all subsequent SQL commands. Now, any SQL operations you perform will apply to `my_database`.

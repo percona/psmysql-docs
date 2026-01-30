@@ -89,13 +89,13 @@ The command has the following options:
 
 * `-d`: Runs the containers in detached mode, meaning they operate in the background.
 
-```{.bash data-prompt="$"}
-$ docker-compose up -d
+```shell
+docker-compose up -d
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     [+] Running 11/11
      ✔ mysql Pulled                                                                34.1s 
        ✔ 56631da24b0d Pull complete                                                28.9s 
@@ -130,15 +130,15 @@ After the container is up, you can connect to the running server instance using 
 
 Run the following command to open a MySQL shell in the container:
 
-```{.bash data-prompt="$"}
-$ docker exec -it percona-server mysql -u root -p
+```shell
+docker exec -it percona-server mysql -u root -p
 ```
 
 You must enter the root password.
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     Enter password: 
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 9
@@ -153,18 +153,17 @@ You must enter the root password.
 
     Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-    mysql>
     ```
 
 Run a simple query:
 
-```{.bash data-prompt="mysql>"}
-mysql> SHOW DATABASES;
+```sql
+SHOW DATABASES;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +--------------------+
     | Database           |
     +--------------------+
@@ -181,8 +180,8 @@ mysql> SHOW DATABASES;
 
 The following query creates a `test_db` database and `test_table`:
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE DATABASE test_db;
+```sql
+CREATE DATABASE test_db;
 USE test_db;
 CREATE TABLE test_table (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100));
 INSERT INTO test_table (name) VALUES ('Sample Data');
@@ -191,7 +190,7 @@ SELECT * FROM test_table;
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     Query OK, 1 row affected (0.02 sec)
 
     Database changed
@@ -206,10 +205,9 @@ SELECT * FROM test_table;
     +----+-------------+
     1 row in set (0.00 sec)
 
-    mysql> 
     ```
 
-Remember to `mysql> exit` when you are finished working with the server.
+Remember to `exit` when you are finished working with the server.
 
 ## Use the backup volume with XtraBackup
 
@@ -217,8 +215,8 @@ When you run XtraBackup inside a container, either in the same network or anothe
 
 An example of using Docker to backup the server:
 
-```{.bash data-prompt="$"}
-$ docker run --rm \
+```shell
+docker run --rm \
   --volumes-from percona-server \
   -v percona_backups:/backup \
   percona/percona-xtrabackup:8.0 \
@@ -243,12 +241,12 @@ $ docker run --rm \
 
 You can stop the stack but retain volumes:
 
-```{.bash data-prompt="$"}
-$ docker-compose down
+```shell
+docker-compose down
 ```
 
 You can also remove all resources, including volumes:
 
-```{.bash data-prompt="$"}
-$ docker-compose down -v
+```shell
+docker-compose down -v
 ```

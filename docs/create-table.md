@@ -26,7 +26,7 @@ Replace `table_name` with the desired name for your table. For each column, prov
 
 Execute the `CREATE TABLE` command to create the table in the database. For example, to create a table named `employees` with columns for `id`, `name`, and `salary`, you would run the following SQL command:
 
-```{.bash data-prompt="mysql>"}
+```sql
 CREATE TABLE employees (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
@@ -40,9 +40,9 @@ This command creates a table named `employees` with three columns: `id`, `name`,
 
 After executing the `CREATE TABLE` command, verify that the table has been successfully created. You can use various SQL commands such as `SHOW TABLES` or `DESCRIBE table_name` to check the existence and structure of the newly created table.
 
-```{.bash data-prompt="mysql>"}
-mysql> SHOW TABLES;
-mysql> DESCRIBE employees;
+```sql
+SHOW TABLES;
+DESCRIBE employees;
 ```
 
 ## Database management

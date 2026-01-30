@@ -8,14 +8,14 @@ In Percona Server for MySQL 8.4.4-1, dictionary-related functions no longer run 
 
 However, for this to work, you need to grant the mysql.session user `SELECT`, `INSERT`, `UPDATE`, and `DELETE` privileges on the `masking_dictionaries` table.
 
-```{.bash data-prompt="mysql>"}
-mysql> GRANT SELECT, INSERT, UPDATE, DELETE ON mysql.masking_dictionaries TO 'mysql.session'@'localhost';
+```sql
+GRANT SELECT, INSERT, UPDATE, DELETE ON mysql.masking_dictionaries TO 'mysql.session'@'localhost';
 ```
 
 If you change the value of the `masking_functions.masking_database` system variable to something other than `mysql`, make sure to update the `GRANT` query to match the new value.
 
-```{.bash data-prompt="mysql>"}
-mysql> GRANT SELECT, INSERT, UPDATE, DELETE ON <masking_functions.masking_database>.masking_dictionaries TO 'mysql.session'@'localhost';
+```sql
+GRANT SELECT, INSERT, UPDATE, DELETE ON <masking_functions.masking_database>.masking_dictionaries TO 'mysql.session'@'localhost';
 ```
 
 ## Data masking component functions
@@ -72,13 +72,13 @@ Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT gen_blocklist('apple', 'fruit', 'nut');
+```sql
+SELECT gen_blocklist('apple', 'fruit', 'nut');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-----------------------------------------+
     | gen_blocklist('apple', 'fruit', 'nut')  |
     +-----------------------------------------+
@@ -107,13 +107,13 @@ A random term from the dictionary listed in `dictionary_name` in the `utf8mb4` c
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT gen_dictionary('trees');
+```sql
+SELECT gen_dictionary('trees');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +--------------------------------------------------+
     | gen_dictionary('trees')                          |
     +--------------------------------------------------+
@@ -140,13 +140,13 @@ An integer, selected at random, from an inclusive range defined by the `lower` p
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT gen_range(10, 100);
+```sql
+SELECT gen_range(10, 100);
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +--------------------------------------+
     | gen_range(10,100)                    |
     +--------------------------------------+
@@ -172,13 +172,13 @@ Returns a Canada SIN formatted in three groups of three digits (for example, 123
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT gen_rnd_canada_sin();
+```sql
+SELECT gen_rnd_canada_sin();
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-------------------------+
     | gen_rnd_canada_sin()    |
     +-------------------------+
@@ -205,13 +205,13 @@ A generated email address as a string in the same character set as `domain`. If 
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT gen_rnd_email(name_size=4, surname_size=5, domain='mydomain.edu');
+```sql
+SELECT gen_rnd_email(name_size=4, surname_size=5, domain='mydomain.edu');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-------------------------------------+
     | gen_rnd_email(4, 5, 'mydomain.edu') |
     +-------------------------------------+
@@ -246,13 +246,13 @@ The character set is the same as the `country` parameter or if that parameter is
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT gen_rnd_iban();
+```sql
+SELECT gen_rnd_iban();
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-------------------+
     | gen_rnd_iban()    |
     +-------------------+
@@ -288,13 +288,13 @@ A random PAN string in `utf8mb4` character set.
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT gen_rnd_pan();
+```sql
+SELECT gen_rnd_pan();
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-------------------+
     | gen_rnd_pan()     |
     +-------------------+
@@ -317,13 +317,13 @@ A SSN string in a nine-digit number format "AAA-GG-SSSS" in the `utf8mb4` charac
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT gen_rnd_ssn();
+```sql
+SELECT gen_rnd_ssn();
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +----------------+
     | gen_rnd_ssn()  |
     +----------------+
@@ -349,13 +349,13 @@ A NIN string in the `utf8mb4` character set. The string is nine (9) characters i
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT gen_rnd_uk_nin();
+```sql
+SELECT gen_rnd_uk_nin();
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +----------------------+
     | gen_rnd_uk_nin()     |
     +----------------------+
@@ -377,13 +377,13 @@ Returns a United States phone number in the `utf8mb4` character set.
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT gen_rnd_us_phone();
+```sql
+SELECT gen_rnd_us_phone();
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +--------------------+
     | gen_rnd_us_phone() |
     +--------------------+
@@ -405,13 +405,13 @@ Returns a UUID as a string in the `utf8mb4` character set.
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT gen_rnd_uuid();
+```sql
+SELECT gen_rnd_uuid();
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +------------------------------------+
     | gen_rnd_uuid()                     |
     +------------------------------------+
@@ -444,13 +444,13 @@ Returns a NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT mask_canada_sin('555-555-555');
+```sql
+SELECT mask_canada_sin('555-555-555');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +--------------------------------+
     | mask_canada_sin('555-555-555') |
     +--------------------------------+
@@ -487,13 +487,13 @@ Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT mask_iban('DE27 1002 02003 77495 4156');
+```sql
+SELECT mask_iban('DE27 1002 02003 77495 4156');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +---------------------------------------------+
     | mask_iban('DE27 1002 02003 77495 4156')     |
     +---------------------------------------------+
@@ -530,13 +530,13 @@ Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT mask_inner('123456789', 1, 2);
+```sql
+SELECT mask_inner('123456789', 1, 2);
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-----------------------------------+
     | mask_inner('123456789', 1, 2)     |
     +-----------------------------------+
@@ -573,13 +573,13 @@ Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT mask_outer('123456789', 2, 2); 
+```sql
+SELECT mask_outer('123456789', 2, 2); 
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +------------------------------------+
     | mask_outer('123456789', 2, 2).     |
     +------------------------------------+
@@ -612,13 +612,13 @@ Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT mask_pan (gen_rnd_pan());
+```sql
+SELECT mask_pan (gen_rnd_pan());
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +------------------------------------+
     | mask_pan(gen_rnd_pan())            |
     +------------------------------------+
@@ -653,13 +653,13 @@ Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT mask_pan_relaxed(gen_rnd_pan());
+```sql
+SELECT mask_pan_relaxed(gen_rnd_pan());
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +------------------------------------------+
     | mask_pan_relaxed(gen_rnd_pan())          |
     +------------------------------------------+
@@ -695,13 +695,13 @@ Returns a NULL value if you invoke this function with NULL as the primary argume
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT mask_ssn('555-55-5555', 'X');
+```sql
+SELECT mask_ssn('555-55-5555', 'X');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-----------------------------+
     | mask_ssn('555-55-5555','X') |
     +-----------------------------+
@@ -734,13 +734,13 @@ Returns a NULL value if you invoke this function with NULL as the primary argume
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT mask_uk_nin ('CT 26 46 83 D');
+```sql
+SELECT mask_uk_nin ('CT 26 46 83 D');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +------------------------------------+
     | mask_uk_nin('CT 26 46 83 D')       |
     +------------------------------------+
@@ -774,13 +774,13 @@ Returns `NULL` if you invoke this function with NULL as the primary argument.
 ### Example
 
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT mask_uuid('9a3b642c-06c6-11ee-be56-0242ac120002');
+```sql
+SELECT mask_uuid('9a3b642c-06c6-11ee-be56-0242ac120002');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-------------------------------------------------------+
     | mask_uuid('9a3b642c-06c6-11ee-be56-0242ac120002')     |
     +-------------------------------------------------------+
@@ -803,12 +803,12 @@ Returns an integer value of `1` (one) when successful.
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT masking_dictionaries_flush();
+```sql
+SELECT masking_dictionaries_flush();
 ```
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +------------------------------+
     | masking_dictionaries_flush() |
     +------------------------------+
@@ -835,13 +835,13 @@ Returns an integer value of `1` (one) if the operation is successful. Returns th
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT masking_dictionary_remove('trees');
+```sql
+SELECT masking_dictionary_remove('trees');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +------------------------------------------+
     | masking_dictionary_remove('trees')       |
     +------------------------------------------+
@@ -875,15 +875,15 @@ The operation uses `INSERT IGNORE` and can have the following outcomes:
 
 The following command returns the table information:
 
-```{.bash data-prompt="mysql>"}
-mysql> DESCRIBE mysql.masking_dictionaries;
+```sql
+DESCRIBE mysql.masking_dictionaries;
 ```
 
 The result returns the table structure.
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +------------+--------------+------+-----+---------+-------+
     | Field      | Type         | Null | Key | Default | Extra |
     +------------+--------------+------+-----+---------+-------+
@@ -897,13 +897,13 @@ Modify the table with an `ALTER TABLE` statement, if needed.
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT masking_dictionary_term_add('trees','pine');
+```sql
+SELECT masking_dictionary_term_add('trees','pine');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-----------------------------------------------+
     | masking_dictionary_term_add('trees', 'pine')  |
     +-----------------------------------------------+
@@ -943,13 +943,13 @@ Returns `NULL` if the operation fails. An operation can fail if the following oc
 
 ### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT masking_dictionary_term_remove('trees','pine');
+```sql
+SELECT masking_dictionary_term_remove('trees','pine');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-------------------------------------------------------+
     | masking_dictionary_term_remove('trees', 'pine')       |
     +-------------------------------------------------------+

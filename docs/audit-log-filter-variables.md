@@ -34,13 +34,13 @@ This function returns a JSON object containing the password, iterations count us
 
 #### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_encryption_password_get();
+```sql
+SELECT audit_log_encryption_password_get();
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +---------------------------------------------+
     | audit_log_encryption_password_get()         |
     +---------------------------------------------+
@@ -62,13 +62,13 @@ This function returns a string. An `OK` indicates a success. `ERROR` indicates a
 
 #### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_encryption_password_set(passw0rd);
+```sql
+SELECT audit_log_encryption_password_set(passw0rd);
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-----------------------------------------------------+
     | audit_log_encryption_password_set(passw0rd)         |
     +-----------------------------------------------------+
@@ -94,13 +94,13 @@ This function returns either an `OK` for success or an error message for failure
 
 #### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_filter_flush();
+```sql
+SELECT audit_log_filter_flush();
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +--------------------------+
     | audit_log_filter_flush() |
     +--------------------------+
@@ -128,13 +128,13 @@ This function returns a string of a JSON array of the audit events or a JSON NUL
 
 #### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_read(audit_log_read_bookmark());
+```sql
+SELECT audit_log_read(audit_log_read_bookmark());
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +------------------------------------------------------------------------------+
     | audit_log_read(audit_log_read_bookmark())                                   |
     +------------------------------------------------------------------------------+
@@ -162,13 +162,13 @@ This function returns a `JSON` string containing a bookmark for success or  `NUL
 
 #### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_read_bookmark();
+```sql
+SELECT audit_log_read_bookmark();
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +----------------------------------------------------+
     | audit_log_read_bookmark()                          |
     +----------------------------------------------------+
@@ -201,13 +201,13 @@ If the filter name does not exist, no error is generated.
 
 #### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_filter_remove_filter('filter-name');
+```sql
+SELECT audit_log_filter_remove_filter('filter-name');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +------------------------------------------------+
     | audit_log_filter_remove_filter('filter-name')  |
     +------------------------------------------------+
@@ -237,13 +237,13 @@ If the user_name has no filter assigned, no error is generated.
 
 #### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_filter_remove_user('user-name@localhost');
+```sql
+SELECT audit_log_filter_remove_user('user-name@localhost');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +------------------------------------------------------+
     | audit_log_filter_remove_user('user-name@localhost')  |
     +------------------------------------------------------+
@@ -263,8 +263,8 @@ This function returns the renamed file name.
 
 #### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_rotate();
+```sql
+SELECT audit_log_rotate();
 ```
 
 ### audit_log_filter_set_filter(filter_name, definition)
@@ -286,14 +286,14 @@ This function returns either an `OK` for success or an error message for failure
 
 #### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SET @filter = '{ "filter_name": { "log": true }}'
-mysql> SELECT audit_log_filter_set_filter('filter-name', @filter);
+```sql
+SET @filter = '{ "filter_name": { "log": true }}'
+SELECT audit_log_filter_set_filter('filter-name', @filter);
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-------------------------------------------------------------+
     | audit_log_filter_set_filter('filter-name', @filter)  |
     +-------------------------------------------------------------+
@@ -323,13 +323,13 @@ This function returns either an `OK` for success or an error message for failure
 
 #### Example
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_filter_set_user('user-name@localhost', 'filter-name');
+```sql
+SELECT audit_log_filter_set_user('user-name@localhost', 'filter-name');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-------------------------------------------------------------------+
     | audit_log_filter_set_user('user-name@localhost', 'filter-name')  |
     +-------------------------------------------------------------------+

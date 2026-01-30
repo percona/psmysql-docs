@@ -52,8 +52,8 @@ This function gets the encryption password, and the iterations count and returns
 
 Get the keyring password:
 
-```mysql
-mysql> SELECT audit_log_encryption_password_get('audit-log-20190414T223342-2');
+```sql
+SELECT audit_log_encryption_password_get('audit-log-20190414T223342-2');
 ```
 
 The return value of this function may look like the following:

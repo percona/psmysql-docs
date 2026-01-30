@@ -21,15 +21,15 @@ If AppArmor must be disabled, run the following commands:
 
 1. Check the status.
 
-    ```{.bash data-prompt="$"}
-    $ sudo apparmor_status
+    ```shell
+    sudo apparmor_status
     ```
 
 2. Stop and disable AppArmor.
 
-    ```{.bash data-prompt="$"}
-    $ sudo systemctl stop apparmor
-    $ sudo systemctl disable apparmor
+    ```shell
+    sudo systemctl stop apparmor
+    sudo systemctl disable apparmor
     ```
 
 ## AppArmor links

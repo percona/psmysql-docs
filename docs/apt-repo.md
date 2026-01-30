@@ -31,13 +31,13 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 1. Update the package repositories:
 
-	```{.bash data-prompt="$"}
-	$ sudo apt update
+	```shell
+	sudo apt update
 	```
 
 	??? example "Expected output"
 
-		```{.text .no-copy}
+		```text
 		Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
 		Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
 		Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
@@ -61,13 +61,13 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	
 
-	```{.bash data-prompt="$"}
-	$ sudo apt install curl
+	```shell
+	sudo apt install curl
 	```
 
 	??? example "Expected output"
 
-		```{.text .no-copy}
+		```text
 		Reading package lists... Done
 		Building dependency tree... Done
 		Reading state information... Done
@@ -97,13 +97,13 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 3. Download the `percona-release` repository package:
 
-	```{.bash data-prompt="$"}
-	$ curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+	```shell
+	curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 	```
 
 	??? example "Expected output"
 
-		```{.text .no-copy}
+		```text
 		  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 		                                 Dload  Upload   Total   Spent    Left  Speed
 		100 15.2k  100 15.2k    0     0  15.2k      0  0:00:01  0:00:01 --:--:-- 15.2k
@@ -121,13 +121,13 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	
 
-	```{.bash data-prompt="$"}
-	$ sudo apt install gnupg2 lsb-release ./percona-release_latest.generic_all.deb
+	```shell
+	sudo apt install gnupg2 lsb-release ./percona-release_latest.generic_all.deb
 	```
 
 	??? example "Expected output"
 
-		```{.text .no-copy}
+		```text
 		Reading package lists... Done
 		Building dependency tree... Done
 		Reading state information... Done
@@ -169,13 +169,13 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 5. Refresh the local cache to update the package information:
 
-	```{.bash data-prompt="$"}
-	$ sudo apt update
+	```shell
+	sudo apt update
 	```
 
 	??? example "Expected output"
 
-		```{.text .no-copy}
+		```text
 		Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
 		Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
 		Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
@@ -196,16 +196,15 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	* Try running the percona-release setup again
 
-6. Use `percona-release` to set up the repository for the Percona Server for MySQL {{vers}} version:
+6. Use `percona-release` to enable Percona Server for MySQL {{vers}}:
 
-	```{.bash data-prompt="$"}
-	$ sudo percona-release enable-only {{pkg}} release
-	$ sudo percona-release enable tools release
+	```shell
+	sudo percona-release enable-only {{pkg}} release
 	```
 
 	??? example "Expected output"
 
-		```{.text .no-copy}
+		```text
 		* Enabling Percona Server for MySQL 8.4 LTS repository
 		* Enabling Percona Tools repository
 		* Running apt-get update...
@@ -233,13 +232,13 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 8. Install the server package with the `percona-release` command:
 
-	```{.bash data-prompt="$"}
-	$ sudo apt install percona-server-server
+	```shell
+	sudo apt install percona-server-server
 	```
 
 	??? example "Expected output"
 
-		```{.text .no-copy}
+		```text
 		Reading package lists... Done
 		Building dependency tree... Done
 		Reading state information... Done
@@ -295,12 +294,12 @@ User-Defined Functions (UDFs) are custom functions you can add to MySQL to exten
 To install these functions after installation:
 
 ```{.sql data-prompt="mysql>"}
-mysql> INSTALL COMPONENT 'file://component_percona_udf';
+INSTALL COMPONENT 'file://component_percona_udf';
 ```
 
 ??? example "Expected output"
 
-	```{.text .no-copy}
+	```text
 	Query OK, 0 rows affected (0.01 sec)
 	```
 
@@ -322,13 +321,13 @@ Percona offers pre-release builds from the testing repository for advanced users
 
 To enable the testing repository:
 
-```{.bash data-prompt="$"}
-$ sudo percona-release enable {{pkg}} testing
+```shell
+sudo percona-release enable {{pkg}} testing
 ```
 
 ??? example "Expected output"
 
-	```{.text .no-copy}
+	```text
 	* Enabling Percona Server for MySQL 8.4 LTS testing repository
 	* Running apt-get update...
 	Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
@@ -355,14 +354,14 @@ Please be aware of the following limitations when using the testing repository:
 
 To disable the testing repository and return to stable releases:
 
-```{.bash data-prompt="$"}
-$ sudo percona-release disable testing
-$ sudo apt update
+```shell
+sudo percona-release disable testing
+sudo apt update
 ```
 
 ??? example "Expected output"
 
-	```{.text .no-copy}
+	```text
 	* Disabling Percona testing repository
 	* Running apt-get update...
 	Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease

@@ -15,15 +15,15 @@ Start a container with the `--detached` or `-d` option, which runs the container
 The following example starts a container named `ps` with the latest version of
 Percona Server for MySQL {{vers}}. This action also creates the `root` user and uses `root` as the password. Please note that `root` is not a secure password. 
 
-```{.bash data-prompt="$"}
-$ docker run -d \
+```shell
+docker run -d \
   --name ps \
   -e MYSQL_ROOT_PASSWORD=root \
   percona/percona-server:{{vers}}
 ```
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     Unable to find image 'percona/percona-server:{{vers}}' locally
     {{vers}}: Pulling from percona/percona-server
     ```
@@ -33,12 +33,12 @@ available locally.
 
 To view the container's logs, use the following command:
 
-```{.bash data-prompt="$"}
-$ docker logs ps --follow
+```shell
+docker logs ps --follow
 ```
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     Initializing database
     2022-09-07T15:20:03.158128Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld {{release}}) initializing of server in progress as process 15
     2022-09-07T15:20:03.167764Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
@@ -55,8 +55,8 @@ You can access the server when you see the `ready for connections` information i
 
 You can pass options with the `docker run` command. For example, the following command uses UTF-8 as the default setting for character set and collation for all databases:
 
-```{.bash data-prompt="$"}
-$ docker run -d \
+```shell
+docker run -d \
  --name ps \
  -e MYSQL_ROOT_PASSWORD=root \
  percona/percona-server:{{vers}} \
@@ -70,8 +70,8 @@ The `docker exec` command lets you have a shell inside the container. This comma
 
 An example of accessing the detached container:
 
-```{.bash data-prompt="$"}
-$ docker exec -it ps /bin/bash
+```shell
+docker exec -it ps /bin/bash
 ```
 
 If you need to troubleshoot, the error log is found in `/var/log/` or `/var/log/mysql/`. The file name may be error.log or mysqld.log. 
@@ -82,11 +82,11 @@ If you need to troubleshoot, the error log is found in `/var/log/` or `/var/log/
 You can view the error log with the following command:
 
 ```shell
-[mysql@ps] $ more /var/log/mysql/error.log
+[mysql@ps] more /var/log/mysql/error.log
 ```
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     ...
     2017-08-29T04:20:22.190474Z 0 [Warning] 'NO_ZERO_DATE', 'NO_ZERO_IN_DATE' and 'ERROR_FOR_DIVISION_BY_ZERO' sql modes should be used with strict mode. They will be merged with strict mode in a future release.
     2017-08-29T04:20:22.190520Z 0 [Warning] 'NO_AUTO_CREATE_USER' sql mode was not set.
@@ -99,13 +99,13 @@ You can access the database either with `Docker exec` or using the `mysql` comma
 
 An example of using `Docker exec` to access the database:
 
-```{.bash data-prompt="$"}
-$ docker exec -ti ps mysql -uroot -proot
+```shell
+docker exec -ti ps mysql -uroot -proot
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}   
+    ```text   
     mysql: [Warning] Using a password on the command line interface can be insecure.
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 9
@@ -117,12 +117,12 @@ Exiting Percona Server also exits the container.
 You can also run the MySQL command-line client within the container's shell to access the database:
 
 ```shell
-[mysql@ps] $ mysql -uroot -proot
+[mysql@ps] mysql -uroot -proot
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     mysql: [Warning] Using a password on the command line interface can be insecure.
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 8
@@ -149,8 +149,8 @@ To link a container running your application
 with the Percona Server container,
 run it with the following command:
 
-```{.bash data-prompt="$"}
-$ docker run -d \
+```shell
+docker run -d \
   --name app \
   --link ps \
   app/image:latest
@@ -178,8 +178,8 @@ For example, if you create a data directory on a suitable volume
 on your host system named `/local/datadir`,
 you run the container with the following command:
 
-```{.bash data-prompt="$"}
-$ docker run -d \
+```shell
+docker run -d \
   --name ps \
   -e MYSQL_ROOT_PASSWORD=root \
   -v /local/datadir:/var/lib/mysql \
@@ -197,8 +197,8 @@ Do not add MYSQL_ROOT_PASSWORD to the `docker run` command if the data directory
 
     If you have SELinux enabled, assign the relevant policy type to the new data directory so that the container will be allowed to access it:
 
-```{.bash data-prompt="$"}
-$ chcon -Rt svirt_sandbox_file_t /local/datadir
+```shell
+chcon -Rt svirt_sandbox_file_t /local/datadir
 ```
 
 ## Port forwarding
@@ -212,8 +212,8 @@ This ability simplifies consolidating instances to a single host.
 
 To map the standard MySQL port 3306 to port 6603 on the host:
 
-```{.bash data-prompt="$"}
-$ docker run -d \
+```shell
+docker run -d \
  --name ps \
  -e MYSQL_ROOT_PASSWORD=root \
  -p 6603:3306 \
@@ -232,22 +232,22 @@ If you have a non-shell process running, interrupt the process with `CTRL-C` bef
 
 The [docker stop](https://docs.docker.com/engine/reference/commandline/stop/) container command sends a TERM signal, then waits 10 seconds and sends a KILL signal. The following example stops the `ps` container:
 
-```{.bash data-prompt="$"}
-$ docker stop ps
+```shell
+docker stop ps
 ```
 
 The default length of time before stopping a container is 10 seconds. A very large instance cannot dump the data from memory to disk within that time. With this type of instance, add the `--time` or the `-t` option to docker stop:
 
-```{.bash data-prompt="$"}
-$ docker stop ps -t 600
+```shell
+docker stop ps -t 600
 ```
 
 ## Removing the container
 
 To remove a stopped container, use the `docker rm` command.
 
-```{.bash data-prompt="$"}
-$ docker rm ps
+```shell
+docker rm ps
 ```
 ## For more information
 

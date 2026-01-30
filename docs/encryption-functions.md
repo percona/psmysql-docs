@@ -78,8 +78,8 @@ The `INSERT` privilege on the `mysql.component` system table is required to run 
 
 The following is an example of the installation command:
 
-```{.bash data-prompt="mysql>"}
-mysql> INSTALL COMPONENT 'file://component_encryption_udf';
+```sql
+INSTALL COMPONENT 'file://component_encryption_udf';
 ```
 
 !!! note
@@ -452,27 +452,27 @@ Code examples for the following operations:
 
 * Decrypt data
 
-```{.bash data-prompt="mysql>"}
+```sql
 -- Set Global variable
-mysql> SET GLOBAL encryption_udf.dh_bits_threshold = 4096;
+SET GLOBAL encryption_udf.dh_bits_threshold = 4096;
 
 -- Set Global variable
-mysql> SET GLOBAL encryption_udf.rsa_bits_threshold = 4096;
+SET GLOBAL encryption_udf.rsa_bits_threshold = 4096;
 ```
 
-```{.bash data-prompt="mysql>"}
+```sql
 -- Create private key
-mysql> SET @private_key = create_asymmetric_priv_key('RSA', 3072);
+SET @private_key = create_asymmetric_priv_key('RSA', 3072);
 
 -- Create public key
-mysql> SET @public_key = create_asymmetric_pub_key('RSA', @private_key);
+SET @public_key = create_asymmetric_pub_key('RSA', @private_key);
 
 -- Encrypt data using the private key (you can also use the public key)
-mysql> SET @ciphertext = asymmetric_encrypt('RSA', 'This text is secret', @private_key);
+SET @ciphertext = asymmetric_encrypt('RSA', 'This text is secret', @private_key);
 
 -- Decrypt data using the public key (you can also use the private key)
 -- The decrypted value @plaintext should be identical to the original 'This text is secret'
-mysql> SET @plaintext = asymmetric_decrypt('RSA', @ciphertext, @public_key);
+SET @plaintext = asymmetric_decrypt('RSA', @ciphertext, @public_key);
 ```
 
 Code examples for the following operations:
@@ -483,16 +483,16 @@ Code examples for the following operations:
 
 * Verify the signature against the digest
 
-```{.bash data-prompt="mysql>"}
+```sql
 -- Generate a digest string
-mysql> SET @digest = create_digest('SHA256', 'This is the text for digest');
+SET @digest = create_digest('SHA256', 'This is the text for digest');
 
 -- Generate a digest signature
-mysql> SET @signature = asymmetric_sign('RSA', @digest, @private_key, 'SHA256');
+SET @signature = asymmetric_sign('RSA', @digest, @private_key, 'SHA256');
 
 -- Verify the signature against the digest
 -- The @verify_signature must be equal to 1
-mysql> SET @verify_signature = asymmetric_verify('RSA', @digest, @signature, @public_key, 'SHA256');
+SET @verify_signature = asymmetric_verify('RSA', @digest, @signature, @public_key, 'SHA256');
 ```
 
 Code examples for the following operations:
@@ -505,23 +505,23 @@ Code examples for the following operations:
 
 * Generate a symmetric key using the public_2 and the private_1
 
-```{.bash data-prompt="mysql>"}
+```sql
  -- Generate a DH parameter
- mysql> SET @dh_parameter = create_dh_parameters(3072);
+SET @dh_parameter = create_dh_parameters(3072);
 
  -- Generate DH key pairs
- mysql> SET @private_1 = create_asymmetric_priv_key('DH', @dh_parameter);
- mysql> SET @public_1 = create_asymmetric_pub_key('DH', @private_1);
- mysql> SET @private_2 = create_asymmetric_priv_key('DH', @dh_parameter);
- mysql> SET @public_2 = create_asymmetric_pub_key('DH', @private_2);
+SET @private_1 = create_asymmetric_priv_key('DH', @dh_parameter);
+SET @public_1 = create_asymmetric_pub_key('DH', @private_1);
+SET @private_2 = create_asymmetric_priv_key('DH', @dh_parameter);
+SET @public_2 = create_asymmetric_pub_key('DH', @private_2);
 
 -- Generate a symmetric key using the public_1 and private_2
 -- The @symmetric_1 must be identical to @symmetric_2
-mysql> SET symmetric_1 = asymmetric_derive(@public_1, @private_2);
+SET symmetric_1 = asymmetric_derive(@public_1, @private_2);
 
 -- Generate a symmetric key using the public_2 and private_1
 -- The @symmetric_2 must be identical to @symmetric_1
-mysql> SET symmetric_2 = asymmetric_derive(@public_2, @private_1);
+SET symmetric_2 = asymmetric_derive(@public_2, @private_1);
 ```
 
 Code examples for the following operations:
@@ -532,16 +532,16 @@ Code examples for the following operations:
 
 * Create a private key using an `INSERT` statement
 
-```{.bash data-prompt="mysql>"}
-mysql> SET @private_key1 = create_asymmetric_priv_key('RSA', 3072);
-mysql> SELECT create_asymmetric_priv_key('RSA', 3072) INTO @private_key2;
-mysql> INSERT INTO key_table VALUES(create_asymmetric_priv_key('RSA', 3072));
+```sql
+SET @private_key1 = create_asymmetric_priv_key('RSA', 3072);
+SELECT create_asymmetric_priv_key('RSA', 3072) INTO @private_key2;
+INSERT INTO key_table VALUES(create_asymmetric_priv_key('RSA', 3072));
 ```
 
 ## Uninstall component_encryption_udf
 
 You can deactivate and uninstall the component using the [Uninstall Component statement](https://dev.mysql.com/doc/refman/{{vers}}/en/uninstall-component.html).
 
-```{.bash data-prompt="mysql>"}
-mysql> UNINSTALL COMPONENT 'file://component_encryption_udf';
+```sql
+UNINSTALL COMPONENT 'file://component_encryption_udf';
 ```

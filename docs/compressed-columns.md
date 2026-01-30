@@ -48,8 +48,8 @@ The compression can be specified:
 Unlike Oracle MySQL, compression is applicable to generated stored columns. Use
 this syntax extension as follows:
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE TABLE t1(
+```sql
+CREATE TABLE t1(
        id INT,
        a BLOB,
        b JSON COLUMN_FORMAT COMPRESSED,
@@ -94,31 +94,31 @@ values >= `3`, they are forbidden.
 In order to use the compression dictionary, you need to create it. This
 can be done by running:
 
-```{.bash data-prompt="mysql>"}
-mysql> SET @dictionary_data = 'one' 'two' 'three' 'four';
+```sql
+SET @dictionary_data = 'one' 'two' 'three' 'four';
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     Query OK, 0 rows affected (0.00 sec)
     ```
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE COMPRESSION_DICTIONARY numbers (@dictionary_data);
+```sql
+CREATE COMPRESSION_DICTIONARY numbers (@dictionary_data);
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     Query OK, 0 rows affected (0.00 sec)
     ```
 
 To create a table that has both compression and compressed dictionary support
 you should run:
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE TABLE t1(
+```sql
+CREATE TABLE t1(
         id INT,
         a BLOB COLUMN_FORMAT COMPRESSED,
         b BLOB COLUMN_FORMAT COMPRESSED WITH COMPRESSION_DICTIONARY numbers
@@ -158,8 +158,8 @@ SET @json_value =
 ;
 ```
 
-```{.bash data-prompt="mysql>"}
-mysql> INSERT INTO t1 VALUES(0, @json_value, @json_value);
+```sql
+INSERT INTO t1 VALUES(0, @json_value, @json_value);
 Query OK, 1 row affected (0.01 sec)
 ```
 
