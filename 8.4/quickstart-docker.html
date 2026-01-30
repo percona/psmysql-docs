@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="You are welcome to name any items to match your organization’s standards or use your table structure and data. If you do, the results are different from the expected results.">
+        <meta name="description" content="Quickstart path: Step 1 — Install. Next: Work with a database (step 2).">
       
       
         <meta name="author" content="Percona LLC">
@@ -2435,10 +2435,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#security-measures" class="md-nav__link">
+  <a href="#security-best-practices" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Security measures
+        Security best practices
       
     </span>
   </a>
@@ -2446,10 +2446,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-installation-methods" class="md-nav__link">
+  <a href="#work-with-a-database" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Other installation methods
+        Work with a database
       
     </span>
   </a>
@@ -2457,10 +2457,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
+  <a href="#additional-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next step
+        Additional resources
       
     </span>
   </a>
@@ -9667,10 +9667,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#security-measures" class="md-nav__link">
+  <a href="#security-best-practices" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Security measures
+        Security best practices
       
     </span>
   </a>
@@ -9678,10 +9678,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-installation-methods" class="md-nav__link">
+  <a href="#work-with-a-database" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Other installation methods
+        Work with a database
       
     </span>
   </a>
@@ -9689,10 +9689,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
+  <a href="#additional-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next step
+        Additional resources
       
     </span>
   </a>
@@ -9730,16 +9730,60 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="quickstart-run-percona-server-for-mysql-container-images-with-docker">Quickstart - Run Percona Server for MySQL container images with Docker<a class="headerlink" href="#quickstart-run-percona-server-for-mysql-container-images-with-docker" title="Permanent link">&para;</a></h1>
-<p>You are welcome to name any items to match your organization&rsquo;s standards or use your table structure and data. If you do, the results are different from the expected results.</p>
+<p><strong>Quickstart path:</strong> Step 1 — Install. Next: <a href="quickstart-database-script.html">Work with a database</a> (step 2).</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Docker Engine installed and running</li>
-<li>Stable internet connection</li>
-<li>Basic understanding of the command-line interface (CLI)</li>
+<li>
+<p>Docker Engine and Docker Compose installed and running</p>
+</li>
+<li>
+<p>Stable internet connection</p>
+</li>
+<li>
+<p>Basic understanding of the command-line interface (CLI)</p>
+</li>
 </ul>
 <p>Always adapt the commands and configurations to your specific environment and security requirements.</p>
 <h2 id="start-a-docker-container">Start a Docker container<a class="headerlink" href="#start-a-docker-container" title="Permanent link">&para;</a></h2>
-<p>To use the &ldquo;Docker run&rdquo; command, specify the name or ID of the image you want to use and, optionally, some flags and arguments that modify the container&rsquo;s behavior. The command has the following options:</p>
+<p>Choose one of the following methods:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Docker Compose</label><label for="__tabbed_1_2">docker run</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ol>
+<li>
+<p>Create a directory and add a <code>docker-compose.yml</code> file:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mysql</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-server:8.4.7</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">psmysql</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;3306:3306&quot;</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">MYSQL_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secret</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myvol:/var/lib/mysql</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
+<span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">myvol</span><span class="p">:</span>
+</code></pre></div>
+<p>To run the Docker ARM64 version of Percona Server for MySQL, use the <code>8.4.7-aarch64</code> tag instead of <code>8.4.7</code> in the <code>image</code> line. If needed, you can replace the <code>secret</code> password with a <a href="#security-best-practices">stronger password</a>.</p>
+</li>
+<li>
+<p>Start the container:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>[+] Running 2/2
+ ✔ Network quickstart_default  Created
+ ✔ Container psmysql           Started
+</code></pre></div>
+</details>
+</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p>If you prefer to run the container manually, use the following. The command has the following options:</p>
 <table>
 <thead>
 <tr>
@@ -9750,35 +9794,32 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <tbody>
 <tr>
 <td><code>-d</code></td>
-<td>Runs the container in detached mode, allowing the container to operate in the background.</td>
+<td>Runs the container in detached mode.</td>
 </tr>
 <tr>
 <td><code>-p 3306:3306</code></td>
-<td>Maps the container&rsquo;s MySQLport (3306) to the same port as your host, enabling external access.</td>
+<td>Maps the container&rsquo;s MySQL port (3306) to the same port on your host.</td>
 </tr>
 <tr>
 <td><code>--name psmysql</code></td>
-<td>Provides a meaningful name to the container. If you do not use this option, Docker adds a random name.</td>
+<td>Container name (required for the connect step below).</td>
 </tr>
 <tr>
 <td><code>-e MYSQL_ROOT_PASSWORD=secret</code></td>
-<td>Adds an environmental variable and changes the password from the default password.</td>
+<td>Sets the root password.</td>
 </tr>
 <tr>
-<td><code>--v myvol:/var/lib/mysql</code></td>
-<td>Mounts a host directory (myvol) as the container&rsquo;s data volume, ensuring persistent storage for the database between container lifecycles.</td>
+<td><code>-v myvol:/var/lib/mysql</code></td>
+<td>Named volume for persistent storage.</td>
 </tr>
 <tr>
 <td><code>percona/percona-server:8.4.7</code></td>
-<td>The image with the tag (8.4.7) to specify a specific release.</td>
+<td>Image and tag for the release.</td>
 </tr>
 </tbody>
 </table>
-<p>You must provide at least one environment variable to access the database, such as <code>MYSQL_ROOT_PASSWORD</code>, <code>MYSQL_DATABASE</code>, <code>MYSQL_USER</code>, and <code>MYSQL_PASSWORD</code> or the instance refuses to initialize.</p>
-<p>If needed, you can replace the <code>secret</code> password with a <a href="#security-measures">stronger password</a>.</p>
-<p>For this document, we add the <code>8.4.7</code> tag. In Docker, a tag is a label assigned to an image and is used to maintain different versions of an image. If we did not add a tag, Docker uses <code>latest</code> as the default tag and downloads the latest image from <a href="https://hub.docker.com/r/percona/percona-server">percona/percona-server on the Docker Hub <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<p>To run the Docker ARM64 version of Percona Server for MySQL, use the <code>8.4.7-aarch64</code> tag instead of <code>8.4.7</code>.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">3306</span>:3306<span class="w"> </span>--name<span class="w"> </span>psmysql<span class="w"> </span><span class="se">\</span>
+<p>You must set at least one environment variable (for example <code>MYSQL_ROOT_PASSWORD</code>) or the instance refuses to initialize. For more on tags and images, see <a href="https://hub.docker.com/r/percona/percona-server">percona/percona-server on the Docker Hub <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. For ARM64, use the <code>8.4.7-aarch64</code> tag instead of <code>8.4.7</code>.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">3306</span>:3306<span class="w"> </span>--name<span class="w"> </span>psmysql<span class="w"> </span><span class="se">\</span>
 --platform<span class="w"> </span>linux/amd64<span class="w"> </span><span class="se">\</span>
 -e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>secret<span class="w"> </span><span class="se">\</span>
 -v<span class="w"> </span>myvol:/var/lib/mysql<span class="w"> </span><span class="se">\</span>
@@ -9786,22 +9827,16 @@ percona/percona-server:8.4.7
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Unable to find image &#39;percona/percona-server:8.4.7&#39; locally
+<div class="highlight"><pre><span></span><code>Unable to find image &#39;percona/percona-server:8.4.7&#39; locally
 Pulling from percona/percona-server
 b902d6b6048a: Pull complete
-16cef723486e: Pull complete
-66df07bf7a1c: Pull complete
-b2963ee1caa4: Pull complete
-8ff166e7ebab: Pull complete
-fc0329eb813b: Pull complete
-46522d05868c: Pull complete
-8a91dcc6141f: Pull complete
-2225668f8cee: Pull complete
-Digest: sha256:ec4cdd25ec3887a90282dda1298a475a88429953fd7e2718e22fd6e205626047  
-Status: Downloaded newer image for percona/percona-server:8.4.7
+...
 708ba1f9874cbc09441d18b1ca5d9c0a6f045b27e54aafe15fdd78eda8ef3ecf
 </code></pre></div>
 </details>
+</div>
+</div>
+</div>
 <h2 id="connect-to-the-database-instance">Connect to the database instance<a class="headerlink" href="#connect-to-the-database-instance" title="Permanent link">&para;</a></h2>
 <p>To connect to a MySQL database on a container, use the Docker exec command with the database instance connect command. You must know the name or ID of the container that runs the database server and the database credentials.</p>
 <p>The Docker exec command runs a specified command in a running container. The database instance connect command connects to a MySQL server with the user name and password.</p>
@@ -9837,16 +9872,16 @@ Status: Downloaded newer image for percona/percona-server:8.4.7
 </tbody>
 </table>
 <p>You must enter the password when the server prompts you.</p>
-<p>Connect to the database instance example</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>psmysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
+<p>Run the following to connect:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>psmysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
 </code></pre></div>
 <p>You are prompted to enter the password, which is <code>secret</code>. If you have changed the password, use your password. You will not see any characters as you type.</p>
-<div class="no-copy highlight"><pre><span></span><code>Enter password:
+<div class="highlight"><pre><span></span><code>Enter password:
 </code></pre></div>
 <p>You should see the following result.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
+<div class="highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 10
 Server version: 8.4.7 Percona Server (GPL), Release 1, Revision 238b3c02
 
@@ -9858,8 +9893,6 @@ affiliates. Other names may be trademarks of their respective
 owners.
 
 Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
-
-mysql&gt;
 </code></pre></div>
 </details>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
@@ -9874,7 +9907,7 @@ mysql&gt;
 <p>Data Loss: Always back up your data regularly outside the container volume.</p>
 </li>
 </ul>
-<h2 id="security-measures">Security measures<a class="headerlink" href="#security-measures" title="Permanent link">&para;</a></h2>
+<h2 id="security-best-practices">Security best practices<a class="headerlink" href="#security-best-practices" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p>Strong Passwords: Utilize complex, unique passwords for the root user and any additional accounts created within the container. The alphanumeric password should contain at least 12 characters. The password should include uppercase and lowercase letters, numbers, and symbols.</p>
@@ -9893,16 +9926,26 @@ mysql&gt;
 </li>
 </ul>
 <p>Remember, responsible container management and robust security practices are crucial for safeguarding your MySQL deployment. By following these guidelines, you can leverage the benefits of Docker and Percona Server while prioritizing the integrity and security of your data.</p>
-<h2 id="other-installation-methods">Other installation methods<a class="headerlink" href="#other-installation-methods" title="Permanent link">&para;</a></h2>
+<h2 id="work-with-a-database">Work with a database<a class="headerlink" href="#work-with-a-database" title="Permanent link">&para;</a></h2>
+<p><a class="md-button" href="quickstart-database-script.html">Work with a database<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p>
+<h2 id="additional-resources">Additional resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="quickstart-overview.html">Quickstart - Overview</a></li>
-<li><a href="quickstart-apt.html">Install Percona Server for MySQL on Ubuntu</a></li>
-<li><a href="quickstart-yum.html">Install Percona Server for MySQL on Oracle Linux</a></li>
-<li><a href="quickstart-cleanup.html">Clean up your installation</a></li>
-<li><a href="quickstart-next-steps.html">Next steps</a></li>
+<li>
+<p><a href="quickstart-overview.html">Quickstart - Overview</a></p>
+</li>
+<li>
+<p><a href="quickstart-apt.html">Install Percona Server for MySQL on Ubuntu</a></p>
+</li>
+<li>
+<p><a href="quickstart-yum.html">Install Percona Server for MySQL on Oracle Linux</a></p>
+</li>
+<li>
+<p><a href="quickstart-cleanup.html">Clean up your installation</a></p>
+</li>
+<li>
+<p><a href="quickstart-next-steps.html">Next steps</a></p>
+</li>
 </ul>
-<h2 id="next-step">Next step<a class="headerlink" href="#next-step" title="Permanent link">&para;</a></h2>
-<p><a class="md-button" href="quickstart-next-steps.html">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p>
 
 
 
@@ -9925,7 +9968,7 @@ mysql&gt;
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 28, 2026 14:36:55 UTC">January 28, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 29, 2026 12:56:12 UTC">January 29, 2026</span>
   </span>
 
     

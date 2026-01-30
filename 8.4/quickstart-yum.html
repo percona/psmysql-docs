@@ -2469,28 +2469,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting:
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#security-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Security Steps:
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#secure-the-installation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2502,10 +2480,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#clean-up" class="md-nav__link">
+  <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Clean up
+        Troubleshooting
       
     </span>
   </a>
@@ -2513,10 +2491,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-installation-methods" class="md-nav__link">
+  <a href="#security-best-practices" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Other installation methods
+        Security best practices
       
     </span>
   </a>
@@ -2524,10 +2502,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
+  <a href="#work-with-a-database" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next step
+        Work with a database
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional resources
       
     </span>
   </a>
@@ -9656,28 +9645,6 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting:
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#security-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Security Steps:
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#secure-the-installation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9689,10 +9656,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#clean-up" class="md-nav__link">
+  <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Clean up
+        Troubleshooting
       
     </span>
   </a>
@@ -9700,10 +9667,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-installation-methods" class="md-nav__link">
+  <a href="#security-best-practices" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Other installation methods
+        Security best practices
       
     </span>
   </a>
@@ -9711,10 +9678,21 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
+  <a href="#work-with-a-database" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next step
+        Work with a database
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional resources
       
     </span>
   </a>
@@ -9753,6 +9731,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 <h1 id="install-percona-server-for-mysql-and-create-a-database-on-oracle-linux">Install Percona Server for MySQL and create a database on Oracle Linux<a class="headerlink" href="#install-percona-server-for-mysql-and-create-a-database-on-oracle-linux" title="Permanent link">&para;</a></h1>
 <p>Use the Percona repositories to install using YUM.</p>
+<p>Quickstart path: Step 1 — Install. Next: <a href="quickstart-database-script.html">Work with a database</a> (step 2).</p>
 <p>The <code>percona-release</code> tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the <a href="https://docs.percona.com/percona-software-repositories/index.html">Percona Software Repositories Documentation</a>.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
@@ -9768,77 +9747,121 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>
 <p>Install <code>percona-release</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 </code></pre></div>
 </li>
 <li>
 <p>Set up the repository for Percona Server for MySQL 8.4:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps-84-lts
+<p>[Optional] On Red Hat 8 systems (including Rocky Linux and AlmaLinux), disable the distribution&rsquo;s MySQL module first:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql<span class="w"> </span>-y
 </code></pre></div>
-<p>On Red Hat 8 systems, you may be prompted to disable the DNF mysql module. Answer <code>y</code> to continue.</p>
+<p>Then run:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps-84-lts
+</code></pre></div>
 </li>
 <li>
 <p>Enable the release repository:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps-84-lts<span class="w"> </span>release
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps-84-lts<span class="w"> </span>release
 </code></pre></div>
 </li>
 <li>
 <p>Install Percona Server for MySQL:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
 </code></pre></div>
 </li>
 <li>
 <p>Start the MySQL service:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Retrieve the temporary password:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
 </code></pre></div>
 </li>
 <li>
 <p>Log in to the server using the temporary password:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
 Enter<span class="w"> </span>password:
 </code></pre></div>
 </li>
 <li>
 <p>Change the temporary password:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;[your password]&#39;</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span><span class="nb">exit</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;[your password]&#39;</span><span class="p">;</span>
+<span class="n">exit</span>
 </code></pre></div>
 </li>
 <li>
 <p>Log in again with the new password to verify:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
 Enter<span class="w"> </span>password:
 </code></pre></div>
 </li>
 </ol>
-<h2 id="troubleshooting">Troubleshooting:<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<p>Installation:</p>
+<h2 id="secure-the-installation">Secure the installation<a class="headerlink" href="#secure-the-installation" title="Permanent link">&para;</a></h2>
+<p>[Optional] Run the <code>mysql_secure_installation</code> script to improve security. The script helps you:</p>
 <ul>
 <li>
-<p>Verify repository is enabled: <code>sudo yum repolist</code></p>
+<p>Set a password for the root user</p>
 </li>
 <li>
-<p>Check for package conflicts: <code>sudo yum deplist percona-server-server</code></p>
+<p>Select a password validation policy level</p>
 </li>
 <li>
-<p>Consult package logs: <code>sudo journalctl -u yum</code></p>
+<p>Remove anonymous users</p>
+</li>
+<li>
+<p>Disable root login remotely</p>
+</li>
+<li>
+<p>Remove the test database</p>
+</li>
+<li>
+<p>Reload the privilege table</p>
 </li>
 </ul>
-<p>MySQL startup:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysql_secure_installation
+</code></pre></div>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p>Review system logs: <code>sudo journalctl -u mysqld</code></p>
+<p><strong>Connection issues</strong></p>
+<ul>
+<li>
+<p>Check that the MySQL service is running:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysql
+</code></pre></div>
 </li>
 <li>
-<p>Check configuration files: /etc/my.cnf</p>
+<p>If the service is not active, start it:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+</code></pre></div>
+</li>
+<li>
+<p>Try connecting with the password you set during installation:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
+Enter<span class="w"> </span>password:
+</code></pre></div>
 </li>
 </ul>
-<h2 id="security-steps">Security Steps:<a class="headerlink" href="#security-steps" title="Permanent link">&para;</a></h2>
+</li>
+<li>
+<p><strong>Permission errors</strong></p>
+<p>If MySQL reports that a user lacks permission to perform an action, grant the needed privilege. For example, to allow a user to create databases from the MySQL shell:</p>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;username&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
+</code></pre></div>
+<p>Replace <code>username</code> with your MySQL user name.</p>
+</li>
+<li>
+<p><strong>Package installation issues</strong></p>
+<p>Check the system log for errors during installation:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>mysqld<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span>
+</code></pre></div>
+<p>For specific error messages, see the <a href="index.html">Percona Server for MySQL documentation</a> or the <a href="https://forums.percona.com/">Percona community forum</a>.</p>
+</li>
+</ul>
+<h2 id="security-best-practices">Security best practices<a class="headerlink" href="#security-best-practices" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p>Keep software updated: <code>sudo yum update</code> regularly.</p>
@@ -9856,28 +9879,26 @@ Enter<span class="w"> </span>password:
 <p>Backup data regularly: Ensure robust backups for disaster recovery.</p>
 </li>
 </ul>
-<h2 id="secure-the-installation">Secure the installation<a class="headerlink" href="#secure-the-installation" title="Permanent link">&para;</a></h2>
-<p>[Optional] Run the <code>mysql_secure_installation</code> script to improve security. The script helps you:
-- Set a password for the root user
-- Select a password validation policy level
-- Remove anonymous users
-- Disable root login remotely
-- Remove the test database
-- Reload the privilege table</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mysql_secure_installation
-</code></pre></div>
-<h2 id="clean-up">Clean up<a class="headerlink" href="#clean-up" title="Permanent link">&para;</a></h2>
-<p>If you want to remove Percona Server for MySQL and clean up your system, see <a href="quickstart-cleanup.html">Clean up your installation</a>.</p>
-<h2 id="other-installation-methods">Other installation methods<a class="headerlink" href="#other-installation-methods" title="Permanent link">&para;</a></h2>
+<h2 id="work-with-a-database">Work with a database<a class="headerlink" href="#work-with-a-database" title="Permanent link">&para;</a></h2>
+<p><a class="md-button" href="quickstart-database-script.html">Work with a database<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p>
+<h2 id="additional-resources">Additional resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="quickstart-overview.html">Quickstart - Overview</a></li>
-<li><a href="quickstart-docker.html">Run Percona Server for MySQL with Docker</a></li>
-<li><a href="quickstart-apt.html">Install Percona Server for MySQL on Ubuntu</a></li>
-<li><a href="quickstart-cleanup.html">Clean up your installation</a></li>
-<li><a href="quickstart-next-steps.html">Next steps</a></li>
+<li>
+<p><a href="quickstart-overview.html">Quickstart - Overview</a></p>
+</li>
+<li>
+<p><a href="quickstart-docker.html">Run Percona Server for MySQL with Docker</a></p>
+</li>
+<li>
+<p><a href="quickstart-apt.html">Install Percona Server for MySQL on Ubuntu</a></p>
+</li>
+<li>
+<p><a href="quickstart-cleanup.html">Clean up your installation</a></p>
+</li>
+<li>
+<p><a href="quickstart-next-steps.html">Next steps</a></p>
+</li>
 </ul>
-<h2 id="next-step">Next step<a class="headerlink" href="#next-step" title="Permanent link">&para;</a></h2>
-<p><a class="md-button" href="quickstart-next-steps.html">Choose your next steps<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a></p>
 
 
 
@@ -9900,7 +9921,7 @@ Enter<span class="w"> </span>password:
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 28, 2026 14:36:55 UTC">January 28, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 29, 2026 12:56:12 UTC">January 29, 2026</span>
   </span>
 
     
