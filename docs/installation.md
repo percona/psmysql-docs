@@ -6,6 +6,10 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 
 We recommend using the repositories that Percona provides to simplify the installation process. The `percona-release` tool makes installing and updating your software and its dependencies easy using your operating system package manager. The Percona Software repositories contain YUM (`RPM` packages for Red Hat Enterprise Linux and derivatives) and APT (`DEB` packages for Ubuntu and Debian) for Percona software such as Percona Server for MySQL, Percona XtraBackup, and Percona Toolkit.
 
+!!! warning "Percona Tools repository deprecated"
+
+    The Percona Tools repository is deprecated and should not be used.
+
 For more information, see [Percona Software repositories and the percona-release tool].
 
 To get started quickly, use the [Quickstart guide]. You can find instructions for either Docker or installing with a package manager.
