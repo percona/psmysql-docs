@@ -25496,7 +25496,7 @@ Hit:4 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>* Disabling all Percona Repositories
 * Enabling the Percona Server 8.0 repository
-* Enabling the Percona Tools repository
+...
 Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
 Hit:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease
 Hit:3 http://repo.percona.com/prel/apt jammy InRelease
@@ -25963,7 +25963,6 @@ Error: Problems in request:
 missing groups or modules: mysql
 DNF mysql module was disabled
 * Enabling the Percona Server 8.0 repository
-* Enabling the Percona Tools repository
 &lt;*&gt; All done!
 </code></pre></div>
 </details>
@@ -25986,7 +25985,7 @@ DNF mysql module was disabled
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Percona Server 8.0 release/x86_64 YUM repository                                             1.0 MB/s | 2.3 MB     00:02
-Percona Tools release/x86_64 YUM repository                                                  761 kB/s | 1.1 MB     00:01
+...
 Last metadata expiration check: 0:00:01 ago on Fri 16 Feb 2024 03:07:45 PM UTC.
 Dependencies resolved.
 …
@@ -26433,6 +26432,10 @@ All done!
 <p>Before installing, review the <a href="#release-notes-release-notes_index">Percona Server for MySQL 8.0 Release notes</a>.</p>
 <p>We gather <a href="#telemetry">Telemetry data</a> in the Percona packages and Docker images.</p>
 <p>We recommend using the repositories that Percona provides to simplify the installation process. The <code>percona-release</code> tool makes installing and updating your software and its dependencies easy using your operating system package manager. The Percona Software repositories contain YUM (<code>RPM</code> packages for Red Hat Enterprise Linux and derivatives) and APT (<code>DEB</code> packages for Ubuntu and Debian) for Percona software such as Percona Server for MySQL, Percona XtraBackup, and Percona Toolkit.</p>
+<div class="admonition warning">
+<p class="admonition-title">Percona Tools repository deprecated</p>
+<p>The Percona Tools repository is deprecated and should not be used.</p>
+</div>
 <p>For more information, see <a href="#percona-release">Percona Software repositories and the percona-release tool</a>.</p>
 <p>To get started quickly, use the <a href="#quickstart-overview">Quickstart guide</a>. You can find instructions for either Docker or installing with a package manager.</p>
 <p>Review <a href="#get-help">Get more help</a> for ways that we can work with you.</p>
@@ -26845,11 +26848,10 @@ Percona Server for MySQL Pro includes the [capabilities](psmysql-pro.md#capabili
 </div>
 <!-- === "Install on Red Hat 7"
 
-    The first command uses `yum` to install the Percona repository from the Percona website. The second command enables the `ps-80` release series of the Percona Server. The third command allows the `tools` repository. This repository contains additional Percona software. The fourth command installs Percona Server for MySQL.
+    The first command uses `yum` to install the Percona repository from the Percona website. The second enables the `ps-80` release series of Percona Server; the third installs Percona Server for MySQL.
 
     <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-80<span class="w"> </span>release
-sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>tools<span class="w"> </span>release
 sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 
