@@ -206,7 +206,6 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 		```text
 		* Enabling Percona Server for MySQL 8.4 LTS repository
-		* Enabling Percona Tools repository
 		* Running apt-get update...
 		Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
 		Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
