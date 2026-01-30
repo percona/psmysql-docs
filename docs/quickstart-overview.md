@@ -4,29 +4,19 @@ Percona Server for MySQL is a freely available, fully compatible, enhanced, and 
 
 --8<--- "get-help-snip.md"
 
-## Install Percona Server for MySQL
+## Quickstart path
 
+Follow this path to install Percona Server for MySQL, work with a database, and learn next steps:
 
-You can explore alternative installation options in the [Install](installation.md) section of the Percona Server for MySQL documentation.
+1. Choose an [installation method](#install-method)
 
+2. Work with a database — create a database and run queries
 
-## Purpose of the Quickstart
+3. Clean up your installation (optional) — when you are finished
 
-This document guides you through the initial setup process, including setting a root password in either APT or YUM, creating a database.
+4. Next steps — ideas for further learning
 
-You can also do the following:
-
-* [Download and install Percona Server for MySQL packages for your operating system](installation.md)
-
-* Work with [the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Helm :octicons-link-external-16:](https://docs.percona.com/percona-operator-for-mysql/ps/helm.html) or [the Quickstart for the Percona Operator for MySQL based on the Percona Server for MySQL using Minikube :octicons-link-external-16:](https://docs.percona.com/percona-operator-for-mysql/ps/minikube.html) to find out more about the Percona Operator.
-
-
-## Steps for first-time users
-
-The following guides walk you through the setup process and working with a database for a developer. Select the installation method that works best in your environment.
-
-
-## Next steps
+## Install method
 
 [Run Percona Server for MySQL with Docker:material-arrow-right:](quickstart-docker.md){.md-button}
 
@@ -36,5 +26,8 @@ The following guides walk you through the setup process and working with a datab
 
 ## Additional resources
 
-- [Clean up your installation](quickstart-cleanup.md)
-- [Next steps](quickstart-next-steps.md)
+* [Work with a database](quickstart-database-script.md)
+
+* [Clean up your installation](quickstart-cleanup.md)
+
+* [Next steps](quickstart-next-steps.md)

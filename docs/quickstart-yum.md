@@ -2,6 +2,8 @@
 
 Use the Percona repositories to install using YUM.
 
+Quickstart path: Step 1 — Install. Next: [Work with a database](quickstart-database-script.md) (step 2).
+
 --8<-- "percona-release.md"
 
 ## Prerequisites
@@ -16,82 +18,137 @@ Use the Percona repositories to install using YUM.
 
 1. Install `percona-release`:
 
-    ```{.bash data-prompt="$"}
-    $ sudo yum install -y https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+    ```shell
+    sudo yum install -y https://repo.percona.com/yum/percona-release-latest.noarch.rpm
     ```
 
 2. Set up the repository for Percona Server for MySQL 8.4:
 
-    ```{.bash data-prompt="$"}
-    $ sudo percona-release setup {{pkg}}
+    [Optional] On Red Hat 8 systems (including Rocky Linux and AlmaLinux), disable the distribution's MySQL module first:
+
+    ```shell
+    sudo dnf module disable mysql -y
     ```
 
-    On Red Hat 8 systems, you may be prompted to disable the DNF mysql module. Answer `y` to continue.
+    Then run:
+
+    ```shell
+    sudo percona-release setup {{pkg}}
+    ```
 
 3. Enable the release repository:
 
-    ```{.bash data-prompt="$"}
-    $ sudo percona-release enable {{pkg}} release
+    ```shell
+    sudo percona-release enable {{pkg}} release
     ```
 
 4. Install Percona Server for MySQL:
 
-    ```{.bash data-prompt="$"}
-    $ sudo yum install -y percona-server-server
+    ```shell
+    sudo yum install -y percona-server-server
     ```
 
 5. Start the MySQL service:
 
-    ```{.bash data-prompt="$"}
-    $ sudo systemctl restart mysql
+    ```shell
+    sudo systemctl restart mysql
     ```
 
 6. Retrieve the temporary password:
 
-    ```{.bash data-prompt="$"}
-    $ sudo grep 'temporary password' /var/log/mysqld.log
+    ```shell
+    sudo grep 'temporary password' /var/log/mysqld.log
     ```
 
 7. Log in to the server using the temporary password:
 
-    ```{.bash data-prompt="$"}
-    $ mysql -uroot -p
+    ```shell
+    mysql -uroot -p
     Enter password:
     ```
 
 8. Change the temporary password:
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY '[your password]';
-    mysql> exit
+    ```sql
+    ALTER USER 'root'@'localhost' IDENTIFIED BY '[your password]';
+    exit
     ```
 
 9. Log in again with the new password to verify:
 
-    ```{.bash data-prompt="$"}
-    $ mysql -uroot -p
+    ```shell
+    mysql -uroot -p
     Enter password:
     ```
 
+## Secure the installation
+
+[Optional] Run the `mysql_secure_installation` script to improve security. The script helps you:
+
+* Set a password for the root user
+
+* Select a password validation policy level
+
+* Remove anonymous users
+
+* Disable root login remotely
+
+* Remove the test database
+
+* Reload the privilege table
+
+```shell
+sudo mysql_secure_installation
+```
+
 --8<-- "quickstart-database-script.md"
 
-## Troubleshooting:
+## Troubleshooting
 
-Installation:
+* **Connection issues**
 
-* Verify repository is enabled: `sudo yum repolist`
+    * Check that the MySQL service is running:
 
-* Check for package conflicts: `sudo yum deplist percona-server-server`
+        ```shell
+        sudo systemctl status mysql
+        ```
 
-* Consult package logs: `sudo journalctl -u yum`
+    * If the service is not active, start it:
 
-MySQL startup:
+        ```shell
+        sudo systemctl start mysql
+        ```
 
-* Review system logs: `sudo journalctl -u mysqld`
+    * Try connecting with the password you set during installation:
 
-* Check configuration files: /etc/my.cnf
+        ```shell
+        mysql -uroot -p
+        Enter password:
+        ```
 
-## Security Steps:
+* **Permission errors**
+
+    If MySQL reports that a user lacks permission to perform an action, grant the needed privilege. For example, to allow a user to create databases from the MySQL shell:
+
+    ```sql
+    GRANT CREATE ON *.* TO 'username'@'localhost';
+    FLUSH PRIVILEGES;
+    ```
+
+    Replace `username` with your MySQL user name.
+
+* **Package installation issues**
+
+    Check the system log for errors during installation:
+
+    ```shell
+    sudo journalctl -u mysqld -n 50
+    ```
+
+    For specific error messages, see the [Percona Server for MySQL documentation](index.md) or the [Percona community forum](https://forums.percona.com/).
+
+
+## Security best practices
 
 * Keep software updated: `sudo yum update` regularly.
 
@@ -103,32 +160,21 @@ MySQL startup:
 
 * Backup data regularly: Ensure robust backups for disaster recovery.
 
-## Secure the installation
 
-[Optional] Run the `mysql_secure_installation` script to improve security. The script helps you:
-- Set a password for the root user
-- Select a password validation policy level
-- Remove anonymous users
-- Disable root login remotely
-- Remove the test database
-- Reload the privilege table
+## Work with a database
 
-```{.bash data-prompt="$"}
-$ sudo mysql_secure_installation
-```
+[Work with a database:material-arrow-right:](quickstart-database-script.md){.md-button}
 
-## Clean up
+## Additional resources
 
-If you want to remove Percona Server for MySQL and clean up your system, see [Clean up your installation](quickstart-cleanup.md).
+* [Quickstart - Overview](quickstart-overview.md)
 
-## Other installation methods
+* [Run Percona Server for MySQL with Docker](quickstart-docker.md)
 
-- [Quickstart - Overview](quickstart-overview.md)
-- [Run Percona Server for MySQL with Docker](quickstart-docker.md)
-- [Install Percona Server for MySQL on Ubuntu](quickstart-apt.md)
-- [Clean up your installation](quickstart-cleanup.md)
-- [Next steps](quickstart-next-steps.md)
+* [Install Percona Server for MySQL on Ubuntu](quickstart-apt.md)
 
-## Next step
+* [Clean up your installation](quickstart-cleanup.md)
 
-[Choose your next steps:material-arrow-right:](quickstart-next-steps.md){.md-button}
+* [Next steps](quickstart-next-steps.md)
+
+

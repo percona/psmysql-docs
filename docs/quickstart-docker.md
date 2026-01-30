@@ -1,63 +1,89 @@
 # Quickstart - Run Percona Server for MySQL container images with Docker
 
-You are welcome to name any items to match your organization's standards or use your table structure and data. If you do, the results are different from the expected results.
+**Quickstart path:** Step 1 — Install. Next: [Work with a database](quickstart-database-script.md) (step 2).
 
 ## Prerequisites
 
-* Docker Engine installed and running
+* Docker Engine and Docker Compose installed and running
+
 * Stable internet connection
+
 * Basic understanding of the command-line interface (CLI)
 
 Always adapt the commands and configurations to your specific environment and security requirements.
 
-
 ## Start a Docker container
 
-To use the "Docker run" command, specify the name or ID of the image you want to use and, optionally, some flags and arguments that modify the container's behavior. The command has the following options:
+Choose one of the following methods:
 
-| Option | Description |
-|---|---|
-| `-d` | Runs the container in detached mode, allowing the container to operate in the background. |
-| `-p 3306:3306` |Maps the container's MySQLport (3306) to the same port as your host, enabling external access.|
-| `--name psmysql` | Provides a meaningful name to the container. If you do not use this option, Docker adds a random name. |
-| `-e MYSQL_ROOT_PASSWORD=secret` | Adds an environmental variable and changes the password from the default password. |
-|  `--v myvol:/var/lib/mysql` | Mounts a host directory (myvol) as the container's data volume, ensuring persistent storage for the database between container lifecycles. |
-| `percona/percona-server:{{tag}}` | The image with the tag ({{tag}}) to specify a specific release. |
+=== "Docker Compose"
 
-You must provide at least one environment variable to access the database, such as `MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE`, `MYSQL_USER`, and `MYSQL_PASSWORD` or the instance refuses to initialize.
+    1. Create a directory and add a `docker-compose.yml` file:
 
-If needed, you can replace the `secret` password with a [stronger password](#security-measures).
+        ```yaml
+        services:
+          mysql:
+            image: percona/percona-server:{{tag}}
+            container_name: psmysql
+            ports:
+              - "3306:3306"
+            environment:
+              MYSQL_ROOT_PASSWORD: secret
+            volumes:
+              - myvol:/var/lib/mysql
+            restart: unless-stopped
+        volumes:
+          myvol:
+        ```
 
-For this document, we add the `{{tag}}` tag. In Docker, a tag is a label assigned to an image and is used to maintain different versions of an image. If we did not add a tag, Docker uses `latest` as the default tag and downloads the latest image from [percona/percona-server on the Docker Hub :octicons-link-external-16:](https://hub.docker.com/r/percona/percona-server).
+        To run the Docker ARM64 version of Percona Server for MySQL, use the `{{arm_tag}}` tag instead of `{{tag}}` in the `image` line. If needed, you can replace the `secret` password with a [stronger password](#security-best-practices).
 
-To run the Docker ARM64 version of Percona Server for MySQL, use the `{{arm_tag}}` tag instead of `{{tag}}`.
+    2. Start the container:
 
-```{.bash data-prompt="$"}
-$ docker run -d -p 3306:3306 --name psmysql \
---platform linux/amd64 \
--e MYSQL_ROOT_PASSWORD=secret \
--v myvol:/var/lib/mysql \
-percona/percona-server:{{tag}}
-```
+        ```shell
+        docker compose up -d
+        ```
 
-??? example "Expected output"
+        ??? example "Expected output"
 
-    ```{.text .no-copy}
-    Unable to find image 'percona/percona-server:{{tag}}' locally
-    Pulling from percona/percona-server
-    b902d6b6048a: Pull complete
-    16cef723486e: Pull complete
-    66df07bf7a1c: Pull complete
-    b2963ee1caa4: Pull complete
-    8ff166e7ebab: Pull complete
-    fc0329eb813b: Pull complete
-    46522d05868c: Pull complete
-    8a91dcc6141f: Pull complete
-    2225668f8cee: Pull complete
-    Digest: sha256:ec4cdd25ec3887a90282dda1298a475a88429953fd7e2718e22fd6e205626047  
-    Status: Downloaded newer image for percona/percona-server:{{tag}}
-    708ba1f9874cbc09441d18b1ca5d9c0a6f045b27e54aafe15fdd78eda8ef3ecf
+            ```text
+            [+] Running 2/2
+             ✔ Network quickstart_default  Created
+             ✔ Container psmysql           Started
+            ```
+
+=== "docker run"
+
+    If you prefer to run the container manually, use the following. The command has the following options:
+
+    | Option | Description |
+    |--------|--------------|
+    | `-d` | Runs the container in detached mode. |
+    | `-p 3306:3306` | Maps the container's MySQL port (3306) to the same port on your host. |
+    | `--name psmysql` | Container name (required for the connect step below). |
+    | `-e MYSQL_ROOT_PASSWORD=secret` | Sets the root password. |
+    | `-v myvol:/var/lib/mysql` | Named volume for persistent storage. |
+    | `percona/percona-server:{{tag}}` | Image and tag for the release. |
+
+    You must set at least one environment variable (for example `MYSQL_ROOT_PASSWORD`) or the instance refuses to initialize. For more on tags and images, see [percona/percona-server on the Docker Hub :octicons-link-external-16:](https://hub.docker.com/r/percona/percona-server). For ARM64, use the `{{arm_tag}}` tag instead of `{{tag}}`.
+
+    ```shell
+    docker run -d -p 3306:3306 --name psmysql \
+    --platform linux/amd64 \
+    -e MYSQL_ROOT_PASSWORD=secret \
+    -v myvol:/var/lib/mysql \
+    percona/percona-server:{{tag}}
     ```
+
+    ??? example "Expected output"
+
+        ```text
+        Unable to find image 'percona/percona-server:{{tag}}' locally
+        Pulling from percona/percona-server
+        b902d6b6048a: Pull complete
+        ...
+        708ba1f9874cbc09441d18b1ca5d9c0a6f045b27e54aafe15fdd78eda8ef3ecf
+        ```
 
 ## Connect to the database instance
 
@@ -77,15 +103,15 @@ For this example, we have the following options:
 
 You must enter the password when the server prompts you.
 
-Connect to the database instance example
+Run the following to connect:
 
-```{.bash data-prompt="$"}
-$ docker exec -it psmysql mysql -uroot -p
+```shell
+docker exec -it psmysql mysql -uroot -p
 ```
 
 You are prompted to enter the password, which is `secret`. If you have changed the password, use your password. You will not see any characters as you type.
 
-```{.text .no-copy}
+```text
 Enter password:
 ```
 
@@ -93,7 +119,7 @@ You should see the following result.
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 10
     Server version: {{tag}} Percona Server (GPL), Release 1, Revision 238b3c02
@@ -106,13 +132,7 @@ You should see the following result.
     owners.
 
     Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-    mysql>
     ```
-
---8<-- "quickstart-database-script.md"
-
---8<-- "quickstart-cleanup.md"
 
 ## Troubleshooting
 
@@ -122,7 +142,7 @@ You should see the following result.
 
 * Data Loss: Always back up your data regularly outside the container volume.
 
-## Security measures
+## Security best practices
 
 * Strong Passwords: Utilize complex, unique passwords for the root user and any additional accounts created within the container. The alphanumeric password should contain at least 12 characters. The password should include uppercase and lowercase letters, numbers, and symbols.
 
@@ -136,14 +156,22 @@ You should see the following result.
 
 Remember, responsible container management and robust security practices are crucial for safeguarding your MySQL deployment. By following these guidelines, you can leverage the benefits of Docker and Percona Server while prioritizing the integrity and security of your data.
 
-## Other installation methods
+--8<-- "quickstart-database-script.md"
 
-- [Quickstart - Overview](quickstart-overview.md)
-- [Install Percona Server for MySQL on Ubuntu](quickstart-apt.md)
-- [Install Percona Server for MySQL on Oracle Linux](quickstart-yum.md)
-- [Clean up your installation](quickstart-cleanup.md)
-- [Next steps](quickstart-next-steps.md)
+--8<-- "quickstart-cleanup.md"
 
-## Next step
+## Work with a database
 
-[Choose your next steps:material-arrow-right:](quickstart-next-steps.md){.md-button}
+[Work with a database:material-arrow-right:](quickstart-database-script.md){.md-button}
+
+## Additional resources
+
+* [Quickstart - Overview](quickstart-overview.md)
+
+* [Install Percona Server for MySQL on Ubuntu](quickstart-apt.md)
+
+* [Install Percona Server for MySQL on Oracle Linux](quickstart-yum.md)
+
+* [Clean up your installation](quickstart-cleanup.md)
+
+* [Next steps](quickstart-next-steps.md)

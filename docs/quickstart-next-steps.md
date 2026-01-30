@@ -1,73 +1,79 @@
 # Next steps
 
-After creating a database and running queries, you have taken the first steps to become a MySQL beginner developer. However, there is still more to learn and practice to improve your skills and knowledge. Some of the next steps you can take are learning and using the following:
+You have the basics. To go further with Percona Server for MySQL, consider:
 
-- Familiarize yourself with the different data types, such as integers, strings, dates, and booleans, and choose the right one for your data.
+* Data types — Choose the right types (integers, strings, dates, booleans) for your data.
 
-- Create and use indexes to optimize the performance of your queries and reduce the load on your database server.
+* Indexes — Create and use indexes to improve query performance.
 
-- Combine data from multiple tables and sources using joins, subqueries, and unions.
+* Joins and subqueries — Combine data from multiple tables.
 
-- Use functions, procedures, triggers, and views to encapsulate the logic, automate the tasks, and create reusable components.
+* Functions, procedures, triggers, views — Encapsulate logic and automate tasks.
 
-- Use transactions, locks, and isolation levels to ensure data integrity and consistency in concurrent operations.
+* Transactions and isolation levels — Ensure data integrity with concurrent operations.
 
-- Use backup and restore tools to protect your data from loss or corruption.
+* Backup and restore — Protect your data from loss or corruption.
 
-- Use security features, such as users, roles, privileges, and encryption, to protect your data from unauthorized access or modification.
+* Security — Use users, roles, privileges, and encryption.
 
-- Use debugging and testing tools like logs, error messages, breakpoints, and assertions to identify and fix errors in your code or queries.
+* Debugging and testing — Use logs, error messages, and assertions to find and fix issues.
 
-- Use documentation and commenting tools, such as comments, diagrams, schemas, and manuals, to explain and document your code or queries.
+For full details, see the [Percona Server for MySQL documentation](index.md). 
 
-These tasks will expand your knowledge and skills in using Percona Server for MySQL and become more confident and proficient in developing database applications.
+## Other database servers you might try
 
-Review the [Percona Server for MySQL documentation](index.md) for more information. 
+Percona offers quickstart guides for MongoDB and PostgreSQL if you want to try another database server.
 
-## Other Percona products
+* [Percona Server for MongoDB - Quickstart guides :octicons-link-external-16:](https://docs.percona.com/percona-server-for-mongodb/8.0/install/index.html)
+
+* [Percona Distribution for PostgreSQL - Quickstart guide :octicons-link-external-16:](https://docs.percona.com/postgresql/latest/installing.html)
+
+## Related Percona products
 
 ### For backups and restores
 
-Percona XtraBackup (PXB) is a 100% open source backup solution for all versions of Percona Server for MySQL and MySQL® that performs online non-blocking, tightly compressed, highly secure full backups on transactional systems. Maintain fully available applications during planned maintenance windows with Percona XtraBackup.
+Percona XtraBackup performs online, non-blocking full backups for Percona Server for MySQL and MySQL®.
 
-[Install Percona XtraBackup :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/{{vers}}/installation.html)
+[Percona XtraBackup Quickstart overview :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/{{vers}}/quickstart-overview.html)
 
 ### For monitoring and management
 
-Percona Monitoring and Management (PMM )monitors and provides actionable performance data for MySQL variants, including Percona Server for MySQL, Percona XtraDB Cluster, Oracle MySQL Community Edition, Oracle MySQL Enterprise Edition, and MariaDB. PMM captures metrics and data for the InnoDB, XtraDB, and MyRocks storage engines, and has specialized dashboards for specific engine details.
+Percona Monitoring and Management (PMM) monitors MySQL variants and provides metrics, dashboards, and actionable performance data.
 
 [Install PMM and connect your MySQL instances to it :octicons-link-external-16:](https://docs.percona.com/percona-monitoring-and-management/get-started/index.html).
 
 ### For high availability
 
-Percona XtraDB Cluster (PXC) is a 100% open source, enterprise-grade, highly available clustering solution for MySQL multi-master setups based on Galera. PXC helps enterprises minimize unexpected downtime and data loss, reduce costs, and improve the performance and scalability of their database environments, supporting their critical business applications in the most demanding public, private, and hybrid cloud environments.
+Percona XtraDB Cluster (PXC) is an open source, highly available clustering solution for MySQL based on Galera.
 
-[Percona XtraDB Cluster Quick Start guide :octicons-link-external-16:](https://docs.percona.com/percona-xtradb-cluster/{{vers}}/quickstart-overview.html)
+[Percona XtraDB Cluster Quickstart overview :octicons-link-external-16:](https://docs.percona.com/percona-xtradb-cluster/{{vers}}/quickstart-overview.html)
 
 ### Advanced command-line tools
 
-Percona Toolkit is a collection of advanced command-line tools used by the Percona support staff to perform various MySQL, MongoDB, and system tasks that are complex or difficult to perform manually. These tools are ideal alternatives to “one-off” scripts because they are professionally developed, formally tested, and documented. Each tool is self-contained, so installation is quick and easy and does not install libraries.
+Percona Toolkit is a collection of command-line tools for MySQL and MongoDB tasks that are complex or tedious to do manually.
 
 [Percona Toolkit documentation :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/)
 
 ### Operators
 
-Percona Operator for MySQL and Percona Operator for MySQL based on Percona XtraDB Cluster are tools designed to simplify the deployment, management, and scaling of MySQL and Percona XtraDB Cluster (PXC) instances in Kubernetes environments. These operators automate various database tasks such as backups, recovery, and updates, ensuring high availability and reliability. They provide robust features like automated failover, self-healing, and seamless scaling, which help maintain optimal database performance and reduce manual intervention. By leveraging Kubernetes' orchestration capabilities, these operators enhance the efficiency and resilience of MySQL and PXC deployments, making them well-suited for modern cloud-native applications.
+Percona Operator for MySQL and Percona Operator for MySQL based on Percona XtraDB Cluster simplify deploying and managing MySQL and PXC in Kubernetes, with automated failover, self-healing, and scaling.
 
 [Percona Operator for MySQL Documentation :octicons-link-external-16:](https://docs.percona.com/percona-operator-for-mysql/ps/)
 
-[Percona Operator for MySQL based on Percona XtraDB Cluster :octicons-link-external-16:](https://docs.percona.com/percona-operator-for-mysql/pxc/)
+[Percona Operator for MySQL - Quickstart overview :octicons-link-external-16:](https://docs.percona.com/percona-operator-for-mysql/ps/quickstart.html)
 
-### Cloud-native database services
+[Percona Operator for MySQL based on Percona XtraDB Cluster - Quickstart overview :octicons-link-external-16:](https://docs.percona.com/percona-operator-for-mysql/ps/quickstart.html)
 
-Percona Everest is an open-source cloud-native database platform that helps developers deploy code faster, scale deployments rapidly, and reduce database administration overhead while regaining control over their data, database configuration, and DBaaS costs.
+## Additional resources
 
-[Percona Everest :octicons-link-external-16:](https://docs.percona.com/everest/index.html)
+* [Quickstart - Overview](quickstart-overview.md)
 
-## Other installation methods
+* [Run Percona Server for MySQL with Docker](quickstart-docker.md)
 
-- [Quickstart - Overview](quickstart-overview.md)
-- [Run Percona Server for MySQL with Docker](quickstart-docker.md)
-- [Install Percona Server for MySQL on Ubuntu](quickstart-apt.md)
-- [Install Percona Server for MySQL on Oracle Linux](quickstart-yum.md)
-- [Clean up your installation](quickstart-cleanup.md)
+* [Install Percona Server for MySQL on Ubuntu](quickstart-apt.md)
+
+* [Install Percona Server for MySQL on Oracle Linux](quickstart-yum.md)
+
+* [Work with a database](quickstart-database-script.md)
+
+* [Clean up your installation](quickstart-cleanup.md)
