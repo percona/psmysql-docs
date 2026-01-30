@@ -32,7 +32,7 @@ DELETE FROM table_name
 
 This example deletes all rows from the `orders` table where the `order_date` is before January 1, 2023.
 
-```{.bash data-prompt="mysql>"}
+```sql
 DELETE FROM orders
 WHERE order_date < '2023-01-01';
 ```

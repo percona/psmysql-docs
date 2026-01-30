@@ -18,8 +18,8 @@ ENCRYPTION clause in the CREATE SCHEMA or CREATE TABLESPACE statement.
 You can set the `default_table_encryption` variable in an individual
 connection.
 
-```{.bash data-prompt="mysql>"}
-mysql> SET default_table_encryption=ON;
+```sql
+SET default_table_encryption=ON;
 ```
 
 ## `default_table_encryption`
@@ -69,8 +69,8 @@ file merges used in queries and backend processes.
 If you do not set the default encryption setting, you can create general
 tablespaces with the `ENCRYPTION` setting.
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE TABLESPACE tablespace_name ENCRYPTION='Y';
+```sql
+CREATE TABLESPACE tablespace_name ENCRYPTION='Y';
 ```
 
 All tables contained in the tablespace are either encrypted or not encrypted.
@@ -83,13 +83,13 @@ The option is a tablespace attribute and is not allowed with the `CREATE TABLE` 
 In an encrypted general tablespace, an attempt to create an unencrypted table
 generates the following error:
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE TABLE t3 (a INT, b TEXT) TABLESPACE foo ENCRYPTION='N';
+```sql
+CREATE TABLE t3 (a INT, b TEXT) TABLESPACE foo ENCRYPTION='N';
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     ERROR 1478 (HY0000): InnoDB: Tablespace 'foo' can contain only ENCRYPTED tables.
     ```
 

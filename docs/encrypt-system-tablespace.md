@@ -4,11 +4,11 @@ By default, the system tablespace, which contains the system database and the da
 
 In an `ALTER TABLESPCE` statement, add the `ENCRYPTION` option with the tablespace name to enable encryption.
 
-```{.bash data-prompt="mysql>"}
-mysql> ALTER TABLESPACE mysql ENCRYPTION='Y';
+```sql
+ALTER TABLESPACE mysql ENCRYPTION='Y';
 ```
 Disable encryption by setting the `ENCRYPTION` option to 'N".
 
-```{.bash data-prompt="mysql>"}
-mysql> ALTER TABLESPACE mysql ENCRYPTION='N';
+```sql
+ALTER TABLESPACE mysql ENCRYPTION='N';
 ```

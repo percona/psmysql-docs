@@ -6,35 +6,35 @@ website or by generating your own by following the instructions above ([Installi
 
 Extract the source tarball:
 
-```{.bash data-prompt="$"}
-$ tar xfz Percona-Server-{{release}}-Linux.x86_64.ssl102.tar.gz
-$ cd Percona-Server-{{release}}
+```shell
+tar xfz Percona-Server-{{release}}-Linux.x86_64.ssl102.tar.gz
+cd Percona-Server-{{release}}
 ```
 
 Copy the Debian packaging in the directory that Debian expects it to be in:
 
-```{.bash data-prompt="$"}
-$ cp -ap build-ps/debian debian
+```shell
+cp -ap build-ps/debian debian
 ```
 <!-- Do we need this part --->
 Update the changelog for your distribution (here we update for the unstable
 distribution - sid), setting the version number appropriately. The trailing one
 in the version number is the revision of the Debian packaging.
 
-```{.bash data-prompt="$"}
-$ dch -D unstable --force-distribution -v "8.0.13-3-1" "Update to 8.0.13-3"
+```shell
+dch -D unstable --force-distribution -v "8.0.13-3-1" "Update to 8.0.13-3"
 ```
 
 Build the Debian source package:
 
-```{.bash data-prompt="$"}
-$ dpkg-buildpackage -S
+```shell
+dpkg-buildpackage -S
 ```
 
 Use sbuild to build the binary package in a chroot:
 
-```{.bash data-prompt="$"}
-$ sbuild -d sid percona-server-{{vers}}_{{release}}.dsc
+```shell
+sbuild -d sid percona-server-{{vers}}_{{release}}.dsc
 ```
 
 You can give different distribution options to `dch` and `sbuild` to build binary

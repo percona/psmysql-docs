@@ -4,14 +4,14 @@ Download the packages from [Percona Product Downloads :octicons-link-external-16
 
 The following example downloads Percona Server for MySQL {{release}} release packages for Ubuntu 22.04:
 
-```{.bash data-prompt="$"}
-$ wget https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.0-1/binary/debian/jammy/x86_64/Percona-Server-8.4.0-1-r238b3c02-jammy-x86_64-bundle.tar
+```shell
+wget https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.0-1/binary/debian/jammy/x86_64/Percona-Server-8.4.0-1-r238b3c02-jammy-x86_64-bundle.tar
 ```
 
 Unpack the download to get the packages:
 
-```{.bash data-prompt="$"}
-$ tar xvf Percona-Server-8.4.0-1-r71449379-buster-x86_64-bundle.tar
+```shell
+tar xvf Percona-Server-8.4.0-1-r71449379-buster-x86_64-bundle.tar
 ```
 ??? example "Expected output"
 
@@ -30,8 +30,8 @@ $ tar xvf Percona-Server-8.4.0-1-r71449379-buster-x86_64-bundle.tar
 
 Install Percona Server for MySQL using `dpkg`. Run this command as root or use the sudo command:
 
-```{.bash data-prompt="$"}
-$ sudo dpkg -i *.deb
+```shell
+sudo dpkg -i *.deb
 ```
 
 !!! warning

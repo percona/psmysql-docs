@@ -2,8 +2,8 @@
 
 For later of Percona Server for MySQL, the tar files are organized by the `glibc2` version. You can find this version on your operating system with the following command:
 
-```{.bash data-prompt="$"}
-$ ldd --version
+```shell
+ldd --version
 ```
 
 ??? example "Expected output"
