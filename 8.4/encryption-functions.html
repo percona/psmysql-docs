@@ -9998,7 +9998,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Use the <a href="https://dev.mysql.com/doc/refman/8.4/en/install-component.html">Install Component Statement</a> to add the component_encryption_udf component. The functions and variables are available. The user-defined functions and the Encryption threshold variables are auto-registered. There is no requirement to invoke <code>CREATE FUNCTION ... SONAME ...</code>.</p>
 <p>The <code>INSERT</code> privilege on the <code>mysql.component</code> system table is required to run the <code>INSTALL COMPONENT</code> statement. The operation adds a row to this table to register the component.</p>
 <p>The following is an example of the installation command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -10691,24 +10691,24 @@ OpenSSL defines the parameter length limits. To change the maximum parameter len
 <p>Decrypt data</p>
 </li>
 </ul>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Set<span class="w"> </span>Global<span class="w"> </span>variable
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span>encryption_udf.dh_bits_threshold<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4096</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Set Global variable</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">encryption_udf</span><span class="p">.</span><span class="n">dh_bits_threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4096</span><span class="p">;</span>
 
---<span class="w"> </span>Set<span class="w"> </span>Global<span class="w"> </span>variable
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span>encryption_udf.rsa_bits_threshold<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4096</span><span class="p">;</span>
+<span class="c1">-- Set Global variable</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">encryption_udf</span><span class="p">.</span><span class="n">rsa_bits_threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4096</span><span class="p">;</span>
 </code></pre></div>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Create<span class="w"> </span>private<span class="w"> </span>key
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@private_key<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Create private key</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_priv_key</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3072</span><span class="p">);</span>
 
---<span class="w"> </span>Create<span class="w"> </span>public<span class="w"> </span>key
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@public_key<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_pub_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span>@private_key<span class="o">)</span><span class="p">;</span>
+<span class="c1">-- Create public key</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">public_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_pub_key</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="p">);</span>
 
---<span class="w"> </span>Encrypt<span class="w"> </span>data<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>private<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>you<span class="w"> </span>can<span class="w"> </span>also<span class="w"> </span>use<span class="w"> </span>the<span class="w"> </span>public<span class="w"> </span>key<span class="o">)</span>
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@ciphertext<span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_encrypt<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="s1">&#39;This text is secret&#39;</span>,<span class="w"> </span>@private_key<span class="o">)</span><span class="p">;</span>
+<span class="c1">-- Encrypt data using the private key (you can also use the public key)</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">ciphertext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_encrypt</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This text is secret&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="p">);</span>
 
---<span class="w"> </span>Decrypt<span class="w"> </span>data<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>public<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>you<span class="w"> </span>can<span class="w"> </span>also<span class="w"> </span>use<span class="w"> </span>the<span class="w"> </span>private<span class="w"> </span>key<span class="o">)</span>
---<span class="w"> </span>The<span class="w"> </span>decrypted<span class="w"> </span>value<span class="w"> </span>@plaintext<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span>identical<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>original<span class="w"> </span><span class="s1">&#39;This text is secret&#39;</span>
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@plaintext<span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_decrypt<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span>@ciphertext,<span class="w"> </span>@public_key<span class="o">)</span><span class="p">;</span>
+<span class="c1">-- Decrypt data using the public key (you can also use the private key)</span>
+<span class="c1">-- The decrypted value @plaintext should be identical to the original &#39;This text is secret&#39;</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">plaintext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_decrypt</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ciphertext</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">public_key</span><span class="p">);</span>
 </code></pre></div>
 <p>Code examples for the following operations:</p>
 <ul>
@@ -10722,15 +10722,15 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@plaintext<span clas
 <p>Verify the signature against the digest</p>
 </li>
 </ul>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>--<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>digest<span class="w"> </span>string
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@digest<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_digest<span class="o">(</span><span class="s1">&#39;SHA256&#39;</span>,<span class="w"> </span><span class="s1">&#39;This is the text for digest&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Generate a digest string</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">digest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_digest</span><span class="p">(</span><span class="s1">&#39;SHA256&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This is the text for digest&#39;</span><span class="p">);</span>
 
---<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>digest<span class="w"> </span>signature
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@signature<span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_sign<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span>@digest,<span class="w"> </span>@private_key,<span class="w"> </span><span class="s1">&#39;SHA256&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="c1">-- Generate a digest signature</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_sign</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">digest</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_key</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SHA256&#39;</span><span class="p">);</span>
 
---<span class="w"> </span>Verify<span class="w"> </span>the<span class="w"> </span>signature<span class="w"> </span>against<span class="w"> </span>the<span class="w"> </span>digest
---<span class="w"> </span>The<span class="w"> </span>@verify_signature<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span>equal<span class="w"> </span>to<span class="w"> </span><span class="m">1</span>
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@verify_signature<span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_verify<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span>@digest,<span class="w"> </span>@signature,<span class="w"> </span>@public_key,<span class="w"> </span><span class="s1">&#39;SHA256&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="c1">-- Verify the signature against the digest</span>
+<span class="c1">-- The @verify_signature must be equal to 1</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">verify_signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_verify</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">digest</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">signature</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">public_key</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SHA256&#39;</span><span class="p">);</span>
 </code></pre></div>
 <p>Code examples for the following operations:</p>
 <ul>
@@ -10747,22 +10747,22 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@verify_signature<sp
 <p>Generate a symmetric key using the public_2 and the private_1</p>
 </li>
 </ul>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="w"> </span>--<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>DH<span class="w"> </span>parameter
-<span class="w"> </span>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@dh_parameter<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_dh_parameters<span class="o">(</span><span class="m">3072</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="c1">-- Generate a DH parameter</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">dh_parameter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_dh_parameters</span><span class="p">(</span><span class="mi">3072</span><span class="p">);</span>
 
-<span class="w"> </span>--<span class="w"> </span>Generate<span class="w"> </span>DH<span class="w"> </span>key<span class="w"> </span>pairs
-<span class="w"> </span>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@private_1<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;DH&#39;</span>,<span class="w"> </span>@dh_parameter<span class="o">)</span><span class="p">;</span>
-<span class="w"> </span>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@public_1<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_pub_key<span class="o">(</span><span class="s1">&#39;DH&#39;</span>,<span class="w"> </span>@private_1<span class="o">)</span><span class="p">;</span>
-<span class="w"> </span>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@private_2<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;DH&#39;</span>,<span class="w"> </span>@dh_parameter<span class="o">)</span><span class="p">;</span>
-<span class="w"> </span>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@public_2<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_pub_key<span class="o">(</span><span class="s1">&#39;DH&#39;</span>,<span class="w"> </span>@private_2<span class="o">)</span><span class="p">;</span>
+<span class="w"> </span><span class="c1">-- Generate DH key pairs</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">private_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_priv_key</span><span class="p">(</span><span class="s1">&#39;DH&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">dh_parameter</span><span class="p">);</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">public_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_pub_key</span><span class="p">(</span><span class="s1">&#39;DH&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_1</span><span class="p">);</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">private_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_priv_key</span><span class="p">(</span><span class="s1">&#39;DH&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">dh_parameter</span><span class="p">);</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">public_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_pub_key</span><span class="p">(</span><span class="s1">&#39;DH&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_2</span><span class="p">);</span>
 
---<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>symmetric<span class="w"> </span>key<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>public_1<span class="w"> </span>and<span class="w"> </span>private_2
---<span class="w"> </span>The<span class="w"> </span>@symmetric_1<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span>identical<span class="w"> </span>to<span class="w"> </span>@symmetric_2
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span><span class="nv">symmetric_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_derive<span class="o">(</span>@public_1,<span class="w"> </span>@private_2<span class="o">)</span><span class="p">;</span>
+<span class="c1">-- Generate a symmetric key using the public_1 and private_2</span>
+<span class="c1">-- The @symmetric_1 must be identical to @symmetric_2</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">symmetric_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_derive</span><span class="p">(</span><span class="o">@</span><span class="n">public_1</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_2</span><span class="p">);</span>
 
---<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>symmetric<span class="w"> </span>key<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>public_2<span class="w"> </span>and<span class="w"> </span>private_1
---<span class="w"> </span>The<span class="w"> </span>@symmetric_2<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span>identical<span class="w"> </span>to<span class="w"> </span>@symmetric_1
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span><span class="nv">symmetric_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>asymmetric_derive<span class="o">(</span>@public_2,<span class="w"> </span>@private_1<span class="o">)</span><span class="p">;</span>
+<span class="c1">-- Generate a symmetric key using the public_2 and private_1</span>
+<span class="c1">-- The @symmetric_2 must be identical to @symmetric_1</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">symmetric_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asymmetric_derive</span><span class="p">(</span><span class="o">@</span><span class="n">public_2</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">private_1</span><span class="p">);</span>
 </code></pre></div>
 <p>Code examples for the following operations:</p>
 <ul>
@@ -10776,13 +10776,13 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span><span class="nv">sym
 <p>Create a private key using an <code>INSERT</code> statement</p>
 </li>
 </ul>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@private_key1<span class="w"> </span><span class="o">=</span><span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">)</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">)</span><span class="w"> </span>INTO<span class="w"> </span>@private_key2<span class="p">;</span>
-mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>key_table<span class="w"> </span>VALUES<span class="o">(</span>create_asymmetric_priv_key<span class="o">(</span><span class="s1">&#39;RSA&#39;</span>,<span class="w"> </span><span class="m">3072</span><span class="o">))</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">private_key1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_asymmetric_priv_key</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3072</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">create_asymmetric_priv_key</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3072</span><span class="p">)</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">@</span><span class="n">private_key2</span><span class="p">;</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">key_table</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="n">create_asymmetric_priv_key</span><span class="p">(</span><span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3072</span><span class="p">));</span>
 </code></pre></div>
 <h2 id="uninstall-component_encryption_udf">Uninstall component_encryption_udf<a class="headerlink" href="#uninstall-component_encryption_udf" title="Permanent link">&para;</a></h2>
 <p>You can deactivate and uninstall the component using the <a href="https://dev.mysql.com/doc/refman/8.4/en/uninstall-component.html">Uninstall Component statement</a>.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_encryption_udf&#39;</span><span class="p">;</span>
 </code></pre></div>
 
 
@@ -10806,7 +10806,7 @@ mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 19:10:16 UTC">December 22, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 30, 2026 12:15:38 UTC">January 30, 2026</span>
   </span>
 
     

@@ -9771,7 +9771,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Percona Audit Log Plugin provides monitoring and logging of connection and query activity that were performed on specific server. Information about the activity is stored in a log file. </p>
 <h2 id="install-the-plugin">Install the plugin<a class="headerlink" href="#install-the-plugin" title="Permanent link">&para;</a></h2>
 <p>The audit Log plugin is installed, but, by default, is not enabled when you install Percona Server for MySQL. To check if the plugin is enabled run the following command. This command searches for plugins with names containing the word &ldquo;audit&rdquo; in the <code>information_schema.PLUGINS</code> table. </p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>information_schema.PLUGINS<span class="w"> </span>WHERE<span class="w"> </span>PLUGIN_NAME<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;%audit%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">PLUGINS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%audit%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The empty result suggests that no such plugins are installed or loaded.</p>
 <details class="example">
@@ -9780,7 +9780,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>This command checks for system variables whose names start with &ldquo;audit.&rdquo; </p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>variables<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;audit%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;audit%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The empty result means that no such system variables exist or are currently defined.</p>
 <details class="example">
@@ -9789,7 +9789,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>This command lists system variables with names starting with &ldquo;plugin.&rdquo; As seen in the example output, it displays the <code>plugin_dir</code> variable, which specifies the directory path where MySQL plugins are stored.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>variables<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;plugin%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;plugin%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -9806,10 +9806,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The location of the MySQL plugin directory depends on the operating system and may be different on your system.</p>
 </div>
 <p>The following command enables the plugin:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>audit_log<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">&#39;audit_log.so&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">audit_log</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;audit_log.so&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>Run the following command to verify if the plugin was installed correctly:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>information_schema.PLUGINS<span class="w"> </span>WHERE<span class="w"> </span>PLUGIN_NAME<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;%audit%&#39;</span><span class="se">\G</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">PLUGINS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%audit%&#39;</span><span class="err">\</span><span class="k">G</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -9829,7 +9829,7 @@ PLUGIN_LIBRARY_VERSION: 1.7
 </code></pre></div>
 </details>
 <p>You can review the audit log variables with the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>variables<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;audit%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;audit%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -9898,7 +9898,7 @@ DB=&quot;&quot;
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>{&quot;audit_record&quot;:{&quot;name&quot;:&quot;Query&quot;,&quot;record&quot;:&quot;13149_2021-06-30T15:03:11&quot;,&quot;timestamp&quot;:&quot;2021-06-30T15:07:58 UTC&quot;,&quot;command_class&quot;:&quot;show_databases&quot;,&quot;connection_id&quot;:&quot;2&quot;,&quot;status&quot;:0,&quot;sqltext&quot;:&quot;show databases&quot;,&quot;user&quot;:&quot;root[root] @ localhost []&quot;,&quot;host&quot;:&quot;localhost&quot;,&quot;os_user&quot;:&quot;&quot;,&quot;ip&quot;:&quot;&quot;,&quot;db&quot;:&quot;&quot;}}
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;audit_record&quot;</span><span class="p">:{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Query&quot;</span><span class="p">,</span><span class="nt">&quot;record&quot;</span><span class="p">:</span><span class="s2">&quot;13149_2021-06-30T15:03:11&quot;</span><span class="p">,</span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="s2">&quot;2021-06-30T15:07:58 UTC&quot;</span><span class="p">,</span><span class="nt">&quot;command_class&quot;</span><span class="p">:</span><span class="s2">&quot;show_databases&quot;</span><span class="p">,</span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="s2">&quot;2&quot;</span><span class="p">,</span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">&quot;sqltext&quot;</span><span class="p">:</span><span class="s2">&quot;show databases&quot;</span><span class="p">,</span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="s2">&quot;root[root] @ localhost []&quot;</span><span class="p">,</span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span><span class="nt">&quot;os_user&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;db&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">}}</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -10045,7 +10045,7 @@ connections.</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The following example adds users who will be monitored:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_include_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user1@localhost,root@localhost&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user1@localhost,root@localhost&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10053,7 +10053,7 @@ connections.</p>
 </code></pre></div>
 </details>
 <p>If you try to add users to both the include list and the exclude list, the server returns the following error:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user1@localhost,root@localhost&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user1@localhost,root@localhost&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10062,35 +10062,35 @@ connections.</p>
 </details>
 <p>To switch from filtering by included user list to the excluded user list or back,
 first set the currently active filtering variable to <code>NULL</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_include_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>NULL<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user1@localhost,root@localhost&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;user1@localhost,root@localhost&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&#39;user&#39;@&#39;host&#39;&quot;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;&#39;user&#39;@&#39;host&#39;&quot;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;&#39;user&#39;&#39;@&#39;&#39;host&#39;&#39;&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;&#39;user&#39;&#39;@&#39;&#39;host&#39;&#39;&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;\&#39;</span>user<span class="se">\&#39;</span>@<span class="se">\&#39;</span>host<span class="se">\&#39;</span><span class="err">&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;\&#39;</span><span class="k">user</span><span class="err">\</span><span class="s1">&#39;@\&#39;</span><span class="k">host</span><span class="err">\</span><span class="s1">&#39;&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10098,7 +10098,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </code></pre></div>
 </details>
 <p>To see which user accounts have been added to the exclude list, run the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>@@audit_log_exclude_accounts<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">audit_log_exclude_accounts</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10112,7 +10112,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </details>
 <p>Account names from mysql.user table are logged in the
 audit log. For example when you create a user:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;user1&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;111&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;user1&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;111&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10143,7 +10143,7 @@ DB=&quot;&quot;
 </div>
 <div class="tabbed-block">
 <p>The available command types can be listed by running:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>name<span class="w"> </span>FROM<span class="w"> </span>performance_schema.setup_instruments<span class="w"> </span>WHERE<span class="w"> </span>name<span class="w"> </span>LIKE<span class="w"> </span><span class="s2">&quot;statement/sql/%&quot;</span><span class="w"> </span>ORDER<span class="w"> </span>BY<span class="w"> </span>name<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_instruments</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="ss">&quot;statement/sql/%&quot;</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10174,10 +10174,10 @@ DB=&quot;&quot;
 </code></pre></div>
 </details>
 <p>You can add commands to the <code>include</code> filter by running:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_include_commands</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;set_option,create_db&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_commands</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;set_option,create_db&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>Create a database with the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>sample<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">sample</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10199,14 +10199,14 @@ DB=&quot;&quot;
 </details>
 <p>To switch the command type filtering type from included type list to the excluded list
 or back, first reset the currently-active list to <code>NULL</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_include_commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>NULL<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_commands</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;set_option,create_db&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_exclude_commands</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;set_option,create_db&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10219,14 +10219,14 @@ the statements executed within the procedure have the same type
 </div>
 <div class="tabbed-block">
 <p>To add databases to be monitored, run:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_include_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;test,mysql,db1&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;test,mysql,db1&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="note">
 <summary>Expected output</summary>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_include_databases</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;db1&#39;</span>,<span class="s1">&#39;db3&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_databases</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;db1&#39;</span><span class="p">,</span><span class="s1">&#39;db3&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10235,7 +10235,7 @@ the statements executed within the procedure have the same type
 </details>
 <p>If you you try to add databases to both include and exclude lists server will
 show you the following error:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;test,mysql,db1&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_exclude_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;test,mysql,db1&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Error message</summary>
@@ -10244,14 +10244,14 @@ show you the following error:</p>
 </details>
 <p>To switch from filtering by included database list to the excluded one or back,
 first set the currently active filtering variable to <code>NULL</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_include_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>NULL<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">audit_log_exclude_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;test,mysql,db1&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_exclude_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;test,mysql,db1&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10950,7 +10950,7 @@ than audit_log_buffer_size variable.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 18:20:15 UTC">December 22, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 30, 2026 12:15:38 UTC">January 30, 2026</span>
   </span>
 
     

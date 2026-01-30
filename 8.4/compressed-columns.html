@@ -9770,12 +9770,12 @@ applied to an unsupported column type or storage engine, an error is returned.</
 </ul>
 <p>Unlike Oracle MySQL, compression is applicable to generated stored columns. Use
 this syntax extension as follows:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="o">(</span>
-<span class="w">       </span>id<span class="w"> </span>INT,
-<span class="w">       </span>a<span class="w"> </span>BLOB,
-<span class="w">       </span>b<span class="w"> </span>JSON<span class="w"> </span>COLUMN_FORMAT<span class="w"> </span>COMPRESSED,
-<span class="w">       </span>g<span class="w"> </span>BLOB<span class="w"> </span>GENERATED<span class="w"> </span>ALWAYS<span class="w"> </span>AS<span class="w"> </span><span class="o">(</span>a<span class="o">)</span><span class="w"> </span>STORED<span class="w"> </span>COLUMN_FORMAT<span class="w"> </span>COMPRESSED<span class="w"> </span>WITH<span class="w"> </span>COMPRESSION_DICTIONARY<span class="w"> </span>numbers
-<span class="w">     </span><span class="o">)</span><span class="w"> </span><span class="nv">ENGINE</span><span class="o">=</span>InnoDB<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="p">(</span>
+<span class="w">       </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">       </span><span class="n">a</span><span class="w"> </span><span class="nb">BLOB</span><span class="p">,</span>
+<span class="w">       </span><span class="n">b</span><span class="w"> </span><span class="n">JSON</span><span class="w"> </span><span class="n">COLUMN_FORMAT</span><span class="w"> </span><span class="n">COMPRESSED</span><span class="p">,</span>
+<span class="w">       </span><span class="k">g</span><span class="w"> </span><span class="nb">BLOB</span><span class="w"> </span><span class="k">GENERATED</span><span class="w"> </span><span class="n">ALWAYS</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="n">STORED</span><span class="w"> </span><span class="n">COLUMN_FORMAT</span><span class="w"> </span><span class="n">COMPRESSED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">COMPRESSION_DICTIONARY</span><span class="w"> </span><span class="n">numbers</span>
+<span class="w">     </span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span>
 </code></pre></div>
 <p>To decompress a column, specify a value other than <code>COMPRESSED</code> to
 <code>COLUMN_FORMAT</code>: <code>FIXED</code>, <code>DYNAMIC</code>, or <code>DEFAULT</code>. If there is a column
@@ -9804,27 +9804,27 @@ values &gt;= <code>3</code>, they are forbidden.</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <p>In order to use the compression dictionary, you need to create it. This
 can be done by running:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@dictionary_data<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;one&#39;</span><span class="w"> </span><span class="s1">&#39;two&#39;</span><span class="w"> </span><span class="s1">&#39;three&#39;</span><span class="w"> </span><span class="s1">&#39;four&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">dictionary_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;one&#39;</span><span class="w"> </span><span class="s1">&#39;two&#39;</span><span class="w"> </span><span class="s1">&#39;three&#39;</span><span class="w"> </span><span class="s1">&#39;four&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>COMPRESSION_DICTIONARY<span class="w"> </span>numbers<span class="w"> </span><span class="o">(</span>@dictionary_data<span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">COMPRESSION_DICTIONARY</span><span class="w"> </span><span class="n">numbers</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">dictionary_data</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>To create a table that has both compression and compressed dictionary support
 you should run:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="o">(</span>
-<span class="w">        </span>id<span class="w"> </span>INT,
-<span class="w">        </span>a<span class="w"> </span>BLOB<span class="w"> </span>COLUMN_FORMAT<span class="w"> </span>COMPRESSED,
-<span class="w">        </span>b<span class="w"> </span>BLOB<span class="w"> </span>COLUMN_FORMAT<span class="w"> </span>COMPRESSED<span class="w"> </span>WITH<span class="w"> </span>COMPRESSION_DICTIONARY<span class="w"> </span>numbers
-<span class="w">      </span><span class="o">)</span><span class="w"> </span><span class="nv">ENGINE</span><span class="o">=</span>InnoDB<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="p">(</span>
+<span class="w">        </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">        </span><span class="n">a</span><span class="w"> </span><span class="nb">BLOB</span><span class="w"> </span><span class="n">COLUMN_FORMAT</span><span class="w"> </span><span class="n">COMPRESSED</span><span class="p">,</span>
+<span class="w">        </span><span class="n">b</span><span class="w"> </span><span class="nb">BLOB</span><span class="w"> </span><span class="n">COLUMN_FORMAT</span><span class="w"> </span><span class="n">COMPRESSED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">COMPRESSION_DICTIONARY</span><span class="w"> </span><span class="n">numbers</span>
+<span class="w">      </span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example shows how to insert a sample of JSON data into the table:</p>
 <div class="highlight"><pre><span></span><code><span class="err">SET</span><span class="w"> </span><span class="err">@jso</span><span class="kc">n</span><span class="err">_value</span><span class="w"> </span><span class="err">=</span>
@@ -9856,8 +9856,8 @@ you should run:</p>
 <span class="err">&#39;</span><span class="p">]</span><span class="err">\</span><span class="kc">n</span><span class="err">&#39;</span>
 <span class="err">;</span>
 </code></pre></div>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>t1<span class="w"> </span>VALUES<span class="o">(</span><span class="m">0</span>,<span class="w"> </span>@json_value,<span class="w"> </span>@json_value<span class="o">)</span><span class="p">;</span>
-Query<span class="w"> </span>OK,<span class="w"> </span><span class="m">1</span><span class="w"> </span>row<span class="w"> </span>affected<span class="w"> </span><span class="o">(</span><span class="m">0</span>.01<span class="w"> </span>sec<span class="o">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">json_value</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">json_value</span><span class="p">);</span>
+<span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">row</span><span class="w"> </span><span class="n">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">01</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="information_schema-tables">INFORMATION_SCHEMA Tables<a class="headerlink" href="#information_schema-tables" title="Permanent link">&para;</a></h2>
 <p>This feature implements two new <code>INFORMATION_SCHEMA</code> tables.</p>
@@ -10078,7 +10078,7 @@ compression ratio of their first N bytes.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 26, 2023 13:54:36 UTC">October 26, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 30, 2026 12:15:38 UTC">January 30, 2026</span>
   </span>
 
     
@@ -10105,6 +10105,11 @@ compression ratio of their first N bytes.</p>
 
     
     <nav>
+      
+        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
+          
+          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
+        </a>
       
         <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
           

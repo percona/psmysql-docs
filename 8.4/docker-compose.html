@@ -9888,11 +9888,11 @@ volumes:
 <p><code>-d</code>: Runs the containers in detached mode, meaning they operate in the background.</p>
 </li>
 </ul>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<p><code>{.text .no-copy}
+<p><code>text
 [+] Running 11/11
  ✔ mysql Pulled                                                                34.1s 
    ✔ 56631da24b0d Pull complete                                                28.9s 
@@ -9919,12 +9919,12 @@ volumes:
 <h2 id="connect-to-the-server-and-run-a-simple-query">Connect to the server and run a simple query<a class="headerlink" href="#connect-to-the-server-and-run-a-simple-query" title="Permanent link">&para;</a></h2>
 <p>After the container is up, you can connect to the running server instance using the mysql client included in the container.</p>
 <p>Run the following command to open a MySQL shell in the container:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>percona-server<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>percona-server<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>You must enter the root password.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Enter password: 
+<div class="highlight"><pre><span></span><code>Enter password: 
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 9
 Server version: 8.4.4-4 Percona Server (GPL), Release 32, Revision b8e378ec
@@ -9937,16 +9937,14 @@ affiliates. Other names may be trademarks of their respective
 owners.
 
 Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
-
-mysql&gt;
 </code></pre></div>
 </details>
 <p>Run a simple query:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>DATABASES<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">DATABASES</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------+
+<div class="highlight"><pre><span></span><code>+--------------------+
 | Database           |
 +--------------------+
 | information_schema |
@@ -9960,15 +9958,15 @@ mysql&gt;
 </details>
 <h2 id="create-a-test-database-and-table">Create a test database and table<a class="headerlink" href="#create-a-test-database-and-table" title="Permanent link">&para;</a></h2>
 <p>The following query creates a <code>test_db</code> database and <code>test_table</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>test_db<span class="p">;</span>
-USE<span class="w"> </span>test_db<span class="p">;</span>
-CREATE<span class="w"> </span>TABLE<span class="w"> </span>test_table<span class="w"> </span><span class="o">(</span>id<span class="w"> </span>INT<span class="w"> </span>AUTO_INCREMENT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY,<span class="w"> </span>name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">100</span><span class="o">))</span><span class="p">;</span>
-INSERT<span class="w"> </span>INTO<span class="w"> </span>test_table<span class="w"> </span><span class="o">(</span>name<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="s1">&#39;Sample Data&#39;</span><span class="o">)</span><span class="p">;</span>
-SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>test_table<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">test_db</span><span class="p">;</span>
+<span class="n">USE</span><span class="w"> </span><span class="n">test_db</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test_table</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">test_table</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;Sample Data&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">test_table</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.02 sec)
+<div class="highlight"><pre><span></span><code>Query OK, 1 row affected (0.02 sec)
 
 Database changed
 Query OK, 0 rows affected (0.01 sec)
@@ -9981,15 +9979,13 @@ Query OK, 1 row affected (0.01 sec)
 |  1 | Sample Data |
 +----+-------------+
 1 row in set (0.00 sec)
-
-mysql&gt; 
 </code></pre></div>
 </details>
-<p>Remember to <code>mysql&gt; exit</code> when you are finished working with the server.</p>
+<p>Remember to <code>exit</code> when you are finished working with the server.</p>
 <h2 id="use-the-backup-volume-with-xtrabackup">Use the backup volume with XtraBackup<a class="headerlink" href="#use-the-backup-volume-with-xtrabackup" title="Permanent link">&para;</a></h2>
 <p>When you run XtraBackup inside a container, either in the same network or another container, you can target <code>/backups</code> to store backup files.</p>
 <p>An example of using Docker to backup the server:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--volumes-from<span class="w"> </span>percona-server<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-v<span class="w"> </span>percona_backups:/backup<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>percona/percona-xtrabackup:8.0<span class="w"> </span><span class="se">\</span>
@@ -10013,10 +10009,10 @@ mysql&gt;
 </ul>
 <h2 id="shut-down-and-clean-up">Shut down and clean up<a class="headerlink" href="#shut-down-and-clean-up" title="Permanent link">&para;</a></h2>
 <p>You can stop the stack but retain volumes:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker-compose<span class="w"> </span>down
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>down
 </code></pre></div>
 <p>You can also remove all resources, including volumes:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker-compose<span class="w"> </span>down<span class="w"> </span>-v
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>down<span class="w"> </span>-v
 </code></pre></div>
 
 
@@ -10040,7 +10036,7 @@ mysql&gt;
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 29, 2025 09:32:19 UTC">April 29, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 30, 2026 12:15:38 UTC">January 30, 2026</span>
   </span>
 
     

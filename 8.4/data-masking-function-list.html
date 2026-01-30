@@ -10176,10 +10176,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h2>
 <p>In Percona Server for MySQL 8.4.4-1, dictionary-related functions no longer run internal queries as the root user without a password. Following MySQL best practices, many admins disable the <code>root</code> user, which previously caused these functions to stop working. The server now uses the built-in <code>mysql.session</code> user to execute dictionary queries. </p>
 <p>However, for this to work, you need to grant the mysql.session user <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> privileges on the <code>masking_dictionaries</code> table.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>SELECT,<span class="w"> </span>INSERT,<span class="w"> </span>UPDATE,<span class="w"> </span>DELETE<span class="w"> </span>ON<span class="w"> </span>mysql.masking_dictionaries<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>If you change the value of the <code>masking_functions.masking_database</code> system variable to something other than <code>mysql</code>, make sure to update the <code>GRANT</code> query to match the new value.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>SELECT,<span class="w"> </span>INSERT,<span class="w"> </span>UPDATE,<span class="w"> </span>DELETE<span class="w"> </span>ON<span class="w"> </span>&lt;masking_functions.masking_database&gt;.masking_dictionaries<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">&lt;</span><span class="n">masking_functions</span><span class="p">.</span><span class="n">masking_database</span><span class="o">&gt;</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="data-masking-component-functions">Data masking component functions<a class="headerlink" href="#data-masking-component-functions" title="Permanent link">&para;</a></h2>
 <table>
@@ -10327,11 +10327,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>A term, selected at random, from the dictionary listed in <code>to_dictionary_name</code> that replaces the selected term. If the selected <code>term</code> is not listed in the <code>from_dictionary_name</code> or a dictionary is missing, then the <code>term</code> is returned. If the <code>to_dictionary_name</code> does not exist, then returns NULL. The character set of the returned string is the same character set of the <code>term</code> parameter.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_blocklist<span class="o">(</span><span class="s1">&#39;apple&#39;</span>,<span class="w"> </span><span class="s1">&#39;fruit&#39;</span>,<span class="w"> </span><span class="s1">&#39;nut&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_blocklist</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;fruit&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nut&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------+
+<div class="highlight"><pre><span></span><code>+-----------------------------------------+
 | gen_blocklist(&#39;apple&#39;, &#39;fruit&#39;, &#39;nut&#39;)  |
 +-----------------------------------------+
 | walnut                                  |
@@ -10364,11 +10364,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">&para;</a></h3>
 <p>A random term from the dictionary listed in <code>dictionary_name</code> in the <code>utf8mb4</code> character set. Returns NULL if the <code>dictionary_name</code> does not exist.</p>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_dictionary<span class="o">(</span><span class="s1">&#39;trees&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_dictionary</span><span class="p">(</span><span class="s1">&#39;trees&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------------------+
+<div class="highlight"><pre><span></span><code>+--------------------------------------------------+
 | gen_dictionary(&#39;trees&#39;)                          |
 +--------------------------------------------------+
 | Norway spruce                                    |
@@ -10406,11 +10406,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">&para;</a></h3>
 <p>An integer, selected at random, from an inclusive range defined by the <code>lower</code> parameter value and the <code>upper</code> parameter value, or NULL if the <code>upper</code> boundary is less than the <code>lower</code> boundary.</p>
 <h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_range<span class="o">(</span><span class="m">10</span>,<span class="w"> </span><span class="m">100</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
+<div class="highlight"><pre><span></span><code>+--------------------------------------+
 | gen_range(10,100)                    |
 +--------------------------------------+
 | 56                                   |
@@ -10428,11 +10428,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="returns_3">Returns<a class="headerlink" href="#returns_3" title="Permanent link">&para;</a></h3>
 <p>Returns a Canada SIN formatted in three groups of three digits (for example, 123-456-789) in the <code>utf8mb4</code> character set. To ensure the number is consistent, the number is verified with the <a href="https://en.wikipedia.org/wiki/Luhn_algorithm">Luhn algorithm <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <h3 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_canada_sin<span class="o">()</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_rnd_canada_sin</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------------+
+<div class="highlight"><pre><span></span><code>+-------------------------+
 | gen_rnd_canada_sin()    |
 +-------------------------+
 | 506-948-819             |
@@ -10475,11 +10475,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">&para;</a></h3>
 <p>A generated email address as a string in the same character set as <code>domain</code>. If the <code>domain</code> value is not specified, then the string is in the <code>utf8mb4</code> character set. The <code>name</code> and <code>surname</code> are random lower-case letters (a - z).</p>
 <h3 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_email<span class="o">(</span><span class="nv">name_size</span><span class="o">=</span><span class="m">4</span>,<span class="w"> </span><span class="nv">surname_size</span><span class="o">=</span><span class="m">5</span>,<span class="w"> </span><span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;mydomain.edu&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_rnd_email</span><span class="p">(</span><span class="n">name_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">surname_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="k">domain</span><span class="o">=</span><span class="s1">&#39;mydomain.edu&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------+
+<div class="highlight"><pre><span></span><code>+-------------------------------------+
 | gen_rnd_email(4, 5, &#39;mydomain.edu&#39;) |
 +-------------------------------------+
 | qwer.asdfg@mydomain.edu             |
@@ -10523,11 +10523,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The function returns a string that is the length of the <code>size</code> value. The string consists of <code>country</code> (two characters) followed by the (size - 2) random digits.</p>
 <p>The character set is the same as the <code>country</code> parameter or if that parameter is not specified, the character set is <code>utf8mb4</code>.</p>
 <h3 id="example_5">Example<a class="headerlink" href="#example_5" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_iban<span class="o">()</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_rnd_iban</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------+
+<div class="highlight"><pre><span></span><code>+-------------------+
 | gen_rnd_iban()    |
 +-------------------+
 |ZZ78959120078536   |
@@ -10560,11 +10560,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="returns_6">Returns<a class="headerlink" href="#returns_6" title="Permanent link">&para;</a></h3>
 <p>A random PAN string in <code>utf8mb4</code> character set.</p>
 <h3 id="example_6">Example<a class="headerlink" href="#example_6" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_pan<span class="o">()</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_rnd_pan</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------+
+<div class="highlight"><pre><span></span><code>+-------------------+
 | gen_rnd_pan()     |
 +-------------------+
 | 1234567898765432  |
@@ -10578,11 +10578,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="returns_7">Returns<a class="headerlink" href="#returns_7" title="Permanent link">&para;</a></h3>
 <p>A SSN string in a nine-digit number format &ldquo;AAA-GG-SSSS&rdquo; in the <code>utf8mb4</code> character set. The number has three parts, the first three digits are the area number, the group number, and the serial number. The generated SSN uses &lsquo;900&rsquo; or greater numbers for the area number. These numbers are not legitimate because they are outside the approved range.</p>
 <h3 id="example_7">Example<a class="headerlink" href="#example_7" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_ssn<span class="o">()</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_rnd_ssn</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------+
+<div class="highlight"><pre><span></span><code>+----------------+
 | gen_rnd_ssn()  |
 +----------------+
 | 970-03-0370    |
@@ -10600,11 +10600,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="returns_8">Returns<a class="headerlink" href="#returns_8" title="Permanent link">&para;</a></h3>
 <p>A NIN string in the <code>utf8mb4</code> character set. The string is nine (9) characters in length, always starts with &lsquo;AA&rsquo; and ends with &lsquo;C&rsquo;.</p>
 <h3 id="example_8">Example<a class="headerlink" href="#example_8" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_uk_nin<span class="o">()</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_rnd_uk_nin</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------+
+<div class="highlight"><pre><span></span><code>+----------------------+
 | gen_rnd_uk_nin()     |
 +----------------------+
 | AA123456C            |
@@ -10618,11 +10618,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="returns_9">Returns<a class="headerlink" href="#returns_9" title="Permanent link">&para;</a></h3>
 <p>Returns a United States phone number in the <code>utf8mb4</code> character set.</p>
 <h3 id="example_9">Example<a class="headerlink" href="#example_9" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_us_phone<span class="o">()</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_rnd_us_phone</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------+
+<div class="highlight"><pre><span></span><code>+--------------------+
 | gen_rnd_us_phone() |
 +--------------------+
 | 1-555-249-2029     |
@@ -10636,11 +10636,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="returns_10">Returns<a class="headerlink" href="#returns_10" title="Permanent link">&para;</a></h3>
 <p>Returns a UUID as a string in the <code>utf8mb4</code> character set.</p>
 <h3 id="example_10">Example<a class="headerlink" href="#example_10" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_uuid<span class="o">()</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_rnd_uuid</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
+<div class="highlight"><pre><span></span><code>+------------------------------------+
 | gen_rnd_uuid()                     |
 +------------------------------------+
 |9a3b642c-06c6-11ee-be56-0242ac120002|
@@ -10681,11 +10681,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>An error is reported if  <code>str</code> length is an incorrect length.</p>
 <p>Returns a NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_11">Example<a class="headerlink" href="#example_11" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_canada_sin<span class="o">(</span><span class="s1">&#39;555-555-555&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_canada_sin</span><span class="p">(</span><span class="s1">&#39;555-555-555&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------+
+<div class="highlight"><pre><span></span><code>+--------------------------------+
 | mask_canada_sin(&#39;555-555-555&#39;) |
 +--------------------------------+
 | XXX-XXX-XXX                    |
@@ -10734,11 +10734,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>An error is reported if the <code>str</code> length is incorrect.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_12">Example<a class="headerlink" href="#example_12" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_iban<span class="o">(</span><span class="s1">&#39;DE27 1002 02003 77495 4156&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_iban</span><span class="p">(</span><span class="s1">&#39;DE27 1002 02003 77495 4156&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------+
+<div class="highlight"><pre><span></span><code>+---------------------------------------------+
 | mask_iban(&#39;DE27 1002 02003 77495 4156&#39;)     |
 +---------------------------------------------+
 | DE** **** **** **** ****                    |
@@ -10792,11 +10792,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the character set of the <code>string</code> parameter.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_13">Example<a class="headerlink" href="#example_13" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_inner<span class="o">(</span><span class="s1">&#39;123456789&#39;</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_inner</span><span class="p">(</span><span class="s1">&#39;123456789&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------------------------------+
+<div class="highlight"><pre><span></span><code>+-----------------------------------+
 | mask_inner(&#39;123456789&#39;, 1, 2)     |
 +-----------------------------------+
 | 1XXXXXX89                          |
@@ -10850,11 +10850,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>string</code>.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_14">Example<a class="headerlink" href="#example_14" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_outer<span class="o">(</span><span class="s1">&#39;123456789&#39;</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_outer</span><span class="p">(</span><span class="s1">&#39;123456789&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
+<div class="highlight"><pre><span></span><code>+------------------------------------+
 | mask_outer(&#39;123456789&#39;, 2, 2).     |
 +------------------------------------+
 | XX34567XX                          |
@@ -10895,11 +10895,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>An error occurs if the <code>str</code> parameter is not the correct length.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_15">Example<a class="headerlink" href="#example_15" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_pan<span class="w"> </span><span class="o">(</span>gen_rnd_pan<span class="o">())</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_pan</span><span class="w"> </span><span class="p">(</span><span class="n">gen_rnd_pan</span><span class="p">());</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
+<div class="highlight"><pre><span></span><code>+------------------------------------+
 | mask_pan(gen_rnd_pan())            |
 +------------------------------------+
 | XXXXXXXXXXX2345                    |
@@ -10941,11 +10941,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Reports an error is the <code>str</code> parameter is not the correct length.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_16">Example<a class="headerlink" href="#example_16" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_pan_relaxed<span class="o">(</span>gen_rnd_pan<span class="o">())</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_pan_relaxed</span><span class="p">(</span><span class="n">gen_rnd_pan</span><span class="p">());</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------+
+<div class="highlight"><pre><span></span><code>+------------------------------------------+
 | mask_pan_relaxed(gen_rnd_pan())          |
 +------------------------------------------+
 | 520754XXXXXX4848                         |
@@ -10990,11 +10990,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Reports an error if the value of the <code>str</code> is an incorrect length.</p>
 <p>Returns a NULL value if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_17">Example<a class="headerlink" href="#example_17" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_ssn<span class="o">(</span><span class="s1">&#39;555-55-5555&#39;</span>,<span class="w"> </span><span class="s1">&#39;X&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_ssn</span><span class="p">(</span><span class="s1">&#39;555-55-5555&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;X&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------------------------+
+<div class="highlight"><pre><span></span><code>+-----------------------------+
 | mask_ssn(&#39;555-55-5555&#39;,&#39;X&#39;) |
 +-----------------------------+
 | XXX-XX-5555                 |
@@ -11035,11 +11035,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>An error occurs if the <code>str</code> parameter is not the correct length. </p>
 <p>Returns a NULL value if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_18">Example<a class="headerlink" href="#example_18" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_uk_nin<span class="w"> </span><span class="o">(</span><span class="s1">&#39;CT 26 46 83 D&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_uk_nin</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;CT 26 46 83 D&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
+<div class="highlight"><pre><span></span><code>+------------------------------------+
 | mask_uk_nin(&#39;CT 26 46 83 D&#39;)       |
 +------------------------------------+
 | CT ** ** ** *                      |
@@ -11080,11 +11080,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Returns an error if the length of <code>str</code> is incorrect.</p>
 <p>Returns <code>NULL</code> if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_19">Example<a class="headerlink" href="#example_19" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_uuid<span class="o">(</span><span class="s1">&#39;9a3b642c-06c6-11ee-be56-0242ac120002&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_uuid</span><span class="p">(</span><span class="s1">&#39;9a3b642c-06c6-11ee-be56-0242ac120002&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------+
+<div class="highlight"><pre><span></span><code>+-------------------------------------------------------+
 | mask_uuid(&#39;9a3b642c-06c6-11ee-be56-0242ac120002&#39;)     |
 +-------------------------------------------------------+
 |********_****_****_****_************                   |
@@ -11098,11 +11098,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="returns_20">Returns<a class="headerlink" href="#returns_20" title="Permanent link">&para;</a></h3>
 <p>Returns an integer value of <code>1</code> (one) when successful.</p>
 <h3 id="example_20">Example<a class="headerlink" href="#example_20" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>masking_dictionaries_flush<span class="o">()</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionaries_flush</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------+
+<div class="highlight"><pre><span></span><code>+------------------------------+
 | masking_dictionaries_flush() |
 +------------------------------+
 |                          1   |
@@ -11134,11 +11134,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="returns_21">Returns<a class="headerlink" href="#returns_21" title="Permanent link">&para;</a></h3>
 <p>Returns an integer value of <code>1</code> (one) if the operation is successful. Returns the integer value of <code>0</code> (zero) for a failure.</p>
 <h3 id="example_21">Example<a class="headerlink" href="#example_21" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>masking_dictionary_remove<span class="o">(</span><span class="s1">&#39;trees&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionary_remove</span><span class="p">(</span><span class="s1">&#39;trees&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------------------+
+<div class="highlight"><pre><span></span><code>+------------------------------------------+
 | masking_dictionary_remove(&#39;trees&#39;)       |
 +------------------------------------------+
 |                                        1 |
@@ -11187,12 +11187,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>The following command returns the table information:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DESCRIBE<span class="w"> </span>mysql.masking_dictionaries<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">DESCRIBE</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="p">;</span>
 </code></pre></div>
 <p>The result returns the table structure.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------+--------------+------+-----+---------+-------+
+<div class="highlight"><pre><span></span><code>+------------+--------------+------+-----+---------+-------+
 | Field      | Type         | Null | Key | Default | Extra |
 +------------+--------------+------+-----+---------+-------+
 | Dictionary | varchar(256) | NO   | PRI | NULL    |       |
@@ -11203,11 +11203,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </details>
 <p>Modify the table with an <code>ALTER TABLE</code> statement, if needed.</p>
 <h3 id="example_22">Example<a class="headerlink" href="#example_22" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>masking_dictionary_term_add<span class="o">(</span><span class="s1">&#39;trees&#39;</span>,<span class="s1">&#39;pine&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionary_term_add</span><span class="p">(</span><span class="s1">&#39;trees&#39;</span><span class="p">,</span><span class="s1">&#39;pine&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------------+
+<div class="highlight"><pre><span></span><code>+-----------------------------------------------+
 | masking_dictionary_term_add(&#39;trees&#39;, &#39;pine&#39;)  |
 +-----------------------------------------------+
 |                                             1 |
@@ -11275,11 +11275,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <h3 id="example_23">Example<a class="headerlink" href="#example_23" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>masking_dictionary_term_remove<span class="o">(</span><span class="s1">&#39;trees&#39;</span>,<span class="s1">&#39;pine&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionary_term_remove</span><span class="p">(</span><span class="s1">&#39;trees&#39;</span><span class="p">,</span><span class="s1">&#39;pine&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------+
+<div class="highlight"><pre><span></span><code>+-------------------------------------------------------+
 | masking_dictionary_term_remove(&#39;trees&#39;, &#39;pine&#39;)       |
 +-------------------------------------------------------+
 |                                                     1 |
@@ -11383,7 +11383,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 19:10:16 UTC">December 22, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 30, 2026 12:15:38 UTC">January 30, 2026</span>
   </span>
 
     
@@ -11411,6 +11411,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
     <nav>
       
+        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
+          
+          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
+        </a>
+      
         <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
           
           <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
@@ -11419,11 +11424,6 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
           
           <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
-        </a>
-      
-        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
-          
-          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
         </a>
       
       

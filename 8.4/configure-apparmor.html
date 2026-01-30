@@ -9693,11 +9693,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>You should [switch the profile] to <code>Complain</code> mode before editing the file. Edit the file in any text editor. When finished, reload the profile and switch it to <code>Enforce</code> mode.</p>
 <h2 id="configure-data-directory-location">Configure data directory location<a class="headerlink" href="#configure-data-directory-location" title="Permanent link">&para;</a></h2>
 <p>You can change the data directory to a non-default location, like /var/lib/mysqlcustom. You should enable audit mode to capture all actions and edit the profile to allow access to the custom location.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/mysql/mysql.conf.d/mysqld.cnf
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/etc/mysql/mysql.conf.d/mysqld.cnf
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>The Percona Server 8.4 configuration file.
+<div class="highlight"><pre><span></span><code>The Percona Server 8.4 configuration file.
 
 For explanations see
 https://dev.mysql.com/doc/mysql/en/server-system-variables.html
@@ -9710,10 +9710,10 @@ log-error    = /var/log/mysql/error.log
 </code></pre></div>
 </details>
 <p>Enable audit mode for mysqld. In this mode, the security policy is enforced and all access is logged.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>aa-audit<span class="w"> </span>mysqld
+<div class="highlight"><pre><span></span><code>aa-audit<span class="w"> </span>mysqld
 </code></pre></div>
 <p>Restart Percona Server for MySQL.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>mysql<span class="w"> </span>restart
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>mysql<span class="w"> </span>restart
 </code></pre></div>
 <p>The restart fails because AppArmor has blocked access to the custom data directory location. To diagnose the issue, check the logs for the following:</p>
 <ul>
@@ -9727,7 +9727,7 @@ log-error    = /var/log/mysql/error.log
 <p>For example, the following log entries show <code>DENIED</code>:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>...
+<div class="highlight"><pre><span></span><code>...
 Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps audit[16013]: AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/sbin/mysqld&quot; name=&quot;/var/lib/mysqlcustom/binlog.index&quot; pid=16013 comm=&quot;mysqld&quot; requested_mask=&quot;c&quot; denied_mask=&quot;c&quot; fsuid=111 ouid=111
 Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(1607343428.022:36): apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/sbin/mysqld&quot; name=&quot;/var/lib/mysqlcustom/mysqld_tmp_file_case_insensitive_test.lower-test&quot; pid=16013 comm=&quot;mysqld&quot; requested_mask=&quot;c&quot; denied_mask=&quot;c&quot; fsuid=111 ouid=111
 ...
@@ -9744,10 +9744,10 @@ Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(
 <p>Edit the local version of the file instead of the main profile. Separating the changes makes maintenance easier.</p>
 </div>
 <p>Reload the profile:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
+<div class="highlight"><pre><span></span><code>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 <p>Restart mysql:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
 </code></pre></div>
 <h2 id="set-up-a-custom-log-location">Set up a custom log location<a class="headerlink" href="#set-up-a-custom-log-location" title="Permanent link">&para;</a></h2>
 <p>To move your logs to a custom location, you must edit the my.cnf configuration file and then edit the local profile to allow access:</p>
@@ -9755,7 +9755,7 @@ Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>The Percona Server 8.4 configuration file.
+<div class="highlight"><pre><span></span><code>The Percona Server 8.4 configuration file.
 
 For explanations see
 https://dev.mysql.com/doc/mysql/en/server-system-variables.html
@@ -9768,40 +9768,40 @@ log-error    = /*custom-log-dir*/mysql/error.log
 </code></pre></div>
 </details>
 <p>Verify the custom directory exists.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>-la<span class="w"> </span>/custom-log-dir/
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-la<span class="w"> </span>/custom-log-dir/
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>total 12
+<div class="highlight"><pre><span></span><code>total 12
 drwxrwxrwx  3 root root 4096 Dec  7 13:09 .
 drwxr-xr-x 24 root root 4096 Dec  7 13:07 ..
 drwxrwxrwx  2 root root 4096 Dec  7 13:09 mysql
 </code></pre></div>
 </details>
 <p>Restart Percona Server.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
+<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysql<span class="w"> </span>start
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Job for mysql.service failed because the control process exited with error code.
+<div class="highlight"><pre><span></span><code>Job for mysql.service failed because the control process exited with error code.
 See &quot;systemctl status mysql.service&quot; and &quot;journalctl -xe&quot; for details.
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>journalctl<span class="w"> </span>-xe
+<div class="highlight"><pre><span></span><code>journalctl<span class="w"> </span>-xe
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>...
+<div class="highlight"><pre><span></span><code>...
 AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/sbin/mysqld&quot; name=&quot;/custom-log-dir/mysql/error.log&quot;
 ...
 </code></pre></div>
 </details>
 <p>The access has been denied by AppArmor. Edit the local profile in the <code>Allow log file access</code> section to allow access to the custom log location.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/apparmor.d/local/usr.sbin.mysqld
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/etc/apparmor.d/local/usr.sbin.mysqld
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code> Site-specific additions and overrides for usr.sbin.mysqld..
+<div class="highlight"><pre><span></span><code> Site-specific additions and overrides for usr.sbin.mysqld..
  For more details, please see /etc/apparmor.d/local/README.
 
  Allow log file access
@@ -9810,18 +9810,18 @@ AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/s
 </code></pre></div>
 </details>
 <p>Reload the profile:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
+<div class="highlight"><pre><span></span><code>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 <p>Restart Percona Server:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
 </code></pre></div>
 <h2 id="set-secure_file_priv-directory-location">Set <code>secure_file_priv</code> directory location<a class="headerlink" href="#set-secure_file_priv-directory-location" title="Permanent link">&para;</a></h2>
 <p>By default, secure_file_priv points to the following location:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>mysqlshow<span class="w"> </span>variables<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;secure_file_priv&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysqlshow</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;secure_file_priv&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------+-----------------------+
+<div class="highlight"><pre><span></span><code>+------------------+-----------------------+
 | Variable_name    | Value                 |
 +------------------+-----------------------+
 | secure_file_priv | /var/lib/mysql-files/ |
@@ -9834,11 +9834,11 @@ AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/s
 /var/lib/mysql/** rwk,
 </code></pre></div>
 <p>Edit the local profile in a text editor to allow access to the custom location.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/apparmor.d/local/usr.sbin.mysqld
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/etc/apparmor.d/local/usr.sbin.mysqld
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Site-specific additions and overrides for usr.sbin.mysqld..
+<div class="highlight"><pre><span></span><code>Site-specific additions and overrides for usr.sbin.mysqld..
 For more details, please see /etc/apparmor.d/local/README.
 
 Allow data dir access
@@ -9847,10 +9847,10 @@ Allow data dir access
 </code></pre></div>
 </details>
 <p>Reload the profile:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
+<div class="highlight"><pre><span></span><code>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 <p>Restart Percona Server for MySQL:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
 </code></pre></div>
 <h2 id="apparmor-links">AppArmor links:<a class="headerlink" href="#apparmor-links" title="Permanent link">&para;</a></h2>
 <p><a href="apparmor.html">AppArmor</a><br>
@@ -9880,7 +9880,7 @@ Allow data dir access
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 14, 2024 10:22:11 UTC">May 14, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 30, 2026 12:15:38 UTC">January 30, 2026</span>
   </span>
 
     
