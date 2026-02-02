@@ -9763,14 +9763,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>A plugin may not be supported in later releases of MySQL or Percona Server for MySQL since version changes may introduce incompatible changes.</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>This plugin requires manual installation because it isn’t installed by default.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>auth_pam<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">&#39;auth_pam.so&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_pam</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;auth_pam.so&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>After the plugin has been installed it should be present in the plugins list. To check if the plugin has been correctly installed and active</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>PLUGINS<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">PLUGINS</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>...
+<div class="highlight"><pre><span></span><code>...
 | auth_pam                       | ACTIVE   | AUTHENTICATION     | auth_pam.so | GPL     |
 </code></pre></div>
 </details>
@@ -9791,7 +9791,7 @@ account    required     pam_unix.so audit
 </code></pre></div>
 <h2 id="creating-a-user">Creating a user<a class="headerlink" href="#creating-a-user" title="Permanent link">&para;</a></h2>
 <p>After the PAM plugin has been configured, users can be created with the PAM plugin as authentication method</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;newuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>auth_pam<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;newuser&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">auth_pam</span><span class="p">;</span>
 </code></pre></div>
 <p>This will create a user <code>newuser</code> that can connect from <code>localhost</code> who will be authenticated using the PAM plugin. If the <code>pam_unix</code> method is being used user will need to exist on the system.</p>
 <h2 id="supplementary-groups-support">Supplementary groups support<a class="headerlink" href="#supplementary-groups-support" title="Permanent link">&para;</a></h2>
@@ -9825,7 +9825,7 @@ account    required     pam_unix.so audit
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 19:10:16 UTC">December 22, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 2, 2026 13:51:52 UTC">February 2, 2026</span>
   </span>
 
     

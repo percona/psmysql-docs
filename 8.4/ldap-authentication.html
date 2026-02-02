@@ -9889,19 +9889,19 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Load the simple LDAP authentication plugin</label><label for="__tabbed_3_2">Load the SASL-based LDAP authentication plugin</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_simple<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">&#39;authentication_ldap_simple.so&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;authentication_ldap_simple.so&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>To set and persist values at runtime, use the following statements:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="w"> </span><span class="nv">authentication_ldap_simple_server_host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="w"> </span><span class="nv">authentication_ldap_simple_bind_base_dn</span><span class="o">=</span><span class="s1">&#39;dc=percona, dc=com&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">authentication_ldap_simple_server_host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">;</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">authentication_ldap_simple_bind_base_dn</span><span class="o">=</span><span class="s1">&#39;dc=percona, dc=com&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_sasl<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">&#39;authentication_ldap_sasl.so&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_sasl</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;authentication_ldap_sasl.so&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>To set and persist values at runtime, use the following statements:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="w"> </span><span class="nv">authentication_ldap_sasl_server_host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="w"> </span><span class="nv">authentication_ldap_sasl_bind_base_dn</span><span class="o">=</span><span class="s1">&#39;dc=percona, dc=com&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">authentication_ldap_sasl_server_host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">;</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">authentication_ldap_sasl_bind_base_dn</span><span class="o">=</span><span class="s1">&#39;dc=percona, dc=com&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
 </div>
@@ -9912,13 +9912,13 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In the <code>CREATE USER</code> statement or the <code>ALTER USER</code> statement, for simple LDAP authentication, you can specify the <code>authentication_ldap_simple</code> plugin in the <code>IDENTIFIED WITH</code> clause:</p>
-<div class="highlight"><pre><span></span><code>mysql&gt; CREATE USER ... IDENTIFIED WITH authentication_ldap_simple;
+<div class="highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_simple;
 </code></pre></div>
 <p>Using the <code>IDENTIFIED WITH</code> clause, the database server assigns the specified plugin.</p>
 </div>
 <div class="tabbed-block">
 <p>If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.</p>
-<div class="highlight"><pre><span></span><code>mysql&gt; CREATE USER ... IDENTIFIED WITH authentication_ldap_simple BY &#39;cn=[user name],ou=[organization unit],dc=[domain component],dc=com&#39;
+<div class="highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_simple BY &#39;cn=[user name],ou=[organization unit],dc=[domain component],dc=com&#39;
 </code></pre></div>
 <p>Unless the <a href="ldap-system-variables.html#authentication_ldap_simple_group_role_mapping">authentication_ldap_simple_group_role_mapping</a> variable is used, creating a user with an authentication string does not use the following system variables:</p>
 <ul>
@@ -9949,12 +9949,12 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>For SASL-based LDAP authentication, in the <code>CREATE USER</code> statement or the <code>ALTER USER</code> statement, you can specify the <code>authentication_ldap_sasl</code> plugin:</p>
-<div class="highlight"><pre><span></span><code>mysql&gt; CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl;
+<div class="highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl;
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.</p>
-<div class="highlight"><pre><span></span><code>mysql&gt; CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl BY &#39;cn=[user name],ou=[organization unit],dc=[domain component],dc=com&#39;
+<div class="highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl BY &#39;cn=[user name],ou=[organization unit],dc=[domain component],dc=com&#39;
 </code></pre></div>
 <p>Unless the <a href="ldap-system-variables.html#authentication_ldap_sasl_group_role_mapping">authentication_ldap_sasl_group_role_mapping</a> variable is used, creating a user with an authentication string does not use the following system variables:</p>
 <ul>
@@ -9989,10 +9989,10 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <div class="tabbed-block">
 <p>The following example configures an LDAP user and connects to the database server.</p>
 <p>Create a database server account for <code>ldapuser</code> with the following statement:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;ldapuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>authentication_ldap_simple<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;uid=ldapuser,ou=testusers,dc=percona,dc=com&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;ldapuser&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;uid=ldapuser,ou=testusers,dc=percona,dc=com&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The authentication string does not include the LDAP password. This password must be provided by the client user when they connect.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>mysql<span class="w"> </span>--user<span class="o">=</span>ldapuser<span class="w"> </span>--password<span class="w"> </span>--enable-cleartext-plugin
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="c1">--user=ldapuser --password --enable-cleartext-plugin</span>
 </code></pre></div>
 <p>The user enters the <code>ldapuser</code> password. The client sends the password as cleartext, which is necessary when using a server-side LDAP library without SASL. The following actions may minimize the risk:</p>
 <ul>
@@ -10003,11 +10003,11 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <div class="tabbed-block">
 <p>The following example configures an LDAP user and connect to the database server.</p>
 <p>Create a database server account for <code>ldapuser</code> with the following statement:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;ldapuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>authentication_ldap_sasl<span class="w"> </span>AS<span class="w"> </span><span class="s1">&#39;uid=ldapuser,ou=testusers,dc=percona,dc=com&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;ldapuser&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">authentication_ldap_sasl</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;uid=ldapuser,ou=testusers,dc=percona,dc=com&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The authentication string does not include the LDAP password. This password must be provided by the client user when they connect.</p>
 <p>Clients connect ot the database server by providing the database server user name and LDAP password:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>mysql<span class="w"> </span>--user<span class="o">=</span>ldapuser<span class="w"> </span>--password
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="c1">--user=ldapuser --password</span>
 </code></pre></div>
 <p>The authentication is similar to the authentication method used by simple LDAP authentication, except that the client and the database server SASL LDAP plugins use SASL messages. These messages are secure within the LDAP protocol.</p>
 </div>
@@ -10019,13 +10019,13 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>If you installed the plugins at <a href="#load-the-plugins-at-runtime">runtime</a>, run the following statements:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_simple<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="p">;</span>
 </code></pre></div>
 <p>If you used <code>SET_PERSIST</code>, use <code>RESET PERSIST</code> to remove the settings.</p>
 </div>
 <div class="tabbed-block">
 <p>If you installed the plugins at <a href="#load-the-plugins-at-runtime">runtime</a>, run the following statements:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_sasl<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_sasl</span><span class="p">;</span>
 </code></pre></div>
 <p>If you used <code>SET_PERSIST</code>, use <code>RESET PERSIST</code> to remove the settings.</p>
 </div>
@@ -10053,7 +10053,7 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 7, 2025 15:18:21 UTC">July 7, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 2, 2026 13:51:52 UTC">February 2, 2026</span>
   </span>
 
     

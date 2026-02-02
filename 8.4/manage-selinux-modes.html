@@ -9763,34 +9763,34 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="disabled-mode">Disabled Mode<a class="headerlink" href="#disabled-mode" title="Permanent link">&para;</a></h2>
 <p>In Disabled mode, SELinux is completely turned off. The system does not enforce any SELinux policies, and there is no SELinux security checking. Applications and processes run without any restrictions imposed by SELinux. This mode is typically used for troubleshooting or when SELinux is not needed.</p>
 <p>To set SELinux to Disabled mode, you need to edit the SELinux configuration file. Open the file <code>/etc/selinux/config</code> with a text editor and set the <code>SELINUX</code> parameter to <code>disabled</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span>disabled
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span>disabled
 </code></pre></div>
 <p>Save the file and reboot the system for the change to take effect.</p>
 <h2 id="permissive-mode">Permissive Mode<a class="headerlink" href="#permissive-mode" title="Permanent link">&para;</a></h2>
 <p>In Permissive mode, SELinux policies are not enforced, but violations are logged. This mode is useful for troubleshooting and for understanding what SELinux would block without actually blocking anything. Applications and processes run as if SELinux is not enforcing policies, but administrators can see which actions would have been denied if SELinux were enforcing.</p>
 <p>To set SELinux to Permissive mode, you can edit the SELinux configuration file <code>/etc/selinux/config</code> and set the <code>SELINUX</code> parameter to <code>permissive</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span>permissive
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span>permissive
 </code></pre></div>
 <p>Save the file and reboot the system. Alternatively, you can change to Permissive mode temporarily without rebooting by running the following command as root:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>setenforce<span class="w"> </span><span class="m">0</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>setenforce<span class="w"> </span><span class="m">0</span>
 </code></pre></div>
 <h2 id="enforcing-mode">Enforcing Mode<a class="headerlink" href="#enforcing-mode" title="Permanent link">&para;</a></h2>
 <p>In Enforcing mode, SELinux enforces all policies and denies access based on the rules defined in the policy. This mode is the default and most secure mode. SELinux actively restricts actions of applications and processes based on the policies in place. Any violation of the rules results in access being denied and logged.</p>
 <p>To set SELinux to Enforcing mode, edit the SELinux configuration file <code>/etc/selinux/config</code> and set the <code>SELINUX</code> parameter to <code>enforcing</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span>enforcing
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span>enforcing
 </code></pre></div>
 <p>Save the file and reboot the system. To change to Enforcing mode temporarily without rebooting, you can use the following command as root:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>setenforce<span class="w"> </span><span class="m">1</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>setenforce<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <h2 id="how-to-check-the-selinux-mode">How to check the SELinux mode<a class="headerlink" href="#how-to-check-the-selinux-mode" title="Permanent link">&para;</a></h2>
 <p>You can check which mode SELinux is currently running in by using a few terminal commands.</p>
 <h3 id="use-the-sestatus-command">Use the <code>sestatus</code> command<a class="headerlink" href="#use-the-sestatus-command" title="Permanent link">&para;</a></h3>
 <p>To check the current SELinux mode, you can use the <code>sestatus</code> command. This command shows the status of SELinux, including the mode it is operating in. Type the following command and press Enter:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sestatus
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sestatus
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>SELinux status:                 enabled
+<div class="highlight"><pre><span></span><code>SELinux status:                 enabled
 SELinuxfs mount:                /sys/fs/selinux
 SELinux root directory:         /etc/selinux
 Loaded policy name:             targeted
@@ -9833,27 +9833,27 @@ Max kernel policy version:      31
 </table>
 <h3 id="use-the-getenforce-command">Use the <code>getenforce</code> command<a class="headerlink" href="#use-the-getenforce-command" title="Permanent link">&para;</a></h3>
 <p>Another command to check the current SELinux mode is <code>getenforce</code>. Type the following command and press Enter:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>getenforce
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>getenforce
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Enforcing
+<div class="highlight"><pre><span></span><code>Enforcing
 </code></pre></div>
 </details>
 <h3 id="check-the-configuration-file">Check the configuration file<a class="headerlink" href="#check-the-configuration-file" title="Permanent link">&para;</a></h3>
 <p>You can also check the SELinux configuration file to see what mode SELinux is set to use when the system boots. Open the configuration file located at <code>/etc/selinux/config</code> using a text editor. For example, you can use <code>cat</code> to view the file contents:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/selinux/config
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/selinux/config
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>SELINUX=enforcing
+<div class="highlight"><pre><span></span><code>SELINUX=enforcing
 </code></pre></div>
 </details>
 <h2 id="how-to-switch-the-selinux-mode">How to switch the SELinux mode<a class="headerlink" href="#how-to-switch-the-selinux-mode" title="Permanent link">&para;</a></h2>
 <p>Switching the SELinux mode changes how the Security-Enhanced Linux (SELinux) system controls access and enforces policies on your system.</p>
 <h3 id="switch-selinux-mode-temporarily">Switch SELinux mode temporarily<a class="headerlink" href="#switch-selinux-mode-temporarily" title="Permanent link">&para;</a></h3>
 <p>To switch SELinux mode temporarily, use the <code>setenforce</code> command. This change will last until the system is rebooted.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>setenforce<span class="w"> </span><span class="m">1</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>setenforce<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <p>To check if the mode has changed, run <code>sestatus</code>.</p>
 <h2 id="switch-selinux-mode-permanently">Switch SELinux Mode permanently<a class="headerlink" href="#switch-selinux-mode-permanently" title="Permanent link">&para;</a></h2>
@@ -9861,7 +9861,7 @@ Max kernel policy version:      31
 <ol>
 <li>
 <p>Open the configuration file with a text editor. For example, using <code>nano</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/selinux/config
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/selinux/config
 </code></pre></div>
 </li>
 <li>
@@ -9881,13 +9881,13 @@ Max kernel policy version:      31
 <p>First, identify the service for which you want to change the SELinux mode. For example, let&rsquo;s say you want to change the SELinux mode for the Apache web server (<code>httpd</code>).</p>
 <h3 id="step-2-check-current-selinux-context">Step 2: Check current SELinux context<a class="headerlink" href="#step-2-check-current-selinux-context" title="Permanent link">&para;</a></h3>
 <p>Check the current SELinux context of the service to understand its current mode and permissions. You can use the <code>ps</code> command with <code>-Z</code> option to view the SELinux context of a running process.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>httpd
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>httpd
 </code></pre></div>
 <p>This command displays the SELinux context for all <code>httpd</code> processes.</p>
 <h3 id="step-3-create-a-custom-selinux-policy-module">Step 3: Create a Custom SELinux Policy Module<a class="headerlink" href="#step-3-create-a-custom-selinux-policy-module" title="Permanent link">&para;</a></h3>
 <p>To change the SELinux mode for a specific service, you create a custom SELinux policy module. This module will move the service to a permissive domain while keeping the rest of the system in enforcing mode.</p>
 <p>Create a policy file, for example, <code>httpd_permissive.te</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>nano<span class="w"> </span>httpd_permissive.te
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>nano<span class="w"> </span>httpd_permissive.te
 </code></pre></div>
 <p>Add the following content to the file:</p>
 <div class="highlight"><pre><span></span><code>policy_module(httpd_permissive, 1.0)
@@ -9897,24 +9897,24 @@ gen_permissive(httpd_t)
 <p>This policy module tells SELinux to make the <code>httpd_t</code> domain permissive.</p>
 <h3 id="step-4-compile-and-install-the-policy-module">Step 4: Compile and Install the Policy Module<a class="headerlink" href="#step-4-compile-and-install-the-policy-module" title="Permanent link">&para;</a></h3>
 <p>Compile the policy module using the <code>checkmodule</code> and <code>semodule_package</code> commands:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>checkmodule<span class="w"> </span>-M<span class="w"> </span>-m<span class="w"> </span>-o<span class="w"> </span>httpd_permissive.mod<span class="w"> </span>httpd_permissive.te
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>checkmodule<span class="w"> </span>-M<span class="w"> </span>-m<span class="w"> </span>-o<span class="w"> </span>httpd_permissive.mod<span class="w"> </span>httpd_permissive.te
 $<span class="w"> </span>semodule_package<span class="w"> </span>-o<span class="w"> </span>httpd_permissive.pp<span class="w"> </span>-m<span class="w"> </span>httpd_permissive.mod
 </code></pre></div>
 <p>Install the compiled policy module using the <code>semodule</code> command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semodule<span class="w"> </span>-i<span class="w"> </span>httpd_permissive.pp
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>semodule<span class="w"> </span>-i<span class="w"> </span>httpd_permissive.pp
 </code></pre></div>
 <p>This installs the custom SELinux policy module, making the <code>httpd</code> service run in permissive mode.</p>
 <h3 id="step-5-verify-the-changes">Step 5: Verify the Changes<a class="headerlink" href="#step-5-verify-the-changes" title="Permanent link">&para;</a></h3>
 <p>Restart the service to apply the changes:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>httpd
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>httpd
 </code></pre></div>
 <p>Check the SELinux context again to ensure the <code>httpd</code> service is running in the permissive domain:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>httpd
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>httpd
 </code></pre></div>
 <p>You should see the <code>httpd</code> processes with a permissive context.</p>
 <h3 id="step-6-monitor-logs-and-adjust-policies">Step 6: Monitor Logs and Adjust Policies<a class="headerlink" href="#step-6-monitor-logs-and-adjust-policies" title="Permanent link">&para;</a></h3>
 <p>While the service is in a permissive domain, SELinux logs any policy violations without enforcing them. Monitor the logs to identify and resolve issues. Use <code>audit2allow</code> to generate new policies if needed:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ausearch<span class="w"> </span>-m<span class="w"> </span>avc<span class="w"> </span>-c<span class="w"> </span>httpd<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>httpd_custom
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ausearch<span class="w"> </span>-m<span class="w"> </span>avc<span class="w"> </span>-c<span class="w"> </span>httpd<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>httpd_custom
 $<span class="w"> </span>semodule<span class="w"> </span>-i<span class="w"> </span>httpd_custom.pp
 </code></pre></div>
 <p>This command sequence helps you create and install new SELinux policies based on logged violations, refining your SELinux configuration.</p>
@@ -9940,7 +9940,7 @@ $<span class="w"> </span>semodule<span class="w"> </span>-i<span class="w"> </sp
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 14, 2024 10:22:11 UTC">May 14, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 2, 2026 13:51:52 UTC">February 2, 2026</span>
   </span>
 
     

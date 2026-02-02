@@ -9629,7 +9629,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h1 id="js_lang-stored-function-or-procedure">js_lang stored function or procedure<a class="headerlink" href="#js_lang-stored-function-or-procedure" title="Permanent link">&para;</a></h1>
 <p>This feature is a <a href="glossary.html#tech-preview">tech preview</a>. Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.</p>
 <p>Once the component&rsquo;s installed, you can write stored functions and procedures in JavaScript. The syntax looks like this:</p>
-<div class="no-copy highlight"><pre><span></span><code>CREATE
+<div class="highlight"><pre><span></span><code>CREATE
     [DEFINER = user]
     FUNCTION [IF NOT EXISTS] sp_name ([func_parameter[,...]])
     RETURNS type
@@ -9644,13 +9644,13 @@ routine_body:
         text_string_literal | dollar_quoted_string
 </code></pre></div>
 <p>Use the <code>LANGUAGE JS</code> clause when creating a routine.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>FUNCTION<span class="w"> </span>f1<span class="o">(</span>n<span class="w"> </span>INT<span class="o">)</span><span class="w"> </span>RETURNS<span class="w"> </span>INT<span class="w"> </span>LANGUAGE<span class="w"> </span>JS<span class="w"> </span>AS<span class="w"> </span><span class="nv">$$</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span>n*42<span class="p">;</span>
-<span class="nv">$$</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">f1</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="nb">INT</span><span class="p">)</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">LANGUAGE</span><span class="w"> </span><span class="n">JS</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="err">$$</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">n</span><span class="o">*</span><span class="mi">42</span><span class="p">;</span>
+<span class="err">$$</span>
 
-mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>PROCEDURE<span class="w"> </span>p1<span class="o">(</span>a<span class="w"> </span>INT,<span class="w"> </span>b<span class="w"> </span>INT,<span class="w"> </span>OUT<span class="w"> </span>r<span class="w"> </span>INT<span class="o">)</span><span class="w"> </span>LANGUAGE<span class="w"> </span>JS<span class="w"> </span>AS<span class="w"> </span><span class="nv">$$</span>
-<span class="w">  </span><span class="nv">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a<span class="w"> </span>*<span class="w"> </span>b<span class="p">;</span>
-<span class="nv">$$</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">p1</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="k">OUT</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="nb">INT</span><span class="p">)</span><span class="w"> </span><span class="k">LANGUAGE</span><span class="w"> </span><span class="n">JS</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="err">$$</span>
+<span class="w">  </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="err">$$</span>
 </code></pre></div>
 <p>You can modify or delete stored programs in JS by using the standard <code>ALTER PROCEDURE/FUNCTION</code> and <code>DROP PROCEDURE/FUNCTION</code> statements. These statements do not require the <code>CREATE_JS_ROUTINE</code> privilege.</p>
 <h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
@@ -9684,7 +9684,7 @@ mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>PROCEDURE<span cl
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 29, 2025 13:59:19 UTC">December 29, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 2, 2026 13:51:52 UTC">February 2, 2026</span>
   </span>
 
     

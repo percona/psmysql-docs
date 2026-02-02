@@ -9713,21 +9713,21 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>As with any <a href="https://dev.mysql.com/doc/refman/8.4/en/derived-tables.html">derived tables <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>, a table function requires an <a href="https://dev.mysql.com/doc/refman/8.4/en/identifiers.html">alias <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> in the <code>SELECT</code> statement.</p>
 <p>The result set is a single column with the predefined column name <code>value</code> of type <code>BIGINT UNSIGNED</code>. You can reference the <code>value</code> column in <code>SELECT</code> statements. The following statements are valid. Using <code>n</code> as the number of generated values, the following is the basic syntax:</p>
 <h3 id="percona_sequence_tablen-as-alias">PERCONA_SEQUENCE_TABLE(n) [AS] alias<a class="headerlink" href="#percona_sequence_tablen-as-alias" title="Permanent link">&para;</a></h3>
-<div class="no-copy highlight"><pre><span></span><code>SELECT … FROM PERCONA_SEQUENCE_TABLE(n) [AS] alias
+<div class="highlight"><pre><span></span><code>SELECT … FROM PERCONA_SEQUENCE_TABLE(n) [AS] alias
 
 PERCONA_SEQUENCE_TABLE(n) [AS] alias
 </code></pre></div>
-<div class="no-copy highlight"><pre><span></span><code>SELECT * FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
+<div class="highlight"><pre><span></span><code>SELECT * FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 SELECT &lt;expr(value)&gt; FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 </code></pre></div>
 <p>The first number in the series, the initial term, is defined as <code>0</code>, and the series ends with a value less than <code>n</code>.</p>
 <h3 id="basic-sequence-generation">Basic sequence generation<a class="headerlink" href="#basic-sequence-generation" title="Permanent link">&para;</a></h3>
 <p>In this example, the following statement generates a sequence:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">3</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------+
+<div class="highlight"><pre><span></span><code>+-------+
 | value |
 +-------+
 |     0 |
@@ -9738,15 +9738,15 @@ SELECT &lt;expr(value)&gt; FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 </details>
 <h3 id="start-with-a-specific-value">Start with a specific value<a class="headerlink" href="#start-with-a-specific-value" title="Permanent link">&para;</a></h3>
 <p>You can define the initial value using the <code>WHERE</code> clause. The following example starts the sequence with <code>4</code>.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>value<span class="w"> </span>AS<span class="w"> </span>result<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>FROM<span class="w"> </span><span class="se">\</span>
-<span class="w">            </span><span class="o">(</span>SELECT<span class="w"> </span>seq<span class="w"> </span>AS<span class="w"> </span>value
-<span class="w">             </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">8</span><span class="o">))</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>WHERE<span class="w"> </span>value<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="err">\</span>
+<span class="w">       </span><span class="k">FROM</span><span class="w"> </span><span class="err">\</span>
+<span class="w">            </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">seq</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">value</span>
+<span class="w">             </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="w"> </span><span class="err">\</span>
+<span class="w">       </span><span class="k">WHERE</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------+
+<div class="highlight"><pre><span></span><code>+--------+
 | result |
 +--------+
 |      4 |
@@ -9759,13 +9759,13 @@ SELECT &lt;expr(value)&gt; FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 <h3 id="filter-even-numbers">Filter even numbers<a class="headerlink" href="#filter-even-numbers" title="Permanent link">&para;</a></h3>
 <p>Consecutive terms increase or decrease by a common difference. The default common difference value is <code>1</code>. However, it is possible to filter the results using the WHERE clause to simulate common differences greater than 1.</p>
 <p>The following example prints only even numbers from the 0..7 range:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>value<span class="w"> </span>AS<span class="w"> </span>result<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">8</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>WHERE<span class="w"> </span>value<span class="w"> </span>%<span class="w"> </span><span class="nv">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="err">\</span>
+<span class="w">       </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="w"> </span><span class="err">\</span>
+<span class="w">       </span><span class="k">WHERE</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------+
+<div class="highlight"><pre><span></span><code>+--------+
 | result |
 +--------+
 |      0 |
@@ -9777,13 +9777,13 @@ SELECT &lt;expr(value)&gt; FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 </details>
 <h3 id="generate-random-numbers">Generate random numbers<a class="headerlink" href="#generate-random-numbers" title="Permanent link">&para;</a></h3>
 <p>The following is an example of using the function to populate a table with a set of random numbers:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>FLOOR<span class="o">(</span>RAND<span class="o">()</span><span class="w"> </span>*<span class="w"> </span><span class="m">100</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>result<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">4</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">FLOOR</span><span class="p">(</span><span class="n">RAND</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="err">\</span>
+<span class="w">       </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be the following:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------+
+<div class="highlight"><pre><span></span><code>+--------+
 | result |
 +--------+
 |     24 |
@@ -9795,12 +9795,12 @@ SELECT &lt;expr(value)&gt; FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 </details>
 <h3 id="generate-random-strings">Generate random strings<a class="headerlink" href="#generate-random-strings" title="Permanent link">&para;</a></h3>
 <p>You can populate a table with a set of pseudo-random strings with the following statement:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>MD5<span class="o">(</span>value<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>result<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">4</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">MD5</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="err">\</span>
+<span class="w">       </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------------------+
+<div class="highlight"><pre><span></span><code>+----------------------------------+
 | result                           |
 +----------------------------------+
 | f17d9c990f40f8ac215f2ecdfd7d0451 |
@@ -9812,13 +9812,13 @@ SELECT &lt;expr(value)&gt; FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 </details>
 <h3 id="add-a-sequence-to-a-table">Add a sequence to a table<a class="headerlink" href="#add-a-sequence-to-a-table" title="Permanent link">&para;</a></h3>
 <p>You can add the sequence as a column to a new table or an existing table, as shown in this example:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span>AS<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">4</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="p">;</span>
 
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>t1<span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">t1</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------+
+<div class="highlight"><pre><span></span><code>+-------+
 | value |
 +-------+
 |     0 |
@@ -9851,7 +9851,7 @@ mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w">
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 19:10:16 UTC">December 22, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 2, 2026 13:51:52 UTC">February 2, 2026</span>
   </span>
 
     

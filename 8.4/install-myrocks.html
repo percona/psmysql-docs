@@ -9675,11 +9675,11 @@ plugin for Percona Server for MySQL 8.4 and later versions.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Debian or Ubuntu</label><label for="__tabbed_1_2">RHEL or derivatives</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
 </code></pre></div>
 </div>
 </div>
@@ -9693,13 +9693,13 @@ plugin for Percona Server for MySQL 8.4 and later versions.</p>
 * Run the following script to enable the RocksDB storage engine in Percona Server:
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>&lt;mysql_admin_user&gt;<span class="w"> </span>-p<span class="o">[</span>mysql_admin_pass<span class="o">]</span><span class="w"> </span><span class="o">[</span>-S<span class="w"> </span>&lt;socket&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-h<span class="w"> </span>&lt;host&gt;<span class="w"> </span>-P<span class="w"> </span>&lt;port&gt;<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>&lt;mysql_admin_user&gt;<span class="w"> </span>-p<span class="o">[</span>mysql_admin_pass<span class="o">]</span><span class="w"> </span><span class="o">[</span>-S<span class="w"> </span>&lt;socket&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-h<span class="w"> </span>&lt;host&gt;<span class="w"> </span>-P<span class="w"> </span>&lt;port&gt;<span class="o">]</span>
 </code></pre></div>
 <h3 id="enable-myrocks-with-ps-admin">Enable MyRocks with ps-admin<a class="headerlink" href="#enable-myrocks-with-ps-admin" title="Permanent link">&para;</a></h3>
 <p>Run the <code>ps-admin</code> script as system root user or with <strong>sudo</strong>
 and provide the MySQL root user credentials
 to properly enable the RocksDB (MyRocks) storage engine:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -9728,7 +9728,7 @@ INFO: Successfully installed RocksDB engine plugin.
 <p>If the script returns no errors,
 Percona MyRocks should be successfully enabled on the server.
 You can verify it as follows:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>ENGINES<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINES</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -9774,15 +9774,15 @@ for every table that you create.</p>
 with another storage engine after you remove Percona MyRocks.
 If you need this data, alter the tables to another storage engine.
 For example, to alter the <code>City</code> table to InnoDB, run the following:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>TABLE<span class="w"> </span>City<span class="w"> </span><span class="nv">ENGINE</span><span class="o">=</span>InnoDB<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span>
 </code></pre></div>
 <p>To disable and uninstall the RocksDB engine plugins,
 use the <code>ps-admin</code> script as follows:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Checking RocksDB engine plugin status...
+<div class="highlight"><pre><span></span><code>Checking RocksDB engine plugin status...
 INFO: RocksDB engine plugin is installed.
 
 Uninstalling RocksDB engine plugin...
@@ -9793,13 +9793,13 @@ INFO: Successfully uninstalled RocksDB engine plugin.
 remove the Percona MyRocks package:</p>
 <div class="highlight"><pre><span></span><code>=== &quot;Debian or Ubuntu&quot;
 
-    ```{.bash data-prompt=&quot;$&quot;}
+    ```shell
     $ sudo apt remove percona-server-rocksdb-8.4
     ```
 
 === &quot;RHEL or derivatives&quot;
 
-    ```{.bash data-prompt=&quot;$&quot;}
+    ```shell
     $ sudo yum remove percona-server-rocksdb-80.x86_64
     ```
 </code></pre></div>
@@ -9847,7 +9847,7 @@ and restart <em>Percona Server for MySQL</em>.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 19:10:16 UTC">December 22, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 2, 2026 13:51:52 UTC">February 2, 2026</span>
   </span>
 
     

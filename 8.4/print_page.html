@@ -13626,24 +13626,24 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
 <ul>
 <li>
 <p>Option 1: Run the script from the command line with the <code>-D mysql</code> option:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql<span class="w"> </span>&lt;<span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql<span class="w"> </span>&lt;<span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql
 </code></pre></div>
 </li>
 <li>
 <p>Option 2: Connect to <code>mysql</code> database and run the script interactively:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>use<span class="w"> </span>mysql<span class="p">;</span>
-mysql&gt;<span class="w"> </span><span class="nb">source</span><span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span>
+<span class="k">source</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="k">to</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">audit_log_filter_linux_install</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
 </code></pre></div>
 <p>Replace <code>/path/to/mysql/share/</code> with the actual path to your MySQL installation&rsquo;s share directory.</p>
 </li>
 </ul>
 <h3 id="install-audit-log-filter-verify-installation">Verify installation<a class="headerlink" href="#install-audit-log-filter-verify-installation" title="Permanent link">&para;</a></h3>
 <p>After running the script, verify that the required tables are created:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>tables<span class="w"> </span><span class="k">in</span><span class="w"> </span>mysql<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;aud%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;aud%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------+
+<div class="highlight"><pre><span></span><code>+------------------------+
 | Tables_in_mysql (aud%) |
 +------------------------+
 | audit_log_filter       |
@@ -13658,11 +13658,11 @@ mysql&gt;<span class="w"> </span><span class="nb">source</span><span class="w"> 
 </code></pre></div>
 <h3 id="install-audit-log-filter-verify-component-installation">Verify component installation<a class="headerlink" href="#install-audit-log-filter-verify-component-installation" title="Permanent link">&para;</a></h3>
 <p>Check that the component is properly installed:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span><span class="k">select</span><span class="w"> </span>*<span class="w"> </span>from<span class="w"> </span>mysql.component<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------+--------------------+------------------------------------+
+<div class="highlight"><pre><span></span><code>+--------------+--------------------+------------------------------------+
 | component_id | component_group_id | component_urn                      |
 +--------------+--------------------+------------------------------------+
 |            1 |                  1 | file://component_percona_telemetry |
@@ -13673,11 +13673,11 @@ mysql&gt;<span class="w"> </span><span class="nb">source</span><span class="w"> 
 </details>
 <h3 id="install-audit-log-filter-test-filter-functionality">Test filter functionality<a class="headerlink" href="#install-audit-log-filter-test-filter-functionality" title="Permanent link">&para;</a></h3>
 <p>Test that the audit log filter is working correctly:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_all&#39;</span>,<span class="w"> </span><span class="s1">&#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_all&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------------------------------+
+<div class="highlight"><pre><span></span><code>+---------------------------------------------------------------------+
 | audit_log_filter_set_filter(&#39;log_all&#39;, &#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;) |
 +---------------------------------------------------------------------+
 | ERROR: Failed to check filtering rule name existence                |
@@ -13691,11 +13691,11 @@ mysql&gt;<span class="w"> </span><span class="nb">source</span><span class="w"> 
 </div>
 <h3 id="install-audit-log-filter-fix-missing-tables">Fix missing tables<a class="headerlink" href="#install-audit-log-filter-fix-missing-tables" title="Permanent link">&para;</a></h3>
 <p>If you have already installed the audit log component but are missing the required tables, you can run the <code>audit_log_filter_linux_install.sql</code> script to create the audit tables in the <code>mysql</code> database:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql<span class="w"> </span>&lt;<span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql<span class="w"> </span>&lt;<span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql
 </code></pre></div>
 <p>Or interactively:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>use<span class="w"> </span>mysql<span class="p">;</span>
-mysql&gt;<span class="w"> </span><span class="nb">source</span><span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span>
+<span class="k">source</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="k">to</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">audit_log_filter_linux_install</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
 </code></pre></div>
 <p>This operation creates the missing tables without reinstalling the component.</p>
 <h2 id="install-audit-log-filter-additional-information">Additional information<a class="headerlink" href="#install-audit-log-filter-additional-information" title="Permanent link">&para;</a></h2>
@@ -15022,92 +15022,92 @@ that contains these files should be accessible only to the following:</p>
 </div>
 <h3 id="filter-audit-log-filter-files-examples">Examples<a class="headerlink" href="#filter-audit-log-filter-files-examples" title="Permanent link">&para;</a></h3>
 <p>Create simple filters</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_general&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_general&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
 <span class="s1">    &quot;class&quot;: {</span>
 <span class="s1">      &quot;name&quot;: &quot;general&quot;</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="s1">}&#39;</span><span class="p">);</span>
 
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_connection&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_connection&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
 <span class="s1">    &quot;class&quot;: {</span>
 <span class="s1">      &quot;name&quot;: &quot;connection&quot;</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="s1">}&#39;</span><span class="p">);</span>
 
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_table_access&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_table_access&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
 <span class="s1">    &quot;class&quot;: {</span>
 <span class="s1">      &quot;name&quot;: &quot;table_access&quot;</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="s1">}&#39;</span><span class="p">);</span>
 
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_global_variable&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_global_variable&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
 <span class="s1">    &quot;class&quot;: {</span>
 <span class="s1">      &quot;name&quot;: &quot;global_variable&quot;</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="s1">}&#39;</span><span class="p">);</span>
 
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_command&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_command&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
 <span class="s1">    &quot;class&quot;: {</span>
 <span class="s1">      &quot;name&quot;: &quot;command&quot;</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="s1">}&#39;</span><span class="p">);</span>
 
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_query&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_query&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
 <span class="s1">    &quot;class&quot;: {</span>
 <span class="s1">      &quot;name&quot;: &quot;query&quot;</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="s1">}&#39;</span><span class="p">);</span>
 
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_stored_program&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_stored_program&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
 <span class="s1">    &quot;class&quot;: {</span>
 <span class="s1">      &quot;name&quot;: &quot;stored_program&quot;</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="s1">}&#39;</span><span class="p">);</span>
 
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_authentication&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_authentication&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
 <span class="s1">    &quot;class&quot;: {</span>
 <span class="s1">      &quot;name&quot;: &quot;authentication&quot;</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="s1">}&#39;</span><span class="p">);</span>
 
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_message&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_message&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
 <span class="s1">    &quot;class&quot;: {</span>
 <span class="s1">      &quot;name&quot;: &quot;message&quot;</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="s1">}&#39;</span><span class="p">);</span>
 </code></pre></div>
 <p>Add filter_update_on_user_change.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_connect&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_connect&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
 <span class="s1">    &quot;class&quot;: { &quot;name&quot;: &quot;connection&quot; },</span>
 <span class="s1">    &quot;event&quot;: { &quot;name&quot;: &quot;connect&quot; }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="s1">}&#39;</span><span class="p">);</span>
 
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;log_disconnect&#39;</span>,<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_disconnect&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
 <span class="s1">    &quot;class&quot;: { &quot;name&quot;: &quot;connection&quot; },</span>
 <span class="s1">    &quot;event&quot;: { &quot;name&quot;: &quot;disconnect&quot; }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="s1">}&#39;</span><span class="p">);</span>
 </code></pre></div>
 <table>
 <thead>
@@ -16699,7 +16699,7 @@ this case <em>InnoDB</em> picks such an index as the clustered one.</p>
 </li>
 <li>
 <p>Check that the error log contains the following message:</p>
-<div class="no-copy highlight"><pre><span></span><code>A FIPS-approved version of the OpenSSL cryptographic library has been detected in the operating system with a properly configured FIPS module available for loading. Percona Server for MySQL will load this module and run in FIPS mode.
+<div class="highlight"><pre><span></span><code>A FIPS-approved version of the OpenSSL cryptographic library has been detected in the operating system with a properly configured FIPS module available for loading. Percona Server for MySQL will load this module and run in FIPS mode.
 </code></pre></div>
 </li>
 </ul>
@@ -16839,7 +16839,7 @@ If you already use Percona Server for MySQL, you can
 <p>This feature is a <a href="#glossary-tech-preview">tech preview</a>. Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.</p>
 <p>The <code>plugin_dir</code> system variable specifies where the component library is located. If you need to, you should set the <code>plugin_dir</code> variable when you start the server.</p>
 <p>To install the <code>js_lang</code> component, you need to run the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_js_lang&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_js_lang&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>If you decide to uninstall the component, you may have to restart the server before you can reinstall it.</p>
 <p>When you install the <code>component_js_lang</code>, it gives you a new global privilege called <code>CREATE_JS_ROUTINE</code>. This privilege allows you to create JS routines within the database.</p>
@@ -17007,7 +17007,7 @@ If you already use Percona Server for MySQL, you can
 <p>Privileges control what users can do. You use them to give specific permissions to different users. This ability helps you keep your data secure by only allowing authorized users to access and change information in the database. </p>
 <h2 id="js-lang-privileges-privileges">Privileges<a class="headerlink" href="#js-lang-privileges-privileges" title="Permanent link">&para;</a></h2>
 <p>To create routines within a database, you must be granted the <code>CREATE_JS_ROUTINE</code> privilege and the standard <code>CREATE ROUTINE</code> privilege.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>CREATE_JS_ROUTINE<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span>user1@localhost<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="n">CREATE_JS_ROUTINE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">user1</span><span class="o">@</span><span class="n">localhost</span><span class="p">;</span>
 </code></pre></div>
 <p>If a user is granted the ability to create routines and holds the CREATE_JS_ROUTINE privilege, they are capable of creating stored functions and procedures using JS.</p>
 <p>However, it is important to note that at this time, the creation of JS triggers or events is not supported.</p>
@@ -17022,7 +17022,7 @@ If you already use Percona Server for MySQL, you can
 </ul></section><section class="print-page" id="js-lang-procedures" heading-number="5.7.5"><h1 id="js-lang-procedures-js_lang-stored-function-or-procedure">js_lang stored function or procedure<a class="headerlink" href="#js-lang-procedures-js_lang-stored-function-or-procedure" title="Permanent link">&para;</a></h1>
 <p>This feature is a <a href="#glossary-tech-preview">tech preview</a>. Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.</p>
 <p>Once the component&rsquo;s installed, you can write stored functions and procedures in JavaScript. The syntax looks like this:</p>
-<div class="no-copy highlight"><pre><span></span><code>CREATE
+<div class="highlight"><pre><span></span><code>CREATE
     [DEFINER = user]
     FUNCTION [IF NOT EXISTS] sp_name ([func_parameter[,...]])
     RETURNS type
@@ -17037,13 +17037,13 @@ routine_body:
         text_string_literal | dollar_quoted_string
 </code></pre></div>
 <p>Use the <code>LANGUAGE JS</code> clause when creating a routine.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>FUNCTION<span class="w"> </span>f1<span class="o">(</span>n<span class="w"> </span>INT<span class="o">)</span><span class="w"> </span>RETURNS<span class="w"> </span>INT<span class="w"> </span>LANGUAGE<span class="w"> </span>JS<span class="w"> </span>AS<span class="w"> </span><span class="nv">$$</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span>n*42<span class="p">;</span>
-<span class="nv">$$</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">f1</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="nb">INT</span><span class="p">)</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">LANGUAGE</span><span class="w"> </span><span class="n">JS</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="err">$$</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">n</span><span class="o">*</span><span class="mi">42</span><span class="p">;</span>
+<span class="err">$$</span>
 
-mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>PROCEDURE<span class="w"> </span>p1<span class="o">(</span>a<span class="w"> </span>INT,<span class="w"> </span>b<span class="w"> </span>INT,<span class="w"> </span>OUT<span class="w"> </span>r<span class="w"> </span>INT<span class="o">)</span><span class="w"> </span>LANGUAGE<span class="w"> </span>JS<span class="w"> </span>AS<span class="w"> </span><span class="nv">$$</span>
-<span class="w">  </span><span class="nv">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a<span class="w"> </span>*<span class="w"> </span>b<span class="p">;</span>
-<span class="nv">$$</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">p1</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="k">OUT</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="nb">INT</span><span class="p">)</span><span class="w"> </span><span class="k">LANGUAGE</span><span class="w"> </span><span class="n">JS</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="err">$$</span>
+<span class="w">  </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="err">$$</span>
 </code></pre></div>
 <p>You can modify or delete stored programs in JS by using the standard <code>ALTER PROCEDURE/FUNCTION</code> and <code>DROP PROCEDURE/FUNCTION</code> statements. These statements do not require the <code>CREATE_JS_ROUTINE</code> privilege.</p>
 <h2 id="js-lang-procedures-further-reading">Further reading<a class="headerlink" href="#js-lang-procedures-further-reading" title="Permanent link">&para;</a></h2>
@@ -17463,7 +17463,7 @@ mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>PROCEDURE<span cl
 <p>If set to a non-zero value, the server kills any idle transaction after it stays idle for this number of seconds.</p>
 <h4 id="kill-idle-trx-examples">Examples<a class="headerlink" href="#kill-idle-trx-examples" title="Permanent link">&para;</a></h4>
 <p>The <code>SET GLOBAL kill_idle_transaction = 300;</code> command configures the server to automatically end any idle transaction that has lasted for 300 seconds (5 minutes). This command immediately takes effect for the current and new server sessions. An idle transaction holds resources, potentially preventing other operations from proceeding. This setting helps to release these resources if a transaction is unintentionally left open.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">kill_idle_transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">300</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">kill_idle_transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">300</span><span class="p">;</span>
 </code></pre></div>
 <p>The [mysqld] section in the my.cnf configuration file allows you to set server-wide options that persist across server restarts. Adding the line kill_idle_transaction = 300 under [mysqld] makes the idle transaction timeout of 300 seconds the default setting for the server. This setting ensures that the server automatically terminates idle transactions after 5 minutes every time it starts. </p>
 <p>You must restart the server for changes in the my.cnf file to take effect. This configuration prevents long-held idle transactions from consuming resources over extended periods.</p>
@@ -17474,7 +17474,7 @@ mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>PROCEDURE<span cl
 <p>If the <code>kill_idle_transaction</code> setting is active and idle transactions have been terminated, this command will output any lines from the error log that contain the &ldquo;Killed idle transaction&rdquo; message. Each matching line typically includes a timestamp and details about the terminated transaction, such as its ID and the duration it was idle. </p>
 <p>If the kill_idle_transaction setting is active and idle transactions have been terminated, this command will output any lines from the error log that contain the “Killed idle transaction” message. Each matching line typically includes a timestamp and details about the terminated transaction, such as its ID and the duration it was idle.</p>
 <p>The command produces no output if the server has not terminated any idle transactions since the last log rotation or server start. Regularly checking this log helps you verify that the idle transaction option is working as expected and provides insights into transaction management within your server.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Killed idle transaction&quot;</span><span class="w"> </span>/var/log/mysql/error.log
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Killed idle transaction&quot;</span><span class="w"> </span>/var/log/mysql/error.log
 </code></pre></div></section><section class="print-page" id="percona-sequence-table" heading-number="5.9"><h1 id="percona-sequence-table-percona_sequence_tablen-function">PERCONA_SEQUENCE_TABLE(n) function<a class="headerlink" href="#percona-sequence-table-percona_sequence_tablen-function" title="Permanent link">&para;</a></h1>
 <p>Using the <code>PERCONA_SEQUENCE_TABLE()</code> function provides the following:</p>
 <table>
@@ -17520,21 +17520,21 @@ mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>PROCEDURE<span cl
 <p>As with any <a href="https://dev.mysql.com/doc/refman/8.4/en/derived-tables.html">derived tables <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>, a table function requires an <a href="https://dev.mysql.com/doc/refman/8.4/en/identifiers.html">alias <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> in the <code>SELECT</code> statement.</p>
 <p>The result set is a single column with the predefined column name <code>value</code> of type <code>BIGINT UNSIGNED</code>. You can reference the <code>value</code> column in <code>SELECT</code> statements. The following statements are valid. Using <code>n</code> as the number of generated values, the following is the basic syntax:</p>
 <h3 id="percona-sequence-table-percona_sequence_tablen-as-alias">PERCONA_SEQUENCE_TABLE(n) [AS] alias<a class="headerlink" href="#percona-sequence-table-percona_sequence_tablen-as-alias" title="Permanent link">&para;</a></h3>
-<div class="no-copy highlight"><pre><span></span><code>SELECT … FROM PERCONA_SEQUENCE_TABLE(n) [AS] alias
+<div class="highlight"><pre><span></span><code>SELECT … FROM PERCONA_SEQUENCE_TABLE(n) [AS] alias
 
 PERCONA_SEQUENCE_TABLE(n) [AS] alias
 </code></pre></div>
-<div class="no-copy highlight"><pre><span></span><code>SELECT * FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
+<div class="highlight"><pre><span></span><code>SELECT * FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 SELECT &lt;expr(value)&gt; FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 </code></pre></div>
 <p>The first number in the series, the initial term, is defined as <code>0</code>, and the series ends with a value less than <code>n</code>.</p>
 <h3 id="percona-sequence-table-basic-sequence-generation">Basic sequence generation<a class="headerlink" href="#percona-sequence-table-basic-sequence-generation" title="Permanent link">&para;</a></h3>
 <p>In this example, the following statement generates a sequence:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">3</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------+
+<div class="highlight"><pre><span></span><code>+-------+
 | value |
 +-------+
 |     0 |
@@ -17545,15 +17545,15 @@ SELECT &lt;expr(value)&gt; FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 </details>
 <h3 id="percona-sequence-table-start-with-a-specific-value">Start with a specific value<a class="headerlink" href="#percona-sequence-table-start-with-a-specific-value" title="Permanent link">&para;</a></h3>
 <p>You can define the initial value using the <code>WHERE</code> clause. The following example starts the sequence with <code>4</code>.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>value<span class="w"> </span>AS<span class="w"> </span>result<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>FROM<span class="w"> </span><span class="se">\</span>
-<span class="w">            </span><span class="o">(</span>SELECT<span class="w"> </span>seq<span class="w"> </span>AS<span class="w"> </span>value
-<span class="w">             </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">8</span><span class="o">))</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>WHERE<span class="w"> </span>value<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="err">\</span>
+<span class="w">       </span><span class="k">FROM</span><span class="w"> </span><span class="err">\</span>
+<span class="w">            </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">seq</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">value</span>
+<span class="w">             </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="w"> </span><span class="err">\</span>
+<span class="w">       </span><span class="k">WHERE</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------+
+<div class="highlight"><pre><span></span><code>+--------+
 | result |
 +--------+
 |      4 |
@@ -17566,13 +17566,13 @@ SELECT &lt;expr(value)&gt; FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 <h3 id="percona-sequence-table-filter-even-numbers">Filter even numbers<a class="headerlink" href="#percona-sequence-table-filter-even-numbers" title="Permanent link">&para;</a></h3>
 <p>Consecutive terms increase or decrease by a common difference. The default common difference value is <code>1</code>. However, it is possible to filter the results using the WHERE clause to simulate common differences greater than 1.</p>
 <p>The following example prints only even numbers from the 0..7 range:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>value<span class="w"> </span>AS<span class="w"> </span>result<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">8</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>WHERE<span class="w"> </span>value<span class="w"> </span>%<span class="w"> </span><span class="nv">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="err">\</span>
+<span class="w">       </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="w"> </span><span class="err">\</span>
+<span class="w">       </span><span class="k">WHERE</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------+
+<div class="highlight"><pre><span></span><code>+--------+
 | result |
 +--------+
 |      0 |
@@ -17584,13 +17584,13 @@ SELECT &lt;expr(value)&gt; FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 </details>
 <h3 id="percona-sequence-table-generate-random-numbers">Generate random numbers<a class="headerlink" href="#percona-sequence-table-generate-random-numbers" title="Permanent link">&para;</a></h3>
 <p>The following is an example of using the function to populate a table with a set of random numbers:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>FLOOR<span class="o">(</span>RAND<span class="o">()</span><span class="w"> </span>*<span class="w"> </span><span class="m">100</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>result<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">4</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">FLOOR</span><span class="p">(</span><span class="n">RAND</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="err">\</span>
+<span class="w">       </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be the following:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------+
+<div class="highlight"><pre><span></span><code>+--------+
 | result |
 +--------+
 |     24 |
@@ -17602,12 +17602,12 @@ SELECT &lt;expr(value)&gt; FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 </details>
 <h3 id="percona-sequence-table-generate-random-strings">Generate random strings<a class="headerlink" href="#percona-sequence-table-generate-random-strings" title="Permanent link">&para;</a></h3>
 <p>You can populate a table with a set of pseudo-random strings with the following statement:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>MD5<span class="o">(</span>value<span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>result<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">4</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">MD5</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="err">\</span>
+<span class="w">       </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------------------+
+<div class="highlight"><pre><span></span><code>+----------------------------------+
 | result                           |
 +----------------------------------+
 | f17d9c990f40f8ac215f2ecdfd7d0451 |
@@ -17619,13 +17619,13 @@ SELECT &lt;expr(value)&gt; FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 </details>
 <h3 id="percona-sequence-table-add-a-sequence-to-a-table">Add a sequence to a table<a class="headerlink" href="#percona-sequence-table-add-a-sequence-to-a-table" title="Permanent link">&para;</a></h3>
 <p>You can add the sequence as a column to a new table or an existing table, as shown in this example:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span>AS<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>PERCONA_SEQUENCE_TABLE<span class="o">(</span><span class="m">4</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>tt<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">PERCONA_SEQUENCE_TABLE</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tt</span><span class="p">;</span>
 
-mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>t1<span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">t1</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------+
+<div class="highlight"><pre><span></span><code>+-------+
 | value |
 +-------+
 |     0 |
@@ -24127,11 +24127,11 @@ system schema.</p>
 </ul>
 <h2 id="manage-apparmor-profiles-install-the-utilities-used-to-control-apparmor">Install the utilities used to control AppArmor<a class="headerlink" href="#manage-apparmor-profiles-install-the-utilities-used-to-control-apparmor" title="Permanent link">&para;</a></h2>
 <p>Install the <code>apparmor-utils</code> package to work with profiles. Use these utilities to create, update, enforce, switch to complain mode, and disable profiles, as needed:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>apparmor-utils
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>apparmor-utils
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Reading package lists... Done
+<div class="highlight"><pre><span></span><code>Reading package lists... Done
 Building dependency tree
 ...
 The following additional packages will be installed:
@@ -24144,43 +24144,43 @@ The following additional packages will be installed:
 <ol>
 <li>
 <p>Download the current version of the AppArmor:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://raw.githubusercontent.com/percona/percona-server/release-8.4.7-7/build-ps/debian/percona-server-server.install
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://raw.githubusercontent.com/percona/percona-server/release-8.4.7-7/build-ps/debian/percona-server-server.install
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 </details>
-<div class="no-copy highlight"><pre><span></span><code>...
+<div class="highlight"><pre><span></span><code>...
 Saving to &#39;apparamor-profile`
 ...
 </code></pre></div>
 </li>
 <li>
 <p>Move the file to /etc/apparmor.d/usr.sbin.mysqld</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mv<span class="w"> </span>apparmor-profile<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mv<span class="w"> </span>apparmor-profile<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 </li>
 <li>
 <p>Create an empty file for editing:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>touch<span class="w"> </span>/etc/apparmor.d/local/usr.sbin.mysqld
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>touch<span class="w"> </span>/etc/apparmor.d/local/usr.sbin.mysqld
 </code></pre></div>
 </li>
 <li>
 <p>Load the profile:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>-W<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>-W<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 </li>
 <li>
 <p>Restart <em>Percona Server for MySQL</em>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Verify the profile status:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>...
+<div class="highlight"><pre><span></span><code>...
 processes are in enforce mode
 ...
 /usr/sbin/mysqld (100840)
@@ -24191,11 +24191,11 @@ processes are in enforce mode
 </ol>
 <h2 id="manage-apparmor-profiles-check-the-current-status">Check the current status<a class="headerlink" href="#manage-apparmor-profiles-check-the-current-status" title="Permanent link">&para;</a></h2>
 <p>As root or using <code>sudo</code>, you can check the AppArmor status:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>apparmor module is loaded.
+<div class="highlight"><pre><span></span><code>apparmor module is loaded.
 34 profiles are loaded.
 32 profiles in enforce mode.
 ...
@@ -24211,39 +24211,39 @@ processes are in enforce mode
 </details>
 <h2 id="manage-apparmor-profiles-switch-a-profile-to-complain-mode">Switch a profile to complain mode<a class="headerlink" href="#manage-apparmor-profiles-switch-a-profile-to-complain-mode" title="Permanent link">&para;</a></h2>
 <p>Switch a profile to complain mode when the program is in your path with this command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>&lt;program&gt;
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>&lt;program&gt;
 </code></pre></div>
 <p>If needed, specify the program’s path in the command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>/sbin/&lt;program&gt;
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>/sbin/&lt;program&gt;
 </code></pre></div>
 <p>If the profile is not stored in <code>/etc/apparmor.d/</code>, use the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>/path/to/profiles/&lt;program&gt;
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>/path/to/profiles/&lt;program&gt;
 </code></pre></div>
 <h2 id="manage-apparmor-profiles-switch-a-profile-to-enforce-mode">Switch a profile to enforce mode<a class="headerlink" href="#manage-apparmor-profiles-switch-a-profile-to-enforce-mode" title="Permanent link">&para;</a></h2>
 <p>Switch a profile to the enforce mode when the program is in your path with this command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>&lt;program&gt;
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>&lt;program&gt;
 </code></pre></div>
 <p>If needed, specify the program’s path in the command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>/sbin/&lt;program&gt;
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>/sbin/&lt;program&gt;
 </code></pre></div>
 <p>If the profile is not stored in <code>/etc/apparmor.d/</code>, use the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>/path/to/profile
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>/path/to/profile
 </code></pre></div>
 <h2 id="manage-apparmor-profiles-disable-one-profile">Disable one profile<a class="headerlink" href="#manage-apparmor-profiles-disable-one-profile" title="Permanent link">&para;</a></h2>
 <p>You can disable a profile but it is recommended to Switch a Profile to Complain mode.</p>
 <p>Use either of the following methods to disable a profile:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld<span class="w"> </span>/etc/apparmor.d/disable/
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld<span class="w"> </span>/etc/apparmor.d/disable/
 $<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-R<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 <p>or</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>aa-disable<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>aa-disable<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 <h2 id="manage-apparmor-profiles-reload-all-profiles">Reload all profiles<a class="headerlink" href="#manage-apparmor-profiles-reload-all-profiles" title="Permanent link">&para;</a></h2>
 <p>Run either of the following commands to reload all profiles:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>apparmor<span class="w"> </span>reload
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>apparmor<span class="w"> </span>reload
 </code></pre></div>
 <p>or</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w"> </span>apparmor.service
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w"> </span>apparmor.service
 </code></pre></div>
 <h2 id="manage-apparmor-profiles-reload-one-profile">Reload one profile<a class="headerlink" href="#manage-apparmor-profiles-reload-one-profile" title="Permanent link">&para;</a></h2>
 <p>To reload one profile, run the following:
@@ -25093,34 +25093,34 @@ drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring
 <h2 id="manage-selinux-modes-disabled-mode">Disabled Mode<a class="headerlink" href="#manage-selinux-modes-disabled-mode" title="Permanent link">&para;</a></h2>
 <p>In Disabled mode, SELinux is completely turned off. The system does not enforce any SELinux policies, and there is no SELinux security checking. Applications and processes run without any restrictions imposed by SELinux. This mode is typically used for troubleshooting or when SELinux is not needed.</p>
 <p>To set SELinux to Disabled mode, you need to edit the SELinux configuration file. Open the file <code>/etc/selinux/config</code> with a text editor and set the <code>SELINUX</code> parameter to <code>disabled</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span>disabled
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span>disabled
 </code></pre></div>
 <p>Save the file and reboot the system for the change to take effect.</p>
 <h2 id="manage-selinux-modes-permissive-mode">Permissive Mode<a class="headerlink" href="#manage-selinux-modes-permissive-mode" title="Permanent link">&para;</a></h2>
 <p>In Permissive mode, SELinux policies are not enforced, but violations are logged. This mode is useful for troubleshooting and for understanding what SELinux would block without actually blocking anything. Applications and processes run as if SELinux is not enforcing policies, but administrators can see which actions would have been denied if SELinux were enforcing.</p>
 <p>To set SELinux to Permissive mode, you can edit the SELinux configuration file <code>/etc/selinux/config</code> and set the <code>SELINUX</code> parameter to <code>permissive</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span>permissive
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span>permissive
 </code></pre></div>
 <p>Save the file and reboot the system. Alternatively, you can change to Permissive mode temporarily without rebooting by running the following command as root:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>setenforce<span class="w"> </span><span class="m">0</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>setenforce<span class="w"> </span><span class="m">0</span>
 </code></pre></div>
 <h2 id="manage-selinux-modes-enforcing-mode">Enforcing Mode<a class="headerlink" href="#manage-selinux-modes-enforcing-mode" title="Permanent link">&para;</a></h2>
 <p>In Enforcing mode, SELinux enforces all policies and denies access based on the rules defined in the policy. This mode is the default and most secure mode. SELinux actively restricts actions of applications and processes based on the policies in place. Any violation of the rules results in access being denied and logged.</p>
 <p>To set SELinux to Enforcing mode, edit the SELinux configuration file <code>/etc/selinux/config</code> and set the <code>SELINUX</code> parameter to <code>enforcing</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span>enforcing
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span>enforcing
 </code></pre></div>
 <p>Save the file and reboot the system. To change to Enforcing mode temporarily without rebooting, you can use the following command as root:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>setenforce<span class="w"> </span><span class="m">1</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>setenforce<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <h2 id="manage-selinux-modes-how-to-check-the-selinux-mode">How to check the SELinux mode<a class="headerlink" href="#manage-selinux-modes-how-to-check-the-selinux-mode" title="Permanent link">&para;</a></h2>
 <p>You can check which mode SELinux is currently running in by using a few terminal commands.</p>
 <h3 id="manage-selinux-modes-use-the-sestatus-command">Use the <code>sestatus</code> command<a class="headerlink" href="#manage-selinux-modes-use-the-sestatus-command" title="Permanent link">&para;</a></h3>
 <p>To check the current SELinux mode, you can use the <code>sestatus</code> command. This command shows the status of SELinux, including the mode it is operating in. Type the following command and press Enter:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sestatus
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sestatus
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>SELinux status:                 enabled
+<div class="highlight"><pre><span></span><code>SELinux status:                 enabled
 SELinuxfs mount:                /sys/fs/selinux
 SELinux root directory:         /etc/selinux
 Loaded policy name:             targeted
@@ -25163,27 +25163,27 @@ Max kernel policy version:      31
 </table>
 <h3 id="manage-selinux-modes-use-the-getenforce-command">Use the <code>getenforce</code> command<a class="headerlink" href="#manage-selinux-modes-use-the-getenforce-command" title="Permanent link">&para;</a></h3>
 <p>Another command to check the current SELinux mode is <code>getenforce</code>. Type the following command and press Enter:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>getenforce
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>getenforce
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Enforcing
+<div class="highlight"><pre><span></span><code>Enforcing
 </code></pre></div>
 </details>
 <h3 id="manage-selinux-modes-check-the-configuration-file">Check the configuration file<a class="headerlink" href="#manage-selinux-modes-check-the-configuration-file" title="Permanent link">&para;</a></h3>
 <p>You can also check the SELinux configuration file to see what mode SELinux is set to use when the system boots. Open the configuration file located at <code>/etc/selinux/config</code> using a text editor. For example, you can use <code>cat</code> to view the file contents:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/selinux/config
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/selinux/config
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>SELINUX=enforcing
+<div class="highlight"><pre><span></span><code>SELINUX=enforcing
 </code></pre></div>
 </details>
 <h2 id="manage-selinux-modes-how-to-switch-the-selinux-mode">How to switch the SELinux mode<a class="headerlink" href="#manage-selinux-modes-how-to-switch-the-selinux-mode" title="Permanent link">&para;</a></h2>
 <p>Switching the SELinux mode changes how the Security-Enhanced Linux (SELinux) system controls access and enforces policies on your system.</p>
 <h3 id="manage-selinux-modes-switch-selinux-mode-temporarily">Switch SELinux mode temporarily<a class="headerlink" href="#manage-selinux-modes-switch-selinux-mode-temporarily" title="Permanent link">&para;</a></h3>
 <p>To switch SELinux mode temporarily, use the <code>setenforce</code> command. This change will last until the system is rebooted.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>setenforce<span class="w"> </span><span class="m">1</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>setenforce<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <p>To check if the mode has changed, run <code>sestatus</code>.</p>
 <h2 id="manage-selinux-modes-switch-selinux-mode-permanently">Switch SELinux Mode permanently<a class="headerlink" href="#manage-selinux-modes-switch-selinux-mode-permanently" title="Permanent link">&para;</a></h2>
@@ -25191,7 +25191,7 @@ Max kernel policy version:      31
 <ol>
 <li>
 <p>Open the configuration file with a text editor. For example, using <code>nano</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/selinux/config
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/selinux/config
 </code></pre></div>
 </li>
 <li>
@@ -25211,13 +25211,13 @@ Max kernel policy version:      31
 <p>First, identify the service for which you want to change the SELinux mode. For example, let&rsquo;s say you want to change the SELinux mode for the Apache web server (<code>httpd</code>).</p>
 <h3 id="manage-selinux-modes-step-2-check-current-selinux-context">Step 2: Check current SELinux context<a class="headerlink" href="#manage-selinux-modes-step-2-check-current-selinux-context" title="Permanent link">&para;</a></h3>
 <p>Check the current SELinux context of the service to understand its current mode and permissions. You can use the <code>ps</code> command with <code>-Z</code> option to view the SELinux context of a running process.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>httpd
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>httpd
 </code></pre></div>
 <p>This command displays the SELinux context for all <code>httpd</code> processes.</p>
 <h3 id="manage-selinux-modes-step-3-create-a-custom-selinux-policy-module">Step 3: Create a Custom SELinux Policy Module<a class="headerlink" href="#manage-selinux-modes-step-3-create-a-custom-selinux-policy-module" title="Permanent link">&para;</a></h3>
 <p>To change the SELinux mode for a specific service, you create a custom SELinux policy module. This module will move the service to a permissive domain while keeping the rest of the system in enforcing mode.</p>
 <p>Create a policy file, for example, <code>httpd_permissive.te</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>nano<span class="w"> </span>httpd_permissive.te
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>nano<span class="w"> </span>httpd_permissive.te
 </code></pre></div>
 <p>Add the following content to the file:</p>
 <div class="highlight"><pre><span></span><code>policy_module(httpd_permissive, 1.0)
@@ -25227,24 +25227,24 @@ gen_permissive(httpd_t)
 <p>This policy module tells SELinux to make the <code>httpd_t</code> domain permissive.</p>
 <h3 id="manage-selinux-modes-step-4-compile-and-install-the-policy-module">Step 4: Compile and Install the Policy Module<a class="headerlink" href="#manage-selinux-modes-step-4-compile-and-install-the-policy-module" title="Permanent link">&para;</a></h3>
 <p>Compile the policy module using the <code>checkmodule</code> and <code>semodule_package</code> commands:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>checkmodule<span class="w"> </span>-M<span class="w"> </span>-m<span class="w"> </span>-o<span class="w"> </span>httpd_permissive.mod<span class="w"> </span>httpd_permissive.te
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>checkmodule<span class="w"> </span>-M<span class="w"> </span>-m<span class="w"> </span>-o<span class="w"> </span>httpd_permissive.mod<span class="w"> </span>httpd_permissive.te
 $<span class="w"> </span>semodule_package<span class="w"> </span>-o<span class="w"> </span>httpd_permissive.pp<span class="w"> </span>-m<span class="w"> </span>httpd_permissive.mod
 </code></pre></div>
 <p>Install the compiled policy module using the <code>semodule</code> command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semodule<span class="w"> </span>-i<span class="w"> </span>httpd_permissive.pp
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>semodule<span class="w"> </span>-i<span class="w"> </span>httpd_permissive.pp
 </code></pre></div>
 <p>This installs the custom SELinux policy module, making the <code>httpd</code> service run in permissive mode.</p>
 <h3 id="manage-selinux-modes-step-5-verify-the-changes">Step 5: Verify the Changes<a class="headerlink" href="#manage-selinux-modes-step-5-verify-the-changes" title="Permanent link">&para;</a></h3>
 <p>Restart the service to apply the changes:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>httpd
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>httpd
 </code></pre></div>
 <p>Check the SELinux context again to ensure the <code>httpd</code> service is running in the permissive domain:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>httpd
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>httpd
 </code></pre></div>
 <p>You should see the <code>httpd</code> processes with a permissive context.</p>
 <h3 id="manage-selinux-modes-step-6-monitor-logs-and-adjust-policies">Step 6: Monitor Logs and Adjust Policies<a class="headerlink" href="#manage-selinux-modes-step-6-monitor-logs-and-adjust-policies" title="Permanent link">&para;</a></h3>
 <p>While the service is in a permissive domain, SELinux logs any policy violations without enforcing them. Monitor the logs to identify and resolve issues. Use <code>audit2allow</code> to generate new policies if needed:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ausearch<span class="w"> </span>-m<span class="w"> </span>avc<span class="w"> </span>-c<span class="w"> </span>httpd<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>httpd_custom
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ausearch<span class="w"> </span>-m<span class="w"> </span>avc<span class="w"> </span>-c<span class="w"> </span>httpd<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>httpd_custom
 $<span class="w"> </span>semodule<span class="w"> </span>-i<span class="w"> </span>httpd_custom.pp
 </code></pre></div>
 <p>This command sequence helps you create and install new SELinux policies based on logged violations, refining your SELinux configuration.</p></section><section class="print-page" id="additional-selinux-tools" heading-number="9.4.4"><h1 id="additional-selinux-tools-additional-selinux-tools-and-management">Additional SELinux tools and management<a class="headerlink" href="#additional-selinux-tools-additional-selinux-tools-and-management" title="Permanent link">&para;</a></h1>
@@ -25639,8 +25639,8 @@ WHERE condition;
 <p>The values 1, &lsquo;John Doe&rsquo;, and 50000 are being inserted into the &ldquo;id&rdquo;, &ldquo;name&rdquo;, and &ldquo;salary&rdquo; columns, respectively.</p>
 </li>
 </ul>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>employees<span class="w"> </span><span class="o">(</span>id,<span class="w"> </span>name,<span class="w"> </span>salary<span class="o">)</span>
-<span class="w">        </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">&#39;John Doe&#39;</span>,<span class="w"> </span><span class="m">50000</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="p">)</span>
+<span class="w">        </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">50000</span><span class="p">);</span>
 </code></pre></div>
 <p>Fundamental SQL links:</p>
 <ul>
@@ -26164,22 +26164,22 @@ WHERE<span class="w"> </span><span class="nv">department</span><span class="w"> 
 </tbody>
 </table>
 <h2 id="functions-create-function">Create function<a class="headerlink" href="#functions-create-function" title="Permanent link">&para;</a></h2>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>FUNCTION<span class="w"> </span>calculate_discount<span class="w"> </span><span class="o">(</span>total_amount<span class="w"> </span>DECIMAL<span class="o">(</span><span class="m">10</span>,<span class="w"> </span><span class="m">2</span><span class="o">))</span><span class="w"> </span>RETURNS<span class="w"> </span>DECIMAL<span class="o">(</span><span class="m">10</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span>
-<span class="w">    </span>-&gt;<span class="w"> </span>BEGIN
-<span class="w">    </span>-&gt;<span class="w">     </span>DECLARE<span class="w"> </span>discount<span class="w"> </span>DECIMAL<span class="o">(</span><span class="m">10</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span>
-<span class="w">    </span>-&gt;<span class="w">     </span>IF<span class="w"> </span>total_amount<span class="w"> </span>&gt;<span class="w"> </span><span class="m">100</span><span class="w"> </span>THEN
-<span class="w">    </span>-&gt;<span class="w">         </span>SET<span class="w"> </span><span class="nv">discount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>total_amount<span class="w"> </span>*<span class="w"> </span><span class="m">0</span>.1<span class="p">;</span>
-<span class="w">    </span>-&gt;<span class="w">     </span>ELSE
-<span class="w">    </span>-&gt;<span class="w">         </span>SET<span class="w"> </span><span class="nv">discount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
-<span class="w">    </span>-&gt;<span class="w">     </span>END<span class="w"> </span>IF<span class="p">;</span>
-<span class="w">    </span>-&gt;<span class="w">     </span>RETURN<span class="w"> </span>discount<span class="p">;</span>
-<span class="w">    </span>-&gt;<span class="w"> </span>END<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">calculate_discount</span><span class="w"> </span><span class="p">(</span><span class="n">total_amount</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">BEGIN</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w">     </span><span class="k">DECLARE</span><span class="w"> </span><span class="n">discount</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w">     </span><span class="k">IF</span><span class="w"> </span><span class="n">total_amount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w">         </span><span class="k">SET</span><span class="w"> </span><span class="n">discount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">total_amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w">     </span><span class="k">ELSE</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w">         </span><span class="k">SET</span><span class="w"> </span><span class="n">discount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w">     </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w">     </span><span class="k">RETURN</span><span class="w"> </span><span class="n">discount</span><span class="p">;</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">END</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="functions-call-function">Call function<a class="headerlink" href="#functions-call-function" title="Permanent link">&para;</a></h2>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>calculate_discount<span class="o">(</span><span class="m">120</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">calculate_discount</span><span class="p">(</span><span class="mi">120</span><span class="p">);</span>
 </code></pre></div>
 <h2 id="functions-drop-function">Drop function<a class="headerlink" href="#functions-drop-function" title="Permanent link">&para;</a></h2>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DROP<span class="w"> </span>FUNCTION<span class="w"> </span>IF<span class="w"> </span>EXISTS<span class="w"> </span>calculate_discount<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">calculate_discount</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="functions-advanced-sql-features">Advanced SQL features<a class="headerlink" href="#functions-advanced-sql-features" title="Permanent link">&para;</a></h2>
 <ul>
@@ -26880,11 +26880,11 @@ mysql&gt;<span class="w"> </span>DELIMITER<span class="w"> </span><span class="p
 <p>JSON in Percona Server for MySQL gives you have the flexibility of NoSQL with the reliability and querying power of a relational database. </p>
 <h2 id="json-overview-create-a-table-with-json-data-type">Create a table with JSON Data Type<a class="headerlink" href="#json-overview-create-a-table-with-json-data-type" title="Permanent link">&para;</a></h2>
 <p>Create a table that includes a column with the JSON data type.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>users<span class="w"> </span><span class="o">(</span>
-<span class="w">    </span>id<span class="w"> </span>INT<span class="w"> </span>AUTO_INCREMENT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY,
-<span class="w">    </span>name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">255</span><span class="o">)</span><span class="w"> </span>NOT<span class="w"> </span>NULL,
-<span class="w">    </span>info<span class="w"> </span>JSON
-<span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">info</span><span class="w"> </span><span class="n">JSON</span>
+<span class="p">);</span>
 </code></pre></div>
 <p>The columns are the following:</p>
 <ul>
@@ -26900,53 +26900,53 @@ mysql&gt;<span class="w"> </span>DELIMITER<span class="w"> </span><span class="p
 </ul>
 <h2 id="json-overview-insert-json-data">Insert JSON Data<a class="headerlink" href="#json-overview-insert-json-data" title="Permanent link">&para;</a></h2>
 <p>Insert the JSON data into the table using the <code>INSERT</code> statement. The <code>name</code> column stores the user&rsquo;s name. The <code>info</code> column stores JSON data using the <code>JSON_OBJECT</code> function. This function creates a JSON object with key-value pairs.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>users<span class="w"> </span><span class="o">(</span>name,<span class="w"> </span>info<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span>
-<span class="w">    </span><span class="s1">&#39;John Doe&#39;</span>,
-<span class="w">    </span>JSON_OBJECT<span class="o">(</span><span class="s1">&#39;age&#39;</span>,<span class="w"> </span><span class="m">30</span>,<span class="w"> </span><span class="s1">&#39;city&#39;</span>,<span class="w"> </span><span class="s1">&#39;New York&#39;</span>,<span class="w"> </span><span class="s1">&#39;email&#39;</span>,<span class="w"> </span><span class="s1">&#39;john.doe@example.com&#39;</span><span class="o">)</span>
-<span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">info</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s1">&#39;John Doe&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">JSON_OBJECT</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;city&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;New York&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;email&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;john.doe@example.com&#39;</span><span class="p">)</span>
+<span class="p">);</span>
 </code></pre></div>
 <h2 id="json-overview-query-json-data">Query JSON Data<a class="headerlink" href="#json-overview-query-json-data" title="Permanent link">&para;</a></h2>
 <p>You can query JSON data using the <code>SELECT</code> statement. The <code>name</code> column retrieves the user&rsquo;s name. The <code>info-&gt;&gt;'$.age'</code> expression retrieves the value of the <code>age</code> key from the JSON object stored in the <code>info</code> column.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>name,<span class="w"> </span>info-&gt;&gt;<span class="s1">&#39;$.age&#39;</span><span class="w"> </span>AS<span class="w"> </span>age<span class="w"> </span>FROM<span class="w"> </span>users<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">info</span><span class="o">-&gt;&gt;</span><span class="s1">&#39;$.age&#39;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="json-overview-update-json-data">Update JSON Data<a class="headerlink" href="#json-overview-update-json-data" title="Permanent link">&para;</a></h2>
 <p>You can update JSON data using the <code>UPDATE</code> statement. The <code>JSON_SET</code> function updates the value of the <code>age</code> key in the JSON object stored in the <code>info</code> column. The <code>WHERE</code> clause specifies that only the row with the name &lsquo;John Doe&rsquo; should be updated.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>users
-SET<span class="w"> </span><span class="nv">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>JSON_SET<span class="o">(</span>info,<span class="w"> </span><span class="s1">&#39;$.age&#39;</span>,<span class="w"> </span><span class="m">31</span><span class="o">)</span>
-WHERE<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON_SET</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.age&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">31</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="json-overview-delete-json-data">Delete JSON Data<a class="headerlink" href="#json-overview-delete-json-data" title="Permanent link">&para;</a></h2>
 <p>You can delete JSON data using the <code>DELETE</code> statement. This statement removes rows from the <code>users</code> table where the <code>city</code> key in the JSON object stored in the <code>info</code> column has the value &lsquo;New York&rsquo;.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DELETE<span class="w"> </span>FROM<span class="w"> </span>users<span class="w"> </span>WHERE<span class="w"> </span>info-&gt;&gt;<span class="s1">&#39;$.city&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;New York&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">info</span><span class="o">-&gt;&gt;</span><span class="s1">&#39;$.city&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;New York&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="json-overview-add-new-key-value-pairs-to-json-data">Add New Key-Value Pairs to JSON Data<a class="headerlink" href="#json-overview-add-new-key-value-pairs-to-json-data" title="Permanent link">&para;</a></h2>
 <p>You can add new key-value pairs to existing JSON data using the <code>JSON_SET</code> function. The <code>JSON_SET</code> function adds a new key <code>phone</code> with the value &lsquo;123-456-7890&rsquo; to the JSON object stored in the <code>info</code> column.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>users
-SET<span class="w"> </span><span class="nv">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>JSON_SET<span class="o">(</span>info,<span class="w"> </span><span class="s1">&#39;$.phone&#39;</span>,<span class="w"> </span><span class="s1">&#39;123-456-7890&#39;</span><span class="o">)</span>
-WHERE<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON_SET</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.phone&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;123-456-7890&#39;</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="json-overview-remove-key-value-pairs-from-json-data">Remove Key-Value Pairs from JSON Data<a class="headerlink" href="#json-overview-remove-key-value-pairs-from-json-data" title="Permanent link">&para;</a></h2>
 <p>You can remove key-value pairs from existing JSON data using the <code>JSON_REMOVE</code> function. This function removes the <code>email</code> key from the JSON object stored in the <code>info</code> column.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>users
-SET<span class="w"> </span><span class="nv">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>JSON_REMOVE<span class="o">(</span>info,<span class="w"> </span><span class="s1">&#39;$.email&#39;</span><span class="o">)</span>
-WHERE<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON_REMOVE</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.email&#39;</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="json-overview-use-json-functions">Use JSON Functions<a class="headerlink" href="#json-overview-use-json-functions" title="Permanent link">&para;</a></h2>
 <p>Percona Server for MySQL provides several functions to work with JSON data.</p>
 <h3 id="json-overview-json_extract"><code>JSON_EXTRACT</code><a class="headerlink" href="#json-overview-json_extract" title="Permanent link">&para;</a></h3>
 <p>You can extract data from a JSON document using the <code>JSON_EXTRACT</code> function. This function extracts the value of the <code>city</code> key from the JSON object stored in the <code>info</code> column.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>JSON_EXTRACT<span class="o">(</span>info,<span class="w"> </span><span class="s1">&#39;$.city&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>city<span class="w"> </span>FROM<span class="w"> </span>users<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">JSON_EXTRACT</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.city&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">city</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="json-overview-json_array"><code>JSON_ARRAY</code><a class="headerlink" href="#json-overview-json_array" title="Permanent link">&para;</a></h3>
 <p>You can create a JSON array using the <code>JSON_ARRAY</code> function. This function creates a JSON array with the values &lsquo;apple&rsquo;, &lsquo;banana&rsquo;, and &lsquo;cherry&rsquo;.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>users<span class="w"> </span><span class="o">(</span>name,<span class="w"> </span>info<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span>
-<span class="w">    </span><span class="s1">&#39;Jane Smith&#39;</span>,
-<span class="w">    </span>JSON_ARRAY<span class="o">(</span><span class="s1">&#39;apple&#39;</span>,<span class="w"> </span><span class="s1">&#39;banana&#39;</span>,<span class="w"> </span><span class="s1">&#39;cherry&#39;</span><span class="o">)</span>
-<span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">info</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s1">&#39;Jane Smith&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">JSON_ARRAY</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;banana&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cherry&#39;</span><span class="p">)</span>
+<span class="p">);</span>
 </code></pre></div>
 <h3 id="json-overview-json_contains"><code>JSON_CONTAINS</code><a class="headerlink" href="#json-overview-json_contains" title="Permanent link">&para;</a></h3>
 <p>You can check if a JSON document contains a specific value using the <code>JSON_CONTAINS</code> function. This function checks if the <code>info</code> column contains the value &lsquo;New York&rsquo; for the <code>city</code> key.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>name<span class="w"> </span>FROM<span class="w"> </span>users<span class="w"> </span>WHERE<span class="w"> </span>JSON_CONTAINS<span class="o">(</span>info,<span class="w"> </span><span class="s1">&#39;&quot;New York&quot;&#39;</span>,<span class="w"> </span><span class="s1">&#39;$.city&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">JSON_CONTAINS</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&quot;New York&quot;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.city&#39;</span><span class="p">);</span>
 </code></pre></div></section></section></section>
                     <section class='print-page md-section' id='section-11' heading-number='11'>
                         <h1>Manage<a class='headerlink' href='#section-11' title='Permanent link'></a>
@@ -27196,10 +27196,10 @@ WHERE<span class="w"> </span><span class="nv">name</span><span class="w"> </span
 <h2 id="modify-tables-modify-table-example">Modify table example<a class="headerlink" href="#modify-tables-modify-table-example" title="Permanent link">&para;</a></h2>
 <p>After a table has been created, you may need to modify its structure or properties. Percona Server for MySQL provides the <code>ALTER TABLE</code> command for making such modifications. You can add, modify, or drop columns, change data types, add constraints, and more using this command.</p>
 <p>The following is an example using an <code>ALTER TABLE</code> command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>TABLE<span class="w"> </span>users
-ADD<span class="w"> </span>COLUMN<span class="w"> </span>age<span class="w"> </span>INT,
-MODIFY<span class="w"> </span>COLUMN<span class="w"> </span>email<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">255</span><span class="o">)</span>,
-DROP<span class="w"> </span>COLUMN<span class="w"> </span>username<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span>
+<span class="k">ADD</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="k">MODIFY</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">username</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="modify-tables-database-management">Database management<a class="headerlink" href="#modify-tables-database-management" title="Permanent link">&para;</a></h2>
 <ul>
@@ -27215,31 +27215,31 @@ DROP<span class="w"> </span>COLUMN<span class="w"> </span>username<span class="p
 <p>Each isolation level offers a different balance between concurrency and consistency, and the choice depends on the application&rsquo;s specific requirements. By selecting the appropriate isolation level, developers can ensure their MySQL database applications&rsquo; desired data integrity and performance level.</p>
 <h2 id="isolation-levels-read-uncommitted">Read Uncommitted<a class="headerlink" href="#isolation-levels-read-uncommitted" title="Permanent link">&para;</a></h2>
 <p>In the Read Uncommitted isolation level, transactions can read data that has been modified by other transactions but not yet committed. This level allows for the highest concurrency but can lead to dirty reads.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>SET<span class="w"> </span>TRANSACTION<span class="w"> </span>ISOLATION<span class="w"> </span>LEVEL<span class="w"> </span>READ<span class="w"> </span>UNCOMMITTED<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">UNCOMMITTED</span><span class="p">;</span>
 
---<span class="w"> </span>Perform<span class="w"> </span>a<span class="w"> </span>SELECT<span class="w"> </span>query<span class="w"> </span>to<span class="w"> </span><span class="nb">read</span><span class="w"> </span>uncommitted<span class="w"> </span>data
-SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>table_name<span class="p">;</span>
+<span class="c1">-- Perform a SELECT query to read uncommitted data</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="isolation-levels-read-committed">Read Committed<a class="headerlink" href="#isolation-levels-read-committed" title="Permanent link">&para;</a></h2>
 <p>In Read Committed isolation level, transactions can only read data that has been committed by other transactions. This level prevents dirty reads but allows for non-repeatable reads and phantom reads.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>SET<span class="w"> </span>TRANSACTION<span class="w"> </span>ISOLATION<span class="w"> </span>LEVEL<span class="w"> </span>READ<span class="w"> </span>COMMITTED<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">COMMITTED</span><span class="p">;</span>
 
---<span class="w"> </span>Perform<span class="w"> </span>a<span class="w"> </span>SELECT<span class="w"> </span>query<span class="w"> </span>to<span class="w"> </span><span class="nb">read</span><span class="w"> </span>committed<span class="w"> </span>data
-SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>table_name<span class="p">;</span>
+<span class="c1">-- Perform a SELECT query to read committed data</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="isolation-levels-repeatable-read">Repeatable Read<a class="headerlink" href="#isolation-levels-repeatable-read" title="Permanent link">&para;</a></h2>
 <p>In Repeatable Read isolation level, transactions can only read data that has been committed by other transactions at the start of the transaction. This level prevents dirty reads and non-repeatable reads but allows for phantom reads.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>SET<span class="w"> </span>TRANSACTION<span class="w"> </span>ISOLATION<span class="w"> </span>LEVEL<span class="w"> </span>REPEATABLE<span class="w"> </span>READ<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">REPEATABLE</span><span class="w"> </span><span class="k">READ</span><span class="p">;</span>
 
---<span class="w"> </span>Perform<span class="w"> </span>a<span class="w"> </span>SELECT<span class="w"> </span>query<span class="w"> </span>to<span class="w"> </span><span class="nb">read</span><span class="w"> </span>data<span class="w"> </span>consistently<span class="w"> </span>within<span class="w"> </span>the<span class="w"> </span>transaction
-SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>table_name<span class="p">;</span>
+<span class="c1">-- Perform a SELECT query to read data consistently within the transaction</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="isolation-levels-serializable">Serializable<a class="headerlink" href="#isolation-levels-serializable" title="Permanent link">&para;</a></h2>
 <p>In Serializable isolation level, transactions are executed serially, preventing any concurrent access to the data. This level provides the highest level of isolation but can lead to reduced concurrency and potential deadlock situations.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>SET<span class="w"> </span>TRANSACTION<span class="w"> </span>ISOLATION<span class="w"> </span>LEVEL<span class="w"> </span>SERIALIZABLE<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">SERIALIZABLE</span><span class="p">;</span>
 
---<span class="w"> </span>Perform<span class="w"> </span>a<span class="w"> </span>SELECT<span class="w"> </span>query<span class="w"> </span>within<span class="w"> </span>a<span class="w"> </span>serializable<span class="w"> </span>transaction
-SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>table_name<span class="p">;</span>
+<span class="c1">-- Perform a SELECT query within a serializable transaction</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="p">;</span>
 </code></pre></div>
 <p>These examples demonstrate how to set and use different isolation levels in SQL transactions, each providing consistency and concurrency control.</p>
 <h2 id="isolation-levels-database-management">Database management<a class="headerlink" href="#isolation-levels-database-management" title="Permanent link">&para;</a></h2>
@@ -27833,7 +27833,7 @@ buffered-error-log-filename=/var/lib/mysqld-logs/buffered_log
 <p>You can install multiple components at the same time. </p>
 <h2 id="install-component-example">Example<a class="headerlink" href="#install-component-example" title="Permanent link">&para;</a></h2>
 <p>The following is an example of the <code>INSTALL COMPONENT</code> statement.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://componentA&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://componentA&#39;</span><span class="p">;</span>
 </code></pre></div></section><section class="print-page" id="uninstall-component" heading-number="11.5.2"><h1 id="uninstall-component-uninstall-component">UNINSTALL COMPONENT<a class="headerlink" href="#uninstall-component-uninstall-component" title="Permanent link">&para;</a></h1>
 <p>The <code>UNINSTALL COMPONENT</code> does the following:</p>
 <ul>
@@ -28418,19 +28418,19 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="ldap-authentication-__tabbed_3_1" name="ldap-authentication-__tabbed_3" type="radio" /><input id="ldap-authentication-__tabbed_3_2" name="ldap-authentication-__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="ldap-authentication-__tabbed_3_1">Load the simple LDAP authentication plugin</label><label for="ldap-authentication-__tabbed_3_2">Load the SASL-based LDAP authentication plugin</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_simple<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">&#39;authentication_ldap_simple.so&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;authentication_ldap_simple.so&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>To set and persist values at runtime, use the following statements:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="w"> </span><span class="nv">authentication_ldap_simple_server_host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="w"> </span><span class="nv">authentication_ldap_simple_bind_base_dn</span><span class="o">=</span><span class="s1">&#39;dc=percona, dc=com&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">authentication_ldap_simple_server_host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">;</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">authentication_ldap_simple_bind_base_dn</span><span class="o">=</span><span class="s1">&#39;dc=percona, dc=com&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_sasl<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">&#39;authentication_ldap_sasl.so&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_sasl</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;authentication_ldap_sasl.so&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>To set and persist values at runtime, use the following statements:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="w"> </span><span class="nv">authentication_ldap_sasl_server_host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="w"> </span><span class="nv">authentication_ldap_sasl_bind_base_dn</span><span class="o">=</span><span class="s1">&#39;dc=percona, dc=com&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">authentication_ldap_sasl_server_host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">;</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">authentication_ldap_sasl_bind_base_dn</span><span class="o">=</span><span class="s1">&#39;dc=percona, dc=com&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
 </div>
@@ -28441,13 +28441,13 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In the <code>CREATE USER</code> statement or the <code>ALTER USER</code> statement, for simple LDAP authentication, you can specify the <code>authentication_ldap_simple</code> plugin in the <code>IDENTIFIED WITH</code> clause:</p>
-<div class="highlight"><pre><span></span><code>mysql&gt; CREATE USER ... IDENTIFIED WITH authentication_ldap_simple;
+<div class="highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_simple;
 </code></pre></div>
 <p>Using the <code>IDENTIFIED WITH</code> clause, the database server assigns the specified plugin.</p>
 </div>
 <div class="tabbed-block">
 <p>If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.</p>
-<div class="highlight"><pre><span></span><code>mysql&gt; CREATE USER ... IDENTIFIED WITH authentication_ldap_simple BY &#39;cn=[user name],ou=[organization unit],dc=[domain component],dc=com&#39;
+<div class="highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_simple BY &#39;cn=[user name],ou=[organization unit],dc=[domain component],dc=com&#39;
 </code></pre></div>
 <p>Unless the <a href="#ldap-system-variables-authentication_ldap_simple_group_role_mapping">authentication_ldap_simple_group_role_mapping</a> variable is used, creating a user with an authentication string does not use the following system variables:</p>
 <ul>
@@ -28478,12 +28478,12 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>For SASL-based LDAP authentication, in the <code>CREATE USER</code> statement or the <code>ALTER USER</code> statement, you can specify the <code>authentication_ldap_sasl</code> plugin:</p>
-<div class="highlight"><pre><span></span><code>mysql&gt; CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl;
+<div class="highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl;
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.</p>
-<div class="highlight"><pre><span></span><code>mysql&gt; CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl BY &#39;cn=[user name],ou=[organization unit],dc=[domain component],dc=com&#39;
+<div class="highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl BY &#39;cn=[user name],ou=[organization unit],dc=[domain component],dc=com&#39;
 </code></pre></div>
 <p>Unless the <a href="#ldap-system-variables-authentication_ldap_sasl_group_role_mapping">authentication_ldap_sasl_group_role_mapping</a> variable is used, creating a user with an authentication string does not use the following system variables:</p>
 <ul>
@@ -28518,10 +28518,10 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <div class="tabbed-block">
 <p>The following example configures an LDAP user and connects to the database server.</p>
 <p>Create a database server account for <code>ldapuser</code> with the following statement:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;ldapuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>authentication_ldap_simple<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;uid=ldapuser,ou=testusers,dc=percona,dc=com&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;ldapuser&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;uid=ldapuser,ou=testusers,dc=percona,dc=com&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The authentication string does not include the LDAP password. This password must be provided by the client user when they connect.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>mysql<span class="w"> </span>--user<span class="o">=</span>ldapuser<span class="w"> </span>--password<span class="w"> </span>--enable-cleartext-plugin
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="c1">--user=ldapuser --password --enable-cleartext-plugin</span>
 </code></pre></div>
 <p>The user enters the <code>ldapuser</code> password. The client sends the password as cleartext, which is necessary when using a server-side LDAP library without SASL. The following actions may minimize the risk:</p>
 <ul>
@@ -28532,11 +28532,11 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <div class="tabbed-block">
 <p>The following example configures an LDAP user and connect to the database server.</p>
 <p>Create a database server account for <code>ldapuser</code> with the following statement:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;ldapuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>authentication_ldap_sasl<span class="w"> </span>AS<span class="w"> </span><span class="s1">&#39;uid=ldapuser,ou=testusers,dc=percona,dc=com&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;ldapuser&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">authentication_ldap_sasl</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;uid=ldapuser,ou=testusers,dc=percona,dc=com&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The authentication string does not include the LDAP password. This password must be provided by the client user when they connect.</p>
 <p>Clients connect ot the database server by providing the database server user name and LDAP password:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>mysql<span class="w"> </span>--user<span class="o">=</span>ldapuser<span class="w"> </span>--password
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="c1">--user=ldapuser --password</span>
 </code></pre></div>
 <p>The authentication is similar to the authentication method used by simple LDAP authentication, except that the client and the database server SASL LDAP plugins use SASL messages. These messages are secure within the LDAP protocol.</p>
 </div>
@@ -28548,13 +28548,13 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>If you installed the plugins at <a href="#ldap-authentication-load-the-plugins-at-runtime">runtime</a>, run the following statements:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_simple<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="p">;</span>
 </code></pre></div>
 <p>If you used <code>SET_PERSIST</code>, use <code>RESET PERSIST</code> to remove the settings.</p>
 </div>
 <div class="tabbed-block">
 <p>If you installed the plugins at <a href="#ldap-authentication-load-the-plugins-at-runtime">runtime</a>, run the following statements:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_ldap_sasl<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_sasl</span><span class="p">;</span>
 </code></pre></div>
 <p>If you used <code>SET_PERSIST</code>, use <code>RESET PERSIST</code> to remove the settings.</p>
 </div>
@@ -29991,17 +29991,17 @@ mysql&gt;<span class="w"> </span>SET<span class="w"> </span>PERSIST<span class="
 <ol>
 <li>
 <p>Create <code>masking_dictionaries</code>.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>IF<span class="w"> </span>NOT<span class="w"> </span>EXISTS
-mysql.masking_dictionaries<span class="o">(</span>
-<span class="w">    </span>Dictionary<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">256</span><span class="o">)</span><span class="w"> </span>NOT<span class="w"> </span>NULL,
-<span class="w">    </span>Term<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">256</span><span class="o">)</span><span class="w"> </span>NOT<span class="w"> </span>NULL,
-<span class="w">    </span>UNIQUE<span class="w"> </span>INDEX<span class="w"> </span>dictionary_term_idx<span class="w"> </span><span class="o">(</span>Dictionary,<span class="w"> </span>Term<span class="o">)</span>
-<span class="o">)</span><span class="w"> </span><span class="nv">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>InnoDB<span class="w"> </span>DEFAULT<span class="w"> </span><span class="nv">CHARSET</span><span class="o">=</span>utf8mb4<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span>
+<span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="p">(</span>
+<span class="w">    </span><span class="k">Dictionary</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Term</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">dictionary_term_idx</span><span class="w"> </span><span class="p">(</span><span class="k">Dictionary</span><span class="p">,</span><span class="w"> </span><span class="n">Term</span><span class="p">)</span>
+<span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InnoDB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8mb4</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li>
 <p>Install the data masking components and the loadable functions.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_masking_functions&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_masking_functions&#39;</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li>
@@ -30015,7 +30015,7 @@ mysql.masking_dictionaries<span class="o">(</span>
 </li>
 <li>
 <p><code>masking_dictionary_remove</code></p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>MASKING_DICTIONARIES_ADMIN<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span>&lt;user&gt;<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="n">MASKING_DICTIONARIES_ADMIN</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="o">&lt;</span><span class="k">user</span><span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
 </li>
 </ul>
@@ -31257,14 +31257,14 @@ mysql.masking_dictionaries<span class="o">(</span>
 <p>A plugin may not be supported in later releases of MySQL or Percona Server for MySQL since version changes may introduce incompatible changes.</p>
 <h2 id="pam-plugin-installation">Installation<a class="headerlink" href="#pam-plugin-installation" title="Permanent link">&para;</a></h2>
 <p>This plugin requires manual installation because it isn’t installed by default.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>auth_pam<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">&#39;auth_pam.so&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_pam</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;auth_pam.so&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>After the plugin has been installed it should be present in the plugins list. To check if the plugin has been correctly installed and active</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>PLUGINS<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">PLUGINS</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>...
+<div class="highlight"><pre><span></span><code>...
 | auth_pam                       | ACTIVE   | AUTHENTICATION     | auth_pam.so | GPL     |
 </code></pre></div>
 </details>
@@ -31285,7 +31285,7 @@ account    required     pam_unix.so audit
 </code></pre></div>
 <h2 id="pam-plugin-creating-a-user">Creating a user<a class="headerlink" href="#pam-plugin-creating-a-user" title="Permanent link">&para;</a></h2>
 <p>After the PAM plugin has been configured, users can be created with the PAM plugin as authentication method</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;newuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>auth_pam<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;newuser&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">auth_pam</span><span class="p">;</span>
 </code></pre></div>
 <p>This will create a user <code>newuser</code> that can connect from <code>localhost</code> who will be authenticated using the PAM plugin. If the <code>pam_unix</code> method is being used user will need to exist on the system.</p>
 <h2 id="pam-plugin-supplementary-groups-support">Supplementary groups support<a class="headerlink" href="#pam-plugin-supplementary-groups-support" title="Permanent link">&para;</a></h2>
@@ -31344,7 +31344,7 @@ plugin-load-add=authentication_fido.so
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>authentication_fido<span class="w"> </span>SONAME<span class="w"> </span><span class="sb">`</span>authentication_fido.so<span class="sb">`</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_fido</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="o">`</span><span class="n">authentication_fido</span><span class="p">.</span><span class="n">so</span><span class="o">`</span><span class="p">;</span>
 </code></pre></div>
 </div>
 </div>
@@ -31368,7 +31368,7 @@ plugin-load-add=authentication_fido.so
 <p>The first element of the <code>authentication_policy</code> value must be an asterisk(*). Do not start with the plugin name. <a href="https://dev.mysql.com/doc/refman/8.4/en/multifactor-authentication.html#multifactor-authentication-policy">Configuring the <code>authentication policy</code> value <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> has more information.</p>
 <p>You must include the <code>INITIAL AUTHENTICATION IDENTIFIED BY</code> clause in the <code>CREATE USER</code> statement. The server does accept the statement without the clause but the account is unusable because the user cannot connect to the server to register the device. </p>
 <p>The <code>CREATE USER</code> syntax is the following:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span>&lt;username&gt;@&lt;hostname&gt;<span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>authentication_fido<span class="w"> </span>INITIAL<span class="w"> </span>AUTHENTICATION<span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;&lt;password&gt;&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;@&lt;</span><span class="n">hostname</span><span class="o">&gt;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">authentication_fido</span><span class="w"> </span><span class="n">INITIAL</span><span class="w"> </span><span class="n">AUTHENTICATION</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;&lt;password&gt;&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>During registration, the user must authenticate with the password. After the device is registered, the server deletes the password and modifies the account to make FIDO the only authentication method. </p>
 <h2 id="fido-authentication-plugin-unregister-a-fido-device">Unregister a FIDO device<a class="headerlink" href="#fido-authentication-plugin-unregister-a-fido-device" title="Permanent link">&para;</a></h2>
@@ -31392,7 +31392,7 @@ plugin-load-add=authentication_fido.so
 </tbody>
 </table>
 <p>Unregister a device with the following statement:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="sb">`</span>username<span class="sb">`</span>@<span class="sb">`</span>hostname<span class="sb">`</span><span class="w"> </span><span class="o">{</span><span class="m">2</span><span class="p">|</span><span class="m">3</span><span class="o">}</span><span class="w"> </span>FACTOR<span class="w"> </span>UNREGISTER<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="o">`</span><span class="n">username</span><span class="o">`@`</span><span class="n">hostname</span><span class="o">`</span><span class="w"> </span><span class="err">{</span><span class="mi">2</span><span class="o">|</span><span class="mi">3</span><span class="err">}</span><span class="w"> </span><span class="n">FACTOR</span><span class="w"> </span><span class="n">UNREGISTER</span><span class="p">;</span>
 </code></pre></div></section><section class="print-page" id="encryption-functions" heading-number="13.6"><h1 id="encryption-functions-encryption-functions">Encryption functions<a class="headerlink" href="#encryption-functions-encryption-functions" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL adds encryption functions and variables to manage the encryption range. The functions may take an algorithm argument. Encryption converts plaintext into ciphertext using a key and an encryption algorithm.</p>
 <p>You can also use the user-defined functions with the PEM format keys generated externally by the OpenSSL utility.</p>
@@ -34972,7 +34972,7 @@ Ensure the ``libjemalloc.so`` exists in the LD path. -->
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------+------------+------------+------------+-------------+------------+
+<div class="highlight"><pre><span></span><code>+------------+------------+------------+------------+-------------+------------+
 | ALLOCATED  | ACTIVE     | MAPPED     | RESIDENT   | RETAINED    | METADATA   |
 +------------+------------+------------+------------+-------------+------------+
 | 390977528  | 391012352  | 405291008  | 520167424  | 436813824   | 9933744    |
@@ -34984,11 +34984,11 @@ Ensure the ``libjemalloc.so`` exists in the LD path. -->
 <p>The following example commands display this result:</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">;</span>
 </code></pre></div>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>malloc_stats<span class="w"> </span>ORDER<span class="w"> </span>BY<span class="w"> </span>TYPE<span class="w"> </span>DESC<span class="w"> </span>LIMIT<span class="w"> </span><span class="m">3</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">malloc_stats</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">TYPE</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------+-------------+-------------+-------------+-------------+
+<div class="highlight"><pre><span></span><code>+--------+-------------+-------------+-------------+-------------+
 | TYPE   | ALLOCATED   | NMALLOC     | NDALLOC     | NRESQUESTS  |
 +--------+-------------+-------------+-------------+-------------+
 | small  | 23578872    | 586156      | 0           | 2649417     |
@@ -35011,7 +35011,7 @@ Ensure the ``libjemalloc.so`` exists in the LD path. -->
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>/tmp/jeprof_mysqld.1.0.170013202213
+<div class="highlight"><pre><span></span><code>/tmp/jeprof_mysqld.1.0.170013202213
 </code></pre></div>
 </details>
 <p>Then analyze the profile:</p>
@@ -36891,18 +36891,18 @@ older <code>core-file</code> variable.</p>
 <h3 id="libcoredumper-verifying-the-libcoredumper-is-active">Verifying the <code>libcoredumper</code> is active<a class="headerlink" href="#libcoredumper-verifying-the-libcoredumper-is-active" title="Permanent link">&para;</a></h3>
 <p>MySQL writes to the log when generating a core file and delegates the core
 dump operation to the Linux kernel. </p>
-<div class="no-copy highlight"><pre><span></span><code>Writing a core file
+<div class="highlight"><pre><span></span><code>Writing a core file
 </code></pre></div>
 <p>MySQL using the <code>libcoredumper</code> to generate the file creates the following
 message in the log:</p>
-<div class="no-copy highlight"><pre><span></span><code>Writing a core file using lib coredumper
+<div class="highlight"><pre><span></span><code>Writing a core file using lib coredumper
 </code></pre></div>
 <p>Every core file adds a crash timestamp instead of a PID for the following
 reasons:</p>
 <ul>
 <li>Correlates the core file with the crash. MySQL prints a UTC timestamp on the crash log.</li>
 </ul>
-<div class="no-copy highlight"><pre><span></span><code>10:02:09 UTC - mysqld got signal 11;
+<div class="highlight"><pre><span></span><code>10:02:09 UTC - mysqld got signal 11;
 </code></pre></div>
 <ul>
 <li>Stores multiple core files.</li>
@@ -36966,7 +36966,7 @@ distributed as part of the <em>Percona Server for MySQL</em>.</p>
 <p>It is currently impossible to use indexes on <code>BLOB</code> columns due to some limitations of the <em>Dynamic Row Format</em>. Trying to create such an index will fail with the following error:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>BLOB column &#39;&lt;name&gt;&#39; can&#39;t be used in key specification with the used table type.
+<div class="highlight"><pre><span></span><code>BLOB column &#39;&lt;name&gt;&#39; can&#39;t be used in key specification with the used table type.
 </code></pre></div>
 </details>
 <h2 id="improved-memory-engine-restrictions">Restrictions<a class="headerlink" href="#improved-memory-engine-restrictions" title="Permanent link">&para;</a></h2>
@@ -37001,10 +37001,10 @@ distributed as part of the <em>Percona Server for MySQL</em>.</p>
 <h3 id="improved-memory-engine-implicit-request">Implicit request<a class="headerlink" href="#improved-memory-engine-implicit-request" title="Permanent link">&para;</a></h3>
 <p>The implicit request by the user is taken when there is at least one <code>BLOB</code> or <code>TEXT</code> column in the table definition. If there are none of these columns and no relevant option is given, the engine will choose <code>FRF</code>.</p>
 <p>For example, this will yield the use of the dynamic format:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span><span class="o">(</span>f1<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">32</span><span class="o">)</span>,<span class="w"> </span>f2<span class="w"> </span>TEXT,<span class="w"> </span>PRIMARY<span class="w"> </span>KEY<span class="w"> </span><span class="o">(</span>f1<span class="o">))</span><span class="w"> </span><span class="nv">ENGINE</span><span class="o">=</span>HEAP<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="p">))</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">HEAP</span><span class="p">;</span>
 </code></pre></div>
 <p>While this will not:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span><span class="o">(</span>f1<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">16</span><span class="o">)</span>,<span class="w"> </span>f2<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">16</span><span class="o">)</span>,<span class="w"> </span>PRIMARY<span class="w"> </span>KEY<span class="w"> </span><span class="o">(</span>f1<span class="o">))</span><span class="w"> </span><span class="nv">ENGINE</span><span class="o">=</span>HEAP<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="p">))</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">HEAP</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="improved-memory-engine-explicit-request">Explicit request<a class="headerlink" href="#improved-memory-engine-explicit-request" title="Permanent link">&para;</a></h3>
 <p>The explicit request is set with one of the following options in the <code>CREATE TABLE</code> statement:</p>
@@ -37029,25 +37029,13 @@ distributed as part of the <em>Percona Server for MySQL</em>.</p>
 </ul>
 <p>the engine will revert to the fixed format as it is more space efficient in such case. The row format being used by the engine can be checked using <code>SHOW TABLE STATUS</code>.</p>
 <h2 id="improved-memory-engine-examples">Examples<a class="headerlink" href="#improved-memory-engine-examples" title="Permanent link">&para;</a></h2>
-<p>On a 32-bit platform:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span><span class="o">(</span>f1<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">32</span><span class="o">)</span>,<span class="w"> </span>f2<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">32</span><span class="o">)</span>,<span class="w"> </span>f3<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">32</span><span class="o">)</span>,<span class="w"> </span>f4<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">32</span><span class="o">)</span>,<span class="w"> </span>PRIMARY<span class="w"> </span>KEY<span class="w"> </span><span class="o">(</span>f1<span class="o">))</span><span class="w"> </span><span class="nv">KEY_BLOCK_SIZE</span><span class="o">=</span><span class="m">124</span><span class="w"> </span><span class="nv">ENGINE</span><span class="o">=</span>HEAP<span class="p">;</span>
-
-mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>TABLE<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;t1&#39;</span><span class="p">;</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="n">f3</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="n">f4</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="p">))</span><span class="w"> </span><span class="n">KEY_BLOCK_SIZE</span><span class="o">=</span><span class="mi">124</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">HEAP</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;t1&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Name  Engine  Version    Rows Avg_row_length  Data_length     Max_data_length Index_length    Data_free       Auto_increment  Create_time     Update_time     Check_time      Collation       Checksum        Create_options  Comment
-t1    MEMORY  10         X    0       X       0       0       NULL    NULL    NULL    NULL    latin1_swedish_ci       NULL    row_format=DYNAMIC KEY_BLOCK_SIZE=124
-</code></pre></div>
-</details>
-<p>On a 64-bit platform:</p>
-<div class="highlight" data-prompt="mysql"><pre><span></span><code>mysqlCREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span><span class="o">(</span>f1<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">32</span><span class="o">)</span>,<span class="w"> </span>f2<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">32</span><span class="o">)</span>,<span class="w"> </span>f3<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">32</span><span class="o">)</span>,<span class="w"> </span>f4<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">32</span><span class="o">)</span>,<span class="w"> </span>PRIMARY<span class="w"> </span>KEY<span class="w"> </span><span class="o">(</span>f1<span class="o">))</span><span class="w"> </span><span class="nv">KEY_BLOCK_SIZE</span><span class="o">=</span><span class="m">124</span><span class="w"> </span><span class="nv">ENGINE</span><span class="o">=</span>HEAP<span class="p">;</span>
-</code></pre></div>
-<div class="highlight" data-prompt="mysql"><pre><span></span><code>mysqlSHOW<span class="w"> </span>TABLE<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;t1&#39;</span><span class="p">;</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Name  Engine  Version    Rows Avg_row_length  Data_length     Max_data_length Index_length    Data_free       Auto_increment  Create_time     Update_time     Check_time      Collation       Checksum        Create_options  Comment
+<div class="highlight"><pre><span></span><code>Name  Engine  Version    Rows Avg_row_length  Data_length     Max_data_length Index_length    Data_free       Auto_increment  Create_time     Update_time     Check_time      Collation       Checksum        Create_options  Comment
 t1    MEMORY  10         X    0       X       0       0       NULL    NULL    NULL    NULL    latin1_swedish_ci       NULL    KEY_BLOCK_SIZE=124
 </code></pre></div>
 </details>
@@ -37364,7 +37352,7 @@ you will probably already recognize the information these variables contain.</p>
 section of the output from <code>SHOW ENGINE INNODB STATUS</code>. </p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>-----------------
+<div class="highlight"><pre><span></span><code>-----------------
 BACKGROUND THREAD
 -----------------
 srv_master_thread loops: 1 srv_active, 0 srv_shutdown, 11844 srv_idle
@@ -37406,7 +37394,7 @@ and flushed the redo log.</p>
 the output from <code>SHOW ENGINE INNODB STATUS</code>. An example of that output is:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>----------
+<div class="highlight"><pre><span></span><code>----------
 SEMAPHORES
 ----------
 OS WAIT ARRAY INFO: reservation count 9664, signal count 11182
@@ -37421,7 +37409,7 @@ HASH INDEX</code> section of the output from <code>SHOW ENGINE INNODB STATUS</co
 example of that output is:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>-------------------------------------
+<div class="highlight"><pre><span></span><code>-------------------------------------
 INSERT BUFFER AND ADAPTIVE HASH INDEX
 -------------------------------------
 Ibuf: size 1, free list len 6089, seg size 6091,
@@ -37472,7 +37460,7 @@ Ibuf: size 1, free list len 6089, seg size 6091,
 output from <code>SHOW ENGINE INNODB STATUS</code>. An example of that output is:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>LOG
+<div class="highlight"><pre><span></span><code>LOG
 ---
 Log sequence number 10145937666
 Log flushed up to   10145937666
@@ -37577,7 +37565,7 @@ section of the output from <code>SHOW ENGINE INNODB STATUS</code>. An example of
 output is:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>----------------------
+<div class="highlight"><pre><span></span><code>----------------------
 BUFFER POOL AND MEMORY
 ----------------------
 Total memory allocated 137363456; in additional pool allocated 0
@@ -37761,7 +37749,7 @@ to be old according to the <a href="https://dev.mysql.com/doc/refman/8.4/en/inno
 the output from <code>SHOW INNODB STATUS</code>. An example of that output is:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>------------
+<div class="highlight"><pre><span></span><code>------------
 TRANSACTIONS
 ------------
 Trx id counter F561FD
@@ -38878,11 +38866,11 @@ plugin for Percona Server for MySQL 8.4 and later versions.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="install-myrocks-__tabbed_1_1" name="install-myrocks-__tabbed_1" type="radio" /><input id="install-myrocks-__tabbed_1_2" name="install-myrocks-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="install-myrocks-__tabbed_1_1">Debian or Ubuntu</label><label for="install-myrocks-__tabbed_1_2">RHEL or derivatives</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
 </code></pre></div>
 </div>
 </div>
@@ -38896,13 +38884,13 @@ plugin for Percona Server for MySQL 8.4 and later versions.</p>
 * Run the following script to enable the RocksDB storage engine in Percona Server:
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>&lt;mysql_admin_user&gt;<span class="w"> </span>-p<span class="o">[</span>mysql_admin_pass<span class="o">]</span><span class="w"> </span><span class="o">[</span>-S<span class="w"> </span>&lt;socket&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-h<span class="w"> </span>&lt;host&gt;<span class="w"> </span>-P<span class="w"> </span>&lt;port&gt;<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>&lt;mysql_admin_user&gt;<span class="w"> </span>-p<span class="o">[</span>mysql_admin_pass<span class="o">]</span><span class="w"> </span><span class="o">[</span>-S<span class="w"> </span>&lt;socket&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-h<span class="w"> </span>&lt;host&gt;<span class="w"> </span>-P<span class="w"> </span>&lt;port&gt;<span class="o">]</span>
 </code></pre></div>
 <h3 id="install-myrocks-enable-myrocks-with-ps-admin">Enable MyRocks with ps-admin<a class="headerlink" href="#install-myrocks-enable-myrocks-with-ps-admin" title="Permanent link">&para;</a></h3>
 <p>Run the <code>ps-admin</code> script as system root user or with <strong>sudo</strong>
 and provide the MySQL root user credentials
 to properly enable the RocksDB (MyRocks) storage engine:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -38931,7 +38919,7 @@ INFO: Successfully installed RocksDB engine plugin.
 <p>If the script returns no errors,
 Percona MyRocks should be successfully enabled on the server.
 You can verify it as follows:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>ENGINES<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINES</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -38977,15 +38965,15 @@ for every table that you create.</p>
 with another storage engine after you remove Percona MyRocks.
 If you need this data, alter the tables to another storage engine.
 For example, to alter the <code>City</code> table to InnoDB, run the following:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>TABLE<span class="w"> </span>City<span class="w"> </span><span class="nv">ENGINE</span><span class="o">=</span>InnoDB<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span>
 </code></pre></div>
 <p>To disable and uninstall the RocksDB engine plugins,
 use the <code>ps-admin</code> script as follows:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Checking RocksDB engine plugin status...
+<div class="highlight"><pre><span></span><code>Checking RocksDB engine plugin status...
 INFO: RocksDB engine plugin is installed.
 
 Uninstalling RocksDB engine plugin...
@@ -38996,13 +38984,13 @@ INFO: Successfully uninstalled RocksDB engine plugin.
 remove the Percona MyRocks package:</p>
 <div class="highlight"><pre><span></span><code>=== &quot;Debian or Ubuntu&quot;
 
-    ```{.bash data-prompt=&quot;$&quot;}
+    ```shell
     $ sudo apt remove percona-server-rocksdb-8.4
     ```
 
 === &quot;RHEL or derivatives&quot;
 
-    ```{.bash data-prompt=&quot;$&quot;}
+    ```shell
     $ sudo yum remove percona-server-rocksdb-80.x86_64
     ```
 </code></pre></div>
@@ -47657,7 +47645,7 @@ about the inner workings of the storage engine
 and they can be useful in tuning the storage engine
 to a particular environment.</p>
 <p>You can view these variables and their values by running:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;rocksdb%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>SHOW<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;rocksdb%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The following global status variables are available:</p>
 <table>

@@ -9720,31 +9720,31 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Each isolation level offers a different balance between concurrency and consistency, and the choice depends on the application&rsquo;s specific requirements. By selecting the appropriate isolation level, developers can ensure their MySQL database applications&rsquo; desired data integrity and performance level.</p>
 <h2 id="read-uncommitted">Read Uncommitted<a class="headerlink" href="#read-uncommitted" title="Permanent link">&para;</a></h2>
 <p>In the Read Uncommitted isolation level, transactions can read data that has been modified by other transactions but not yet committed. This level allows for the highest concurrency but can lead to dirty reads.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>SET<span class="w"> </span>TRANSACTION<span class="w"> </span>ISOLATION<span class="w"> </span>LEVEL<span class="w"> </span>READ<span class="w"> </span>UNCOMMITTED<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">UNCOMMITTED</span><span class="p">;</span>
 
---<span class="w"> </span>Perform<span class="w"> </span>a<span class="w"> </span>SELECT<span class="w"> </span>query<span class="w"> </span>to<span class="w"> </span><span class="nb">read</span><span class="w"> </span>uncommitted<span class="w"> </span>data
-SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>table_name<span class="p">;</span>
+<span class="c1">-- Perform a SELECT query to read uncommitted data</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="read-committed">Read Committed<a class="headerlink" href="#read-committed" title="Permanent link">&para;</a></h2>
 <p>In Read Committed isolation level, transactions can only read data that has been committed by other transactions. This level prevents dirty reads but allows for non-repeatable reads and phantom reads.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>SET<span class="w"> </span>TRANSACTION<span class="w"> </span>ISOLATION<span class="w"> </span>LEVEL<span class="w"> </span>READ<span class="w"> </span>COMMITTED<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">COMMITTED</span><span class="p">;</span>
 
---<span class="w"> </span>Perform<span class="w"> </span>a<span class="w"> </span>SELECT<span class="w"> </span>query<span class="w"> </span>to<span class="w"> </span><span class="nb">read</span><span class="w"> </span>committed<span class="w"> </span>data
-SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>table_name<span class="p">;</span>
+<span class="c1">-- Perform a SELECT query to read committed data</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="repeatable-read">Repeatable Read<a class="headerlink" href="#repeatable-read" title="Permanent link">&para;</a></h2>
 <p>In Repeatable Read isolation level, transactions can only read data that has been committed by other transactions at the start of the transaction. This level prevents dirty reads and non-repeatable reads but allows for phantom reads.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>SET<span class="w"> </span>TRANSACTION<span class="w"> </span>ISOLATION<span class="w"> </span>LEVEL<span class="w"> </span>REPEATABLE<span class="w"> </span>READ<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">REPEATABLE</span><span class="w"> </span><span class="k">READ</span><span class="p">;</span>
 
---<span class="w"> </span>Perform<span class="w"> </span>a<span class="w"> </span>SELECT<span class="w"> </span>query<span class="w"> </span>to<span class="w"> </span><span class="nb">read</span><span class="w"> </span>data<span class="w"> </span>consistently<span class="w"> </span>within<span class="w"> </span>the<span class="w"> </span>transaction
-SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>table_name<span class="p">;</span>
+<span class="c1">-- Perform a SELECT query to read data consistently within the transaction</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="serializable">Serializable<a class="headerlink" href="#serializable" title="Permanent link">&para;</a></h2>
 <p>In Serializable isolation level, transactions are executed serially, preventing any concurrent access to the data. This level provides the highest level of isolation but can lead to reduced concurrency and potential deadlock situations.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>SET<span class="w"> </span>TRANSACTION<span class="w"> </span>ISOLATION<span class="w"> </span>LEVEL<span class="w"> </span>SERIALIZABLE<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">SERIALIZABLE</span><span class="p">;</span>
 
---<span class="w"> </span>Perform<span class="w"> </span>a<span class="w"> </span>SELECT<span class="w"> </span>query<span class="w"> </span>within<span class="w"> </span>a<span class="w"> </span>serializable<span class="w"> </span>transaction
-SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>table_name<span class="p">;</span>
+<span class="c1">-- Perform a SELECT query within a serializable transaction</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="p">;</span>
 </code></pre></div>
 <p>These examples demonstrate how to set and use different isolation levels in SQL transactions, each providing consistency and concurrency control.</p>
 <h2 id="database-management">Database management<a class="headerlink" href="#database-management" title="Permanent link">&para;</a></h2>
@@ -9776,7 +9776,7 @@ SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </sp
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 3, 2024 13:20:11 UTC">May 3, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 2, 2026 13:51:52 UTC">February 2, 2026</span>
   </span>
 
     

@@ -9793,22 +9793,22 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <h2 id="create-function">Create function<a class="headerlink" href="#create-function" title="Permanent link">&para;</a></h2>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>FUNCTION<span class="w"> </span>calculate_discount<span class="w"> </span><span class="o">(</span>total_amount<span class="w"> </span>DECIMAL<span class="o">(</span><span class="m">10</span>,<span class="w"> </span><span class="m">2</span><span class="o">))</span><span class="w"> </span>RETURNS<span class="w"> </span>DECIMAL<span class="o">(</span><span class="m">10</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span>
-<span class="w">    </span>-&gt;<span class="w"> </span>BEGIN
-<span class="w">    </span>-&gt;<span class="w">     </span>DECLARE<span class="w"> </span>discount<span class="w"> </span>DECIMAL<span class="o">(</span><span class="m">10</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span>
-<span class="w">    </span>-&gt;<span class="w">     </span>IF<span class="w"> </span>total_amount<span class="w"> </span>&gt;<span class="w"> </span><span class="m">100</span><span class="w"> </span>THEN
-<span class="w">    </span>-&gt;<span class="w">         </span>SET<span class="w"> </span><span class="nv">discount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>total_amount<span class="w"> </span>*<span class="w"> </span><span class="m">0</span>.1<span class="p">;</span>
-<span class="w">    </span>-&gt;<span class="w">     </span>ELSE
-<span class="w">    </span>-&gt;<span class="w">         </span>SET<span class="w"> </span><span class="nv">discount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
-<span class="w">    </span>-&gt;<span class="w">     </span>END<span class="w"> </span>IF<span class="p">;</span>
-<span class="w">    </span>-&gt;<span class="w">     </span>RETURN<span class="w"> </span>discount<span class="p">;</span>
-<span class="w">    </span>-&gt;<span class="w"> </span>END<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">calculate_discount</span><span class="w"> </span><span class="p">(</span><span class="n">total_amount</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">BEGIN</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w">     </span><span class="k">DECLARE</span><span class="w"> </span><span class="n">discount</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w">     </span><span class="k">IF</span><span class="w"> </span><span class="n">total_amount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w">         </span><span class="k">SET</span><span class="w"> </span><span class="n">discount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">total_amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w">     </span><span class="k">ELSE</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w">         </span><span class="k">SET</span><span class="w"> </span><span class="n">discount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w">     </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w">     </span><span class="k">RETURN</span><span class="w"> </span><span class="n">discount</span><span class="p">;</span>
+<span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">END</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="call-function">Call function<a class="headerlink" href="#call-function" title="Permanent link">&para;</a></h2>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>calculate_discount<span class="o">(</span><span class="m">120</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">calculate_discount</span><span class="p">(</span><span class="mi">120</span><span class="p">);</span>
 </code></pre></div>
 <h2 id="drop-function">Drop function<a class="headerlink" href="#drop-function" title="Permanent link">&para;</a></h2>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DROP<span class="w"> </span>FUNCTION<span class="w"> </span>IF<span class="w"> </span>EXISTS<span class="w"> </span>calculate_discount<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">calculate_discount</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="advanced-sql-features">Advanced SQL features<a class="headerlink" href="#advanced-sql-features" title="Permanent link">&para;</a></h2>
 <ul>
@@ -9844,7 +9844,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 3, 2024 13:20:11 UTC">May 3, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 2, 2026 13:51:52 UTC">February 2, 2026</span>
   </span>
 
     

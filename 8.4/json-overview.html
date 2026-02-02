@@ -9883,11 +9883,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>JSON in Percona Server for MySQL gives you have the flexibility of NoSQL with the reliability and querying power of a relational database. </p>
 <h2 id="create-a-table-with-json-data-type">Create a table with JSON Data Type<a class="headerlink" href="#create-a-table-with-json-data-type" title="Permanent link">&para;</a></h2>
 <p>Create a table that includes a column with the JSON data type.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>users<span class="w"> </span><span class="o">(</span>
-<span class="w">    </span>id<span class="w"> </span>INT<span class="w"> </span>AUTO_INCREMENT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY,
-<span class="w">    </span>name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">255</span><span class="o">)</span><span class="w"> </span>NOT<span class="w"> </span>NULL,
-<span class="w">    </span>info<span class="w"> </span>JSON
-<span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">info</span><span class="w"> </span><span class="n">JSON</span>
+<span class="p">);</span>
 </code></pre></div>
 <p>The columns are the following:</p>
 <ul>
@@ -9903,53 +9903,53 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <h2 id="insert-json-data">Insert JSON Data<a class="headerlink" href="#insert-json-data" title="Permanent link">&para;</a></h2>
 <p>Insert the JSON data into the table using the <code>INSERT</code> statement. The <code>name</code> column stores the user&rsquo;s name. The <code>info</code> column stores JSON data using the <code>JSON_OBJECT</code> function. This function creates a JSON object with key-value pairs.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>users<span class="w"> </span><span class="o">(</span>name,<span class="w"> </span>info<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span>
-<span class="w">    </span><span class="s1">&#39;John Doe&#39;</span>,
-<span class="w">    </span>JSON_OBJECT<span class="o">(</span><span class="s1">&#39;age&#39;</span>,<span class="w"> </span><span class="m">30</span>,<span class="w"> </span><span class="s1">&#39;city&#39;</span>,<span class="w"> </span><span class="s1">&#39;New York&#39;</span>,<span class="w"> </span><span class="s1">&#39;email&#39;</span>,<span class="w"> </span><span class="s1">&#39;john.doe@example.com&#39;</span><span class="o">)</span>
-<span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">info</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s1">&#39;John Doe&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">JSON_OBJECT</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;city&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;New York&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;email&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;john.doe@example.com&#39;</span><span class="p">)</span>
+<span class="p">);</span>
 </code></pre></div>
 <h2 id="query-json-data">Query JSON Data<a class="headerlink" href="#query-json-data" title="Permanent link">&para;</a></h2>
 <p>You can query JSON data using the <code>SELECT</code> statement. The <code>name</code> column retrieves the user&rsquo;s name. The <code>info-&gt;&gt;'$.age'</code> expression retrieves the value of the <code>age</code> key from the JSON object stored in the <code>info</code> column.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>name,<span class="w"> </span>info-&gt;&gt;<span class="s1">&#39;$.age&#39;</span><span class="w"> </span>AS<span class="w"> </span>age<span class="w"> </span>FROM<span class="w"> </span>users<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">info</span><span class="o">-&gt;&gt;</span><span class="s1">&#39;$.age&#39;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="update-json-data">Update JSON Data<a class="headerlink" href="#update-json-data" title="Permanent link">&para;</a></h2>
 <p>You can update JSON data using the <code>UPDATE</code> statement. The <code>JSON_SET</code> function updates the value of the <code>age</code> key in the JSON object stored in the <code>info</code> column. The <code>WHERE</code> clause specifies that only the row with the name &lsquo;John Doe&rsquo; should be updated.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>users
-SET<span class="w"> </span><span class="nv">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>JSON_SET<span class="o">(</span>info,<span class="w"> </span><span class="s1">&#39;$.age&#39;</span>,<span class="w"> </span><span class="m">31</span><span class="o">)</span>
-WHERE<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON_SET</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.age&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">31</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="delete-json-data">Delete JSON Data<a class="headerlink" href="#delete-json-data" title="Permanent link">&para;</a></h2>
 <p>You can delete JSON data using the <code>DELETE</code> statement. This statement removes rows from the <code>users</code> table where the <code>city</code> key in the JSON object stored in the <code>info</code> column has the value &lsquo;New York&rsquo;.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>DELETE<span class="w"> </span>FROM<span class="w"> </span>users<span class="w"> </span>WHERE<span class="w"> </span>info-&gt;&gt;<span class="s1">&#39;$.city&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;New York&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">info</span><span class="o">-&gt;&gt;</span><span class="s1">&#39;$.city&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;New York&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="add-new-key-value-pairs-to-json-data">Add New Key-Value Pairs to JSON Data<a class="headerlink" href="#add-new-key-value-pairs-to-json-data" title="Permanent link">&para;</a></h2>
 <p>You can add new key-value pairs to existing JSON data using the <code>JSON_SET</code> function. The <code>JSON_SET</code> function adds a new key <code>phone</code> with the value &lsquo;123-456-7890&rsquo; to the JSON object stored in the <code>info</code> column.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>users
-SET<span class="w"> </span><span class="nv">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>JSON_SET<span class="o">(</span>info,<span class="w"> </span><span class="s1">&#39;$.phone&#39;</span>,<span class="w"> </span><span class="s1">&#39;123-456-7890&#39;</span><span class="o">)</span>
-WHERE<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON_SET</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.phone&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;123-456-7890&#39;</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="remove-key-value-pairs-from-json-data">Remove Key-Value Pairs from JSON Data<a class="headerlink" href="#remove-key-value-pairs-from-json-data" title="Permanent link">&para;</a></h2>
 <p>You can remove key-value pairs from existing JSON data using the <code>JSON_REMOVE</code> function. This function removes the <code>email</code> key from the JSON object stored in the <code>info</code> column.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>users
-SET<span class="w"> </span><span class="nv">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>JSON_REMOVE<span class="o">(</span>info,<span class="w"> </span><span class="s1">&#39;$.email&#39;</span><span class="o">)</span>
-WHERE<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON_REMOVE</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.email&#39;</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="use-json-functions">Use JSON Functions<a class="headerlink" href="#use-json-functions" title="Permanent link">&para;</a></h2>
 <p>Percona Server for MySQL provides several functions to work with JSON data.</p>
 <h3 id="json_extract"><code>JSON_EXTRACT</code><a class="headerlink" href="#json_extract" title="Permanent link">&para;</a></h3>
 <p>You can extract data from a JSON document using the <code>JSON_EXTRACT</code> function. This function extracts the value of the <code>city</code> key from the JSON object stored in the <code>info</code> column.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>JSON_EXTRACT<span class="o">(</span>info,<span class="w"> </span><span class="s1">&#39;$.city&#39;</span><span class="o">)</span><span class="w"> </span>AS<span class="w"> </span>city<span class="w"> </span>FROM<span class="w"> </span>users<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">JSON_EXTRACT</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.city&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">city</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="json_array"><code>JSON_ARRAY</code><a class="headerlink" href="#json_array" title="Permanent link">&para;</a></h3>
 <p>You can create a JSON array using the <code>JSON_ARRAY</code> function. This function creates a JSON array with the values &lsquo;apple&rsquo;, &lsquo;banana&rsquo;, and &lsquo;cherry&rsquo;.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>users<span class="w"> </span><span class="o">(</span>name,<span class="w"> </span>info<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span>
-<span class="w">    </span><span class="s1">&#39;Jane Smith&#39;</span>,
-<span class="w">    </span>JSON_ARRAY<span class="o">(</span><span class="s1">&#39;apple&#39;</span>,<span class="w"> </span><span class="s1">&#39;banana&#39;</span>,<span class="w"> </span><span class="s1">&#39;cherry&#39;</span><span class="o">)</span>
-<span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">info</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s1">&#39;Jane Smith&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">JSON_ARRAY</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;banana&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cherry&#39;</span><span class="p">)</span>
+<span class="p">);</span>
 </code></pre></div>
 <h3 id="json_contains"><code>JSON_CONTAINS</code><a class="headerlink" href="#json_contains" title="Permanent link">&para;</a></h3>
 <p>You can check if a JSON document contains a specific value using the <code>JSON_CONTAINS</code> function. This function checks if the <code>info</code> column contains the value &lsquo;New York&rsquo; for the <code>city</code> key.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>name<span class="w"> </span>FROM<span class="w"> </span>users<span class="w"> </span>WHERE<span class="w"> </span>JSON_CONTAINS<span class="o">(</span>info,<span class="w"> </span><span class="s1">&#39;&quot;New York&quot;&#39;</span>,<span class="w"> </span><span class="s1">&#39;$.city&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">JSON_CONTAINS</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&quot;New York&quot;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.city&#39;</span><span class="p">);</span>
 </code></pre></div>
 
 
@@ -9973,7 +9973,7 @@ WHERE<span class="w"> </span><span class="nv">name</span><span class="w"> </span
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 23, 2025 15:26:24 UTC">January 23, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 2, 2026 13:51:52 UTC">February 2, 2026</span>
   </span>
 
     

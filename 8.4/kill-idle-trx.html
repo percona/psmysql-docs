@@ -9860,7 +9860,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>If set to a non-zero value, the server kills any idle transaction after it stays idle for this number of seconds.</p>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <p>The <code>SET GLOBAL kill_idle_transaction = 300;</code> command configures the server to automatically end any idle transaction that has lasted for 300 seconds (5 minutes). This command immediately takes effect for the current and new server sessions. An idle transaction holds resources, potentially preventing other operations from proceeding. This setting helps to release these resources if a transaction is unintentionally left open.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">kill_idle_transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">300</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">kill_idle_transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">300</span><span class="p">;</span>
 </code></pre></div>
 <p>The [mysqld] section in the my.cnf configuration file allows you to set server-wide options that persist across server restarts. Adding the line kill_idle_transaction = 300 under [mysqld] makes the idle transaction timeout of 300 seconds the default setting for the server. This setting ensures that the server automatically terminates idle transactions after 5 minutes every time it starts. </p>
 <p>You must restart the server for changes in the my.cnf file to take effect. This configuration prevents long-held idle transactions from consuming resources over extended periods.</p>
@@ -9871,7 +9871,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>If the <code>kill_idle_transaction</code> setting is active and idle transactions have been terminated, this command will output any lines from the error log that contain the &ldquo;Killed idle transaction&rdquo; message. Each matching line typically includes a timestamp and details about the terminated transaction, such as its ID and the duration it was idle. </p>
 <p>If the kill_idle_transaction setting is active and idle transactions have been terminated, this command will output any lines from the error log that contain the “Killed idle transaction” message. Each matching line typically includes a timestamp and details about the terminated transaction, such as its ID and the duration it was idle.</p>
 <p>The command produces no output if the server has not terminated any idle transactions since the last log rotation or server start. Regularly checking this log helps you verify that the idle transaction option is working as expected and provides insights into transaction management within your server.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Killed idle transaction&quot;</span><span class="w"> </span>/var/log/mysql/error.log
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Killed idle transaction&quot;</span><span class="w"> </span>/var/log/mysql/error.log
 </code></pre></div>
 
 
@@ -9895,7 +9895,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2025 14:25:48 UTC">May 8, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 2, 2026 13:51:52 UTC">February 2, 2026</span>
   </span>
 
     
