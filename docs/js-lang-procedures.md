@@ -4,7 +4,7 @@
 
 Once the component's installed, you can write stored functions and procedures in JavaScript. The syntax looks like this:
 
-```{.text .no-copy}
+```sql
 CREATE
     [DEFINER = user]
     FUNCTION [IF NOT EXISTS] sp_name ([func_parameter[,...]])
@@ -22,14 +22,14 @@ routine_body:
 
 Use the `LANGUAGE JS` clause when creating a routine.
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE FUNCTION f1(n INT) RETURNS INT LANGUAGE JS AS $$
+```sql
+CREATE FUNCTION f1(n INT) RETURNS INT LANGUAGE JS AS $$
 	return n*42;
-$$
 
-mysql> CREATE PROCEDURE p1(a INT, b INT, OUT r INT) LANGUAGE JS AS $$
+
+CREATE PROCEDURE p1(a INT, b INT, OUT r INT) LANGUAGE JS AS $$
   r = a * b;
-$$
+
 ```
 
 You can modify or delete stored programs in JS by using the standard `ALTER PROCEDURE/FUNCTION` and `DROP PROCEDURE/FUNCTION` statements. These statements do not require the `CREATE_JS_ROUTINE` privilege.

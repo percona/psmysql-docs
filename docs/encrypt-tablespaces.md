@@ -89,7 +89,7 @@ CREATE TABLE t3 (a INT, b TEXT) TABLESPACE foo ENCRYPTION='N';
 
 ??? example "Expected output"
 
-    ```text
+    ```sql
     ERROR 1478 (HY0000): InnoDB: Tablespace 'foo' can contain only ENCRYPTED tables.
     ```
 

@@ -42,7 +42,7 @@ column family.
 
     The `cfname` attribute must be all lowercase. Place the equals sign (=) in front of the column family name without any whitespace on both sides of it.
     
-    ```text
+    ```sql
     COMMENT 'cfname=Foo; Creating the Foo family name'
     ```
 

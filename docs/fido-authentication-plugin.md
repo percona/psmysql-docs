@@ -26,7 +26,7 @@ The library file must be stored in the directory named by the [`plugin_dir` :oct
 
 === "Edit my.cnf and restart the server"
 
-    ```text
+    ```sql
 
     [mysqld]
     ...
@@ -36,8 +36,8 @@ The library file must be stored in the directory named by the [`plugin_dir` :oct
 
 === "Load the plugin at runtime"
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> INSTALL PLUGIN authentication_fido SONAME `authentication_fido.so`;
+    ```sql
+    INSTALL PLUGIN authentication_fido SONAME `authentication_fido.so`;
     ```
 
 ### Verify installation
@@ -78,8 +78,8 @@ You must include the `INITIAL AUTHENTICATION IDENTIFIED BY` clause in the `CREAT
 
 The `CREATE USER` syntax is the following:
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE USER <username>@<hostname> IDENTIFIED WITH authentication_fido INITIAL AUTHENTICATION IDENTIFIED BY '<password>';
+```sql
+CREATE USER <username>@<hostname> IDENTIFIED WITH authentication_fido INITIAL AUTHENTICATION IDENTIFIED BY '<password>';
 ```
 
 During registration, the user must authenticate with the password. After the device is registered, the server deletes the password and modifies the account to make FIDO the only authentication method. 
@@ -95,6 +95,6 @@ If the FIDO device is replaced or lost, the following actions occur:
 
 Unregister a device with the following statement:
 
-```{.bash data-prompt="mysql>"}
-mysql> ALTER USER `username`@`hostname` {2|3} FACTOR UNREGISTER;
+```sql
+ALTER USER `username`@`hostname` {2|3} FACTOR UNREGISTER;
 ```

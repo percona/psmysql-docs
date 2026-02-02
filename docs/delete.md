@@ -23,7 +23,7 @@ The statement has the following options:
 
 The syntax of the DELETE statement is as follows:
 
-```text
+```sql
 DELETE FROM table_name
 [WHERE condition];
 ```

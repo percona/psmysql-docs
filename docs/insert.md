@@ -37,8 +37,8 @@ In this example, we are doing the following:
 
 - The values 1, 'John Doe', and 50000 are being inserted into the "id", "name", and "salary" columns, respectively.
 
-```{.bash data-prompt="mysql>"}
-mysql> INSERT INTO employees (id, name, salary)
+```sql
+INSERT INTO employees (id, name, salary)
         VALUES (1, 'John Doe', 50000);
 ```
 

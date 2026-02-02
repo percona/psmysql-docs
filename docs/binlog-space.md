@@ -12,7 +12,7 @@ Controlling binary log disk usage can be difficult because binary log sizes vary
 | Dynamic | No |
 | Variable type | ULONG_MAX |
 | Default value | 0 (unlimited) |
-| Maximum value - 64-bit platform | 18446744073709547520 |
+| Maximum value | 18446744073709547520 |
 
 This variable sets an upper limit on the total size of all binary logs in bytes. When the combined size exceeds this limit, the server automatically purges the oldest binary logs until the total size falls below the limit or only the active log remains.
 
@@ -22,7 +22,7 @@ A default value of 0 disables this feature. In this case, the server does not en
 
 Set the `binlog_space_limit` to 50 GB in the `my.cnf` file:
 
-```text
+```sql
 [mysqld]
 ...
 binlog_space_limit = 50G

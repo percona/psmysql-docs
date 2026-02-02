@@ -22,27 +22,27 @@ It is recommended to install Percona software from official repositories:
 
     === "Debian or Ubuntu"
 
-        ```{.bash data-prompt="$"}
-        $ sudo apt install percona-server-rocksdb
+        ```bash
+        sudo apt install percona-server-rocksdb
         ```
 
     === "RHEL or derivatives"
 
-        ```{.bash data-prompt="$"}
-        $ sudo dnf install percona-server-rocksdb
+        ```bash
+        sudo dnf install percona-server-rocksdb
         ```
 
 After installation, you should see the following output:
 
 ??? example "Expected output"
     
-    ```text
+    ```sql
     * This release of |Percona Server| is distributed with RocksDB storage engine.
     * Run the following script to enable the RocksDB storage engine in Percona Server:
     ```
 
-```{.bash data-prompt="$"}
-$ ps-admin --enable-rocksdb -u <mysql_admin_user> -p[mysql_admin_pass] [-S <socket>] [-h <host> -P <port>]
+```bash
+ps-admin --enable-rocksdb -u <mysql_admin_user> -p[mysql_admin_pass] [-S <socket>] [-h <host> -P <port>]
 ```
 
 ### Enable MyRocks with ps-admin
@@ -51,13 +51,13 @@ Run the `ps-admin` script as system root user or with **sudo**
 and provide the MySQL root user credentials
 to properly enable the RocksDB (MyRocks) storage engine:
 
-```{.bash data-prompt="$"}
-$ sudo ps-admin --enable-rocksdb -u root -pPassw0rd
+```bash
+sudo ps-admin --enable-rocksdb -u root -pPassw0rd
 ```
 
 ??? example "Expected output"
     
-    ```text
+    ```sql
     Checking if RocksDB plugin is available for installation ...
     INFO: ha_rocksdb.so library for RocksDB found at /usr/lib64/mysql/plugin/ha_rocksdb.so.
 
@@ -80,13 +80,13 @@ If the script returns no errors,
 Percona MyRocks should be successfully enabled on the server.
 You can verify it as follows:
 
-```{.bash data-prompt="mysql>"}
-mysql> SHOW ENGINES;
+```sql
+SHOW ENGINES;
 ```
 
 ??? example "Expected output"
     
-    ```text
+    ```sql
     +---------+---------+----------------------------------------------------------------------------+--------------+------+------------+
     | Engine  | Support | Comment                                                                    | Transactions | XA   | Savepoints |
     +---------+---------+----------------------------------------------------------------------------+--------------+------+------------+
@@ -138,20 +138,20 @@ with another storage engine after you remove Percona MyRocks.
 If you need this data, alter the tables to another storage engine.
 For example, to alter the `City` table to InnoDB, run the following:
 
-```{.bash data-prompt="mysql>"}
-mysql> ALTER TABLE City ENGINE=InnoDB;
+```sql
+ALTER TABLE City ENGINE=InnoDB;
 ```
 
 To disable and uninstall the RocksDB engine plugins,
 use the `ps-admin` script as follows:
 
-```{.bash data-prompt="$"}
-$ sudo ps-admin --disable-rocksdb -u root -pPassw0rd
+```bash
+sudo ps-admin --disable-rocksdb -u root -pPassw0rd
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     Checking RocksDB engine plugin status...
     INFO: RocksDB engine plugin is installed.
 
@@ -164,14 +164,14 @@ remove the Percona MyRocks package:
 
     === "Debian or Ubuntu"
 
-        ```{.bash data-prompt="$"}
-        $ sudo apt remove percona-server-rocksdb-{{vers}}
+        ```bash
+        sudo apt remove percona-server-rocksdb-{{vers}}
         ```
         
     === "RHEL or derivatives"
 
-        ```{.bash data-prompt="$"}
-        $ sudo yum remove percona-server-rocksdb-80.x86_64
+        ```bash
+        sudo yum remove percona-server-rocksdb-80.x86_64
         ```
 
 Finally, remove all the [MyRocks Server Variables](myrocks-server-variables.md#myrocks-server-variables)

@@ -15,7 +15,7 @@ tar xvf Percona-Server-8.4.0-1-r71449379-buster-x86_64-bundle.tar
 ```
 ??? example "Expected output"
 
-    ```text
+    ```sql
     libperconaserverclient21_{{release}}-1.buster_amd64.deb
     libperconaserverclient21-dev_{{release}}-1.buster_amd64.deb
     percona-mysql-router_{{release}}-1.buster_amd64.deb

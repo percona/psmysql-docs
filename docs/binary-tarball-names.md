@@ -7,7 +7,7 @@ ldd --version
 ```
 
 ??? example "Expected output"
-    ```text
+    ```sql
     ldd (Ubuntu GLIBC 2.35-0ubuntu3.1) 2.35
     Copyright (C) 2022 Free Software Foundation, Inc.
     This is free software; see the source for copying conditions.  There is NO

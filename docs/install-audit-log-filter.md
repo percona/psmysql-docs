@@ -26,15 +26,15 @@ To install the component using the script, you must specify the `mysql` database
 
 * Option 1: Run the script from the command line with the `-D mysql` option:
 
-    ```{.bash data-prompt="$"}
+    ```bash
     mysql -u root -p -D mysql < /path/to/mysql/share/audit_log_filter_linux_install.sql
     ```
 
 * Option 2: Connect to `mysql` database and run the script interactively:
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> use mysql;
-    mysql> source /path/to/mysql/share/audit_log_filter_linux_install.sql;
+    ```sql
+    use mysql;
+    source /path/to/mysql/share/audit_log_filter_linux_install.sql;
     ```
 
     Replace `/path/to/mysql/share/` with the actual path to your MySQL installation's share directory.
@@ -43,13 +43,13 @@ To install the component using the script, you must specify the `mysql` database
 
 After running the script, verify that the required tables are created:
 
-```{.bash data-prompt="mysql>"}
-mysql> show tables in mysql like 'aud%';
+```sql
+show tables in mysql like 'aud%';
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     +------------------------+
     | Tables_in_mysql (aud%) |
     +------------------------+
@@ -71,13 +71,13 @@ INSTALL COMPONENT 'file://audit_log_filter'
 
 Check that the component is properly installed:
 
-```{.bash data-prompt="mysql>"}
-mysql> select * from mysql.component;
+```sql
+select * from mysql.component;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     +--------------+--------------------+------------------------------------+
     | component_id | component_group_id | component_urn                      |
     +--------------+--------------------+------------------------------------+
@@ -91,13 +91,13 @@ mysql> select * from mysql.component;
 
 Test that the audit log filter is working correctly:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}');
+```sql
+SELECT audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}');
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     +---------------------------------------------------------------------+
     | audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}') |
     +---------------------------------------------------------------------+
@@ -114,15 +114,15 @@ mysql> SELECT audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}'
 
 If you have already installed the audit log component but are missing the required tables, you can run the `audit_log_filter_linux_install.sql` script to create the audit tables in the `mysql` database:
 
-```{.bash data-prompt="$"}
+```bash
 mysql -u root -p -D mysql < /path/to/mysql/share/audit_log_filter_linux_install.sql
 ```
 
 Or interactively:
 
-```{.bash data-prompt="mysql>"}
-mysql> use mysql;
-mysql> source /path/to/mysql/share/audit_log_filter_linux_install.sql;
+```sql
+use mysql;
+source /path/to/mysql/share/audit_log_filter_linux_install.sql;
 ```
 
 This operation creates the missing tables without reinstalling the component.

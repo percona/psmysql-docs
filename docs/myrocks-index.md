@@ -24,8 +24,8 @@ engines, if your workload uses fast storage, such as SSD:
 
     To check the RocksDB version currently used by MyRocks, run the following command:
 
-    ```{.bash data-prompt="$"}
-    $ head storage/rocksdb/rocksdb/HISTORY.md
+    ```bash
+    head storage/rocksdb/rocksdb/HISTORY.md
     ```
 
     ??? example "Expected output"

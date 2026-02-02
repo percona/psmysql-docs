@@ -48,7 +48,7 @@ If an “unsafe” statement is executed in the same connection that is holding 
 
 ??? example "Expected output"
 
-    ```text
+    ```sql
     ERROR 1880 (HY000): Can't execute the query because you have a conflicting backup lock
 
     UNLOCK TABLES releases the lock acquired by LOCK TABLES FOR BACKUP.
@@ -56,7 +56,7 @@ If an “unsafe” statement is executed in the same connection that is holding 
 
 The intended use case for Percona XtraBackup is:
 
-```text
+```sql
 LOCK TABLES FOR BACKUP
 ... copy .frm, MyISAM, CSV, etc. ...
 UNLOCK TABLES

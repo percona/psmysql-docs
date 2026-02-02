@@ -76,8 +76,8 @@ You can assign filters to a specific user account or disassociate a user account
 
 Create simple filters
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_filter_set_filter('log_general', '{
+```sql
+SELECT audit_log_filter_set_filter('log_general', '{
   "filter": {
     "class": {
       "name": "general"
@@ -85,7 +85,7 @@ mysql> SELECT audit_log_filter_set_filter('log_general', '{
   }
 }');
 
-mysql> SELECT audit_log_filter_set_filter('log_connection', '{
+SELECT audit_log_filter_set_filter('log_connection', '{
   "filter": {
     "class": {
       "name": "connection"
@@ -93,7 +93,7 @@ mysql> SELECT audit_log_filter_set_filter('log_connection', '{
   }
 }');
 
-mysql> SELECT audit_log_filter_set_filter('log_table_access', '{
+SELECT audit_log_filter_set_filter('log_table_access', '{
   "filter": {
     "class": {
       "name": "table_access"
@@ -101,7 +101,7 @@ mysql> SELECT audit_log_filter_set_filter('log_table_access', '{
   }
 }');
 
-mysql> SELECT audit_log_filter_set_filter('log_global_variable', '{
+SELECT audit_log_filter_set_filter('log_global_variable', '{
   "filter": {
     "class": {
       "name": "global_variable"
@@ -109,7 +109,7 @@ mysql> SELECT audit_log_filter_set_filter('log_global_variable', '{
   }
 }');
 
-mysql> SELECT audit_log_filter_set_filter('log_command', '{
+SELECT audit_log_filter_set_filter('log_command', '{
   "filter": {
     "class": {
       "name": "command"
@@ -117,7 +117,7 @@ mysql> SELECT audit_log_filter_set_filter('log_command', '{
   }
 }');
 
-mysql> SELECT audit_log_filter_set_filter('log_query', '{
+SELECT audit_log_filter_set_filter('log_query', '{
   "filter": {
     "class": {
       "name": "query"
@@ -125,7 +125,7 @@ mysql> SELECT audit_log_filter_set_filter('log_query', '{
   }
 }');
 
-mysql> SELECT audit_log_filter_set_filter('log_stored_program', '{
+SELECT audit_log_filter_set_filter('log_stored_program', '{
   "filter": {
     "class": {
       "name": "stored_program"
@@ -133,7 +133,7 @@ mysql> SELECT audit_log_filter_set_filter('log_stored_program', '{
   }
 }');
 
-mysql> SELECT audit_log_filter_set_filter('log_authentication', '{
+SELECT audit_log_filter_set_filter('log_authentication', '{
   "filter": {
     "class": {
       "name": "authentication"
@@ -141,7 +141,7 @@ mysql> SELECT audit_log_filter_set_filter('log_authentication', '{
   }
 }');
 
-mysql> SELECT audit_log_filter_set_filter('log_message', '{
+SELECT audit_log_filter_set_filter('log_message', '{
   "filter": {
     "class": {
       "name": "message"
@@ -152,15 +152,15 @@ mysql> SELECT audit_log_filter_set_filter('log_message', '{
 
 Add filter_update_on_user_change.
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_filter_set_filter('log_connect', '{
+```sql
+SELECT audit_log_filter_set_filter('log_connect', '{
   "filter": {
     "class": { "name": "connection" },
     "event": { "name": "connect" }
   }
 }');
 
-mysql> SELECT audit_log_filter_set_filter('log_disconnect', '{
+SELECT audit_log_filter_set_filter('log_disconnect', '{
   "filter": {
     "class": { "name": "connection" },
     "event": { "name": "disconnect" }

@@ -80,7 +80,7 @@ section of the output from `SHOW ENGINE INNODB STATUS`.
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
 
     -----------------
     BACKGROUND THREAD
@@ -116,7 +116,7 @@ the output from `SHOW ENGINE INNODB STATUS`. An example of that output is:
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     ----------
     SEMAPHORES
     ----------
@@ -134,7 +134,7 @@ example of that output is:
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     -------------------------------------
     INSERT BUFFER AND ADAPTIVE HASH INDEX
     -------------------------------------
@@ -164,7 +164,7 @@ output from `SHOW ENGINE INNODB STATUS`. An example of that output is:
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     LOG
     ---
     Log sequence number 10145937666
@@ -228,7 +228,7 @@ output is:
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     ----------------------
     BUFFER POOL AND MEMORY
     ----------------------
@@ -338,7 +338,7 @@ the output from `SHOW INNODB STATUS`. An example of that output is:
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     ------------
     TRANSACTIONS
     ------------
@@ -347,10 +347,10 @@ the output from `SHOW INNODB STATUS`. An example of that output is:
     History list length 19
     LIST OF TRANSACTIONS FOR EACH SESSION:
     ---TRANSACTION 0, not started, process no 993, OS thread id 140213152634640
-    mysql thread id 15933, query id 32109 localhost root
+    thread id 15933, query id 32109 localhost root
     show innodb status
     ---TRANSACTION F561FC, ACTIVE 29 sec, process no 993, OS thread id 140213152769808 updating or deleting
-    mysql tables in use 1, locked 1
+    tables in use 1, locked 1
     ```
 
 ### `Innodb_max_trx_id`

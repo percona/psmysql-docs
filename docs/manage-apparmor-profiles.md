@@ -24,13 +24,13 @@ By carefully reviewing and testing your AppArmor profile changes, you can minimi
 
 Install the `apparmor-utils` package to work with profiles. Use these utilities to create, update, enforce, switch to complain mode, and disable profiles, as needed:
 
-```{.bash data-prompt="$"}
-$ sudo apt install apparmor-utils
+```bash
+sudo apt install apparmor-utils
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     Reading package lists... Done
     Building dependency tree
     ...
@@ -46,13 +46,13 @@ Add the mysqld profile with the following procedure:
 
 1. Download the current version of the AppArmor:
 
-    ```{.bash data-prompt="$"}
-    $ wget https://raw.githubusercontent.com/percona/percona-server/release-{{release}}/build-ps/debian/percona-server-server.install
+    ```bash
+    wget https://raw.githubusercontent.com/percona/percona-server/release-{{release}}/build-ps/debian/percona-server-server.install
     ```
 
     ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     ...
     Saving to 'apparamor-profile`
     ...
@@ -60,37 +60,37 @@ Add the mysqld profile with the following procedure:
 
 2. Move the file to /etc/apparmor.d/usr.sbin.mysqld
 
-    ```{.bash data-prompt="$"}
-    $ sudo mv apparmor-profile /etc/apparmor.d/usr.sbin.mysqld
+    ```bash
+    sudo mv apparmor-profile /etc/apparmor.d/usr.sbin.mysqld
     ```
 
 3. Create an empty file for editing:
 
-    ```{.bash data-prompt="$"}
-    $ sudo touch /etc/apparmor.d/local/usr.sbin.mysqld
+    ```bash
+    sudo touch /etc/apparmor.d/local/usr.sbin.mysqld
     ```
 
 4. Load the profile:
 
-    ```{.bash data-prompt="$"}
-    $ sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.sbin.mysqld
+    ```bash
+    sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.sbin.mysqld
     ```
 
 5. Restart *Percona Server for MySQL*:
 
-    ```{.bash data-prompt="$"}
-    $ sudo systemctl restart mysql
+    ```bash
+    sudo systemctl restart mysql
     ```
 
 6. Verify the profile status:
  
-    ```{.bash data-prompt="$"}
-    $ sudo aa-status
+    ```bash
+    sudo aa-status
     ```
 
     ??? example "Expected output"
 
-        ```{.text .no-copy}
+        ```sql
         ...
         processes are in enforce mode
         ...
@@ -102,13 +102,13 @@ Add the mysqld profile with the following procedure:
 
 As root or using `sudo`, you can check the AppArmor status:
 
-```{.bash data-prompt="$"}
-$ sudo aa-status
+```bash
+sudo aa-status
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     apparmor module is loaded.
     34 profiles are loaded.
     32 profiles in enforce mode.
@@ -127,40 +127,40 @@ $ sudo aa-status
 
 Switch a profile to complain mode when the program is in your path with this command:
 
-```{.bash data-prompt="$"}
-$ sudo aa-complain <program>
+```bash
+sudo aa-complain <program>
 ```
 
 If needed, specify the program’s path in the command:
 
-```{.bash data-prompt="$"}
-$ sudo aa-complain /sbin/<program>
+```bash
+sudo aa-complain /sbin/<program>
 ```
 
 If the profile is not stored in `/etc/apparmor.d/`, use the following command:
 
-```{.bash data-prompt="$"}
-$ sudo aa-complain /path/to/profiles/<program>
+```bash
+sudo aa-complain /path/to/profiles/<program>
 ```
 
 ## Switch a profile to enforce mode
 
 Switch a profile to the enforce mode when the program is in your path with this command:
 
-```{.bash data-prompt="$"}
-$ sudo aa-enforce <program>
+```bash
+sudo aa-enforce <program>
 ```
 
 If needed, specify the program’s path in the command:
 
-```{.bash data-prompt="$"}
-$ sudo aa-enforce /sbin/<program>
+```bash
+sudo aa-enforce /sbin/<program>
 ```
 
 If the profile is not stored in `/etc/apparmor.d/`, use the following command:
 
-```{.bash data-prompt="$"}
-$ sudo aa-enforce /path/to/profile
+```bash
+sudo aa-enforce /path/to/profile
 ```
 
 ## Disable one profile
@@ -169,29 +169,29 @@ You can disable a profile but it is recommended to Switch a Profile to Complain 
 
 Use either of the following methods to disable a profile:
 
-```{.bash data-prompt="$"}
-$ sudo ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
-$ sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+```bash
+sudo ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
+sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
 ```
 
 or
 
-```{.bash data-prompt="$"}
-$ aa-disable /etc/apparmor.d/usr.sbin.mysqld
+```bash
+aa-disable /etc/apparmor.d/usr.sbin.mysqld
 ```
 
 ## Reload all profiles
 
 Run either of the following commands to reload all profiles:
 
-```{.bash data-prompt="$"}
-$ sudo service apparmor reload
+```bash
+sudo service apparmor reload
 ```
 
 or
 
-```{.bash data-prompt="$"}
-$ sudo systemctl reload apparmor.service
+```bash
+sudo systemctl reload apparmor.service
 ```
 
 ## Reload one profile

@@ -25,7 +25,7 @@ SHOW GRANTS FOR 'user1'@'localhost';
 ```
 ??? example "Expected output"
 
-    ```text
+    ```sql
     GRANT USAGE ON *.* TO 'user1'@'localhost'
     ```
 
@@ -57,7 +57,7 @@ CREATE USER grantee@localhost IDENTIFIED BY 'grantee1';
 
 ??? example "Expected output"
 
-    ```text
+    ```sql
     Query OK, 0 rows affected (0.50 sec)
     ```
 
@@ -67,7 +67,7 @@ CREATE USER grantee IDENTIFIED BY 'grantee2';
 
 ??? example "Expected output"
 
-    ```text
+    ```sql
     Query OK, 0 rows affected (0.09 sec)
     ```
 
@@ -77,7 +77,7 @@ CREATE DATABASE db2;
 
 ??? example "Expected output"
 
-    ```text
+    ```sql
     Query OK, 1 row affected (0.20 sec)
     ```
 
@@ -87,7 +87,7 @@ GRANT ALL PRIVILEGES ON db2.* TO grantee WITH GRANT OPTION;
 
 ??? example "Expected output"
 
-    ```text
+    ```sql
     Query OK, 0 rows affected (0.12 sec)
     ```
 
@@ -99,7 +99,7 @@ SHOW EFFECTIVE GRANTS;
 
 ??? example "Expected output"
 
-    ```text
+    ```sql
     +----------------------------------------------------------------------------------------------------------------+
     | Grants for grantee@localhost                                                                                   |
     +----------------------------------------------------------------------------------------------------------------+
@@ -120,7 +120,7 @@ CREATE TABLE db2.t1(a int);
 
 ??? example "Expected output"
 
-    ```text
+    ```sql
     Query OK, 0 rows affected (1.21 sec)
     ```
 
@@ -133,7 +133,7 @@ SHOW EFFECTIVE GRANTS;
 
 ??? example "Expected output"
 
-    ```text
+    ```sql
     +-------------------------------------------------------------------+
     | Grants for grantee@localhost                                      |
     +-------------------------------------------------------------------+

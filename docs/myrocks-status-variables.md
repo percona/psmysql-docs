@@ -7,8 +7,8 @@ to a particular environment.
 
 You can view these variables and their values by running:
 
-```{.bash data-prompt="mysql>"}
-mysql> SHOW STATUS LIKE 'rocksdb%';
+```sql
+SHOW STATUS LIKE 'rocksdb%';
 ```
 
 The following global status variables are available:

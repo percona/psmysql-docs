@@ -17,7 +17,7 @@ Using `LD_PRELOAD`. Build the library, configure the malloc configuration with t
 
 The following is an example of the required commands:
 
-```text
+```sql
 ./configure --enable-stats --enable-prof && make && make install
 export MALLOC_CONF=prof:true
 export LD_PRELOAD=/usr/lib/libjemalloc.so
@@ -54,7 +54,7 @@ SELECT * FROM malloc_stats_totals;
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     +------------+------------+------------+------------+-------------+------------+
     | ALLOCATED  | ACTIVE     | MAPPED     | RESIDENT   | RETAINED    | METADATA   |
     +------------+------------+------------+------------+-------------+------------+
@@ -71,13 +71,13 @@ The following example commands display this result:
 use performance_schema;
 ```
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM malloc_stats ORDER BY TYPE DESC LIMIT 3;
+```sql
+SELECT * FROM malloc_stats ORDER BY TYPE DESC LIMIT 3;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     +--------+-------------+-------------+-------------+-------------+
     | TYPE   | ALLOCATED   | NMALLOC     | NDALLOC     | NRESQUESTS  |
     +--------+-------------+-------------+-------------+-------------+
@@ -112,7 +112,7 @@ ls /tmp/jeprof_mysqld*
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```sql
     /tmp/jeprof_mysqld.1.0.170013202213
     ```
 

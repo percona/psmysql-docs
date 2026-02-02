@@ -12,7 +12,7 @@ Now, define the structure of your table by specifying its columns along with the
 
 Here's the syntax for creating a table:
 
-```text
+```sql
 CREATE TABLE table_name (
     column1_name data_type constraints,
     column2_name data_type constraints,
