@@ -6,13 +6,13 @@ table in the `STORAGE ENGINE` column.
 
 ## Example
 
-```{.bash data-prompt="mysql>"}
-mysql> select * from performance_schema.log_status\G
+```sql
+select * from performance_schema.log_status\G
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     *************************** 1. row ***************************
 
     SERVER_UUID: f593b4f8-6fde-11e9-ad90-080027c2be11

@@ -16,8 +16,8 @@ After a table has been created, you may need to modify its structure or properti
 
 The following is an example using an `ALTER TABLE` command:
 
-```{.bash data-prompt="mysql>"}
-mysql> ALTER TABLE users
+```sql
+ALTER TABLE users
 ADD COLUMN age INT,
 MODIFY COLUMN email VARCHAR(255),
 DROP COLUMN username;

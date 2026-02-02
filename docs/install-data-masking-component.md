@@ -14,8 +14,8 @@ The following steps install the component:
 
 1. Create `masking_dictionaries`.
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> CREATE TABLE IF NOT EXISTS
+    ```sql
+    CREATE TABLE IF NOT EXISTS
     mysql.masking_dictionaries(
         Dictionary VARCHAR(256) NOT NULL,
         Term VARCHAR(256) NOT NULL,
@@ -25,8 +25,8 @@ The following steps install the component:
 
 2. Install the data masking components and the loadable functions.
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> INSTALL COMPONENT 'file://component_masking_functions';
+    ```sql
+    INSTALL COMPONENT 'file://component_masking_functions';
     ```
 
 3. The `MASKING_DICTIONARIES_ADMIN` is required to use the the following functions:
@@ -37,8 +37,8 @@ The following steps install the component:
 
     * `masking_dictionary_remove`
 
-        ```{.bash data-prompt="mysql>"}
-        mysql> GRANT MASKING_DICTIONARIES_ADMIN ON *.* TO <user>;
+        ```sql
+        GRANT MASKING_DICTIONARIES_ADMIN ON *.* TO <user>;
         ```
 
 ## Useful links

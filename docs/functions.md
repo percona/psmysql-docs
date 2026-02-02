@@ -22,8 +22,8 @@ A function in MySQL is a reusable block of code that performs a specific task an
 
 ## Create function
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE FUNCTION calculate_discount (total_amount DECIMAL(10, 2)) RETURNS DECIMAL(10, 2)
+```sql
+CREATE FUNCTION calculate_discount (total_amount DECIMAL(10, 2)) RETURNS DECIMAL(10, 2)
     -> BEGIN
     ->     DECLARE discount DECIMAL(10, 2);
     ->     IF total_amount > 100 THEN
@@ -37,14 +37,14 @@ mysql> CREATE FUNCTION calculate_discount (total_amount DECIMAL(10, 2)) RETURNS 
 
 ## Call function
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT calculate_discount(120);
+```sql
+SELECT calculate_discount(120);
 ```
 
 ## Drop function
 
-```{.bash data-prompt="mysql>"}
-mysql> DROP FUNCTION IF EXISTS calculate_discount;
+```sql
+DROP FUNCTION IF EXISTS calculate_discount;
 ```
 
 ## Advanced SQL features

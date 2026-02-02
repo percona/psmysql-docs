@@ -80,7 +80,7 @@ section of the output from `SHOW ENGINE INNODB STATUS`.
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
 
     -----------------
     BACKGROUND THREAD
@@ -116,7 +116,7 @@ the output from `SHOW ENGINE INNODB STATUS`. An example of that output is:
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     ----------
     SEMAPHORES
     ----------
@@ -134,7 +134,7 @@ example of that output is:
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     -------------------------------------
     INSERT BUFFER AND ADAPTIVE HASH INDEX
     -------------------------------------
@@ -164,7 +164,7 @@ output from `SHOW ENGINE INNODB STATUS`. An example of that output is:
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     LOG
     ---
     Log sequence number 10145937666
@@ -228,7 +228,7 @@ output is:
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     ----------------------
     BUFFER POOL AND MEMORY
     ----------------------
@@ -338,7 +338,7 @@ the output from `SHOW INNODB STATUS`. An example of that output is:
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     ------------
     TRANSACTIONS
     ------------

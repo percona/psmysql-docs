@@ -11,7 +11,7 @@ Each isolation level offers a different balance between concurrency and consiste
 
 In the Read Uncommitted isolation level, transactions can read data that has been modified by other transactions but not yet committed. This level allows for the highest concurrency but can lead to dirty reads.
 
-```{.bash data-prompt="mysql>"}
+```sql
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
 -- Perform a SELECT query to read uncommitted data
@@ -22,7 +22,7 @@ SELECT * FROM table_name;
 
 In Read Committed isolation level, transactions can only read data that has been committed by other transactions. This level prevents dirty reads but allows for non-repeatable reads and phantom reads.
 
-```{.bash data-prompt="mysql>"}
+```sql
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
 
 -- Perform a SELECT query to read committed data
@@ -33,7 +33,7 @@ SELECT * FROM table_name;
 
 In Repeatable Read isolation level, transactions can only read data that has been committed by other transactions at the start of the transaction. This level prevents dirty reads and non-repeatable reads but allows for phantom reads.
 
-```{.bash data-prompt="mysql>"}
+```sql
 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
 
 -- Perform a SELECT query to read data consistently within the transaction
@@ -44,7 +44,7 @@ SELECT * FROM table_name;
 
 In Serializable isolation level, transactions are executed serially, preventing any concurrent access to the data. This level provides the highest level of isolation but can lead to reduced concurrency and potential deadlock situations.
 
-```{.bash data-prompt="mysql>"}
+```sql
 SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 
 -- Perform a SELECT query within a serializable transaction

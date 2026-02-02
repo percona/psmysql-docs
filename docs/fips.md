@@ -70,7 +70,7 @@ To ensure that the FIPS mode is enabled, do the following:
     
 * Check that the error log contains the following message:
 
-    ```{.text .no-copy}
+    ```text
     A FIPS-approved version of the OpenSSL cryptographic library has been detected in the operating system with a properly configured FIPS module available for loading. Percona Server for MySQL will load this module and run in FIPS mode.
     ```
 

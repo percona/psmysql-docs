@@ -8,7 +8,7 @@ In Disabled mode, SELinux is completely turned off. The system does not enforce 
 
 To set SELinux to Disabled mode, you need to edit the SELinux configuration file. Open the file `/etc/selinux/config` with a text editor and set the `SELINUX` parameter to `disabled`:
 
-```{.bash data-prompt="$"}
+```shell
 $ SELINUX=disabled
 ```
 
@@ -20,13 +20,13 @@ In Permissive mode, SELinux policies are not enforced, but violations are logged
 
 To set SELinux to Permissive mode, you can edit the SELinux configuration file `/etc/selinux/config` and set the `SELINUX` parameter to `permissive`:
 
-```{.bash data-prompt="$"}
+```shell
 $ SELINUX=permissive
 ```
 
 Save the file and reboot the system. Alternatively, you can change to Permissive mode temporarily without rebooting by running the following command as root:
 
-```{.bash data-prompt="$"}
+```shell
 $ setenforce 0
 ```
 
@@ -36,13 +36,13 @@ In Enforcing mode, SELinux enforces all policies and denies access based on the 
 
 To set SELinux to Enforcing mode, edit the SELinux configuration file `/etc/selinux/config` and set the `SELINUX` parameter to `enforcing`:
 
-```{.bash data-prompt="$"}
+```shell
 $ SELINUX=enforcing
 ```
 
 Save the file and reboot the system. To change to Enforcing mode temporarily without rebooting, you can use the following command as root:
 
-```{.bash data-prompt="$"}
+```shell
 $ setenforce 1
 ```
 
@@ -54,13 +54,13 @@ $ setenforce 1
 
 To check the current SELinux mode, you can use the `sestatus` command. This command shows the status of SELinux, including the mode it is operating in. Type the following command and press Enter:
 
-```{.bash data-prompt="$"}
+```shell
 $ sestatus
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     
     SELinux status:                 enabled
     SELinuxfs mount:                /sys/fs/selinux
@@ -86,13 +86,13 @@ $ sestatus
 
 Another command to check the current SELinux mode is `getenforce`. Type the following command and press Enter:
 
-```{.bash data-prompt="$"}
+```shell
 $ getenforce
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     Enforcing
     ```
 
@@ -101,13 +101,13 @@ $ getenforce
 
 You can also check the SELinux configuration file to see what mode SELinux is set to use when the system boots. Open the configuration file located at `/etc/selinux/config` using a text editor. For example, you can use `cat` to view the file contents:
 
-```{.bash data-prompt="$"}
+```shell
 $ cat /etc/selinux/config
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     SELINUX=enforcing
     ```
 
@@ -120,7 +120,7 @@ Switching the SELinux mode changes how the Security-Enhanced Linux (SELinux) sys
 To switch SELinux mode temporarily, use the `setenforce` command. This change will last until the system is rebooted.
 
 
-```{.bash data-prompt="$"}
+```shell
 $ sudo setenforce 1
 ```
 
@@ -132,7 +132,7 @@ To make the change permanent, you need to edit the SELinux configuration file. T
 
 1. Open the configuration file with a text editor. For example, using `nano`:
 
-    ```{.bash data-prompt="$"}
+    ```shell
     $ sudo nano /etc/selinux/config
     ```
 
@@ -157,7 +157,7 @@ First, identify the service for which you want to change the SELinux mode. For e
 
 Check the current SELinux context of the service to understand its current mode and permissions. You can use the `ps` command with `-Z` option to view the SELinux context of a running process.
 
-```{.bash data-prompt="$"}
+```shell
 $ ps -eZ | grep httpd
 ```
 
@@ -169,7 +169,7 @@ To change the SELinux mode for a specific service, you create a custom SELinux p
 
 Create a policy file, for example, `httpd_permissive.te`:
 
-```{.bash data-prompt="$"}
+```shell
 $ nano httpd_permissive.te
 ```
 
@@ -187,14 +187,14 @@ This policy module tells SELinux to make the `httpd_t` domain permissive.
 
 Compile the policy module using the `checkmodule` and `semodule_package` commands:
 
-```{.bash data-prompt="$"}
+```shell
 $ checkmodule -M -m -o httpd_permissive.mod httpd_permissive.te
 $ semodule_package -o httpd_permissive.pp -m httpd_permissive.mod
 ```
 
 Install the compiled policy module using the `semodule` command:
 
-```{.bash data-prompt="$"}
+```shell
 $ semodule -i httpd_permissive.pp
 ```
 
@@ -204,13 +204,13 @@ This installs the custom SELinux policy module, making the `httpd` service run i
 
 Restart the service to apply the changes:
 
-```{.bash data-prompt="$"}
+```shell
 $ systemctl restart httpd
 ```
 
 Check the SELinux context again to ensure the `httpd` service is running in the permissive domain:
 
-```{.bash data-prompt="$"}
+```shell
 $ ps -eZ | grep httpd
 ```
 
@@ -220,7 +220,7 @@ You should see the `httpd` processes with a permissive context.
 
 While the service is in a permissive domain, SELinux logs any policy violations without enforcing them. Monitor the logs to identify and resolve issues. Use `audit2allow` to generate new policies if needed:
 
-```{.bash data-prompt="$"}
+```shell
 $ ausearch -m avc -c httpd | audit2allow -M httpd_custom
 $ semodule -i httpd_custom.pp
 ```
