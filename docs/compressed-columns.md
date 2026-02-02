@@ -100,7 +100,7 @@ SET @dictionary_data = 'one' 'two' 'three' 'four';
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     Query OK, 0 rows affected (0.00 sec)
     ```
 
@@ -110,7 +110,7 @@ CREATE COMPRESSION_DICTIONARY numbers (@dictionary_data);
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     Query OK, 0 rows affected (0.00 sec)
     ```
 
@@ -231,7 +231,7 @@ Moreover, the following dictionary creation fragments will be added before
 `CREATE TABLE` statements which are going to use these dictionaries for the
 first time.
 
-```sql
+```text
 /*!50633 DROP COMPRESSION_DICTIONARY IF EXISTS <dictionary>; */
 /*!50633 CREATE COMPRESSION_DICTIONARY <dictionary>(...); */
 ```
@@ -249,7 +249,7 @@ following fragment (regardless of the values of
 add-drop-compression-dictionary and
 skip-add-drop-compression-dictionary options).
 
-```sql
+```text
 /*!50633 CREATE COMPRESSION_DICTIONARY IF NOT EXISTS <dictionary>(...); */
 ```
 

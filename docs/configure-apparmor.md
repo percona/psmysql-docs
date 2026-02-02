@@ -16,7 +16,7 @@ cat /etc/mysql/mysql.conf.d/mysqld.cnf
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     
     The Percona Server {{vers}} configuration file.
     
@@ -52,7 +52,7 @@ For example, the following log entries show `DENIED`:
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     ...
     Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps audit[16013]: AVC apparmor="DENIED" operation="mknod" profile="/usr/sbin/mysqld" name="/var/lib/mysqlcustom/binlog.index" pid=16013 comm="mysqld" requested_mask="c" denied_mask="c" fsuid=111 ouid=111
     Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(1607343428.022:36): apparmor="DENIED" operation="mknod" profile="/usr/sbin/mysqld" name="/var/lib/mysqlcustom/mysqld_tmp_file_case_insensitive_test.lower-test" pid=16013 comm="mysqld" requested_mask="c" denied_mask="c" fsuid=111 ouid=111
@@ -61,7 +61,7 @@ For example, the following log entries show `DENIED`:
 
 Open `/etc/apparmor.d/local/usr.sbin.mysqld` in a text editor and edit the following entries in the `Allow data dir access` section.
 
-```sql
+```text
 Allow data dir access
 /var/lib/mysqlcustom/ r,
 /var/lib/mysqlcustom/** rwk,
@@ -95,7 +95,7 @@ cat /etc/mysql/mysql.conf.d/mysqld.cnf
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     
     The Percona Server {{vers}} configuration file.
     
@@ -117,7 +117,7 @@ ls -la /custom-log-dir/
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     total 12
     drwxrwxrwx  3 root root 4096 Dec  7 13:09 .
     drwxr-xr-x 24 root root 4096 Dec  7 13:07 ..
@@ -132,7 +132,7 @@ service mysql start
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     Job for mysql.service failed because the control process exited with error code.
     See "systemctl status mysql.service" and "journalctl -xe" for details.
     ```
@@ -143,7 +143,7 @@ journalctl -xe
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     ...
     AVC apparmor="DENIED" operation="mknod" profile="/usr/sbin/mysqld" name="/custom-log-dir/mysql/error.log"
     ...
@@ -157,7 +157,7 @@ cat /etc/apparmor.d/local/usr.sbin.mysqld
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
      Site-specific additions and overrides for usr.sbin.mysqld..
      For more details, please see /etc/apparmor.d/local/README.
 
@@ -188,7 +188,7 @@ mysqlshow variables like 'secure_file_priv';
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +------------------+-----------------------+
     | Variable_name    | Value                 |
     +------------------+-----------------------+
@@ -198,7 +198,7 @@ mysqlshow variables like 'secure_file_priv';
 
 To allow access to another location, in a text editor, open the local profile. Review the settings in the `Allow data dir access` section:
 
-```sql
+```text
 Allow data dir access
 /var/lib/mysql/ r,
 /var/lib/mysql/** rwk,
@@ -212,7 +212,7 @@ cat /etc/apparmor.d/local/usr.sbin.mysqld
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     Site-specific additions and overrides for usr.sbin.mysqld..
     For more details, please see /etc/apparmor.d/local/README.
 

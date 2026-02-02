@@ -30,7 +30,7 @@ docker inspect ps
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     ...
      "Env": [
                     "MYSQL_ROOT_PASSWORD=root",

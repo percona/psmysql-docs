@@ -35,7 +35,7 @@ The format for `pwd_id` is the following:
 
 The following are examples of pwd_id values:
 
-```sql
+```text
 20230417T082215-1
 20230301T061400-1
 20230301T061400-2
@@ -43,7 +43,7 @@ The following are examples of pwd_id values:
 
 The following example is a list of the audit log filter files with the `pwd_id`:
 
-```sql
+```text
 audit_filter.log.20230417T082215-1.enc
 audit_filter.log.20230301T061400-1.enc
 audit_filter.log.20230301T061400-2.enc

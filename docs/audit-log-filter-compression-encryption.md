@@ -59,6 +59,6 @@ SELECT audit_log_encryption_password_get('audit-log-20190414T223342-2');
 The return value of this function may look like the following:
 
 ??? example "Expected output"
-    ```sql
+    ```text
     {"password":"{randomly-generated-alphanumeric-string}","iterations":568977}
     ```

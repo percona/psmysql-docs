@@ -24,7 +24,7 @@ Creating a `docker-compose.yml` file offers numerous advantages for managing con
 
 Docker automatically manages volumes, so you don't create folders manually.
 
-```sql
+```text
 percona-compose/
 ├── .env
 └── docker-compose.yml
@@ -46,7 +46,7 @@ Using an `.env` file for MySQL Docker containers has several advantages:
 
 By leveraging an `.env` file, you streamline both security and ease of use for MySQL container deployments. This approach ensures better organization and adaptability for various environments.
 
-```sql
+```text
 MYSQL_ROOT_PASSWORD=supersecurepassword
 MYSQL_DATABASE=mydb
 MYSQL_USER=myuser
@@ -57,7 +57,7 @@ MYSQL_PASSWORD=myuserpassword
 
 By using a `docker-compose.yml` file, you streamline container orchestration, ensure consistency, and simplify collaboration across teams.
 
-```sql
+```text
 services:
   mysql:
     image: percona/percona-server:8.4
@@ -95,7 +95,7 @@ docker-compose up -d
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     [+] Running 11/11
      ✔ mysql Pulled                                                                34.1s 
        ✔ 56631da24b0d Pull complete                                                28.9s 
@@ -138,7 +138,7 @@ You must enter the root password.
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     Enter password: 
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 9
@@ -163,7 +163,7 @@ SHOW DATABASES;
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +--------------------+
     | Database           |
     +--------------------+
@@ -190,7 +190,7 @@ SELECT * FROM test_table;
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     Query OK, 1 row affected (0.02 sec)
 
     Database changed

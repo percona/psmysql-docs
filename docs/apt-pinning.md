@@ -6,7 +6,7 @@ The pinning takes place in the `preference` file. To pin a package, set the `Pin
  
 Make a new file `/etc/apt/preferences.d/00percona.pref`. For example, add the following to the `preference` file:
 
-```sql
+```text
 Package: 
 Pin: release o=Percona Development Team
 Pin-Priority: 1001

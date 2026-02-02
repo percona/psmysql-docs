@@ -78,7 +78,7 @@ SELECT gen_blocklist('apple', 'fruit', 'nut');
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +-----------------------------------------+
     | gen_blocklist('apple', 'fruit', 'nut')  |
     +-----------------------------------------+
@@ -113,7 +113,7 @@ SELECT gen_dictionary('trees');
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +--------------------------------------------------+
     | gen_dictionary('trees')                          |
     +--------------------------------------------------+
@@ -146,7 +146,7 @@ SELECT gen_range(10, 100);
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +--------------------------------------+
     | gen_range(10,100)                    |
     +--------------------------------------+
@@ -178,7 +178,7 @@ SELECT gen_rnd_canada_sin();
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +-------------------------+
     | gen_rnd_canada_sin()    |
     +-------------------------+
@@ -211,7 +211,7 @@ SELECT gen_rnd_email(name_size=4, surname_size=5, domain='mydomain.edu');
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +-------------------------------------+
     | gen_rnd_email(4, 5, 'mydomain.edu') |
     +-------------------------------------+
@@ -252,7 +252,7 @@ SELECT gen_rnd_iban();
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +-------------------+
     | gen_rnd_iban()    |
     +-------------------+
@@ -294,7 +294,7 @@ SELECT gen_rnd_pan();
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +-------------------+
     | gen_rnd_pan()     |
     +-------------------+
@@ -323,7 +323,7 @@ SELECT gen_rnd_ssn();
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +----------------+
     | gen_rnd_ssn()  |
     +----------------+
@@ -355,7 +355,7 @@ SELECT gen_rnd_uk_nin();
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +----------------------+
     | gen_rnd_uk_nin()     |
     +----------------------+
@@ -383,7 +383,7 @@ SELECT gen_rnd_us_phone();
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +--------------------+
     | gen_rnd_us_phone() |
     +--------------------+
@@ -411,7 +411,7 @@ SELECT gen_rnd_uuid();
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +------------------------------------+
     | gen_rnd_uuid()                     |
     +------------------------------------+
@@ -450,7 +450,7 @@ SELECT mask_canada_sin('555-555-555');
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +--------------------------------+
     | mask_canada_sin('555-555-555') |
     +--------------------------------+
@@ -493,7 +493,7 @@ SELECT mask_iban('DE27 1002 02003 77495 4156');
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +---------------------------------------------+
     | mask_iban('DE27 1002 02003 77495 4156')     |
     +---------------------------------------------+
@@ -536,7 +536,7 @@ SELECT mask_inner('123456789', 1, 2);
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +-----------------------------------+
     | mask_inner('123456789', 1, 2)     |
     +-----------------------------------+
@@ -579,7 +579,7 @@ SELECT mask_outer('123456789', 2, 2);
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +------------------------------------+
     | mask_outer('123456789', 2, 2).     |
     +------------------------------------+
@@ -618,7 +618,7 @@ SELECT mask_pan (gen_rnd_pan());
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +------------------------------------+
     | mask_pan(gen_rnd_pan())            |
     +------------------------------------+
@@ -659,7 +659,7 @@ SELECT mask_pan_relaxed(gen_rnd_pan());
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +------------------------------------------+
     | mask_pan_relaxed(gen_rnd_pan())          |
     +------------------------------------------+
@@ -701,7 +701,7 @@ SELECT mask_ssn('555-55-5555', 'X');
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +-----------------------------+
     | mask_ssn('555-55-5555','X') |
     +-----------------------------+
@@ -740,7 +740,7 @@ SELECT mask_uk_nin ('CT 26 46 83 D');
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +------------------------------------+
     | mask_uk_nin('CT 26 46 83 D')       |
     +------------------------------------+
@@ -780,7 +780,7 @@ SELECT mask_uuid('9a3b642c-06c6-11ee-be56-0242ac120002');
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +-------------------------------------------------------+
     | mask_uuid('9a3b642c-06c6-11ee-be56-0242ac120002')     |
     +-------------------------------------------------------+
@@ -808,7 +808,7 @@ SELECT masking_dictionaries_flush();
 ```
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +------------------------------+
     | masking_dictionaries_flush() |
     +------------------------------+
@@ -841,7 +841,7 @@ SELECT masking_dictionary_remove('trees');
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +------------------------------------------+
     | masking_dictionary_remove('trees')       |
     +------------------------------------------+
@@ -883,7 +883,7 @@ The result returns the table structure.
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +------------+--------------+------+-----+---------+-------+
     | Field      | Type         | Null | Key | Default | Extra |
     +------------+--------------+------+-----+---------+-------+
@@ -903,7 +903,7 @@ SELECT masking_dictionary_term_add('trees','pine');
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +-----------------------------------------------+
     | masking_dictionary_term_add('trees', 'pine')  |
     +-----------------------------------------------+
@@ -949,7 +949,7 @@ SELECT masking_dictionary_term_remove('trees','pine');
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +-------------------------------------------------------+
     | masking_dictionary_term_remove('trees', 'pine')       |
     +-------------------------------------------------------+

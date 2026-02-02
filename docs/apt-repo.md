@@ -37,7 +37,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	??? example "Expected output"
 
-		```sql
+		```text
 		Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
 		Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
 		Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
@@ -67,7 +67,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	??? example "Expected output"
 
-		```sql
+		```text
 		Reading package lists... Done
 		Building dependency tree... Done
 		Reading state information... Done
@@ -103,7 +103,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	??? example "Expected output"
 
-		```sql
+		```text
 		  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 		                                 Dload  Upload   Total   Spent    Left  Speed
 		100 15.2k  100 15.2k    0     0  15.2k      0  0:00:01  0:00:01 --:--:-- 15.2k
@@ -127,7 +127,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	??? example "Expected output"
 
-		```sql
+		```text
 		Reading package lists... Done
 		Building dependency tree... Done
 		Reading state information... Done
@@ -175,7 +175,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	??? example "Expected output"
 
-		```sql
+		```text
 		Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
 		Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
 		Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
@@ -204,7 +204,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	??? example "Expected output"
 
-		```sql
+		```text
 		* Enabling Percona Server for MySQL 8.4 LTS repository
 		* Running apt-get update...
 		Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
@@ -237,7 +237,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	??? example "Expected output"
 
-		```sql
+		```text
 		Reading package lists... Done
 		Building dependency tree... Done
 		Reading state information... Done
@@ -292,13 +292,13 @@ User-Defined Functions (UDFs) are custom functions you can add to MySQL to exten
 
 To install these functions after installation:
 
-```sql
+```{.sql data-prompt="mysql>"}
 INSTALL COMPONENT 'file://component_percona_udf';
 ```
 
 ??? example "Expected output"
 
-	```sql
+	```text
 	Query OK, 0 rows affected (0.01 sec)
 	```
 
@@ -326,7 +326,7 @@ sudo percona-release enable {{pkg}} testing
 
 ??? example "Expected output"
 
-	```sql
+	```text
 	* Enabling Percona Server for MySQL 8.4 LTS testing repository
 	* Running apt-get update...
 	Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
@@ -360,7 +360,7 @@ sudo apt update
 
 ??? example "Expected output"
 
-	```sql
+	```text
 	* Disabling Percona testing repository
 	* Running apt-get update...
 	Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease

@@ -40,7 +40,7 @@ SELECT audit_log_encryption_password_get();
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +---------------------------------------------+
     | audit_log_encryption_password_get()         |
     +---------------------------------------------+
@@ -68,7 +68,7 @@ SELECT audit_log_encryption_password_set(passw0rd);
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +-----------------------------------------------------+
     | audit_log_encryption_password_set(passw0rd)         |
     +-----------------------------------------------------+
@@ -100,7 +100,7 @@ SELECT audit_log_filter_flush();
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +--------------------------+
     | audit_log_filter_flush() |
     +--------------------------+
@@ -134,7 +134,7 @@ SELECT audit_log_read(audit_log_read_bookmark());
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +------------------------------------------------------------------------------+
     | audit_log_read(audit_log_read_bookmark())                                   |
     +------------------------------------------------------------------------------+
@@ -168,7 +168,7 @@ SELECT audit_log_read_bookmark();
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +----------------------------------------------------+
     | audit_log_read_bookmark()                          |
     +----------------------------------------------------+
@@ -207,7 +207,7 @@ SELECT audit_log_filter_remove_filter('filter-name');
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +------------------------------------------------+
     | audit_log_filter_remove_filter('filter-name')  |
     +------------------------------------------------+
@@ -243,7 +243,7 @@ SELECT audit_log_filter_remove_user('user-name@localhost');
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +------------------------------------------------------+
     | audit_log_filter_remove_user('user-name@localhost')  |
     +------------------------------------------------------+
@@ -293,7 +293,7 @@ SELECT audit_log_filter_set_filter('filter-name', @filter);
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +-------------------------------------------------------------+
     | audit_log_filter_set_filter('filter-name', @filter)  |
     +-------------------------------------------------------------+
@@ -329,7 +329,7 @@ SELECT audit_log_filter_set_user('user-name@localhost', 'filter-name');
 
 ??? example "Expected output"
 
-    ```sql
+    ```text
     +-------------------------------------------------------------------+
     | audit_log_filter_set_user('user-name@localhost', 'filter-name')  |
     +-------------------------------------------------------------------+
