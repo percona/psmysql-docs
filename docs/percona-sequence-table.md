@@ -29,13 +29,13 @@ The result set is a single column with the predefined column name `value` of typ
 
 ### PERCONA_SEQUENCE_TABLE(n) [AS] alias
 
-```{.text .no-copy}
+```text
 SELECT … FROM PERCONA_SEQUENCE_TABLE(n) [AS] alias
 
 PERCONA_SEQUENCE_TABLE(n) [AS] alias
 ```
 
-```{.text .no-copy}
+```text
 SELECT * FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 SELECT <expr(value)> FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 ```
@@ -46,13 +46,13 @@ The first number in the series, the initial term, is defined as `0`, and the ser
 
 In this example, the following statement generates a sequence:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM PERCONA_SEQUENCE_TABLE(3) AS tt;
+```sql
+SELECT * FROM PERCONA_SEQUENCE_TABLE(3) AS tt;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-------+
     | value |
     +-------+
@@ -66,8 +66,8 @@ mysql> SELECT * FROM PERCONA_SEQUENCE_TABLE(3) AS tt;
 
 You can define the initial value using the `WHERE` clause. The following example starts the sequence with `4`.
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT value AS result \
+```sql
+SELECT value AS result \
        FROM \
             (SELECT seq AS value
              FROM PERCONA_SEQUENCE_TABLE(8)) AS tt \
@@ -76,7 +76,7 @@ mysql> SELECT value AS result \
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +--------+
     | result |
     +--------+
@@ -93,15 +93,15 @@ Consecutive terms increase or decrease by a common difference. The default commo
 
 The following example prints only even numbers from the 0..7 range:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT value AS result \
+```sql
+SELECT value AS result \
        FROM PERCONA_SEQUENCE_TABLE(8) AS tt \
        WHERE value % 2 = 0;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +--------+
     | result |
     +--------+
@@ -116,8 +116,8 @@ mysql> SELECT value AS result \
 
 The following is an example of using the function to populate a table with a set of random numbers:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT FLOOR(RAND() * 100) AS result \
+```sql
+SELECT FLOOR(RAND() * 100) AS result \
        FROM PERCONA_SEQUENCE_TABLE(4) AS tt;
 ```
 
@@ -125,7 +125,7 @@ The output could be the following:
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +--------+
     | result |
     +--------+
@@ -140,14 +140,14 @@ The output could be the following:
 
 You can populate a table with a set of pseudo-random strings with the following statement:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT MD5(value) AS result \
+```sql
+SELECT MD5(value) AS result \
        FROM PERCONA_SEQUENCE_TABLE(4) AS tt;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +----------------------------------+
     | result                           |
     +----------------------------------+
@@ -162,15 +162,15 @@ mysql> SELECT MD5(value) AS result \
 
 You can add the sequence as a column to a new table or an existing table, as shown in this example:
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE TABLE t1 AS SELECT * FROM PERCONA_SEQUENCE_TABLE(4) AS tt;
+```sql
+CREATE TABLE t1 AS SELECT * FROM PERCONA_SEQUENCE_TABLE(4) AS tt;
 
-mysql> SELECT * FROM t1;
+SELECT * FROM t1;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-------+
     | value |
     +-------+

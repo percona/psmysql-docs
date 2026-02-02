@@ -4,7 +4,7 @@
 
 Once the component's installed, you can write stored functions and procedures in JavaScript. The syntax looks like this:
 
-```{.text .no-copy}
+```text
 CREATE
     [DEFINER = user]
     FUNCTION [IF NOT EXISTS] sp_name ([func_parameter[,...]])
@@ -22,12 +22,12 @@ routine_body:
 
 Use the `LANGUAGE JS` clause when creating a routine.
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE FUNCTION f1(n INT) RETURNS INT LANGUAGE JS AS $$
+```sql
+CREATE FUNCTION f1(n INT) RETURNS INT LANGUAGE JS AS $$
 	return n*42;
 $$
 
-mysql> CREATE PROCEDURE p1(a INT, b INT, OUT r INT) LANGUAGE JS AS $$
+CREATE PROCEDURE p1(a INT, b INT, OUT r INT) LANGUAGE JS AS $$
   r = a * b;
 $$
 ```

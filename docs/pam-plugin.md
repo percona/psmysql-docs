@@ -29,19 +29,19 @@ A plugin may not be supported in later releases of MySQL or Percona Server for M
 
 This plugin requires manual installation because it isn’t installed by default.
 
-```{.bash data-prompt="mysql>"}
-mysql> INSTALL PLUGIN auth_pam SONAME 'auth_pam.so';
+```sql
+INSTALL PLUGIN auth_pam SONAME 'auth_pam.so';
 ```
 
 After the plugin has been installed it should be present in the plugins list. To check if the plugin has been correctly installed and active
 
-```{.bash data-prompt="mysql>"}
-mysql> SHOW PLUGINS;
+```sql
+SHOW PLUGINS;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     ...
     | auth_pam                       | ACTIVE   | AUTHENTICATION     | auth_pam.so | GPL     |
     ```
@@ -73,8 +73,8 @@ account    required     pam_unix.so audit
 
 After the PAM plugin has been configured, users can be created with the PAM plugin as authentication method
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE USER 'newuser'@'localhost' IDENTIFIED WITH auth_pam;
+```sql
+CREATE USER 'newuser'@'localhost' IDENTIFIED WITH auth_pam;
 ```
 
 This will create a user `newuser` that can connect from `localhost` who will be authenticated using the PAM plugin. If the `pam_unix` method is being used user will need to exist on the system.

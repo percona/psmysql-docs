@@ -6,8 +6,8 @@ The `plugin_dir` system variable specifies where the component library is locate
 
 To install the `js_lang` component, you need to run the following command:
 
-```{.bash data-prompt="mysql>"}
-mysql> INSTALL COMPONENT 'file://component_js_lang';
+```sql
+INSTALL COMPONENT 'file://component_js_lang';
 ```
 
 If you decide to uninstall the component, you may have to restart the server before you can reinstall it.

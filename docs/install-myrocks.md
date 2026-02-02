@@ -22,13 +22,13 @@ It is recommended to install Percona software from official repositories:
 
     === "Debian or Ubuntu"
 
-        ```{.bash data-prompt="$"}
+        ```shell
         $ sudo apt install percona-server-rocksdb
         ```
 
     === "RHEL or derivatives"
 
-        ```{.bash data-prompt="$"}
+        ```shell
         $ sudo dnf install percona-server-rocksdb
         ```
 
@@ -41,7 +41,7 @@ After installation, you should see the following output:
     * Run the following script to enable the RocksDB storage engine in Percona Server:
     ```
 
-```{.bash data-prompt="$"}
+```shell
 $ ps-admin --enable-rocksdb -u <mysql_admin_user> -p[mysql_admin_pass] [-S <socket>] [-h <host> -P <port>]
 ```
 
@@ -51,7 +51,7 @@ Run the `ps-admin` script as system root user or with **sudo**
 and provide the MySQL root user credentials
 to properly enable the RocksDB (MyRocks) storage engine:
 
-```{.bash data-prompt="$"}
+```shell
 $ sudo ps-admin --enable-rocksdb -u root -pPassw0rd
 ```
 
@@ -80,8 +80,8 @@ If the script returns no errors,
 Percona MyRocks should be successfully enabled on the server.
 You can verify it as follows:
 
-```{.bash data-prompt="mysql>"}
-mysql> SHOW ENGINES;
+```sql
+SHOW ENGINES;
 ```
 
 ??? example "Expected output"
@@ -138,20 +138,20 @@ with another storage engine after you remove Percona MyRocks.
 If you need this data, alter the tables to another storage engine.
 For example, to alter the `City` table to InnoDB, run the following:
 
-```{.bash data-prompt="mysql>"}
-mysql> ALTER TABLE City ENGINE=InnoDB;
+```sql
+ALTER TABLE City ENGINE=InnoDB;
 ```
 
 To disable and uninstall the RocksDB engine plugins,
 use the `ps-admin` script as follows:
 
-```{.bash data-prompt="$"}
+```shell
 $ sudo ps-admin --disable-rocksdb -u root -pPassw0rd
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     Checking RocksDB engine plugin status...
     INFO: RocksDB engine plugin is installed.
 
@@ -164,13 +164,13 @@ remove the Percona MyRocks package:
 
     === "Debian or Ubuntu"
 
-        ```{.bash data-prompt="$"}
+        ```shell
         $ sudo apt remove percona-server-rocksdb-{{vers}}
         ```
         
     === "RHEL or derivatives"
 
-        ```{.bash data-prompt="$"}
+        ```shell
         $ sudo yum remove percona-server-rocksdb-80.x86_64
         ```
 

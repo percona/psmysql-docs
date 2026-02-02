@@ -2,13 +2,13 @@
 
 This feature is intended to provide a general mechanism (using `log_warnings_silence`) to disable certain warning messages to the log file. Currently, it is only implemented for disabling message #1592 warnings. This feature does not influence warnings delivered to a client. Please note that warning code needs to be a string:
 
-```{.bash data-prompt="mysql>"}
-mysql> SET GLOBAL log_warnings_suppress = '1592';
+```sql
+SET GLOBAL log_warnings_suppress = '1592';
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     Query OK, 0 rows affected (0.00 sec)
     ```
 

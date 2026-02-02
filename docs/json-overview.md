@@ -42,7 +42,7 @@ JSON has the following features:
 
 The following is an example using JSON in your database.
 
-```JSON
+```json
 CREATE TABLE user_data (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50),
@@ -67,8 +67,8 @@ JSON in Percona Server for MySQL gives you have the flexibility of NoSQL with th
 
 Create a table that includes a column with the JSON data type.
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE TABLE users (
+```sql
+CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     info JSON
@@ -87,8 +87,8 @@ The columns are the following:
 
 Insert the JSON data into the table using the `INSERT` statement. The `name` column stores the user's name. The `info` column stores JSON data using the `JSON_OBJECT` function. This function creates a JSON object with key-value pairs.
 
-```{.bash data-prompt="mysql>"}
-mysql> INSERT INTO users (name, info) VALUES (
+```sql
+INSERT INTO users (name, info) VALUES (
     'John Doe',
     JSON_OBJECT('age', 30, 'city', 'New York', 'email', 'john.doe@example.com')
 );
@@ -98,16 +98,16 @@ mysql> INSERT INTO users (name, info) VALUES (
 
 You can query JSON data using the `SELECT` statement. The `name` column retrieves the user's name. The `info->>'$.age'` expression retrieves the value of the `age` key from the JSON object stored in the `info` column.
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT name, info->>'$.age' AS age FROM users;
+```sql
+SELECT name, info->>'$.age' AS age FROM users;
 ```
 
 ## Update JSON Data
 
 You can update JSON data using the `UPDATE` statement. The `JSON_SET` function updates the value of the `age` key in the JSON object stored in the `info` column. The `WHERE` clause specifies that only the row with the name 'John Doe' should be updated.
 
-```{.bash data-prompt="mysql>"}
-mysql> UPDATE users
+```sql
+UPDATE users
 SET info = JSON_SET(info, '$.age', 31)
 WHERE name = 'John Doe';
 ```
@@ -116,16 +116,16 @@ WHERE name = 'John Doe';
 
 You can delete JSON data using the `DELETE` statement. This statement removes rows from the `users` table where the `city` key in the JSON object stored in the `info` column has the value 'New York'.
 
-```{.bash data-prompt="mysql>"}
-mysql> DELETE FROM users WHERE info->>'$.city' = 'New York';
+```sql
+DELETE FROM users WHERE info->>'$.city' = 'New York';
 ```
 
 ## Add New Key-Value Pairs to JSON Data
 
 You can add new key-value pairs to existing JSON data using the `JSON_SET` function. The `JSON_SET` function adds a new key `phone` with the value '123-456-7890' to the JSON object stored in the `info` column.
 
-```{.bash data-prompt="mysql>"}
-mysql> UPDATE users
+```sql
+UPDATE users
 SET info = JSON_SET(info, '$.phone', '123-456-7890')
 WHERE name = 'John Doe';
 ```
@@ -134,8 +134,8 @@ WHERE name = 'John Doe';
 
 You can remove key-value pairs from existing JSON data using the `JSON_REMOVE` function. This function removes the `email` key from the JSON object stored in the `info` column.
 
-```{.bash data-prompt="mysql>"}
-mysql> UPDATE users
+```sql
+UPDATE users
 SET info = JSON_REMOVE(info, '$.email')
 WHERE name = 'John Doe';
 ```
@@ -148,16 +148,16 @@ Percona Server for MySQL provides several functions to work with JSON data.
 
 You can extract data from a JSON document using the `JSON_EXTRACT` function. This function extracts the value of the `city` key from the JSON object stored in the `info` column.
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT JSON_EXTRACT(info, '$.city') AS city FROM users WHERE name = 'John Doe';
+```sql
+SELECT JSON_EXTRACT(info, '$.city') AS city FROM users WHERE name = 'John Doe';
 ```
 
 ### `JSON_ARRAY`
 
 You can create a JSON array using the `JSON_ARRAY` function. This function creates a JSON array with the values 'apple', 'banana', and 'cherry'.
 
-```{.bash data-prompt="mysql>"}
-mysql> INSERT INTO users (name, info) VALUES (
+```sql
+INSERT INTO users (name, info) VALUES (
     'Jane Smith',
     JSON_ARRAY('apple', 'banana', 'cherry')
 );
@@ -167,6 +167,6 @@ mysql> INSERT INTO users (name, info) VALUES (
 
 You can check if a JSON document contains a specific value using the `JSON_CONTAINS` function. This function checks if the `info` column contains the value 'New York' for the `city` key.
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT name FROM users WHERE JSON_CONTAINS(info, '"New York"', '$.city');
+```sql
+SELECT name FROM users WHERE JSON_CONTAINS(info, '"New York"', '$.city');
 ```

@@ -100,28 +100,28 @@ Install the plugin with the following statements.
 
 === "Load the simple LDAP authentication plugin"
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> INSTALL PLUGIN authentication_ldap_simple SONAME 'authentication_ldap_simple.so';
+    ```sql
+    INSTALL PLUGIN authentication_ldap_simple SONAME 'authentication_ldap_simple.so';
     ```
 
     To set and persist values at runtime, use the following statements:
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> SET PERSIST authentication_ldap_simple_server_host='127.0.0.1';
-    mysql> SET PERSIST authentication_ldap_simple_bind_base_dn='dc=percona, dc=com';
+    ```sql
+    SET PERSIST authentication_ldap_simple_server_host='127.0.0.1';
+    SET PERSIST authentication_ldap_simple_bind_base_dn='dc=percona, dc=com';
     ```
 
 === "Load the SASL-based LDAP authentication plugin" 
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> INSTALL PLUGIN authentication_ldap_sasl SONAME 'authentication_ldap_sasl.so';
+    ```sql
+    INSTALL PLUGIN authentication_ldap_sasl SONAME 'authentication_ldap_sasl.so';
     ```
 
     To set and persist values at runtime, use the following statements:
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> SET PERSIST authentication_ldap_sasl_server_host='127.0.0.1';
-    mysql> SET PERSIST authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com';
+    ```sql
+    SET PERSIST authentication_ldap_sasl_server_host='127.0.0.1';
+    SET PERSIST authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com';
     ```
 
 ## Create a user using simple LDAP authentication
@@ -133,7 +133,7 @@ There are several methods to add or modify a user.
     In the `CREATE USER` statement or the `ALTER USER` statement, for simple LDAP authentication, you can specify the `authentication_ldap_simple` plugin in the `IDENTIFIED WITH` clause:
 
     ```text
-    mysql> CREATE USER ... IDENTIFIED WITH authentication_ldap_simple;
+    CREATE USER ... IDENTIFIED WITH authentication_ldap_simple;
     ```
 
     Using the `IDENTIFIED WITH` clause, the database server assigns the specified plugin.
@@ -143,7 +143,7 @@ There are several methods to add or modify a user.
     If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.
 
     ```text
-    mysql> CREATE USER ... IDENTIFIED WITH authentication_ldap_simple BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
+    CREATE USER ... IDENTIFIED WITH authentication_ldap_simple BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
     ```
 
     Unless the [authentication_ldap_simple_group_role_mapping](ldap-system-variables.md#authentication_ldap_simple_group_role_mapping) variable is used, creating a user with an authentication string does not use the following system variables:
@@ -171,7 +171,7 @@ There are several methods to add or modify a user.
     For SASL-based LDAP authentication, in the `CREATE USER` statement or the `ALTER USER` statement, you can specify the `authentication_ldap_sasl` plugin:
 
     ```text
-    mysql> CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl;
+    CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl;
     ```
 
 === "Use the authentication string in SASL-based LDAP"
@@ -179,7 +179,7 @@ There are several methods to add or modify a user.
     If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.
 
     ```text
-    mysql> CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
+    CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
     ```
 
     Unless the [authentication_ldap_sasl_group_role_mapping](ldap-system-variables.md#authentication_ldap_sasl_group_role_mapping) variable is used, creating a user with an authentication string does not use the following system variables:
@@ -214,14 +214,14 @@ uid=ldapuser,ou=testusers,dc=percona,dc=com
 
     Create a database server account for `ldapuser` with the following statement:
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> CREATE USER 'ldapuser'@'localhost' IDENTIFIED WITH authentication_ldap_simple BY 'uid=ldapuser,ou=testusers,dc=percona,dc=com';
+    ```sql
+    CREATE USER 'ldapuser'@'localhost' IDENTIFIED WITH authentication_ldap_simple BY 'uid=ldapuser,ou=testusers,dc=percona,dc=com';
     ```
 
     The authentication string does not include the LDAP password. This password must be provided by the client user when they connect.
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> mysql --user=ldapuser --password --enable-cleartext-plugin
+    ```sql
+    mysql --user=ldapuser --password --enable-cleartext-plugin
     ```
 
     The user enters the `ldapuser` password. The client sends the password as cleartext, which is necessary when using a server-side LDAP library without SASL. The following actions may minimize the risk:
@@ -235,16 +235,16 @@ uid=ldapuser,ou=testusers,dc=percona,dc=com
 
     Create a database server account for `ldapuser` with the following statement:
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> CREATE USER 'ldapuser'@'localhost' IDENTIFIED WITH authentication_ldap_sasl AS 'uid=ldapuser,ou=testusers,dc=percona,dc=com';
+    ```sql
+    CREATE USER 'ldapuser'@'localhost' IDENTIFIED WITH authentication_ldap_sasl AS 'uid=ldapuser,ou=testusers,dc=percona,dc=com';
     ```
 
     The authentication string does not include the LDAP password. This password must be provided by the client user when they connect.
 
     Clients connect ot the database server by providing the database server user name and LDAP password:
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> mysql --user=ldapuser --password
+    ```sql
+    mysql --user=ldapuser --password
     ```
 
     The authentication is similar to the authentication method used by simple LDAP authentication, except that the client and the database server SASL LDAP plugins use SASL messages. These messages are secure within the LDAP protocol.
@@ -257,8 +257,8 @@ If you installed either plugin at [server startup](#load-the-plugins-at-server-s
 
     If you installed the plugins at [runtime](#load-the-plugins-at-runtime), run the following statements:
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> UNINSTALL PLUGIN authentication_ldap_simple;
+    ```sql
+    UNINSTALL PLUGIN authentication_ldap_simple;
     ```
 
     If you used `SET_PERSIST`, use `RESET PERSIST` to remove the settings.
@@ -267,8 +267,8 @@ If you installed either plugin at [server startup](#load-the-plugins-at-server-s
 
     If you installed the plugins at [runtime](#load-the-plugins-at-runtime), run the following statements:
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> UNINSTALL PLUGIN authentication_ldap_sasl;
+    ```sql
+    UNINSTALL PLUGIN authentication_ldap_sasl;
     ```
 
     If you used `SET_PERSIST`, use `RESET PERSIST` to remove the settings.

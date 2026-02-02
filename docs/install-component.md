@@ -13,6 +13,6 @@ You can install multiple components at the same time.
 
 The following is an example of the `INSTALL COMPONENT` statement.
 
-```{.bash data-prompt="mysql>"}
-mysql> INSTALL COMPONENT 'file://componentA';
+```sql
+INSTALL COMPONENT 'file://componentA';
 ```
