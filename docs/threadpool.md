@@ -83,7 +83,7 @@ Worker threads first scan the high-priority queue for queries to process. Once a
 
 The thread pool adapts to shifts in workload by redistributing queued tasks and prioritizing available threads. This dynamic management improves system responsiveness while minimizing the number of threads in use.
 
-<img src="../_static/thread-pool-diagram.png" alt="Thread pool diagram" width="250" />
+<img src="./_static/thread-pool-diagram.png" alt="Thread pool diagram" width="250" />
 
 ### Thread groups
 
