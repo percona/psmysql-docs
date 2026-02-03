@@ -27,37 +27,37 @@ A trigger is a database object that automatically performs a specified action in
 
 ### Create a before_insert trigger
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE TRIGGER before_insert_customer
-    -> BEFORE INSERT ON customers
-    -> FOR EACH ROW
-    -> BEGIN
-    ->     SET NEW.created_at = NOW();
-    -> END;
+```sql
+CREATE TRIGGER before_insert_customer
+    BEFORE INSERT ON customers
+    FOR EACH ROW
+    BEGIN
+        SET NEW.created_at = NOW();
+    END;
 ```
 
 ### Create an after_update trigger
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE TRIGGER after_update_inventory
-    -> AFTER UPDATE ON inventory
-    -> FOR EACH ROW
-    -> BEGIN
-    ->     INSERT INTO inventory_changes (product_id, old_quantity, new_quantity, change_date)
-    ->     VALUES (OLD.product_id, OLD.quantity, NEW.quantity, NOW());
-    -> END;
+```sql
+CREATE TRIGGER after_update_inventory
+    AFTER UPDATE ON inventory
+    FOR EACH ROW
+    BEGIN
+        INSERT INTO inventory_changes (product_id, old_quantity, new_quantity, change_date)
+        VALUES (OLD.product_id, OLD.quantity, NEW.quantity, NOW());
+    END;
 ```
 
 ### Drop a before_insert trigger
 
-```{.bash data-prompt="mysql>"}
-mysql> DROP TRIGGER IF EXISTS before_insert_customer;
+```sql
+DROP TRIGGER IF EXISTS before_insert_customer;
 ```
 
 ### Drop an after_update trigger
 
-```{.bash data-prompt="mysql>"}
-mysql> DROP TRIGGER IF EXISTS after_update_inventory;
+```sql
+DROP TRIGGER IF EXISTS after_update_inventory;
 ```
 
 ## Advanced SQL features

@@ -14,8 +14,8 @@ On the other hand, `.autorelabel` is used when you want the relabeling process t
 
 This command relabels the entire file system without requiring a system reboot.
 
-   ```{.bash data-prompt="$"}
-   $ fixfiles -f relabel
+   ```shell
+   fixfiles -f relabel
    ```
 The command `fixfiles -f relabel` is a directive used within the context of SELinux, a security feature in Linux systems. This specific command instructs the system to forcefully reapply SELinux labels, also known as contexts, to files and directories.
 
@@ -37,8 +37,8 @@ It's important to note that running `fixfiles -f relabel` can be a resource-inte
 
 Creating the `.autorelabel` file initiates a relabeling process that often requires a reboot to apply the changes effectively. During this reboot, SELinux relabels all files based on their defined policies.
 
-   ```{.bash data-prompt="$"}
-   $ touch /.autorelabel
+   ```shell
+   touch /.autorelabel
    ```
 
 This command creates a file named `.autorelabel` in the root directory of the Linux filesystem. The "touch" command creates a new file.
@@ -61,8 +61,8 @@ It would be best to use `restorecon` when you restore the default SELinux contex
 
 The following command configures the SELinux context for a custom data directory in the server.
 
-   ```{.bash data-prompt="$"}
-   $ semanage fcontext -a -t mysqld_db_t "/path/to/custom/data(/.*)?"
+   ```shell
+   semanage fcontext -a -t mysqld_db_t "/path/to/custom/data(/.*)?"
    ```
 
 Each part of the command is as follows:
@@ -79,8 +79,8 @@ This command tells SELinux to label all files and subdirectories within the `/pa
    
 ### Use restorecon
 
-```{.bash data-prompt="$"}
-$ restorecon -Rv /path/to/custom/data
+```shell
+restorecon -Rv /path/to/custom/data
 ```
 
 The `restorecon -Rv /path/to/custom/data` command restores the SELinux context for a specific directory and subdirectory. Here's what each part of the command does:
@@ -99,14 +99,14 @@ When setting a custom log location for the server, SELinux permissions may need 
 
 This command associates the `var_log_t` type with the custom log directory and contents.
 
-```{.bash data-prompt="$"}
-$ semanage fcontext -a -t var_log_t "/path/to/custom/logs(/.*)?"
+```shell
+semanage fcontext -a -t var_log_t "/path/to/custom/logs(/.*)?"
 ```
 
 This command restores SELinux contexts recursively for the custom log directory, ensuring proper permissions for the server to write logs.
 
-```{.bash data-prompt="$"}
-$ restorecon -Rv /path/to/custom/logs
+```shell
+restorecon -Rv /path/to/custom/logs
 ```
 
 ## Setting secure_file_priv Directory
@@ -115,14 +115,14 @@ When configuring the server's `secure_file_priv` directory, you must update the 
 
 This command associates the `mysqld_db_t` type with the `secure_file_priv` directory and its contents.
 
-```{.bash data-prompt="$"}
-$ semanage fcontext -a -t mysqld_db_t "/path/to/secure_file_priv(/.*)?"
+```shell
+semanage fcontext -a -t mysqld_db_t "/path/to/secure_file_priv(/.*)?"
 ```
 
 This command restores SELinux contexts recursively for the `secure_file_priv` directory, ensuring proper permissions for the server file operations.
 
-```{.bash data-prompt="$"}
-$ restorecon -Rv /path/to/secure_file_priv
+```shell
+restorecon -Rv /path/to/secure_file_priv
 ```
 
    

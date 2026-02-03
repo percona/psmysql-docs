@@ -19,7 +19,7 @@ The statement requires the `DELETE` privilege for the `mysql.component` system t
 
 The following is an example of the `UNINSTALL COMPONENT` statement.
 
-```{.bash data-prompt="mysql>"}
+```sql
 mysql > UNINSTALL COMPONENT 'file://componentA' ;
 ```
 

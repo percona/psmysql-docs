@@ -11,7 +11,7 @@ Before beginning the upgrade process:
 3. Back up your database configuration file (`my.cnf`) to a safe location, then modify it as needed (for example, remove deprecated variables, update settings for {{vers}}) before stopping the server.
 4. Stop the server using the appropriate command for your system:
 
-    ```{.bash}
+    ```shell
     sudo systemctl stop mysql
     ```
 
@@ -36,7 +36,7 @@ Find the instructions on how to enable the repositories in the following documen
 
     2. Stop the server with the appropriate command for your system:
    
-        ```{.bash}
+        ```shell
         sudo systemctl stop mysql
         ```
 
@@ -44,7 +44,7 @@ Find the instructions on how to enable the repositories in the following documen
 
     4. Install Percona Server for MySQL:
 
-        ```{.bash}
+        ```shell
         sudo apt update
         sudo apt install curl
         curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb 
@@ -58,7 +58,7 @@ Find the instructions on how to enable the repositories in the following documen
 
         If you used the MyRocks storage engine in Percona Server for MySQL {{vers}}, install the `percona-server-rocksdb` package:
 
-        ```{.bash}
+        ```shell
         sudo apt install percona-server-rocksdb
         ```
 
@@ -66,7 +66,7 @@ Find the instructions on how to enable the repositories in the following documen
 
     7. Restart the service:
 
-        ```{.bash}
+        ```shell
         sudo systemctl restart mysql
         ```
 
@@ -80,31 +80,31 @@ Find the instructions on how to enable the repositories in the following documen
 
     2. Stop the server with the appropriate command for your system:
    
-        ```{.bash}
+        ```shell
         sudo systemctl stop mysql
         ```
 
     3. Check your installed packages:
 
-        ```{.bash}
+        ```shell
         rpm -qa | grep Percona-Server
         ```
 
     4. Remove only the packages without dependencies and leave dependent packages. The command does not prompt for confirmation:
 
-        ```{.bash}
+        ```shell
         rpm -qa | grep Percona-Server | xargs rpm -e --nodeps
         ```
 
     5. Remove the mysql-related packages:
 
-        ```{.bash}
+        ```shell
         rpm -qa | grep '^mysql-' | xargs rpm -e --nodeps
         ```
 
     6. Install the `percona-server-server` package:
 
-        ```{.bash}
+        ```shell
         sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
         sudo percona-release setup {{pkg}}
         sudo yum install percona-server-server
@@ -114,7 +114,7 @@ Find the instructions on how to enable the repositories in the following documen
 
         If you used the MyRocks storage engine in the previous version, install the `percona-server-rocksdb` package:
 
-        ```{.bash}
+        ```shell
         sudo yum install percona-server-rocksdb
         ```
 
@@ -124,7 +124,7 @@ Find the instructions on how to enable the repositories in the following documen
 
     10. Restart the server:
 
-        ```{.bash}
+        ```shell
         sudo systemctl restart mysql
         ```
 
@@ -138,7 +138,7 @@ Use this method when you cannot use repositories or need to install from manuall
 
     1. Remove the installed packages with their dependencies:
 
-        ```{.bash}
+        ```shell
         sudo apt autoremove percona-server percona-client
         ```
 
@@ -153,25 +153,25 @@ Use this method when you cannot use repositories or need to install from manuall
 
         The following example downloads Percona Server for MySQL {{release}} packages for Debian 11.0:
 
-        ```{.bash}
+        ```shell
         wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/debian/bullseye/x86_64/Percona-Server-{{release}}-r582ebeef-bullseye-x86_64-bundle.tar
         ```
 
     4. Unpack the bundle to get the packages:
 
-        ```{.bash}
+        ```shell
         tar xvf Percona-Server-{{release}}-r582ebeef-bullseye-x86_64-bundle.tar
         ```
 
         After you unpack the bundle, you should see the following packages:
 
-        ```{.bash}
+        ```shell
         ls *.deb
         ```
 
         ??? example "Expected output"
 
-            ```{.text .no-copy}
+            ```text
             libperconaserverclient21-dev_{{release}}.bullseye_amd64.deb  
             percona-server-dbg_{{release}}.bullseye_amd64.deb
             libperconaserverclient21_{{release}}.bullseye_amd64.deb      
@@ -186,7 +186,7 @@ Use this method when you cannot use repositories or need to install from manuall
 
     5. Install Percona Server for MySQL:
 
-        ```{.bash}
+        ```shell
         sudo dpkg -i *.deb
         ```
 
@@ -204,7 +204,7 @@ Use this method when you cannot use repositories or need to install from manuall
 
     7. Restart the service:
 
-        ```{.bash}
+        ```shell
         sudo service mysql restart
         ```
 
@@ -214,13 +214,13 @@ Use this method when you cannot use repositories or need to install from manuall
 
     1. Check the installed packages:
 
-        ```{.bash}
+        ```shell
         rpm -qa | grep percona-server
         ```
 
         ??? example "Expected output"
 
-            ```{.text .no-copy}
+            ```text
             percona-server-shared-{{release}}.el9.x86_64
             percona-server-shared-compat-{{release}}.el9.x86_64
             percona-server-client-{{release}}.el9.x86_64
@@ -231,7 +231,7 @@ Use this method when you cannot use repositories or need to install from manuall
 
     2. Remove the packages without dependencies:
 
-        ```{.bash}
+        ```shell
         rpm -qa | grep percona-server | xargs rpm -e --nodeps
         ```
 
@@ -239,31 +239,31 @@ Use this method when you cannot use repositories or need to install from manuall
 
         To remove the listed packages, run:
 
-        ```{.bash}
+        ```shell
         rpm -qa | grep '^mysql-' | xargs rpm -e --nodeps
         ```
 
     3. Download the packages of the desired series for your architecture from the [download page :octicons-link-external-16:](https://www.percona.com/downloads). The easiest way is to download the bundle which contains all the packages. The following example downloads Percona Server for MySQL {{release}} packages for RHEL 9:
 
-        ```{.bash}
+        ```shell
         wget https://downloads.percona.com/downloads/Percona-Server-{{vers}}/Percona-Server-{{release}}/binary/redhat/9/x86_64/Percona-Server-{{release}}-r9927a2fb-el9-x86_64-bundle.tar
         ```
 
     4. Unpack the bundle to get the packages:
 
-        ```{.bash}
+        ```shell
         tar xvf Percona-Server-{{release}}-r9927a2fb-el9-x86_64-bundle.tar
         ```
 
         After you unpack the bundle, you should see the following packages:
 
-        ```{.bash}
+        ```shell
         ls *.rpm
         ```
 
     5. Install Percona Server for MySQL:
 
-        ```{.bash}
+        ```shell
         sudo rpm -ivh percona-server-server-{{release}}.el9.x86_64.rpm \
         percona-server-client-{{release}}.el9.x86_64.rpm \
         percona-server-shared-{{release}}.el9.x86_64.rpm \
@@ -274,7 +274,7 @@ Use this method when you cannot use repositories or need to install from manuall
 
         You can install all the packages (for debugging, testing, etc.) with:
 
-        ```{.bash}
+        ```shell
         sudo rpm -ivh *.rpm
         ```
 
@@ -290,7 +290,7 @@ Use this method when you cannot use repositories or need to install from manuall
 
     8. Restart the server:
 
-        ```{.bash}
+        ```shell
         sudo service mysql restart
         ```
 

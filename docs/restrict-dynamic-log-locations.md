@@ -61,8 +61,8 @@ Run the following commands as root:
 
 1. Create the direcory to store the log files.
 
-    ```{.bash data-prompt="[root@localhost ~]#"}
-    [root@localhost ~]# mkdir /var/lib/mysqld-logs
+    ```shell
+    mkdir /var/lib/mysqld-logs
     ```
 
 2. Enable the following options and set them up with the created directory in /etc/my.cnf configuration file.
@@ -80,25 +80,25 @@ Run the following commands as root:
 
 3. Change the owner and group of the `/var/lib/mysqld-logs` directory and all its subdirectories and files to `mysql`.
 
-    ```{.bash data-prompt="[root@localhost ~]#"}
-    [root@localhost ~]# chown -R mysql:mysql /var/lib/mysqld-logs
+    ```shell
+    chown -R mysql:mysql /var/lib/mysqld-logs
     ```
 
 4. Restart the MySQL server.
 
-    ```{.bash data-prompt="[root@localhost ~]#"}
-    [root@localhost ~]# systemctl restart mysql
+    ```shell
+    systemctl restart mysql
     ```
 
 5. Check that the slow query log and the general log are enabled for the MySQL server.
 
-    ```{.bash data-prompt="[root@localhost ~]#"}
-    [root@localhost ~]# mysql -e "select @@slow_query_log, @@general_log, @@secure_log_path"
+    ```shell
+    mysql -e "select @@slow_query_log, @@general_log, @@secure_log_path"
     ```
 
     ??? example "Expected output"
 
-        ```{.text .no-copy}
+        ```text
         +------------------+---------------+-----------------------+
         | @@slow_query_log | @@general_log | @@secure_log_path     |
         +------------------+---------------+-----------------------+
@@ -106,16 +106,16 @@ Run the following commands as root:
         +------------------+---------------+-----------------------+
         ```
 
-6. Check that the slow query log and the general log are stored in the `/var/lib/mysqld-logs` directory.
+6. Check that the slow query log and the general log are stored in the `/var/lib/mysqld-logs` directory. As root (or a user with read access to the directory), run:
 
-    ```{.bash data-prompt="[root@localhost ~]#"}
-    [root@localhost ~]# cd /var/lib/mysqld-logs/
-    [root@localhost mysqld-logs]# ls -lrth
+    ```shell
+    cd /var/lib/mysqld-logs/
+    ls -lrth
     ```
 
     ??? example "Expected output"
 
-        ```{.text .no-copy}
+        ```text
         -rw-r-----. 1 mysql mysqld-logs 240 Aug 18 11:56 localhost-slow.log
         -rw-r-----. 1 mysql mysqld-logs 565 Aug 18 11:56 localhost.log
         ```

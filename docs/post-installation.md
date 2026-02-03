@@ -35,15 +35,15 @@ You should run the following steps with the `mysql` login.
 
 1. Navigate to the MySQL directory. The example uses the default location.
 	
-	```{.bash data-prompt="$"}
-	$ cd /usr/local/mysql
+	```shell
+	cd /usr/local/mysql
 	```
 
 
 2. Create a directory for the MySQL files. The [secure_file_priv :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_secure_file_priv) uses the directory path as a value.
 	
-	```{.bash data-prompt="$"}
-	$ mkdir mydata
+	```shell
+	mkdir mydata
 	```
 
 	The `mysql` user account should have the `drwxr-x---` permissions.
@@ -62,8 +62,8 @@ You should run the following steps with the `mysql` login.
 
 3. Run the command to initialize the data directory.
 
-	```{.bash data-prompt="$"}
-	$ bin/mysqld --initialize
+	```shell
+	bin/mysqld --initialize
 	```
 
 ### Test the server
@@ -76,13 +76,13 @@ You can use the [mysqladmin :octicons-link-external-16:](https://dev.mysql.com/d
 
 If you have issues connecting to the server, use the `root` user and the root account password.
 
-```{.bash data-prompt="$"}
-$ sudo mysqladmin -u root -p version
+```shell
+sudo mysqladmin -u root -p version
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     Enter password:
     mysql Ver {{release}} for debian-linux-gnu on x86_64 (Percona Server (GPL), Release '10', Revision 'f446c04')
     ...
@@ -98,13 +98,13 @@ $ sudo mysqladmin -u root -p version
 
 Use [mysqlshow :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/mysqlshow.html) to display database and table information.
 
-```{.bash data-prompt="$"}
-$ sudo mysqlshow -u root -p
+```shell
+sudo mysqlshow -u root -p
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     Enter password:
 
     +---------------------+
@@ -126,22 +126,22 @@ After a generic binary installation, manually configure systemd support.
 
 The following commands start, check the status, and stop the server:
 
-```{.bash data-prompt="$"}
-$ sudo systemctl start mysqld
-$ sudo systemctl status mysqld
-$ sudo systemctl stop mysqld
+```shell
+sudo systemctl start mysqld
+sudo systemctl status mysqld
+sudo systemctl stop mysqld
 ```
 
 Run the following command to start the service at boot time:
 
-```{.bash data-prompt="$"}
-$ sudo systemctl enable mysqld
+```shell
+sudo systemctl enable mysqld
 ```
 Run the following command to prevent a service from starting at boot time:
 
 
-```{.bash data-prompt="$"}
-$ sudo systemctl disable mysqld
+```shell
+sudo systemctl disable mysqld
 ```
 
 ## All installations
@@ -159,49 +159,49 @@ During an installation on Debian/Ubuntu, you are prompted to enter a root passwo
 
 Restart the server with the `--skip-grant-tables` option to allow access without a password. This option is insecure. This option also disables remote connections.
 
-```{.bash data-prompt="$"}
-$ sudo systemctl stop mysqld
-$ sudo systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
-$ sudo systemctl start mysqld 
-$ mysql
+```shell
+sudo systemctl stop mysqld
+sudo systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
+sudo systemctl start mysqld 
+mysql
 ```
 
 Reload the grant tables to be able to run the `ALTER USER` statement. Enter a password that satisfies the current policy.
 
-```{.sql data-prompt="mysql>"}
-mysql> FLUSH PRIVILEGES;
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'rootPassword_12';
-mysql> exit
+```sql
+FLUSH PRIVILEGES;
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'rootPassword_12';
+exit
 ```
 
 If the command fails, with `ERROR 1524 (HY000): Plugin [plugin name] is not loaded.`, then check if the plugin is available.
 
-```{.sql data-prompt="mysql>"}
-mysql> SELECT PLUGIN_NAME, PLUGIN_STATUS
+```sql
+SELECT PLUGIN_NAME, PLUGIN_STATUS
        FROM INFORMATION_SCHEMA.PLUGINS
        WHERE PLUGIN_NAME LIKE 'validate%';
 ```
 
 If the result is empty or shows `DISABLED`, the plugin is not available. Switch the MySQL user to use the default authentication plugin, `caching_sha2_password` or `mysql_native_password` for your installation.
 
-```{.sql data-prompt="mysql>"}
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'rootPassword_12';
+```sql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'rootPassword_12';
 ```
 
 If, when adding the password, MySQL returns `ERROR 1819 (HY000) Your password does not satisfy the current policy`, run the following command to see policy requirement.
 
-```{.sql data-prompt="mysql>"}
-mysql> SHOW VARIABLES LIKE 'validate_password%';
+```sql
+SHOW VARIABLES LIKE 'validate_password%';
 ```
 Redo your password to satisfy the requirements.
 
 Stop the server, remove the `--skip-grant-tables` option, start the server, and log into the server with the updated password.
 
-```{.bash data-prompt="$"}
-$ sudo systemctl stop mysqld 
-$ sudo systemctl unset-environment MYSQLD_OPTS 
-$ sudo systemctl start mysqld 
-$ mysql -u root -p
+```shell
+sudo systemctl stop mysqld 
+sudo systemctl unset-environment MYSQLD_OPTS 
+sudo systemctl start mysqld 
+mysql -u root -p
 ```
 
 ### Secure the server
@@ -227,8 +227,8 @@ The script does the following:
 
 The following statement runs the script:
 
-```{.bash data-prompt="$"}
-$ mysql_secure_installation
+```shell
+mysql_secure_installation
 ```
 
 ## Populate the time zone tables
@@ -265,6 +265,6 @@ The example assumes you are running the command with the `root` account.
 The account must have the privileges for modifying the `mysql`
 system schema.
 
-```{.bash data-prompt="$"}
-$ mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p -D mysql
+```shell
+mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p -D mysql
 ```

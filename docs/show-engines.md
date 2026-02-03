@@ -4,13 +4,13 @@ This feature changes the comment field displayed when the `SHOW STORAGE ENGINES`
 
 Before the Change:
 
-```{.bash data-prompt="mysql>"}
-mysql> show storage engines;
+```sql
+show storage engines;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +------------+---------+----------------------------------------------------------------+--------------+------+------------+
     | Engine     | Support | Comment                                                        | Transactions | XA   | Savepoints |
     +------------+---------+----------------------------------------------------------------+--------------+------+------------+
@@ -21,13 +21,13 @@ mysql> show storage engines;
 
 After the Change:
 
-```{.bash data-prompt="mysql>"}
-mysql> show storage engines;
+```sql
+show storage engines;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +------------+---------+----------------------------------------------------------------------------+--------------+------+------------+
     | Engine     | Support | Comment                                                                    | Transactions |   XA | Savepoints |
     +------------+---------+----------------------------------------------------------------------------+--------------+------+------------+

@@ -27,13 +27,13 @@ This table implements modifications to the standard MySQL `INFORMATION_SCHEMA` t
 
 Table [PROCESSLIST](process-list.md):
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM INFORMATION_SCHEMA.PROCESSLIST;
+```sql
+SELECT * FROM INFORMATION_SCHEMA.PROCESSLIST;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +----+------+-----------+--------------------+---------+------+-----------+---------------------------+---------+-----------+---------------+
     | ID | USER | HOST      | DB                 | COMMAND | TIME | STATE     | INFO                      | TIME_MS | ROWS_SENT | ROWS_EXAMINED |
     +----+------+-----------+--------------------+---------+------+-----------+---------------------------+---------+-----------+---------------+

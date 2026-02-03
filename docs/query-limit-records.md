@@ -36,8 +36,8 @@ effectively bypasses the process.
 The variable provides a method to limit the number of records estimated for a
 query.
 
-```{.bash data-prompt="mysql>"}
-mysql> SET @@GLOBAL.innodb_records_in_range=100;
+```sql
+SET @@GLOBAL.innodb_records_in_range=100;
 100
 ```
 
@@ -58,8 +58,8 @@ mysql> SET @@GLOBAL.innodb_records_in_range=100;
 This variable provides a method to override the records_in_range result when a
 FORCE INDEX is used in a query.
 
-```{.bash data-prompt="mysql>"}
-mysql> SET @@GLOBAL.innodb_force_index_records_in_range=100;
+```sql
+SET @@GLOBAL.innodb_force_index_records_in_range=100;
 100
 ```
 
@@ -87,6 +87,6 @@ The available values are:
 
 * DEFAULT
 
-```{.bash data-prompt="mysql>"}
-mysql> SET optimizer_switch='favor_range_scan=on';
+```sql
+SET optimizer_switch='favor_range_scan=on';
 ```

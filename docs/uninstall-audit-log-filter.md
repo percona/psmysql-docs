@@ -2,8 +2,8 @@
 
 If you no longer need the audit log filter functionality, you can remove the component from server using the following command:
 
-```{.bash data-prompt="mysql>"}
-mysql> UNINSTALL COMPONENT 'file://component_audit_log_filter';
+```sql
+UNINSTALL COMPONENT 'file://component_audit_log_filter';
 ```
 
 This command does the following:

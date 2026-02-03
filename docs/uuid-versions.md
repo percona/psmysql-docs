@@ -38,13 +38,13 @@ UUID version 7 (UUIDv7) creates time-ordered identifiers by encoding a Unix time
 
 ## Install the UUID_VX component
 
-```{.bash data-prompt="mysql>"}
-mysql> INSTALL COMPONENT 'file://component_uuid_vx_udf';
+```sql
+INSTALL COMPONENT 'file://component_uuid_vx_udf';
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     Query OK, 0 rows affected (0.03 sec) 
     ```
 
@@ -77,13 +77,13 @@ The following functions are compatible with all UUID versions:
 
 ### Examples of functions for all UUID versions
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT is_uuid_vx('01900bf6-0eb0-715a-80f4-636367e07777');
+```sql
+SELECT is_uuid_vx('01900bf6-0eb0-715a-80f4-636367e07777');
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +----------------------------------------------------+
     | is_uuid_vx('01900bf6-0eb0-715a-80f4-636367e07777') |
     +----------------------------------------------------+
@@ -92,13 +92,13 @@ mysql> SELECT is_uuid_vx('01900bf6-0eb0-715a-80f4-636367e07777');
     ```
 
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT uuid_vx_version('01900bf6-0eb0-715a-80f4-636367e07777');
+```sql
+SELECT uuid_vx_version('01900bf6-0eb0-715a-80f4-636367e07777');
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +---------------------------------------------------------+
     | uuid_vx_version('01900bf6-0eb0-715a-80f4-636367e07777') |
     +---------------------------------------------------------+
@@ -106,13 +106,13 @@ mysql> SELECT uuid_vx_version('01900bf6-0eb0-715a-80f4-636367e07777');
     +---------------------------------------------------------+
     ```
 
-```{.bash data-prompt="mysql>"}
- mysql> SELECT uuid_vx_variant('01900bf6-0eb0-715a-80f4-636367e07777');
+```sql
+ SELECT uuid_vx_variant('01900bf6-0eb0-715a-80f4-636367e07777');
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +---------------------------------------------------------+
     | uuid_vx_variant('01900bf6-0eb0-715a-80f4-636367e07777') |
     +---------------------------------------------------------+
@@ -139,13 +139,13 @@ The `UUID_v3()` function and `UUID_v5()` function do not validate the string arg
 
 UUID version 1:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT uuid_v1();
+```sql
+SELECT uuid_v1();
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +--------------------------------------+
     | uuid_v1()                            |
     +--------------------------------------+
@@ -155,13 +155,13 @@ mysql> SELECT uuid_v1();
 
 UUID version 3 takes one argument and uses the default UUID namespace as “URL”.
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT uuid_v3('http://example.com');
+```sql
+SELECT uuid_v3('http://example.com');
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +--------------------------------------+
     | uuid_v3('http://example.com')        |
     +--------------------------------------+
@@ -171,13 +171,13 @@ mysql> SELECT uuid_v3('http://example.com');
 
 UUID version 3 takes one argument and the explicit UUID namespace is “URL”.
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT uuid_v3('http://example.com', 1);
+```sql
+SELECT uuid_v3('http://example.com', 1);
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +--------------------------------------+
     | uuid_v3('http://example.com')        |
     +--------------------------------------+
@@ -187,13 +187,13 @@ mysql> SELECT uuid_v3('http://example.com', 1);
 
 UUID version 3 takes one argument, with the explicit UUID namespace set to “DNS”.
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT uuid_v3('example.com',0);
+```sql
+SELECT uuid_v3('example.com',0);
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +--------------------------------------+
     | uuid_v3('example.com',0)             |
     +--------------------------------------+
@@ -203,13 +203,13 @@ mysql> SELECT uuid_v3('example.com',0);
 
 UUID version 4:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT uuid_v4();
+```sql
+SELECT uuid_v4();
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +--------------------------------------+
     | uuid_v4()                            |
     +--------------------------------------+
@@ -219,13 +219,13 @@ mysql> SELECT uuid_v4();
 
 UUID version 5:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT uuid_v5("http://example.com");
+```sql
+SELECT uuid_v5("http://example.com");
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +--------------------------------------+
     | uuid_v5("http://example.com")        |
     +--------------------------------------+
@@ -235,13 +235,13 @@ mysql> SELECT uuid_v5("http://example.com");
 
 UUID version 6:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT uuid_v6();
+```sql
+SELECT uuid_v6();
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +--------------------------------------+
     | uuid_v6()                            |
     +--------------------------------------+
@@ -251,13 +251,13 @@ mysql> SELECT uuid_v6();
 
 UUID version 7 generation:
 
-```{.bash data-prompt="mysql>"}
-mysql>SELECT uuid_v7();
+```sql
+SELECT uuid_v7();
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +--------------------------------------+
     | uuid_v7()                            |
     +--------------------------------------+
@@ -268,13 +268,13 @@ mysql>SELECT uuid_v7();
 
 UUID version 7 with timestamp offset in 84000 seconds in the future
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT uuid_v7(84000000);
+```sql
+SELECT uuid_v7(84000000);
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +--------------------------------------+
     | uuid_v7(84000000)                    |
     +--------------------------------------+
@@ -295,13 +295,13 @@ The following functions are used only with time-based UUIDs, specifically versio
 
 ### Timestamp-based function examples
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT uuid_vx_to_timestamp('01900bf6-0eb0-715a-80f4-636367e07777');
+```sql
+SELECT uuid_vx_to_timestamp('01900bf6-0eb0-715a-80f4-636367e07777');
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +--------------------------------------------------------------+
     | uuid_vx_to_timestamp('01900bf6-0eb0-715a-80f4-636367e07777') |
     +--------------------------------------------------------------+
@@ -310,13 +310,13 @@ mysql> SELECT uuid_vx_to_timestamp('01900bf6-0eb0-715a-80f4-636367e07777');
     1 row in set (0.00 sec)
     ```
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT uuid_vx_to_timestamp_tz('01900bf6-0eb0-715a-80f4-636367e07777');
+```sql
+SELECT uuid_vx_to_timestamp_tz('01900bf6-0eb0-715a-80f4-636367e07777');
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +-----------------------------------------------------------------+
     | uuid_vx_to_timestamp_tz('01900bf6-0eb0-715a-80f4-636367e07777') |
     +-----------------------------------------------------------------+
@@ -324,13 +324,13 @@ mysql> SELECT uuid_vx_to_timestamp_tz('01900bf6-0eb0-715a-80f4-636367e07777');
     +-----------------------------------------------------------------+
     ```
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT uuid_vx_to_unixtime('01900bf6-0eb0-715a-80f4-636367e07777');
+```sql
+SELECT uuid_vx_to_unixtime('01900bf6-0eb0-715a-80f4-636367e07777');
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     +-------------------------------------------------------------+
     | uuid_vx_to_unixtime('01900bf6-0eb0-715a-80f4-636367e07777') |
     +-------------------------------------------------------------+
@@ -341,12 +341,12 @@ mysql> SELECT uuid_vx_to_unixtime('01900bf6-0eb0-715a-80f4-636367e07777');
 ## Uninstall the UUID_VX component
 
 
-```{.bash data-prompt="mysql>"}
-mysql> UNINSTALL COMPONENT 'file://component_uuid_vx_udf';
+```sql
+UNINSTALL COMPONENT 'file://component_uuid_vx_udf';
 ```
 
 ??? example "Expected output" 
 
-    ```{.text .no-copy}
+    ```text
     Query OK, 0 rows affected (0.03 sec)
     ```

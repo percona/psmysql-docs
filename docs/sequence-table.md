@@ -30,7 +30,7 @@ The result set is a single column with the predefined column name `value` of typ
 * SEQUENCE_TABLE(n) [AS] alias
 
 
-```{.text .no-copy}
+```text
 SELECT … FROM SEQUENCE_TABLE(n) [AS] alias
 
 SEQUENCE_TABLE(n) [AS] alias
@@ -47,27 +47,27 @@ The first number in the series, the initial term, is defined as `0`, and the ser
 
 Using `SEQUENCE_TABLE()`:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM SEQUENCE_TABLE(5)) AS sequence_data;
+```sql
+SELECT * FROM SEQUENCE_TABLE(5)) AS sequence_data;
 ```
 
 Using `PERCONA_SEQUENCE_TABLE()`:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM PERCONA_SEQUENCE_TABLE(5)) AS sequence_data;
+```sql
+SELECT * FROM PERCONA_SEQUENCE_TABLE(5)) AS sequence_data;
 ```
 
 ### Basic sequence generation
 
 In this example, the following statement generates a sequence:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM SEQUENCE_TABLE(3) AS tt;
+```sql
+SELECT * FROM SEQUENCE_TABLE(3) AS tt;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-------+
     | value |
     +-------+
@@ -87,7 +87,7 @@ SELECT value AS result FROM SEQUENCE_TABLE(8) AS tt WHERE value >= 4;
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +--------+
     | result |
     +--------+
@@ -110,7 +110,7 @@ SELECT value AS result FROM SEQUENCE_TABLE(8) AS tt WHERE value % 2 = 0;
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +--------+
     | result |
     +--------+
@@ -125,15 +125,15 @@ SELECT value AS result FROM SEQUENCE_TABLE(8) AS tt WHERE value % 2 = 0;
 
 The following is an example of using the function to populate a table with a set of random numbers:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT FLOOR(RAND() * 100) AS result FROM SEQUENCE_TABLE(4) AS tt;
+```sql
+SELECT FLOOR(RAND() * 100) AS result FROM SEQUENCE_TABLE(4) AS tt;
 ```
 
 The output could be the following:
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +--------+
     | result |
     +--------+
@@ -148,13 +148,13 @@ The output could be the following:
 
 You can populate a table with a set of pseudo-random strings with the following statement:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT MD5(value) AS result FROM SEQUENCE_TABLE(4) AS tt;
+```sql
+SELECT MD5(value) AS result FROM SEQUENCE_TABLE(4) AS tt;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +----------------------------------+
     | result                           |
     +----------------------------------+
@@ -169,15 +169,15 @@ mysql> SELECT MD5(value) AS result FROM SEQUENCE_TABLE(4) AS tt;
 
 You can add the sequence as a column to a new table or an existing table, as shown in this example:
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE TABLE t1 AS SELECT * FROM SEQUENCE_TABLE(4) AS tt;
+```sql
+CREATE TABLE t1 AS SELECT * FROM SEQUENCE_TABLE(4) AS tt;
 
-mysql> SELECT * FROM t1;
+SELECT * FROM t1;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-------+
     | value |
     +-------+
