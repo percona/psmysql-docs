@@ -9,7 +9,7 @@ To add a variable in MySQL, you use the `DECLARE` keyword within the context of 
 | data_type       | This specifies the data type of the variable, such as `INT`, `VARCHAR`, `DECIMAL`, `DATE`, etc.                                    |
 | default_value   | This is an optional parameter that specifies the default value for the variable. If not provided, the variable will be initialized to `NULL` by default. |
 
-```{.bash data-prompt="mysql>"}
+```sql
 DECLARE variable_name data_type [DEFAULT default_value];
 ```
 
@@ -19,8 +19,8 @@ DECLARE variable_name data_type [DEFAULT default_value];
 
 - Variables can be used to store and manipulate values within the context of the stored program. They are commonly used for temporary storage of intermediate results, loop counters, or parameters passed to the program.
 
-```{.bash data-prompt="mysql>"}
-mysql> DECLARE total_sales DECIMAL(10, 2) DEFAULT 0.0;
+```sql
+DECLARE total_sales DECIMAL(10, 2) DEFAULT 0.0;
 ```
 
 This statement has the following settings:

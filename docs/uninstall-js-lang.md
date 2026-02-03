@@ -6,8 +6,8 @@ The uninstall works only when no connections are using JavaScript stored program
 
 To remove the component, run the following:
 
-```{.bash data-prompt="mysql>"}
-mysql> UNINSTALL COMPONENT 'file://component_js_lang';
+```sql
+UNINSTALL COMPONENT 'file://component_js_lang';
 ```
 
 ## Further reading

@@ -36,7 +36,7 @@ In this example, the statement does the following:
 
 - Increases the salary of each employee by 10% (`salary * 1.1`).
 
-```{.bash data-prompt="mysql>"}
+```sql
 UPDATE employees
 SET salary = salary * 1.1
 WHERE department = 'Sales';

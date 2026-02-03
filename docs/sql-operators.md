@@ -32,50 +32,50 @@ Example of Using SQL Operators:
 
 - **Arithmetic Operator Example**:
 
-```text
-mysql> SELECT 10 * 5; -- Multiplication
+```sql
+SELECT 10 * 5; -- Multiplication
 ```
 
 - **Comparison Operator Example**:
 
-```text
-mysql> SELECT * FROM products WHERE price > 100; -- Select products with price greater than 100
+```sql
+SELECT * FROM products WHERE price > 100; -- Select products with price greater than 100
 ```
 
 - **Logical Operator Example**:
 
-```text
-mysql> SELECT * FROM customers WHERE age >= 18 AND age <= 30; -- Select customers aged between 18 and 30
+```sql
+SELECT * FROM customers WHERE age >= 18 AND age <= 30; -- Select customers aged between 18 and 30
 ```
 
 - **Concatenation Operator Example**:
 
-```text
-mysql> SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees; -- Concatenate first name and last name
+```sql
+SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees; -- Concatenate first name and last name
 ```
 
 - **Bitwise Operator Example**:
 
-```text
-mysql> SELECT id, name FROM permissions WHERE permission_flags & 4 = 4; -- Select permissions with specific flag
+```sql
+SELECT id, name FROM permissions WHERE permission_flags & 4 = 4; -- Select permissions with specific flag
 ```
 
 - **Assignment Operator Example**:
 
-```text
-mysql> SET @total_sales := 500; -- Assigning a value to a variable
+```sql
+SET @total_sales := 500; -- Assigning a value to a variable
 ```
 
 - **In Operator Example**:
 
-```text
-mysql> SELECT * FROM products WHERE category_id IN (1, 2, 3); -- Select products in specified categories
+```sql
+SELECT * FROM products WHERE category_id IN (1, 2, 3); -- Select products in specified categories
 ```
 
 - **Like Operator Example**:
 
-```text
-mysql> SELECT * FROM customers WHERE email LIKE '%@example.com'; -- Select customers with email domain example.com
+```sql
+SELECT * FROM customers WHERE email LIKE '%@example.com'; -- Select customers with email domain example.com
 ```
 
 These examples illustrate how SQL operators are used in Percona Server for MySQL queries to perform various data operations.

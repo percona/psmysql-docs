@@ -12,26 +12,26 @@ The following commands start, provide the server status, stop the server, and re
 
 1. Percona Server for MySQL is not started automatically on the RHEL distributions and derivatives after installation. Start the server with the following command:
 	
-	```{.bash data-prompt="$"}
-	$ sudo service mysql start
+	```shell
+	sudo service mysql start
 	```
 
 2. Review the service status with the following command:
 
-	```{.bash data-prompt="$"}
-	$ sudo service mysql status
+	```shell
+	sudo service mysql status
 	```
 
 3. Stop the service with the following command:
 	
-	```{.bash data-prompt="$"}
-	$ sudo service mysql stop
+	```shell
+	sudo service mysql stop
 	```
 
 4. Restart the service with the following command:
 
-	```{.bash data-prompt="$"}
-	$ sudo service mysql restart
+	```shell
+	sudo service mysql restart
 	```
 
 ## SELinux and security considerations

@@ -12,8 +12,8 @@ The `ENCRYPTION_KEY_ADMIN` privilege is required to rotate the master encryption
 
 Rotate the master encryption key with following statement:
 
-```{.bash data-prompt="mysql>"}
-mysql> ALTER INSTANCE ROTATE INNODB MASTER KEY;
+```sql
+ALTER INSTANCE ROTATE INNODB MASTER KEY;
 ```
 
 The rotation operation must complete before any tablespace encryption operation

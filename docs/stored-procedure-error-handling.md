@@ -22,26 +22,26 @@ Error handling in stored procedures allows developers to gracefully handle excep
 
 To add error handling to a stored procedure, developers can use constructs like `DECLARE`, `SIGNAL`, `RESIGNAL`, and `HANDLER` to declare variables, raise errors, and handle exceptions. Here's an example of error handling in a stored procedure:
 
-```{.bash data-prompt="mysql>"}
-mysql> DELIMITER //
-mysql> CREATE PROCEDURE my_procedure()
-    -> BEGIN
-    ->     DECLARE exit handler for sqlexception
-    ->     BEGIN
-    ->         -- Handle SQL exceptions
-    ->         ROLLBACK;
-    ->         SELECT 'An error occurred: ' || SQLSTATE();
-    ->     END;
-    ->
-    ->     -- Procedure logic here
-    -> END //
-mysql> DELIMITER ;
+```sql
+DELIMITER //
+CREATE PROCEDURE my_procedure()
+    BEGIN
+        DECLARE exit handler for sqlexception
+        BEGIN
+            -- Handle SQL exceptions
+            ROLLBACK;
+            SELECT 'An error occurred: ' || SQLSTATE();
+        END;
+
+        -- Procedure logic here
+    END //
+DELIMITER ;
 ```
 
 In this example, the `DECLARE` statement declares an exit handler for SQL exceptions. Inside the handler block, the procedure rolls back any changes made and returns a custom error message with the SQL state.
 
-```{.bash data-prompt="mysql>"}
-mysql> CALL my_procedure();
+```sql
+CALL my_procedure();
 ```
 
 This command executes the stored procedure and triggers the error handling logic if an exception occurs during execution.

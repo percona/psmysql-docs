@@ -11,20 +11,20 @@ The following example downloads *Percona Server for MySQL* {{release}} release `
 
     The download filename includes a `<revision-identifier>` value. This value is *build-specific* and must be obtained from the [Percona Product Downloads :octicons-link-external-16:](https://www.percona.com/downloads) page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required `<revision identifier>` under the **Download all packages** button. For more details, see the [Instructions for Percona Product Downloads](download-instructions.md).
 
-	```{.bash data-prompt="$"}
-	$ wget https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-{{release}}/binary/redhat/8/x86_64/Percona-Server-{{release}}-<revision identifier>-el8-x86_64-bundle.tar
+	```shell
+	wget https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-{{release}}/binary/redhat/8/x86_64/Percona-Server-{{release}}-<revision identifier>-el8-x86_64-bundle.tar
 	```
 
 2. Unpack the bundle to get the packages: 
 
-    ```{.bash data-prompt="$"}
-    $ tar xvf Percona-Server-{{release}}-<revision identifier>-el8-x86_64-bundle.tar
+    ```shell
+    tar xvf Percona-Server-{{release}}-<revision identifier>-el8-x86_64-bundle.tar
     ```
 
 3. To view a list of packages, run the following command:
 
-	```{.bash data-prompt="$"}
-	$ ls *.rpm
+	```shell
+	ls *.rpm
 	```
 	The output should look like the following:
 	
@@ -53,20 +53,20 @@ The following example downloads *Percona Server for MySQL* {{release}} release `
 
 4. Install `jemalloc` with the following command, if needed. See [When to install jemalloc](#when-to-install-jemalloc) for guidance:
 	
-	```{.bash data-prompt="$"}
-	$ wget https://repo.percona.com/yum/release/8/RPMS/x86_64/jemalloc-3.6.0-1.el8.x86_64.rpm
+	```shell
+	wget https://repo.percona.com/yum/release/8/RPMS/x86_64/jemalloc-3.6.0-1.el8.x86_64.rpm
 	```
 
 5. An EL8-based *RHEL* distribution or derivatives package installation requires the mysql module to be disabled before installing the packages:
 
-	```{.bash data-prompt="$"}
-	$ sudo yum module disable mysql
+	```shell
+	sudo yum module disable mysql
 	```
 
 6. Install all the packages (for debugging, testing, etc.) with the following command:
 
-	```{.bash data-prompt="$"}
-	$ sudo rpm -ivh *.rpm
+	```shell
+	sudo rpm -ivh *.rpm
 	```
 
 	!!! note

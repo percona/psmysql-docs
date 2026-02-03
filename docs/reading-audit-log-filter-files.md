@@ -14,14 +14,14 @@ The following functions read the files in the JSON-format:
 
 Initialize a read sequence by using a bookmark or an argument that specifies the start position:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_read(audit_log_read_bookmark());
+```sql
+SELECT audit_log_read(audit_log_read_bookmark());
 ```
 
 The following example continues reading from the current position:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT audit_log_read();
+```sql
+SELECT audit_log_read();
 ```
 
 Reading a file is closed when the session ends or calling `audit_log_read()` with another argument.

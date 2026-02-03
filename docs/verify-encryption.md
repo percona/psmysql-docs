@@ -7,14 +7,14 @@ may verify if the tablespace is encrypted or not.
 For single tablespaces, verify the ENCRYPTION option using
 INFORMATION_SCHEMA.TABLES and the CREATE OPTIONS settings.
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT TABLE_SCHEMA, TABLE_NAME, CREATE_OPTIONS FROM
+```sql
+SELECT TABLE_SCHEMA, TABLE_NAME, CREATE_OPTIONS FROM
        INFORMATION_SCHEMA.TABLES WHERE CREATE_OPTIONS LIKE '%ENCRYPTION%';
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +----------------------+-------------------+------------------------------+
     | TABLE_SCHEMA         | TABLE_NAME        | CREATE_OPTIONS               |
     +----------------------+-------------------+------------------------------+
@@ -40,13 +40,13 @@ INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION table. You must have the
 
     **This table is in tech preview and may change in future releases.**
 
-```{.bash data-prompt="mysql>"}
-   mysql> DESCRIBE INNODB_TABLESPACES_ENCRYPTION;
+```sql
+   DESCRIBE INNODB_TABLESPACES_ENCRYPTION;
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +-----------------------------+--------------------+-----+----+--------+------+
     | Field                       | Type               | Null| Key| Default| Extra|
     +-----------------------------+--------------------+-----+----+--------+------+
@@ -66,14 +66,14 @@ INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION table. You must have the
 To identify encryption-enabled schemas, query the
 INFORMATION_SCHEMA.SCHEMATA table:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT SCHEMA_NAME, DEFAULT_ENCRYPTION FROM
+```sql
+SELECT SCHEMA_NAME, DEFAULT_ENCRYPTION FROM
 INFORMATION_SCHEMA.SCHEMATA WHERE DEFAULT_ENCRYPTION='YES';
 ```
 
 ??? example "Expected output"
 
-    ```{.text .no-copy}
+    ```text
     +------------------------------+---------------------------------+
     | SCHEMA_NAME                  | DEFAULT_ENCRYPTION              |
     +------------------------------+---------------------------------+

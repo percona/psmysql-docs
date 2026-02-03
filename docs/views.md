@@ -22,15 +22,15 @@ A view is a virtual table generated from a SQL query. It allows users to simplif
 
 ## Create view
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE VIEW customer_orders AS
+```sql
+CREATE VIEW customer_orders AS
     SELECT customers.name, orders.order_id, orders.total_amount
     FROM customers
     JOIN orders ON customers.customer_id = orders.customer_id;
 ```
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE VIEW recent_orders AS
+```sql
+CREATE VIEW recent_orders AS
    SELECT *
     FROM orders
     WHERE order_date >= CURDATE() - INTERVAL 30 DAY;
@@ -38,12 +38,12 @@ mysql> CREATE VIEW recent_orders AS
 
 ## Drop view
 
-```{.bash data-prompt="mysql>"}
-mysql> DROP VIEW IF EXISTS customer_orders;
+```sql
+DROP VIEW IF EXISTS customer_orders;
 ```
 
-```{.bash data-prompt="mysql>"}
-mysql> DROP VIEW IF EXISTS recent_orders;
+```sql
+DROP VIEW IF EXISTS recent_orders;
 ```
 
 

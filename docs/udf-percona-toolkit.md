@@ -16,8 +16,8 @@ These Percona Toolkit user-defined functions (UDFs) offer faster checksum calcul
 
 Once the installation is complete, execute the following command to install these functions:
 
-```{.bash data-prompt="mysql>"}
-mysql> mysql -e "INSTALL COMPONENT 'file://component_percona_udf'"
+```sql
+mysql -e "INSTALL COMPONENT 'file://component_percona_udf'"
 ```
 
 ## Troubleshooting

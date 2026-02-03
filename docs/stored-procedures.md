@@ -19,36 +19,36 @@ A stored procedure is a set of pre-defined SQL statements stored in the database
 
 ### Create a Stored Procedure
 
-```{.bash data-prompt="mysql>"}
-mysql> DELIMITER //
-mysql> CREATE PROCEDURE GetCustomerDetails (IN customerId INT)
-    -> BEGIN
-    ->     SELECT * FROM customers WHERE id = customerId;
-    -> END //
-mysql> DELIMITER ;
+```sql
+DELIMITER //
+CREATE PROCEDURE GetCustomerDetails (IN customerId INT)
+    BEGIN
+        SELECT * FROM customers WHERE id = customerId;
+    END //
+DELIMITER ;
 ```
 
 ### Call a Stored Procedure
 
-```{.bash data-prompt="mysql>"}
-mysql> CALL GetCustomerDetails(123);
+```sql
+CALL GetCustomerDetails(123);
 ```
 
 ### Modify a Stored Procedure
 
-```{.bash data-prompt="mysql>"}
-mysql> DELIMITER //
-mysql> ALTER PROCEDURE GetCustomerDetails (IN customerId INT)
-    -> BEGIN
-    ->     SELECT name, email FROM customers WHERE id = customerId;
-    -> END //
-mysql> DELIMITER ;
+```sql
+DELIMITER //
+ALTER PROCEDURE GetCustomerDetails (IN customerId INT)
+    BEGIN
+        SELECT name, email FROM customers WHERE id = customerId;
+    END //
+DELIMITER ;
 ```
 
 ### Drop a Stored Procedure
 
-```{.bash data-prompt="mysql>"}
-mysql> DROP PROCEDURE IF EXISTS GetCustomerDetails;
+```sql
+DROP PROCEDURE IF EXISTS GetCustomerDetails;
 ```
 
 ## Advanced SQL features
