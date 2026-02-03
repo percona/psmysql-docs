@@ -9711,42 +9711,42 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ul>
 <li><strong>Arithmetic Operator Example</strong>:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>mysql&gt; SELECT 10 * 5; -- Multiplication
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Multiplication</span>
 </code></pre></div>
 <ul>
 <li><strong>Comparison Operator Example</strong>:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM products WHERE price &gt; 100; -- Select products with price greater than 100
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">price</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Select products with price greater than 100</span>
 </code></pre></div>
 <ul>
 <li><strong>Logical Operator Example</strong>:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM customers WHERE age &gt;= 18 AND age &lt;= 30; -- Select customers aged between 18 and 30
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">customers</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">30</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Select customers aged between 18 and 30</span>
 </code></pre></div>
 <ul>
 <li><strong>Concatenation Operator Example</strong>:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>mysql&gt; SELECT CONCAT(first_name, &#39; &#39;, last_name) AS full_name FROM employees; -- Concatenate first name and last name
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">full_name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Concatenate first name and last name</span>
 </code></pre></div>
 <ul>
 <li><strong>Bitwise Operator Example</strong>:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>mysql&gt; SELECT id, name FROM permissions WHERE permission_flags &amp; 4 = 4; -- Select permissions with specific flag
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">permissions</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">permission_flags</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Select permissions with specific flag</span>
 </code></pre></div>
 <ul>
 <li><strong>Assignment Operator Example</strong>:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>mysql&gt; SET @total_sales := 500; -- Assigning a value to a variable
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">total_sales</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Assigning a value to a variable</span>
 </code></pre></div>
 <ul>
 <li><strong>In Operator Example</strong>:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM products WHERE category_id IN (1, 2, 3); -- Select products in specified categories
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">category_id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">-- Select products in specified categories</span>
 </code></pre></div>
 <ul>
 <li><strong>Like Operator Example</strong>:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM customers WHERE email LIKE &#39;%@example.com&#39;; -- Select customers with email domain example.com
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">customers</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%@example.com&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Select customers with email domain example.com</span>
 </code></pre></div>
 <p>These examples illustrate how SQL operators are used in Percona Server for MySQL queries to perform various data operations.</p>
 <p>Fundamental SQL links:</p>
@@ -9780,7 +9780,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 21, 2024 12:24:40 UTC">June 21, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 12:49:59 UTC">February 3, 2026</span>
   </span>
 
     

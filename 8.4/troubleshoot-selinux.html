@@ -9700,7 +9700,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>On the other hand, <code>.autorelabel</code> is used when you want the relabeling process to occur automatically during system boot. This method is convenient when scheduling the relabeling task without manual intervention. The <code>.autorelabel</code> in the root directory triggers the relabeling process during the boot sequence, ensuring that all files and directories are relabeled according to the SELinux policy.</p>
 <h3 id="manually-relabeling">Manually relabeling<a class="headerlink" href="#manually-relabeling" title="Permanent link">&para;</a></h3>
 <p>This command relabels the entire file system without requiring a system reboot.</p>
-<p><div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>fixfiles<span class="w"> </span>-f<span class="w"> </span>relabel
+<p><div class="highlight"><pre><span></span><code>fixfiles<span class="w"> </span>-f<span class="w"> </span>relabel
 </code></pre></div>
 The command <code>fixfiles -f relabel</code> is a directive used within the context of SELinux, a security feature in Linux systems. This specific command instructs the system to forcefully reapply SELinux labels, also known as contexts, to files and directories.</p>
 <p>Here&rsquo;s a breakdown of what each part of the command does:</p>
@@ -9731,7 +9731,7 @@ The command <code>fixfiles -f relabel</code> is a directive used within the cont
 <p>It&rsquo;s important to note that running <code>fixfiles -f relabel</code> can be a resource-intensive operation and may take some time to complete, especially on systems with many files and directories. Additionally, since it forcefully relabels all files and directories, use it cautiously and preferably during maintenance windows to minimize potential disruptions to system operations.</p>
 <h3 id="automatic-relabeling">Automatic relabeling<a class="headerlink" href="#automatic-relabeling" title="Permanent link">&para;</a></h3>
 <p>Creating the <code>.autorelabel</code> file initiates a relabeling process that often requires a reboot to apply the changes effectively. During this reboot, SELinux relabels all files based on their defined policies.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>touch<span class="w"> </span>/.autorelabel
+<div class="highlight"><pre><span></span><code>touch<span class="w"> </span>/.autorelabel
 </code></pre></div>
 <p>This command creates a file named <code>.autorelabel</code> in the root directory of the Linux filesystem. The &ldquo;touch&rdquo; command creates a new file.</p>
 <p>The purpose of the <code>.autorelabel</code> file is to trigger an automatic relabeling of the entire filesystem when the system boots up. Relabeling involves assigning security labels to files and directories based on SELinux policies. This process ensures that all files and directories have the correct security context, which is essential for SELinux to enforce its security policies effectively.</p>
@@ -9743,7 +9743,7 @@ The command <code>fixfiles -f relabel</code> is a directive used within the cont
 <p>It would be best to use <code>restorecon</code> when you restore the default SELinux context for files and directories, including those in a custom data directory. <code>restorecon</code> resets the SELinux context of specified files or directories to match the default context defined in the SELinux policy. It&rsquo;s typically used after file or directory modifications to ensure they have the correct SELinux context.</p>
 <h3 id="use-semanage">Use semanage<a class="headerlink" href="#use-semanage" title="Permanent link">&para;</a></h3>
 <p>The following command configures the SELinux context for a custom data directory in the server.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_db_t<span class="w"> </span><span class="s2">&quot;/path/to/custom/data(/.*)?&quot;</span>
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_db_t<span class="w"> </span><span class="s2">&quot;/path/to/custom/data(/.*)?&quot;</span>
 </code></pre></div>
 <p>Each part of the command is as follows:</p>
 <table>
@@ -9778,7 +9778,7 @@ The command <code>fixfiles -f relabel</code> is a directive used within the cont
 </table>
 <p>This command tells SELinux to label all files and subdirectories within the <code>/path/to/custom/data</code> directory with the SELinux type context <code>mysqld_db_t</code>. This operation ensures that SELinux treats these files and directories as part of the server&rsquo;s database, allowing the server to access them according to its SELinux policy.</p>
 <h3 id="use-restorecon">Use restorecon<a class="headerlink" href="#use-restorecon" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>restorecon<span class="w"> </span>-Rv<span class="w"> </span>/path/to/custom/data
+<div class="highlight"><pre><span></span><code>restorecon<span class="w"> </span>-Rv<span class="w"> </span>/path/to/custom/data
 </code></pre></div>
 <p>The <code>restorecon -Rv /path/to/custom/data</code> command restores the SELinux context for a specific directory and subdirectory. Here&rsquo;s what each part of the command does:</p>
 <ul>
@@ -9791,18 +9791,18 @@ The command <code>fixfiles -f relabel</code> is a directive used within the cont
 <h2 id="setting-custom-log-location">Setting Custom Log Location<a class="headerlink" href="#setting-custom-log-location" title="Permanent link">&para;</a></h2>
 <p>When setting a custom log location for the server, SELinux permissions may need adjustment to allow the server to write to the new directory.</p>
 <p>This command associates the <code>var_log_t</code> type with the custom log directory and contents.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>var_log_t<span class="w"> </span><span class="s2">&quot;/path/to/custom/logs(/.*)?&quot;</span>
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>var_log_t<span class="w"> </span><span class="s2">&quot;/path/to/custom/logs(/.*)?&quot;</span>
 </code></pre></div>
 <p>This command restores SELinux contexts recursively for the custom log directory, ensuring proper permissions for the server to write logs.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>restorecon<span class="w"> </span>-Rv<span class="w"> </span>/path/to/custom/logs
+<div class="highlight"><pre><span></span><code>restorecon<span class="w"> </span>-Rv<span class="w"> </span>/path/to/custom/logs
 </code></pre></div>
 <h2 id="setting-secure_file_priv-directory">Setting secure_file_priv Directory<a class="headerlink" href="#setting-secure_file_priv-directory" title="Permanent link">&para;</a></h2>
 <p>When configuring the server&rsquo;s <code>secure_file_priv</code> directory, you must update the SELinux tags to allow the server to access this directory.</p>
 <p>This command associates the <code>mysqld_db_t</code> type with the <code>secure_file_priv</code> directory and its contents.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_db_t<span class="w"> </span><span class="s2">&quot;/path/to/secure_file_priv(/.*)?&quot;</span>
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_db_t<span class="w"> </span><span class="s2">&quot;/path/to/secure_file_priv(/.*)?&quot;</span>
 </code></pre></div>
 <p>This command restores SELinux contexts recursively for the <code>secure_file_priv</code> directory, ensuring proper permissions for the server file operations.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>restorecon<span class="w"> </span>-Rv<span class="w"> </span>/path/to/secure_file_priv
+<div class="highlight"><pre><span></span><code>restorecon<span class="w"> </span>-Rv<span class="w"> </span>/path/to/secure_file_priv
 </code></pre></div>
 
 
@@ -9826,7 +9826,7 @@ The command <code>fixfiles -f relabel</code> is a directive used within the cont
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 21, 2024 11:53:24 UTC">November 21, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 12:49:59 UTC">February 3, 2026</span>
   </span>
 
     

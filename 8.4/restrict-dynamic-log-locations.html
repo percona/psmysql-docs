@@ -9788,7 +9788,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>
 <p>Create the direcory to store the log files.</p>
-<div class="highlight" data-prompt="[root@localhost ~]#"><pre><span></span><code><span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1"># mkdir /var/lib/mysqld-logs</span>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>/var/lib/mysqld-logs
 </code></pre></div>
 </li>
 <li>
@@ -9805,21 +9805,21 @@ buffered-error-log-filename=/var/lib/mysqld-logs/buffered_log
 </li>
 <li>
 <p>Change the owner and group of the <code>/var/lib/mysqld-logs</code> directory and all its subdirectories and files to <code>mysql</code>.</p>
-<div class="highlight" data-prompt="[root@localhost ~]#"><pre><span></span><code><span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1"># chown -R mysql:mysql /var/lib/mysqld-logs</span>
+<div class="highlight"><pre><span></span><code>chown<span class="w"> </span>-R<span class="w"> </span>mysql:mysql<span class="w"> </span>/var/lib/mysqld-logs
 </code></pre></div>
 </li>
 <li>
 <p>Restart the MySQL server.</p>
-<div class="highlight" data-prompt="[root@localhost ~]#"><pre><span></span><code><span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl restart mysql</span>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Check that the slow query log and the general log are enabled for the MySQL server.</p>
-<div class="highlight" data-prompt="[root@localhost ~]#"><pre><span></span><code><span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1"># mysql -e &quot;select @@slow_query_log, @@general_log, @@secure_log_path&quot;</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;select @@slow_query_log, @@general_log, @@secure_log_path&quot;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------+---------------+-----------------------+
+<div class="highlight"><pre><span></span><code>+------------------+---------------+-----------------------+
 | @@slow_query_log | @@general_log | @@secure_log_path     |
 +------------------+---------------+-----------------------+
 |                1 |             1 | /var/lib/mysqld-logs/ |
@@ -9828,13 +9828,13 @@ buffered-error-log-filename=/var/lib/mysqld-logs/buffered_log
 </details>
 </li>
 <li>
-<p>Check that the slow query log and the general log are stored in the <code>/var/lib/mysqld-logs</code> directory.</p>
-<div class="highlight" data-prompt="[root@localhost ~]#"><pre><span></span><code><span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1"># cd /var/lib/mysqld-logs/</span>
-<span class="o">[</span>root@localhost<span class="w"> </span>mysqld-logs<span class="o">]</span><span class="c1"># ls -lrth</span>
+<p>Check that the slow query log and the general log are stored in the <code>/var/lib/mysqld-logs</code> directory. As root (or a user with read access to the directory), run:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/var/lib/mysqld-logs/
+ls<span class="w"> </span>-lrth
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>-rw-r-----. 1 mysql mysqld-logs 240 Aug 18 11:56 localhost-slow.log
+<div class="highlight"><pre><span></span><code>-rw-r-----. 1 mysql mysqld-logs 240 Aug 18 11:56 localhost-slow.log
 -rw-r-----. 1 mysql mysqld-logs 565 Aug 18 11:56 localhost.log
 </code></pre></div>
 </details>
@@ -9862,7 +9862,7 @@ buffered-error-log-filename=/var/lib/mysqld-logs/buffered_log
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 14, 2025 14:04:04 UTC">March 14, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 12:49:59 UTC">February 3, 2026</span>
   </span>
 
     

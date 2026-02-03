@@ -9634,17 +9634,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>
 <p>Use <code>wget</code> to download the tar file.</p>
 <p>The download filename includes a <code>&lt;revision-identifier&gt;</code> value. This value is <em>build-specific</em> and must be obtained from the <a href="https://www.percona.com/downloads">Percona Product Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required <code>&lt;revision identifier&gt;</code> under the <strong>Download all packages</strong> button. For more details, see the <a href="download-instructions.html">Instructions for Percona Product Downloads</a>.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.7-7/binary/redhat/8/x86_64/Percona-Server-8.4.7-7-&lt;revision<span class="w"> </span>identifier&gt;-el8-x86_64-bundle.tar
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.7-7/binary/redhat/8/x86_64/Percona-Server-8.4.7-7-&lt;revision<span class="w"> </span>identifier&gt;-el8-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
 <p>Unpack the bundle to get the packages: </p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-8.4.7-7-&lt;revision<span class="w"> </span>identifier&gt;-el8-x86_64-bundle.tar
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-8.4.7-7-&lt;revision<span class="w"> </span>identifier&gt;-el8-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
 <p>To view a list of packages, run the following command:</p>
-<p><div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>*.rpm
+<p><div class="highlight"><pre><span></span><code>ls<span class="w"> </span>*.rpm
 </code></pre></div>
 The output should look like the following:</p>
 <details class="example">
@@ -9671,17 +9671,17 @@ percona-server-test-debuginfo-8.4.7-7.1.el8.x86_64.rpm
 </li>
 <li>
 <p>Install <code>jemalloc</code> with the following command, if needed. See <a href="#when-to-install-jemalloc">When to install jemalloc</a> for guidance:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://repo.percona.com/yum/release/8/RPMS/x86_64/jemalloc-3.6.0-1.el8.x86_64.rpm
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/yum/release/8/RPMS/x86_64/jemalloc-3.6.0-1.el8.x86_64.rpm
 </code></pre></div>
 </li>
 <li>
 <p>An EL8-based <em>RHEL</em> distribution or derivatives package installation requires the mysql module to be disabled before installing the packages:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Install all the packages (for debugging, testing, etc.) with the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>*.rpm
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>*.rpm
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -9749,7 +9749,7 @@ percona-server-test-debuginfo-8.4.7-7.1.el8.x86_64.rpm
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 19:10:16 UTC">December 22, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 12:49:59 UTC">February 3, 2026</span>
   </span>
 
     

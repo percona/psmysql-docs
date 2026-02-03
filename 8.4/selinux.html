@@ -10051,11 +10051,11 @@ Similarly, files and directories are assigned security contexts that dictate how
 <p>By adhering to SELinux policies, Percona Server for MySQL ensures that it operates within the confines defined by SELinux, preventing any unauthorized or potentially malicious actions that could compromise the system&rsquo;s security. This compatibility with SELinux policies enhances the overall security posture of Percona Server for MySQL deployments on RHEL and its derivatives, providing peace of mind to administrators and users alike.</p>
 <h2 id="selinux-context-example">SELinux context example<a class="headerlink" href="#selinux-context-example" title="Permanent link">&para;</a></h2>
 <p>To view the SELinux context, add the <code>-Z</code> switch to many of the utilities. Here is an example of the context for <code>mysqld</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mysqld_t
+<div class="highlight"><pre><span></span><code>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mysqld_t
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>system_u:system_r:mysqld_t:s0    3356 ?        00:00:01 mysqld
+<div class="highlight"><pre><span></span><code>system_u:system_r:mysqld_t:s0    3356 ?        00:00:01 mysqld
 </code></pre></div>
 </details>
 <p>The context has the following properties:</p>
@@ -10077,11 +10077,11 @@ Similarly, files and directories are assigned security contexts that dictate how
 <h2 id="list-selinux-types-or-domains-associated-with-files">List SELinux types or domains associated with files<a class="headerlink" href="#list-selinux-types-or-domains-associated-with-files" title="Permanent link">&para;</a></h2>
 <p>The security property that SELinux relies on is the Type security property. The type name often end with a <code>_t</code>. A group of objects with the same type security value belongs to the same domain.</p>
 <p>To view the <code>mysqldb_t</code> types associated with the MySQL directories and files, run the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>-laZ<span class="w"> </span>/var/lib/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mysql
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-laZ<span class="w"> </span>/var/lib/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mysql
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>drwxr-x--x. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql
+<div class="highlight"><pre><span></span><code>drwxr-x--x. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql
 drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-files
 drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring
 </code></pre></div>
@@ -10118,11 +10118,11 @@ drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring
 <p>If you change the default, you must also edit the policy. If you do not update the policy, SELinux, in enforcing mode, denies access to all non-default resources.</p>
 <h2 id="check-the-selinux-mode">Check the SELinux mode<a class="headerlink" href="#check-the-selinux-mode" title="Permanent link">&para;</a></h2>
 <p>To check the current SELinux mode, use either of the following commands:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sestatus
+<div class="highlight"><pre><span></span><code>sestatus
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>SELinux status:                 enabled
+<div class="highlight"><pre><span></span><code>SELinux status:                 enabled
 SELinuxfs mount:                /sys/fs/selinux
 SELinux root directory:         /etc/selinux
 Loaded policy name:             targeted
@@ -10135,22 +10135,22 @@ Max kernel policy version:      31
 </code></pre></div>
 </details>
 <p>or</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>grep<span class="w"> </span>^SELINUX<span class="o">=</span><span class="w"> </span>/etc/selinux/config
+<div class="highlight"><pre><span></span><code>grep<span class="w"> </span>^SELINUX<span class="o">=</span><span class="w"> </span>/etc/selinux/config
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>SELINUX=enforcing
+<div class="highlight"><pre><span></span><code>SELINUX=enforcing
 </code></pre></div>
 </details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Add the <code>-b</code> parameter to <code>sestatus</code> to display the <code>Policy booleans</code>. The boolean values for each parameter is shown. An example of using the <code>b</code> parameter is the following:</p>
 </div>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sestatus<span class="w"> </span>-b<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mysql
+<div class="highlight"><pre><span></span><code>sestatus<span class="w"> </span>-b<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mysql
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>mysql_connect_any                           off
+<div class="highlight"><pre><span></span><code>mysql_connect_any                           off
 selinuxuser_mysql_connect_enabled
 </code></pre></div>
 </details>
@@ -10161,7 +10161,7 @@ selinuxuser_mysql_connect_enabled
 <h2 id="additional-selinux-tools">Additional SELinux tools<a class="headerlink" href="#additional-selinux-tools" title="Permanent link">&para;</a></h2>
 <p>Install the SELinux management tools, such as <code>semanage</code> or <code>sesearch</code>, if needed.</p>
 <p>On RHEL 8 or compatible operating systems, use the following command as root:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>policycoreutils-python-utils
+<div class="highlight"><pre><span></span><code>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>policycoreutils-python-utils
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -10170,21 +10170,21 @@ selinuxuser_mysql_connect_enabled
 <h2 id="switch-the-mode-in-the-configuration-file">Switch the mode in the configuration file<a class="headerlink" href="#switch-the-mode-in-the-configuration-file" title="Permanent link">&para;</a></h2>
 <p>Switching between modes may help when troubleshooting or when modifying rules.</p>
 <p>To permanently change the mode, edit the <code>/etc/selinux/config</code> file and change the <code>SELINUX=</code> value. You should also verify the change.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/selinux/config<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>^#
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/etc/selinux/config<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>^#
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>SELINUX=enforcing
+<div class="highlight"><pre><span></span><code>SELINUX=enforcing
 SELINUX=enforcing
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/^SELINUX=.*/SELINUX=permissive/g&#39;</span><span class="w"> </span>/etc/selinux/config
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/^SELINUX=.*/SELINUX=permissive/g&#39;</span><span class="w"> </span>/etc/selinux/config
 
-$<span class="w"> </span>cat<span class="w"> </span>/etc/selinux/config<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>^#
+cat<span class="w"> </span>/etc/selinux/config<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>^#
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>SELINUX=permissive
+<div class="highlight"><pre><span></span><code>SELINUX=permissive
 SELINUX=permissive
 </code></pre></div>
 </details>
@@ -10192,10 +10192,10 @@ SELINUX=permissive
 <p>If switching from either disabled mode or permissive mode to enforcing, see Relabel the entire file system.</p>
 <h2 id="switch-the-mode-until-the-next-reboot">Switch the mode until the next reboot<a class="headerlink" href="#switch-the-mode-until-the-next-reboot" title="Permanent link">&para;</a></h2>
 <p>To change the mode until the next reboot, use either of the following commands as root:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>setenforce<span class="w"> </span>Enforcing
+<div class="highlight"><pre><span></span><code>setenforce<span class="w"> </span>Enforcing
 </code></pre></div>
 <p>or</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>setenforce<span class="w"> </span><span class="m">1</span>
+<div class="highlight"><pre><span></span><code>setenforce<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <p>The following <code>setenforce</code> parameters are available:</p>
 <table>
@@ -10217,33 +10217,33 @@ SELINUX=permissive
 </tbody>
 </table>
 <p>You can view the current mode by running either of the following commands:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>getenforce
+<div class="highlight"><pre><span></span><code>getenforce
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Enforcing
+<div class="highlight"><pre><span></span><code>Enforcing
 </code></pre></div>
 </details>
 <p>or</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sestatus<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>mode
+<div class="highlight"><pre><span></span><code>sestatus<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>mode
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Current mode:                   permissive
+<div class="highlight"><pre><span></span><code>Current mode:                   permissive
 Mode from config file:          enforcing
 </code></pre></div>
 </details>
 <h2 id="switch-the-mode-for-a-service">Switch the mode for a service<a class="headerlink" href="#switch-the-mode-for-a-service" title="Permanent link">&para;</a></h2>
 <p>You can move one or more services into a permissive domain. The other services remain in enforcing mode.</p>
 <p>To add a service to the permissive domain, run the following as root:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>semanage<span class="w"> </span>permissive<span class="w"> </span>-a<span class="w"> </span>mysqld_t
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>semanage<span class="w"> </span>permissive<span class="w"> </span>-a<span class="w"> </span>mysqld_t
 </code></pre></div>
 <p>To list the current permissive domains, run the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>semanage<span class="w"> </span>permissive<span class="w"> </span>-l
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>semanage<span class="w"> </span>permissive<span class="w"> </span>-l
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>...
+<div class="highlight"><pre><span></span><code>...
 Customized Permissive Types
 
 mysqld_t
@@ -10253,21 +10253,21 @@ Builtin Permissive Types
 </code></pre></div>
 </details>
 <p>To delete a service from the permissive domain, run the following:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>semanage<span class="w"> </span>permissive<span class="w"> </span>-d<span class="w"> </span>mysqld_t
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>semanage<span class="w"> </span>permissive<span class="w"> </span>-d<span class="w"> </span>mysqld_t
 </code></pre></div>
 <p>The service returns to the system’s SELinux mode. Be sure to follow the steps to Relabel the entire file system.</p>
 <h2 id="relabel-the-entire-file-system">Relabel the entire file system<a class="headerlink" href="#relabel-the-entire-file-system" title="Permanent link">&para;</a></h2>
 <p>Switching from disabled or permissive to enforcing requires additional steps. The enforcing mode requires the correct contexts, or labels, to function. The permissive mode allows users and processes to label files and system objects incorrectly. The disabled mode does not load the SELinux infrastructure and does not label resources or processes.</p>
 <p>RHEL and compatible systems, use the <code>fixfiles</code> application for relabeling. You can relabel the entire file system or the file contexts of an application.</p>
 <p>For one application, run the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>fixfiles<span class="w"> </span>-R<span class="w"> </span>mysqld<span class="w"> </span>restore
+<div class="highlight"><pre><span></span><code>fixfiles<span class="w"> </span>-R<span class="w"> </span>mysqld<span class="w"> </span>restore
 </code></pre></div>
 <p>To relabel the file system without rebooting the system, use the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>fixfiles<span class="w"> </span>-f<span class="w"> </span>-F<span class="w"> </span>relabel
+<div class="highlight"><pre><span></span><code>fixfiles<span class="w"> </span>-f<span class="w"> </span>-F<span class="w"> </span>relabel
 </code></pre></div>
 <p>Another option relabels the file system during a reboot. You can either add a touch file, read during the reboot operation, or configure a kernel boot parameter. The completion of the relabeling operation automatically removes the touch file.</p>
 <p>Add the touch file as root:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>touch<span class="w"> </span>/.autorelabel
+<div class="highlight"><pre><span></span><code>touch<span class="w"> </span>/.autorelabel
 </code></pre></div>
 <p>To configure the kernel, add the <code>autorelabel=1</code> kernel parameter to the boot parameter list. The parameter forces a system relabel. Reboot in permissive mode to allow the process to complete before changing to enforcing.</p>
 <div class="admonition note">
@@ -10281,21 +10281,21 @@ Builtin Permissive Types
 socket=/var/lib/mysqlcustom/mysql.sock
 </code></pre></div>
 <p>Restart the service.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>service<span class="w"> </span>mysqld<span class="w"> </span>restart
+<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysqld<span class="w"> </span>restart
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Redirecting to /bin/systemctl restart mysqld.service
+<div class="highlight"><pre><span></span><code>Redirecting to /bin/systemctl restart mysqld.service
 Job for mysqld.service failed because the control process exited with error code.
 See &quot;systemctl status mysqld.service&quot; and &quot;journalctl -xe&quot; for details.
 </code></pre></div>
 </details>
 <p>Check the journal log to see the error code.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>journalctl<span class="w"> </span>-xe
+<div class="highlight"><pre><span></span><code>journalctl<span class="w"> </span>-xe
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>...
+<div class="highlight"><pre><span></span><code>...
 SELinux is preventing mysqld from getattr access to the file /var/lib/mysqlcustom/ibdata1.
 ...
 </code></pre></div>
@@ -10305,7 +10305,7 @@ SELinux is preventing mysqld from getattr access to the file /var/lib/mysqlcusto
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>  total 164288
+<div class="highlight"><pre><span></span><code>  total 164288
   drwxr-x--x.  6 mysql mysql system_u:object_r:var_lib_t:s0       4096 Dec  2 07:58  .
   drwxr-xr-x. 38 root  root  system_u:object_r:var_lib_t:s0       4096 Dec  1 14:29  ..
   ...
@@ -10326,18 +10326,18 @@ SELinux is preventing mysqld from getattr access to the file /var/lib/mysqlcusto
 <ol>
 <li>
 <p>To change the SELinux context, use <code>semanage fcontext</code>. In this step, you define how SELinux deals with the custom paths:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-e<span class="w"> </span>/var/lib/mysql<span class="w"> </span>/var/lib/mysqlcustom
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-e<span class="w"> </span>/var/lib/mysql<span class="w"> </span>/var/lib/mysqlcustom
 </code></pre></div>
 <p>SELinux applies the same labeling schema, defined in the mysqld policy, for the <code>/var/lib/mysql</code> directory to the custom directory. Files created within the custom directory are labeled as if they were in <code>/var/lib/mysql</code>.</p>
 </li>
 <li>
 <p>To <code>restorecon</code> command applies the change.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>restorecon<span class="w"> </span>-R<span class="w"> </span>-v<span class="w"> </span>/var/lib/mysqlcustom
+<div class="highlight"><pre><span></span><code>restorecon<span class="w"> </span>-R<span class="w"> </span>-v<span class="w"> </span>/var/lib/mysqlcustom
 </code></pre></div>
 </li>
 <li>
 <p>Restart the mysqld service:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>service<span class="w"> </span>mysqld<span class="w"> </span>start
+<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysqld<span class="w"> </span>start
 </code></pre></div>
 </li>
 </ol>
@@ -10346,30 +10346,33 @@ SELinux is preventing mysqld from getattr access to the file /var/lib/mysqlcusto
 <div class="highlight"><pre><span></span><code>log-error=/logs/mysqld.log
 </code></pre></div>
 <p>Verify the log location with the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>-laZ<span class="w"> </span>/
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-laZ<span class="w"> </span>/
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>  ...
+<div class="highlight"><pre><span></span><code>  ...
   drwxrwxrwx.   2 root root unconfined_u:object_r:default_t:s0    6 Dec  2 09:16 logs
   ...
 </code></pre></div>
 </details>
 <p>Starting MySQL returns the following message:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
+<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysql<span class="w"> </span>start
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Redirecting to /bin/systemctl start mysql.service
+<div class="highlight"><pre><span></span><code>Redirecting to /bin/systemctl start mysql.service
 Job for mysqld.service failed because the control process exited with error code.
 See &quot;systemctl status mysqld.service&quot; and &quot;journalctl -xe&quot; for details.
-
-$ journalctl -xe
-...
-SELinux is preventing mysqld from write access to the directory logs.
-...
 </code></pre></div>
 </details>
+<p>To view the error details, run:</p>
+<div class="highlight"><pre><span></span><code>journalctl<span class="w"> </span>-xe
+</code></pre></div>
+<p>The output may include a line such as:</p>
+<div class="highlight"><pre><span></span><code>```text
+SELinux is preventing mysqld from write access to the directory logs.
+```
+</code></pre></div>
 <p>The default SELinux policy allows mysqld to write logs into a location tagged with <code>var_log_t</code>, which is the <code>/var/log</code> location. You can solve the issue with either of the following methods:</p>
 <ul>
 <li>
@@ -10380,15 +10383,15 @@ SELinux is preventing mysqld from write access to the directory logs.
 </li>
 </ul>
 <p>To tag the custom <code>/logs</code> location is the recommended method since it locks down access. Run the following commands to tag the custom location:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>var_log_t<span class="w"> </span>/logs
-$<span class="w"> </span>restorecon<span class="w"> </span>-v<span class="w"> </span>/logs
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>var_log_t<span class="w"> </span>/logs
+restorecon<span class="w"> </span>-v<span class="w"> </span>/logs
 </code></pre></div>
 <p>You may not be able to change the <code>/logs</code> directory label. For example, other applications, with their own rules, use the same directory.</p>
 <p class="power-number">To adjust the SELinux policy when a directory is shared, follow these steps:</p>
 <ol>
 <li>
 <p>Create a local policy:</p>
-<div class="highlight"><pre><span></span><code>ausearch -c &#39;mysqld&#39; --raw | audit2allow -M my-mysqld
+<div class="highlight"><pre><span></span><code>ausearch<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;mysqld&#39;</span><span class="w"> </span>--raw<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>my-mysqld
 </code></pre></div>
 </li>
 <li>
@@ -10412,7 +10415,7 @@ allow mysqld_t var_lib_t:file getattr;
 </li>
 <li>
 <p>SELinux-generated events are converted to rules. A generated policy may contain rules for recent violations and include unrelated rules. Unrelated rules are generated from actions, such as changing the data directory location, that are not related to the logs directory. Add the <code>--start</code> parameter to use log events after a specific time to filter out the unwanted events. This parameter captures events when the time stamp is equal to the specified time or later. SELinux generates a policy for the current actions.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ausearch<span class="w"> </span>--start<span class="w"> </span><span class="m">10</span>:00:00<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;mysqld&#39;</span><span class="w"> </span>--raw<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>my-mysqld
+<div class="highlight"><pre><span></span><code>ausearch<span class="w"> </span>--start<span class="w"> </span><span class="m">10</span>:00:00<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;mysqld&#39;</span><span class="w"> </span>--raw<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>my-mysqld
 </code></pre></div>
 </li>
 <li>
@@ -10431,7 +10434,7 @@ allow mysqld_t default_t:dir write;
 </li>
 <li>
 <p>Install the SELinux policy module:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semodule<span class="w"> </span>-i<span class="w"> </span>my-mysqld.pp
+<div class="highlight"><pre><span></span><code>semodule<span class="w"> </span>-i<span class="w"> </span>my-mysqld.pp
 </code></pre></div>
 </li>
 </ol>
@@ -10441,21 +10444,21 @@ allow mysqld_t default_t:dir write;
 <ol>
 <li>
 <p>Unload the current local my-mysqld policy module:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semodule<span class="w"> </span>-r<span class="w"> </span>my-mysqld
+<div class="highlight"><pre><span></span><code>semodule<span class="w"> </span>-r<span class="w"> </span>my-mysqld
 </code></pre></div>
 </li>
 <li>
 <p>You can put a single domain into permissive mode. Other domains on the system to remain in enforcing mode. Use <code>semanage permissive</code> with the <code>-a</code> parameter to change mysqld_t to permissive mode:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>permissive<span class="w"> </span>-a<span class="w"> </span>mysqld_t
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>permissive<span class="w"> </span>-a<span class="w"> </span>mysqld_t
 </code></pre></div>
 </li>
 <li>
 <p>Verify the mode change:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semdule<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>permissive
+<div class="highlight"><pre><span></span><code>semdule<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>permissive
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>...
+<div class="highlight"><pre><span></span><code>...
 permissive_mysqld_t
 ...
 </code></pre></div>
@@ -10463,36 +10466,36 @@ permissive_mysqld_t
 </li>
 <li>
 <p>To make searching the log easier, return the time:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>date
+<div class="highlight"><pre><span></span><code>date
 </code></pre></div>
 </li>
 <li>
 <p>Start the service.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>service<span class="w"> </span>mysqld<span class="w"> </span>start
+<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysqld<span class="w"> </span>start
 </code></pre></div>
 </li>
 <li>
 <p>MySQL starts, and SELinux logs the violations in the journal log. Check the journal log:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>journalctl<span class="w"> </span>-xe
+<div class="highlight"><pre><span></span><code>journalctl<span class="w"> </span>-xe
 </code></pre></div>
 </li>
 <li>
 <p>Stop the service:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>service<span class="w"> </span>mysqld<span class="w"> </span>stop
+<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysqld<span class="w"> </span>stop
 </code></pre></div>
 </li>
 <li>
 <p>Generate a local mysqld policy, using the time returned from step 4:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ausearch<span class="w"> </span>--start<span class="w"> </span>&lt;date-c<span class="w"> </span><span class="s1">&#39;mysqld&#39;</span><span class="w"> </span>--raw<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>my-mysqld
+<div class="highlight"><pre><span></span><code>ausearch<span class="w"> </span>--start<span class="w"> </span>&lt;date-c<span class="w"> </span><span class="s1">&#39;mysqld&#39;</span><span class="w"> </span>--raw<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>my-mysqld
 </code></pre></div>
 </li>
 <li>
 <p>Review the policy (the policy you generate may be different):</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>my-mysqld.te
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>my-mysqld.te
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>module my-mysqld 1.0;
+<div class="highlight"><pre><span></span><code>module my-mysqld 1.0;
 
 require {
 type default_t;
@@ -10509,17 +10512,17 @@ allow mysqld_t default_t:file { append create open };
 </li>
 <li>
 <p>Install the policy:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semodule<span class="w"> </span>-i<span class="w"> </span>my-mysqld.pp
+<div class="highlight"><pre><span></span><code>semodule<span class="w"> </span>-i<span class="w"> </span>my-mysqld.pp
 </code></pre></div>
 </li>
 <li>
 <p>Use <code>semanage permissive</code> with the <code>-d</code> parameter, which deletes the permissive domain for the service:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>permissive<span class="w"> </span>-d<span class="w"> </span>mysqld_t
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>permissive<span class="w"> </span>-d<span class="w"> </span>mysqld_t
 </code></pre></div>
 </li>
 <li>
 <p>Restart the service:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>service<span class="w"> </span>mysqld<span class="w"> </span>start
+<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysqld<span class="w"> </span>start
 </code></pre></div>
 </li>
 </ol>
@@ -10530,8 +10533,8 @@ allow mysqld_t default_t:file { append create open };
 <h2 id="set-secure_file_priv-directory">Set <code>secure_file_priv</code> directory<a class="headerlink" href="#set-secure_file_priv-directory" title="Permanent link">&para;</a></h2>
 <p>Update the SELinux tags for the <code>/var/lib/mysql-files/</code> directory, used for <code>SELECT ... INTO OUTFILE</code> or similar operations, if required. The server needs only read/write access to the destination directory.</p>
 <p>To set <code>secure_file_priv</code> to use this directory, run the following commands to set the context:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_db_t<span class="w"> </span><span class="s2">&quot;/var/lib/mysql-files/(/.*)?&quot;</span>
-$<span class="w"> </span>restorecon<span class="w"> </span>-Rv<span class="w"> </span>/var/lib/mysql-files
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_db_t<span class="w"> </span><span class="s2">&quot;/var/lib/mysql-files/(/.*)?&quot;</span>
+restorecon<span class="w"> </span>-Rv<span class="w"> </span>/var/lib/mysql-files
 </code></pre></div>
 <p>Edit the path for a different location, if needed.</p>
 
@@ -10556,7 +10559,7 @@ $<span class="w"> </span>restorecon<span class="w"> </span>-Rv<span class="w"> <
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 29, 2024 11:52:39 UTC">August 29, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 12:49:59 UTC">February 3, 2026</span>
   </span>
 
     

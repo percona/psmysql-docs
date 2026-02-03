@@ -9567,12 +9567,12 @@ the table is encrypted. When the general tablespace contains no tables, you
 may verify if the tablespace is encrypted or not.</p>
 <p>For single tablespaces, verify the ENCRYPTION option using
 INFORMATION_SCHEMA.TABLES and the CREATE OPTIONS settings.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>TABLE_SCHEMA,<span class="w"> </span>TABLE_NAME,<span class="w"> </span>CREATE_OPTIONS<span class="w"> </span>FROM
-<span class="w">       </span>INFORMATION_SCHEMA.TABLES<span class="w"> </span>WHERE<span class="w"> </span>CREATE_OPTIONS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;%ENCRYPTION%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">FROM</span>
+<span class="w">       </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLES</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%ENCRYPTION%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------+-------------------+------------------------------+
+<div class="highlight"><pre><span></span><code>+----------------------+-------------------+------------------------------+
 | TABLE_SCHEMA         | TABLE_NAME        | CREATE_OPTIONS               |
 +----------------------+-------------------+------------------------------+
 |sample                | t1                | ENCRYPTION=&quot;Y&quot;               |
@@ -9593,11 +9593,11 @@ INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION table. You must have the
 <p class="admonition-title">Note</p>
 <p><strong>This table is in tech preview and may change in future releases.</strong></p>
 </div>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="w">   </span>mysql&gt;<span class="w"> </span>DESCRIBE<span class="w"> </span>INNODB_TABLESPACES_ENCRYPTION<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="w">   </span><span class="k">DESCRIBE</span><span class="w"> </span><span class="n">INNODB_TABLESPACES_ENCRYPTION</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------------------------+--------------------+-----+----+--------+------+
+<div class="highlight"><pre><span></span><code>+-----------------------------+--------------------+-----+----+--------+------+
 | Field                       | Type               | Null| Key| Default| Extra|
 +-----------------------------+--------------------+-----+----+--------+------+
 | SPACE                       | int(11) unsigned   | NO  |    |        |      |
@@ -9615,12 +9615,12 @@ INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION table. You must have the
 </details>
 <p>To identify encryption-enabled schemas, query the
 INFORMATION_SCHEMA.SCHEMATA table:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>SCHEMA_NAME,<span class="w"> </span>DEFAULT_ENCRYPTION<span class="w"> </span>FROM
-INFORMATION_SCHEMA.SCHEMATA<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">DEFAULT_ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;YES&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">SCHEMA_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">DEFAULT_ENCRYPTION</span><span class="w"> </span><span class="k">FROM</span>
+<span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">SCHEMATA</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">DEFAULT_ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;YES&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------+---------------------------------+
+<div class="highlight"><pre><span></span><code>+------------------------------+---------------------------------+
 | SCHEMA_NAME                  | DEFAULT_ENCRYPTION              |
 +------------------------------+---------------------------------+
 | samples                      | YES                             |
@@ -9650,7 +9650,7 @@ INFORMATION_SCHEMA.SCHEMATA<span class="w"> </span>WHERE<span class="w"> </span>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 12, 2023 15:39:59 UTC">January 12, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 12:49:59 UTC">February 3, 2026</span>
   </span>
 
     

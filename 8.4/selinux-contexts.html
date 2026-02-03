@@ -9639,15 +9639,15 @@ Example of listing SELinux types associated with MySQL directories and files</p>
 <p>SELinux context is like a label that tells the system how to handle files, processes, and other resources. For example, it determines which processes can access certain files and what actions they can perform on them. Understanding SELinux context helps you know how your applications interact with the system and ensures that they have the necessary permissions to function correctly. It&rsquo;s like giving each item on your computer a tag that says what it is and what it&rsquo;s allowed to do. So when your application tries to access a file, SELinux checks its context to see if it&rsquo;s allowed. If the context matches what&rsquo;s expected, the action is allowed; if not, it&rsquo;s denied. So knowing the SELinux context is essential for managing security and troubleshooting issues on your system.</p>
 <h3 id="viewing-selinux-context-for-a-process-using-ps-command">Viewing SELinux context for a process using ps command<a class="headerlink" href="#viewing-selinux-context-for-a-process-using-ps-command" title="Permanent link">&para;</a></h3>
 <p>To view the SELinux context for a process using the <code>ps</code> command, you can add the <code>-Z</code> option to display the context information. Here&rsquo;s how you can do it:</p>
-<div class="highlight"><pre><span></span><code>$ ps -eZ | grep &lt;process_name&gt;
+<div class="highlight"><pre><span></span><code>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>&lt;process_name&gt;
 </code></pre></div>
 <p>Replace <code>&lt;process_name&gt;</code> with the process name you want to check. For example, if you want to see the SELinux context for the MySQL process, you would use:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mysqld
+<div class="highlight"><pre><span></span><code>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mysqld
 </code></pre></div>
 <p>The output displays the SELinux context for the specified process and typically consists of four parts: user, role, type (or domain), and sensitivity level.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>system_u:system_r:mysqld_t:s0    3356 ?        00:00:01 mysqld
+<div class="highlight"><pre><span></span><code>system_u:system_r:mysqld_t:s0    3356 ?        00:00:01 mysqld
 </code></pre></div>
 </details>
 <ul>
@@ -9659,11 +9659,11 @@ Example of listing SELinux types associated with MySQL directories and files</p>
 <p>This information helps you understand how SELinux enforces security policies for the specified process.</p>
 <h2 id="list-selinux-types-or-domains">List SELinux Types or Domains<a class="headerlink" href="#list-selinux-types-or-domains" title="Permanent link">&para;</a></h2>
 <p>SELinux types or domains categorize different resources on the system, such as files, directories, and processes. Each type or domain has specific permissions and restrictions associated with it, determining how resources interact with each other. To list SELinux types or domains associated with files, you can use the <code>ls</code> command with the <code>-Z</code> option. For example:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>-laZ<span class="w"> </span>/var/lib/mysql
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-laZ<span class="w"> </span>/var/lib/mysql
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>drwxr-x--x. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql
+<div class="highlight"><pre><span></span><code>drwxr-x--x. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql
 drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-files
 drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring
 </code></pre></div>
@@ -9691,7 +9691,7 @@ drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 14, 2024 10:22:11 UTC">May 14, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 12:49:59 UTC">February 3, 2026</span>
   </span>
 
     

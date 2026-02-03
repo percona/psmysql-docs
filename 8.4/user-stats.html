@@ -9894,11 +9894,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>This table holds statistics about client connections. The Percona version of the feature restricts this table’s visibility to users who have the <code>SUPER</code> or <code>PROCESS</code> privilege.</p>
 <p>For example:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>INFORMATION_SCHEMA.CLIENT_STATISTICS<span class="se">\G</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">CLIENT_STATISTICS</span><span class="err">\</span><span class="k">G</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>*************************** 1. row ***************************
+<div class="highlight"><pre><span></span><code>*************************** 1. row ***************************
                 CLIENT: 10.1.12.30
      TOTAL_CONNECTIONS: 20
 CONCURRENT_CONNECTIONS: 0
@@ -9953,11 +9953,11 @@ CONCURRENT_CONNECTIONS: 0
 <p>This table shows statistics on index usage. An older version of the feature contained a single column that had the <code>TABLE_SCHEMA</code>, <code>TABLE_NAME</code>, and <code>INDEX_NAME</code> columns concatenated together. The <em>Percona</em> version of the feature separates these into three columns. Users can see entries only for tables to which they have <code>SELECT</code> access.</p>
 <p>This table makes it possible to do many things that were difficult or impossible previously. For example, you can use it to find unused indexes and generate DROP commands to remove them.</p>
 <p>Example:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>INFORMATION_SCHEMA.INDEX_STATISTICS<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">TABLE_NAME</span><span class="o">=</span><span class="s1">&#39;tables_priv&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">INDEX_STATISTICS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="o">=</span><span class="s1">&#39;tables_priv&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------+-----------------------+--------------------+-----------+
+<div class="highlight"><pre><span></span><code>+--------------+-----------------------+--------------------+-----------+
 | TABLE_SCHEMA | TABLE_NAME            | INDEX_NAME         | ROWS_READ |
 +--------------+-----------------------+--------------------+-----------+
 | mysql        | tables_priv           | PRIMARY            |         2 |
@@ -10001,11 +10001,11 @@ CONCURRENT_CONNECTIONS: 0
 </table>
 <p>This table is similar in function to the <code>INDEX_STATISTICS</code> table.</p>
 <p>For example:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>INFORMATION_SCHEMA.TABLE_STATISTICS<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">TABLE_NAME</span><span class="o">=</span><span class="sb">``</span>tables_priv<span class="sb">``</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLE_STATISTICS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="o">=``</span><span class="n">tables_priv</span><span class="o">``</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------+-------------------------------+-----------+--------------+------------------------+
+<div class="highlight"><pre><span></span><code>+--------------+-------------------------------+-----------+--------------+------------------------+
 | TABLE_SCHEMA | TABLE_NAME                    | ROWS_READ | ROWS_CHANGED | ROWS_CHANGED_X_INDEXES |
 +--------------+-------------------------------+-----------+--------------+------------------------+
 | mysql        | tables_priv                   |         2 |            0 |                      0 |
@@ -10210,11 +10210,11 @@ CONCURRENT_CONNECTIONS: 0
 <p>This table contains information about user activity. The <em>Percona</em> version of the patch restricts this table’s visibility to users who have the <code>SUPER</code> or <code>PROCESS</code> privilege.</p>
 <p>The table gives answers to questions such as which users cause the most load, and whether any users are being abusive. It also lets you measure how close to capacity the server may be. For example, you can use it to find out whether replication is likely to start falling behind.</p>
 <p>Example:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>INFORMATION_SCHEMA.USER_STATISTICS<span class="se">\G</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">USER_STATISTICS</span><span class="err">\</span><span class="k">G</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>*************************** 1. row ***************************
+<div class="highlight"><pre><span></span><code>*************************** 1. row ***************************
                   USER: root
      TOTAL_CONNECTIONS: 5592
  CONCURRENT_CONNECTIONS: 0
@@ -10398,7 +10398,7 @@ CONCURRENT_CONNECTIONS: 0
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 25, 2023 19:29:08 UTC">September 25, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 12:49:59 UTC">February 3, 2026</span>
   </span>
 
     

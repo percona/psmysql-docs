@@ -9818,7 +9818,7 @@ Decision “log or no” calculated in following manner:</p>
 <p>For example, if you set the value to 100, then one percent of <code>sessions/queries</code> will be logged. In <em>Percona Server for MySQL</em> information about the log_slow_rate_limit has been added to the slow query log. This means that if the log_slow_rate_limit is effective it will be reflected in the slow query log for each written query. </p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Log_slow_rate_type: query  Log_slow_rate_limit: 10
+<div class="highlight"><pre><span></span><code>Log_slow_rate_type: query  Log_slow_rate_limit: 10
 </code></pre></div>
 </details>
 <h3 id="log_slow_sp_statements"><code>log_slow_sp_statements</code><a class="headerlink" href="#log_slow_sp_statements" title="Permanent link">&para;</a></h3>
@@ -9874,19 +9874,19 @@ Decision “log or no” calculated in following manner:</p>
 </li>
 </ul>
 <p>Example of the improved stored procedure slow query log entry:</p>
-<div class="highlight" data-prompt="mysql"><pre><span></span><code>mysqlDELIMITER<span class="w"> </span>//
-mysqlCREATE<span class="w"> </span>PROCEDURE<span class="w"> </span>improved_sp_log<span class="o">()</span>
-<span class="w">       </span>BEGIN
-<span class="w">        </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>City<span class="p">;</span>
-<span class="w">        </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>Country<span class="p">;</span>
-<span class="w">       </span>END//
-mysqlDELIMITER<span class="w"> </span><span class="p">;</span>
-mysqlCALL<span class="w"> </span>improved_sp_log<span class="o">()</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysqlDELIMITER</span><span class="w"> </span><span class="o">//</span>
+<span class="n">mysqlCREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">improved_sp_log</span><span class="p">()</span>
+<span class="w">       </span><span class="k">BEGIN</span>
+<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">City</span><span class="p">;</span>
+<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Country</span><span class="p">;</span>
+<span class="w">       </span><span class="k">END</span><span class="o">//</span>
+<span class="n">mysqlDELIMITER</span><span class="w"> </span><span class="p">;</span>
+<span class="n">mysqlCALL</span><span class="w"> </span><span class="n">improved_sp_log</span><span class="p">();</span>
 </code></pre></div>
 <p>When we check the slow query log after running the stored procedure, with <code>log_slow_sp_statements</code> set to <code>TRUE</code>, it should look like this:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Time: 150109 11:38:55
+<div class="highlight"><pre><span></span><code># Time: 150109 11:38:55
 # User@Host: root[root] @ localhost []
 # Thread_id: 40  Schema: world  Last_errno: 0  Killed: 0
 # Query_time: 0.012989  Lock_time: 0.000033  Rows_sent: 4079  Rows_examined: 4079  Rows_affected: 0  Rows_read: 4079
@@ -9914,7 +9914,7 @@ SET timestamp=1420803535;
 <p>If we run the same stored procedure with the <code>log_slow_sp_statements</code> is set to <code>FALSE</code> slow query log should look like this:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Time: 150109 11:51:42
+<div class="highlight"><pre><span></span><code># Time: 150109 11:51:42
 # User@Host: root[root] @ localhost []
 # Thread_id: 40  Schema: world  Last_errno: 0  Killed: 0
 # Query_time: 0.013947  Lock_time: 0.000000  Rows_sent: 4318  Rows_examined: 4318  Rows_affected: 0  Rows_read: 4318
@@ -10078,7 +10078,7 @@ CALL improved_sp_log();
 <p>The feature adds more information to the slow log output.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Time: 130601  8:01:06.058915
+<div class="highlight"><pre><span></span><code># Time: 130601  8:01:06.058915
 # User@Host: root[root] @ localhost []  Id:    42
 # Schema: imdb  Last_errno: 0  Killed: 0
 # Query_time: 7.725616  Lock_time: 0.000328  Rows_sent: 4  Rows_examined: 1543720  Rows_affected: 0
@@ -10092,7 +10092,7 @@ SELECT id,title,production_year FROM title WHERE title = &#39;Bambi&#39;;
 <p>Another example (log_slow_verbosity <code>=profiling</code>):</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Time: 130601  8:03:20.700441
+<div class="highlight"><pre><span></span><code># Time: 130601  8:03:20.700441
 # User@Host: root[root] @ localhost []  Id:    43
 # Schema: imdb  Last_errno: 0  Killed: 0
 # Query_time: 7.815071  Lock_time: 0.000261  Rows_sent: 4  Rows_examined: 1543720  Rows_affected: 0
@@ -10156,7 +10156,7 @@ keyword is followed by a number other than zero:</p>
 <p>Each entry also contains a schema name, so you can trace all the queries whose default database was set to a particular schema.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Id: 43  Schema: imdb
+<div class="highlight"><pre><span></span><code># Id: 43  Schema: imdb
 </code></pre></div>
 </details>
 <h3 id="microsecond-time-resolution-and-extra-row-information">Microsecond time resolution and extra row information<a class="headerlink" href="#microsecond-time-resolution-and-extra-row-information" title="Permanent link">&para;</a></h3>
@@ -10164,7 +10164,7 @@ keyword is followed by a number other than zero:</p>
 <p>The feature also adds information about how many rows were examined for <code>SELECT</code> queries, and how many were analyzed and affected for <code>UPDATE</code>, <code>DELETE</code>, and <code>INSERT</code> queries,</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Query_time: 0.962742  Lock_time: 0.000202  Rows_sent: 4  Rows_examined: 1543719  Rows_affected: 0
+<div class="highlight"><pre><span></span><code># Query_time: 0.962742  Lock_time: 0.000202  Rows_sent: 4  Rows_examined: 1543719  Rows_affected: 0
 </code></pre></div>
 </details>
 <p>Values and context:</p>
@@ -10180,7 +10180,7 @@ keyword is followed by a number other than zero:</p>
 <p>The feature provides information about the amount of bytes sent for the result of the query and the number of temporary tables created for its execution - differentiated by whether they were created on memory or on disk - with the total number of bytes used by them.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Bytes_sent: 8053  Tmp_tables: 1  Tmp_disk_tables: 0  Tmp_table_sizes: 950528
+<div class="highlight"><pre><span></span><code># Bytes_sent: 8053  Tmp_tables: 1  Tmp_disk_tables: 0  Tmp_table_sizes: 950528
 </code></pre></div>
 </details>
 <p>Values and context:</p>
@@ -10202,7 +10202,7 @@ keyword is followed by a number other than zero:</p>
 <p>Each query can be executed in various ways. For example, it may use indexes or do a full table scan, or a temporary table may be needed. These are the things that you can usually see by running <code>EXPLAIN</code> on the query. The feature will now allow you to see the most important facts about the execution in the log file.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># Full_scan: Yes  Full_join: No  Tmp_table: No  Tmp_table_on_disk: No
+<div class="highlight"><pre><span></span><code># Full_scan: Yes  Full_join: No  Tmp_table: No  Tmp_table_on_disk: No
 # Filesort: No  Filesort_on_disk: No  Merge_passes: 0
 </code></pre></div>
 </details>
@@ -10211,7 +10211,7 @@ keyword is followed by a number other than zero:</p>
 <p>The final part of the output is the <em>InnoDB</em> usage statistics. <em>MySQL</em> currently shows many per-session statistics for operations with <code>SHOW SESSION STATUS</code>, but that does not include those of <em>InnoDB</em>, which are always global and shared by all threads. This feature lets you see those values for a given query.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>#   InnoDB_IO_r_ops: 6415  InnoDB_IO_r_bytes: 105103360  InnoDB_IO_r_wait: 0.001279
+<div class="highlight"><pre><span></span><code>#   InnoDB_IO_r_ops: 6415  InnoDB_IO_r_bytes: 105103360  InnoDB_IO_r_wait: 0.001279
 #   InnoDB_rec_lock_wait: 0.000000  InnoDB_queue_wait: 0.000000
 #   InnoDB_pages_distinct: 6430
 </code></pre></div>
@@ -10272,7 +10272,7 @@ keyword is followed by a number other than zero:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 19:10:16 UTC">December 22, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 12:49:59 UTC">February 3, 2026</span>
   </span>
 
     

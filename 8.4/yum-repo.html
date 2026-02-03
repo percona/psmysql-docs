@@ -9828,11 +9828,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>
 <p>Verify that the MySQL module is currently enabled on your system:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>list<span class="w"> </span>mysql
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>list<span class="w"> </span>mysql
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Rocky Linux 9 - BaseOS                     2.2 MB/s | 2.6 MB     00:01    
+<div class="highlight"><pre><span></span><code>Rocky Linux 9 - BaseOS                     2.2 MB/s | 2.6 MB     00:01    
 Rocky Linux 9 - AppStream                  3.7 MB/s | 8.2 MB     00:02    
 Rocky Linux 9 - Extras                      35 kB/s |  18 kB     00:00    
 Rocky Linux 9 - AppStream
@@ -9846,11 +9846,11 @@ Hint: [d]efault, [e]nabled, [x]disabled, [i]nstalled
 </li>
 <li>
 <p>[Optional] If the module is listed as [e]nabled, it can cause conflicts with Percona&rsquo;s packages. You must disable the module before proceeding.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Last metadata expiration check: 0:33:11 ago on Fri Aug 29 14:37:35 2025.
+<div class="highlight"><pre><span></span><code>Last metadata expiration check: 0:33:11 ago on Fri Aug 29 14:37:35 2025.
 Dependencies resolved.
 Nothing to do.
 Complete!
@@ -9860,11 +9860,11 @@ Complete!
 </li>
 <li>
 <p>Install the Percona repository package:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Last metadata expiration check: 1:04:21 ago on Fri Aug 29 14:37:35 2025.
+<div class="highlight"><pre><span></span><code>Last metadata expiration check: 1:04:21 ago on Fri Aug 29 14:37:35 2025.
 percona-release-latest.noarch.rpm           69 kB/s |  28 kB     00:00    
 Dependencies resolved.
 ===========================================================================
@@ -9898,11 +9898,11 @@ Complete!
 </li>
 <li>
 <p>Enable the Percona Server for MySQL repository:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-84-lts<span class="w"> </span>release
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-84-lts<span class="w"> </span>release
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>* Disabling all Percona Repositories
+<div class="highlight"><pre><span></span><code>* Disabling all Percona Repositories
 * Enabling the Percona Server for MySQL - PS 8.4- repository
 &lt;*&gt; All done!
 </code></pre></div>
@@ -9922,11 +9922,11 @@ Complete!
 </li>
 <li>
 <p>Install the server package:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-server
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Percona Release release/noarch YUM reposit 6.0 kB/s | 2.5 kB     00:00    
+<div class="highlight"><pre><span></span><code>Percona Release release/noarch YUM reposit 6.0 kB/s | 2.5 kB     00:00    
 Percona Server for MySQL - PS 8.4- release 1.5 MB/s | 2.4 MB     00:01    
 Percona Telemetry release/aarch64 YUM repo 6.8 kB/s | 2.7 kB     00:00    
 Dependencies resolved.
@@ -9992,11 +9992,11 @@ Complete!
 </ul>
 <p>User-defined functions (UDFs) are custom functions you can add to MySQL to extend its capabilities. These particular UDFs are useful for data integrity checks and performance monitoring.</p>
 <p>To install these functions after installation:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_percona_udf&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_percona_udf&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 <h3 id="udfs-installed">UDFs installed<a class="headerlink" href="#udfs-installed" title="Permanent link">&para;</a></h3>
@@ -10017,11 +10017,11 @@ Complete!
 </li>
 </ul>
 <p>To enable the testing repository:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps-84-lts<span class="w"> </span>testing
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps-84-lts<span class="w"> </span>testing
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>* Enabling Percona Server for MySQL 8.4 LTS testing repository
+<div class="highlight"><pre><span></span><code>* Enabling Percona Server for MySQL 8.4 LTS testing repository
 * Running yum update...
 Last metadata expiration check: 0:01:23 ago on Mon Jan 15 10:30:00 2024.
 All packages are up to date.
@@ -10043,12 +10043,12 @@ All packages are up to date.
 </li>
 </ul>
 <p>To disable the testing repository and return to stable releases:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>disable<span class="w"> </span>testing
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>disable<span class="w"> </span>testing
 sudo<span class="w"> </span>yum<span class="w"> </span>update
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>* Disabling Percona testing repository
+<div class="highlight"><pre><span></span><code>* Disabling Percona testing repository
 * Running yum update...
 Last metadata expiration check: 0:01:23 ago on Mon Jan 15 10:30:00 2024.
 All packages are up to date.
@@ -10076,7 +10076,7 @@ All packages are up to date.
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 19:10:16 UTC">December 22, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 12:49:59 UTC">February 3, 2026</span>
   </span>
 
     
