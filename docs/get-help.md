@@ -1,6 +1,6 @@
 # Get help from Percona
 
-Our documentation guides are packed with information, but they can’t cover everything you need to know about Percona Server for MySQL. They also won’t cover every scenario you might come across. Don’t be afraid to try things out and ask questions when you get stuck.
+Our [documentation](index.md) is packed with information, but it can’t cover everything you need to know about Percona Server for MySQL. It also won’t cover every scenario you might come across. New to Percona? Start with [choosing your path](ps-or-pdps.md). Don’t be afraid to try things out and ask questions when you get stuck.
 
 ## Percona's Community Forum
 
@@ -24,4 +24,13 @@ We understand your challenges when managing complex database environments. That'
 | Expert Consulting          | Our experienced consultants provide guidance on database topics like architecture design, migration planning, performance optimization, and security best practices.  |
 | Comprehensive Training     | Our training programs help your team develop skills to manage databases effectively, offering virtual and in-person courses.                                          |
 
-We're here to help you every step of the way. Whether you need a quick fix or a long-term partnership, we're ready to provide your expertise and support.
+We're here to help you every step of the way. Whether you need a quick fix or a long-term partnership, we're ready to provide our expertise and support.
+
+## What to do next
+
+* [Documentation home](index.md) — start here or return to the main guide
+* [Choose your path](ps-or-pdps.md) — Percona Server for MySQL, Percona Distribution for MySQL, or Percona Operators
+* [Quickstart guide](quickstart-overview.md) — get up and running quickly
+* [Install Percona Server for MySQL](installation.md) — step-by-step installation
+* [Upgrade](upgrade.md) — upgrade an existing installation
+* [Troubleshooting overview](troubleshoot-overview.md) — diagnose and fix common issues
