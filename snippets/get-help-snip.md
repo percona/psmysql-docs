@@ -1,1 +1,1 @@
-Review [Get more help](get-help.md) for ways that we can work with you.
+Review [Get help from Percona](get-help.md) for ways that we can work with you.
