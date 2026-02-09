@@ -14,7 +14,7 @@ For instructions for binary tarballs, see [Install {{post}} release from a binar
 
 2. Configure the repository and install Percona Server for MySQL packages
 
-    === "On Debian and Ubuntu"
+    === "Using apt (Debian, Ubuntu)"
 
         1. Download the Percona `gpg` key:
 
@@ -50,7 +50,7 @@ For instructions for binary tarballs, see [Install {{post}} release from a binar
 
             Install other required packages.
 
-    === "On RHEL and derivatives"
+    === "Using yum (RHEL and other yum-based derivatives)"
 
         1. Create the `/etc/yum.repos.d/post-eol.repo` configuration file with the following contents with your [CLIENTID] and [TOKEN].
 
