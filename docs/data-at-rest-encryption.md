@@ -2,8 +2,7 @@
 
 Data security is a concern for institutions and organizations. `Transparent
 Data Encryption (TDE)` or `Data at Rest Encryption` encrypts
-data files. Data at rest is
-any data that is not accessed or changed frequently, stored on different
+data files. Data at rest is any data that is not accessed or changed frequently, stored on different
 types of storage devices. Encryption ensures that if an unauthorized user
 accesses the data files from the file system, the user cannot read the contents.
 
