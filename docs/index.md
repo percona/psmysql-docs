@@ -62,9 +62,17 @@ Upgrade your Percona Server for MySQL installation with our comprehensive upgrad
 
 </div><div data-banner markdown>
 
-## :fontawesome-solid-gears: Audit Log Filter plugin { .title }
+### :material-information-outline: Planning for MySQL 9.7 LTS? { .title }
 
-Learn about the Audit Log Filter plugin that allows you to monitor, log, and block a connection or query actively executed on the selected server.
+Evaluate or plan a move to Percona Server for MySQL 9.7 LTS (for example, from APT, DNF, or YUM packages).
+
+See [What's New in MySQL 9.7: Technical Migration Overview](whats-new-mysql-9.md) for breaking changes, compatibility, removed items, and defaults and tuning.
+
+</div><div data-banner markdown>
+
+## :fontawesome-solid-gears: Audit Log Filter component { .title }
+
+Learn about the Audit Log Filter component that allows you to monitor, log, and block a connection or query actively executed on the selected server.
 
 [Audit Log Filter](audit-log-filter-overview.md){ .md-button}
 
