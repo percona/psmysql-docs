@@ -62,7 +62,7 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 	??? example "Expected output"
 
-		```text
+		```{.text .no-copy}
         Rocky Linux 9 - BaseOS                     2.2 MB/s | 2.6 MB     00:01    
         Rocky Linux 9 - AppStream                  3.7 MB/s | 8.2 MB     00:02    
         Rocky Linux 9 - Extras                      35 kB/s |  18 kB     00:00    
@@ -83,7 +83,7 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 	??? example "Expected output"
 
-		```text
+		```{.text .no-copy}
         Last metadata expiration check: 0:33:11 ago on Fri Aug 29 14:37:35 2025.
         Dependencies resolved.
         Nothing to do.
@@ -100,7 +100,7 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 	??? example "Expected output"
 
-		```text
+		```{.text .no-copy}
 		Last metadata expiration check: 1:04:21 ago on Fri Aug 29 14:37:35 2025.
         percona-release-latest.noarch.rpm           69 kB/s |  28 kB     00:00    
         Dependencies resolved.
@@ -136,7 +136,7 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 	??? example "Expected output"
 
-		```text
+		```{.text .no-copy}
         * Disabling all Percona Repositories
         * Enabling the Percona Server for MySQL - PS 8.4- repository
         <*> All done!
@@ -158,7 +158,7 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 	??? example "Expected output"
 
-		```text
+		```{.text .no-copy}
 		Percona Release release/noarch YUM reposit 6.0 kB/s | 2.5 kB     00:00    
         Percona Server for MySQL - PS 8.4- release 1.5 MB/s | 2.4 MB     00:01    
         Percona Telemetry release/aarch64 YUM repo 6.8 kB/s | 2.7 kB     00:00    
@@ -234,7 +234,7 @@ INSTALL COMPONENT 'file://component_percona_udf';
 
 ??? example "Expected output"
 
-	```text
+	```{.text .no-copy}
 	Query OK, 0 rows affected (0.01 sec)
 	```
 
@@ -265,7 +265,7 @@ sudo percona-release enable {{pkg}} testing
 
 ??? example "Expected output"
 
-	```text
+	```{.text .no-copy}
 	* Enabling Percona Server for MySQL 8.4 LTS testing repository
 	* Running yum update...
 	Last metadata expiration check: 0:01:23 ago on Mon Jan 15 10:30:00 2024.
@@ -291,7 +291,7 @@ sudo yum update
 
 ??? example "Expected output"
 
-	```text
+	```{.text .no-copy}
 	* Disabling Percona testing repository
 	* Running yum update...
 	Last metadata expiration check: 0:01:23 ago on Mon Jan 15 10:30:00 2024.

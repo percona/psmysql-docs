@@ -36,7 +36,7 @@ After installation, you should see the following output:
 
 ??? example "Expected output"
     
-    ```text
+    ```{.text .no-copy}
     * This release of |Percona Server| is distributed with RocksDB storage engine.
     * Run the following script to enable the RocksDB storage engine in Percona Server:
     ```
@@ -57,7 +57,7 @@ $ sudo ps-admin --enable-rocksdb -u root -pPassw0rd
 
 ??? example "Expected output"
     
-    ```text
+    ```{.text .no-copy}
     Checking if RocksDB plugin is available for installation ...
     INFO: ha_rocksdb.so library for RocksDB found at /usr/lib64/mysql/plugin/ha_rocksdb.so.
 
@@ -86,7 +86,7 @@ SHOW ENGINES;
 
 ??? example "Expected output"
     
-    ```text
+    ```{.text .no-copy}
     +---------+---------+----------------------------------------------------------------------------+--------------+------+------------+
     | Engine  | Support | Comment                                                                    | Transactions | XA   | Savepoints |
     +---------+---------+----------------------------------------------------------------------------+--------------+------+------------+
@@ -151,7 +151,7 @@ $ sudo ps-admin --disable-rocksdb -u root -pPassw0rd
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Checking RocksDB engine plugin status...
     INFO: RocksDB engine plugin is installed.
 

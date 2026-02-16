@@ -26,7 +26,7 @@ Clean up is optional. If you want to remove Percona Server for MySQL and clean u
 
         ??? example "Expected output"
 
-            ```text
+            ```{.text .no-copy}
             psmysql
             ```
 
@@ -44,7 +44,7 @@ Clean up is optional. If you want to remove Percona Server for MySQL and clean u
 
         ??? example "Expected output"
 
-            ```text
+            ```{.text .no-copy}
             Untagged: percona/percona-server:{{tag}}
             Untagged: percona/percona-server@sha256:4944f9b365e0dc88f41b3b704ff2a02d1459fd07763d7d1a444b263db8498e1f
             Deleted: sha256:b2588da614b1f382468fc9f44600863e324067a9cae57c204a30a2105d61d9d9
@@ -59,7 +59,7 @@ Clean up is optional. If you want to remove Percona Server for MySQL and clean u
 
         ??? example "Expected output"
 
-            ```text
+            ```{.text .no-copy}
             myvol
             ```
 

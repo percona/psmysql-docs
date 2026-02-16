@@ -26,7 +26,7 @@ The output displays the SELinux context for the specified process and typically 
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     system_u:system_r:mysqld_t:s0    3356 ?        00:00:01 mysqld
     ```
 
@@ -47,7 +47,7 @@ ls -laZ /var/lib/mysql
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     drwxr-x--x. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql
     drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-files
     drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring

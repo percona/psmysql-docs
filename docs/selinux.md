@@ -55,7 +55,7 @@ ps -eZ | grep mysqld_t
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     system_u:system_r:mysqld_t:s0    3356 ?        00:00:01 mysqld
     ```
 
@@ -83,7 +83,7 @@ ls -laZ /var/lib/ | grep mysql
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     drwxr-x--x. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql
     drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-files
     drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring
@@ -127,7 +127,7 @@ sestatus
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     SELinux status:                 enabled
     SELinuxfs mount:                /sys/fs/selinux
     SELinux root directory:         /etc/selinux
@@ -148,7 +148,7 @@ grep ^SELINUX= /etc/selinux/config
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     SELINUX=enforcing
     ```
 
@@ -162,7 +162,7 @@ sestatus -b | grep mysql
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     mysql_connect_any                           off
     selinuxuser_mysql_connect_enabled
     ```
@@ -201,7 +201,7 @@ cat /etc/selinux/config | grep SELINUX= | grep -v ^#
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     SELINUX=enforcing
     SELINUX=enforcing
     ```
@@ -214,7 +214,7 @@ cat /etc/selinux/config | grep SELINUX= | grep -v ^#
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     SELINUX=permissive
     SELINUX=permissive
     ```
@@ -253,7 +253,7 @@ getenforce
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Enforcing
     ```
 
@@ -265,7 +265,7 @@ sestatus | grep -i mode
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Current mode:                   permissive
     Mode from config file:          enforcing
     ```
@@ -288,7 +288,7 @@ sudo semanage permissive -l
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     ...
     Customized Permissive Types
 
@@ -344,7 +344,7 @@ If you do not use the default settings, SELinux, in enforcing mode, prevents acc
 
 For example, during installation, you have used the following configuration:
 
-  ```text
+  ```{.text .no-copy}
   datadir=/var/lib/mysqlcustom
   socket=/var/lib/mysqlcustom/mysql.sock
   ```
@@ -357,7 +357,7 @@ Restart the service.
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Redirecting to /bin/systemctl restart mysqld.service
     Job for mysqld.service failed because the control process exited with error code.
     See "systemctl status mysqld.service" and "journalctl -xe" for details.
@@ -371,7 +371,7 @@ Check the journal log to see the error code.
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     ...
     SELinux is preventing mysqld from getattr access to the file /var/lib/mysqlcustom/ibdata1.
     ...
@@ -385,7 +385,7 @@ Check the SELinux types in `/var/lib/mysqlcustom`.
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
       total 164288
       drwxr-x--x.  6 mysql mysql system_u:object_r:var_lib_t:s0       4096 Dec  2 07:58  .
       drwxr-xr-x. 38 root  root  system_u:object_r:var_lib_t:s0       4096 Dec  1 14:29  ..
@@ -439,7 +439,7 @@ Verify the log location with the following command:
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
       ...
       drwxrwxrwx.   2 root root unconfined_u:object_r:default_t:s0    6 Dec  2 09:16 logs
       ...
@@ -453,7 +453,7 @@ Starting MySQL returns the following message:
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Redirecting to /bin/systemctl start mysql.service
     Job for mysqld.service failed because the control process exited with error code.
     See "systemctl status mysqld.service" and "journalctl -xe" for details.
@@ -467,7 +467,7 @@ To view the error details, run:
 
 The output may include a line such as:
 
-    ```text
+    ```{.text .no-copy}
     SELinux is preventing mysqld from write access to the directory logs.
     ```
 
@@ -499,7 +499,7 @@ To adjust the SELinux policy when a directory is shared, follow these steps:
 
     An example of the my-myslqd.te file:
 
-    ```text
+    ```{.text .no-copy}
     module my-mysqld 1.0;
 
     require {
@@ -571,7 +571,7 @@ Follow this procedure:
     
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         ...
         permissive_mysqld_t
         ...
@@ -615,7 +615,7 @@ Follow this procedure:
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         module my-mysqld 1.0;
     
         require {

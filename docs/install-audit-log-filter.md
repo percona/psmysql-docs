@@ -49,7 +49,7 @@ show tables in mysql like 'aud%';
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +------------------------+
     | Tables_in_mysql (aud%) |
     +------------------------+
@@ -77,7 +77,7 @@ select * from mysql.component;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +--------------+--------------------+------------------------------------+
     | component_id | component_group_id | component_urn                      |
     +--------------+--------------------+------------------------------------+
@@ -97,7 +97,7 @@ SELECT audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}');
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +---------------------------------------------------------------------+
     | audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}') |
     +---------------------------------------------------------------------+

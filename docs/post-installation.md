@@ -82,7 +82,7 @@ sudo mysqladmin -u root -p version
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Enter password:
     mysql Ver {{release}} for debian-linux-gnu on x86_64 (Percona Server (GPL), Release '10', Revision 'f446c04')
     ...
@@ -104,7 +104,7 @@ sudo mysqlshow -u root -p
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Enter password:
 
     +---------------------+

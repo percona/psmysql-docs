@@ -41,7 +41,7 @@ SHOW PLUGINS;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     ...
     | auth_pam                       | ACTIVE   | AUTHENTICATION     | auth_pam.so | GPL     |
     ```

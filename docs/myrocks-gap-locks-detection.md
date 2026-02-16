@@ -10,6 +10,6 @@ on the effected rows.
 
 ??? example "Error message"
 
-    ```text
+    ```{.text .no-copy}
     ERROR HY000: Using Gap Lock without full unique key in multi-table or multi-statement transactions is not allowed. You need to either rewrite queries to use all unique key columns in WHERE equal conditions, or rewrite to single-table, single-statement transaction.
     ```

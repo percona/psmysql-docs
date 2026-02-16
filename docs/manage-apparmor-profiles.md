@@ -30,7 +30,7 @@ $ sudo apt install apparmor-utils
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Reading package lists... Done
     Building dependency tree
     ...
@@ -52,7 +52,7 @@ Add the mysqld profile with the following procedure:
 
     ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     ...
     Saving to 'apparamor-profile`
     ...
@@ -90,7 +90,7 @@ Add the mysqld profile with the following procedure:
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         ...
         processes are in enforce mode
         ...
@@ -108,7 +108,7 @@ $ sudo aa-status
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     apparmor module is loaded.
     34 profiles are loaded.
     32 profiles in enforce mode.

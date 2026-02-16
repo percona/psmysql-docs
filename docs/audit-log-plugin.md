@@ -30,7 +30,7 @@ The empty result suggests that no such plugins are installed or loaded.
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Empty set (0.00 sec)
     ```
 
@@ -44,7 +44,7 @@ The empty result means that no such system variables exist or are currently defi
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Empty set (0.01 sec)
     ```
 
@@ -56,7 +56,7 @@ SHOW variables LIKE 'plugin%';
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +---------------+------------------------+
     | Variable_name | Value                  |
     +---------------+------------------------+
@@ -83,7 +83,7 @@ SELECT * FROM information_schema.PLUGINS WHERE PLUGIN_NAME LIKE '%audit%'\G
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     *************************** 1. row ***************************
             PLUGIN_NAME: audit_log
             PLUGIN_VERSION: 0.2
@@ -107,7 +107,7 @@ SHOW variables LIKE 'audit%';
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +-----------------------------+---------------+
     | Variable_name               | Value         |
     +-----------------------------+---------------+
@@ -143,7 +143,7 @@ The following formats are available:
 
 === "Old log format"
 
-    ```text
+    ```{.text .no-copy}
     <AUDIT_RECORD
     NAME="Query"
     RECORD="3_2021-06-30T11:56:53"
@@ -162,7 +162,7 @@ The following formats are available:
 
 === "New log format"
 
-    ```text
+    ```{.text .no-copy}
     <AUDIT_RECORD>
     <NAME>Query</NAME>
     <RECORD>16684_2021-06-30T16:07:41</RECORD>
@@ -202,7 +202,7 @@ The audit Log plugin generates a log of following events.
 
         ??? example "Audit event"
 
-            ```text
+            ```{.text .no-copy}
             <AUDIT_RECORD
             NAME="Audit"
             RECORD="1_2021-06-30T11:56:53"
@@ -239,7 +239,7 @@ The audit Log plugin generates a log of following events.
 
     ??? example "Disconnect event"
 
-        ```text
+        ```{.text .no-copy}
         <AUDIT_RECORD
         NAME="Quit"
         RECORD="5_2021-06-29T19:33:03"
@@ -266,7 +266,7 @@ The audit Log plugin generates a log of following events.
 
     ??? example "Query event"
 
-        ```text
+        ```{.text .no-copy}
         <AUDIT_RECORD
         NAME="Query"
         RECORD="4_2021-06-29T19:33:03"
@@ -355,7 +355,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         Query OK, 0 rows affected (0.00 sec)
         ```
 
@@ -367,7 +367,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         ERROR 1231 (42000): Variable 'audit_log_exclude_accounts' can't be set to the value of 'user1@localhost,root@localhost'
         ```
 
@@ -380,7 +380,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         Query OK, 0 rows affected (0.00 sec)
         ```
 
@@ -390,7 +390,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         Query OK, 0 rows affected (0.00 sec)
         ```
 
@@ -400,7 +400,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         Query OK, 0 rows affected (0.00 sec)
         ```
 
@@ -410,7 +410,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         Query OK, 0 rows affected (0.00 sec)
         ```
 
@@ -420,7 +420,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         Query OK, 0 rows affected (0.00 sec)
         ```
 
@@ -432,7 +432,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         +------------------------------+
         | @@audit_log_exclude_accounts |
         +------------------------------+
@@ -450,13 +450,13 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         Query OK, 0 rows affected (0.00 sec)
         ```
 
     When `user1` connects from `localhost`, the user is listed:
 
-    ```text
+    ```{.text .no-copy}
     <AUDIT_RECORD
     NAME="Connect"
     RECORD="2_2021-06-30T11:56:53"
@@ -494,7 +494,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         +------------------------------------------+
         | name                                     |
         +------------------------------------------+
@@ -535,7 +535,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         <AUDIT_RECORD>
         <NAME>Query</NAME>
         <RECORD>24320_2021-06-30T17:44:46</RECORD>
@@ -561,7 +561,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         Query OK, 0 rows affected (0.00 sec)
         ```
 
@@ -571,7 +571,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         Query OK, 0 rows affected (0.00 sec)
         ```
 
@@ -589,7 +589,7 @@ The following are examples of the different filters.
 
     ??? note "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         Query OK, 0 rows affected (0.00 sec)
         ```
 
@@ -599,7 +599,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         Query OK, 0 rows affected (0.00 sec)
         ```
 
@@ -612,7 +612,7 @@ The following are examples of the different filters.
 
     ??? example "Error message"
 
-        ```text
+        ```{.text .no-copy}
         ERROR 1231 (42000): Variable 'audit_log_exclude_databases can't be set to the value of 'test,mysql,db1'
         ```
 
@@ -625,7 +625,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         Query OK, 0 rows affected (0.00 sec)
         ```
 
@@ -635,7 +635,7 @@ The following are examples of the different filters.
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         Query OK, 0 rows affected (0.00 sec)
         ```
 

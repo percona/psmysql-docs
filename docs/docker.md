@@ -23,7 +23,7 @@ docker run -d \
 ```
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Unable to find image 'percona/percona-server:{{vers}}' locally
     {{vers}}: Pulling from percona/percona-server
     ```
@@ -38,7 +38,7 @@ docker logs ps --follow
 ```
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Initializing database
     2022-09-07T15:20:03.158128Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld {{release}}) initializing of server in progress as process 15
     2022-09-07T15:20:03.167764Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
@@ -86,7 +86,7 @@ You can view the error log with the following command:
 ```
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     ...
     2017-08-29T04:20:22.190474Z 0 [Warning] 'NO_ZERO_DATE', 'NO_ZERO_IN_DATE' and 'ERROR_FOR_DIVISION_BY_ZERO' sql modes should be used with strict mode. They will be merged with strict mode in a future release.
     2017-08-29T04:20:22.190520Z 0 [Warning] 'NO_AUTO_CREATE_USER' sql mode was not set.
@@ -105,7 +105,7 @@ docker exec -ti ps mysql -uroot -proot
 
 ??? example "Expected output"
 
-    ```text   
+    ```{.text .no-copy}   
     mysql: [Warning] Using a password on the command line interface can be insecure.
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 9
@@ -122,7 +122,7 @@ You can also run the MySQL command-line client within the container's shell to a
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     mysql: [Warning] Using a password on the command line interface can be insecure.
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 8

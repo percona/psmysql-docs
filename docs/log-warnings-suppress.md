@@ -8,7 +8,7 @@ SET GLOBAL log_warnings_suppress = '1592';
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Query OK, 0 rows affected (0.00 sec)
     ```
 

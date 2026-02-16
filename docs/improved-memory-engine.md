@@ -28,7 +28,7 @@ It is currently impossible to use indexes on `BLOB` columns due to some limitati
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     BLOB column '<name>' can't be used in key specification with the used table type.
     ```
 
@@ -114,7 +114,7 @@ SHOW TABLE STATUS LIKE 't1';
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Name  Engine  Version    Rows Avg_row_length  Data_length     Max_data_length Index_length    Data_free       Auto_increment  Create_time     Update_time     Check_time      Collation       Checksum        Create_options  Comment
     t1    MEMORY  10         X    0       X       0       0       NULL    NULL    NULL    NULL    latin1_swedish_ci       NULL    KEY_BLOCK_SIZE=124
     ```
