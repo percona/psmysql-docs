@@ -9754,7 +9754,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code>The Percona Server 8.4 configuration file.
+<div class="no-copy highlight"><pre><span></span><code>The Percona Server 8.4 configuration file.
 
 For explanations see
 https://dev.mysql.com/doc/mysql/en/server-system-variables.html
@@ -9784,14 +9784,14 @@ log-error    = /var/log/mysql/error.log
 <p>For example, the following log entries show <code>DENIED</code>:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code>...
+<div class="no-copy highlight"><pre><span></span><code>...
 Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps audit[16013]: AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/sbin/mysqld&quot; name=&quot;/var/lib/mysqlcustom/binlog.index&quot; pid=16013 comm=&quot;mysqld&quot; requested_mask=&quot;c&quot; denied_mask=&quot;c&quot; fsuid=111 ouid=111
 Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(1607343428.022:36): apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/sbin/mysqld&quot; name=&quot;/var/lib/mysqlcustom/mysqld_tmp_file_case_insensitive_test.lower-test&quot; pid=16013 comm=&quot;mysqld&quot; requested_mask=&quot;c&quot; denied_mask=&quot;c&quot; fsuid=111 ouid=111
 ...
 </code></pre></div>
 </details>
 <p>Open <code>/etc/apparmor.d/local/usr.sbin.mysqld</code> in a text editor and edit the following entries in the <code>Allow data dir access</code> section.</p>
-<div class="highlight"><pre><span></span><code>Allow data dir access
+<div class="no-copy highlight"><pre><span></span><code>Allow data dir access
 /var/lib/mysqlcustom/ r,
 /var/lib/mysqlcustom/** rwk,
 </code></pre></div>
@@ -9812,7 +9812,7 @@ Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code>The Percona Server 8.4 configuration file.
+<div class="no-copy highlight"><pre><span></span><code>The Percona Server 8.4 configuration file.
 
 For explanations see
 https://dev.mysql.com/doc/mysql/en/server-system-variables.html
@@ -9840,7 +9840,7 @@ drwxrwxrwx  2 root root 4096 Dec  7 13:09 mysql
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code>Job for mysql.service failed because the control process exited with error code.
+<div class="no-copy highlight"><pre><span></span><code>Job for mysql.service failed because the control process exited with error code.
 See &quot;systemctl status mysql.service&quot; and &quot;journalctl -xe&quot; for details.
 </code></pre></div>
 </details>
@@ -9848,7 +9848,7 @@ See &quot;systemctl status mysql.service&quot; and &quot;journalctl -xe&quot; fo
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code>...
+<div class="no-copy highlight"><pre><span></span><code>...
 AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/sbin/mysqld&quot; name=&quot;/custom-log-dir/mysql/error.log&quot;
 ...
 </code></pre></div>
@@ -9858,7 +9858,7 @@ AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/s
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code> Site-specific additions and overrides for usr.sbin.mysqld..
+<div class="no-copy highlight"><pre><span></span><code> Site-specific additions and overrides for usr.sbin.mysqld..
  For more details, please see /etc/apparmor.d/local/README.
 
  Allow log file access
@@ -9878,7 +9878,7 @@ AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/s
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code>+------------------+-----------------------+
+<div class="no-copy highlight"><pre><span></span><code>+------------------+-----------------------+
 | Variable_name    | Value                 |
 +------------------+-----------------------+
 | secure_file_priv | /var/lib/mysql-files/ |
@@ -9886,7 +9886,7 @@ AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/s
 </code></pre></div>
 </details>
 <p>To allow access to another location, in a text editor, open the local profile. Review the settings in the <code>Allow data dir access</code> section:</p>
-<div class="highlight"><pre><span></span><code>Allow data dir access
+<div class="no-copy highlight"><pre><span></span><code>Allow data dir access
 /var/lib/mysql/ r,
 /var/lib/mysql/** rwk,
 </code></pre></div>
@@ -9895,7 +9895,7 @@ AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/s
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code>Site-specific additions and overrides for usr.sbin.mysqld..
+<div class="no-copy highlight"><pre><span></span><code>Site-specific additions and overrides for usr.sbin.mysqld..
 For more details, please see /etc/apparmor.d/local/README.
 
 Allow data dir access
@@ -9937,7 +9937,7 @@ Allow data dir access
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 30, 2026 12:15:38 UTC">January 30, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 16, 2026 12:43:28 UTC">February 16, 2026</span>
   </span>
 
     
@@ -9964,6 +9964,16 @@ Allow data dir access
 
     
     <nav>
+      
+        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
+          
+          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
+        </a>
+      
+        <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
+          
+          <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
       
         <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
           
