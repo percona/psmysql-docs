@@ -12,7 +12,7 @@ select * from performance_schema.log_status\G
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     *************************** 1. row ***************************
 
     SERVER_UUID: f593b4f8-6fde-11e9-ad90-080027c2be11

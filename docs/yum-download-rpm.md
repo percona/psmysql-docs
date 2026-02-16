@@ -30,7 +30,7 @@ The following example downloads *Percona Server for MySQL* {{release}} release `
 	
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         percona-icu-data-files-{{release}}.1.el8.x86_64.rpm
         percona-mysql-router-{{release}}.1.el8.x86_64.rpm
         percona-mysql-router-debuginfo-{{release}}.1.el8.x86_64.rpm

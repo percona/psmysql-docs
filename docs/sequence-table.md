@@ -67,7 +67,7 @@ SELECT * FROM SEQUENCE_TABLE(3) AS tt;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +-------+
     | value |
     +-------+
@@ -87,7 +87,7 @@ SELECT value AS result FROM SEQUENCE_TABLE(8) AS tt WHERE value >= 4;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +--------+
     | result |
     +--------+
@@ -110,7 +110,7 @@ SELECT value AS result FROM SEQUENCE_TABLE(8) AS tt WHERE value % 2 = 0;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +--------+
     | result |
     +--------+
@@ -133,7 +133,7 @@ The output could be the following:
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +--------+
     | result |
     +--------+
@@ -154,7 +154,7 @@ SELECT MD5(value) AS result FROM SEQUENCE_TABLE(4) AS tt;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +----------------------------------+
     | result                           |
     +----------------------------------+
@@ -177,7 +177,7 @@ SELECT * FROM t1;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +-------+
     | value |
     +-------+

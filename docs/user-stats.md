@@ -73,7 +73,7 @@ SELECT * FROM INFORMATION_SCHEMA.CLIENT_STATISTICS\G
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     *************************** 1. row ***************************
                     CLIENT: 10.1.12.30
          TOTAL_CONNECTIONS: 20
@@ -121,7 +121,7 @@ SELECT * FROM INFORMATION_SCHEMA.INDEX_STATISTICS WHERE TABLE_NAME='tables_priv'
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +--------------+-----------------------+--------------------+-----------+
     | TABLE_SCHEMA | TABLE_NAME            | INDEX_NAME         | ROWS_READ |
     +--------------+-----------------------+--------------------+-----------+
@@ -153,7 +153,7 @@ SELECT * FROM INFORMATION_SCHEMA.TABLE_STATISTICS WHERE TABLE_NAME=``tables_priv
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +--------------+-------------------------------+-----------+--------------+------------------------+
     | TABLE_SCHEMA | TABLE_NAME                    | ROWS_READ | ROWS_CHANGED | ROWS_CHANGED_X_INDEXES |
     +--------------+-------------------------------+-----------+--------------+------------------------+
@@ -231,7 +231,7 @@ SELECT * FROM INFORMATION_SCHEMA.USER_STATISTICS\G
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     *************************** 1. row ***************************
                       USER: root
          TOTAL_CONNECTIONS: 5592

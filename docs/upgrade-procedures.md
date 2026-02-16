@@ -171,7 +171,7 @@ Use this method when you cannot use repositories or need to install from manuall
 
         ??? example "Expected output"
 
-            ```text
+            ```{.text .no-copy}
             libperconaserverclient21-dev_{{release}}.bullseye_amd64.deb  
             percona-server-dbg_{{release}}.bullseye_amd64.deb
             libperconaserverclient21_{{release}}.bullseye_amd64.deb      
@@ -220,7 +220,7 @@ Use this method when you cannot use repositories or need to install from manuall
 
         ??? example "Expected output"
 
-            ```text
+            ```{.text .no-copy}
             percona-server-shared-{{release}}.el9.x86_64
             percona-server-shared-compat-{{release}}.el9.x86_64
             percona-server-client-{{release}}.el9.x86_64

@@ -44,7 +44,7 @@ INSTALL COMPONENT 'file://component_uuid_vx_udf';
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     Query OK, 0 rows affected (0.03 sec) 
     ```
 
@@ -83,7 +83,7 @@ SELECT is_uuid_vx('01900bf6-0eb0-715a-80f4-636367e07777');
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +----------------------------------------------------+
     | is_uuid_vx('01900bf6-0eb0-715a-80f4-636367e07777') |
     +----------------------------------------------------+
@@ -98,7 +98,7 @@ SELECT uuid_vx_version('01900bf6-0eb0-715a-80f4-636367e07777');
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +---------------------------------------------------------+
     | uuid_vx_version('01900bf6-0eb0-715a-80f4-636367e07777') |
     +---------------------------------------------------------+
@@ -112,7 +112,7 @@ SELECT uuid_vx_version('01900bf6-0eb0-715a-80f4-636367e07777');
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +---------------------------------------------------------+
     | uuid_vx_variant('01900bf6-0eb0-715a-80f4-636367e07777') |
     +---------------------------------------------------------+
@@ -145,7 +145,7 @@ SELECT uuid_v1();
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +--------------------------------------+
     | uuid_v1()                            |
     +--------------------------------------+
@@ -161,7 +161,7 @@ SELECT uuid_v3('http://example.com');
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +--------------------------------------+
     | uuid_v3('http://example.com')        |
     +--------------------------------------+
@@ -177,7 +177,7 @@ SELECT uuid_v3('http://example.com', 1);
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +--------------------------------------+
     | uuid_v3('http://example.com')        |
     +--------------------------------------+
@@ -193,7 +193,7 @@ SELECT uuid_v3('example.com',0);
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +--------------------------------------+
     | uuid_v3('example.com',0)             |
     +--------------------------------------+
@@ -209,7 +209,7 @@ SELECT uuid_v4();
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +--------------------------------------+
     | uuid_v4()                            |
     +--------------------------------------+
@@ -225,7 +225,7 @@ SELECT uuid_v5("http://example.com");
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +--------------------------------------+
     | uuid_v5("http://example.com")        |
     +--------------------------------------+
@@ -241,7 +241,7 @@ SELECT uuid_v6();
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +--------------------------------------+
     | uuid_v6()                            |
     +--------------------------------------+
@@ -257,7 +257,7 @@ SELECT uuid_v7();
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +--------------------------------------+
     | uuid_v7()                            |
     +--------------------------------------+
@@ -274,7 +274,7 @@ SELECT uuid_v7(84000000);
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +--------------------------------------+
     | uuid_v7(84000000)                    |
     +--------------------------------------+
@@ -301,7 +301,7 @@ SELECT uuid_vx_to_timestamp('01900bf6-0eb0-715a-80f4-636367e07777');
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +--------------------------------------------------------------+
     | uuid_vx_to_timestamp('01900bf6-0eb0-715a-80f4-636367e07777') |
     +--------------------------------------------------------------+
@@ -316,7 +316,7 @@ SELECT uuid_vx_to_timestamp_tz('01900bf6-0eb0-715a-80f4-636367e07777');
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +-----------------------------------------------------------------+
     | uuid_vx_to_timestamp_tz('01900bf6-0eb0-715a-80f4-636367e07777') |
     +-----------------------------------------------------------------+
@@ -330,7 +330,7 @@ SELECT uuid_vx_to_unixtime('01900bf6-0eb0-715a-80f4-636367e07777');
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     +-------------------------------------------------------------+
     | uuid_vx_to_unixtime('01900bf6-0eb0-715a-80f4-636367e07777') |
     +-------------------------------------------------------------+
@@ -347,6 +347,6 @@ UNINSTALL COMPONENT 'file://component_uuid_vx_udf';
 
 ??? example "Expected output" 
 
-    ```text
+    ```{.text .no-copy}
     Query OK, 0 rows affected (0.03 sec)
     ```

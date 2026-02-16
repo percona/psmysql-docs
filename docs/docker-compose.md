@@ -95,7 +95,7 @@ docker-compose up -d
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     [+] Running 11/11
      ✔ mysql Pulled                                                                34.1s 
        ✔ 56631da24b0d Pull complete                                                28.9s 
@@ -138,7 +138,7 @@ You must enter the root password.
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Enter password: 
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 9
@@ -163,7 +163,7 @@ SHOW DATABASES;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +--------------------+
     | Database           |
     +--------------------+
@@ -190,7 +190,7 @@ SELECT * FROM test_table;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Query OK, 1 row affected (0.02 sec)
 
     Database changed

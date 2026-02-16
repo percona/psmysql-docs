@@ -34,14 +34,14 @@ Restart the server.
 MySQL writes to the log when generating a core file and delegates the core
 dump operation to the Linux kernel. 
 
-```text
+```{.text .no-copy}
 Writing a core file
 ```
 
 MySQL using the `libcoredumper` to generate the file creates the following
 message in the log:
 
-```text
+```{.text .no-copy}
 Writing a core file using lib coredumper
 ```
 
@@ -50,7 +50,7 @@ reasons:
 
 * Correlates the core file with the crash. MySQL prints a UTC timestamp on the crash log.
 
-```text
+```{.text .no-copy}
 10:02:09 UTC - mysqld got signal 11;
 ```
 

@@ -98,7 +98,7 @@ Run the following commands as root:
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         +------------------+---------------+-----------------------+
         | @@slow_query_log | @@general_log | @@secure_log_path     |
         +------------------+---------------+-----------------------+
@@ -115,7 +115,7 @@ Run the following commands as root:
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         -rw-r-----. 1 mysql mysqld-logs 240 Aug 18 11:56 localhost-slow.log
         -rw-r-----. 1 mysql mysqld-logs 565 Aug 18 11:56 localhost.log
         ```

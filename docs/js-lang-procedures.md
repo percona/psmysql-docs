@@ -4,7 +4,7 @@
 
 Once the component's installed, you can write stored functions and procedures in JavaScript. The syntax looks like this:
 
-```text
+```{.text .no-copy}
 CREATE
     [DEFINER = user]
     FUNCTION [IF NOT EXISTS] sp_name ([func_parameter[,...]])

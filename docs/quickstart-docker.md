@@ -46,7 +46,7 @@ Choose one of the following methods:
 
         ??? example "Expected output"
 
-            ```text
+            ```{.text .no-copy}
             [+] Running 2/2
              ✔ Network quickstart_default  Created
              ✔ Container psmysql           Started
@@ -77,7 +77,7 @@ Choose one of the following methods:
 
     ??? example "Expected output"
 
-        ```text
+        ```{.text .no-copy}
         Unable to find image 'percona/percona-server:{{tag}}' locally
         Pulling from percona/percona-server
         b902d6b6048a: Pull complete
@@ -111,7 +111,7 @@ docker exec -it psmysql mysql -uroot -p
 
 You are prompted to enter the password, which is `secret`. If you have changed the password, use your password. You will not see any characters as you type.
 
-```text
+```{.text .no-copy}
 Enter password:
 ```
 
@@ -119,7 +119,7 @@ You should see the following result.
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 10
     Server version: {{tag}} Percona Server (GPL), Release 1, Revision 238b3c02

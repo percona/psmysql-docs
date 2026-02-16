@@ -24,7 +24,7 @@ CREATE DATABASE mydb;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Query OK, 1 row affected (0.01 sec)
     ```
 
@@ -34,7 +34,7 @@ USE mydb;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Database changed
     ```
 
@@ -54,7 +54,7 @@ CREATE TABLE `departments` (
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Query OK, 0 rows affected (0.01 sec)
     ```
 
@@ -73,7 +73,7 @@ CREATE TABLE `employees` (
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Query OK, 0 rows affected, 1 warning (0.03 sec)
     ```
 
@@ -91,7 +91,7 @@ VALUES
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Query OK, 3 rows affected (0.01 sec)
     Records: 3  Duplicates: 0  Warnings: 0
     ```
@@ -118,7 +118,7 @@ VALUES
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Query OK, 10 rows affected (0.02 sec)
     Records: 10  Duplicates: 0  Warnings: 0
     ```
@@ -133,7 +133,7 @@ SELECT * FROM employees;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +----+---------------------+--------------+------------+
     | id | name                | department_id| country    |
     +----+---------------------+--------------+------------+
@@ -165,7 +165,7 @@ JOIN departments d ON e.department_id = d.id;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +----+---------------------+------------+------------+
     | id | name                | department | country    |
     +----+---------------------+------------+------------+
@@ -198,7 +198,7 @@ WHERE e.country = 'Poland';
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +----+-------------------+------------+---------+
     | id | name              | department | country |
     +----+-------------------+------------+---------+
@@ -220,7 +220,7 @@ UPDATE employees SET name = 'Zofia Niemec' WHERE id = 6;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Query OK, 1 row affected (0.01 sec)
     Rows matched: 1  Changed: 1  Warnings: 0
     ```
@@ -231,7 +231,7 @@ SELECT name FROM employees WHERE id = 6;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +--------------+
     | name         |
     +--------------+
@@ -254,7 +254,7 @@ VALUES
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Query OK, 1 row affected (0.01 sec)
     ```
 
@@ -267,7 +267,7 @@ WHERE e.id = 11;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +----+--------------+------------+---------+
     | id | name         | department | country |
     +----+--------------+------------+---------+
@@ -288,7 +288,7 @@ DELETE FROM employees WHERE id >= 11;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Query OK, 1 row affected (0.01 sec)
     ```
 
@@ -301,7 +301,7 @@ WHERE e.id > 10;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Empty set (0.00 sec)
     ```
 
@@ -315,7 +315,7 @@ SELECT COUNT(*) FROM employees;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +----------+
     | COUNT(*) |
     +----------+
@@ -333,7 +333,7 @@ GROUP BY d.name;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +------------+---------------+
     | department | employee_count|
     +------------+---------------+

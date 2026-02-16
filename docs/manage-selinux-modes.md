@@ -60,7 +60,7 @@ $ sestatus
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     
     SELinux status:                 enabled
     SELinuxfs mount:                /sys/fs/selinux
@@ -92,7 +92,7 @@ $ getenforce
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Enforcing
     ```
 
@@ -107,7 +107,7 @@ $ cat /etc/selinux/config
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     SELINUX=enforcing
     ```
 
@@ -175,7 +175,7 @@ $ nano httpd_permissive.te
 
 Add the following content to the file:
 
-```text
+```{.text .no-copy}
 policy_module(httpd_permissive, 1.0)
 
 gen_permissive(httpd_t)

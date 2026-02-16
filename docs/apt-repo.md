@@ -37,7 +37,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	??? example "Expected output"
 
-		```text
+		```{.text .no-copy}
 		Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
 		Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
 		Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
@@ -67,7 +67,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	??? example "Expected output"
 
-		```text
+		```{.text .no-copy}
 		Reading package lists... Done
 		Building dependency tree... Done
 		Reading state information... Done
@@ -103,7 +103,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	??? example "Expected output"
 
-		```text
+		```{.text .no-copy}
 		  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 		                                 Dload  Upload   Total   Spent    Left  Speed
 		100 15.2k  100 15.2k    0     0  15.2k      0  0:00:01  0:00:01 --:--:-- 15.2k
@@ -127,7 +127,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	??? example "Expected output"
 
-		```text
+		```{.text .no-copy}
 		Reading package lists... Done
 		Building dependency tree... Done
 		Reading state information... Done
@@ -175,7 +175,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	??? example "Expected output"
 
-		```text
+		```{.text .no-copy}
 		Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
 		Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
 		Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
@@ -204,7 +204,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	??? example "Expected output"
 
-		```text
+		```{.text .no-copy}
 		* Enabling Percona Server for MySQL 8.4 LTS repository
 		* Running apt-get update...
 		Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
@@ -237,7 +237,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 
 	??? example "Expected output"
 
-		```text
+		```{.text .no-copy}
 		Reading package lists... Done
 		Building dependency tree... Done
 		Reading state information... Done
@@ -298,7 +298,7 @@ INSTALL COMPONENT 'file://component_percona_udf';
 
 ??? example "Expected output"
 
-	```text
+	```{.text .no-copy}
 	Query OK, 0 rows affected (0.01 sec)
 	```
 
@@ -326,7 +326,7 @@ sudo percona-release enable {{pkg}} testing
 
 ??? example "Expected output"
 
-	```text
+	```{.text .no-copy}
 	* Enabling Percona Server for MySQL 8.4 LTS testing repository
 	* Running apt-get update...
 	Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
@@ -360,7 +360,7 @@ sudo apt update
 
 ??? example "Expected output"
 
-	```text
+	```{.text .no-copy}
 	* Disabling Percona testing repository
 	* Running apt-get update...
 	Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease

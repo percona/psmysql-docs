@@ -14,7 +14,7 @@ SELECT TABLE_SCHEMA, TABLE_NAME, CREATE_OPTIONS FROM
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +----------------------+-------------------+------------------------------+
     | TABLE_SCHEMA         | TABLE_NAME        | CREATE_OPTIONS               |
     +----------------------+-------------------+------------------------------+
@@ -46,7 +46,7 @@ INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION table. You must have the
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +-----------------------------+--------------------+-----+----+--------+------+
     | Field                       | Type               | Null| Key| Default| Extra|
     +-----------------------------+--------------------+-----+----+--------+------+
@@ -73,7 +73,7 @@ INFORMATION_SCHEMA.SCHEMATA WHERE DEFAULT_ENCRYPTION='YES';
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +------------------------------+---------------------------------+
     | SCHEMA_NAME                  | DEFAULT_ENCRYPTION              |
     +------------------------------+---------------------------------+

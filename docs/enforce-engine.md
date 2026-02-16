@@ -38,6 +38,6 @@ This variable is not case sensitive.
 
 Adding following option to [my.cnf](glossary.md#mycnf) will start the server with InnoDB as enforced storage engine.
 
-```text
+```{.text .no-copy}
 enforce_storage_engine=InnoDB
 ```

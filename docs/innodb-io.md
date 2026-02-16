@@ -37,7 +37,7 @@ The following values are allowed:
 
 The following information has been added to `SHOW ENGINE INNODB STATUS` to confirm the checkpointing activity:
 
-```text
+```{.text .no-copy}
 The current checkpoint age target
 The current age of the oldest page modification which has not been flushed to disk yet.
 The current age of the last checkpoint

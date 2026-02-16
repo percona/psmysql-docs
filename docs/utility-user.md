@@ -57,7 +57,7 @@ If a client attempts to create a MySQL user that matches this user specification
 
 ??? example "Error message"
 
-    ```text
+    ```{.text .no-copy}
     utility_user=frank@% and CREATE USER [‘frank@localhost](mailto:'frank@localhost)’;
     ```
 
@@ -82,7 +82,7 @@ Option [utility_user_password](#utility_user_password) specifies the password fo
 
 ??? example "Utility user password"
 
-    ```text
+    ```{.text .no-copy}
     utility_user_password=Passw0rD
     ```
 
@@ -103,7 +103,7 @@ Option [utility_user_schema_access](#utility_user_schema_access) specifies the n
 
 ??? example "Utility user schema access"
 
-    ```text
+    ```{.text .no-copy}
     utility_user_schema_access=schema1,schema2,schema3
     ```
 
@@ -124,7 +124,7 @@ Option [utility-user-privileges](#utility_user_privileges) allows a comma-separa
 
 ??? example "Utility user privileges"
 
-    ```text
+    ```{.text .no-copy}
     utility-user-privileges =”CREATE,DROP,LOCK TABLES”;
     ```
 
@@ -201,6 +201,6 @@ Option [utility_user_dynamic_privileges](#utility_user_dynamic_privileges) allow
 
 ??? example "Utility user dynamic privileges"
 
-    ```text
+    ```{.text .no-copy}
     utility_user_dynamic_privileges =”SYSTEM_USER,AUDIT_ADMIN”;
     ```

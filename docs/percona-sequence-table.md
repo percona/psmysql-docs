@@ -52,7 +52,7 @@ SELECT * FROM PERCONA_SEQUENCE_TABLE(3) AS tt;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +-------+
     | value |
     +-------+
@@ -76,7 +76,7 @@ SELECT value AS result \
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +--------+
     | result |
     +--------+
@@ -101,7 +101,7 @@ SELECT value AS result \
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +--------+
     | result |
     +--------+
@@ -125,7 +125,7 @@ The output could be the following:
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +--------+
     | result |
     +--------+
@@ -147,7 +147,7 @@ SELECT MD5(value) AS result \
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +----------------------------------+
     | result                           |
     +----------------------------------+
@@ -170,7 +170,7 @@ SELECT * FROM t1;
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     +-------+
     | value |
     +-------+

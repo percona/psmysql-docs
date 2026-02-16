@@ -100,7 +100,7 @@ SET @dictionary_data = 'one' 'two' 'three' 'four';
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Query OK, 0 rows affected (0.00 sec)
     ```
 
@@ -110,7 +110,7 @@ CREATE COMPRESSION_DICTIONARY numbers (@dictionary_data);
 
 ??? example "Expected output"
 
-    ```text
+    ```{.text .no-copy}
     Query OK, 0 rows affected (0.00 sec)
     ```
 
