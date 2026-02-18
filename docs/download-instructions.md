@@ -2,6 +2,8 @@
 
 ## Select the software
 
+<!-- Update the following instruction to be valid for 9.7-->
+
 Do the following steps to select the software:
 
 1. Open [Percona Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads)

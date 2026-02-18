@@ -225,33 +225,6 @@ Also, all variables can exist in one or both of the following scopes:
 
 ## Variable definitions
 
-### `rocksdb_access_hint_on_compaction_start`
-
-| Option       | Description                               |
-|--------------|-------------------------------------------|
-| Command-line | --rocksdb-access-hint-on-compaction-start |
-| Dynamic      | No                                        |
-| Scope        | Global                                    |
-| Data type    | String or numeric                         |
-| Default      | NORMAL or 1                               |
-
-**[Removed: 8.4.5-5]** As of Percona Server for MySQL 8.4.5-5, the `rocksdb-access-hint-on-compaction-start` variable has been removed.
-
-Specifies the file access pattern once a compaction is started,
-applied to all input files of a compaction.
-Possible values are:
-
-* `0` = `NONE`
-
-* `1` = `NORMAL` (default)
-
-* `2` = `SEQUENTIAL`
-
-* `3` = `WILLNEED`
-
-
-
-
 ### `rocksdb_advise_random_on_open`
 
 | Option       | Description                     |
@@ -484,9 +457,6 @@ Specifies the number of keys for each set of delta encoded data.
 Default value is `16`.
 Allowed range is from `1` to `2147483647`.
 
-
-
-
 ### `rocksdb_block_size`
 
 | Option       | Description          |
@@ -499,14 +469,7 @@ Allowed range is from `1` to `2147483647`.
 
 Specifies the size of the data block for reading RocksDB data files.
 The default value is `16 KB`.
-The allowed range is from `1024` to `18446744073709551615` bytes.
-
-#### Version changes
-
-In Percona Server for MySQL 8.4.7-7, the maximum value was changed to `4294967296` bytes (4 GiB).
-
-
-
+The allowed range is from `1024` to `4294967296` bytes (4 GiB).
 
 ### `rocksdb_block_size_deviation`
 
@@ -526,9 +489,6 @@ Default value is `10`, meaning that the block is not closed
 until there is less than 10 bits of free space remaining.
 
 Allowed range is from `1` to `2147483647`.
-
-
-
 
 ### `rocksdb_bulk_load`
 
@@ -596,12 +556,7 @@ sorted by the bulkloader itself, at a performance penalty.
 | Minimum      | 1                                                                          |
 | Maximum      | 1024                                                                       |
 
-Added in Percona Server for MySQL 8.4.5-5
-
 Specifies the number of parallel worker threads used to compress SST data blocks during bulk load.
-
-
-
 
 ### `rocksdb_bulk_load_enable_unique_key_check`
 
@@ -612,14 +567,8 @@ Specifies the number of parallel worker threads used to compress SST data blocks
 | Data type    | Bool                                                                     |
 | Default      | OFF                                                                      |
 
-Added in Percona Server for MySQL 8.4.5-5.
-
 Controls whether the unique key constraint is checked during bulk loading.
 This setting can only be changed when bulk loading is disabled.
-
-
-
-
 
 ### `rocksdb_bulk_load_fail_if_not_bottommost_level`
 
@@ -642,8 +591,6 @@ This variable is disabled (OFF) by default.
     When `rocksdb_bulk_load_fail_if_not_bottommost_level` is disabled, it may cause severe performance impact.
 
 
-
-
 ### `rocksdb_bulk_load_partial_index`
 
 | Option       | Description         |
@@ -655,8 +602,6 @@ This variable is disabled (OFF) by default.
 | Default      | ON                  |
 
 Materializes partial index during bulk load instead of leaving the index empty.
-
-
 
 
 ### `rocksdb_bulk_load_size`
@@ -678,8 +623,6 @@ before they are implicitly committed.
 Allowed range is from `1` to `1073741824`.
 
 
-
-
 ### `rocksdb_bulk_load_use_sst_partitioner`
 
 | Option       | Description         |
@@ -693,8 +636,6 @@ Allowed range is from `1` to `1073741824`.
 If enabled, this variable uses sst partitioner to split sst files to ensure bulk load sst files can be ingested to bottommost level.
 
 This variable is disabled (OFF) by default.
-
-
 
 
 ### `rocksdb_bytes_per_sync`
@@ -713,9 +654,6 @@ This operation can be used to smooth out write I/O over time.
 Default value is `0` meaning that files are never synced.
 Allowed range is up to `18446744073709551615`.
 
-
-
-
 ### `rocksdb_cache_dump`
 
 | Option       | Description          |
@@ -728,9 +666,6 @@ Allowed range is up to `18446744073709551615`.
 
 Includes RocksDB block cache content in core dump. This variable is enabled by default.
 
-
-
-
 ### `rocksdb_cache_high_pri_pool_ratio`
 
 | Option | Description |
@@ -742,8 +677,6 @@ Includes RocksDB block cache content in core dump. This variable is enabled by d
 | Default | 0.0 |
 
 This variable specifies the size of the block cache high-pri pool. The default value and minimum value is 0.0. The maximum value is 1.0.
-
-
 
 
 ### `rocksdb_cache_index_and_filter_blocks`
@@ -760,8 +693,6 @@ Specifies whether RocksDB should use the block cache for caching the index
 and bloomfilter data blocks from each data file.
 Enabled by default.
 If you disable this feature, RocksDB allocates additional memory to maintain these data blocks.
-
-
 
 
 ### `rocksdb_cache_index_and_filter_with_high_priority`
@@ -958,15 +889,13 @@ This variable acts as a trigger. Set the variable to `ON`, `rocksdb-compact-lzer
 
 ### `rocksdb_compaction_readahead_size`
 
-**[Changed in 8.4.5-5]** The default value of `rocksdb_compaction_readahead_size` has changed from `0` to `2097152`.
-
 | Option       | Description                         |
 |--------------|-------------------------------------|
 | Command-line | --rocksdb-compaction-readahead-size |
 | Dynamic      | Yes                                 |
 | Scope        | Global                              |
 | Data type    | Numeric                             |
-| Default      | 2097152 (Prior to 8.4.5-5, the default was 0)                                   |
+| Default      | 2097152                             |
 
 Specifies the size of reads to perform ahead of compaction.
 The default value is now `2097152`.
@@ -978,8 +907,6 @@ Maximum allowed value is `18446744073709551615`.
 !!! note
 
     If you set this variable to a non-zero value, rocksdb_new_table_reader_for_compaction_inputs is enabled.
-
-
 
 
 ### `rocksdb_compaction_sequential_deletes`
@@ -1271,13 +1198,7 @@ through before assuming deadlock.
 | Data type | UINT |
 | Default | 2 |
 
-The cardinality multiplier used in tests. The minimum value is 0. The maximum value is 2147483647 (INT_MAX).
-
-#### Version changes
-
-In Percona Server for MySQL 8.4.7-7, the minimum value was changed to `1`.
-
-
+The cardinality multiplier used in tests. The minimum value is 1. The maximum value is 2147483647 (INT_MAX).
 
 
 ### `rocksdb_debug_manual_compaction_delay`
@@ -1322,7 +1243,6 @@ by always overriding it with some value.
 | Data type                                     | Boolean                                                                               |
 | Default                                       | OFF                                                                                   |
 
-Added in Percona Server for MySQL 8.4.5-5
 
 Allows setting iterator bounds in RocksDB even when the query range conditions would normally enable Bloom filter usage.
 
@@ -1499,6 +1419,7 @@ re-enabled. This variable should be used by backup tools. Prolonged
 use or other misuse can have serious side effects to the server instance.
 
 
+<!-- Clarify whether this variable is valid for 9.7-->
 
 
 ### `rocksdb_disable_instant_ddl`
@@ -1511,13 +1432,7 @@ use or other misuse can have serious side effects to the server instance.
 | Data type    | Boolean                                       |
 | Default      | OFF                                            |
 
-**[Deprecated: 8.4.5-5]** The `rocksdb_disable_instant_ddl` variable is deprecated and will be removed in a future version. Its default value has changed to `OFF` as of this version.
-
-Disables Instant DDL during `ALTER TABLE` operations.
-
-Prior to Percona Server for MySQL 8.4.5-5, this variable was enabled (`ON`) by default.
-
-
+The `rocksdb_disable_instant_ddl` variable is deprecated and will be removed in a future version. Disables Instant DDL during `ALTER TABLE` operations.
 
 
 ### `rocksdb_enable_bulk_load_api`
@@ -1582,7 +1497,6 @@ Specifies whether to enable optimization where the read is cached from a failed 
 | Data type                   | Boolean                                                                               |
 | Default                     | ON                                                                                    |
 
-Added in Percona Server for MySQL 8.4.5-5.
 
 Enables Instant DDL during `ALTER TABLE` operations when possible. If set
 to `OFF`, no DDL operations can be executed as instant.
@@ -1598,8 +1512,6 @@ to `OFF`, no DDL operations can be executed as instant.
 | Data type                                | Boolean                                                                               |
 | Default                                  | OFF                                                                                   |
 
-Added in Percona Server for MySQL 8.4.5-5.
-
 Enables Instant DDL specifically for appending columns during `ALTER TABLE`
 operations.
 
@@ -1613,8 +1525,6 @@ operations.
 | Scope                                         | Global                                                                                |
 | Data type                                     | Boolean                                                                               |
 | Default                                       | OFF                                                                                   |
-
-Added in Percona Server for MySQL 8.4.5-5.
 
 Enables Instant DDL for changes to column defaults during `ALTER TABLE`
 operations.
@@ -1630,8 +1540,6 @@ operations.
 | Data type                                    | Boolean                                                                               |
 | Default                                      | OFF                                                                                   |
 
-Added in Percona Server for MySQL 8.4.5-5.
-
 Enables Instant DDL for dropping indexes during `ALTER TABLE` operations.
 
 
@@ -1644,8 +1552,6 @@ Enables Instant DDL for dropping indexes during `ALTER TABLE` operations.
 | Scope                                          | Global                                                                                |
 | Data type                                      | Boolean                                                                               |
 | Default                                        | OFF                                                                                   |
-
-Added in Percona Server for MySQL 8.4.5-5.
 
 Enables Instant DDL for changes to table comments during `ALTER TABLE`
 operations.
@@ -1752,6 +1658,7 @@ rows may disappear in the middle of transactions as they
 are dropped during compaction. **Use with caution.**
 
 
+<!-- Clarify whether this variable is valid for 9.7-->
 
 ### `rocksdb_enable_udt_in_mem`
 
@@ -1762,8 +1669,6 @@ are dropped during compaction. **Use with caution.**
 | Scope                             | Global                                                                                |
 | Data type                         | Boolean                                                                               |
 | Default                           | OFF                                                                                   |
-
-Added in Percona Server for MySQL 8.4.5-5.
 
 **[Not yet implemented.]**
 
@@ -1820,20 +1725,15 @@ Specifies whether to report an error instead of a warning if an index is
 created on a char field where the table has a sub-optimal collation (case
 insensitive). Enabled by default.
 
-
-
-
 ### `rocksdb_file_checksums`
 
-**[Changed in 8.4.5-5]** The `rocksdb_file_checksums` variable's default value changed from `OFF` to `CHECKSUMS_OFF`, and its data type changed to `Enum= CHECKSUMS_OFF, CHECKSUMS_WRITE_ONLY, CHECKSUMS_WRITE_AND_VERIFY`.
-
-| Option        | Description                                                                                                                               |
-|---------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| Command-line  | --rocksdb-file-checksums                                                                                                                  |
-| Dynamic       | No                                                                                                                                        |
-| Scope         | Global                                                                                                                                    |
-| Data type     | Enum= CHECKSUMS_OFF, CHECKSUMS_WRITE_ONLY, CHECKSUMS_WRITE_AND_VERIFY                                                                       |
-| Default       | CHECKSUMS_OFF (Prior to 8.4.5-5, the default was OFF)                                                                                      |
+| Option        | Description                                                             |
+|---------------|-------------------------------------------------------------------------|
+| Command-line  | --rocksdb-file-checksums                                               |
+| Dynamic       | No                                                                     |
+| Scope         | Global                                                                 |
+| Data type     | Enum= CHECKSUMS_OFF, CHECKSUMS_WRITE_ONLY, CHECKSUMS_WRITE_AND_VERIFY  |
+| Default       | CHECKSUMS_OFF                     |
 
 
 This variable controls whether to write and check RocksDB file-level checksums. The possible values are:
@@ -1843,11 +1743,6 @@ This variable controls whether to write and check RocksDB file-level checksums. 
 * `CHECKSUMS_WRITE_ONLY`: Writes checksums but skips verification on database open.
 
 * `CHECKSUMS_WRITE_AND_VERIFY`: Writes checksums and verifies them when the database is opened.
-
-Prior to Percona Server for MySQL 8.4.5-5, the default value was `OFF`, and the data type was a Boolean (where `OFF` equated to disabled).
-
-
-
 
 ### `rocksdb_flush_log_at_trx_commit`
 
@@ -2072,8 +1967,6 @@ log messages)
 | Data type                             | Enum: LOG, PUSH_WARNING, PUSH_ERROR                                                   |
 | Default                               | LOG                                                                                   |
 
-Added in Percona Server for MySQL 8.4.5-5.
-
 Controls the behavior when creating a table encounters an error related to
 RocksDB options. You can choose to only log the error, pass the query and
 give users a warning, or fail the query.
@@ -2088,8 +1981,6 @@ give users a warning, or fail the query.
 | Scope                       | Global                                                                                |
 | Data type                   | Enum: ABORT_SERVER, IGNORE_ERROR                                                      |
 | Default                     | ABORT_SERVER                                                                        |
-
-Added in Percona Server for MySQL 8.4.5-5.
 
 Controls the behavior when an I/O error occurs within RocksDB. By default,
 MyRocks aborts the server and refuses to start. Setting this option to
@@ -2127,25 +2018,6 @@ Default value is `1000`.
 Allowed range is from `1` to `18446744073709551615`.
 
 
-
-
-### `rocksdb_large_prefix`
-
-| Option       | Description            |
-|--------------|------------------------|
-| Command-line | --rocksdb-large-prefix |
-| Dynamic      | Yes                    |
-| Scope        | Global                 |
-| Data type    | Boolean                |
-| Default      | ON                     |
-
-**[Removed: 8.4.5-5]** As of Percona Server for MySQL 8.4.5-5, the `rocksdb_large_prefix` variable has been removed.
-
-This variable is deprecated in `Percona Server for MySQL 8.3.0-1` and will be removed in a future release.
-
-When enabled, this option allows index key prefixes longer than 767 bytes (up to 3072 bytes). The values for `rocksdb_large_prefix` should be the same between source and replica.
-
-
 ### `rocksdb_lock_scanned_rows`
 
 | Option       | Description                 |
@@ -2159,9 +2031,6 @@ When enabled, this option allows index key prefixes longer than 767 bytes (up to
 Specifies whether to hold the lock on rows that are scanned during `UPDATE`
 and not actually updated.
 Disabled by default.
-
-
-
 
 ### `rocksdb_lock_wait_timeout`
 
@@ -2177,9 +2046,6 @@ Specifies the number of seconds MyRocks should wait to acquire a row lock
 before aborting the request.
 Default value is `1`.
 Allowed range is up to `1073741824`.
-
-
-
 
 ### `rocksdb_log_file_time_to_roll`
 
@@ -2379,9 +2245,6 @@ The minimum value is `0` and the maximum value is `UINT64_MAX`.
 
 Tracks the history for at most `rockdb_mx_compaction_history` completed compactions. The history is in the INFORMATION_SCHEMA.ROCKSDB_COMPACTION_HISTORY table.
 
-
-
-
 ### `rocksdb_max_file_opening_threads`
 
 | Option       | Description                                     |
@@ -2393,14 +2256,7 @@ Tracks the history for at most `rockdb_mx_compaction_history` completed compacti
 | Default      | 16                                              |
 
 
-This variable sets `DBOptions::max_file_opening_threads` for RocksDB. The default value is `16`. The minimum value is `1` and the maximum value is 2147483647 (`INT_MAX`).
-
-#### Version changes
-
-In Percona Server for MySQL 8.4.7-7, the maximum value was changed to `262144`.
-
-
-
+This variable sets `DBOptions::max_file_opening_threads` for RocksDB. The default value is `16`. The minimum value is `1` and the maximum value is `262144` (`INT_MAX`).
 
 ### `rocksdb_max_latest_deadlocks`
 
@@ -2413,8 +2269,6 @@ In Percona Server for MySQL 8.4.7-7, the maximum value was changed to `262144`.
 | Default      | 5                              |
 
 Specifies the maximum number of recent deadlocks to store.
-
-
 
 
 ### `rocksdb_max_log_file_size`
@@ -3040,8 +2894,6 @@ Default value is `3600`.
 Allowed is from `0` to `4294967295`.
 
 
-
-
 ### `rocksdb_signal_drop_index_thread`
 
 | Option       | Description                        |
@@ -3053,8 +2905,6 @@ Allowed is from `0` to `4294967295`.
 | Default      | OFF                                |
 
 Signals the MyRocks drop index thread to wake up.
-
-
 
 
 ### `rocksdb_sim_cache_size`
@@ -3069,8 +2919,6 @@ Signals the MyRocks drop index thread to wake up.
 
 Enables the simulated cache, which allows us to figure out the hit/miss rate
 with a specific cache size without changing the real block cache.
-
-
 
 
 ### `rocksdb_skip_bloom_filter_on_read`
@@ -3103,8 +2951,6 @@ Specifies whether to skip caching data on read requests.
 Disabled by default (caching is not skipped).
 
 
-
-
 ### `rocksdb_skip_locks_if_skip_unique_check`
 
 | Option       | Description                             |
@@ -3116,8 +2962,6 @@ Disabled by default (caching is not skipped).
 | Default      | OFF                                     |
 
 Skip row locking when unique checks are disabled.
-
-
 
 
 ### `rocksdb_sst_mgr_rate_bytes_per_sec`
@@ -3133,8 +2977,6 @@ Skip row locking when unique checks are disabled.
 Specifies the maximum rate for writing to data files.
 Default value is `0`. This option is not effective on HDD.
 Allowed range is from `0` to `18446744073709551615`.
-
-
 
 
 ### `rocksdb_stats_dump_period_sec`
@@ -3153,8 +2995,6 @@ Default value is `600`.
 Allowed range is up to `2147483647`.
 
 
-
-
 ### `rocksdb_stats_level`
 
 | Option       | Description           |
@@ -3166,8 +3006,6 @@ Allowed range is up to `2147483647`.
 | Default      | 0                     |
 
 Controls the RocksDB statistics level. The default value is “0” (kExceptHistogramOrTimers), which is the fastest level. The maximum value is “4”.
-
-
 
 
 ### `rocksdb_stats_recalc_rate`
@@ -3184,8 +3022,6 @@ Specifies the number of indexes to recalculate per second. Recalculating index s
 Default value is `0`. Allowed range is up to `4294967295`.
 
 
-
-
 ### `rocksdb_store_row_debug_checksums`
 
 | Option       | Description                         |
@@ -3198,47 +3034,6 @@ Default value is `0`. Allowed range is up to `4294967295`.
 
 Specifies whether to include checksums when writing index or table records.
 Disabled by default.
-
-
-
-
-### `rocksdb_strict_collation_check`
-
-| Option       | Description                      |
-|--------------|----------------------------------|
-| Command-line | --rocksdb-strict-collation-check |
-| Dynamic      | Yes                              |
-| Scope        | Global                           |
-| Data type    | Boolean                          |
-| Default      | ON                               |
-
-**[Removed: 8.4.5-5]** As of Percona Server for MySQL 8.4.5-5, the `rocksdb_strict_collation_check` variable has been removed.
-
-Specifies whether to check and verify
-that table indexes have proper collation settings.
-Enabled by default.
-
-
-
-
-### `rocksdb_strict_collation_exceptions`
-
-| Option       | Description                           |
-|--------------|---------------------------------------|
-| Command-line | --rocksdb-strict-collation-exceptions |
-| Dynamic      | Yes                                   |
-| Scope        | Global                                |
-| Data type    | String                                |
-| Default      |                                       |
-
-**[Removed: 8.4.5-5]** As of Percona Server for MySQL 8.4.5-5, the `rocksdb_strict_collation_exceptions` variable has been removed.
-
-Lists tables (as a regular expression) that should be excluded
-from verifying case-sensitive collation
-enforced by rocksdb_strict_collation_check.
-Empty by default.
-
-
 
 
 ### `rocksdb_table_cache_numshardbits`
@@ -3256,8 +3051,6 @@ The default value is `6`.
 The allowed range is from `0` to `19`.
 
 
-
-
 ### `rocksdb_table_stats_background_thread_nice_value`
 
 | Option       | Description                                        |
@@ -3271,9 +3064,6 @@ The allowed range is from `0` to `19`.
 The nice value for index stats.
 The minimum = -20 (THREAD_PRIO_MIN)
 The maximum = 19 (THREAD_PRIO_MAX)
-
-
-
 
 ### `rocksdb_table_stats_max_num_rows_scanned`
 
@@ -3309,8 +3099,6 @@ The minimum is `0`.
 The maximum is `18,446,744,073,709,551,615`.
 
 
-
-
 ### `rocksdb_table_stats_recalc_threshold_pct`
 
 | Option       | Description                                |
@@ -3326,8 +3114,6 @@ to trigger stats recalculations. This is a dependent variable for stats
 recalculation.
 The minimum value is `0`
 The maximum value is `100` (RDB_TBL_STATS_RECALC_THRESHOLD_PCT_MAX).
-
-
 
 
 ### `rocksdb_table_stats_sampling_pct`
@@ -3346,7 +3132,6 @@ Default value is `10`.
 Allowed range is from `0` to `100`.
 
 
-
 ### `rocksdb_table_stats_skip_system_cf`
 
 | Option                            | Description                                                                           |
@@ -3357,7 +3142,6 @@ Allowed range is from `0` to `100`.
 | Data type                         | Boolean                                                                               |
 | Default                           | OFF                                                                                   |
 
-Added in Percona Server for MySQL 8.4.5-5.
 
 Determines whether to skip recording table statistics for the system column
 family.
@@ -3376,8 +3160,6 @@ family.
 Enables table-scan-based index calculations. The default value is `OFF`.
 
 
-
-
 ### `rocksdb_tmpdir`
 
 | Option       | Description      |
@@ -3389,8 +3171,6 @@ Enables table-scan-based index calculations. The default value is `OFF`.
 | Default      |                  |
 
 Specifies the path to the directory for temporary files during DDL operations.
-
-
 
 
 ### `rocksdb_trace_block_cache_access`
@@ -3406,8 +3186,6 @@ Specifies the path to the directory for temporary files during DDL operations.
 Defines the block cache trace option string. The format is sampling frequency: max_trace_file_size:trace_file_name. The sampling frequency value and max_trace_file_size value are positive integers. The block accesses are saved to the `rocksdb_datadir/block_cache_traces/trace_file_name`. The default value is an empty string.
 
 
-
-
 ### `rocksdb_trace_queries`
 
 | Option       | Description             |
@@ -3419,8 +3197,6 @@ Defines the block cache trace option string. The format is sampling frequency: m
 | Default      | &quot;&quot;            |
 
 This variable is a trace option string. The format is sampling_frequency:max_trace_file_size:trace_file_name. The sampling_frequency and max_trace_file_size are positive integers. The queries are saved to the rocksdb_datadir/queries_traces/trace_file_name.
-
-
 
 
 ### `rocksdb_trace_sst_api`
@@ -3436,8 +3212,6 @@ This variable is a trace option string. The format is sampling_frequency:max_tra
 Specifies whether to generate trace output in the log
 for each call to `SstFileWriter`.
 Disabled by default.
-
-
 
 
 ### `rocksdb_track_and_verify_wals_in_manifest`
@@ -3469,8 +3243,6 @@ When enabled this variable allows/encourages threads that are using
 two-phase commit to `prepare` in parallel.
 
 
-
-
 ### `rocksdb_unsafe_for_binlog`
 
 | Option       | Description                 |
@@ -3484,8 +3256,6 @@ two-phase commit to `prepare` in parallel.
 Specifies whether to allow statement-based binary logging
 which may break consistency.
 Disabled by default.
-
-
 
 
 ### `rocksdb_update_cf_options`
@@ -3502,8 +3272,6 @@ Specifies option updates for each column family.
 Empty by default.
 
 
-
-
 ### `rocksdb_use_adaptive_mutex`
 
 | Option       | Description                  |
@@ -3516,8 +3284,6 @@ Empty by default.
 
 Specifies whether to use adaptive mutex which spins in user space before
 resorting to the kernel. Disabled by default.
-
-
 
 
 ### `rocksdb_use_default_sk_cf`
@@ -3533,8 +3299,6 @@ resorting to the kernel. Disabled by default.
 Use `default_sk` column family for secondary keys.
 
 
-
-
 ### `rocksdb_use_direct_io_for_flush_and_compaction`
 
 | Option       | Description                                      |
@@ -3548,8 +3312,6 @@ Use `default_sk` column family for secondary keys.
 Specifies whether to write to data files directly,
 without caches or buffers.
 Disabled by default.
-
-
 
 
 ### `rocksdb_use_direct_reads`
@@ -3569,8 +3331,6 @@ If you enable this,
 make sure that rocksdb_allow_mmap_reads is disabled.
 
 
-
-
 ### `rocksdb_use_fsync`
 
 | Option       | Description         |
@@ -3584,8 +3344,6 @@ make sure that rocksdb_allow_mmap_reads is disabled.
 Specifies whether MyRocks should use `fsync` instead of `fdatasync`
 when requesting a sync of a data file.
 Disabled by default.
-
-
 
 
 ### `rocksdb_use_hyper_clock_cache`
@@ -3603,7 +3361,6 @@ If enabled, this variable uses HyperClockCache instead of default LRUCache for R
 This variable is disabled (OFF) by default.
 
 
-
 ### `rocksdb_use_io_uring`
 
 | Option                  | Description                                                                           |
@@ -3614,7 +3371,6 @@ This variable is disabled (OFF) by default.
 | Data type               | Boolean                                                                               |
 | Default                 | OFF                                                                                   |
 
-Added in Percona Server for MySQL 8.4.5-5.
 
 Enables the use of `io_uring` for RocksDB.
 
@@ -3632,8 +3388,6 @@ Enables the use of `io_uring` for RocksDB.
 This variable is [tech preview](./glossary.md#tech-preview) and may be removed in the future releases.
 
 Allows to turn on the write buffer manager (WriteBufferManager) from `cnf` files. This variable is related to [`rocksdb_charge_memory`](#rocksdb_charge_memory).
-
-
 
 
 ### `rocksdb_validate_tables`
@@ -3658,8 +3412,6 @@ Specifies whether to verify that MySQL data dictionary is equal to the MyRocks d
 * `2`: verify and continue with error.
 
 
-
-
 ### `rocksdb_verify_row_debug_checksums`
 
 | Option       | Description                          |
@@ -3672,8 +3424,6 @@ Specifies whether to verify that MySQL data dictionary is equal to the MyRocks d
 
 Specifies whether to verify checksums when reading index or table records.
 Disabled by default.
-
-
 
 
 ### `rocksdb_wal_bytes_per_sync`
@@ -3693,8 +3443,6 @@ Default value is `0`, meaning that files are never synced.
 Allowed range is up to `18446744073709551615`.
 
 
-
-
 ### `rocksdb_wal_dir`
 
 | Option       | Description       |
@@ -3706,8 +3454,6 @@ Allowed range is up to `18446744073709551615`.
 | Default      |                   |
 
 Specifies the path to the directory where MyRocks stores WAL files.
-
-
 
 
 ### `rocksdb_wal_recovery_mode`
@@ -3734,8 +3480,6 @@ The following are the options:
 * `3`: If a corrupted WAL entry is detected, skip only the corrupted entry and continue the apply WAL entries. This option can be dangerous.
 
 
-
-
 ### `rocksdb_wal_size_limit_mb`
 
 | Option       | Description                 |
@@ -3752,8 +3496,6 @@ Default value is `0` (never rotated).
 Allowed range is up to `9223372036854775807`.
 
 
-
-
 ### `rocksdb_wal_ttl_seconds`
 
 | Option       | Description               |
@@ -3767,8 +3509,6 @@ Allowed range is up to `9223372036854775807`.
 Specifies the timeout in seconds before deleting archived WAL files.
 Default is `0` (archived WAL files are never deleted).
 Allowed range is up to `9223372036854775807`.
-
-
 
 
 ### `rocksdb_whole_key_filtering`
@@ -3787,8 +3527,6 @@ Enabled by default.
 Make sure that lookups use the whole key for matching.
 
 
-
-
 ### `rocksdb_write_batch_flush_threshold`
 
 | Option       | Description                           |
@@ -3800,8 +3538,6 @@ Make sure that lookups use the whole key for matching.
 | Default      | 0                                     |
 
 This variable specifies the maximum size of the write batch in bytes before flushing. Only valid if `rockdb_write_policy` is WRITE_UNPREPARED. There is no limit if the variable is set to the default setting.
-
-
 
 
 ### `rocksdb_write_batch_max_bytes`
@@ -3820,8 +3556,6 @@ limit. In case user exceeds the limit following error will be shown:
 limit reached`.
 
 
-
-
 ### `rocksdb_write_disable_wal`
 
 | Option       | Description                 |
@@ -3836,8 +3570,6 @@ Lets you temporarily disable writes to WAL files,
 which can be useful for bulk loading.
 
 
-
-
 ### `rocksdb_write_ignore_missing_column_families`
 
 | Option       | Description                                    |
@@ -3850,8 +3582,6 @@ which can be useful for bulk loading.
 
 Specifies whether to ignore writes to column families that do not exist.
 Disabled by default (writes to non-existent column families are not ignored).
-
-
 
 
 ### `rocksdb_write_policy`

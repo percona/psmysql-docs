@@ -13,6 +13,8 @@ Using the `PERCONA_SEQUENCE_TABLE()` function provides the following:
 
 ## Version update
 
+<!-- Update this doc to be valid for 9.7-->
+
 Percona Server for MySQL 8.4 deprecated [`SEQUENCE_TABLE()`](sequence-table.md), and Percona may remove this function in a future release. We recommend that you use `PERCONA_SEQUENCE_TABLE()` instead.
 
 To maintain compatibility with existing third-party software, `SEQUENCE_TABLE` is no longer a reserved term and can be used as a regular identifier.

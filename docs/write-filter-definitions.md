@@ -353,7 +353,7 @@ Performance impact is a critical consideration when implementing detailed loggin
 
 ## Implement the filter
 
-Here's how to define and implement an audit log filter in Percona Server for MySQL 8.4.6:
+Here's how to define and implement an audit log filter in Percona Server for MySQL {{vers}}:
 
 ### Create a filter
 

@@ -4,6 +4,8 @@
 
 [Need expert guidance for your upgrade? Percona Support is ready to assist you every step of the way :octicons-link-external-16:](https://www.percona.com/services/support).
 
+<!-- Update this doc to be valid for 9.7-->
+
 ## Why upgrade to Percona Server for MySQL {{vers}} LTS
 
 Long‑Term Support (LTS) releases focus on stability, predictable security patches, and a clearly defined maintenance horizon—essential qualities for production databases. Moving from 8.0 to 8.4 isn’t just a simple version bump: new defaults, deprecated options, and behavior changes can affect performance and break existing scripts. Treat the upgrade as a small project: plan the steps, pick the method that matches your downtime window, and verify the result.

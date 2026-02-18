@@ -2,6 +2,8 @@
 
 --8<--- "get-help-snip.md"
 
+<!-- Clarify whether the following instruction is valid for 9.7-->
+
 Downgrading to a 5.7 or earlier series is not supported.
 
 Between versions within the same Long-Term Support (LTS) series, you can downgrade from 8.4.y LTS to 8.4.x LTS using the following methods:

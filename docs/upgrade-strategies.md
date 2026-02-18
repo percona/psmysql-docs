@@ -96,12 +96,9 @@ Rollback: if issues arise before fail-forward, redirect traffic back to 8.0 and 
 ## Further reading
 
 * [Upgrade overview](./upgrade.md)
-* [Upgrade checklist for {{vers}}](./upgrade-checklist-8.4.md)
+* [Upgrade checklist for {{vers}}](./upgrade-checklist-9.7.md)
 * [Upgrade procedures for {{vers}}](./upgrade-procedures.md)
 * [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md)
 * [Upgrade from plugins to components](./upgrade-components.md)
 * [Downgrade options](./downgrade.md)
-* [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md)
-* [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md)
-* [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
-* [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md)
+* [Percona Toolkit updates for {{vers}}](./percona-toolkit-9.7-updates.md)

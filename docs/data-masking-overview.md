@@ -14,6 +14,7 @@ Data masking in Percona Server for MySQL is an essential tool for protecting sen
 
 These examples underscore how data masking serves as a crucial safeguard for sensitive information, allowing organizations to leverage their data effectively across diverse functions.
 
+<!-- Clarify whether the Version updates are valid for 9.7-->
 
 ## Version updates
 

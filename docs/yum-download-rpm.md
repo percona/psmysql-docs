@@ -4,6 +4,9 @@ Download the packages from [Percona Product Downloads :octicons-link-external-16
 
 The RPM builds for *RHEL* 8 and *RHEL* 9 contain ARM packages with the aarch64.rpm extension. This means that Percona Server for MySQL is available for users on ARM-based systems.
 
+<!-- Update this doc to be valid for 9.7-->
+
+
 The following example downloads *Percona Server for MySQL* {{release}} release `x86_64` packages for *RHEL* 8.
 {.power-number}
 

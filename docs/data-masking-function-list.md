@@ -4,7 +4,7 @@ The feature is in [tech preview](glossary.md#tech-preview).
 
 ## Permissions
 
-In Percona Server for MySQL 8.4.4-1, dictionary-related functions no longer run internal queries as the root user without a password. Following MySQL best practices, many admins disable the `root` user, which previously caused these functions to stop working. The server now uses the built-in `mysql.session` user to execute dictionary queries. 
+Dictionary-related functions no longer run internal queries as the root user without a password. Following MySQL best practices, many admins disable the `root` user, which previously caused these functions to stop working. The server now uses the built-in `mysql.session` user to execute dictionary queries. 
 
 However, for this to work, you need to grant the mysql.session user `SELECT`, `INSERT`, `UPDATE`, and `DELETE` privileges on the `masking_dictionaries` table.
 
@@ -51,10 +51,8 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON <masking_functions.masking_database>.mas
 ## gen_blocklist(str, from_dictionary_name, to_dictionary_name)
 
 Replaces a term from one dictionary with a randomly selected term in another dictionary.
-
-### Version update
   
-Percona Server for MySQL 8.4.4-1 introduces an internal term cache. The server now uses in-memory data structures for lookups instead of querying the `<masking_functions.masking_database>.masking_dictionaries` table every time. This improvement boosts performance, especially when handling multiple rows.
+Percona Server for MySQL uses an internal term cache. The server uses in-memory data structures for lookups that boosts performance, especially when handling multiple rows.
 
 ### Parameters
 
@@ -90,9 +88,7 @@ SELECT gen_blocklist('apple', 'fruit', 'nut');
 
 Returns a term from a dictionary selected at random.
 
-### Version update
-  
-Percona Server for MySQL 8.4.4-1 introduces an internal term cache. The server now uses in-memory data structures for lookups instead of querying the `<masking_functions.masking_database>.masking_dictionaries` table every time. This improvement boosts performance, especially when handling multiple rows.
+Percona Server for MySQL uses an internal term cache. The server uses in-memory data structures for lookups that boosts performance, especially when handling multiple rows.  
 
 ### Parameters
 
@@ -974,8 +970,7 @@ SELECT masking_dictionary_term_remove('trees','pine');
 | data type    | unsigned integer |
 | default      | 0            |
 
-
-Percona Server for MySQL 8.4.4-1 adds this variable. The number of seconds between a synchronization between the dictionaries table and the internal dictionary cache. The default value is 0 seconds (disabled). The minimum value is 1 second. The maximum value is 31,536,000 seconds (1 year).
+The number of seconds between a synchronization between the dictionaries table and the internal dictionary cache. The default value is 0 seconds (disabled). The minimum value is 1 second. The maximum value is 31,536,000 seconds (1 year).
 
 ### masking_database(string)
 

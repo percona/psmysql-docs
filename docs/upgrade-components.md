@@ -4,6 +4,8 @@
 
 Percona Server for MySQL {{vers}} introduces a shift from plugins to components for several key features, a change that requires a manual transition during the upgrade process. It is generally recommended to transition to the component version of a feature in the 8.0 series before performing the upgrade to {{vers}} if both a plugin and a component are available for that feature.
 
+<!-- Update this doc to be valid for 9.7-->
+
 The following plugins have changed:
 
 | Plugin | 8.0 information | {{vers}} changes | Notes |

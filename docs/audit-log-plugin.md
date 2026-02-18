@@ -1,5 +1,7 @@
 # Audit log plugin
 
+<!-- Clarify whether the audit log plugin is valid for 9.7-->
+
 !!! note "Deprecation notice"
 
     The audit log plugin is deprecated in Percona Server for MySQL 8.4 and will be removed in a future release. This deprecation is due to the availability of the [audit log filter component](audit-log-filter-overview.md), which is the recommended replacement. Users should migrate to this component, which provides equivalent functionality with enhanced flexibility, performance, and filtering capabilities, ensuring continued support for auditing and compliance requirements.
