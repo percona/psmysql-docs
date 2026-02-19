@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -15271,7 +15271,6 @@ that contains these files should be accessible only to the following:</p>
 </div></section><section class="print-page" id="audit-log-filter-restrictions" heading-number="5.2.10"><h1 id="audit-log-filter-restrictions-audit-log-filter-restrictions">Audit Log Filter restrictions<a class="headerlink" href="#audit-log-filter-restrictions-audit-log-filter-restrictions" title="Permanent link">&para;</a></h1>
 <h2 id="audit-log-filter-restrictions-general-restrictions">General restrictions<a class="headerlink" href="#audit-log-filter-restrictions-general-restrictions" title="Permanent link">&para;</a></h2>
 <p>The Audit Log Filter has the following general restrictions:</p>
-<p>The Audit Log Filter has the following general restrictions:</p>
 <ul>
 <li>
 <p>Log only SQL statements. Statements made by NoSQL APIs, such as the 
@@ -15298,7 +15297,39 @@ that contains these files should be accessible only to the following:</p>
 <p>Please notice that just changing the content of these tables (via replication channel) is not enough to automatically make changes to in-memory data structures in the <code>audit_log_filter</code> component that store information about active audit log filtering rules. However, this may happen after component reloading / server restart or manually calling <code>audit_log_filter_flush()</code>.</p>
 <ul>
 <li>Filter only on string values. The audit log filter does not filter on integer values. All filter criteria must be specified as strings, even when the underlying value is numeric. For example, <code>connection_id</code> values must be specified as strings (for example, <code>"123"</code> rather than <code>123</code>), and status values must be specified as <code>"0"</code> or <code>"1"</code> rather than <code>0</code> or <code>1</code>. If you use integer values in your filter definition, you will see the error: <code>ERROR: Incorrect rule definition.</code></li>
-</ul></section><section class="print-page" id="audit-log-filter-naming" heading-number="5.2.11"><h1 id="audit-log-filter-naming-audit-log-filter-file-naming-conventions">Audit Log Filter file naming conventions<a class="headerlink" href="#audit-log-filter-naming-audit-log-filter-file-naming-conventions" title="Permanent link">&para;</a></h1>
+</ul>
+<h2 id="audit-log-filter-restrictions-synchronizing-audit-log-filters-between-source-and-replica">Synchronizing audit log filters between source and replica<a class="headerlink" href="#audit-log-filter-restrictions-synchronizing-audit-log-filters-between-source-and-replica" title="Permanent link">&para;</a></h2>
+<p>You can keep audit log filter definitions in sync between a source and a replica by replicating the filter tables and periodically calling <code>audit_log_filter_flush()</code> on the replica. That reloads the filter tables and makes the replicated changes effective on the replica.</p>
+<h3 id="audit-log-filter-restrictions-procedure-mysql-event-to-flush-filters-on-the-replica">Procedure: MySQL event to flush filters on the replica<a class="headerlink" href="#audit-log-filter-restrictions-procedure-mysql-event-to-flush-filters-on-the-replica" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Install MySQL on the source with the audit log filter component.</p>
+</li>
+<li>
+<p>Create a replica from a source backup.</p>
+</li>
+<li>
+<p>Create a MySQL event on the replica that runs every minute:</p>
+<div class="highlight"><pre><span></span><code><span class="n">USE</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EVENT</span><span class="w"> </span><span class="n">auditflush</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="n">SCHEDULE</span><span class="w"> </span><span class="k">EVERY</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">MINUTE</span>
+<span class="w">    </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;Flush audit log filters every minute&#39;</span>
+<span class="w">    </span><span class="k">DO</span>
+<span class="w">      </span><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_flush</span><span class="p">();</span>
+</code></pre></div>
+<p>This event runs <code>audit_log_filter_flush()</code> every minute on the replica, so replicated changes to the filter tables become effective shortly after they are applied.</p>
+</li>
+<li>
+<p>Create a filter on the source and assign the filter to a user using the usual filter functions or by modifying the filter tables and calling <code>audit_log_filter_flush()</code> on the source.</p>
+</li>
+<li>
+<p>After a minute, check that the filter is available on the replica. Run some queries on the replica as that user and confirm that the expected messages appear in the audit log file. </p>
+</li>
+</ol>
+<p>If the filter is not yet visible or the audit log does not show the expected entries, wait for the next event run (within a minute) or run <code>SELECT audit_log_filter_flush();</code> on the replica to refresh the filter tables immediately; also confirm that replication has applied the changes to the filter tables and that the event is enabled. If the filter or expected log entries still do not appear, the cause may be a problem in replication between source and replica; troubleshooting replication may help.</p>
+<p>Another possible scenario is that the source and replica are set up and replication is working, but the audit log component is not installed on either the source or the replica. In that case, install the audit log component on both the source and the replica separately.</p>
+<h3 id="audit-log-filter-restrictions-limitation">Limitation<a class="headerlink" href="#audit-log-filter-restrictions-limitation" title="Permanent link">&para;</a></h3>
+<p>If a user modifies the filter tables directly on the source (for example, with <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code>) but does not run <code>audit_log_filter_flush()</code> on the source, the table changes will be replicated to the replica and the event will run <code>audit_log_filter_flush()</code> there, so the filters become effective on the replica. The filters will then work correctly on the replica but will not be effective on the source until <code>audit_log_filter_flush()</code> is run on the source.</p></section><section class="print-page" id="audit-log-filter-naming" heading-number="5.2.11"><h1 id="audit-log-filter-naming-audit-log-filter-file-naming-conventions">Audit Log Filter file naming conventions<a class="headerlink" href="#audit-log-filter-naming-audit-log-filter-file-naming-conventions" title="Permanent link">&para;</a></h1>
 <h2 id="audit-log-filter-naming-name-qualities">Name qualities<a class="headerlink" href="#audit-log-filter-naming-name-qualities" title="Permanent link">&para;</a></h2>
 <p>The audit log filter file name has the following qualities:</p>
 <ul>
