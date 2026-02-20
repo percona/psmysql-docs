@@ -40,7 +40,7 @@ CALL GetCustomerDetails(123);
 DELIMITER //
 ALTER PROCEDURE GetCustomerDetails (IN customerId INT)
     BEGIN
-        SELECT name, email FROM customers WHERE id = customerId;
+        SELECT name, city FROM customers WHERE id = customerId;
     END //
 DELIMITER ;
 ```
