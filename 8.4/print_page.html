@@ -26183,19 +26183,22 @@ The command <code>fixfiles -f relabel</code> is a directive used within the cont
 <p>DML commands manage data within database tables.</p>
 <p>Common DML commands include:</p>
 <ul>
-<li>
-<p>[<strong>SELECT</strong>]: This command retrieves data from one or more tables in the database.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">customers</span><span class="p">;</span>
+<li>[<strong>SELECT</strong>]: This command retrieves data from a table or from several tables when you use a join. In this example, it selects all columns with a wildcard (<code>*</code>) from the <code>customers</code> table.</li>
+</ul>
+<p>Be careful when using wildcards. They return every column, which can slow down queries, use more memory and network resources, and put extra load on both the server and the client.</p>
+<div class="highlight"><pre><span></span><code>```sql
+SELECT * FROM customers;
+```
 </code></pre></div>
-</li>
+<ul>
 <li>
 <p>[<strong>INSERT</strong>]: This command adds new records to a table.</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">customers</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;John Doe&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;john@example.com&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">customers</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">city</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;John Doe&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Berlin&#39;</span><span class="p">);</span>
 </code></pre></div>
 </li>
 <li>
 <p>[<strong>UPDATE</strong>]: This command modifies existing records in a table.</p>
-<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">customers</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;newemail@example.com&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">customers</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">city</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Madrid&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li>
@@ -26215,7 +26218,7 @@ The command <code>fixfiles -f relabel</code> is a directive used within the cont
 </li>
 <li>
 <p><strong>ALTER</strong>: This command modifies the structure of existing database objects.</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">city</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
 </code></pre></div>
 </li>
 <li>
@@ -26684,7 +26687,7 @@ SET column1 = value1, column2 = value2, ...
 <ul>
 <li><strong>Like Operator Example</strong>:</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">customers</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%@example.com&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Select customers with email domain example.com</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">customers</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">city</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;Ber%&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Select customers in cities starting with Ber</span>
 </code></pre></div>
 <p>These examples illustrate how SQL operators are used in Percona Server for MySQL queries to perform various data operations.</p>
 <p>Fundamental SQL links:</p>
@@ -27220,7 +27223,7 @@ SET column1 = value1, column2 = value2, ...
 <div class="highlight"><pre><span></span><code><span class="k">DELIMITER</span><span class="w"> </span><span class="o">//</span>
 <span class="k">ALTER</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">GetCustomerDetails</span><span class="w"> </span><span class="p">(</span><span class="k">IN</span><span class="w"> </span><span class="n">customerId</span><span class="w"> </span><span class="nb">INT</span><span class="p">)</span>
 <span class="w">    </span><span class="k">BEGIN</span>
-<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">customers</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">customerId</span><span class="p">;</span>
+<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">city</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">customers</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">customerId</span><span class="p">;</span>
 <span class="w">    </span><span class="k">END</span><span class="w"> </span><span class="o">//</span>
 <span class="k">DELIMITER</span><span class="w"> </span><span class="p">;</span>
 </code></pre></div>
@@ -27617,7 +27620,7 @@ SET column1 = value1, column2 = value2, ...
 <span class="err">);</span>
 
 <span class="err">INSERT</span><span class="w"> </span><span class="err">INTO</span><span class="w"> </span><span class="err">user_da</span><span class="kc">ta</span><span class="w"> </span><span class="err">(</span><span class="kc">na</span><span class="err">me</span><span class="p">,</span><span class="w"> </span><span class="err">se</span><span class="kc">tt</span><span class="err">i</span><span class="kc">n</span><span class="err">gs)</span>
-<span class="err">VALUES</span><span class="w"> </span><span class="err">(&#39;Joh</span><span class="kc">n</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="p">{</span><span class="nt">&quot;theme&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dark&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;notifications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;sms&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}}</span><span class="err">&#39;);</span>
+<span class="err">VALUES</span><span class="w"> </span><span class="err">(&#39;Joh</span><span class="kc">n</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="p">{</span><span class="nt">&quot;theme&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dark&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;notifications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;push&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;sms&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}}</span><span class="err">&#39;);</span>
 
 <span class="err">SELECT</span><span class="w"> </span><span class="err">JSON_EXTRACT(se</span><span class="kc">tt</span><span class="err">i</span><span class="kc">n</span><span class="err">gs</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;$.</span><span class="kc">t</span><span class="err">heme&#39;)</span><span class="w"> </span><span class="err">AS</span><span class="w"> </span><span class="kc">t</span><span class="err">heme</span>
 <span class="err">FROM</span><span class="w"> </span><span class="err">user_da</span><span class="kc">ta</span>
@@ -27656,7 +27659,7 @@ SET column1 = value1, column2 = value2, ...
 <p>Insert the JSON data into the table using the <code>INSERT</code> statement. The <code>name</code> column stores the user&rsquo;s name. The <code>info</code> column stores JSON data using the <code>JSON_OBJECT</code> function. This function creates a JSON object with key-value pairs.</p>
 <div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">info</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="s1">&#39;John Doe&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="n">JSON_OBJECT</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;city&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;New York&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;email&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;john.doe@example.com&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">JSON_OBJECT</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;city&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Berlin&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;phone&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;+44 20 7946 0958&#39;</span><span class="p">)</span>
 <span class="p">);</span>
 </code></pre></div>
 <h2 id="json-overview-query-json-data">Query JSON Data<a class="headerlink" href="#json-overview-query-json-data" title="Permanent link">&para;</a></h2>
@@ -27671,18 +27674,18 @@ SET column1 = value1, column2 = value2, ...
 </code></pre></div>
 <h2 id="json-overview-delete-json-data">Delete JSON Data<a class="headerlink" href="#json-overview-delete-json-data" title="Permanent link">&para;</a></h2>
 <p>You can delete JSON data using the <code>DELETE</code> statement. This statement removes rows from the <code>users</code> table where the <code>city</code> key in the JSON object stored in the <code>info</code> column has the value &lsquo;New York&rsquo;.</p>
-<div class="highlight"><pre><span></span><code><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">info</span><span class="o">-&gt;&gt;</span><span class="s1">&#39;$.city&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;New York&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">info</span><span class="o">-&gt;&gt;</span><span class="s1">&#39;$.city&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Berlin&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="json-overview-add-new-key-value-pairs-to-json-data">Add New Key-Value Pairs to JSON Data<a class="headerlink" href="#json-overview-add-new-key-value-pairs-to-json-data" title="Permanent link">&para;</a></h2>
-<p>You can add new key-value pairs to existing JSON data using the <code>JSON_SET</code> function. The <code>JSON_SET</code> function adds a new key <code>phone</code> with the value &lsquo;123-456-7890&rsquo; to the JSON object stored in the <code>info</code> column.</p>
+<p>You can add new key-value pairs to existing JSON data using the <code>JSON_SET</code> function. The <code>JSON_SET</code> function adds a new key <code>phone</code> with the value &lsquo;+44 20 7946 0958&rsquo; to the JSON object stored in the <code>info</code> column.</p>
 <div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span>
-<span class="k">SET</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON_SET</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.phone&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;123-456-7890&#39;</span><span class="p">)</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON_SET</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.phone&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;+44 20 7946 0958&#39;</span><span class="p">)</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="json-overview-remove-key-value-pairs-from-json-data">Remove Key-Value Pairs from JSON Data<a class="headerlink" href="#json-overview-remove-key-value-pairs-from-json-data" title="Permanent link">&para;</a></h2>
-<p>You can remove key-value pairs from existing JSON data using the <code>JSON_REMOVE</code> function. This function removes the <code>email</code> key from the JSON object stored in the <code>info</code> column.</p>
+<p>You can remove key-value pairs from existing JSON data using the <code>JSON_REMOVE</code> function. This function removes the <code>phone</code> key from the JSON object stored in the <code>info</code> column.</p>
 <div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span>
-<span class="k">SET</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON_REMOVE</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.email&#39;</span><span class="p">)</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON_REMOVE</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.phone&#39;</span><span class="p">)</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="json-overview-use-json-functions">Use JSON Functions<a class="headerlink" href="#json-overview-use-json-functions" title="Permanent link">&para;</a></h2>
@@ -27884,11 +27887,11 @@ SET column1 = value1, column2 = value2, ...
 </tbody>
 </table>
 <h2 id="table-create-a-table">Create a table<a class="headerlink" href="#table-create-a-table" title="Permanent link">&para;</a></h2>
-<p>To create a table, use the <code>CREATE TABLE</code> command. Follow it with the table name and define the columns and their data types. For example, to create a table named <code>customers</code> with columns for <code>id</code>, <code>name</code>, and <code>email</code>, use this command:</p>
+<p>To create a table, use the <code>CREATE TABLE</code> command. Follow it with the table name and define the columns and their data types. For example, to create a table named <code>customers</code> with columns for <code>id</code>, <code>name</code>, and <code>city</code>, use this command:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">customers</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="kt">INT</span><span class="w"> </span><span class="k">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
 <span class="w">    </span><span class="k">name</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
-<span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="w">    </span><span class="n">city</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="p">);</span>
 </code></pre></div>
 <h2 id="table-database-management">Database management<a class="headerlink" href="#table-database-management" title="Permanent link">&para;</a></h2>
@@ -27952,7 +27955,7 @@ SET column1 = value1, column2 = value2, ...
 <p>The following is an example using an <code>ALTER TABLE</code> command:</p>
 <div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span>
 <span class="k">ADD</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
-<span class="k">MODIFY</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="k">MODIFY</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">city</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
 <span class="k">DROP</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">username</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="modify-tables-database-management">Database management<a class="headerlink" href="#modify-tables-database-management" title="Permanent link">&para;</a></h2>
@@ -30814,7 +30817,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </tr>
 <tr>
 <td><a href="#data-masking-function-list-gen_rnd_emailname_size-surname_size-domain"><code>gen_rnd_email([name_size, surname_size, domain])</code></a></td>
-<td>Generates an email address</td>
+<td>Generates a random string in name.surname@domain format</td>
 </tr>
 <tr>
 <td><a href="#data-masking-function-list-gen_rnd_ibancountry-size"><code>gen_rnd_iban([country, size])</code></a></td>
@@ -31046,7 +31049,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </code></pre></div>
 </details>
 <h2 id="data-masking-function-list-gen_rnd_emailname_size-surname_size-domain">gen_rnd_email([name_size, surname_size, domain])<a class="headerlink" href="#data-masking-function-list-gen_rnd_emailname_size-surname_size-domain" title="Permanent link">&para;</a></h2>
-<p>Generates a random email address in the <code>name.surname@domain</code> format.</p>
+<p>Generates a random string in the <code>name.surname@domain</code> format.</p>
 <h3 id="data-masking-function-list-parameters_4">Parameters<a class="headerlink" href="#data-masking-function-list-parameters_4" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -31079,17 +31082,17 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </tbody>
 </table>
 <h3 id="data-masking-function-list-returns_4">Returns<a class="headerlink" href="#data-masking-function-list-returns_4" title="Permanent link">&para;</a></h3>
-<p>A generated email address as a string in the same character set as <code>domain</code>. If the <code>domain</code> value is not specified, then the string is in the <code>utf8mb4</code> character set. The <code>name</code> and <code>surname</code> are random lower-case letters (a - z).</p>
+<p>A generated string in the same character set as <code>domain</code>. If the <code>domain</code> value is not specified, then the string is in the <code>utf8mb4</code> character set. The <code>name</code> and <code>surname</code> are random lower-case letters (a - z).</p>
 <h3 id="data-masking-function-list-example_4">Example<a class="headerlink" href="#data-masking-function-list-example_4" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_rnd_email</span><span class="p">(</span><span class="n">name_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">surname_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="k">domain</span><span class="o">=</span><span class="s1">&#39;mydomain.edu&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_rnd_email</span><span class="p">(</span><span class="n">name_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">surname_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="k">domain</span><span class="o">=</span><span class="s1">&#39;example.test&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------+
-| gen_rnd_email(4, 5, &#39;mydomain.edu&#39;) |
-+-------------------------------------+
-| qwer.asdfg@mydomain.edu             |
-+-------------------------------------+
+<div class="no-copy highlight"><pre><span></span><code>+----------------------------------------+
+| gen_rnd_email(4, 5, &#39;example.test&#39;)   |
++----------------------------------------+
+| qwer.asdfg@example.test               |
++----------------------------------------+
 </code></pre></div>
 </details>
 <h2 id="data-masking-function-list-gen_rnd_ibancountry-size">gen_rnd_iban([country, size])<a class="headerlink" href="#data-masking-function-list-gen_rnd_ibancountry-size" title="Permanent link">&para;</a></h2>
