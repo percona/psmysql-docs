@@ -50,7 +50,7 @@ CREATE TABLE user_data (
 );
 
 INSERT INTO user_data (name, settings)
-VALUES ('John', '{"theme": "dark", "notifications": {"email": true, "sms": false}}');
+VALUES ('John', '{"theme": "dark", "notifications": {"push": true, "sms": false}}');
 
 SELECT JSON_EXTRACT(settings, '$.theme') AS theme
 FROM user_data
@@ -90,7 +90,7 @@ Insert the JSON data into the table using the `INSERT` statement. The `name` col
 ```sql
 INSERT INTO users (name, info) VALUES (
     'John Doe',
-    JSON_OBJECT('age', 30, 'city', 'New York', 'email', 'john.doe@example.com')
+    JSON_OBJECT('age', 30, 'city', 'Berlin', 'phone', '+44 20 7946 0958')
 );
 ```
 
@@ -117,26 +117,26 @@ WHERE name = 'John Doe';
 You can delete JSON data using the `DELETE` statement. This statement removes rows from the `users` table where the `city` key in the JSON object stored in the `info` column has the value 'New York'.
 
 ```sql
-DELETE FROM users WHERE info->>'$.city' = 'New York';
+DELETE FROM users WHERE info->>'$.city' = 'Berlin';
 ```
 
 ## Add New Key-Value Pairs to JSON Data
 
-You can add new key-value pairs to existing JSON data using the `JSON_SET` function. The `JSON_SET` function adds a new key `phone` with the value '123-456-7890' to the JSON object stored in the `info` column.
+You can add new key-value pairs to existing JSON data using the `JSON_SET` function. The `JSON_SET` function adds a new key `phone` with the value '+44 20 7946 0958' to the JSON object stored in the `info` column.
 
 ```sql
 UPDATE users
-SET info = JSON_SET(info, '$.phone', '123-456-7890')
+SET info = JSON_SET(info, '$.phone', '+44 20 7946 0958')
 WHERE name = 'John Doe';
 ```
 
 ## Remove Key-Value Pairs from JSON Data
 
-You can remove key-value pairs from existing JSON data using the `JSON_REMOVE` function. This function removes the `email` key from the JSON object stored in the `info` column.
+You can remove key-value pairs from existing JSON data using the `JSON_REMOVE` function. This function removes the `phone` key from the JSON object stored in the `info` column.
 
 ```sql
 UPDATE users
-SET info = JSON_REMOVE(info, '$.email')
+SET info = JSON_REMOVE(info, '$.phone')
 WHERE name = 'John Doe';
 ```
 

@@ -75,7 +75,7 @@ SELECT * FROM products WHERE category_id IN (1, 2, 3); -- Select products in spe
 - **Like Operator Example**:
 
 ```sql
-SELECT * FROM customers WHERE email LIKE '%@example.com'; -- Select customers with email domain example.com
+SELECT * FROM customers WHERE city LIKE 'Ber%'; -- Select customers in cities starting with Ber
 ```
 
 These examples illustrate how SQL operators are used in Percona Server for MySQL queries to perform various data operations.

@@ -26,7 +26,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON <masking_functions.masking_database>.mas
 | [`gen_dictionary(dictionary_name)`](#gen_dictionarydictionary_name) | Returns a random term from a dictionary               |
 | [`gen_range(lower, upper)`](#gen_rangelower-upper) | Returns a number from a range                       |
 | [`gen_rnd_canada_sin()`](#gen_rnd_canada_sin) | Generates a Canadian Social Insurance number          |
-| [`gen_rnd_email([name_size, surname_size, domain])`](#gen_rnd_emailname_size-surname_size-domain)    | Generates an email address                            |
+| [`gen_rnd_email([name_size, surname_size, domain])`](#gen_rnd_emailname_size-surname_size-domain)    | Generates a random string in name.surname@domain format |
 | [`gen_rnd_iban([country, size])`](#gen_rnd_ibancountry-size)                                    | Generates an International Bank Account number        |
 | [`gen_rnd_pan()`](#gen_rnd_pan)                                     | Generates a Primary account number for a payment card |
 | [`gen_rnd_ssn()`](#gen_rnd_ssn)                                     | Generates a US Social Security number                 |
@@ -188,7 +188,7 @@ SELECT gen_rnd_canada_sin();
 
 ## gen_rnd_email([name_size, surname_size, domain])
 
-Generates a random email address in the `name.surname@domain` format.
+Generates a random string in the `name.surname@domain` format.
 
 ### Parameters
 
@@ -201,22 +201,22 @@ Generates a random email address in the `name.surname@domain` format.
 
 ### Returns
 
-A generated email address as a string in the same character set as `domain`. If the `domain` value is not specified, then the string is in the `utf8mb4` character set. The `name` and `surname` are random lower-case letters (a - z).
+A generated string in the same character set as `domain`. If the `domain` value is not specified, then the string is in the `utf8mb4` character set. The `name` and `surname` are random lower-case letters (a - z).
 
 ### Example
 
 ```sql
-SELECT gen_rnd_email(name_size=4, surname_size=5, domain='mydomain.edu');
+SELECT gen_rnd_email(name_size=4, surname_size=5, domain='example.test');
 ```
 
 ??? example "Expected output"
 
     ```{.text .no-copy}
-    +-------------------------------------+
-    | gen_rnd_email(4, 5, 'mydomain.edu') |
-    +-------------------------------------+
-    | qwer.asdfg@mydomain.edu             |
-    +-------------------------------------+
+    +----------------------------------------+
+    | gen_rnd_email(4, 5, 'example.test')   |
+    +----------------------------------------+
+    | qwer.asdfg@example.test               |
+    +----------------------------------------+
     ```
 
 ## gen_rnd_iban([country, size])
