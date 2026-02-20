@@ -9,19 +9,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="This guide helps you verify that the First five minutes security and stability steps have been applied correctly. Run these checks after completing the First five minutes, or on an existing server to see if those steps are in place.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.4/manage-apparmor-profiles.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.4/sanity-check.html">
       
       
-        <link rel="prev" href="apparmor-profiles.html">
+        <link rel="prev" href="first-five-minutes.html">
       
       
-        <link rel="next" href="disable-apparmor.html">
+        <link rel="next" href="post-installation.html">
       
       
         
@@ -32,7 +32,7 @@
     
     
       
-        <title>Managing AppArmor profiles - Percona Server for MySQL</title>
+        <title>Sanity check (First five minutes) - Percona Server for MySQL</title>
       
     
     
@@ -100,7 +100,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Managing AppArmor profiles" />
+                 <meta property="og:title" content="Percona Server for MySQL - Sanity check (First five minutes)" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
               
@@ -123,7 +123,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#managing-apparmor-profiles" class="md-skip">
+        <a href="#sanity-check-first-five-minutes" class="md-skip">
           Skip to content
         </a>
       
@@ -220,7 +220,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Managing AppArmor profiles
+              Sanity check (First five minutes)
             
           </span>
         </div>
@@ -4162,10 +4162,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="sanity-check.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sanity check (First five minutes)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="sanity-check.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -4181,6 +4208,116 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#summary-what-we-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: what we check
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-root-and-security-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Root and security script
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-least-privilege-admin-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Least-privilege admin user
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-oom-killer-guardrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. OOM-killer guardrail
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-diagnostic-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Diagnostic logging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-backup-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Backup path
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-run-checks-in-one-go" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional: run checks in one go
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4246,10 +4383,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -4269,11 +4404,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_5" >
         
           
           <label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
@@ -4294,7 +4429,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4365,37 +4500,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Managing AppArmor profiles
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="manage-apparmor-profiles.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="manage-apparmor-profiles.html" class="md-nav__link">
         
   
   
@@ -4411,160 +4519,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#understanding-apparmor-risks-in-mysql-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Understanding AppArmor Risks in MySQL Development
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#potential-risks-of-misconfigured-apparmor-profiles" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Potential risks of misconfigured AppArmor profiles
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#importance-of-careful-review-and-testing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Importance of careful review and testing
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#install-the-utilities-used-to-control-apparmor" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Install the utilities used to control AppArmor
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#add-the-mysqld-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Add the mysqld profile
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#check-the-current-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Check the current status
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#switch-a-profile-to-complain-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Switch a profile to complain mode
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#switch-a-profile-to-enforce-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Switch a profile to enforce mode
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#disable-one-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Disable one profile
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reload-all-profiles" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reload all profiles
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reload-one-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reload one profile
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#useful-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Useful links:
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -9775,7 +9729,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
                       <div data-banner="data-banner" class="edit-contrib-banner">
   <div class="banner-content">
     <!-- Edit link centered -->
-    <a href="https://github.com/percona/psmysql-docs/edit/8.4/docs/manage-apparmor-profiles.md" title="Edit this page on GitHub" class="edit-page-link">
+    <a href="https://github.com/percona/psmysql-docs/edit/8.4/docs/sanity-check.md" title="Edit this page on GitHub" class="edit-page-link">
       <span class="edit-page-icon">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
@@ -9827,10 +9781,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#understanding-apparmor-risks-in-mysql-development" class="md-nav__link">
+  <a href="#summary-what-we-check" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Understanding AppArmor Risks in MySQL Development
+        Summary: what we check
       
     </span>
   </a>
@@ -9838,10 +9792,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#potential-risks-of-misconfigured-apparmor-profiles" class="md-nav__link">
+  <a href="#1-root-and-security-script" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Potential risks of misconfigured AppArmor profiles
+        1. Root and security script
       
     </span>
   </a>
@@ -9849,10 +9803,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#importance-of-careful-review-and-testing" class="md-nav__link">
+  <a href="#2-least-privilege-admin-user" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Importance of careful review and testing
+        2. Least-privilege admin user
       
     </span>
   </a>
@@ -9860,10 +9814,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-the-utilities-used-to-control-apparmor" class="md-nav__link">
+  <a href="#3-oom-killer-guardrail" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Install the utilities used to control AppArmor
+        3. OOM-killer guardrail
       
     </span>
   </a>
@@ -9871,10 +9825,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#add-the-mysqld-profile" class="md-nav__link">
+  <a href="#4-diagnostic-logging" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Add the mysqld profile
+        4. Diagnostic logging
       
     </span>
   </a>
@@ -9882,10 +9836,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#check-the-current-status" class="md-nav__link">
+  <a href="#5-backup-path" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Check the current status
+        5. Backup path
       
     </span>
   </a>
@@ -9893,10 +9847,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#switch-a-profile-to-complain-mode" class="md-nav__link">
+  <a href="#optional-run-checks-in-one-go" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Switch a profile to complain mode
+        Optional: run checks in one go
       
     </span>
   </a>
@@ -9904,54 +9858,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#switch-a-profile-to-enforce-mode" class="md-nav__link">
+  <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Switch a profile to enforce mode
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#disable-one-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Disable one profile
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reload-all-profiles" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reload all profiles
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reload-one-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reload one profile
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#useful-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Useful links:
+        Next steps
       
     </span>
   </a>
@@ -9981,178 +9891,166 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/8.4/docs/manage-apparmor-profiles.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/8.4/docs/sanity-check.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="managing-apparmor-profiles">Managing AppArmor profiles<a class="headerlink" href="#managing-apparmor-profiles" title="Permanent link">&para;</a></h1>
-<h2 id="understanding-apparmor-risks-in-mysql-development">Understanding AppArmor Risks in MySQL Development<a class="headerlink" href="#understanding-apparmor-risks-in-mysql-development" title="Permanent link">&para;</a></h2>
-<p>While AppArmor profiles help secure your MySQL server, misconfiguring them can lead to unexpected behavior and potential security vulnerabilities. Here&rsquo;s why careful review and testing are crucial when making changes:</p>
-<h2 id="potential-risks-of-misconfigured-apparmor-profiles">Potential risks of misconfigured AppArmor profiles<a class="headerlink" href="#potential-risks-of-misconfigured-apparmor-profiles" title="Permanent link">&para;</a></h2>
+<h1 id="sanity-check-first-five-minutes">Sanity check: First five minutes<a class="headerlink" href="#sanity-check-first-five-minutes" title="Permanent link">&para;</a></h1>
+<p>This guide helps you verify that the <a href="first-five-minutes.html">First five minutes</a> security and stability steps have been applied correctly. Run these checks after completing the First five minutes, or on an existing server to see if those steps are in place.</p>
+<p>You need:</p>
+<ul>
+<li>Access to the MySQL server as a user with enough <em>privileges</em> (permissions to run statements and see system data) to run the SQL checks—for example, <code>root</code> (the default MySQL administrative user) or the admin user you created.</li>
+<li>Ability to run shell commands (and <code>systemctl</code>, the systemd command to inspect and manage services) on the host (the machine where MySQL runs).</li>
+</ul>
+<h2 id="summary-what-we-check">Summary: what we check<a class="headerlink" href="#summary-what-we-check" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Misconfiguration</th>
-<th>Description</th>
+<th>Check</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Overly restrictive profiles</strong></td>
-<td>These profiles might prevent MySQL from accessing necessary files or resources, hindering its functionality and causing errors. Imagine a profile accidentally blocking MySQL from writing to its log files, rendering them useless for troubleshooting.</td>
+<td><a href="#1-root-and-security-script">1. Root and security script</a></td>
+<td>Root has a password and basic hardening (no anonymous user, no test DB, root not remote) is done.</td>
 </tr>
 <tr>
-<td><strong>Underly permissive profiles</strong></td>
-<td>Profiles with insufficient restrictions could allow unauthorized access to MySQL&rsquo;s files or functionalities. This creates a security risk, as an attacker exploiting a vulnerability might leverage a permissive profile to gain more control over the server.</td>
+<td><a href="#2-least-privilege-admin-user">2. Least-privilege admin user</a></td>
+<td>A dedicated admin user exists and does not have full SUPER/ALL.</td>
 </tr>
 <tr>
-<td><strong>Incorrect profile assignment</strong></td>
-<td>Assigning the wrong profile to a process can lead to either of the issues mentioned above.  For instance, accidentally assigning a profile meant for a different service to MySQL could have unintended consequences.</td>
+<td><a href="#3-oom-killer-guardrail">3. OOM-killer guardrail</a></td>
+<td>systemd OOM score is set so MySQL is less likely to be killed by the kernel when the system is low on memory.</td>
+</tr>
+<tr>
+<td><a href="#4-diagnostic-logging">4. Diagnostic logging</a></td>
+<td>Error log and slow query log are enabled and paths are set.</td>
+</tr>
+<tr>
+<td><a href="#5-backup-path">5. Backup path</a></td>
+<td>Backup directory exists and is writable by the MySQL (or backup) user.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="importance-of-careful-review-and-testing">Importance of careful review and testing<a class="headerlink" href="#importance-of-careful-review-and-testing" title="Permanent link">&para;</a></h2>
-<p>By carefully reviewing and testing your AppArmor profile changes, you can minimize the risks associated with misconfigurations and ensure a secure and functional MySQL environment.</p>
+<h2 id="1-root-and-security-script">1. Root and security script<a class="headerlink" href="#1-root-and-security-script" title="Permanent link">&para;</a></h2>
+<p>Goal: Confirm the MySQL <code>root</code> account is not empty and that <code>mysql_secure_installation</code>–style hardening is in place.</p>
+<p>1.1 Root has a password<br />
+Try connecting without a password; the connection should fail:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
+</code></pre></div>
+<p>You want to see an access denied or password-related error, not a successful connection.</p>
+<p>1.2 No anonymous user<br />
+<em>Anonymous users</em> (accounts with an empty username that can connect without proper credentials) should not exist:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT user, host FROM mysql.user WHERE user = &#39;&#39;;&quot;</span>
+</code></pre></div>
+<p>Expected: <em>empty result set</em> (no rows returned by the query).</p>
+<p>1.3 No remote root<br />
+The <code>root</code> user should not be allowed to connect from remote hosts—only from the same machine (<code>root@localhost</code> or similar):</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT user, host FROM mysql.user WHERE user = &#39;root&#39; AND host != &#39;localhost&#39;;&quot;</span>
+</code></pre></div>
+<p>Expected: empty result set. If you use a specific hostname for root (e.g. <code>root@127.0.0.1</code>), that is fine; the important thing is no <code>root@'%'</code> (which would allow root from any host).</p>
+<p>1.4 Test database removed<br />
+The default <code>test</code> database (a sample database that is often removed for security) should not exist:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW DATABASES LIKE &#39;test&#39;;&quot;</span>
+</code></pre></div>
+<p>Expected: empty result set.</p>
+<h2 id="2-least-privilege-admin-user">2. Least-privilege admin user<a class="headerlink" href="#2-least-privilege-admin-user" title="Permanent link">&para;</a></h2>
+<p>Goal: Confirm you have a dedicated admin user and that the account does not have full <code>SUPER</code> (a powerful built-in privilege) or global privileges on all databases (<code>*.*</code>) unless you intentionally grant them.</p>
+<p>2.1 List admin-like users<br />
+Adjust the user name if you used something other than <code>admin</code>:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT user, host FROM mysql.user WHERE user IN (&#39;admin&#39;,&#39;dba&#39;,&#39;mysqladmin&#39;) OR user NOT IN (&#39;root&#39;,&#39;mysql.session&#39;,&#39;mysql.sys&#39;,&#39;mysql.infoschema&#39;);&quot;</span>
+</code></pre></div>
+<p>Use this to identify the account you use for day-to-day admin.</p>
+<p>2.2 Check that admin does not have SUPER<br />
+Replace <code>'admin'@'localhost'</code> with your admin user and <em>host</em> (the connection source; <code>localhost</code> means the same machine):</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW GRANTS FOR &#39;admin&#39;@&#39;localhost&#39;;&quot;</span>
+</code></pre></div>
+<p>Expected: no line containing <code>SUPER</code> or <code>ALL PRIVILEGES ON *.*</code> unless you deliberately grant them. A limited set of <em>grants</em> (assigned privileges) such as <code>CREATE USER</code>, <code>RELOAD</code>, <code>PROCESS</code>, <code>REPLICATION CLIENT</code>, <code>BACKUP_ADMIN</code>, etc., is what we expect from the First five minutes.</p>
+<p>2.3 (Optional) Effective privileges<br />
+To see the full <em>effective</em> privilege set (the combined permissions a user actually has, including from roles), use <a href="extended-show-grants.html">SHOW EFFECTIVE GRANTS</a> if your server supports that statement:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW EFFECTIVE GRANTS FOR &#39;admin&#39;@&#39;localhost&#39;;&quot;</span>
+</code></pre></div>
+<h2 id="3-oom-killer-guardrail">3. OOM-killer guardrail<a class="headerlink" href="#3-oom-killer-guardrail" title="Permanent link">&para;</a></h2>
+<p>Goal: Confirm that the MySQL systemd service has a lower <em>OOM score</em> (a value the kernel uses when choosing which process to terminate when the system is out of memory; lower means less likely to be killed) so the kernel is less likely to kill MySQL.</p>
+<p>3.1 Service name<br />
+On Red Hat–based systems the service is often <code>mysqld</code>; on Debian/Ubuntu the service may be named <code>mysql</code>. Check which is in use:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>status<span class="w"> </span>mysqld<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysql<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+</code></pre></div>
+<p>3.2 OOMScoreAdjust<br />
+Use the same service name as above:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>show<span class="w"> </span>mysqld<span class="w"> </span>-p<span class="w"> </span>OOMScoreAdjust
+<span class="c1"># or</span>
+systemctl<span class="w"> </span>show<span class="w"> </span>mysql<span class="w"> </span>-p<span class="w"> </span>OOMScoreAdjust
+</code></pre></div>
+<p>Expected: <code>OOMScoreAdjust=-500</code> (or another negative value). If you see an empty value or <code>OOMScoreAdjust=0</code>, the First five minutes OOM guardrail is not applied.</p>
+<h2 id="4-diagnostic-logging">4. Diagnostic logging<a class="headerlink" href="#4-diagnostic-logging" title="Permanent link">&para;</a></h2>
+<p>Goal: Confirm the error log and slow query log are enabled and that paths are set so you can find them.</p>
+<p>4.1 Error log<br />
+Check that the <em>error log</em> (the file where the server records errors, warnings, and startup messages) is set and that the server is writing to that file:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@log_error;&quot;</span>
+</code></pre></div>
+<p>Expected: a non-empty path (e.g. <code>/var/log/mysql/error.log</code> or a path under the <em>datadir</em>—the directory where the server stores database files). Then check that the file exists and is recent:</p>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-la<span class="w"> </span><span class="k">$(</span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-N<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@log_error;&quot;</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="k">)</span>
+</code></pre></div>
+<p>4.2 Slow query log<br />
+Check that the <em>slow query log</em> (the file that records SQL statements that run longer than the <code>long_query_time</code> threshold) is on and where that log is written:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@slow_query_log, @@slow_query_log_file, @@long_query_time;&quot;</span>
+</code></pre></div>
+<p>Expected: <code>slow_query_log = 1</code>, and <code>slow_query_log_file</code> set to a path you can monitor. Optionally confirm the file exists and is writable after the server has been running with slow log enabled.</p>
+<h2 id="5-backup-path">5. Backup path<a class="headerlink" href="#5-backup-path" title="Permanent link">&para;</a></h2>
+<p>Goal: Confirm the directory you use for backups exists and is writable by the MySQL <em>system user</em> (the operating-system user that runs the MySQL process or backup tool; often named <code>mysql</code>).</p>
+<p>5.1 Choose your backup path<br />
+Use the same path you configured in <a href="first-five-minutes.html#verify-the-backup-path">First five minutes — Verify the backup path</a> (e.g. <code>/var/backups/mysql</code>). Set that path in a variable for the next commands:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">BACKUP_DIR</span><span class="o">=</span>/var/backups/mysql
+</code></pre></div>
+<p>5.2 Directory exists<br />
+<div class="highlight"><pre><span></span><code><span class="nb">test</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BACKUP_DIR</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;OK: backup directory exists&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;FAIL: backup directory missing&quot;</span>
+</code></pre></div></p>
+<p>5.3 Writable by MySQL user<br />
+Replace <code>mysql</code> with the user that runs your backup tool if different:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>touch<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test&quot;</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;OK: backup path is writable&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;FAIL: backup path not writable by mysql&quot;</span>
+</code></pre></div>
+<h2 id="optional-run-checks-in-one-go">Optional: run checks in one go<a class="headerlink" href="#optional-run-checks-in-one-go" title="Permanent link">&para;</a></h2>
+<p>You can run a subset of these checks from the shell in one pass. The following assumes:</p>
 <ul>
-<li>
-<p>Review your changes thoroughly: Double-check your AppArmor profile modifications to ensure they grant MySQL the necessary permissions while maintaining security. </p>
-</li>
-<li>
-<p>Test your changes in a safe environment: Before deploying changes to a production server, test them in a staging environment that mimics your production setup. This test allows you to identify and fix any issues caused by the AppArmor profile adjustments without impacting your live MySQL instance.</p>
-</li>
+<li>Service name is <code>mysqld</code> (change to <code>mysql</code> if needed).</li>
+<li>Admin user is <code>'admin'@'localhost'</code> (change SQL if needed).</li>
+<li>Backup path is <code>/var/backups/mysql</code> (change if needed).</li>
+<li>You will enter the root password when prompted.</li>
 </ul>
-<h2 id="install-the-utilities-used-to-control-apparmor">Install the utilities used to control AppArmor<a class="headerlink" href="#install-the-utilities-used-to-control-apparmor" title="Permanent link">&para;</a></h2>
-<p>Install the <code>apparmor-utils</code> package to work with profiles. Use these utilities to create, update, enforce, switch to complain mode, and disable profiles, as needed:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>apparmor-utils
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== 1. No anonymous user ===&quot;</span>
+mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT user, host FROM mysql.user WHERE user = &#39;&#39;;&quot;</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== 2. No remote root ===&quot;</span>
+mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT user, host FROM mysql.user WHERE user = &#39;root&#39; AND host != &#39;localhost&#39;;&quot;</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== 3. No test database ===&quot;</span>
+mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW DATABASES LIKE &#39;test&#39;;&quot;</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== 4. Admin grants (no SUPER/ALL on *.*) ===&quot;</span>
+mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW GRANTS FOR &#39;admin&#39;@&#39;localhost&#39;;&quot;</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== 5. OOMScoreAdjust ===&quot;</span>
+systemctl<span class="w"> </span>show<span class="w"> </span>mysqld<span class="w"> </span>-p<span class="w"> </span>OOMScoreAdjust
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== 6. Error log and slow query log ===&quot;</span>
+mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@log_error, @@slow_query_log, @@slow_query_log_file;&quot;</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== 7. Backup path writable ===&quot;</span>
+<span class="nv">BACKUP_DIR</span><span class="o">=</span>/var/backups/mysql
+<span class="nb">test</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BACKUP_DIR</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>touch<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test&quot;</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;OK: writable&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;FAIL or missing&quot;</span>
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Reading package lists... Done
-Building dependency tree
-...
-The following additional packages will be installed:
-    python3-apparmor python3-libapparmor
-...
-</code></pre></div>
-</details>
-<h2 id="add-the-mysqld-profile">Add the mysqld profile<a class="headerlink" href="#add-the-mysqld-profile" title="Permanent link">&para;</a></h2>
-<p class="power-number">Add the mysqld profile with the following procedure:</p>
-<ol>
-<li>
-<p>Download the current version of the AppArmor:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://raw.githubusercontent.com/percona/percona-server/release-8.4.7-7/build-ps/debian/percona-server-server.install
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-</details>
-<div class="no-copy highlight"><pre><span></span><code>...
-Saving to &#39;apparamor-profile`
-...
-</code></pre></div>
-</li>
-<li>
-<p>Move the file to /etc/apparmor.d/usr.sbin.mysqld</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mv<span class="w"> </span>apparmor-profile<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
-</code></pre></div>
-</li>
-<li>
-<p>Create an empty file for editing:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>touch<span class="w"> </span>/etc/apparmor.d/local/usr.sbin.mysqld
-</code></pre></div>
-</li>
-<li>
-<p>Load the profile:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>-W<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
-</code></pre></div>
-</li>
-<li>
-<p>Restart <em>Percona Server for MySQL</em>:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
-</code></pre></div>
-</li>
-<li>
-<p>Verify the profile status:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>...
-processes are in enforce mode
-...
-/usr/sbin/mysqld (100840)
-...
-</code></pre></div>
-</details>
-</li>
-</ol>
-<h2 id="check-the-current-status">Check the current status<a class="headerlink" href="#check-the-current-status" title="Permanent link">&para;</a></h2>
-<p>As root or using <code>sudo</code>, you can check the AppArmor status:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>apparmor module is loaded.
-34 profiles are loaded.
-32 profiles in enforce mode.
-...
-    /usr/sbin/mysqld
-...
-2 profiles in complain mode.
-...
-3 profiles have profiles defined.
-...
-0 processes are in complain mode.
-0 processes are unconfined but have a profile defined.
-</code></pre></div>
-</details>
-<h2 id="switch-a-profile-to-complain-mode">Switch a profile to complain mode<a class="headerlink" href="#switch-a-profile-to-complain-mode" title="Permanent link">&para;</a></h2>
-<p>Switch a profile to complain mode when the program is in your path with this command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>&lt;program&gt;
-</code></pre></div>
-<p>If needed, specify the program’s path in the command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>/sbin/&lt;program&gt;
-</code></pre></div>
-<p>If the profile is not stored in <code>/etc/apparmor.d/</code>, use the following command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>/path/to/profiles/&lt;program&gt;
-</code></pre></div>
-<h2 id="switch-a-profile-to-enforce-mode">Switch a profile to enforce mode<a class="headerlink" href="#switch-a-profile-to-enforce-mode" title="Permanent link">&para;</a></h2>
-<p>Switch a profile to the enforce mode when the program is in your path with this command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>&lt;program&gt;
-</code></pre></div>
-<p>If needed, specify the program’s path in the command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>/sbin/&lt;program&gt;
-</code></pre></div>
-<p>If the profile is not stored in <code>/etc/apparmor.d/</code>, use the following command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>/path/to/profile
-</code></pre></div>
-<h2 id="disable-one-profile">Disable one profile<a class="headerlink" href="#disable-one-profile" title="Permanent link">&para;</a></h2>
-<p>You can disable a profile but it is recommended to Switch a Profile to Complain mode.</p>
-<p>Use either of the following methods to disable a profile:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld<span class="w"> </span>/etc/apparmor.d/disable/
-$<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-R<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
-</code></pre></div>
-<p>or</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>aa-disable<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
-</code></pre></div>
-<h2 id="reload-all-profiles">Reload all profiles<a class="headerlink" href="#reload-all-profiles" title="Permanent link">&para;</a></h2>
-<p>Run either of the following commands to reload all profiles:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>apparmor<span class="w"> </span>reload
-</code></pre></div>
-<p>or</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w"> </span>apparmor.service
-</code></pre></div>
-<h2 id="reload-one-profile">Reload one profile<a class="headerlink" href="#reload-one-profile" title="Permanent link">&para;</a></h2>
-<p>To reload one profile, run the following:
-You may need to restart the program for some changes to take effect.</p>
-<h2 id="useful-links">Useful links:<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
-<p><a href="apparmor.html">AppArmor</a><br>
-<a href="apparmor-profiles.html">AppArmor Profiles</a><br>
-<a href="disable-apparmor.html">Disable AppArmor</a><br>
-<a href="configure-apparmor.html">Configure AppArmor</a><br>
-<a href="troubleshoot-apparmor.html">Troubleshoot AppArmor</a></p>
+<p>Interpret the output using the expected results described in each section above.</p>
+<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>If any check fails, re-read the corresponding section in <a href="first-five-minutes.html">First five minutes</a> and apply or fix the step.</li>
+<li>Re-run this sanity check after changes to confirm everything passes.</li>
+<li>For backup strategy and restore testing, see <a href="backup-restore-overview.html">Backup and restore overview</a>.</li>
+</ul>
 
 
 
@@ -10175,7 +10073,7 @@ You may need to restart the program for some changes to take effect.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 16, 2026 12:43:28 UTC">February 16, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 4, 2026 14:54:31 UTC">February 4, 2026</span>
   </span>
 
     
@@ -10185,7 +10083,7 @@ You may need to restart the program for some changes to take effect.</p>
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 14, 2024 10:22:11 UTC">May 14, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 4, 2026 14:54:31 UTC">February 4, 2026</span>
   </span>
 
     
