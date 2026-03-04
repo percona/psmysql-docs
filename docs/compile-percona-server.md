@@ -23,7 +23,7 @@ to distribute the resulting work, you can generate a new source tarball
 (exactly the same way as we do for release):
 
 ```shell
-cmake .
+cmake . -DFORCE_INSOURCE_BUILD=1
 make dist
 ```
 
