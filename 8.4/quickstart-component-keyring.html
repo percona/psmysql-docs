@@ -9,19 +9,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Troubleshooting AppArmor profiles ensure that applications can access necessary resources without compromising system security.">
+        <meta name="description" content="Enable the component keyring (component_keyring_file) in Percona Server 8.4 for encryption at rest. In MySQL 8.4, the supported path is the component keyring, not legacy keyring plugins.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.4/troubleshoot-apparmor.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.4/quickstart-component-keyring.html">
       
       
-        <link rel="prev" href="configure-apparmor.html">
+        <link rel="prev" href="keyring-components-plugins-overview.html">
       
       
-        <link rel="next" href="selinux.html">
+        <link rel="next" href="use-keyring-file.html">
       
       
         
@@ -32,7 +32,7 @@
     
     
       
-        <title>Troubleshoot AppArmor profiles - Percona Server for MySQL</title>
+        <title>Get Started with component keyring - Percona Server for MySQL</title>
       
     
     
@@ -100,7 +100,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Troubleshoot AppArmor profiles" />
+                 <meta property="og:title" content="Percona Server for MySQL - Get Started with component keyring" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
               
@@ -123,7 +123,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#troubleshoot-apparmor-profiles" class="md-skip">
+        <a href="#get-started-with-component-keyring" class="md-skip">
           Skip to content
         </a>
       
@@ -220,7 +220,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Troubleshoot AppArmor profiles
+              Get Started with component keyring
             
           </span>
         </div>
@@ -4071,10 +4071,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -4094,11 +4092,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
         
           
           <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
@@ -4119,7 +4117,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4246,10 +4244,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -4269,11 +4265,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_5" >
         
           
           <label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
@@ -4294,7 +4290,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4449,37 +4445,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Troubleshoot AppArmor profiles
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="troubleshoot-apparmor.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="troubleshoot-apparmor.html" class="md-nav__link">
         
   
   
@@ -4495,50 +4464,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#profile-modes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Profile Modes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#apparmor-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        AppArmor links
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -6283,8 +6208,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -6308,11 +6235,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
         
           
           <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
@@ -6333,7 +6260,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_13">
             <span class="md-nav__icon md-icon"></span>
             
@@ -6841,8 +6768,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -6854,11 +6783,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_8" checked>
         
           
           <label class="md-nav__link" for="__nav_13_8" id="__nav_13_8_label" tabindex="0">
@@ -6879,7 +6808,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_8_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_8_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_13_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -6922,8 +6851,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -6959,11 +6890,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_8_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_8_2" checked>
         
           
           <label class="md-nav__link" for="__nav_13_8_2" id="__nav_13_8_2_label" tabindex="0">
@@ -6984,7 +6915,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_13_8_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_13_8_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_13_8_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -7027,10 +6958,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="quickstart-component-keyring.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get Started with component keyring
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="quickstart-component-keyring.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -7046,6 +7004,138 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-register-the-component-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Register the component (manifest)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-create-the-keyring-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create the keyring directory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-configure-the-keyring-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Configure the keyring component
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-restart-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Restart MySQL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-verify-the-keyring-is-loaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Verify the keyring is loaded
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-at-rest-encryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data at rest encryption
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clean-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clean up
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operational-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -9695,7 +9785,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
                       <div data-banner="data-banner" class="edit-contrib-banner">
   <div class="banner-content">
     <!-- Edit link centered -->
-    <a href="https://github.com/percona/psmysql-docs/edit/8.4/docs/troubleshoot-apparmor.md" title="Edit this page on GitHub" class="edit-page-link">
+    <a href="https://github.com/percona/psmysql-docs/edit/8.4/docs/quickstart-component-keyring.md" title="Edit this page on GitHub" class="edit-page-link">
       <span class="edit-page-icon">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
@@ -9747,10 +9837,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#profile-modes" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Profile Modes
+        Prerequisites
       
     </span>
   </a>
@@ -9758,10 +9848,98 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#apparmor-links" class="md-nav__link">
+  <a href="#step-1-register-the-component-manifest" class="md-nav__link">
     <span class="md-ellipsis">
       
-        AppArmor links
+        Step 1: Register the component (manifest)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-create-the-keyring-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create the keyring directory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-configure-the-keyring-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Configure the keyring component
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-restart-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Restart MySQL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-verify-the-keyring-is-loaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Verify the keyring is loaded
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-at-rest-encryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data at rest encryption
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clean-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clean up
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operational-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational notes
       
     </span>
   </a>
@@ -9791,58 +9969,211 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/8.4/docs/troubleshoot-apparmor.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/8.4/docs/quickstart-component-keyring.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="troubleshoot-apparmor-profiles">Troubleshoot AppArmor profiles<a class="headerlink" href="#troubleshoot-apparmor-profiles" title="Permanent link">&para;</a></h1>
-<p>Troubleshooting AppArmor profiles ensure that applications can access necessary resources without compromising system security. </p>
-<p>Review <a href="get-help.html">Get help from Percona</a> for ways that we can work with you.</p>
-<h2 id="profile-modes">Profile Modes<a class="headerlink" href="#profile-modes" title="Permanent link">&para;</a></h2>
-<p>AppArmor profiles operate in different modes:</p>
-<table>
-<thead>
-<tr>
-<th>Mode</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Enforce</td>
-<td>Applications are restricted by profile rules, and any violation results in denial of access.</td>
-</tr>
-<tr>
-<td>Complain</td>
-<td>Applications are allowed to take restricted actions, but these actions are logged.</td>
-</tr>
-<tr>
-<td>Disabled</td>
-<td>Profile restrictions are turned off, allowing applications to take any action without logging.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="check-status">Check status<a class="headerlink" href="#check-status" title="Permanent link">&para;</a></h3>
-<p>Use commands like <code>aa-status</code> to check the current status of AppArmor profiles. This check helps identify if profiles are enforcing or complaining about actions.</p>
-<h3 id="switch-modes">Switch modes<a class="headerlink" href="#switch-modes" title="Permanent link">&para;</a></h3>
-<p>You may need to switch profiles between <code>enforce</code> and <code>complain</code> modes when troubleshooting. Use <code>aa-enforce</code> to switch to enforce mode and <code>aa-complain</code> to switch to complain mode.</p>
-<h3 id="disable-profiles">Disable profiles<a class="headerlink" href="#disable-profiles" title="Permanent link">&para;</a></h3>
-<p>If necessary, profiles can be temporarily disabled. However, this is not recommended for security reasons. Use commands like <code>ln -s</code> or <code>aa-disable</code> to disable profiles.</p>
-<h3 id="reload-profiles">Reload profiles<a class="headerlink" href="#reload-profiles" title="Permanent link">&para;</a></h3>
-<p>After making changes to profiles or switching modes, reloading profiles for changes to take effect is essential. Use commands like <code>service apparmor reload</code> or <code>apparmor_parser -r</code> to reload profiles.</p>
-<h3 id="check-log-entries">Check Log Entries<a class="headerlink" href="#check-log-entries" title="Permanent link">&para;</a></h3>
-<p>Monitor log entries for DENIED or ALLOWED actions. DENIED entries indicate that a profile is blocking an action, while ALLOWED entries suggest that an action is permitted.</p>
-<h3 id="edit-profiles">Edit Profiles<a class="headerlink" href="#edit-profiles" title="Permanent link">&para;</a></h3>
-<p>You may need to edit AppArmor profiles to troubleshoot access issues and allow specific actions. Edit the profile files in the <code>/etc/apparmor.d/</code> directory to adjust access permissions.</p>
-<h2 id="apparmor-links">AppArmor links<a class="headerlink" href="#apparmor-links" title="Permanent link">&para;</a></h2>
-<p><a href="apparmor.html">AppArmor</a><br>
-<a href="apparmor-profiles.html">AppArmor Profiles</a><br>
-<a href="manage-apparmor-profiles.html">Manage AppArmor Profiles</a><br>
-<a href="disable-apparmor.html">Disable AppArmor</a><br>
-<a href="configure-apparmor.html">Configure AppArmor</a></p>
+<h1 id="get-started-with-component-keyring">Get Started with component keyring<a class="headerlink" href="#get-started-with-component-keyring" title="Permanent link">&para;</a></h1>
+<p>Enable the component keyring (<code>component_keyring_file</code>) in Percona Server 8.4 for encryption at rest. In MySQL 8.4, the supported path is the component keyring, not legacy keyring plugins.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Enable only one keyring at a time. Do not use legacy keyring plugins (such as <code>keyring_file</code> or <code>keyring_vault</code>) together with the component keyring.</p>
+<p>If you are upgrading from 8.0 or another release and already have data encrypted with a legacy keyring plugin, do not enable the component keyring without a migration plan. Data encrypted with the old plugin will not be readable by the new component; existing encrypted tables can become unreadable.</p>
+<p>See <a href="upgrade-components.html">Upgrade components</a> and your upgrade documentation before switching. For migrating keys from a legacy keyring to the component keyring, check MySQL and Percona documentation for your version (for example, the mysql_migrate_keyring utility where applicable).</p>
+</div>
+<p>This guide is based on <a href="https://percona.community/blog/2026/01/13/configuring-the-component-keyring-in-percona-server-and-pxc-8.4/">Configuring the Component Keyring in Percona Server and PXC 8.4</a> (Percona Community).</p>
+<p>Scope: This quickstart assumes a typical package install and standard paths. Minimal images, custom builds, tarball installs, or locked-down environments may need different paths and steps. Confirm your binary location, plugin directory, and manifest path before following the steps below.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Percona Server for MySQL 8.4 installed</li>
+<li><code>sudo</code> or root access to the server filesystem (to create the keyring directory, manifest, and component config)</li>
+<li>Service name may be <code>mysql</code> or <code>mysqld</code> depending on your system</li>
+<li>For the encryption examples (tables, system tablespace, redo/undo), the MySQL user you connect as must have the required privileges (for example, <code>CREATE TABLESPACE</code> for system tablespace). OS-level sudo does not grant MySQL privileges.</li>
+</ul>
+<p>This guide assumes you have OS-level access to install and configure the keyring. In managed or hosted environments where you have only SQL privileges and no filesystem access, your provider must configure the keyring or offer an alternative. This quickstart does not cover managed or hosted environments with only SQL access.</p>
+<h2 id="step-1-register-the-component-manifest">Step 1: Register the component (manifest)<a class="headerlink" href="#step-1-register-the-component-manifest" title="Permanent link">&para;</a></h2>
+<p>The manifest file (<code>mysqld.my</code>) tells MySQL which component to load. The component&rsquo;s own configuration file (Step 3) configures how it behaves: where to store keys and whether the keyring is read-only.</p>
+<p>MySQL loads components from a JSON manifest. A single typo, trailing comma, or missing quote can prevent the server from starting.</p>
+<p>Before restarting, you can validate JSON syntax locally with <code>jq . /usr/sbin/mysqld.my</code> (if <code>jq</code> is installed). When the JSON is valid, <code>jq .</code> prints the file contents back; invalid JSON produces an error.</p>
+<p class="power-number">Note: jq only checks syntax. It does not verify that the component library exists in the plugin directory or that the server will load it. A successful jq run does not guarantee the server will start with the keyring. Do not paste configuration that contains paths or other sensitive details into third-party websites.</p>
+<ol>
+<li>
+<p>Confirm where your server expects the manifest. The server reads the manifest from a location tied to the <code>mysqld</code> binary (often the same directory as the binary). Check the path of the running binary (for example, inspect your systemd unit file or run <code>readlink -f /proc/$(pgrep -f mysqld)/exe</code> on Linux).</p>
+<p>If you installed from a tarball or a non-standard repo, the path may not be <code>/usr/sbin</code>. Create the manifest in the location you confirmed. If the manifest is in the wrong place, the server ignores it and starts without the keyring; encryption (for example, <code>CREATE TABLE ... ENCRYPTION='Y'</code>) will then fail with no clear error.</p>
+<p>A common path is <code>/usr/sbin/mysqld.my</code>. Custom builds or container images may use <code>/usr/bin</code>, <code>/usr/local/sbin</code>, or another directory. Some packages or security modules (for example, AppArmor or SELinux) may block writing under <code>/usr/sbin</code>. Create the manifest file at the path you confirmed:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>vi<span class="w"> </span>/usr/sbin/mysqld.my
+</code></pre></div>
+</li>
+<li>
+<p>Add the following JSON (check spelling and quotes):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://component_keyring_file&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+</li>
+<li>
+<p>Set ownership and permissions:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chown<span class="w"> </span>root:root<span class="w"> </span>/usr/sbin/mysqld.my
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">644</span><span class="w"> </span>/usr/sbin/mysqld.my
+</code></pre></div>
+</li>
+</ol>
+<h2 id="step-2-create-the-keyring-directory">Step 2: Create the keyring directory<a class="headerlink" href="#step-2-create-the-keyring-directory" title="Permanent link">&para;</a></h2>
+<p>The keyring directory holds encryption keys. Restrict access.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/lib/mysql-keyring
+sudo<span class="w"> </span>chown<span class="w"> </span>mysql:mysql<span class="w"> </span>/var/lib/mysql-keyring
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">750</span><span class="w"> </span>/var/lib/mysql-keyring
+</code></pre></div>
+<p>Rule of thumb: mysql owns the directory; only MySQL (and root for administration) should access it.</p>
+<p>If you use a custom Linux user, a Docker volume, or a non-standard install, ensure the keyring directory is owned by the user that runs MySQL and that the MySQL process has read access to the manifest and component config files. &ldquo;Permission denied&rdquo; on startup usually means ownership or permissions on the manifest and component config paths.</p>
+<p>In hardened environments (for example, security-hardened AMIs), extended attributes (ACLs) or immutable flags (for example, <code>chattr +i</code>) may also block access. If <code>chmod</code>/<code>chown</code> succeed but MySQL still cannot access the file or directory, check with <code>getfacl</code> or <code>lsattr</code> and adjust or remove restrictions as your security policy allows.</p>
+<p>In orchestrated or container environments (for example, Kubernetes, OpenShift), file ownership and permissions are often managed by the platform (for example, Security Context Constraints or admission controllers). Manual <code>chown</code>/<code>chmod</code> may fail or be overwritten when the pod restarts. Check your platform documentation for how to set permissions or run as the correct user.</p>
+<div class="admonition warning">
+<p class="admonition-title">Back up the keyring file: data recovery depends on it</p>
+<p>Do not delete the keyring file (for example, <code>/var/lib/mysql-keyring/component_keyring_file</code>) to &ldquo;clean up&rdquo; or for any other reason. If that file is lost or deleted, all data encrypted with it is <strong>unrecoverable</strong>. There is no way to decrypt tablespaces, redo logs, or undo logs without the keyring.</p>
+<p><strong>Life cycle:</strong> Back up the keyring file and its directory as part of your normal backup strategy. Include the keyring in your restore procedures so that after a restore you can start MySQL with the same keys and access your encrypted data. If you move or clone the server, copy the keyring file to the new location before starting the server.</p>
+</div>
+<h2 id="step-3-configure-the-keyring-component">Step 3: Configure the keyring component<a class="headerlink" href="#step-3-configure-the-keyring-component" title="Permanent link">&para;</a></h2>
+<p>Verify the component library exists before pointing the manifest at it. In a MySQL session (if the server is already running), run <code>SELECT @@plugin_dir;</code>. Then list that directory and confirm the <code>component_keyring_file</code> library (or the file name your distribution uses) is present. On Linux you can run <code>ls -la "$(mysql -N -e 'SELECT @@plugin_dir;')"</code> and look for a file related to <code>component_keyring_file</code>.</p>
+<p>Minimal or slim container images may omit the library. Install the package that provides the keyring component or use a full image.</p>
+<p class="power-number">Create the component configuration file in the MySQL plugin directory. Use the path returned by <code>@@plugin_dir</code> (typical paths: <code>/usr/lib64/mysql/plugin</code> on RHEL-style, <code>/usr/lib/mysql/plugin</code> on Debian/Ubuntu).</p>
+<ol>
+<li>
+<p>Go to the plugin directory (use the path from <code>@@plugin_dir</code> or adjust for your distribution):</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/usr/lib64/mysql/plugin
+</code></pre></div>
+</li>
+<li>
+<p>Create the config file:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>vi<span class="w"> </span>component_keyring_file.cnf
+</code></pre></div>
+</li>
+<li>
+<p>Add (adjust <code>path</code> if you used a different keyring directory):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/lib/mysql-keyring/component_keyring_file&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;read_only&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Use <code>"read_only": true</code> if you want to prevent runtime changes to the keyring. You can validate the component config file with <code>jq . component_keyring_file.cnf</code> before restarting.</p>
+</li>
+<li>
+<p>Set ownership and permissions:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chown<span class="w"> </span>root:root<span class="w"> </span>component_keyring_file.cnf
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</span><span class="w"> </span>component_keyring_file.cnf
+</code></pre></div>
+</li>
+</ol>
+<h2 id="step-4-restart-mysql">Step 4: Restart MySQL<a class="headerlink" href="#step-4-restart-mysql" title="Permanent link">&para;</a></h2>
+<p>Loading the component from the manifest requires a server restart. On a typical system:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
+</code></pre></div>
+<p>Or <code>sudo systemctl restart mysqld</code>, depending on your system.</p>
+<p>In orchestrated or managed environments (for example, Kubernetes or some cloud DB services), restart may be controlled by a scheduler or not allowed mid-workflow. Plan the keyring setup during a maintenance window or coordinate with your provider. There is no supported way to load the keyring component at runtime without a restart when using the file-based manifest.</p>
+<p>If the server does not start, check the error log. To see where it is written, run <code>SELECT @@log_error;</code> in a previous MySQL session, or look in common locations such as <code>/var/log/mysql/error.log</code> or the server datadir. JSON syntax errors in the manifest or component config (trailing commas, missing quotes, wrong brackets) are reported there. Fix the JSON and restart again.</p>
+<h2 id="step-5-verify-the-keyring-is-loaded">Step 5: Verify the keyring is loaded<a class="headerlink" href="#step-5-verify-the-keyring-is-loaded" title="Permanent link">&para;</a></h2>
+<p>In a MySQL session:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
+</code></pre></div>
+<p>You should see <code>component_keyring_file</code> with <code>Component_status</code> = Active and the correct <code>Data_file</code> path.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>+---------------------+-----------------------------------------------+
+| STATUS_KEY          | STATUS_VALUE                                  |
++---------------------+-----------------------------------------------+
+| Component_name      | component_keyring_file                        |
+| Component_status    | Active                                        |
+| Data_file           | /var/lib/mysql-keyring/component_keyring_file |
+| Read_only           | No                                            |
++---------------------+-----------------------------------------------+
+</code></pre></div>
+<p>Seeing &ldquo;Active&rdquo; here means only that the keyring component is loaded and ready. Your data is not encrypted until you enable encryption for tables, tablespaces, or logs in the next section.</p>
+<p>Treat Step 5 as &ldquo;keyring ready&rdquo;. Actual protection comes from applying encryption in the Data at rest encryption section below.</p>
+<h2 id="data-at-rest-encryption">Data at rest encryption<a class="headerlink" href="#data-at-rest-encryption" title="Permanent link">&para;</a></h2>
+<p>With the keyring loaded, the server can encrypt data on disk (transparent data encryption, or TDE). Keys are stored in the keyring; you enable encryption per tablespace or for redo/undo logs.</p>
+<p><strong>Performance:</strong> Enabling system-wide encryption (redo logs, undo logs, and the system tablespace) consumes extra CPU cycles and I/O. Encryption has a measurable cost: throughput can drop and latency can increase. The impact depends on workload. Consider enabling encryption where it matters for compliance or risk, and measure performance under your load before and after.</p>
+<h3 id="tables-and-schemas">Tables and schemas<a class="headerlink" href="#tables-and-schemas" title="Permanent link">&para;</a></h3>
+<p>Create a new table with encryption:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">myapp</span><span class="p">.</span><span class="n">sensitive_data</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">  </span><span class="n">payload</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="p">)</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Encrypt an existing table:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">myapp</span><span class="p">.</span><span class="n">existing_table</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Set default encryption for a schema so new tables are encrypted by default:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">myapp</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="system-tablespace">System tablespace<a class="headerlink" href="#system-tablespace" title="Permanent link">&para;</a></h3>
+<p>Encrypt the system tablespace (data dictionary, <code>mysql</code> system tablespace):</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Requires the <code>CREATE TABLESPACE</code> privilege on the MySQL user you use (having OS sudo does not grant MySQL privileges).</p>
+<p>Encrypting the system tablespace can be a long-running, high-I/O operation. On a large instance it may take minutes or hours and can increase load or cause blocking. Do not assume it is safe to run on a heavily loaded production system without a maintenance window. Plan for a maintenance window and expect significant I/O. See <a href="encrypt-system-tablespace.html">Encrypt system tablespace</a>.</p>
+<h3 id="redo-and-undo-logs">Redo and undo logs<a class="headerlink" href="#redo-and-undo-logs" title="Permanent link">&para;</a></h3>
+<p>Enable encryption for redo and undo log files so recovery and rollback data are encrypted on disk.</p>
+<p>All <code>SET GLOBAL</code> settings are temporary and are lost at restart. For redo/undo log encryption, use the config file as the primary method. Do not enable it only with <code>SET GLOBAL</code> or your protection will vanish after the next reboot (for example, after a kernel update or crash).</p>
+<p>Add these options to your MySQL config file (for example, <code>my.cnf</code>) so they persist:</p>
+<div class="highlight"><pre><span></span><code><span class="na">innodb_redo_log_encrypt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ON</span>
+<span class="na">innodb_undo_log_encrypt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ON</span>
+</code></pre></div>
+<p>Restart the server (or add the options and plan a restart). If these settings are only set with <code>SET GLOBAL</code> and not in the config file, the server will stop encrypting new redo/undo pages after a restart with no clear indication.</p>
+<p>New log pages are encrypted when written; existing pages are unchanged until they are rewritten. See <a href="encrypt-logs.html">Log encryption</a>.</p>
+<h3 id="verify-encryption">Verify encryption<a class="headerlink" href="#verify-encryption" title="Permanent link">&para;</a></h3>
+<p>The following checks report metadata and schema settings only. They do not prove that data on disk is actually encrypted or that the keyring has served a key for that tablespace.</p>
+<p>InnoDB encrypts data when the option is set. These queries only confirm that the option is set (the &ldquo;label&rdquo;), not that the &ldquo;lock&rdquo; is engaged on disk.</p>
+<p>Tables: List tables that have the encryption option set. Such tables show <code>ENCRYPTION="Y"</code> in <code>CREATE_OPTIONS</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLES</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%ENCRYPTION%&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Tablespaces: Check whether a tablespace has the encryption flag set in <code>INNODB_TABLESPACES</code>. Bit 13 (value 8192) is set when the tablespace is marked encrypted:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">8192</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">encrypted</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">INNODB_TABLESPACES</span><span class="p">;</span>
+</code></pre></div>
+<p>Schemas: List schemas that have default encryption (new tables in schemas with default encryption are encrypted by default):</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">SCHEMA_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">DEFAULT_ENCRYPTION</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">SCHEMATA</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">DEFAULT_ENCRYPTION</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;YES&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Redo and undo logs: Confirm whether redo and undo log encryption is enabled:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;innodb_redo_log_encrypt&#39;</span><span class="p">;</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;innodb_undo_log_encrypt&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>For more (binary logs, doublewrite, temporary files, and INNODB_TABLESPACES_ENCRYPTION), see <a href="verify-encryption.html">Verify encryption</a>.</p>
+<h2 id="clean-up">Clean up<a class="headerlink" href="#clean-up" title="Permanent link">&para;</a></h2>
+<p>If you ran the examples above and want to return the instance to its previous state, run the following. Skip any step that does not apply (for example, if you did not create <code>myapp</code> or encrypt the system tablespace).</p>
+<p>Disable redo and undo log encryption. If you added them to <code>my.cnf</code>, remove or comment out those lines and restart; otherwise they will turn back on at next restart.</p>
+<p>To turn off only for the current run:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">innodb_redo_log_encrypt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">innodb_undo_log_encrypt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
+</code></pre></div>
+<p>Revert system tablespace encryption (only if you ran <code>ALTER TABLESPACE mysql ENCRYPTION='Y'</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Remove the example schema default and tables. If you created the <code>myapp</code> schema or the example tables used in this guide:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">myapp</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="p">;</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">myapp</span><span class="p">.</span><span class="n">sensitive_data</span><span class="p">;</span>
+</code></pre></div>
+<p>If you encrypted a different existing table, revert it with <code>ALTER TABLE schema_name.table_name ENCRYPTION='N';</code>.</p>
+<p>The keyring remains loaded and the keyring files on disk are unchanged. To remove the keyring entirely, delete the component from <code>mysqld.my</code>, remove or rename <code>component_keyring_file.cnf</code>, and restart MySQL.</p>
+<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Use <a href="data-at-rest-encryption.html">data at rest encryption</a> (for example, encrypt tablespaces, redo/undo logs) with the keyring in place.</li>
+<li><a href="verify-encryption.html">Verify encryption</a> for your tablespaces and logs.</li>
+<li>For Percona XtraDB Cluster (PXC): keyring file is not replicated; copy the keyring file from the bootstrap node to other nodes before starting them. See the <a href="https://percona.community/blog/2026/01/13/configuring-the-component-keyring-in-percona-server-and-pxc-8.4/">Percona Community blog</a> for PXC-specific steps and the 8.4.4/8.4.5 plugin-path workaround.</li>
+</ul>
+<h2 id="operational-notes">Operational notes<a class="headerlink" href="#operational-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Treat the keyring file as a secret: restrict access and include it in your secure backup strategy.</li>
+<li>Back up the keyring file and its directory. If the keyring is lost or damaged (for example, after a migration or permission change), you cannot decrypt data that was encrypted with the keyring. Recovery is not possible. Duplicate or back up the keyring before major changes to the server or filesystem.</li>
+<li>If the keyring is lost and you have encrypted data, recovery is not possible.</li>
+<li>To change the master key (for example, for rotation or compliance), use <code>ALTER INSTANCE ROTATE INNODB MASTER KEY</code>; see <a href="rotate-master-key.html">Rotate the master encryption key</a>. Do not delete or replace the keyring file manually to &ldquo;reset&rdquo; or rotate. You will lose access to all data encrypted with it.</li>
+<li>For MySQL 8.4 and later, components are the supported keyring model; avoid mixing with legacy keyring plugins.</li>
+</ul>
 
 
 
@@ -9865,7 +10196,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 21, 2024 11:53:24 UTC">November 21, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 9, 2026 15:54:46 UTC">March 9, 2026</span>
   </span>
 
     
@@ -9875,7 +10206,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 14, 2024 10:22:11 UTC">May 14, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 9, 2026 15:54:46 UTC">March 9, 2026</span>
   </span>
 
     
