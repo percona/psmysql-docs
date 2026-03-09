@@ -15,6 +15,7 @@ Quickstart path: Step 1 — Install. Next: [Work with a database](quickstart-dat
 
 ## Installation steps
 
+Do the following steps to install the server:
 {.power-number}
 
 1. Update the package index:
