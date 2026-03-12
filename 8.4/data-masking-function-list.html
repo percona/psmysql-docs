@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The feature is in tech preview.">
+        <meta name="description" content="The feature is in tech preview. This page is a catalog of individual functions and variables. For the security model, use cases, and when to apply masking (including limitations and failure modes), see Data masking overview and the Limitations and security considerations section. Performance characteristics (latency, complexity, scalability) are not documented; for large result sets or SLA-critical workloads, benchmark and evaluate per-row overhead. The component does not provide a function to test whether a value is already masked; auditing that masking has been applied to required rows must be done by application logic, known patterns, or other tooling.">
       
       
         <meta name="author" content="Percona LLC">
@@ -18,7 +18,7 @@
         <link rel="canonical" href="https://docs.percona.com/percona-server/8.4/data-masking-function-list.html">
       
       
-        <link rel="prev" href="install-data-masking-component.html">
+        <link rel="prev" href="quickstart-data-masking.html">
       
       
         <link rel="next" href="uninstall-data-masking-component.html">
@@ -6437,6 +6437,8 @@
       
         
       
+        
+      
     
     
     
@@ -6537,6 +6539,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart-data-masking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started with Data Masking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -6613,10 +6643,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#data-masking-component-functions" class="md-nav__link">
+  <a href="#limitations-and-operational-notes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Data masking component functions
+        Limitations and operational notes
       
     </span>
   </a>
@@ -6921,7 +6951,7 @@
   <span class="md-ellipsis">
     
   
-    Uninstall the component
+    Uninstall the data masking component
   
 
     
@@ -10063,10 +10093,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#data-masking-component-functions" class="md-nav__link">
+  <a href="#limitations-and-operational-notes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Data masking component functions
+        Limitations and operational notes
       
     </span>
   </a>
@@ -10379,27 +10409,75 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="data-masking-component-functions-and-variables">Data masking component functions and variables<a class="headerlink" href="#data-masking-component-functions-and-variables" title="Permanent link">&para;</a></h1>
-<p>The feature is in <a href="glossary.html#tech-preview">tech preview</a>.</p>
-<h2 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h2>
-<p>In Percona Server for MySQL 8.4.4-1, dictionary-related functions no longer run internal queries as the root user without a password. Following MySQL best practices, many admins disable the <code>root</code> user, which previously caused these functions to stop working. The server now uses the built-in <code>mysql.session</code> user to execute dictionary queries. </p>
-<p>However, for this to work, you need to grant the mysql.session user <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> privileges on the <code>masking_dictionaries</code> table.</p>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
-</code></pre></div>
-<p>If you change the value of the <code>masking_functions.masking_database</code> system variable to something other than <code>mysql</code>, make sure to update the <code>GRANT</code> query to match the new value.</p>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">&lt;</span><span class="n">masking_functions</span><span class="p">.</span><span class="n">masking_database</span><span class="o">&gt;</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
-</code></pre></div>
-<h2 id="data-masking-component-functions">Data masking component functions<a class="headerlink" href="#data-masking-component-functions" title="Permanent link">&para;</a></h2>
+<p>The feature is in <a href="glossary.html#tech-preview">tech preview</a>. This page is a catalog of individual functions and variables. For the security model, use cases, and when to apply masking (including limitations and failure modes), see <a href="data-masking-overview.html">Data masking overview</a> and the <a href="data-masking-overview.html#limitations-and-security-considerations">Limitations and security considerations</a> section. Performance characteristics (latency, complexity, scalability) are not documented; for large result sets or SLA-critical workloads, benchmark and evaluate per-row overhead. The component does not provide a function to test whether a value is already masked; auditing that masking has been applied to required rows must be done by application logic, known patterns, or other tooling.</p>
+<p>To find a function by what the function does, use the &ldquo;Find by task&rdquo; table or the full list below. Each function name links to that function&rsquo;s definition later on this page.</p>
+<h3 id="find-by-task">Find by task<a class="headerlink" href="#find-by-task" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th><strong>Name</strong></th>
-<th><strong>Details</strong></th>
+<th>If you want to…</th>
+<th>Function(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mask or generate a payment card number (PAN)</td>
+<td><a href="#mask_panstr-mask_char"><code>mask_pan</code></a>, <a href="#mask_pan_relaxedstr-mask_char"><code>mask_pan_relaxed</code></a>, <a href="#gen_rnd_pan"><code>gen_rnd_pan</code></a></td>
+</tr>
+<tr>
+<td>Mask or generate a US Social Security number (SSN)</td>
+<td><a href="#mask_ssnstr-mask_char"><code>mask_ssn</code></a>, <a href="#gen_rnd_ssn"><code>gen_rnd_ssn</code></a></td>
+</tr>
+<tr>
+<td>Mask or generate a Canadian SIN</td>
+<td><a href="#mask_canada_sinstr-mask_char"><code>mask_canada_sin</code></a>, <a href="#gen_rnd_canada_sin"><code>gen_rnd_canada_sin</code></a></td>
+</tr>
+<tr>
+<td>Mask or generate a UK National Insurance number</td>
+<td><a href="#mask_uk_ninstr-mask_char"><code>mask_uk_nin</code></a>, <a href="#gen_rnd_uk_nin"><code>gen_rnd_uk_nin</code></a></td>
+</tr>
+<tr>
+<td>Mask or generate an IBAN</td>
+<td><a href="#mask_ibanstr-mask_char"><code>mask_iban</code></a>, <a href="#gen_rnd_ibancountry-size"><code>gen_rnd_iban</code></a></td>
+</tr>
+<tr>
+<td>Mask or generate a UUID</td>
+<td><a href="#mask_uuidstr-mask_char"><code>mask_uuid</code></a>, <a href="#gen_rnd_uuid"><code>gen_rnd_uuid</code></a></td>
+</tr>
+<tr>
+<td>Generate a random email or US phone number</td>
+<td><a href="#gen_rnd_emailname_size-surname_size-domain"><code>gen_rnd_email</code></a>, <a href="#gen_rnd_us_phone"><code>gen_rnd_us_phone</code></a></td>
+</tr>
+<tr>
+<td>Mask the middle or the ends of any string</td>
+<td><a href="#mask_innerstr-margin1-margin2-mask_char"><code>mask_inner</code></a>, <a href="#mask_outerstr-margin1-margin2-mask_char"><code>mask_outer</code></a></td>
+</tr>
+<tr>
+<td>Replace a value with a random term from a dictionary</td>
+<td><a href="#gen_dictionarydictionary_name"><code>gen_dictionary</code></a>, <a href="#gen_blockliststr-from_dictionary_name-to_dictionary_name"><code>gen_blocklist</code></a></td>
+</tr>
+<tr>
+<td>Generate a number in a range</td>
+<td><a href="#gen_rangelower-upper"><code>gen_range</code></a></td>
+</tr>
+<tr>
+<td>Manage dictionaries (add/remove terms, flush cache)</td>
+<td><a href="#masking_dictionary_term_adddictionary_name-term_name"><code>masking_dictionary_term_add</code></a>, <a href="#masking_dictionary_term_removedictionary_name-term_name"><code>masking_dictionary_term_remove</code></a>, <a href="#masking_dictionary_removedictionary_name"><code>masking_dictionary_remove</code></a>, <a href="#masking_dictionaries_flush"><code>masking_dictionaries_flush</code></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="full-list-by-name">Full list (by name)<a class="headerlink" href="#full-list-by-name" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Details</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><a href="#gen_blockliststr-from_dictionary_name-to_dictionary_name"><code>gen_blocklist(str, from_dictionary_name, to_dictionary_name)</code></a></td>
-<td>Replace a term from a dictionary</td>
+<td>If the input is in the source dictionary, returns a random term from the target dictionary; otherwise returns the input</td>
 </tr>
 <tr>
 <td><a href="#gen_dictionarydictionary_name"><code>gen_dictionary(dictionary_name)</code></a></td>
@@ -10495,10 +10573,48 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
+<h2 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h2>
+<p>In Percona Server for MySQL 8.4.4-1, dictionary-related functions no longer run internal queries as the root user without a password. Following MySQL best practices, many admins disable the <code>root</code> user, which previously caused these functions to stop working. The server now uses the built-in <code>mysql.session</code> user to execute dictionary queries. </p>
+<p>However, for dictionary operations to work, you need to grant the mysql.session user <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> privileges on the <code>masking_dictionaries</code> table. Granting <code>UPDATE</code> and <code>DELETE</code> allows the server to modify or remove dictionary data. Compromise of the server or abuse of that user could allow dictionary tampering or deletion, causing dictionary-based functions to fail or return unexpected values; protect the server and the <code>mysql</code> schema accordingly.</p>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>If you change the value of the <code>masking_functions.masking_database</code> system variable to something other than <code>mysql</code>, make sure to update the <code>GRANT</code> query to match the new value.</p>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">&lt;</span><span class="n">masking_functions</span><span class="p">.</span><span class="n">masking_database</span><span class="o">&gt;</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="limitations-and-operational-notes">Limitations and operational notes<a class="headerlink" href="#limitations-and-operational-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Character set and collation: Several functions accept a <code>mask_char</code> that can be in a different character set than the input string. When the character sets differ, the server must transcode the mask character; in some collations or storage contexts this can produce illegal byte sequences or errors. Prefer using a <code>mask_char</code> in the same character set as the input (or the target column) to avoid corruption or storage failures.</p>
+</li>
+<li>
+<p>Schema and format: Masking functions return strings (for example, containing <code>X</code> or <code>*</code>). If the target column or application enforces strict validation (numeric-only, regex, fixed width, or checksums such as Luhn for payment cards), the masked value may cause INSERT or UPDATE failures or break application logic. The component does not guarantee format-preserving or type-preserving output; choose mask character and usage so that results remain valid for the target schema and application.</p>
+</li>
+<li>
+<p>Randomness: Functions that return &ldquo;random&rdquo; values (for example, <code>gen_dictionary</code>, <code>gen_blocklist</code>, <code>gen_rnd_*</code>) do not document that the randomness is cryptographically secure or unpredictable. The selection or generation logic is not necessarily resistant to prediction; do not rely on that logic to resist inference attacks (for example, an attacker with partial data might infer mappings).</p>
+</li>
+<li>
+<p>Collision and uniqueness: The <code>gen_rnd_*</code> functions do not document entropy source or collision probability. At scale (for example, millions of rows), duplicate generated values are possible and can violate unique constraints or make the dataset unsuitable for integration testing. Evaluate uniqueness requirements before relying on these generators for large datasets.</p>
+</li>
+<li>
+<p>Default mask character: The default masking character (for example, <code>X</code> or <code>*</code>) may not suit all use cases. For fixed-width fields, padding, or systems that expect specific formats or checksums (for example, Luhn for payment cards), the default can break validation. Choose mask character and format to match the target schema and application requirements.</p>
+</li>
+<li>
+<p>Performance at scale: Applying masking functions to very large result sets (for example, tens or hundreds of millions of rows) can add significant CPU and memory cost. No performance guarantees or benchmarks are documented. Test and monitor when using these functions in heavy reporting or large SELECTs to avoid resource exhaustion or denial-of-service risk.</p>
+</li>
+<li>
+<p>Aggregation and inference: Row-level masking affects how values are displayed in results; such masking does not necessarily protect against inference via aggregates. Depending on implementation, <code>SUM()</code>, <code>AVG()</code>, or other aggregates may be computed over unmasked data in the execution engine. Do not assume that masking in the result set prevents leakage through aggregate queries; consider differential privacy or aggregate-level protection if that is a threat.</p>
+</li>
+<li>
+<p>Boundary behavior: For <code>mask_outer</code>, when the sum of <code>margin1</code> and <code>margin2</code> is greater than or equal to the string length, the entire string is replaced with the mask character (the whole string is masked). For <code>mask_inner</code>, when that sum is greater than or equal to the string length, no masking occurs (the string is returned unchanged).</p>
+</li>
+<li>
+<p>Validation: The component does not provide a function to check whether a value is already masked. To audit that required rows or columns have been masked, use application logic, schema conventions, or external tooling.</p>
+</li>
+</ul>
 <h2 id="gen_blockliststr-from_dictionary_name-to_dictionary_name">gen_blocklist(str, from_dictionary_name, to_dictionary_name)<a class="headerlink" href="#gen_blockliststr-from_dictionary_name-to_dictionary_name" title="Permanent link">&para;</a></h2>
-<p>Replaces a term from one dictionary with a randomly selected term in another dictionary.</p>
+<p>If <code>str</code> is present in the dictionary named <code>from_dictionary_name</code>, returns a randomly selected term from the dictionary named <code>to_dictionary_name</code>. Otherwise returns <code>str</code> unchanged. The selection is not documented as cryptographically secure; do not rely on the selection to resist prediction or inference (see <a href="#limitations-and-operational-notes">Limitations and operational notes</a>).</p>
 <h3 id="version-update">Version update<a class="headerlink" href="#version-update" title="Permanent link">&para;</a></h3>
-<p>Percona Server for MySQL 8.4.4-1 introduces an internal term cache. The server now uses in-memory data structures for lookups instead of querying the <code>&lt;masking_functions.masking_database&gt;.masking_dictionaries</code> table every time. This improvement boosts performance, especially when handling multiple rows.</p>
+<p>Percona Server for MySQL 8.4.4-4 introduces an internal term cache. The server now uses in-memory data structures for lookups instead of querying the <code>&lt;masking_functions.masking_database&gt;.masking_dictionaries</code> table every time. This improvement boosts performance, especially when handling multiple rows.</p>
 <h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -10511,28 +10627,27 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </thead>
 <tbody>
 <tr>
-<td><code>term</code></td>
+<td><code>str</code></td>
 <td>No</td>
-<td>The term to replace</td>
+<td>The input value to look up and optionally replace</td>
 <td>String</td>
 </tr>
 <tr>
 <td><code>from_dictionary_name</code></td>
 <td>No</td>
-<td>The dictionary that stores the term.</td>
+<td>The dictionary in which <code>str</code> must be found for replacement to occur</td>
 <td>String</td>
 </tr>
 <tr>
 <td><code>to_dictionary_name</code></td>
 <td>No</td>
-<td>The dictionary that stores the replacement term</td>
+<td>The dictionary from which a replacement term is chosen at random</td>
 <td>String</td>
 </tr>
 </tbody>
 </table>
 <h3 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h3>
-<p>A term, selected at random, from the dictionary listed in <code>to_dictionary_name</code> that replaces the selected term. If the selected <code>term</code> is not listed in the <code>from_dictionary_name</code> or a dictionary is missing, then the <code>term</code> is returned. If the <code>to_dictionary_name</code> does not exist, then returns NULL. The character set of the returned string is the same character set of the <code>term</code> parameter.</p>
-<p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
+<p>If <code>str</code> is in <code>from_dictionary_name</code>, a randomly selected term from <code>to_dictionary_name</code>. If <code>str</code> is not in <code>from_dictionary_name</code> or either dictionary is missing, <code>str</code> unchanged. If <code>to_dictionary_name</code> does not exist, NULL. Returns NULL if <code>str</code> is NULL. The character set of the returned string is the same as <code>str</code>.</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_blocklist</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;fruit&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nut&#39;</span><span class="p">);</span>
 </code></pre></div>
@@ -10546,9 +10661,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <h2 id="gen_dictionarydictionary_name">gen_dictionary(dictionary_name)<a class="headerlink" href="#gen_dictionarydictionary_name" title="Permanent link">&para;</a></h2>
-<p>Returns a term from a dictionary selected at random.</p>
+<p>Returns a term from a dictionary selected at random. The selection is not documented as cryptographically secure; do not rely on the selection to resist prediction or inference (see <a href="#limitations-and-operational-notes">Limitations and operational notes</a>).</p>
 <h3 id="version-update_1">Version update<a class="headerlink" href="#version-update_1" title="Permanent link">&para;</a></h3>
-<p>Percona Server for MySQL 8.4.4-1 introduces an internal term cache. The server now uses in-memory data structures for lookups instead of querying the <code>&lt;masking_functions.masking_database&gt;.masking_dictionaries</code> table every time. This improvement boosts performance, especially when handling multiple rows.</p>
+<p>Percona Server for MySQL 8.4.4-4 introduces an internal term cache. The server now uses in-memory data structures for lookups instead of querying the <code>&lt;masking_functions.masking_database&gt;.masking_dictionaries</code> table every time. This improvement boosts performance, especially when handling multiple rows.</p>
 <h3 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -10675,12 +10790,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <td><code>domain</code></td>
 <td>Yes</td>
 <td>Specifies the domain name used. The default value is <code>example.com</code>.</td>
-<td>Integer</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
 <h3 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">&para;</a></h3>
-<p>A generated string in the same character set as <code>domain</code>. If the <code>domain</code> value is not specified, then the string is in the <code>utf8mb4</code> character set. The <code>name</code> and <code>surname</code> are random lower-case letters (a - z).</p>
+<p>A generated string in the same character set as <code>domain</code>. If the <code>domain</code> value is not specified, then the string is in the <code>utf8mb4</code> character set. The <code>name</code> and <code>surname</code> are random lower-case letters (a - z). For columns with a unique constraint, duplicates are possible at scale; see Collision and uniqueness in <a href="#limitations-and-operational-notes">Limitations and operational notes</a>.</p>
 <h3 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_rnd_email</span><span class="p">(</span><span class="n">name_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">surname_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="k">domain</span><span class="o">=</span><span class="s1">&#39;example.test&#39;</span><span class="p">);</span>
 </code></pre></div>
@@ -10694,7 +10809,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <h2 id="gen_rnd_ibancountry-size">gen_rnd_iban([country, size])<a class="headerlink" href="#gen_rnd_ibancountry-size" title="Permanent link">&para;</a></h2>
-<p>Generates an Internal Bank Account Number (IBAN).</p>
+<p>Generates an International Bank Account Number (IBAN).</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 </div>
@@ -10783,7 +10898,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link">&para;</a></h3>
 <p>None</p>
 <h3 id="returns_7">Returns<a class="headerlink" href="#returns_7" title="Permanent link">&para;</a></h3>
-<p>A SSN string in a nine-digit number format &ldquo;AAA-GG-SSSS&rdquo; in the <code>utf8mb4</code> character set. The number has three parts, the first three digits are the area number, the group number, and the serial number. The generated SSN uses &lsquo;900&rsquo; or greater numbers for the area number. These numbers are not legitimate because they are outside the approved range.</p>
+<p>An SSN string in nine-digit format &ldquo;AAA-GG-SSSS&rdquo; in the <code>utf8mb4</code> character set. The number has three parts, the first three digits are the area number, the group number, and the serial number. The generated SSN uses &lsquo;900&rsquo; or greater numbers for the area number. These numbers are not legitimate because they are outside the approved range.</p>
 <h3 id="example_7">Example<a class="headerlink" href="#example_7" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_rnd_ssn</span><span class="p">();</span>
 </code></pre></div>
@@ -10793,7 +10908,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 | gen_rnd_ssn()  |
 +----------------+
 | 970-03-0370    |
------------------+
++----------------+
 </code></pre></div>
 </details>
 <h2 id="gen_rnd_uk_nin">gen_rnd_uk_nin()<a class="headerlink" href="#gen_rnd_uk_nin" title="Permanent link">&para;</a></h2>
@@ -10882,7 +10997,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>The <code>str</code> accepts an alphanumeric string.</p>
-<p>If you do not specify a <code>mask_char</code>, the default character is <code>X</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>If you do not specify a <code>mask_char</code>, the default character is <code>X</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>. See <a href="#limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
 <h3 id="returns_11">Returns<a class="headerlink" href="#returns_11" title="Permanent link">&para;</a></h3>
 <p>A string with the selected characters masked by a specified <code>mask_char</code> or the default value for that parameter. The function supports multibyte characters in any character set. The character set of the return value is the same as <code>str</code>.</p>
 <p>An error is reported if  <code>str</code> length is an incorrect length.</p>
@@ -10900,7 +11015,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <h2 id="mask_ibanstr-mask_char">mask_iban(str [,mask_char])<a class="headerlink" href="#mask_ibanstr-mask_char" title="Permanent link">&para;</a></h2>
-<p>Masks an Internal Bank Account Number (IBAN).</p>
+<p>Masks an International Bank Account Number (IBAN).</p>
 <h3 id="parameters_12">Parameters<a class="headerlink" href="#parameters_12" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -10935,7 +11050,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Groups of four characters. These groups can be separated by a space or any separator character.</p>
 </li>
 </ul>
-<p>The default value for <code>mask_char</code> is <code>*</code>. The value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>The default value for <code>mask_char</code> is <code>*</code>. The value can be a multibyte character in any character set and may not be the same character set as <code>str</code>. See <a href="#limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
 <h3 id="returns_12">Returns<a class="headerlink" href="#returns_12" title="Permanent link">&para;</a></h3>
 <p>Returns the masked string. The character set of the result is the same as the character set of <code>str</code>.</p>
 <p>An error is reported if the <code>str</code> length is incorrect.</p>
@@ -10966,7 +11081,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </thead>
 <tbody>
 <tr>
-<td><code>string</code></td>
+<td><code>str</code></td>
 <td>No</td>
 <td>The string to be masked</td>
 <td>String</td>
@@ -10993,10 +11108,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>The <code>margin1</code> value cannot be a negative number. A value of <code>0</code> (zero) masks all characters.</p>
 <p>The <code>margin2</code> value cannot be a negative number. A value of <code>0</code> (zero) masks all characters.</p>
-<p>If the sum of <code>margin1</code> and <code>margin2</code> is greater than or equal to the string length, no masking occurs.</p>
-<p>If the <code>mask_char</code> is not specified, the default is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>If the sum of <code>margin1</code> and <code>margin2</code> is greater than or equal to the string length, no masking occurs. See <a href="#limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
+<p>If the <code>mask_char</code> is not specified, the default is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>.</p>
 <h3 id="returns_13">Returns<a class="headerlink" href="#returns_13" title="Permanent link">&para;</a></h3>
-<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the character set of the <code>string</code> parameter.</p>
+<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the character set of <code>str</code>.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_13">Example<a class="headerlink" href="#example_13" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_inner</span><span class="p">(</span><span class="s1">&#39;123456789&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
@@ -11024,7 +11139,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </thead>
 <tbody>
 <tr>
-<td><code>string</code></td>
+<td><code>str</code></td>
 <td>No</td>
 <td>The string to be masked</td>
 <td>String</td>
@@ -11051,10 +11166,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>The <code>margin1</code> cannot be a negative number. A value of <code>0</code> (zero) does not mask any characters.</p>
 <p>The <code>margin2</code> cannot be a negative number. A value of <code>0</code> (zero) does not mask any characters.</p>
-<p>If the sum of <code>margin1</code> and <code>margin2</code> is greater than or equal to the string length, the string is masked.</p>
-<p>If the <code>mask_char</code> is not specified, the default is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>If the sum of <code>margin1</code> and <code>margin2</code> is greater than or equal to the string length, the entire string is replaced with the mask character (the whole string is masked). See <a href="#limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
+<p>If the <code>mask_char</code> is not specified, the default is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>.</p>
 <h3 id="returns_14">Returns<a class="headerlink" href="#returns_14" title="Permanent link">&para;</a></h3>
-<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>string</code>.</p>
+<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>str</code>.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_14">Example<a class="headerlink" href="#example_14" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_outer</span><span class="p">(</span><span class="s1">&#39;123456789&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span>
@@ -11062,7 +11177,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
-| mask_outer(&#39;123456789&#39;, 2, 2).     |
+| mask_outer(&#39;123456789&#39;, 2, 2)     |
 +------------------------------------+
 | XX34567XX                          |
 +------------------------------------+
@@ -11096,7 +11211,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>The <code>str</code> contains a minimum of 14 or a maximum of 19 alphanumeric characters. </p>
-<p>If the <code>mask_char</code> is not specified, the default value is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>If the <code>mask_char</code> is not specified, the default value is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>. See <a href="#limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input. For numeric-only columns or systems that validate Luhn checksums, the default character may be invalid; see Schema and format and Default mask character in that section.</p>
 <h3 id="returns_15">Returns<a class="headerlink" href="#returns_15" title="Permanent link">&para;</a></h3>
 <p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value. The character set of the result is the same character set as <code>str</code>.</p>
 <p>An error occurs if the <code>str</code> parameter is not the correct length.</p>
@@ -11114,7 +11229,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <h2 id="mask_pan_relaxedstr-mask_char">mask_pan_relaxed(str [,mask_char])<a class="headerlink" href="#mask_pan_relaxedstr-mask_char" title="Permanent link">&para;</a></h2>
-<p>Returns a masked payment card Primary Account Number (PAN). The first six numbers and the last four numbers and the rest of the string masked by specified character or <code>X</code>.</p>
+<p>Returns a masked payment card Primary Account Number (PAN). Leaves the first six and last four digits unmasked; the rest is masked by the specified character or <code>X</code>.</p>
 <h3 id="parameters_16">Parameters<a class="headerlink" href="#parameters_16" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -11143,9 +11258,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The <code>str</code> must contain a minimum of 14 or a maximum of 19 alphanumeric characters. </p>
 <p>If the <code>mask_char</code> is not specified, the default value is &lsquo;X&rsquo;.</p>
 <h3 id="returns_16">Returns<a class="headerlink" href="#returns_16" title="Permanent link">&para;</a></h3>
-<p>A string with the first six numbers and the last four numbers and the rest of the string masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value (<code>X</code>). The character set of the result is the same character set as <code>str</code>.</p>
-<p>The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
-<p>Reports an error is the <code>str</code> parameter is not the correct length.</p>
+<p>A string with the first six and last four digits unmasked and the rest masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value (<code>X</code>). The character set of the result is the same character set as <code>str</code>.</p>
+<p>The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>. See <a href="#limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
+<p>Reports an error if the <code>str</code> parameter is not the correct length.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_16">Example<a class="headerlink" href="#example_16" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_pan_relaxed</span><span class="p">(</span><span class="n">gen_rnd_pan</span><span class="p">());</span>
@@ -11189,11 +11304,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The <code>str</code> accepts either of the following:</p>
 <ul>
 <li>Nine integers, no separator symbol</li>
-<li>Nine integers in the <code>AAA-GG-SSS</code> pattern. The <code>-</code> (dash symbol) is the separator character.</li>
+<li>Nine integers in the <code>AAA-GG-SSSS</code> pattern. The <code>-</code> (dash symbol) is the separator character.</li>
 </ul>
-<p>If the <code>mask_char</code> is not specified, the default value is <code>*</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>If the <code>mask_char</code> is not specified, the default value is <code>*</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>. See <a href="#limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
 <h3 id="returns_17">Returns<a class="headerlink" href="#returns_17" title="Permanent link">&para;</a></h3>
-<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set of <code>str</code>. </p>
+<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>str</code>. </p>
 <p>Reports an error if the value of the <code>str</code> is an incorrect length.</p>
 <p>Returns a NULL value if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_17">Example<a class="headerlink" href="#example_17" title="Permanent link">&para;</a></h3>
@@ -11209,7 +11324,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <h2 id="mask_uk_ninstr-mask_char">mask_uk_nin(str [,mask_char])<a class="headerlink" href="#mask_uk_ninstr-mask_char" title="Permanent link">&para;</a></h2>
-<p>Returns a masked a United Kingdom National Insurance Number (NIN). The mask replaces the NIN number with the specified character except for the first two digits.</p>
+<p>Returns a masked United Kingdom National Insurance Number (NIN). The mask replaces the NIN with the specified character except for the first two characters.</p>
 <h3 id="parameters_18">Parameters<a class="headerlink" href="#parameters_18" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -11236,7 +11351,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>The <code>str</code> accepts an alpha-numeric string and does not check format and the <code>str</code> can use any separator character.</p>
-<p>If the <code>mask_char</code> is not specified, the default value is <code>*</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>If the <code>mask_char</code> is not specified, the default value is <code>*</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>. See <a href="#limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
 <h3 id="returns_18">Returns<a class="headerlink" href="#returns_18" title="Permanent link">&para;</a></h3>
 <p>Returns a string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>str</code>.</p>
 <p>An error occurs if the <code>str</code> parameter is not the correct length. </p>
@@ -11281,10 +11396,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>The <code>str</code> format is <code>********-****-****-****-************</code>.</p>
-<p>If the <code>mask_char</code> is not specified, the default value is &lsquo;*&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>If the <code>mask_char</code> is not specified, the default value is &lsquo;*&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>. See <a href="#limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
 <h3 id="returns_19">Returns<a class="headerlink" href="#returns_19" title="Permanent link">&para;</a></h3>
 <p>A string with the characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>str</code>.</p>
-<p>Returns an error if the length of <code>str</code> is incorrect.</p>
+<p>An error occurs if the length of <code>str</code> is incorrect.</p>
 <p>Returns <code>NULL</code> if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_19">Example<a class="headerlink" href="#example_19" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_uuid</span><span class="p">(</span><span class="s1">&#39;9a3b642c-06c6-11ee-be56-0242ac120002&#39;</span><span class="p">);</span>
@@ -11294,7 +11409,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------+
 | mask_uuid(&#39;9a3b642c-06c6-11ee-be56-0242ac120002&#39;)     |
 +-------------------------------------------------------+
-|********_****_****_****_************                   |
+|********-****-****-****-************                   |
 +-------------------------------------------------------+
 </code></pre></div>
 </details>
@@ -11313,7 +11428,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 | masking_dictionaries_flush() |
 +------------------------------+
 |                          1   |
-+----------------------------  +
++------------------------------+
 </code></pre></div>
 </details>
 <h2 id="masking_dictionary_removedictionary_name">masking_dictionary_remove(dictionary_name)<a class="headerlink" href="#masking_dictionary_removedictionary_name" title="Permanent link">&para;</a></h2>
@@ -11450,37 +11565,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <h3 id="returns_23">Returns<a class="headerlink" href="#returns_23" title="Permanent link">&para;</a></h3>
-<p>Returns a integer value of <code>1</code> (one) if the operation is successful. Returns the integer value of <code>0</code> (zero) for a failure.</p>
+<p>Returns an integer value of <code>1</code> (one) if the operation is successful. Returns the integer value of <code>0</code> (zero) for a failure.</p>
 <p>Returns <code>NULL</code> if the operation fails. An operation can fail if the following occurs:</p>
 <ul>
 <li>The <code>term_name</code> is not available in the dictionary specified by <code>dictionary_name</code></li>
 <li>The <code>dictionary_name</code> could not be found</li>
 </ul>
-<h3 id="parameters_24">Parameters<a class="headerlink" href="#parameters_24" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Optional</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>dictionary_name</code></td>
-<td>No</td>
-<td>The dictionary for the term</td>
-<td>String</td>
-</tr>
-<tr>
-<td><code>term_name</code></td>
-<td>No</td>
-<td>The term to be added</td>
-<td>String</td>
-</tr>
-</tbody>
-</table>
 <h3 id="example_23">Example<a class="headerlink" href="#example_23" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionary_term_remove</span><span class="p">(</span><span class="s1">&#39;trees&#39;</span><span class="p">,</span><span class="s1">&#39;pine&#39;</span><span class="p">);</span>
 </code></pre></div>
@@ -11497,8 +11587,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <table>
 <thead>
 <tr>
-<th><strong>Name</strong></th>
-<th><strong>Details</strong></th>
+<th>Name</th>
+<th>Details</th>
 </tr>
 </thead>
 <tbody>
@@ -11539,7 +11629,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<p>Percona Server for MySQL 8.4.4-1 adds this variable. The number of seconds between a synchronization between the dictionaries table and the internal dictionary cache. The default value is 0 seconds (disabled). The minimum value is 1 second. The maximum value is 31,536,000 seconds (1 year).</p>
+<p>Variable name: <code>component_masking_functions.dictionaries_flush_interval_seconds</code>. You can set the variable at runtime (for example, with <code>SET GLOBAL</code>) or on the command line.</p>
+<p>Percona Server for MySQL 8.4.4-4 adds this variable. The number of seconds between synchronizations of the dictionaries table and the internal dictionary cache. The default value is 0 seconds (disabled). The minimum value is 1 second. The maximum value is 31,536,000 seconds (1 year).</p>
+<p>Replication: On replicas that use row-based replication, the dictionary term cache is not updated immediately when dictionary changes are applied from the binary log. Set this variable to a positive value (for example, 60) so that a background process periodically refreshes the cache and keeps replicas in sync with the source.</p>
 <h3 id="masking_databasestring">masking_database(string)<a class="headerlink" href="#masking_databasestring" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -11567,7 +11659,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<p>Specify the name of the database that holds the <code>masking_dictionaries</code> table. By default, it uses the <code>mysql</code> database.</p>
+<p>Specify the name of the database that holds the <code>masking_dictionaries</code> table. By default, the setting uses the <code>mysql</code> database.</p>
 
 
 
@@ -11590,7 +11682,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 20, 2026 12:54:04 UTC">February 20, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 12, 2026 15:17:01 UTC">March 12, 2026</span>
   </span>
 
     
@@ -11623,14 +11715,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
           <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
         </a>
       
-        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
-          
-          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
-        </a>
-      
         <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
           
           <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
+      
+        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
+          
+          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
         </a>
       
       

@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The component has the following parts:">
+        <meta name="description" content="Documentation">
       
       
         <meta name="author" content="Percona LLC">
@@ -21,7 +21,7 @@
         <link rel="prev" href="data-masking-overview.html">
       
       
-        <link rel="next" href="data-masking-function-list.html">
+        <link rel="next" href="quickstart-data-masking.html">
       
       
         
@@ -6437,6 +6437,8 @@
       
         
       
+        
+      
     
     
     
@@ -6574,6 +6576,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-the-component" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6599,6 +6612,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart-data-masking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started with Data Masking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -6646,7 +6687,7 @@
   <span class="md-ellipsis">
     
   
-    Uninstall the component
+    Uninstall the data masking component
   
 
     
@@ -9777,6 +9818,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-the-component" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9829,17 +9881,26 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="install-the-data-masking-component">Install the data masking component<a class="headerlink" href="#install-the-data-masking-component" title="Permanent link">&para;</a></h1>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Percona Server for MySQL with the data masking component available for your version.</li>
+<li>The <code>component_masking_functions</code> library must be present in the server plugin directory. The <code>plugin_dir</code> system variable defines that directory; the server resolves <code>file://component_masking_functions</code> in <code>INSTALL COMPONENT</code> relative to <code>plugin_dir</code>. To verify the library is available, check that the file exists in the directory reported by:
+  <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;plugin_dir&#39;</span><span class="p">;</span>
+</code></pre></div>
+  If the library is missing, <code>INSTALL COMPONENT</code> fails at load time; check the server error log and your installation package or deployment to ensure the component library is installed in the plugin directory.</li>
+</ul>
 <p>The component has the following parts:</p>
 <ul>
-<li>A database server system table used to store the terms and dictionaries</li>
-<li>A <code>component_masking_functions</code> component that contains the loadable functions</li>
+<li>A system table, <code>mysql.masking_dictionaries</code>, used to store terms and dictionaries (you must create this table; see below).</li>
+<li>The loadable component <code>component_masking_functions</code>, which provides the masking functions.</li>
 </ul>
-<p>The <code>MASKING_DICTIONARIES_ADMIN</code> privilege may be required by some functions.</p>
+<p>The <code>MASKING_DICTIONARIES_ADMIN</code> privilege is required for dictionary management functions; the privilege is registered when the component is loaded.</p>
 <h2 id="install-the-component">Install the component<a class="headerlink" href="#install-the-component" title="Permanent link">&para;</a></h2>
-<p class="power-number">The following steps install the component:</p>
+<p class="power-number">Follow the steps in order. The table must exist and match the required schema before you run <code>INSTALL COMPONENT</code>; the component does not create the table. If the table is missing or the schema is wrong (for example, a typo in column names or types), the component can load in a broken state or fail.</p>
 <ol>
 <li>
-<p>Create <code>masking_dictionaries</code>.</p>
+<p>Create the <code>masking_dictionaries</code> table in the <code>mysql</code> schema.</p>
+<p>Ensure the statement completes and is committed before you run step 2. The schema below is required; do not alter column names or types unless a future Percona Server release documents a different schema. You are responsible for creating and maintaining this table; if the component’s expected schema changes in an upgrade, release or upgrade documentation will describe any required <code>ALTER TABLE</code> or migration that you must apply.</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span>
 <span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="p">(</span>
 <span class="w">    </span><span class="k">Dictionary</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
@@ -9849,30 +9910,29 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </li>
 <li>
-<p>Install the data masking components and the loadable functions.</p>
+<p>Install the component and loadable functions.</p>
 <div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_masking_functions&#39;</span><span class="p">;</span>
 </code></pre></div>
+<p>If the command fails, check the server error log and confirm the library is present in <code>plugin_dir</code> (see <a href="#prerequisites">Prerequisites</a>). The component is registered in <code>mysql.component</code> and is loaded again on server restart. On replicas or in high-availability setups, the instance may be in <code>read_only</code> or <code>super_read_only</code> mode; component loading in those states follows server behavior. If the component does not load on a replica (for example, because the library is missing or configuration differs), masking is not available on that instance until the cause is resolved.</p>
+<p>On Percona Server for MySQL 8.4.4-1 and later, dictionary-based functions (<code>gen_dictionary</code>, <code>gen_blocklist</code>) use the built-in <code>mysql.session</code> user for internal queries. Grant <code>mysql.session</code> the required privileges on the <code>masking_dictionaries</code> table as described in <a href="data-masking-function-list.html#permissions">Permissions</a> in the data masking function list. Granting these privileges allows the server to read and modify the dictionary table for masking; the table may contain lookup data. Rely on your normal access controls and hardening for the <code>mysql</code> schema and dictionary contents.</p>
 </li>
 <li>
-<p>The <code>MASKING_DICTIONARIES_ADMIN</code> is required to use the the following functions:</p>
+<p>Grant <code>MASKING_DICTIONARIES_ADMIN</code> to users who will manage dictionaries.</p>
+<p>The privilege is registered when the component loads. Run this step only after <code>INSTALL COMPONENT</code> has succeeded. If <code>GRANT</code> fails with an unknown-privilege or similar error, the component may not be loaded or your Percona Server version may not support this privilege; verify the component is loaded (for example, check <code>mysql.component</code>) and consult the documentation for your version.</p>
+<p>The following functions require <code>MASKING_DICTIONARIES_ADMIN</code>:</p>
 <ul>
-<li>
-<p><code>masking_dictionary_term_add</code></p>
-</li>
-<li>
-<p><code>masking_dictionary_term_remove</code></p>
-</li>
-<li>
-<p><code>masking_dictionary_remove</code></p>
+<li><code>masking_dictionary_term_add</code></li>
+<li><code>masking_dictionary_term_remove</code></li>
+<li><code>masking_dictionary_remove</code></li>
+</ul>
 <div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="n">MASKING_DICTIONARIES_ADMIN</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="o">&lt;</span><span class="k">user</span><span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
-</li>
-</ul>
 </li>
 </ol>
 <h2 id="useful-links">Useful links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
 <p><a href="uninstall-data-masking-component.html">Uninstall the data masking component</a></p>
 <p><a href="data-masking-function-list.html">Data masking component functions</a></p>
+<p><a href="quickstart-data-masking.html">Data masking quickstart</a> — create a test database and try masking functions.</p>
 
 
 
@@ -9895,7 +9955,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 2, 2026 13:51:52 UTC">February 2, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 12, 2026 15:17:01 UTC">March 12, 2026</span>
   </span>
 
     

@@ -6435,6 +6435,8 @@
       
         
       
+        
+      
     
     
     
@@ -6538,6 +6540,34 @@
   
   
     <li class="md-nav__item">
+      <a href="quickstart-data-masking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started with Data Masking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="data-masking-function-list.html" class="md-nav__link">
         
   
@@ -6573,7 +6603,7 @@
   <span class="md-ellipsis">
     
   
-    Uninstall the component
+    Uninstall the data masking component
   
 
     
@@ -11824,6 +11854,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
         
           <li class="md-nav__item">
+  <a href="#quickstart-data-masking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Get started with Data Masking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#data-masking-function-list" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11838,7 +11879,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   <a href="#uninstall-data-masking-component" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Uninstall the component
+        Uninstall the data masking component
       
     </span>
   </a>
@@ -30844,102 +30885,90 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
                         <h1>Data masking<a class='headerlink' href='#section-13-2' title='Permanent link'></a>
                         </h1>
                     <section class="print-page" id="data-masking-overview" heading-number="13.2.1"><h1 id="data-masking-overview-data-masking-overview">Data masking overview<a class="headerlink" href="#data-masking-overview-data-masking-overview" title="Permanent link">&para;</a></h1>
-<p>Data masking protects sensitive information by restricting data access to authorized users only. When you need to present, demonstrate, or test software without revealing actual data, masking creates safe versions of your data. The masking process changes values while keeping the same data format, making the original values impossible to recover. This security approach reduces organizational risk because any exposed data becomes worthless to unauthorized parties.</p>
-<p>Data masking in Percona Server for MySQL is an essential tool for protecting sensitive information in various scenarios:</p>
+<p>Data masking protects sensitive information by changing or replacing values so that readers see altered data instead of the originals. Use masking when you need to present, demonstrate, or test software without revealing real data. Masking keeps a similar data format, which reduces the risk of recovering originals.</p>
+<p>Masking is a data transformation, not a substitute for access control. It works alongside MySQL privileges (RBAC—role-based access control). RBAC is MySQL’s privilege system: it determines which users and roles can read, write, or administer tables. Users who have permission to read the table see the masked result; the component does not by itself restrict access or prevent privilege escalation. You still need to grant only the minimum required privileges so that only authorized users can access the data at all. For small value domains (for example, gender or state codes), inference or frequency analysis may still reveal or narrow down originals. Treat masking as one layer of protection, not a guarantee of irreversibility.</p>
+<p>Typical use cases:</p>
 <table>
 <thead>
 <tr>
-<th>Scenario</th>
+<th>Use case</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Protecting data in development and testing</td>
-<td>Developers and testers require realistic data to validate applications. By masking sensitive details, such as credit card numbers, Social Security numbers, and addresses, accurate user information can be safeguarded in non-production environments.</td>
+<td>Development and testing</td>
+<td>Supply non-production environments with masked copies of sensitive fields (for example, payment card numbers, Social Security numbers, addresses) so applications can be validated without exposing real data.</td>
 </tr>
 <tr>
-<td>Compliance with data privacy regulations</td>
-<td>Stringent laws like GDPR, HIPAA, and CCPA mandate the protection of personal data. Data masking enables the anonymization of personal information, facilitating its use for analysis and reporting while ensuring compliance with regulations.</td>
+<td>Compliance (GDPR, HIPAA, CCPA, and similar)</td>
+<td>Anonymize or pseudonymize personal data so that analysis and reporting can use the data while meeting regulatory requirements for protection of personal information.</td>
 </tr>
 <tr>
-<td>Securing data when collaborating with external entities</td>
-<td>Sharing data with third-party vendors demands the masking of sensitive information to prevent access to accurate personal details.</td>
+<td>Sharing data with third parties</td>
+<td>Provide vendors or partners with datasets where sensitive columns are masked so that accurate personal details are not exposed.</td>
 </tr>
 <tr>
-<td>Supporting customer service and training</td>
-<td>Customer support teams and trainers often require access to customer data. Through data masking, they can utilize realistic information without compromising actual customer details.</td>
+<td>Customer service and training</td>
+<td>Give support or training staff access to data that looks realistic but does not contain real customer identifiers or PII.</td>
 </tr>
 <tr>
-<td>Facilitating data analysis and reporting</td>
-<td>Analysts rely on access to data for generating reports and uncovering insights. By employing data masking techniques, they can work with realistic data sets without compromising privacy.</td>
+<td>Analysis and reporting on masked data</td>
+<td>Run queries and reports on privacy-safe data. Generated values do not guarantee the same statistical distribution as originals; use for privacy-safe environments or design generation to preserve distributions where needed.</td>
 </tr>
 </tbody>
 </table>
-<p>These examples underscore how data masking serves as a crucial safeguard for sensitive information, allowing organizations to leverage their data effectively across diverse functions.</p>
+<p>Use masking as part of a broader data-protection and access-control strategy, not as the only safeguard.</p>
+<p>The component offers two kinds of functions: those that mask existing values (for example, replace digits with a character) and those that generate replacement values (for example, random SSNs or emails). See <a href="#data-masking-function-list">Data masking component functions</a> for the full catalog and to find a function by task.</p>
+<p>Next steps: <a href="#install-data-masking-component">Install the data masking component</a>, then follow the <a href="#quickstart-data-masking">Data masking quickstart</a> to create a test database and try masking. The quickstart covers required privileges and working examples.</p>
 <h2 id="data-masking-overview-version-updates">Version updates<a class="headerlink" href="#data-masking-overview-version-updates" title="Permanent link">&para;</a></h2>
-<p>Percona Server for MySQL 8.4.4-4 introduces performance improvements for data masking through an internal term cache. The cache affects the following functions in the <a href="#data-masking-function-list">data masking component</a>:</p>
+<p>Percona Server for MySQL 8.4.4-4 adds an internal term cache that speeds up dictionary lookups. The cache affects <a href="#data-masking-function-list-gen_blockliststr-from_dictionary_name-to_dictionary_name">gen_blocklist()</a> and <a href="#data-masking-function-list-gen_dictionarydictionary_name">gen_dictionary()</a>. Lookups are faster than querying the dictionary table each time, especially when processing many rows.</p>
+<p>Memory use grows with the size of your dictionaries. For very large dictionaries, consider server memory and monitor resource use.</p>
+<p>Cache and table can get out of sync if you change the dictionary table directly instead of using the management functions. Use the management functions to add or remove terms:</p>
 <ul>
-<li>
-<p><a href="#data-masking-function-list-gen_blockliststr-from_dictionary_name-to_dictionary_name">gen_blocklist()</a></p>
-</li>
-<li>
-<p><a href="#data-masking-function-list-gen_dictionarydictionary_name">gen_dictionary()</a></p>
-</li>
+<li><a href="#data-masking-function-list-masking_dictionary_term_adddictionary_name-term_name">masking_dictionary_term_add()</a></li>
+<li><a href="#data-masking-function-list-masking_dictionary_term_removedictionary_name-term_name">masking_dictionary_term_remove()</a></li>
+<li><a href="#data-masking-function-list-masking_dictionary_removedictionary_name">masking_dictionary_remove()</a></li>
 </ul>
-<p>The new cache stores dictionary data in memory, making lookups faster than the previous method of querying the <code>&lt;masking_functions.masking_database&gt;.masking_dictionaries</code> table each time. This speed boost is especially noticeable when you&rsquo;re working with many rows of data.</p>
-<p>However, the cache brings some new considerations. If you change the dictionary table directly (instead of using the proper dictionary management functions), your cache and table data can become different. </p>
-<p>The dictionary manipulation functions are the following:</p>
-<ul>
-<li>
-<p><a href="#data-masking-function-list-masking_dictionary_term_adddictionary_name-term_name"><code>masking_dictionary_term_add()</code></a></p>
-</li>
-<li>
-<p><a href="#data-masking-function-list-masking_dictionary_term_removedictionary_name-term_name"><code>masking_dictionary_term_remove()</code></a></p>
-</li>
-<li>
-<p><a href="#data-masking-function-list-masking_dictionary_removedictionary_name"><code>masking_dictionary_remove()</code></a></p>
-</li>
-</ul>
-<p>To fix this, you can use the new <a href="#data-masking-function-list-masking_dictionaries_flush"><code>masking_dictionaries_flush()</code></a> function to sync them back up. This function returns <code>1</code> when successful.</p>
-<p>The changes also affect how row-based replication works. When dictionary changes happen on the source server, they travel through the binary log to the replica server. While the replica applies these changes to its table correctly, the dictionary term cache doesn&rsquo;t update right away.</p>
-<p>To handle this, there&rsquo;s a new component system variable called  <a href="#data-masking-function-list-dictionaries_flush_interval_secondsinteger-unsigned"><code>component_masking_functions.dictionaries_flush_interval_seconds()</code></a></p>
-<p>By default, it&rsquo;s set to 0. When you set it higher, the system starts a background process that refreshes the cache at your specified interval. This helps replicas stay in sync after receiving binary log updates. The value specifies the number of seconds between each sync. </p>
-<h2 id="data-masking-overview-data-masking-techniques">Data masking techniques<a class="headerlink" href="#data-masking-overview-data-masking-techniques" title="Permanent link">&para;</a></h2>
-<p>The common data masking techniques are the following:</p>
-<table>
-<thead>
-<tr>
-<th>Technique</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Character substitution</td>
-<td>Replaces sensitive data with a matching symbol (X,*). For example, a phone number becomes XXX-XXX-XXXX.</td>
-</tr>
-<tr>
-<td>Value generation</td>
-<td>Replaces sensitive data with realistic-looking alternative values. For example, for testing purposes, you can generate a realistic alternative United States Social Security Number.</td>
-</tr>
-</tbody>
-</table>
+<p>If the cache and table do get out of sync, call <a href="#data-masking-function-list-masking_dictionaries_flush">masking_dictionaries_flush()</a> to resync them. The function returns <code>1</code> when successful.</p>
+<p>Replication: Dictionary changes on the source are written to the binary log and applied to the replica’s table, but the replica’s term cache does not update immediately. During that lag, queries on the replica can see stale or inconsistent dictionary data. In sensitive or high-traffic setups, unmasked or incorrectly masked data may be visible until the cache is refreshed.</p>
+<p>To reduce that risk, set the <a href="#data-masking-function-list-dictionaries_flush_interval_secondsinteger-unsigned">component_masking_functions.dictionaries_flush_interval_seconds</a> variable to a positive value (for example, 60). A background process then refreshes the cache at that interval so replicas stay in sync. The default is 0 (no automatic refresh). </p>
+<h2 id="data-masking-overview-limitations-and-security-considerations">Limitations and security considerations<a class="headerlink" href="#data-masking-overview-limitations-and-security-considerations" title="Permanent link">&para;</a></h2>
+<p>This component is a data-presentation tool, not a data-redaction tool. The component changes how data is shown in query results; the component does not redact stored data or enforce a full secure data lifecycle.</p>
+<p>Referential integrity: The component does not enforce consistency across tables. The same logical identifier (for example, a customer ID) can be masked to different values in different tables. If you need consistent masked identities for joins or testing, use deterministic masking so the same input always maps to the same output (for example, <a href="#data-masking-function-list-gen_blockliststr-from_dictionary_name-to_dictionary_name"><code>gen_blocklist()</code></a> with the same dictionaries, or a single mapping in application logic).</p>
+<p>Access control: Masking in a <code>SELECT</code> only protects that query. Users with <code>SELECT</code> on the base table can bypass masking by querying the table directly. Restrict access to views or stored procedures that apply the masking functions.</p>
+<p>Views are not a complete boundary. Users with <code>SHOW CREATE VIEW</code> can see underlying table and column names; users with <code>FILE</code> or other privileges may read data outside the SQL layer. Secure the rest of the stack separately. Do not grant <code>UPDATE</code> or <code>INSERT</code> to users who should only see masked data; writing masked values back into the database corrupts real data. Treat masking as read-only presentation and control write access separately.</p>
+<p>Partial masking: Functions that leave part of a value visible (for example, last four digits) can allow re-identification when combined with other data. Consider k-anonymity and your threat model.</p>
+<p>Logs (slow query log, general query log, binary logs) may record query text or parameters. Restrict log access or redact as required. The component transforms values at query time; stored data is not altered. Behavior for empty strings or malformed identifiers is not fully specified; poor data quality can undermine masking.</p>
+<p>Granting privileges to <code>mysql.session</code> on the dictionary table has security implications; the documentation does not prove the absence of privilege escalation. Regional functions (for example, <code>mask_canada_sin</code>, <code>mask_uk_nin</code>, <code>mask_iban</code>) are not documented as compliant with current regulatory or format requirements in those jurisdictions; verify for your use case.</p>
+<p>Masking is applied per query, so the same column can appear differently in different contexts. Use views or standardized patterns for a consistent policy. For very large dictionaries, performance and memory use depend on size and workload; see the <a href="#data-masking-function-list">function list</a> for cache behavior and operational notes.</p>
 <h2 id="data-masking-overview-additional-resources">Additional resources<a class="headerlink" href="#data-masking-overview-additional-resources" title="Permanent link">&para;</a></h2>
-<p>Component:</p>
-<p><a href="#install-data-masking-component">Install the data masking component</a></p>
-<p><a href="#data-masking-function-list">Data masking component functions</a></p></section><section class="print-page" id="install-data-masking-component" heading-number="13.2.2"><h1 id="install-data-masking-component-install-the-data-masking-component">Install the data masking component<a class="headerlink" href="#install-data-masking-component-install-the-data-masking-component" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a href="#install-data-masking-component">Install the data masking component</a></li>
+<li><a href="#uninstall-data-masking-component">Uninstall the data masking component</a></li>
+<li><a href="#data-masking-function-list">Data masking component functions</a></li>
+<li><a href="#quickstart-data-masking">Data masking quickstart</a> — test database and examples</li>
+</ul></section><section class="print-page" id="install-data-masking-component" heading-number="13.2.2"><h1 id="install-data-masking-component-install-the-data-masking-component">Install the data masking component<a class="headerlink" href="#install-data-masking-component-install-the-data-masking-component" title="Permanent link">&para;</a></h1>
+<h2 id="install-data-masking-component-prerequisites">Prerequisites<a class="headerlink" href="#install-data-masking-component-prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Percona Server for MySQL with the data masking component available for your version.</li>
+<li>The <code>component_masking_functions</code> library must be present in the server plugin directory. The <code>plugin_dir</code> system variable defines that directory; the server resolves <code>file://component_masking_functions</code> in <code>INSTALL COMPONENT</code> relative to <code>plugin_dir</code>. To verify the library is available, check that the file exists in the directory reported by:
+  <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;plugin_dir&#39;</span><span class="p">;</span>
+</code></pre></div>
+  If the library is missing, <code>INSTALL COMPONENT</code> fails at load time; check the server error log and your installation package or deployment to ensure the component library is installed in the plugin directory.</li>
+</ul>
 <p>The component has the following parts:</p>
 <ul>
-<li>A database server system table used to store the terms and dictionaries</li>
-<li>A <code>component_masking_functions</code> component that contains the loadable functions</li>
+<li>A system table, <code>mysql.masking_dictionaries</code>, used to store terms and dictionaries (you must create this table; see below).</li>
+<li>The loadable component <code>component_masking_functions</code>, which provides the masking functions.</li>
 </ul>
-<p>The <code>MASKING_DICTIONARIES_ADMIN</code> privilege may be required by some functions.</p>
+<p>The <code>MASKING_DICTIONARIES_ADMIN</code> privilege is required for dictionary management functions; the privilege is registered when the component is loaded.</p>
 <h2 id="install-data-masking-component-install-the-component">Install the component<a class="headerlink" href="#install-data-masking-component-install-the-component" title="Permanent link">&para;</a></h2>
-<p class="power-number">The following steps install the component:</p>
+<p class="power-number">Follow the steps in order. The table must exist and match the required schema before you run <code>INSTALL COMPONENT</code>; the component does not create the table. If the table is missing or the schema is wrong (for example, a typo in column names or types), the component can load in a broken state or fail.</p>
 <ol>
 <li>
-<p>Create <code>masking_dictionaries</code>.</p>
+<p>Create the <code>masking_dictionaries</code> table in the <code>mysql</code> schema.</p>
+<p>Ensure the statement completes and is committed before you run step 2. The schema below is required; do not alter column names or types unless a future Percona Server release documents a different schema. You are responsible for creating and maintaining this table; if the component’s expected schema changes in an upgrade, release or upgrade documentation will describe any required <code>ALTER TABLE</code> or migration that you must apply.</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span>
 <span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="p">(</span>
 <span class="w">    </span><span class="k">Dictionary</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
@@ -30949,51 +30978,409 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </code></pre></div>
 </li>
 <li>
-<p>Install the data masking components and the loadable functions.</p>
+<p>Install the component and loadable functions.</p>
 <div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_masking_functions&#39;</span><span class="p">;</span>
 </code></pre></div>
+<p>If the command fails, check the server error log and confirm the library is present in <code>plugin_dir</code> (see <a href="#install-data-masking-component-prerequisites">Prerequisites</a>). The component is registered in <code>mysql.component</code> and is loaded again on server restart. On replicas or in high-availability setups, the instance may be in <code>read_only</code> or <code>super_read_only</code> mode; component loading in those states follows server behavior. If the component does not load on a replica (for example, because the library is missing or configuration differs), masking is not available on that instance until the cause is resolved.</p>
+<p>On Percona Server for MySQL 8.4.4-1 and later, dictionary-based functions (<code>gen_dictionary</code>, <code>gen_blocklist</code>) use the built-in <code>mysql.session</code> user for internal queries. Grant <code>mysql.session</code> the required privileges on the <code>masking_dictionaries</code> table as described in <a href="#data-masking-function-list-permissions">Permissions</a> in the data masking function list. Granting these privileges allows the server to read and modify the dictionary table for masking; the table may contain lookup data. Rely on your normal access controls and hardening for the <code>mysql</code> schema and dictionary contents.</p>
 </li>
 <li>
-<p>The <code>MASKING_DICTIONARIES_ADMIN</code> is required to use the the following functions:</p>
+<p>Grant <code>MASKING_DICTIONARIES_ADMIN</code> to users who will manage dictionaries.</p>
+<p>The privilege is registered when the component loads. Run this step only after <code>INSTALL COMPONENT</code> has succeeded. If <code>GRANT</code> fails with an unknown-privilege or similar error, the component may not be loaded or your Percona Server version may not support this privilege; verify the component is loaded (for example, check <code>mysql.component</code>) and consult the documentation for your version.</p>
+<p>The following functions require <code>MASKING_DICTIONARIES_ADMIN</code>:</p>
 <ul>
-<li>
-<p><code>masking_dictionary_term_add</code></p>
-</li>
-<li>
-<p><code>masking_dictionary_term_remove</code></p>
-</li>
-<li>
-<p><code>masking_dictionary_remove</code></p>
+<li><code>masking_dictionary_term_add</code></li>
+<li><code>masking_dictionary_term_remove</code></li>
+<li><code>masking_dictionary_remove</code></li>
+</ul>
 <div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="n">MASKING_DICTIONARIES_ADMIN</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="o">&lt;</span><span class="k">user</span><span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
-</li>
-</ul>
 </li>
 </ol>
 <h2 id="install-data-masking-component-useful-links">Useful links<a class="headerlink" href="#install-data-masking-component-useful-links" title="Permanent link">&para;</a></h2>
 <p><a href="#uninstall-data-masking-component">Uninstall the data masking component</a></p>
-<p><a href="#data-masking-function-list">Data masking component functions</a></p></section><section class="print-page" id="data-masking-function-list" heading-number="13.2.3"><h1 id="data-masking-function-list-data-masking-component-functions-and-variables">Data masking component functions and variables<a class="headerlink" href="#data-masking-function-list-data-masking-component-functions-and-variables" title="Permanent link">&para;</a></h1>
-<p>The feature is in <a href="#glossary-tech-preview">tech preview</a>.</p>
-<h2 id="data-masking-function-list-permissions">Permissions<a class="headerlink" href="#data-masking-function-list-permissions" title="Permanent link">&para;</a></h2>
-<p>In Percona Server for MySQL 8.4.4-1, dictionary-related functions no longer run internal queries as the root user without a password. Following MySQL best practices, many admins disable the <code>root</code> user, which previously caused these functions to stop working. The server now uses the built-in <code>mysql.session</code> user to execute dictionary queries. </p>
-<p>However, for this to work, you need to grant the mysql.session user <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> privileges on the <code>masking_dictionaries</code> table.</p>
+<p><a href="#data-masking-function-list">Data masking component functions</a></p>
+<p><a href="#quickstart-data-masking">Data masking quickstart</a> — create a test database and try masking functions.</p></section><section class="print-page" id="quickstart-data-masking" heading-number="13.2.3"><h1 id="quickstart-data-masking-get-started-with-data-masking">Get started with Data Masking<a class="headerlink" href="#quickstart-data-masking-get-started-with-data-masking" title="Permanent link">&para;</a></h1>
+<p>This quickstart gets the data masking component installed and lets you try the component with a test database. You need access to a Percona Server for MySQL 8.4 server. Follow the steps to install, set permissions, create sample data, and run masking examples. For production use and limitations, see the <a href="#data-masking-overview">Data masking overview</a>.</p>
+<h2 id="quickstart-data-masking-prerequisites">Prerequisites<a class="headerlink" href="#quickstart-data-masking-prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Percona Server for MySQL (latest recommended).</li>
+<li>The <code>component_masking_functions</code> library in the server plugin directory. Run <code>SHOW VARIABLES LIKE 'plugin_dir';</code> and confirm the library exists in that directory. If the library is missing, see <a href="#install-data-masking-component">Install the data masking component</a>.</li>
+</ul>
+<h2 id="quickstart-data-masking-install-the-component-and-set-permissions">Install the component and set permissions<a class="headerlink" href="#quickstart-data-masking-install-the-component-and-set-permissions" title="Permanent link">&para;</a></h2>
+<p class="power-number">Do these once, in order. Full details: <a href="#install-data-masking-component">Install the data masking component</a>.</p>
+<ol>
+<li>
+<p>Create the dictionary table (required before step 2):</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span>
+<span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="p">(</span>
+<span class="w">    </span><span class="k">Dictionary</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Term</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">dictionary_term_idx</span><span class="w"> </span><span class="p">(</span><span class="k">Dictionary</span><span class="p">,</span><span class="w"> </span><span class="n">Term</span><span class="p">)</span>
+<span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InnoDB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8mb4</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Install the component:</p>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_masking_functions&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Grant <code>mysql.session</code> access to the dictionary table (required for <code>gen_dictionary</code> and <code>gen_blocklist</code> on 8.4.4-1 and later):</p>
 <div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>If you change the value of the <code>masking_functions.masking_database</code> system variable to something other than <code>mysql</code>, make sure to update the <code>GRANT</code> query to match the new value.</p>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">&lt;</span><span class="n">masking_functions</span><span class="p">.</span><span class="n">masking_database</span><span class="o">&gt;</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
-<h2 id="data-masking-function-list-data-masking-component-functions">Data masking component functions<a class="headerlink" href="#data-masking-function-list-data-masking-component-functions" title="Permanent link">&para;</a></h2>
+</details>
+</li>
+<li>
+<p>Grant dictionary management to your user (required for the <a href="#quickstart-data-masking-optional-dictionary-based-masking">dictionary-based masking</a> section below; skip if you will not try that section). Replace <code>&lt;user&gt;</code> and <code>&lt;host&gt;</code> with the MySQL user you connect as (for example, <code>root</code> and <code>localhost</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="n">MASKING_DICTIONARIES_ADMIN</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;&lt;user&gt;&#39;</span><span class="o">@</span><span class="s1">&#39;&lt;host&gt;&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<p>No <code>FLUSH PRIVILEGES</code> is needed; the grant takes effect immediately. If the privilege does not appear, reconnect to the server.</p>
+</li>
+</ol>
+<h2 id="quickstart-data-masking-create-the-test-database-and-tables">Create the test database and tables<a class="headerlink" href="#quickstart-data-masking-create-the-test-database-and-tables" title="Permanent link">&para;</a></h2>
+<p>Run the following script to create the database and both tables with sample rows. The script drops the database if the database already exists so you can run the script again without creating duplicate rows. The column types and values are chosen so you can try masking functions in the next sections.</p>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">masking_demo</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">masking_demo</span><span class="p">;</span>
+<span class="n">USE</span><span class="w"> </span><span class="n">masking_demo</span><span class="p">;</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">contacts</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w">          </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="w">        </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+<span class="w">    </span><span class="n">ssn</span><span class="w">         </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">11</span><span class="p">),</span>
+<span class="w">    </span><span class="n">card_no</span><span class="w">     </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">19</span><span class="p">),</span>
+<span class="w">    </span><span class="n">email</span><span class="w">       </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">    </span><span class="n">phone</span><span class="w">       </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+<span class="w">    </span><span class="n">notes</span><span class="w">       </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8mb4</span><span class="p">;</span>
+
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">contacts</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">ssn</span><span class="p">,</span><span class="w"> </span><span class="n">card_no</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="p">,</span><span class="w"> </span><span class="n">notes</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Priya Sharma&#39;</span><span class="p">,</span><span class="w">  </span><span class="s1">&#39;123-45-6789&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;4111111111111111&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;priya.sharma@example.com&#39;</span><span class="p">,</span><span class="w">  </span><span class="s1">&#39;1-555-010-1234&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;VIP&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Yuki Tanaka&#39;</span><span class="p">,</span><span class="w">   </span><span class="s1">&#39;987-65-4321&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;5500000000000004&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;yuki.tanaka@example.com&#39;</span><span class="p">,</span><span class="w">    </span><span class="s1">&#39;1-555-010-5678&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Newsletter&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Fatima Hassan&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;111-22-3333&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;340000000000009&#39;</span><span class="p">,</span><span class="w">  </span><span class="s1">&#39;fatima.hassan@example.com&#39;</span><span class="p">,</span><span class="w">  </span><span class="s1">&#39;1-555-010-9012&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">contacts_intl</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w">          </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="w">        </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+<span class="w">    </span><span class="n">country</span><span class="w">     </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+<span class="w">    </span><span class="n">canada_sin</span><span class="w">  </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">11</span><span class="p">),</span>
+<span class="w">    </span><span class="n">uk_nin</span><span class="w">      </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+<span class="w">    </span><span class="n">iban</span><span class="w">        </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+<span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8mb4</span><span class="p">;</span>
+
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">contacts_intl</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">country</span><span class="p">,</span><span class="w"> </span><span class="n">canada_sin</span><span class="p">,</span><span class="w"> </span><span class="n">uk_nin</span><span class="p">,</span><span class="w"> </span><span class="n">iban</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Jean Lefebvre&#39;</span><span class="p">,</span><span class="w">   </span><span class="s1">&#39;Canada&#39;</span><span class="p">,</span><span class="w">  </span><span class="s1">&#39;506-948-819&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Siobhan O&#39;&#39;Brien&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;UK&#39;</span><span class="p">,</span><span class="w">     </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;CT264683D&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Hans Mueller&#39;</span><span class="p">,</span><span class="w">    </span><span class="s1">&#39;Germany&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;DE27 1002 02003 77495 4156&#39;</span><span class="p">);</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+Query OK, 1 row affected (0.00 sec)
+Database changed
+Query OK, 0 rows affected (0.01 sec)
+Query OK, 3 rows affected (0.00 sec)
+Query OK, 0 rows affected (0.00 sec)
+Query OK, 3 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="quickstart-data-masking-view-raw-data">View raw data<a class="headerlink" href="#quickstart-data-masking-view-raw-data" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">ssn</span><span class="p">,</span><span class="w"> </span><span class="n">card_no</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">contacts</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----+--------------+-------------+------------------+-------------------------+----------------+
+| id | name         | ssn         | card_no          | email                   | phone          |
++----+--------------+-------------+------------------+-------------------------+----------------+
+|  1 | Priya Sharma | 123-45-6789 | 4111111111111111 | priya.sharma@example.com| 1-555-010-1234 |
+|  2 | Yuki Tanaka  | 987-65-4321 | 5500000000000004 | yuki.tanaka@example.com | 1-555-010-5678 |
+|  3 | Fatima Hassan| 111-22-3333 | 340000000000009  | fatima.hassan@example.com| 1-555-010-9012 |
++----+--------------+-------------+------------------+-------------------------+----------------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<h2 id="quickstart-data-masking-mask-sensitive-columns-in-queries">Mask sensitive columns in queries<a class="headerlink" href="#quickstart-data-masking-mask-sensitive-columns-in-queries" title="Permanent link">&para;</a></h2>
+<p>The examples below use masking functions in <code>SELECT</code>; the table data is unchanged. Expected outputs in this guide are illustrative; results from random or dictionary-based functions vary on each run and may not match the examples. To enforce masking for other users, use a view (see <a href="#quickstart-data-masking-expose-masked-data-via-a-view">Expose masked data via a view</a>) and restrict access to the base table. For limitations and security, see the <a href="#data-masking-overview-limitations-and-security-considerations">Data masking overview</a>.</p>
+<h3 id="quickstart-data-masking-payment-card-and-ssn">Payment card and SSN<a class="headerlink" href="#quickstart-data-masking-payment-card-and-ssn" title="Permanent link">&para;</a></h3>
+<p><a href="#data-masking-function-list-mask_panstr-mask_char"><code>mask_pan</code></a> leaves the last four digits visible; <a href="#data-masking-function-list-mask_ssnstr-mask_char"><code>mask_ssn</code></a> does the same for SSN.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">name</span><span class="p">,</span>
+<span class="w">    </span><span class="n">mask_pan</span><span class="p">(</span><span class="n">card_no</span><span class="p">)</span><span class="w">   </span><span class="k">AS</span><span class="w"> </span><span class="n">card_masked</span><span class="p">,</span>
+<span class="w">    </span><span class="n">mask_ssn</span><span class="p">(</span><span class="n">ssn</span><span class="p">)</span><span class="w">      </span><span class="k">AS</span><span class="w"> </span><span class="n">ssn_masked</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">contacts</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------------+------------------+-------------+
+| name         | card_masked      | ssn_masked  |
++--------------+------------------+-------------+
+| Priya Sharma | XXXXXXXXXXXX1111 | ***-**-6789 |
+| Yuki Tanaka  | XXXXXXXXXXXX0004 | ***-**-4321 |
+| Fatima Hassan| XXXXXXXXXX0009   | ***-**-3333 |
++--------------+------------------+-------------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<h3 id="quickstart-data-masking-inner-and-outer-parts-of-a-string">Inner and outer parts of a string<a class="headerlink" href="#quickstart-data-masking-inner-and-outer-parts-of-a-string" title="Permanent link">&para;</a></h3>
+<p><a href="#data-masking-function-list-mask_innerstr-margin1-margin2-mask_char"><code>mask_inner</code></a> keeps the first and last character(s); <a href="#data-masking-function-list-mask_outerstr-margin1-margin2-mask_char"><code>mask_outer</code></a> masks the left and right ends. The third and fourth arguments are the number of characters to keep unmasked on the left and right.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">name</span><span class="p">,</span>
+<span class="w">    </span><span class="n">mask_inner</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">     </span><span class="k">AS</span><span class="w"> </span><span class="n">name_inner_masked</span><span class="p">,</span>
+<span class="w">    </span><span class="n">mask_outer</span><span class="p">(</span><span class="n">phone</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w">    </span><span class="k">AS</span><span class="w"> </span><span class="n">phone_outer_masked</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">contacts</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------------+------------------+------------------+
+| name         | name_inner_masked| phone_outer_masked|
++--------------+------------------+------------------+
+| Priya Sharma | PXXXXXXXXXXa     | XX5-010-1234      |
+| Yuki Tanaka  | YXXXXXXXXa      | XX5-010-5678      |
+| Fatima Hassan| FXXXXXXXXXXn     | XX5-010-9012      |
++--------------+------------------+------------------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<h3 id="quickstart-data-masking-generated-values-for-testing">Generated values (for testing)<a class="headerlink" href="#quickstart-data-masking-generated-values-for-testing" title="Permanent link">&para;</a></h3>
+<p><a href="#data-masking-function-list-gen_rnd_emailname_size-surname_size-domain"><code>gen_rnd_email()</code></a> and <a href="#data-masking-function-list-gen_rnd_ssn"><code>gen_rnd_ssn()</code></a> return new values each time. They are useful for generating test data, not for masking existing values in place.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">id</span><span class="p">,</span>
+<span class="w">    </span><span class="n">gen_rnd_email</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test.example&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">generated_email</span><span class="p">,</span>
+<span class="w">    </span><span class="n">gen_rnd_ssn</span><span class="p">()</span><span class="w">                         </span><span class="k">AS</span><span class="w"> </span><span class="n">generated_ssn</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">contacts</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----+---------------------------+-------------+
+| id | generated_email           | generated_ssn|
++----+---------------------------+-------------+
+|  1 | abcde.fghijkl@test.example| 912-34-5678 |
+|  2 | vwxyz.abcdefg@test.example| 987-65-4321 |
+|  3 | qwert.yuiopas@test.example| 923-45-6789 |
++----+---------------------------+-------------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>Output will vary on each run and may not match the expected results above. For constraints and caveats, see <a href="#data-masking-function-list">Data masking component functions and variables</a>.</p>
+<h3 id="quickstart-data-masking-international-data-masking-functions">International data masking functions<a class="headerlink" href="#quickstart-data-masking-international-data-masking-functions" title="Permanent link">&para;</a></h3>
+<p>The component includes functions for region-specific identifiers: Canadian Social Insurance Number (SIN) (<a href="#data-masking-function-list-mask_canada_sinstr-mask_char"><code>mask_canada_sin</code></a>), United Kingdom National Insurance Number (NIN) (<a href="#data-masking-function-list-mask_uk_ninstr-mask_char"><code>mask_uk_nin</code></a>), and International Bank Account Number (IBAN) (<a href="#data-masking-function-list-mask_ibanstr-mask_char"><code>mask_iban</code></a>). The script above already created the <code>contacts_intl</code> table. View the raw data, then apply the region-specific masking functions:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">country</span><span class="p">,</span><span class="w"> </span><span class="n">canada_sin</span><span class="p">,</span><span class="w"> </span><span class="n">uk_nin</span><span class="p">,</span><span class="w"> </span><span class="n">iban</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">contacts_intl</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----------------+---------+-------------+----------------+------------------------------+
+| name           | country | canada_sin  | uk_nin     | iban                         |
++----------------+---------+-------------+----------------+------------------------------+
+| Jean Lefebvre  | Canada  | 506-948-819 | NULL       | NULL                         |
+| Siobhan O&#39;Brien| UK      | NULL        | CT264683D | NULL                         |
+| Hans Mueller   | Germany | NULL        | NULL       | DE27 1002 02003 77495 4156   |
++----------------+---------+-------------+----------------+------------------------------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">name</span><span class="p">,</span>
+<span class="w">    </span><span class="n">country</span><span class="p">,</span>
+<span class="w">    </span><span class="n">mask_canada_sin</span><span class="p">(</span><span class="n">canada_sin</span><span class="p">)</span><span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="n">canada_sin_masked</span><span class="p">,</span>
+<span class="w">    </span><span class="n">mask_uk_nin</span><span class="p">(</span><span class="n">uk_nin</span><span class="p">)</span><span class="w">          </span><span class="k">AS</span><span class="w"> </span><span class="n">uk_nin_masked</span><span class="p">,</span>
+<span class="w">    </span><span class="n">mask_iban</span><span class="p">(</span><span class="n">iban</span><span class="p">)</span><span class="w">              </span><span class="k">AS</span><span class="w"> </span><span class="n">iban_masked</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">contacts_intl</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----------------+---------+------------------+---------------+----------------------------+
+| name           | country | canada_sin_masked| uk_nin_masked | iban_masked                |
++----------------+---------+------------------+---------------+----------------------------+
+| Jean Lefebvre  | Canada  | XXX-XXX-XXX      | NULL          | NULL                       |
+| Siobhan O&#39;Brien| UK      | NULL             | CT*******     | NULL                       |
+| Hans Mueller   | Germany | NULL             | NULL          | DE** **** **** **** ****   |
++----------------+---------+------------------+---------------+----------------------------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>Each function returns NULL when the input is NULL. For more options (for example, custom mask characters) and the corresponding generators (<a href="#data-masking-function-list-gen_rnd_canada_sin"><code>gen_rnd_canada_sin</code></a>, <a href="#data-masking-function-list-gen_rnd_uk_nin"><code>gen_rnd_uk_nin</code></a>, <a href="#data-masking-function-list-gen_rnd_ibancountry-size"><code>gen_rnd_iban</code></a>), see <a href="#data-masking-function-list">Data masking component functions and variables</a>.</p>
+<h3 id="quickstart-data-masking-expose-masked-data-via-a-view">Expose masked data via a view<a class="headerlink" href="#quickstart-data-masking-expose-masked-data-via-a-view" title="Permanent link">&para;</a></h3>
+<p>To ensure that only masked data is visible, define a view that applies the masking functions and grant <code>SELECT</code> on the view (not on the base table) to users who should see masked data. Example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">contacts_masked</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">contacts_masked</span><span class="w"> </span><span class="k">AS</span>
+<span class="k">SELECT</span>
+<span class="w">    </span><span class="n">id</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="p">,</span>
+<span class="w">    </span><span class="n">mask_pan</span><span class="p">(</span><span class="n">card_no</span><span class="p">)</span><span class="w">       </span><span class="k">AS</span><span class="w"> </span><span class="n">card_no</span><span class="p">,</span>
+<span class="w">    </span><span class="n">mask_ssn</span><span class="p">(</span><span class="n">ssn</span><span class="p">)</span><span class="w">          </span><span class="k">AS</span><span class="w"> </span><span class="n">ssn</span><span class="p">,</span>
+<span class="w">    </span><span class="n">mask_outer</span><span class="p">(</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">email</span><span class="p">,</span>
+<span class="w">    </span><span class="n">mask_outer</span><span class="p">(</span><span class="n">phone</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">phone</span><span class="p">,</span>
+<span class="w">    </span><span class="n">notes</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">contacts</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">card_no</span><span class="p">,</span><span class="w"> </span><span class="n">ssn</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">contacts_masked</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+Query OK, 0 rows affected (0.00 sec)
+
++----+--------------+------------------+-------------+--------------------------+------------------+
+| id | name         | card_no          | ssn         | email                     | phone            |
++----+--------------+------------------+-------------+--------------------------+------------------+
+|  1 | Priya Sharma | XXXXXXXXXXXX1111 | ***-**-6789 | XXriya.sharma@exampXXXX  | XX5-010-1234     |
+|  2 | Yuki Tanaka  | XXXXXXXXXXXX0004 | ***-**-4321 | XXuki.tanaka@exampXXXX   | XX5-010-5678     |
+|  3 | Fatima Hassan| XXXXXXXXXX0009   | ***-**-3333 | XXtima.hassan@examXXXX  | XX5-010-9012     |
++----+--------------+------------------+-------------+--------------------------+------------------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>The view uses <a href="#data-masking-function-list-mask_outerstr-margin1-margin2-mask_char"><code>mask_outer(..., 2, 4)</code></a> for email and phone. Grant <code>SELECT</code> on the view (not the base table) to users who should see masked data only. For access control and limitations, see the <a href="#data-masking-overview-limitations-and-security-considerations">Data masking overview</a>.</p>
+<h2 id="quickstart-data-masking-optional-dictionary-based-masking">Optional: dictionary-based masking<a class="headerlink" href="#quickstart-data-masking-optional-dictionary-based-masking" title="Permanent link">&para;</a></h2>
+<p>Functions such as <a href="#data-masking-function-list-gen_dictionarydictionary_name"><code>gen_dictionary</code></a> and <a href="#data-masking-function-list-gen_blockliststr-from_dictionary_name-to_dictionary_name"><code>gen_blocklist</code></a> use the <code>mysql.masking_dictionaries</code> table. </p>
+<p>You need the <a href="#quickstart-data-masking-install-the-component-and-set-permissions">step 4 grant (MASKING_DICTIONARIES_ADMIN)</a> and, on 8.4.4-1 and later, the step 3 grant to <code>mysql.session</code> described in the <a href="#install-data-masking-component">install guide</a>.</p>
+<p>Add a small dictionary with <a href="#data-masking-function-list-masking_dictionary_term_adddictionary_name-term_name"><code>masking_dictionary_term_add</code></a>, then try <a href="#data-masking-function-list-gen_dictionarydictionary_name"><code>gen_dictionary</code></a>. </p>
+<p>The role column is chosen at random from the dictionary; your output will vary and may not match the expected results.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionary_term_add</span><span class="p">(</span><span class="s1">&#39;roles&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Engineer&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionary_term_add</span><span class="p">(</span><span class="s1">&#39;roles&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Analyst&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionary_term_add</span><span class="p">(</span><span class="s1">&#39;roles&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Manager&#39;</span><span class="p">);</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">gen_dictionary</span><span class="p">(</span><span class="s1">&#39;roles&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">role</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">contacts</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output (role column varies; your output may not match)</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------------+
+| masking_dictionary_term_add(&#39;roles&#39;, &#39;Engineer&#39;)|
++-----------------------------------------------+
+|                                             1 |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
++----------------------------------------------+
+| masking_dictionary_term_add(&#39;roles&#39;, &#39;Analyst&#39;)|
++----------------------------------------------+
+|                                            1 |
++----------------------------------------------+
+1 row in set (0.00 sec)
+
++----------------------------------------------+
+| masking_dictionary_term_add(&#39;roles&#39;, &#39;Manager&#39;) |
++----------------------------------------------+
+|                                            1 |
++----------------------------------------------+
+1 row in set (0.00 sec)
+
++----+---------------+----------+
+| id | name          | role     |
++----+---------------+----------+
+|  1 | Priya Sharma  | Manager  |
+|  2 | Yuki Tanaka   | Engineer |
+|  3 | Fatima Hassan | Manager  |
++----+--------------+----------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>To remove the dictionary when finished: <code>SELECT masking_dictionary_remove('roles');</code> (<a href="#data-masking-function-list-masking_dictionary_removedictionary_name"><code>masking_dictionary_remove</code></a>). For large dictionaries or production use, see the <a href="#data-masking-overview">Data masking overview</a> and <a href="#data-masking-function-list">function list</a>.</p>
+<h2 id="quickstart-data-masking-clean-up-optional">Clean up (optional)<a class="headerlink" href="#quickstart-data-masking-clean-up-optional" title="Permanent link">&para;</a></h2>
+<p>To remove the test database and all objects in the database (tables, the <code>contacts_masked</code> view, and data):</p>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">masking_demo</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+</code></pre></div>
+</details>
+<h2 id="quickstart-data-masking-additional-resources">Additional resources<a class="headerlink" href="#quickstart-data-masking-additional-resources" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#data-masking-overview">Data masking overview</a></li>
+<li><a href="#install-data-masking-component">Install the data masking component</a></li>
+<li><a href="#data-masking-function-list">Data masking component functions and variables</a></li>
+</ul></section><section class="print-page" id="data-masking-function-list" heading-number="13.2.4"><h1 id="data-masking-function-list-data-masking-component-functions-and-variables">Data masking component functions and variables<a class="headerlink" href="#data-masking-function-list-data-masking-component-functions-and-variables" title="Permanent link">&para;</a></h1>
+<p>The feature is in <a href="#glossary-tech-preview">tech preview</a>. This page is a catalog of individual functions and variables. For the security model, use cases, and when to apply masking (including limitations and failure modes), see <a href="#data-masking-overview">Data masking overview</a> and the <a href="#data-masking-overview-limitations-and-security-considerations">Limitations and security considerations</a> section. Performance characteristics (latency, complexity, scalability) are not documented; for large result sets or SLA-critical workloads, benchmark and evaluate per-row overhead. The component does not provide a function to test whether a value is already masked; auditing that masking has been applied to required rows must be done by application logic, known patterns, or other tooling.</p>
+<p>To find a function by what the function does, use the &ldquo;Find by task&rdquo; table or the full list below. Each function name links to that function&rsquo;s definition later on this page.</p>
+<h3 id="data-masking-function-list-find-by-task">Find by task<a class="headerlink" href="#data-masking-function-list-find-by-task" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th><strong>Name</strong></th>
-<th><strong>Details</strong></th>
+<th>If you want to…</th>
+<th>Function(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mask or generate a payment card number (PAN)</td>
+<td><a href="#data-masking-function-list-mask_panstr-mask_char"><code>mask_pan</code></a>, <a href="#data-masking-function-list-mask_pan_relaxedstr-mask_char"><code>mask_pan_relaxed</code></a>, <a href="#data-masking-function-list-gen_rnd_pan"><code>gen_rnd_pan</code></a></td>
+</tr>
+<tr>
+<td>Mask or generate a US Social Security number (SSN)</td>
+<td><a href="#data-masking-function-list-mask_ssnstr-mask_char"><code>mask_ssn</code></a>, <a href="#data-masking-function-list-gen_rnd_ssn"><code>gen_rnd_ssn</code></a></td>
+</tr>
+<tr>
+<td>Mask or generate a Canadian SIN</td>
+<td><a href="#data-masking-function-list-mask_canada_sinstr-mask_char"><code>mask_canada_sin</code></a>, <a href="#data-masking-function-list-gen_rnd_canada_sin"><code>gen_rnd_canada_sin</code></a></td>
+</tr>
+<tr>
+<td>Mask or generate a UK National Insurance number</td>
+<td><a href="#data-masking-function-list-mask_uk_ninstr-mask_char"><code>mask_uk_nin</code></a>, <a href="#data-masking-function-list-gen_rnd_uk_nin"><code>gen_rnd_uk_nin</code></a></td>
+</tr>
+<tr>
+<td>Mask or generate an IBAN</td>
+<td><a href="#data-masking-function-list-mask_ibanstr-mask_char"><code>mask_iban</code></a>, <a href="#data-masking-function-list-gen_rnd_ibancountry-size"><code>gen_rnd_iban</code></a></td>
+</tr>
+<tr>
+<td>Mask or generate a UUID</td>
+<td><a href="#data-masking-function-list-mask_uuidstr-mask_char"><code>mask_uuid</code></a>, <a href="#data-masking-function-list-gen_rnd_uuid"><code>gen_rnd_uuid</code></a></td>
+</tr>
+<tr>
+<td>Generate a random email or US phone number</td>
+<td><a href="#data-masking-function-list-gen_rnd_emailname_size-surname_size-domain"><code>gen_rnd_email</code></a>, <a href="#data-masking-function-list-gen_rnd_us_phone"><code>gen_rnd_us_phone</code></a></td>
+</tr>
+<tr>
+<td>Mask the middle or the ends of any string</td>
+<td><a href="#data-masking-function-list-mask_innerstr-margin1-margin2-mask_char"><code>mask_inner</code></a>, <a href="#data-masking-function-list-mask_outerstr-margin1-margin2-mask_char"><code>mask_outer</code></a></td>
+</tr>
+<tr>
+<td>Replace a value with a random term from a dictionary</td>
+<td><a href="#data-masking-function-list-gen_dictionarydictionary_name"><code>gen_dictionary</code></a>, <a href="#data-masking-function-list-gen_blockliststr-from_dictionary_name-to_dictionary_name"><code>gen_blocklist</code></a></td>
+</tr>
+<tr>
+<td>Generate a number in a range</td>
+<td><a href="#data-masking-function-list-gen_rangelower-upper"><code>gen_range</code></a></td>
+</tr>
+<tr>
+<td>Manage dictionaries (add/remove terms, flush cache)</td>
+<td><a href="#data-masking-function-list-masking_dictionary_term_adddictionary_name-term_name"><code>masking_dictionary_term_add</code></a>, <a href="#data-masking-function-list-masking_dictionary_term_removedictionary_name-term_name"><code>masking_dictionary_term_remove</code></a>, <a href="#data-masking-function-list-masking_dictionary_removedictionary_name"><code>masking_dictionary_remove</code></a>, <a href="#data-masking-function-list-masking_dictionaries_flush"><code>masking_dictionaries_flush</code></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="data-masking-function-list-full-list-by-name">Full list (by name)<a class="headerlink" href="#data-masking-function-list-full-list-by-name" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Details</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><a href="#data-masking-function-list-gen_blockliststr-from_dictionary_name-to_dictionary_name"><code>gen_blocklist(str, from_dictionary_name, to_dictionary_name)</code></a></td>
-<td>Replace a term from a dictionary</td>
+<td>If the input is in the source dictionary, returns a random term from the target dictionary; otherwise returns the input</td>
 </tr>
 <tr>
 <td><a href="#data-masking-function-list-gen_dictionarydictionary_name"><code>gen_dictionary(dictionary_name)</code></a></td>
@@ -31089,10 +31476,48 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </tr>
 </tbody>
 </table>
+<h2 id="data-masking-function-list-permissions">Permissions<a class="headerlink" href="#data-masking-function-list-permissions" title="Permanent link">&para;</a></h2>
+<p>In Percona Server for MySQL 8.4.4-1, dictionary-related functions no longer run internal queries as the root user without a password. Following MySQL best practices, many admins disable the <code>root</code> user, which previously caused these functions to stop working. The server now uses the built-in <code>mysql.session</code> user to execute dictionary queries. </p>
+<p>However, for dictionary operations to work, you need to grant the mysql.session user <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> privileges on the <code>masking_dictionaries</code> table. Granting <code>UPDATE</code> and <code>DELETE</code> allows the server to modify or remove dictionary data. Compromise of the server or abuse of that user could allow dictionary tampering or deletion, causing dictionary-based functions to fail or return unexpected values; protect the server and the <code>mysql</code> schema accordingly.</p>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>If you change the value of the <code>masking_functions.masking_database</code> system variable to something other than <code>mysql</code>, make sure to update the <code>GRANT</code> query to match the new value.</p>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">&lt;</span><span class="n">masking_functions</span><span class="p">.</span><span class="n">masking_database</span><span class="o">&gt;</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="data-masking-function-list-limitations-and-operational-notes">Limitations and operational notes<a class="headerlink" href="#data-masking-function-list-limitations-and-operational-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Character set and collation: Several functions accept a <code>mask_char</code> that can be in a different character set than the input string. When the character sets differ, the server must transcode the mask character; in some collations or storage contexts this can produce illegal byte sequences or errors. Prefer using a <code>mask_char</code> in the same character set as the input (or the target column) to avoid corruption or storage failures.</p>
+</li>
+<li>
+<p>Schema and format: Masking functions return strings (for example, containing <code>X</code> or <code>*</code>). If the target column or application enforces strict validation (numeric-only, regex, fixed width, or checksums such as Luhn for payment cards), the masked value may cause INSERT or UPDATE failures or break application logic. The component does not guarantee format-preserving or type-preserving output; choose mask character and usage so that results remain valid for the target schema and application.</p>
+</li>
+<li>
+<p>Randomness: Functions that return &ldquo;random&rdquo; values (for example, <code>gen_dictionary</code>, <code>gen_blocklist</code>, <code>gen_rnd_*</code>) do not document that the randomness is cryptographically secure or unpredictable. The selection or generation logic is not necessarily resistant to prediction; do not rely on that logic to resist inference attacks (for example, an attacker with partial data might infer mappings).</p>
+</li>
+<li>
+<p>Collision and uniqueness: The <code>gen_rnd_*</code> functions do not document entropy source or collision probability. At scale (for example, millions of rows), duplicate generated values are possible and can violate unique constraints or make the dataset unsuitable for integration testing. Evaluate uniqueness requirements before relying on these generators for large datasets.</p>
+</li>
+<li>
+<p>Default mask character: The default masking character (for example, <code>X</code> or <code>*</code>) may not suit all use cases. For fixed-width fields, padding, or systems that expect specific formats or checksums (for example, Luhn for payment cards), the default can break validation. Choose mask character and format to match the target schema and application requirements.</p>
+</li>
+<li>
+<p>Performance at scale: Applying masking functions to very large result sets (for example, tens or hundreds of millions of rows) can add significant CPU and memory cost. No performance guarantees or benchmarks are documented. Test and monitor when using these functions in heavy reporting or large SELECTs to avoid resource exhaustion or denial-of-service risk.</p>
+</li>
+<li>
+<p>Aggregation and inference: Row-level masking affects how values are displayed in results; such masking does not necessarily protect against inference via aggregates. Depending on implementation, <code>SUM()</code>, <code>AVG()</code>, or other aggregates may be computed over unmasked data in the execution engine. Do not assume that masking in the result set prevents leakage through aggregate queries; consider differential privacy or aggregate-level protection if that is a threat.</p>
+</li>
+<li>
+<p>Boundary behavior: For <code>mask_outer</code>, when the sum of <code>margin1</code> and <code>margin2</code> is greater than or equal to the string length, the entire string is replaced with the mask character (the whole string is masked). For <code>mask_inner</code>, when that sum is greater than or equal to the string length, no masking occurs (the string is returned unchanged).</p>
+</li>
+<li>
+<p>Validation: The component does not provide a function to check whether a value is already masked. To audit that required rows or columns have been masked, use application logic, schema conventions, or external tooling.</p>
+</li>
+</ul>
 <h2 id="data-masking-function-list-gen_blockliststr-from_dictionary_name-to_dictionary_name">gen_blocklist(str, from_dictionary_name, to_dictionary_name)<a class="headerlink" href="#data-masking-function-list-gen_blockliststr-from_dictionary_name-to_dictionary_name" title="Permanent link">&para;</a></h2>
-<p>Replaces a term from one dictionary with a randomly selected term in another dictionary.</p>
+<p>If <code>str</code> is present in the dictionary named <code>from_dictionary_name</code>, returns a randomly selected term from the dictionary named <code>to_dictionary_name</code>. Otherwise returns <code>str</code> unchanged. The selection is not documented as cryptographically secure; do not rely on the selection to resist prediction or inference (see <a href="#data-masking-function-list-limitations-and-operational-notes">Limitations and operational notes</a>).</p>
 <h3 id="data-masking-function-list-version-update">Version update<a class="headerlink" href="#data-masking-function-list-version-update" title="Permanent link">&para;</a></h3>
-<p>Percona Server for MySQL 8.4.4-1 introduces an internal term cache. The server now uses in-memory data structures for lookups instead of querying the <code>&lt;masking_functions.masking_database&gt;.masking_dictionaries</code> table every time. This improvement boosts performance, especially when handling multiple rows.</p>
+<p>Percona Server for MySQL 8.4.4-4 introduces an internal term cache. The server now uses in-memory data structures for lookups instead of querying the <code>&lt;masking_functions.masking_database&gt;.masking_dictionaries</code> table every time. This improvement boosts performance, especially when handling multiple rows.</p>
 <h3 id="data-masking-function-list-parameters">Parameters<a class="headerlink" href="#data-masking-function-list-parameters" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -31105,28 +31530,27 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </thead>
 <tbody>
 <tr>
-<td><code>term</code></td>
+<td><code>str</code></td>
 <td>No</td>
-<td>The term to replace</td>
+<td>The input value to look up and optionally replace</td>
 <td>String</td>
 </tr>
 <tr>
 <td><code>from_dictionary_name</code></td>
 <td>No</td>
-<td>The dictionary that stores the term.</td>
+<td>The dictionary in which <code>str</code> must be found for replacement to occur</td>
 <td>String</td>
 </tr>
 <tr>
 <td><code>to_dictionary_name</code></td>
 <td>No</td>
-<td>The dictionary that stores the replacement term</td>
+<td>The dictionary from which a replacement term is chosen at random</td>
 <td>String</td>
 </tr>
 </tbody>
 </table>
 <h3 id="data-masking-function-list-returns">Returns<a class="headerlink" href="#data-masking-function-list-returns" title="Permanent link">&para;</a></h3>
-<p>A term, selected at random, from the dictionary listed in <code>to_dictionary_name</code> that replaces the selected term. If the selected <code>term</code> is not listed in the <code>from_dictionary_name</code> or a dictionary is missing, then the <code>term</code> is returned. If the <code>to_dictionary_name</code> does not exist, then returns NULL. The character set of the returned string is the same character set of the <code>term</code> parameter.</p>
-<p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
+<p>If <code>str</code> is in <code>from_dictionary_name</code>, a randomly selected term from <code>to_dictionary_name</code>. If <code>str</code> is not in <code>from_dictionary_name</code> or either dictionary is missing, <code>str</code> unchanged. If <code>to_dictionary_name</code> does not exist, NULL. Returns NULL if <code>str</code> is NULL. The character set of the returned string is the same as <code>str</code>.</p>
 <h3 id="data-masking-function-list-example">Example<a class="headerlink" href="#data-masking-function-list-example" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_blocklist</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;fruit&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nut&#39;</span><span class="p">);</span>
 </code></pre></div>
@@ -31140,9 +31564,9 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </code></pre></div>
 </details>
 <h2 id="data-masking-function-list-gen_dictionarydictionary_name">gen_dictionary(dictionary_name)<a class="headerlink" href="#data-masking-function-list-gen_dictionarydictionary_name" title="Permanent link">&para;</a></h2>
-<p>Returns a term from a dictionary selected at random.</p>
+<p>Returns a term from a dictionary selected at random. The selection is not documented as cryptographically secure; do not rely on the selection to resist prediction or inference (see <a href="#data-masking-function-list-limitations-and-operational-notes">Limitations and operational notes</a>).</p>
 <h3 id="data-masking-function-list-version-update_1">Version update<a class="headerlink" href="#data-masking-function-list-version-update_1" title="Permanent link">&para;</a></h3>
-<p>Percona Server for MySQL 8.4.4-1 introduces an internal term cache. The server now uses in-memory data structures for lookups instead of querying the <code>&lt;masking_functions.masking_database&gt;.masking_dictionaries</code> table every time. This improvement boosts performance, especially when handling multiple rows.</p>
+<p>Percona Server for MySQL 8.4.4-4 introduces an internal term cache. The server now uses in-memory data structures for lookups instead of querying the <code>&lt;masking_functions.masking_database&gt;.masking_dictionaries</code> table every time. This improvement boosts performance, especially when handling multiple rows.</p>
 <h3 id="data-masking-function-list-parameters_1">Parameters<a class="headerlink" href="#data-masking-function-list-parameters_1" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -31269,12 +31693,12 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 <td><code>domain</code></td>
 <td>Yes</td>
 <td>Specifies the domain name used. The default value is <code>example.com</code>.</td>
-<td>Integer</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
 <h3 id="data-masking-function-list-returns_4">Returns<a class="headerlink" href="#data-masking-function-list-returns_4" title="Permanent link">&para;</a></h3>
-<p>A generated string in the same character set as <code>domain</code>. If the <code>domain</code> value is not specified, then the string is in the <code>utf8mb4</code> character set. The <code>name</code> and <code>surname</code> are random lower-case letters (a - z).</p>
+<p>A generated string in the same character set as <code>domain</code>. If the <code>domain</code> value is not specified, then the string is in the <code>utf8mb4</code> character set. The <code>name</code> and <code>surname</code> are random lower-case letters (a - z). For columns with a unique constraint, duplicates are possible at scale; see Collision and uniqueness in <a href="#data-masking-function-list-limitations-and-operational-notes">Limitations and operational notes</a>.</p>
 <h3 id="data-masking-function-list-example_4">Example<a class="headerlink" href="#data-masking-function-list-example_4" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_rnd_email</span><span class="p">(</span><span class="n">name_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">surname_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="k">domain</span><span class="o">=</span><span class="s1">&#39;example.test&#39;</span><span class="p">);</span>
 </code></pre></div>
@@ -31288,7 +31712,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </code></pre></div>
 </details>
 <h2 id="data-masking-function-list-gen_rnd_ibancountry-size">gen_rnd_iban([country, size])<a class="headerlink" href="#data-masking-function-list-gen_rnd_ibancountry-size" title="Permanent link">&para;</a></h2>
-<p>Generates an Internal Bank Account Number (IBAN).</p>
+<p>Generates an International Bank Account Number (IBAN).</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 </div>
@@ -31377,7 +31801,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 <h3 id="data-masking-function-list-parameters_7">Parameters<a class="headerlink" href="#data-masking-function-list-parameters_7" title="Permanent link">&para;</a></h3>
 <p>None</p>
 <h3 id="data-masking-function-list-returns_7">Returns<a class="headerlink" href="#data-masking-function-list-returns_7" title="Permanent link">&para;</a></h3>
-<p>A SSN string in a nine-digit number format &ldquo;AAA-GG-SSSS&rdquo; in the <code>utf8mb4</code> character set. The number has three parts, the first three digits are the area number, the group number, and the serial number. The generated SSN uses &lsquo;900&rsquo; or greater numbers for the area number. These numbers are not legitimate because they are outside the approved range.</p>
+<p>An SSN string in nine-digit format &ldquo;AAA-GG-SSSS&rdquo; in the <code>utf8mb4</code> character set. The number has three parts, the first three digits are the area number, the group number, and the serial number. The generated SSN uses &lsquo;900&rsquo; or greater numbers for the area number. These numbers are not legitimate because they are outside the approved range.</p>
 <h3 id="data-masking-function-list-example_7">Example<a class="headerlink" href="#data-masking-function-list-example_7" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">gen_rnd_ssn</span><span class="p">();</span>
 </code></pre></div>
@@ -31387,7 +31811,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 | gen_rnd_ssn()  |
 +----------------+
 | 970-03-0370    |
------------------+
++----------------+
 </code></pre></div>
 </details>
 <h2 id="data-masking-function-list-gen_rnd_uk_nin">gen_rnd_uk_nin()<a class="headerlink" href="#data-masking-function-list-gen_rnd_uk_nin" title="Permanent link">&para;</a></h2>
@@ -31476,7 +31900,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </tbody>
 </table>
 <p>The <code>str</code> accepts an alphanumeric string.</p>
-<p>If you do not specify a <code>mask_char</code>, the default character is <code>X</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>If you do not specify a <code>mask_char</code>, the default character is <code>X</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>. See <a href="#data-masking-function-list-limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
 <h3 id="data-masking-function-list-returns_11">Returns<a class="headerlink" href="#data-masking-function-list-returns_11" title="Permanent link">&para;</a></h3>
 <p>A string with the selected characters masked by a specified <code>mask_char</code> or the default value for that parameter. The function supports multibyte characters in any character set. The character set of the return value is the same as <code>str</code>.</p>
 <p>An error is reported if  <code>str</code> length is an incorrect length.</p>
@@ -31494,7 +31918,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </code></pre></div>
 </details>
 <h2 id="data-masking-function-list-mask_ibanstr-mask_char">mask_iban(str [,mask_char])<a class="headerlink" href="#data-masking-function-list-mask_ibanstr-mask_char" title="Permanent link">&para;</a></h2>
-<p>Masks an Internal Bank Account Number (IBAN).</p>
+<p>Masks an International Bank Account Number (IBAN).</p>
 <h3 id="data-masking-function-list-parameters_12">Parameters<a class="headerlink" href="#data-masking-function-list-parameters_12" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -31529,7 +31953,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 <p>Groups of four characters. These groups can be separated by a space or any separator character.</p>
 </li>
 </ul>
-<p>The default value for <code>mask_char</code> is <code>*</code>. The value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>The default value for <code>mask_char</code> is <code>*</code>. The value can be a multibyte character in any character set and may not be the same character set as <code>str</code>. See <a href="#data-masking-function-list-limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
 <h3 id="data-masking-function-list-returns_12">Returns<a class="headerlink" href="#data-masking-function-list-returns_12" title="Permanent link">&para;</a></h3>
 <p>Returns the masked string. The character set of the result is the same as the character set of <code>str</code>.</p>
 <p>An error is reported if the <code>str</code> length is incorrect.</p>
@@ -31560,7 +31984,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </thead>
 <tbody>
 <tr>
-<td><code>string</code></td>
+<td><code>str</code></td>
 <td>No</td>
 <td>The string to be masked</td>
 <td>String</td>
@@ -31587,10 +32011,10 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </table>
 <p>The <code>margin1</code> value cannot be a negative number. A value of <code>0</code> (zero) masks all characters.</p>
 <p>The <code>margin2</code> value cannot be a negative number. A value of <code>0</code> (zero) masks all characters.</p>
-<p>If the sum of <code>margin1</code> and <code>margin2</code> is greater than or equal to the string length, no masking occurs.</p>
-<p>If the <code>mask_char</code> is not specified, the default is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>If the sum of <code>margin1</code> and <code>margin2</code> is greater than or equal to the string length, no masking occurs. See <a href="#data-masking-function-list-limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
+<p>If the <code>mask_char</code> is not specified, the default is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>.</p>
 <h3 id="data-masking-function-list-returns_13">Returns<a class="headerlink" href="#data-masking-function-list-returns_13" title="Permanent link">&para;</a></h3>
-<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the character set of the <code>string</code> parameter.</p>
+<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the character set of <code>str</code>.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="data-masking-function-list-example_13">Example<a class="headerlink" href="#data-masking-function-list-example_13" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_inner</span><span class="p">(</span><span class="s1">&#39;123456789&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
@@ -31618,7 +32042,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </thead>
 <tbody>
 <tr>
-<td><code>string</code></td>
+<td><code>str</code></td>
 <td>No</td>
 <td>The string to be masked</td>
 <td>String</td>
@@ -31645,10 +32069,10 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </table>
 <p>The <code>margin1</code> cannot be a negative number. A value of <code>0</code> (zero) does not mask any characters.</p>
 <p>The <code>margin2</code> cannot be a negative number. A value of <code>0</code> (zero) does not mask any characters.</p>
-<p>If the sum of <code>margin1</code> and <code>margin2</code> is greater than or equal to the string length, the string is masked.</p>
-<p>If the <code>mask_char</code> is not specified, the default is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>If the sum of <code>margin1</code> and <code>margin2</code> is greater than or equal to the string length, the entire string is replaced with the mask character (the whole string is masked). See <a href="#data-masking-function-list-limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
+<p>If the <code>mask_char</code> is not specified, the default is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>.</p>
 <h3 id="data-masking-function-list-returns_14">Returns<a class="headerlink" href="#data-masking-function-list-returns_14" title="Permanent link">&para;</a></h3>
-<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>string</code>.</p>
+<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>str</code>.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="data-masking-function-list-example_14">Example<a class="headerlink" href="#data-masking-function-list-example_14" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_outer</span><span class="p">(</span><span class="s1">&#39;123456789&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span>
@@ -31656,7 +32080,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
-| mask_outer(&#39;123456789&#39;, 2, 2).     |
+| mask_outer(&#39;123456789&#39;, 2, 2)     |
 +------------------------------------+
 | XX34567XX                          |
 +------------------------------------+
@@ -31690,7 +32114,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </tbody>
 </table>
 <p>The <code>str</code> contains a minimum of 14 or a maximum of 19 alphanumeric characters. </p>
-<p>If the <code>mask_char</code> is not specified, the default value is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>If the <code>mask_char</code> is not specified, the default value is &lsquo;X&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>. See <a href="#data-masking-function-list-limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input. For numeric-only columns or systems that validate Luhn checksums, the default character may be invalid; see Schema and format and Default mask character in that section.</p>
 <h3 id="data-masking-function-list-returns_15">Returns<a class="headerlink" href="#data-masking-function-list-returns_15" title="Permanent link">&para;</a></h3>
 <p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value. The character set of the result is the same character set as <code>str</code>.</p>
 <p>An error occurs if the <code>str</code> parameter is not the correct length.</p>
@@ -31708,7 +32132,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </code></pre></div>
 </details>
 <h2 id="data-masking-function-list-mask_pan_relaxedstr-mask_char">mask_pan_relaxed(str [,mask_char])<a class="headerlink" href="#data-masking-function-list-mask_pan_relaxedstr-mask_char" title="Permanent link">&para;</a></h2>
-<p>Returns a masked payment card Primary Account Number (PAN). The first six numbers and the last four numbers and the rest of the string masked by specified character or <code>X</code>.</p>
+<p>Returns a masked payment card Primary Account Number (PAN). Leaves the first six and last four digits unmasked; the rest is masked by the specified character or <code>X</code>.</p>
 <h3 id="data-masking-function-list-parameters_16">Parameters<a class="headerlink" href="#data-masking-function-list-parameters_16" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -31737,9 +32161,9 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 <p>The <code>str</code> must contain a minimum of 14 or a maximum of 19 alphanumeric characters. </p>
 <p>If the <code>mask_char</code> is not specified, the default value is &lsquo;X&rsquo;.</p>
 <h3 id="data-masking-function-list-returns_16">Returns<a class="headerlink" href="#data-masking-function-list-returns_16" title="Permanent link">&para;</a></h3>
-<p>A string with the first six numbers and the last four numbers and the rest of the string masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value (<code>X</code>). The character set of the result is the same character set as <code>str</code>.</p>
-<p>The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
-<p>Reports an error is the <code>str</code> parameter is not the correct length.</p>
+<p>A string with the first six and last four digits unmasked and the rest masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value (<code>X</code>). The character set of the result is the same character set as <code>str</code>.</p>
+<p>The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>. See <a href="#data-masking-function-list-limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
+<p>Reports an error if the <code>str</code> parameter is not the correct length.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="data-masking-function-list-example_16">Example<a class="headerlink" href="#data-masking-function-list-example_16" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_pan_relaxed</span><span class="p">(</span><span class="n">gen_rnd_pan</span><span class="p">());</span>
@@ -31783,11 +32207,11 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 <p>The <code>str</code> accepts either of the following:</p>
 <ul>
 <li>Nine integers, no separator symbol</li>
-<li>Nine integers in the <code>AAA-GG-SSS</code> pattern. The <code>-</code> (dash symbol) is the separator character.</li>
+<li>Nine integers in the <code>AAA-GG-SSSS</code> pattern. The <code>-</code> (dash symbol) is the separator character.</li>
 </ul>
-<p>If the <code>mask_char</code> is not specified, the default value is <code>*</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>If the <code>mask_char</code> is not specified, the default value is <code>*</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>. See <a href="#data-masking-function-list-limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
 <h3 id="data-masking-function-list-returns_17">Returns<a class="headerlink" href="#data-masking-function-list-returns_17" title="Permanent link">&para;</a></h3>
-<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set of <code>str</code>. </p>
+<p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>str</code>. </p>
 <p>Reports an error if the value of the <code>str</code> is an incorrect length.</p>
 <p>Returns a NULL value if you invoke this function with NULL as the primary argument.</p>
 <h3 id="data-masking-function-list-example_17">Example<a class="headerlink" href="#data-masking-function-list-example_17" title="Permanent link">&para;</a></h3>
@@ -31803,7 +32227,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </code></pre></div>
 </details>
 <h2 id="data-masking-function-list-mask_uk_ninstr-mask_char">mask_uk_nin(str [,mask_char])<a class="headerlink" href="#data-masking-function-list-mask_uk_ninstr-mask_char" title="Permanent link">&para;</a></h2>
-<p>Returns a masked a United Kingdom National Insurance Number (NIN). The mask replaces the NIN number with the specified character except for the first two digits.</p>
+<p>Returns a masked United Kingdom National Insurance Number (NIN). The mask replaces the NIN with the specified character except for the first two characters.</p>
 <h3 id="data-masking-function-list-parameters_18">Parameters<a class="headerlink" href="#data-masking-function-list-parameters_18" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -31830,7 +32254,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </tbody>
 </table>
 <p>The <code>str</code> accepts an alpha-numeric string and does not check format and the <code>str</code> can use any separator character.</p>
-<p>If the <code>mask_char</code> is not specified, the default value is <code>*</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>If the <code>mask_char</code> is not specified, the default value is <code>*</code>. The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>. See <a href="#data-masking-function-list-limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
 <h3 id="data-masking-function-list-returns_18">Returns<a class="headerlink" href="#data-masking-function-list-returns_18" title="Permanent link">&para;</a></h3>
 <p>Returns a string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>str</code>.</p>
 <p>An error occurs if the <code>str</code> parameter is not the correct length. </p>
@@ -31875,10 +32299,10 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </tbody>
 </table>
 <p>The <code>str</code> format is <code>********-****-****-****-************</code>.</p>
-<p>If the <code>mask_char</code> is not specified, the default value is &lsquo;*&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be same character set as <code>str</code>.</p>
+<p>If the <code>mask_char</code> is not specified, the default value is &lsquo;*&rsquo;. The <code>mask_char</code> value can be a multibyte character in any character set and may not be the same character set as <code>str</code>. See <a href="#data-masking-function-list-limitations-and-operational-notes">Limitations and operational notes</a> for character set and collation caveats when <code>mask_char</code> differs from the input.</p>
 <h3 id="data-masking-function-list-returns_19">Returns<a class="headerlink" href="#data-masking-function-list-returns_19" title="Permanent link">&para;</a></h3>
 <p>A string with the characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>str</code>.</p>
-<p>Returns an error if the length of <code>str</code> is incorrect.</p>
+<p>An error occurs if the length of <code>str</code> is incorrect.</p>
 <p>Returns <code>NULL</code> if you invoke this function with NULL as the primary argument.</p>
 <h3 id="data-masking-function-list-example_19">Example<a class="headerlink" href="#data-masking-function-list-example_19" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">mask_uuid</span><span class="p">(</span><span class="s1">&#39;9a3b642c-06c6-11ee-be56-0242ac120002&#39;</span><span class="p">);</span>
@@ -31888,7 +32312,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 <div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------+
 | mask_uuid(&#39;9a3b642c-06c6-11ee-be56-0242ac120002&#39;)     |
 +-------------------------------------------------------+
-|********_****_****_****_************                   |
+|********-****-****-****-************                   |
 +-------------------------------------------------------+
 </code></pre></div>
 </details>
@@ -31907,7 +32331,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 | masking_dictionaries_flush() |
 +------------------------------+
 |                          1   |
-+----------------------------  +
++------------------------------+
 </code></pre></div>
 </details>
 <h2 id="data-masking-function-list-masking_dictionary_removedictionary_name">masking_dictionary_remove(dictionary_name)<a class="headerlink" href="#data-masking-function-list-masking_dictionary_removedictionary_name" title="Permanent link">&para;</a></h2>
@@ -32044,37 +32468,12 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </tbody>
 </table>
 <h3 id="data-masking-function-list-returns_23">Returns<a class="headerlink" href="#data-masking-function-list-returns_23" title="Permanent link">&para;</a></h3>
-<p>Returns a integer value of <code>1</code> (one) if the operation is successful. Returns the integer value of <code>0</code> (zero) for a failure.</p>
+<p>Returns an integer value of <code>1</code> (one) if the operation is successful. Returns the integer value of <code>0</code> (zero) for a failure.</p>
 <p>Returns <code>NULL</code> if the operation fails. An operation can fail if the following occurs:</p>
 <ul>
 <li>The <code>term_name</code> is not available in the dictionary specified by <code>dictionary_name</code></li>
 <li>The <code>dictionary_name</code> could not be found</li>
 </ul>
-<h3 id="data-masking-function-list-parameters_24">Parameters<a class="headerlink" href="#data-masking-function-list-parameters_24" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Optional</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>dictionary_name</code></td>
-<td>No</td>
-<td>The dictionary for the term</td>
-<td>String</td>
-</tr>
-<tr>
-<td><code>term_name</code></td>
-<td>No</td>
-<td>The term to be added</td>
-<td>String</td>
-</tr>
-</tbody>
-</table>
 <h3 id="data-masking-function-list-example_23">Example<a class="headerlink" href="#data-masking-function-list-example_23" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionary_term_remove</span><span class="p">(</span><span class="s1">&#39;trees&#39;</span><span class="p">,</span><span class="s1">&#39;pine&#39;</span><span class="p">);</span>
 </code></pre></div>
@@ -32091,8 +32490,8 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 <table>
 <thead>
 <tr>
-<th><strong>Name</strong></th>
-<th><strong>Details</strong></th>
+<th>Name</th>
+<th>Details</th>
 </tr>
 </thead>
 <tbody>
@@ -32133,7 +32532,9 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </tr>
 </tbody>
 </table>
-<p>Percona Server for MySQL 8.4.4-1 adds this variable. The number of seconds between a synchronization between the dictionaries table and the internal dictionary cache. The default value is 0 seconds (disabled). The minimum value is 1 second. The maximum value is 31,536,000 seconds (1 year).</p>
+<p>Variable name: <code>component_masking_functions.dictionaries_flush_interval_seconds</code>. You can set the variable at runtime (for example, with <code>SET GLOBAL</code>) or on the command line.</p>
+<p>Percona Server for MySQL 8.4.4-4 adds this variable. The number of seconds between synchronizations of the dictionaries table and the internal dictionary cache. The default value is 0 seconds (disabled). The minimum value is 1 second. The maximum value is 31,536,000 seconds (1 year).</p>
+<p>Replication: On replicas that use row-based replication, the dictionary term cache is not updated immediately when dictionary changes are applied from the binary log. Set this variable to a positive value (for example, 60) so that a background process periodically refreshes the cache and keeps replicas in sync with the source.</p>
 <h3 id="data-masking-function-list-masking_databasestring">masking_database(string)<a class="headerlink" href="#data-masking-function-list-masking_databasestring" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -32161,18 +32562,43 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
 </tr>
 </tbody>
 </table>
-<p>Specify the name of the database that holds the <code>masking_dictionaries</code> table. By default, it uses the <code>mysql</code> database.</p></section><section class="print-page" id="uninstall-data-masking-component" heading-number="13.2.4"><h1 id="uninstall-data-masking-component-uninstall-the-component">Uninstall the component<a class="headerlink" href="#uninstall-data-masking-component-uninstall-the-component" title="Permanent link">&para;</a></h1>
-<p class="power-number">The following steps uninstall the component:</p>
-<ol>
+<p>Specify the name of the database that holds the <code>masking_dictionaries</code> table. By default, the setting uses the <code>mysql</code> database.</p></section><section class="print-page" id="uninstall-data-masking-component" heading-number="13.2.5"><h1 id="uninstall-data-masking-component-uninstall-the-data-masking-component">Uninstall the data masking component<a class="headerlink" href="#uninstall-data-masking-component-uninstall-the-data-masking-component" title="Permanent link">&para;</a></h1>
+<p>Uninstalling removes the masking functions and (if you choose) the dictionary table. The steps below prioritize a clean removal. Before you run them, address dependencies, privileges, and the risk of exposing previously masked data.</p>
+<h2 id="uninstall-data-masking-component-before-you-uninstall">Before you uninstall<a class="headerlink" href="#uninstall-data-masking-component-before-you-uninstall" title="Permanent link">&para;</a></h2>
+<ul>
 <li>
-<p>Uninstall the component with <a href="#uninstall-component"><code>UNINSTALL_COMPONENT</code></a> and the loadable functions.</p>
-<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_masking_functions&#39;</span><span class="p">;</span>
-</code></pre></div>
+<p>Views, stored procedures, and triggers: Any view, routine, or trigger that calls masking functions (for example, in a <code>SELECT</code> or default expression) depends on the component. After <code>UNINSTALL COMPONENT</code>, those objects become invalid. Queries that use them can fail with an error such as a missing function or component. Before uninstalling, identify and either drop or replace those objects, or ensure no application uses them. If you leave them in place and uninstall, applications that query the view may fail or, if they fall back to base tables, may see unmasked data. Plan to replace masking-based views with restricted views, dummy tables, or access denial so that uninstallation does not inadvertently expose raw data.</p>
 </li>
 <li>
-<p>Drop <code>masking_dictionaries</code>.</p>
+<p>Privileges: The install procedure grants <code>MASKING_DICTIONARIES_ADMIN</code> to users and may grant privileges to <code>mysql.session</code> on <code>mysql.masking_dictionaries</code>. Uninstalling does not revoke these. For a clean state, revoke them before or after uninstall. To revoke from <code>mysql.session</code>, the table must still exist, so do that before dropping the table. Example (adjust for your database if you changed <code>masking_database</code>):</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">REVOKE</span><span class="w"> </span><span class="n">MASKING_DICTIONARIES_ADMIN</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">&lt;</span><span class="k">user</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">REVOKE</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>
+<p>System variables: If you set masking-related variables (for example, <code>component_masking_functions.dictionaries_flush_interval_seconds</code> or the database used for the dictionaries table), remove or reset them in your configuration (for example, <code>my.cnf</code> or the command line). After the component is uninstalled, references to component variables in the config can produce &ldquo;unknown variable&rdquo; warnings or errors on server restart and can confuse configuration management tools.</p>
+</li>
+<li>
+<p>In-flight use: Ensure no views, routines, or applications are actively using masking functions when you uninstall. Uninstalling while queries or background processes depend on the component can cause those operations to fail.</p>
+</li>
+</ul>
+<h2 id="uninstall-data-masking-component-uninstall-steps">Uninstall steps<a class="headerlink" href="#uninstall-data-masking-component-uninstall-steps" title="Permanent link">&para;</a></h2>
+<p class="power-number">The following steps uninstall the component; the second step optionally drops the <code>masking_dictionaries</code> table.</p>
+<ol>
+<li>
+<p>Uninstall the component and loadable functions.</p>
+<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_masking_functions&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>After this step, any view, stored procedure, or trigger that references masking functions is invalid and will cause errors when used.</p>
+</li>
+<li>
+<p>Optionally drop the <code>masking_dictionaries</code> table.</p>
+<p>Dropping this table permanently removes all dictionary data and cannot be undone. Skip this step if you plan to reinstall or upgrade and want to keep the table and data. If you might need the dictionary data later, back up the table or export the data before dropping.</p>
 <div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="p">;</span>
 </code></pre></div>
+<p>If you granted privileges to <code>mysql.session</code> on this table and did not revoke them in &ldquo;Before you uninstall,&rdquo; the grant entries may remain in the system until you revoke them; revoking requires the table to exist, so revoke before dropping the table if you want a full cleanup.</p>
 </li>
 </ol>
 <h2 id="uninstall-data-masking-component-useful-links">Useful links<a class="headerlink" href="#uninstall-data-masking-component-useful-links" title="Permanent link">&para;</a></h2>
@@ -51437,7 +51863,7 @@ contributions and changes from MariaDB.</p>
 <li><a href="#uninstall-component">UNINSTALL COMPONENT</a></li>
 <li><a href="#yum-uninstall">Uninstall Percona Server for MySQL</a></li>
 <li><a href="#apt-uninstall-server">Uninstall Percona Server for MySQL 8.4 using the APT package manager</a></li>
-<li><a href="#uninstall-data-masking-component">Uninstall the component</a></li>
+<li><a href="#uninstall-data-masking-component">Uninstall the data masking component</a></li>
 <li><a href="#uninstall-js-lang">Uninstall the js_lang component</a></li>
 <li><a href="#update">UPDATE statement</a></li>
 <li><a href="#myrocks-added-features">Updated supported features</a></li>
@@ -51832,9 +52258,11 @@ contributions and changes from MariaDB.</p>
 
 .print-site-enumerate-headings #install-data-masking-component > h1:before { content: '13.2.2 ' }
 
-.print-site-enumerate-headings #data-masking-function-list > h1:before { content: '13.2.3 ' }
+.print-site-enumerate-headings #quickstart-data-masking > h1:before { content: '13.2.3 ' }
 
-.print-site-enumerate-headings #uninstall-data-masking-component > h1:before { content: '13.2.4 ' }
+.print-site-enumerate-headings #data-masking-function-list > h1:before { content: '13.2.4 ' }
+
+.print-site-enumerate-headings #uninstall-data-masking-component > h1:before { content: '13.2.5 ' }
 
 .print-site-enumerate-headings #pam-plugin > h1:before { content: '13.3 ' }
 
