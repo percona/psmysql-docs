@@ -24,8 +24,8 @@ As of [Percona Server for MySQL 8.4.7-7](https://docs.percona.com/percona-server
 
 The audit Log plugin is installed, but, by default, is not enabled when you install Percona Server for MySQL. To check if the plugin is enabled run the following command. This command searches for plugins with names containing the word "audit" in the `information_schema.PLUGINS` table. 
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM information_schema.PLUGINS WHERE PLUGIN_NAME LIKE '%audit%';
+```sql
+SELECT * FROM information_schema.PLUGINS WHERE PLUGIN_NAME LIKE '%audit%';
 ```
 
 The empty result suggests that no such plugins are installed or loaded.
@@ -699,8 +699,14 @@ When this variable is set to `ON` log file will be closed and reopened.
 | Dynamic:       | No                 |
 | Data type      | Numeric            |
 | Default value   | 1 Mb               |
+| Minimum value  | 4096               |
+| Maximum value  | 1073741824 (1 GB)  |
+| Unit           | bytes              |
+| Block size     | 4096               |
 
-This variable can be used to specify the size of memory buffer used for logging, used when audit_log_strategy variable is set to `ASYNCHRONOUS` or `PERFORMANCE` values. This variable has effect only when audit_log_handler is set to `FILE`.
+This variable specifies the size of the memory buffer used for logging. It is only effective when `audit_log_strategy` is set to `ASYNCHRONOUS` or `PERFORMANCE` and `audit_log_handler` is set to `FILE`.
+
+The value is automatically rounded to the nearest multiple of 4096.
 
 ### `audit_log_exclude_accounts`
 
@@ -831,13 +837,19 @@ are:
 | Dynamic:       | Yes                |
 | Data type      | Numeric            |
 | Default value  | 0                  |
+| Minimum value  | 0                  |
+| Maximum value  | 18446744073709551615 |
+| Unit           | bytes              |
+| Block size     | 4096               |
 
 This variable is measured in bytes and specifies the maximum size of the audit log file. Upon reaching
 this size, the audit log will be rotated. The rotated log files are present in
 the same directory as the current log file. The sequence number is appended to
 the log file name upon rotation. 
 
-If the value is set to 0 (the default), the audit log files won’t rotate.
+If the value is set to 0 (the default), the audit log files won't rotate.
+
+If you set the value to less than 4096, the plugin does not automatically rotate the log files. If the value is not a multiple of 4096, the plugin truncates the value to the nearest multiple.
 
 Set the `audit_log_handler` to FILE to enable this variable.
 
@@ -850,10 +862,14 @@ Set the `audit_log_handler` to FILE to enable this variable.
 | Dynamic:       | Yes                |
 | Data type      | Numeric            |
 | Default value   | 0                  |
+| Minimum value   | 0                  |
+| Maximum value   | 100                |
 
 This variable is used to specify how many log files should be kept when
 audit_log_rotate_on_size variable is set to non-zero value. This
 variable has effect only when audit_log_handler is set to `FILE`.
+
+The maximum value is typically capped at 100 to prevent excessive file handle or disk overhead, though some internal implementations may allow up to 4294967295.
 
 ### `audit_log_handler`
 
