@@ -30,7 +30,7 @@ is stored in a log file. This implementation is alternative to the MySQL Enterpr
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
     
     
       
@@ -10807,7 +10807,7 @@ is stored in a log file. This implementation is alternative to the <a href="http
 <p>As of <a href="https://docs.percona.com/percona-server/8.4/release-notes/8.4.7-7.html">Percona Server for MySQL 8.4.7-7</a>, the Audit Log plugin is available, but this plugin is deprecated and may be removed in a future release. We recommend migrating to the <a href="https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html">Audit Log Filter component</a>.</p>
 <h2 id="install-the-plugin">Install the plugin<a class="headerlink" href="#install-the-plugin" title="Permanent link">&para;</a></h2>
 <p>The audit Log plugin is installed, but, by default, is not enabled when you install Percona Server for MySQL. To check if the plugin is enabled run the following command. This command searches for plugins with names containing the word &ldquo;audit&rdquo; in the <code>information_schema.PLUGINS</code> table. </p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>information_schema.PLUGINS<span class="w"> </span>WHERE<span class="w"> </span>PLUGIN_NAME<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;%audit%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">PLUGINS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%audit%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The empty result suggests that no such plugins are installed or loaded.</p>
 <details class="example">
@@ -11442,9 +11442,26 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 <td>Default value</td>
 <td>1 Mb</td>
 </tr>
+<tr>
+<td>Minimum value</td>
+<td>4096</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>1073741824 (1 GB)</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>bytes</td>
+</tr>
+<tr>
+<td>Block size</td>
+<td>4096</td>
+</tr>
 </tbody>
 </table>
-<p>This variable can be used to specify the size of memory buffer used for logging, used when audit_log_strategy variable is set to <code>ASYNCHRONOUS</code> or <code>PERFORMANCE</code> values. This variable has effect only when audit_log_handler is set to <code>FILE</code>.</p>
+<p>This variable specifies the size of the memory buffer used for logging. It is only effective when <code>audit_log_strategy</code> is set to <code>ASYNCHRONOUS</code> or <code>PERFORMANCE</code> and <code>audit_log_handler</code> is set to <code>FILE</code>.</p>
+<p>The value is automatically rounded to the nearest multiple of 4096.</p>
 <h3 id="audit_log_exclude_accounts"><code>audit_log_exclude_accounts</code><a class="headerlink" href="#audit_log_exclude_accounts" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -11747,13 +11764,30 @@ are:</p>
 <td>Default value</td>
 <td>0</td>
 </tr>
+<tr>
+<td>Minimum value</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>18446744073709551615</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>bytes</td>
+</tr>
+<tr>
+<td>Block size</td>
+<td>4096</td>
+</tr>
 </tbody>
 </table>
 <p>This variable is measured in bytes and specifies the maximum size of the audit log file. Upon reaching
 this size, the audit log will be rotated. The rotated log files are present in
 the same directory as the current log file. The sequence number is appended to
 the log file name upon rotation. </p>
-<p>If the value is set to 0 (the default), the audit log files won’t rotate.</p>
+<p>If the value is set to 0 (the default), the audit log files won&rsquo;t rotate.</p>
+<p>If you set the value to less than 4096, the plugin does not automatically rotate the log files. If the value is not a multiple of 4096, the plugin truncates the value to the nearest multiple.</p>
 <p>Set the <code>audit_log_handler</code> to FILE to enable this variable.</p>
 <h3 id="audit_log_rotations"><code>audit_log_rotations</code><a class="headerlink" href="#audit_log_rotations" title="Permanent link">&para;</a></h3>
 <table>
@@ -11784,11 +11818,20 @@ the log file name upon rotation. </p>
 <td>Default value</td>
 <td>0</td>
 </tr>
+<tr>
+<td>Minimum value</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Maximum value</td>
+<td>100</td>
+</tr>
 </tbody>
 </table>
 <p>This variable is used to specify how many log files should be kept when
 audit_log_rotate_on_size variable is set to non-zero value. This
 variable has effect only when audit_log_handler is set to <code>FILE</code>.</p>
+<p>The maximum value is typically capped at 100 to prevent excessive file handle or disk overhead, though some internal implementations may allow up to 4294967295.</p>
 <h3 id="audit_log_handler"><code>audit_log_handler</code><a class="headerlink" href="#audit_log_handler" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -11986,7 +12029,7 @@ than audit_log_buffer_size variable.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 18:59:49 UTC">December 22, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 12, 2026 15:12:46 UTC">March 12, 2026</span>
   </span>
 
     
