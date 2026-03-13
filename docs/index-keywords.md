@@ -1,5 +1,7 @@
 # Documentation Index by Alphabet
 
+<!-- Update the following links to be valid for 9.7-->
+
 ## A
 
 **Files:**
@@ -380,7 +382,7 @@
 * [UNINSTALL COMPONENT](uninstall-component.md)
 * [Uninstall Percona Server for MySQL](yum-uninstall.md)
 * [Uninstall Percona Server for MySQL {{vers}} using the APT package manager](apt-uninstall-server.md)
-* [Uninstall the component](uninstall-data-masking-component.md)
+* [Uninstall the data masking component](uninstall-data-masking-component.md)
 * [Uninstall the js_lang component](uninstall-js-lang.md)
 * [UPDATE statement](update.md)
 * [Updated supported features](myrocks-added-features.md)

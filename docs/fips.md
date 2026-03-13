@@ -8,6 +8,8 @@ The Federal Information Processing Standards (FIPS) are a set of regulations man
 
 Percona Server for MySQL can run in FIPS mode if a FIPS-enabled OpenSSL library and FIPS Object Module are available at runtime or if compiled using a FIPS-validated version of OpenSSL. FIPS mode remains off by default and must be enabled via [OS/OpenSSL configuration](#prerequisites). 
 
+<!-- Update the following instruction to be valid for 9.7-->
+
 ## Version changes
 
 Introduced in Percona Server for MySQL Pro build for [8.4.0-1](release-notes/8.4.0-1.md). You can also receive this functionality by [building Percona Server for MySQL from source code](compile-percona-server.md).

@@ -35,13 +35,13 @@ To create a table in a database, you need appropriate permissions granted to you
 
 ## Create a table
 
-To create a table, use the `CREATE TABLE` command. Follow it with the table name and define the columns and their data types. For example, to create a table named `customers` with columns for `id`, `name`, and `email`, use this command:
+To create a table, use the `CREATE TABLE` command. Follow it with the table name and define the columns and their data types. For example, to create a table named `customers` with columns for `id`, `name`, and `city`, use this command:
 
 ```mysql
 CREATE TABLE customers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
-    email VARCHAR(100)
+    city VARCHAR(100)
 );
 ```
 

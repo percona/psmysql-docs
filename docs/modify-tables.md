@@ -19,7 +19,7 @@ The following is an example using an `ALTER TABLE` command:
 ```sql
 ALTER TABLE users
 ADD COLUMN age INT,
-MODIFY COLUMN email VARCHAR(255),
+MODIFY COLUMN city VARCHAR(100),
 DROP COLUMN username;
 ```
 

@@ -6,7 +6,7 @@ This document provides step-by-step procedures for upgrading Percona Server for 
 
 Before beginning the upgrade process:
 
-1. Complete the [upgrade checklist](./upgrade-checklist-8.4.md) pre-upgrade checks.
+1. Complete the [upgrade checklist](./upgrade-checklist-9.7.md) pre-upgrade checks.
 2. Create a full backup (or dump if possible) of your database.
 3. Back up your database configuration file (`my.cnf`) to a safe location, then modify it as needed (for example, remove deprecated variables, update settings for {{vers}}) before stopping the server.
 4. Stop the server using the appropriate command for your system:
@@ -298,18 +298,15 @@ Use this method when you cannot use repositories or need to install from manuall
 
 ## Post-upgrade validation
 
-After completing the upgrade, follow the post-upgrade validation steps in the [upgrade checklist](./upgrade-checklist-8.4.md#post-upgrade-validation).
+After completing the upgrade, follow the post-upgrade validation steps in the [upgrade checklist](./upgrade-checklist-9.7.md#post-upgrade-validation).
 
 ## Further reading
 
 * [Upgrade overview](./upgrade.md)
-* [Upgrade checklist for {{vers}}](./upgrade-checklist-8.4.md)
+* [Upgrade checklist for {{vers}}](./upgrade-checklist-9.7.md)
 * [Upgrade strategies](./upgrade-strategies.md)
 * [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md)
 * [Upgrade from plugins to components](./upgrade-components.md)
 * [Downgrade options](./downgrade.md)
-* [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md)
-* [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md)
-* [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
-* [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md)
+* [Percona Toolkit updates for {{vers}}](./percona-toolkit-9.7-updates.md)
 

@@ -2,6 +2,8 @@
 
 MySQL supports different upgrade paths depending on the source and target versions. Choose the appropriate method based on your current version and target.
 
+<!-- Update this doc to be valid for 9.7-->
+
 ## Upgrade path matrix
 
 | Upgrade Path | Path Examples | Supported Upgrade Methods |

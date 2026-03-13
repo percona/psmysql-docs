@@ -24,6 +24,8 @@ Percona supports DEB builds with ARM packages with the `aarch64.rpm` extension.
 
 --8<-- "install-flag.md"
 
+<!-- Update the following instruction to be valid for 9.7-->
+
 ## Install Percona Server for MySQL using APT
 
 To install Percona Server for MySQL using APT, follow these steps:

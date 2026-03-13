@@ -1,5 +1,7 @@
 # Install using DNF
 
+<!-- Update this doc to be valid for 9.7-->
+
 !!! important "Installation Method"
     This guide describes **standard OS installation** on RPM-based operating systems (RHEL, CentOS, Rocky Linux, etc.) using DNF. Ready-to-use packages are available from the Percona Server for MySQL software repositories and the [Percona downloads] page. On RHEL 8+ systems, DNF has superseded YUM, but `yum` commands continue to work as they are aliased to `dnf`.
     
@@ -37,14 +39,6 @@ RHEL 8+ and other EL8+ systems enable the MySQL module by default. This module h
 
 !!! important "Checking the MySQL Module"
     RHEL 8+ systems enable the MySQL module by default, which can hide or conflict with Percona's packages. The first installation step below shows you how to check if the module is enabled. If you see an **[e]** marker, you must disable the module before proceeding. If you only see **[d]** (default), you can proceed.
-
-<!--
-## Percona Server for MySQL PRO
-
---8<-- "pro-build-announcement.md"
-
-[Install Percona Server for MySQL Pro](install-pro.md){.md-button}
--->
 
 ## Install using DNF (RHEL 8+)
 

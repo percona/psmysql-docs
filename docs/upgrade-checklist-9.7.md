@@ -1,6 +1,6 @@
 # Upgrade checklist for {{vers}}
 
-Thorough preparation and validation reduce risk more than any cutover tactic. Use this checklist to guide your upgrade from 8.0 to {{vers}}, validating each item in staging before upgrading production.
+Thorough preparation and validation reduce risk more than any cutover tactic. Use this checklist to guide your upgrade from 8.4 to {{vers}}, validating each item in staging before upgrading production.
 
 ## Pre-upgrade checks
 
@@ -26,7 +26,7 @@ Complete these checks before starting the upgrade process.
 - [ ] Search and update scripts: `START REPLICA`, `SHOW REPLICA STATUS`, `CHANGE REPLICATION SOURCE TO`.
 - [ ] Validate Orchestrator/HA tooling versions for {{vers}} syntax.
 - [ ] Update Percona Toolkit calls: replace `pt-slave-find` with `pt-replica-find`, and `pt-slave-restart` with `pt-replica-restart`; remove `pt-slave-delay` usage.
-- [ ] See: [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md)
+- [ ] See: [Percona Toolkit updates for {{vers}}](./percona-toolkit-9.7-updates.md)
 
 ### Removed features and variables
 
@@ -38,7 +38,6 @@ Complete these checks before starting the upgrade process.
 - [ ] Migrate from `expire_logs_days` to `binlog_expire_logs_seconds`.
 - [ ] Replace `WAIT_UNTIL_SQL_THREAD_AFTER_GTIDS()` with `WAIT_FOR_EXECUTED_GTID_SET()`.
 - [ ] Remove dependencies on built-in memcached variables/APIs.
-- [ ] See: [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md)
 
 ### Reserved keywords in identifiers
 
@@ -58,26 +57,6 @@ Complete these checks before starting the upgrade process.
 
 - [ ] Identify and convert any `FLOAT`/`DOUBLE` `AUTO_INCREMENT` columns to integer types prior to upgrade.
 
-### Configuration defaults review
-
-**Impact**: {{vers}} changes several InnoDB defaults for modern hardware; old 8.0 configs may not be optimal and can cause behavior changes.
-
-**Action**:
-
-- [ ] Compare your overrides to {{vers}} defaults; remove obsolete settings and re-evaluate IO/log parameters.
-- [ ] See: [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
-
-### Spatial indexes
-
-**Impact**: A known issue can corrupt a spatial index (R-Tree index) in MySQL 8.4.0 through 8.4.3. The corruption is triggered when an `UPDATE` that slightly changes a geometry's MBR (Minimum Bounding Rectangle) is immediately followed by a `DELETE` of the same row. This issue is fixed in 8.4.4 and later.
-
-**Action**:
-
-- [ ] If upgrading to 8.4.0-8.4.3, drop spatial indexes before upgrade (document which ones for post-upgrade re-creation) as a precautionary measure.
-- [ ] If upgrading to 8.4.4 or later, this issue is fixed; spatial indexes can remain in place.
-- [ ] Plan to re-create any spatial indexes dropped pre-upgrade after upgrade completion.
-- [ ] See: [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md#spatial-indexes) for detailed information and workarounds.
-
 ### Backup and recovery rehearsal
 
 **Action**:
@@ -90,29 +69,19 @@ Complete these checks before starting the upgrade process.
 
 **Action**:
 
-- [ ] Use `pt-upgrade` to compare query plans/behavior between 8.0 and {{vers}}.
+- [ ] Use `pt-upgrade` to compare query plans/behavior between 8.4 and {{vers}}.
 - [ ] Run application smoke and load tests against a restored {{vers}} copy.
-
-### Plugins to components transitions
-
-**Impact**: Some 8.0 plugins are removed or replaced by components in {{vers}}.
-
-**Action**:
-
-- [ ] If a component exists in 8.0 (for example, data masking), transition in 8.0 before upgrading.
-- [ ] Plan configuration changes from plugin variables/`--early-plugin-load` to component manifests/config files.
-- [ ] See: [Upgrade from plugins to components](./upgrade-components.md)
 
 ### Rollback feasibility
 
 **Action**:
 
-- [ ] Define a rollback path (for example, keep 8.0 environment on standby or validate point-in-time recovery to 8.0-compatible readers if applicable).
+- [ ] Define a rollback path (for example, keep 8.4 environment on standby or validate point-in-time recovery to 8.4-compatible readers if applicable).
 - [ ] Confirm cutover/rollback runbooks with approvers.
 
 ## Post-upgrade validation
 
-Run these checks immediately after upgrading from 8.0 to {{vers}} and before widening traffic.
+Run these checks immediately after upgrading from 8.4 to {{vers}} and before widening traffic.
 
 ### Connectivity and authentication
 
@@ -133,7 +102,6 @@ Run these checks immediately after upgrading from 8.0 to {{vers}} and before wid
 
 - [ ] Re-run baseline queries and workload tests; compare latency and throughput.
 - [ ] Review changes in {{vers}} defaults that can affect performance (optimizer/costing, redo/undo, IO settings) and tune as needed.
-- [ ] See: [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
 
 ### Logs and observability
 
@@ -153,8 +121,4 @@ Run these checks immediately after upgrading from 8.0 to {{vers}} and before wid
 * [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md)
 * [Upgrade from plugins to components](./upgrade-components.md)
 * [Downgrade options](./downgrade.md)
-* [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md)
-* [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md)
-* [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
-* [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md)
-
+* [Percona Toolkit updates for {{vers}}](./percona-toolkit-9.7-updates.md)

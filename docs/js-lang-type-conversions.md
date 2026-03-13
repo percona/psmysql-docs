@@ -35,6 +35,9 @@ The system always maps JS null and undefined values to SQL NULL, regardless of t
 
 ### JS to SQL type conversion rules
 
+<!-- Clarify what the versions here refer to.-->
+
+
 | Target SQL Data Type | Conversion Rules | Explanation | Example |
 |--------------------------|----------------------|------------------|-------------|
 | `BOOLEAN`, `TINYINT`, `SHORTINT`, `MEDIUMINT`, `INT`, `BIGINT` | (Version 8.4.5) - Numbers: stored as integers<br>- Booleans: `true` → `1`, `false` → `0`<br>- BigInts: stored as integers when possible<br>- Other types: converted to strings first<br>(Version 8.4.4) - JS Integers/Numbers: integers stored as-is, BigInts attempted as integers, others as strings.) | Preserves native numeric forms where possible; other values default to string representation | `42` → `42`<br>`3.14` → `"3.14"`<br>`true` → `"1"` |

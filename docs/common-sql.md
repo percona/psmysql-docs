@@ -8,7 +8,9 @@ DML commands manage data within database tables.
 
 Common DML commands include:
 
-* [**SELECT**]: This command retrieves data from one or more tables in the database.
+* [**SELECT**]: This command retrieves data from a table or from several tables when you use a join. In this example, it selects all columns with a wildcard (`*`) from the `customers` table.
+
+Be careful when using wildcards. They return every column, which can slow down queries, use more memory and network resources, and put extra load on both the server and the client.
 
     ```sql
     SELECT * FROM customers;
@@ -17,13 +19,13 @@ Common DML commands include:
 * [**INSERT**]: This command adds new records to a table.
 
     ```sql
-    INSERT INTO customers (name, email) VALUES ('John Doe', 'john@example.com');
+    INSERT INTO customers (name, city) VALUES ('John Doe', 'Berlin');
     ```
 
 * [**UPDATE**]: This command modifies existing records in a table.
 
     ```sql
-    UPDATE customers SET email = 'newemail@example.com' WHERE id = 1;
+    UPDATE customers SET city = 'Madrid' WHERE id = 1;
     ```
 
 * [**DELETE**]: This command removes records from a table.
@@ -47,7 +49,7 @@ Common DDL commands include:
 * **ALTER**: This command modifies the structure of existing database objects.
 
     ```sql
-    ALTER TABLE employees ADD COLUMN email VARCHAR(100);
+    ALTER TABLE employees ADD COLUMN city VARCHAR(50);
     ```
 
 * **DROP**: This command removes database objects from the database.

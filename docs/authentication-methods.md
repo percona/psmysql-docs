@@ -2,6 +2,8 @@
 
 An authentication method is a way to verify the identity of a user trying to access the database. It defines how the server checks if the credentials provided are correct and whether the user can connect.
 
+<!-- Clarify whether the Version changes are valid for 9.7-->
+
 ## Version changes
 
 MySQL 8.4 disables the deprecated `mysql_native_password` authentication plugin by default.
