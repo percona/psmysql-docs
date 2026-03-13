@@ -51,7 +51,7 @@ To find a function by what the function does, use the "Find by task" table or th
 
 ## Permissions
 
-In Percona Server for MySQL 8.4.4-1, dictionary-related functions no longer run internal queries as the root user without a password. Following MySQL best practices, many admins disable the `root` user, which previously caused these functions to stop working. The server now uses the built-in `mysql.session` user to execute dictionary queries. 
+The dictionary-related functions do not run internal queries as the root user without a password. Following MySQL best practices, many admins disable the `root` user, which previously caused these functions to stop working. The server uses the built-in `mysql.session` user to execute dictionary queries. 
 
 However, for dictionary operations to work, you need to grant the mysql.session user `SELECT`, `INSERT`, `UPDATE`, and `DELETE` privileges on the `masking_dictionaries` table. Granting `UPDATE` and `DELETE` allows the server to modify or remove dictionary data. Compromise of the server or abuse of that user could allow dictionary tampering or deletion, causing dictionary-based functions to fail or return unexpected values; protect the server and the `mysql` schema accordingly.
 
@@ -88,10 +88,8 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON <masking_functions.masking_database>.mas
 ## gen_blocklist(str, from_dictionary_name, to_dictionary_name)
 
 If `str` is present in the dictionary named `from_dictionary_name`, returns a randomly selected term from the dictionary named `to_dictionary_name`. Otherwise returns `str` unchanged. The selection is not documented as cryptographically secure; do not rely on the selection to resist prediction or inference (see [Limitations and operational notes](#limitations-and-operational-notes)).
-
-### Version update
   
-Percona Server for MySQL 8.4.4-4 introduces an internal term cache. The server now uses in-memory data structures for lookups instead of querying the `<masking_functions.masking_database>.masking_dictionaries` table every time. This improvement boosts performance, especially when handling multiple rows.
+Percona Server for MySQL uses an internal term cache. The server uses in-memory data structures for lookups instead of querying the `<masking_functions.masking_database>.masking_dictionaries` table every time. This improvement boosts performance, especially when handling multiple rows.
 
 ### Parameters
 
@@ -125,9 +123,7 @@ SELECT gen_blocklist('apple', 'fruit', 'nut');
 
 Returns a term from a dictionary selected at random. The selection is not documented as cryptographically secure; do not rely on the selection to resist prediction or inference (see [Limitations and operational notes](#limitations-and-operational-notes)).
 
-### Version update
-  
-Percona Server for MySQL 8.4.4-4 introduces an internal term cache. The server now uses in-memory data structures for lookups instead of querying the `<masking_functions.masking_database>.masking_dictionaries` table every time. This improvement boosts performance, especially when handling multiple rows.
+Percona Server for MySQL uses an internal term cache. The server uses in-memory data structures for lookups instead of querying the `<masking_functions.masking_database>.masking_dictionaries` table every time. This improvement boosts performance, especially when handling multiple rows.
 
 ### Parameters
 
@@ -1002,7 +998,7 @@ SELECT masking_dictionary_term_remove('trees','pine');
 
 Variable name: `component_masking_functions.dictionaries_flush_interval_seconds`. You can set the variable at runtime (for example, with `SET GLOBAL`) or on the command line.
 
-Percona Server for MySQL 8.4.4-4 adds this variable. The number of seconds between synchronizations of the dictionaries table and the internal dictionary cache. The default value is 0 seconds (disabled). The minimum value is 1 second. The maximum value is 31,536,000 seconds (1 year).
+The number of seconds between synchronizations of the dictionaries table and the internal dictionary cache. The default value is 0 seconds (disabled). The minimum value is 1 second. The maximum value is 31,536,000 seconds (1 year).
 
 Replication: On replicas that use row-based replication, the dictionary term cache is not updated immediately when dictionary changes are applied from the binary log. Set this variable to a positive value (for example, 60) so that a background process periodically refreshes the cache and keeps replicas in sync with the source.
 
@@ -1016,4 +1012,3 @@ Replication: On replicas that use row-based replication, the dictionary term cac
 | Default value | "mysql" |
 
 Specify the name of the database that holds the `masking_dictionaries` table. By default, the setting uses the `mysql` database.
-

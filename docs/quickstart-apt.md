@@ -37,7 +37,7 @@ Do the following steps to install the server:
     sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb
     ```
 
-4. Set up the Percona Server for MySQL 8.4 repository:
+4. Set up the Percona Server for MySQL {{vers}} repository:
 
     ```shell
     sudo percona-release setup {{pkg}}

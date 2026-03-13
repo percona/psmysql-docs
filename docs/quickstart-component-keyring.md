@@ -1,6 +1,6 @@
 # Get Started with component keyring
 
-Enable the component keyring (`component_keyring_file`) in Percona Server 8.4 for encryption at rest. In MySQL 8.4, the supported path is the component keyring, not legacy keyring plugins.
+Enable the component keyring (`component_keyring_file`) in Percona Server {{vers}} for encryption at rest. In MySQL 8.4 and later, the supported path is the component keyring, not legacy keyring plugins.
 
 !!! important
 
@@ -16,7 +16,7 @@ Scope: This quickstart assumes a typical package install and standard paths. Min
 
 ## Prerequisites
 
-* Percona Server for MySQL 8.4 installed
+* Percona Server for MySQL {{vers}} installed
 * `sudo` or root access to the server filesystem (to create the keyring directory, manifest, and component config)
 * Service name may be `mysql` or `mysqld` depending on your system
 * For the encryption examples (tables, system tablespace, redo/undo), the MySQL user you connect as must have the required privileges (for example, `CREATE TABLESPACE` for system tablespace). OS-level sudo does not grant MySQL privileges.
@@ -293,7 +293,7 @@ The keyring remains loaded and the keyring files on disk are unchanged. To remov
 
 * Use [data at rest encryption](data-at-rest-encryption.md) (for example, encrypt tablespaces, redo/undo logs) with the keyring in place.
 * [Verify encryption](verify-encryption.md) for your tablespaces and logs.
-* For Percona XtraDB Cluster (PXC): keyring file is not replicated; copy the keyring file from the bootstrap node to other nodes before starting them. See the [Percona Community blog](https://percona.community/blog/2026/01/13/configuring-the-component-keyring-in-percona-server-and-pxc-8.4/) for PXC-specific steps and the 8.4.4/8.4.5 plugin-path workaround.
+* For Percona XtraDB Cluster (PXC): keyring file is not replicated; copy the keyring file from the bootstrap node to other nodes before starting them.
 
 ## Operational notes
 

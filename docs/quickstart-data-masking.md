@@ -1,6 +1,6 @@
 # Get started with Data Masking
 
-This quickstart gets the data masking component installed and lets you try the component with a test database. You need access to a Percona Server for MySQL 8.4 server. Follow the steps to install, set permissions, create sample data, and run masking examples. For production use and limitations, see the [Data masking overview](data-masking-overview.md).
+This quickstart gets the data masking component installed and lets you try the component with a test database. You need access to a Percona Server for MySQL {{vers}} server. Follow the steps to install, set permissions, create sample data, and run masking examples. For production use and limitations, see the [Data masking overview](data-masking-overview.md).
 
 ## Prerequisites
 
@@ -39,7 +39,7 @@ Do these once, in order. Full details: [Install the data masking component](inst
         Query OK, 0 rows affected (0.00 sec)
         ```
 
-3. Grant `mysql.session` access to the dictionary table (required for `gen_dictionary` and `gen_blocklist` on 8.4.4-1 and later):
+3. Grant `mysql.session` access to the dictionary table (required for `gen_dictionary` and `gen_blocklist`):
 
     ```sql
     GRANT SELECT, INSERT, UPDATE, DELETE ON mysql.masking_dictionaries TO 'mysql.session'@'localhost';
@@ -304,7 +304,7 @@ The view uses [`mask_outer(..., 2, 4)`](data-masking-function-list.md#mask_outer
 
 Functions such as [`gen_dictionary`](data-masking-function-list.md#gen_dictionarydictionary_name) and [`gen_blocklist`](data-masking-function-list.md#gen_blockliststr-from_dictionary_name-to_dictionary_name) use the `mysql.masking_dictionaries` table. 
 
-You need the [step 4 grant (MASKING_DICTIONARIES_ADMIN)](#install-the-component-and-set-permissions) and, on 8.4.4-1 and later, the step 3 grant to `mysql.session` described in the [install guide](install-data-masking-component.md).
+You need the [step 4 grant (MASKING_DICTIONARIES_ADMIN)](#install-the-component-and-set-permissions) and the step 3 grant to `mysql.session` described in the [install guide](install-data-masking-component.md).
 
 Add a small dictionary with [`masking_dictionary_term_add`](data-masking-function-list.md#masking_dictionary_term_adddictionary_name-term_name), then try [`gen_dictionary`](data-masking-function-list.md#gen_dictionarydictionary_name). 
 

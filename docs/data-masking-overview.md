@@ -20,9 +20,9 @@ The component offers two kinds of functions: those that mask existing values (fo
 
 Next steps: [Install the data masking component](install-data-masking-component.md), then follow the [Data masking quickstart](quickstart-data-masking.md) to create a test database and try masking. The quickstart covers required privileges and working examples.
 
-## Version updates
+## Internal term cache
 
-Percona Server for MySQL 8.4.4-4 adds an internal term cache that speeds up dictionary lookups. The cache affects [gen_blocklist()](data-masking-function-list.md#gen_blockliststr-from_dictionary_name-to_dictionary_name) and [gen_dictionary()](data-masking-function-list.md#gen_dictionarydictionary_name). Lookups are faster than querying the dictionary table each time, especially when processing many rows.
+Percona Server for MySQL uses an internal term cache that speeds up dictionary lookups. The cache affects [gen_blocklist()](data-masking-function-list.md#gen_blockliststr-from_dictionary_name-to_dictionary_name) and [gen_dictionary()](data-masking-function-list.md#gen_dictionarydictionary_name). Lookups are faster than querying the dictionary table each time, especially when processing many rows.
 
 Memory use grows with the size of your dictionaries. For very large dictionaries, consider server memory and monitor resource use.
 
