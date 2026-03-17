@@ -1495,6 +1495,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#synchronizing-audit-log-filters-between-source-and-replica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronizing audit log filters between source and replica
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -9806,6 +9817,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#synchronizing-audit-log-filters-between-source-and-replica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronizing audit log filters between source and replica
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -9839,7 +9861,6 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h1 id="audit-log-filter-restrictions">Audit Log Filter restrictions<a class="headerlink" href="#audit-log-filter-restrictions" title="Permanent link">&para;</a></h1>
 <h2 id="general-restrictions">General restrictions<a class="headerlink" href="#general-restrictions" title="Permanent link">&para;</a></h2>
 <p>The Audit Log Filter has the following general restrictions:</p>
-<p>The Audit Log Filter has the following general restrictions:</p>
 <ul>
 <li>
 <p>Log only SQL statements. Statements made by NoSQL APIs, such as the 
@@ -9867,6 +9888,38 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ul>
 <li>Filter only on string values. The audit log filter does not filter on integer values. All filter criteria must be specified as strings, even when the underlying value is numeric. For example, <code>connection_id</code> values must be specified as strings (for example, <code>"123"</code> rather than <code>123</code>), and status values must be specified as <code>"0"</code> or <code>"1"</code> rather than <code>0</code> or <code>1</code>. If you use integer values in your filter definition, you will see the error: <code>ERROR: Incorrect rule definition.</code></li>
 </ul>
+<h2 id="synchronizing-audit-log-filters-between-source-and-replica">Synchronizing audit log filters between source and replica<a class="headerlink" href="#synchronizing-audit-log-filters-between-source-and-replica" title="Permanent link">&para;</a></h2>
+<p>You can keep audit log filter definitions in sync between a source and a replica by replicating the filter tables and periodically calling <code>audit_log_filter_flush()</code> on the replica. That reloads the filter tables and makes the replicated changes effective on the replica.</p>
+<h3 id="procedure-mysql-event-to-flush-filters-on-the-replica">Procedure: MySQL event to flush filters on the replica<a class="headerlink" href="#procedure-mysql-event-to-flush-filters-on-the-replica" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Install MySQL on the source with the audit log filter component.</p>
+</li>
+<li>
+<p>Create a replica from a source backup.</p>
+</li>
+<li>
+<p>Create a MySQL event on the replica that runs every minute:</p>
+<div class="highlight"><pre><span></span><code><span class="n">USE</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EVENT</span><span class="w"> </span><span class="n">auditflush</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="n">SCHEDULE</span><span class="w"> </span><span class="k">EVERY</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">MINUTE</span>
+<span class="w">    </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;Flush audit log filters every minute&#39;</span>
+<span class="w">    </span><span class="k">DO</span>
+<span class="w">      </span><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_flush</span><span class="p">();</span>
+</code></pre></div>
+<p>This event runs <code>audit_log_filter_flush()</code> every minute on the replica, so replicated changes to the filter tables become effective shortly after they are applied.</p>
+</li>
+<li>
+<p>Create a filter on the source and assign the filter to a user using the usual filter functions or by modifying the filter tables and calling <code>audit_log_filter_flush()</code> on the source.</p>
+</li>
+<li>
+<p>After a minute, check that the filter is available on the replica. Run some queries on the replica as that user and confirm that the expected messages appear in the audit log file. </p>
+</li>
+</ol>
+<p>If the filter is not yet visible or the audit log does not show the expected entries, wait for the next event run (within a minute) or run <code>SELECT audit_log_filter_flush();</code> on the replica to refresh the filter tables immediately; also confirm that replication has applied the changes to the filter tables and that the event is enabled. If the filter or expected log entries still do not appear, the cause may be a problem in replication between source and replica; troubleshooting replication may help.</p>
+<p>Another possible scenario is that the source and replica are set up and replication is working, but the audit log component is not installed on either the source or the replica. In that case, install the audit log component on both the source and the replica separately.</p>
+<h3 id="limitation">Limitation<a class="headerlink" href="#limitation" title="Permanent link">&para;</a></h3>
+<p>If a user modifies the filter tables directly on the source (for example, with <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code>) but does not run <code>audit_log_filter_flush()</code> on the source, the table changes will be replicated to the replica and the event will run <code>audit_log_filter_flush()</code> there, so the filters become effective on the replica. The filters will then work correctly on the replica but will not be effective on the source until <code>audit_log_filter_flush()</code> is run on the source.</p>
 
 
 
@@ -9889,7 +9942,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 19, 2026 12:11:11 UTC">February 19, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 19, 2026 12:34:31 UTC">February 19, 2026</span>
   </span>
 
     
