@@ -42309,8 +42309,14 @@ from the MySQL Reference Manual.</p>
 <p>A core dump file is the documented moment of a computer when either the computer or an application exits. Developers examine the dump as one of the tasks when searching for the cause of a failure.</p>
 <p>The <code>libcoredumper</code> is a free and Open Source fork of <code>google-coredumper</code>,
 enhanced to work on newer Linux versions, and GCC and CLANG.</p>
+<div class="admonition note">
+<p class="admonition-title">ARM64 not supported</p>
+<p>The libcoredumper is not supported on ARM64 (aarch64) platforms. Use
+standard core dumps (for example, <code>core-file</code>) or kernel core handling if you need
+crash dumps on ARM64.</p>
+</div>
 <h3 id="libcoredumper-enabling-the-libcoredumper">Enabling the <code>libcoredumper</code><a class="headerlink" href="#libcoredumper-enabling-the-libcoredumper" title="Permanent link">&para;</a></h3>
-<p>Enable core dumps for troubleshooting purposes.</p>
+<p>Enable core dumps for troubleshooting purposes on supported platforms.</p>
 <p>To enable the <code>libcoredumper</code>, add the <code>coredumper</code> variable to the
 <code>mysqld</code> section of <code>my.cnf</code>. This variable is independent of the
 older <code>core-file</code> variable.</p>
