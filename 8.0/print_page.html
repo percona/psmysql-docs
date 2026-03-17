@@ -27570,12 +27570,49 @@ $<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>/et
                         <h1>Use binary tarballs<a class='headerlink' href='#section-7-5' title='Permanent link'></a>
                         </h1>
                     <section class="print-page" id="binary-tarball-install" heading-number="7.5.1"><h1 id="binary-tarball-install-install-percona-server-for-mysql-80-from-a-binary-tarball">Install Percona Server for MySQL 8.0 from a binary tarball<a class="headerlink" href="#binary-tarball-install-install-percona-server-for-mysql-80-from-a-binary-tarball" title="Permanent link">&para;</a></h1>
-<p>A binary tarball contains a group of files, including the source code, bundled together into one file using the <code>tar</code> command and compressed using <code>gzip</code>. </p>
-<p>See the list of the <a href="#binary-tarball-names">binary tarball available based on the Percona Server for MySQL version</a> to select the right tarball for your environment.</p>
+<p>A binary tarball contains a group of files, including the server binaries and support files, bundled together into one file using the <code>tar</code> command and compressed using <code>gzip</code>. </p>
+<p>See the list of <a href="#binary-tarball-names">binary tarballs available based on the Percona Server for MySQL version</a> to select the right tarball for your environment.</p>
 <p>You can download the binary tarballs from the <code>Linux - Generic</code> <a href="https://www.percona.com/downloads">section <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> on the download page.</p>
-<p>Fetch and extract the correct binary tarball. For example, for Debian 10:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.26-16/binary/tarball/Percona-Server-8.0.26-16-Linux.x86_64.glibc2.12.tar.gz
+<p>Fetch and extract the correct binary tarball. For example, for Ubuntu 22.04:</p>
+<p>Download the tarball:</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-8.0.45-36/binary/tarball/Percona-Server-8.0.45-36-Linux.x86_64.glibc2.35.tar.gz
 </code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>--2024-01-15 10:00:00--  https://downloads.percona.com/...
+Saving to: &#39;Percona-Server-8.0.45-36-Linux.x86_64.glibc2.35.tar.gz&#39;
+Percona-Server-8.0.45-36-Linux.x86_64.glibc2.35.tar.gz   100%[=================&gt;]  xxx MB  xx.x MB/s    in xx s
+2024-01-15 10:00:xx (xx.x MB/s) - &#39;Percona-Server-8.0.45-36-Linux.x86_64.glibc2.35.tar.gz&#39; saved [xxxxxx/xxxxxx]
+</code></pre></div>
+</details>
+<p>Extract the tarball:</p>
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-xzf<span class="w"> </span>Percona-Server-8.0.45-36-Linux.x86_64.glibc2.35.tar.gz
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>(No output on success.)
+</code></pre></div>
+</details>
+<p>Change into the extracted directory:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>Percona-Server-8.0.45-36-Linux.x86_64.glibc2.35
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>(No output on success.)
+</code></pre></div>
+</details>
+<h2 id="binary-tarball-install-after-extraction">After extraction<a class="headerlink" href="#binary-tarball-install-after-extraction" title="Permanent link">&para;</a></h2>
+<p>The tarball does not start the server for you. To run Percona Server you must:</p>
+<ol>
+<li>
+<p>Initialize the data directory (once) using the server executable <code>bin/mysqld</code> with <code>--initialize</code> or <code>--initialize-insecure</code>.</p>
+</li>
+<li>
+<p>Start the server (for example with <code>bin/mysqld_safe</code> or by configuring a systemd service).</p>
+</li>
+</ol>
+<p>The server executable is <code>bin/mysqld</code> inside the extracted directory. Do not run it for normal operation until the data directory has been initialized.</p>
+<p>For step-by-step instructions (including creating a data directory, initializing it, starting the server, and optional boot-time setup), see <a href="#post-installation">Post-installation</a>. If you did not install under <code>/usr/local/mysql</code>, use your extraction directory instead (for example, <code>cd /path/to/Percona-Server-8.0.45-36-Linux.x86_64.glibc2.35</code> then <code>bin/mysqld --initialize</code>).</p>
 <!-- ## Install Percona Server for MySQL Pro from a binary tarball
 
 You can download the required binary tarball for Percona Server for MySQL Pro using your `CLIENTID` and `TOKEN` in the following link https://repo.percona.com/private/[CLIENTID]-[TOKEN]/ps-80-pro/tarballs/.
