@@ -6,9 +6,15 @@ A core dump file is the documented moment of a computer when either the computer
 The `libcoredumper` is a free and Open Source fork of `google-coredumper`,
 enhanced to work on newer Linux versions, and GCC and CLANG.
 
+!!! note "ARM64 not supported"
+
+    The libcoredumper is not supported on ARM64 (aarch64) platforms. Use
+    standard core dumps (for example, `core-file`) or kernel core handling if you need
+    crash dumps on ARM64.
+
 ### Enabling the `libcoredumper`
 
-Enable core dumps for troubleshooting purposes.
+Enable core dumps for troubleshooting purposes on supported platforms.
 
 To enable the `libcoredumper`, add the `coredumper` variable to the
 `mysqld` section of `my.cnf`. This variable is independent of the
