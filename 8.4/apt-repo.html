@@ -2896,10 +2896,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#arm-support" class="md-nav__link">
+  <a href="#version-changes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ARM support
+        Version changes
       
     </span>
   </a>
@@ -2951,10 +2951,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-the-percona-testing-repository-advanced-users-only" class="md-nav__link">
+  <a href="#install-the-percona-testing-repository-using-apt" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Install the Percona testing repository (advanced users only)
+        Install the Percona testing repository using APT
       
     </span>
   </a>
@@ -9851,10 +9851,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#arm-support" class="md-nav__link">
+  <a href="#version-changes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ARM support
+        Version changes
       
     </span>
   </a>
@@ -9906,10 +9906,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-the-percona-testing-repository-advanced-users-only" class="md-nav__link">
+  <a href="#install-the-percona-testing-repository-using-apt" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Install the Percona testing repository (advanced users only)
+        Install the Percona testing repository using APT
       
     </span>
   </a>
@@ -9952,279 +9952,99 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The <code>percona-release</code> tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the <a href="https://docs.percona.com/percona-software-repositories/index.html">Percona Software Repositories Documentation</a>.</p>
 <p>We gather <a href="telemetry.html">Telemetry data</a> in the Percona packages and Docker images.</p>
 <p>Review <a href="get-help.html">Get help from Percona</a> for ways that we can work with you.</p>
-<p>Before proceeding with the installation, make sure you have one of the following:</p>
-<ul>
-<li>
-<p><code>sudo</code> access: Administrator privileges are necessary for installing packages and configuring system services.</p>
-</li>
-<li>
-<p>Root access: Certain commands will require root privileges or <code>sudo</code> access.</p>
-</li>
-</ul>
-<h2 id="arm-support">ARM support<a class="headerlink" href="#arm-support" title="Permanent link">&para;</a></h2>
-<p>Percona supports DEB builds with ARM packages with the <code>aarch64.rpm</code> extension.</p>
+<h2 id="version-changes">Version changes<a class="headerlink" href="#version-changes" title="Permanent link">&para;</a></h2>
+<p>Percona supports DEB builds with ARM packages with the <code>arm64.deb</code> extension on supported Debian and Ubuntu releases.</p>
 <h2 id="unattended-installations">Unattended installations<a class="headerlink" href="#unattended-installations" title="Permanent link">&para;</a></h2>
 <p>The <code>-y</code> flag automatically confirms all actions without asking for user input. This makes running commands smoother, especially in situations where you can&rsquo;t or don&rsquo;t want to interact, like during unattended installations or automated scripts. However, keep in mind that using the <code>-y</code> flag skips confirmation prompts, which means you won&rsquo;t have a chance to review any changes before they&rsquo;re made. So, it&rsquo;s best to use this flag only when you&rsquo;re sure about the command you&rsquo;re executing.</p>
 <p>The recommended syntax for using this flag with the <code>percona-release setup</code> is: </p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>-y<span class="w"> </span>ps-84-lts<span class="w"> </span>
 </code></pre></div>
 <h2 id="install-percona-server-for-mysql-using-apt">Install Percona Server for MySQL using APT<a class="headerlink" href="#install-percona-server-for-mysql-using-apt" title="Permanent link">&para;</a></h2>
-<p class="power-number">To install Percona Server for MySQL using APT, follow these steps:</p>
+<p>Run the following commands as a <code>root</code> user or with sudo:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>curl
+curl<span class="w"> </span>-O<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>./percona-release_latest.generic_all.deb
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-84-lts<span class="w"> </span>release
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-server
+</code></pre></div>
+<p>In MySQL 8.4, the <code>mysql_native_password</code> plugin is no longer loaded by default. When the package manager prompts you during installation, you must follow the choices and steps in <a href="#configure-authentication">Configure authentication</a>. If you choose legacy authentication but do not enable the plugin in configuration, clients may be unable to connect or the service may fail to start.</p>
+<p>The following sections provide detailed explanations for each step:</p>
 <ol>
 <li>
-<p>Update the package repositories:</p>
+<p>This command updates the package lists for upgrades and new package installations. <code>sudo</code> runs the command with superuser privileges; <code>apt update</code> resynchronizes the package index files from the sources in your system&rsquo;s <code>sources.list</code>.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
-Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
-Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
-Get:4 http://security.ubuntu.com/ubuntu jammy-security InRelease [119 kB]
-Fetched 238 kB in 2s (119 kB/s)
-Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-All packages are up to date.
-</code></pre></div>
-</details>
-<p>If this step fails:</p>
-<ul>
-<li>
-<p>Check your internet connection</p>
 </li>
 <li>
-<p>Ensure your system can reach Ubuntu/Debian repositories</p>
-</li>
-<li>
-<p>Try running <code>sudo apt update --fix-missing</code></p>
-</li>
-</ul>
-</li>
-<li>
-<p><code>curl</code> allows you to download files from the internet using command line. Install the <code>curl</code> download utility if needed:</p>
+<p>This command installs the <code>curl</code> package. <code>curl</code> is a command-line tool used to transfer data over networks and is required to download the Percona repository package.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>curl
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-The following NEW packages will be installed:
-  curl
-0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
-Need to get 185 kB of archives.
-After this operation, 504 kB of additional disk space will be used.
-Do you want to continue? [Y/n] y
-Get:1 http://us.archive.ubuntu.com/ubuntu jammy/main amd64 curl amd64 7.81.0-1ubuntu1.15 [185 kB]
-Fetched 185 kB in 1s (185 kB/s)
-Selecting previously unselected package curl.
-(Reading database ... 123456 files and directories currently installed.)
-Preparing to unpack .../curl_7.81.0-1ubuntu1.15_amd64.deb ...
-Unpacking curl (7.81.0-1ubuntu1.15) ...
-Setting up curl (7.81.0-1ubuntu1.15) ...
-Processing triggers for man-db (2.10.2-1) ...
-</code></pre></div>
-</details>
-<p>If this step fails:</p>
-<ul>
-<li>
-<p>The <code>curl</code> package might already be installed</p>
 </li>
 <li>
-<p>Check if you have internet connectivity</p>
-</li>
-<li>
-<p>Try running <code>which curl</code> to see if it&rsquo;s already available</p>
-</li>
-</ul>
-</li>
-<li>
-<p>Download the <code>percona-release</code> repository package:</p>
+<p>This command downloads the <code>percona-release_latest.generic_all.deb</code> file from the Percona APT repository. The <code>-O</code> option saves the file with the same name as in the URL.</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-O<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100 15.2k  100 15.2k    0     0  15.2k      0  0:00:01  0:00:01 --:--:-- 15.2k
-</code></pre></div>
-</details>
-<p>If this step fails:</p>
-<ul>
-<li>
-<p>Check your internet connection</p>
 </li>
 <li>
-<p>Verify the URL is accessible: <code>curl -I https://repo.percona.com/apt/percona-release_latest.generic_all.deb</code></p>
-</li>
-<li>
-<p>Try downloading from a different network if possible</p>
-</li>
-</ul>
-</li>
-<li>
-<p><code>gnupg2</code> provides encryption and digital signature verification for package security. <code>lsb-release</code> provides information about your Linux distribution. These packages are required dependencies for the Percona repository setup. Install the downloaded package with <code>apt</code> as root or with sudo:</p>
+<p>This command installs <code>gnupg2</code> (for package signature verification), <code>lsb-release</code> (for distribution information), and the downloaded Percona release package. Together they configure the Percona APT repository on your system.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>./percona-release_latest.generic_all.deb
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-The following NEW packages will be installed:
-  gnupg2 lsb-release percona-release
-The following packages will be upgraded:
-  (none)
-0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
-Need to get 1,245 kB of archives.
-After this operation, 3,456 kB of additional disk space will be used.
-Do you want to continue? [Y/n] y
-Get:1 http://us.archive.ubuntu.com/ubuntu jammy/main amd64 gnupg2 amd64 2.2.27-3ubuntu2.1 [1,234 kB]
-Get:2 http://us.archive.ubuntu.com/ubuntu jammy/main amd64 lsb-release all 11.1.0ubuntu4 [11.0 kB]
-Get:3 ./percona-release_latest.generic_all.deb percona-release all 1.0-27.generic [15.2 kB]
-Fetched 1,245 kB in 2s (622 kB/s)
-Selecting previously unselected package gnupg2.
-(Reading database ... 123456 files and directories currently installed.)
-Preparing to unpack .../gnupg2_2.2.27-3ubuntu2.1_amd64.deb ...
-Unpacking gnupg2 (2.2.27-3ubuntu2.1) ...
-Selecting previously unselected package lsb-release.
-Preparing to unpack .../lsb-release_11.1.0ubuntu4_all.deb ...
-Unpacking lsb-release (11.1.0ubuntu4) ...
-Selecting previously unselected package percona-release.
-Preparing to unpack .../percona-release_latest.generic_all.deb ...
-Unpacking percona-release (1.0-27.generic) ...
-Setting up gnupg2 (2.2.27-3ubuntu2.1) ...
-Setting up lsb-release (11.1.0ubuntu4) ...
-Setting up percona-release (1.0-27.generic) ...
-Processing triggers for man-db (2.10.2-1) ...
-</code></pre></div>
-</details>
-<p>If this step fails:</p>
-<ul>
-<li>
-<p>Ensure the downloaded file exists: <code>ls -la percona-release_latest.generic_all.deb</code></p>
 </li>
 <li>
-<p>Check if the file is corrupted by downloading again</p>
-</li>
-<li>
-<p>Verify you have sufficient disk space: <code>df -h</code></p>
-</li>
-</ul>
-</li>
-<li>
-<p>Refresh the local cache to update the package information:</p>
+<p>This command refreshes the package lists so the system recognizes the newly enabled Percona repository and the latest package versions.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
-Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
-Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
-Get:4 http://security.ubuntu.com/ubuntu jammy-security InRelease [119 kB]
-Get:5 https://repo.percona.com/apt jammy InRelease [15.2 kB]
-Fetched 253 kB in 2s (126 kB/s)
-Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-All packages are up to date.
-</code></pre></div>
-</details>
-<p>If this step fails:</p>
-<ul>
-<li>
-<p>The repository might not be properly configured</p>
 </li>
 <li>
-<p>Check repository status: <code>sudo apt update 2&gt;&amp;1 | grep -i percona</code></p>
-</li>
-<li>
-<p>Try running the percona-release setup again</p>
-</li>
-</ul>
-</li>
-<li>
-<p>Use <code>percona-release</code> to enable Percona Server for MySQL 8.4:</p>
+<p>This command enables the Percona Server for MySQL 8.4 release repository. It configures <code>apt</code> to install packages from the Percona repository.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-84-lts<span class="w"> </span>release
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>* Enabling Percona Server for MySQL 8.4 LTS repository
-* Running apt-get update...
-Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
-Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
-Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
-Get:4 http://security.ubuntu.com/ubuntu jammy-security InRelease [119 kB]
-Get:5 https://repo.percona.com/apt jammy InRelease [15.2 kB]
-Fetched 253 kB in 2s (126 kB/s)
-Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-All packages are up to date.
-</code></pre></div>
-</details>
-<p>If this step fails:</p>
-<ul>
-<li>
-<p>Check if percona-release is properly installed: <code>which percona-release</code></p>
 </li>
 <li>
-<p>Verify the package name is correct for your version</p>
+<p>You can verify the repository setup by checking the Percona release list in <code>/etc/apt/sources.list.d/percona-original-release.list</code>.</p>
 </li>
 <li>
-<p>Check for any error messages in the output</p>
-</li>
-</ul>
-</li>
-<li>
-<p>You can check the repository setup for the Percona original release list in <code>/etc/apt/sources.list.d/percona-original-release.list</code>. </p>
-</li>
-<li>
-<p>Install the server package with the <code>percona-release</code> command:</p>
+<p>This command installs the <code>percona-server-server</code> package. During installation, the package manager will prompt you to select the default authentication plugin; follow the <a href="#configure-authentication">Configure authentication</a> section below.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-The following NEW packages will be installed:
-  percona-server-server
-The following packages will be upgraded:
-  (none)
-0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
-Need to get 45.2 MB of archives.
-After this operation, 234 MB of additional disk space will be used.
-Do you want to continue? [Y/n] y
-Get:1 https://repo.percona.com/apt jammy/main amd64 percona-server-server amd64 8.4.5-5.jammy [45.2 MB]
-Fetched 45.2 MB in 15s (3.01 MB/s)
-Selecting previously unselected package percona-server-server.
-(Reading database ... 123456 files and directories currently installed.)
-Preparing to unpack .../percona-server-server_8.4.5-5.jammy_amd64.deb ...
-Unpacking percona-server-server (8.4.5-5.jammy) ...
-Setting up percona-server-server (8.4.5-5.jammy) ...
-Processing triggers for man-db (2.10.2-1) ...
-Processing triggers for systemd (249.11-0ubuntu3.12) ...
-</code></pre></div>
-</details>
-<p>If this step fails:</p>
-<ul>
-<li>
-<p>Check available packages: <code>apt search percona-server</code></p>
-</li>
-<li>
-<p>Ensure the repository is properly configured</p>
-</li>
-<li>
-<p>Check for package conflicts with existing MySQL installations</p>
-</li>
-<li>
-<p>Review error messages for specific issues</p>
-</li>
-</ul>
 </li>
 </ol>
+<h3 id="configure-authentication">Configure authentication<a class="headerlink" href="#configure-authentication" title="Permanent link">&para;</a></h3>
+<p>During the installation process, the package manager will prompt you to select the default authentication plugin.</p>
+<div class="admonition warning">
+<p class="admonition-title">Important Change in MySQL 8.4</p>
+<p>Percona Server for MySQL 8.4 inherits the upstream change where the <code>mysql_native_password</code> plugin is <strong>disabled by default</strong>.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Option 1: Recommended (Strong Password Encryption)</label><label for="__tabbed_1_2">Option 2: Legacy (Native Password)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><strong>Select this option if you are setting up a new server or using modern application drivers.</strong></p>
+<p>This uses the <code>caching_sha2_password</code> plugin, providing superior security and performance. No further configuration is required.</p>
+</div>
+<div class="tabbed-block">
+<p><strong>Select this option only if you must support legacy applications that cannot be updated.</strong></p>
+<p>If you choose this option, you <strong>must</strong> manually enable the plugin after installation, or the server will fail to authenticate users using this method.</p>
+<ol>
+<li>
+<p>Open your configuration file (e.g., <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>).</p>
+</li>
+<li>
+<p>Add the following to the <code>[mysqld]</code> section:
+    <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">mysql-native-password</span><span class="o">=</span><span class="s">ON</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Restart the service:
+    <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
+</code></pre></div></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <p>See <a href="https://docs.percona.com/percona-software-repositories/percona-release.html">Configuring Percona repositories with <code>percona-release</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for more information.</p>
 <p>Percona Server for MySQL 8.4.x comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the <a href="install-myrocks.html">Percona MyRocks Installation Guide</a>.</p>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
@@ -10253,74 +10073,11 @@ Processing triggers for systemd (249.11-0ubuntu3.12) ...
 </details>
 <p>You can now use these functions in your SQL queries. For example: <code>SELECT fnv_64('test_string');</code></p>
 <p>For detailed information about these functions, see <a href="udf-percona-toolkit.html">Percona Toolkit UDF functions</a>.</p>
-<h2 id="install-the-percona-testing-repository-advanced-users-only">Install the Percona testing repository (advanced users only)<a class="headerlink" href="#install-the-percona-testing-repository-advanced-users-only" title="Permanent link">&para;</a></h2>
-<p>Do not use testing repositories in production environments. Testing builds are pre-release versions that may contain bugs or incomplete features.</p>
-<p>Percona offers pre-release builds from the testing repository for advanced users who want to:</p>
-<ul>
-<li>
-<p>Test new features before official release</p>
-</li>
-<li>
-<p>Evaluate upcoming improvements</p>
-</li>
-<li>
-<p>Provide feedback on development versions</p>
-</li>
-</ul>
-<p>To enable the testing repository:</p>
+<h2 id="install-the-percona-testing-repository-using-apt">Install the Percona testing repository using APT<a class="headerlink" href="#install-the-percona-testing-repository-using-apt" title="Permanent link">&para;</a></h2>
+<p>Percona offers pre-release builds from the testing repository. As a superuser, run <code>percona-release</code> with the <code>testing</code> argument to enable it:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps-84-lts<span class="w"> </span>testing
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>* Enabling Percona Server for MySQL 8.4 LTS testing repository
-* Running apt-get update...
-Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
-Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
-Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
-Get:4 http://security.ubuntu.com/ubuntu jammy-security InRelease [119 kB]
-Get:5 https://repo.percona.com/apt jammy InRelease [15.2 kB]
-Fetched 253 kB in 2s (126 kB/s)
-Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-All packages are up to date.
-</code></pre></div>
-</details>
-<p>Please be aware of the following limitations when using the testing repository:</p>
-<ul>
-<li>
-<p>Features may change without notice</p>
-</li>
-<li>
-<p>Not all features from the final release may be included</p>
-</li>
-<li>
-<p>May contain experimental or incomplete functionality</p>
-</li>
-<li>
-<p>No production support for testing builds</p>
-</li>
-</ul>
-<p>To disable the testing repository and return to stable releases:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>disable<span class="w"> </span>testing
-sudo<span class="w"> </span>apt<span class="w"> </span>update
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>* Disabling Percona testing repository
-* Running apt-get update...
-Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
-Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
-Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
-Get:4 http://security.ubuntu.com/ubuntu jammy-security InRelease [119 kB]
-Get:5 https://repo.percona.com/apt jammy InRelease [15.2 kB]
-Fetched 253 kB in 2s (126 kB/s)
-Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-All packages are up to date.
-</code></pre></div>
-</details>
+<p>Do not run testing repository builds in production. The build may not contain all the features available in the final release and may change without notice.</p>
 
 
 
@@ -10343,7 +10100,7 @@ All packages are up to date.
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 16, 2026 12:43:28 UTC">February 16, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 16, 2026 15:36:18 UTC">March 16, 2026</span>
   </span>
 
     
@@ -10371,6 +10128,11 @@ All packages are up to date.
     
     <nav>
       
+        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
+          
+          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
+        </a>
+      
         <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
           
           <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
@@ -10379,11 +10141,6 @@ All packages are up to date.
         <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
           
           <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
-        </a>
-      
-        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
-          
-          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
         </a>
       
       
