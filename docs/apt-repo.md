@@ -100,7 +100,7 @@ During the installation process, the package manager will prompt you to select t
 
 	If you choose this option, you **must** manually enable the plugin after installation, or the server will fail to authenticate users using this method.
 
-	1. Open your configuration file (e.g., `/etc/mysql/mysql.conf.d/mysqld.cnf`).
+	1. Open your configuration file (for example, `/etc/mysql/mysql.conf.d/mysqld.cnf`).
 
 	2. Add the following to the `[mysqld]` section:
 		```ini
@@ -119,11 +119,21 @@ See [Configuring Percona repositories with `percona-release` :octicons-link-exte
 
 ## Next Steps
 
-After successful installation, see [Post-installation](post-installation.md) for detailed steps to configure and secure your Percona Server for MySQL installation.
+After successful installation:
+
+* [Post-installation](post-installation.md) — Configure and secure your Percona Server for MySQL installation.
+
+* [First five minutes after installation](first-five-minutes.md) — Security and stability steps to take right after install (secure the server, create an admin user, enable logging, verify backup path).
+
+* [Next steps](quickstart-next-steps.md) — Ideas for what to do next (backup, monitoring, data types, and related Percona products).
 
 ## Install Percona Toolkit UDFs (Optional)
 
-Percona Server for MySQL includes user-defined functions (UDFs) from [Percona Toolkit :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/). These UDFs provide faster checksum calculations:
+Percona Server for MySQL includes user-defined functions (UDFs) from [Percona Toolkit :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/). 
+
+These UDFs provide faster checksum calculations. Install the component if you use tools that need the component (for example, `pt-table-checksum`) or need fast fingerprinting to compare tables or distribute rows across servers.
+
+Use these functions for high-speed checksumming and sharding. [Learn more about UDF Use Cases →](udf-percona-toolkit.md)
 
 * `fnv_64`: Fast hash function
 
@@ -131,13 +141,15 @@ Percona Server for MySQL includes user-defined functions (UDFs) from [Percona To
 
 * `murmur_hash`: High-performance hash function
 
-User-Defined Functions (UDFs) are custom functions you can add to MySQL to extend its capabilities. These particular UDFs are useful for data integrity checks and performance monitoring.
+User-Defined Functions (UDFs) are custom functions you can add to MySQL to extend its capabilities.
+ These particular UDFs are useful for data integrity checks and performance monitoring. They are delivered as a MySQL component—one command loads all of them.
 
-To install these functions after installation:
+To load the component after installation:
 
 ```{.sql data-prompt="mysql>"}
 INSTALL COMPONENT 'file://component_percona_udf';
 ```
+
 
 ??? example "Expected output"
 
@@ -145,7 +157,22 @@ INSTALL COMPONENT 'file://component_percona_udf';
 	Query OK, 0 rows affected (0.01 sec)
 	```
 
-You can now use these functions in your SQL queries. For example: `SELECT fnv_64('test_string');`
+Once loaded, each function takes a value (a string or number) and returns a numeric fingerprint of that value—the same input always produces the same result, which is useful for checksums and sharding. You can use them in expressions, `WHERE` clauses, or to generate shard keys. For example, pass a string to `fnv_64()` and the function returns a number:
+
+```{.sql data-prompt="mysql>"}
+SELECT fnv_64('test_string');
+```
+
+
+??? example "Expected output"
+
+	```{.text .no-copy}
+	+----------------------+
+	| fnv_64('test_string') |
+	+----------------------+
+	|   13528473474361592478 |
+	+----------------------+
+	```
 
 For detailed information about these functions, see [Percona Toolkit UDF functions](udf-percona-toolkit.md).
 
