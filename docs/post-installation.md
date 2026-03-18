@@ -155,54 +155,71 @@ sudo systemctl disable mysqld
 
 ### Update the root password
 
-During an installation on Debian/Ubuntu, you are prompted to enter a root password. On Red Hat Enterprise Linux and derivatives, you update the root password after installation.
+During installation on Debian/Ubuntu, you are prompted to set a root password. On Red Hat Enterprise Linux and derivatives, you must set or update the root password after installation.
 
-Restart the server with the `--skip-grant-tables` option to allow access without a password. This option is insecure. This option also disables remote connections.
+1. Restart the server with the `--skip-grant-tables` option enabled to allow access without a password. This option is insecure and disables remote connections.
 
-```shell
-sudo systemctl stop mysqld
-sudo systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
-sudo systemctl start mysqld 
-mysql
-```
+    ```shell
+    sudo systemctl stop mysqld
+    sudo systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
+    sudo systemctl start mysqld 
+    mysql
+    ```
 
-Reload the grant tables to be able to run the `ALTER USER` statement. Enter a password that satisfies the current policy.
+2. Update the root password using the `caching_sha2_password` authentication plugin:
 
-```sql
-FLUSH PRIVILEGES;
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'rootPassword_12';
-exit
-```
+    !!! important
+    
+        The `mysql_native_password` plugin has been removed in MySQL 9.x. You must use the `caching_sha2_password` authentication plugin.
 
-If the command fails, with `ERROR 1524 (HY000): Plugin [plugin name] is not loaded.`, then check if the plugin is available.
+    !!! note
+    
+        In MySQL 9.7 and later, `ALTER USER` automatically updates grant tables. Running `FLUSH PRIVILEGES` is not required unless you modify system tables directly.
 
-```sql
-SELECT PLUGIN_NAME, PLUGIN_STATUS
-       FROM INFORMATION_SCHEMA.PLUGINS
-       WHERE PLUGIN_NAME LIKE 'validate%';
-```
+    ```sql
+    ALTER USER 'root'@'localhost'
+    IDENTIFIED WITH caching_sha2_password
+    BY 'rootPassword_12';
+    ```
+   
+    If the command returns `Query OK`, run `EXIT;`
 
-If the result is empty or shows `DISABLED`, the plugin is not available. Switch the MySQL user to use the default authentication plugin, `caching_sha2_password` or `mysql_native_password` for your installation.
+    ```sql
+    EXIT;
+    ```
 
-```sql
-ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'rootPassword_12';
-```
+    If the command fails with the `ERROR 1524 (HY000): Plugin 'mysql_native_password' is not loaded` error, the account is configured to use a removed `mysql_native_password` plugin (for example, after an upgrade from an older version).
 
-If, when adding the password, MySQL returns `ERROR 1819 (HY000) Your password does not satisfy the current policy`, run the following command to see policy requirement.
+    Check the current authentication plugin:
 
-```sql
-SHOW VARIABLES LIKE 'validate_password%';
-```
-Redo your password to satisfy the requirements.
+    ```sql
+    SELECT User, Host, plugin FROM mysql.user WHERE User = 'root';
+    ```
 
-Stop the server, remove the `--skip-grant-tables` option, start the server, and log into the server with the updated password.
+    If the plugin is `mysql_native_password`, rerun the `ALTER USER` command to switch to the `caching_sha2_password` authentication plugin.
 
-```shell
-sudo systemctl stop mysqld 
-sudo systemctl unset-environment MYSQLD_OPTS 
-sudo systemctl start mysqld 
-mysql -u root -p
-```
+    ```sql
+    ALTER USER 'root'@'localhost'
+    IDENTIFIED WITH caching_sha2_password
+    BY 'rootPassword_12';
+    ```
+
+    If MySQL returns the `ERROR 1819 (HY000): Your password does not satisfy the current policy` error, check the password policy requirements with:
+
+    ```sql
+    SHOW VARIABLES LIKE 'validate_password%';
+    ```
+
+    Then choose a password that satisfies the policy.
+
+3. Stop the server, remove the `--skip-grant-tables` option, and restart the server:
+
+    ```shell
+    sudo systemctl stop mysqld
+    sudo systemctl unset-environment MYSQLD_OPTS
+    sudo systemctl start mysqld
+    mysql -u root -p
+    ```
 
 ### Secure the server
 
