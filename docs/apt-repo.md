@@ -234,7 +234,7 @@ To install Percona Server for MySQL using APT, follow these steps:
 8. Install the server package with the `percona-release` command:
 
 	```shell
-	sudo apt install percona-server-server
+	sudo apt install --scheme https percona-server-server
 	```
 
 	??? example "Expected output"
