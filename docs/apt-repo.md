@@ -33,7 +33,7 @@ sudo apt install curl
 curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 sudo apt install gnupg2 lsb-release ./percona-release_latest.generic_all.deb
 sudo apt update
-sudo percona-release setup ps80
+sudo percona-release --scheme https setup ps80
 sudo apt install percona-server-server
 ```
 
