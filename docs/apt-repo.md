@@ -77,7 +77,7 @@ The following sections provide detailed explanations for each step:
 8. This command installs the `percona-server-server` package. During installation, the package manager will prompt you to select the default authentication plugin; follow the [Configure authentication](#configure-authentication) section below.
 
 	```shell
-	sudo apt install percona-server-server
+	sudo apt install --scheme https percona-server-server
 	```
 
 ### Configure authentication
