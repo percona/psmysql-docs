@@ -9,8 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The filter writes the audit log filter file in XML. The XML file uses 
-UTF-8.">
+        <meta name="description" content="Starting with Percona Server for MySQL 8.4.8-8 on the 8.4 line, the following describes new-style XML (audit_log_filter.format=NEW) from the Audit Log Filter component: element names, typical fields, and formatter behavior were aligned to the server for that release. This documentation build targets 8.4.8-8 (bump on each publish). If you run an older 8.4 build than 8.4.8-8, verify against your own audit log in case output differs. Implementation reference: components/audit_log_filter/log_record_formatter/new.cc and base.cc.">
       
       
         <meta name="author" content="Percona LLC">
@@ -1175,6 +1174,24 @@ UTF-8.">
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XML (New style)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="audit-log-filter-new.html" class="md-nav__link md-nav__link--active">
         
   
@@ -1191,6 +1208,60 @@ UTF-8.">
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example-illustrative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example (illustrative)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mandatory-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mandatory elements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-elements-by-record-category" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional elements (by record category)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -9742,6 +9813,47 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example-illustrative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example (illustrative)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mandatory-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mandatory elements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-elements-by-record-category" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional elements (by record category)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                     </div>
                   </div>
@@ -9771,43 +9883,61 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="audit-log-filter-format-xml-new-style">Audit Log Filter format - XML (new style)<a class="headerlink" href="#audit-log-filter-format-xml-new-style" title="Permanent link">&para;</a></h1>
-<p>The filter writes the audit log filter file in XML. The XML file uses 
-UTF-8.</p>
-<p>The <AUDIT> is the root element and this element contains 
-&lt;AUDIT_RECORD&gt; elements. Each &lt;AUDIT_RECORD&gt; element contains specific 
-information about an event that is audited. </p>
-<p>For each new file, the Audit Log Filter component writes the XML 
-declaration and the root element tag. The component writes the closing 
-</AUDIT> root element when closing the file. If the file is open, this 
-closing element is not available.</p>
+<p>Starting with Percona Server for MySQL 8.4.8-8 on the 8.4 line, the following describes new-style XML (<code>audit_log_filter.format=NEW</code>) from the Audit Log Filter component: element names, typical fields, and formatter behavior were aligned to the server for that release. This documentation build targets 8.4.8-8 (bump on each publish). If you run an older 8.4 build than 8.4.8-8, verify against your own audit log in case output differs. Implementation reference: <code>components/audit_log_filter/log_record_formatter/new.cc</code> and <code>base.cc</code>.</p>
+<p>The Audit Log Filter component can write the audit log file as new-style XML
+(<code>audit_log_filter.format=NEW</code>). The file uses UTF-8.</p>
+<p>The root element is <code>&lt;AUDIT&gt;</code>. It contains <code>&lt;AUDIT_RECORD&gt;</code> elements. Each
+<code>&lt;AUDIT_RECORD&gt;</code> describes one audited event.</p>
+<p>For each new file, the component writes the XML declaration and the opening
+<code>&lt;AUDIT&gt;</code> tag. When the file is closed, the component writes the closing
+<code>&lt;/AUDIT&gt;</code> tag. If the file is still open, that closing tag is not present yet.</p>
+<p>Element order inside <code>&lt;AUDIT_RECORD&gt;</code> is not guaranteed (the writer may
+emit fields in a fixed order in practice, but consumers should not depend on it).</p>
+<p>Timestamps use the server local time zone, in <code>YYYY-MM-DDTHH:MM:SS</code>
+form. They do not append a <code>UTC</code> suffix to the timestamp string.</p>
+<div class="admonition note">
+<p class="admonition-title">NEW XML behavior (from 8.4.8-8, docs 8.4.8-8)</p>
+<p>Audit logging on/off is recorded with <code>&lt;NAME&gt;</code> values <code>Startup</code> and
+<code>Shutdown</code>. The NEW formatter does not emit <code>STATUS_CODE</code>, and
+does not write <code>VERSION</code>, <code>STARTUP_OPTIONS</code>, <code>MYSQL_VERSION</code>, or
+<code>OS_VERSION</code> on the startup or shutdown audit record. Disconnect events
+use the name <code>Disconnect</code>.</p>
+</div>
+<h2 id="example-illustrative">Example (illustrative)<a class="headerlink" href="#example-illustrative" title="Permanent link">&para;</a></h2>
+<p>The snippet below shows the shape of several record types. Exact sets of
+elements depend on the event, filters, and server configuration.</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
 <span class="nt">&lt;AUDIT&gt;</span>
 <span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
-<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Audit<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Startup<span class="nt">&lt;/NAME&gt;</span>
 <span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>0_2023-03-29T11:11:43<span class="nt">&lt;/RECORD_ID&gt;</span>
 <span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:11:43<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Audit<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
 <span class="w">        </span><span class="nt">&lt;SERVER_ID&gt;</span>1<span class="nt">&lt;/SERVER_ID&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
 <span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Connect<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>1_2023-03-29T11:11:44<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:11:44<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Connection<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">        </span><span class="nt">&lt;CONNECTION_ID&gt;</span>11<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">        </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
+<span class="w">        </span><span class="nt">&lt;IP&gt;</span>127.0.0.1<span class="nt">&lt;/IP&gt;</span>
+<span class="w">        </span><span class="nt">&lt;USER&gt;</span>root<span class="nt">&lt;/USER&gt;</span>
+<span class="w">        </span><span class="nt">&lt;OS_LOGIN&gt;&lt;/OS_LOGIN&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PRIV_USER&gt;</span>root<span class="nt">&lt;/PRIV_USER&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PROXY_USER&gt;&lt;/PROXY_USER&gt;</span>
+<span class="w">        </span><span class="nt">&lt;DB&gt;</span>test<span class="nt">&lt;/DB&gt;</span>
+<span class="w">        </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">        </span><span class="nt">&lt;CONNECTION_TYPE&gt;</span>TCP/IP<span class="nt">&lt;/CONNECTION_TYPE&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
 <span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Command<span class="w"> </span>Start<span class="nt">&lt;/NAME&gt;</span>
-<span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>1_2023-03-29T11:11:45<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>2_2023-03-29T11:11:45<span class="nt">&lt;/RECORD_ID&gt;</span>
 <span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:11:45<span class="nt">&lt;/TIMESTAMP&gt;</span>
 <span class="w">        </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
 <span class="w">        </span><span class="nt">&lt;CONNECTION_ID&gt;</span>1<span class="nt">&lt;/CONNECTION_ID&gt;</span>
 <span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>query<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
-<span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
-<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Query<span class="nt">&lt;/NAME&gt;</span>
-<span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>2_2023-03-29T11:11:45<span class="nt">&lt;/RECORD_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:11:45<span class="nt">&lt;/TIMESTAMP&gt;</span>
-<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>create_table<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
-<span class="w">        </span><span class="nt">&lt;CONNECTION_ID&gt;</span>11<span class="nt">&lt;/CONNECTION_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
-<span class="w">        </span><span class="nt">&lt;IP&gt;&lt;/IP&gt;</span>
-<span class="w">        </span><span class="nt">&lt;USER&gt;</span>root[root]<span class="w"> </span>@<span class="w"> </span>localhost<span class="w"> </span>[]<span class="nt">&lt;/USER&gt;</span>
-<span class="w">        </span><span class="nt">&lt;OS_LOGIN&gt;&lt;/OS_LOGIN&gt;</span>
-<span class="w">        </span><span class="nt">&lt;SQLTEXT&gt;</span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span>(c1<span class="w"> </span>INT)<span class="nt">&lt;/SQLTEXT&gt;</span>
-<span class="w">        </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
 <span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
 <span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Query<span class="w"> </span>Start<span class="nt">&lt;/NAME&gt;</span>
@@ -9819,17 +9949,13 @@ closing element is not available.</p>
 <span class="w">        </span><span class="nt">&lt;SQLTEXT&gt;</span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span>(c1<span class="w"> </span>INT)<span class="nt">&lt;/SQLTEXT&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
 <span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
-<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Query<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Query<span class="w"> </span>Status<span class="w"> </span>End<span class="nt">&lt;/NAME&gt;</span>
 <span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>4_2023-03-29T11:11:45<span class="nt">&lt;/RECORD_ID&gt;</span>
 <span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:11:45<span class="nt">&lt;/TIMESTAMP&gt;</span>
-<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>create_table<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
-<span class="w">        </span><span class="nt">&lt;CONNECTION_ID&gt;</span>11<span class="nt">&lt;/CONNECTION_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
-<span class="w">        </span><span class="nt">&lt;IP&gt;&lt;/IP&gt;</span>
-<span class="w">        </span><span class="nt">&lt;USER&gt;</span>root[root]<span class="w"> </span>@<span class="w"> </span>localhost<span class="w"> </span>[]<span class="nt">&lt;/USER&gt;</span>
-<span class="w">        </span><span class="nt">&lt;OS_LOGIN&gt;&lt;/OS_LOGIN&gt;</span>
-<span class="w">        </span><span class="nt">&lt;SQLTEXT&gt;</span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span>(c1<span class="w"> </span>INT)<span class="nt">&lt;/SQLTEXT&gt;</span>
 <span class="w">        </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">        </span><span class="nt">&lt;CONNECTION_ID&gt;</span>11<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>create_table<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">        </span><span class="nt">&lt;SQLTEXT&gt;</span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span>(c1<span class="w"> </span>INT)<span class="nt">&lt;/SQLTEXT&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
 <span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
 <span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Command<span class="w"> </span>End<span class="nt">&lt;/NAME&gt;</span>
@@ -9839,123 +9965,144 @@ closing element is not available.</p>
 <span class="w">        </span><span class="nt">&lt;CONNECTION_ID&gt;</span>1<span class="nt">&lt;/CONNECTION_ID&gt;</span>
 <span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>query<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Disconnect<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>6_2023-03-29T11:11:50<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:11:50<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Connection<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">        </span><span class="nt">&lt;CONNECTION_ID&gt;</span>11<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">        </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
+<span class="w">        </span><span class="nt">&lt;IP&gt;</span>127.0.0.1<span class="nt">&lt;/IP&gt;</span>
+<span class="w">        </span><span class="nt">&lt;USER&gt;</span>root<span class="nt">&lt;/USER&gt;</span>
+<span class="w">        </span><span class="nt">&lt;OS_LOGIN&gt;&lt;/OS_LOGIN&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PRIV_USER&gt;</span>root<span class="nt">&lt;/PRIV_USER&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PROXY_USER&gt;&lt;/PROXY_USER&gt;</span>
+<span class="w">        </span><span class="nt">&lt;DB&gt;</span>test<span class="nt">&lt;/DB&gt;</span>
+<span class="w">        </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">        </span><span class="nt">&lt;CONNECTION_TYPE&gt;</span>TCP/IP<span class="nt">&lt;/CONNECTION_TYPE&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Shutdown<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>7_2023-03-29T11:12:00<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:12:00<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Audit<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">        </span><span class="nt">&lt;SERVER_ID&gt;</span>1<span class="nt">&lt;/SERVER_ID&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
 <span class="nt">&lt;/AUDIT&gt;</span>
 </code></pre></div>
-<p>The order of the attributes within an &lt;AUDIT_RECORD&gt; can vary. Certain attributes are in every element. Other attributes are optional and depend on the type of audit record.</p>
-<p>The attributes in every element are the following:</p>
+<p>Query-class events (<code>Query Start</code>, <code>Query Status End</code>, nested variants, and
+so on) include <code>STATUS</code>, <code>CONNECTION_ID</code>, <code>COMMAND_CLASS</code> (SQL
+command name from the event), and often <code>SQLTEXT</code> (or digest text from
+extended info). They do not include <code>HOST</code>, <code>IP</code>, <code>USER</code>, or
+<code>OS_LOGIN</code> in NEW XML from 8.4.8-8 onward—those appear on connection
+records (and on general records, which use subclasses such as <code>Log</code>,
+<code>Error</code>, <code>Result</code>, <code>Status</code>, not the string <code>Query</code>).</p>
+<p>Connection records use <code>COMMAND_CLASS</code> with the value <code>Connection</code>
+(the event class label).</p>
+<p>If the client supplies connection attributes and the event carries them,
+<code>CONNECTION_ATTRIBUTES</code> holds one <code>ATTRIBUTE</code> per attribute, each with a
+<code>NAME</code> and <code>VALUE</code> child element.</p>
+<h2 id="mandatory-elements">Mandatory elements<a class="headerlink" href="#mandatory-elements" title="Permanent link">&para;</a></h2>
+<p>These appear on every <code>&lt;AUDIT_RECORD&gt;</code> in this format:</p>
 <table>
 <thead>
 <tr>
-<th>Attribute Name</th>
+<th>Element</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>&lt;NAME&gt;</code></td>
-<td>The action that generated the audit record.</td>
+<td>Event subclass string (for example <code>Startup</code>, <code>Connect</code>, <code>Query Start</code>, <code>TableRead</code>).</td>
 </tr>
 <tr>
 <td><code>&lt;RECORD_ID&gt;</code></td>
-<td>The <code>&lt;RECORD_ID&gt;</code> consists of a sequence number and a timestamp value. The sequence number is initialized when the component opens the audit log filter file.</td>
+<td>Sequence number and timestamp (see <a href="reading-audit-log-filter-files.html"><code>audit_log_filter</code> file handling</a>); format <code>SEQ_TIMESTAMP</code> where the timestamp part matches the formatter’s timestamp string.</td>
 </tr>
 <tr>
 <td><code>&lt;TIMESTAMP&gt;</code></td>
-<td>Displays the date and time when the audit event happened.</td>
+<td>Local date and time for the event.</td>
 </tr>
 </tbody>
 </table>
-<p>The optional attributes are the following:</p>
+<h2 id="optional-elements-by-record-category">Optional elements (by record category)<a class="headerlink" href="#optional-elements-by-record-category" title="Permanent link">&para;</a></h2>
+<p>Many elements appear only for specific event classes. The following table lists
+elements used by the NEW XML formatter from Percona Server for MySQL 8.4.8-8 onward for at least one
+event type. It is not a promise that every field appears in every record.</p>
 <table>
 <thead>
 <tr>
-<th>Attribute Name</th>
+<th>Element</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>&lt;COMMAND_CLASS&gt;</code></td>
-<td>Contains the type of performed action.</td>
+<td>Meaning depends on the record: connection events use <code>Connection</code>; table-access events use <code>Table Access</code>; command events use the <code>COM_*</code> command text (<code>query</code>, and so on); query events use the SQL command name (for example <code>select</code>, <code>create_table</code>); general events use <code>General</code>.</td>
 </tr>
 <tr>
 <td><code>&lt;CONNECTION_ID&gt;</code></td>
-<td>Contains the client connection identifier.</td>
+<td>Client connection ID.</td>
 </tr>
 <tr>
 <td><code>&lt;CONNECTION_ATTRIBUTES&gt;</code></td>
-<td>Contains the client connection attributes. Each attribute has a <code>&lt;NAME&gt;</code> and <code>&lt;VALUE&gt;</code> pair.</td>
+<td>Nested <code>ATTRIBUTE</code> elements, each with <code>NAME</code> and <code>VALUE</code>. Omitted if there are no attributes.</td>
 </tr>
 <tr>
 <td><code>&lt;CONNECTION_TYPE&gt;</code></td>
-<td>Contains the type of connection security.</td>
-</tr>
-<tr>
-<td><code>&lt;DB&gt;</code></td>
-<td>Contains the database name.</td>
-</tr>
-<tr>
-<td><code>&lt;HOST&gt;</code></td>
-<td>Contains the client&rsquo;s hostname.</td>
-</tr>
-<tr>
-<td><code>&lt;IP&gt;</code></td>
-<td>Contains the client&rsquo;s IP address.</td>
-</tr>
-<tr>
-<td><code>&lt;MYSQL_VERSION&gt;</code></td>
-<td>Contains the MySQL server version.</td>
-</tr>
-<tr>
-<td><code>&lt;OS_LOGIN&gt;</code></td>
-<td>Contains the user name used during an external authentication, for example, if the user is authenticated through an LDAP component. If the authentication component does not set a value or the user is authenticated using MySQL authentication, this value is empty.</td>
-</tr>
-<tr>
-<td><code>&lt;OS_VERSION&gt;</code></td>
-<td>Contains the server&rsquo;s operating system.</td>
-</tr>
-<tr>
-<td><code>&lt;PRIV_USER&gt;</code></td>
-<td>Contains the user name used by the server when checking privileges. This name may be different than <code>&lt;USER&gt;</code>.</td>
-</tr>
-<tr>
-<td><code>&lt;PROXY_USER&gt;</code></td>
-<td>Contains the proxy user. If a proxy is not used, the value is empty.</td>
-</tr>
-<tr>
-<td><code>&lt;SERVER_ID&gt;</code></td>
-<td>Contains the server ID.</td>
-</tr>
-<tr>
-<td><code>&lt;SQLTEXT&gt;</code></td>
-<td>Contains the text of the SQL statement.</td>
-</tr>
-<tr>
-<td><code>&lt;STARTUP_OPTIONS&gt;</code></td>
-<td>Contains the startup options. These options may be provided by the command line or files.</td>
+<td>Connection security / transport (for example <code>TCP/IP</code>, <code>SSL</code>, <code>Socket</code>).</td>
 </tr>
 <tr>
 <td><code>&lt;STATUS&gt;</code></td>
-<td>Contains the status of a command. A 0 (zero) is a success. A nonzero value is an error.</td>
+<td>Status code for the event (for <code>Query</code> / <code>Command</code> / connection records, <code>0</code> success and non-zero for failure where applicable).</td>
 </tr>
 <tr>
-<td><code>&lt;STATUS_CODE&gt;</code></td>
-<td>Contains the status of a command, which either succeeds (0) or an error occurred (1).</td>
+<td><code>&lt;SQLTEXT&gt;</code></td>
+<td>Statement or digest text when the event carries SQL text.</td>
 </tr>
 <tr>
-<td><code>&lt;TABLE&gt;</code></td>
-<td>Contains the table name.</td>
+<td><code>&lt;HOST&gt;</code>, <code>&lt;IP&gt;</code>, <code>&lt;USER&gt;</code></td>
+<td>Client context on connection and general records (and on authentication records where applicable). Not emitted on <code>Query Start</code> / <code>Query Status End</code> style records in NEW XML.</td>
 </tr>
 <tr>
-<td><code>&lt;USER&gt;</code></td>
-<td>Contains the user name from the client. This name may be different than <code>&lt;PRIV_USER&gt;</code>.</td>
+<td><code>&lt;OS_LOGIN&gt;</code></td>
+<td>External user from authentication (<code>external_user</code>); on connection records from 8.4.8-8 onward (documented behavior).</td>
 </tr>
 <tr>
-<td><code>&lt;VERSION&gt;</code></td>
-<td>Contains the audit log filter format.</td>
+<td><code>&lt;PRIV_USER&gt;</code>, <code>&lt;PROXY_USER&gt;</code>, <code>&lt;DB&gt;</code></td>
+<td>Included on connection records (including disconnect) from 8.4.8-8 onward (documented behavior).</td>
+</tr>
+<tr>
+<td><code>&lt;SERVER_ID&gt;</code></td>
+<td>On <code>Startup</code>, <code>Shutdown</code>, and similar audit records.</td>
+</tr>
+<tr>
+<td><code>&lt;DB&gt;</code>, <code>&lt;TABLE&gt;</code></td>
+<td>Database and table name on table-access records (<code>TableRead</code>, <code>TableInsert</code>, …).</td>
+</tr>
+<tr>
+<td><code>&lt;VARIABLE_NAME&gt;</code>, <code>&lt;VARIABLE_VALUE&gt;</code></td>
+<td>Global variable audit events.</td>
+</tr>
+<tr>
+<td><code>&lt;STORED_PROGRAM&gt;</code></td>
+<td>Stored program events (<code>DB</code> also appears).</td>
+</tr>
+<tr>
+<td><code>&lt;FLAGS&gt;</code>, <code>&lt;REWRITTEN_QUERY&gt;</code></td>
+<td>Parse events (<code>SQLTEXT</code> may appear).</td>
+</tr>
+<tr>
+<td><code>&lt;COMPONENT&gt;</code>, <code>&lt;PRODUCER&gt;</code>, <code>&lt;MESSAGE&gt;</code>, <code>&lt;MESSAGE_ATTRIBUTES&gt;</code></td>
+<td>Message events (attributes use the same <code>ATTRIBUTE</code> / <code>NAME</code> / <code>VALUE</code> pattern as connection attributes).</td>
 </tr>
 </tbody>
 </table>
+<p>Characters such as <code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code>, and <code>"</code> in element text are XML-escaped by
+the component. Very long values may be truncated according to server-side
+limits.</p>
 
 
 
@@ -9978,7 +10125,7 @@ closing element is not available.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 8, 2025 09:29:19 UTC">October 8, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 24, 2026 15:12:40 UTC">March 24, 2026</span>
   </span>
 
     
