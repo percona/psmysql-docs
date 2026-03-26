@@ -4,6 +4,8 @@ The Audit Log Filter component allows you to monitor, log, and block a connectio
 
 Enabling the component produces a log file that contains a record of server activity. The log file has information on connections and databases accessed by that connection. 
 
+Set `audit_log_filter.format` at startup to choose `NEW` (default), `OLD`, or `JSON` output. For new-style XML, the description in this documentation is aligned to the server from Percona Server for MySQL 8.4.8-8 onward on the 8.4 line (this docs build: 8.4.8-8). For example, audit logging on or off uses `Startup` or `Shutdown`, disconnect events use `Disconnect`, and the NEW formatter does not emit `STATUS_CODE` or fields such as `VERSION`, `STARTUP_OPTIONS`, `MYSQL_VERSION`, and `OS_VERSION` on the audit lifecycle records. See [Audit Log Filter file format overview](audit-log-filter-formats.md) and [XML (new style)](audit-log-filter-new.md).
+
 The component uses the `mysql` system database to store filter and user account data. Set the [`audit_log_filter.database`](audit-log-filter-variables.md#audit_log_filterdatabase) variable at server startup to select a different database.
 
 The `AUDIT_ADMIN` privilege is required to enable users to manage the Audit Log Filter component.
