@@ -40,13 +40,13 @@ Do the following steps to install the server:
 4. Set up the Percona Server for MySQL 8.4 repository:
 
     ```shell
-    sudo percona-release setup {{pkg}}
+    sudo percona-release setup {{pkg}} --scheme https
     ```
 
 5. Enable the Percona Server for MySQL release repository:
 
     ```shell
-    sudo percona-release enable {{pkg}} release
+    sudo percona-release enable {{pkg}} release --scheme https
     sudo apt update
     ```
 
@@ -56,13 +56,13 @@ Do the following steps to install the server:
     sudo apt install -y percona-server-server
     ```
 
-    During installation, you will be prompted to:
+    During installation, you may be prompted to:
 
     * Enter a root password (use `secret` for these examples, or choose your own)
 
     * Confirm the password
 
-    * Choose authentication method (Strong password encryption recommended)
+    * Choose an authentication method, if the installer asks (Strong password encryption recommended)
 
 7. [Optional] Secure the installation:
 
