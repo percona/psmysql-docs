@@ -1,8 +1,26 @@
 
-The `-y` flag automatically confirms all actions without asking for user input. This makes running commands smoother, especially in situations where you can't or don't want to interact, like during unattended installations or automated scripts. However, keep in mind that using the `-y` flag skips confirmation prompts, which means you won't have a chance to review any changes before they're made. So, it's best to use this flag only when you're sure about the command you're executing.
+The `-y` flag (on `apt` and `apt-get`, `--assumeyes` on `dnf`) tells the package manager to assume affirmative answers so installs do not block on prompts. That suits scripts and unattended installs, but you do not get a last chance to review dependency changes—use it only when you accept that tradeoff.
 
-The recommended syntax for using this flag with the `percona-release setup` is: 
+**`percona-release`** — The `setup` command documents **`-y`** for non-interactive repository configuration, for example:
 
-``` {.bash data-prompt="$"}
-$ percona-release setup -y ps-84-lts 
-``` 
+```{.bash data-prompt="$"}
+sudo percona-release setup -y {{pkg}} --scheme https
+```
+
+If you use `enable` or `enable-only` instead, see `sudo percona-release --help` and the [Percona Software Repositories documentation](https://docs.percona.com/percona-software-repositories/percona-release.html) for flags your version supports.
+
+**Debian and Ubuntu (`apt`)** — Add `-y` to each `sudo apt install` (or `sudo apt-get install`) you run, for example `sudo apt install -y curl` and `sudo apt install -y percona-server-server`.
+
+To **disable telemetry** during an unattended server install, set `PERCONA_TELEMETRY_DISABLE=1` on the same line (see [Telemetry](telemetry.md) for details):
+
+```{.bash data-prompt="$"}
+sudo PERCONA_TELEMETRY_DISABLE=1 apt install -y percona-server-server
+```
+
+**RPM-based systems (`dnf` / `yum`)** — Add `-y` (or `yes`) to install commands as supported by your tool. Example with telemetry disabled:
+
+```{.bash data-prompt="$"}
+sudo PERCONA_TELEMETRY_DISABLE=1 dnf install -y percona-server-server
+```
+
+Use `yum` instead of `dnf` where that is the supported tool on your OS.
