@@ -10174,10 +10174,19 @@ Complete!
 <p><a class="md-button" href="post-installation.html">Post-installation configuration</a></p>
 <p>Percona Server for MySQL 8.4.x comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the <a href="install-myrocks.html">Percona MyRocks Installation Guide</a>.</p>
 <h2 id="unattended-installations">Unattended installations<a class="headerlink" href="#unattended-installations" title="Permanent link">&para;</a></h2>
-<p>The <code>-y</code> flag automatically confirms all actions without asking for user input. This makes running commands smoother, especially in situations where you can&rsquo;t or don&rsquo;t want to interact, like during unattended installations or automated scripts. However, keep in mind that using the <code>-y</code> flag skips confirmation prompts, which means you won&rsquo;t have a chance to review any changes before they&rsquo;re made. So, it&rsquo;s best to use this flag only when you&rsquo;re sure about the command you&rsquo;re executing.</p>
-<p>The recommended syntax for using this flag with the <code>percona-release setup</code> is: </p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>-y<span class="w"> </span>ps-84-lts<span class="w"> </span>
+<p>The <code>-y</code> flag (on <code>apt</code> and <code>apt-get</code>, <code>--assumeyes</code> on <code>dnf</code>) tells the package manager to assume affirmative answers so installs do not block on prompts. That suits scripts and unattended installs, but you do not get a last chance to review dependency changes—use it only when you accept that tradeoff.</p>
+<p><strong><code>percona-release</code></strong> — The <code>setup</code> command documents <strong><code>-y</code></strong> for non-interactive repository configuration, for example:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>-y<span class="w"> </span><span class="o">{{</span>pkg<span class="o">}}</span><span class="w"> </span>--scheme<span class="w"> </span>https
 </code></pre></div>
+<p>If you use <code>enable</code> or <code>enable-only</code> instead, see <code>sudo percona-release --help</code> and the <a href="https://docs.percona.com/percona-software-repositories/percona-release.html">Percona Software Repositories documentation</a> for flags your version supports.</p>
+<p><strong>Debian and Ubuntu (<code>apt</code>)</strong> — Add <code>-y</code> to each <code>sudo apt install</code> (or <code>sudo apt-get install</code>) you run, for example <code>sudo apt install -y curl</code> and <code>sudo apt install -y percona-server-server</code>.</p>
+<p>To <strong>disable telemetry</strong> during an unattended server install, set <code>PERCONA_TELEMETRY_DISABLE=1</code> on the same line (see <a href="telemetry.html">Telemetry</a> for details):</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
+</code></pre></div>
+<p><strong>RPM-based systems (<code>dnf</code> / <code>yum</code>)</strong> — Add <code>-y</code> (or <code>yes</code>) to install commands as supported by your tool. Example with telemetry disabled:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
+</code></pre></div>
+<p>Use <code>yum</code> instead of <code>dnf</code> where that is the supported tool on your OS.</p>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <p>After a successful installation, refer to the <a href="post-installation.html">Post-installation</a> documentation for detailed steps to configure and secure your Percona Server for MySQL installation.</p>
 <h2 id="additional-information">Additional information<a class="headerlink" href="#additional-information" title="Permanent link">&para;</a></h2>
