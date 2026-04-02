@@ -53,6 +53,8 @@ The current password has the largest sequence number.
 
 ## Rotation sequence suffix
 
+*Introduced in Percona Server for MySQL 8.4.9-9.*
+
 When multiple rotations happen within the same second, rotated file names
 include a sequence number suffix to prevent overwriting:
 

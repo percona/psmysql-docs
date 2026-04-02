@@ -2,6 +2,8 @@
 
 Starting with Percona Server for MySQL 8.4.8-8 on the {{vers}} line, the following describes new-style XML (`audit_log_filter.format=NEW`) from the Audit Log Filter component: element names, typical fields, and formatter behavior were aligned to the server for that release. This documentation build targets {{release}} (bump on each publish). If you run an older {{vers}} build than 8.4.8-8, verify against your own audit log in case output differs. Implementation reference: `components/audit_log_filter/log_record_formatter/new.cc` and `base.cc`.
 
+Percona Server for MySQL 8.4.9-9 introduces the following changes to the NEW XML formatter output: record IDs (`<RECORD_ID>`) are now 1-based instead of 0-based, empty field values use self-closing XML tags (`<OS_LOGIN/>`) instead of empty tag pairs (`<OS_LOGIN></OS_LOGIN>`), and the indentation is 1 space per nesting level instead of 4 spaces. In message events, the `<MESSAGE_ATTRIBUTES>` element is replaced by `<MAP>`, which contains `<ELEMENT>` children each with a `<KEY>` and `<VALUE>`; message events also now include `<USER>`, `<OS_LOGIN>`, `<HOST>`, `<IP>`, `<STATUS>`, and `<STATUS_CODE>` fields.
+
 The Audit Log Filter component can write the audit log file as new-style XML
 (`audit_log_filter.format=NEW`). The file uses UTF-8.
 

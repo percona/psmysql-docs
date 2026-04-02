@@ -84,7 +84,7 @@ Modifying the audit log filter tables directly with `INSERT`, `UPDATE`, or `DELE
 
 This function forces reloading all filters and should only be used if someone has modified the tables directly.
 
-After a flush, existing sessions are detached from their filters and stop logging until they reconnect or execute `CHANGE_USER`, at which point the filter is re-resolved from the reloaded registry. If you rely on continuous audit logging across flush operations, instruct applications to reconnect after calling this function.
+Starting from Percona Server for MySQL 8.4.9-9, after a flush, existing sessions are detached from their filters and stop logging until they reconnect or execute `CHANGE_USER`, at which point the filter is re-resolved from the reloaded registry. If you rely on continuous audit logging across flush operations, instruct applications to reconnect after calling this function.
 
 #### Parameters
 
@@ -188,7 +188,7 @@ Returns 0 (zero) if the session has no assigned filter.
 
 This function removes the selected filter from the current set of filters.
 
-If user accounts are assigned the selected filter, the user accounts are no longer filtered. The user accounts are removed from `audit_log_user`. Only sessions whose cached filter matches the removed filter are detached; sessions using unrelated filters continue logging normally.
+If user accounts are assigned the selected filter, the user accounts are no longer filtered. The user accounts are removed from `audit_log_user`. Starting from Percona Server for MySQL 8.4.9-9, only sessions whose cached filter matches the removed filter are detached; sessions using unrelated filters continue logging normally.
 
 #### Parameters
 
@@ -275,7 +275,7 @@ This function, when provided with a filter name and definition, adds the filter.
 
 The new filter has a different filter ID. Generates an error if the filter name exists.
 
-The function validates the filter definition at parse time. Invalid field names, unknown class or event subclass names, empty arrays, and unknown JSON keys are rejected with a descriptive error message. For example:
+Starting from Percona Server for MySQL 8.4.9-9, the function validates the filter definition at parse time. Invalid field names, unknown class or event subclass names, empty arrays, and unknown JSON keys are rejected with a descriptive error message. For example:
 
 ```
 ERROR: Incorrect rule definition: Unknown field name "WRONG.str" for class "general"
@@ -317,7 +317,7 @@ This function assigns the filter to the selected user account.
 
 Starting from Percona Server for MySQL 8.4.4, the audit_log_filter_set_user() UDF accepts account names with wildcard characters (`'%'` and `'_'`) in the host part. For example, you can use `‘usr1@%'`, `‘usr2%192.168.0.%’`, or `'usr3@%.mycorp.com'`.
 
-A user account can only have one filter. If the user account already has a filter, this function replaces the current filter. Existing sessions keep their original filter until they reconnect or execute `CHANGE_USER`. Only new connections pick up the new user-to-filter mapping.
+A user account can only have one filter. If the user account already has a filter, this function replaces the current filter. Starting from Percona Server for MySQL 8.4.9-9, existing sessions keep their original filter until they reconnect or execute `CHANGE_USER`. Only new connections pick up the new user-to-filter mapping.
 
 To force all active sessions to re-resolve their filter immediately, call `audit_log_filter_flush()` after `audit_log_filter_set_user()`.
 
@@ -432,6 +432,8 @@ This variable requires a server restart to change.
 | Data type | Boolean  |
 | Default | OFF  |
 
+*Introduced in Percona Server for MySQL 8.4.9-9.*
+
 This read-only variable opens the audit log file with `O_DIRECT` on Linux, bypassing the OS page cache. This variable requires a server restart to change.
 
 When enabled, audit log writes bypass the Linux page cache, reducing memory pressure on busy servers with high audit log throughput. Writes use a 4 KB aligned staging buffer internally.
@@ -472,6 +474,8 @@ This read-only variable defines the encryption type for the audit log filter fil
 * `AES` 
 
 ### `audit_log_filter.event_mode`
+
+*Introduced in Percona Server for MySQL 8.4.9-9.*
 
 | Option name | Description |
 | --- | --- |
@@ -562,7 +566,7 @@ The available values are the following:
 | Data type | Boolean  |
 | Default | OFF  |
 
-This option is supported for JSON-format and JSONL-format files.
+This option is supported for JSON-format and JSONL-format (introduced in Percona Server for MySQL 8.4.9-9) files.
 
 Enabling this option adds a `time` field to JSON-format and JSONL-format files. The integer represents the UNIX timestamp value and indicates the date and time when the audit event was generated. Changing the value causes a file rotation because all records must either have or do not have the `time` field. This option requires the `AUDIT_ADMIN` and `SYSTEM_VARIABLES_ADMIN` privileges.
 
@@ -687,7 +691,7 @@ To enable log pruning, you must set one of the following:
 | Unit | Bytes |
 | Default | 32768  |
 
-This option is supported for JSON-format and JSONL-format files.
+This option is supported for JSON-format and JSONL-format (introduced in Percona Server for MySQL 8.4.9-9) files.
 
 The size of the buffer for reading from the audit log filter file. The `audit_log_filter_read()` reads only from this buffer size.
 
