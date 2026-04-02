@@ -23,7 +23,7 @@ The Audit Log Filter has the following general restrictions:
 
   Please notice that just changing the content of these tables (via replication channel) is not enough to automatically make changes to in-memory data structures in the `audit_log_filter` component that store information about active audit log filtering rules. However, this may happen after component reloading / server restart or manually calling `audit_log_filter_flush()`.
 
-* Filter only on string values. The audit log filter does not filter on integer values. All filter criteria must be specified as strings, even when the underlying value is numeric. For example, `connection_id` values must be specified as strings (for example, `"123"` rather than `123`), and status values must be specified as `"0"` or `"1"` rather than `0` or `1`. If you use integer values in your filter definition, you will see the error: `ERROR: Incorrect rule definition.`
+* Integer event fields (such as `error_code`, `connection_id`, `connection_type`) can be filtered using their native types. Filter rules accept both integer and string values for numeric fields. For example, you can use `"value": 0` or `"value": "0"` for `general_error_code.value`. The `connection_type` field accepts integer values 0–5 or symbolic constants (`::undefined`, `::tcp/ip`, `::socket`, `::named_pipe`, `::ssl`, `::shared_memory`). Negative values for unsigned fields and integer values for string-only fields produce a parse error.
 
 ## Synchronizing audit log filters between source and replica
 

@@ -51,6 +51,19 @@ audit_filter.log.20230301T061400-2.enc
 
 The current password has the largest sequence number.
 
+## Rotation sequence suffix
+
+When multiple rotations happen within the same second, rotated file names
+include a sequence number suffix to prevent overwriting:
+
+```text
+audit_filter.20250401T120000.log      -- first rotation at 12:00:00
+audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
+```
+
+If you have scripts that parse rotated log file names, update them to accept
+the optional `-N` sequence suffix.
+
 ## Renaming operations
 
 During initialization, the component checks if a file with that name exists. 

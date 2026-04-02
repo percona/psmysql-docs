@@ -7,7 +7,7 @@
 - [Audit Log Filter compression and encryption](audit-log-filter-compression-encryption.md)
 - [Audit Log Filter file format overview](audit-log-filter-formats.md)
 - [Audit Log Filter file naming conventions](audit-log-filter-naming.md)
-- [Audit Log Filter format - JSON](audit-log-filter-json.md)
+- [Audit Log Filter format - JSON and JSONL](audit-log-filter-json.md)
 - [Audit Log Filter format - XML (new style)](audit-log-filter-new.md)
 - [Audit Log Filter format - XML (old style)](audit-log-filter-old.md)
 - [Audit log filter functions, options, and variables](audit-log-filter-variables.md)

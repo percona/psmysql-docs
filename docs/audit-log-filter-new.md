@@ -34,86 +34,86 @@ elements depend on the event, filters, and server configuration.
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <AUDIT>
-    <AUDIT_RECORD>
-        <NAME>Startup</NAME>
-        <RECORD_ID>0_2023-03-29T11:11:43</RECORD_ID>
-        <TIMESTAMP>2023-03-29T11:11:43</TIMESTAMP>
-        <COMMAND_CLASS>Audit</COMMAND_CLASS>
-        <SERVER_ID>1</SERVER_ID>
-    </AUDIT_RECORD>
-    <AUDIT_RECORD>
-        <NAME>Connect</NAME>
-        <RECORD_ID>1_2023-03-29T11:11:44</RECORD_ID>
-        <TIMESTAMP>2023-03-29T11:11:44</TIMESTAMP>
-        <COMMAND_CLASS>Connection</COMMAND_CLASS>
-        <CONNECTION_ID>11</CONNECTION_ID>
-        <HOST>localhost</HOST>
-        <IP>127.0.0.1</IP>
-        <USER>root</USER>
-        <OS_LOGIN></OS_LOGIN>
-        <PRIV_USER>root</PRIV_USER>
-        <PROXY_USER></PROXY_USER>
-        <DB>test</DB>
-        <STATUS>0</STATUS>
-        <CONNECTION_TYPE>TCP/IP</CONNECTION_TYPE>
-    </AUDIT_RECORD>
-    <AUDIT_RECORD>
-        <NAME>Command Start</NAME>
-        <RECORD_ID>2_2023-03-29T11:11:45</RECORD_ID>
-        <TIMESTAMP>2023-03-29T11:11:45</TIMESTAMP>
-        <STATUS>0</STATUS>
-        <CONNECTION_ID>1</CONNECTION_ID>
-        <COMMAND_CLASS>query</COMMAND_CLASS>
-    </AUDIT_RECORD>
-    <AUDIT_RECORD>
-        <NAME>Query Start</NAME>
-        <RECORD_ID>3_2023-03-29T11:11:45</RECORD_ID>
-        <TIMESTAMP>2023-03-29T11:11:45</TIMESTAMP>
-        <STATUS>0</STATUS>
-        <CONNECTION_ID>11</CONNECTION_ID>
-        <COMMAND_CLASS>create_table</COMMAND_CLASS>
-        <SQLTEXT>CREATE TABLE t1 (c1 INT)</SQLTEXT>
-    </AUDIT_RECORD>
-    <AUDIT_RECORD>
-        <NAME>Query Status End</NAME>
-        <RECORD_ID>4_2023-03-29T11:11:45</RECORD_ID>
-        <TIMESTAMP>2023-03-29T11:11:45</TIMESTAMP>
-        <STATUS>0</STATUS>
-        <CONNECTION_ID>11</CONNECTION_ID>
-        <COMMAND_CLASS>create_table</COMMAND_CLASS>
-        <SQLTEXT>CREATE TABLE t1 (c1 INT)</SQLTEXT>
-    </AUDIT_RECORD>
-    <AUDIT_RECORD>
-        <NAME>Command End</NAME>
-        <RECORD_ID>5_2023-03-29T11:11:45</RECORD_ID>
-        <TIMESTAMP>2023-03-29T11:11:45</TIMESTAMP>
-        <STATUS>0</STATUS>
-        <CONNECTION_ID>1</CONNECTION_ID>
-        <COMMAND_CLASS>query</COMMAND_CLASS>
-    </AUDIT_RECORD>
-    <AUDIT_RECORD>
-        <NAME>Disconnect</NAME>
-        <RECORD_ID>6_2023-03-29T11:11:50</RECORD_ID>
-        <TIMESTAMP>2023-03-29T11:11:50</TIMESTAMP>
-        <COMMAND_CLASS>Connection</COMMAND_CLASS>
-        <CONNECTION_ID>11</CONNECTION_ID>
-        <HOST>localhost</HOST>
-        <IP>127.0.0.1</IP>
-        <USER>root</USER>
-        <OS_LOGIN></OS_LOGIN>
-        <PRIV_USER>root</PRIV_USER>
-        <PROXY_USER></PROXY_USER>
-        <DB>test</DB>
-        <STATUS>0</STATUS>
-        <CONNECTION_TYPE>TCP/IP</CONNECTION_TYPE>
-    </AUDIT_RECORD>
-    <AUDIT_RECORD>
-        <NAME>Shutdown</NAME>
-        <RECORD_ID>7_2023-03-29T11:12:00</RECORD_ID>
-        <TIMESTAMP>2023-03-29T11:12:00</TIMESTAMP>
-        <COMMAND_CLASS>Audit</COMMAND_CLASS>
-        <SERVER_ID>1</SERVER_ID>
-    </AUDIT_RECORD>
+ <AUDIT_RECORD>
+  <NAME>Startup</NAME>
+  <RECORD_ID>1_2023-03-29T11:11:43</RECORD_ID>
+  <TIMESTAMP>2023-03-29T11:11:43</TIMESTAMP>
+  <COMMAND_CLASS>Audit</COMMAND_CLASS>
+  <SERVER_ID>1</SERVER_ID>
+ </AUDIT_RECORD>
+ <AUDIT_RECORD>
+  <NAME>Connect</NAME>
+  <RECORD_ID>2_2023-03-29T11:11:44</RECORD_ID>
+  <TIMESTAMP>2023-03-29T11:11:44</TIMESTAMP>
+  <COMMAND_CLASS>Connection</COMMAND_CLASS>
+  <CONNECTION_ID>11</CONNECTION_ID>
+  <HOST>localhost</HOST>
+  <IP>127.0.0.1</IP>
+  <USER>root</USER>
+  <OS_LOGIN/>
+  <PRIV_USER>root</PRIV_USER>
+  <PROXY_USER/>
+  <DB>test</DB>
+  <STATUS>0</STATUS>
+  <CONNECTION_TYPE>TCP/IP</CONNECTION_TYPE>
+ </AUDIT_RECORD>
+ <AUDIT_RECORD>
+  <NAME>Command Start</NAME>
+  <RECORD_ID>3_2023-03-29T11:11:45</RECORD_ID>
+  <TIMESTAMP>2023-03-29T11:11:45</TIMESTAMP>
+  <STATUS>0</STATUS>
+  <CONNECTION_ID>1</CONNECTION_ID>
+  <COMMAND_CLASS>query</COMMAND_CLASS>
+ </AUDIT_RECORD>
+ <AUDIT_RECORD>
+  <NAME>Query Start</NAME>
+  <RECORD_ID>4_2023-03-29T11:11:45</RECORD_ID>
+  <TIMESTAMP>2023-03-29T11:11:45</TIMESTAMP>
+  <STATUS>0</STATUS>
+  <CONNECTION_ID>11</CONNECTION_ID>
+  <COMMAND_CLASS>create_table</COMMAND_CLASS>
+  <SQLTEXT>CREATE TABLE t1 (c1 INT)</SQLTEXT>
+ </AUDIT_RECORD>
+ <AUDIT_RECORD>
+  <NAME>Query Status End</NAME>
+  <RECORD_ID>5_2023-03-29T11:11:45</RECORD_ID>
+  <TIMESTAMP>2023-03-29T11:11:45</TIMESTAMP>
+  <STATUS>0</STATUS>
+  <CONNECTION_ID>11</CONNECTION_ID>
+  <COMMAND_CLASS>create_table</COMMAND_CLASS>
+  <SQLTEXT>CREATE TABLE t1 (c1 INT)</SQLTEXT>
+ </AUDIT_RECORD>
+ <AUDIT_RECORD>
+  <NAME>Command End</NAME>
+  <RECORD_ID>6_2023-03-29T11:11:45</RECORD_ID>
+  <TIMESTAMP>2023-03-29T11:11:45</TIMESTAMP>
+  <STATUS>0</STATUS>
+  <CONNECTION_ID>1</CONNECTION_ID>
+  <COMMAND_CLASS>query</COMMAND_CLASS>
+ </AUDIT_RECORD>
+ <AUDIT_RECORD>
+  <NAME>Disconnect</NAME>
+  <RECORD_ID>7_2023-03-29T11:11:50</RECORD_ID>
+  <TIMESTAMP>2023-03-29T11:11:50</TIMESTAMP>
+  <COMMAND_CLASS>Connection</COMMAND_CLASS>
+  <CONNECTION_ID>11</CONNECTION_ID>
+  <HOST>localhost</HOST>
+  <IP>127.0.0.1</IP>
+  <USER>root</USER>
+  <OS_LOGIN/>
+  <PRIV_USER>root</PRIV_USER>
+  <PROXY_USER/>
+  <DB>test</DB>
+  <STATUS>0</STATUS>
+  <CONNECTION_TYPE>TCP/IP</CONNECTION_TYPE>
+ </AUDIT_RECORD>
+ <AUDIT_RECORD>
+  <NAME>Shutdown</NAME>
+  <RECORD_ID>8_2023-03-29T11:12:00</RECORD_ID>
+  <TIMESTAMP>2023-03-29T11:12:00</TIMESTAMP>
+  <COMMAND_CLASS>Audit</COMMAND_CLASS>
+  <SERVER_ID>1</SERVER_ID>
+ </AUDIT_RECORD>
 </AUDIT>
 ```
 
@@ -131,6 +131,14 @@ Connection records use `COMMAND_CLASS` with the value `Connection`
 If the client supplies connection attributes and the event carries them,
 `CONNECTION_ATTRIBUTES` holds one `ATTRIBUTE` per attribute, each with a
 `NAME` and `VALUE` child element.
+
+Empty field values use self-closing XML tags (`<TAG/>`) instead of empty
+tag pairs (`<TAG></TAG>`). Fields affected include `USER`, `OS_LOGIN`,
+`HOST`, `IP`, `COMMAND_CLASS`, `PRIV_USER`, `PROXY_USER`, and `DB`.
+
+Record IDs (`<RECORD_ID>`) are 1-based. The indentation uses 1 space per
+nesting level: `<AUDIT_RECORD>` is indented by 1 space, child elements
+by 2, nested children by 3, and deepest elements by 4.
 
 ## Mandatory elements
 
@@ -164,7 +172,7 @@ event type. It is not a promise that every field appears in every record.
 | `<VARIABLE_NAME>`, `<VARIABLE_VALUE>` | Global variable audit events. |
 | `<STORED_PROGRAM>` | Stored program events (`DB` also appears). |
 | `<FLAGS>`, `<REWRITTEN_QUERY>` | Parse events (`SQLTEXT` may appear). |
-| `<COMPONENT>`, `<PRODUCER>`, `<MESSAGE>`, `<MESSAGE_ATTRIBUTES>` | Message events (attributes use the same `ATTRIBUTE` / `NAME` / `VALUE` pattern as connection attributes). |
+| `<COMPONENT>`, `<PRODUCER>`, `<MESSAGE>`, `<MAP>` | Message events. `<MAP>` contains `<ELEMENT>` children, each with a `<KEY>` and `<VALUE>`. Message events also include `<USER>`, `<OS_LOGIN>`, `<HOST>`, `<IP>`, `<STATUS>`, and `<STATUS_CODE>` fields. |
 
 Characters such as `<`, `>`, `&`, and `"` in element text are XML-escaped by
 the component. Very long values may be truncated according to server-side
