@@ -33,7 +33,7 @@ The [`audit_log_session_filter_id()`](audit-log-filter-variables.md#audit_log_se
 
 Filter definitions are `JSON` values.
 
-The function, `audit_log_filter_flush()`, forces reloading all filters and should only be invoked when modifying the audit tables. After a flush, existing sessions are detached from their filters and stop logging until they reconnect or execute `CHANGE_USER`, at which point the filter is re-resolved from the reloaded registry.
+The function, `audit_log_filter_flush()`, forces reloading all filters and should only be invoked when modifying the audit tables. Starting from Percona Server for MySQL 8.4.9-9, after a flush, existing sessions are detached from their filters and stop logging until they reconnect or execute `CHANGE_USER`, at which point the filter is re-resolved from the reloaded registry.
 
 ## Constraints
 
@@ -41,11 +41,15 @@ The `component_audit_log_filter` component must be enabled and the audit tables 
 
 ## Event mode
 
+*Introduced in Percona Server for MySQL 8.4.9-9.*
+
 The [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode) variable controls which event classes and subclasses are processed. In `REDUCED` mode (the default), only a curated subset of events is available for filtering. In `FULL` mode, all event classes and subclasses are available.
 
 In REDUCED mode, `audit_log_filter_set_filter()` rejects new filter definitions that reference disabled event classes or subclasses. Persisted filters created under FULL mode that reference disabled classes still load after a restart or flush — the disabled classes are silently skipped with a warning.
 
 ## Filter definition validation
+
+*Introduced in Percona Server for MySQL 8.4.9-9.*
 
 Filter definitions are validated at parse time. The following are rejected with a descriptive error:
 
@@ -65,7 +69,7 @@ With a new connection, the audit log filter component finds the user account nam
 
 The default account is represented by `%` as the account name.
 
-You can assign filters to a specific user account or disassociate a user account from a filter. To disassociate a user account, either unassign a filter or assign a different filter. When you call `audit_log_filter_set_user()`, existing sessions keep their original filter until they reconnect or execute `CHANGE_USER`; only new connections pick up the new mapping. If you remove a filter with `audit_log_filter_remove_filter()`, only sessions using that filter are detached; sessions using other filters continue logging normally.
+You can assign filters to a specific user account or disassociate a user account from a filter. To disassociate a user account, either unassign a filter or assign a different filter. Starting from Percona Server for MySQL 8.4.9-9, when you call `audit_log_filter_set_user()`, existing sessions keep their original filter until they reconnect or execute `CHANGE_USER`; only new connections pick up the new mapping. If you remove a filter with `audit_log_filter_remove_filter()`, only sessions using that filter are detached; sessions using other filters continue logging normally.
 
 ## set_filter options and available filters
 
@@ -74,13 +78,13 @@ You can assign filters to a specific user account or disassociate a user account
 | class Filter     | `general`: Logs general server events                                             |
 |                  | `connection`: Tracks connection-related activities                                |
 |                  | `table_access`: Monitors database table interactions                              |
-|                  | `global_variable`: Global variable changes (requires `event_mode=FULL`)           |
-|                  | `command`: Server commands (requires `event_mode=FULL`)                           |
-|                  | `query`: Query events (requires `event_mode=FULL`)                                |
-|                  | `stored_program`: Stored program events (requires `event_mode=FULL`)              |
-|                  | `authentication`: Authentication events (requires `event_mode=FULL`)              |
-|                  | `message`: Audit message events                                                  |
-|                  | `parse`: Parse events with subclasses `preparse` and `postparse` (requires `event_mode=FULL`) |
+|                  | `global_variable`: Global variable changes (requires `event_mode=FULL`). |
+|                  | `command`: Server commands (requires `event_mode=FULL`). |
+|                  | `query`: Query events (requires `event_mode=FULL`). |
+|                  | `stored_program`: Stored program events (requires `event_mode=FULL`). |
+|                  | `authentication`: Authentication events (requires `event_mode=FULL`). |
+|                  | `message`: Audit message events. |
+|                  | `parse`: Parse events with subclasses `preparse` and `postparse` (requires `event_mode=FULL`). |
 | user Filter      | Accepts specific usernames as filter criteria                                     |
 |                  | Can include multiple usernames                                                   |
 |                  | Supports wildcard matching                                                       |
@@ -101,7 +105,7 @@ You can assign filters to a specific user account or disassociate a user account
 |                  | `1`: Failed operations                                                          |
 
 !!! note "Filter definition"
-    Integer event fields (such as `error_code`, `connection_id`, `connection_type`) accept both integer and string values. For example, you can use `"value": 0` or `"value": "0"`. The `connection_type` field also accepts symbolic constants (`::undefined`, `::tcp/ip`, `::socket`, `::named_pipe`, `::ssl`, `::shared_memory`).
+    Starting from Percona Server for MySQL 8.4.9-9, integer event fields (such as `error_code`, `connection_id`, `connection_type`) accept both integer and string values. For example, you can use `"value": 0` or `"value": "0"`. The `connection_type` field also accepts symbolic constants (`::undefined`, `::tcp/ip`, `::socket`, `::named_pipe`, `::ssl`, `::shared_memory`).
 
 ### Examples
 
@@ -211,5 +215,5 @@ SELECT audit_log_filter_set_filter('log_disconnect', '{
 | query_time  | Filters based on query execution duration   | N/A                            | Long-running or quick queries             |
 
 !!! note "Filter definition"
-    Integer event fields (such as `error_code`, `connection_id`, `connection_type`) accept both integer and string values. For example, you can use `"value": 0` or `"value": "0"` for numeric fields. The `connection_type` field also accepts symbolic constants.
+    Starting from Percona Server for MySQL 8.4.9-9, integer event fields (such as `error_code`, `connection_id`, `connection_type`) accept both integer and string values. For example, you can use `"value": 0` or `"value": "0"` for numeric fields. The `connection_type` field also accepts symbolic constants.
 
