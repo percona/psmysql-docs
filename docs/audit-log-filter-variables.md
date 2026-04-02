@@ -84,6 +84,8 @@ Modifying the audit log filter tables directly with `INSERT`, `UPDATE`, or `DELE
 
 This function forces reloading all filters and should only be used if someone has modified the tables directly.
 
+After a flush, existing sessions are detached from their filters and stop logging until they reconnect or execute `CHANGE_USER`, at which point the filter is re-resolved from the reloaded registry. If you rely on continuous audit logging across flush operations, instruct applications to reconnect after calling this function.
+
 #### Parameters
 
 None.
@@ -110,7 +112,7 @@ SELECT audit_log_filter_flush();
 
 ### audit_log_read()
 
-If the audit log filter format is JSON, this function reads the audit log and returns an array of the audit events as a JSON string. Generates an error if the format is not JSON.
+If the audit log filter format is JSON or JSONL, this function reads the audit log and returns an array of the audit events as a JSON string. Generates an error if the format is not JSON or JSONL.
 
 #### Parameters
 
@@ -144,7 +146,7 @@ SELECT audit_log_read(audit_log_read_bookmark());
 
 ### audit_log_read_bookmark()
 
-This function provides a bookmark for the most recently written audit log event as a JSON string. Generates an error if the format is not JSON.
+This function provides a bookmark for the most recently written audit log event as a JSON string. Generates an error if the format is not JSON or JSONL.
 
 When this function is used with [`audit_log_read()`](#audit_log_read), the read starts reading at the specified position.
 
@@ -186,7 +188,7 @@ Returns 0 (zero) if the session has no assigned filter.
 
 This function removes the selected filter from the current set of filters.
 
-If user accounts are assigned the selected filter, the user accounts are no longer filtered. The user accounts are removed from `audit_log_user`. If the user accounts are in a current session, they are detached from the selected filter and no longer logged.
+If user accounts are assigned the selected filter, the user accounts are no longer filtered. The user accounts are removed from `audit_log_user`. Only sessions whose cached filter matches the removed filter are detached; sessions using unrelated filters continue logging normally.
 
 #### Parameters
 
@@ -273,6 +275,14 @@ This function, when provided with a filter name and definition, adds the filter.
 
 The new filter has a different filter ID. Generates an error if the filter name exists.
 
+The function validates the filter definition at parse time. Invalid field names, unknown class or event subclass names, empty arrays, and unknown JSON keys are rejected with a descriptive error message. For example:
+
+```
+ERROR: Incorrect rule definition: Unknown field name "WRONG.str" for class "general"
+```
+
+In REDUCED event mode, filters that reference disabled event classes or subclasses are also rejected.
+
 #### Parameters
 
 * `filter_name` - a selected filter name as a string.
@@ -307,7 +317,9 @@ This function assigns the filter to the selected user account.
 
 Starting from Percona Server for MySQL 8.4.4, the audit_log_filter_set_user() UDF accepts account names with wildcard characters (`'%'` and `'_'`) in the host part. For example, you can use `‘usr1@%'`, `‘usr2%192.168.0.%’`, or `'usr3@%.mycorp.com'`.
 
-A user account can only have one filter. If the user account already has a filter, this function replaces the current filter. If the user account is in a current session, nothing happens. When the user account connects again the new filter is used.
+A user account can only have one filter. If the user account already has a filter, this function replaces the current filter. Existing sessions keep their original filter until they reconnect or execute `CHANGE_USER`. Only new connections pick up the new user-to-filter mapping.
+
+To force all active sessions to re-resolve their filter immediately, call `audit_log_filter_flush()` after `audit_log_filter_set_user()`.
 
 The user name, `%`, is the default account. The filter assigned to `%` is used by any user account without a defined filter.
 
@@ -344,8 +356,10 @@ SELECT audit_log_filter_set_user('user-name@localhost', 'filter-name');
 | [`audit_log_filter.buffer_size`](#audit_log_filterbuffer_size) |
 | [`audit_log_filter.compression`](#audit_log_filtercompression) |
 | [`audit_log_filter.database`](#audit_log_filterdatabase) |
+| [`audit_log_filter.direct_io`](#audit_log_filterdirect_io) |
 | [`audit_log_filter.disable`](#audit_log_filterdisable) |
 | [`audit_log_filter.encryption`](#audit_log_filterencryption) |
+| [`audit_log_filter.event_mode`](#audit_log_filterevent_mode) |
 | [`audit_log_filter.file`](#audit_log_filterfile) |
 | [`audit_log_filter.format`](#audit_log_filterformat) |
 | [`audit_log_filter.format_unix_timestamp`](#audit_log_filterformat_unix_timestamp) |
@@ -408,6 +422,24 @@ The database name cannot exceed 64 characters or be `NULL`. An invalid database 
 
 This variable requires a server restart to change.
 
+### `audit_log_filter.direct_io`
+
+| Option name | Description |
+| --- | --- |
+| Command-line | --audit-log-filter.direct-io |
+| Dynamic | No  |
+| Scope | Global  |
+| Data type | Boolean  |
+| Default | OFF  |
+
+This read-only variable opens the audit log file with `O_DIRECT` on Linux, bypassing the OS page cache. This variable requires a server restart to change.
+
+When enabled, audit log writes bypass the Linux page cache, reducing memory pressure on busy servers with high audit log throughput. Writes use a 4 KB aligned staging buffer internally.
+
+If the filesystem does not support `O_DIRECT` or a direct write fails at runtime, the component gracefully falls back to buffered I/O with a warning.
+
+`O_DIRECT` support depends on the filesystem. Verify compatibility (ext4, xfs are typically supported; tmpfs is not).
+
 ### `audit_log_filter.disable`
 
 | Option name | Description |
@@ -439,6 +471,42 @@ This read-only variable defines the encryption type for the audit log filter fil
 
 * `AES` 
 
+### `audit_log_filter.event_mode`
+
+| Option name | Description |
+| --- | --- |
+| Command-line | --audit-log-filter.event-mode |
+| Dynamic | Yes  |
+| Scope | Global  |
+| Data type | Enumeration  |
+| Default | REDUCED  |
+| Available values | REDUCED, FULL |
+
+This variable controls which event classes and subclasses are processed by the audit log filter component.
+
+**`REDUCED`** (default) — limits logging to a curated subset of events:
+
+* `general/status`
+* `connection/connect`, `connection/disconnect`, `connection/change_user`
+* `table_access/*`
+* `message/*`
+
+Disabled classes in REDUCED mode: `global_variable`, `command`, `query`, `stored_program`, `authentication`, `parse`. Disabled subclasses: `general/log`, `general/error`, `general/result`, `connection/pre_authenticate`.
+
+In REDUCED mode, calling a stored procedure logs the outer `CALL` statement but not the individual SQL statements executed inside the procedure body. The `general/status` event generated by the internal `Quit` command is also suppressed in REDUCED mode.
+
+**`FULL`** — all event classes and subclasses are processed (previous default behavior).
+
+The variable can be changed at runtime:
+
+```sql
+SET GLOBAL audit_log_filter.event_mode = 'FULL';
+```
+
+Changing `event_mode` at runtime triggers an automatic filter reload.
+
+In REDUCED mode, `audit_log_filter_set_filter()` rejects new filters that reference disabled event classes or subclasses with a descriptive error. However, persisted filters created under FULL mode that reference disabled classes will still load after a restart or `audit_log_filter_flush()` — the disabled classes are silently skipped with a warning.
+
 ### `audit_log_filter.file`
 
 | Option name | Description |
@@ -457,7 +525,7 @@ The filename can be either of the following:
 
 * a full path name - the component uses the given value
   
-If you use a full path name, ensure the directory is accessible only to users who need to view the log and the server.
+If you use a full path name, ensure the directory exists and is accessible only to users who need to view the log and the server. If the parent directory does not exist, the component reports an error and the server starts without the audit log filter component active.
 
 For more information, see [Naming conventions](audit-log-filter-naming.md)
 
@@ -470,7 +538,7 @@ For more information, see [Naming conventions](audit-log-filter-naming.md)
 | Scope | Global  |
 | Data type | Enumeration  |
 | Default | NEW  |
-| Available values | OLD, NEW, JSON |
+| Available values | OLD, NEW, JSON, JSONL |
 
 This read-only variable defines the audit log filter file format. This variable requires a server restart to change.
 
@@ -480,7 +548,9 @@ The available values are the following:
 
 * [NEW (new-style XML)](audit-log-filter-new.md)
 
-* [JSON](audit-log-filter-json.md).
+* [JSON](audit-log-filter-json.md)
+
+* [JSONL](audit-log-filter-json.md)
 
 ### `audit_log_filter.format_unix_timestamp`
 
@@ -492,9 +562,9 @@ The available values are the following:
 | Data type | Boolean  |
 | Default | OFF  |
 
-This option is only supported for JSON-format files.
+This option is supported for JSON-format and JSONL-format files.
 
-Enabling this option adds a `time` field to JSON-format files. The integer represents the UNIX timestamp value and indicates the date and time when the audit event was generated. Changing the value causes a file rotation because all records must either have or do not have the `time` field. This option requires the `AUDIT_ADMIN` and `SYSTEM_VARIABLES_ADMIN` privileges.
+Enabling this option adds a `time` field to JSON-format and JSONL-format files. The integer represents the UNIX timestamp value and indicates the date and time when the audit event was generated. Changing the value causes a file rotation because all records must either have or do not have the `time` field. This option requires the `AUDIT_ADMIN` and `SYSTEM_VARIABLES_ADMIN` privileges.
 
 This option does nothing when used with other format types.
 
@@ -617,7 +687,7 @@ To enable log pruning, you must set one of the following:
 | Unit | Bytes |
 | Default | 32768  |
 
-This option is only supported for JSON-format files.
+This option is supported for JSON-format and JSONL-format files.
 
 The size of the buffer for reading from the audit log filter file. The `audit_log_filter_read()` reads only from this buffer size.
 
@@ -650,9 +720,9 @@ This read-only variable defines the Audit Log filter component's logging method.
 | Values | Description |
 | --- | --- |
 | ASYNCHRONOUS | Waits until there is outer buffer space |
-| PERFORMANCE | If the outer buffer does not have enough space, drops requests |
+| PERFORMANCE | If the outer buffer does not have enough space, drops the entire event atomically (the event is either fully written or fully dropped, keeping the log output well-formed) |
 | SEMISYNCHRONOUS | Operating system permits caching |
-| SYNCHRONOUS | Each request calls `sync()` |
+| SYNCHRONOUS | Each request calls `fsync()` to flush the audit event to durable storage before the audited statement returns to the client. Expect higher write latency compared to SEMISYNCHRONOUS. |
 
 ### `audit_log_filter.syslog_tag`
 

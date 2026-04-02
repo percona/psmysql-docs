@@ -1,88 +1,116 @@
-# Audit Log Filter format - JSON
+# Audit Log Filter format - JSON and JSONL
 
-The JSON format has one top-level JSON array, which contain JSON objects with key-value pairs. These objects represent an event in the audit. Some pairs are listed in every audit record. The audit record type determines if other key-value pairs are listed. The order of the pairs within an audit record is not guaranteed. The value description may be truncated.
+Both the JSON and JSONL formats write audit events as JSON objects with the same set of key-value pairs. Some pairs are listed in every audit record. The audit record type determines if other key-value pairs are listed. The order of the pairs within an audit record is not guaranteed. The value description may be truncated.
 
-Certain statistics, such as query time and size, are only available in the JSON format and help detect activity outliers when analyzed. 
+The two formats differ only in file-level structure:
+
+| Format | File structure | Set with |
+|---|---|---|
+| JSON | One top-level JSON array. Each event is a pretty-printed JSON object spanning multiple lines. | `audit_log_filter.format=JSON` |
+| JSONL | One top-level JSON array (the file is still valid JSON). Each event is a single compact JSON object on its own line. | `audit_log_filter.format=JSONL` |
+
+The JSONL format was introduced in Percona Server for MySQL 8.4.9-9. Unlike the strict [JSON Lines](https://jsonlines.org/) specification, the Percona JSONL format retains the wrapping JSON array and trailing commas, so the output file is valid JSON and can be parsed by any JSON parser. The one-event-per-line layout still makes it easy to process with line-oriented tools (`grep`, `jq`, `wc -l`), streaming pipelines, and log aggregation systems. Encryption and compression work with JSONL just as they do with JSON. `audit_log_read()` and `audit_log_read_bookmark()` support both formats.
+
+Certain statistics, such as query time and size, are only available in the JSON and JSONL formats and help detect activity outliers when analyzed.
+
+## JSON example
+
+The following shows four event types recorded in `REDUCED` event mode: startup, connection, table access, and general status.
 
 ```json
-
 [
   {
-    "timestamp": "2023-03-29 11:17:03",
+    "timestamp": "2026-04-03 10:43:52",
     "id": 0,
     "class": "audit",
-    "server_id": 1
+    "event": "startup",
+    "connection_id": 12,
+    "account": { "user": "root", "host": "localhost" },
+    "login": { "user": "root", "os": "", "ip": "", "proxy": "" },
+    "startup_data": {
+      "server_id": 1,
+      "os_version": "x86_64-Linux",
+      "mysql_version": "8.4.9-9",
+      "args": [
+        "/usr/sbin/mysqld",
+        "--defaults-file=/etc/my.cnf",
+        "--basedir=/usr",
+        "--user=mysql",
+        "--datadir=/var/lib/mysql",
+        "--socket=/var/run/mysqld/mysqld.sock",
+        "--port=3306"
+      ]
+    }
   },
   {
-    "timestamp": "2023-03-29 11:17:05",
+    "timestamp": "2026-04-03 10:43:53",
     "id": 1,
-    "class": "command",
-    "event": "command_start",
-    "connection_id": 1,
-    "command_data": {
-      "name": "command_start",
+    "class": "connection",
+    "event": "connect",
+    "connection_id": 39,
+    "account": { "user": "root", "host": "localhost" },
+    "login": { "user": "root", "os": "", "ip": "", "proxy": "" },
+    "connection_data": {
+      "connection_type": "socket",
       "status": 0,
-      "command": "query"}
+      "db": "test",
+      "connection_attributes": {
+        "_pid": "824388",
+        "_platform": "x86_64",
+        "_client_version": "8.0.45",
+        "_os": "Linux",
+        "_client_name": "libmysql"
+      }
+    }
   },
   {
-    "timestamp": "2025-03-29 11:17:05",
-    "id": 332,
-    "class": "general",
-    "event": "log",
-    "connection_id": 11,
-    "account": { "user": "root[root] @ localhost []", "host": "localhost" },
-    "login": { "user": "root[root] @ localhost []", "os": "", "ip": "", "proxy": "" },
-    "general_data": { "status": 0 }
+    "timestamp": "2026-04-03 10:43:53",
+    "id": 9,
+    "class": "table_access",
+    "event": "read",
+    "connection_id": 40,
+    "account": { "user": "root", "host": "localhost" },
+    "login": { "user": "root", "os": "", "ip": "", "proxy": "" },
+    "table_access_data": {
+      "db": "test",
+      "table": "sbtest2",
+      "query": "SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099",
+      "sql_command": "select"
+    }
   },
   {
-    "timestamp": "2023-03-29 11:17:05",
-    "id": 3,
-    "class": "query",
-    "event": "query_start",
-    "connection_id": 11,
-    "query_data": {
-      "query": "CREATE TABLE t1 (c1 INT)",
-      "status": 0,
-      "sql_command": "create_table"}
-  },
-  {
-    "timestamp": "2023-03-29 11:17:05",
-    "id": 4,
-    "class": "query",
-    "event": "query_status_end",
-    "connection_id": 11,
-    "query_data": {
-      "query": "CREATE TABLE t1 (c1 INT)",
-      "status": 0,
-      "sql_command": "create_table"}
-  },
-  {
-    "timestamp": "2023-03-29 11:17:05",
-    "id": 5,
+    "timestamp": "2026-04-03 10:43:53",
+    "id": 11,
     "class": "general",
     "event": "status",
-    "connection_id": 11,
-    "account": { "user": "root[root] @ localhost []", "host": "localhost" },
-    "login": { "user": "root[root] @ localhost []", "os": "", "ip": "", "proxy": "" },
+    "connection_id": 40,
+    "account": { "user": "root", "host": "localhost" },
+    "login": { "user": "root", "os": "", "ip": "", "proxy": "" },
     "general_data": {
       "command": "Query",
-      "sql_command": "create_table",
-      "query": "CREATE TABLE t1 (c1 INT)",
-      "status": 0}
-  },
-  {
-    "timestamp": "2023-03-29 11:17:05",
-    "id": 6,
-    "class": "command",
-    "event": "command_end",
-    "connection_id": 1,
-    "command_data": {
-      "name": "command_end",
-      "status": 0,
-      "command": "query"}
+      "sql_command": "select",
+      "query": "SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099",
+      "status": 0
+    }
   }
 ]
 ```
+
+## JSONL example
+
+In the JSONL format each event is a single compact JSON object on its own line. The file is still wrapped in a JSON array, so it remains valid JSON. The same events from the JSON example above look like this:
+
+```json
+[
+{"timestamp":"2026-04-03 10:43:52","id":0,"class":"audit","event":"startup","connection_id":12,"account":{"user":"root","host":"localhost"},"login":{"user":"root","os":"","ip":"","proxy":""},"startup_data":{"server_id":1,"os_version":"x86_64-Linux","mysql_version":"8.4.9-9","args":["/usr/sbin/mysqld","--defaults-file=/etc/my.cnf","--basedir=/usr","--user=mysql","--datadir=/var/lib/mysql","--socket=/var/run/mysqld/mysqld.sock","--port=3306"]}},
+{"timestamp":"2026-04-03 10:43:53","id":1,"class":"connection","event":"connect","connection_id":39,"account":{"user":"root","host":"localhost"},"login":{"user":"root","os":"","ip":"","proxy":""},"connection_data":{"connection_type":"socket","status":0,"db":"test","connection_attributes":{"_pid":"824388","_platform":"x86_64","_client_version":"8.0.45","_os":"Linux","_client_name":"libmysql"}}},
+{"timestamp":"2026-04-03 10:43:53","id":9,"class":"table_access","event":"read","connection_id":40,"account":{"user":"root","host":"localhost"},"login":{"user":"root","os":"","ip":"","proxy":""},"table_access_data":{"db":"test","table":"sbtest2","query":"SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099","sql_command":"select"}},
+{"timestamp":"2026-04-03 10:43:53","id":11,"class":"general","event":"status","connection_id":40,"account":{"user":"root","host":"localhost"},"login":{"user":"root","os":"","ip":"","proxy":""},"general_data":{"command":"Query","sql_command":"select","query":"SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099","status":0}}
+]
+```
+
+## Attributes
+
 The order of the attributes within the JSON object can vary. Certain attributes are in every element. Other attributes are optional and depend on the type of event and the filter settings or component settings.
 
 The following fields are contained in each object:
@@ -98,16 +126,17 @@ The possible attributes in a JSON object are the following:
 |---|---|
 | `class` | Defines the type of event |
 | `account` | Defines the MySQL account associated with the event. |
-| `connection_data` | Defines the client connection. |
+| `connection_data` | Defines the client connection. On connection events, `connection_attributes` are nested inside this object. |
 | `connection_id` | Defines the client connection identifier |
 | `event` | Defines a subclass of the `event` class |
 | `general_data` | Defines the executed statement or command when the audit record has a class value of `general`. |
 | `id` | Defines the event ID |
 | `login` | Defines how the client connected to the server |
+| `map` | Contains message event payload data (replaces the former `message_attributes` key). Message events also include `account` and `login` fields. |
 | `query_statistics` | Defines optional query statistics and is used for outlier detection |
 | `shutdown_data` | Defines the audit log filter termination |
-| `startup_data` | Defines the initialization of the audit log filter component |
+| `startup_data` | Defines the initialization of the audit log filter component. Contains `server_id`, `os_version`, `mysql_version`, and `args` (an array of command-line arguments). |
 | `table_access_data` | Defines access to a table |
 | `time` | Defines an integer that represents a UNIX timestamp |
-| `timestamp` | Defines a UTC value in the `YYYY-MM_DD hh:mm:ss` format |
+| `timestamp` | Defines a UTC value in the `YYYY-MM-DD hh:mm:ss` format |
 
