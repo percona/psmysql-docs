@@ -7,11 +7,11 @@ The two formats differ only in file-level structure:
 | Format | File structure | Set with |
 |---|---|---|
 | JSON | One top-level JSON array. Each event is a pretty-printed JSON object spanning multiple lines. | `audit_log_filter.format=JSON` |
-| JSONL | One top-level JSON array (the file is still valid JSON). Each event is a single compact JSON object on its own line. | `audit_log_filter.format=JSONL` |
+| JSONL | One top-level JSON array. Each event is a single compact JSON object on its own line, separated by commas. | `audit_log_filter.format=JSONL` |
 
-The JSONL format was introduced in Percona Server for MySQL 8.4.9-9. Unlike the strict [JSON Lines](https://jsonlines.org/) specification, the Percona JSONL format retains the wrapping JSON array and trailing commas, so the output file is valid JSON and can be parsed by any JSON parser. The one-event-per-line layout still makes it easy to process with line-oriented tools (`grep`, `jq`, `wc -l`), streaming pipelines, and log aggregation systems. Encryption and compression work with JSONL just as they do with JSON. `audit_log_read()` and `audit_log_read_bookmark()` support both formats.
+The JSONL format was introduced in Percona Server for MySQL 8.4.9-9. Unlike strict [JSON Lines](https://jsonlines.org/), the Percona JSONL format retains the wrapping JSON array and comma separators between records, so the output file remains valid JSON while still keeping one compact event per line. This layout makes it easy to process with line-oriented tools (`grep`, `jq`, `wc -l`), streaming pipelines, and log aggregation systems. Encryption and compression work with JSONL just as they do with JSON. `audit_log_read()` and `audit_log_read_bookmark()` support both formats.
 
-Percona Server for MySQL 8.4.9-9 introduces the following changes to the JSON and JSONL formats: the startup event now includes `event`, `connection_id`, `account`, `login`, and a `startup_data` object containing `server_id`, `os_version`, `mysql_version`, and `args` (previously only `server_id` was present at the top level). Shutdown events now also include `connection_id`, `account`, and `login` fields. The lifecycle `event` value changed from the internal names `audit`/`noaudit` to `startup`/`shutdown`. The `connection_data` object now nests `connection_attributes` on connection events. The `message_attributes` key is replaced by `map`, and message events also include `account` and `login` fields.
+Percona Server for MySQL 8.4.9-9 introduces the following changes to the JSON and JSONL formats: component startup and shutdown events now include `event`, `connection_id`, `account`, `login`, and a `startup_data` object containing `server_id`, `os_version`, `mysql_version`, and `args` (previously only `server_id` was present at the top level). The lifecycle `event` value changed from the internal names `audit`/`noaudit` to `startup`/`shutdown`. The `connection_data` object now nests `connection_attributes` on connection events. The `message_attributes` key is replaced by `map`, and message events also include `account` and `login` fields.
 
 Certain statistics, such as query time and size, are only available in the JSON and JSONL formats and help detect activity outliers when analyzed.
 
@@ -100,7 +100,7 @@ The following shows four event types recorded in `REDUCED` event mode: startup, 
 
 ## JSONL example
 
-In the JSONL format each event is a single compact JSON object on its own line. The file is still wrapped in a JSON array, so it remains valid JSON. The same events from the JSON example above look like this:
+In the JSONL format each event is a single compact JSON object on its own line, separated by commas inside a wrapping JSON array. The same events from the JSON example above look like this:
 
 ```json
 [

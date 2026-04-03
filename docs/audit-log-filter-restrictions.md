@@ -7,9 +7,13 @@ The Audit Log Filter has the following general restrictions:
 * Log only SQL statements. Statements made by NoSQL APIs, such as the 
   Memcached API, are not logged.
 
-* Log only the top-level statement. Statements within a stored procedure 
-  or a trigger are not logged. Do not log the file contents for statements 
-  like `LOAD_DATA`.
+* In `REDUCED` mode, the component logs only a curated subset of event
+  classes. For stored program execution, it logs the outer `CALL`
+  statement but not the individual SQL statements executed inside the
+  procedure body. In `FULL` mode, additional event classes and nested
+  lifecycle records are available, including `stored_program`, `query`,
+  `parse`, `authentication`, `command`, and `global_variable`. The file
+  contents referenced by statements such as `LOAD DATA` are not logged.
 
 * Require the component to be installed on each server used to execute SQL 
   on the cluster if used with a cluster.
@@ -27,7 +31,7 @@ The Audit Log Filter has the following general restrictions:
 
 ## Synchronizing audit log filters between source and replica
 
-You can keep audit log filter definitions in sync between a source and a replica by replicating the filter tables and periodically calling `audit_log_filter_flush()` on the replica. That reloads the filter tables and makes the replicated changes effective on the replica.
+You can keep audit log filter definitions in sync between a source and a replica by replicating the filter tables and periodically calling `audit_log_filter_flush()` on the replica. That reloads the filter tables and makes the replicated changes effective on the replica. Starting from Percona Server for MySQL 8.4.9-9, `audit_log_filter_flush()` also detaches existing sessions from their filters until they reconnect or execute `CHANGE_USER`.
 
 ### Procedure: MySQL event to flush filters on the replica
 
@@ -46,7 +50,7 @@ You can keep audit log filter definitions in sync between a source and a replica
              SELECT audit_log_filter_flush();
        ```
 
-    This event runs `audit_log_filter_flush()` every minute on the replica, so replicated changes to the filter tables become effective shortly after they are applied.
+    This event runs `audit_log_filter_flush()` every minute on the replica, so replicated changes to the filter tables become effective shortly after they are applied. In Percona Server for MySQL 8.4.9-9 and later, sessions that were already connected stop logging until they reconnect or execute `CHANGE_USER`.
 
 4. Create a filter on the source and assign the filter to a user using the usual filter functions or by modifying the filter tables and calling `audit_log_filter_flush()` on the source.
 

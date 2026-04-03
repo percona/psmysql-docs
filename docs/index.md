@@ -62,9 +62,9 @@ Upgrade your Percona Server for MySQL installation with our comprehensive upgrad
 
 </div><div data-banner markdown>
 
-## :fontawesome-solid-gears: Audit Log Filter plugin { .title }
+## :fontawesome-solid-gears: Audit Log Filter component { .title }
 
-Learn about the Audit Log Filter plugin that allows you to monitor, log, and block a connection or query actively executed on the selected server.
+Learn about the Audit Log Filter component that allows you to monitor, log, and block a connection or query actively executed on the selected server.
 
 [Audit Log Filter](audit-log-filter-overview.md){ .md-button}
 

@@ -18,7 +18,7 @@ The following functions are used for rule-based filtering:
 | Function | Description | Example |
 |---|---|---|
 | audit_log_filter_flush() | Manually flush the filter tables | `SELECT audit_log_filter_flush()`
-| audit_log_filter_set_filter() | Defines a filter | `SELECT audit_log_filter_set_filter('log_connections','{ "filter":{}}'`')
+| audit_log_filter_set_filter() | Defines a filter | `SELECT audit_log_filter_set_filter('log_connections', '{ "filter": {} }')` |
 | audit_log_filter_remove_filter() | Removes a filter |
 | audit_log_filter_set_user() | Assigns a filter to a specific user account |
 | audit_log_filter_remove_user() | Removes the filters from a specific user account |
@@ -54,6 +54,7 @@ Filter definitions are validated at parse time. The following are rejected with 
 * Empty arrays (e.g., `"class": []`)
 * Unknown JSON keys
 * `print` rules referencing invalid fields for one of the classes in a multi-class array
+* Invalid field types, such as negative values for unsigned fields or integers used for string-only fields
 
 An empty filter object `{}` is equivalent to `{"filter": {"log": true}}` and logs all events. If you want a filter that logs nothing, use `{"filter": {"log": false}}`.
 

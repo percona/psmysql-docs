@@ -126,7 +126,9 @@ Call[`audit_log_read_bookmark()`](#audit_log_read_bookmark) to return the most r
 
 #### Returns
 
-This function returns a string of a JSON array of the audit events or a JSON NULL value. Returns `NULL` and generates an error if the call fails.
+This function returns a string of a JSON array of the audit events or a JSON `NULL` value. Returns `NULL` and generates an error if the call fails.
+
+Starting from Percona Server for MySQL 8.4.8-8, the returned JSON is strictly valid, `max_array_length` is honored, and paginated reads continue correctly from the supplied bookmark.
 
 #### Example
 
@@ -255,6 +257,10 @@ SELECT audit_log_filter_remove_user('user-name@localhost');
 
 ### audit_log_rotate()
 
+This function rotates the current audit log file immediately and returns the renamed file name.
+
+Starting from Percona Server for MySQL 8.4.9-9, when multiple rotations happen within the same second, the rotated file name can include a `-N` sequence suffix to prevent overwriting an earlier rotated file.
+
 #### Parameters
 
 None.
@@ -275,7 +281,7 @@ This function, when provided with a filter name and definition, adds the filter.
 
 The new filter has a different filter ID. Generates an error if the filter name exists.
 
-Starting from Percona Server for MySQL 8.4.9-9, the function validates the filter definition at parse time. Invalid field names, unknown class or event subclass names, empty arrays, and unknown JSON keys are rejected with a descriptive error message. For example:
+Starting from Percona Server for MySQL 8.4.9-9, the function validates the filter definition at parse time. Invalid field names, unknown class or event subclass names, empty arrays, unknown JSON keys, and nested replacement-rule errors are rejected with a descriptive error message. For example:
 
 ```
 ERROR: Incorrect rule definition: Unknown field name "WRONG.str" for class "general"
@@ -693,7 +699,7 @@ To enable log pruning, you must set one of the following:
 
 This option is supported for JSON-format and JSONL-format (introduced in Percona Server for MySQL 8.4.9-9) files.
 
-The size of the buffer for reading from the audit log filter file. The `audit_log_filter_read()` reads only from this buffer size.
+The size of the buffer for reading from the audit log filter file. `audit_log_read()` reads only from this buffer size.
 
 ### `audit_log_filter.rotate_on_size`
 

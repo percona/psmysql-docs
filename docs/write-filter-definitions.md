@@ -1,4 +1,4 @@
-# Write audit_log_filter definitons
+# Write audit_log_filter definitions
 
 When you’re setting up audit log filters in Percona Server for MySQL, you use JSON values to define those filters. At their core, a filter is just a JSON object with a very simple structure.
 
@@ -336,7 +336,7 @@ This example defines a filter that `excludes` (negate: true) all table access ev
 ```
 
 !!! note "Filter definition"
-    In the filter definitions shown in this example, status values are displayed as integers for readability, but they must be specified as strings in your actual filter definitions (for example, `"status": ["0"]` or `"status": ["1"]`). The audit log filter does not filter on integer values, only on string values. This applies to all numeric filter criteria, including `connection_id`, `thread_id`, and `status`. If you use integer values, you will see the error: `ERROR: Incorrect rule definition.`
+    Starting from Percona Server for MySQL 8.4.9-9, integer event fields can be specified as either integers or strings. For example, `status`, `connection_id`, and `error_code` can use `[0]` or `["0"]`. The `connection_type` field also accepts symbolic constants such as `::tcp/ip` and `::socket`. Invalid field types are rejected, including negative values for unsigned fields and integers supplied for string-only fields.
 
 This filter captures failed update/delete modifications by admin and developer users in the financial database and successful connections for the `external_service` user
 
@@ -353,7 +353,7 @@ Performance impact is a critical consideration when implementing detailed loggin
 
 ## Implement the filter
 
-Here's how to define and implement an audit log filter in Percona Server for MySQL 8.4.6:
+Here's how to define and implement an audit log filter in Percona Server for MySQL 8.4:
 
 ### Create a filter
 
@@ -365,7 +365,7 @@ SELECT audit_log_filter_set_filter('log_all', '{ "filter": { "log": true } }');
 
 ### Assign filter to users
 
-To assign a filter to specific users, use the `audit_log_filter_set_user()` function. This function takes three parameters: username, userhost, and filtername.
+To assign a filter to specific users, use the `audit_log_filter_set_user()` function. This function takes two parameters: `user_name@host_name` (or `%` for the default account) and the filter name.
 
 ```sql
 SELECT audit_log_filter_set_user('%', 'log_all');
@@ -388,7 +388,7 @@ SELECT audit_log_filter_set_filter('financial_tracking', '{
         "event": [
           {"name":"insert"},
           {"name":"update"},
-          {"name":"delete"],
+          {"name":"delete"}
         ],
         "status": [0, 1]
       },
@@ -407,11 +407,11 @@ SELECT audit_log_filter_set_filter('financial_tracking', '{
 ```
 
 !!! note "Filter definition"
-    In the filter definition shown in this example, status values are displayed as integers (`[0, 1]`) for readability, but they must be specified as strings in your actual filter definitions (for example, `"status": ["0", "1"]`). The audit log filter does not filter on integer values, only on string values. This applies to all numeric filter criteria, including `connection_id`, `thread_id`, and `status`. If you use integer values, you will see the error: `ERROR: Incorrect rule definition.`
+    Starting from Percona Server for MySQL 8.4.9-9, integer event fields can be specified as either integers or strings. The `status` values in this example are valid as integers. Invalid field types are still rejected, including negative values for unsigned fields and integers supplied for string-only fields.
 
 ```sql
 -- Assign the filter to all users
-SELECT audit_log_filter_set_user('%', '%', 'financial_tracking');
+SELECT audit_log_filter_set_user('%', 'financial_tracking');
 ```
 
 The filter monitors two main types of activities. First, it watches all changes to your accounts and transactions tables. This monitoring means that the filter logs when someone adds new data, changes existing information, or removes records. You get a complete picture of who's touching your financial data and what they do with it.

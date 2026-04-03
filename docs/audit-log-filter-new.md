@@ -5,6 +5,7 @@ Percona Server for MySQL 8.4.9-9 introduces the following changes to the NEW XML
 * Record IDs (`<RECORD_ID>`) are 1-based instead of 0-based
 * Empty field values use self-closing XML tags (`<OS_LOGIN/>`) instead of empty tag pairs (`<OS_LOGIN></OS_LOGIN>`)
 * Indentation uses 1 space per nesting level instead of 2 spaces
+* Fields are emitted in the same order as upstream MySQL Enterprise Audit to ease parser compatibility and migration
 * The startup record (`<NAME>Audit</NAME>`) now includes `<VERSION>`, `<STARTUP_OPTIONS>`, `<OS_VERSION>`, and `<MYSQL_VERSION>`
 * Message events use `<MAP>` (containing `<ELEMENT>` children each with a `<KEY>` and `<VALUE>`) instead of `<MESSAGE_ATTRIBUTES>`; message events also include `<USER>`, `<OS_LOGIN>`, `<HOST>`, `<IP>`, `<STATUS>`, and `<STATUS_CODE>`
 * The `<COMMAND_CLASS>` values now use the same command-name mapping as upstream MySQL Enterprise Audit (for example `create_table`, `set_option`)
@@ -23,8 +24,9 @@ The Audit Log Filter component can write the audit log file as new-style XML
 The root element is `<AUDIT>`. It contains `<AUDIT_RECORD>` elements. Each
 `<AUDIT_RECORD>` describes one audited event.
 
-Element order inside `<AUDIT_RECORD>` is not guaranteed (the writer may
-emit fields in a fixed order in practice, but consumers should not depend on it).
+The formatter writes elements in the same order as the legacy audit plugin
+output. Consumers should still parse records by element name rather than
+position.
 
 Timestamps use the server local time zone, in `YYYY-MM-DDTHH:MM:SS`
 form. They do not append a ` UTC` suffix to the timestamp string.

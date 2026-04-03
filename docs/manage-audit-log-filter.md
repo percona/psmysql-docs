@@ -13,7 +13,7 @@ If automatic rotation is enabled, you can prune the log file. This pruning opera
 
 The default setting for [`audit_log_filter.rotate_on_size`](audit-log-filter-variables.md#audit_log_filterrotate_on_size) is 1GB. If this option is set to `0`, the audit log filter component does not do an automatic rotation of the log file. You must do the rotation manually with this setting.
 
-The `SELECT audit_log_rotate()` command renames the file and creates a new audit log filter file with the original name. You must have the `AUDIT_ADMIN` privilege. Starting from Percona Server for MySQL 8.4.9-9, when multiple rotations happen within the same second, the rotated file names include a sequence number suffix (for example, `audit_filter.20250401T120000-1.log`) to prevent overwriting previously rotated files.
+The `SELECT audit_log_rotate()` command renames the file and creates a new audit log filter file with the original name. You must have the `AUDIT_ADMIN` privilege. Starting from Percona Server for MySQL 8.4.9-9, rotation requests complete immediately in `ASYNCHRONOUS` and `PERFORMANCE` modes instead of waiting for the background flush thread. When multiple rotations happen within the same second, the rotated file names include a sequence number suffix (for example, `audit_filter.20250401T120000-1.log`) to prevent overwriting previously rotated files.
 
 The files are pruned if either `audit_log_filter.max_size` or `audit_log_filter.prune_seconds` have a value greater than 0 (zero) and `audit_log_filter.rotate_on_size` > 0.
 
