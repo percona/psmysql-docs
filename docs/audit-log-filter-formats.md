@@ -2,7 +2,7 @@
 
 When an auditable event occurs, the component writes a record to the log file.
 
-After the component starts, the first record marks audit logging start. With `audit_log_filter.format=NEW`, from Percona Server for MySQL 8.4.8-8 onward on the {{vers}} line (this docs build: {{release}}), that record’s `<NAME>` is `Startup` and the record includes `SERVER_ID` and `COMMAND_CLASS` (among the mandatory elements). Later records cover connections, disconnections, SQL statements executed, and so on. Statements within stored procedures or triggers are not logged, only the top-level statements. See [XML (new style)](audit-log-filter-new.md) for the full field list.
+After the component starts, the first record lists the description of the server and the options at startup. After the first record, the auditable events are connections, disconnections, SQL statements executed, and so on. Statements within stored procedures or triggers are not logged, only the top-level statements.
 
 If files are referenced by `LOAD_DATA`, the contents are not logged.
 
