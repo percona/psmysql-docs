@@ -7,10 +7,6 @@ The audit filter log filtering is based on rules. The filter rule definition has
 * Audit event subclass
 * Audit event fields (for example, `COMMAND_CLASS` or `STATUS`)
 
-From Percona Server for MySQL 8.4.8-8: The NEW XML formatter (`audit_log_filter.format=NEW`) behavior described here—including which `<NAME>` strings and child elements appear in each `<AUDIT_RECORD>`—was verified for that release on the {{vers}} line. This documentation build is {{release}}. If your server predates 8.4.8-8, or you use a build whose audit code differs, compare against a real log from your server.
-
-When you inspect new-style XML logs for that line of releases, expect values such as `Startup`, `Shutdown`, `Disconnect`, `Query Start`, `Query Status End`, and `Connection` as the `COMMAND_CLASS` on connect and disconnect. For the full field list per event type, see [XML (new style)](audit-log-filter-new.md).
-
 You can define multiple filters and assign any filter to multiple accounts. You can also create a default filter for specific user accounts. The filters are defined using function calls. After the filter is defined, the filter is stored in `mysql` system tables. 
 
 ## Audit Log Filter functions
@@ -43,7 +39,7 @@ The `component_audit_log_filter` component must be enabled and the audit tables 
 
 *Introduced in Percona Server for MySQL 8.4.9-9.*
 
-The [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode) variable controls which event classes and subclasses are processed. In `REDUCED` mode (the default), only a curated subset of events is available for filtering. In `FULL` mode, all event classes and subclasses are available.
+The [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode) variable controls which event classes and subclasses are processed. In `REDUCED` mode (the default), only a curated subset of events is available for filtering. In `FULL` mode, all event classes and subclasses are available. Before Percona Server for MySQL 8.4.9-9 all events were always written (equivalent to `FULL`).
 
 In REDUCED mode, `audit_log_filter_set_filter()` rejects new filter definitions that reference disabled event classes or subclasses. Persisted filters created under FULL mode that reference disabled classes still load after a restart or flush — the disabled classes are silently skipped with a warning.
 
