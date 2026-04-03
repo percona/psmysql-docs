@@ -1,215 +1,211 @@
 # Filter the Audit Log Filter logs
 
-The audit filter log filtering is based on rules. The filter rule definition has the ability to include or exclude events based on the following attributes:
+Rule-based filtering includes or excludes events using these attributes:
 
 * User account
 * Audit event class
 * Audit event subclass
 * Audit event fields (for example, `COMMAND_CLASS` or `STATUS`)
 
-You can define multiple filters and assign any filter to multiple accounts. You can also create a default filter for specific user accounts. The filters are defined using function calls. After the filter is defined, the filter is stored in `mysql` system tables. 
+Which classes and subclasses you can target depends on [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode). Validated names appear in [Audit Log Filter definition fields](audit-log-filter-definition-fields.md).
+
+Define multiple filters and assign any filter to multiple accounts, or register a default filter for accounts without a specific row. You define filters through SQL function calls.
+
+After you define a filter, the server persists it in `mysql` system tables.
 
 ## Audit Log Filter functions
 
-The Audit Log filter functions require `AUDIT_ADMIN` or `SUPER` privilege. 
+The six management UDFs in the following table — `audit_log_filter_flush()`, `audit_log_filter_set_filter()`, `audit_log_filter_remove_filter()`, `audit_log_filter_set_user()`, `audit_log_filter_remove_user()`, and [`audit_log_rotate()`](audit-log-filter-variables.md#audit_log_rotate) — require the `AUDIT_ADMIN` privilege.
 
-The following functions are used for rule-based filtering:
+The reader UDFs ([`audit_log_read()`](audit-log-filter-variables.md#audit_log_read), [`audit_log_read_bookmark()`](audit-log-filter-variables.md#audit_log_read_bookmark)), the session-id helper ([`audit_log_session_filter_id()`](audit-log-filter-variables.md#audit_log_session_filter_id)), and the keyring helpers ([`audit_log_encryption_password_get()`](audit-log-filter-variables.md#audit_log_encryption_password_getkeyring_id), [`audit_log_encryption_password_set()`](audit-log-filter-variables.md#audit_log_encryption_password_setnew_password)) do not require `AUDIT_ADMIN`. The keyring helpers require an initialized keyring component or plugin.
+
+These functions drive rule-based filtering:
 
 | Function | Description | Example |
 |---|---|---|
-| audit_log_filter_flush() | Manually flush the filter tables | `SELECT audit_log_filter_flush()`
-| audit_log_filter_set_filter() | Defines a filter | `SELECT audit_log_filter_set_filter('log_connections','{ "filter":{}}'`')
-| audit_log_filter_remove_filter() | Removes a filter |
-| audit_log_filter_set_user() | Assigns a filter to a specific user account |
-| audit_log_filter_remove_user() | Removes the filters from a specific user account |
+| audit_log_filter_flush() | Flush filter tables and reload definitions into the component | `SELECT audit_log_filter_flush();` |
+| audit_log_filter_set_filter() | Create or replace a named filter | `SELECT audit_log_filter_set_filter('log_connections', '{ "filter": {} }');` |
+| audit_log_filter_remove_filter() | Drop a named filter | `SELECT audit_log_filter_remove_filter('filter-name');` |
+| audit_log_filter_set_user() | Bind a filter to a user account | `SELECT audit_log_filter_set_user('user-name@localhost', 'filter-name');` |
+| audit_log_filter_remove_user() | Clear filter bindings for a user account | `SELECT audit_log_filter_remove_user('user-name@localhost');` |
 
-Using a SQL interface, you can define, display, or modify audit log filters. The filters are stored in the `mysql` system database.
+Through SQL, you define, inspect, and change audit log filters; definitions live in the `mysql` system database.
 
-The [`audit_log_session_filter_id()`](audit-log-filter-variables.md#audit_log_session_filter_id) function returns the internal ID of the audit log filter in the current session.
+[`audit_log_session_filter_id()`](audit-log-filter-variables.md#audit_log_session_filter_id) returns the active audit log filter ID for the current session.
 
-Filter definitions are `JSON` values.
+Filter definitions are JSON values.
 
-The function, `audit_log_filter_flush()`, forces reloading all filters and should only be invoked when modifying the audit tables. Starting from Percona Server for MySQL 8.4.9-9, after a flush, existing sessions are detached from their filters and stop logging until they reconnect or execute `CHANGE_USER`, at which point the filter is re-resolved from the reloaded registry.
+Reloading rules from tables, persistence after `audit_log_filter_set_filter()`, and post-flush session behavior are covered under [`audit_log_filter_flush()`](audit-log-filter-variables.md#audit_log_filter_flush) and [Persistence and refreshing](audit-log-filter-variables.md#persistence-and-refreshing) in [Audit log filter functions, options, and variables](audit-log-filter-variables.md).
+
+## Filter modification lifecycle
+
+The following diagram shows how filter changes persist, reload into the component, and reach sessions, including when [`audit_log_filter_flush()`](audit-log-filter-variables.md#audit_log_filter_flush) runs.
+
+![Audit Log Filter modification lifecycle](_static/audit-log-filter-modification-lifecycle.png)
 
 ## Constraints
 
-The `component_audit_log_filter` component must be enabled and the audit tables must exist to use the audit log filter functions. The user account must have the required privileges. 
-
-## Event mode
-
-*Introduced in Percona Server for MySQL 8.4.9-9.*
-
-The [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode) variable controls which event classes and subclasses are processed. In `REDUCED` mode (the default), only a curated subset of events is available for filtering. In `FULL` mode, all event classes and subclasses are available. Before Percona Server for MySQL 8.4.9-9 all events were always written (equivalent to `FULL`).
-
-In REDUCED mode, `audit_log_filter_set_filter()` rejects new filter definitions that reference disabled event classes or subclasses. Persisted filters created under FULL mode that reference disabled classes still load after a restart or flush — the disabled classes are silently skipped with a warning.
+Enable the `component_audit_log_filter` component and ensure audit tables exist before calling audit log filter functions. The account must hold the required privileges.
 
 ## Filter definition validation
 
 *Introduced in Percona Server for MySQL 8.4.9-9.*
 
-Filter definitions are validated at parse time. The following are rejected with a descriptive error:
+The server validates filter definitions at parse time and rejects invalid input with a clear error:
 
 * Unknown field names (e.g., `"WRONG.str"`)
-* Invalid class names or event subclass names
+
+* Invalid class or event subclass names
+
 * Empty arrays (e.g., `"class": []`)
-* Unknown JSON keys
-* `print` rules referencing invalid fields for one of the classes in a multi-class array
 
-An empty filter object `{}` is equivalent to `{"filter": {"log": true}}` and logs all events. If you want a filter that logs nothing, use `{"filter": {"log": false}}`.
+* Unknown JSON keys (e.g., `"classes"` instead of `"class"`, `"events"` instead of `"event"`, `"names"` instead of `"name"`, `"logs"` instead of `"log"`)
 
-Parse event subclass names must use `preparse` and `postparse`.
+* `print` rules that reference invalid fields for any class in a multi-class array
+
+* Mismatched field types (e.g., negative values for unsigned fields, integers where only strings are allowed)
+
+An empty filter object `{}` is equivalent to `{"filter": {"log": true}}` and logs every event. To log nothing, use `{"filter": {"log": false}}`.
+
+#### Behavior before 8.4.9-9
+
+Before 8.4.9-9, the parser silently ignored unknown keys. Misspelling a structural key caused the parser to skip that entire subtree and fall back to the default. For example, the filter `{"filter": {"classes": [...]}}` (note `classes` instead of `class`) was parsed as `{"filter": {}}`, which logs every event. No error was returned, and the filter appeared to succeed. The same applied to `events` instead of `event`, `names` instead of `name`, and `logs` instead of `log`. Upgrade to 8.4.9-9 or later to catch these mistakes at parse time.
+
+Parse-phase subclass names must use `preparse` and `postparse`.
+
+[`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode) controls which classes new definitions may use; filters saved under `FULL` can still load under `REDUCED` with some classes skipped (see that variable).
 
 ## Using the audit log filter functions
 
-With a new connection, the audit log filter component finds the user account name in the filter assignments. If a filter has been assigned, the component uses that filter. If no filter has been assigned, but there is a default account filter, the component uses that filter. If there is no filter assigned, and there is no default account filter, then the component does not process any event.
+### Assignment vs rules inside the JSON
 
-The default account is represented by `%` as the account name.
+Two mechanisms apply, in order:
 
-You can assign filters to a specific user account or disassociate a user account from a filter. To disassociate a user account, either unassign a filter or assign a different filter. Starting from Percona Server for MySQL 8.4.9-9, when you call `audit_log_filter_set_user()`, existing sessions keep their original filter until they reconnect or execute `CHANGE_USER`; only new connections pick up the new mapping. If you remove a filter with `audit_log_filter_remove_filter()`, only sessions using that filter are detached; sessions using other filters continue logging normally.
+1. Assignment (`mysql.audit_log_user`) — Each session uses one named filter from the `USER` and `HOST` columns (the same `user_name`@`host_name` form you pass to [`audit_log_filter_set_user()`](audit-log-filter-variables.md#audit_log_filter_set_useruser_name-filter_name)). The server loads that filter’s JSON from `mysql.audit_log_filter`. Assignments do not merge: a session never evaluates two separate filter definitions at once.
+
+2. Rules inside the assigned JSON — `log` conditions on a class or event block narrow which events match within the already-selected filter. Conditions compare event fields (such as `user.str`, `host.str`, `table_database.str`, `table_name.str`, `status`) with `field` items, and combine them with `and` / `or` / `not`. They are not a second user- or host-level assignment row. For example, bind one filter to `'app'@'%'` and still include a `log` condition under a `connection` rule so only connection events from chosen client hosts are logged.
+
+See [Test event field values](write-filter-definitions.md#test-event-field-values) and [Combine conditions with logical operators](write-filter-definitions.md#combine-conditions-with-logical-operators) for the grammar used in rule-level conditions.
+
+### Which `audit_log_user` row applies
+
+On connect, the component selects a row in `mysql.audit_log_user` whose `USER` and `HOST` match the session account. Literal `user`@`host` pairs match when they equal the session identity. Starting in Percona Server for MySQL 8.4.4, wildcard characters (`%` and `_`) are allowed in the host portion of the assignment string (see [`audit_log_filter_set_user()`](audit-log-filter-variables.md#audit_log_filter_set_useruser_name-filter_name)); pattern matching matches the behavior when you create the row through that function.
+
+Keep assignments non-overlapping when you use wildcards. If several rows could match one connection, precedence is not specified here—prefer explicit literal `user`@`host` rows (or one clear pattern plus a `'%'` default) and confirm behavior on a test server.
+
+With no matching row, the component uses the default assignment: the account registered with `audit_log_filter_set_user()` using `%` as the user name (see [`audit_log_filter_set_user()`](audit-log-filter-variables.md#audit_log_filter_set_useruser_name-filter_name)).
+
+If neither a matching row nor a default exists, the component skips event processing for that connection.
+
+A specific account row overrides the default: if both `admin`@`localhost` and `%` have filters, `admin` from `localhost` uses the `admin`@`localhost` filter, not the default.
+
+You can bind filters to named accounts or remove those bindings.
+
+To clear a binding, unassign the filter or assign a different one. How sessions refresh when assignments change is described under [`audit_log_filter_set_user()`](audit-log-filter-variables.md#audit_log_filter_set_useruser_name-filter_name) and [`audit_log_filter_remove_filter()`](audit-log-filter-variables.md#audit_log_filter_remove_filterfilter_name).
 
 ## set_filter options and available filters
 
-| Filter           | Available options                                                                 |
-|------------------|-----------------------------------------------------------------------------------|
-| class Filter     | `general`: Logs general server events                                             |
-|                  | `connection`: Tracks connection-related activities                                |
-|                  | `table_access`: Monitors database table interactions                              |
-|                  | `global_variable`: Global variable changes (requires `event_mode=FULL`). |
-|                  | `command`: Server commands (requires `event_mode=FULL`). |
-|                  | `query`: Query events (requires `event_mode=FULL`). |
-|                  | `stored_program`: Stored program events (requires `event_mode=FULL`). |
-|                  | `authentication`: Authentication events (requires `event_mode=FULL`). |
-|                  | `message`: Audit message events. |
-|                  | `parse`: Parse events with subclasses `preparse` and `postparse` (requires `event_mode=FULL`). |
-| user Filter      | Accepts specific usernames as filter criteria                                     |
-|                  | Can include multiple usernames                                                   |
-|                  | Supports wildcard matching                                                       |
-| database Filter  | Filters events by database name                                                  |
-|                  | Accepts exact database names                                                     |
-|                  | Supports wildcard matching for database selection                                |
-| table Filter     | Specifies individual table names                                                 |
-|                  | Allows filtering for specific tables within databases                            |
-|                  | Supports wildcard matching                                                       |
-| operation Filter | `read`: SELECT statements                                                       |
-|                  | `write`: INSERT, UPDATE, DELETE statements                                       |
-|                  | `ddl`: Data Definition Language operations                                       |
-|                  | `dcl`: Data Control Language operations                                          |
-| event Filter     | `status`: Tracks query execution status                                          |
-|                  | `query`: Captures query details                                                  |
-|                  | `connection`: Monitors connection events                                         |
-| status Filter    | `0`: Successful operations                                                      |
-|                  | `1`: Failed operations                                                          |
+JSON layout (`filter`, `class`, nested rules, examples) is in [Write audit_log_filter definitions](write-filter-definitions.md). The authoritative list of class names, event subclass names, and per-class field names that `audit_log_filter_set_filter()` accepts appears in [Audit Log Filter definition fields](audit-log-filter-definition-fields.md). This section lists the keys that may appear at each level of a filter definition.
 
-!!! note "Filter definition"
-    Starting from Percona Server for MySQL 8.4.9-9, integer event fields (such as `error_code`, `connection_id`, `connection_type`) accept both integer and string values. For example, you can use `"value": 0` or `"value": "0"`. The `connection_type` field also accepts symbolic constants (`::undefined`, `::tcp/ip`, `::socket`, `::named_pipe`, `::ssl`, `::shared_memory`).
+### Filter-level keys
+
+| Key | Role |
+|---|---|
+| `log`   | Boolean global default. `true` enables logging everywhere not turned off by a more specific rule; `false` requires per-class/per-event `log` overrides to write anything. |
+| `class` | One class block or an array of class blocks. Each block sets `"name"` to an event class (`general`, `connection`, `table_access`, `message`; plus `global_variable`, `command`, `query`, `stored_program`, `authentication`, `parse` when `event_mode=FULL`). |
+| `id`    | Optional filter identifier. Referenced by `activate` / `ref` when one filter swaps itself for another mid-session (see [Replace a filter dynamically](write-filter-definitions.md#replace-a-filter-dynamically)). |
+
+### Class-block keys
+
+| Key | Role |
+|---|---|
+| `name`  | The class name. Use one of the values listed in the preceding section. |
+| `log`   | Optional. Boolean, or a condition that narrows matches by event-field values. |
+| `event` | Optional. One event block or an array. Each block names one subclass and can carry its own `log`, `abort`, `print`, or nested `filter`. Subclasses depend on the class. For `table_access`: `read`, `insert`, `update`, `delete`. For `connection`: `connect`, `disconnect`, `change_user`, plus `pre_authenticate` in `FULL`. See the [event and subclass table](write-filter-definitions.md#list-of-event-and-subclass-options) and [definition fields](audit-log-filter-definition-fields.md). |
+| `print` | Optional. Field-replacement rule. The component limits replacement to four class/field pairs (`general`/`general_query.str`, `table_access`/`query.str`, `query`/`query.str`, `parse`/`query.str`) with the `query_digest` function. See [Redact audit log fields](redact-audit-log-fields.md). |
+
+### Event-block keys
+
+| Key | Role |
+|---|---|
+| `name`   | Subclass name. May be a string (one subclass) or an array (several). |
+| `log`    | Optional. Boolean, or a condition over event fields. |
+| `abort`  | Optional. Boolean or condition that blocks execution of matching statements — see [Block statements with an audit log filter](block-statements-with-audit-filter.md). |
+| `print`  | Optional. Field-replacement rule scoped to this event — see [Redact audit log fields](redact-audit-log-fields.md). |
+| `filter` | Optional. Nested subfilter used with `activate` / `ref` for dynamic filter swapping — see [Replace a filter dynamically](write-filter-definitions.md#replace-a-filter-dynamically). |
+
+### Conditions
+
+`log` and `abort` accept a Boolean (`true` / `false`) or a condition built from these items:
+
+| Item | Role |
+|---|---|
+| `field`    | `{ "name": "<event-field>", "value": <value> }`. Compares an event field such as `user.str`, `host.str`, `table_database.str`, `table_name.str`, `status`, `general_command.str`, or `general_sql_command.str`. Per-class fields are listed in [Audit Log Filter definition fields](audit-log-filter-definition-fields.md). |
+| `variable` | `{ "name": "<server-variable>", "value": <value> }`. Compares a predefined variable such as `audit_log_connection_policy_value`. |
+| `function` | `{ "name": "<function>", "args": [...] }`. Calls a built-in. The Percona implementation supports two functions: `string_find` and `query_digest` — see [Reference predefined functions](write-filter-definitions.md#reference-predefined-functions). |
+| `and`      | Array of sub-conditions; all must be true. |
+| `or`       | Array of sub-conditions; at least one must be true. |
+| `not`      | A single sub-condition; true when the inner evaluates to false. |
+
+Field-value typing (JSON numbers for integer fields such as `status`, strings for `*.str` fields, and `"::tcp/ip"`-style symbolic constants for `connection_type`) is covered under [`audit_log_filter_set_filter()`](audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and in the [`connection`](audit-log-filter-definition-fields.md#connection) section of [Audit Log Filter definition fields](audit-log-filter-definition-fields.md).
 
 ### Examples
 
-Create simple filters
+Start from a single-class filter that logs every `connection` event the component sees:
 
 ```sql
-SELECT audit_log_filter_set_filter('log_general', '{
-  "filter": {
-    "class": {
-      "name": "general"
-    }
-  }
-}');
-
 SELECT audit_log_filter_set_filter('log_connection', '{
   "filter": {
-    "class": {
-      "name": "connection"
-    }
-  }
-}');
-
-SELECT audit_log_filter_set_filter('log_table_access', '{
-  "filter": {
-    "class": {
-      "name": "table_access"
-    }
-  }
-}');
-
-SELECT audit_log_filter_set_filter('log_global_variable', '{
-  "filter": {
-    "class": {
-      "name": "global_variable"
-    }
-  }
-}');
-
-SELECT audit_log_filter_set_filter('log_command', '{
-  "filter": {
-    "class": {
-      "name": "command"
-    }
-  }
-}');
-
-SELECT audit_log_filter_set_filter('log_query', '{
-  "filter": {
-    "class": {
-      "name": "query"
-    }
-  }
-}');
-
-SELECT audit_log_filter_set_filter('log_stored_program', '{
-  "filter": {
-    "class": {
-      "name": "stored_program"
-    }
-  }
-}');
-
-SELECT audit_log_filter_set_filter('log_authentication', '{
-  "filter": {
-    "class": {
-      "name": "authentication"
-    }
-  }
-}');
-
-SELECT audit_log_filter_set_filter('log_message', '{
-  "filter": {
-    "class": {
-      "name": "message"
-    }
+    "class": { "name": "connection" }
   }
 }');
 ```
 
-Add filter_update_on_user_change.
+Narrow to a single subclass by nesting `event` inside the class block (not as a sibling of `class`):
 
 ```sql
-SELECT audit_log_filter_set_filter('log_connect', '{
+SELECT audit_log_filter_set_filter('log_connect_only', '{
   "filter": {
-    "class": { "name": "connection" },
-    "event": { "name": "connect" }
-  }
-}');
-
-SELECT audit_log_filter_set_filter('log_disconnect', '{
-  "filter": {
-    "class": { "name": "connection" },
-    "event": { "name": "disconnect" }
+    "class": {
+      "name": "connection",
+      "event": { "name": "connect" }
+    }
   }
 }');
 ```
 
-| Option      | Filters                                      | Example                        | Event                                     |
-|-------------|---------------------------------------------|--------------------------------|-------------------------------------------|
-| class       | general, connection, table_access           | N/A                            | General: Server-wide events, query processing<br>connection: Login, logout, connection attempts<br>table_access: Database and table-level interactions |
-| user        | Filters by MySQL user accounts              | ["admin", "readonly_user"]     | All actions performed by specified users |
-| database    | Filters by database name                    | ["sales", "inventory"]         | Operations within specified databases     |
-| table       | Filters by table name                       | ["customers", "orders"]        | Interactions with specific tables         |
-| operation   | For table_access: read, insert, update, delete<br>For connection: connect, disconnect | N/A                            | Specific types of database operations     |
-| status      | 0: Successful queries<br>1: Failed queries   | N/A                            | Query execution result filtering          |
-| thread_id   | Filters by specific MySQL thread identifiers | ["12345", "67890"]             | Actions within a particular database thread |
-| query_time  | Filters based on query execution duration   | N/A                            | Long-running or quick queries             |
+Narrow further by adding a `log` condition that tests event fields — here, log `connect` events from only two accounts, originating from one host:
 
-!!! note "Filter definition"
-    Starting from Percona Server for MySQL 8.4.9-9, integer event fields (such as `error_code`, `connection_id`, `connection_type`) accept both integer and string values. For example, you can use `"value": 0` or `"value": "0"` for numeric fields. The `connection_type` field also accepts symbolic constants.
+```sql
+SELECT audit_log_filter_set_filter('log_admin_connect', '{
+  "filter": {
+    "class": {
+      "name": "connection",
+      "event": {
+        "name": "connect",
+        "log": {
+          "and": [
+            { "field": { "name": "user.str", "value": ["admin", "developer"] } },
+            { "field": { "name": "host.str", "value": "10.0.0.5" } }
+          ]
+        }
+      }
+    }
+  }
+}');
+```
 
+For full authoring detail, see:
+
+* [Write audit_log_filter definitions](write-filter-definitions.md) — inclusive and exclusive patterns, conditions, and the complete grammar
+* [Audit Log Filter definition fields](audit-log-filter-definition-fields.md) — canonical class, event, and field names validation accepts
+* [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode) — `REDUCED` versus `FULL` class sets
+
+## Additional reading
+
+* [Write audit_log_filter definitions](write-filter-definitions.md)
+* [Audit Log Filter definition fields](audit-log-filter-definition-fields.md)
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md)
+* [Audit Log Filter overview](audit-log-filter-overview.md)
+* [Audit Log Filter quickstart](audit-log-filter-quickstart.md)
+* [Audit Log Filter restrictions](audit-log-filter-restrictions.md)

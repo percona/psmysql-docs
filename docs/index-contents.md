@@ -201,5 +201,6 @@
 - [Variables in stored procedures, functions, and triggers](stored-procedure-variables.md)
 - [Verify the encryption for tables, tablespaces, and schemas](verify-encryption.md)
 - [Views](views.md)
-- [Write audit_log_filter definitons](write-filter-definitions.md)
+- [Write audit_log_filter definitions](write-filter-definitions.md)
+- [Audit Log Filter definition fields](audit-log-filter-definition-fields.md)
 - [XtraDB performance improvements for I/O-bound highly-concurrent workloads](xtradb-performance-improvements.md)

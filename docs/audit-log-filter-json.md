@@ -1,19 +1,60 @@
 # Audit Log Filter format - JSON and JSONL
 
-Both the JSON and JSONL formats write audit events as JSON objects with the same set of key-value pairs. Some pairs are listed in every audit record. The audit record type determines if other key-value pairs are listed. The order of the pairs within an audit record is not guaranteed. The value description may be truncated.
+JSON and JSONL emit the same key-value pairs per event. Required keys appear in every record; optional keys depend on event type and settings. Key order is not guaranteed; long values may be truncated.
 
-The two formats differ only in file-level structure:
+Only file layout differs:
 
 | Format | File structure | Set with |
 |---|---|---|
 | JSON | One top-level JSON array. Each event is a pretty-printed JSON object spanning multiple lines. | `audit_log_filter.format=JSON` |
-| JSONL | One top-level JSON array (the file is still valid JSON). Each event is a single compact JSON object on its own line. | `audit_log_filter.format=JSONL` |
+| JSONL | One top-level JSON array. Each event is a single compact JSON object on its own line, separated by commas. | `audit_log_filter.format=JSONL` |
 
-The JSONL format was introduced in Percona Server for MySQL 8.4.9-9. Unlike the strict [JSON Lines](https://jsonlines.org/) specification, the Percona JSONL format retains the wrapping JSON array and trailing commas, so the output file is valid JSON and can be parsed by any JSON parser. The one-event-per-line layout still makes it easy to process with line-oriented tools (`grep`, `jq`, `wc -l`), streaming pipelines, and log aggregation systems. Encryption and compression work with JSONL just as they do with JSON. `audit_log_read()` and `audit_log_read_bookmark()` support both formats.
+JSONL arrived in Percona Server for MySQL 8.4.9-9. Unlike plain [JSON Lines](https://jsonlines.org/), Percona JSONL keeps a wrapping JSON array and commas between lines, so the file stays valid JSON while remaining line-friendly for `grep`, `jq`, `wc -l`, streams, and aggregators.
 
-Percona Server for MySQL 8.4.9-9 introduces the following changes to the JSON and JSONL formats: the startup event now includes `event`, `connection_id`, `account`, `login`, and a `startup_data` object containing `server_id`, `os_version`, `mysql_version`, and `args` (previously only `server_id` was present at the top level). Shutdown events now also include `connection_id`, `account`, and `login` fields. The lifecycle `event` value changed from the internal names `audit`/`noaudit` to `startup`/`shutdown`. The `connection_data` object now nests `connection_attributes` on connection events. The `message_attributes` key is replaced by `map`, and message events also include `account` and `login` fields.
+Compression and encryption behave like JSON. `audit_log_read()` and `audit_log_read_bookmark()` read both formats.
 
-Certain statistics, such as query time and size, are only available in the JSON and JSONL formats and help detect activity outliers when analyzed.
+JSON and JSONL alone expose some statistics (for example query timing and size)—use them to flag outliers in workload analysis.
+
+## Version changes
+
+### Percona Server for MySQL 8.4.9-9
+
+* Component startup and shutdown events include `event`, `connection_id`, `account`, `login`, and a `startup_data` object. The `startup_data` object holds `server_id`, `os_version`, `mysql_version`, and `args` (command-line arguments). Earlier releases exposed only `server_id` at the top level for those records.
+
+* Lifecycle `event` values changed from the internal names `audit` / `noaudit` to `startup` / `shutdown`.
+
+* On connection events, `connection_attributes` are nested inside the `connection_data` object.
+
+* Message events: the `message_attributes` key is replaced by `map`; message events also include `account` and `login`.
+
+## Attributes
+
+Field sets match between JSON and JSONL; only wrapping differs. See the preceding table for details.
+
+Every event object includes at least:
+
+* `timestamp`
+* `id`
+* `class`
+* `event`
+
+Other common keys:
+
+| Name | Description |
+|---|---|
+| `account` | Database account for the event |
+| `connection_data` | Client connection details. From 8.4.9-9, `connection_attributes` nest here on connection events. |
+| `connection_id` | Client connection ID |
+| `general_data` | Statement or command when `class` is `general` |
+| `id` | Event ID |
+| `login` | How the client attached to the server |
+| `map` | 8.4.9-9+ Message payload (replaces `message_attributes`). Message events also carry `account` and `login`. |
+| `query_statistics` | Optional metrics for outlier detection |
+| `shutdown_data` | Component shutdown |
+| `startup_data` | Component startup; from 8.4.9-9 includes `server_id`, `os_version`, `mysql_version`, `args` |
+| `table_access_data` | Table access details |
+| `time` | UNIX timestamp (integer) when present |
+| `timestamp` | UTC time `YYYY-MM-DD hh:mm:ss` |
 
 ## JSON example
 
@@ -100,7 +141,7 @@ The following shows four event types recorded in `REDUCED` event mode: startup, 
 
 ## JSONL example
 
-In the JSONL format each event is a single compact JSON object on its own line. The file is still wrapped in a JSON array, so it remains valid JSON. The same events from the JSON example above look like this:
+In the JSONL format each event is a single compact JSON object on its own line, separated by commas inside a wrapping JSON array. The same events from the preceding JSON example look like this:
 
 ```json
 [
@@ -111,34 +152,11 @@ In the JSONL format each event is a single compact JSON object on its own line. 
 ]
 ```
 
-## Attributes
+## Additional reading
 
-The order of the attributes within the JSON object can vary. Certain attributes are in every element. Other attributes are optional and depend on the type of event and the filter settings or component settings.
-
-The following fields are contained in each object:
-
-* `timestamp`
-* `id`
-* `class`
-* `event`
-
-The possible attributes in a JSON object are the following:
-
-| Name | Description |
-|---|---|
-| `class` | Defines the type of event |
-| `account` | Defines the MySQL account associated with the event. |
-| `connection_data` | Defines the client connection. Starting from Percona Server for MySQL 8.4.9-9, on connection events, `connection_attributes` are nested inside this object. |
-| `connection_id` | Defines the client connection identifier |
-| `event` | Defines a subclass of the `event` class |
-| `general_data` | Defines the executed statement or command when the audit record has a class value of `general`. |
-| `id` | Defines the event ID |
-| `login` | Defines how the client connected to the server |
-| `map` | Introduced in Percona Server for MySQL 8.4.9-9. Contains message event payload data (replaces the former `message_attributes` key). Message events also include `account` and `login` fields. |
-| `query_statistics` | Defines optional query statistics and is used for outlier detection |
-| `shutdown_data` | Defines the audit log filter termination |
-| `startup_data` | Defines the initialization of the audit log filter component. Starting from Percona Server for MySQL 8.4.9-9, contains `server_id`, `os_version`, `mysql_version`, and `args` (an array of command-line arguments). |
-| `table_access_data` | Defines access to a table |
-| `time` | Defines an integer that represents a UNIX timestamp |
-| `timestamp` | Defines a UTC value in the `YYYY-MM-DD hh:mm:ss` format |
-
+* [Audit Log Filter file format overview](audit-log-filter-formats.md)
+* [Audit Log Filter format - XML (new style)](audit-log-filter-new.md)
+* [Reading Audit Log Filter files](reading-audit-log-filter-files.md)
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md) — `audit_log_read()`, `audit_log_read_bookmark()`, format options
+* [Audit Log Filter compression and encryption](audit-log-filter-compression-encryption.md)
+* [Manage the Audit Log Filter files](manage-audit-log-filter.md)

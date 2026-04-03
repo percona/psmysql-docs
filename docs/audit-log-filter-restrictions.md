@@ -2,40 +2,43 @@
 
 ## General restrictions
 
-The Audit Log Filter has the following general restrictions:
+### Event coverage
 
-* Log only SQL statements. Statements made by NoSQL APIs, such as the 
-  Memcached API, are not logged.
+* The component logs SQL statements only—not NoSQL APIs such as the Memcached interface.
 
-* Log only the top-level statement. Statements within a stored procedure 
-  or a trigger are not logged. Do not log the file contents for statements 
-  like `LOAD_DATA`.
+* Event coverage follows [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode). In `REDUCED` mode, stored programs log the outer `CALL`, not each statement inside the body. The component never logs file contents referenced by statements such as `LOAD DATA`.
 
-* Require the component to be installed on each server used to execute SQL 
-  on the cluster if used with a cluster.
+* Set `audit_log_filter.event_mode` in `my.cnf` and restart the server. Changing the value on a running server creates a window where in-flight events are evaluated inconsistently, in either direction between `REDUCED` and `FULL`. Audit output during the switch cannot be reconciled after the fact. If a restart is not possible, follow the `SET GLOBAL` change with [`audit_log_filter_flush()`](audit-log-filter-variables.md#audit_log_filter_flush) inside a maintenance window to narrow the window. For details, see [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode).
 
-* Hold the application or user responsible for aggregating all the data from 
-  each server used in the cluster if used with a cluster.
+### Cluster and replication
 
-* Each server must have its own audit log filter rules. If you do not set up the rules on the replica server, that server does not record the corresponding entries in the audit log. This design requires that the audit log configuration be performed separately for each server.
+* On a cluster, install Audit Log Filter on every node that runs SQL.
 
-  As by default the content of the `mysql.audit_log_filter` and `mysql.audit_log_user` tables may be replicated from source to replica and may affect audit log rules created on the replica, it is recommended to configure replication in such a way that the changes in these tables are simply ignored.
+* Aggregate audit data from every node yourself—the component does not centralize it.
 
-  Please notice that just changing the content of these tables (via replication channel) is not enough to automatically make changes to in-memory data structures in the `audit_log_filter` component that store information about active audit log filtering rules. However, this may happen after component reloading / server restart or manually calling `audit_log_filter_flush()`.
+* Maintain a separate rule set per server. An uninitialized replica writes no audit rows for rules it lacks. Configure replication so you do not blindly overwrite replica-local filter tables with source changes unless that is intended.
 
-* Starting from Percona Server for MySQL 8.4.9-9, integer event fields (such as `error_code`, `connection_id`, `connection_type`) can be filtered using their native types. Filter rules accept both integer and string values for numeric fields. For example, you can use `"value": 0` or `"value": "0"` for `general_error_code.value`. The `connection_type` field accepts integer values 0–5 or symbolic constants (`::undefined`, `::tcp/ip`, `::socket`, `::named_pipe`, `::ssl`, `::shared_memory`). Negative values for unsigned fields and integer values for string-only fields produce a parse error.
+    By default, replication can replicate `mysql.audit_log_filter` and `mysql.audit_log_user` from source to replica. Use replication filters or channels to exclude those tables when replicas should keep local rules.
 
-## Synchronizing audit log filters between source and replica
+    Replicated table rows alone do not refresh in-memory filter state. Restart, reload the component, or run `audit_log_filter_flush()` to apply table changes to the running component.
 
-You can keep audit log filter definitions in sync between a source and a replica by replicating the filter tables and periodically calling `audit_log_filter_flush()` on the replica. That reloads the filter tables and makes the replicated changes effective on the replica.
+### Filter validation
 
-### Procedure: MySQL event to flush filters on the replica
+* Starting in Percona Server for MySQL 8.4.9-9, numeric fields in rules may use integer or string forms, and `connection_type` accepts symbolic constants—see [`audit_log_filter_set_filter()`](audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and [Audit Log Filter definition fields](audit-log-filter-definition-fields.md).
 
-1. Install MySQL on the source with the audit log filter component.
+* Before 8.4.9-9, the parser silently ignored unknown JSON keys. Misspelling a structural key (for example `classes` instead of `class`, `events` instead of `event`, `names` instead of `name`, `logs` instead of `log`) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.9-9 or later to catch these mistakes at parse time.
 
-2. Create a replica from a source backup.
+## Synchronizing audit log filters between a source and a replica
 
-3. Create a MySQL event on the replica that runs every minute:
+Replicate the filter tables and run `audit_log_filter_flush()` on the replica so replicated rows take effect in the component. Post-flush session behavior is documented under [`audit_log_filter_flush()`](audit-log-filter-variables.md#audit_log_filter_flush).
+
+### Procedure: scheduled event to flush filters on the replica
+
+1. Install Percona Server for MySQL on the source with Audit Log Filter.
+
+2. Clone a replica from a source backup.
+
+3. On the replica, create a one-minute event:
 
        ```sql
        USE mysql;
@@ -46,16 +49,25 @@ You can keep audit log filter definitions in sync between a source and a replica
              SELECT audit_log_filter_flush();
        ```
 
-    This event runs `audit_log_filter_flush()` every minute on the replica, so replicated changes to the filter tables become effective shortly after they are applied.
+    The event applies replicated filter changes shortly after replication commits them. For session details after flush (8.4.9-9+), see [`audit_log_filter_flush()`](audit-log-filter-variables.md#audit_log_filter_flush).
 
-4. Create a filter on the source and assign the filter to a user using the usual filter functions or by modifying the filter tables and calling `audit_log_filter_flush()` on the source.
+4. On the source, define a filter, assign it to users (UDFs or direct table edits), and call `audit_log_filter_flush()` on the source when needed.
 
-5. After a minute, check that the filter is available on the replica. Run some queries on the replica as that user and confirm that the expected messages appear in the audit log file. 
+5. After a minute, confirm the replica sees the filter; run queries as that user and verify the audit file.
 
-If the filter is not yet visible or the audit log does not show the expected entries, wait for the next event run (within a minute) or run `SELECT audit_log_filter_flush();` on the replica to refresh the filter tables immediately; also confirm that replication has applied the changes to the filter tables and that the event is enabled. If the filter or expected log entries still do not appear, the cause may be a problem in replication between source and replica; troubleshooting replication may help.
+If nothing appears, wait for the next event tick or run `SELECT audit_log_filter_flush();` on the replica immediately; confirm replication applied the rows and the event is `ENABLED`. Persistent gaps usually mean a replication issue—investigate the replica’s replication health.
 
-Another possible scenario is that the source and replica are set up and replication is working, but the audit log component is not installed on either the source or the replica. In that case, install the audit log component on both the source and the replica separately.
+If the component is missing on either host, install it on source and replica independently.
 
 ### Limitation
 
-If a user modifies the filter tables directly on the source (for example, with `INSERT`, `UPDATE`, or `DELETE`) but does not run `audit_log_filter_flush()` on the source, the table changes will be replicated to the replica and the event will run `audit_log_filter_flush()` there, so the filters become effective on the replica. The filters will then work correctly on the replica but will not be effective on the source until `audit_log_filter_flush()` is run on the source.
+Direct `INSERT`/`UPDATE`/`DELETE` on the source without `audit_log_filter_flush()` there still replicate to the replica; the scheduled event flushes on the replica, so replica filters update while the source in-memory state stays stale until someone flushes there.
+
+## Additional reading
+
+* [Audit Log Filter overview](audit-log-filter-overview.md)
+* [Filter the Audit Log Filter logs](filter-audit-log-filter-files.md)
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md) — `audit_log_filter_flush()`
+* [Install the audit log filter](install-audit-log-filter.md)
+* [Upgrade Percona Server for MySQL](upgrade.md)
+* [Binlogging and replication improvements](binlogging-replication-improvements.md)

@@ -1,40 +1,36 @@
 # Audit Log Filter format - XML (new style)
 
-Percona Server for MySQL 8.4.9-9 introduces the following changes to the NEW XML formatter:
+Percona Server for MySQL 8.4.9-9 tightens the NEW XML formatter:
 
-* Record IDs (`<RECORD_ID>`) are 1-based instead of 0-based
-* Empty field values use self-closing XML tags (`<OS_LOGIN/>`) instead of empty tag pairs (`<OS_LOGIN></OS_LOGIN>`)
-* Indentation uses 1 space per nesting level instead of 2 spaces
-* The startup record (`<NAME>Audit</NAME>`) now includes `<VERSION>`, `<STARTUP_OPTIONS>`, `<OS_VERSION>`, and `<MYSQL_VERSION>`
-* Message events use `<MAP>` (containing `<ELEMENT>` children each with a `<KEY>` and `<VALUE>`) instead of `<MESSAGE_ATTRIBUTES>`; message events also include `<USER>`, `<OS_LOGIN>`, `<HOST>`, `<IP>`, `<STATUS>`, and `<STATUS_CODE>`
-* The `<COMMAND_CLASS>` values now use the same command-name mapping as upstream MySQL Enterprise Audit (for example `create_table`, `set_option`)
-* The new [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode) variable controls which events appear:
+* 1-based `<RECORD_ID>` values (not 0-based)
 
-    * `REDUCED` (default) — emits only the most relevant record per action
-    * `FULL` — adds lifecycle events: `Command Start`/`Command End`, `Query Start`/`Query Status End`, `Preparse`/`Postparse`, `Pre Authenticate`, stored-program `Execute`, `Variable Get`/`Variable Set`, and authentication subclass events (`Auth Credential Change`, `Auth Authid Rename`, `Auth Authid Drop`, `Auth Flush`)
+* Self-closing empty tags (`<OS_LOGIN/>`), not empty pairs
 
-    Before Percona Server for MySQL 8.4.9-9 all events were always written (equivalent to `FULL`).
+* Single-space indent per level (was two)
 
-If you run an older {{vers}} build than 8.4.9-9, verify against your own audit log in case output differs. Implementation reference: `components/audit_log_filter/log_record_formatter/new.cc` and `base.cc`.
+* Stable element order for easier parsers and upgrades
 
-The Audit Log Filter component can write the audit log file as new-style XML
-(`audit_log_filter.format=NEW`). The file uses UTF-8.
+* Richer startup (`<NAME>Audit</NAME>`): adds `<VERSION>`, `<STARTUP_OPTIONS>`, `<OS_VERSION>`, `<MYSQL_VERSION>`
 
-The root element is `<AUDIT>`. It contains `<AUDIT_RECORD>` elements. Each
-`<AUDIT_RECORD>` describes one audited event.
+* Message events: `<MAP>` / `<ELEMENT>` / `<KEY>` / `<VALUE>` replace `<MESSAGE_ATTRIBUTES>`; records also carry `<USER>`, `<OS_LOGIN>`, `<HOST>`, `<IP>`, `<STATUS>`, `<STATUS_CODE>`
 
-Element order inside `<AUDIT_RECORD>` is not guaranteed (the writer may
-emit fields in a fixed order in practice, but consumers should not depend on it).
+* Consistent `<COMMAND_CLASS>` spellings (for example `create_table`, `set_option`)
 
-Timestamps use the server local time zone, in `YYYY-MM-DDTHH:MM:SS`
-form. They do not append a ` UTC` suffix to the timestamp string.
+* [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode) decides which events appear: `REDUCED` (default) keeps core classes; `FULL` adds lifecycle-heavy record types (see that page for lists and pre-8.4.9-9 behavior).
+
+On builds before 8.4.9-9, spot-check your own logs—output may differ. Code reference: `components/audit_log_filter/log_record_formatter/new.cc`, `base.cc`.
+
+With `audit_log_filter.format=NEW`, the component writes UTF-8 XML.
+
+Root `<AUDIT>` wraps `<AUDIT_RECORD>` elements—one event each.
+
+Element order matches the legacy audit plugin style; parse by name, not column position.
+
+Timestamps use the server local zone in `YYYY-MM-DDTHH:MM:SS` form without a ` UTC` suffix.
 
 ## Example — REDUCED mode (default)
 
-With `audit_log_filter.event_mode=REDUCED` (the default), the component
-emits only the most relevant record per action. The snippet below shows
-several record types. Exact sets of elements depend on filters and server
-configuration.
+With `audit_log_filter.event_mode=REDUCED` (default), the formatter emits the primary record per action. The following sample mixes record types. Actual fields depend on filters and configuration.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -184,10 +180,7 @@ configuration.
 
 ## Example — FULL mode (additional events)
 
-With `audit_log_filter.event_mode=FULL`, the component emits lifecycle
-events that bracket each action. Below are the additional event types
-produced in FULL mode. They appear alongside the records shown in the
-REDUCED example above.
+With `audit_log_filter.event_mode=FULL`, the formatter adds lifecycle records that wrap each action. The following fragment supplements the REDUCED example.
 
 ```xml
  <!-- Pre-authentication (before credentials are verified) -->
@@ -363,65 +356,33 @@ REDUCED example above.
 
 ## Record descriptions
 
-Query events use `<NAME>Query</NAME>` and include `<STATUS>`,
-`<STATUS_CODE>`, `<CONNECTION_ID>`, `<COMMAND_CLASS>` (SQL command name
-from the event), and often `<SQLTEXT>`. They also include `<HOST>`,
-`<IP>`, `<USER>`, and `<OS_LOGIN>`.
+Query (`<NAME>Query</NAME>`): carries `<STATUS>`, `<STATUS_CODE>`, `<CONNECTION_ID>`, `<COMMAND_CLASS>` (SQL command), usually `<SQLTEXT>`, plus `<HOST>`, `<IP>`, `<USER>`, `<OS_LOGIN>`.
 
-Table-access events (`TableRead`, `TableInsert`, `TableUpdate`,
-`TableDelete`) include `<DB>`, `<TABLE>`, `<COMMAND_CLASS>`, `<SQLTEXT>`,
-`<HOST>`, `<IP>`, `<USER>`, and `<OS_LOGIN>`. They do not include
-`<STATUS>` or `<STATUS_CODE>`.
+Table access (`TableRead`, `TableInsert`, `TableUpdate`, `TableDelete`): `<DB>`, `<TABLE>`, `<COMMAND_CLASS>`, `<SQLTEXT>`, `<HOST>`, `<IP>`, `<USER>`, `<OS_LOGIN>`—no `<STATUS>` / `<STATUS_CODE>`.
 
-Connection events (`Connect`, `Quit`) use `<COMMAND_CLASS>` with the value
-`connect` and include `<CONNECTION_TYPE>`. `Connect` records additionally
-carry `<PRIV_USER>`, `<PROXY_USER>`, and `<DB>`.
+Connection (`Connect`, `Quit`): `<COMMAND_CLASS>` = `connect`, `<CONNECTION_TYPE>`; `Connect` adds `<PRIV_USER>`, `<PROXY_USER>`, `<DB>`.
 
-If the client supplies connection attributes and the event carries them,
-`CONNECTION_ATTRIBUTES` holds one `ATTRIBUTE` per attribute, each with a
-`NAME` and `VALUE` child element.
+With client connection attributes, `CONNECTION_ATTRIBUTES` lists one `ATTRIBUTE` (`NAME`, `VALUE`) each.
 
-`Command Start` / `Command End` (FULL mode only) bracket every client
-command (`Query`, `Ping`, `Quit`). Their `<COMMAND_CLASS>` holds the
-`COM_*` command text (for example `Query`, `Ping`, `Quit`). They include
-`<STATUS>` and `<CONNECTION_ID>` but not `<HOST>`, `<IP>`, `<USER>`, or
-`<OS_LOGIN>`.
+Command Start / Command End (FULL): wrap each client command (`Query`, `Ping`, `Quit`); `<COMMAND_CLASS>` holds the COM name; include `<STATUS>`, `<CONNECTION_ID>`—omit host/user/IP context.
 
-`Query Start` / `Query Status End` and their nested variants
-`Query Nested Start` / `Query Nested Status End` (FULL mode only) bracket
-a single SQL statement execution. They carry `<STATUS>`,
-`<CONNECTION_ID>`, `<COMMAND_CLASS>`, and `<SQLTEXT>` but not `<HOST>`,
-`<IP>`, `<USER>`, or `<OS_LOGIN>`.
+Query Start / Query Status End and Query Nested Start / Query Nested Status End (FULL): bracket one SQL execution; carry `<STATUS>`, `<CONNECTION_ID>`, `<COMMAND_CLASS>`, `<SQLTEXT>`—omit host/user/IP.
 
-`Preparse` / `Postparse` (FULL mode only) fire before and after SQL
-parsing. They carry `<COMMAND_CLASS>` set to `Parse`, `<FLAGS>`,
-`<SQLTEXT>`, and `<REWRITTEN_QUERY>`.
+Preparse / Postparse (FULL): before/after parse; `<COMMAND_CLASS>` = `Parse`, plus `<FLAGS>`, `<SQLTEXT>`, `<REWRITTEN_QUERY>`.
 
-`Execute` (FULL mode only) fires when a stored program is invoked. It
-carries `<COMMAND_CLASS>` set to `Stored Program`, `<DB>`, and
-`<STORED_PROGRAM>`.
+Execute (FULL): stored-program call; `<COMMAND_CLASS>` = `Stored Program`, `<DB>`, `<STORED_PROGRAM>`.
 
-`Variable Get` / `Variable Set` (FULL mode only) fire on global variable
-reads and writes. They carry `<COMMAND_CLASS>`, `<VARIABLE_NAME>`, and
-`<VARIABLE_VALUE>`.
+Variable Get / Variable Set (FULL): global variable access; `<COMMAND_CLASS>`, `<VARIABLE_NAME>`, `<VARIABLE_VALUE>`.
 
-Authentication subclass events (FULL mode only) include
-`Pre Authenticate`, `Auth Credential Change`, `Auth Authid Rename`,
-`Auth Authid Drop`, and `Auth Flush`. They use `<COMMAND_CLASS>` set to
-`Authentication` (or `connect` for `Pre Authenticate`) and include
-`<STATUS>`, `<USER>`, and `<HOST>`.
+Authentication subclasses (FULL): `Pre Authenticate`, `Auth Credential Change`, `Auth Authid Rename`, `Auth Authid Drop`, `Auth Flush`; `<COMMAND_CLASS>` is `Authentication` (or `connect` for pre-auth); include `<STATUS>`, `<USER>`, `<HOST>`.
 
-Empty field values use self-closing XML tags (`<TAG/>`) instead of empty
-tag pairs (`<TAG></TAG>`). Fields affected include `USER`, `OS_LOGIN`,
-`HOST`, `IP`, `COMMAND_CLASS`, `PRIV_USER`, `PROXY_USER`, and `DB`.
+Empty values use self-closing tags (`<TAG/>`) for `USER`, `OS_LOGIN`, `HOST`, `IP`, `COMMAND_CLASS`, `PRIV_USER`, `PROXY_USER`, `DB`.
 
-Record IDs (`<RECORD_ID>`) are 1-based. The indentation uses 1 space per
-nesting level: `<AUDIT_RECORD>` is indented by 1 space, child elements
-by 2, nested children by 3, and deepest elements by 4.
+`<RECORD_ID>` starts at 1. Indent one space per nesting level under `<AUDIT>` (records at 1 space, children +1, and so on).
 
 ## Mandatory elements
 
-These appear on every `<AUDIT_RECORD>` in this format:
+The following elements appear on every `<AUDIT_RECORD>` in the NEW XML format:
 
 | Element | Description |
 | --- | --- |
@@ -432,14 +393,14 @@ These appear on every `<AUDIT_RECORD>` in this format:
 ## Optional elements (by record category)
 
 Many elements appear only for specific event classes. The following table lists
-elements used by the NEW XML formatter from Percona Server for MySQL 8.4.9-9 onward for at least one
-event type. It is not a promise that every field appears in every record.
+elements that the NEW XML formatter (Percona Server for MySQL 8.4.9-9 onward) uses for at least one
+event type. The table does not promise that every field appears in every record.
 
 | Element | Description |
 | --- | --- |
 | `<COMMAND_CLASS>` | Meaning depends on the record: connection events (`Connect`, `Quit`) use `connect`; table-access and query events use the SQL command name (for example `select`, `insert`, `create_table`, `set_option`); message events use the message type (`internal`, `user`); command lifecycle events use the COM name (`Query`, `Ping`, `Quit`); parse events use `Parse`; stored-program events use `Stored Program`; authentication events use `Authentication`. Empty (`<COMMAND_CLASS/>`) on `Ping` records. |
 | `<CONNECTION_ID>` | Client connection ID. |
-| `<CONNECTION_ATTRIBUTES>` | Nested `ATTRIBUTE` elements, each with `NAME` and `VALUE`. Omitted if there are no attributes. |
+| `<CONNECTION_ATTRIBUTES>` | Nested `ATTRIBUTE` elements, each with `NAME` and `VALUE`. Omitted when the record carries no attributes. |
 | `<CONNECTION_TYPE>` | Connection security / transport (for example `TCP/IP`, `SSL`, `Socket`). |
 | `<STATUS>` | Status code (`0` for success, non-zero for failure). Present on `Query`, `Connect`, `Quit`, `Ping`, `Message`, and authentication records. Also on `Command Start`/`End`, `Query Start`/`Status End` in FULL mode. Not present on table-access records. |
 | `<STATUS_CODE>` | High-level status (`0` for success, `1` for failure). Present alongside `<STATUS>` on `Query`, `Connect`, `Quit`, `Ping`, and `Message` records. |
@@ -458,6 +419,14 @@ event type. It is not a promise that every field appears in every record.
 | `<FLAGS>`, `<REWRITTEN_QUERY>` | Parse events (`Preparse`, `Postparse`). `<SQLTEXT>` also appears. FULL mode only. |
 | `<COMPONENT>`, `<PRODUCER>`, `<MESSAGE>`, `<MAP>` | Message events. `<MAP>` contains `<ELEMENT>` children, each with a `<KEY>` and `<VALUE>`. Message events also include `<USER>`, `<OS_LOGIN>`, `<HOST>`, `<IP>`, `<STATUS>`, and `<STATUS_CODE>` fields. |
 
-Characters such as `<`, `>`, `&`, and `"` in element text are XML-escaped by
-the component. Very long values may be truncated according to server-side
-limits.
+The component XML-escapes characters such as `<`, `>`, `&`, and `"` in element text.
+Server-side limits may truncate very long values.
+
+## Additional reading
+
+* [Audit Log Filter file format overview](audit-log-filter-formats.md)
+* [Audit Log Filter format - XML (old style)](audit-log-filter-old.md)
+* [Audit Log Filter format - JSON and JSONL](audit-log-filter-json.md)
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md) — `audit_log_filter.event_mode`, `audit_log_filter.format`
+* [Reading Audit Log Filter files](reading-audit-log-filter-files.md)
+* [Audit Log Filter overview](audit-log-filter-overview.md)
