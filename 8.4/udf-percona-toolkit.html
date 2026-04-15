@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="These Percona Toolkit user-defined functions (UDFs) offer faster checksum calculations compared to standard methods:">
+        <meta name="description" content="The Percona Toolkit component adds user-defined functions (UDFs) that provide fast 64-bit hashing. These UDFs are primarily about speed and data integrity. They are implemented in C++ to perform the hashing operations much faster than standard SQL or stored procedures. With datasets often in the multi-terabyte range, they address several critical scenarios.">
       
       
         <meta name="author" content="Percona LLC">
@@ -28,7 +28,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
     
     
       
@@ -2294,10 +2294,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#other-information" class="md-nav__link">
+  <a href="#why-use-these-functions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Other information
+        Why use these functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-provided" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions provided
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-comparison-fnv-vs-murmur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical comparison: FNV vs Murmur
       
     </span>
   </a>
@@ -2316,10 +2338,43 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintenance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
         Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
       
     </span>
   </a>
@@ -9827,10 +9882,32 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#other-information" class="md-nav__link">
+  <a href="#why-use-these-functions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Other information
+        Why use these functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-provided" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions provided
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-comparison-fnv-vs-murmur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical comparison: FNV vs Murmur
       
     </span>
   </a>
@@ -9849,10 +9926,43 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintenance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
         Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
       
     </span>
   </a>
@@ -9901,44 +10011,222 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="percona-toolkit-udfs">Percona Toolkit UDFs<a class="headerlink" href="#percona-toolkit-udfs" title="Permanent link">&para;</a></h1>
-<p>These Percona Toolkit user-defined functions (UDFs) offer faster checksum calculations compared to standard methods:</p>
-<ul>
-<li>
-<p><code>libfnv1a_udf</code></p>
-</li>
-<li>
-<p><code>libfnv_udf</code></p>
-</li>
-<li>
-<p><code>libmurmur_udf</code></p>
-</li>
-</ul>
-<h2 id="other-information">Other information<a class="headerlink" href="#other-information" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Author/Origin: Baron Schwartz</li>
-</ul>
+<p>The Percona Toolkit component adds user-defined functions (UDFs) that provide fast 64-bit hashing. These UDFs are primarily about speed and data integrity. They are implemented in C++ to perform the hashing operations much faster than standard SQL or stored procedures. With datasets often in the multi-terabyte range, they address several critical scenarios.</p>
+<div class="admonition note">
+<p class="admonition-title">Prerequisites</p>
+<p>Before using these functions, add the Percona Repository and install the component.</p>
+</div>
+<h2 id="why-use-these-functions">Why use these functions<a class="headerlink" href="#why-use-these-functions" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Use case</th>
+<th>Context</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High-speed data checksums (pt-table-checksum)</td>
+<td><code>pt-table-checksum</code> must hash every row to verify replicas. MySQL&rsquo;s built-in <code>MD5()</code> or <code>SHA1()</code> is CPU-intensive and slow for billions of rows.</td>
+<td>When you install <code>fnv_64</code> or <code>murmur_hash</code>, the checksum process becomes significantly faster; <code>pt-table-checksum</code> can finish in hours instead of days.</td>
+</tr>
+<tr>
+<td>Efficient data sharding and partitioning</td>
+<td>When you shard data across multiple servers, you need a consistent way to map a key (for example, a user ID) to a specific shard. A common pattern is <code>murmur_hash(user_id) % 10</code> to distribute data across 10 shards.</td>
+<td>MurmurHash has a low collision rate and uniform distribution, so shards stay balanced and one server does not become a hotspot.</td>
+</tr>
+<tr>
+<td>Change Data Capture (CDC) and auditing</td>
+<td>When you sync data to an external warehouse (for example, Snowflake or BigQuery) without a full binary log parser, you can store a hash of each row in a <code>row_hash</code> column and recompute on the next sync to detect changed rows.</td>
+<td><code>fnv_64</code> is very lightweight, so you can run this in an <code>INSERT</code> or <code>UPDATE</code> trigger with negligible impact on transaction latency.</td>
+</tr>
+<tr>
+<td>Fast lookups for large string columns</td>
+<td>For tables with very long strings (for example, URLs or JSON) that you need to index or check for uniqueness, indexing the full string is inefficient.</td>
+<td>Index <code>fnv_64(string)</code> instead; you get a 64-bit integer index that is smaller, uses the buffer pool efficiently, and supports fast equality lookups.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions-provided">Functions provided<a class="headerlink" href="#functions-provided" title="Permanent link">&para;</a></h2>
+<p>The component registers these functions (one load registers all of them):</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fnv_64()</code></td>
+<td>64-bit FNV hash. Simple, fast.</td>
+</tr>
+<tr>
+<td><code>fnv1a_64()</code></td>
+<td>64-bit FNV-1a variant. Often better distribution than FNV on sequential input.</td>
+</tr>
+<tr>
+<td><code>murmur_hash()</code></td>
+<td>64-bit MurmurHash. Strong avalanche; good for fewer collisions on diverse data.</td>
+</tr>
+</tbody>
+</table>
+<p>Each function takes a string or numeric value and returns an unsigned 64-bit integer.</p>
+<h2 id="technical-comparison-fnv-vs-murmur">Technical comparison: FNV vs Murmur<a class="headerlink" href="#technical-comparison-fnv-vs-murmur" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th><code>fnv_64</code> / <code>fnv1a_64</code></th>
+<th><code>murmur_hash()</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Speed</td>
+<td>Very fast; minimal operations per byte.</td>
+<td>Very fast; often comparable or slightly better on long strings.</td>
+</tr>
+<tr>
+<td>Collision behavior</td>
+<td>Good for general use. FNV can cluster more on sequential or similar inputs; FNV-1a usually improves that.</td>
+<td>Better distribution and avalanche (small input change → large output change). Prefer for large datasets or when collision rate matters.</td>
+</tr>
+<tr>
+<td>When to use</td>
+<td>General-purpose hashing, simple checksums, shard keys when collision risk is low.</td>
+<td>Distributed systems, large tables, or when you need the lowest practical collision rate.</td>
+</tr>
+</tbody>
+</table>
+<p>Benchmark with your own data and workload when you choose; performance depends on key length, data patterns, and hardware.</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<p>Once the installation is complete, execute the following command to install these functions:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="ss">&quot;INSTALL COMPONENT &#39;file://component_percona_udf&#39;&quot;</span>
+<p>The UDFs are shipped as a MySQL component (not as separate plugin files). After you install the Percona Server package, load the component. Full repository and package steps are in <a href="apt-repo.html#install-percona-toolkit-udfs-optional">Install Percona Toolkit UDFs (Optional)</a>. Then run:</p>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_percona_udf&#39;</span><span class="p">;</span>
 </code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+</code></pre></div>
+</details>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>Hash a single value (for example, for a lookup key or checksum):</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">fnv_64</span><span class="p">(</span><span class="s1">&#39;test_string&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">murmur_hash</span><span class="p">(</span><span class="mi">12345</span><span class="p">);</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----------------------+
+| fnv_64(&#39;test_string&#39;) |
++----------------------+
+|   13528473474361592478 |
++----------------------+
+
++-------------------+
+| murmur_hash(12345) |
++-------------------+
+|  12345678901234567 |
++-------------------+
+</code></pre></div>
+</details>
+<p>Use in queries—for example, to derive a shard or partition key from <code>user_id</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">murmur_hash</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">shard_key</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+---------+-------------------+
+| user_id | shard_key         |
++---------+-------------------+
+|       1 | 12345678901234567 |
+|       2 | 98765432109876543 |
+|       3 | 55555555555555555 |
++---------+-------------------+
+</code></pre></div>
+</details>
+<p>Checksum a column to compare two tables (same expression on both sides gives the same result when data matches):</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">murmur_hash</span><span class="p">(</span><span class="n">col1</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">checksum</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">replica_db</span><span class="p">.</span><span class="n">my_table</span><span class="p">;</span>
+<span class="c1">-- Compare with the same expression on the source table.</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+---------------------+
+| checksum            |
++---------------------+
+| 1234567890123456789 |
++---------------------+
+</code></pre></div>
+</details>
+<p>Use in <code>WHERE</code> or joins when you need a stable numeric fingerprint:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">murmur_hash</span><span class="p">(</span><span class="n">device_id</span><span class="p">)</span><span class="w"> </span><span class="k">MOD</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----+-----------+---------------------+
+| id | device_id | created_at          |
++----+-----------+---------------------+
+|  2 | dev_abc   | 2024-01-15 10:30:00 |
+|  5 | dev_xyz   | 2024-01-15 11:00:00 |
++----+-----------+---------------------+
+</code></pre></div>
+</details>
+<h2 id="maintenance">Maintenance<a class="headerlink" href="#maintenance" title="Permanent link">&para;</a></h2>
+<h3 id="verify-the-component-is-loaded">Verify the component is loaded<a class="headerlink" href="#verify-the-component-is-loaded" title="Permanent link">&para;</a></h3>
+<p>Check that the component is registered:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;file://component_percona_udf&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----------------+------------------------------------------+
+| component_id   | component_urn                            |
++----------------+------------------------------------------+
+|              1 | file://component_percona_udf             |
++----------------+------------------------------------------+
+</code></pre></div>
+</details>
+<p>A single row means the component is installed and will load on restart. You can also confirm the functions exist by invoking one:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">fnv_64</span><span class="p">(</span><span class="s1">&#39;check&#39;</span><span class="p">);</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----------------+
+| fnv_64(&#39;check&#39;) |
++----------------+
+| 123456789012345 |
++----------------+
+</code></pre></div>
+</details>
+<p>If the component is not loaded, you get an error such as “Unknown function &lsquo;fnv_64&rsquo;”.</p>
+<h3 id="uninstall-the-component">Uninstall the component<a class="headerlink" href="#uninstall-the-component" title="Permanent link">&para;</a></h3>
+<p>To remove the UDFs, uninstall the component. Any views, stored procedures, or triggers that call these functions will become invalid after uninstall.</p>
+<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_percona_udf&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+<p>You need the <code>DELETE</code> privilege on the <code>mysql.component</code> system table. See <a href="uninstall-component.html">UNINSTALL COMPONENT</a> for details.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<p>If the <code>INSTALL COMPONENT</code> command fails, try these steps:</p>
+<p>If <code>INSTALL COMPONENT</code> fails:</p>
+<ul>
+<li>Check the error message for details.</li>
+<li>Verify the component path <code>'file://component_percona_udf'</code> is correct and that the component library exists in the directory given by <code>SELECT @@plugin_dir;</code>.</li>
+<li>Ensure you have the required privileges (for example, <code>INSERT</code> on <code>mysql.component</code> for install, <code>DELETE</code> for uninstall).</li>
+</ul>
+<p>For further help, see <a href="https://www.percona.com/services/support">Percona Support <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p>Check the error message for clues about what went wrong.</p>
+<p><a href="post-installation.html">Post-installation</a> — If you installed the server or the UDF component from a package, configure and secure the server next.</p>
 </li>
 <li>
-<p>Verify the component path <code>'file://component_percona_udf'</code>
-  is correct and accessible.</p>
+<p><a href="percona-toolkit-8.4-updates.html">Percona Toolkit updates for 8.4</a> — If you use other Percona Toolkit tools (for example, <code>pt-replica-find</code>), see version-specific updates and terminology changes.</p>
 </li>
 <li>
-<p>Ensure you have the necessary permissions to install
-  components in MySQL.</p>
+<p><a href="upgrade-components.html">Upgrade from plugins to components</a> — If you are migrating from the old UDF plugin to the component, see the upgrade path.</p>
 </li>
 </ul>
-<p>If you&rsquo;re still facing issues, consider reaching out to
-  <a href="https://www.percona.com/services/support">Percona Support <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
-  for further assistance.</p>
 <h2 id="other-reading">Other reading<a class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Percona Toolkit <a href="https://docs.percona.com/percona-toolkit/">documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
@@ -9965,7 +10253,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 12:49:59 UTC">February 3, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2026 11:47:58 UTC">April 15, 2026</span>
   </span>
 
     
