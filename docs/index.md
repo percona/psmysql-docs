@@ -8,7 +8,7 @@ Percona Server for MySQL is a freely available, fully compatible, enhanced, and 
 
 Thousands of enterprises trust Percona Server for MySQL to provide better performance and concurrency for their most demanding workloads.
 
-## ![Percona](_static/percona-favicon.ico) New to Percona?
+## New to Percona?
 
 Start here to choose your installation path.
 
