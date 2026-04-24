@@ -1,34 +1,34 @@
 # Audit log plugin
 
-<!-- Clarify whether the audit log plugin is valid for 9.7-->
-
 !!! note "Deprecation notice"
 
-    The audit log plugin is deprecated in Percona Server for MySQL 8.4 and will be removed in a future release. This deprecation is due to the availability of the [audit log filter component](audit-log-filter-overview.md), which is the recommended replacement. Users should migrate to this component, which provides equivalent functionality with enhanced flexibility, performance, and filtering capabilities, ensuring continued support for auditing and compliance requirements.
+    The audit log plugin is deprecated as of Percona Server for MySQL 8.4 and will be removed in a future release. The [audit log filter component](audit-log-filter-overview.md) is the recommended replacement. Migrate to the component for equivalent functionality with improved flexibility, performance, and filtering capabilities.
 
-    This deprecation affects all installations that rely on the audit log plugin for event logging, compliance auditing, or activity tracking. The plugin will continue to function, but no further development or maintenance is planned.
+    For a step-by-step mapping of `audit_log_*` system variables, `audit_log_policy`, and include/exclude lists to filter JSON and component variables, see [Migrate to the audit log filter component](migrate-to-audit-log-filter-component.md).
+
+    The deprecation affects all installations that rely on the audit log plugin for event logging, compliance auditing, or activity tracking. The plugin continues to function, but Percona plans no further development or maintenance.
 
     The audit log plugin and the audit log filter component use different configuration variables and options.
-    
-    * Do not attempt to use audit log filter variables, options, or configuration syntax with the deprecated audit log plugin. Doing so can lead to startup failures, unexpected behavior, or data loss.
 
-    * Do not install both audit log plugin and audit log filter component simultaneously.
+    * Do not use audit log filter variables, options, or configuration syntax with the deprecated audit log plugin. Mixing the two can cause startup failures, unexpected behavior, or data loss.
 
-    The audit‑log entries may look different from the 8.0 entries. The audit log plugin itself has not changed, but other server components have, and those changes affect the log output. For example, 8.4 logs a `SELECT $$` statement each time a client connects because the client now supports “dollar‑quoted” strings. This feature did not exist in 8.0.
+    * Do not install the audit log plugin and the audit log filter component at the same time.
 
-    Percona does not plan to modify 8.4 audit logs to match the format or content of 8.0 logs.
+    Audit log entries may look different from earlier 8.0 entries. The audit log plugin itself has not changed, but other server components have, and those changes affect the log output. For example, current releases log a `SELECT $$` statement each time a client connects, because the client now supports "dollar-quoted" strings. This feature did not exist in 8.0.
 
-Percona Audit Log Plugin provides monitoring and logging of connection and query activity that were performed on specific server. Information about the activity is stored in a log file. 
+    Percona does not plan to modify current audit logs to match the format or content of 8.0 logs.
+
+The Percona Audit Log Plugin monitors and logs connection and query activity on a specific server. The plugin stores the activity information in a log file.
 
 ## Install the plugin
 
-The audit Log plugin is installed, but, by default, is not enabled when you install Percona Server for MySQL. To check if the plugin is enabled run the following command. This command searches for plugins with names containing the word "audit" in the `information_schema.PLUGINS` table. 
+The Audit Log plugin ships with Percona Server for MySQL but is not enabled by default. To check whether the plugin is enabled, run the following statement. The query searches for plugins with names that contain the word "audit" in the `information_schema.PLUGINS` table.
 
 ```sql
 SELECT * FROM information_schema.PLUGINS WHERE PLUGIN_NAME LIKE '%audit%';
 ```
 
-The empty result suggests that no such plugins are installed or loaded.
+An empty result indicates that no such plugins are installed or loaded.
 
 ??? example "Expected output"
 
@@ -36,13 +36,13 @@ The empty result suggests that no such plugins are installed or loaded.
     Empty set (0.00 sec)
     ```
 
-This command checks for system variables whose names start with "audit." 
+The following statement checks for system variables whose names start with `audit`:
 
 ```sql
 SHOW variables LIKE 'audit%';
 ```
 
-The empty result means that no such system variables exist or are currently defined.
+An empty result means that no matching system variables exist or are currently defined.
 
 ??? example "Expected output"
 
@@ -50,7 +50,7 @@ The empty result means that no such system variables exist or are currently defi
     Empty set (0.01 sec)
     ```
 
-This command lists system variables with names starting with "plugin." As seen in the example output, it displays the `plugin_dir` variable, which specifies the directory path where MySQL plugins are stored.
+The following statement lists system variables whose names start with `plugin`. The example output shows the `plugin_dir` variable, which specifies the directory path where MySQL plugins are stored.
 
 ```sql
 SHOW variables LIKE 'plugin%';
@@ -69,15 +69,15 @@ SHOW variables LIKE 'plugin%';
 
 !!! note
 
-    The location of the MySQL plugin directory depends on the operating system and may be different on your system.
+    The location of the MySQL plugin directory depends on the operating system and may differ on your system.
 
-The following command enables the plugin:
+The following statement enables the plugin:
 
 ```sql
 INSTALL PLUGIN audit_log SONAME 'audit_log.so';
 ```
 
-Run the following command to verify if the plugin was installed correctly:
+Run the following statement to verify that the plugin installed correctly:
 
 ```sql
 SELECT * FROM information_schema.PLUGINS WHERE PLUGIN_NAME LIKE '%audit%'\G
@@ -101,7 +101,7 @@ SELECT * FROM information_schema.PLUGINS WHERE PLUGIN_NAME LIKE '%audit%'\G
     1 row in set (0.00 sec)
     ```
 
-You can review the audit log variables with the following command:
+Review the audit log variables with the following statement:
 
 ```sql
 SHOW variables LIKE 'audit%';
@@ -119,7 +119,7 @@ SHOW variables LIKE 'audit%';
     | audit_log_exclude_databases |               |
     | audit_log_file              | audit.log     |
     | audit_log_flush             | OFF           |
-    | audit_log_format            | OLD           |
+    | audit_log_format            | NEW           |
     | audit_log_handler           | FILE          |
     | audit_log_include_accounts  |               |
     | audit_log_include_commands  |               |
@@ -137,30 +137,11 @@ SHOW variables LIKE 'audit%';
 
 ## Log format
 
-The plugin supports the following log formats: `OLD`, `NEW`, `JSON`, and `CSV`. The `OLD` format and the `NEW` format are based on XML. The `OLD` format defines each log record with XML attributes. The `NEW` format defines each log record with XML tags. The information logged is the same for all four formats. The audit_log_format variable controls the log format choice.
+The plugin supports the following log formats: `NEW`, `JSON`, and `CSV`. The `NEW` format is based on XML and defines each log record with XML tags. The information logged is the same for all three formats. The `audit_log_format` variable controls the format choice.
 
 ### Format examples
 
 The following formats are available:
-
-=== "Old log format"
-
-    ```{.text .no-copy}
-    <AUDIT_RECORD
-    NAME="Query"
-    RECORD="3_2021-06-30T11:56:53"
-    TIMESTAMP="2021-06-30T11:57:14 UTC"
-    COMMAND_CLASS="select"
-    CONNECTION_ID="3"
-    STATUS="0"
-    SQLTEXT="select * from information_schema.PLUGINS where PLUGIN_NAME like '%audit%'"
-    USER="root[root] @ localhost []"
-    HOST="localhost"
-    OS_USER=""
-    IP=""
-    DB=""
-    />
-    ```
 
 === "New log format"
 
@@ -195,12 +176,12 @@ The following formats are available:
 
 ## Audit log events
 
-The audit Log plugin generates a log of following events.
+The Audit Log plugin generates log records for the following events.
 
 
-=== "Audit" 
+=== "Audit"
 
-    Audit event indicates that audit logging started or finished. `NAME` field will be `Audit` when logging started and `NoAudit` when logging finished. Audit record also includes server version and command-line arguments.
+    An `Audit` event indicates that audit logging started or finished. The `NAME` field contains `Audit` when logging started and `NoAudit` when logging finished. The audit record also includes the server version and command-line arguments.
 
         ??? example "Audit event"
 
@@ -217,9 +198,9 @@ The audit Log plugin generates a log of following events.
 
 === "Connect or Disconnect"
 
-    Connect record event will have `NAME` field `Connect` when user logged in or login failed, or `Quit` when connection is closed.
+    The connect record event uses the `NAME` field `Connect` when a user logs in or a login fails, and `Quit` when the connection closes.
 
-    The additional fields for this event are the following:
+    The additional fields for this event are as follows:
 
         * `CONNECTION_ID`
 
@@ -237,7 +218,7 @@ The audit Log plugin generates a log of following events.
 
         * `IP`
 
-    The value for `STATUS` is `0` for successful logins and non-zero for failed logins.
+    `STATUS` is `0` for successful logins and non-zero for failed logins.
 
     ??? example "Disconnect event"
 
@@ -260,11 +241,15 @@ The audit Log plugin generates a log of following events.
 
 === "Query"
 
-    Additional fields for this event are: `COMMAND_CLASS` (values come from the `com_status_vars` array in the `sql/mysqld.cc\`` file in a MySQL source distribution.
+    The additional fields for this event are `COMMAND_CLASS`, `CONNECTION_ID`, `STATUS`, `SQLTEXT`, `USER`, `HOST`, `OS_USER`, and `IP`.
 
-    Examples are `select`, `alter_table`, `create_table`, etc.), `CONNECTION_ID`, `STATUS` (indicates an error when the vaule is non-zero), `SQLTEXT` (text of SQL-statement), `USER`, `HOST`, `OS_USER`, `IP`.
+    * `COMMAND_CLASS` — Values come from the `com_status_vars` array in the `sql/mysqld.cc` file of the MySQL source distribution. Example values include `select`, `alter_table`, and `create_table`.
 
-    The possible values for the `NAME` name field for this event are `Query`, `Prepare`, `Execute`, `Change user`, etc.
+    * `STATUS` — Non-zero value indicates an error.
+
+    * `SQLTEXT` — Text of the SQL statement.
+
+    Possible values for the `NAME` field include `Query`, `Prepare`, `Execute`, and `Change user`.
 
     ??? example "Query event"
 
@@ -287,61 +272,41 @@ The audit Log plugin generates a log of following events.
 
 ## Stream the audit log to syslog
 
-To stream the audit log to syslog you’ll need to set audit_log_handler variable to `SYSLOG`. To control the syslog file handler, the following variables can be used: audit_log_syslog_ident, audit_log_syslog_facility, and audit_log_syslog_priority These variables have the same meaning as appropriate parameters described in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+To stream the audit log to syslog, set the `audit_log_handler` variable to `SYSLOG`. Use `audit_log_syslog_ident`, `audit_log_syslog_facility`, and `audit_log_syslog_priority` to control the syslog handler. These variables share the meanings of the corresponding parameters documented in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 !!! note
 
-    The actions for the variables: audit_log_strategy, audit_log_buffer_size, audit_log_rotate_on_size, audit_log_rotations are captured only with `FILE` handler.
+    The `FILE` handler is the only handler that captures the effects of `audit_log_strategy`, `audit_log_buffer_size`, `audit_log_rotate_on_size`, and `audit_log_rotations`.
 
 ## Filter methods
 
-You can filter the results by the following methods.
+Filter the results with any of the following methods.
 
 === "Filter by user"
 
-    The filtering by user feature adds two new global variables:
-    audit_log_include_accounts and
-    audit_log_exclude_accounts to specify which user accounts should be
-    included or excluded from audit logging.
+    Filtering by user uses two global variables, `audit_log_include_accounts` and `audit_log_exclude_accounts`, which specify the user accounts to include in or exclude from audit logging.
 
-    Only one of these variables can contain a list of users to be either included or excluded, while the other must be `NULL`. If one of the variables is set to be not `NULL` (contains a list of users), the attempt to set another one fails. An empty string means an empty list.
+    Only one variable at a time may hold a list; the other must be `NULL`. An attempt to set the second variable fails while the first variable is non-`NULL`. An empty string represents an empty list.
 
-    Changes of audit_log_include_accounts and audit_log_exclude_accounts do not apply to existing server connections.
+    Changes to `audit_log_include_accounts` and `audit_log_exclude_accounts` do not apply to existing server connections.
 
 === "Filter by SQL command type"
 
-    The filtering by SQL command type adds two new global variables:
-    [audit_log_include_commands](#audit_log_include_commands) and
-    [audit_log_exclude_commands](#audit_log_exclude_commands) to specify which command types should be included or excluded from audit logging.
+    Filtering by SQL command type uses two global variables, [audit_log_include_commands](#audit_log_include_commands) and [audit_log_exclude_commands](#audit_log_exclude_commands), which specify the command types to include in or exclude from audit logging.
 
-    Only one of these variables can contain a list of command types to be
-    either included or excluded, while the other needs to be `NULL`. If one of
-    the variables is set to be not `NULL` (contains a list of command types),
-    the attempt to set another one will fail. An empty string is defined as an empty list.
+    Only one variable at a time may hold a list; the other must be `NULL`. An attempt to set the second variable fails while the first variable is non-`NULL`. An empty string represents an empty list.
 
-    If both the audit_log_exclude_commands variable and the
-    audit_log_include_commands variable are `NULL`, all commands are logged.
+    When both `audit_log_exclude_commands` and `audit_log_include_commands` are `NULL`, the component logs all commands.
 
 === "Filtering by database"
 
-    The filtering by an SQL database is implemented by two global variables:
-    audit_log_include_databases and
-    audit_log_exclude_databases to specify which databases should be included or excluded from audit logging.
+    Filtering by SQL database uses two global variables, `audit_log_include_databases` and `audit_log_exclude_databases`, which specify the databases to include in or exclude from audit logging.
 
-    Only one of these variables can contain a list of databases to be either
-    included or excluded, while the other needs to be `NULL`. If one of the
-    variables is set to be not `NULL` (contains a list of databases), the
-    attempt to set another one will fail. Empty string means an empty list.
+    Only one variable at a time may hold a list; the other must be `NULL`. An attempt to set the second variable fails while the first variable is non-`NULL`. An empty string represents an empty list.
 
-    If query is accessing any of databases listed in
-    audit_log_include_databases, the query will be logged.
-    If query is accessing only databases listed in
-    audit_log_exclude_databases, the query will not be logged.
-    `CREATE TABLE` statements are logged unconditionally.
+    A query that accesses any database listed in `audit_log_include_databases` is logged. A query that accesses only databases listed in `audit_log_exclude_databases` is not logged. `CREATE TABLE` statements are logged unconditionally.
 
-    Changes of audit_log_include_databases and
-    audit_log_exclude_databases do not apply to existing server
-    connections.
+    Changes to `audit_log_include_databases` and `audit_log_exclude_databases` do not apply to existing server connections.
 
 ## Filter examples
 
@@ -475,14 +440,13 @@ The following are examples of the different filters.
     />
     ```
 
-    To exclude `user1` from logging in Percona Server for MySQL 8.4, set:
+    To exclude `user1` from logging, set:
 
     ```sql
     SET GLOBAL audit_log_exclude_accounts = 'user1@%';
     ```
 
-    The value can be `NULL` or comma separated list of accounts in form
-    `user@host` or `'user'@'host'` (if user or host contains comma).
+    The value may be `NULL` or a comma-separated list of accounts in the form `user@host` or `'user'@'host'` (use the quoted form when the user or host contains a comma).
 
 
 
@@ -605,8 +569,7 @@ The following are examples of the different filters.
         Query OK, 0 rows affected (0.00 sec)
         ```
 
-    If you you try to add databases to both include and exclude lists server will
-    show you the following error:
+    When you try to add databases to both the include and exclude lists, the server returns the following error:
 
     ```sql
     SET GLOBAL audit_log_exclude_databases = 'test,mysql,db1';
@@ -654,17 +617,17 @@ The following are examples of the different filters.
 | Default value   | ASYNCHRONOUS       |
 | Allowed values | `ASYNCHRONOUS`, `PERFORMANCE`, `SEMISYNCHRONOUS`, `SYNCHRONOUS`|
 
-This variable is used to specify the audit log strategy, possible values are:
+Specifies the audit log strategy. The allowed values are as follows:
 
-* `ASYNCHRONOUS` - (default) log using memory buffer, do not drop messages if buffer is full
+* `ASYNCHRONOUS` — (default) log through a memory buffer and do not drop messages when the buffer is full.
 
-* `PERFORMANCE` - log using memory buffer, drop messages if buffer is full
+* `PERFORMANCE` — log through a memory buffer and drop messages when the buffer is full.
 
-* `SEMISYNCHRONOUS` - log directly to file, do not flush and sync every event
+* `SEMISYNCHRONOUS` — log directly to the file without flushing and syncing every event.
 
-* `SYNCHRONOUS` - log directly to file, flush and sync every event
+* `SYNCHRONOUS` — log directly to the file and flush and sync every event.
 
-This variable has effect only when audit_log_handler is set to `FILE`.
+The variable has effect only when `audit_log_handler` is set to `FILE`.
 
 ### `audit_log_file`
 
@@ -676,7 +639,7 @@ This variable has effect only when audit_log_handler is set to `FILE`.
 | Data type      | String             |
 | Default value   | audit.log          |
 
-This variable is used to specify the filename that’s going to store the audit log. It can contain the path relative to the datadir or absolute path.
+Specifies the filename that stores the audit log. The value may be a path relative to the data directory or an absolute path.
 
 ### `audit_log_flush`
 
@@ -688,7 +651,7 @@ This variable is used to specify the filename that’s going to store the audit 
 | Data type      | String             |
 | Default value   | OFF                |
 
-When this variable is set to `ON` log file will be closed and reopened.
+When the variable is set to `ON`, the server closes and reopens the log file.
 
 ### `audit_log_buffer_size`
 
@@ -700,7 +663,7 @@ When this variable is set to `ON` log file will be closed and reopened.
 | Data type      | Numeric            |
 | Default value   | 1 Mb               |
 
-This variable can be used to specify the size of memory buffer used for logging, used when audit_log_strategy variable is set to `ASYNCHRONOUS` or `PERFORMANCE` values. This variable has effect only when audit_log_handler is set to `FILE`.
+Specifies the size of the memory buffer used for logging when `audit_log_strategy` is `ASYNCHRONOUS` or `PERFORMANCE`. The variable has effect only when `audit_log_handler` is set to `FILE`.
 
 ### `audit_log_exclude_accounts`
 
@@ -711,11 +674,7 @@ This variable can be used to specify the size of memory buffer used for logging,
 | Dynamic:       | Yes                |
 | Data type      | String             |
 
-This variable is used to specify the list of users for which
-Filtering by user is applied. The value can be `NULL` or comma
-separated list of accounts in form `user@host` or `'user'@'host'` (if user
-or host contains comma). If this variable is set, then
-audit_log_include_accounts must be unset, and vice versa.
+Specifies the list of users to which filtering by user applies. The value may be `NULL` or a comma-separated list of accounts in the form `user@host` or `'user'@'host'` (use the quoted form when the user or host contains a comma). When `audit_log_exclude_accounts` is set, leave `audit_log_include_accounts` unset, and vice versa.
 
 ### `audit_log_exclude_commands`
 
@@ -726,10 +685,7 @@ audit_log_include_accounts must be unset, and vice versa.
 | Dynamic:       | Yes                |
 | Data type      | String             |
 
-This variable is used to specify the list of commands for which
-Filtering by SQL command type is applied. The value can be `NULL` or
-comma separated list of commands. If this variable is set, then
-audit_log_include_commands must be unset, and vice versa.
+Specifies the list of commands to which filtering by SQL command type applies. The value may be `NULL` or a comma-separated list of commands. When `audit_log_exclude_commands` is set, leave `audit_log_include_commands` unset, and vice versa.
 
 ### `audit_log_exclude_databases`
 
@@ -740,7 +696,7 @@ audit_log_include_commands must be unset, and vice versa.
 | Dynamic:       | Yes                |
 | Data type      | String             |
 
-Use this variable to specify the databases to be filtered. The value can be NULL or a comma-separated list of databases if you set this variable, unset `audit_log_include_databases`, and vice versa.
+Specifies the databases to filter. The value may be `NULL` or a comma-separated list of databases. When `audit_log_exclude_databases` is set, leave `audit_log_include_databases` unset, and vice versa.
 
 
 ### `audit_log_format`
@@ -751,14 +707,10 @@ Use this variable to specify the databases to be filtered. The value can be NULL
 | Scope:         | Global             |
 | Dynamic:       | No                 |
 | Data type      | String             |
-| Default value   | OLD                |
-| Allowed values | `OLD`, `NEW`, `CSV`, `JSON`|
+| Default value   | NEW                |
+| Allowed values | `NEW`, `CSV`, `JSON`|
 
-This variable is used to specify the audit log format. The audit log plugin
-supports four log formats: `OLD`, `NEW`, `JSON`, and `CSV`. `OLD` and
-`NEW` formats are based on XML, where the former outputs log record properties
-as XML attributes and the latter as XML tags. Information logged is the same in
-all four formats.
+Specifies the audit log format. The audit log plugin supports three log formats: `NEW`, `JSON`, and `CSV`. The `NEW` format is based on XML and outputs log record properties as XML tags. The information logged is the same in all three formats.
 
 ### `audit_log_include_accounts`
 
@@ -769,11 +721,7 @@ all four formats.
 | Dynamic:       | Yes                |
 | Data type      | String             |
 
-This variable is used to specify the list of users for which
-Filtering by user is applied. The value can be `NULL` or comma
-separated list of accounts in form `user@host` or `'user'@'host'` (if user
-or host contains comma). If this variable is set, then
-audit_log_exclude_accounts must be unset, and vice versa.
+Specifies the list of users to which filtering by user applies. The value may be `NULL` or a comma-separated list of accounts in the form `user@host` or `'user'@'host'` (use the quoted form when the user or host contains a comma). When `audit_log_include_accounts` is set, leave `audit_log_exclude_accounts` unset, and vice versa.
 
 ### `audit_log_include_commands`
 
@@ -784,10 +732,7 @@ audit_log_exclude_accounts must be unset, and vice versa.
 | Dynamic:       | Yes                |
 | Data type      | String             |
 
-This variable is used to specify the list of commands for which
-Filtering by SQL command type is applied. The value can be `NULL` or
-comma separated list of commands. If this variable is set, then
-audit_log_exclude_commands must be unset, and vice versa.
+Specifies the list of commands to which filtering by SQL command type applies. The value may be `NULL` or a comma-separated list of commands. When `audit_log_include_commands` is set, leave `audit_log_exclude_commands` unset, and vice versa.
 
 ### `audit_log_include_databases`
 
@@ -798,7 +743,7 @@ audit_log_exclude_commands must be unset, and vice versa.
 | Dynamic:       | Yes                |
 | Data type      | String             |
 
-This variable defines the list of databases to be filtered. You can set the value to NULL or a comma-separated list of databases. If you set this variable, you must unset `audit_log_exclude_databases`; the opposite is true.
+Specifies the list of databases to filter. The value may be `NULL` or a comma-separated list of databases. When `audit_log_include_databases` is set, leave `audit_log_exclude_databases` unset, and vice versa.
 
 ### `audit_log_policy`
 
@@ -811,16 +756,15 @@ This variable defines the list of databases to be filtered. You can set the valu
 | Default        | ALL                |
 | Allowed values | `ALL`, `LOGINS`, `QUERIES`, `NONE` |
 
-This variable is used to specify which events should be logged. Possible values
-are:
+Specifies which events to log. The allowed values are as follows:
 
-* `ALL` - all events will be logged
+* `ALL` — log all events.
 
-* `LOGINS` - only logins will be logged
+* `LOGINS` — log only logins.
 
-* `QUERIES` - only queries will be logged
+* `QUERIES` — log only queries.
 
-* `NONE` - no events will be logged
+* `NONE` — log no events.
 
 ### `audit_log_rotate_on_size`
 
@@ -832,14 +776,11 @@ are:
 | Data type      | Numeric            |
 | Default value  | 0                  |
 
-This variable is measured in bytes and specifies the maximum size of the audit log file. Upon reaching
-this size, the audit log will be rotated. The rotated log files are present in
-the same directory as the current log file. The sequence number is appended to
-the log file name upon rotation. 
+Specifies the maximum audit log file size in bytes. When the audit log reaches this size, the server rotates the log. Rotated log files remain in the same directory as the current log file. The server appends a sequence number to the log file name on rotation.
 
-If the value is set to 0 (the default), the audit log files won’t rotate.
+When the value is `0` (the default), the audit log files do not rotate.
 
-Set the `audit_log_handler` to FILE to enable this variable.
+Set `audit_log_handler` to `FILE` to enable this variable.
 
 ### `audit_log_rotations`
 
@@ -851,9 +792,7 @@ Set the `audit_log_handler` to FILE to enable this variable.
 | Data type      | Numeric            |
 | Default value   | 0                  |
 
-This variable is used to specify how many log files should be kept when
-audit_log_rotate_on_size variable is set to non-zero value. This
-variable has effect only when audit_log_handler is set to `FILE`.
+Specifies how many log files to keep when `audit_log_rotate_on_size` is set to a non-zero value. The variable has effect only when `audit_log_handler` is set to `FILE`.
 
 ### `audit_log_handler`
 
@@ -866,10 +805,7 @@ variable has effect only when audit_log_handler is set to `FILE`.
 | Default value   | FILE               |
 | Allowed values | `FILE`, `SYSLOG`   |
 
-This variable is used to configure where the audit log will be written. If it is
-set to `FILE`, the log will be written into a file specified by
-audit_log_file variable. If it is set to `SYSLOG`, the audit log
-will be written to syslog.
+Specifies where to write the audit log. `FILE` writes to the file specified by `audit_log_file`. `SYSLOG` writes to syslog.
 
 ### `audit_log_syslog_ident`
 
@@ -881,9 +817,7 @@ will be written to syslog.
 | Data type      | String             |
 | Default value   | percona-audit      |
 
-This variable is used to specify the `ident` value for syslog. This variable
-has the same meaning as the appropriate parameter described in the [syslog(3)
-manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+Specifies the `ident` value for syslog. The variable has the same meaning as the corresponding parameter in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ### `audit_log_syslog_facility`
 
@@ -895,9 +829,7 @@ manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 | Data type      | String             |
 | Default value   | LOG_USER           |
 
-This variable is used to specify the `facility` value for syslog. This
-variable has the same meaning as the appropriate parameter described in the
-[syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
+Specifies the `facility` value for syslog. The variable has the same meaning as the corresponding parameter in the [syslog(3) manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 
 ### `audit_log_syslog_priority`
 
@@ -910,16 +842,11 @@ variable has the same meaning as the appropriate parameter described in the
 | Default value   | LOG_INFO           |
 | Allowed values | `LOG_EMERG`, `LOG_ALERT`, `LOG_CRIT`, `LOG_ERR`, `LOG_WARNING`, `LOG_NOTICE`, `LOG_INFO`, `LOG_DEBUG` |
 
-This variable is used to specify the severity level for syslog. The
-`audit_log_syslog_priority` variable does not include the facility; it only
-selects the severity level (`LOG_EMERG` … `LOG_DEBUG`).
+Specifies the severity level for syslog. The `audit_log_syslog_priority` variable does not include the facility. The variable selects only the severity level (`LOG_EMERG` through `LOG_DEBUG`).
 
-The full syslog priority that `syslog()` receives is built internally by OR-ing
-the configured facility (`audit_log_syslog_facility`) with this level.
+The server builds the full syslog priority passed to `syslog()` by OR-ing the configured facility (`audit_log_syslog_facility`) with this level.
 
-The default `LOG_INFO` means "ordinary informational messages"; you can raise or
-lower the level as needed, while the facility stays at its default unless you
-change it explicitly.
+The default `LOG_INFO` represents ordinary informational messages. Raise or lower the level as needed. The facility stays at the default unless you change it explicitly.
 
 For more details about syslog priority levels, see the [syslog(3)
 manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
@@ -933,6 +860,18 @@ manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 | Scope:         | Global             |
 | Data type      | Numeric            | 
 
-The number of times an audit log entry was either
-dropped or written directly to the file due to its size being bigger
-than audit_log_buffer_size variable.
+The number of times an audit log entry was dropped or written directly to the file because the entry size exceeded `audit_log_buffer_size`.
+
+## Additional reading
+
+* [Audit Log Filter overview](audit-log-filter-overview.md) — recommended replacement component
+
+* [Migrate to the audit log filter component](migrate-to-audit-log-filter-component.md) — variable mapping and cutover procedure
+
+* [Install the audit log filter](install-audit-log-filter.md)
+
+* [Upgrade components](upgrade-components.md)
+
+* [Upgrade Percona Server for MySQL](upgrade.md)
+
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md)

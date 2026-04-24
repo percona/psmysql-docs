@@ -1,20 +1,33 @@
 # Manage the Audit Log Filter files
 
-The Audit Log Filter files have the following potential results:
+Audit log files can fill disks and grow without bound unless you cap them.
 
-* Consume a large amount of disk space
-* Grow large
+Use rotation to rename the active file and start a fresh file with the original name. Rotate manually with a UDF or automatically by size.
 
-You can manage the space by using log file rotation. This operation renames and then rotates the current log file and then uses the original name on a new current log file. You can rotate the file either manually or automatically.
-
-If automatic rotation is enabled, you can prune the log file. This pruning operation can be based on either the log file age or combined log file size.
+With automatic rotation enabled, prune old files by age, total size, or both.
 
 ## Manual log rotation
 
-The default setting for [`audit_log_filter.rotate_on_size`](audit-log-filter-variables.md#audit_log_filterrotate_on_size) is 1GB. If this option is set to `0`, the audit log filter component does not do an automatic rotation of the log file. You must do the rotation manually with this setting.
+[`audit_log_filter.rotate_on_size`](audit-log-filter-variables.md#audit_log_filterrotate_on_size) defaults to 1 GB. Set the variable to `0` to disable automatic rotation. You must then rotate by hand.
 
-The `SELECT audit_log_rotate()` command renames the file and creates a new audit log filter file with the original name. You must have the `AUDIT_ADMIN` privilege. 
+Run `SELECT audit_log_rotate();` to rotate immediately. The call requires `AUDIT_ADMIN`.
 
-The files are pruned if either `audit_log_filter.max_size` or `audit_log_filter.prune_seconds` have a value greater than 0 (zero) and `audit_log_filter.rotate_on_size` > 0.
+Rotation finishes immediately in the `ASYNCHRONOUS` and `PERFORMANCE` strategies instead of waiting on the background flush thread. Several rotations in the same second add a numeric suffix, for example `audit_filter.20250401T120000-1.log`, so that files are not overwritten.
 
-After the files have been renamed, you must manually remove any archived audit log filter files. The renamed audit log filter files can be read by `audit_log_read()`. The `audit_log_read()` does not find the logs if the name pattern differs from the current pattern.
+Pruning runs when `audit_log_filter.max_size` or `audit_log_filter.prune_seconds` is greater than zero and `audit_log_filter.rotate_on_size` is greater than zero.
+
+After rotation, delete archived files you no longer need. [`audit_log_read()`](audit-log-filter-variables.md#audit_log_read) can read renamed files only when the file names still match the active naming pattern.
+
+## Additional reading
+
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md) — rotation, size, and pruning options
+
+* [Audit Log Filter naming conventions](audit-log-filter-naming.md)
+
+* [Reading Audit Log Filter files](reading-audit-log-filter-files.md)
+
+* [Audit Log Filter compression and encryption](audit-log-filter-compression-encryption.md)
+
+* [Audit Log Filter security](audit-log-filter-security.md)
+
+* [Audit Log Filter overview](audit-log-filter-overview.md)
