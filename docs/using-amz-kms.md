@@ -90,4 +90,16 @@ For more information, see [Finding the key ID and key ARN :octicons-link-externa
      }
      ```
 
-For more information, see [Keyring Component installation :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/keyring-component-installation.html).
+--8<--- "keyring-components-verification.md"
+
+## Related topics
+
+* [Keyring components overview](keyring-components-plugins-overview.md)
+
+* [Use the keyring file component](use-keyring-file.md)
+
+* [Use the keyring vault component](use-keyring-vault-component.md)
+
+* [Use the Key Management Interoperability Protocol (KMIP)](using-kmip.md)
+
+* [Data at rest encryption](data-at-rest-encryption.md)

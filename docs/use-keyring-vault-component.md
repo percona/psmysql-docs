@@ -108,10 +108,22 @@ Use either of the following methods:
 
     The `keyring_vault` component that works with `kv-v2` secret engines does not use the built-in key versioning capabilities. The keyring key versions are encoded into key names.
 
+--8<--- "keyring-components-verification.md"
+
 !!! admonition "See also"
 
-    [Hashicorp Documentation: Installing Vault :octicons-link-external-16:](https://www.vaultproject.io/docs/install/index.html)
-        
-    [Hashicorp Documentation: Production Hardening :octicons-link-external-16:](https://learn.hashicorp.com/vault/operations/production-hardening
-)
- 
+    [Hashicorp Documentation: Installing Vault :octicons-link-external-16:](https://developer.hashicorp.com/vault/docs/install)
+
+    [Hashicorp Documentation: Production Hardening :octicons-link-external-16:](https://developer.hashicorp.com/vault/tutorials/operations/production-hardening)
+
+## Related topics
+
+* [Keyring components overview](keyring-components-plugins-overview.md)
+
+* [Use the keyring file component](use-keyring-file.md)
+
+* [Use the Key Management Interoperability Protocol (KMIP)](using-kmip.md)
+
+* [Use the Amazon Key Management Service (AWS KMS)](using-amz-kms.md)
+
+* [Data at rest encryption](data-at-rest-encryption.md)
