@@ -74,10 +74,3 @@ To ensure that the FIPS mode is enabled, do the following:
     A FIPS-approved version of the OpenSSL cryptographic library has been detected in the operating system with a properly configured FIPS module available for loading. Percona Server for MySQL will load this module and run in FIPS mode.
     ```
 
-<!-- ## Next steps
-
-[Install Percona Server for MySQL Pro](install-pro.md){.md-button}
-
-If you already use Percona Server for MySQL, you can
-
-[Upgrade to Percona Server for MySQL Pro](upgrade-pro.md){.md-button} -->
