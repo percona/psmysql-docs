@@ -22,11 +22,6 @@ Specific information on the supported platforms, products, and versions are desc
 
 Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certification is based on common and secure best practices and successful interoperability with the operating system. Percona Server is listed in the [Red Hat Ecosystem Catalog :octicons-link-external-16:](https://catalog.redhat.com/software/applications/detail/112055).
 
-<!-- ### Percona Server for MySQL PRO 
-
---8<--- "pro-build-announcement.md"
-
-[Install Percona Server for MySQL Pro](install-pro.md){.md-button} -->
 
 ## Install Percona Server for MySQL from Percona `yum` repository
 
