@@ -1,7 +1,5 @@
 # Files in packages built for Percona Server for MySQL Pro
 
---8<--- "pro-build-announcement.md"
-
 ## Files in the DEB package
 
 | Package                      | Contains                                                                                                                                                                        |
