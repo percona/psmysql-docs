@@ -68,7 +68,7 @@ The `libperconaserverclient20` package contains the client shared library. The `
 6. Set up a specific Percona Server version:
 
    ```shell
-   $ sudo percona-release enable-only ps57
+   $ sudo percona-release enable-only ps-57
    ```
 
 8. After that you can install the server package:
