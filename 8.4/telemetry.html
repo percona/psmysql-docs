@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona telemetry fills in the gaps in our understanding of how you use Percona Server for MySQL to improve our products. Participation in the anonymous program is optional. You can opt-out if you prefer to not share this information.">
+        <meta name="description" content="Percona Server for MySQL includes two telemetry systems. Each system is optional.">
       
       
         <meta name="author" content="Percona LLC">
@@ -32,7 +32,7 @@
     
     
       
-        <title>Telemetry on Percona Server for MySQL - Percona Server for MySQL</title>
+        <title>Telemetry and data collection - Percona Server for MySQL</title>
       
     
     
@@ -100,7 +100,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Telemetry on Percona Server for MySQL" />
+                 <meta property="og:title" content="Percona Server for MySQL - Telemetry and data collection" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
               
@@ -123,7 +123,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#telemetry-on-percona-server-for-mysql" class="md-skip">
+        <a href="#telemetry-and-data-collection" class="md-skip">
           Skip to content
         </a>
       
@@ -252,7 +252,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Telemetry on Percona Server for MySQL
+              Telemetry and data collection
             
           </span>
         </div>
@@ -9266,7 +9266,7 @@
   <span class="md-ellipsis">
     
   
-    Telemetry on Percona Server for MySQL
+    Telemetry and data collection
   
 
     
@@ -9284,7 +9284,7 @@
   <span class="md-ellipsis">
     
   
-    Telemetry on Percona Server for MySQL
+    Telemetry and data collection
   
 
     
@@ -9312,10 +9312,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-information-is-collected" class="md-nav__link">
+  <a href="#telemetry-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What information is collected
+        Telemetry overview
       
     </span>
   </a>
@@ -9323,10 +9323,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#disable-telemetry" class="md-nav__link">
+  <a href="#installation-time-telemetry" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Disable telemetry
+        Installation-time telemetry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continuous-telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Continuous telemetry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disable-continuous-telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disable continuous telemetry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related reading
       
     </span>
   </a>
@@ -9832,10 +9865,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-information-is-collected" class="md-nav__link">
+  <a href="#telemetry-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What information is collected
+        Telemetry overview
       
     </span>
   </a>
@@ -9843,10 +9876,43 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#disable-telemetry" class="md-nav__link">
+  <a href="#installation-time-telemetry" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Disable telemetry
+        Installation-time telemetry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continuous-telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Continuous telemetry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disable-continuous-telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disable continuous telemetry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related reading
       
     </span>
   </a>
@@ -9883,43 +9949,429 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="telemetry-on-percona-server-for-mysql">Telemetry on Percona Server for MySQL<a class="headerlink" href="#telemetry-on-percona-server-for-mysql" title="Permanent link">&para;</a></h1>
-<p>Percona telemetry fills in the gaps in our understanding of how you use Percona Server for MySQL to improve our products. Participation in the anonymous program is optional. You can opt-out if you prefer to not share this information.</p>
-<h2 id="what-information-is-collected">What information is collected<a class="headerlink" href="#what-information-is-collected" title="Permanent link">&para;</a></h2>
-<p>At this time, telemetry is added only to the Percona packages and Docker images. Percona Server for MySQL collects only information about the installation environment. Future releases may add additional metrics.</p>
-<p>Be assured that access to this raw data is rigorously controlled. Percona does not collect personal data. All data is anonymous and cannot be traced to a specific user. To learn more about our privacy practices, read our <a href="https://www.percona.com/privacy-policy#h.e34c40q8sb1a">Percona Privacy statement <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<p>An example of the data collected is the following:</p>
+<h1 id="telemetry-and-data-collection">Telemetry and data collection<a class="headerlink" href="#telemetry-and-data-collection" title="Permanent link">&para;</a></h1>
+<p>Percona Server for MySQL includes two telemetry systems. Each system is optional.</p>
+<ul>
+<li>
+<p><a href="#installation-time-telemetry">Installation-time telemetry</a> runs once at package install or container startup.</p>
+</li>
+<li>
+<p><a href="#continuous-telemetry">Continuous telemetry</a> uses a database (DB) component and the <code>percona-telemetry-agent</code> host process. The pair collects metrics and sends them on a daily schedule.</p>
+</li>
+</ul>
+<p>You control whether to share telemetry data. Disable either system, or both, when you do not want anonymous usage data sent to Percona.</p>
+<p>Percona does not collect personal information. All telemetry data is anonymous. See the <a href="https://www.percona.com/privacy-policy#h.e34c40q8sb1a">Percona Privacy policy <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<p>Packages, compressed archives (tarballs), and Docker images include telemetry. Tarball deployments require the telemetry agent and a writable directory under <code>/usr/local/percona/telemetry</code>.</p>
+<h2 id="telemetry-overview">Telemetry overview<a class="headerlink" href="#telemetry-overview" title="Permanent link">&para;</a></h2>
+<p>Telemetry reports anonymous deployment and usage metrics to Percona. Percona uses the data to prioritize fixes and feature work. Telemetry does not include database names, credentials, or user data.</p>
+<h2 id="installation-time-telemetry">Installation-time telemetry<a class="headerlink" href="#installation-time-telemetry" title="Permanent link">&para;</a></h2>
+<p>Installation-time telemetry runs once. The process collects host and version metadata during package installation or container startup. The process does not run again after installation completes.</p>
+<h3 id="installation-time-telemetry-file-example">Installation-time telemetry file example<a class="headerlink" href="#installation-time-telemetry-file-example" title="Permanent link">&para;</a></h3>
+<p>The following JSON shows a typical installation-time payload:</p>
 <div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c416c3ee-48cd-471c-9733-37c2886f8231&quot;</span><span class="p">,</span>
 <span class="nt">&quot;product_family&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PRODUCT_FAMILY_PS&quot;</span><span class="p">,</span>
 <span class="nt">&quot;instanceId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6aef422e-56a7-4530-af9d-94cc02198343&quot;</span><span class="p">,</span>
-<span class="nt">&quot;createTime&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-10-16T10:46:23Z&quot;</span><span class="p">,</span>
+<span class="nt">&quot;createTime&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-03-26T15:43:18Z&quot;</span><span class="p">,</span>
 <span class="nt">&quot;metrics&quot;</span><span class="p">:</span>
 <span class="p">[{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deployment&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PACKAGE&quot;</span><span class="p">},</span>
-<span class="p">{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pillar_version&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.1.0-1&quot;</span><span class="p">},</span>
-<span class="p">{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OS&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Oracle Linux Server 8.8&quot;</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pillar_version&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.4.8-8&quot;</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OS&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Oracle Linux Server 10&quot;</span><span class="p">},</span>
 <span class="p">{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hardware_arch&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;x86_64 x86_64&quot;</span><span class="p">}]}]</span>
 </code></pre></div>
-<h2 id="disable-telemetry">Disable telemetry<a class="headerlink" href="#disable-telemetry" title="Permanent link">&para;</a></h2>
-<p>Telemetry is enabled by default. If you decide not to send usage data to Percona, you can set the <code>PERCONA_TELEMETRY_DISABLE=1</code> environment variable for either the root user or in the operating system prior to the installation process.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Debian-derived distribution</label><label for="__tabbed_1_2">Red Hat-derived distribution</label><label for="__tabbed_1_3">DOCKER</label></div>
+<h3 id="disable-installation-time-telemetry">Disable installation-time telemetry<a class="headerlink" href="#disable-installation-time-telemetry" title="Permanent link">&para;</a></h3>
+<p>Installation-time telemetry is enabled by default. Set the environment variable <code>PERCONA_TELEMETRY_DISABLE=1</code> before you install packages or start a container. The variable does not disable continuous telemetry. Installation-time telemetry uses <code>PERCONA_TELEMETRY_DISABLE</code>; continuous telemetry uses the server option <code>percona_telemetry_disable</code>.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Debian-derived distribution</label><label for="__tabbed_1_2">Red Hat-derived distribution</label><label for="__tabbed_1_3">Docker</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Add the environment variable before the install process.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>Add the environment variable before the install process.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-server
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>Add the environment variable when running a command in a new container.</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>test1234#<span class="w"> </span>-e<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>-e<span class="w"> </span>--name<span class="o">=</span>percona-server<span class="w"> </span>percona/percona-server:8.1
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>test1234#<span class="w"> </span>-e<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>--name<span class="o">=</span>percona-server<span class="w"> </span>percona/percona-server:8.4
 </code></pre></div>
 </div>
 </div>
 </div>
+<h2 id="continuous-telemetry">Continuous telemetry<a class="headerlink" href="#continuous-telemetry" title="Permanent link">&para;</a></h2>
+<p>Continuous telemetry combines a Percona telemetry DB component with the <code>percona-telemetry-agent</code> service. The component writes metrics files on disk. The agent uploads the files to the Percona telemetry service. The agent waits 24 hours after startup before the first upload attempt.</p>
+<p><img src="_static/percona-telemetry.png" alt="Continuous telemetry: database component, metrics file, host agent, and Percona Platform" style="max-width: 75%; height: auto;" /></p>
+<h3 id="elements-of-the-continuous-telemetry-system">Elements of the continuous telemetry system<a class="headerlink" href="#elements-of-the-continuous-telemetry-system" title="Permanent link">&para;</a></h3>
+<p>The continuous telemetry system includes these host-side and platform-side pieces:</p>
+<table>
+<thead>
+<tr>
+<th>Piece</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Percona telemetry DB component</td>
+<td>Collects metrics inside the server and writes a metrics file on disk</td>
+</tr>
+<tr>
+<td>Metrics file</td>
+<td>JavaScript Object Notation (JSON) file on the host that stores collected metrics</td>
+</tr>
+<tr>
+<td>Telemetry agent (<code>percona-telemetry-agent</code>)</td>
+<td>Host process that collects operating system metrics, reads metrics files, merges payloads, and queries the package manager for Percona packages</td>
+</tr>
+<tr>
+<td>Telemetry service</td>
+<td>Application programming interface (API) endpoint that receives telemetry payloads</td>
+</tr>
+<tr>
+<td>Telemetry storage</td>
+<td>Long-term storage for telemetry data on the Percona platform</td>
+</tr>
+</tbody>
+</table>
+<h3 id="overview-of-the-db-component">Overview of the DB component<a class="headerlink" href="#overview-of-the-db-component" title="Permanent link">&para;</a></h3>
+<p>Percona Server for MySQL installs the telemetry DB component by default. The component registers as <code>file://component_percona_telemetry</code>.</p>
+<p>The DB component performs these tasks:</p>
+<ul>
+<li>
+<p>Collects database metrics once per day</p>
+</li>
+<li>
+<p>Writes a timestamped <code>.json</code> file under the telemetry directory</p>
+</li>
+<li>
+<p>Retains metrics files for seven days and deletes older files before creating a new file</p>
+</li>
+</ul>
+<p>The DB component does not collect these data types:</p>
+<ul>
+<li>
+<p>Database names</p>
+</li>
+<li>
+<p>User names or credentials</p>
+</li>
+<li>
+<p>Application or user data</p>
+</li>
+</ul>
+<h3 id="locations-of-metrics-files-and-telemetry-history">Locations of metrics files and telemetry history<a class="headerlink" href="#locations-of-metrics-files-and-telemetry-history" title="Permanent link">&para;</a></h3>
+<p>The telemetry root path on the host is <code>/usr/local/percona/telemetry</code>.</p>
+<p>Product-specific directories use the following paths under the root:</p>
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Percona Server for MySQL</td>
+<td><code>${telemetry root}/ps/</code></td>
+</tr>
+<tr>
+<td>Percona Server for MongoDB (<code>mongod</code>)</td>
+<td><code>${telemetry root}/psmdb/</code></td>
+</tr>
+<tr>
+<td>Percona Server for MongoDB (<code>mongos</code>)</td>
+<td><code>${telemetry root}/psmdbs/</code></td>
+</tr>
+<tr>
+<td>Percona XtraDB Cluster</td>
+<td><code>${telemetry root}/pxc/</code></td>
+</tr>
+<tr>
+<td>PostgreSQL products</td>
+<td><code>${telemetry root}/pg/</code></td>
+</tr>
+</tbody>
+</table>
+<p>After a successful upload, the agent stores a copy under <code>${telemetry root}/history/</code>.</p>
+<h3 id="metrics-file-format">Metrics file format<a class="headerlink" href="#metrics-file-format" title="Permanent link">&para;</a></h3>
+<p>Metrics files use JSON. Percona may extend the schema in future releases. Production files can list many <code>active_plugins</code> entries. The following example shows the core fields:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;db_instance_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;e83c568c-e140-11ee-8320-7e207666b18a&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;pillar_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.4.8-8&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;active_plugins&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;binlog&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;caching_sha2_password&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;InnoDB&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;PERFORMANCE_SCHEMA&quot;</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;active_components&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;file://component_percona_telemetry&quot;</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;uptime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6185&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;databases_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;databases_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;33149&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;se_engines_in_use&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;InnoDB&quot;</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;replication_info&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;is_semisync_source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;is_replica&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="percona-telemetry-agent">Percona telemetry agent<a class="headerlink" href="#percona-telemetry-agent" title="Permanent link">&para;</a></h3>
+<p>The <code>percona-telemetry-agent</code> process runs on the database host. The agent manages JSON files under the telemetry root path.</p>
+<p>The agent follows the following schedule:</p>
+<ul>
+<li>
+<p>Log file path: <code>/var/log/percona/telemetry-agent.log</code></p>
+</li>
+<li>
+<p>First 24 hours: no collection and no upload</p>
+</li>
+<li>
+<p>After 24 hours: one upload attempt per day, with up to five retries on failure</p>
+</li>
+<li>
+<p>After a successful upload: copy the file to <code>history/</code> and delete the source file from the DB component directory</p>
+</li>
+<li>
+<p>When the telemetry directory has no Percona product files: send nothing</p>
+</li>
+</ul>
+<h4 id="network-access-and-corporate-proxies">Network access and corporate proxies<a class="headerlink" href="#network-access-and-corporate-proxies" title="Permanent link">&para;</a></h4>
+<p>Continuous telemetry uploads use Hypertext Transfer Protocol Secure (HTTPS). The default endpoint is:</p>
+<p><code>https://check.percona.com/v1/telemetry/GenericReport</code></p>
+<p>Firewall teams must allow outbound HTTPS on port 443 to <code>check.percona.com</code>. Override the endpoint with <code>PERCONA_TELEMETRY_URL</code> or the <code>--telemetry.url</code> argument for <code>percona-telemetry-agent</code>.</p>
+<p>To send traffic through a corporate proxy, add environment variables in a systemd drop-in for <code>percona-telemetry-agent.service</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">&quot;HTTPS_PROXY=http://PROXY_HOST:PROXY_PORT&quot;</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">&quot;NO_PROXY=localhost,127.0.0.1&quot;</span>
+</code></pre></div>
+<p>Apply the drop-in and restart the agent:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>edit<span class="w"> </span>percona-telemetry-agent
+sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>percona-telemetry-agent
+</code></pre></div>
+<p>Replace <code>PROXY_HOST</code> and <code>PROXY_PORT</code> with your proxy hostname and port.</p>
+<h4 id="air-gapped-and-isolated-networks">Air-gapped and isolated networks<a class="headerlink" href="#air-gapped-and-isolated-networks" title="Permanent link">&para;</a></h4>
+<p>Upload failures trigger five retries. The agent then waits until the next daily check. Unsent metrics files remain on disk until an upload succeeds.</p>
+<p>Disk use stays bounded in isolated networks:</p>
+<ul>
+<li>
+<p>The DB component retains seven days of metrics files and prunes older files before each daily write, regardless of upload status</p>
+</li>
+<li>
+<p>The agent prunes archived history on a seven-day interval (<code>PERCONA_TELEMETRY_HISTORY_KEEP_INTERVAL</code>, default 604800 seconds)</p>
+</li>
+</ul>
+<p>Disable continuous telemetry to stop new metrics files and outbound uploads.</p>
+<h4 id="telemetry-agent-configuration">Telemetry agent configuration<a class="headerlink" href="#telemetry-agent-configuration" title="Permanent link">&para;</a></h4>
+<p>The agent reads these environment variables at startup. Restart the service after you change a value.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PERCONA_TELEMETRY_ROOT_PATH</code></td>
+<td><code>/usr/local/percona/telemetry</code></td>
+<td>Root directory for metrics and history files</td>
+</tr>
+<tr>
+<td><code>PERCONA_TELEMETRY_CHECK_INTERVAL</code></td>
+<td><code>86400</code></td>
+<td>Seconds between upload checks</td>
+</tr>
+<tr>
+<td><code>PERCONA_TELEMETRY_RESEND_INTERVAL</code></td>
+<td><code>60</code></td>
+<td>Seconds between retry attempts after a failed upload</td>
+</tr>
+<tr>
+<td><code>PERCONA_TELEMETRY_HISTORY_KEEP_INTERVAL</code></td>
+<td><code>604800</code></td>
+<td>Seconds between history directory cleanup runs</td>
+</tr>
+<tr>
+<td><code>PERCONA_TELEMETRY_URL</code></td>
+<td><code>https://check.percona.com/v1/telemetry/GenericReport</code></td>
+<td>Upload endpoint URL</td>
+</tr>
+</tbody>
+</table>
+<h4 id="telemetry-agent-payload-example">Telemetry agent payload example<a class="headerlink" href="#telemetry-agent-payload-example" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;reports&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;B5BDC47B-B717-4EF5-AEDF-41A17C9C18BB&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;createTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-03-26T15:44:54Z&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;instanceId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;B5BDC47B-B717-4EF5-AEDF-41A17C9C18BA&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;productFamily&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PRODUCT_FAMILY_PS&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;metrics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OS&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ubuntu&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pillar_version&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.4.8-8&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="telemetry-agent-payload-fields">Telemetry agent payload fields<a class="headerlink" href="#telemetry-agent-payload-fields" title="Permanent link">&para;</a></h4>
+<p>Each report object uses these fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>Random universally unique identifier (UUID) version 4 for the request</td>
+</tr>
+<tr>
+<td><code>createTime</code></td>
+<td>Request timestamp</td>
+</tr>
+<tr>
+<td><code>instanceId</code></td>
+<td>Host ID from the metrics file, <code>/usr/local/percona/telemetry_uuid</code>, or a generated UUID version 4 when the file is absent</td>
+</tr>
+<tr>
+<td><code>productFamily</code></td>
+<td>Product family derived from the metrics file path, such as <code>PRODUCT_FAMILY_PS</code></td>
+</tr>
+<tr>
+<td><code>metrics</code></td>
+<td>Key and value pairs from the metrics file</td>
+</tr>
+</tbody>
+</table>
+<h4 id="operating-system-metrics-in-each-upload">Operating system metrics in each upload<a class="headerlink" href="#operating-system-metrics-in-each-upload" title="Permanent link">&para;</a></h4>
+<p>Each upload can include these operating system keys:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OS</code></td>
+<td>Operating system name</td>
+</tr>
+<tr>
+<td><code>hardware_arch</code></td>
+<td>CPU architecture</td>
+</tr>
+<tr>
+<td><code>deployment</code></td>
+<td>Deployment method, such as <code>PACKAGE</code> or <code>DOCKER</code></td>
+</tr>
+<tr>
+<td><code>installed_packages</code></td>
+<td>Installed Percona packages with name, version, and repository when available</td>
+</tr>
+</tbody>
+</table>
+<p>The agent queries the local package manager. The query matches only package names that fit Percona patterns, including <code>percona-*</code>, <code>Percona-*</code>, <code>proxysql*</code>, <code>pmm</code>, <code>etcd*</code>, <code>haproxy</code>, <code>patroni</code>, <code>pg*</code>, <code>postgis</code>, and <code>wal2json</code>. The agent does not report non-Percona packages.</p>
+<h2 id="disable-continuous-telemetry">Disable continuous telemetry<a class="headerlink" href="#disable-continuous-telemetry" title="Permanent link">&para;</a></h2>
+<p>Continuous telemetry is enabled by default. Complete the steps in the following order.</p>
+<div class="admonition warning">
+<p class="admonition-title">Restart required</p>
+<p>Steps 1 and 3 require a server or service restart. Plan a maintenance window before you change telemetry settings in production.</p>
+</div>
+<ol>
+<li>
+<p>Add the server option <code>percona_telemetry_disable=1</code> under <code>[mysqld]</code> in <code>my.cnf</code>, or in an included option file. Restart the server. The server option prevents the telemetry component from loading after restart. Do not rely on <code>UNINSTALL COMPONENT</code> alone. A restart without <code>percona_telemetry_disable=1</code> can reload telemetry.</p>
+</li>
+<li>
+<p>Run <code>UNINSTALL COMPONENT "file://component_percona_telemetry";</code> to stop metrics file generation.</p>
+</li>
+<li>
+<p>Stop and disable <code>percona-telemetry-agent</code> as described in <a href="#disable-the-telemetry-agent">Disable the telemetry agent</a>.</p>
+</li>
+</ol>
+<p>These steps disable continuous telemetry only. For install-time opt-out, see <a href="#disable-installation-time-telemetry">Disable installation-time telemetry</a>.</p>
+<h3 id="disable-the-telemetry-agent">Disable the telemetry agent<a class="headerlink" href="#disable-the-telemetry-agent" title="Permanent link">&para;</a></h3>
+<p>Stopping the agent blocks uploads. The DB component continues to write metrics files until you uninstall the component.</p>
+<p>Run both commands for a permanent disable:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>percona-telemetry-agent
+sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>percona-telemetry-agent
+</code></pre></div>
+<p><code>systemctl stop</code> ends the running agent process. <code>systemctl disable</code> prevents the agent from starting at boot.</p>
+<p>To pause the agent until the next host reboot, run <code>sudo systemctl stop percona-telemetry-agent</code> only. Do not run <code>disable</code> when you plan to re-enable the agent after reboot.</p>
+<h4 id="agent-dependencies-and-removal">Agent dependencies and removal<a class="headerlink" href="#agent-dependencies-and-removal" title="Permanent link">&para;</a></h4>
+<p>The telemetry agent is a mandatory package dependency for Percona Server for MySQL. Review package dependencies before you remove the agent.</p>
+<p>Package manager behavior differs:</p>
+<ul>
+<li>
+<p>DNF can remove the agent when you remove the last dependent package. Removing the agent alone can remove Percona Server for MySQL when dependencies require the agent.</p>
+</li>
+<li>
+<p>APT may keep the agent after you remove only the server package. Use <code>apt autoremove</code> when appropriate. Removing the agent without checking dependencies can affect the server package.</p>
+</li>
+</ul>
+<h3 id="verify-continuous-telemetry-is-disabled">Verify continuous telemetry is disabled<a class="headerlink" href="#verify-continuous-telemetry-is-disabled" title="Permanent link">&para;</a></h3>
+<p>Run these checks from the MySQL client and on the host.</p>
+<p>Confirm the telemetry component is absent:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_urn</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%telemetry%&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output when telemetry is disabled</summary>
+<div class="no-copy highlight"><pre><span></span><code>Empty set (0.00 sec)
+</code></pre></div>
+</details>
+<p>Confirm the disable option is set:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;percona_telemetry_disable&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output when telemetry is disabled</summary>
+<div class="no-copy highlight"><pre><span></span><code>+---------------------------+-------+
+| Variable_name             | Value |
++---------------------------+-------+
+| percona_telemetry_disable | ON    |
++---------------------------+-------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>Confirm the agent is inactive on the host:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>percona-telemetry-agent
+systemctl<span class="w"> </span>is-active<span class="w"> </span>percona-telemetry-agent
+</code></pre></div>
+<p>After a permanent disable, <code>is-enabled</code> returns <code>disabled</code> and <code>is-active</code> returns <code>inactive</code>.</p>
+<h3 id="disable-the-db-component">Disable the DB component<a class="headerlink" href="#disable-the-db-component" title="Permanent link">&para;</a></h3>
+<p>The DB telemetry component can write metrics files for seven days while the agent is stopped. Uninstall the component after you set <code>percona_telemetry_disable=1</code> and restart the server. See the ordered steps in Disable continuous telemetry.</p>
+<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="ss">&quot;file://component_percona_telemetry&quot;</span><span class="p">;</span>
+</code></pre></div>
+<p>Add <code>percona_telemetry_disable=1</code> to <code>my.cnf</code> when the line is missing, then restart:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">percona_telemetry_disable</span><span class="o">=</span><span class="s">1</span>
+</code></pre></div>
+<h2 id="related-reading">Related reading<a class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="installation.html">Install Percona Server for MySQL</a></p>
+</li>
+<li>
+<p><a href="docker.html">Running Percona Server for MySQL in a Docker container</a></p>
+</li>
+<li>
+<p><a href="uninstall-component.html">UNINSTALL COMPONENT</a></p>
+</li>
+</ul>
 
 
 
@@ -9942,7 +10394,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 12:49:59 UTC">February 3, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 26, 2026 21:46:44 UTC">May 26, 2026</span>
   </span>
 
     
