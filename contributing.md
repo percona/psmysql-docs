@@ -40,7 +40,7 @@ To add a topic, navigate to the [Percona Product Documentation category](https:/
 
 Create a Jira ticket to report documentation issues or request changes. This method is useful for formal tracking or when you want the documentation team to handle the changes.
 
-1. Open the [Percona Server Jira project](https://jira.percona.com/projects/PS/issues) in your browser.
+1. Open the [Percona Server Jira project](https://perconadev.atlassian.net/jira/software/c/projects/PS/list?jql=project%20%3D%20PS%20ORDER%20BY%20cf%5B10019%5D%20ASC) in your browser.
 
 2. Sign in (or create a Percona Jira account if you don't have one).
 
@@ -58,7 +58,7 @@ Create a Jira ticket to report documentation issues or request changes. This met
 
 !!! tip "Shortcut to the issue creation screen"
 
-    To go directly to the Create Issue form, use this URL: [https://jira.percona.com/secure/CreateIssue!default.jspa?pid=10100](https://jira.percona.com/secure/CreateIssue!default.jspa?pid=10100)
+    To go directly to the Create Issue form, use this URL: [https://perconadev.atlassian.net/secure/CreateIssue!default.jspa?pid=10100](https://perconadev.atlassian.net/secure/CreateIssue!default.jspa?pid=10100)
 
 
 ## Edit the documentation yourself
@@ -128,16 +128,16 @@ This option is for users who are comfortable with [git](https://git-scm.com/) co
         git remote add upstream https://github.com/percona/psmysql-docs.git
     ```
 
-4. Checkout the appropriate branch for the version you're working on (for example, `8.4` for version 8.4 documentation) and pull the latest changes from upstream:
+4. Checkout the appropriate branch for the version you're working on (for example, `9.7` for version 9.7 documentation) and pull the latest changes from upstream:
 
     ```shell
-        git checkout 8.4
-        git pull upstream 8.4
+        git checkout 9.7
+        git pull upstream 9.7
     ```
 
     !!! note "Which branch to use"
     
-        Use the branch that matches the version of the documentation you're editing. For example, use the `8.4` branch for Percona Server 8.4 documentation. If the branch doesn't exist locally, Git will create a tracking branch automatically.
+        Use the branch that matches the version of the documentation you're editing. For example, use the `9.7` branch for Percona Server 9.7 documentation. If the branch doesn't exist locally, Git will create a tracking branch automatically.
 
 5. Create a separate branch for your changes:
 
