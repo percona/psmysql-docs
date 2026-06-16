@@ -31,7 +31,7 @@ Percona Server for MySQL documentation is licensed under a [Creative Commons Att
 
 ## Contribute to the documentation
 
-We encourage contributions and are always looking for new members who are as dedicated to serving the community as we are. The [Contributing Guide](https://github.com/percona/psmysql-docs/blob/8.0/contributing.md) contains how you can contribute.
+We encourage contributions and are always looking for new members who are as dedicated to serving the community as we are. The [Contributing Guide](https://github.com/percona/psmysql-docs/blob/8.4/contributing.md) contains how you can contribute.
 
 ## Contact
 
