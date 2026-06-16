@@ -1,6 +1,12 @@
 
 # Percona Server for MySQL 5.7 Documentation
 
+!!! warning "End of life alert"
+
+    Percona Server for MySQL 5.7 has reached End of Life (EOL). The core documentation is now read-only and is no longer updated with new features, enhancements, or bug fixes.
+
+    We continue to support customers enrolled in our Post-EOL program. While the product documentation remains frozen, release notes for Post-EOL builds will be added as they become available.
+
 !!! note ""
 
     This documentation is for the latest release: Percona Server for MySQL {{release}} ([Release Notes](release-notes/{{release}}.md)).
