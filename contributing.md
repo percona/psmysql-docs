@@ -40,7 +40,7 @@ To add a topic, navigate to the [Percona Product Documentation category](https:/
 
 Create a Jira ticket to report documentation issues or request changes. This method is useful for formal tracking or when you want the documentation team to handle the changes.
 
-1. Open the [Percona Server Jira project](https://jira.percona.com/projects/PS/issues) in your browser.
+1. Open the [Percona Server Jira project](https://perconadev.atlassian.net/jira/software/c/projects/PS/list?jql=project%20%3D%20PS%20ORDER%20BY%20cf%5B10019%5D%20ASC) in your browser.
 
 2. Sign in (or create a Percona Jira account if you don't have one).
 
@@ -58,7 +58,7 @@ Create a Jira ticket to report documentation issues or request changes. This met
 
 !!! tip "Shortcut to the issue creation screen"
 
-    To go directly to the Create Issue form, use this URL: [https://jira.percona.com/secure/CreateIssue!default.jspa?pid=10100](https://jira.percona.com/secure/CreateIssue!default.jspa?pid=10100)
+    To go directly to the Create Issue form, use this URL: [https://perconadev.atlassian.net/secure/CreateIssue!default.jspa?pid=10100](https://perconadev.atlassian.net/secure/CreateIssue!default.jspa?pid=10100)
 
 
 ## Edit the documentation yourself
