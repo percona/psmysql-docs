@@ -2,9 +2,7 @@
 
 !!! warning "End of life alert"
 
-    Percona Server for MySQL {{release}} is the final release of the Percona Server for MySQL 8.0 series. Percona Server for MySQL 8.0 has reached End of Life (EOL). The core documentation is now read-only and is no longer updated with new features, enhancements, or bug fixes.
-
-    We continue to support customers enrolled in our [Post-EOL program] (#mysql-80-post-eol-support-from-percona). While the product documentation remains frozen, release notes for Post-EOL builds will be added as they become available.
+    Percona Server for MySQL 8.0 has reached end of life. This documentation is now read-only and will no longer be updated. Release notes for Post-EOL builds will continue to be published as they become available.
 
 !!! note ""
 
