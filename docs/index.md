@@ -1,14 +1,12 @@
 # Percona Server for MySQL 8.0 - Documentation
 
+!!! warning "End of life alert"
+
+    Percona Server for MySQL 8.0 has reached end of life. This core documentation is now read-only. However, we will continue to publish release notes for post-EOL builds as they become available.
+
 !!! note ""
 
-    This documentation is for the latest release: Percona Server for MySQL {{release}} ([Release Notes](release-notes/{{release}}.md)).
-
-!!! note "End of life"
-
-    Percona Server for MySQL {{release}} is the final release of the Percona Server for MySQL 8.0 series. MySQL 8.0 has reached its End of Life (EOL). 
-    
-    Percona offers tailored support before, during, and after your move to MySQL 8.4, and can keep your existing MySQL 8.0 deployment secure and performant post-EOL through [MySQL 8.0 Post-EOL Support from Percona](#mysql-80-post-eol-support-from-percona).
+    This documentation is for the latest release: Percona Server for MySQL {{release}} ([Release notes](release-notes/{{release}}.md)).
 
 Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability, and availability, enhanced backups, increased visibility and instrumentation.
 
