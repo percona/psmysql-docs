@@ -2,7 +2,7 @@
 
 !!! warning "End of life alert"
 
-    Percona Server for MySQL 8.0 has reached end of life. This documentation is now read-only and will no longer be updated. Release notes for Post-EOL builds will continue to be published as they become available.
+    Percona Server for MySQL 8.0 has reached end of life. This core documentation is now read-only. However, we will continue to publish release notes for post-EOL builds as they become available.
 
 !!! note ""
 
