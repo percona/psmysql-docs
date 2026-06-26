@@ -2,14 +2,7 @@
 
 Using the `PERCONA_SEQUENCE_TABLE()` function provides the following:
 
-| Benefit                   | Description                                                                                       |
-|---------------------------|---------------------------------------------------------------------------------------------------|
-| Generates Sequences       | Acts as an inline table-valued function that generates a sequence of numbers.                     |
-| Table-Valued Function     | Unlike traditional scalar functions, `PERCONA_SEQUENCE_TABLE()` returns a virtual table with a single column named `value` containing the generated sequence. |
-| Simpler Syntax            | Simplifies queries that need to generate predictable sequences of numbers.                        |
-| Flexibility               | Allows dynamic definition of sequences within queries, offering more control compared to pre-defined tables for sequences. |
-| Predefined Sequence       | Does not manage sequences like Oracle or PostgreSQL; instead, it allows definition and generation of sequences within a `SELECT` statement. |
-| Customization             | Enables customization of starting value, increment/decrement amount, and number of values to generate. |
+--8<--- "sequence-table-benefits.md"
 
 ## Version update
 
@@ -21,13 +14,13 @@ To maintain compatibility with existing third-party software, `SEQUENCE_TABLE` i
 
 ## Table functions
 
-The function is an inline table-valued function. This function creates a temporary table with multiple rows. You can use this function within a single SELECT statement. Oracle MySQL Server only has the `JSON_TABLE` table function. The Percona Server for MySQL has the `JSON_TABLE` and `PERCONA_SEQUENCE_TABLE()` table functions. A single SELECT statement generates a multi-row result set. In contrast, a scalar function (like [EXP(x) :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.4/en/mathematical-functions.html#function_exp) or [LOWER(str) :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.4/en/string-functions.html#function_lower) always returns a single value of a specific data type.
+--8<--- "sequence-table-concepts.md:1:1"
 
 ## Syntax
 
-As with any [derived tables :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.4/en/derived-tables.html), a table function requires an [alias :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.4/en/identifiers.html) in the `SELECT` statement.
+--8<--- "sequence-table-concepts.md:3:3"
 
-The result set is a single column with the predefined column name `value` of type `BIGINT UNSIGNED`. You can reference the `value` column in `SELECT` statements. The following statements are valid. Using `n` as the number of generated values, the following is the basic syntax:
+--8<--- "sequence-table-concepts.md:5:5"
 
 ### PERCONA_SEQUENCE_TABLE(n) [AS] alias
 
@@ -42,7 +35,7 @@ SELECT * FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 SELECT <expr(value)> FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 ```
 
-The first number in the series, the initial term, is defined as `0`, and the series ends with a value less than `n`.
+--8<--- "sequence-table-concepts.md:7:7"
 
 ### Basic sequence generation
 
@@ -91,7 +84,7 @@ SELECT value AS result \
 
 ### Filter even numbers
 
-Consecutive terms increase or decrease by a common difference. The default common difference value is `1`. However, it is possible to filter the results using the WHERE clause to simulate common differences greater than 1.
+--8<--- "sequence-table-concepts.md:9:9"
 
 The following example prints only even numbers from the 0..7 range:
 
@@ -183,6 +176,6 @@ SELECT * FROM t1;
     +-------+
     ```
 
-Sequences are helpful for various purposes, such as populating tables and generating test data.
+--8<--- "sequence-table-concepts.md:11:11"
 
 [SEQUENCE_TABLE()]: sequence-table.md

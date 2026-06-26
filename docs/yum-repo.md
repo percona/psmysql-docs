@@ -1,8 +1,12 @@
 # Install using DNF
 
+Percona Server for MySQL packages are available from the software repositories and from the [Percona Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads/) page.
+
+The [Percona Release Lifecycle Overview :octicons-link-external-16:](https://www.percona.com/release-lifecycle-overview/#mysql) page lists supported platforms, products, and versions.
+
 !!! important "Installation method"
 
-    This guide documents the standard operating system (OS) installation on Red Hat Package Manager (RPM)-based systems. Supported distributions include Red Hat Enterprise Linux (RHEL), CentOS, and Rocky Linux. The procedure uses Dandified YUM (DNF). The Percona Server for MySQL software repositories and the [Percona downloads] page provide the required packages. DNF replaces YUM on RHEL 8 and later. The `yum` commands continue to work because the system aliases them to `dnf`.
+    This guide documents the standard operating system (OS) installation on Red Hat Package Manager (RPM)-based systems. Supported distributions include Red Hat Enterprise Linux (RHEL), Rocky Linux, and AlmaLinux. The procedure uses Dandified YUM (DNF). The Percona Server for MySQL software repositories and the [Percona downloads] page provide the required packages. DNF replaces YUM on RHEL 8 and later. The `yum` commands continue to work because the system aliases them to `dnf`.
 
     Containerized deployments use separate guides:
 
@@ -46,6 +50,8 @@ RHEL 8 and later systems enable the MySQL module by default. The module hides th
 !!! note "Standard OS installation"
 
     The following steps install Percona Server for MySQL directly on the host operating system using DNF. The procedure applies to standard OS installations, not to Kubernetes pods or containerized environments.
+
+For scripted automation, see [Non-interactive DNF installation for Percona Server for MySQL {{vers}}](yum-noninteractive-install.md).
 
 All commands in this guide use `sudo` for privilege elevation. Follow these steps:
 {.power-number}
@@ -148,6 +154,8 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 5. Install the server package:
 
+	The package manager does not prompt for a `root` password on a fresh RPM install. After installation, set the password using the temporary password in the error log. For automation, see [Non-interactive DNF installation for Percona Server for MySQL {{vers}}](yum-noninteractive-install.md).
+
 	```shell
 	sudo dnf install percona-server-server
 	```
@@ -188,13 +196,15 @@ See [Configuring Percona repositories with `percona-release` :octicons-link-exte
 
 --8<-- "storage-engines.md"
 
-## Unattended installations
-
---8<-- "install-flag.md"
-
 ## Next steps
 
 After installation completes, see [Post-installation](post-installation.md) for steps to configure and secure your Percona Server for MySQL installation.
+
+## Related installation topics
+
+* [Non-interactive DNF installation for Percona Server for MySQL {{vers}}](yum-noninteractive-install.md): unattended installs, temporary password handling, and `percona-release` flags
+
+* [Optional steps after repository install for Percona Server for MySQL {{vers}}](optional-after-install.md): Percona Toolkit UDFs and the testing repository
 
 ## Additional information
 
@@ -211,86 +221,5 @@ The RPM builds contain Advanced RISC Machine (ARM) packages that use the `aarch6
 ### Supported platforms
 
 The [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql) document lists supported platforms, products, and versions.
-
-## Install Percona Toolkit UDFs (optional)
-
-User-defined functions (UDFs) extend MySQL with custom functions. Percona Server for MySQL includes UDFs from [Percona Toolkit :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/) for data integrity checks and performance monitoring. The following table lists the UDFs that provide faster checksum calculations:
-
-| Function | Description |
-|---|---|
-| `fnv_64` | Fast 64-bit hash function |
-| `fnv1a_64` | Variant of `fnv_64` with improved distribution |
-| `murmur_hash` | High-performance non-cryptographic hash function |
-
-To install the functions after the server installation, run the following command:
-
-```sql
-INSTALL COMPONENT 'file://component_percona_udf';
-```
-
-??? example "Expected output"
-
-	```{.text .no-copy}
-	Query OK, 0 rows affected (0.01 sec)
-	```
-
-### Verify the UDF installation
-
-The functions become available for use in SQL queries. For example: `SELECT fnv_64('test_string');`
-
-For detailed information, see [Percona Toolkit UDF functions](udf-percona-toolkit.md).
-
-## Install the Percona testing repository (advanced users only)
-
-Do not use testing repositories in production environments. Testing builds are pre-release versions that may contain bugs or incomplete features.
-
-Percona offers pre-release builds from the testing repository for advanced users who want to complete the following actions:
-
-* Evaluate upcoming improvements.
-
-* Provide feedback on development versions.
-
-* Test features before the official release.
-
-To enable the testing repository, run the following command:
-
-```shell
-sudo percona-release enable {{pkg}} testing
-```
-
-??? example "Expected output"
-
-	```{.text .no-copy}
-	* Enabling Percona Server for MySQL {{vers}} testing repository
-	* Running dnf update...
-	Last metadata expiration check: 0:01:23 ago on Mon Jan 15 10:30:00 2024.
-	All packages are up to date.
-	```
-
-The testing repository has the following limitations:
-
-* Features can change without notice.
-
-* Percona does not provide production support for testing builds.
-
-* The repository may contain experimental or incomplete functionality.
-
-* The repository may exclude features from the final release.
-
-To disable the testing repository and return to stable releases, run the following commands:
-
-```shell
-sudo percona-release disable testing
-sudo dnf update
-```
-
-??? example "Expected output"
-
-	```{.text .no-copy}
-	* Disabling Percona testing repository
-	* Running dnf update...
-	Last metadata expiration check: 0:01:23 ago on Mon Jan 15 10:30:00 2024.
-	All packages are up to date.
-	```
 
 [Telemetry data]: telemetry.md

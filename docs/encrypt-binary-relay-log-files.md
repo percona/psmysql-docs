@@ -2,7 +2,7 @@
 
 Encrypt the binary log files and the relay log files to protect them from unauthorized viewing. The encryption uses the Advanced Encryption Standard (AES) symmetric block cipher algorithm. Instead of bits, this algorithm works on bytes.
 
-Any supported encryption keyring plugin or component must be installed and configured to use encryption.
+--8<--- "encryption-keyring-prerequisite.md"
 
 Enabling binary log encryption at system start, the server generates a binary log encryption key before iniatializing the binary log and relay logs. The key encrypts a file password for each binary log, if binary logging is enabled, and relay log. Keys generated from the file passwords encrypt the data in the files.
 

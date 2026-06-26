@@ -2,13 +2,7 @@
 
 Enable the component keyring (`component_keyring_file`) in Percona Server {{vers}} for encryption at rest. In MySQL 8.4 and later, the supported path is the component keyring, not legacy keyring plugins.
 
-!!! important
-
-    Enable only one keyring at a time. Do not use legacy keyring plugins (such as `keyring_file` or `keyring_vault`) together with the component keyring.
-
-    If you are upgrading from 8.0 or another release and already have data encrypted with a legacy keyring plugin, do not enable the component keyring without a migration plan. Data encrypted with the old plugin will not be readable by the new component; existing encrypted tables can become unreadable.
-
-    See [Upgrade components](upgrade-components.md) and your upgrade documentation before switching. For migrating keys from a legacy keyring to the component keyring, check MySQL and Percona documentation for your version (for example, the mysql_migrate_keyring utility where applicable).
+--8<--- "keyring-single-instance-warning.md:9:15"
 
 This guide is based on [Configuring the Component Keyring in Percona Server and PXC 8.4](https://percona.community/blog/2026/01/13/configuring-the-component-keyring-in-percona-server-and-pxc-8.4/) (Percona Community).
 
@@ -77,11 +71,7 @@ In hardened environments (for example, security-hardened AMIs), extended attribu
 
 In orchestrated or container environments (for example, Kubernetes, OpenShift), file ownership and permissions are often managed by the platform (for example, Security Context Constraints or admission controllers). Manual `chown`/`chmod` may fail or be overwritten when the pod restarts. Check your platform documentation for how to set permissions or run as the correct user.
 
-!!! warning "Back up the keyring file: data recovery depends on it"
-
-    Do not delete the keyring file (for example, `/var/lib/mysql-keyring/component_keyring_file`) to "clean up" or for any other reason. If that file is lost or deleted, all data encrypted with it is **unrecoverable**. There is no way to decrypt tablespaces, redo logs, or undo logs without the keyring.
-
-    **Life cycle:** Back up the keyring file and its directory as part of your normal backup strategy. Include the keyring in your restore procedures so that after a restore you can start MySQL with the same keys and access your encrypted data. If you move or clone the server, copy the keyring file to the new location before starting the server.
+--8<--- "keyring-backup-warning.md:1:5"
 
 ## Step 3: Configure the keyring component
 
@@ -229,26 +219,15 @@ InnoDB encrypts data when the option is set. These queries only confirm that the
 
 Tables: List tables that have the encryption option set. Such tables show `ENCRYPTION="Y"` in `CREATE_OPTIONS`:
 
-```sql
-SELECT TABLE_SCHEMA, TABLE_NAME, CREATE_OPTIONS
-FROM INFORMATION_SCHEMA.TABLES
-WHERE CREATE_OPTIONS LIKE '%ENCRYPTION%';
-```
+--8<--- "verify-encryption-queries.md:1:5"
 
 Tablespaces: Check whether a tablespace has the encryption flag set in `INNODB_TABLESPACES`. Bit 13 (value 8192) is set when the tablespace is marked encrypted:
 
-```sql
-SELECT name, (flag & 8192) != 0 AS encrypted
-FROM INFORMATION_SCHEMA.INNODB_TABLESPACES;
-```
+--8<--- "verify-encryption-queries.md:7:10"
 
 Schemas: List schemas that have default encryption (new tables in schemas with default encryption are encrypted by default):
 
-```sql
-SELECT SCHEMA_NAME, DEFAULT_ENCRYPTION
-FROM INFORMATION_SCHEMA.SCHEMATA
-WHERE DEFAULT_ENCRYPTION = 'YES';
-```
+--8<--- "verify-encryption-queries.md:12:16"
 
 Redo and undo logs: Confirm whether redo and undo log encryption is enabled:
 
@@ -297,8 +276,7 @@ The keyring remains loaded and the keyring files on disk are unchanged. To remov
 
 ## Operational notes
 
-* Treat the keyring file as a secret: restrict access and include it in your secure backup strategy.
-* Back up the keyring file and its directory. If the keyring is lost or damaged (for example, after a migration or permission change), you cannot decrypt data that was encrypted with the keyring. Recovery is not possible. Duplicate or back up the keyring before major changes to the server or filesystem.
-* If the keyring is lost and you have encrypted data, recovery is not possible.
+--8<--- "keyring-backup-warning.md:7:11"
+
 * To change the master key (for example, for rotation or compliance), use `ALTER INSTANCE ROTATE INNODB MASTER KEY`; see [Rotate the master encryption key](rotate-master-key.md). Do not delete or replace the keyring file manually to "reset" or rotate. You will lose access to all data encrypted with it.
 * For MySQL 8.4 and later, components are the supported keyring model; avoid mixing with legacy keyring plugins.

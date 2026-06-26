@@ -8,7 +8,9 @@ Complete these checks before starting the upgrade process.
 
 ### Authentication and connectivity
 
-Impact: MySQL 9.x and {{vers}} remove the `mysql_native_password` plugin. The `default_authentication_plugin` system variable is not available. New accounts use `caching_sha2_password`. MySQL 9.x removes the server-side option to re-enable native-password authentication.
+Impact:
+
+--8<--- "authentication-9x-overview.md:1:1"
 
 Action:
 

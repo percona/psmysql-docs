@@ -6,9 +6,7 @@ An authentication method is a way to verify the identity of a user trying to acc
 
 Percona Server for MySQL {{vers}} follows MySQL 9.x authentication rules.
 
-* The `mysql_native_password` plugin is removed in MySQL 9.x. The server does not offer `--mysql-native-password=ON`, `mysql_native_password=ON`, or any other way to load the `mysql_native_password` plugin on {{vers}}.
-* The `default_authentication_plugin` system variable is not used in MySQL 9.x.
-* Password-based authentication for new accounts uses `caching_sha2_password` by default.
+--8<--- "authentication-9x-overview.md:3:8"
 
 Upgrading from 8.4 LTS: On 8.4 LTS, `mysql_native_password` was disabled by default but could still be enabled for compatibility. Before cutover to {{vers}}, inventory accounts and clients that rely on native password authentication, migrate them to `caching_sha2_password` (or another supported plugin), and verify connector support. See [Upgrade checklist for {{vers}}](upgrade-checklist-9.7.md) and [Use an APT repository to install Percona Server for MySQL](apt-repo.md) (configure authentication during package install).
 

@@ -19,34 +19,7 @@ either by its ID, alias (the key can have any number of aliases), or ARN.
 
 For more information, see [Installing and Uninstalling Components :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/component-loading.html).
 
-The following example is a global manifest file that does not use local
-manifests:
-
-```json
-{
- "read_local_manifest": false,
- "components": "file://component_keyring_kms"
-}
-```
-
-The following is an example of a global manifest file that points to a local manifest file:
-
-```json
-{
- "read_local_manifest": true
-}
-```
-
-The following is an example of a local manifest file:
-
-```json
-{
- "components": "file://component_keyring_kms"
-}
-```
-
-The configuration settings are either in a global configuration file or a local
-configuration file. The settings are the same.
+--8<--- "keyring-manifest-examples.md:28:55"
 
 The KMS configuration file has the following options:
 

@@ -1,9 +1,8 @@
 # Encrypt schema or general tablespace
 
-Percona Server for MySQL uses the same encryption architecture as MySQL, a two-tier system consisting of a master key and tablespace keys. The master key can be changed, or rotated in the keyring, as needed. Each tablespace key, when
-decrypted, remains the same.
+--8<--- "encryption-architecture-overview.md"
 
-The feature requires the keyring plugin.
+--8<--- "encryption-keyring-prerequisite.md"
 
 ## Set the default for schemas and general tablespace encryption
 
@@ -47,8 +46,8 @@ The variable has the following possible options:
 
 !!! note
 
-    The `ALTER TABLE` statement changes the current encryption mode only if you use the `ENCRYPTION` clause.
-    
+    --8<--- "encryption-alter-table-clause.md"
+
 ## `innodb_encrypt_online_alter_logs`
 
 | Option       | Description                        |

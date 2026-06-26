@@ -2,13 +2,15 @@
 
 Describes the redo log encryption and the undo log encryption.
 
+--8<--- "encryption-keyring-prerequisite.md"
+
 ## Redo Log encryption
 
 Use the `innodb_redo_log_encrypt` option to enable or disable redo log data encryption. By default, the encryption of the redo log is disabled.
 
-InnoDB uses the tablespace encryption key to encrypt the redo log data. If the encryption is enabled, when the server encrypts and writes the redo log data to the disk. When the server reads the redo log data from disk, the data is decrypted.
+--8<--- "encryption-log-data-flow.md"
 
-Changing the encryption does not change existing redo log pages. Setting the option to `ON`, any existing redo log pages remain unencrypted; writing new pages to disk encrypts them. Setting the option to `OFF`, any existing encrypted pages remain encrypted; writing new pages to disk are unencrypted.
+--8<--- "encryption-log-toggle-behavior.md"
 
 The metadata for the redo log encryption includes the tablespace encryption key and is stored the in redo log file header. Removing the encryption metadata disables the redo log encryption.
 
@@ -38,9 +40,9 @@ Determines the encryption for the table redo log data. The default option for th
 
 Use the `innodb_undo_log_encrypt` option to enable or disable undo log data encryption. By default, the option to encrypt the undo log data is disabled.
 
-InnoDB uses the tablespace encryption key to encrypt the undo log data. If the encryption is enabled, when the server encrypts and writes the undo log data to the disk. When the server reads the undo log data from disk, the data is decrypted.
+--8<--- "encryption-log-data-flow.md"
 
-Changing the encryption does not change existing undo log pages. Setting the option to `ON`, any existing pages remain unencrypted; writing new pages to disk encrypts them. Setting the option to `OFF`, any existing encrypted pages remain encrypted; writing new pages to disk are unencrypted.
+--8<--- "encryption-log-toggle-behavior.md"
 
 The metadata for the redo log encryption includes the tablespace encryption key and is stored the in undo log file header.
 

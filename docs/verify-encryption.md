@@ -7,10 +7,7 @@ may verify if the tablespace is encrypted or not.
 For single tablespaces, verify the ENCRYPTION option using
 INFORMATION_SCHEMA.TABLES and the CREATE OPTIONS settings.
 
-```sql
-SELECT TABLE_SCHEMA, TABLE_NAME, CREATE_OPTIONS FROM
-       INFORMATION_SCHEMA.TABLES WHERE CREATE_OPTIONS LIKE '%ENCRYPTION%';
-```
+--8<--- "verify-encryption-queries.md:1:5"
 
 ??? example "Expected output"
 
@@ -26,11 +23,7 @@ A `flag` field in the `INFORMATION_SCHEMA.INNODB_TABLESPACES` has bit number
 13 set if the tablespace is encrypted. This bit can be checked with the `flag &
 8192` expression in the following way:
 
-```
-SELECT space, name, flag, (flag & 8192) != 0 AS encrypted FROM
-INFORMATION_SCHEMA.INNODB_TABLESPACES WHERE name in ('foo', 'test/t2', 'bar',
-'noencrypt');
-```
+--8<--- "verify-encryption-queries.md:7:10"
 
 The encrypted table metadata is contained in the
 INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION table. You must have the
@@ -66,10 +59,7 @@ INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION table. You must have the
 To identify encryption-enabled schemas, query the
 INFORMATION_SCHEMA.SCHEMATA table:
 
-```sql
-SELECT SCHEMA_NAME, DEFAULT_ENCRYPTION FROM
-INFORMATION_SCHEMA.SCHEMATA WHERE DEFAULT_ENCRYPTION='YES';
-```
+--8<--- "verify-encryption-queries.md:12:16"
 
 ??? example "Expected output"
 

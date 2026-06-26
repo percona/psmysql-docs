@@ -2,9 +2,7 @@
 
 Percona Server supports a keyring that enables internal server components to store sensitive information securely for later retrieval.
 
-!!! warning
-
-    Enable only one keyring component at a time for each server instance. Enabling multiple keyring components is not supported and may result in data loss.
+--8<--- "keyring-single-instance-warning.md:1:3"
 
 Percona Server supports the following keyring components:
 

@@ -4,32 +4,7 @@ The `keyring_vault` component extends the server capabilities and provides an in
 
 --8<--- "keyring-components-installation.md"
 
-The following example is a global manifest file that does not use local manifests:
-
-```json
-{
- "read_local_manifest": false,
- "components": "file://component_keyring_vault"
-}
-```
-
-The following is an example of a global manifest file that points to a local manifest file:
-
-```json
-{
- "read_local_manifest": true
-}
-```
-
-The following is an example of a local manifest file:
-
-```json
-{
- "components": "file://component_keyring_vault"
-}
-```
-
-The configuration settings are either in a global configuration file or a local configuration file.
+--8<--- "keyring-manifest-examples.md:1:26"
 
 The component communicates with the [Hashicorp Vault server :octicons-link-external-16:](https://developer.hashicorp.com/vault/docs/install). Prepare the certificate and key files for a secure HTTPS connection to the server. You must have an organizational Certificate Authority (CA), a private vault key, and certificate for the Hashicorp Vault server instance. 
 

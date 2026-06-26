@@ -1,8 +1,10 @@
 # Install Percona Server for MySQL and create a database on Oracle Linux
 
-Use the Percona repositories to install using YUM.
+Install Percona Server for MySQL with the Percona DNF repositories.
 
-Quickstart path: Step 1 — Install. Next: [Work with a database](quickstart-database-script.md) (step 2).
+Quickstart path: Step 1 is Install. Step 2 is [Work with a database](quickstart-database-script.md).
+
+For expected output, troubleshooting, and platform notes, see [Install using DNF](yum-repo.md). For unattended installs and temporary password automation, see [Non-interactive DNF installation for Percona Server for MySQL {{vers}}](yum-noninteractive-install.md). For Percona Toolkit UDFs and the testing repository, see [Optional steps after repository install for Percona Server for MySQL {{vers}}](optional-after-install.md).
 
 --8<-- "percona-release.md"
 

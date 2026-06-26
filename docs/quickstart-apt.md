@@ -1,10 +1,10 @@
 # Install Percona Server for MySQL and create a database on Ubuntu
 
-Use the Percona repositories to install Percona Server for MySQL with APT.
+Install Percona Server for MySQL with the Percona APT repositories.
 
-Quickstart path: Step 1, Install. Next: [Work with a database](quickstart-database-script.md) is step two.
+Quickstart path: Step 1 is Install. Step 2 is [Work with a database](quickstart-database-script.md).
 
-For step-by-step command explanations, HTTPS (`--scheme`) details, non-interactive installs, and debconf guidance, see [Use an APT repository to install Percona Server for MySQL](apt-repo.md).
+For command explanations, HTTPS (`--scheme`) details, and authentication during install, see [Use an APT repository to install Percona Server for MySQL](apt-repo.md). For debconf preseed and unattended installs, see [Non-interactive APT installation for Percona Server for MySQL {{vers}}](apt-noninteractive-install.md).
 
 --8<-- "percona-release.md"
 
@@ -63,7 +63,7 @@ To install the server, complete the following steps:
 
     - Confirm the password.
 
-    The package manager may ask additional debconf questions depending on the package and distribution. On {{vers}}, password-based authentication defaults to `caching_sha2_password`. The `mysql_native_password` plugin is not available on MySQL 9.x. See [Authentication methods](authentication-methods.md).
+    - --8<--- "authentication-9x-overview.md:1:1" See [Authentication methods](authentication-methods.md).
 
 7. [Optional] Secure the installation:
 

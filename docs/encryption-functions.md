@@ -2,15 +2,7 @@
 
 Percona Server for MySQL adds encryption functions and variables to manage the encryption range. The functions may take an algorithm argument. Encryption converts plaintext into ciphertext using a key and an encryption algorithm.
 
-You can also use the user-defined functions with the PEM format keys generated externally by the OpenSSL utility.
-
-A digest uses plaintext and generates a hash value. This hash value can verify if the plaintext is unmodified. You can also sign or verify on digests to ensure that the original plaintext was not modified. You cannot decrypt the original text from the hash value.
-
-When choosing key lengths, consider the following:
-
-* Encryption strength increases with the key size and, also, the key generation time.
-
-* If performance is important and the functions are frequently used, use symmetric encryption. Symmetric encryption functions are faster than asymmetric encryption functions. Moreover, asymmetric encryption has restrictions on the maximum length of a message being encrypted. For example, for RSA the algorithm maximum message size is the key length in bytes (key length in bits / 8) minus 11.
+--8<--- "encryption-udf-concepts.md"
 
 <!-- Rewrite the following instruction to be valid for 9.7-->
 
@@ -59,18 +51,6 @@ All component_encryption_udf functions now handle character sets intelligently:
 • Function return values in PEM format: Assigned the ASCII charset.
 
 • Function return values for operations like digest calculation, encryption, decryption, and signing: Assigned the binary charset.
-
-## Use user-defined functions
-
-You can also use the user-defined functions with the PEM format keys generated externally by the OpenSSL utility.
-
-A digest uses plaintext and generates a hash value. This hash value can verify if the plaintext is unmodified. You can also sign or verify on digests to ensure that the original plaintext was not modified. You cannot decrypt the original text from the hash value.
-
-When choosing key lengths, consider the following:
-
-* Encryption strength increases with the key size and generation time.
-
-* If performance is essential and the functions are frequently used, use symmetric encryption. Symmetric encryption functions are faster than asymmetric encryption functions. Moreover, asymmetric encryption restricts the maximum length of a message being encrypted. For example, the algorithm's maximum message size for RSA is the key length in bytes (key length in bits / 8) minus 11.
 
 ## Install component_encryption_udf
 
@@ -196,27 +176,7 @@ The parameters are the following:
 
 * digest_type - the OpenSSL version installed on your system determines the available hash functions. The following table lists these functions:
 
-    | OpenSSL 1.0.2 | OpenSSL 1.1.0 | OpenSSL 1.1.1 | OpenSSL 3.0.x |
-    |---|---|---|---|
-    | md5 | md5 | md5 | md5 |
-    | sha1 | sha1 | sha1 | sha1 |
-    | sha224 | sha224 | sha224 | sha224 |
-    | sha384 | sha384 | sha384 | sha384 |
-    | sha512 | sha512 | sha512 | sha512 |
-    | md4 | md4 | md4 | md4 |
-    | sha | md5-sha1 | md5-sha1 | md5-sha1 |
-    | ripemd160 | ripemd160 | ripemd160 | sha512-224 |
-    | whirlpool | whirlpool | sha512-224 | sha512-256 |
-    |  | blake2b512 | sha512-256 | sha3-224 |
-    |  | blake2s256 | whirlpool | sha3-256 |
-    |  |  | sm3 | sha3-384 |
-    |  |  | blake2b512 | sha3-512 |
-    |  |  | blake2s256 |  |
-    |  |  | sha3-224 |  |
-    |  |  | sha3-384 |  |
-    |  |  | sha3-512 |  |
-    |  |  | shake128 |  |
-    |  |  | shake256 |  |
+--8<--- "encryption-udf-openssl-digests.md"
 
 * padding - An optional parameter introduced in Percona Server for MySQL 8.4.4. It is used with the RSA algorithm and supports RSA signature padding schemes like `pkcs1`, or `pkcs1_pss`. If you skip this parameter, the system determines its value based on the [`encryption_udf.legacy_padding`](#legacy_padding) variable.
 
@@ -324,27 +284,7 @@ The parameters are the following:
 
 * digest_type - the OpenSSL version installed on your system determines the available hash functions. The following table lists these functions:
 
-    | OpenSSL 1.0.2 | OpenSSL 1.1.0 | OpenSSL 1.1.1 | OpenSSL 3.0.x |
-    |---|---|---|---|
-    | md5 | md5 | md5 | md5 |
-    | sha1 | sha1 | sha1 | sha1 |
-    | sha224 | sha224 | sha224 | sha224 |
-    | sha384 | sha384 | sha384 | sha384 |
-    | sha512 | sha512 | sha512 | sha512 |
-    | md4 | md4 | md4 | md4 |
-    | sha | md5-sha1 | md5-sha1 | md5-sha1 |
-    | ripemd160 | ripemd160 | ripemd160 | sha512-224 |
-    | whirlpool | whirlpool | sha512-224 | sha512-256 |
-    |  | blake2b512 | sha512-256 | sha3-224 |
-    |  | blake2s256 | whirlpool | sha3-256 |
-    |  |  | sm3 | sha3-384 |
-    |  |  | blake2b512 | sha3-512 |
-    |  |  | blake2s256 | sm3 |
-    |  |  | sha3-224 | blake2b512 |
-    |  |  | sha3-384 | blake2s256 |
-    |  |  | sha3-512 | blake2b512 |
-    |  |  | shake128 | blake2s256 |
-    |  |  | shake256 |  |
+--8<--- "encryption-udf-openssl-digests.md"
 
 * str - String used to generate the digest string.
 

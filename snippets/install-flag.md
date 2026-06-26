@@ -1,8 +1,8 @@
 
-The `-y` flag automatically confirms all actions without asking for user input. This makes running commands smoother, especially in situations where you can't or don't want to interact, like during unattended installations or automated scripts. However, keep in mind that using the `-y` flag skips confirmation prompts, which means you won't have a chance to review any changes before they're made. So, it's best to use this flag only when you're sure about the command you're executing.
+The `-y` flag confirms all actions without user input. Use the flag for unattended installations or automated scripts. The flag skips confirmation prompts. You cannot review changes before the command runs. Use the flag only when you trust the command.
 
-The recommended syntax for using this flag with the `percona-release setup` is: 
+Recommended syntax with `percona-release setup`:
 
 ``` shell
 percona-release setup -y ps-97-lts 
-``` 
+```
