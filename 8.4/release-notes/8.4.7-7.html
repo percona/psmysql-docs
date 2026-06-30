@@ -10086,7 +10086,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://perconadev.atlassian.net/browse/PS-9220">PS-9220</a>: During slow‑query‑log rotation the server attempts to write to the base file <code>slow.log</code> (which isn&rsquo;t created), raises an error - <code>errno 2 – No such file or directory</code>, but the logs are written with numeric suffixes (for example, <code>slow.log.000087</code>) that obey the configured size and file‑count limits.</p>
 </li>
 <li>
-<p><a href="https://perconadev.atlassian.net/browse/PS-9452">PS-9452</a>: When the server uses a thread‑pool (thread_handling = pool‑of‑threads) and the variable <code>thread_pool_high_prio_mode</code> is set to <code>transactions</code>, every new client connection is placed in the normal‑priority queue. The queue is processed only if there is a free thread in the pool.</p>
+<p><a href="https://perconadev.atlassian.net/browse/PS-9452">PS-9452</a>: Under <code>pool-of-threads</code> with <code>high_prio_mode=transactions</code>, new login requests were routed to the normal queue. When active threads exceeded <code>thread_pool_size * (thread_pool_oversubscribe + 1)</code>, the thread pool starved this queue. Because connection counts were incremented pre-queueing, retrying clients quickly exhausted max connections, causing a &ldquo;Too many connections&rdquo; error and locking out non-admin users.</p>
 </li>
 <li>
 <p><a href="https://perconadev.atlassian.net/browse/PS-9815">PS-9815</a>: Percona Server using the <code>component_keyring_vault</code> component exited when it attempted to load a <code>component_keyring_vault.cnf</code> file containing incorrect setting values.</p>
@@ -10190,7 +10190,7 @@ If these two counts differ, the formula calculates the wrong capacity, leading t
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 17, 2026 15:34:29 UTC">June 17, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 30, 2026 13:55:06 UTC">June 30, 2026</span>
   </span>
 
     

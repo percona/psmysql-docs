@@ -13278,6 +13278,37 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Get started with <a href="#quickstart-overview">Quickstart Guide for Percona Server for MySQL</a>.</p>
 <p><a href="https://www.percona.com/software/mysql-database/percona-server">Percona Server for MySQL 8.4.10-10 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> includes all the features and bug fixes available in the MySQL 8.4.10 Community Edition in addition to enterprise-grade features developed by Percona.</p>
 <h2 id="release-notes-8.4.10-10-release-highlights">Release highlights<a class="headerlink" href="#release-notes-8.4.10-10-release-highlights" title="Permanent link">&para;</a></h2>
+<h3 id="release-notes-8.4.10-10-percona-server-for-mysql-8410-10">Percona Server for MySQL 8.4.10-10<a class="headerlink" href="#release-notes-8.4.10-10-percona-server-for-mysql-8410-10" title="Permanent link">&para;</a></h3>
+<p>Percona Server for MySQL 8.4.10-10 introduces the following new features and improvements:</p>
+<ul>
+<li>
+<p>Integrates the new Key Management Interoperability Protocol (KMIP) library into the key management component.</p>
+</li>
+<li>
+<p>Enhances Thread Pool statistics by adding new status variables for queue monitoring and wait time analysis. Reports the number of requests waiting in normal and high-priority queues, the number of requests not yet entered into a queue, and aggregate queue wait time statistics, including average, minimum, maximum, and standard deviation wait times.</p>
+</li>
+<li>
+<p>Adds JSONL (JSON Lines) output format for Audit Log Filter.</p>
+</li>
+<li>
+<p>Increases the verbosity of the data dictionary upgrade process, making it easier to diagnose issues that occur during upgrade.</p>
+</li>
+<li>
+<p>Logs SQL statements for the Audit Log Filter <code>table_access</code> class and the <code>read</code> and <code>insert</code> subclasses.</p>
+</li>
+<li>
+<p>Flushes the audit log buffer on server shutdown when the <code>ASYNCHRONOUS</code> logging strategy is in use, preventing the loss of buffered events.</p>
+</li>
+<li>
+<p>Reduces memory pressure in the Audit Log Filter component caused by VFS buffering.</p>
+</li>
+<li>
+<p>Aligns the <code>audit_log_filter.format=NEW</code> output between the 8.0 plugin and the 8.4 component.</p>
+</li>
+<li>
+<p>Optimizes performance for <code>mem_root_deque</code>.</p>
+</li>
+</ul>
 <h3 id="release-notes-8.4.10-10-mysql-849">MySQL 8.4.9<a class="headerlink" href="#release-notes-8.4.10-10-mysql-849" title="Permanent link">&para;</a></h3>
 <p>Improvements and bug fixes introduced by Oracle for MySQL 8.4.10 and included in Percona Server for MySQL are the following:</p>
 <ul>
@@ -13611,7 +13642,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://perconadev.atlassian.net/browse/PS-9220">PS-9220</a>: During slow‑query‑log rotation the server attempts to write to the base file <code>slow.log</code> (which isn&rsquo;t created), raises an error - <code>errno 2 – No such file or directory</code>, but the logs are written with numeric suffixes (for example, <code>slow.log.000087</code>) that obey the configured size and file‑count limits.</p>
 </li>
 <li>
-<p><a href="https://perconadev.atlassian.net/browse/PS-9452">PS-9452</a>: When the server uses a thread‑pool (thread_handling = pool‑of‑threads) and the variable <code>thread_pool_high_prio_mode</code> is set to <code>transactions</code>, every new client connection is placed in the normal‑priority queue. The queue is processed only if there is a free thread in the pool.</p>
+<p><a href="https://perconadev.atlassian.net/browse/PS-9452">PS-9452</a>: Under <code>pool-of-threads</code> with <code>high_prio_mode=transactions</code>, new login requests were routed to the normal queue. When active threads exceeded <code>thread_pool_size * (thread_pool_oversubscribe + 1)</code>, the thread pool starved this queue. Because connection counts were incremented pre-queueing, retrying clients quickly exhausted max connections, causing a &ldquo;Too many connections&rdquo; error and locking out non-admin users.</p>
 </li>
 <li>
 <p><a href="https://perconadev.atlassian.net/browse/PS-9815">PS-9815</a>: Percona Server using the <code>component_keyring_vault</code> component exited when it attempted to load a <code>component_keyring_vault.cnf</code> file containing incorrect setting values.</p>
