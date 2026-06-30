@@ -13278,7 +13278,38 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Get started with <a href="#quickstart-overview">Quickstart Guide for Percona Server for MySQL</a>.</p>
 <p><a href="https://www.percona.com/software/mysql-database/percona-server">Percona Server for MySQL 8.4.10-10 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> includes all the features and bug fixes available in the MySQL 8.4.10 Community Edition in addition to enterprise-grade features developed by Percona.</p>
 <h2 id="release-notes-8.4.10-10-release-highlights">Release highlights<a class="headerlink" href="#release-notes-8.4.10-10-release-highlights" title="Permanent link">&para;</a></h2>
-<h3 id="release-notes-8.4.10-10-mysql-849">MySQL 8.4.9<a class="headerlink" href="#release-notes-8.4.10-10-mysql-849" title="Permanent link">&para;</a></h3>
+<h3 id="release-notes-8.4.10-10-percona-server-for-mysql-8410-10">Percona Server for MySQL 8.4.10-10<a class="headerlink" href="#release-notes-8.4.10-10-percona-server-for-mysql-8410-10" title="Permanent link">&para;</a></h3>
+<p>Percona Server for MySQL 8.4.10-10 introduces the following new features and improvements:</p>
+<ul>
+<li>
+<p>Integrates the new Key Management Interoperability Protocol (KMIP) library into the key management component.</p>
+</li>
+<li>
+<p>Enhances Thread Pool statistics by adding new status variables for queue monitoring and wait time analysis. Reports the number of requests waiting in normal and high-priority queues, the number of requests not yet entered into a queue, and aggregate queue wait time statistics, including average, minimum, maximum, and standard deviation wait times.</p>
+</li>
+<li>
+<p>Adds JSONL (JSON Lines) output format for Audit Log Filter.</p>
+</li>
+<li>
+<p>Increases the verbosity of the data dictionary upgrade process, making it easier to diagnose issues that occur during upgrade.</p>
+</li>
+<li>
+<p>Logs SQL statements for the Audit Log Filter <code>table_access</code> class and the <code>read</code> and <code>insert</code> subclasses.</p>
+</li>
+<li>
+<p>Flushes the audit log buffer on server shutdown when the <code>ASYNCHRONOUS</code> logging strategy is in use, preventing the loss of buffered events.</p>
+</li>
+<li>
+<p>Reduces memory pressure in the Audit Log Filter component caused by VFS buffering.</p>
+</li>
+<li>
+<p>Aligns the <code>audit_log_filter.format=NEW</code> output between the 8.0 plugin and the 8.4 component.</p>
+</li>
+<li>
+<p>Optimizes performance for <code>mem_root_deque</code>.</p>
+</li>
+</ul>
+<h3 id="release-notes-8.4.10-10-mysql-8410">MySQL 8.4.10<a class="headerlink" href="#release-notes-8.4.10-10-mysql-8410" title="Permanent link">&para;</a></h3>
 <p>Improvements and bug fixes introduced by Oracle for MySQL 8.4.10 and included in Percona Server for MySQL are the following:</p>
 <ul>
 <li>
@@ -13291,7 +13322,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Under certain circumstances, when calculating the maximum possible index record size, an assertion failure could occur. (Bug #85060, Bug #25579578)</p>
 </li>
 </ul>
-<p>Find the complete list of bug fixes and changes in the <a href="https://dev.mysql.com/doc/relnotes/mysql/8.4/en/news-8-4-9.html">MySQL 8.4.9 release notes <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<p>Find the complete list of bug fixes and changes in the <a href="https://dev.mysql.com/doc/relnotes/mysql/8.4/en/news-8-4-10.html">MySQL 8.4.10 release notes <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <h2 id="release-notes-8.4.10-10-security-updates">Security updates<a class="headerlink" href="#release-notes-8.4.10-10-security-updates" title="Permanent link">&para;</a></h2>
 <p>This release addresses the following security vulnerabilities:</p>
 <ul>
