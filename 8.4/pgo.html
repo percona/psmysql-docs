@@ -9,20 +9,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL stores the data files in /var/lib/mysql/ by
-default. The configuration file used to manage Percona Server for MySQL is the /etc/my.cnf.">
+        <meta name="description" content="Starting with Percona Server for MySQL 8.4.10-10, Percona publishes a mixture of Profile-Guided Optimization (PGO) and non-PGO builds. With PGO, the compiler uses profiling data from representative workloads to guide optimization, which can improve throughput and reduce latency for typical database workloads compared with non-PGO builds.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.4/yum-run.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.4/pgo.html">
       
       
-        <link rel="prev" href="yum-download-rpm.html">
+        <link rel="prev" href="installation.html">
       
       
-        <link rel="next" href="yum-uninstall.html">
+        <link rel="next" href="download-instructions.html">
       
       
         
@@ -33,7 +32,7 @@ default. The configuration file used to manage Percona Server for MySQL is the /
     
     
       
-        <title>Run Percona Server for MySQL - Percona Server for MySQL</title>
+        <title>Profile-Guided Optimization (PGO) and non-PGO builds - Percona Server for MySQL</title>
       
     
     
@@ -103,7 +102,7 @@ default. The configuration file used to manage Percona Server for MySQL is the /
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Run Percona Server for MySQL" />
+                 <meta property="og:title" content="Percona Server for MySQL - Profile-Guided Optimization (PGO) and non-PGO builds" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
               
@@ -126,7 +125,7 @@ default. The configuration file used to manage Percona Server for MySQL is the /
     <div data-md-component="skip">
       
         
-        <a href="#run-percona-server-for-mysql" class="md-skip">
+        <a href="#profile-guided-optimization-pgo-and-non-pgo-builds" class="md-skip">
           Skip to content
         </a>
       
@@ -255,7 +254,7 @@ default. The configuration file used to manage Percona Server for MySQL is the /
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Run Percona Server for MySQL
+              Profile-Guided Optimization (PGO) and non-PGO builds
             
           </span>
         </div>
@@ -2746,10 +2745,37 @@ default. The configuration file used to manage Percona Server for MySQL is the /
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="pgo.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Profile-Guided Optimization (PGO) and non-PGO builds
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="pgo.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2765,6 +2791,72 @@ default. The configuration file used to manage Percona Server for MySQL is the /
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#benefits-of-pgo-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefits of PGO builds
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#considerations-for-non-pgo-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Considerations for non-PGO builds
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#which-build-you-receive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which build you receive
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build from source
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3128,10 +3220,8 @@ default. The configuration file used to manage Percona Server for MySQL is the /
                 
   
   
-    
   
   
-  
     
     
       
@@ -3149,11 +3239,11 @@ default. The configuration file used to manage Percona Server for MySQL is the /
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" >
         
           
           <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="0">
@@ -3174,7 +3264,7 @@ default. The configuration file used to manage Percona Server for MySQL is the /
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3273,37 +3363,10 @@ default. The configuration file used to manage Percona Server for MySQL is the /
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Run Percona Server for MySQL
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="yum-run.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="yum-run.html" class="md-nav__link">
         
   
   
@@ -3319,39 +3382,6 @@ default. The configuration file used to manage Percona Server for MySQL is the /
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#selinux-and-security-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SELinux and security considerations
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -9833,7 +9863,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
                       <div data-banner="data-banner" class="edit-contrib-banner">
   <div class="banner-content">
     <!-- Edit link centered -->
-    <a href="https://github.com/percona/psmysql-docs/edit/8.4/docs/yum-run.md" title="Edit this page on GitHub" class="edit-page-link">
+    <a href="https://github.com/percona/psmysql-docs/edit/8.4/docs/pgo.md" title="Edit this page on GitHub" class="edit-page-link">
       <span class="edit-page-icon">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
@@ -9886,10 +9916,43 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#selinux-and-security-considerations" class="md-nav__link">
+  <a href="#benefits-of-pgo-builds" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SELinux and security considerations
+        Benefits of PGO builds
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#considerations-for-non-pgo-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Considerations for non-PGO builds
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#which-build-you-receive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which build you receive
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build from source
       
     </span>
   </a>
@@ -9919,46 +9982,51 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/8.4/docs/yum-run.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/8.4/docs/pgo.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="run-percona-server-for-mysql">Run Percona Server for MySQL<a class="headerlink" href="#run-percona-server-for-mysql" title="Permanent link">&para;</a></h1>
-<p>Percona Server for MySQL stores the data files in <code>/var/lib/mysql/</code> by
-default. The configuration file used to manage Percona Server for MySQL is the <code>/etc/my.cnf</code>.</p>
-<p class="power-number">The following commands start, provide the server status, stop the server, and restart the server.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The RHEL distributions and derivatives come with <a href="https:/freedesktop.org/wiki/Software/systemd/">systemd</a> as the default system and service manager so you can invoke all of the commands with <code>sytemctl</code> instead of <code>service</code>. Currently, both options are supported.</p>
-</div>
-<ol>
+<h1 id="profile-guided-optimization-pgo-and-non-pgo-builds">Profile-Guided Optimization (PGO) and non-PGO builds<a class="headerlink" href="#profile-guided-optimization-pgo-and-non-pgo-builds" title="Permanent link">&para;</a></h1>
+<p>Starting with <a href="release-notes/8.4.10-10.html">Percona Server for MySQL 8.4.10-10</a>, Percona publishes a mixture of Profile-Guided Optimization (PGO) and non-PGO builds. With PGO, the compiler uses profiling data from representative workloads to guide optimization, which can improve throughput and reduce latency for typical database workloads compared with non-PGO builds.</p>
+<p>To install Percona Server for MySQL, see <a href="installation.html">Install Percona Server for MySQL from repositories</a>.</p>
+<h2 id="benefits-of-pgo-builds">Benefits of PGO builds<a class="headerlink" href="#benefits-of-pgo-builds" title="Permanent link">&para;</a></h2>
+<p>PGO builds are a good default when they are available for your platform. Advantages include the following:</p>
+<ul>
 <li>
-<p>Percona Server for MySQL is not started automatically on the RHEL distributions and derivatives after installation. Start the server with the following command:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
-</code></pre></div>
+<p><strong>Higher performance for typical workloads</strong> — Hot code paths are optimized using profiling data from representative database workloads, which can improve query throughput and reduce latency compared with non-PGO builds.</p>
 </li>
 <li>
-<p>Review the service status with the following command:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>status
-</code></pre></div>
+<p><strong>No application changes</strong> — PGO is a compile-time optimization. You install and run Percona Server for MySQL the same way as a non-PGO build; no extra configuration is required.</p>
 </li>
 <li>
-<p>Stop the service with the following command:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
-</code></pre></div>
+<p><strong>Production-oriented packaging</strong> — When Percona publishes PGO builds for a platform, they are intended for production use where performance matters.</p>
+</li>
+</ul>
+<h2 id="considerations-for-non-pgo-builds">Considerations for non-PGO builds<a class="headerlink" href="#considerations-for-non-pgo-builds" title="Permanent link">&para;</a></h2>
+<p>A non-PGO build is not inferior by design. You may receive or choose one for reasons such as the following:</p>
+<ul>
+<li>
+<p><strong>Platform availability</strong> — Percona does not yet publish a PGO build for every operating system, architecture, or installation method. In those cases, the non-PGO package is the supported option.</p>
 </li>
 <li>
-<p>Restart the service with the following command:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>restart
-</code></pre></div>
+<p><strong>Consistency with an existing environment</strong> — Use a non-PGO build when you need to match binaries in a test, staging, or support scenario that already runs a non-PGO package (for example, before validating an upgrade path).</p>
 </li>
-</ol>
-<h2 id="selinux-and-security-considerations">SELinux and security considerations<a class="headerlink" href="#selinux-and-security-considerations" title="Permanent link">&para;</a></h2>
-<p>For information on working with SELinux, see <a href="selinux.html">Working with SELinux</a>.</p>
-<p>The RHEL 8 distributions and derivatives have added <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening">system-wide cryptographic policies component</a>. This component allows the configuration of cryptographic subsystems.</p>
+<li>
+<p><strong>Custom source builds</strong> — If you compile Percona Server for MySQL yourself, you control whether PGO is enabled. A non-PGO build may be appropriate when you are not using Percona’s profiling workflow or when you need a simpler reproducible build for development.</p>
+</li>
+<li>
+<p><strong>Workload mismatch (uncommon)</strong> — PGO optimizes for the workloads used during profiling. If your workload is highly unusual and differs sharply from typical OLTP-style database traffic, performance gains may be smaller. This is uncommon in practice; most production deployments still benefit from PGO when it is available.</p>
+</li>
+</ul>
+<p>When both PGO and non-PGO builds are published for the same platform, prefer the PGO build for production unless one of the considerations above applies.</p>
+<h2 id="which-build-you-receive">Which build you receive<a class="headerlink" href="#which-build-you-receive" title="Permanent link">&para;</a></h2>
+<p>In most cases, you do not choose PGO or non-PGO at install time. The build type depends on how Percona packages Percona Server for MySQL for your operating system, architecture, and installation method (APT, DNF/YUM, binary tarball, or Docker). Some platforms ship PGO-enabled packages; others ship non-PGO builds while PGO support is rolled out across the release matrix.</p>
+<p>See the <a href="https://www.percona.com/downloads/Percona-Server-8.4/">Percona downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> page and the <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> page for supported platforms for this release.</p>
+<h2 id="build-from-source">Build from source<a class="headerlink" href="#build-from-source" title="Permanent link">&para;</a></h2>
+<p>To control whether PGO is used, compile Percona Server for MySQL yourself. See <a href="compile-percona-server.html">Compile Percona Server for MySQL from Source</a>.</p>
 
 
 
@@ -9981,7 +10049,7 @@ default. The configuration file used to manage Percona Server for MySQL is the <
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 12:49:59 UTC">February 3, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 30, 2026 13:37:52 UTC">June 30, 2026</span>
   </span>
 
     
@@ -9991,7 +10059,7 @@ default. The configuration file used to manage Percona Server for MySQL is the <
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 6, 2022 20:00:02 UTC">December 6, 2022</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 30, 2026 13:37:52 UTC">June 30, 2026</span>
   </span>
 
     
