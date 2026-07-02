@@ -4,6 +4,21 @@ This feature adds microsecond time resolution and additional statistics to the s
 
 You can use Percona-Toolkit’s [pt-query-digest :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/pt-query-digest.html) tool to aggregate similar queries together and report on those that consume the most execution time.
 
+!!! note "Using the slow query log with PMM Query Analytics"
+
+    PMM Query Analytics (QAN) can collect queries from the slow query log only when
+    the log is written to a file (`log_output=FILE`, the default). It cannot read a
+    slow query log written to a table (`log_output=TABLE`) or the general query log.
+
+    The slow query log records executed statements with their literal values, so it
+    gives fuller query examples and EXPLAIN than the Performance Schema source. If
+    your application uses server-side prepared statements (common with drivers such
+    as JDBC), upstream MySQL exposes those statements to Performance Schema with
+    placeholders (`?`) instead of literal values, and EXPLAIN is unavailable for
+    them — this is MySQL behavior, not a limitation of the slow query log. See the
+    [PMM Query Analytics documentation :octicons-link-external-16:](https://docs.percona.com/percona-monitoring-and-management/3/use/qan/index.html)
+    for how QAN selects its data source.
+
 
 ## System Variables
 
