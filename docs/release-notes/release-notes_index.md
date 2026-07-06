@@ -2,7 +2,7 @@
 
 !!! note "End of life"
 
-    Percona Server for MySQL 8.0.46-37 is the final release of the Percona Server for MySQL 8.0 series. MySQL 8.0 has reached its End of Life (EOL). 
+    Percona Server for MySQL 8.0.46-37 was the final community release of the Percona Server for MySQL 8.0 series. MySQL 8.0 has reached its End of Life (EOL). 
     
     Percona offers tailored support before, during, and after your move to MySQL 8.4, and can keep your existing MySQL 8.0 deployment secure and performant post-EOL through [MySQL 8.0 Post-EOL Support from Percona](https://www.percona.com/mysql-8-0-eol-support/).
 
@@ -25,6 +25,8 @@ The documentation included in source and binary distributions may not be fully u
 For help with using Percona Server for MySQL, visit the [Percona Community Forum](https://forums.percona.com/c/mysql-and-percona-server-for-mysql/) to discuss issues with other Percona users, or contact [Percona Support](https://www.percona.com/services/support) for paid expert assistance.
 
 ## Releases
+
+* [Percona Server for MySQL 8.0.46-38 (2026-07-21)](8.0.46-38.md)
 
 * [Percona Server for MySQL 8.0.46-37 (2026-06-10)](8.0.46-37.md)
 

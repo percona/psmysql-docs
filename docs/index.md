@@ -12,18 +12,18 @@ Percona Server for MySQL is a freely available, fully compatible, enhanced, and 
 
 Thousands of enterprises trust Percona Server for MySQL to provide better performance and concurrency for their most demanding workloads.
 
-## MySQL 8.0 Post-EOL Support from Percona
+## {{post}}
 
-Make sure to use MySQL 8.0 Post-EOL Support from Percona to keep your MySQL applications secure and performing well. This service provides essential bug fixes and security patches.
+Make sure to use [{{post}}](https://www.percona.com/mysql-8-0-eol-support/) to keep your MySQL applications secure and performing well. This service provides essential bug fixes and security patches.
 
 However, consider upgrading to the next major version for more benefits, such as improved performance, better handling of growing data volumes, enhanced security features, and the latest functionalities for better database management.
 
-Version {{release}} is the final release of Percona Server for MySQL 8.0. Subsequent fixes for MySQL 8.0 are delivered as part of MySQL 8.0 Post-EOL Support from Percona, available to customers. They have access to the following installation methods:
+Version 8.0.46-37 was the final community release of Percona Server for MySQL 8.0. Subsequent fixes for MySQL 8.0 are delivered as part of {{post}}, available to customers. They have access to the following installation methods:
 
-* Install MySQL 8.0 Post-EOL Support from Percona releases
-* Download MySQL 8.0 Post-EOL Support from Percona releases as binary tarballs
+* [Install {{post}} releases](install-eol.md)
+* [Download {{post}} releases as binary tarballs](tarball-eol.md)
 
-Community members can build this release from the source.
+Community members can [build this release from the source](compile-percona-server.md).
 
 ## For Monitoring and Management 
 

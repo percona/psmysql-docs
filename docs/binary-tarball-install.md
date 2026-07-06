@@ -1,6 +1,10 @@
 # Install Percona Server for MySQL 8.0 from a binary tarball
 
-A binary tarball contains a group of files, including the server binaries and support files, bundled together into one file using the `tar` command and compressed using `gzip`. 
+A binary tarball contains a group of files, including the server binaries and support files, bundled together into one file using the `tar` command and compressed using `gzip`.
+
+!!! note "{{post}}"
+
+    Customers with {{post}} download binary tarballs from the private Percona repository. See [Download a {{eol}} binary tarball](tarball-eol.md).
 
 See the list of [binary tarballs available based on the Percona Server for MySQL version](binary-tarball-names.md) to select the right tarball for your environment.
     
