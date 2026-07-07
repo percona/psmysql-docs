@@ -7036,6 +7036,8 @@
       
         
       
+        
+      
     
     
     
@@ -7175,6 +7177,34 @@
     
   
     Use the keyring vault component
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="maintain-vault-connection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintain the Vault connection
   
 
     
@@ -12147,6 +12177,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-ellipsis">
       
         Use the keyring vault component
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maintain-vault-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintain the Vault connection
       
     </span>
   </a>
@@ -34792,21 +34833,247 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 <p>Percona Server for MySQL 8.4 does not support the <code>keyring_file</code> plugin.</p>
 </div>
 <p>See the MySQL documentation on the <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html">component installation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> and on the <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-file-component.html">keyring_file component usage <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for more information.</p>
-<p>The component must be installed with a manifest. A keyring component is not loaded with the <code>--early-plugin-load</code> option on the server. The server uses a manifest and the component consults its configuration file during initialization. You should only load a keyring component with a manifest file. Do not use the <code>INSTALL_COMPONENT</code> statement, which loads the keyring components too late in the startup sequence of the server. For example, <code>InnoDB</code> requires the component, but because the components are registered in the <code>mysql.component</code> table, this table is loaded after <code>InnoDB</code> initialization.</p>
-<p>You should create a global manifest file named <code>mysqld.my</code> in the installation directory and, optionally, create a local manifest file, also named <code>mysqld.my</code> in a data directory.</p>
-<p>To install a keyring component, do the following:</p>
+<p>Percona Server uses a keyring to protect the master keys that encrypt data at rest. The server loads the keyring component from a manifest file. The component then reads a separate configuration file during initialization. Two alternative load mechanisms cannot load the keyring early enough: <code>--early-plugin-load</code> and <code>INSTALL COMPONENT</code>.</p>
+<h2 id="use-keyring-file-available-keyring-components">Available keyring components<a class="headerlink" href="#use-keyring-file-available-keyring-components" title="Permanent link">&para;</a></h2>
+<p>Percona Server provides the following keyring components:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Backend</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component_keyring_file</code></td>
+<td>Local file on disk</td>
+</tr>
+<tr>
+<td><code>component_keyring_kmip</code></td>
+<td>Key Management Interoperability Protocol (KMIP) server</td>
+</tr>
+<tr>
+<td><code>component_keyring_kms</code></td>
+<td>Cloud Key Management Service (KMS)</td>
+</tr>
+<tr>
+<td><code>component_keyring_vault</code></td>
+<td>HashiCorp Vault</td>
+</tr>
+</tbody>
+</table>
+<p>Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a <code>.cnf</code> extension. For example, <code>component_keyring_vault</code> reads <code>component_keyring_vault.cnf</code>.</p>
+<h2 id="use-keyring-file-manifest-files">Manifest files<a class="headerlink" href="#use-keyring-file-manifest-files" title="Permanent link">&para;</a></h2>
+<h3 id="use-keyring-file-manifest-fields">Manifest fields<a class="headerlink" href="#use-keyring-file-manifest-fields" title="Permanent link">&para;</a></h3>
+<p>The manifest is a JavaScript Object Notation (JSON) object with the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>components</code></td>
+<td>string</td>
+<td>Conditional</td>
+<td>URL-style locator for the component to load. The format is <code>file://&lt;component_name&gt;</code>. Required when the manifest declares the component directly.</td>
+</tr>
+<tr>
+<td><code>read_local_manifest</code></td>
+<td>boolean</td>
+<td>No</td>
+<td>When <code>true</code>, the global manifest delegates to the local manifest in the data directory. When <code>false</code> or absent, the global manifest declares the component directly.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="use-keyring-file-manifest-examples">Manifest examples<a class="headerlink" href="#use-keyring-file-manifest-examples" title="Permanent link">&para;</a></h3>
+<p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the components in <a href="#use-keyring-file-available-keyring-components">Available keyring components</a>.</p>
+<p>The following example shows a global manifest that loads a component directly:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://&lt;component_name&gt;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The following example shows a global manifest that delegates to the local manifest:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The following example shows a local manifest:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://&lt;component_name&gt;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="use-keyring-file-manifest-locations">Manifest locations<a class="headerlink" href="#use-keyring-file-manifest-locations" title="Permanent link">&para;</a></h3>
+<p>Percona Server reads two manifest files at startup:</p>
+<table>
+<thead>
+<tr>
+<th>Manifest</th>
+<th>Location</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Global manifest</td>
+<td>The directory that contains the <code>mysqld</code> binary</td>
+<td>Default manifest for the server installation</td>
+</tr>
+<tr>
+<td>Local manifest</td>
+<td>Data directory</td>
+<td>Per-instance override for hosts that run multiple instances with different keyring components</td>
+</tr>
+</tbody>
+</table>
+<p>Both files use the name <code>mysqld.my</code>. The global manifest declares the component directly or delegates to the local manifest.</p>
+<h3 id="use-keyring-file-why-the-manifest-is-the-only-supported-load-path">Why the manifest is the only supported load path<a class="headerlink" href="#use-keyring-file-why-the-manifest-is-the-only-supported-load-path" title="Permanent link">&para;</a></h3>
+<p>The keyring must load before <code>InnoDB</code> opens an encrypted page. Any mechanism that depends on the Structured Query Language (SQL) layer therefore loads the keyring too late.</p>
+<p>A <code>mysqld</code> startup proceeds in the following order:</p>
 <ol>
 <li>
-<p>Write a manifest in a valid JSON format</p>
+<p><code>mysqld</code> parses startup configuration and reads the manifest file from the server installation directory.</p>
 </li>
 <li>
-<p>Write a configuration file</p>
+<p>The server loads each component named in the manifest.</p>
+</li>
+<li>
+<p><code>InnoDB</code> initializes, replays the redo log, and opens tablespaces.</p>
+</li>
+<li>
+<p>The SQL layer accepts connections.</p>
 </li>
 </ol>
-<p>A manifest file indicates which component to load. If the manifest file does not exist, the server does not load the component associated with that file. During startup, the server reads the global manifest file from the installation directory. The global manifest file can contain the required information or point to a local manifest file located in the data directory. If you have multiple server instances that use different keyring components use a local manifest file in each data directory to load the correct keyring component for that instance.</p>
+<p>The keyring must load between steps 1 and 3. The following table explains why each alternative mechanism fails to load the keyring within this window:</p>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Reason for failure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#install-component"><code>INSTALL COMPONENT</code></a></td>
+<td>The statement runs as SQL and cannot execute until step 4. The registration record lives in <code>mysql.component</code>, an <code>InnoDB</code> table that the server reads only after <code>InnoDB</code> initializes. The system tablespace cannot decrypt without the keyring, which creates a circular dependency. Crash recovery also runs before the SQL layer, so the encrypted redo log must remain readable without SQL.</td>
+</tr>
+<tr>
+<td><code>--early-plugin-load</code></td>
+<td>The flag applies to legacy keyring plugins, not components. Plugins and components load through separate subsystems. The flag cannot locate component entry points.</td>
+</tr>
+</tbody>
+</table>
+<p>A component registered through <code>INSTALL COMPONENT</code> on a running server does not persist across restarts. On the next restart, <code>InnoDB</code> cannot unwrap tablespace keys because no manifest file exists on disk. A missing or malformed <code>mysqld.my</code> therefore prevents startup for any instance with encrypted tablespaces.</p>
+<h2 id="use-keyring-file-install-a-keyring-component">Install a keyring component<a class="headerlink" href="#use-keyring-file-install-a-keyring-component" title="Permanent link">&para;</a></h2>
+<p>To install a keyring component:</p>
+<ol>
+<li>
+<p>Stop the <code>mysqld</code> process.</p>
+</li>
+<li>
+<p>Create the manifest file at the chosen location. Use one of the examples in <a href="#use-keyring-file-manifest-examples">Manifest examples</a> as a template.</p>
+</li>
+<li>
+<p>Create the configuration file in the same directory as the manifest that declares the component. The name of the configuration file matches the component name with a <code>.cnf</code> extension.</p>
+</li>
+<li>
+<p>Populate the configuration file with parameters for the chosen component. The required parameters depend on the component.</p>
+</li>
+<li>
+<p>Set the file ownership of the manifest file and the configuration file to the <code>mysql</code> user.</p>
+</li>
+<li>
+<p>Restrict read access on the configuration file to the <code>mysql</code> user. The configuration file may contain credentials.</p>
+</li>
+<li>
+<p>Start the <code>mysqld</code> process.</p>
+</li>
+</ol>
+<h2 id="use-keyring-file-verify-the-installation">Verify the installation<a class="headerlink" href="#use-keyring-file-verify-the-installation" title="Permanent link">&para;</a></h2>
+<p>Connect to the server and run the following query:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
+</code></pre></div>
+<p>The query returns one row per status field. The <code>Component_status</code> field reports <code>Active</code> when the component loaded. The <code>Component_status</code> field reports <code>Disabled</code> when the component failed to load. Inspect the server error log to identify the cause of any failure.</p>
+<h2 id="use-keyring-file-operate-the-keyring">Operate the keyring<a class="headerlink" href="#use-keyring-file-operate-the-keyring" title="Permanent link">&para;</a></h2>
+<h3 id="use-keyring-file-rotate-the-master-key">Rotate the master key<a class="headerlink" href="#use-keyring-file-rotate-the-master-key" title="Permanent link">&para;</a></h3>
+<p>The InnoDB master key wraps the tablespace keys that protect data on disk. Rotate the master key on a scheduled cadence to limit the volume of data wrapped by any single master key.</p>
+<p>Run the following statement to rotate the master key:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">INNODB</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
+</code></pre></div>
+<p>The statement generates a master key and stores the key in the keyring. The server then wraps subsequent tablespace keys with the stored key.</p>
+<p>The rotation operation is fast. The server does not re-encrypt the tablespace data.</p>
+<p>Earlier master keys must remain in the keyring. Deleting an earlier master key prevents the server from reading data that was wrapped with that key.</p>
+<p>For required privileges and the full rotation procedure, see <a href="#rotate-master-key">Rotate the master encryption key</a>.</p>
+<h3 id="use-keyring-file-monitor-the-keyring">Monitor the keyring<a class="headerlink" href="#use-keyring-file-monitor-the-keyring" title="Permanent link">&para;</a></h3>
+<p>Use the query in <a href="#use-keyring-file-verify-the-installation">Verify the installation</a> to inspect the keyring at runtime. Configure alerts on <code>Component_status</code> transitions to <code>Disabled</code>. Watch the server error log for keyring-related errors. The server writes manifest parse errors, configuration parse errors, and backend connection errors to the error log.</p>
+<h3 id="use-keyring-file-back-up-and-restore">Back up and restore<a class="headerlink" href="#use-keyring-file-back-up-and-restore" title="Permanent link">&para;</a></h3>
+<p>A backup of an encrypted tablespace requires keyring access on the destination host. The destination host must read the same key material that encrypted the backup.</p>
+<p>The following table summarizes the keyring requirement for each backend:</p>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Backup requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component_keyring_file</code></td>
+<td>Copy the keyring file alongside the data backup. The destination host must read the same key material.</td>
+</tr>
+<tr>
+<td><code>component_keyring_vault</code></td>
+<td>Configure the destination host to authenticate with the same Vault server and access the same <code>secret_mount_point</code>.</td>
+</tr>
+<tr>
+<td><code>component_keyring_kmip</code></td>
+<td>Configure the destination host to authenticate with the same KMIP server and access the same key namespace.</td>
+</tr>
+<tr>
+<td><code>component_keyring_kms</code></td>
+<td>Configure the destination host with credentials and permissions for the same cloud KMS keys.</td>
+</tr>
+</tbody>
+</table>
+<p>Test a restore on a separate host before relying on the backup. A restore that runs on the original host can succeed even when the keyring configuration is incorrect.</p>
+<h2 id="use-keyring-file-replace-or-remove-a-keyring-component">Replace or remove a keyring component<a class="headerlink" href="#use-keyring-file-replace-or-remove-a-keyring-component" title="Permanent link">&para;</a></h2>
+<p>To replace a keyring component:</p>
+<ol>
+<li>
+<p>Stop the <code>mysqld</code> process.</p>
+</li>
+<li>
+<p>Edit the manifest file to reference the replacement component.</p>
+</li>
+<li>
+<p>Create the configuration file for the replacement component.</p>
+</li>
+<li>
+<p>Start the <code>mysqld</code> process.</p>
+</li>
+</ol>
+<p>To remove the keyring:</p>
+<ol>
+<li>
+<p>Confirm that no encrypted tablespaces exist on the server. A server with encrypted tablespaces cannot start without a keyring.</p>
+</li>
+<li>
+<p>Stop the <code>mysqld</code> process.</p>
+</li>
+<li>
+<p>Delete the manifest file.</p>
+</li>
+<li>
+<p>Start the <code>mysqld</code> process.</p>
+</li>
+</ol>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Enable only one keyring plugin or one keyring component at a time for each server instance. Enabling multiple keyring plugins or keyring components or mixing keyring plugins or keyring components is not supported and may result in data loss.</p>
+<p>Configure exactly one keyring per server instance. Percona Server does not support multiple keyring plugins, multiple keyring components, or any combination of plugin and component. Such configurations risk data loss.</p>
 </div>
 <p>An example of a manifest and a configuration file is the following:</p>
 <p>An example of <code>./bin/mysqld.my</code>:</p>
@@ -34819,89 +35086,376 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 <span class="w">    </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/lib/mysql-keyring/keyring_file&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;read_only&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
 <span class="p">}</span>
 </code></pre></div></section><section class="print-page" id="use-keyring-vault-component" heading-number="13.8.2.4"><h1 id="use-keyring-vault-component-use-the-keyring-vault-component">Use the keyring vault component<a class="headerlink" href="#use-keyring-vault-component-use-the-keyring-vault-component" title="Permanent link">&para;</a></h1>
-<p>The <code>keyring_vault</code> component extends the server capabilities and provides an interface for the database with a <a href="https://www.hashicorp.com/products/vault/data-protection">HashiCorp Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> server to store key and secure encryption keys. </p>
-<p>The component must be installed with a manifest. A keyring component is not loaded with the <code>--early-plugin-load</code> option on the server. The server uses a manifest and the component consults its configuration file during initialization. You should only load a keyring component with a manifest file. Do not use the <code>INSTALL_COMPONENT</code> statement, which loads the keyring components too late in the startup sequence of the server. For example, <code>InnoDB</code> requires the component, but because the components are registered in the <code>mysql.component</code> table, this table is loaded after <code>InnoDB</code> initialization.</p>
-<p>You should create a global manifest file named <code>mysqld.my</code> in the installation directory and, optionally, create a local manifest file, also named <code>mysqld.my</code> in a data directory.</p>
-<p>To install a keyring component, do the following:</p>
+<p>The <code>keyring_vault</code> component connects Percona Server to a <a href="https://www.hashicorp.com/products/vault/data-protection">HashiCorp Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> server. The component stores and retrieves the encryption keys that protect data at rest.</p>
+<p>Percona Server uses a keyring to protect the master keys that encrypt data at rest. The server loads the keyring component from a manifest file. The component then reads a separate configuration file during initialization. Two alternative load mechanisms cannot load the keyring early enough: <code>--early-plugin-load</code> and <code>INSTALL COMPONENT</code>.</p>
+<h2 id="use-keyring-vault-component-available-keyring-components">Available keyring components<a class="headerlink" href="#use-keyring-vault-component-available-keyring-components" title="Permanent link">&para;</a></h2>
+<p>Percona Server provides the following keyring components:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Backend</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component_keyring_file</code></td>
+<td>Local file on disk</td>
+</tr>
+<tr>
+<td><code>component_keyring_kmip</code></td>
+<td>Key Management Interoperability Protocol (KMIP) server</td>
+</tr>
+<tr>
+<td><code>component_keyring_kms</code></td>
+<td>Cloud Key Management Service (KMS)</td>
+</tr>
+<tr>
+<td><code>component_keyring_vault</code></td>
+<td>HashiCorp Vault</td>
+</tr>
+</tbody>
+</table>
+<p>Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a <code>.cnf</code> extension. For example, <code>component_keyring_vault</code> reads <code>component_keyring_vault.cnf</code>.</p>
+<h2 id="use-keyring-vault-component-manifest-files">Manifest files<a class="headerlink" href="#use-keyring-vault-component-manifest-files" title="Permanent link">&para;</a></h2>
+<h3 id="use-keyring-vault-component-manifest-fields">Manifest fields<a class="headerlink" href="#use-keyring-vault-component-manifest-fields" title="Permanent link">&para;</a></h3>
+<p>The manifest is a JavaScript Object Notation (JSON) object with the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>components</code></td>
+<td>string</td>
+<td>Conditional</td>
+<td>URL-style locator for the component to load. The format is <code>file://&lt;component_name&gt;</code>. Required when the manifest declares the component directly.</td>
+</tr>
+<tr>
+<td><code>read_local_manifest</code></td>
+<td>boolean</td>
+<td>No</td>
+<td>When <code>true</code>, the global manifest delegates to the local manifest in the data directory. When <code>false</code> or absent, the global manifest declares the component directly.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="use-keyring-vault-component-manifest-examples">Manifest examples<a class="headerlink" href="#use-keyring-vault-component-manifest-examples" title="Permanent link">&para;</a></h3>
+<p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the components in <a href="#use-keyring-vault-component-available-keyring-components">Available keyring components</a>.</p>
+<p>The following example shows a global manifest that loads a component directly:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://&lt;component_name&gt;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The following example shows a global manifest that delegates to the local manifest:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The following example shows a local manifest:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://&lt;component_name&gt;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="use-keyring-vault-component-manifest-locations">Manifest locations<a class="headerlink" href="#use-keyring-vault-component-manifest-locations" title="Permanent link">&para;</a></h3>
+<p>Percona Server reads two manifest files at startup:</p>
+<table>
+<thead>
+<tr>
+<th>Manifest</th>
+<th>Location</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Global manifest</td>
+<td>The directory that contains the <code>mysqld</code> binary</td>
+<td>Default manifest for the server installation</td>
+</tr>
+<tr>
+<td>Local manifest</td>
+<td>Data directory</td>
+<td>Per-instance override for hosts that run multiple instances with different keyring components</td>
+</tr>
+</tbody>
+</table>
+<p>Both files use the name <code>mysqld.my</code>. The global manifest declares the component directly or delegates to the local manifest.</p>
+<h3 id="use-keyring-vault-component-why-the-manifest-is-the-only-supported-load-path">Why the manifest is the only supported load path<a class="headerlink" href="#use-keyring-vault-component-why-the-manifest-is-the-only-supported-load-path" title="Permanent link">&para;</a></h3>
+<p>The keyring must load before <code>InnoDB</code> opens an encrypted page. Any mechanism that depends on the Structured Query Language (SQL) layer therefore loads the keyring too late.</p>
+<p>A <code>mysqld</code> startup proceeds in the following order:</p>
 <ol>
 <li>
-<p>Write a manifest in a valid JSON format</p>
+<p><code>mysqld</code> parses startup configuration and reads the manifest file from the server installation directory.</p>
 </li>
 <li>
-<p>Write a configuration file</p>
+<p>The server loads each component named in the manifest.</p>
+</li>
+<li>
+<p><code>InnoDB</code> initializes, replays the redo log, and opens tablespaces.</p>
+</li>
+<li>
+<p>The SQL layer accepts connections.</p>
 </li>
 </ol>
-<p>A manifest file indicates which component to load. If the manifest file does not exist, the server does not load the component associated with that file. During startup, the server reads the global manifest file from the installation directory. The global manifest file can contain the required information or point to a local manifest file located in the data directory. If you have multiple server instances that use different keyring components use a local manifest file in each data directory to load the correct keyring component for that instance.</p>
+<p>The keyring must load between steps 1 and 3. The following table explains why each alternative mechanism fails to load the keyring within this window:</p>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Reason for failure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#install-component"><code>INSTALL COMPONENT</code></a></td>
+<td>The statement runs as SQL and cannot execute until step 4. The registration record lives in <code>mysql.component</code>, an <code>InnoDB</code> table that the server reads only after <code>InnoDB</code> initializes. The system tablespace cannot decrypt without the keyring, which creates a circular dependency. Crash recovery also runs before the SQL layer, so the encrypted redo log must remain readable without SQL.</td>
+</tr>
+<tr>
+<td><code>--early-plugin-load</code></td>
+<td>The flag applies to legacy keyring plugins, not components. Plugins and components load through separate subsystems. The flag cannot locate component entry points.</td>
+</tr>
+</tbody>
+</table>
+<p>A component registered through <code>INSTALL COMPONENT</code> on a running server does not persist across restarts. On the next restart, <code>InnoDB</code> cannot unwrap tablespace keys because no manifest file exists on disk. A missing or malformed <code>mysqld.my</code> therefore prevents startup for any instance with encrypted tablespaces.</p>
+<h2 id="use-keyring-vault-component-install-a-keyring-component">Install a keyring component<a class="headerlink" href="#use-keyring-vault-component-install-a-keyring-component" title="Permanent link">&para;</a></h2>
+<p>To install a keyring component:</p>
+<ol>
+<li>
+<p>Stop the <code>mysqld</code> process.</p>
+</li>
+<li>
+<p>Create the manifest file at the chosen location. Use one of the examples in <a href="#use-keyring-vault-component-manifest-examples">Manifest examples</a> as a template.</p>
+</li>
+<li>
+<p>Create the configuration file in the same directory as the manifest that declares the component. The name of the configuration file matches the component name with a <code>.cnf</code> extension.</p>
+</li>
+<li>
+<p>Populate the configuration file with parameters for the chosen component. The required parameters depend on the component.</p>
+</li>
+<li>
+<p>Set the file ownership of the manifest file and the configuration file to the <code>mysql</code> user.</p>
+</li>
+<li>
+<p>Restrict read access on the configuration file to the <code>mysql</code> user. The configuration file may contain credentials.</p>
+</li>
+<li>
+<p>Start the <code>mysqld</code> process.</p>
+</li>
+</ol>
+<h2 id="use-keyring-vault-component-verify-the-installation">Verify the installation<a class="headerlink" href="#use-keyring-vault-component-verify-the-installation" title="Permanent link">&para;</a></h2>
+<p>Connect to the server and run the following query:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
+</code></pre></div>
+<p>The query returns one row per status field. The <code>Component_status</code> field reports <code>Active</code> when the component loaded. The <code>Component_status</code> field reports <code>Disabled</code> when the component failed to load. Inspect the server error log to identify the cause of any failure.</p>
+<h2 id="use-keyring-vault-component-operate-the-keyring">Operate the keyring<a class="headerlink" href="#use-keyring-vault-component-operate-the-keyring" title="Permanent link">&para;</a></h2>
+<h3 id="use-keyring-vault-component-rotate-the-master-key">Rotate the master key<a class="headerlink" href="#use-keyring-vault-component-rotate-the-master-key" title="Permanent link">&para;</a></h3>
+<p>The InnoDB master key wraps the tablespace keys that protect data on disk. Rotate the master key on a scheduled cadence to limit the volume of data wrapped by any single master key.</p>
+<p>Run the following statement to rotate the master key:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">INNODB</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
+</code></pre></div>
+<p>The statement generates a master key and stores the key in the keyring. The server then wraps subsequent tablespace keys with the stored key.</p>
+<p>The rotation operation is fast. The server does not re-encrypt the tablespace data.</p>
+<p>Earlier master keys must remain in the keyring. Deleting an earlier master key prevents the server from reading data that was wrapped with that key.</p>
+<p>For required privileges and the full rotation procedure, see <a href="#rotate-master-key">Rotate the master encryption key</a>.</p>
+<h3 id="use-keyring-vault-component-monitor-the-keyring">Monitor the keyring<a class="headerlink" href="#use-keyring-vault-component-monitor-the-keyring" title="Permanent link">&para;</a></h3>
+<p>Use the query in <a href="#use-keyring-vault-component-verify-the-installation">Verify the installation</a> to inspect the keyring at runtime. Configure alerts on <code>Component_status</code> transitions to <code>Disabled</code>. Watch the server error log for keyring-related errors. The server writes manifest parse errors, configuration parse errors, and backend connection errors to the error log.</p>
+<h3 id="use-keyring-vault-component-back-up-and-restore">Back up and restore<a class="headerlink" href="#use-keyring-vault-component-back-up-and-restore" title="Permanent link">&para;</a></h3>
+<p>A backup of an encrypted tablespace requires keyring access on the destination host. The destination host must read the same key material that encrypted the backup.</p>
+<p>The following table summarizes the keyring requirement for each backend:</p>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Backup requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component_keyring_file</code></td>
+<td>Copy the keyring file alongside the data backup. The destination host must read the same key material.</td>
+</tr>
+<tr>
+<td><code>component_keyring_vault</code></td>
+<td>Configure the destination host to authenticate with the same Vault server and access the same <code>secret_mount_point</code>.</td>
+</tr>
+<tr>
+<td><code>component_keyring_kmip</code></td>
+<td>Configure the destination host to authenticate with the same KMIP server and access the same key namespace.</td>
+</tr>
+<tr>
+<td><code>component_keyring_kms</code></td>
+<td>Configure the destination host with credentials and permissions for the same cloud KMS keys.</td>
+</tr>
+</tbody>
+</table>
+<p>Test a restore on a separate host before relying on the backup. A restore that runs on the original host can succeed even when the keyring configuration is incorrect.</p>
+<h2 id="use-keyring-vault-component-replace-or-remove-a-keyring-component">Replace or remove a keyring component<a class="headerlink" href="#use-keyring-vault-component-replace-or-remove-a-keyring-component" title="Permanent link">&para;</a></h2>
+<p>To replace a keyring component:</p>
+<ol>
+<li>
+<p>Stop the <code>mysqld</code> process.</p>
+</li>
+<li>
+<p>Edit the manifest file to reference the replacement component.</p>
+</li>
+<li>
+<p>Create the configuration file for the replacement component.</p>
+</li>
+<li>
+<p>Start the <code>mysqld</code> process.</p>
+</li>
+</ol>
+<p>To remove the keyring:</p>
+<ol>
+<li>
+<p>Confirm that no encrypted tablespaces exist on the server. A server with encrypted tablespaces cannot start without a keyring.</p>
+</li>
+<li>
+<p>Stop the <code>mysqld</code> process.</p>
+</li>
+<li>
+<p>Delete the manifest file.</p>
+</li>
+<li>
+<p>Start the <code>mysqld</code> process.</p>
+</li>
+</ol>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Enable only one keyring plugin or one keyring component at a time for each server instance. Enabling multiple keyring plugins or keyring components or mixing keyring plugins or keyring components is not supported and may result in data loss.</p>
+<p>Configure exactly one keyring per server instance. Percona Server does not support multiple keyring plugins, multiple keyring components, or any combination of plugin and component. Such configurations risk data loss.</p>
 </div>
-<p>The following example is a global manifest file that does not use local manifests:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w"> </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://component_keyring_vault&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>The following is an example of a global manifest file that points to a local manifest file:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w"> </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>The following is an example of a local manifest file:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w"> </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://component_keyring_vault&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>The configuration settings are either in a global configuration file or a local configuration file.</p>
-<p>The component communicates with the <a href="https://developer.hashicorp.com/vault/docs/install">Hashicorp Vault server <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Prepare the certificate and key files for a secure HTTPS connection to the server. You must have an organizational Certificate Authority (CA), a private vault key, and certificate for the Hashicorp Vault server instance. </p>
-<p>You can use <a href="https://www.openssl.org/docs/man3.0/index.html">OpenSSL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> to generate these files or use existing files. The key files contain sensitive information. Store these key files and the password used to create each key in a secure location. </p>
-<p>You can use the Hashicorp Vault to <a href="https://developer.hashicorp.com/vault/tutorials/secrets-management/pki-engine">build your own CA <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>, if needed, and then create a Hashicorp Vault server certificate.</p>
-<p>The <code>component_keyring_vault.cnf</code> file contains the following information:</p>
+<h2 id="use-keyring-vault-component-configure-the-keyring-vault-component">Configure the keyring vault component<a class="headerlink" href="#use-keyring-vault-component-configure-the-keyring-vault-component" title="Permanent link">&para;</a></h2>
+<p>The configuration settings live in either a global configuration file or a local configuration file.</p>
+<p>The component connects to the <a href="https://developer.hashicorp.com/vault/docs/install">HashiCorp Vault server <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> over Hypertext Transfer Protocol Secure (HTTPS) for production deployments. The component also accepts plain <code>http://</code> URLs for development. Prepare the certificate and key files for the secure connection. Each Vault server instance requires three artifacts:</p>
 <ul>
 <li>
-<p><code>read_local_config [optional]</code> - this option can be used only in the global configuration file. This option indicates whether the component should read configuration information from the local configuration file. The allowed values are <code>true</code> or <code>false</code>. If you do not use this option, the component uses only the global configuration file.</p>
-<p>If you use the <code>read_local_config</code> option in the global configuration file along with other items, the component checks the <code>read_local_config</code> item value first:</p>
-<p><code>false</code> - the component processes other items in the global configuration file and ignores the local configuration file.</p>
-<p><code>true</code> - the component ignores other items in the global configuration file and attempts to read the local configuration file.</p>
+<p>An organizational Certificate Authority (CA)</p>
 </li>
 <li>
-<p><code>timeout</code> - the duration in seconds for the Vault server connection timeout. The default value is 15. The allowed range is from 0 to 86400. The timeout can be also disabled to wait an infinite amount of time by setting this variable to 0.</p>
+<p>A private vault key</p>
 </li>
 <li>
-<p><code>vault_url</code> - the Vault server address.</p>
-</li>
-<li>
-<p><code>secret_mount_point</code> - the mount point name where the keyring_vault stores the keys.</p>
-</li>
-<li>
-<p><code>token</code> - a token generated by the Vault server.</p>
-</li>
-<li>
-<p><code>secret_mount_point_version [optional]</code> - the <code>KV Secrets Engine version (kv or kv-v2)</code> used. The allowed values are <code>AUTO</code>, <code>1</code>, and <code>2</code>. The default value is <code>AUTO</code>.</p>
-</li>
-<li>
-<p><code>vault_ca [optional]</code> - if the machine does not trust the Vault’s CA certificate, this variable points to the CA certificate used to sign the Vault’s certificates.</p>
+<p>A server certificate signed by the CA</p>
 </li>
 </ul>
-<details class="example">
-<summary>Example of a configuration file in JSON format</summary>
+<p>You can generate the artifacts with <a href="https://www.openssl.org/docs/man3.0/index.html">OpenSSL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> or reuse existing files. The key files contain sensitive material. Store the key files and the password for each key in a secure location.</p>
+<p>You can also <a href="https://developer.hashicorp.com/vault/tutorials/secrets-management/pki-engine">build a CA inside Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> and then issue a Vault server certificate from that CA.</p>
+<h3 id="use-keyring-vault-component-configuration-parameters">Configuration parameters<a class="headerlink" href="#use-keyring-vault-component-configuration-parameters" title="Permanent link">&para;</a></h3>
+<p>The <code>component_keyring_vault.cnf</code> file contains required and optional parameters.</p>
+<h4 id="use-keyring-vault-component-required-parameters">Required parameters<a class="headerlink" href="#use-keyring-vault-component-required-parameters" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><code>secret_mount_point</code> — the mount point name where <code>keyring_vault</code> stores the keys.</p>
+</li>
+<li>
+<p><code>token</code> — a token issued by the Vault server.</p>
+</li>
+<li>
+<p><code>vault_url</code> — the address of the Vault server. The address must start with <code>http://</code> or <code>https://</code>. Use <code>https://</code> for production traffic. Use <code>http://</code> only for development. The component follows HTTP redirects returned by Vault. This behavior supports cluster setups where a load balancer redirects clients to the active Vault node.</p>
+</li>
+</ul>
+<h4 id="use-keyring-vault-component-optional-parameters">Optional parameters<a class="headerlink" href="#use-keyring-vault-component-optional-parameters" title="Permanent link">&para;</a></h4>
+<p>The component checks the value of <code>read_local_config</code> before any other parameter.</p>
+<ul>
+<li>
+<p><code>read_local_config</code> — Default: <code>false</code>. Declares whether the component reads the local configuration file. Use this parameter only in the global configuration file. The allowed values are <code>true</code> or <code>false</code>.</p>
+<p><code>false</code> — the component processes the other parameters in the global configuration file and ignores the local configuration file.</p>
+<p><code>true</code> — the component ignores the other parameters in the global configuration file and reads the local configuration file.</p>
+</li>
+<li>
+<p><code>secret_mount_point_version</code> — Default: <code>AUTO</code>. The Key-Value (KV) Secrets Engine version (<code>kv</code> or <code>kv-v2</code>). The allowed values are <code>AUTO</code>, <code>1</code>, and <code>2</code>.</p>
+</li>
+<li>
+<p><code>timeout</code> — Default: 15. The duration in seconds applied to both the connection phase and the total operation. The allowed range is 0 through 86400. Set the value to 0 to wait indefinitely.</p>
+</li>
+<li>
+<p><code>vault_ca</code> — Default: unset (fallback to the host trust store). The path to the CA certificate that signed the certificate of the Vault server. Set this parameter when the host does not trust the CA of the Vault server. The component always verifies the peer certificate and the hostname when <code>vault_url</code> uses <code>https://</code>.</p>
+</li>
+</ul>
+<p>The component trims leading and trailing whitespace from each parameter value before parsing.</p>
+<p>Run <code>SELECT * FROM performance_schema.keyring_component_status</code> to inspect the loaded configuration. The view reports each parameter value and the <code>Active</code> or <code>Disabled</code> status. The view also reports the component identity fields: <code>Component_name</code>, <code>Author</code>, <code>License</code>, <code>Implementation_name</code>, and <code>Version</code>.</p>
+<h4 id="use-keyring-vault-component-example-configuration">Example configuration<a class="headerlink" href="#use-keyring-vault-component-example-configuration" title="Permanent link">&para;</a></h4>
+<p>The following example shows a <code>component_keyring_vault.cnf</code> file in JSON format with sample values for each parameter.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w"> </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;vault_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://vault.public.com:8202&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;secret_mount_point&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;secret&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;secret_mount_point_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AUTO&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{randomly-generated-alphanumeric-string}&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;vault_ca&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/data/keyring_vault_confs/vault_ca.crt&quot;</span>
+<span class="w">  </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;vault_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://vault.public.com:8202&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;secret_mount_point&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;secret&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;secret_mount_point_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AUTO&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{randomly-generated-alphanumeric-string}&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;vault_ca&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/data/keyring_vault_confs/vault_ca.crt&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
-</details>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Each <code>secret_mount_point</code> must be used by only one server. The behavior is unpredictable if multiple servers use the same <code>secret_mount_point</code>.</p>
+<p>Each <code>secret_mount_point</code> must serve only one Percona Server instance. Multiple servers that share a <code>secret_mount_point</code> write to the same Vault namespace. The shared namespace exposes the following risks:</p>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Permanent data loss</td>
+<td>Key writes from one server can overwrite key writes from another server. Overwritten keys cannot decrypt previously encrypted data. Cloned servers that retain a source <code>server_uuid</code> collide on InnoDB master-key names. User-named keys created through the keyring UDF surface collide on any duplicate name.</td>
+</tr>
+<tr>
+<td>Unauthorized key disclosure</td>
+<td>Every server with access to the shared mount point can read every key stored by every other server. The component applies no per-server scoping inside the mount.</td>
+</tr>
+<tr>
+<td>Iteration noise</td>
+<td>The keyring metadata iterator returns all keys under the mount, including keys owned by other servers. Rotation and audit tooling sees foreign keys.</td>
+</tr>
+</tbody>
+</table>
+<p>Assign a unique <code>secret_mount_point</code> to each Percona Server instance.</p>
 </div>
-<p>The first time a key is fetched from a keyring, the <code>keyring_vault</code> communicates with the Vault server to retrieve the key type and data.</p>
-<h3 id="use-keyring-vault-component-secret_mount_point_version-information">secret_mount_point_version information<a class="headerlink" href="#use-keyring-vault-component-secret_mount_point_version-information" title="Permanent link">&para;</a></h3>
-<p>The <code>secret_mount_point_version</code> can be either a <code>1</code>, <code>2</code>, <code>AUTO</code>, or the <code>secret_mount_point_version</code> parameter is not listed in the configuration file.</p>
+<p>The component fetches the key type and data from the Vault server on the first request for that key.</p>
+<h4 id="use-keyring-vault-component-validation-rules">Validation rules<a class="headerlink" href="#use-keyring-vault-component-validation-rules" title="Permanent link">&para;</a></h4>
+<p>The component validates each parameter at startup. The following table lists the rejected configurations and their effects:</p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>secret_mount_point</code> ends with <code>/</code></td>
+<td>The component fails to initialize.</td>
+</tr>
+<tr>
+<td><code>secret_mount_point</code> starts with <code>/</code></td>
+<td>The component fails to initialize.</td>
+</tr>
+<tr>
+<td><code>timeout</code> exceeds 86400</td>
+<td>The component fails to initialize.</td>
+</tr>
+<tr>
+<td><code>vault_ca</code> is set together with an <code>http://</code> <code>vault_url</code></td>
+<td>The component fails to initialize.</td>
+</tr>
+<tr>
+<td><code>vault_url</code> does not start with <code>http://</code> or <code>https://</code></td>
+<td>The component fails to initialize.</td>
+</tr>
+<tr>
+<td><code>vault_url</code> uses <code>https://</code> but <code>vault_ca</code> is unset</td>
+<td>The component logs an error and falls back to the host trust store for certificate validation.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="use-keyring-vault-component-secret_mount_point_version-values"><code>secret_mount_point_version</code> values<a class="headerlink" href="#use-keyring-vault-component-secret_mount_point_version-values" title="Permanent link">&para;</a></h3>
+<p>The <code>secret_mount_point_version</code> parameter accepts one of the following values:</p>
 <table>
 <thead>
 <tr>
@@ -34911,46 +35465,313 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>Works with <code>KV Secrets Engine - Version 1 (kv)</code>. When forming key operation URLs, the <code>secret_mount_point</code> is always used without any transformations. For example, to return a key named <code>skey</code>, the URL is <vault_url>/v1/<secret_mount_point>/skey</td>
+<td><code>1</code></td>
+<td>Works with <code>KV Secrets Engine - Version 1 (kv)</code>. The component uses <code>secret_mount_point</code> directly when forming key operation URLs. For example, the URL for a key named <code>skey</code> is <code>&lt;vault_url&gt;/v1/&lt;secret_mount_point&gt;/skey</code>.</td>
 </tr>
 <tr>
-<td>2</td>
-<td>Works with <code>KV Secrets Engine - Version 2 (kv)</code> The initialization logic splits the <code>secret_mount_point</code> parameter into two parts:<ul><li>The <code>mount_point_path</code> - the mount path under which the Vault Server secret was created</li><li>The <code>directory_path</code> - a virtual directory suffix that can be used to create virtual namespaces with the same real mount point</li></ul> For example, both the <code>mount_point_path</code> and the <code>directory_path</code> are needed to form key access URLs: <vault_url>/v1/&lt;mount_point_path/data/<directory_path>/skey</td>
+<td><code>2</code></td>
+<td>Works with <code>KV Secrets Engine - Version 2 (kv-v2)</code>. Initialization splits the <code>secret_mount_point</code> parameter into two parts:<ul><li><code>mount_point_path</code> — the mount path under which the Vault server secret was created</li><li><code>directory_path</code> — a virtual directory suffix that creates virtual namespaces under the same real mount point</li></ul> The component uses both parts to form key access URLs, for example <code>&lt;vault_url&gt;/v1/&lt;mount_point_path&gt;/data/&lt;directory_path&gt;/skey</code>.</td>
 </tr>
 <tr>
-<td>AUTO</td>
-<td>An autodetection mechanism probes and determines if the secrets engine version is <code>kv</code> or <code>kv-v2</code> and based on the outcome will either use the <code>secret_mount_point</code> as is, or split the <code>secret_mount_point</code> into two parts.</td>
+<td><code>AUTO</code></td>
+<td>The component probes the secrets engine to detect <code>kv</code> or <code>kv-v2</code>. The component then either uses <code>secret_mount_point</code> directly or splits the parameter into a mount point path and a directory path. See <a href="#use-keyring-vault-component-auto-detection-algorithm">Auto-detection algorithm</a>.</td>
 </tr>
 <tr>
 <td>Not listed</td>
-<td>If the <code>secret_mount_point_version</code> is not listed in the configuration file, the behavior is the same as <code>AUTO</code>.</td>
+<td>The component behaves as if <code>secret_mount_point_version</code> is set to <code>AUTO</code>.</td>
 </tr>
 </tbody>
 </table>
-<p>If you set the <code>secret_mount_point_version</code> to <code>2</code> but the path pointed by <code>secret_mount_point</code> is based on <code>KV Secrets Engine - Version 1 (kv)</code>, an error is reported, and the component fails to initialize.</p>
-<p>If you set the <code>secret_mount_point_version</code> to <code>1</code> but the path pointed by <code>secret_mount_point</code> is based on <code>KV Secrets Engine - Version 2 (kv-v2)</code>, the component initialization succeeds but any MySQL keyring-related operations fail.</p>
-<h3 id="use-keyring-vault-component-upgrade-from-vault-secrets-engine-version-1-to-version-2">Upgrade from Vault Secrets Engine Version 1 to Version 2<a class="headerlink" href="#use-keyring-vault-component-upgrade-from-vault-secrets-engine-version-1-to-version-2" title="Permanent link">&para;</a></h3>
-<p>You can upgrade from the Vault Secrets Engine Version 1 to Version 2.</p>
-<p>Use either of the following methods:</p>
+<p>The component fails to initialize for any other value. Numeric values other than <code>1</code> or <code>2</code> produce an error. Non-numeric values other than <code>AUTO</code> produce a separate error.</p>
+<p>A version mismatch causes one of the following failures:</p>
+<table>
+<thead>
+<tr>
+<th>Configured value</th>
+<th>Actual engine version</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>2</code></td>
+<td><code>kv</code> (Version 1)</td>
+<td>The component runs auto-detection during initialization to confirm the configured value. The component fails to initialize when the probe finds no <code>kv-v2</code> mount. The error message reads <code>Auto-detected mount point version is not the same as specified in 'secret_mount_point_version'</code>.</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td><code>kv-v2</code> (Version 2)</td>
+<td>The component initializes, but every keyring operation fails.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="use-keyring-vault-component-auto-detection-algorithm">Auto-detection algorithm<a class="headerlink" href="#use-keyring-vault-component-auto-detection-algorithm" title="Permanent link">&para;</a></h4>
+<p>The component runs the auto-detection probe during initialization in two cases:</p>
 <ul>
 <li>
-<p>Set the <code>secret_mount_point_version</code> to <code>AUTO</code> or the variable is not set in the <code>keyring_vault</code> component configuration files in all Percona Servers. The <code>AUTO</code> value ensures the autodetection mechanism is invoked during the component initialization.</p>
+<p><code>secret_mount_point_version</code> is set to <code>AUTO</code>.</p>
 </li>
 <li>
-<p>Set the <code>secret_mount_point_version</code> to <code>2</code> to ensure that components do not initialize unless the <code>kv</code> to <code>kv-v2</code> upgrade completes.</p>
+<p><code>secret_mount_point_version</code> is set to <code>2</code>.</p>
+</li>
+</ul>
+<p>The probe walks <code>secret_mount_point</code> from the longest prefix to the shortest. The probe queries the Vault metadata configuration endpoint for each prefix. The first prefix that returns a <code>kv-v2</code> response defines the mount point path. The remainder of <code>secret_mount_point</code> becomes the directory path. The component falls back to <code>kv</code> when no prefix returns <code>kv-v2</code>.</p>
+<p>The probe writes one informational message per prefix to the server log. The messages identify successful matches, unreadable responses, and rejected prefixes.</p>
+<h3 id="use-keyring-vault-component-upgrade-from-vault-secrets-engine-version-1-to-version-2">Upgrade from Vault Secrets Engine Version 1 to Version 2<a class="headerlink" href="#use-keyring-vault-component-upgrade-from-vault-secrets-engine-version-1-to-version-2" title="Permanent link">&para;</a></h3>
+<p>Use either of the following methods to upgrade from Version 1 to Version 2:</p>
+<ul>
+<li>
+<p>Set <code>secret_mount_point_version</code> to <code>AUTO</code> in the <code>keyring_vault</code> configuration file on every Percona Server, or omit the parameter. The <code>AUTO</code> value triggers autodetection during component initialization.</p>
+</li>
+<li>
+<p>Set <code>secret_mount_point_version</code> to <code>2</code> to ensure each component initializes only after the upgrade from <code>kv</code> to <code>kv-v2</code> completes.</p>
 </li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code>keyring_vault</code> component that works with <code>kv-v2</code> secret engines does not use the built-in key versioning capabilities. The keyring key versions are encoded into key names.</p>
+<p>The <code>keyring_vault</code> component does not use the built-in key versioning of <code>kv-v2</code>. The component encodes each version into the keyring key name.</p>
 </div>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p><a href="https://www.vaultproject.io/docs/install/index.html">Hashicorp Documentation: Installing Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
-<p>[Hashicorp Documentation: Production Hardening <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span>](https://learn.hashicorp.com/vault/operations/production-hardening</p>
-</div>
-<p>)</p></section><section class="print-page" id="using-kmip" heading-number="13.8.2.5"><h1 id="using-kmip-use-the-key-management-interoperability-protocol-kmip">Use the Key Management Interoperability Protocol (KMIP)<a class="headerlink" href="#using-kmip-use-the-key-management-interoperability-protocol-kmip" title="Permanent link">&para;</a></h1>
+<h2 id="use-keyring-vault-component-services-exposed-by-the-component">Services exposed by the component<a class="headerlink" href="#use-keyring-vault-component-services-exposed-by-the-component" title="Permanent link">&para;</a></h2>
+<p>The <code>keyring_vault</code> component implements the following services for keyring operations. Other components and the server core consume these services to manage keys backed by Vault:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>keyring_aes</code></td>
+<td>Performs Advanced Encryption Standard (AES) encryption and decryption with keys stored in Vault.</td>
+</tr>
+<tr>
+<td><code>keyring_component_metadata_query</code></td>
+<td>Reports the component metadata, including the loaded configuration values.</td>
+</tr>
+<tr>
+<td><code>keyring_component_status</code></td>
+<td>Reports the component status.</td>
+</tr>
+<tr>
+<td><code>keyring_generator</code></td>
+<td>Generates keys on demand and stores the keys in Vault.</td>
+</tr>
+<tr>
+<td><code>keyring_keys_metadata_iterator</code></td>
+<td>Iterates over key metadata for inspection.</td>
+</tr>
+<tr>
+<td><code>keyring_load</code></td>
+<td>Loads the keyring during server startup and reloads on demand.</td>
+</tr>
+<tr>
+<td><code>keyring_reader_with_status</code></td>
+<td>Reads keys and exposes the read status.</td>
+</tr>
+<tr>
+<td><code>keyring_writer</code></td>
+<td>Writes keys to Vault.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>keyring_aes</code> service supports server-side encryption at rest. The service also supports the AES user-defined functions (UDFs) when paired with the encryption UDF component.</p>
+<h2 id="use-keyring-vault-component-operate-the-vault-component">Operate the vault component<a class="headerlink" href="#use-keyring-vault-component-operate-the-vault-component" title="Permanent link">&para;</a></h2>
+<p>The shared <a href="#use-keyring-vault-component-operate-the-keyring">Operate the keyring</a> section covers rotation, monitoring, and backup procedures that apply to every keyring component. The following notes describe behaviors that are specific to <code>keyring_vault</code>.</p>
+<h3 id="use-keyring-vault-component-master-key-rotation">Master key rotation<a class="headerlink" href="#use-keyring-vault-component-master-key-rotation" title="Permanent link">&para;</a></h3>
+<p>Each <code>ALTER INSTANCE ROTATE INNODB MASTER KEY</code> statement writes a new master key entry to Vault under the configured <code>secret_mount_point</code>. The previous key remains in Vault history when <code>secret_mount_point_version</code> is <code>2</code> or when the AUTO probe identifies a <code>kv-v2</code> mount. The component contacts Vault during the rotation, so a slow or unreachable Vault delays statement completion. Schedule rotation during a low-load window.</p>
+<h3 id="use-keyring-vault-component-monitoring-fields">Monitoring fields<a class="headerlink" href="#use-keyring-vault-component-monitoring-fields" title="Permanent link">&para;</a></h3>
+<p>Compare the values returned by <code>performance_schema.keyring_component_status</code> against <code>component_keyring_vault.cnf</code> to detect drift in <code>vault_url</code>, <code>secret_mount_point</code>, <code>vault_ca</code>, and <code>secret_mount_point_version</code>. Watch the server error log for <code>HTTP 403</code> (token expiration) and <code>HTTP 503</code> (sealed Vault). Configure alerts on both patterns.</p>
+<h3 id="use-keyring-vault-component-backup-and-restore-considerations">Backup and restore considerations<a class="headerlink" href="#use-keyring-vault-component-backup-and-restore-considerations" title="Permanent link">&para;</a></h3>
+<p>A Vault-backed restore requires the following on the destination host:</p>
+<ul>
+<li>
+<p>Network reachability to the same Vault server, with valid name resolution and certificate trust.</p>
+</li>
+<li>
+<p>A valid token with read access to the configured <code>secret_mount_point</code>.</p>
+</li>
+<li>
+<p>A <code>server_uuid</code> distinct from the source host. A duplicated <code>server_uuid</code> triggers the data-loss case described in <a href="#use-keyring-vault-component-configure-the-keyring-vault-component">Configure the keyring vault component</a>.</p>
+</li>
+<li>
+<p><code>kv-v2</code> history retention that covers the time between backup and restore. A backup taken before a master-key rotation cannot decrypt tablespaces written after the rotation unless the post-rotation key remains in Vault history.</p>
+</li>
+</ul>
+<h2 id="use-keyring-vault-component-see-also">See also<a class="headerlink" href="#use-keyring-vault-component-see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="#data-at-rest-encryption">Data at Rest Encryption</a> describes how Percona Server uses the keyring to protect tablespace data.</p>
+</li>
+<li>
+<p><a href="#quickstart-component-keyring">Get Started with component keyring</a> walks through a minimal setup.</p>
+</li>
+<li>
+<p><a href="#keyring-components-plugins-overview">Keyring components overview</a> compares the available keyring components.</p>
+</li>
+<li>
+<p><a href="#maintain-vault-connection">Maintain the Vault connection</a> covers token expiration, token renewal patterns, and Vault seal handling.</p>
+</li>
+<li>
+<p><a href="#rotate-master-key">Rotate the master encryption key</a> covers the full rotation procedure and required privileges.</p>
+</li>
+</ul></section><section class="print-page" id="maintain-vault-connection" heading-number="13.8.2.5"><h1 id="maintain-vault-connection-maintain-the-vault-connection">Maintain the Vault connection<a class="headerlink" href="#maintain-vault-connection-maintain-the-vault-connection" title="Permanent link">&para;</a></h1>
+<p>Installation of the <a href="#use-keyring-vault-component">keyring vault component</a> is the first step. The most common production failure of <code>keyring_vault</code> is a lost connection to Vault, not a misconfigured component. Two conditions cause the loss:</p>
+<ul>
+<li>
+<p>The token used by the component expires.</p>
+</li>
+<li>
+<p>The Vault server seals.</p>
+</li>
+</ul>
+<p>Either condition prevents Percona Server from fetching master keys.</p>
+<p>The <code>keyring_vault</code> component reads the <code>token</code> value from the configuration file at startup. The component then uses the stored token for the lifetime of the <code>mysqld</code> process. The component does not renew the token and does not reread the configuration file at runtime. Renewal and rotation must run outside MySQL, on the Vault side or through a helper process.</p>
+<h2 id="maintain-vault-connection-renew-the-vault-token">Renew the Vault token<a class="headerlink" href="#maintain-vault-connection-renew-the-vault-token" title="Permanent link">&para;</a></h2>
+<p>Every Vault token has a time-to-live (TTL). When the TTL elapses, Vault revokes the token. Any subsequent Application Programming Interface (API) call returns HTTP 403, including the master-key fetch performed by <code>keyring_vault</code>.</p>
+<p>The following symptoms indicate an expired or revoked token:</p>
+<ul>
+<li>
+<p><code>mysqld</code> startup fails after a restart with keyring component initialization or fetch errors.</p>
+</li>
+<li>
+<p>The statement <code>ALTER INSTANCE ROTATE INNODB MASTER KEY</code> fails.</p>
+</li>
+<li>
+<p>Opening an encrypted table after a restart fails with a keyring error.</p>
+</li>
+<li>
+<p>The row in <code>performance_schema.keyring_component_status</code> shows the component as loaded but unable to reach Vault.</p>
+</li>
+</ul>
+<p>Because the component does not renew tokens, choose one of the following patterns to keep the configured token valid:</p>
+<h3 id="maintain-vault-connection-option-1-recommended-periodic-tokens">Option 1 (recommended): Periodic tokens<a class="headerlink" href="#maintain-vault-connection-option-1-recommended-periodic-tokens" title="Permanent link">&para;</a></h3>
+<p>A <a href="https://developer.hashicorp.com/vault/docs/concepts/tokens#periodic-tokens">periodic token <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> has no maximum TTL. The token continues to work indefinitely as long as a renewal occurs within each period. This renewal model matches the lifetime of a long-running database server.</p>
+<p>Create a Vault role that issues periodic tokens, then mint the token referenced by <code>component_keyring_vault.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>vault<span class="w"> </span>write<span class="w"> </span>auth/token/roles/percona-keyring<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">allowed_policies</span><span class="o">=</span><span class="s2">&quot;percona-keyring-policy&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">period</span><span class="o">=</span><span class="s2">&quot;24h&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">renewable</span><span class="o">=</span><span class="nb">true</span>
+
+vault<span class="w"> </span>token<span class="w"> </span>create<span class="w"> </span>-role<span class="o">=</span>percona-keyring<span class="w"> </span>-format<span class="o">=</span>json
+</code></pre></div>
+<p>Store the issued token in the <code>token</code> field of the <code>keyring_vault</code> configuration file. Pair the periodic token with a renewer (see Option 2) so a renewal occurs at least once per <code>period</code>.</p>
+<h3 id="maintain-vault-connection-option-2-sidecar-renewer">Option 2: Sidecar renewer<a class="headerlink" href="#maintain-vault-connection-option-2-sidecar-renewer" title="Permanent link">&para;</a></h3>
+<p>A sidecar process must call <code>vault token renew</code> before each expiry. The requirement applies whether the token is periodic or has a fixed maximum TTL. The following table compares two common implementations:</p>
+<table>
+<thead>
+<tr>
+<th>Implementation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vault agent</code></td>
+<td>Configure <code>vault agent</code> with an <code>auto_auth</code> block. The agent authenticates, writes the issued token to a sink, and renews the token automatically. Configure <code>component_keyring_vault.cnf</code> to read a token issued by the same auth method, or generate the configuration with agent templating.</td>
+</tr>
+<tr>
+<td><code>systemd</code> timer or cron job</td>
+<td>Schedule <code>vault token renew</code> at an interval shorter than the token TTL, for example hourly for a 24-hour token. Run the job under a dedicated service account, not as <code>root</code>, and forward renewal failures to the alerting system.</td>
+</tr>
+</tbody>
+</table>
+<p>Configure alerts on renewal failure. Without alerts, a failed renewer behaves the same as no renewer at all. The failure surfaces only at the next <code>mysqld</code> restart, when startup fails.</p>
+<h3 id="maintain-vault-connection-operational-checklist">Operational checklist<a class="headerlink" href="#maintain-vault-connection-operational-checklist" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Treat the <code>token</code> value as a secret equal in sensitivity to the Vault unseal keys. Restrict file permissions on <code>component_keyring_vault.cnf</code> to the <code>mysql</code> user.</p>
+</li>
+<li>
+<p>Monitor the token TTL with <code>vault token lookup</code>. Alert when the remaining TTL drops below a safe threshold.</p>
+</li>
+<li>
+<p>Rotate the token only during a maintenance window. Update the configuration file, then restart <code>mysqld</code>. The component reads the file only at startup.</p>
+</li>
+<li>
+<p>Assign one token to one server. The one-token-per-server rule complements the <code>secret_mount_point</code> warning in <a href="#use-keyring-vault-component-configure-the-keyring-vault-component">Configure the keyring vault component</a>.</p>
+</li>
+</ul>
+<h2 id="maintain-vault-connection-handle-a-sealed-vault">Handle a sealed Vault<a class="headerlink" href="#maintain-vault-connection-handle-a-sealed-vault" title="Permanent link">&para;</a></h2>
+<p>The <code>keyring_vault</code> component calls the Vault HTTP API at startup and during every key operation. A <a href="https://developer.hashicorp.com/vault/docs/concepts/seal">sealed Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> returns HTTP 503 for any request to the secrets engine. The component cannot read or write keys against a sealed Vault, even with a valid token.</p>
+<p>Vault becomes sealed in the following situations:</p>
+<ul>
+<li>
+<p>A host reboot or package upgrade restarts the Vault process.</p>
+</li>
+<li>
+<p>An operator runs <code>vault operator seal</code>.</p>
+</li>
+<li>
+<p>Vault seals itself in response to a detected integrity issue.</p>
+</li>
+</ul>
+<p>Percona Server behavior during a sealed Vault depends on timing:</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mysqld</code> running, keys cached in memory</td>
+<td>Reads and writes against the open encrypted tables continue to succeed.</td>
+</tr>
+<tr>
+<td><code>mysqld</code> running, additional key fetch required</td>
+<td>Operations that require an additional key fetch fail. Examples include opening an encrypted table that was not already open, rotating the master key, and creating an encrypted tablespace.</td>
+</tr>
+<tr>
+<td><code>mysqld</code> restarted while Vault remains sealed</td>
+<td><code>InnoDB</code> cannot unwrap tablespace keys. Startup fails or encrypted tables remain inaccessible until Vault is unsealed.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="maintain-vault-connection-recommended-practice">Recommended practice<a class="headerlink" href="#maintain-vault-connection-recommended-practice" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Unseal Vault before starting or restarting Percona Server. Confirm that <code>vault status</code> reports <code>Sealed</code> as <code>false</code>.</p>
+</li>
+<li>
+<p>Automate the unseal step with <a href="https://developer.hashicorp.com/vault/docs/concepts/seal#auto-unseal">auto-unseal <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Use a cloud KMS, Hardware Security Module (HSM), or Transit secret engine as the backing store. A Vault restart then completes without manual intervention. A Vault reboot outside business hours blocks every Percona Server that depends on the sealed Vault.</p>
+</li>
+<li>
+<p>Order the startup dependencies. Configure <code>mysqld</code> to depend on Vault being unsealed, not only on Vault being reachable. Apply the dependency when both processes run on the same host or under the same orchestrator.</p>
+</li>
+<li>
+<p>Monitor the <code>/v1/sys/health</code> endpoint of Vault. The endpoint reports seal status. Alert on <code>sealed=true</code> independently of database telemetry, so operators can respond before the next <code>mysqld</code> restart.</p>
+</li>
+<li>
+<p>Keep unseal keys and recovery keys offline and distributed across custodians. The custody practice belongs to the Vault domain rather than Percona. Lost unseal keys produce permanent data loss for every Percona Server that depends on the sealed Vault.</p>
+</li>
+</ul>
+<h2 id="maintain-vault-connection-see-also">See also<a class="headerlink" href="#maintain-vault-connection-see-also" title="Permanent link">&para;</a></h2>
+<p>Percona Server documentation:</p>
+<ul>
+<li>
+<p><a href="#data-at-rest-encryption">Data at Rest Encryption</a> describes how Percona Server uses the keyring to protect tablespace data.</p>
+</li>
+<li>
+<p><a href="#keyring-components-plugins-overview">Keyring components overview</a> compares the available keyring components.</p>
+</li>
+<li>
+<p><a href="#rotate-master-key">Rotate the master encryption key</a> covers the full rotation procedure and required privileges.</p>
+</li>
+<li>
+<p><a href="#use-keyring-vault-component">Use the keyring vault component</a> describes installation and configuration of the <code>keyring_vault</code> component.</p>
+</li>
+</ul>
+<p>HashiCorp documentation:</p>
+<ul>
+<li>
+<p><a href="https://www.vaultproject.io/docs/install/index.html">Installing Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</li>
+<li>
+<p><a href="https://learn.hashicorp.com/vault/operations/production-hardening">Production Hardening <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</li>
+</ul></section><section class="print-page" id="using-kmip" heading-number="13.8.2.6"><h1 id="using-kmip-use-the-key-management-interoperability-protocol-kmip">Use the Key Management Interoperability Protocol (KMIP)<a class="headerlink" href="#using-kmip-use-the-key-management-interoperability-protocol-kmip" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL supports the <a href="https://docs.oasis-open.org/kmip/kmip-spec/v2.0/os/kmip-spec-v2.0-os.html">OASIS Key Management Interoperability Protocol (KMIP) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. This implementation was tested with:
 - <a href="https://pykmip.readthedocs.io/en/latest/server.html">PyKMIP server <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
 - <a href="https://developer.hashicorp.com/vault/docs/secrets/kmip">HashiCorp Vault Enterprise KMIP Secrets Engine <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
@@ -34966,21 +35787,247 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 </li>
 </ul>
 <h2 id="using-kmip-component-installation">Component installation<a class="headerlink" href="#using-kmip-component-installation" title="Permanent link">&para;</a></h2>
-<p>The component must be installed with a manifest. A keyring component is not loaded with the <code>--early-plugin-load</code> option on the server. The server uses a manifest and the component consults its configuration file during initialization. You should only load a keyring component with a manifest file. Do not use the <code>INSTALL_COMPONENT</code> statement, which loads the keyring components too late in the startup sequence of the server. For example, <code>InnoDB</code> requires the component, but because the components are registered in the <code>mysql.component</code> table, this table is loaded after <code>InnoDB</code> initialization.</p>
-<p>You should create a global manifest file named <code>mysqld.my</code> in the installation directory and, optionally, create a local manifest file, also named <code>mysqld.my</code> in a data directory.</p>
-<p>To install a keyring component, do the following:</p>
+<p>Percona Server uses a keyring to protect the master keys that encrypt data at rest. The server loads the keyring component from a manifest file. The component then reads a separate configuration file during initialization. Two alternative load mechanisms cannot load the keyring early enough: <code>--early-plugin-load</code> and <code>INSTALL COMPONENT</code>.</p>
+<h2 id="using-kmip-available-keyring-components">Available keyring components<a class="headerlink" href="#using-kmip-available-keyring-components" title="Permanent link">&para;</a></h2>
+<p>Percona Server provides the following keyring components:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Backend</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component_keyring_file</code></td>
+<td>Local file on disk</td>
+</tr>
+<tr>
+<td><code>component_keyring_kmip</code></td>
+<td>Key Management Interoperability Protocol (KMIP) server</td>
+</tr>
+<tr>
+<td><code>component_keyring_kms</code></td>
+<td>Cloud Key Management Service (KMS)</td>
+</tr>
+<tr>
+<td><code>component_keyring_vault</code></td>
+<td>HashiCorp Vault</td>
+</tr>
+</tbody>
+</table>
+<p>Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a <code>.cnf</code> extension. For example, <code>component_keyring_vault</code> reads <code>component_keyring_vault.cnf</code>.</p>
+<h2 id="using-kmip-manifest-files">Manifest files<a class="headerlink" href="#using-kmip-manifest-files" title="Permanent link">&para;</a></h2>
+<h3 id="using-kmip-manifest-fields">Manifest fields<a class="headerlink" href="#using-kmip-manifest-fields" title="Permanent link">&para;</a></h3>
+<p>The manifest is a JavaScript Object Notation (JSON) object with the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>components</code></td>
+<td>string</td>
+<td>Conditional</td>
+<td>URL-style locator for the component to load. The format is <code>file://&lt;component_name&gt;</code>. Required when the manifest declares the component directly.</td>
+</tr>
+<tr>
+<td><code>read_local_manifest</code></td>
+<td>boolean</td>
+<td>No</td>
+<td>When <code>true</code>, the global manifest delegates to the local manifest in the data directory. When <code>false</code> or absent, the global manifest declares the component directly.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="using-kmip-manifest-examples">Manifest examples<a class="headerlink" href="#using-kmip-manifest-examples" title="Permanent link">&para;</a></h3>
+<p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the components in <a href="#using-kmip-available-keyring-components">Available keyring components</a>.</p>
+<p>The following example shows a global manifest that loads a component directly:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://&lt;component_name&gt;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The following example shows a global manifest that delegates to the local manifest:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The following example shows a local manifest:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://&lt;component_name&gt;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="using-kmip-manifest-locations">Manifest locations<a class="headerlink" href="#using-kmip-manifest-locations" title="Permanent link">&para;</a></h3>
+<p>Percona Server reads two manifest files at startup:</p>
+<table>
+<thead>
+<tr>
+<th>Manifest</th>
+<th>Location</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Global manifest</td>
+<td>The directory that contains the <code>mysqld</code> binary</td>
+<td>Default manifest for the server installation</td>
+</tr>
+<tr>
+<td>Local manifest</td>
+<td>Data directory</td>
+<td>Per-instance override for hosts that run multiple instances with different keyring components</td>
+</tr>
+</tbody>
+</table>
+<p>Both files use the name <code>mysqld.my</code>. The global manifest declares the component directly or delegates to the local manifest.</p>
+<h3 id="using-kmip-why-the-manifest-is-the-only-supported-load-path">Why the manifest is the only supported load path<a class="headerlink" href="#using-kmip-why-the-manifest-is-the-only-supported-load-path" title="Permanent link">&para;</a></h3>
+<p>The keyring must load before <code>InnoDB</code> opens an encrypted page. Any mechanism that depends on the Structured Query Language (SQL) layer therefore loads the keyring too late.</p>
+<p>A <code>mysqld</code> startup proceeds in the following order:</p>
 <ol>
 <li>
-<p>Write a manifest in a valid JSON format</p>
+<p><code>mysqld</code> parses startup configuration and reads the manifest file from the server installation directory.</p>
 </li>
 <li>
-<p>Write a configuration file</p>
+<p>The server loads each component named in the manifest.</p>
+</li>
+<li>
+<p><code>InnoDB</code> initializes, replays the redo log, and opens tablespaces.</p>
+</li>
+<li>
+<p>The SQL layer accepts connections.</p>
 </li>
 </ol>
-<p>A manifest file indicates which component to load. If the manifest file does not exist, the server does not load the component associated with that file. During startup, the server reads the global manifest file from the installation directory. The global manifest file can contain the required information or point to a local manifest file located in the data directory. If you have multiple server instances that use different keyring components use a local manifest file in each data directory to load the correct keyring component for that instance.</p>
+<p>The keyring must load between steps 1 and 3. The following table explains why each alternative mechanism fails to load the keyring within this window:</p>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Reason for failure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#install-component"><code>INSTALL COMPONENT</code></a></td>
+<td>The statement runs as SQL and cannot execute until step 4. The registration record lives in <code>mysql.component</code>, an <code>InnoDB</code> table that the server reads only after <code>InnoDB</code> initializes. The system tablespace cannot decrypt without the keyring, which creates a circular dependency. Crash recovery also runs before the SQL layer, so the encrypted redo log must remain readable without SQL.</td>
+</tr>
+<tr>
+<td><code>--early-plugin-load</code></td>
+<td>The flag applies to legacy keyring plugins, not components. Plugins and components load through separate subsystems. The flag cannot locate component entry points.</td>
+</tr>
+</tbody>
+</table>
+<p>A component registered through <code>INSTALL COMPONENT</code> on a running server does not persist across restarts. On the next restart, <code>InnoDB</code> cannot unwrap tablespace keys because no manifest file exists on disk. A missing or malformed <code>mysqld.my</code> therefore prevents startup for any instance with encrypted tablespaces.</p>
+<h2 id="using-kmip-install-a-keyring-component">Install a keyring component<a class="headerlink" href="#using-kmip-install-a-keyring-component" title="Permanent link">&para;</a></h2>
+<p>To install a keyring component:</p>
+<ol>
+<li>
+<p>Stop the <code>mysqld</code> process.</p>
+</li>
+<li>
+<p>Create the manifest file at the chosen location. Use one of the examples in <a href="#using-kmip-manifest-examples">Manifest examples</a> as a template.</p>
+</li>
+<li>
+<p>Create the configuration file in the same directory as the manifest that declares the component. The name of the configuration file matches the component name with a <code>.cnf</code> extension.</p>
+</li>
+<li>
+<p>Populate the configuration file with parameters for the chosen component. The required parameters depend on the component.</p>
+</li>
+<li>
+<p>Set the file ownership of the manifest file and the configuration file to the <code>mysql</code> user.</p>
+</li>
+<li>
+<p>Restrict read access on the configuration file to the <code>mysql</code> user. The configuration file may contain credentials.</p>
+</li>
+<li>
+<p>Start the <code>mysqld</code> process.</p>
+</li>
+</ol>
+<h2 id="using-kmip-verify-the-installation">Verify the installation<a class="headerlink" href="#using-kmip-verify-the-installation" title="Permanent link">&para;</a></h2>
+<p>Connect to the server and run the following query:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
+</code></pre></div>
+<p>The query returns one row per status field. The <code>Component_status</code> field reports <code>Active</code> when the component loaded. The <code>Component_status</code> field reports <code>Disabled</code> when the component failed to load. Inspect the server error log to identify the cause of any failure.</p>
+<h2 id="using-kmip-operate-the-keyring">Operate the keyring<a class="headerlink" href="#using-kmip-operate-the-keyring" title="Permanent link">&para;</a></h2>
+<h3 id="using-kmip-rotate-the-master-key">Rotate the master key<a class="headerlink" href="#using-kmip-rotate-the-master-key" title="Permanent link">&para;</a></h3>
+<p>The InnoDB master key wraps the tablespace keys that protect data on disk. Rotate the master key on a scheduled cadence to limit the volume of data wrapped by any single master key.</p>
+<p>Run the following statement to rotate the master key:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">INNODB</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
+</code></pre></div>
+<p>The statement generates a master key and stores the key in the keyring. The server then wraps subsequent tablespace keys with the stored key.</p>
+<p>The rotation operation is fast. The server does not re-encrypt the tablespace data.</p>
+<p>Earlier master keys must remain in the keyring. Deleting an earlier master key prevents the server from reading data that was wrapped with that key.</p>
+<p>For required privileges and the full rotation procedure, see <a href="#rotate-master-key">Rotate the master encryption key</a>.</p>
+<h3 id="using-kmip-monitor-the-keyring">Monitor the keyring<a class="headerlink" href="#using-kmip-monitor-the-keyring" title="Permanent link">&para;</a></h3>
+<p>Use the query in <a href="#using-kmip-verify-the-installation">Verify the installation</a> to inspect the keyring at runtime. Configure alerts on <code>Component_status</code> transitions to <code>Disabled</code>. Watch the server error log for keyring-related errors. The server writes manifest parse errors, configuration parse errors, and backend connection errors to the error log.</p>
+<h3 id="using-kmip-back-up-and-restore">Back up and restore<a class="headerlink" href="#using-kmip-back-up-and-restore" title="Permanent link">&para;</a></h3>
+<p>A backup of an encrypted tablespace requires keyring access on the destination host. The destination host must read the same key material that encrypted the backup.</p>
+<p>The following table summarizes the keyring requirement for each backend:</p>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Backup requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component_keyring_file</code></td>
+<td>Copy the keyring file alongside the data backup. The destination host must read the same key material.</td>
+</tr>
+<tr>
+<td><code>component_keyring_vault</code></td>
+<td>Configure the destination host to authenticate with the same Vault server and access the same <code>secret_mount_point</code>.</td>
+</tr>
+<tr>
+<td><code>component_keyring_kmip</code></td>
+<td>Configure the destination host to authenticate with the same KMIP server and access the same key namespace.</td>
+</tr>
+<tr>
+<td><code>component_keyring_kms</code></td>
+<td>Configure the destination host with credentials and permissions for the same cloud KMS keys.</td>
+</tr>
+</tbody>
+</table>
+<p>Test a restore on a separate host before relying on the backup. A restore that runs on the original host can succeed even when the keyring configuration is incorrect.</p>
+<h2 id="using-kmip-replace-or-remove-a-keyring-component">Replace or remove a keyring component<a class="headerlink" href="#using-kmip-replace-or-remove-a-keyring-component" title="Permanent link">&para;</a></h2>
+<p>To replace a keyring component:</p>
+<ol>
+<li>
+<p>Stop the <code>mysqld</code> process.</p>
+</li>
+<li>
+<p>Edit the manifest file to reference the replacement component.</p>
+</li>
+<li>
+<p>Create the configuration file for the replacement component.</p>
+</li>
+<li>
+<p>Start the <code>mysqld</code> process.</p>
+</li>
+</ol>
+<p>To remove the keyring:</p>
+<ol>
+<li>
+<p>Confirm that no encrypted tablespaces exist on the server. A server with encrypted tablespaces cannot start without a keyring.</p>
+</li>
+<li>
+<p>Stop the <code>mysqld</code> process.</p>
+</li>
+<li>
+<p>Delete the manifest file.</p>
+</li>
+<li>
+<p>Start the <code>mysqld</code> process.</p>
+</li>
+</ol>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Enable only one keyring plugin or one keyring component at a time for each server instance. Enabling multiple keyring plugins or keyring components or mixing keyring plugins or keyring components is not supported and may result in data loss.</p>
+<p>Configure exactly one keyring per server instance. Percona Server does not support multiple keyring plugins, multiple keyring components, or any combination of plugin and component. Such configurations risk data loss.</p>
 </div>
 <p>For more information, see <a href="https://dev.mysql.com/doc/refman/8.4/en/component-loading.html">Installing and Uninstalling Components <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>The following is an example of a global manifest file that does not use local manifests:</p>
@@ -35011,121 +36058,324 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 <span class="p">}</span>
 </code></pre></div>
 </details>
-<p>For more information, see <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html">Keyring Component installation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p></section><section class="print-page" id="using-amz-kms" heading-number="13.8.2.6"><h1 id="using-amz-kms-use-the-amazon-key-management-service-aws-kms">Use the Amazon Key Management Service (AWS KMS)<a class="headerlink" href="#using-amz-kms-use-the-amazon-key-management-service-aws-kms" title="Permanent link">&para;</a></h1>
-<p>Percona Server for MySQL supports the <a href="https://aws.amazon.com/kms/">Amazon Key Management Service (AWS KMS) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Percona Server
-generates the keyring keys. Amazon Web Services (AWS) encrypts the keyring data.</p>
-<p>The AWS KMS lets you create and manage cryptographic keys across AWS services. For more information, see the
-<a href="https://docs.aws.amazon.com/kms/">AWS Key Management Service Documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<p>To use the AWS KMS component, do the following:</p>
+<p>For more information, see <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html">Keyring Component installation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p></section><section class="print-page" id="using-amz-kms" heading-number="13.8.2.7"><h1 id="using-amz-kms-use-the-amazon-key-management-service-aws-kms">Use the Amazon Key Management Service (AWS KMS)<a class="headerlink" href="#using-amz-kms-use-the-amazon-key-management-service-aws-kms" title="Permanent link">&para;</a></h1>
+<p>Percona Server for MySQL supports the <a href="https://aws.amazon.com/kms/">Amazon Key Management Service (AWS KMS) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Percona Server generates the keyring keys. Amazon Web Services (AWS) encrypts the keyring data.</p>
+<p>The AWS KMS lets you create and manage cryptographic keys across AWS services. For more information, see the <a href="https://docs.aws.amazon.com/kms/">AWS Key Management Service Documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<h2 id="using-amz-kms-prerequisites">Prerequisites<a class="headerlink" href="#using-amz-kms-prerequisites" title="Permanent link">&para;</a></h2>
+<p>Complete the following before you install the AWS KMS component:</p>
 <ul>
 <li>
-<p>Have an AWS user account. This account has an access key and a secret key.</p>
+<p>Create an AWS user with an access key and a secret key.</p>
 </li>
 <li>
-<p>Create a KMS key ID. The KMS key can then be referenced in the configuration
-either by its ID, alias (the key can have any number of aliases), or ARN.</p>
+<p>Create a KMS key. Reference the key by its identifier, alias, or Amazon Resource Name (ARN). Each key can have any number of aliases.</p>
 </li>
 </ul>
-<h2 id="using-amz-kms-component-installation">Component installation<a class="headerlink" href="#using-amz-kms-component-installation" title="Permanent link">&para;</a></h2>
-<p>The component must be installed with a manifest. A keyring component is not loaded with the <code>--early-plugin-load</code> option on the server. The server uses a manifest and the component consults its configuration file during initialization. You should only load a keyring component with a manifest file. Do not use the <code>INSTALL_COMPONENT</code> statement, which loads the keyring components too late in the startup sequence of the server. For example, <code>InnoDB</code> requires the component, but because the components are registered in the <code>mysql.component</code> table, this table is loaded after <code>InnoDB</code> initialization.</p>
-<p>You should create a global manifest file named <code>mysqld.my</code> in the installation directory and, optionally, create a local manifest file, also named <code>mysqld.my</code> in a data directory.</p>
-<p>To install a keyring component, do the following:</p>
+<p>Percona Server uses a keyring to protect the master keys that encrypt data at rest. The server loads the keyring component from a manifest file. The component then reads a separate configuration file during initialization. Two alternative load mechanisms cannot load the keyring early enough: <code>--early-plugin-load</code> and <code>INSTALL COMPONENT</code>.</p>
+<h2 id="using-amz-kms-available-keyring-components">Available keyring components<a class="headerlink" href="#using-amz-kms-available-keyring-components" title="Permanent link">&para;</a></h2>
+<p>Percona Server provides the following keyring components:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Backend</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component_keyring_file</code></td>
+<td>Local file on disk</td>
+</tr>
+<tr>
+<td><code>component_keyring_kmip</code></td>
+<td>Key Management Interoperability Protocol (KMIP) server</td>
+</tr>
+<tr>
+<td><code>component_keyring_kms</code></td>
+<td>Cloud Key Management Service (KMS)</td>
+</tr>
+<tr>
+<td><code>component_keyring_vault</code></td>
+<td>HashiCorp Vault</td>
+</tr>
+</tbody>
+</table>
+<p>Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a <code>.cnf</code> extension. For example, <code>component_keyring_vault</code> reads <code>component_keyring_vault.cnf</code>.</p>
+<h2 id="using-amz-kms-manifest-files">Manifest files<a class="headerlink" href="#using-amz-kms-manifest-files" title="Permanent link">&para;</a></h2>
+<h3 id="using-amz-kms-manifest-fields">Manifest fields<a class="headerlink" href="#using-amz-kms-manifest-fields" title="Permanent link">&para;</a></h3>
+<p>The manifest is a JavaScript Object Notation (JSON) object with the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>components</code></td>
+<td>string</td>
+<td>Conditional</td>
+<td>URL-style locator for the component to load. The format is <code>file://&lt;component_name&gt;</code>. Required when the manifest declares the component directly.</td>
+</tr>
+<tr>
+<td><code>read_local_manifest</code></td>
+<td>boolean</td>
+<td>No</td>
+<td>When <code>true</code>, the global manifest delegates to the local manifest in the data directory. When <code>false</code> or absent, the global manifest declares the component directly.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="using-amz-kms-manifest-examples">Manifest examples<a class="headerlink" href="#using-amz-kms-manifest-examples" title="Permanent link">&para;</a></h3>
+<p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the components in <a href="#using-amz-kms-available-keyring-components">Available keyring components</a>.</p>
+<p>The following example shows a global manifest that loads a component directly:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://&lt;component_name&gt;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The following example shows a global manifest that delegates to the local manifest:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The following example shows a local manifest:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://&lt;component_name&gt;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="using-amz-kms-manifest-locations">Manifest locations<a class="headerlink" href="#using-amz-kms-manifest-locations" title="Permanent link">&para;</a></h3>
+<p>Percona Server reads two manifest files at startup:</p>
+<table>
+<thead>
+<tr>
+<th>Manifest</th>
+<th>Location</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Global manifest</td>
+<td>The directory that contains the <code>mysqld</code> binary</td>
+<td>Default manifest for the server installation</td>
+</tr>
+<tr>
+<td>Local manifest</td>
+<td>Data directory</td>
+<td>Per-instance override for hosts that run multiple instances with different keyring components</td>
+</tr>
+</tbody>
+</table>
+<p>Both files use the name <code>mysqld.my</code>. The global manifest declares the component directly or delegates to the local manifest.</p>
+<h3 id="using-amz-kms-why-the-manifest-is-the-only-supported-load-path">Why the manifest is the only supported load path<a class="headerlink" href="#using-amz-kms-why-the-manifest-is-the-only-supported-load-path" title="Permanent link">&para;</a></h3>
+<p>The keyring must load before <code>InnoDB</code> opens an encrypted page. Any mechanism that depends on the Structured Query Language (SQL) layer therefore loads the keyring too late.</p>
+<p>A <code>mysqld</code> startup proceeds in the following order:</p>
 <ol>
 <li>
-<p>Write a manifest in a valid JSON format</p>
+<p><code>mysqld</code> parses startup configuration and reads the manifest file from the server installation directory.</p>
 </li>
 <li>
-<p>Write a configuration file</p>
+<p>The server loads each component named in the manifest.</p>
+</li>
+<li>
+<p><code>InnoDB</code> initializes, replays the redo log, and opens tablespaces.</p>
+</li>
+<li>
+<p>The SQL layer accepts connections.</p>
 </li>
 </ol>
-<p>A manifest file indicates which component to load. If the manifest file does not exist, the server does not load the component associated with that file. During startup, the server reads the global manifest file from the installation directory. The global manifest file can contain the required information or point to a local manifest file located in the data directory. If you have multiple server instances that use different keyring components use a local manifest file in each data directory to load the correct keyring component for that instance.</p>
+<p>The keyring must load between steps 1 and 3. The following table explains why each alternative mechanism fails to load the keyring within this window:</p>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Reason for failure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#install-component"><code>INSTALL COMPONENT</code></a></td>
+<td>The statement runs as SQL and cannot execute until step 4. The registration record lives in <code>mysql.component</code>, an <code>InnoDB</code> table that the server reads only after <code>InnoDB</code> initializes. The system tablespace cannot decrypt without the keyring, which creates a circular dependency. Crash recovery also runs before the SQL layer, so the encrypted redo log must remain readable without SQL.</td>
+</tr>
+<tr>
+<td><code>--early-plugin-load</code></td>
+<td>The flag applies to legacy keyring plugins, not components. Plugins and components load through separate subsystems. The flag cannot locate component entry points.</td>
+</tr>
+</tbody>
+</table>
+<p>A component registered through <code>INSTALL COMPONENT</code> on a running server does not persist across restarts. On the next restart, <code>InnoDB</code> cannot unwrap tablespace keys because no manifest file exists on disk. A missing or malformed <code>mysqld.my</code> therefore prevents startup for any instance with encrypted tablespaces.</p>
+<h2 id="using-amz-kms-install-a-keyring-component">Install a keyring component<a class="headerlink" href="#using-amz-kms-install-a-keyring-component" title="Permanent link">&para;</a></h2>
+<p>To install a keyring component:</p>
+<ol>
+<li>
+<p>Stop the <code>mysqld</code> process.</p>
+</li>
+<li>
+<p>Create the manifest file at the chosen location. Use one of the examples in <a href="#using-amz-kms-manifest-examples">Manifest examples</a> as a template.</p>
+</li>
+<li>
+<p>Create the configuration file in the same directory as the manifest that declares the component. The name of the configuration file matches the component name with a <code>.cnf</code> extension.</p>
+</li>
+<li>
+<p>Populate the configuration file with parameters for the chosen component. The required parameters depend on the component.</p>
+</li>
+<li>
+<p>Set the file ownership of the manifest file and the configuration file to the <code>mysql</code> user.</p>
+</li>
+<li>
+<p>Restrict read access on the configuration file to the <code>mysql</code> user. The configuration file may contain credentials.</p>
+</li>
+<li>
+<p>Start the <code>mysqld</code> process.</p>
+</li>
+</ol>
+<h2 id="using-amz-kms-verify-the-installation">Verify the installation<a class="headerlink" href="#using-amz-kms-verify-the-installation" title="Permanent link">&para;</a></h2>
+<p>Connect to the server and run the following query:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
+</code></pre></div>
+<p>The query returns one row per status field. The <code>Component_status</code> field reports <code>Active</code> when the component loaded. The <code>Component_status</code> field reports <code>Disabled</code> when the component failed to load. Inspect the server error log to identify the cause of any failure.</p>
+<h2 id="using-amz-kms-operate-the-keyring">Operate the keyring<a class="headerlink" href="#using-amz-kms-operate-the-keyring" title="Permanent link">&para;</a></h2>
+<h3 id="using-amz-kms-rotate-the-master-key">Rotate the master key<a class="headerlink" href="#using-amz-kms-rotate-the-master-key" title="Permanent link">&para;</a></h3>
+<p>The InnoDB master key wraps the tablespace keys that protect data on disk. Rotate the master key on a scheduled cadence to limit the volume of data wrapped by any single master key.</p>
+<p>Run the following statement to rotate the master key:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">INNODB</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
+</code></pre></div>
+<p>The statement generates a master key and stores the key in the keyring. The server then wraps subsequent tablespace keys with the stored key.</p>
+<p>The rotation operation is fast. The server does not re-encrypt the tablespace data.</p>
+<p>Earlier master keys must remain in the keyring. Deleting an earlier master key prevents the server from reading data that was wrapped with that key.</p>
+<p>For required privileges and the full rotation procedure, see <a href="#rotate-master-key">Rotate the master encryption key</a>.</p>
+<h3 id="using-amz-kms-monitor-the-keyring">Monitor the keyring<a class="headerlink" href="#using-amz-kms-monitor-the-keyring" title="Permanent link">&para;</a></h3>
+<p>Use the query in <a href="#using-amz-kms-verify-the-installation">Verify the installation</a> to inspect the keyring at runtime. Configure alerts on <code>Component_status</code> transitions to <code>Disabled</code>. Watch the server error log for keyring-related errors. The server writes manifest parse errors, configuration parse errors, and backend connection errors to the error log.</p>
+<h3 id="using-amz-kms-back-up-and-restore">Back up and restore<a class="headerlink" href="#using-amz-kms-back-up-and-restore" title="Permanent link">&para;</a></h3>
+<p>A backup of an encrypted tablespace requires keyring access on the destination host. The destination host must read the same key material that encrypted the backup.</p>
+<p>The following table summarizes the keyring requirement for each backend:</p>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Backup requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component_keyring_file</code></td>
+<td>Copy the keyring file alongside the data backup. The destination host must read the same key material.</td>
+</tr>
+<tr>
+<td><code>component_keyring_vault</code></td>
+<td>Configure the destination host to authenticate with the same Vault server and access the same <code>secret_mount_point</code>.</td>
+</tr>
+<tr>
+<td><code>component_keyring_kmip</code></td>
+<td>Configure the destination host to authenticate with the same KMIP server and access the same key namespace.</td>
+</tr>
+<tr>
+<td><code>component_keyring_kms</code></td>
+<td>Configure the destination host with credentials and permissions for the same cloud KMS keys.</td>
+</tr>
+</tbody>
+</table>
+<p>Test a restore on a separate host before relying on the backup. A restore that runs on the original host can succeed even when the keyring configuration is incorrect.</p>
+<h2 id="using-amz-kms-replace-or-remove-a-keyring-component">Replace or remove a keyring component<a class="headerlink" href="#using-amz-kms-replace-or-remove-a-keyring-component" title="Permanent link">&para;</a></h2>
+<p>To replace a keyring component:</p>
+<ol>
+<li>
+<p>Stop the <code>mysqld</code> process.</p>
+</li>
+<li>
+<p>Edit the manifest file to reference the replacement component.</p>
+</li>
+<li>
+<p>Create the configuration file for the replacement component.</p>
+</li>
+<li>
+<p>Start the <code>mysqld</code> process.</p>
+</li>
+</ol>
+<p>To remove the keyring:</p>
+<ol>
+<li>
+<p>Confirm that no encrypted tablespaces exist on the server. A server with encrypted tablespaces cannot start without a keyring.</p>
+</li>
+<li>
+<p>Stop the <code>mysqld</code> process.</p>
+</li>
+<li>
+<p>Delete the manifest file.</p>
+</li>
+<li>
+<p>Start the <code>mysqld</code> process.</p>
+</li>
+</ol>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Enable only one keyring plugin or one keyring component at a time for each server instance. Enabling multiple keyring plugins or keyring components or mixing keyring plugins or keyring components is not supported and may result in data loss.</p>
+<p>Configure exactly one keyring per server instance. Percona Server does not support multiple keyring plugins, multiple keyring components, or any combination of plugin and component. Such configurations risk data loss.</p>
 </div>
-<p>For more information, see <a href="https://dev.mysql.com/doc/refman/8.4/en/component-loading.html">Installing and Uninstalling Components <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<p>The following example is a global manifest file that does not use local
-manifests:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w"> </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://component_keyring_kms&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>The following is an example of a global manifest file that points to a local manifest file:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w"> </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>The following is an example of a local manifest file:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w"> </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://component_keyring_kms&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>The configuration settings are either in a global configuration file or a local
-configuration file. The settings are the same.</p>
-<p>The KMS configuration file has the following options:</p>
+<p>For more information, see <a href="https://dev.mysql.com/doc/refman/8.4/en/component-loading.html">Installing and uninstalling components <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<h2 id="using-amz-kms-configuration-settings">Configuration settings<a class="headerlink" href="#using-amz-kms-configuration-settings" title="Permanent link">&para;</a></h2>
+<p>The configuration settings live in either a global configuration file or a local configuration file.</p>
+<h3 id="using-amz-kms-configuration-parameters">Configuration parameters<a class="headerlink" href="#using-amz-kms-configuration-parameters" title="Permanent link">&para;</a></h3>
+<p>The <code>component_keyring_kms.cnf</code> file contains the following parameters:</p>
 <ul>
 <li>
-<p>read_local_config</p>
+<p><code>read_local_config [optional]</code> — declares whether the component reads the local configuration file. Use this parameter only in the global configuration file. The allowed values are <code>true</code> or <code>false</code>.</p>
 </li>
 <li>
-<p>path - the location of the JSON keyring database file.</p>
+<p><code>path</code> — the path to the keyring file on the local host. The file uses JSON format.</p>
 </li>
 <li>
-<p>read_only - if true, the keyring cannot be modified.</p>
+<p><code>read_only [optional]</code> — when <code>true</code>, the component prevents runtime changes to the keyring. The default value is <code>false</code>.</p>
 </li>
 <li>
-<p>kms_key - the identifier of an AWS KMS master key. The user must create this key before creating the manifest file. The identifier can be one of the
-following:</p>
+<p><code>kms_key</code> — the identifier of an AWS KMS master key. Create the key before you create the manifest file. The identifier accepts one of the following formats:</p>
 <ul>
 <li>
-<p>UUID</p>
+<p>Universally Unique Identifier (UUID)</p>
 </li>
 <li>
 <p>Alias</p>
 </li>
 <li>
-<p>ARN</p>
-</li>
-</ul>
+<p>Amazon Resource Name (ARN)</p>
 </li>
 </ul>
 <p>For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/find-cmk-id-arn.html">Finding the key ID and key ARN <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<ul>
-<li>
-<p>region - the AWS where the KMS is stored. Any HTTP request connect to this region.</p>
 </li>
 <li>
-<p>auth_key - an AWS user authentication key. The user must have access to the KMS key.</p>
+<p><code>region</code> — the AWS region that hosts the KMS key. Each Hypertext Transfer Protocol (HTTP) request connects to this region.</p>
 </li>
 <li>
-<p>secret_access_key - the secret key (API “password”) for the AWS user.</p>
+<p><code>auth_key</code> — the access key for the AWS user. The user must have permission to access the KMS key.</p>
+</li>
+<li>
+<p><code>secret_access_key</code> — the secret key for the AWS user.</p>
 </li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The configuration file contains authentication information. Only the MySQL process should be able to read this file.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The configuration file contains authentication credentials. Restrict read access on the file to the <code>mysql</code> user.</p>
 </div>
-<details class="example">
-<summary>Example of a configuration file in JSON format</summary>
+<h4 id="using-amz-kms-example-configuration">Example configuration<a class="headerlink" href="#using-amz-kms-example-configuration" title="Permanent link">&para;</a></h4>
+<p>The following example shows a <code>component_keyring_kms.cnf</code> file in JSON format with placeholder values. Replace each placeholder with the value for the target AWS KMS deployment.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w"> </span><span class="nt">&quot;read_local_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;true/false&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/usr/local/mysql/keyring-mysql/aws-keyring-data&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;region&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eu-central-1&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;kms_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UUID, alias or ARN as displayed by the KMS console&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;auth_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AWS user key&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;secret_access_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AWS user secret key&quot;</span>
+<span class="w">  </span><span class="nt">&quot;read_local_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/usr/local/mysql/keyring-mysql/aws-keyring-data&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;region&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;AWS_REGION&gt;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;kms_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;KMS_KEY_IDENTIFIER&gt;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;auth_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;AWS_USER_ACCESS_KEY&gt;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;secret_access_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;AWS_USER_SECRET_ACCESS_KEY&gt;&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
-</details>
-<p>For more information, see <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html">Keyring Component installation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p></section><section class="print-page" id="encrypt-file-per-table-tablespace" heading-number="13.8.2.7"><h1 id="encrypt-file-per-table-tablespace-encrypt-file-per-table-tablespace">Encrypt File-Per-Table Tablespace<a class="headerlink" href="#encrypt-file-per-table-tablespace-encrypt-file-per-table-tablespace" title="Permanent link">&para;</a></h1>
+<p>For more information, see <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html">Keyring component installation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p></section><section class="print-page" id="encrypt-file-per-table-tablespace" heading-number="13.8.2.8"><h1 id="encrypt-file-per-table-tablespace-encrypt-file-per-table-tablespace">Encrypt File-Per-Table Tablespace<a class="headerlink" href="#encrypt-file-per-table-tablespace-encrypt-file-per-table-tablespace" title="Permanent link">&para;</a></h1>
 <p>The file_per_table tablespace inherits the default schema encryption setting. Use the <code>ENCRYPTION</code> clause in the  in <code>CREATE TABLE</code> statement to explicitly set the encryption.</p>
 <p><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
 To change the encryption setting for an existing file_per_table tablespace, add the <code>ENCRYPTION</code> clause. The <code>ALTER TABLE</code> statement without the <code>ENCRYPTION</code> clause does not change the encryption state.</p>
 <div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>If the <code>table_encryption_privilege_check</code> is enabled, the <code>TABLE_ENCRYPTION_ADMIN</code> privilige is required to change the file_per_table encryption setting from the default schema encryption. </p></section><section class="print-page" id="encrypt-tablespaces" heading-number="13.8.2.8"><h1 id="encrypt-tablespaces-encrypt-schema-or-general-tablespace">Encrypt schema or general tablespace<a class="headerlink" href="#encrypt-tablespaces-encrypt-schema-or-general-tablespace" title="Permanent link">&para;</a></h1>
+<p>If the <code>table_encryption_privilege_check</code> is enabled, the <code>TABLE_ENCRYPTION_ADMIN</code> privilige is required to change the file_per_table encryption setting from the default schema encryption. </p></section><section class="print-page" id="encrypt-tablespaces" heading-number="13.8.2.9"><h1 id="encrypt-tablespaces-encrypt-schema-or-general-tablespace">Encrypt schema or general tablespace<a class="headerlink" href="#encrypt-tablespaces-encrypt-schema-or-general-tablespace" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL uses the same encryption architecture as MySQL, a two-tier system consisting of a master key and tablespace keys. The master key can be changed, or rotated in the keyring, as needed. Each tablespace key, when
 decrypted, remains the same.</p>
 <p>The feature requires the keyring plugin.</p>
@@ -35256,21 +36506,21 @@ generates the following error:</p>
 general tablespace with an incompatible encryption setting and aborts the process.</p>
 <p>If you must move tables between incompatible tablespaces, create tables with the same structure in another tablespace and run <code>INSERT INTO SELECT</code> from each of the source tables into the destination tables.</p>
 <h2 id="encrypt-tablespaces-export-an-encrypted-general-tablespace">Export an encrypted general tablespace<a class="headerlink" href="#encrypt-tablespaces-export-an-encrypted-general-tablespace" title="Permanent link">&para;</a></h2>
-<p>You can only export encrypted file-per-table tablespaces</p></section><section class="print-page" id="encrypt-system-tablespace" heading-number="13.8.2.9"><h1 id="encrypt-system-tablespace-encrypt-system-tablespace">Encrypt system tablespace<a class="headerlink" href="#encrypt-system-tablespace-encrypt-system-tablespace" title="Permanent link">&para;</a></h1>
+<p>You can only export encrypted file-per-table tablespaces</p></section><section class="print-page" id="encrypt-system-tablespace" heading-number="13.8.2.10"><h1 id="encrypt-system-tablespace-encrypt-system-tablespace">Encrypt system tablespace<a class="headerlink" href="#encrypt-system-tablespace-encrypt-system-tablespace" title="Permanent link">&para;</a></h1>
 <p>By default, the system tablespace, which contains the system database and the data dictionary tables, is unencrypted. To change the encryption requires the <code>CREATE TABLESPACE</code> privilege on all tables in the instance.</p>
 <p>In an <code>ALTER TABLESPCE</code> statement, add the <code>ENCRYPTION</code> option with the tablespace name to enable encryption.</p>
 <p><div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
 Disable encryption by setting the <code>ENCRYPTION</code> option to &lsquo;N&rdquo;.</p>
 <div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="p">;</span>
-</code></pre></div></section><section class="print-page" id="encrypt-doublewrite-file-pages" heading-number="13.8.2.10"><h1 id="encrypt-doublewrite-file-pages-encrypt-doublewrite-file-pages">Encrypt doublewrite file pages<a class="headerlink" href="#encrypt-doublewrite-file-pages-encrypt-doublewrite-file-pages" title="Permanent link">&para;</a></h1>
+</code></pre></div></section><section class="print-page" id="encrypt-doublewrite-file-pages" heading-number="13.8.2.11"><h1 id="encrypt-doublewrite-file-pages-encrypt-doublewrite-file-pages">Encrypt doublewrite file pages<a class="headerlink" href="#encrypt-doublewrite-file-pages-encrypt-doublewrite-file-pages" title="Permanent link">&para;</a></h1>
 <p>InnoDB encrypts doublewrite file pages associated with encrypted tablespaces automatically. Doublewrite files can contain the following page types:</p>
 <ul>
 <li>Unencrypted</li>
 <li>Uncompressed</li>
 <li>Encrypted</li>
 <li>Compressed</li>
-</ul></section><section class="print-page" id="encrypt-temporary-files" heading-number="13.8.2.11"><h1 id="encrypt-temporary-files-encrypt-temporary-files">Encrypt temporary files<a class="headerlink" href="#encrypt-temporary-files-encrypt-temporary-files" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="encrypt-temporary-files" heading-number="13.8.2.12"><h1 id="encrypt-temporary-files-encrypt-temporary-files">Encrypt temporary files<a class="headerlink" href="#encrypt-temporary-files-encrypt-temporary-files" title="Permanent link">&para;</a></h1>
 <p>For InnoDB user-created temporary tables are created in a temporary tablespace
 file and use the <code>innodb_temp_tablespace_encrypt</code> variable.</p>
 <p>The <code>CREATE TEMPORARY TABLE</code> does not support the <code>ENCRYPTION</code> clause. The <code>TABLESPACE</code> clause cannot be set to <code>innodb_temporary</code>.</p>
@@ -35377,7 +36627,7 @@ allow encrypted tables and undo data to be decrypted.</p>
 </table>
 <p>When this variable is set to <code>ON</code>, the server encrypts the global temporary
 tablespace and has the .ibtmp1 file extension and the session temporary tablespace and has the .ibt file extension. </p>
-<p>The variable does not enforce the encryption of currently open temporary files and does not rebuild the system&rsquo;s temporary tablespace to encrypt data that has already been written.</p></section><section class="print-page" id="encrypt-logs" heading-number="13.8.2.12"><h1 id="encrypt-logs-log-encryption">Log encryption<a class="headerlink" href="#encrypt-logs-log-encryption" title="Permanent link">&para;</a></h1>
+<p>The variable does not enforce the encryption of currently open temporary files and does not rebuild the system&rsquo;s temporary tablespace to encrypt data that has already been written.</p></section><section class="print-page" id="encrypt-logs" heading-number="13.8.2.13"><h1 id="encrypt-logs-log-encryption">Log encryption<a class="headerlink" href="#encrypt-logs-log-encryption" title="Permanent link">&para;</a></h1>
 <p>Describes the redo log encryption and the undo log encryption.</p>
 <h2 id="encrypt-logs-redo-log-encryption">Redo Log encryption<a class="headerlink" href="#encrypt-logs-redo-log-encryption" title="Permanent link">&para;</a></h2>
 <p>Use the <code>innodb_redo_log_encrypt</code> option to enable or disable redo log data encryption. By default, the encryption of the redo log is disabled.</p>
@@ -35473,7 +36723,7 @@ tablespace and has the .ibtmp1 file extension and the session temporary tablespa
 </tr>
 </tbody>
 </table>
-<p>This system variable defines the encryption status for the undo log data. The default setting is <code>OFF</code>, which disables the encryption.</p></section><section class="print-page" id="rotate-master-key" heading-number="13.8.2.13"><h1 id="rotate-master-key-rotate-the-master-encryption-key">Rotate the master encryption key<a class="headerlink" href="#rotate-master-key-rotate-the-master-encryption-key" title="Permanent link">&para;</a></h1>
+<p>This system variable defines the encryption status for the undo log data. The default setting is <code>OFF</code>, which disables the encryption.</p></section><section class="print-page" id="rotate-master-key" heading-number="13.8.2.14"><h1 id="rotate-master-key-rotate-the-master-encryption-key">Rotate the master encryption key<a class="headerlink" href="#rotate-master-key-rotate-the-master-encryption-key" title="Permanent link">&para;</a></h1>
 <p>Rotate the master encryption key periodically and if the key has been compromised.</p>
 <p>Rotating the master encryption key changes that key and tablespace keys are re-encrypted and updated in the tablespace headers. The rotation only succeeds if all operations are successful. If the rotation is interrupted, the operation is rolled forward when the server restarts.</p>
 <p>The rotation operation does not affect tablespace data. To change a tablespace key, disable and then re-enable encryption for that tablespace.</p>
@@ -35483,7 +36733,7 @@ tablespace and has the .ibtmp1 file extension and the session temporary tablespa
 <div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">INNODB</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
 </code></pre></div>
 <p>The rotation operation must complete before any tablespace encryption operation
-can begin.</p></section><section class="print-page" id="verify-encryption" heading-number="13.8.2.14"><h1 id="verify-encryption-verify-the-encryption-for-tables-tablespaces-and-schemas">Verify the encryption for tables, tablespaces, and schemas<a class="headerlink" href="#verify-encryption-verify-the-encryption-for-tables-tablespaces-and-schemas" title="Permanent link">&para;</a></h1>
+can begin.</p></section><section class="print-page" id="verify-encryption" heading-number="13.8.2.15"><h1 id="verify-encryption-verify-the-encryption-for-tables-tablespaces-and-schemas">Verify the encryption for tables, tablespaces, and schemas<a class="headerlink" href="#verify-encryption-verify-the-encryption-for-tables-tablespaces-and-schemas" title="Permanent link">&para;</a></h1>
 <p>If a general tablespace contains tables, check the table information to see if
 the table is encrypted. When the general tablespace contains no tables, you
 may verify if the tablespace is encrypted or not.</p>
@@ -53141,25 +54391,27 @@ contributions and changes from MariaDB.</p>
 
 .print-site-enumerate-headings #use-keyring-vault-component > h1:before { content: '13.8.2.4 ' }
 
-.print-site-enumerate-headings #using-kmip > h1:before { content: '13.8.2.5 ' }
+.print-site-enumerate-headings #maintain-vault-connection > h1:before { content: '13.8.2.5 ' }
 
-.print-site-enumerate-headings #using-amz-kms > h1:before { content: '13.8.2.6 ' }
+.print-site-enumerate-headings #using-kmip > h1:before { content: '13.8.2.6 ' }
 
-.print-site-enumerate-headings #encrypt-file-per-table-tablespace > h1:before { content: '13.8.2.7 ' }
+.print-site-enumerate-headings #using-amz-kms > h1:before { content: '13.8.2.7 ' }
 
-.print-site-enumerate-headings #encrypt-tablespaces > h1:before { content: '13.8.2.8 ' }
+.print-site-enumerate-headings #encrypt-file-per-table-tablespace > h1:before { content: '13.8.2.8 ' }
 
-.print-site-enumerate-headings #encrypt-system-tablespace > h1:before { content: '13.8.2.9 ' }
+.print-site-enumerate-headings #encrypt-tablespaces > h1:before { content: '13.8.2.9 ' }
 
-.print-site-enumerate-headings #encrypt-doublewrite-file-pages > h1:before { content: '13.8.2.10 ' }
+.print-site-enumerate-headings #encrypt-system-tablespace > h1:before { content: '13.8.2.10 ' }
 
-.print-site-enumerate-headings #encrypt-temporary-files > h1:before { content: '13.8.2.11 ' }
+.print-site-enumerate-headings #encrypt-doublewrite-file-pages > h1:before { content: '13.8.2.11 ' }
 
-.print-site-enumerate-headings #encrypt-logs > h1:before { content: '13.8.2.12 ' }
+.print-site-enumerate-headings #encrypt-temporary-files > h1:before { content: '13.8.2.12 ' }
 
-.print-site-enumerate-headings #rotate-master-key > h1:before { content: '13.8.2.13 ' }
+.print-site-enumerate-headings #encrypt-logs > h1:before { content: '13.8.2.13 ' }
 
-.print-site-enumerate-headings #verify-encryption > h1:before { content: '13.8.2.14 ' }
+.print-site-enumerate-headings #rotate-master-key > h1:before { content: '13.8.2.14 ' }
+
+.print-site-enumerate-headings #verify-encryption > h1:before { content: '13.8.2.15 ' }
 
 .print-site-enumerate-headings #section-14 > h1:before { content: '14 ' }
 .print-site-enumerate-headings #group-replication-flow-control > h1:before { content: '14.1 ' }
