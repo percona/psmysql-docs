@@ -1,16 +1,20 @@
 
-Percona Server uses a keyring to protect the master keys that encrypt data at rest. The server loads the keyring component from a manifest file. The component then reads a separate configuration file during initialization. Two alternative load mechanisms cannot load the keyring early enough: `--early-plugin-load` and `INSTALL COMPONENT`.
+Install a keyring component through a manifest file. During startup, the server reads the manifest. Each component reads a corresponding configuration file during initialization.
 
-## Available keyring components
+Do not load keyring components with either of the following methods:
 
-Percona Server provides the following keyring components:
-
-| Component | Backend |
+| Method | Why it fails |
 |---|---|
-| `component_keyring_file` | Local file on disk |
-| `component_keyring_kmip` | Key Management Interoperability Protocol (KMIP) server |
-| `component_keyring_kms` | Cloud Key Management Service (KMS) |
-| `component_keyring_vault` | HashiCorp Vault |
+| `--early-plugin-load` option | Loads plugins only, not components |
+| `INSTALL COMPONENT` statement | Registers components in the `mysql.component` table, which the server loads after `InnoDB` initialization |
+
+Components that `InnoDB` requires at startup must load earlier.
+
+Create a global manifest file named `mysqld.my` in the installation directory. Optionally, create a local manifest file with the same name in a data directory.
+
+To install a keyring component, complete the following steps:
+
+1. Write a manifest in valid JSON format
 
 Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a `.cnf` extension. For example, `component_keyring_vault` reads `component_keyring_vault.cnf`.
 

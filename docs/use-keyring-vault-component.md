@@ -187,6 +187,25 @@ A Vault-backed restore requires the following on the destination host:
 
 * [Keyring components overview](keyring-components-plugins-overview.md) compares the available keyring components.
 
+--8<--- "keyring-components-verification.md"
+
+!!! admonition "See also"
+
+    [Hashicorp Documentation: Installing Vault :octicons-link-external-16:](https://developer.hashicorp.com/vault/docs/install)
+
+    [Hashicorp Documentation: Production Hardening :octicons-link-external-16:](https://developer.hashicorp.com/vault/tutorials/operations/production-hardening)
+
+## Related topics
+
+* [Keyring components overview](keyring-components-plugins-overview.md)
+
+* [Use the keyring file component](use-keyring-file.md)
+
+* [Use the Key Management Interoperability Protocol (KMIP)](using-kmip.md)
+
+* [Use the Amazon Key Management Service (AWS KMS)](using-amz-kms.md)
+
+* [Data at rest encryption](data-at-rest-encryption.md)
 * [Maintain the Vault connection](maintain-vault-connection.md) covers token expiration, token renewal patterns, and Vault seal handling.
 
 * [Rotate the master encryption key](rotate-master-key.md) covers the full rotation procedure and required privileges.
