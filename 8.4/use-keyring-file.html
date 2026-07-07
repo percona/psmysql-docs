@@ -7207,17 +7207,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#available-keyring-components" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Available keyring components
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#manifest-files" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7266,6 +7255,28 @@
     <span class="md-ellipsis">
       
         Replace or remove a keyring component
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-the-keyring-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify the keyring component
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related topics
       
     </span>
   </a>
@@ -9972,17 +9983,6 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#available-keyring-components" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Available keyring components
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#manifest-files" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10037,6 +10037,28 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#verify-the-keyring-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify the keyring component
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related topics
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -10074,35 +10096,32 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Percona Server for MySQL 8.4 does not support the <code>keyring_file</code> plugin.</p>
 </div>
 <p>See the MySQL documentation on the <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html">component installation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> and on the <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-file-component.html">keyring_file component usage <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for more information.</p>
-<p>Percona Server uses a keyring to protect the master keys that encrypt data at rest. The server loads the keyring component from a manifest file. The component then reads a separate configuration file during initialization. Two alternative load mechanisms cannot load the keyring early enough: <code>--early-plugin-load</code> and <code>INSTALL COMPONENT</code>.</p>
-<h2 id="available-keyring-components">Available keyring components<a class="headerlink" href="#available-keyring-components" title="Permanent link">&para;</a></h2>
-<p>Percona Server provides the following keyring components:</p>
+<p>Install a keyring component through a manifest file. During startup, the server reads the manifest. Each component reads a corresponding configuration file during initialization.</p>
+<p>Do not load keyring components with either of the following methods:</p>
 <table>
 <thead>
 <tr>
-<th>Component</th>
-<th>Backend</th>
+<th>Method</th>
+<th>Why it fails</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>component_keyring_file</code></td>
-<td>Local file on disk</td>
+<td><code>--early-plugin-load</code> option</td>
+<td>Loads plugins only, not components</td>
 </tr>
 <tr>
-<td><code>component_keyring_kmip</code></td>
-<td>Key Management Interoperability Protocol (KMIP) server</td>
-</tr>
-<tr>
-<td><code>component_keyring_kms</code></td>
-<td>Cloud Key Management Service (KMS)</td>
-</tr>
-<tr>
-<td><code>component_keyring_vault</code></td>
-<td>HashiCorp Vault</td>
+<td><code>INSTALL COMPONENT</code> statement</td>
+<td>Registers components in the <code>mysql.component</code> table, which the server loads after <code>InnoDB</code> initialization</td>
 </tr>
 </tbody>
 </table>
+<p>Components that <code>InnoDB</code> requires at startup must load earlier.</p>
+<p>Create a global manifest file named <code>mysqld.my</code> in the installation directory. Optionally, create a local manifest file with the same name in a data directory.</p>
+<p>To install a keyring component, complete the following steps:</p>
+<ol>
+<li>Write a manifest in valid JSON format</li>
+</ol>
 <p>Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a <code>.cnf</code> extension. For example, <code>component_keyring_vault</code> reads <code>component_keyring_vault.cnf</code>.</p>
 <h2 id="manifest-files">Manifest files<a class="headerlink" href="#manifest-files" title="Permanent link">&para;</a></h2>
 <h3 id="manifest-fields">Manifest fields<a class="headerlink" href="#manifest-fields" title="Permanent link">&para;</a></h3>
@@ -10327,6 +10346,52 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">    </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/lib/mysql-keyring/keyring_file&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;read_only&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
 <span class="p">}</span>
 </code></pre></div>
+<h2 id="verify-the-keyring-component">Verify the keyring component<a class="headerlink" href="#verify-the-keyring-component" title="Permanent link">&para;</a></h2>
+<p>After you start Percona Server for MySQL, confirm that the keyring component loaded and initialized. Query the <code>performance_schema.keyring_component_status</code> table:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
+</code></pre></div>
+<p>The query returns one row for each status key that the loaded component reports. The <code>Component_status</code> row indicates the result of initialization:</p>
+<table>
+<thead>
+<tr>
+<th><code>Component_status</code> value</th>
+<th>Meaning</th>
+<th>Recovery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Active</code></td>
+<td>The component loaded and initialized successfully</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>Disabled</code></td>
+<td>The component loaded but failed to initialize, typically due to a configuration error</td>
+<td>Review the server error log, correct the configuration file, then run <code>ALTER INSTANCE RELOAD KEYRING</code></td>
+</tr>
+</tbody>
+</table>
+<p>If a keyring component fails to load entirely, the server does not start. Check the server error log for diagnostic messages.</p>
+<p>For the complete list of status keys that each component reports, see <a href="https://dev.mysql.com/doc/refman/{{vers}}/en/performance-schema-keyring-component-status-table.html">keyring_component_status Table <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> in the MySQL Reference Manual.</p>
+<h2 id="related-topics">Related topics<a class="headerlink" href="#related-topics" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="keyring-components-plugins-overview.html">Keyring components overview</a></p>
+</li>
+<li>
+<p><a href="use-keyring-vault-component.html">Use the keyring vault component</a></p>
+</li>
+<li>
+<p><a href="using-kmip.html">Use the Key Management Interoperability Protocol (KMIP)</a></p>
+</li>
+<li>
+<p><a href="using-amz-kms.html">Use the Amazon Key Management Service (AWS KMS)</a></p>
+</li>
+<li>
+<p><a href="data-at-rest-encryption.html">Data at rest encryption</a></p>
+</li>
+</ul>
 
 
 
@@ -10349,7 +10414,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 19:10:16 UTC">December 22, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 7, 2026 10:20:12 UTC">July 7, 2026</span>
   </span>
 
     

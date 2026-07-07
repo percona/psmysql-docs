@@ -34833,35 +34833,32 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 <p>Percona Server for MySQL 8.4 does not support the <code>keyring_file</code> plugin.</p>
 </div>
 <p>See the MySQL documentation on the <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html">component installation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> and on the <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-file-component.html">keyring_file component usage <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for more information.</p>
-<p>Percona Server uses a keyring to protect the master keys that encrypt data at rest. The server loads the keyring component from a manifest file. The component then reads a separate configuration file during initialization. Two alternative load mechanisms cannot load the keyring early enough: <code>--early-plugin-load</code> and <code>INSTALL COMPONENT</code>.</p>
-<h2 id="use-keyring-file-available-keyring-components">Available keyring components<a class="headerlink" href="#use-keyring-file-available-keyring-components" title="Permanent link">&para;</a></h2>
-<p>Percona Server provides the following keyring components:</p>
+<p>Install a keyring component through a manifest file. During startup, the server reads the manifest. Each component reads a corresponding configuration file during initialization.</p>
+<p>Do not load keyring components with either of the following methods:</p>
 <table>
 <thead>
 <tr>
-<th>Component</th>
-<th>Backend</th>
+<th>Method</th>
+<th>Why it fails</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>component_keyring_file</code></td>
-<td>Local file on disk</td>
+<td><code>--early-plugin-load</code> option</td>
+<td>Loads plugins only, not components</td>
 </tr>
 <tr>
-<td><code>component_keyring_kmip</code></td>
-<td>Key Management Interoperability Protocol (KMIP) server</td>
-</tr>
-<tr>
-<td><code>component_keyring_kms</code></td>
-<td>Cloud Key Management Service (KMS)</td>
-</tr>
-<tr>
-<td><code>component_keyring_vault</code></td>
-<td>HashiCorp Vault</td>
+<td><code>INSTALL COMPONENT</code> statement</td>
+<td>Registers components in the <code>mysql.component</code> table, which the server loads after <code>InnoDB</code> initialization</td>
 </tr>
 </tbody>
 </table>
+<p>Components that <code>InnoDB</code> requires at startup must load earlier.</p>
+<p>Create a global manifest file named <code>mysqld.my</code> in the installation directory. Optionally, create a local manifest file with the same name in a data directory.</p>
+<p>To install a keyring component, complete the following steps:</p>
+<ol>
+<li>Write a manifest in valid JSON format</li>
+</ol>
 <p>Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a <code>.cnf</code> extension. For example, <code>component_keyring_vault</code> reads <code>component_keyring_vault.cnf</code>.</p>
 <h2 id="use-keyring-file-manifest-files">Manifest files<a class="headerlink" href="#use-keyring-file-manifest-files" title="Permanent link">&para;</a></h2>
 <h3 id="use-keyring-file-manifest-fields">Manifest fields<a class="headerlink" href="#use-keyring-file-manifest-fields" title="Permanent link">&para;</a></h3>
@@ -35085,37 +35082,80 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/lib/mysql-keyring/keyring_file&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;read_only&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
 <span class="p">}</span>
-</code></pre></div></section><section class="print-page" id="use-keyring-vault-component" heading-number="13.8.2.4"><h1 id="use-keyring-vault-component-use-the-keyring-vault-component">Use the keyring vault component<a class="headerlink" href="#use-keyring-vault-component-use-the-keyring-vault-component" title="Permanent link">&para;</a></h1>
-<p>The <code>keyring_vault</code> component connects Percona Server to a <a href="https://www.hashicorp.com/products/vault/data-protection">HashiCorp Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> server. The component stores and retrieves the encryption keys that protect data at rest.</p>
-<p>Percona Server uses a keyring to protect the master keys that encrypt data at rest. The server loads the keyring component from a manifest file. The component then reads a separate configuration file during initialization. Two alternative load mechanisms cannot load the keyring early enough: <code>--early-plugin-load</code> and <code>INSTALL COMPONENT</code>.</p>
-<h2 id="use-keyring-vault-component-available-keyring-components">Available keyring components<a class="headerlink" href="#use-keyring-vault-component-available-keyring-components" title="Permanent link">&para;</a></h2>
-<p>Percona Server provides the following keyring components:</p>
+</code></pre></div>
+<h2 id="use-keyring-file-verify-the-keyring-component">Verify the keyring component<a class="headerlink" href="#use-keyring-file-verify-the-keyring-component" title="Permanent link">&para;</a></h2>
+<p>After you start Percona Server for MySQL, confirm that the keyring component loaded and initialized. Query the <code>performance_schema.keyring_component_status</code> table:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
+</code></pre></div>
+<p>The query returns one row for each status key that the loaded component reports. The <code>Component_status</code> row indicates the result of initialization:</p>
 <table>
 <thead>
 <tr>
-<th>Component</th>
-<th>Backend</th>
+<th><code>Component_status</code> value</th>
+<th>Meaning</th>
+<th>Recovery</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>component_keyring_file</code></td>
-<td>Local file on disk</td>
+<td><code>Active</code></td>
+<td>The component loaded and initialized successfully</td>
+<td>None</td>
 </tr>
 <tr>
-<td><code>component_keyring_kmip</code></td>
-<td>Key Management Interoperability Protocol (KMIP) server</td>
-</tr>
-<tr>
-<td><code>component_keyring_kms</code></td>
-<td>Cloud Key Management Service (KMS)</td>
-</tr>
-<tr>
-<td><code>component_keyring_vault</code></td>
-<td>HashiCorp Vault</td>
+<td><code>Disabled</code></td>
+<td>The component loaded but failed to initialize, typically due to a configuration error</td>
+<td>Review the server error log, correct the configuration file, then run <code>ALTER INSTANCE RELOAD KEYRING</code></td>
 </tr>
 </tbody>
 </table>
+<p>If a keyring component fails to load entirely, the server does not start. Check the server error log for diagnostic messages.</p>
+<p>For the complete list of status keys that each component reports, see <a href="https://dev.mysql.com/doc/refman/{{vers}}/en/performance-schema-keyring-component-status-table.html">keyring_component_status Table <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> in the MySQL Reference Manual.</p>
+<h2 id="use-keyring-file-related-topics">Related topics<a class="headerlink" href="#use-keyring-file-related-topics" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="#keyring-components-plugins-overview">Keyring components overview</a></p>
+</li>
+<li>
+<p><a href="#use-keyring-vault-component">Use the keyring vault component</a></p>
+</li>
+<li>
+<p><a href="#using-kmip">Use the Key Management Interoperability Protocol (KMIP)</a></p>
+</li>
+<li>
+<p><a href="#using-amz-kms">Use the Amazon Key Management Service (AWS KMS)</a></p>
+</li>
+<li>
+<p><a href="#data-at-rest-encryption">Data at rest encryption</a></p>
+</li>
+</ul></section><section class="print-page" id="use-keyring-vault-component" heading-number="13.8.2.4"><h1 id="use-keyring-vault-component-use-the-keyring-vault-component">Use the keyring vault component<a class="headerlink" href="#use-keyring-vault-component-use-the-keyring-vault-component" title="Permanent link">&para;</a></h1>
+<p>The <code>keyring_vault</code> component connects Percona Server to a <a href="https://www.hashicorp.com/products/vault/data-protection">HashiCorp Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> server. The component stores and retrieves the encryption keys that protect data at rest.</p>
+<p>Install a keyring component through a manifest file. During startup, the server reads the manifest. Each component reads a corresponding configuration file during initialization.</p>
+<p>Do not load keyring components with either of the following methods:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Why it fails</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--early-plugin-load</code> option</td>
+<td>Loads plugins only, not components</td>
+</tr>
+<tr>
+<td><code>INSTALL COMPONENT</code> statement</td>
+<td>Registers components in the <code>mysql.component</code> table, which the server loads after <code>InnoDB</code> initialization</td>
+</tr>
+</tbody>
+</table>
+<p>Components that <code>InnoDB</code> requires at startup must load earlier.</p>
+<p>Create a global manifest file named <code>mysqld.my</code> in the installation directory. Optionally, create a local manifest file with the same name in a data directory.</p>
+<p>To install a keyring component, complete the following steps:</p>
+<ol>
+<li>Write a manifest in valid JSON format</li>
+</ol>
 <p>Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a <code>.cnf</code> extension. For example, <code>component_keyring_vault</code> reads <code>component_keyring_vault.cnf</code>.</p>
 <h2 id="use-keyring-vault-component-manifest-files">Manifest files<a class="headerlink" href="#use-keyring-vault-component-manifest-files" title="Permanent link">&para;</a></h2>
 <h3 id="use-keyring-vault-component-manifest-fields">Manifest fields<a class="headerlink" href="#use-keyring-vault-component-manifest-fields" title="Permanent link">&para;</a></h3>
@@ -35609,6 +35649,57 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 <li>
 <p><a href="#keyring-components-plugins-overview">Keyring components overview</a> compares the available keyring components.</p>
 </li>
+</ul>
+<h2 id="use-keyring-vault-component-verify-the-keyring-component">Verify the keyring component<a class="headerlink" href="#use-keyring-vault-component-verify-the-keyring-component" title="Permanent link">&para;</a></h2>
+<p>After you start Percona Server for MySQL, confirm that the keyring component loaded and initialized. Query the <code>performance_schema.keyring_component_status</code> table:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
+</code></pre></div>
+<p>The query returns one row for each status key that the loaded component reports. The <code>Component_status</code> row indicates the result of initialization:</p>
+<table>
+<thead>
+<tr>
+<th><code>Component_status</code> value</th>
+<th>Meaning</th>
+<th>Recovery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Active</code></td>
+<td>The component loaded and initialized successfully</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>Disabled</code></td>
+<td>The component loaded but failed to initialize, typically due to a configuration error</td>
+<td>Review the server error log, correct the configuration file, then run <code>ALTER INSTANCE RELOAD KEYRING</code></td>
+</tr>
+</tbody>
+</table>
+<p>If a keyring component fails to load entirely, the server does not start. Check the server error log for diagnostic messages.</p>
+<p>For the complete list of status keys that each component reports, see <a href="https://dev.mysql.com/doc/refman/{{vers}}/en/performance-schema-keyring-component-status-table.html">keyring_component_status Table <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> in the MySQL Reference Manual.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://developer.hashicorp.com/vault/docs/install">Hashicorp Documentation: Installing Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+<p><a href="https://developer.hashicorp.com/vault/tutorials/operations/production-hardening">Hashicorp Documentation: Production Hardening <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</div>
+<h2 id="use-keyring-vault-component-related-topics">Related topics<a class="headerlink" href="#use-keyring-vault-component-related-topics" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="#keyring-components-plugins-overview">Keyring components overview</a></p>
+</li>
+<li>
+<p><a href="#use-keyring-file">Use the keyring file component</a></p>
+</li>
+<li>
+<p><a href="#using-kmip">Use the Key Management Interoperability Protocol (KMIP)</a></p>
+</li>
+<li>
+<p><a href="#using-amz-kms">Use the Amazon Key Management Service (AWS KMS)</a></p>
+</li>
+<li>
+<p><a href="#data-at-rest-encryption">Data at rest encryption</a></p>
+</li>
 <li>
 <p><a href="#maintain-vault-connection">Maintain the Vault connection</a> covers token expiration, token renewal patterns, and Vault seal handling.</p>
 </li>
@@ -35772,50 +35863,57 @@ vault<span class="w"> </span>token<span class="w"> </span>create<span class="w">
 <p><a href="https://learn.hashicorp.com/vault/operations/production-hardening">Production Hardening <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </li>
 </ul></section><section class="print-page" id="using-kmip" heading-number="13.8.2.6"><h1 id="using-kmip-use-the-key-management-interoperability-protocol-kmip">Use the Key Management Interoperability Protocol (KMIP)<a class="headerlink" href="#using-kmip-use-the-key-management-interoperability-protocol-kmip" title="Permanent link">&para;</a></h1>
-<p>Percona Server for MySQL supports the <a href="https://docs.oasis-open.org/kmip/kmip-spec/v2.0/os/kmip-spec-v2.0-os.html">OASIS Key Management Interoperability Protocol (KMIP) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. This implementation was tested with:
-- <a href="https://pykmip.readthedocs.io/en/latest/server.html">PyKMIP server <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
-- <a href="https://developer.hashicorp.com/vault/docs/secrets/kmip">HashiCorp Vault Enterprise KMIP Secrets Engine <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
-- <a href="https://cpl.thalesgroup.com/encryption/ciphertrust-manager">Thales CipherTrust Manager <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
-- <a href="https://www.fortanix.com/products/data-security-manager">Fortanix Data Security Manager <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
-<p>KMIP enables communication between key management systems and the database server. The protocol can do the following:</p>
+<p>Percona Server for MySQL supports the <a href="https://docs.oasis-open.org/kmip/kmip-spec/v2.0/os/kmip-spec-v2.0-os.html">OASIS Key Management Interoperability Protocol (KMIP) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Percona has validated the KMIP implementation against the following servers:</p>
 <ul>
 <li>
-<p>Streamline encryption key management</p>
+<p><a href="https://pykmip.readthedocs.io/en/latest/server.html">PyKMIP server <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </li>
 <li>
-<p>Eliminate redundant key management processes</p>
+<p><a href="https://developer.hashicorp.com/vault/docs/secrets/kmip">HashiCorp Vault Enterprise KMIP Secrets Engine <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</li>
+<li>
+<p><a href="https://cpl.thalesgroup.com/encryption/ciphertrust-manager">Thales CipherTrust Manager <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</li>
+<li>
+<p><a href="https://www.fortanix.com/products/data-security-manager">Fortanix Data Security Manager <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</li>
+</ul>
+<p>KMIP enables communication between key management systems and the database server. The protocol provides the following capabilities:</p>
+<ul>
+<li>
+<p>Centralized storage and lifecycle management for encryption keys</p>
+</li>
+<li>
+<p>Standardized key exchange between databases and key management systems</p>
 </li>
 </ul>
 <h2 id="using-kmip-component-installation">Component installation<a class="headerlink" href="#using-kmip-component-installation" title="Permanent link">&para;</a></h2>
-<p>Percona Server uses a keyring to protect the master keys that encrypt data at rest. The server loads the keyring component from a manifest file. The component then reads a separate configuration file during initialization. Two alternative load mechanisms cannot load the keyring early enough: <code>--early-plugin-load</code> and <code>INSTALL COMPONENT</code>.</p>
-<h2 id="using-kmip-available-keyring-components">Available keyring components<a class="headerlink" href="#using-kmip-available-keyring-components" title="Permanent link">&para;</a></h2>
-<p>Percona Server provides the following keyring components:</p>
+<p>Install a keyring component through a manifest file. During startup, the server reads the manifest. Each component reads a corresponding configuration file during initialization.</p>
+<p>Do not load keyring components with either of the following methods:</p>
 <table>
 <thead>
 <tr>
-<th>Component</th>
-<th>Backend</th>
+<th>Method</th>
+<th>Why it fails</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>component_keyring_file</code></td>
-<td>Local file on disk</td>
+<td><code>--early-plugin-load</code> option</td>
+<td>Loads plugins only, not components</td>
 </tr>
 <tr>
-<td><code>component_keyring_kmip</code></td>
-<td>Key Management Interoperability Protocol (KMIP) server</td>
-</tr>
-<tr>
-<td><code>component_keyring_kms</code></td>
-<td>Cloud Key Management Service (KMS)</td>
-</tr>
-<tr>
-<td><code>component_keyring_vault</code></td>
-<td>HashiCorp Vault</td>
+<td><code>INSTALL COMPONENT</code> statement</td>
+<td>Registers components in the <code>mysql.component</code> table, which the server loads after <code>InnoDB</code> initialization</td>
 </tr>
 </tbody>
 </table>
+<p>Components that <code>InnoDB</code> requires at startup must load earlier.</p>
+<p>Create a global manifest file named <code>mysqld.my</code> in the installation directory. Optionally, create a local manifest file with the same name in a data directory.</p>
+<p>To install a keyring component, complete the following steps:</p>
+<ol>
+<li>Write a manifest in valid JSON format</li>
+</ol>
 <p>Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a <code>.cnf</code> extension. For example, <code>component_keyring_vault</code> reads <code>component_keyring_vault.cnf</code>.</p>
 <h2 id="using-kmip-manifest-files">Manifest files<a class="headerlink" href="#using-kmip-manifest-files" title="Permanent link">&para;</a></h2>
 <h3 id="using-kmip-manifest-fields">Manifest fields<a class="headerlink" href="#using-kmip-manifest-fields" title="Permanent link">&para;</a></h3>
@@ -36030,35 +36128,206 @@ vault<span class="w"> </span>token<span class="w"> </span>create<span class="w">
 <p>Configure exactly one keyring per server instance. Percona Server does not support multiple keyring plugins, multiple keyring components, or any combination of plugin and component. Such configurations risk data loss.</p>
 </div>
 <p>For more information, see <a href="https://dev.mysql.com/doc/refman/8.4/en/component-loading.html">Installing and Uninstalling Components <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<p>The following is an example of a global manifest file that does not use local manifests:</p>
+<p>The following example shows a global manifest file that does not use local manifests:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w"> </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 <span class="w"> </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://component_keyring_kmip&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>The following is an example of a global manifest file that points to a local manifest file:</p>
+<p>The following example shows a global manifest file that references a local manifest file:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w"> </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>The following is an example of a local manifest file:</p>
+<p>The following example shows a local manifest file:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w"> </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://component_keyring_kmip&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>The configuration settings are either in a global configuration file or a local configuration file. The settings are the same. </p>
-<details class="example">
-<summary>Example of a configuration file in JSON format</summary>
+<p>Both global and local configuration files use the same settings. The following example shows a configuration file:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w"> </span><span class="nt">&quot;server_addr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
 <span class="w"> </span><span class="nt">&quot;server_port&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5696&quot;</span><span class="p">,</span>
 <span class="w"> </span><span class="nt">&quot;client_ca&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;client_certificate.pem&quot;</span><span class="p">,</span>
 <span class="w"> </span><span class="nt">&quot;client_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;client_key.pem&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;server_ca&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root_certificate.pem&quot;</span>
+<span class="w"> </span><span class="nt">&quot;server_ca&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root_certificate.pem&quot;</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">&quot;object_group&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">&quot;max_objects&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">65535</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">&quot;kmip_timeout_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">&quot;tls_peer_verification&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">&quot;tls_hostname_verification&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
 <span class="p">}</span>
 </code></pre></div>
-</details>
-<p>For more information, see <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html">Keyring Component installation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p></section><section class="print-page" id="using-amz-kms" heading-number="13.8.2.7"><h1 id="using-amz-kms-use-the-amazon-key-management-service-aws-kms">Use the Amazon Key Management Service (AWS KMS)<a class="headerlink" href="#using-amz-kms-use-the-amazon-key-management-service-aws-kms" title="Permanent link">&para;</a></h1>
+<h3 id="using-kmip-configuration-options">Configuration options<a class="headerlink" href="#using-kmip-configuration-options" title="Permanent link">&para;</a></h3>
+<p>The configuration file for the KMIP keyring supports the following options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>server_addr</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>—</td>
+<td>Hostname or IP address of the KMIP server</td>
+</tr>
+<tr>
+<td><code>server_port</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>—</td>
+<td>TCP port of the KMIP server, for example <code>"5696"</code></td>
+</tr>
+<tr>
+<td><code>client_ca</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>—</td>
+<td>Path to the client certificate presented to the KMIP server, in Privacy-Enhanced Mail (PEM) format</td>
+</tr>
+<tr>
+<td><code>client_key</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>—</td>
+<td>Path to the client private key that matches <code>client_ca</code>, in PEM format</td>
+</tr>
+<tr>
+<td><code>server_ca</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>—</td>
+<td>Path to the certificate authority (CA) certificate that verifies the KMIP server, in PEM format</td>
+</tr>
+<tr>
+<td><code>object_group</code></td>
+<td>string</td>
+<td>No</td>
+<td><code>""</code></td>
+<td>KMIP object group used to register and enumerate objects; an empty value disables grouping</td>
+</tr>
+<tr>
+<td><code>max_objects</code></td>
+<td>integer</td>
+<td>No</td>
+<td><code>65535</code></td>
+<td>Maximum objects retrieved per object type in one locate operation. Applies to symmetric keys and secret data</td>
+</tr>
+<tr>
+<td><code>kmip_timeout_ms</code></td>
+<td>integer</td>
+<td>No</td>
+<td><code>5000</code></td>
+<td>KMIP connection timeout in milliseconds</td>
+</tr>
+<tr>
+<td><code>tls_peer_verification</code></td>
+<td>boolean</td>
+<td>No</td>
+<td><code>false</code></td>
+<td>When <code>true</code>, verifies the Transport Layer Security (TLS) certificate of the KMIP server against <code>server_ca</code></td>
+</tr>
+<tr>
+<td><code>tls_hostname_verification</code></td>
+<td>boolean</td>
+<td>No</td>
+<td><code>false</code></td>
+<td>When <code>true</code>, verifies <code>server_addr</code> against the Subject Alternative Name (SAN) or Common Name (CN) of the KMIP server certificate</td>
+</tr>
+</tbody>
+</table>
+<h4 id="using-kmip-tls-verification">TLS verification<a class="headerlink" href="#using-kmip-tls-verification" title="Permanent link">&para;</a></h4>
+<p>Both <code>tls_peer_verification</code> and <code>tls_hostname_verification</code> default to <code>false</code> for backward compatibility. Enable both options in production deployments. The KMIP keyring backend then rejects connections to KMIP servers that present an untrusted or mismatched certificate.</p>
+<p>To enable peer verification, set <code>server_ca</code> to the certificate authority that signed the KMIP server certificate. To enable hostname verification, set <code>server_addr</code> to match the SAN or CN of the KMIP server certificate.</p>
+<h3 id="using-kmip-kmip-object-state-requirements">KMIP object state requirements<a class="headerlink" href="#using-kmip-kmip-object-state-requirements" title="Permanent link">&para;</a></h3>
+<p>The KMIP keyring backend loads only objects in the <code>ACTIVE</code> state. Loadable objects include symmetric keys and secret data. The backend ignores objects in the <code>PRE_ACTIVE</code>, <code>DEACTIVATED</code>, <code>COMPROMISED</code>, or <code>DESTROYED</code> states. The backend activates each key or secret during registration.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Activate any <code>PRE_ACTIVE</code> keys on the KMIP server before you start Percona Server for MySQL. Otherwise, Percona Server for MySQL cannot load those keys.</p>
+<p>Use the KMIP <code>Activate</code> operation through the management interface of your KMIP server. Supported interfaces include a web console, a command-line tool, or a KMIP client library. For exact steps, see the documentation for your KMIP server.</p>
+</div>
+<h3 id="using-kmip-supported-aes-key-sizes">Supported AES key sizes<a class="headerlink" href="#using-kmip-supported-aes-key-sizes" title="Permanent link">&para;</a></h3>
+<p>The KMIP keyring backend accepts these Advanced Encryption Standard (AES) key sizes:</p>
+<table>
+<thead>
+<tr>
+<th>AES key size</th>
+<th>Length in bytes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>128 bits</td>
+<td>16</td>
+</tr>
+<tr>
+<td>192 bits</td>
+<td>24</td>
+</tr>
+<tr>
+<td>256 bits</td>
+<td>32</td>
+</tr>
+</tbody>
+</table>
+<p>The KMIP keyring backend rejects AES keys of any other length. The <code>keyring_udf</code> plugin returns <code>ER_KEYRING_UDF_KEYRING_SERVICE_ERROR</code> for requests that specify a non-standard key size.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Review any scripts or tooling that use non-standard AES key sizes before you upgrade.</p>
+</div>
+<h2 id="using-kmip-verify-the-keyring-component">Verify the keyring component<a class="headerlink" href="#using-kmip-verify-the-keyring-component" title="Permanent link">&para;</a></h2>
+<p>After you start Percona Server for MySQL, confirm that the keyring component loaded and initialized. Query the <code>performance_schema.keyring_component_status</code> table:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
+</code></pre></div>
+<p>The query returns one row for each status key that the loaded component reports. The <code>Component_status</code> row indicates the result of initialization:</p>
+<table>
+<thead>
+<tr>
+<th><code>Component_status</code> value</th>
+<th>Meaning</th>
+<th>Recovery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Active</code></td>
+<td>The component loaded and initialized successfully</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>Disabled</code></td>
+<td>The component loaded but failed to initialize, typically due to a configuration error</td>
+<td>Review the server error log, correct the configuration file, then run <code>ALTER INSTANCE RELOAD KEYRING</code></td>
+</tr>
+</tbody>
+</table>
+<p>If a keyring component fails to load entirely, the server does not start. Check the server error log for diagnostic messages.</p>
+<p>For the complete list of status keys that each component reports, see <a href="https://dev.mysql.com/doc/refman/{{vers}}/en/performance-schema-keyring-component-status-table.html">keyring_component_status Table <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> in the MySQL Reference Manual.</p>
+<h2 id="using-kmip-related-topics">Related topics<a class="headerlink" href="#using-kmip-related-topics" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="#keyring-components-plugins-overview">Keyring components overview</a></p>
+</li>
+<li>
+<p><a href="#use-keyring-file">Use the keyring file component</a></p>
+</li>
+<li>
+<p><a href="#use-keyring-vault-component">Use the keyring vault component</a></p>
+</li>
+<li>
+<p><a href="#using-amz-kms">Use the Amazon Key Management Service (AWS KMS)</a></p>
+</li>
+<li>
+<p><a href="#data-at-rest-encryption">Data at rest encryption</a></p>
+</li>
+</ul></section><section class="print-page" id="using-amz-kms" heading-number="13.8.2.7"><h1 id="using-amz-kms-use-the-amazon-key-management-service-aws-kms">Use the Amazon Key Management Service (AWS KMS)<a class="headerlink" href="#using-amz-kms-use-the-amazon-key-management-service-aws-kms" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL supports the <a href="https://aws.amazon.com/kms/">Amazon Key Management Service (AWS KMS) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Percona Server generates the keyring keys. Amazon Web Services (AWS) encrypts the keyring data.</p>
 <p>The AWS KMS lets you create and manage cryptographic keys across AWS services. For more information, see the <a href="https://docs.aws.amazon.com/kms/">AWS Key Management Service Documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <h2 id="using-amz-kms-prerequisites">Prerequisites<a class="headerlink" href="#using-amz-kms-prerequisites" title="Permanent link">&para;</a></h2>
@@ -36071,35 +36340,32 @@ vault<span class="w"> </span>token<span class="w"> </span>create<span class="w">
 <p>Create a KMS key. Reference the key by its identifier, alias, or Amazon Resource Name (ARN). Each key can have any number of aliases.</p>
 </li>
 </ul>
-<p>Percona Server uses a keyring to protect the master keys that encrypt data at rest. The server loads the keyring component from a manifest file. The component then reads a separate configuration file during initialization. Two alternative load mechanisms cannot load the keyring early enough: <code>--early-plugin-load</code> and <code>INSTALL COMPONENT</code>.</p>
-<h2 id="using-amz-kms-available-keyring-components">Available keyring components<a class="headerlink" href="#using-amz-kms-available-keyring-components" title="Permanent link">&para;</a></h2>
-<p>Percona Server provides the following keyring components:</p>
+<p>Install a keyring component through a manifest file. During startup, the server reads the manifest. Each component reads a corresponding configuration file during initialization.</p>
+<p>Do not load keyring components with either of the following methods:</p>
 <table>
 <thead>
 <tr>
-<th>Component</th>
-<th>Backend</th>
+<th>Method</th>
+<th>Why it fails</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>component_keyring_file</code></td>
-<td>Local file on disk</td>
+<td><code>--early-plugin-load</code> option</td>
+<td>Loads plugins only, not components</td>
 </tr>
 <tr>
-<td><code>component_keyring_kmip</code></td>
-<td>Key Management Interoperability Protocol (KMIP) server</td>
-</tr>
-<tr>
-<td><code>component_keyring_kms</code></td>
-<td>Cloud Key Management Service (KMS)</td>
-</tr>
-<tr>
-<td><code>component_keyring_vault</code></td>
-<td>HashiCorp Vault</td>
+<td><code>INSTALL COMPONENT</code> statement</td>
+<td>Registers components in the <code>mysql.component</code> table, which the server loads after <code>InnoDB</code> initialization</td>
 </tr>
 </tbody>
 </table>
+<p>Components that <code>InnoDB</code> requires at startup must load earlier.</p>
+<p>Create a global manifest file named <code>mysqld.my</code> in the installation directory. Optionally, create a local manifest file with the same name in a data directory.</p>
+<p>To install a keyring component, complete the following steps:</p>
+<ol>
+<li>Write a manifest in valid JSON format</li>
+</ol>
 <p>Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a <code>.cnf</code> extension. For example, <code>component_keyring_vault</code> reads <code>component_keyring_vault.cnf</code>.</p>
 <h2 id="using-amz-kms-manifest-files">Manifest files<a class="headerlink" href="#using-amz-kms-manifest-files" title="Permanent link">&para;</a></h2>
 <h3 id="using-amz-kms-manifest-fields">Manifest fields<a class="headerlink" href="#using-amz-kms-manifest-fields" title="Permanent link">&para;</a></h3>
@@ -36368,7 +36634,53 @@ vault<span class="w"> </span>token<span class="w"> </span>create<span class="w">
 <span class="w">  </span><span class="nt">&quot;secret_access_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;AWS_USER_SECRET_ACCESS_KEY&gt;&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>For more information, see <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html">Keyring component installation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p></section><section class="print-page" id="encrypt-file-per-table-tablespace" heading-number="13.8.2.8"><h1 id="encrypt-file-per-table-tablespace-encrypt-file-per-table-tablespace">Encrypt File-Per-Table Tablespace<a class="headerlink" href="#encrypt-file-per-table-tablespace-encrypt-file-per-table-tablespace" title="Permanent link">&para;</a></h1>
+<h2 id="using-amz-kms-verify-the-keyring-component">Verify the keyring component<a class="headerlink" href="#using-amz-kms-verify-the-keyring-component" title="Permanent link">&para;</a></h2>
+<p>After you start Percona Server for MySQL, confirm that the keyring component loaded and initialized. Query the <code>performance_schema.keyring_component_status</code> table:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
+</code></pre></div>
+<p>The query returns one row for each status key that the loaded component reports. The <code>Component_status</code> row indicates the result of initialization:</p>
+<table>
+<thead>
+<tr>
+<th><code>Component_status</code> value</th>
+<th>Meaning</th>
+<th>Recovery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Active</code></td>
+<td>The component loaded and initialized successfully</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>Disabled</code></td>
+<td>The component loaded but failed to initialize, typically due to a configuration error</td>
+<td>Review the server error log, correct the configuration file, then run <code>ALTER INSTANCE RELOAD KEYRING</code></td>
+</tr>
+</tbody>
+</table>
+<p>If a keyring component fails to load entirely, the server does not start. Check the server error log for diagnostic messages.</p>
+<p>For the complete list of status keys that each component reports, see <a href="https://dev.mysql.com/doc/refman/{{vers}}/en/performance-schema-keyring-component-status-table.html">keyring_component_status Table <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> in the MySQL Reference Manual.</p>
+<h2 id="using-amz-kms-related-topics">Related topics<a class="headerlink" href="#using-amz-kms-related-topics" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="#keyring-components-plugins-overview">Keyring components overview</a></p>
+</li>
+<li>
+<p><a href="#use-keyring-file">Use the keyring file component</a></p>
+</li>
+<li>
+<p><a href="#use-keyring-vault-component">Use the keyring vault component</a></p>
+</li>
+<li>
+<p><a href="#using-kmip">Use the Key Management Interoperability Protocol (KMIP)</a></p>
+</li>
+<li>
+<p><a href="#data-at-rest-encryption">Data at rest encryption</a>
+For more information, see <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html">Keyring component installation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+</li>
+</ul></section><section class="print-page" id="encrypt-file-per-table-tablespace" heading-number="13.8.2.8"><h1 id="encrypt-file-per-table-tablespace-encrypt-file-per-table-tablespace">Encrypt File-Per-Table Tablespace<a class="headerlink" href="#encrypt-file-per-table-tablespace-encrypt-file-per-table-tablespace" title="Permanent link">&para;</a></h1>
 <p>The file_per_table tablespace inherits the default schema encryption setting. Use the <code>ENCRYPTION</code> clause in the  in <code>CREATE TABLE</code> statement to explicitly set the encryption.</p>
 <p><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
