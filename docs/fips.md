@@ -1,9 +1,5 @@
 # FIPS compliance
 
-<!-- Percona Server for MySQL Pro includes the [capabilities](psmysql-pro.md#capabilities) that are typically requested by large enterprises. Percona Server for MySQL Pro contains packages created and tested by Percona. These packages are supported only for Percona Customers with a subscription. -->
-
-<!-- [Become a Percona Customer](https://www.percona.com/about/contact){.md-button} -->
-
 The Federal Information Processing Standards (FIPS) are a set of regulations mandated by the United States government that ensure the security of computer systems for non-military government agencies and their contractors. These standards specify how to perform cryptographic operations, such as encryption, hashing, and digital signatures. FIPS mode is a mode of operation that enforces these standards and rejects any non-compliant algorithms or parameters.
 
 Percona Server for MySQL can run in FIPS mode if a FIPS-enabled OpenSSL library and FIPS Object Module are available at runtime or if compiled using a FIPS-validated version of OpenSSL. FIPS mode remains off by default and must be enabled via [OS/OpenSSL configuration](#prerequisites). 
@@ -33,8 +29,6 @@ To prepare Percona Server for MySQL for FIPS certification, do the following:
         !!! note
             
             If you enable FIPS on Ubuntu Pro with `$ sudo pro enable fips-updates` and then disable FIPS with `$ sudo pro disable fips-updates`, Percona Server for MySQL may stop operating properly. For example, if you disable FIPS on Ubuntu Pro with `$ sudo pro disable fips-updates` and enable the FIPS mode on Percona Server with `ssl-fips-mode=ON`, Percona Server may not load the SSL certificate.
-
-<!-- * Deploy [Percona Server for MySQL from the Pro build](psmysql-pro.md), which is built and tested on operating systems with FIPS pre-approved OpenSSL packages. -->
 
 ## The FIPS mode variables
 
@@ -74,10 +68,3 @@ To ensure that the FIPS mode is enabled, do the following:
     A FIPS-approved version of the OpenSSL cryptographic library has been detected in the operating system with a properly configured FIPS module available for loading. Percona Server for MySQL will load this module and run in FIPS mode.
     ```
 
-<!-- ## Next steps
-
-[Install Percona Server for MySQL Pro](install-pro.md){.md-button}
-
-If you already use Percona Server for MySQL, you can
-
-[Upgrade to Percona Server for MySQL Pro](upgrade-pro.md){.md-button} -->
