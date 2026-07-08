@@ -88,6 +88,8 @@ The `sub` claim is verified against `user` only in direct authentication. Proxy 
 
 Both proxy modes require `group-claim`, so the plugin can read group membership from the token. In named-group proxying, the plugin verifies that the configured `group` appears in the claim. The session then authenticates as the proxied account named after that group. In anonymous proxying, the plugin uses the first entry in the claim as the proxied account.
 
+In both proxy modes, the proxied account name equals the group value from the token. MySQL limits account names to 32 characters, so group names longer than 32 characters cannot be used by the proxying feature. Prefer group names over group IDs in the claim. See [Proxying](#proxying).
+
 The proxying account must hold `PROXY` privilege on the proxied account. For end-to-end examples and the safety considerations of proxy modes, see [Proxying](#proxying).
 
 When `group-claim` and `group-role` are both configured, the plugin reads the group claim from the token. The plugin grants the connection any matching MySQL roles for the session.
@@ -210,7 +212,7 @@ Each top-level key in the JSON document is the IDP name. User accounts reference
 | Key | Required | Description |
 |---|---|---|
 | `audiences`   | No                       | An array of allowed `aud` claim values. The plugin rejects the token when the `aud` claim does not match. The plugin omits the audience check when this key is absent. |
-| `group-claim` | No                       | The name of the JWT claim that lists the user group memberships, such as `groups`. The claim value must be a string or an array of strings. |
+| `group-claim` | No                       | The name of the JWT claim that lists the user group memberships, such as `groups`. The claim value must be a string or an array of strings. Group names longer than 32 characters cannot be used by the proxying feature. |
 | `group-role`  | No                       | An array of single-key objects that map IDP group names to MySQL role names. The mapping pairs with `group-claim`. |
 | `issuer-name` | Yes                      | The exact value of the `iss` claim that the IDP issues. The plugin matches this value against the token's `iss` claim. |
 | `jwks-url`    | When `keys` is absent    | The HTTPS URL of the IDP JWKS endpoint. The plugin fetches and caches keys from the URL. The plugin can refresh keys at runtime through the `update_jwks()` UDF. HTTP URLs are accepted for testing only and emit a warning. |
@@ -503,7 +505,7 @@ The group claim must be a JSON array of strings or a single string. Any other ty
 
     Keycloak places realm roles inside `realm_access.roles` and client roles inside `resource_access.<client>.roles` by default. Configure a Keycloak client scope mapper that emits a flat top-level claim:
 
-    * For Keycloak groups, add a `Group Membership` mapper with `Full group path` enabled.
+    * For Keycloak groups, add a `Group Membership` mapper with `Full group path` enabled. Prefer group names over group IDs. Group names longer than 32 characters cannot be used by the proxying feature.
 
     * For realm roles, add a `User Realm Role` mapper with `Multivalued` enabled.
 
@@ -518,6 +520,12 @@ Proxying reduces administrative overhead in deployments with many IDP users. One
 !!! warning
 
     Proxy modes do not verify the `sub` claim. Any token signed by a configured IDP that contains the required group is accepted. Use proxy modes only when group membership is your trust boundary.
+
+!!! note "Group name length limit"
+
+    In named-group and anonymous proxying, the plugin maps each group value from the ID token to a MySQL account of the same name. MySQL limits account names to 32 characters.
+
+    Group names in the token's group claim must not exceed 32 characters. A longer value prevents creation of the proxied MySQL account and causes authentication to fail. Keep group names at 32 characters or fewer. If your IDP issues tokens with long group IDs in the `groups` claim, check whether the IDP can be configured to use group names instead.
 
 Configure the plugin and IDP before you use the proxy examples. The IDP must issue tokens with a `groups` claim. For the configuration baseline, see [Configure the plugin](#configure-the-plugin) and [Map groups to MySQL roles](#map-groups-to-mysql-roles).
 
@@ -885,3 +893,4 @@ The following table follows a Symptoms, Diagnosis, and Solution model for the mo
 | `JWKS: HTTP GET from <url> failed` in the server log                            | The IDP is unreachable or returned a non-2xx status. The host may also require an outbound HTTP proxy.            | Verify network reachability. For corporate egress, see [Route JWKS traffic through an HTTP proxy](#route-jwks-traffic-through-an-http-proxy). Run `update_jwks()` after the IDP recovers. |
 | `incorrect number of keys` in the server log                                    | The token has no `kid` header but the plugin loaded multiple keys for the IDP.                                    | Set `keys` to a single entry that matches the IDP signing key.                      |
 | `user is not a member of the required group` in the server log                  | The account uses named-group proxying but the token's `groups` claim does not contain the configured `group`.     | Verify the user's group membership at the IDP, or have the user select a different MySQL account that maps to a group they belong to. |
+| `CREATE USER` fails for a proxy target, or proxy authentication fails            | The group value in the token exceeds the 32-character MySQL account name limit, or the claim contains a group ID instead of a group name. | Group names longer than 32 characters cannot be used by the proxying feature. Prefer group names over group IDs. See [Proxying](#proxying). |
