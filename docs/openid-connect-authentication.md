@@ -26,11 +26,27 @@ The plugin provides the following capabilities:
 
 * Proxy multiple IDP identities to a single MySQL account through `GRANT PROXY`.
 
-* Support the `RS256`, `RS384`, `RS512`, `ES256`, and `HS256` signature algorithms.
+* Support the signature algorithms listed in [Supported signature algorithms](#supported-signature-algorithms).
 
 Proxy support is a Percona-specific addition. The upstream MySQL OIDC plugin does not include this capability.
 
 The server-side plugin pairs with the `authentication_openid_connect_client` client-side plugin distributed with Percona Server for MySQL.
+
+### Supported signature algorithms
+
+The plugin supports the following signature algorithms:
+
+| Algorithm | Description |
+|---|---|
+| `RS256` | RSASSA-PKCS1-v1_5 with SHA-256 |
+| `RS384` | RSASSA-PKCS1-v1_5 with SHA-384 |
+| `RS512` | RSASSA-PKCS1-v1_5 with SHA-512 |
+| `ES256` | ECDSA with SHA-256 |
+| `ES384` | ECDSA with SHA-384 |
+| `ES512` | ECDSA with SHA-512 |
+| `PS256` | RSASSA-PSS with SHA-256 |
+| `PS384` | RSASSA-PSS with SHA-384 |
+| `PS512` | RSASSA-PSS with SHA-512 |
 
 ## Plugin and library file names
 
@@ -69,7 +85,7 @@ The plugin accepts the token only when every check in the following table passes
 | Check                    | Requirement                                                                          |
 |---|---|
 | JWT structure            | Parses as a valid JWT                                                                |
-| Signature algorithm      | One of `RS256`, `RS384`, `RS512`, `ES256`, or `HS256`                                |
+| Signature algorithm      | One of the supported signature algorithms (see [Supported signature algorithms](#supported-signature-algorithms)) |
 | Signature                | Verified by a configured public key, selected by the `kid` header                    |
 | Expiration (`exp` claim) | Timestamp in the future                                                              |
 | Issuer (`iss` claim)     | Equals the configured `issuer-name` for the IDP                                      |
