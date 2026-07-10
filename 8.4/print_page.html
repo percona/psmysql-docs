@@ -33461,11 +33461,59 @@ plugin-load-add=authentication_fido.so
 <p>Proxy multiple IDP identities to a single MySQL account through <code>GRANT PROXY</code>.</p>
 </li>
 <li>
-<p>Support the <code>RS256</code>, <code>RS384</code>, <code>RS512</code>, <code>ES256</code>, and <code>HS256</code> signature algorithms.</p>
+<p>Support the signature algorithms listed in <a href="#openid-connect-authentication-supported-signature-algorithms">Supported signature algorithms</a>.</p>
 </li>
 </ul>
 <p>Proxy support is a Percona-specific addition. The upstream MySQL OIDC plugin does not include this capability.</p>
 <p>The server-side plugin pairs with the <code>authentication_openid_connect_client</code> client-side plugin distributed with Percona Server for MySQL.</p>
+<h3 id="openid-connect-authentication-supported-signature-algorithms">Supported signature algorithms<a class="headerlink" href="#openid-connect-authentication-supported-signature-algorithms" title="Permanent link">&para;</a></h3>
+<p>The plugin supports the following signature algorithms:</p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RS256</code></td>
+<td>RSASSA-PKCS1-v1_5 with SHA-256</td>
+</tr>
+<tr>
+<td><code>RS384</code></td>
+<td>RSASSA-PKCS1-v1_5 with SHA-384</td>
+</tr>
+<tr>
+<td><code>RS512</code></td>
+<td>RSASSA-PKCS1-v1_5 with SHA-512</td>
+</tr>
+<tr>
+<td><code>ES256</code></td>
+<td>ECDSA with SHA-256</td>
+</tr>
+<tr>
+<td><code>ES384</code></td>
+<td>ECDSA with SHA-384</td>
+</tr>
+<tr>
+<td><code>ES512</code></td>
+<td>ECDSA with SHA-512</td>
+</tr>
+<tr>
+<td><code>PS256</code></td>
+<td>RSASSA-PSS with SHA-256</td>
+</tr>
+<tr>
+<td><code>PS384</code></td>
+<td>RSASSA-PSS with SHA-384</td>
+</tr>
+<tr>
+<td><code>PS512</code></td>
+<td>RSASSA-PSS with SHA-512</td>
+</tr>
+</tbody>
+</table>
 <h2 id="openid-connect-authentication-plugin-and-library-file-names">Plugin and library file names<a class="headerlink" href="#openid-connect-authentication-plugin-and-library-file-names" title="Permanent link">&para;</a></h2>
 <p>The library file must reside in the directory named by the <a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_plugin_dir"><code>plugin_dir</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> system variable. The file name suffix may differ on your platform.</p>
 <p>The following table lists the plugin components:</p>
@@ -33535,7 +33583,7 @@ plugin-load-add=authentication_fido.so
 </tr>
 <tr>
 <td>Signature algorithm</td>
-<td>One of <code>RS256</code>, <code>RS384</code>, <code>RS512</code>, <code>ES256</code>, or <code>HS256</code></td>
+<td>One of the supported signature algorithms (see <a href="#openid-connect-authentication-supported-signature-algorithms">Supported signature algorithms</a>)</td>
 </tr>
 <tr>
 <td>Signature</td>
