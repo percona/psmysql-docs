@@ -1,5 +1,6 @@
 
-Percona Server uses a keyring to protect the master keys that encrypt data at rest. The server loads the keyring component from a manifest file. The component then reads a separate configuration file during initialization. Two alternative load mechanisms cannot load the keyring early enough: `--early-plugin-load` and `INSTALL COMPONENT`.
+A keyring component loads at server startup from a manifest file. The component reads a JSON configuration file during initialization. Do not load a keyring component with `INSTALL COMPONENT`. InnoDB needs the keyring before the `mysql.component` table is available.
+
 
 ## Available keyring components
 
@@ -12,11 +13,12 @@ Percona Server provides the following keyring components:
 | `component_keyring_kms` | Cloud Key Management Service (KMS) |
 | `component_keyring_vault` | HashiCorp Vault |
 
-Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a `.cnf` extension. For example, `component_keyring_vault` reads `component_keyring_vault.cnf`.
+Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a `.cnf`
 
+Create a global manifest file named `mysqld.my` in the directory that contains the `mysqld` binary. For multiple instances on one host, create a local manifest file with the same name in each data directory.
+
+If the manifest file does not exist, the server does not load the keyring component. During startup, the server reads the global manifest from the installation directory. The global manifest can list the component directly or point to a local manifest in the data directory.
 ## Manifest files
-
-### Manifest fields
 
 The manifest is a JavaScript Object Notation (JSON) object with the following fields:
 
