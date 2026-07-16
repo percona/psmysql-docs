@@ -10629,6 +10629,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>The <code>sub</code> claim is verified against <code>user</code> only in direct authentication. Proxy modes verify group membership instead.</p>
 <p>Both proxy modes require <code>group-claim</code>, so the plugin can read group membership from the token. In named-group proxying, the plugin verifies that the configured <code>group</code> appears in the claim. The session then authenticates as the proxied account named after that group. In anonymous proxying, the plugin uses the first entry in the claim as the proxied account.</p>
+<p>In both proxy modes, the proxied account name equals the group value from the token. MySQL limits account names to 32 characters, so group names longer than 32 characters cannot be used by the proxying feature. Prefer group names over group IDs in the claim. See <a href="#proxying">Proxying</a>.</p>
 <p>The proxying account must hold <code>PROXY</code> privilege on the proxied account. For end-to-end examples and the safety considerations of proxy modes, see <a href="#proxying">Proxying</a>.</p>
 <p>When <code>group-claim</code> and <code>group-role</code> are both configured, the plugin reads the group claim from the token. The plugin grants the connection any matching MySQL roles for the session.</p>
 <p>The plugin denies the connection on any failed check. The plugin writes a diagnostic message to the server error log.</p>
@@ -10749,7 +10750,7 @@ plugin-load-add=auth_openid_connect.so
 <tr>
 <td><code>group-claim</code></td>
 <td>No</td>
-<td>The name of the JWT claim that lists the user group memberships, such as <code>groups</code>. The claim value must be a string or an array of strings.</td>
+<td>The name of the JWT claim that lists the user group memberships, such as <code>groups</code>. The claim value must be a string or an array of strings. Group names longer than 32 characters cannot be used by the proxying feature.</td>
 </tr>
 <tr>
 <td><code>group-role</code></td>
@@ -11009,7 +11010,7 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 <p>Keycloak places realm roles inside <code>realm_access.roles</code> and client roles inside <code>resource_access.&lt;client&gt;.roles</code> by default. Configure a Keycloak client scope mapper that emits a flat top-level claim:</p>
 <ul>
 <li>
-<p>For Keycloak groups, add a <code>Group Membership</code> mapper with <code>Full group path</code> enabled.</p>
+<p>For Keycloak groups, add a <code>Group Membership</code> mapper with <code>Full group path</code> enabled. Prefer group names over group IDs. Group names longer than 32 characters cannot be used by the proxying feature.</p>
 </li>
 <li>
 <p>For realm roles, add a <code>User Realm Role</code> mapper with <code>Multivalued</code> enabled.</p>
@@ -11023,6 +11024,11 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Proxy modes do not verify the <code>sub</code> claim. Any token signed by a configured IDP that contains the required group is accepted. Use proxy modes only when group membership is your trust boundary.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Group name length limit</p>
+<p>In named-group and anonymous proxying, the plugin maps each group value from the ID token to a MySQL account of the same name. MySQL limits account names to 32 characters.</p>
+<p>Group names in the token&rsquo;s group claim must not exceed 32 characters. A longer value prevents creation of the proxied MySQL account and causes authentication to fail. Keep group names at 32 characters or fewer. If your IDP issues tokens with long group IDs in the <code>groups</code> claim, check whether the IDP can be configured to use group names instead.</p>
 </div>
 <p>Configure the plugin and IDP before you use the proxy examples. The IDP must issue tokens with a <code>groups</code> claim. For the configuration baseline, see <a href="#configure-the-plugin">Configure the plugin</a> and <a href="#map-groups-to-mysql-roles">Map groups to MySQL roles</a>.</p>
 <p>The two subsections that follow show end-to-end examples for both proxy modes. Both use the <a href="https://dev.mysql.com/doc/refman/8.4/en/no-login-pluggable-authentication.html"><code>mysql_no_login</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> plugin so proxy target accounts cannot authenticate directly.</p>
@@ -11385,6 +11391,11 @@ systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
 <td>The account uses named-group proxying but the token&rsquo;s <code>groups</code> claim does not contain the configured <code>group</code>.</td>
 <td>Verify the user&rsquo;s group membership at the IDP, or have the user select a different MySQL account that maps to a group they belong to.</td>
 </tr>
+<tr>
+<td><code>CREATE USER</code> fails for a proxy target, or proxy authentication fails</td>
+<td>The group value in the token exceeds the 32-character MySQL account name limit, or the claim contains a group ID instead of a group name.</td>
+<td>Group names longer than 32 characters cannot be used by the proxying feature. Prefer group names over group IDs. See <a href="#proxying">Proxying</a>.</td>
+</tr>
 </tbody>
 </table>
 
@@ -11409,7 +11420,7 @@ systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 10, 2026 09:25:09 UTC">July 10, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 16, 2026 10:46:13 UTC">July 16, 2026</span>
   </span>
 
     
