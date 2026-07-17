@@ -24,12 +24,10 @@ You need either `sudo` access or root access to install packages and configure s
 
 ### Package verification
 
-The packages are signed with GPG keys for security. The installation process automatically installs the [Percona GPG key](https://www.percona.com/downloads/RPM-GPG-KEY-percona) and handles key verification, but you can manually verify packages if needed.
+The packages are signed with GPG keys for security. The installation process automatically installs the [Percona GPG key](https://repo.percona.com/yum/PERCONA-PACKAGING-KEY) and handles key verification, but you can manually verify packages if needed.
 
 !!! note "Security Note"
     Always download packages from official Percona repositories to ensure authenticity and security.
-
-
 
 ## Limitations
 

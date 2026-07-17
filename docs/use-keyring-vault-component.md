@@ -1,6 +1,6 @@
 # Use the keyring vault component
 
-The `keyring_vault` component connects Percona Server to a [HashiCorp Vault :octicons-link-external-16:](https://www.hashicorp.com/products/vault/data-protection) server. The component stores and retrieves the encryption keys that protect data at rest.
+The `keyring_vault` component connects Percona Server to a [HashiCorp Vault :octicons-link-external-16:](https://www.hashicorp.com/en/products/vault) server. The component stores and retrieves the encryption keys that protect data at rest.
 
 --8<--- "keyring-components-installation.md"
 
@@ -8,7 +8,7 @@ The `keyring_vault` component connects Percona Server to a [HashiCorp Vault :oct
 
 The configuration settings live in either a global configuration file or a local configuration file.
 
-The component connects to the [HashiCorp Vault server :octicons-link-external-16:](https://developer.hashicorp.com/vault/docs/install) over Hypertext Transfer Protocol Secure (HTTPS) for production deployments. The component also accepts plain `http://` URLs for development. Prepare the certificate and key files for the secure connection. Each Vault server instance requires three artifacts:
+The component connects to the [HashiCorp Vault server :octicons-link-external-16:](https://developer.hashicorp.com/vault/docs/get-vault) over Hypertext Transfer Protocol Secure (HTTPS) for production deployments. The component also accepts plain `http://` URLs for development. Prepare the certificate and key files for the secure connection. Each Vault server instance requires three artifacts:
 
 - An organizational Certificate Authority (CA)
 
@@ -16,9 +16,9 @@ The component connects to the [HashiCorp Vault server :octicons-link-external-16
 
 - A server certificate signed by the CA
 
-You can generate the artifacts with [OpenSSL :octicons-link-external-16:](https://www.openssl.org/docs/man3.0/index.html) or reuse existing files. The key files contain sensitive material. Store the key files and the password for each key in a secure location.
+You can generate the artifacts with [OpenSSL :octicons-link-external-16:](https://docs.openssl.org/master/) or reuse existing files. The key files contain sensitive material. Store the key files and the password for each key in a secure location.
 
-You can also [build a CA inside Vault :octicons-link-external-16:](https://developer.hashicorp.com/vault/tutorials/secrets-management/pki-engine) and then issue a Vault server certificate from that CA.
+You can also [build a CA inside Vault :octicons-link-external-16:](https://developer.hashicorp.com/vault/tutorials/pki/pki-engine) and then issue a Vault server certificate from that CA.
 
 ### Configuration parameters
 
@@ -157,7 +157,7 @@ The `keyring_aes` service supports server-side encryption at rest. The service a
 
 ## Operate the vault component
 
-The shared [Operate the keyring](#operate-the-keyring) section covers rotation, monitoring, and backup procedures that apply to every keyring component. The following notes describe behaviors that are specific to `keyring_vault`.
+This shared section covers rotation, monitoring, and backup procedures that apply to every keyring component. The following notes describe behaviors that are specific to `keyring_vault`.
 
 ### Master key rotation
 
@@ -191,9 +191,9 @@ A Vault-backed restore requires the following on the destination host:
 
 !!! admonition "See also"
 
-    [Hashicorp Documentation: Installing Vault :octicons-link-external-16:](https://developer.hashicorp.com/vault/docs/install)
+    [Hashicorp Documentation: Installing Vault :octicons-link-external-16:](https://developer.hashicorp.com/vault/docs/get-vault)
 
-    [Hashicorp Documentation: Production Hardening :octicons-link-external-16:](https://developer.hashicorp.com/vault/tutorials/operations/production-hardening)
+    [Hashicorp Documentation: Production Hardening :octicons-link-external-16:](https://developer.hashicorp.com/vault/docs/concepts/production-hardening)
 
 ## Related topics
 

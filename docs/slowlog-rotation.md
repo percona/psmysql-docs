@@ -1,6 +1,6 @@
 # Slow query log rotation and expiration
 
-Percona has implemented two new variables, `max_slowlog_size` and `max_slowlog_files` to provide users with ability to control the slow query log disk usage. These variables have the same behavior as the [max_binlog_size variable :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#sysvar_max_binlog_size) and the [max_binlog_files variable :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log) used for controlling the binary log.
+Percona has implemented two new variables, `max_slowlog_size` and `max_slowlog_files` to provide users with ability to control the slow query log disk usage. These variables have the same behavior as the [max_binlog_size variable :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#sysvar_max_binlog_size) and the [max_binlog_files variable :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html) used for controlling the binary log.
 
 
 ## `max_slowlog_size`
