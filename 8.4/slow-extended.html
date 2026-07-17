@@ -8083,6 +8083,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#log-output-destination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log output destination
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmm-query-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMM Query Analytics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#related-reading" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10076,6 +10098,28 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
+  <a href="#log-output-destination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log output destination
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmm-query-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PMM Query Analytics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#related-reading" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10686,6 +10730,116 @@ keyword is followed by a number other than zero:</p>
 </li>
 </ul>
 <p>If the query did not use <em>InnoDB</em> tables, that information is written into the log instead of the above statistics.</p>
+<h2 id="log-output-destination">Log output destination<a class="headerlink" href="#log-output-destination" title="Permanent link">&para;</a></h2>
+<p>The <code>log_output</code> variable sets the destination for the slow query log and the general query log.</p>
+<h3 id="log_output"><code>log_output</code><a class="headerlink" href="#log_output" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Config file</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type</td>
+<td>Set</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>FILE</td>
+</tr>
+</tbody>
+</table>
+<p>Valid values:</p>
+<ul>
+<li>
+<p><code>FILE</code> - write logs to files</p>
+</li>
+<li>
+<p><code>TABLE</code> - write logs to tables in the <code>mysql</code> database</p>
+</li>
+<li>
+<p><code>NONE</code> - disable log output</p>
+</li>
+<li>
+<p>Comma-separated values such as <code>FILE,TABLE</code></p>
+</li>
+</ul>
+<p>With <code>FILE</code>, the server writes the slow query log to <code>slow_query_log_file</code>. With <code>TABLE</code>, the server writes the slow query log to the <code>mysql.slow_log</code> table.</p>
+<p>The default is <code>FILE</code>.</p>
+<p><code>log_output</code> does not enable logging. Set <code>slow_query_log</code> or <code>general_log</code> separately.</p>
+<p>Set <code>log_output</code> in the configuration file, at server startup, or at runtime.</p>
+<p>Configuration file:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">log_output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">FILE</span>
+</code></pre></div>
+<p>Runtime:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">log_output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;FILE&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Check the current value:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">log_output</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="pmm-query-analytics">PMM Query Analytics<a class="headerlink" href="#pmm-query-analytics" title="Permanent link">&para;</a></h2>
+<p><a href="https://docs.percona.com/percona-monitoring-and-management/3/use/qan/index.html">Percona Monitoring and Management (PMM) Query Analytics (QAN) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> uses these data sources:</p>
+<ul>
+<li>
+<p>Slow query log file</p>
+</li>
+<li>
+<p>Performance Schema</p>
+</li>
+</ul>
+<p>QAN ignores these logs:</p>
+<ul>
+<li>
+<p>General query log</p>
+</li>
+<li>
+<p>Slow log with <a href="#log-output-destination"><code>log_output</code></a> set to <code>TABLE</code></p>
+</li>
+</ul>
+<p>QAN reads the slow query log file when <a href="#log-output-destination"><code>log_output</code></a> includes <code>FILE</code>.</p>
+<h3 id="prepared-statements">Prepared statements<a class="headerlink" href="#prepared-statements" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Most client drivers send server-side prepared statements</p>
+</li>
+<li>
+<p>Performance Schema shows placeholder parameters (<code>?</code>)</p>
+</li>
+<li>
+<p>Performance Schema omits literal values</p>
+</li>
+<li>
+<p>EXPLAIN may be unavailable for these queries</p>
+</li>
+<li>
+<p>MySQL applies these limits upstream of PMM</p>
+</li>
+<li>
+<p>PMM reports the data that MySQL exposes</p>
+</li>
+<li>
+<p>The slow query log file records literal values</p>
+</li>
+</ul>
 <h2 id="related-reading">Related reading<a class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -10720,7 +10874,7 @@ keyword is followed by a number other than zero:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 17, 2026 15:51:22 UTC">July 17, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 17, 2026 16:09:54 UTC">July 17, 2026</span>
   </span>
 
     
