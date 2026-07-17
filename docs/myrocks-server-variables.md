@@ -20,7 +20,6 @@ Also, all variables can exist in one or both of the following scopes:
 
 | Variable Name                                                                                        |
 |----------------------------------------------------------------------------------------------------------|
-| [`rocksdb_access_hint_on_compaction_start`](#rocksdb_access_hint_on_compaction_start)                                                                        |
 | [`rocksdb_advise_random_on_open`](#rocksdb_advise_random_on_open)                                                                        |
 | [`rocksdb_allow_concurrent_memtable_write`](#rocksdb_allow_concurrent_memtable_write)                                                                        |
 | [`rocksdb_allow_mmap_reads`](#rocksdb_allow_mmap_reads)                                                                        |
@@ -124,7 +123,6 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_io_error_action`](#rocksdb_io_error_action)                                                                        |
 | [`rocksdb_is_fd_close_on_exec`](#rocksdb_is_fd_close_on_exec)                                                                        |
 | [`rocksdb_keep_log_file_num`](#rocksdb_keep_log_file_num)                                                                        |
-| [`rocksdb_large_prefix`](#rocksdb_large_prefix)                                                                        |
 | [`rocksdb_lock_scanned_rows`](#rocksdb_lock_scanned_rows)                                                                        |
 | [`rocksdb_lock_wait_timeout`](#rocksdb_lock_wait_timeout)                                                                        |
 | [`rocksdb_log_file_time_to_roll`](#rocksdb_log_file_time_to_roll)                                                                        |
@@ -183,8 +181,6 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_stats_level`](#rocksdb_stats_level)                                                                        |
 | [`rocksdb_stats_recalc_rate`](#rocksdb_stats_recalc_rate)                                                                        |
 | [`rocksdb_store_row_debug_checksums`](#rocksdb_store_row_debug_checksums)                                                                        |
-| [`rocksdb_strict_collation_check`](#rocksdb_strict_collation_check)                                                                        |
-| [`rocksdb_strict_collation_exceptions`](#rocksdb_strict_collation_exceptions)                                                                        |
 | [`rocksdb_table_cache_numshardbits`](#rocksdb_table_cache_numshardbits)                                                                        |
 | [`rocksdb_table_stats_background_thread_nice_value`](#rocksdb_table_stats_background_thread_nice_value)                                                                        |
 | [`rocksdb_table_stats_max_num_rows_scanned`](#rocksdb_table_stats_max_num_rows_scanned)                                                                        |
@@ -3079,9 +3075,6 @@ The maximum number of rows to scan in a table scan based on
 a cardinality calculation.
 The minimum is `0` (every modification triggers a stats recalculation).
 The maximum is `18,446,744,073,709,551,615`.
-
-
-
 
 ### `rocksdb_table_stats_recalc_threshold_count`
 

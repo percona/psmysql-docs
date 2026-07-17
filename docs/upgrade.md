@@ -126,7 +126,7 @@ We strongly advise upgrading to the latest LTS release (Percona Server for M
 
 Review these upgrade-related documents:
 
-* [Upgrade checklist for {{vers}}](./upgrade-checklist-8.4.md)
+* [Upgrade checklist for {{vers}}](./upgrade-checklist-9.7.md)
 
 * [Upgrade procedures for {{vers}}](./upgrade-procedures.md)
 
@@ -138,13 +138,13 @@ Review these upgrade-related documents:
 
 * [Downgrade options](./downgrade.md)
 
-* [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md)
+* [Breaking and incompatible changes in {{vers}}](./9.7-breaking-changes.md)
 
-* [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md)
+* [Compatibility and removed items in {{vers}}](./9.7-compatibility-and-removed-items.md)
 
-* [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
+* [Defaults and tuning guidance for {{vers}}](./9.7-defaults-and-tuning.md)
 
-* [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md)
+* [Percona Toolkit updates for {{vers}}](./percona-toolkit-9.7-updates.md)
 
 ### Additional MySQL documentation
 
@@ -160,7 +160,7 @@ The following list summarizes a number of the changes in the 8.0 series and has 
 
 * [Preparing your Installation for Upgrade :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-prerequisites.html)
 
-* [Percona Server for MySQL {{vers}} Release notes :octicons-link-external-16:](https://docs.percona.com/percona-server/latest/release-notes/release-notes_index.html)
+* [Percona Server for MySQL {{vers}} Release notes :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/release-notes/release-notes-index.html)
 
 * [Upgrade Troubleshooting :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-troubleshooting.html)
 
