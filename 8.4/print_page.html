@@ -43378,29 +43378,38 @@ also be indexed.</p>
 </table>
 <p>When enabled, this variable will instruct <em>InnoDB</em> Full Text Search parser to ignore the stopword list when building/updating an FTS index.</p></section><section class="print-page" id="xtradb-performance-improvements" heading-number="17.1.9"><h1 id="xtradb-performance-improvements-xtradb-performance-improvements-for-io-bound-highly-concurrent-workloads">XtraDB performance improvements for I/O-bound highly-concurrent workloads<a class="headerlink" href="#xtradb-performance-improvements-xtradb-performance-improvements-for-io-bound-highly-concurrent-workloads" title="Permanent link">&para;</a></h1>
 <h2 id="xtradb-performance-improvements-priority-refill-for-the-buffer-pool-free-list">Priority refill for the buffer pool free list<a class="headerlink" href="#xtradb-performance-improvements-priority-refill-for-the-buffer-pool-free-list" title="Permanent link">&para;</a></h2>
-<p>In highly-concurrent I/O-bound workloads the following situation may happen:</p>
+<p>Under heavy concurrent I/O load, the buffer pool free list can fall behind
+demand.</p>
+<p>The following issues can occur:</p>
 <ul>
 <li>
-<p>Buffer pool free lists are used faster than they are refilled by the LRU cleaner thread.</p>
+<p>Query and purge threads consume free pages faster than the Least Recently Used
+  (LRU) cleaner thread refills the free list</p>
 </li>
 <li>
-<p>Buffer pool free lists become empty and more and more query and utility (i.e., purge) threads stall, checking whether a buffer pool free list has became non-empty, sleeping, performing single-page LRU flushes.</p>
+<p>Empty free lists force query and purge threads to poll, sleep, or run
+  single-page LRU flushes</p>
 </li>
 <li>
-<p>The number of buffer pool free list mutex waiters increases.</p>
+<p>Many waiting threads increase contention on the buffer pool free list mutex</p>
 </li>
 <li>
-<p>When the LRU manager thread (or a single page LRU flush by a query thread) finally produces a free page, it is starved from putting it on the buffer
-pool free list as it must acquire the buffer pool free list mutex too.
-However, being one thread in up to hundreds, the chances of a prompt
-acquisition are low.</p>
+<p>Mutex contention delays the return of freed pages to the free list</p>
 </li>
 </ul>
-<p>This is addressed by delegating all the LRU flushes to the to the LRU manager
-thread, never attempting to evict a page or perform a LRU single page flush by
-a query thread, and introducing a backoff algorithm to reduce buffer pool free
-list mutex pressure on empty buffer pool free lists. This is controlled through
-a new system variable innodb_empty_free_list_algorithm.</p>
+<p>Percona Server for MySQL addresses these issues with the following changes:</p>
+<ul>
+<li>
+<p>The LRU manager thread handles all LRU flushes</p>
+</li>
+<li>
+<p>Query threads avoid page eviction and single-page LRU flushes</p>
+</li>
+<li>
+<p>A backoff algorithm reduces mutex pressure on empty free lists</p>
+</li>
+</ul>
+<p>Configure this behavior with <code>innodb_empty_free_list_algorithm</code>.</p>
 <h3 id="xtradb-performance-improvements-innodb_empty_free_list_algorithm"><code>innodb_empty_free_list_algorithm</code><a class="headerlink" href="#xtradb-performance-improvements-innodb_empty_free_list_algorithm" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -43428,46 +43437,185 @@ a new system variable innodb_empty_free_list_algorithm.</p>
 </tr>
 <tr>
 <td>Data type:</td>
-<td>legacy, backoff</td>
+<td>Enumeration</td>
 </tr>
 <tr>
-<td>Default</td>
+<td>Default:</td>
 <td>legacy</td>
 </tr>
 </tbody>
 </table>
-<p>When <code>legacy</code> option is set, server will use the upstream algorithm and when
-the <code>backoff</code> is selected, Percona implementation will be used.</p>
-<h2 id="xtradb-performance-improvements-multi-threaded-lru-flusher">Multi-threaded LRU flusher<a class="headerlink" href="#xtradb-performance-improvements-multi-threaded-lru-flusher" title="Permanent link">&para;</a></h2>
-<p>This feature has been removed in Percona Server for MySQL 8.3.0-1.</p>
-<p>Percona Server for MySQL features a true multi-threaded LRU flushing. In this scheme, each buffer pool instance has its own dedicated LRU manager thread that is
-tasked with performing LRU flushes and evictions to refill the free list of that
-buffer pool instance. Existing multi-threaded flusher no longer does any LRU
-flushing and is tasked with flush list flushing only.</p>
+<h4 id="xtradb-performance-improvements-values">Values<a class="headerlink" href="#xtradb-performance-improvements-values" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>legacy</code></td>
+<td>Uses the upstream algorithm. Default value</td>
+</tr>
+<tr>
+<td><code>backoff</code></td>
+<td>Uses the Percona Server for MySQL algorithm</td>
+</tr>
+</tbody>
+</table>
+<h2 id="xtradb-performance-improvements-adaptive-page-cleaner-flushing">Adaptive page cleaner flushing<a class="headerlink" href="#xtradb-performance-improvements-adaptive-page-cleaner-flushing" title="Permanent link">&para;</a></h2>
+<p>InnoDB page cleaners flush dirty buffer pool pages to disk. This frees redo log
+space.</p>
+<p>The adaptive flushing algorithm sets the flush rate from checkpoint age.
+Checkpoint age is the gap between the current Log Sequence Number (LSN) and the
+LSN of the last completed checkpoint. A larger checkpoint age triggers more
+aggressive flushing.</p>
+<p>Percona Server for MySQL uses a different age-factor formula than upstream
+MySQL. The <code>innodb_cleaner_lsn_age_factor</code> variable selects the formula.</p>
+<p>The default value is <code>high_checkpoint</code>. Flushing starts slower at low
+checkpoint ages. Flushing accelerates as checkpoint age grows. The server can
+keep more dirty pages in the buffer pool. Write throughput improves on sustained
+write-heavy workloads.</p>
+<p>The <code>legacy</code> value uses the upstream MySQL formula. Flushing starts earlier for
+a given checkpoint age. Use <code>legacy</code> when checkpoint age spikes cause flush
+storms or write pauses with <code>high_checkpoint</code>.</p>
+<p>Monitor checkpoint age with these status variables:</p>
 <ul>
 <li>
-<p>All threads still synchronize on each coordinator thread iteration. If a
-particular flushing job is stuck on one of the worker threads, the rest will
-idle until the stuck one completes.</p>
+<p><a href="#innodb-show-status-innodb_checkpoint_age"><code>Innodb_checkpoint_age</code></a></p>
 </li>
 <li>
-<p>The coordinator thread heuristics focus on flush list adaptive flushing
-without considering the state of free lists, which might be in need of urgent
-refill for a subset of buffer pool instances on a loaded server.</p>
-</li>
-<li>
-<p>LRU flushing is serialized with flush list flushing for each buffer pool
-instance, introducing the risk that the right flushing mode will not happen
-for a particular instance because it is being flushed in the other mode.</p>
+<p><code>Innodb_checkpoint_max_age</code></p>
 </li>
 </ul>
-<p>The following InnoDB metrics are no longer accounted, as their semantics do
-not make sense under the current LRU flushing design:
-<code>buffer_LRU_batch_flush_avg_time_slot</code>, <code>buffer_LRU_batch_flush_avg_pass</code>,
-<code>buffer_LRU_batch_flush_avg_time_thread</code>,
-<code>buffer_LRU_batch_flush_avg_time_est</code>.</p>
-<p>The need for InnoDB recovery thread writer threads is also removed,
-consequently all associated code is deleted.</p>
+<p>You can also use the InnoDB Checkpoint Age graph in Percona Monitoring and
+Management (PMM). Keep checkpoint age high without flush storms or write pauses
+near the maximum checkpoint age.</p>
+<p>Adaptive flushing also uses these variables:</p>
+<ul>
+<li>
+<p><code>innodb_adaptive_flushing</code></p>
+</li>
+<li>
+<p><code>innodb_adaptive_flushing_lwm</code></p>
+</li>
+<li>
+<p><code>innodb_io_capacity</code></p>
+</li>
+<li>
+<p><code>innodb_io_capacity_max</code></p>
+</li>
+</ul>
+<p>See the following posts for more detail on variable interaction:</p>
+<ul>
+<li>
+<p><a href="https://www.percona.com/blog/tuning-mysql-innodb-flushing-for-a-write-intensive-workload/">Tuning MySQL/InnoDB Flushing for a Write-Intensive Workload <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</li>
+<li>
+<p><a href="https://www.percona.com/blog/innodb-flushing-in-action-for-percona-server-for-mysql/">InnoDB Flushing in Action for Percona Server for MySQL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</li>
+</ul>
+<h3 id="xtradb-performance-improvements-innodb_cleaner_lsn_age_factor"><code>innodb_cleaner_lsn_age_factor</code><a class="headerlink" href="#xtradb-performance-improvements-innodb_cleaner_lsn_age_factor" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Config file:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Data type:</td>
+<td>Enumeration</td>
+</tr>
+<tr>
+<td>Default:</td>
+<td>high_checkpoint</td>
+</tr>
+</tbody>
+</table>
+<h4 id="xtradb-performance-improvements-values_1">Values<a class="headerlink" href="#xtradb-performance-improvements-values_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>high_checkpoint</code></td>
+<td>Uses the Percona Server for MySQL age-factor formula. Flushing pressure rises slowly at low checkpoint ages and faster at higher ages. The server keeps more dirty pages. Default value</td>
+</tr>
+<tr>
+<td><code>legacy</code></td>
+<td>Uses the upstream MySQL age-factor formula. Flushing starts earlier for a given checkpoint age. Use when checkpoint age spikes cause flush storms or write pauses with <code>high_checkpoint</code></td>
+</tr>
+</tbody>
+</table>
+<p>Change the value at runtime:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">innodb_cleaner_lsn_age_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;legacy&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Add a persistent setting in the option file:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">innodb_cleaner_lsn_age_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">high_checkpoint</span>
+</code></pre></div>
+<h2 id="xtradb-performance-improvements-multi-threaded-lru-flusher">Multi-threaded LRU flusher<a class="headerlink" href="#xtradb-performance-improvements-multi-threaded-lru-flusher" title="Permanent link">&para;</a></h2>
+<p>Percona Server for MySQL removed this feature in version 8.3.0-1.</p>
+<p>The following text describes the feature before removal.</p>
+<p>Percona Server for MySQL used multi-threaded LRU flushing. Each buffer pool
+instance had a dedicated LRU manager thread. That thread ran LRU flushes and
+evictions to refill the instance free list. The multi-threaded flusher handled
+flush list flushing only.</p>
+<p>The design had these limitations:</p>
+<ul>
+<li>
+<p>A delayed worker thread blocked other worker threads during coordinator
+  synchronization</p>
+</li>
+<li>
+<p>The coordinator thread omitted free list refill checks on loaded servers</p>
+</li>
+<li>
+<p>Serial flushing prevented buffer pool instances from using the required flush
+  mode</p>
+</li>
+</ul>
+<p>Percona Server for MySQL no longer reports these InnoDB metrics. The metrics do
+not match the LRU flushing design:</p>
+<ul>
+<li>
+<p><code>buffer_LRU_batch_flush_avg_time_slot</code></p>
+</li>
+<li>
+<p><code>buffer_LRU_batch_flush_avg_pass</code></p>
+</li>
+<li>
+<p><code>buffer_LRU_batch_flush_avg_time_thread</code></p>
+</li>
+<li>
+<p><code>buffer_LRU_batch_flush_avg_time_est</code></p>
+</li>
+</ul>
+<p>Percona Server for MySQL also removed InnoDB recovery writer threads and the
+related code.</p>
 <h3 id="xtradb-performance-improvements-innodb_sched_priority_master"><code>innodb_sched_priority_master</code><a class="headerlink" href="#xtradb-performance-improvements-innodb_sched_priority_master" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -43499,7 +43647,7 @@ consequently all associated code is deleted.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable can be added to the configuration file.</p></section><section class="print-page" id="aio-page-requests" heading-number="17.1.10"><h1 id="aio-page-requests-multiple-page-asynchronous-io-requests">Multiple page asynchronous I/O requests<a class="headerlink" href="#aio-page-requests-multiple-page-asynchronous-io-requests" title="Permanent link">&para;</a></h1>
+<p>Add this variable to the configuration file.</p></section><section class="print-page" id="aio-page-requests" heading-number="17.1.10"><h1 id="aio-page-requests-multiple-page-asynchronous-io-requests">Multiple page asynchronous I/O requests<a class="headerlink" href="#aio-page-requests-multiple-page-asynchronous-io-requests" title="Permanent link">&para;</a></h1>
 <p>The I/O unit size in <em>InnoDB</em> is only one page, even if the server doing read ahead. A 16KB
 I/O unit size is too small for sequential reads, and less efficient than a larger I/O unit size. <em>InnoDB</em> uses Linux asynchronous I/O (<code>aio</code>) by default. By submitting multiple, consecutive 16KB read requests at the same time, Linux internally merges the requests and
 reads more efficiently. </p>
