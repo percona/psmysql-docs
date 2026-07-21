@@ -1,4 +1,4 @@
-# Index
+# Documentation Index
 
 - [Adaptive network buffers](adaptive-network-buffers.md)
 - [Additional SELinux tools and management](additional-selinux-tools.md)
