@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Starting with Percona Server for MySQL 8.4.8-8 on the 8.4 line, the following describes new-style XML (audit_log_filter.format=NEW) from the Audit Log Filter component: element names, typical fields, and formatter behavior were aligned to the server for that release. This documentation build targets 8.4.10-10 (bump on each publish). If you run an older 8.4 build than 8.4.8-8, verify against your own audit log in case output differs. Implementation reference: components/audit_log_filter/log_record_formatter/new.cc and base.cc.">
+        <meta name="description" content="Percona Server for MySQL 8.4.9-9 tightens the NEW XML formatter:">
       
       
         <meta name="author" content="Percona LLC">
@@ -28,15 +28,15 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
-        <title>XML (New style) - Percona Server for MySQL</title>
+        <title>XML (new style) - Percona Server for MySQL</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -102,7 +102,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - XML (New style)" />
+                 <meta property="og:title" content="Percona Server for MySQL - XML (new style)" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
               
@@ -254,7 +254,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              XML (New style)
+              XML (new style)
             
           </span>
         </div>
@@ -1031,14 +1031,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
     
     
     
@@ -1093,7 +1085,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter overview
+    Overview
   
 
     
@@ -1121,7 +1113,63 @@
   <span class="md-ellipsis">
     
   
-    Install the audit log filter
+    Install
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="migrate-to-audit-log-filter-component.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migrate from audit plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-quickstart.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
   
 
     
@@ -1162,17 +1210,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5_2_3" id="__nav_5_2_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_2_5" id="__nav_5_2_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Formats
+    Log file formats
   
 
     
@@ -1183,12 +1231,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_5_2_3">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_2_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Formats
+    Log file formats
   
 
           </label>
@@ -1245,7 +1293,7 @@
   <span class="md-ellipsis">
     
   
-    XML (New style)
+    XML (new style)
   
 
     
@@ -1263,7 +1311,7 @@
   <span class="md-ellipsis">
     
   
-    XML (New style)
+    XML (new style)
   
 
     
@@ -1291,10 +1339,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#example-illustrative" class="md-nav__link">
+  <a href="#example-reduced-mode-default" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example (illustrative)
+        Example — REDUCED mode (default)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-full-mode-additional-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example — FULL mode (additional events)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#record-descriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Record descriptions
       
     </span>
   </a>
@@ -1317,6 +1387,17 @@
     <span class="md-ellipsis">
       
         Optional elements (by record category)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional reading
       
     </span>
   </a>
@@ -1346,7 +1427,7 @@
   <span class="md-ellipsis">
     
   
-    XML (Old style)
+    XML (old style)
   
 
     
@@ -1374,7 +1455,538 @@
   <span class="md-ellipsis">
     
   
-    JSON
+    JSON and JSONL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_6" id="__nav_5_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Define filters
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Define filters
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="write-filter-definitions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Write filter definitions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="block-statements-with-audit-filter.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Block statements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="redact-audit-log-fields.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redact log fields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-definition-fields.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Definition fields reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_7" id="__nav_5_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operate
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operate
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-compression-encryption.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compression and encryption
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reading-audit-log-filter-files.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Read log files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="filter-audit-log-filter-files.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Filter existing log files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="manage-audit-log-filter.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manage log files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-naming.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log file naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_8" id="__nav_5_2_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-variables.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions, options, variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-restrictions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Restrictions
   
 
     
@@ -1403,230 +2015,6 @@
   
   
     <li class="md-nav__item">
-      <a href="write-filter-definitions.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Write audit_log_filter definitons
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-security.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Audit Log Filter security
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-compression-encryption.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Audit Log Filter compression and encryption
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="reading-audit-log-filter-files.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Reading Audit Log Filter files
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="manage-audit-log-filter.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Manage the Audit Log Filter files
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="filter-audit-log-filter-files.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Filter the Audit Log Filter logs
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-restrictions.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Audit Log Filter restrictions
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-naming.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Audit Log Filter file naming conventions
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="disable-audit-log-filter.html" class="md-nav__link">
         
   
@@ -1634,35 +2022,7 @@
   <span class="md-ellipsis">
     
   
-    Disable Audit Log Filter logging
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-variables.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Audit log filter functions, options, and variables
+    Disable
   
 
     
@@ -1690,7 +2050,7 @@
   <span class="md-ellipsis">
     
   
-    Uninstall Audit Log Filter
+    Uninstall
   
 
     
@@ -10058,10 +10418,32 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#example-illustrative" class="md-nav__link">
+  <a href="#example-reduced-mode-default" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example (illustrative)
+        Example — REDUCED mode (default)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-full-mode-additional-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example — FULL mode (additional events)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#record-descriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Record descriptions
       
     </span>
   </a>
@@ -10084,6 +10466,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-ellipsis">
       
         Optional elements (by record category)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional reading
       
     </span>
   </a>
@@ -10121,127 +10514,371 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="audit-log-filter-format-xml-new-style">Audit Log Filter format - XML (new style)<a class="headerlink" href="#audit-log-filter-format-xml-new-style" title="Permanent link">&para;</a></h1>
-<p>Starting with Percona Server for MySQL 8.4.8-8 on the 8.4 line, the following describes new-style XML (<code>audit_log_filter.format=NEW</code>) from the Audit Log Filter component: element names, typical fields, and formatter behavior were aligned to the server for that release. This documentation build targets 8.4.10-10 (bump on each publish). If you run an older 8.4 build than 8.4.8-8, verify against your own audit log in case output differs. Implementation reference: <code>components/audit_log_filter/log_record_formatter/new.cc</code> and <code>base.cc</code>.</p>
-<p>The Audit Log Filter component can write the audit log file as new-style XML
-(<code>audit_log_filter.format=NEW</code>). The file uses UTF-8.</p>
-<p>The root element is <code>&lt;AUDIT&gt;</code>. It contains <code>&lt;AUDIT_RECORD&gt;</code> elements. Each
-<code>&lt;AUDIT_RECORD&gt;</code> describes one audited event.</p>
-<p>For each new file, the component writes the XML declaration and the opening
-<code>&lt;AUDIT&gt;</code> tag. When the file is closed, the component writes the closing
-<code>&lt;/AUDIT&gt;</code> tag. If the file is still open, that closing tag is not present yet.</p>
-<p>Element order inside <code>&lt;AUDIT_RECORD&gt;</code> is not guaranteed (the writer may
-emit fields in a fixed order in practice, but consumers should not depend on it).</p>
-<p>Timestamps use the server local time zone, in <code>YYYY-MM-DDTHH:MM:SS</code>
-form. They do not append a <code>UTC</code> suffix to the timestamp string.</p>
-<div class="admonition note">
-<p class="admonition-title">NEW XML behavior (from 8.4.8-8, docs 8.4.10-10)</p>
-<p>Audit logging on/off is recorded with <code>&lt;NAME&gt;</code> values <code>Startup</code> and
-<code>Shutdown</code>. The NEW formatter does not emit <code>STATUS_CODE</code>, and
-does not write <code>VERSION</code>, <code>STARTUP_OPTIONS</code>, <code>MYSQL_VERSION</code>, or
-<code>OS_VERSION</code> on the startup or shutdown audit record. Disconnect events
-use the name <code>Disconnect</code>.</p>
-</div>
-<h2 id="example-illustrative">Example (illustrative)<a class="headerlink" href="#example-illustrative" title="Permanent link">&para;</a></h2>
-<p>The snippet below shows the shape of several record types. Exact sets of
-elements depend on the event, filters, and server configuration.</p>
+<p>Percona Server for MySQL 8.4.9-9 tightens the NEW XML formatter:</p>
+<ul>
+<li>
+<p>1-based <code>&lt;RECORD_ID&gt;</code> values (not 0-based)</p>
+</li>
+<li>
+<p>Self-closing empty tags (<code>&lt;OS_LOGIN/&gt;</code>), not empty pairs</p>
+</li>
+<li>
+<p>Single-space indent per level (was two)</p>
+</li>
+<li>
+<p>Stable element order for easier parsers and upgrades</p>
+</li>
+<li>
+<p>Richer startup (<code>&lt;NAME&gt;Audit&lt;/NAME&gt;</code>): adds <code>&lt;VERSION&gt;</code>, <code>&lt;STARTUP_OPTIONS&gt;</code>, <code>&lt;OS_VERSION&gt;</code>, <code>&lt;MYSQL_VERSION&gt;</code></p>
+</li>
+<li>
+<p>Message events: <code>&lt;MAP&gt;</code> / <code>&lt;ELEMENT&gt;</code> / <code>&lt;KEY&gt;</code> / <code>&lt;VALUE&gt;</code> replace <code>&lt;MESSAGE_ATTRIBUTES&gt;</code>; records also carry <code>&lt;USER&gt;</code>, <code>&lt;OS_LOGIN&gt;</code>, <code>&lt;HOST&gt;</code>, <code>&lt;IP&gt;</code>, <code>&lt;STATUS&gt;</code>, <code>&lt;STATUS_CODE&gt;</code></p>
+</li>
+<li>
+<p>Consistent <code>&lt;COMMAND_CLASS&gt;</code> spellings (for example <code>create_table</code>, <code>set_option</code>)</p>
+</li>
+<li>
+<p><a href="audit-log-filter-variables.html#audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> decides which events appear: <code>REDUCED</code> (default) keeps core classes; <code>FULL</code> adds lifecycle-heavy record types (see that page for lists and pre-8.4.9-9 behavior).</p>
+</li>
+</ul>
+<p>On builds before 8.4.9-9, spot-check your own logs—output may differ. Code reference: <code>components/audit_log_filter/log_record_formatter/new.cc</code>, <code>base.cc</code>.</p>
+<p>With <code>audit_log_filter.format=NEW</code>, the component writes UTF-8 XML.</p>
+<p>Root <code>&lt;AUDIT&gt;</code> wraps <code>&lt;AUDIT_RECORD&gt;</code> elements—one event each.</p>
+<p>Element order matches the legacy audit plugin style; parse by name, not column position.</p>
+<p>Timestamps use the server local zone in <code>YYYY-MM-DDTHH:MM:SS</code> form without a <code>UTC</code> suffix.</p>
+<h2 id="example-reduced-mode-default">Example — REDUCED mode (default)<a class="headerlink" href="#example-reduced-mode-default" title="Permanent link">&para;</a></h2>
+<p>With <code>audit_log_filter.event_mode=REDUCED</code> (default), the formatter emits the primary record per action. The following sample mixes record types. Actual fields depend on filters and configuration.</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
 <span class="nt">&lt;AUDIT&gt;</span>
-<span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
-<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Startup<span class="nt">&lt;/NAME&gt;</span>
-<span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>0_2023-03-29T11:11:43<span class="nt">&lt;/RECORD_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:11:43<span class="nt">&lt;/TIMESTAMP&gt;</span>
-<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Audit<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
-<span class="w">        </span><span class="nt">&lt;SERVER_ID&gt;</span>1<span class="nt">&lt;/SERVER_ID&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
-<span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
-<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Connect<span class="nt">&lt;/NAME&gt;</span>
-<span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>1_2023-03-29T11:11:44<span class="nt">&lt;/RECORD_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:11:44<span class="nt">&lt;/TIMESTAMP&gt;</span>
-<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Connection<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
-<span class="w">        </span><span class="nt">&lt;CONNECTION_ID&gt;</span>11<span class="nt">&lt;/CONNECTION_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
-<span class="w">        </span><span class="nt">&lt;IP&gt;</span>127.0.0.1<span class="nt">&lt;/IP&gt;</span>
-<span class="w">        </span><span class="nt">&lt;USER&gt;</span>root<span class="nt">&lt;/USER&gt;</span>
-<span class="w">        </span><span class="nt">&lt;OS_LOGIN&gt;&lt;/OS_LOGIN&gt;</span>
-<span class="w">        </span><span class="nt">&lt;PRIV_USER&gt;</span>root<span class="nt">&lt;/PRIV_USER&gt;</span>
-<span class="w">        </span><span class="nt">&lt;PROXY_USER&gt;&lt;/PROXY_USER&gt;</span>
-<span class="w">        </span><span class="nt">&lt;DB&gt;</span>test<span class="nt">&lt;/DB&gt;</span>
-<span class="w">        </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
-<span class="w">        </span><span class="nt">&lt;CONNECTION_TYPE&gt;</span>TCP/IP<span class="nt">&lt;/CONNECTION_TYPE&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
-<span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
-<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Command<span class="w"> </span>Start<span class="nt">&lt;/NAME&gt;</span>
-<span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>2_2023-03-29T11:11:45<span class="nt">&lt;/RECORD_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:11:45<span class="nt">&lt;/TIMESTAMP&gt;</span>
-<span class="w">        </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
-<span class="w">        </span><span class="nt">&lt;CONNECTION_ID&gt;</span>1<span class="nt">&lt;/CONNECTION_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>query<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
-<span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
-<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Query<span class="w"> </span>Start<span class="nt">&lt;/NAME&gt;</span>
-<span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>3_2023-03-29T11:11:45<span class="nt">&lt;/RECORD_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:11:45<span class="nt">&lt;/TIMESTAMP&gt;</span>
-<span class="w">        </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
-<span class="w">        </span><span class="nt">&lt;CONNECTION_ID&gt;</span>11<span class="nt">&lt;/CONNECTION_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>create_table<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
-<span class="w">        </span><span class="nt">&lt;SQLTEXT&gt;</span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span>(c1<span class="w"> </span>INT)<span class="nt">&lt;/SQLTEXT&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
-<span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
-<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Query<span class="w"> </span>Status<span class="w"> </span>End<span class="nt">&lt;/NAME&gt;</span>
-<span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>4_2023-03-29T11:11:45<span class="nt">&lt;/RECORD_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:11:45<span class="nt">&lt;/TIMESTAMP&gt;</span>
-<span class="w">        </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
-<span class="w">        </span><span class="nt">&lt;CONNECTION_ID&gt;</span>11<span class="nt">&lt;/CONNECTION_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>create_table<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
-<span class="w">        </span><span class="nt">&lt;SQLTEXT&gt;</span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span>(c1<span class="w"> </span>INT)<span class="nt">&lt;/SQLTEXT&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
-<span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
-<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Command<span class="w"> </span>End<span class="nt">&lt;/NAME&gt;</span>
-<span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>5_2023-03-29T11:11:45<span class="nt">&lt;/RECORD_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:11:45<span class="nt">&lt;/TIMESTAMP&gt;</span>
-<span class="w">        </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
-<span class="w">        </span><span class="nt">&lt;CONNECTION_ID&gt;</span>1<span class="nt">&lt;/CONNECTION_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>query<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
-<span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
-<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Disconnect<span class="nt">&lt;/NAME&gt;</span>
-<span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>6_2023-03-29T11:11:50<span class="nt">&lt;/RECORD_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:11:50<span class="nt">&lt;/TIMESTAMP&gt;</span>
-<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Connection<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
-<span class="w">        </span><span class="nt">&lt;CONNECTION_ID&gt;</span>11<span class="nt">&lt;/CONNECTION_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
-<span class="w">        </span><span class="nt">&lt;IP&gt;</span>127.0.0.1<span class="nt">&lt;/IP&gt;</span>
-<span class="w">        </span><span class="nt">&lt;USER&gt;</span>root<span class="nt">&lt;/USER&gt;</span>
-<span class="w">        </span><span class="nt">&lt;OS_LOGIN&gt;&lt;/OS_LOGIN&gt;</span>
-<span class="w">        </span><span class="nt">&lt;PRIV_USER&gt;</span>root<span class="nt">&lt;/PRIV_USER&gt;</span>
-<span class="w">        </span><span class="nt">&lt;PROXY_USER&gt;&lt;/PROXY_USER&gt;</span>
-<span class="w">        </span><span class="nt">&lt;DB&gt;</span>test<span class="nt">&lt;/DB&gt;</span>
-<span class="w">        </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
-<span class="w">        </span><span class="nt">&lt;CONNECTION_TYPE&gt;</span>TCP/IP<span class="nt">&lt;/CONNECTION_TYPE&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
-<span class="w">    </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
-<span class="w">        </span><span class="nt">&lt;NAME&gt;</span>Shutdown<span class="nt">&lt;/NAME&gt;</span>
-<span class="w">        </span><span class="nt">&lt;RECORD_ID&gt;</span>7_2023-03-29T11:12:00<span class="nt">&lt;/RECORD_ID&gt;</span>
-<span class="w">        </span><span class="nt">&lt;TIMESTAMP&gt;</span>2023-03-29T11:12:00<span class="nt">&lt;/TIMESTAMP&gt;</span>
-<span class="w">        </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Audit<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
-<span class="w">        </span><span class="nt">&lt;SERVER_ID&gt;</span>1<span class="nt">&lt;/SERVER_ID&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-03-27T20:00:59<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>1_2026-03-27T20:00:59<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Audit<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;SERVER_ID&gt;</span>1<span class="nt">&lt;/SERVER_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;VERSION&gt;</span>1<span class="nt">&lt;/VERSION&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STARTUP_OPTIONS&gt;</span>/usr/sbin/mysqld<span class="w"> </span>--defaults-file=/etc/my.cnf<span class="w"> </span>--basedir=/usr<span class="w"> </span>--port=3306<span class="w"> </span>--socket=/var/run/mysqld/mysqld.sock<span class="w"> </span>--datadir=/var/lib/mysql<span class="nt">&lt;/STARTUP_OPTIONS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;OS_VERSION&gt;</span>x86_64-Linux<span class="nt">&lt;/OS_VERSION&gt;</span>
+<span class="w">  </span><span class="nt">&lt;MYSQL_VERSION&gt;</span>8.4.9-9<span class="nt">&lt;/MYSQL_VERSION&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-03-27T20:00:59<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>2_2026-03-27T20:00:59<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Connect<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS_CODE&gt;</span>0<span class="nt">&lt;/STATUS_CODE&gt;</span>
+<span class="w">  </span><span class="nt">&lt;USER&gt;</span>root<span class="nt">&lt;/USER&gt;</span>
+<span class="w">  </span><span class="nt">&lt;OS_LOGIN/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
+<span class="w">  </span><span class="nt">&lt;IP&gt;</span>127.0.0.1<span class="nt">&lt;/IP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>connect<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_TYPE&gt;</span>TCP/IP<span class="nt">&lt;/CONNECTION_TYPE&gt;</span>
+<span class="w">  </span><span class="nt">&lt;PRIV_USER&gt;</span>root<span class="nt">&lt;/PRIV_USER&gt;</span>
+<span class="w">  </span><span class="nt">&lt;PROXY_USER/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;DB/&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-03-27T20:00:59<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>28_2026-03-27T20:00:59<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>TableRead<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;USER&gt;</span>root[root]<span class="w"> </span>@<span class="w"> </span>localhost<span class="w"> </span>[127.0.0.1]<span class="nt">&lt;/USER&gt;</span>
+<span class="w">  </span><span class="nt">&lt;OS_LOGIN/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
+<span class="w">  </span><span class="nt">&lt;IP&gt;</span>127.0.0.1<span class="nt">&lt;/IP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>select<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;SQLTEXT&gt;</span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>t_access<span class="nt">&lt;/SQLTEXT&gt;</span>
+<span class="w">  </span><span class="nt">&lt;DB&gt;</span>test<span class="nt">&lt;/DB&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TABLE&gt;</span>t_access<span class="nt">&lt;/TABLE&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-03-27T20:00:59<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>29_2026-03-27T20:00:59<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Query<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS_CODE&gt;</span>0<span class="nt">&lt;/STATUS_CODE&gt;</span>
+<span class="w">  </span><span class="nt">&lt;USER&gt;</span>root[root]<span class="w"> </span>@<span class="w"> </span>localhost<span class="w"> </span>[127.0.0.1]<span class="nt">&lt;/USER&gt;</span>
+<span class="w">  </span><span class="nt">&lt;OS_LOGIN/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
+<span class="w">  </span><span class="nt">&lt;IP&gt;</span>127.0.0.1<span class="nt">&lt;/IP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>select<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;SQLTEXT&gt;</span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>t_access<span class="nt">&lt;/SQLTEXT&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-03-27T20:00:59<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>45_2026-03-27T20:00:59<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Message<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS_CODE&gt;</span>0<span class="nt">&lt;/STATUS_CODE&gt;</span>
+<span class="w">  </span><span class="nt">&lt;USER&gt;</span>root[root]<span class="w"> </span>@<span class="w"> </span>localhost<span class="w"> </span>[127.0.0.1]<span class="nt">&lt;/USER&gt;</span>
+<span class="w">  </span><span class="nt">&lt;OS_LOGIN/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
+<span class="w">  </span><span class="nt">&lt;IP&gt;</span>127.0.0.1<span class="nt">&lt;/IP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>internal<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMPONENT&gt;</span>test_audit_api_message<span class="nt">&lt;/COMPONENT&gt;</span>
+<span class="w">  </span><span class="nt">&lt;PRODUCER&gt;</span>test_audit_api_message<span class="nt">&lt;/PRODUCER&gt;</span>
+<span class="w">  </span><span class="nt">&lt;MESSAGE&gt;</span>test_audit_api_message_internal<span class="nt">&lt;/MESSAGE&gt;</span>
+<span class="w">  </span><span class="nt">&lt;MAP&gt;</span>
+<span class="w">   </span><span class="nt">&lt;ELEMENT&gt;</span>
+<span class="w">    </span><span class="nt">&lt;KEY&gt;</span>my_numeric_key<span class="nt">&lt;/KEY&gt;</span>
+<span class="w">    </span><span class="nt">&lt;VALUE&gt;</span>-9223372036854775808<span class="nt">&lt;/VALUE&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/ELEMENT&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/MAP&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-03-27T20:00:59<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>88_2026-03-27T20:00:59<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Connect<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>22<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS_CODE&gt;</span>0<span class="nt">&lt;/STATUS_CODE&gt;</span>
+<span class="w">  </span><span class="nt">&lt;USER&gt;</span>root<span class="nt">&lt;/USER&gt;</span>
+<span class="w">  </span><span class="nt">&lt;OS_LOGIN/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
+<span class="w">  </span><span class="nt">&lt;IP&gt;</span>127.0.0.1<span class="nt">&lt;/IP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>connect<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_TYPE&gt;</span>SSL<span class="nt">&lt;/CONNECTION_TYPE&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ATTRIBUTES&gt;</span>
+<span class="w">   </span><span class="nt">&lt;ATTRIBUTE&gt;</span>
+<span class="w">    </span><span class="nt">&lt;NAME&gt;</span>_pid<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">    </span><span class="nt">&lt;VALUE&gt;</span>764350<span class="nt">&lt;/VALUE&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/ATTRIBUTE&gt;</span>
+<span class="w">   </span><span class="nt">&lt;ATTRIBUTE&gt;</span>
+<span class="w">    </span><span class="nt">&lt;NAME&gt;</span>_platform<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">    </span><span class="nt">&lt;VALUE&gt;</span>x86_64<span class="nt">&lt;/VALUE&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/ATTRIBUTE&gt;</span>
+<span class="w">   </span><span class="nt">&lt;ATTRIBUTE&gt;</span>
+<span class="w">    </span><span class="nt">&lt;NAME&gt;</span>_os<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">    </span><span class="nt">&lt;VALUE&gt;</span>Linux<span class="nt">&lt;/VALUE&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/ATTRIBUTE&gt;</span>
+<span class="w">   </span><span class="nt">&lt;ATTRIBUTE&gt;</span>
+<span class="w">    </span><span class="nt">&lt;NAME&gt;</span>_client_name<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">    </span><span class="nt">&lt;VALUE&gt;</span>libmysql<span class="nt">&lt;/VALUE&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/ATTRIBUTE&gt;</span>
+<span class="w">   </span><span class="nt">&lt;ATTRIBUTE&gt;</span>
+<span class="w">    </span><span class="nt">&lt;NAME&gt;</span>_client_version<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">    </span><span class="nt">&lt;VALUE&gt;</span>8.4.9-9<span class="nt">&lt;/VALUE&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/ATTRIBUTE&gt;</span>
+<span class="w">   </span><span class="nt">&lt;ATTRIBUTE&gt;</span>
+<span class="w">    </span><span class="nt">&lt;NAME&gt;</span>program_name<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">    </span><span class="nt">&lt;VALUE&gt;</span>mysqladmin<span class="nt">&lt;/VALUE&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/ATTRIBUTE&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/CONNECTION_ATTRIBUTES&gt;</span>
+<span class="w">  </span><span class="nt">&lt;PRIV_USER&gt;</span>root<span class="nt">&lt;/PRIV_USER&gt;</span>
+<span class="w">  </span><span class="nt">&lt;PROXY_USER/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;DB/&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-03-27T20:00:59<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>90_2026-03-27T20:00:59<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Quit<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>22<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS_CODE&gt;</span>0<span class="nt">&lt;/STATUS_CODE&gt;</span>
+<span class="w">  </span><span class="nt">&lt;USER&gt;</span>root<span class="nt">&lt;/USER&gt;</span>
+<span class="w">  </span><span class="nt">&lt;OS_LOGIN/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
+<span class="w">  </span><span class="nt">&lt;IP&gt;</span>127.0.0.1<span class="nt">&lt;/IP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>connect<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_TYPE&gt;</span>SSL<span class="nt">&lt;/CONNECTION_TYPE&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-03-27T20:01:00<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>91_2026-03-27T20:01:00<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>NoAudit<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;SERVER_ID&gt;</span>1<span class="nt">&lt;/SERVER_ID&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
 <span class="nt">&lt;/AUDIT&gt;</span>
 </code></pre></div>
-<p>Query-class events (<code>Query Start</code>, <code>Query Status End</code>, nested variants, and
-so on) include <code>STATUS</code>, <code>CONNECTION_ID</code>, <code>COMMAND_CLASS</code> (SQL
-command name from the event), and often <code>SQLTEXT</code> (or digest text from
-extended info). They do not include <code>HOST</code>, <code>IP</code>, <code>USER</code>, or
-<code>OS_LOGIN</code> in NEW XML from 8.4.8-8 onward—those appear on connection
-records (and on general records, which use subclasses such as <code>Log</code>,
-<code>Error</code>, <code>Result</code>, <code>Status</code>, not the string <code>Query</code>).</p>
-<p>Connection records use <code>COMMAND_CLASS</code> with the value <code>Connection</code>
-(the event class label).</p>
-<p>If the client supplies connection attributes and the event carries them,
-<code>CONNECTION_ATTRIBUTES</code> holds one <code>ATTRIBUTE</code> per attribute, each with a
-<code>NAME</code> and <code>VALUE</code> child element.</p>
+<h2 id="example-full-mode-additional-events">Example — FULL mode (additional events)<a class="headerlink" href="#example-full-mode-additional-events" title="Permanent link">&para;</a></h2>
+<p>With <code>audit_log_filter.event_mode=FULL</code>, the formatter adds lifecycle records that wrap each action. The following fragment supplements the REDUCED example.</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="cm">&lt;!-- Pre-authentication (before credentials are verified) --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>2_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Pre<span class="w"> </span>Authenticate<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS_CODE&gt;</span>0<span class="nt">&lt;/STATUS_CODE&gt;</span>
+<span class="w">  </span><span class="nt">&lt;USER/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;OS_LOGIN/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
+<span class="w">  </span><span class="nt">&lt;IP&gt;</span>127.0.0.1<span class="nt">&lt;/IP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>connect<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_TYPE&gt;</span>TCP/IP<span class="nt">&lt;/CONNECTION_TYPE&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- Command lifecycle: wraps every client command --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Command<span class="w"> </span>Start<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>5_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Query<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- Parse events: before and after SQL parsing --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Preparse<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>6_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Parse<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;FLAGS&gt;</span>0<span class="nt">&lt;/FLAGS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;SQLTEXT&gt;</span>INSERT<span class="w"> </span>INTO<span class="w"> </span>t_access<span class="w"> </span>VALUES<span class="w"> </span>(1,<span class="w"> </span>&#39;inserted&#39;)<span class="nt">&lt;/SQLTEXT&gt;</span>
+<span class="w">  </span><span class="nt">&lt;REWRITTEN_QUERY&gt;&lt;/REWRITTEN_QUERY&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Postparse<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>7_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Parse<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;FLAGS&gt;</span>0<span class="nt">&lt;/FLAGS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;SQLTEXT&gt;</span>INSERT<span class="w"> </span>INTO<span class="w"> </span>t_access<span class="w"> </span>VALUES<span class="w"> </span>(1,<span class="w"> </span>&#39;inserted&#39;)<span class="nt">&lt;/SQLTEXT&gt;</span>
+<span class="w">  </span><span class="nt">&lt;REWRITTEN_QUERY&gt;&lt;/REWRITTEN_QUERY&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- Query lifecycle: brackets a single SQL statement execution --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Query<span class="w"> </span>Start<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>124_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>insert<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;SQLTEXT&gt;</span>INSERT<span class="w"> </span>INTO<span class="w"> </span>t_access<span class="w"> </span>VALUES<span class="w"> </span>(1,<span class="w"> </span>&#39;inserted&#39;)<span class="nt">&lt;/SQLTEXT&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Query<span class="w"> </span>Status<span class="w"> </span>End<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>126_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>insert<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;SQLTEXT&gt;</span>INSERT<span class="w"> </span>INTO<span class="w"> </span>t_access<span class="w"> </span>VALUES<span class="w"> </span>(1,<span class="w"> </span>&#39;inserted&#39;)<span class="nt">&lt;/SQLTEXT&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Command<span class="w"> </span>End<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>129_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Query<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- Stored-program execution --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Execute<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>91_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Stored<span class="w"> </span>Program<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;DB&gt;</span>test<span class="nt">&lt;/DB&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STORED_PROGRAM&gt;</span>trigger_nested_query<span class="nt">&lt;/STORED_PROGRAM&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- Nested query inside a stored procedure --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Query<span class="w"> </span>Nested<span class="w"> </span>Start<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>92_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>do<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;SQLTEXT&gt;</span>DO<span class="w"> </span>(SELECT<span class="w"> </span>&#39;nested<span class="w"> </span>query<span class="w"> </span>from<span class="w"> </span>stored<span class="w"> </span>procedure&#39;)<span class="nt">&lt;/SQLTEXT&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Query<span class="w"> </span>Nested<span class="w"> </span>Status<span class="w"> </span>End<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>93_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>do<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;SQLTEXT&gt;</span>DO<span class="w"> </span>(SELECT<span class="w"> </span>&#39;nested<span class="w"> </span>query<span class="w"> </span>from<span class="w"> </span>stored<span class="w"> </span>procedure&#39;)<span class="nt">&lt;/SQLTEXT&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- Global variable access --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Variable<span class="w"> </span>Get<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>284_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>select<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;VARIABLE_NAME&gt;</span>sort_buffer_size<span class="nt">&lt;/VARIABLE_NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;VARIABLE_VALUE&gt;</span>262144<span class="nt">&lt;/VARIABLE_VALUE&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Variable<span class="w"> </span>Set<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>306_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>set_option<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;VARIABLE_NAME&gt;</span>sort_buffer_size<span class="nt">&lt;/VARIABLE_NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;VARIABLE_VALUE&gt;</span>1048576<span class="nt">&lt;/VARIABLE_VALUE&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- Authentication subclass events --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Auth<span class="w"> </span>Credential<span class="w"> </span>Change<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>337_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Authentication<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;USER&gt;</span>audit_tmp_user<span class="nt">&lt;/USER&gt;</span>
+<span class="w">  </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Auth<span class="w"> </span>Authid<span class="w"> </span>Rename<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>368_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Authentication<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;USER&gt;</span>audit_tmp_user<span class="nt">&lt;/USER&gt;</span>
+<span class="w">  </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Auth<span class="w"> </span>Authid<span class="w"> </span>Drop<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>399_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Authentication<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;USER&gt;</span>audit_renamed<span class="nt">&lt;/USER&gt;</span>
+<span class="w">  </span><span class="nt">&lt;HOST&gt;</span>localhost<span class="nt">&lt;/HOST&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+<span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
+<span class="w">  </span><span class="nt">&lt;NAME&gt;</span>Auth<span class="w"> </span>Flush<span class="nt">&lt;/NAME&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RECORD_ID&gt;</span>430_2026-04-03T13:19:21<span class="nt">&lt;/RECORD_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-04-03T13:19:21<span class="nt">&lt;/TIMESTAMP&gt;</span>
+<span class="w">  </span><span class="nt">&lt;COMMAND_CLASS&gt;</span>Authentication<span class="nt">&lt;/COMMAND_CLASS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;CONNECTION_ID&gt;</span>20<span class="nt">&lt;/CONNECTION_ID&gt;</span>
+<span class="w">  </span><span class="nt">&lt;STATUS&gt;</span>0<span class="nt">&lt;/STATUS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;USER&gt;&lt;/USER&gt;</span>
+<span class="w">  </span><span class="nt">&lt;HOST&gt;&lt;/HOST&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
+</code></pre></div>
+<h2 id="record-descriptions">Record descriptions<a class="headerlink" href="#record-descriptions" title="Permanent link">&para;</a></h2>
+<p>Query (<code>&lt;NAME&gt;Query&lt;/NAME&gt;</code>): carries <code>&lt;STATUS&gt;</code>, <code>&lt;STATUS_CODE&gt;</code>, <code>&lt;CONNECTION_ID&gt;</code>, <code>&lt;COMMAND_CLASS&gt;</code> (SQL command), usually <code>&lt;SQLTEXT&gt;</code>, plus <code>&lt;HOST&gt;</code>, <code>&lt;IP&gt;</code>, <code>&lt;USER&gt;</code>, <code>&lt;OS_LOGIN&gt;</code>.</p>
+<p>Table access (<code>TableRead</code>, <code>TableInsert</code>, <code>TableUpdate</code>, <code>TableDelete</code>): <code>&lt;DB&gt;</code>, <code>&lt;TABLE&gt;</code>, <code>&lt;COMMAND_CLASS&gt;</code>, <code>&lt;SQLTEXT&gt;</code>, <code>&lt;HOST&gt;</code>, <code>&lt;IP&gt;</code>, <code>&lt;USER&gt;</code>, <code>&lt;OS_LOGIN&gt;</code>—no <code>&lt;STATUS&gt;</code> / <code>&lt;STATUS_CODE&gt;</code>.</p>
+<p>Connection (<code>Connect</code>, <code>Quit</code>): <code>&lt;COMMAND_CLASS&gt;</code> = <code>connect</code>, <code>&lt;CONNECTION_TYPE&gt;</code>; <code>Connect</code> adds <code>&lt;PRIV_USER&gt;</code>, <code>&lt;PROXY_USER&gt;</code>, <code>&lt;DB&gt;</code>.</p>
+<p>With client connection attributes, <code>CONNECTION_ATTRIBUTES</code> lists one <code>ATTRIBUTE</code> (<code>NAME</code>, <code>VALUE</code>) each.</p>
+<p>Command Start / Command End (FULL): wrap each client command (<code>Query</code>, <code>Ping</code>, <code>Quit</code>); <code>&lt;COMMAND_CLASS&gt;</code> holds the COM name; include <code>&lt;STATUS&gt;</code>, <code>&lt;CONNECTION_ID&gt;</code>—omit host/user/IP context.</p>
+<p>Query Start / Query Status End and Query Nested Start / Query Nested Status End (FULL): bracket one SQL execution; carry <code>&lt;STATUS&gt;</code>, <code>&lt;CONNECTION_ID&gt;</code>, <code>&lt;COMMAND_CLASS&gt;</code>, <code>&lt;SQLTEXT&gt;</code>—omit host/user/IP.</p>
+<p>Preparse / Postparse (FULL): before/after parse; <code>&lt;COMMAND_CLASS&gt;</code> = <code>Parse</code>, plus <code>&lt;FLAGS&gt;</code>, <code>&lt;SQLTEXT&gt;</code>, <code>&lt;REWRITTEN_QUERY&gt;</code>.</p>
+<p>Execute (FULL): stored-program call; <code>&lt;COMMAND_CLASS&gt;</code> = <code>Stored Program</code>, <code>&lt;DB&gt;</code>, <code>&lt;STORED_PROGRAM&gt;</code>.</p>
+<p>Variable Get / Variable Set (FULL): global variable access; <code>&lt;COMMAND_CLASS&gt;</code>, <code>&lt;VARIABLE_NAME&gt;</code>, <code>&lt;VARIABLE_VALUE&gt;</code>.</p>
+<p>Authentication subclasses (FULL): <code>Pre Authenticate</code>, <code>Auth Credential Change</code>, <code>Auth Authid Rename</code>, <code>Auth Authid Drop</code>, <code>Auth Flush</code>; <code>&lt;COMMAND_CLASS&gt;</code> is <code>Authentication</code> (or <code>connect</code> for pre-auth); include <code>&lt;STATUS&gt;</code>, <code>&lt;USER&gt;</code>, <code>&lt;HOST&gt;</code>.</p>
+<p>Empty values use self-closing tags (<code>&lt;TAG/&gt;</code>) for <code>USER</code>, <code>OS_LOGIN</code>, <code>HOST</code>, <code>IP</code>, <code>COMMAND_CLASS</code>, <code>PRIV_USER</code>, <code>PROXY_USER</code>, <code>DB</code>.</p>
+<p><code>&lt;RECORD_ID&gt;</code> starts at 1. Indent one space per nesting level under <code>&lt;AUDIT&gt;</code> (records at 1 space, children +1, and so on).</p>
 <h2 id="mandatory-elements">Mandatory elements<a class="headerlink" href="#mandatory-elements" title="Permanent link">&para;</a></h2>
-<p>These appear on every <code>&lt;AUDIT_RECORD&gt;</code> in this format:</p>
+<p>The following elements appear on every <code>&lt;AUDIT_RECORD&gt;</code> in the NEW XML format:</p>
 <table>
 <thead>
 <tr>
@@ -10252,7 +10889,7 @@ records (and on general records, which use subclasses such as <code>Log</code>,
 <tbody>
 <tr>
 <td><code>&lt;NAME&gt;</code></td>
-<td>Event subclass string (for example <code>Startup</code>, <code>Connect</code>, <code>Query Start</code>, <code>TableRead</code>).</td>
+<td>Event subclass string. REDUCED mode: <code>Audit</code>, <code>Connect</code>, <code>Query</code>, <code>Ping</code>, <code>TableRead</code>, <code>TableInsert</code>, <code>TableUpdate</code>, <code>TableDelete</code>, <code>Message</code>, <code>Quit</code>, <code>NoAudit</code>. FULL mode adds: <code>Pre Authenticate</code>, <code>Command Start</code>, <code>Command End</code>, <code>Preparse</code>, <code>Postparse</code>, <code>Query Start</code>, <code>Query Status End</code>, <code>Query Nested Start</code>, <code>Query Nested Status End</code>, <code>Execute</code>, <code>Variable Get</code>, <code>Variable Set</code>, <code>Auth Credential Change</code>, <code>Auth Authid Rename</code>, <code>Auth Authid Drop</code>, <code>Auth Flush</code>.</td>
 </tr>
 <tr>
 <td><code>&lt;RECORD_ID&gt;</code></td>
@@ -10266,8 +10903,8 @@ records (and on general records, which use subclasses such as <code>Log</code>,
 </table>
 <h2 id="optional-elements-by-record-category">Optional elements (by record category)<a class="headerlink" href="#optional-elements-by-record-category" title="Permanent link">&para;</a></h2>
 <p>Many elements appear only for specific event classes. The following table lists
-elements used by the NEW XML formatter from Percona Server for MySQL 8.4.8-8 onward for at least one
-event type. It is not a promise that every field appears in every record.</p>
+elements that the NEW XML formatter (Percona Server for MySQL 8.4.9-9 onward) uses for at least one
+event type. The table does not promise that every field appears in every record.</p>
 <table>
 <thead>
 <tr>
@@ -10278,7 +10915,7 @@ event type. It is not a promise that every field appears in every record.</p>
 <tbody>
 <tr>
 <td><code>&lt;COMMAND_CLASS&gt;</code></td>
-<td>Meaning depends on the record: connection events use <code>Connection</code>; table-access events use <code>Table Access</code>; command events use the <code>COM_*</code> command text (<code>query</code>, and so on); query events use the SQL command name (for example <code>select</code>, <code>create_table</code>); general events use <code>General</code>.</td>
+<td>Meaning depends on the record: connection events (<code>Connect</code>, <code>Quit</code>) use <code>connect</code>; table-access and query events use the SQL command name (for example <code>select</code>, <code>insert</code>, <code>create_table</code>, <code>set_option</code>); message events use the message type (<code>internal</code>, <code>user</code>); command lifecycle events use the COM name (<code>Query</code>, <code>Ping</code>, <code>Quit</code>); parse events use <code>Parse</code>; stored-program events use <code>Stored Program</code>; authentication events use <code>Authentication</code>. Empty (<code>&lt;COMMAND_CLASS/&gt;</code>) on <code>Ping</code> records.</td>
 </tr>
 <tr>
 <td><code>&lt;CONNECTION_ID&gt;</code></td>
@@ -10286,7 +10923,7 @@ event type. It is not a promise that every field appears in every record.</p>
 </tr>
 <tr>
 <td><code>&lt;CONNECTION_ATTRIBUTES&gt;</code></td>
-<td>Nested <code>ATTRIBUTE</code> elements, each with <code>NAME</code> and <code>VALUE</code>. Omitted if there are no attributes.</td>
+<td>Nested <code>ATTRIBUTE</code> elements, each with <code>NAME</code> and <code>VALUE</code>. Omitted when the record carries no attributes.</td>
 </tr>
 <tr>
 <td><code>&lt;CONNECTION_TYPE&gt;</code></td>
@@ -10294,7 +10931,11 @@ event type. It is not a promise that every field appears in every record.</p>
 </tr>
 <tr>
 <td><code>&lt;STATUS&gt;</code></td>
-<td>Status code for the event (for <code>Query</code> / <code>Command</code> / connection records, <code>0</code> success and non-zero for failure where applicable).</td>
+<td>Status code (<code>0</code> for success, non-zero for failure). Present on <code>Query</code>, <code>Connect</code>, <code>Quit</code>, <code>Ping</code>, <code>Message</code>, and authentication records. Also on <code>Command Start</code>/<code>End</code>, <code>Query Start</code>/<code>Status End</code> in FULL mode. Not present on table-access records.</td>
+</tr>
+<tr>
+<td><code>&lt;STATUS_CODE&gt;</code></td>
+<td>High-level status (<code>0</code> for success, <code>1</code> for failure). Present alongside <code>&lt;STATUS&gt;</code> on <code>Query</code>, <code>Connect</code>, <code>Quit</code>, <code>Ping</code>, and <code>Message</code> records.</td>
 </tr>
 <tr>
 <td><code>&lt;SQLTEXT&gt;</code></td>
@@ -10302,45 +10943,69 @@ event type. It is not a promise that every field appears in every record.</p>
 </tr>
 <tr>
 <td><code>&lt;HOST&gt;</code>, <code>&lt;IP&gt;</code>, <code>&lt;USER&gt;</code></td>
-<td>Client context on connection and general records (and on authentication records where applicable). Not emitted on <code>Query Start</code> / <code>Query Status End</code> style records in NEW XML.</td>
+<td>Client context. Present on <code>Query</code>, <code>Connect</code>, <code>Quit</code>, <code>Ping</code>, table-access, <code>Message</code>, <code>Pre Authenticate</code>, and authentication records. Not emitted on <code>Command Start</code>/<code>End</code>, <code>Query Start</code>/<code>Status End</code>, <code>Preparse</code>/<code>Postparse</code>, <code>Execute</code>, or <code>Variable</code> records.</td>
 </tr>
 <tr>
 <td><code>&lt;OS_LOGIN&gt;</code></td>
-<td>External user from authentication (<code>external_user</code>); on connection records from 8.4.8-8 onward (documented behavior).</td>
+<td>External user from authentication (<code>external_user</code>). Present on <code>Query</code>, <code>Connect</code>, <code>Quit</code>, <code>Ping</code>, table-access, <code>Message</code>, and <code>Pre Authenticate</code> records.</td>
 </tr>
 <tr>
 <td><code>&lt;PRIV_USER&gt;</code>, <code>&lt;PROXY_USER&gt;</code>, <code>&lt;DB&gt;</code></td>
-<td>Included on connection records (including disconnect) from 8.4.8-8 onward (documented behavior).</td>
+<td>Included on <code>Connect</code> records.</td>
 </tr>
 <tr>
 <td><code>&lt;SERVER_ID&gt;</code></td>
-<td>On <code>Startup</code>, <code>Shutdown</code>, and similar audit records.</td>
+<td>On <code>Audit</code> and <code>NoAudit</code> records.</td>
+</tr>
+<tr>
+<td><code>&lt;VERSION&gt;</code></td>
+<td>Audit log format version. On <code>Audit</code> (startup) records.</td>
+</tr>
+<tr>
+<td><code>&lt;STARTUP_OPTIONS&gt;</code></td>
+<td>Server command-line arguments as a single string. On <code>Audit</code> (startup) records.</td>
+</tr>
+<tr>
+<td><code>&lt;OS_VERSION&gt;</code></td>
+<td>Operating system and architecture. On <code>Audit</code> (startup) records.</td>
+</tr>
+<tr>
+<td><code>&lt;MYSQL_VERSION&gt;</code></td>
+<td>Server version string. On <code>Audit</code> (startup) records.</td>
 </tr>
 <tr>
 <td><code>&lt;DB&gt;</code>, <code>&lt;TABLE&gt;</code></td>
-<td>Database and table name on table-access records (<code>TableRead</code>, <code>TableInsert</code>, …).</td>
+<td>Database and table name on table-access records (<code>TableRead</code>, <code>TableInsert</code>, <code>TableUpdate</code>, <code>TableDelete</code>). <code>&lt;DB&gt;</code> also appears on <code>Execute</code> (stored program) records.</td>
 </tr>
 <tr>
 <td><code>&lt;VARIABLE_NAME&gt;</code>, <code>&lt;VARIABLE_VALUE&gt;</code></td>
-<td>Global variable audit events.</td>
+<td>Global variable audit events (<code>Variable Get</code>, <code>Variable Set</code>). FULL mode only.</td>
 </tr>
 <tr>
 <td><code>&lt;STORED_PROGRAM&gt;</code></td>
-<td>Stored program events (<code>DB</code> also appears).</td>
+<td>Stored program name on <code>Execute</code> events (<code>&lt;DB&gt;</code> also appears). FULL mode only.</td>
 </tr>
 <tr>
 <td><code>&lt;FLAGS&gt;</code>, <code>&lt;REWRITTEN_QUERY&gt;</code></td>
-<td>Parse events (<code>SQLTEXT</code> may appear).</td>
+<td>Parse events (<code>Preparse</code>, <code>Postparse</code>). <code>&lt;SQLTEXT&gt;</code> also appears. FULL mode only.</td>
 </tr>
 <tr>
-<td><code>&lt;COMPONENT&gt;</code>, <code>&lt;PRODUCER&gt;</code>, <code>&lt;MESSAGE&gt;</code>, <code>&lt;MESSAGE_ATTRIBUTES&gt;</code></td>
-<td>Message events (attributes use the same <code>ATTRIBUTE</code> / <code>NAME</code> / <code>VALUE</code> pattern as connection attributes).</td>
+<td><code>&lt;COMPONENT&gt;</code>, <code>&lt;PRODUCER&gt;</code>, <code>&lt;MESSAGE&gt;</code>, <code>&lt;MAP&gt;</code></td>
+<td>Message events. <code>&lt;MAP&gt;</code> contains <code>&lt;ELEMENT&gt;</code> children, each with a <code>&lt;KEY&gt;</code> and <code>&lt;VALUE&gt;</code>. Message events also include <code>&lt;USER&gt;</code>, <code>&lt;OS_LOGIN&gt;</code>, <code>&lt;HOST&gt;</code>, <code>&lt;IP&gt;</code>, <code>&lt;STATUS&gt;</code>, and <code>&lt;STATUS_CODE&gt;</code> fields.</td>
 </tr>
 </tbody>
 </table>
-<p>Characters such as <code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code>, and <code>"</code> in element text are XML-escaped by
-the component. Very long values may be truncated according to server-side
-limits.</p>
+<p>The component XML-escapes characters such as <code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code>, and <code>"</code> in element text.
+Server-side limits may truncate very long values.</p>
+<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a></li>
+<li><a href="audit-log-filter-old.html">Audit Log Filter format - XML (old style)</a></li>
+<li><a href="audit-log-filter-json.html">Audit Log Filter format - JSON and JSONL</a></li>
+<li><a href="audit-log-filter-variables.html">Audit log filter functions, options, and variables</a> — <code>audit_log_filter.event_mode</code>, <code>audit_log_filter.format</code></li>
+<li><a href="reading-audit-log-filter-files.html">Reading Audit Log Filter files</a></li>
+<li><a href="audit-log-filter-overview.html">Audit Log Filter overview</a></li>
+</ul>
 
 
 
@@ -10363,7 +11028,7 @@ limits.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 24, 2026 15:12:40 UTC">March 24, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 21, 2026 21:58:55 UTC">July 21, 2026</span>
   </span>
 
     
@@ -10396,14 +11061,14 @@ limits.</p>
           <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
         </a>
       
-        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
-          
-          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
-        </a>
-      
         <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
           
           <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
+      
+        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
+          
+          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
         </a>
       
       
@@ -10495,7 +11160,7 @@ limits.</p>
     
     
   
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="js/print-site.js"></script>
       

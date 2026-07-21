@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The audit filter log filtering is based on rules. The filter rule definition has the ability to include or exclude events based on the following attributes:">
+        <meta name="description" content="Rule-based filtering includes or excludes events using these attributes:">
       
       
         <meta name="author" content="Percona LLC">
@@ -18,25 +18,25 @@
         <link rel="canonical" href="https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.html">
       
       
-        <link rel="prev" href="manage-audit-log-filter.html">
+        <link rel="prev" href="reading-audit-log-filter-files.html">
       
       
-        <link rel="next" href="audit-log-filter-restrictions.html">
+        <link rel="next" href="manage-audit-log-filter.html">
       
       
         
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
-        <title>Filter the Audit Log Filter logs - Percona Server for MySQL</title>
+        <title>Filter existing log files - Percona Server for MySQL</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -102,7 +102,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Filter the Audit Log Filter logs" />
+                 <meta property="og:title" content="Percona Server for MySQL - Filter existing log files" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
               
@@ -254,7 +254,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Filter the Audit Log Filter logs
+              Filter existing log files
             
           </span>
         </div>
@@ -1031,14 +1031,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
     
     
     
@@ -1093,7 +1085,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter overview
+    Overview
   
 
     
@@ -1121,7 +1113,63 @@
   <span class="md-ellipsis">
     
   
-    Install the audit log filter
+    Install
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="migrate-to-audit-log-filter-component.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migrate from audit plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-quickstart.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
   
 
     
@@ -1160,17 +1208,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_5_2_3" id="__nav_5_2_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_2_5" id="__nav_5_2_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Formats
+    Log file formats
   
 
     
@@ -1181,12 +1229,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_2_3">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Formats
+    Log file formats
   
 
           </label>
@@ -1234,7 +1282,7 @@
   <span class="md-ellipsis">
     
   
-    XML (New style)
+    XML (new style)
   
 
     
@@ -1262,7 +1310,7 @@
   <span class="md-ellipsis">
     
   
-    XML (Old style)
+    XML (old style)
   
 
     
@@ -1290,7 +1338,7 @@
   <span class="md-ellipsis">
     
   
-    JSON
+    JSON and JSONL
   
 
     
@@ -1318,6 +1366,63 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_6" id="__nav_5_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Define filters
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Define filters
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="write-filter-definitions.html" class="md-nav__link">
         
@@ -1326,7 +1431,7 @@
   <span class="md-ellipsis">
     
   
-    Write audit_log_filter definitons
+    Write filter definitions
   
 
     
@@ -1347,6 +1452,161 @@
   
   
     <li class="md-nav__item">
+      <a href="block-statements-with-audit-filter.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Block statements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="redact-audit-log-fields.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redact log fields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-definition-fields.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Definition fields reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_7" id="__nav_5_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operate
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operate
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="audit-log-filter-security.html" class="md-nav__link">
         
   
@@ -1354,7 +1614,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter security
+    Security
   
 
     
@@ -1382,7 +1642,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter compression and encryption
+    Compression and encryption
   
 
     
@@ -1410,35 +1670,7 @@
   <span class="md-ellipsis">
     
   
-    Reading Audit Log Filter files
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="manage-audit-log-filter.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Manage the Audit Log Filter files
+    Read log files
   
 
     
@@ -1475,7 +1707,7 @@
   <span class="md-ellipsis">
     
   
-    Filter the Audit Log Filter logs
+    Filter existing log files
   
 
     
@@ -1493,7 +1725,7 @@
   <span class="md-ellipsis">
     
   
-    Filter the Audit Log Filter logs
+    Filter existing log files
   
 
     
@@ -1532,10 +1764,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#filter-modification-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter modification lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#constraints" class="md-nav__link">
     <span class="md-ellipsis">
       
         Constraints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filter-definition-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter definition validation
       
     </span>
   </a>
@@ -1564,6 +1818,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#additional-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional reading
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1580,14 +1845,14 @@
   
   
     <li class="md-nav__item">
-      <a href="audit-log-filter-restrictions.html" class="md-nav__link">
+      <a href="manage-audit-log-filter.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Audit Log Filter restrictions
+    Manage log files
   
 
     
@@ -1615,7 +1880,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter file naming conventions
+    Log file naming
   
 
     
@@ -1624,6 +1889,131 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_8" id="__nav_5_2_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-variables.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions, options, variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-restrictions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Restrictions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1643,35 +2033,7 @@
   <span class="md-ellipsis">
     
   
-    Disable Audit Log Filter logging
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-variables.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Audit log filter functions, options, and variables
+    Disable
   
 
     
@@ -1699,7 +2061,7 @@
   <span class="md-ellipsis">
     
   
-    Uninstall Audit Log Filter
+    Uninstall
   
 
     
@@ -10078,10 +10440,32 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
+  <a href="#filter-modification-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter modification lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#constraints" class="md-nav__link">
     <span class="md-ellipsis">
       
         Constraints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filter-definition-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter definition validation
       
     </span>
   </a>
@@ -10104,6 +10488,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-ellipsis">
       
         set_filter options and available filters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional reading
       
     </span>
   </a>
@@ -10141,19 +10536,20 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="filter-the-audit-log-filter-logs">Filter the Audit Log Filter logs<a class="headerlink" href="#filter-the-audit-log-filter-logs" title="Permanent link">&para;</a></h1>
-<p>The audit filter log filtering is based on rules. The filter rule definition has the ability to include or exclude events based on the following attributes:</p>
+<p>Rule-based filtering includes or excludes events using these attributes:</p>
 <ul>
 <li>User account</li>
 <li>Audit event class</li>
 <li>Audit event subclass</li>
 <li>Audit event fields (for example, <code>COMMAND_CLASS</code> or <code>STATUS</code>)</li>
 </ul>
-<p>From Percona Server for MySQL 8.4.8-8: The NEW XML formatter (<code>audit_log_filter.format=NEW</code>) behavior described here—including which <code>&lt;NAME&gt;</code> strings and child elements appear in each <code>&lt;AUDIT_RECORD&gt;</code>—was verified for that release on the 8.4 line. This documentation build is 8.4.10-10. If your server predates 8.4.8-8, or you use a build whose audit code differs, compare against a real log from your server.</p>
-<p>When you inspect new-style XML logs for that line of releases, expect values such as <code>Startup</code>, <code>Shutdown</code>, <code>Disconnect</code>, <code>Query Start</code>, <code>Query Status End</code>, and <code>Connection</code> as the <code>COMMAND_CLASS</code> on connect and disconnect. For the full field list per event type, see <a href="audit-log-filter-new.html">XML (new style)</a>.</p>
-<p>You can define multiple filters and assign any filter to multiple accounts. You can also create a default filter for specific user accounts. The filters are defined using function calls. After the filter is defined, the filter is stored in <code>mysql</code> system tables. </p>
+<p>Which classes and subclasses you can target depends on <a href="audit-log-filter-variables.html#audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a>. Validated names appear in <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>.</p>
+<p>Define multiple filters and assign any filter to multiple accounts, or register a default filter for accounts without a specific row. You define filters through SQL function calls.</p>
+<p>After you define a filter, the server persists it in <code>mysql</code> system tables.</p>
 <h2 id="audit-log-filter-functions">Audit Log Filter functions<a class="headerlink" href="#audit-log-filter-functions" title="Permanent link">&para;</a></h2>
-<p>The Audit Log filter functions require <code>AUDIT_ADMIN</code> or <code>SUPER</code> privilege. </p>
-<p>The following functions are used for rule-based filtering:</p>
+<p>The six management UDFs in the following table — <code>audit_log_filter_flush()</code>, <code>audit_log_filter_set_filter()</code>, <code>audit_log_filter_remove_filter()</code>, <code>audit_log_filter_set_user()</code>, <code>audit_log_filter_remove_user()</code>, and <a href="audit-log-filter-variables.html#audit_log_rotate"><code>audit_log_rotate()</code></a> — require the <code>AUDIT_ADMIN</code> privilege.</p>
+<p>The reader UDFs (<a href="audit-log-filter-variables.html#audit_log_read"><code>audit_log_read()</code></a>, <a href="audit-log-filter-variables.html#audit_log_read_bookmark"><code>audit_log_read_bookmark()</code></a>), the session-id helper (<a href="audit-log-filter-variables.html#audit_log_session_filter_id"><code>audit_log_session_filter_id()</code></a>), and the keyring helpers (<a href="audit-log-filter-variables.html#audit_log_encryption_password_getkeyring_id"><code>audit_log_encryption_password_get()</code></a>, <a href="audit-log-filter-variables.html#audit_log_encryption_password_setnew_password"><code>audit_log_encryption_password_set()</code></a>) do not require <code>AUDIT_ADMIN</code>. The keyring helpers require an initialized keyring component or plugin.</p>
+<p>These functions drive rule-based filtering:</p>
 <table>
 <thead>
 <tr>
@@ -10165,293 +10561,259 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <tbody>
 <tr>
 <td>audit_log_filter_flush()</td>
-<td>Manually flush the filter tables</td>
-<td><code>SELECT audit_log_filter_flush()</code></td>
+<td>Flush filter tables and reload definitions into the component</td>
+<td><code>SELECT audit_log_filter_flush();</code></td>
 </tr>
 <tr>
 <td>audit_log_filter_set_filter()</td>
-<td>Defines a filter</td>
-<td><code>SELECT audit_log_filter_set_filter('log_connections','{ "filter":{}}'</code>&rsquo;)</td>
+<td>Create or replace a named filter</td>
+<td><code>SELECT audit_log_filter_set_filter('log_connections', '{ "filter": {} }');</code></td>
 </tr>
 <tr>
 <td>audit_log_filter_remove_filter()</td>
-<td>Removes a filter</td>
-<td></td>
+<td>Drop a named filter</td>
+<td><code>SELECT audit_log_filter_remove_filter('filter-name');</code></td>
 </tr>
 <tr>
 <td>audit_log_filter_set_user()</td>
-<td>Assigns a filter to a specific user account</td>
-<td></td>
+<td>Bind a filter to a user account</td>
+<td><code>SELECT audit_log_filter_set_user('user-name@localhost', 'filter-name');</code></td>
 </tr>
 <tr>
 <td>audit_log_filter_remove_user()</td>
-<td>Removes the filters from a specific user account</td>
-<td></td>
+<td>Clear filter bindings for a user account</td>
+<td><code>SELECT audit_log_filter_remove_user('user-name@localhost');</code></td>
 </tr>
 </tbody>
 </table>
-<p>Using a SQL interface, you can define, display, or modify audit log filters. The filters are stored in the <code>mysql</code> system database.</p>
-<p>The <a href="audit-log-filter-variables.html#audit_log_session_filter_id"><code>audit_log_session_filter_id()</code></a> function returns the internal ID of the audit log filter in the current session.</p>
-<p>Filter definitions are <code>JSON</code> values.</p>
-<p>The function, <code>audit_log_filter_flush()</code>, forces reloading all filters and should only be invoked when modifying the audit tables. This function affects all users. Users in current sessions must either execute change-user or disconnect and reconnect.</p>
+<p>Through SQL, you define, inspect, and change audit log filters; definitions live in the <code>mysql</code> system database.</p>
+<p><a href="audit-log-filter-variables.html#audit_log_session_filter_id"><code>audit_log_session_filter_id()</code></a> returns the active audit log filter ID for the current session.</p>
+<p>Filter definitions are JSON values.</p>
+<p>Reloading rules from tables, persistence after <code>audit_log_filter_set_filter()</code>, and post-flush session behavior are covered under <a href="audit-log-filter-variables.html#audit_log_filter_flush"><code>audit_log_filter_flush()</code></a> and <a href="audit-log-filter-variables.html#persistence-and-refreshing">Persistence and refreshing</a> in <a href="audit-log-filter-variables.html">Audit log filter functions, options, and variables</a>.</p>
+<h2 id="filter-modification-lifecycle">Filter modification lifecycle<a class="headerlink" href="#filter-modification-lifecycle" title="Permanent link">&para;</a></h2>
+<p>The following diagram shows how filter changes persist, reload into the component, and reach sessions, including when <a href="audit-log-filter-variables.html#audit_log_filter_flush"><code>audit_log_filter_flush()</code></a> runs.</p>
+<p><img alt="Audit Log Filter modification lifecycle" src="_static/audit-log-filter-modification-lifecycle.png" /></p>
 <h2 id="constraints">Constraints<a class="headerlink" href="#constraints" title="Permanent link">&para;</a></h2>
-<p>The <code>component_audit_log_filter</code> component must be enabled and the audit tables must exist to use the audit log filter functions. The user account must have the required privileges. </p>
+<p>Enable the <code>component_audit_log_filter</code> component and ensure audit tables exist before calling audit log filter functions. The account must hold the required privileges.</p>
+<h2 id="filter-definition-validation">Filter definition validation<a class="headerlink" href="#filter-definition-validation" title="Permanent link">&para;</a></h2>
+<p><em>Introduced in Percona Server for MySQL 8.4.9-9.</em></p>
+<p>The server validates filter definitions at parse time and rejects invalid input with a clear error:</p>
+<ul>
+<li>
+<p>Unknown field names (e.g., <code>"WRONG.str"</code>)</p>
+</li>
+<li>
+<p>Invalid class or event subclass names</p>
+</li>
+<li>
+<p>Empty arrays (e.g., <code>"class": []</code>)</p>
+</li>
+<li>
+<p>Unknown JSON keys (e.g., <code>"classes"</code> instead of <code>"class"</code>, <code>"events"</code> instead of <code>"event"</code>, <code>"names"</code> instead of <code>"name"</code>, <code>"logs"</code> instead of <code>"log"</code>)</p>
+</li>
+<li>
+<p><code>print</code> rules that reference invalid fields for any class in a multi-class array</p>
+</li>
+<li>
+<p>Mismatched field types (e.g., negative values for unsigned fields, integers where only strings are allowed)</p>
+</li>
+</ul>
+<p>An empty filter object <code>{}</code> is equivalent to <code>{"filter": {"log": true}}</code> and logs every event. To log nothing, use <code>{"filter": {"log": false}}</code>.</p>
+<h4 id="behavior-before-849-9">Behavior before 8.4.9-9<a class="headerlink" href="#behavior-before-849-9" title="Permanent link">&para;</a></h4>
+<p>Before 8.4.9-9, the parser silently ignored unknown keys. Misspelling a structural key caused the parser to skip that entire subtree and fall back to the default. For example, the filter <code>{"filter": {"classes": [...]}}</code> (note <code>classes</code> instead of <code>class</code>) was parsed as <code>{"filter": {}}</code>, which logs every event. No error was returned, and the filter appeared to succeed. The same applied to <code>events</code> instead of <code>event</code>, <code>names</code> instead of <code>name</code>, and <code>logs</code> instead of <code>log</code>. Upgrade to 8.4.9-9 or later to catch these mistakes at parse time.</p>
+<p>Parse-phase subclass names must use <code>preparse</code> and <code>postparse</code>.</p>
+<p><a href="audit-log-filter-variables.html#audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> controls which classes new definitions may use; filters saved under <code>FULL</code> can still load under <code>REDUCED</code> with some classes skipped (see that variable).</p>
 <h2 id="using-the-audit-log-filter-functions">Using the audit log filter functions<a class="headerlink" href="#using-the-audit-log-filter-functions" title="Permanent link">&para;</a></h2>
-<p>With a new connection, the audit log filter component finds the user account name in the filter assignments. If a filter has been assigned, the component uses that filter. If no filter has been assigned, but there is a default account filter, the component uses that filter. If there is no filter assigned, and there is no default account filter, then the component does not process any event.</p>
-<p>The default account is represented by <code>%</code> as the account name.</p>
-<p>You can assign filters to a specific user account or disassociate a user account from a filter. To disassociate a user account, either unassign a filter or assign a different filter. If you remove a filter, that filter is unassigned from all users, including current users in current sessions.</p>
+<h3 id="assignment-vs-rules-inside-the-json">Assignment vs rules inside the JSON<a class="headerlink" href="#assignment-vs-rules-inside-the-json" title="Permanent link">&para;</a></h3>
+<p>Two mechanisms apply, in order:</p>
+<ol>
+<li>
+<p>Assignment (<code>mysql.audit_log_user</code>) — Each session uses one named filter from the <code>USER</code> and <code>HOST</code> columns (the same <code>user_name</code>@<code>host_name</code> form you pass to <a href="audit-log-filter-variables.html#audit_log_filter_set_useruser_name-filter_name"><code>audit_log_filter_set_user()</code></a>). The server loads that filter’s JSON from <code>mysql.audit_log_filter</code>. Assignments do not merge: a session never evaluates two separate filter definitions at once.</p>
+</li>
+<li>
+<p>Rules inside the assigned JSON — <code>log</code> conditions on a class or event block narrow which events match within the already-selected filter. Conditions compare event fields (such as <code>user.str</code>, <code>host.str</code>, <code>table_database.str</code>, <code>table_name.str</code>, <code>status</code>) with <code>field</code> items, and combine them with <code>and</code> / <code>or</code> / <code>not</code>. They are not a second user- or host-level assignment row. For example, bind one filter to <code>'app'@'%'</code> and still include a <code>log</code> condition under a <code>connection</code> rule so only connection events from chosen client hosts are logged.</p>
+</li>
+</ol>
+<p>See <a href="write-filter-definitions.html#test-event-field-values">Test event field values</a> and <a href="write-filter-definitions.html#combine-conditions-with-logical-operators">Combine conditions with logical operators</a> for the grammar used in rule-level conditions.</p>
+<h3 id="which-audit_log_user-row-applies">Which <code>audit_log_user</code> row applies<a class="headerlink" href="#which-audit_log_user-row-applies" title="Permanent link">&para;</a></h3>
+<p>On connect, the component selects a row in <code>mysql.audit_log_user</code> whose <code>USER</code> and <code>HOST</code> match the session account. Literal <code>user</code>@<code>host</code> pairs match when they equal the session identity. Starting in Percona Server for MySQL 8.4.4, wildcard characters (<code>%</code> and <code>_</code>) are allowed in the host portion of the assignment string (see <a href="audit-log-filter-variables.html#audit_log_filter_set_useruser_name-filter_name"><code>audit_log_filter_set_user()</code></a>); pattern matching matches the behavior when you create the row through that function.</p>
+<p>Keep assignments non-overlapping when you use wildcards. If several rows could match one connection, precedence is not specified here—prefer explicit literal <code>user</code>@<code>host</code> rows (or one clear pattern plus a <code>'%'</code> default) and confirm behavior on a test server.</p>
+<p>With no matching row, the component uses the default assignment: the account registered with <code>audit_log_filter_set_user()</code> using <code>%</code> as the user name (see <a href="audit-log-filter-variables.html#audit_log_filter_set_useruser_name-filter_name"><code>audit_log_filter_set_user()</code></a>).</p>
+<p>If neither a matching row nor a default exists, the component skips event processing for that connection.</p>
+<p>A specific account row overrides the default: if both <code>admin</code>@<code>localhost</code> and <code>%</code> have filters, <code>admin</code> from <code>localhost</code> uses the <code>admin</code>@<code>localhost</code> filter, not the default.</p>
+<p>You can bind filters to named accounts or remove those bindings.</p>
+<p>To clear a binding, unassign the filter or assign a different one. How sessions refresh when assignments change is described under <a href="audit-log-filter-variables.html#audit_log_filter_set_useruser_name-filter_name"><code>audit_log_filter_set_user()</code></a> and <a href="audit-log-filter-variables.html#audit_log_filter_remove_filterfilter_name"><code>audit_log_filter_remove_filter()</code></a>.</p>
 <h2 id="set_filter-options-and-available-filters">set_filter options and available filters<a class="headerlink" href="#set_filter-options-and-available-filters" title="Permanent link">&para;</a></h2>
+<p>JSON layout (<code>filter</code>, <code>class</code>, nested rules, examples) is in <a href="write-filter-definitions.html">Write audit_log_filter definitions</a>. The authoritative list of class names, event subclass names, and per-class field names that <code>audit_log_filter_set_filter()</code> accepts appears in <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>. This section lists the keys that may appear at each level of a filter definition.</p>
+<h3 id="filter-level-keys">Filter-level keys<a class="headerlink" href="#filter-level-keys" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Filter</th>
-<th>Available options</th>
+<th>Key</th>
+<th>Role</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>class Filter</td>
-<td><code>general</code>: Logs general server events</td>
+<td><code>log</code></td>
+<td>Boolean global default. <code>true</code> enables logging everywhere not turned off by a more specific rule; <code>false</code> requires per-class/per-event <code>log</code> overrides to write anything.</td>
 </tr>
 <tr>
-<td></td>
-<td><code>connection</code>: Tracks connection-related activities</td>
+<td><code>class</code></td>
+<td>One class block or an array of class blocks. Each block sets <code>"name"</code> to an event class (<code>general</code>, <code>connection</code>, <code>table_access</code>, <code>message</code>; plus <code>global_variable</code>, <code>command</code>, <code>query</code>, <code>stored_program</code>, <code>authentication</code>, <code>parse</code> when <code>event_mode=FULL</code>).</td>
 </tr>
 <tr>
-<td></td>
-<td><code>table_access</code>: Monitors database table interactions</td>
-</tr>
-<tr>
-<td>user Filter</td>
-<td>Accepts specific usernames as filter criteria</td>
-</tr>
-<tr>
-<td></td>
-<td>Can include multiple usernames</td>
-</tr>
-<tr>
-<td></td>
-<td>Supports wildcard matching</td>
-</tr>
-<tr>
-<td>database Filter</td>
-<td>Filters events by database name</td>
-</tr>
-<tr>
-<td></td>
-<td>Accepts exact database names</td>
-</tr>
-<tr>
-<td></td>
-<td>Supports wildcard matching for database selection</td>
-</tr>
-<tr>
-<td>table Filter</td>
-<td>Specifies individual table names</td>
-</tr>
-<tr>
-<td></td>
-<td>Allows filtering for specific tables within databases</td>
-</tr>
-<tr>
-<td></td>
-<td>Supports wildcard matching</td>
-</tr>
-<tr>
-<td>operation Filter</td>
-<td><code>read</code>: SELECT statements</td>
-</tr>
-<tr>
-<td></td>
-<td><code>write</code>: INSERT, UPDATE, DELETE statements</td>
-</tr>
-<tr>
-<td></td>
-<td><code>ddl</code>: Data Definition Language operations</td>
-</tr>
-<tr>
-<td></td>
-<td><code>dcl</code>: Data Control Language operations</td>
-</tr>
-<tr>
-<td>event Filter</td>
-<td><code>status</code>: Tracks query execution status</td>
-</tr>
-<tr>
-<td></td>
-<td><code>query</code>: Captures query details</td>
-</tr>
-<tr>
-<td></td>
-<td><code>connection</code>: Monitors connection events</td>
-</tr>
-<tr>
-<td>status Filter</td>
-<td><code>0</code>: Successful operations</td>
-</tr>
-<tr>
-<td></td>
-<td><code>1</code>: Failed operations</td>
+<td><code>id</code></td>
+<td>Optional filter identifier. Referenced by <code>activate</code> / <code>ref</code> when one filter swaps itself for another mid-session (see <a href="write-filter-definitions.html#replace-a-filter-dynamically">Replace a filter dynamically</a>).</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Filter definition</p>
-<p>Status values must be specified as strings (for example, <code>"0"</code>, <code>"1"</code>). The audit log filter does not filter on integer values, only on string values. If you use integer values, you will see the error: <code>ERROR: Incorrect rule definition.</code></p>
-</div>
+<h3 id="class-block-keys">Class-block keys<a class="headerlink" href="#class-block-keys" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>The class name. Use one of the values listed in the preceding section.</td>
+</tr>
+<tr>
+<td><code>log</code></td>
+<td>Optional. Boolean, or a condition that narrows matches by event-field values.</td>
+</tr>
+<tr>
+<td><code>event</code></td>
+<td>Optional. One event block or an array. Each block names one subclass and can carry its own <code>log</code>, <code>abort</code>, <code>print</code>, or nested <code>filter</code>. Subclasses depend on the class. For <code>table_access</code>: <code>read</code>, <code>insert</code>, <code>update</code>, <code>delete</code>. For <code>connection</code>: <code>connect</code>, <code>disconnect</code>, <code>change_user</code>, plus <code>pre_authenticate</code> in <code>FULL</code>. See the <a href="write-filter-definitions.html#list-of-event-and-subclass-options">event and subclass table</a> and <a href="audit-log-filter-definition-fields.html">definition fields</a>.</td>
+</tr>
+<tr>
+<td><code>print</code></td>
+<td>Optional. Field-replacement rule. The component limits replacement to four class/field pairs (<code>general</code>/<code>general_query.str</code>, <code>table_access</code>/<code>query.str</code>, <code>query</code>/<code>query.str</code>, <code>parse</code>/<code>query.str</code>) with the <code>query_digest</code> function. See <a href="redact-audit-log-fields.html">Redact audit log fields</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="event-block-keys">Event-block keys<a class="headerlink" href="#event-block-keys" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Subclass name. May be a string (one subclass) or an array (several).</td>
+</tr>
+<tr>
+<td><code>log</code></td>
+<td>Optional. Boolean, or a condition over event fields.</td>
+</tr>
+<tr>
+<td><code>abort</code></td>
+<td>Optional. Boolean or condition that blocks execution of matching statements — see <a href="block-statements-with-audit-filter.html">Block statements with an audit log filter</a>.</td>
+</tr>
+<tr>
+<td><code>print</code></td>
+<td>Optional. Field-replacement rule scoped to this event — see <a href="redact-audit-log-fields.html">Redact audit log fields</a>.</td>
+</tr>
+<tr>
+<td><code>filter</code></td>
+<td>Optional. Nested subfilter used with <code>activate</code> / <code>ref</code> for dynamic filter swapping — see <a href="write-filter-definitions.html#replace-a-filter-dynamically">Replace a filter dynamically</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="conditions">Conditions<a class="headerlink" href="#conditions" title="Permanent link">&para;</a></h3>
+<p><code>log</code> and <code>abort</code> accept a Boolean (<code>true</code> / <code>false</code>) or a condition built from these items:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>field</code></td>
+<td><code>{ "name": "&lt;event-field&gt;", "value": &lt;value&gt; }</code>. Compares an event field such as <code>user.str</code>, <code>host.str</code>, <code>table_database.str</code>, <code>table_name.str</code>, <code>status</code>, <code>general_command.str</code>, or <code>general_sql_command.str</code>. Per-class fields are listed in <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>.</td>
+</tr>
+<tr>
+<td><code>variable</code></td>
+<td><code>{ "name": "&lt;server-variable&gt;", "value": &lt;value&gt; }</code>. Compares a predefined variable such as <code>audit_log_connection_policy_value</code>.</td>
+</tr>
+<tr>
+<td><code>function</code></td>
+<td><code>{ "name": "&lt;function&gt;", "args": [...] }</code>. Calls a built-in. The Percona implementation supports two functions: <code>string_find</code> and <code>query_digest</code> — see <a href="write-filter-definitions.html#reference-predefined-functions">Reference predefined functions</a>.</td>
+</tr>
+<tr>
+<td><code>and</code></td>
+<td>Array of sub-conditions; all must be true.</td>
+</tr>
+<tr>
+<td><code>or</code></td>
+<td>Array of sub-conditions; at least one must be true.</td>
+</tr>
+<tr>
+<td><code>not</code></td>
+<td>A single sub-condition; true when the inner evaluates to false.</td>
+</tr>
+</tbody>
+</table>
+<p>Field-value typing (JSON numbers for integer fields such as <code>status</code>, strings for <code>*.str</code> fields, and <code>"::tcp/ip"</code>-style symbolic constants for <code>connection_type</code>) is covered under <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and in the <a href="audit-log-filter-definition-fields.html#connection"><code>connection</code></a> section of <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>.</p>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<p>Create simple filters</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_general&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
+<p>Start from a single-class filter that logs every <code>connection</code> event the component sees:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_connection&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;general&quot;</span>
-<span class="s1">    }</span>
+<span class="s1">    &quot;class&quot;: { &quot;name&quot;: &quot;connection&quot; }</span>
 <span class="s1">  }</span>
 <span class="s1">}&#39;</span><span class="p">);</span>
-
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_connection&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
+</code></pre></div>
+<p>Narrow to a single subclass by nesting <code>event</code> inside the class block (not as a sibling of <code>class</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_connect_only&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
 <span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;connection&quot;</span>
-<span class="s1">    }</span>
-<span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">);</span>
-
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_table_access&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;table_access&quot;</span>
-<span class="s1">    }</span>
-<span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">);</span>
-
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_global_variable&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;global_variable&quot;</span>
-<span class="s1">    }</span>
-<span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">);</span>
-
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_command&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;command&quot;</span>
-<span class="s1">    }</span>
-<span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">);</span>
-
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_query&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;query&quot;</span>
-<span class="s1">    }</span>
-<span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">);</span>
-
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_stored_program&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;stored_program&quot;</span>
-<span class="s1">    }</span>
-<span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">);</span>
-
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_authentication&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;authentication&quot;</span>
-<span class="s1">    }</span>
-<span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">);</span>
-
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_message&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;message&quot;</span>
+<span class="s1">      &quot;name&quot;: &quot;connection&quot;,</span>
+<span class="s1">      &quot;event&quot;: { &quot;name&quot;: &quot;connect&quot; }</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
 <span class="s1">}&#39;</span><span class="p">);</span>
 </code></pre></div>
-<p>Add filter_update_on_user_change.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_connect&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
+<p>Narrow further by adding a <code>log</code> condition that tests event fields — here, log <code>connect</code> events from only two accounts, originating from one host:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_admin_connect&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
 <span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: { &quot;name&quot;: &quot;connection&quot; },</span>
-<span class="s1">    &quot;event&quot;: { &quot;name&quot;: &quot;connect&quot; }</span>
-<span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">);</span>
-
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_disconnect&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: { &quot;name&quot;: &quot;connection&quot; },</span>
-<span class="s1">    &quot;event&quot;: { &quot;name&quot;: &quot;disconnect&quot; }</span>
+<span class="s1">    &quot;class&quot;: {</span>
+<span class="s1">      &quot;name&quot;: &quot;connection&quot;,</span>
+<span class="s1">      &quot;event&quot;: {</span>
+<span class="s1">        &quot;name&quot;: &quot;connect&quot;,</span>
+<span class="s1">        &quot;log&quot;: {</span>
+<span class="s1">          &quot;and&quot;: [</span>
+<span class="s1">            { &quot;field&quot;: { &quot;name&quot;: &quot;user.str&quot;, &quot;value&quot;: [&quot;admin&quot;, &quot;developer&quot;] } },</span>
+<span class="s1">            { &quot;field&quot;: { &quot;name&quot;: &quot;host.str&quot;, &quot;value&quot;: &quot;10.0.0.5&quot; } }</span>
+<span class="s1">          ]</span>
+<span class="s1">        }</span>
+<span class="s1">      }</span>
+<span class="s1">    }</span>
 <span class="s1">  }</span>
 <span class="s1">}&#39;</span><span class="p">);</span>
 </code></pre></div>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Filters</th>
-<th>Example</th>
-<th>Event</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>class</td>
-<td>general, connection, table_access</td>
-<td>N/A</td>
-<td>General: Server-wide events, query processing<br>connection: Login, logout, connection attempts<br>table_access: Database and table-level interactions</td>
-</tr>
-<tr>
-<td>user</td>
-<td>Filters by MySQL user accounts</td>
-<td>[&ldquo;admin&rdquo;, &ldquo;readonly_user&rdquo;]</td>
-<td>All actions performed by specified users</td>
-</tr>
-<tr>
-<td>database</td>
-<td>Filters by database name</td>
-<td>[&ldquo;sales&rdquo;, &ldquo;inventory&rdquo;]</td>
-<td>Operations within specified databases</td>
-</tr>
-<tr>
-<td>table</td>
-<td>Filters by table name</td>
-<td>[&ldquo;customers&rdquo;, &ldquo;orders&rdquo;]</td>
-<td>Interactions with specific tables</td>
-</tr>
-<tr>
-<td>operation</td>
-<td>For table_access: read, insert, update, delete<br>For connection: connect, disconnect</td>
-<td>N/A</td>
-<td>Specific types of database operations</td>
-</tr>
-<tr>
-<td>status</td>
-<td>0: Successful queries<br>1: Failed queries</td>
-<td>N/A</td>
-<td>Query execution result filtering</td>
-</tr>
-<tr>
-<td>thread_id</td>
-<td>Filters by specific MySQL thread identifiers</td>
-<td>[&ldquo;12345&rdquo;, &ldquo;67890&rdquo;]</td>
-<td>Actions within a particular database thread</td>
-</tr>
-<tr>
-<td>query_time</td>
-<td>Filters based on query execution duration</td>
-<td>N/A</td>
-<td>Long-running or quick queries</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="admonition-title">Filter definition</p>
-<p>Status, thread ID, and connection ID values must be specified as strings (for example, <code>"0"</code>, <code>"1"</code>, <code>"12345"</code>). The audit log filter does not filter on integer values, only on string values. If you use integer values, you will see the error: <code>ERROR: Incorrect rule definition.</code></p>
-</div>
+<p>For full authoring detail, see:</p>
+<ul>
+<li><a href="write-filter-definitions.html">Write audit_log_filter definitions</a> — inclusive and exclusive patterns, conditions, and the complete grammar</li>
+<li><a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a> — canonical class, event, and field names validation accepts</li>
+<li><a href="audit-log-filter-variables.html#audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> — <code>REDUCED</code> versus <code>FULL</code> class sets</li>
+</ul>
+<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="write-filter-definitions.html">Write audit_log_filter definitions</a></li>
+<li><a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a></li>
+<li><a href="audit-log-filter-variables.html">Audit log filter functions, options, and variables</a></li>
+<li><a href="audit-log-filter-overview.html">Audit Log Filter overview</a></li>
+<li><a href="audit-log-filter-quickstart.html">Audit Log Filter quickstart</a></li>
+<li><a href="audit-log-filter-restrictions.html">Audit Log Filter restrictions</a></li>
+</ul>
 
 
 
@@ -10474,7 +10836,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 24, 2026 15:12:40 UTC">March 24, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 21, 2026 21:58:55 UTC">July 21, 2026</span>
   </span>
 
     
@@ -10573,7 +10935,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
     
   
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="js/print-site.js"></script>
       

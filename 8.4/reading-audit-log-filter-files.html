@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The Audit Log Filter functions can provide a SQL interface to read JSON-format audit log files. The functions cannot read log files in other formats. Configuring the component for JSON logging lets the functions use the directory that contains the current audit log filter file and search in that location for readable files. The value of the audit_log_filter.file system variable provides the file location, base name, and the suffix and then searches for names that match the pattern.">
+        <meta name="description" content="Audit Log Filter exposes a SQL API to read audit files in JSON or JSONL only. Layout and the JSONL option are covered in Audit Log Filter format - JSON and JSONL and Audit Log Filter file format overview. Set audit_log_filter.format accordingly; audit_log_filter.file defines the path, base name, and suffix used to locate files.">
       
       
         <meta name="author" content="Percona LLC">
@@ -21,22 +21,22 @@
         <link rel="prev" href="audit-log-filter-compression-encryption.html">
       
       
-        <link rel="next" href="manage-audit-log-filter.html">
+        <link rel="next" href="filter-audit-log-filter-files.html">
       
       
         
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
-        <title>Reading Audit Log Filter files - Percona Server for MySQL</title>
+        <title>Read log files - Percona Server for MySQL</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -102,7 +102,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Reading Audit Log Filter files" />
+                 <meta property="og:title" content="Percona Server for MySQL - Read log files" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
               
@@ -254,7 +254,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Reading Audit Log Filter files
+              Read log files
             
           </span>
         </div>
@@ -1031,14 +1031,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
     
     
     
@@ -1093,7 +1085,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter overview
+    Overview
   
 
     
@@ -1121,7 +1113,63 @@
   <span class="md-ellipsis">
     
   
-    Install the audit log filter
+    Install
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="migrate-to-audit-log-filter-component.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migrate from audit plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-quickstart.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
   
 
     
@@ -1160,17 +1208,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_5_2_3" id="__nav_5_2_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_2_5" id="__nav_5_2_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Formats
+    Log file formats
   
 
     
@@ -1181,12 +1229,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_2_3">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Formats
+    Log file formats
   
 
           </label>
@@ -1234,7 +1282,7 @@
   <span class="md-ellipsis">
     
   
-    XML (New style)
+    XML (new style)
   
 
     
@@ -1262,7 +1310,7 @@
   <span class="md-ellipsis">
     
   
-    XML (Old style)
+    XML (old style)
   
 
     
@@ -1290,7 +1338,7 @@
   <span class="md-ellipsis">
     
   
-    JSON
+    JSON and JSONL
   
 
     
@@ -1318,6 +1366,63 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_6" id="__nav_5_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Define filters
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Define filters
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="write-filter-definitions.html" class="md-nav__link">
         
@@ -1326,7 +1431,7 @@
   <span class="md-ellipsis">
     
   
-    Write audit_log_filter definitons
+    Write filter definitions
   
 
     
@@ -1347,6 +1452,161 @@
   
   
     <li class="md-nav__item">
+      <a href="block-statements-with-audit-filter.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Block statements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="redact-audit-log-fields.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redact log fields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-definition-fields.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Definition fields reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_7" id="__nav_5_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operate
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operate
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="audit-log-filter-security.html" class="md-nav__link">
         
   
@@ -1354,7 +1614,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter security
+    Security
   
 
     
@@ -1382,7 +1642,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter compression and encryption
+    Compression and encryption
   
 
     
@@ -1419,7 +1679,7 @@
   <span class="md-ellipsis">
     
   
-    Reading Audit Log Filter files
+    Read log files
   
 
     
@@ -1437,7 +1697,7 @@
   <span class="md-ellipsis">
     
   
-    Reading Audit Log Filter files
+    Read log files
   
 
     
@@ -1465,10 +1725,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#functions-used-for-reading-the-files" class="md-nav__link">
+  <a href="#reader-functions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Functions used for reading the files
+        Reader functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read commands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional reading
       
     </span>
   </a>
@@ -1491,34 +1773,6 @@
   
   
     <li class="md-nav__item">
-      <a href="manage-audit-log-filter.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Manage the Audit Log Filter files
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="filter-audit-log-filter-files.html" class="md-nav__link">
         
   
@@ -1526,7 +1780,7 @@
   <span class="md-ellipsis">
     
   
-    Filter the Audit Log Filter logs
+    Filter existing log files
   
 
     
@@ -1547,14 +1801,14 @@
   
   
     <li class="md-nav__item">
-      <a href="audit-log-filter-restrictions.html" class="md-nav__link">
+      <a href="manage-audit-log-filter.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Audit Log Filter restrictions
+    Manage log files
   
 
     
@@ -1582,7 +1836,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter file naming conventions
+    Log file naming
   
 
     
@@ -1591,6 +1845,131 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_8" id="__nav_5_2_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-variables.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions, options, variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-restrictions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Restrictions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1610,35 +1989,7 @@
   <span class="md-ellipsis">
     
   
-    Disable Audit Log Filter logging
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-variables.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Audit log filter functions, options, and variables
+    Disable
   
 
     
@@ -1666,7 +2017,7 @@
   <span class="md-ellipsis">
     
   
-    Uninstall Audit Log Filter
+    Uninstall
   
 
     
@@ -10034,10 +10385,32 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#functions-used-for-reading-the-files" class="md-nav__link">
+  <a href="#reader-functions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Functions used for reading the files
+        Reader functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read commands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional reading
       
     </span>
   </a>
@@ -10075,25 +10448,54 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="reading-audit-log-filter-files">Reading Audit Log Filter files<a class="headerlink" href="#reading-audit-log-filter-files" title="Permanent link">&para;</a></h1>
-<p>The Audit Log Filter functions can provide a SQL interface to read JSON-format audit log files. The functions cannot read log files in other formats. Configuring the component for JSON logging lets the functions use the directory that contains the current audit log filter file and search in that location for readable files. The value of the <code>audit_log_filter.file</code> system variable provides the file location, base name, and the suffix and then searches for names that match the pattern.</p>
-<p>If the file is renamed and no longer fits the pattern, the file is ignored.</p>
-<h2 id="functions-used-for-reading-the-files">Functions used for reading the files<a class="headerlink" href="#functions-used-for-reading-the-files" title="Permanent link">&para;</a></h2>
-<p>The following functions read the files in the JSON-format:</p>
+<p>Audit Log Filter exposes a SQL API to read audit files in JSON or JSONL only. Layout and the JSONL option are covered in <a href="audit-log-filter-json.html">Audit Log Filter format - JSON and JSONL</a> and <a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a>. Set <code>audit_log_filter.format</code> accordingly; <a href="audit-log-filter-variables.html#audit_log_filterfile"><code>audit_log_filter.file</code></a> defines the path, base name, and suffix used to locate files.</p>
+<p>If a file no longer matches that pattern, readers ignore it.</p>
+<h2 id="reader-functions">Reader functions<a class="headerlink" href="#reader-functions" title="Permanent link">&para;</a></h2>
+<p>Two functions read JSON or JSONL audit files:</p>
 <ul>
 <li>
-<p><a href="audit-log-filter-variables.html#audit_log_read"><code>audit_log_read</code></a> - reads audit log filter events</p>
+<p><a href="audit-log-filter-variables.html#audit_log_read"><code>audit_log_read</code></a> — returns audit events from the log.</p>
 </li>
 <li>
-<p><a href="audit-log-filter-variables.html#audit_log_read_bookmark"><code>audit_log_read_bookmark</code></a> - for the most recently read event, returns a bookmark. This bookmark can be passed to <code>audit_log_read()</code>.</p>
+<p><a href="audit-log-filter-variables.html#audit_log_read_bookmark"><code>audit_log_read_bookmark</code></a> — returns a bookmark for the last read position. Pass it into <code>audit_log_read()</code> to resume.</p>
 </li>
 </ul>
-<p>Initialize a read sequence by using a bookmark or an argument that specifies the start position:</p>
+<h2 id="read-commands">Read commands<a class="headerlink" href="#read-commands" title="Permanent link">&para;</a></h2>
+<p>A session holds at most one active read context. Pick one of the following commands to open, advance, or close it. For the full argument reference, see <a href="audit-log-filter-variables.html#audit_log_read"><code>audit_log_read()</code></a>.</p>
+<h3 id="resume-from-a-bookmark">Resume from a bookmark<a class="headerlink" href="#resume-from-a-bookmark" title="Permanent link">&para;</a></h3>
+<p>Start a read at the position returned by <code>audit_log_read_bookmark()</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="n">audit_log_read_bookmark</span><span class="p">());</span>
 </code></pre></div>
-<p>The following example continues reading from the current position:</p>
+<h3 id="start-at-a-timestamp">Start at a timestamp<a class="headerlink" href="#start-at-a-timestamp" title="Permanent link">&para;</a></h3>
+<p>Start a read at an explicit timestamp. When the timestamp omits a time part, the component assumes <code>00:00:00</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;start&quot;: {&quot;timestamp&quot;: &quot;2026-05-20 12:28:10&quot;}}&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;start&quot;: {&quot;timestamp&quot;: &quot;2026-05-20&quot;}}&#39;</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="address-one-specific-event">Address one specific event<a class="headerlink" href="#address-one-specific-event" title="Permanent link">&para;</a></h3>
+<p>Pass a bookmark literal with <code>timestamp</code> and <code>id</code> and no <code>start</code> envelope:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;timestamp&quot;: &quot;2026-05-20 12:28:10&quot;, &quot;id&quot;: 1561422}&#39;</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="limit-the-events-per-call">Limit the events per call<a class="headerlink" href="#limit-the-events-per-call" title="Permanent link">&para;</a></h3>
+<p>Cap how many events a single call returns by adding <code>max_array_length</code> to any positioning form:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;start&quot;: {&quot;timestamp&quot;: &quot;2026-05-20 12:28:10&quot;}, &quot;max_array_length&quot;: 3}&#39;</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="continue-from-the-current-cursor">Continue from the current cursor<a class="headerlink" href="#continue-from-the-current-cursor" title="Permanent link">&para;</a></h3>
+<p>After a read sequence is open, continue advancing without supplying a new position:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">();</span>
 </code></pre></div>
-<p>Reading a file is closed when the session ends or calling <code>audit_log_read()</code> with another argument.</p>
+<h3 id="close-the-active-sequence">Close the active sequence<a class="headerlink" href="#close-the-active-sequence" title="Permanent link">&para;</a></h3>
+<p>Release the reader cursor before opening a new sequence at a different position:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;null&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>A read sequence also ends when the session ends. A single call cannot combine the <code>start</code> envelope with a top-level <code>timestamp</code> or <code>id</code>. To reposition while a sequence is active, close it first with <code>'null'</code>.</p>
+<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="audit-log-filter-json.html">Audit Log Filter format - JSON and JSONL</a></li>
+<li><a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a></li>
+<li><a href="audit-log-filter-variables.html">Audit log filter functions, options, and variables</a></li>
+<li><a href="manage-audit-log-filter.html">Manage the Audit Log Filter files</a></li>
+<li><a href="audit-log-filter-overview.html">Audit Log Filter overview</a></li>
+</ul>
 
 
 
@@ -10116,7 +10518,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 12:49:59 UTC">February 3, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 21, 2026 21:58:55 UTC">July 21, 2026</span>
   </span>
 
     
@@ -10215,7 +10617,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
     
   
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="js/print-site.js"></script>
       

@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The JSON format has one top-level JSON array, which contain JSON objects with key-value pairs. These objects represent an event in the audit. Some pairs are listed in every audit record. The audit record type determines if other key-value pairs are listed. The order of the pairs within an audit record is not guaranteed. The value description may be truncated.">
+        <meta name="description" content="JSON and JSONL emit the same key-value pairs per event. Required keys appear in every record; optional keys depend on event type and settings. Key order is not guaranteed; long values may be truncated.">
       
       
         <meta name="author" content="Percona LLC">
@@ -28,15 +28,15 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
-        <title>JSON - Percona Server for MySQL</title>
+        <title>JSON and JSONL - Percona Server for MySQL</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -102,7 +102,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - JSON" />
+                 <meta property="og:title" content="Percona Server for MySQL - JSON and JSONL" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
               
@@ -125,7 +125,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#audit-log-filter-format-json" class="md-skip">
+        <a href="#audit-log-filter-format-json-and-jsonl" class="md-skip">
           Skip to content
         </a>
       
@@ -254,7 +254,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              JSON
+              JSON and JSONL
             
           </span>
         </div>
@@ -1031,14 +1031,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
     
     
     
@@ -1093,7 +1085,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter overview
+    Overview
   
 
     
@@ -1121,7 +1113,63 @@
   <span class="md-ellipsis">
     
   
-    Install the audit log filter
+    Install
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="migrate-to-audit-log-filter-component.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migrate from audit plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-quickstart.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
   
 
     
@@ -1162,17 +1210,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5_2_3" id="__nav_5_2_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_2_5" id="__nav_5_2_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Formats
+    Log file formats
   
 
     
@@ -1183,12 +1231,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_5_2_3">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_2_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Formats
+    Log file formats
   
 
           </label>
@@ -1236,7 +1284,7 @@
   <span class="md-ellipsis">
     
   
-    XML (New style)
+    XML (new style)
   
 
     
@@ -1264,7 +1312,7 @@
   <span class="md-ellipsis">
     
   
-    XML (Old style)
+    XML (old style)
   
 
     
@@ -1294,6 +1342,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON and JSONL
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="audit-log-filter-json.html" class="md-nav__link md-nav__link--active">
         
   
@@ -1301,7 +1367,7 @@
   <span class="md-ellipsis">
     
   
-    JSON
+    JSON and JSONL
   
 
     
@@ -1310,6 +1376,82 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#version-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version changes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attributes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jsonl-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSONL example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1330,6 +1472,63 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_6" id="__nav_5_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Define filters
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Define filters
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="write-filter-definitions.html" class="md-nav__link">
         
@@ -1338,7 +1537,7 @@
   <span class="md-ellipsis">
     
   
-    Write audit_log_filter definitons
+    Write filter definitions
   
 
     
@@ -1359,6 +1558,159 @@
   
   
     <li class="md-nav__item">
+      <a href="block-statements-with-audit-filter.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Block statements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="redact-audit-log-fields.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redact log fields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-definition-fields.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Definition fields reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_7" id="__nav_5_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operate
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operate
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="audit-log-filter-security.html" class="md-nav__link">
         
   
@@ -1366,7 +1718,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter security
+    Security
   
 
     
@@ -1394,7 +1746,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter compression and encryption
+    Compression and encryption
   
 
     
@@ -1422,35 +1774,7 @@
   <span class="md-ellipsis">
     
   
-    Reading Audit Log Filter files
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="manage-audit-log-filter.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Manage the Audit Log Filter files
+    Read log files
   
 
     
@@ -1478,7 +1802,7 @@
   <span class="md-ellipsis">
     
   
-    Filter the Audit Log Filter logs
+    Filter existing log files
   
 
     
@@ -1499,14 +1823,14 @@
   
   
     <li class="md-nav__item">
-      <a href="audit-log-filter-restrictions.html" class="md-nav__link">
+      <a href="manage-audit-log-filter.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Audit Log Filter restrictions
+    Manage log files
   
 
     
@@ -1534,7 +1858,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter file naming conventions
+    Log file naming
   
 
     
@@ -1543,6 +1867,131 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_8" id="__nav_5_2_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-variables.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions, options, variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-restrictions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Restrictions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1562,35 +2011,7 @@
   <span class="md-ellipsis">
     
   
-    Disable Audit Log Filter logging
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-variables.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Audit log filter functions, options, and variables
+    Disable
   
 
     
@@ -1618,7 +2039,7 @@
   <span class="md-ellipsis">
     
   
-    Uninstall Audit Log Filter
+    Uninstall
   
 
     
@@ -9979,6 +10400,69 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#version-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version changes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attributes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jsonl-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSONL example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                     </div>
                   </div>
@@ -10007,95 +10491,59 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="audit-log-filter-format-json">Audit Log Filter format - JSON<a class="headerlink" href="#audit-log-filter-format-json" title="Permanent link">&para;</a></h1>
-<p>The JSON format has one top-level JSON array, which contain JSON objects with key-value pairs. These objects represent an event in the audit. Some pairs are listed in every audit record. The audit record type determines if other key-value pairs are listed. The order of the pairs within an audit record is not guaranteed. The value description may be truncated.</p>
-<p>Certain statistics, such as query time and size, are only available in the JSON format and help detect activity outliers when analyzed. </p>
-<p><div class="highlight"><pre><span></span><code><span class="p">[</span>
-<span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-03-29 11:17:03&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;audit&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;server_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-03-29 11:17:05&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command_start&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;command_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command_start&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query&quot;</span><span class="p">}</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-03-29 11:17:05&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">332</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;account&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root[root] @ localhost []&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;login&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root[root] @ localhost []&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;os&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;proxy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;general_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">}</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-03-29 11:17:05&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query_start&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;query_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CREATE TABLE t1 (c1 INT)&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;sql_command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;create_table&quot;</span><span class="p">}</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-03-29 11:17:05&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query_status_end&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;query_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CREATE TABLE t1 (c1 INT)&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;sql_command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;create_table&quot;</span><span class="p">}</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-03-29 11:17:05&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;account&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root[root] @ localhost []&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;login&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root[root] @ localhost []&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;os&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;proxy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;general_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Query&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;sql_command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;create_table&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CREATE TABLE t1 (c1 INT)&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">}</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-03-29 11:17:05&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command_end&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;command_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command_end&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query&quot;</span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">]</span>
-</code></pre></div>
-The order of the attributes within the JSON object can vary. Certain attributes are in every element. Other attributes are optional and depend on the type of event and the filter settings or component settings.</p>
-<p>The following fields are contained in each object:</p>
+<h1 id="audit-log-filter-format-json-and-jsonl">Audit Log Filter format - JSON and JSONL<a class="headerlink" href="#audit-log-filter-format-json-and-jsonl" title="Permanent link">&para;</a></h1>
+<p>JSON and JSONL emit the same key-value pairs per event. Required keys appear in every record; optional keys depend on event type and settings. Key order is not guaranteed; long values may be truncated.</p>
+<p>Only file layout differs:</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>File structure</th>
+<th>Set with</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JSON</td>
+<td>One top-level JSON array. Each event is a pretty-printed JSON object spanning multiple lines.</td>
+<td><code>audit_log_filter.format=JSON</code></td>
+</tr>
+<tr>
+<td>JSONL</td>
+<td>One top-level JSON array. Each event is a single compact JSON object on its own line, separated by commas.</td>
+<td><code>audit_log_filter.format=JSONL</code></td>
+</tr>
+</tbody>
+</table>
+<p>JSONL arrived in Percona Server for MySQL 8.4.9-9. Unlike plain <a href="https://jsonlines.org/">JSON Lines</a>, Percona JSONL keeps a wrapping JSON array and commas between lines, so the file stays valid JSON while remaining line-friendly for <code>grep</code>, <code>jq</code>, <code>wc -l</code>, streams, and aggregators.</p>
+<p>Compression and encryption behave like JSON. <code>audit_log_read()</code> and <code>audit_log_read_bookmark()</code> read both formats.</p>
+<p>JSON and JSONL alone expose some statistics (for example query timing and size)—use them to flag outliers in workload analysis.</p>
+<h2 id="version-changes">Version changes<a class="headerlink" href="#version-changes" title="Permanent link">&para;</a></h2>
+<h3 id="percona-server-for-mysql-849-9">Percona Server for MySQL 8.4.9-9<a class="headerlink" href="#percona-server-for-mysql-849-9" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Component startup and shutdown events include <code>event</code>, <code>connection_id</code>, <code>account</code>, <code>login</code>, and a <code>startup_data</code> object. The <code>startup_data</code> object holds <code>server_id</code>, <code>os_version</code>, <code>mysql_version</code>, and <code>args</code> (command-line arguments). Earlier releases exposed only <code>server_id</code> at the top level for those records.</p>
+</li>
+<li>
+<p>Lifecycle <code>event</code> values changed from the internal names <code>audit</code> / <code>noaudit</code> to <code>startup</code> / <code>shutdown</code>.</p>
+</li>
+<li>
+<p>On connection events, <code>connection_attributes</code> are nested inside the <code>connection_data</code> object.</p>
+</li>
+<li>
+<p>Message events: the <code>message_attributes</code> key is replaced by <code>map</code>; message events also include <code>account</code> and <code>login</code>.</p>
+</li>
+</ul>
+<h2 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
+<p>Field sets match between JSON and JSONL; only wrapping differs. See the preceding table for details.</p>
+<p>Every event object includes at least:</p>
 <ul>
 <li><code>timestamp</code></li>
 <li><code>id</code></li>
 <li><code>class</code></li>
 <li><code>event</code></li>
 </ul>
-<p>The possible attributes in a JSON object are the following:</p>
+<p>Other common keys:</p>
 <table>
 <thead>
 <tr>
@@ -10105,63 +10553,156 @@ The order of the attributes within the JSON object can vary. Certain attributes 
 </thead>
 <tbody>
 <tr>
-<td><code>class</code></td>
-<td>Defines the type of event</td>
-</tr>
-<tr>
 <td><code>account</code></td>
-<td>Defines the MySQL account associated with the event.</td>
+<td>Database account for the event</td>
 </tr>
 <tr>
 <td><code>connection_data</code></td>
-<td>Defines the client connection.</td>
+<td>Client connection details. From 8.4.9-9, <code>connection_attributes</code> nest here on connection events.</td>
 </tr>
 <tr>
 <td><code>connection_id</code></td>
-<td>Defines the client connection identifier</td>
-</tr>
-<tr>
-<td><code>event</code></td>
-<td>Defines a subclass of the <code>event</code> class</td>
+<td>Client connection ID</td>
 </tr>
 <tr>
 <td><code>general_data</code></td>
-<td>Defines the executed statement or command when the audit record has a class value of <code>general</code>.</td>
+<td>Statement or command when <code>class</code> is <code>general</code></td>
 </tr>
 <tr>
 <td><code>id</code></td>
-<td>Defines the event ID</td>
+<td>Event ID</td>
 </tr>
 <tr>
 <td><code>login</code></td>
-<td>Defines how the client connected to the server</td>
+<td>How the client attached to the server</td>
+</tr>
+<tr>
+<td><code>map</code></td>
+<td>8.4.9-9+ Message payload (replaces <code>message_attributes</code>). Message events also carry <code>account</code> and <code>login</code>.</td>
 </tr>
 <tr>
 <td><code>query_statistics</code></td>
-<td>Defines optional query statistics and is used for outlier detection</td>
+<td>Optional metrics for outlier detection</td>
 </tr>
 <tr>
 <td><code>shutdown_data</code></td>
-<td>Defines the audit log filter termination</td>
+<td>Component shutdown</td>
 </tr>
 <tr>
 <td><code>startup_data</code></td>
-<td>Defines the initialization of the audit log filter component</td>
+<td>Component startup; from 8.4.9-9 includes <code>server_id</code>, <code>os_version</code>, <code>mysql_version</code>, <code>args</code></td>
 </tr>
 <tr>
 <td><code>table_access_data</code></td>
-<td>Defines access to a table</td>
+<td>Table access details</td>
 </tr>
 <tr>
 <td><code>time</code></td>
-<td>Defines an integer that represents a UNIX timestamp</td>
+<td>UNIX timestamp (integer) when present</td>
 </tr>
 <tr>
 <td><code>timestamp</code></td>
-<td>Defines a UTC value in the <code>YYYY-MM_DD hh:mm:ss</code> format</td>
+<td>UTC time <code>YYYY-MM-DD hh:mm:ss</code></td>
 </tr>
 </tbody>
 </table>
+<h2 id="json-example">JSON example<a class="headerlink" href="#json-example" title="Permanent link">&para;</a></h2>
+<p>The following shows four event types recorded in <code>REDUCED</code> event mode: startup, connection, table access, and general status.</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-04-03 10:43:52&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;audit&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;startup&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;account&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;login&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;os&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;proxy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;startup_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;server_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;os_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;x86_64-Linux&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;mysql_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.4.9-9&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;/usr/sbin/mysqld&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;--defaults-file=/etc/my.cnf&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;--basedir=/usr&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;--user=mysql&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;--datadir=/var/lib/mysql&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;--socket=/var/run/mysqld/mysqld.sock&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;--port=3306&quot;</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-04-03 10:43:53&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connect&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">39</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;account&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;login&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;os&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;proxy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;connection_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;connection_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;socket&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;db&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;connection_attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;_pid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;824388&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;_platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;x86_64&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;_client_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.0.45&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;_os&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Linux&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;_client_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;libmysql&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-04-03 10:43:53&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;read&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;account&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;login&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;os&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;proxy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;table_access_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;db&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;table&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sbtest2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;sql_command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;select&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-04-03 10:43:53&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;account&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;login&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;os&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;proxy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;general_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Query&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;sql_command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;select&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<h2 id="jsonl-example">JSONL example<a class="headerlink" href="#jsonl-example" title="Permanent link">&para;</a></h2>
+<p>In the JSONL format each event is a single compact JSON object on its own line, separated by commas inside a wrapping JSON array. The same events from the preceding JSON example look like this:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="p">{</span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="s2">&quot;2026-04-03 10:43:52&quot;</span><span class="p">,</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="s2">&quot;audit&quot;</span><span class="p">,</span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="s2">&quot;startup&quot;</span><span class="p">,</span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span><span class="nt">&quot;account&quot;</span><span class="p">:{</span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="s2">&quot;localhost&quot;</span><span class="p">},</span><span class="nt">&quot;login&quot;</span><span class="p">:{</span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="nt">&quot;os&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;proxy&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">},</span><span class="nt">&quot;startup_data&quot;</span><span class="p">:{</span><span class="nt">&quot;server_id&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">&quot;os_version&quot;</span><span class="p">:</span><span class="s2">&quot;x86_64-Linux&quot;</span><span class="p">,</span><span class="nt">&quot;mysql_version&quot;</span><span class="p">:</span><span class="s2">&quot;8.4.9-9&quot;</span><span class="p">,</span><span class="nt">&quot;args&quot;</span><span class="p">:[</span><span class="s2">&quot;/usr/sbin/mysqld&quot;</span><span class="p">,</span><span class="s2">&quot;--defaults-file=/etc/my.cnf&quot;</span><span class="p">,</span><span class="s2">&quot;--basedir=/usr&quot;</span><span class="p">,</span><span class="s2">&quot;--user=mysql&quot;</span><span class="p">,</span><span class="s2">&quot;--datadir=/var/lib/mysql&quot;</span><span class="p">,</span><span class="s2">&quot;--socket=/var/run/mysqld/mysqld.sock&quot;</span><span class="p">,</span><span class="s2">&quot;--port=3306&quot;</span><span class="p">]}},</span>
+<span class="p">{</span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="s2">&quot;2026-04-03 10:43:53&quot;</span><span class="p">,</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="s2">&quot;connection&quot;</span><span class="p">,</span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="s2">&quot;connect&quot;</span><span class="p">,</span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="mi">39</span><span class="p">,</span><span class="nt">&quot;account&quot;</span><span class="p">:{</span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="s2">&quot;localhost&quot;</span><span class="p">},</span><span class="nt">&quot;login&quot;</span><span class="p">:{</span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="nt">&quot;os&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;proxy&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">},</span><span class="nt">&quot;connection_data&quot;</span><span class="p">:{</span><span class="nt">&quot;connection_type&quot;</span><span class="p">:</span><span class="s2">&quot;socket&quot;</span><span class="p">,</span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">&quot;db&quot;</span><span class="p">:</span><span class="s2">&quot;test&quot;</span><span class="p">,</span><span class="nt">&quot;connection_attributes&quot;</span><span class="p">:{</span><span class="nt">&quot;_pid&quot;</span><span class="p">:</span><span class="s2">&quot;824388&quot;</span><span class="p">,</span><span class="nt">&quot;_platform&quot;</span><span class="p">:</span><span class="s2">&quot;x86_64&quot;</span><span class="p">,</span><span class="nt">&quot;_client_version&quot;</span><span class="p">:</span><span class="s2">&quot;8.0.45&quot;</span><span class="p">,</span><span class="nt">&quot;_os&quot;</span><span class="p">:</span><span class="s2">&quot;Linux&quot;</span><span class="p">,</span><span class="nt">&quot;_client_name&quot;</span><span class="p">:</span><span class="s2">&quot;libmysql&quot;</span><span class="p">}}},</span>
+<span class="p">{</span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="s2">&quot;2026-04-03 10:43:53&quot;</span><span class="p">,</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="s2">&quot;read&quot;</span><span class="p">,</span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span><span class="nt">&quot;account&quot;</span><span class="p">:{</span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="s2">&quot;localhost&quot;</span><span class="p">},</span><span class="nt">&quot;login&quot;</span><span class="p">:{</span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="nt">&quot;os&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;proxy&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">},</span><span class="nt">&quot;table_access_data&quot;</span><span class="p">:{</span><span class="nt">&quot;db&quot;</span><span class="p">:</span><span class="s2">&quot;test&quot;</span><span class="p">,</span><span class="nt">&quot;table&quot;</span><span class="p">:</span><span class="s2">&quot;sbtest2&quot;</span><span class="p">,</span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="s2">&quot;SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099&quot;</span><span class="p">,</span><span class="nt">&quot;sql_command&quot;</span><span class="p">:</span><span class="s2">&quot;select&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="s2">&quot;2026-04-03 10:43:53&quot;</span><span class="p">,</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="s2">&quot;general&quot;</span><span class="p">,</span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="s2">&quot;status&quot;</span><span class="p">,</span><span class="nt">&quot;connection_id&quot;</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span><span class="nt">&quot;account&quot;</span><span class="p">:{</span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="s2">&quot;localhost&quot;</span><span class="p">},</span><span class="nt">&quot;login&quot;</span><span class="p">:{</span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="nt">&quot;os&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;proxy&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">},</span><span class="nt">&quot;general_data&quot;</span><span class="p">:{</span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="s2">&quot;Query&quot;</span><span class="p">,</span><span class="nt">&quot;sql_command&quot;</span><span class="p">:</span><span class="s2">&quot;select&quot;</span><span class="p">,</span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="s2">&quot;SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099&quot;</span><span class="p">,</span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">}}</span>
+<span class="p">]</span>
+</code></pre></div>
+<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a></li>
+<li><a href="audit-log-filter-new.html">Audit Log Filter format - XML (new style)</a></li>
+<li><a href="reading-audit-log-filter-files.html">Reading Audit Log Filter files</a></li>
+<li><a href="audit-log-filter-variables.html">Audit log filter functions, options, and variables</a> — <code>audit_log_read()</code>, <code>audit_log_read_bookmark()</code>, format options</li>
+<li><a href="audit-log-filter-compression-encryption.html">Audit Log Filter compression and encryption</a></li>
+<li><a href="manage-audit-log-filter.html">Manage the Audit Log Filter files</a></li>
+</ul>
 
 
 
@@ -10184,7 +10725,7 @@ The order of the attributes within the JSON object can vary. Certain attributes 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 29, 2025 00:13:21 UTC">August 29, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 21, 2026 21:58:55 UTC">July 21, 2026</span>
   </span>
 
     
@@ -10217,14 +10758,14 @@ The order of the attributes within the JSON object can vary. Certain attributes 
           <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
         </a>
       
-        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
-          
-          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
-        </a>
-      
         <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
           
           <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
+      
+        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
+          
+          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
         </a>
       
       
@@ -10316,7 +10857,7 @@ The order of the attributes within the JSON object can vary. Certain attributes 
     
     
   
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="js/print-site.js"></script>
       

@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The Audit Log Filter component allows you to monitor, log, and block a connection or query actively executed on the selected server.">
+        <meta name="description" content="The Audit Log Filter component audits activity on the server you configure by recording events to a log. Filtering rules control which events are written. Events that match a rule’s log condition are recorded; everything else is skipped and never reaches the log.">
       
       
         <meta name="author" content="Percona LLC">
@@ -28,15 +28,15 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
-        <title>Audit Log Filter overview - Percona Server for MySQL</title>
+        <title>Overview - Percona Server for MySQL</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -102,7 +102,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Audit Log Filter overview" />
+                 <meta property="og:title" content="Percona Server for MySQL - Overview" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
               
@@ -254,7 +254,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Audit Log Filter overview
+              Overview
             
           </span>
         </div>
@@ -1031,14 +1031,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
     
     
     
@@ -1102,7 +1094,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter overview
+    Overview
   
 
     
@@ -1120,7 +1112,7 @@
   <span class="md-ellipsis">
     
   
-    Audit Log Filter overview
+    Overview
   
 
     
@@ -1148,6 +1140,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audit-data-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audit data flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#privileges" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1163,6 +1177,17 @@
     <span class="md-ellipsis">
       
         Audit Log Filter tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional reading
       
     </span>
   </a>
@@ -1192,7 +1217,63 @@
   <span class="md-ellipsis">
     
   
-    Install the audit log filter
+    Install
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="migrate-to-audit-log-filter-component.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migrate from audit plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-quickstart.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
   
 
     
@@ -1231,17 +1312,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_5_2_3" id="__nav_5_2_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_2_5" id="__nav_5_2_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Formats
+    Log file formats
   
 
     
@@ -1252,12 +1333,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_2_3">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Formats
+    Log file formats
   
 
           </label>
@@ -1305,7 +1386,7 @@
   <span class="md-ellipsis">
     
   
-    XML (New style)
+    XML (new style)
   
 
     
@@ -1333,7 +1414,7 @@
   <span class="md-ellipsis">
     
   
-    XML (Old style)
+    XML (old style)
   
 
     
@@ -1361,7 +1442,538 @@
   <span class="md-ellipsis">
     
   
-    JSON
+    JSON and JSONL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_6" id="__nav_5_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Define filters
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Define filters
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="write-filter-definitions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Write filter definitions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="block-statements-with-audit-filter.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Block statements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="redact-audit-log-fields.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redact log fields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-definition-fields.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Definition fields reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_7" id="__nav_5_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operate
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operate
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-compression-encryption.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compression and encryption
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reading-audit-log-filter-files.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Read log files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="filter-audit-log-filter-files.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Filter existing log files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="manage-audit-log-filter.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manage log files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-naming.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log file naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_8" id="__nav_5_2_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-variables.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions, options, variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="audit-log-filter-restrictions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Restrictions
   
 
     
@@ -1390,230 +2002,6 @@
   
   
     <li class="md-nav__item">
-      <a href="write-filter-definitions.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Write audit_log_filter definitons
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-security.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Audit Log Filter security
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-compression-encryption.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Audit Log Filter compression and encryption
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="reading-audit-log-filter-files.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Reading Audit Log Filter files
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="manage-audit-log-filter.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Manage the Audit Log Filter files
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="filter-audit-log-filter-files.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Filter the Audit Log Filter logs
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-restrictions.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Audit Log Filter restrictions
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-naming.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Audit Log Filter file naming conventions
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="disable-audit-log-filter.html" class="md-nav__link">
         
   
@@ -1621,35 +2009,7 @@
   <span class="md-ellipsis">
     
   
-    Disable Audit Log Filter logging
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="audit-log-filter-variables.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Audit log filter functions, options, and variables
+    Disable
   
 
     
@@ -1677,7 +2037,7 @@
   <span class="md-ellipsis">
     
   
-    Uninstall Audit Log Filter
+    Uninstall
   
 
     
@@ -10045,6 +10405,28 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audit-data-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audit data flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#privileges" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10060,6 +10442,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-ellipsis">
       
         Audit Log Filter tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional reading
       
     </span>
   </a>
@@ -10097,20 +10490,43 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="audit-log-filter-overview">Audit Log Filter overview<a class="headerlink" href="#audit-log-filter-overview" title="Permanent link">&para;</a></h1>
-<p>The Audit Log Filter component allows you to monitor, log, and block a connection or query actively executed on the selected server. </p>
-<p>Enabling the component produces a log file that contains a record of server activity. The log file has information on connections and databases accessed by that connection. </p>
-<p>Set <a href="audit-log-filter-variables.html#audit_log_filterformat"><code>audit_log_filter.format</code></a> at startup to choose NEW (default), OLD, or JSON output. For new-style XML, the description in this documentation is aligned to the server from Percona Server for MySQL 8.4.8-8 onward on the 8.4 line (this docs build: 8.4.10-10)—for example audit logging on/off uses <code>Startup</code> / <code>Shutdown</code>, disconnect events use <code>Disconnect</code>, and the NEW formatter does not emit <code>STATUS_CODE</code> or fields such as <code>VERSION</code>, <code>STARTUP_OPTIONS</code>, <code>MYSQL_VERSION</code>, and <code>OS_VERSION</code> on the audit lifecycle records. See <a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a> and <a href="audit-log-filter-new.html">XML (new style)</a>.</p>
-<p>The component uses the <code>mysql</code> system database to store filter and user account data. Set the <a href="audit-log-filter-variables.html#audit_log_filterdatabase"><code>audit_log_filter.database</code></a> variable at server startup to select a different database.</p>
-<p>The <code>AUDIT_ADMIN</code> privilege is required to enable users to manage the Audit Log Filter component.</p>
+<p>The Audit Log Filter component audits activity on the server you configure by recording events to a log. Filtering rules control which events are written. Events that match a rule&rsquo;s <code>log</code> condition are recorded; everything else is skipped and never reaches the log.</p>
+<p>With the component enabled, the server can capture who connected, which statements ran, and which schemas sessions touched — subject to those filter rules.</p>
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<p>The following diagram shows how the Audit Log Filter component sits between the server core, your filter rules, and audit output.</p>
+<p><img alt="Audit Log Filter component architecture" src="_static/audit-log-filter-arch.png" /></p>
+<h3 id="why-the-filter-component">Why the filter component<a class="headerlink" href="#why-the-filter-component" title="Permanent link">&para;</a></h3>
+<p>The component replaces the <a href="audit-log-plugin.html">legacy audit log plugin</a>. The design centers on three goals that the plugin could not meet:</p>
+<ul>
+<li>
+<p>Change rules without restarting the server. Filter definitions and account assignments live in <code>mysql</code> system tables. Updates via <a href="audit-log-filter-variables.html"><code>audit_log_filter_set_filter()</code></a> and <a href="audit-log-filter-variables.html"><code>audit_log_filter_set_user()</code></a> take effect on new sessions (and reloads) without bouncing the server. The legacy plugin required <code>audit_log_*</code> system-variable changes that often meant a restart or plugin reinstall to adjust scope.</p>
+</li>
+<li>
+<p>Scope audits per account, not globally. Each row in <code>mysql.audit_log_user</code> binds a user or user-pattern to a named filter, so <code>admin@%</code> and <code>app@%</code> can be audited differently on the same instance. The legacy plugin offered only global include/exclude lists (<code>audit_log_include_accounts</code> / <code>audit_log_exclude_accounts</code>) on top of a single policy preset.</p>
+</li>
+<li>
+<p>Express rules as data, not as knob settings. Filter definitions are JSON documents. A rule can match an event, a class, a subclass, or a specific field value; combine matches with <code>and</code> / <code>or</code> / <code>not</code>; call predefined variables and functions; use <code>log</code> conditions to write or skip each event; and redact statement text in place with <code>print</code> / <code>replace</code>. The legacy plugin had policy presets (<code>LOGINS</code>, <code>QUERIES</code>, <code>ALL</code>, …) with far coarser control and no per-event skip logic or redaction.</p>
+</li>
+</ul>
+<p>A secondary benefit falls out of the design: events that a filter skips never reach the formatter or the writer, so the cost of &ldquo;audit everything, then throw most of it away&rdquo; is avoided at the source. Combined with per-account scoping, this lets operators raise audit detail on sensitive accounts without paying for verbose logging elsewhere.</p>
+<p>See <a href="write-filter-definitions.html">Write audit_log_filter definitions</a> for the JSON grammar, <a href="block-statements-with-audit-filter.html">Block statements with an audit log filter</a> for <code>abort</code>, and <a href="redact-audit-log-fields.html">Redact audit log fields</a> for <code>print</code> / <code>replace</code>.</p>
+<h2 id="audit-data-flow">Audit data flow<a class="headerlink" href="#audit-data-flow" title="Permanent link">&para;</a></h2>
+<p>The following diagram traces audit events from the server through filtering and formatting into the log (file, syslog, or another handler).</p>
+<p><img alt="Audit Log Filter data flow" src="_static/audit-data-flow.png" /></p>
+<p>Set <a href="audit-log-filter-variables.html#audit_log_filterformat"><code>audit_log_filter.format</code></a> at startup. <a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a> compares NEW (the default in Percona Server 8.4), OLD, JSON, and JSONL.</p>
+<p><a href="audit-log-filter-variables.html#audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> selects which event classes the component audits (default <code>REDUCED</code>; <code>FULL</code> enables every class the component supports, including beyond the four core classes). That reference lists full class sets, validation rules, and behavior on older releases.</p>
+<p>The component stores filter definitions and account assignments in the <code>mysql</code> system database. Set <a href="audit-log-filter-variables.html#audit_log_filterdatabase"><code>audit_log_filter.database</code></a> at startup to use a different database.</p>
+<p>You need <code>AUDIT_ADMIN</code> to administer the Audit Log Filter component.</p>
 <h2 id="privileges">Privileges<a class="headerlink" href="#privileges" title="Permanent link">&para;</a></h2>
-<p>Define the privilege at runtime at the startup of the server. The associated Audit Log Filter privilege can be unavailable if the component is not enabled.</p>
+<p>Define the privilege at server startup. If the component is not loaded, the server does not expose the Audit Log Filter privilege.</p>
 <h3 id="audit_admin"><code>AUDIT_ADMIN</code><a class="headerlink" href="#audit_admin" title="Permanent link">&para;</a></h3>
-<p>This privilege is defined by the server and enables the user to configure the component.</p>
+<p>The server defines <code>AUDIT_ADMIN</code> so grantees can configure the component.</p>
 <h3 id="audit_abort_exempt"><code>AUDIT_ABORT_EXEMPT</code><a class="headerlink" href="#audit_abort_exempt" title="Permanent link">&para;</a></h3>
-<p>This privilege allows queries from a user account to always be executed. An <code>abort</code> item does not block them. This ability lets the user account regain access to a system if an audit is misconfigured. The query is logged due to the privilege. User accounts with the <code>SYSTEM_USER</code> privilege have the <code>AUDIT_ABORT_EXEMPT</code> privilege.</p>
+<p>A filter may include an <code>abort</code> rule that blocks matching statements. To bypass those aborts, an account needs both <code>SYSTEM_USER</code> and the global <code>AUDIT_ABORT_EXEMPT</code> privilege (granted on <code>*.*</code>).</p>
+<p>Only that pair lets matching statements run when a filter would otherwise abort them. The component still writes those statements to the audit log.</p>
 <h2 id="audit-log-filter-tables">Audit Log Filter tables<a class="headerlink" href="#audit-log-filter-tables" title="Permanent link">&para;</a></h2>
-<p>The Audit Log Filter component uses <code>mysql</code> system database tables in the <code>InnoDB</code> storage engine. These tables store user account data and filter data. When you start the server, change the component&rsquo;s database with the <code>audit_log_filter.database</code> variable.</p>
-<p>The <code>audit_log_filter</code> table stores the definitions of the filters and has the following column definitions:</p>
+<p>The Audit Log Filter component uses <code>mysql</code> system tables on <code>InnoDB</code>. They hold account assignments and filter JSON. Point the component at another database with <code>audit_log_filter.database</code> when the server starts.</p>
+<p>The <code>audit_log_filter</code> table stores named filter definitions:</p>
 <table>
 <thead>
 <tr>
@@ -10121,15 +10537,15 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <tbody>
 <tr>
 <td>NAME</td>
-<td>Name of the filter</td>
+<td>Filter name</td>
 </tr>
 <tr>
 <td>FILTER</td>
-<td>Definition of the filter linked to the name as a JSON value</td>
+<td>JSON filter definition linked to that name</td>
 </tr>
 </tbody>
 </table>
-<p>The <code>audit_log_user</code> table stores account data and has the following column definitions:</p>
+<p>The <code>audit_log_user</code> table maps accounts to filters:</p>
 <table>
 <thead>
 <tr>
@@ -10140,18 +10556,34 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <tbody>
 <tr>
 <td>USER</td>
-<td>The account name of the user</td>
+<td>MySQL account user part</td>
 </tr>
 <tr>
 <td>HOST</td>
-<td>The account name of the host</td>
+<td>MySQL account host part</td>
 </tr>
 <tr>
 <td>FILTERNAME</td>
-<td>The account filter name</td>
+<td>Name of the assigned filter</td>
 </tr>
 </tbody>
 </table>
+<h3 id="filter-storage-hierarchy">Filter storage hierarchy<a class="headerlink" href="#filter-storage-hierarchy" title="Permanent link">&para;</a></h3>
+<p>The following diagram shows how rows in <code>audit_log_filter</code> map to <code>audit_log_user</code>, including the default <code>%</code> account.</p>
+<p><img alt="Audit Log Filter storage hierarchy" src="_static/audit-filter-hierarchy.png" /></p>
+<p>On connect, the component loads one filter definition from the matching <code>USER</code>/<code>HOST</code> row in <code>mysql.audit_log_user</code>, or falls back to the default account (<code>%</code>). A concrete account (for example <code>admin</code>@<code>localhost</code>) overrides a <code>%</code> assignment. Rules inside that filter&rsquo;s JSON (for example <code>log</code> conditions that test <code>user.str</code> or <code>host.str</code> with <code>field</code> items) apply after load — they narrow which events get written, but do not act as a second assigned filter. See <a href="filter-audit-log-filter-files.html#using-the-audit-log-filter-functions">Filter the Audit Log Filter logs</a> for assignment order and wildcards, and <a href="write-filter-definitions.html#test-event-field-values">Write audit_log_filter definitions</a> for the JSON grammar that <code>log</code> conditions use.</p>
+<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="install-audit-log-filter.html">Install the audit log filter</a></li>
+<li><a href="audit-log-filter-quickstart.html">Audit Log Filter quickstart</a></li>
+<li><a href="audit-log-filter-variables.html">Audit log filter functions, options, and variables</a></li>
+<li><a href="write-filter-definitions.html">Write audit_log_filter definitions</a></li>
+<li><a href="filter-audit-log-filter-files.html">Filter the Audit Log Filter logs</a></li>
+<li><a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a></li>
+<li><a href="migrate-to-audit-log-filter-component.html">Migrate to the audit log filter component</a> — coming from either audit plugin: variable mapping, policy translation, worked example, cutover</li>
+<li><a href="upgrade-components.html">Upgrade components</a> — general plugin-to-component transition procedure</li>
+<li><a href="audit-log-plugin.html">Audit log plugin</a> — deprecated plugin reference</li>
+</ul>
 
 
 
@@ -10174,7 +10606,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 24, 2026 15:12:40 UTC">March 24, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 21, 2026 21:58:55 UTC">July 21, 2026</span>
   </span>
 
     
@@ -10207,14 +10639,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
           <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
         </a>
       
-        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
-          
-          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
-        </a>
-      
         <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
           
           <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
+      
+        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
+          
+          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
         </a>
       
       
@@ -10306,7 +10738,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
     
   
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="js/print-site.js"></script>
       
