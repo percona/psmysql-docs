@@ -22,6 +22,8 @@ The following guides describe the installation procedures for using the official
 
 * [Install Percona Server for MySQL on Red Hat Enterprise Linux and derivatives](yum-repo.md)
 
+* [Install {{post}} releases](install-eol.md)
+
 [Telemetry data]: telemetry.md
 [Percona Software repositories and the percona-release tool]:percona-release.md
 [Quickstart guide]: quickstart-overview.md
