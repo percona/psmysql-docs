@@ -51,6 +51,10 @@ Review these documents to understand breaking changes, removed features, and com
 
 * [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md) - Review toolkit changes if you use Percona Toolkit
 
+Plan a migration to Percona Server for MySQL 9.7 LTS.
+
+See the [MySQL 9.7 technical migration overview](./whats-new-mysql-9.md) for breaking changes, compatibility, removed items, defaults, and tuning.
+
 ### Step 2: Complete pre-upgrade preparation
 
 Work through the pre-upgrade checks in the [upgrade checklist](./upgrade-checklist-8.4.md). This includes:
@@ -139,12 +143,10 @@ Review these upgrade-related documents:
 * [Downgrade options](./downgrade.md)
 
 * [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md)
-
 * [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md)
-
 * [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
-
 * [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md)
+* [MySQL 9.7 technical migration overview](./whats-new-mysql-9.md)
 
 ### Additional MySQL documentation
 
