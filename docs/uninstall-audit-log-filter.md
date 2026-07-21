@@ -1,13 +1,20 @@
 # Uninstall Audit Log Filter
 
-If you no longer need the audit log filter functionality, you can remove the component from server using the following command:
+To remove the Audit Log Filter component from the server, run:
 
 ```sql
 UNINSTALL COMPONENT 'file://component_audit_log_filter';
 ```
 
-This command does the following:
+What this does:
 
-*	`UNINSTALL COMPONENT`: This tells the server to remove a plugin or feature that was previously installed.
-	
-*	`file://component_audit_log_filter`: This is the identifier for the Audit Log Filter Component, which is responsible for applying rules to decide which audit log events are recorded.
+* `UNINSTALL COMPONENT` — Drops a previously installed component from the server.
+* `file://component_audit_log_filter` — URN for the Audit Log Filter component, which applies your rules and decides which audit events are recorded.
+
+## Additional reading
+
+* [Install the audit log filter](install-audit-log-filter.md)
+* [Audit Log Filter overview](audit-log-filter-overview.md)
+* [Upgrade components](upgrade-components.md)
+* [Disable Audit Log Filter logging](disable-audit-log-filter.md)
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md)

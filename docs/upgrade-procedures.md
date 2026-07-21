@@ -151,16 +151,16 @@ Use this method when you cannot use repositories or need to install from manuall
         * `percona-server-common`
         * `libperconaserverclient21`
 
-        The following example downloads Percona Server for MySQL {{release}} packages for Debian 11.0:
+        The following example downloads Percona Server for MySQL {{release}} packages for Debian 12.0:
 
         ```shell
-        wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/debian/bullseye/x86_64/Percona-Server-{{release}}-r582ebeef-bullseye-x86_64-bundle.tar
+        wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/debian/bookworm/x86_64/Percona-Server-{{release}}-r582ebeef-bookworm-x86_64-bundle.tar
         ```
 
     4. Unpack the bundle to get the packages:
 
         ```shell
-        tar xvf Percona-Server-{{release}}-r582ebeef-bullseye-x86_64-bundle.tar
+        tar xvf Percona-Server-{{release}}-r582ebeef-bookworm-x86_64-bundle.tar
         ```
 
         After you unpack the bundle, you should see the following packages:
@@ -172,16 +172,16 @@ Use this method when you cannot use repositories or need to install from manuall
         ??? example "Expected output"
 
             ```{.text .no-copy}
-            libperconaserverclient21-dev_{{release}}.bullseye_amd64.deb  
-            percona-server-dbg_{{release}}.bullseye_amd64.deb
-            libperconaserverclient21_{{release}}.bullseye_amd64.deb      
-            percona-server-rocksdb_{{release}}.bullseye_amd64.deb
-            percona-mysql-router_{{release}}.bullseye_amd64.deb
-            percona-server-server_{{release}}.bullseye_amd64.deb
-            percona-server-client_{{release}}.bullseye_amd64.deb     
-            percona-server-source_{{release}}.bullseye_amd64.deb
-            percona-server-common_{{release}}.bullseye_amd64.deb     
-            percona-server-test_{{release}}.bullseye_amd64.deb
+            libperconaserverclient21-dev_{{release}}.bookworm_amd64.deb
+            percona-server-dbg_{{release}}.bookworm_amd64.deb
+            libperconaserverclient21_{{release}}.bookworm_amd64.deb      
+            percona-server-rocksdb_{{release}}.bookworm_amd64.deb
+            percona-mysql-router_{{release}}.bookworm_amd64.deb
+            percona-server-server_{{release}}.bookworm_amd64.deb
+            percona-server-client_{{release}}.bookworm_amd64.deb
+            percona-server-source_{{release}}.bookworm_amd64.deb
+            percona-server-common_{{release}}.bookworm_amd64.deb
+            percona-server-test_{{release}}.bookworm_amd64.deb
             ```
 
     5. Install Percona Server for MySQL:
@@ -190,7 +190,7 @@ Use this method when you cannot use repositories or need to install from manuall
         sudo dpkg -i *.deb
         ```
 
-        This command installs the packages from the bundle. Another option is to download or specify only the packages you need for running Percona Server for MySQL installation (`libperconaserverclient21_{{release}}.bullseye_amd64.deb`, `percona-server-client_{{release}}.bullseye_amd64.deb`, `percona-server-common_{{release}}.bullseye_amd64.deb`, and `percona-server-server_{{release}}.bullseye_amd64.deb`).
+        This command installs the packages from the bundle. Another option is to download or specify only the packages you need for running Percona Server for MySQL installation (`libperconaserverclient21_{{release}}.bookworm_amd64.deb`, `percona-server-client_{{release}}.bookworm_amd64.deb`, `percona-server-common_{{release}}.bookworm_amd64.deb`, and `percona-server-server_{{release}}.bookworm_amd64.deb`).
 
         !!! warning
 

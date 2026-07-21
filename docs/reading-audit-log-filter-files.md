@@ -1,28 +1,76 @@
 # Reading Audit Log Filter files
 
-The Audit Log Filter functions can provide a SQL interface to read JSON-format audit log files. The functions cannot read log files in other formats. Configuring the component for JSON logging lets the functions use the directory that contains the current audit log filter file and search in that location for readable files. The value of the `audit_log_filter.file` system variable provides the file location, base name, and the suffix and then searches for names that match the pattern.
+Audit Log Filter exposes a SQL API to read audit files in JSON or JSONL only. Layout and the JSONL option are covered in [Audit Log Filter format - JSON and JSONL](audit-log-filter-json.md) and [Audit Log Filter file format overview](audit-log-filter-formats.md). Set `audit_log_filter.format` accordingly; [`audit_log_filter.file`](audit-log-filter-variables.md#audit_log_filterfile) defines the path, base name, and suffix used to locate files.
 
-If the file is renamed and no longer fits the pattern, the file is ignored.
+If a file no longer matches that pattern, readers ignore it.
 
-## Functions used for reading the files
+## Reader functions
 
-The following functions read the files in the JSON-format:
+Two functions read JSON or JSONL audit files:
 
-* [`audit_log_read`](audit-log-filter-variables.md#audit_log_read) - reads audit log filter events
+* [`audit_log_read`](audit-log-filter-variables.md#audit_log_read) — returns audit events from the log.
 
-* [`audit_log_read_bookmark`](audit-log-filter-variables.md#audit_log_read_bookmark) - for the most recently read event, returns a bookmark. This bookmark can be passed to `audit_log_read()`.
+* [`audit_log_read_bookmark`](audit-log-filter-variables.md#audit_log_read_bookmark) — returns a bookmark for the last read position. Pass it into `audit_log_read()` to resume.
 
-Initialize a read sequence by using a bookmark or an argument that specifies the start position:
+## Read commands
+
+A session holds at most one active read context. Pick one of the following commands to open, advance, or close it. For the full argument reference, see [`audit_log_read()`](audit-log-filter-variables.md#audit_log_read).
+
+### Resume from a bookmark
+
+Start a read at the position returned by `audit_log_read_bookmark()`:
 
 ```sql
 SELECT audit_log_read(audit_log_read_bookmark());
 ```
 
-The following example continues reading from the current position:
+### Start at a timestamp
+
+Start a read at an explicit timestamp. When the timestamp omits a time part, the component assumes `00:00:00`:
+
+```sql
+SELECT audit_log_read('{"start": {"timestamp": "2026-05-20 12:28:10"}}');
+SELECT audit_log_read('{"start": {"timestamp": "2026-05-20"}}');
+```
+
+### Address one specific event
+
+Pass a bookmark literal with `timestamp` and `id` and no `start` envelope:
+
+```sql
+SELECT audit_log_read('{"timestamp": "2026-05-20 12:28:10", "id": 1561422}');
+```
+
+### Limit the events per call
+
+Cap how many events a single call returns by adding `max_array_length` to any positioning form:
+
+```sql
+SELECT audit_log_read('{"start": {"timestamp": "2026-05-20 12:28:10"}, "max_array_length": 3}');
+```
+
+### Continue from the current cursor
+
+After a read sequence is open, continue advancing without supplying a new position:
 
 ```sql
 SELECT audit_log_read();
 ```
 
-Reading a file is closed when the session ends or calling `audit_log_read()` with another argument.
+### Close the active sequence
 
+Release the reader cursor before opening a new sequence at a different position:
+
+```sql
+SELECT audit_log_read('null');
+```
+
+A read sequence also ends when the session ends. A single call cannot combine the `start` envelope with a top-level `timestamp` or `id`. To reposition while a sequence is active, close it first with `'null'`.
+
+## Additional reading
+
+* [Audit Log Filter format - JSON and JSONL](audit-log-filter-json.md)
+* [Audit Log Filter file format overview](audit-log-filter-formats.md)
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md)
+* [Manage the Audit Log Filter files](manage-audit-log-filter.md)
+* [Audit Log Filter overview](audit-log-filter-overview.md)
