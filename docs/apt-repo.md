@@ -2,7 +2,7 @@
 
 Ready-to-use packages are available from the Percona Server for MySQL software repositories and the [Percona downloads :octicons-link-external-16:](https://www.percona.com/downloads/Percona-Server-{{vers}}/) page.
 
-Specific information on the supported platforms, products, and versions is described in [Percona Software and Platform Lifecycle :octicons-link-external-16:](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
+The [Percona Software and Platform Lifecycle :octicons-link-external-16:](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql) page lists supported platforms, products, and versions. Debian (DEB) packages support `arm64` and other architectures across the documented Debian and Ubuntu releases.
 
 --8<-- "percona-release.md"
 
@@ -10,287 +10,218 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 
 --8<--- "get-help-snip.md"
 
-Before proceeding with the installation, make sure you have one of the following:
-
-* `sudo` access: Administrator privileges are necessary for installing packages and configuring system services.
-
-* Root access: Certain commands will require root privileges or `sudo` access.
-
-## ARM support
-
-Percona supports DEB builds with ARM packages with the `aarch64.rpm` extension.
-
-## Unattended installations
-
---8<-- "install-flag.md"
-
 ## Install Percona Server for MySQL using APT
 
-To install Percona Server for MySQL using APT, follow these steps:
-{.power-number}
+To install Percona Server on Debian or Ubuntu, follow these steps:
 
-1. Update the package repositories:
+1. Copy the command block in the following section and run the commands in order.
 
-	```shell
-	sudo apt update
-	```
+2. Use [Configure authentication](#configure-authentication) when the package manager prompts for authentication options.
 
-	??? example "Expected output"
+3. Open [Next steps](#next-steps) to secure and configure the instance after the server packages install.
 
-		```{.text .no-copy}
-		Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
-		Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
-		Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
-		Get:4 http://security.ubuntu.com/ubuntu jammy-security InRelease [119 kB]
-		Fetched 238 kB in 2s (119 kB/s)
-		Reading package lists... Done
-		Building dependency tree... Done
-		Reading state information... Done
-		All packages are up to date.
+4. Expand the `Step-by-step: what each command does` note for an explanation of each command.
+
+5. Use [Non-interactive installs and debconf](#non-interactive-installs-and-debconf) and [Unattended installations](#unattended-installations) only for scripted automation.
+
+Run the following commands as a `root` user or with sudo:
+
+```shell
+sudo apt update
+sudo apt install -y curl
+curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb
+sudo percona-release setup {{pkg}} --scheme https
+sudo percona-release enable {{pkg}} release --scheme https
+sudo apt update
+sudo apt install -y percona-server-server
+```
+
+The command sequence matches [Install Percona Server for MySQL and create a database on Ubuntu](quickstart-apt.md). The quickstart covers installation steps one through six and includes `--scheme https` on `percona-release setup` and `enable`. The repository identifier for {{vers}} is `{{pkg}}`.
+
+For another Percona Server for MySQL series, use the name shown by `sudo percona-release list`, or consult the [MySQL software repositories :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/mysql.html) reference. Published names can change as Percona adds new series.
+
+??? note "`percona-release` flag: `--scheme`"
+
+	The command examples on this page pass `--scheme https` so repository URLs in APT source lists use HTTPS. The [Percona Software Repositories — `percona-release` :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/percona-release.html) reference documents the `--scheme` flag. Supported values are HTTP and HTTPS. Without `--scheme`, `percona-release` defaults to HTTP URLs.
+
+	You can add `--scheme https` to subcommands such as `setup`, `enable`, `enable-only`, or `disable` following the same pattern as the examples. See the linked documentation for the full command reference.
+
+Percona Server for MySQL {{vers}} follows the MySQL 9.x authentication model documented for [MySQL 9.6 :octicons-link-external-16:](https://dev.mysql.com/doc/refman/9.6/en/). Key behaviors include the following:
+
+- The `default_authentication_plugin` system variable is not available.
+
+- MySQL removes the `mysql_native_password` plugin in the 9.x series.
+
+- MySQL 9.x removes the server-side native-password option.
+
+- New accounts use the `caching_sha2_password` plugin.
+
+- Applications and drivers must support `caching_sha2_password`.
+
+- TLS is required only when a security policy or deployment mandates encrypted traffic. The `caching_sha2_password` plugin does not require TLS for every connection type.
+
+When the package manager prompts during installation, follow the steps in [Configure authentication](#configure-authentication). Prompt behavior depends on the package and distribution.
+
+??? note "Step-by-step: what each command does"
+
+	The following sections provide detailed explanations for each step:
+
+	1. The following `apt update` command updates the package lists for upgrades and package installations. `sudo` runs the command with superuser privileges. `apt update` resynchronizes the package index files from the sources configured in `/etc/apt/sources.list` and `/etc/apt/sources.list.d/`.
+
+		```shell
+		sudo apt update
 		```
 
-	If this step fails:
+	2. The `sudo apt install -y curl` command installs the `curl` package. `curl` is a command-line tool used to transfer data over networks and is required to download the Percona repository package.
 
-	* Check your internet connection
-
-	* Ensure your system can reach Ubuntu/Debian repositories
-
-	* Try running `sudo apt update --fix-missing`
-
-2. `curl` allows you to download files from the internet using command line. Install the `curl` download utility if needed:
-
-	
-
-	```shell
-	sudo apt install curl
-	```
-
-	??? example "Expected output"
-
-		```{.text .no-copy}
-		Reading package lists... Done
-		Building dependency tree... Done
-		Reading state information... Done
-		The following NEW packages will be installed:
-		  curl
-		0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
-		Need to get 185 kB of archives.
-		After this operation, 504 kB of additional disk space will be used.
-		Do you want to continue? [Y/n] y
-		Get:1 http://us.archive.ubuntu.com/ubuntu jammy/main amd64 curl amd64 7.81.0-1ubuntu1.15 [185 kB]
-		Fetched 185 kB in 1s (185 kB/s)
-		Selecting previously unselected package curl.
-		(Reading database ... 123456 files and directories currently installed.)
-		Preparing to unpack .../curl_7.81.0-1ubuntu1.15_amd64.deb ...
-		Unpacking curl (7.81.0-1ubuntu1.15) ...
-		Setting up curl (7.81.0-1ubuntu1.15) ...
-		Processing triggers for man-db (2.10.2-1) ...
+		```shell
+		sudo apt install -y curl
 		```
 
-	If this step fails:
+	3. The following `curl -O` command downloads the `percona-release_latest.generic_all.deb` file from the Percona APT repository. The `-O` option saves the file with the same name as in the URL.
 
-	* The `curl` package might already be installed
-
-	* Check if you have internet connectivity
-
-	* Try running `which curl` to see if it's already available
-
-3. Download the `percona-release` repository package:
-
-	```shell
-	curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
-	```
-
-	??? example "Expected output"
-
-		```{.text .no-copy}
-		  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-		                                 Dload  Upload   Total   Spent    Left  Speed
-		100 15.2k  100 15.2k    0     0  15.2k      0  0:00:01  0:00:01 --:--:-- 15.2k
+		```shell
+		curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 		```
 
-	If this step fails:
+	4. The `sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb` command installs `gnupg2` (for package signature verification), `lsb-release` (for distribution information), and the downloaded Percona release package. Together, `gnupg2`, `lsb-release`, and the Percona release `.deb` configure the Percona APT repository on your system.
 
-	* Check your internet connection
-
-	* Verify the URL is accessible: `curl -I https://repo.percona.com/apt/percona-release_latest.generic_all.deb`
-
-	* Try downloading from a different network if possible
-
-4. `gnupg2` provides encryption and digital signature verification for package security. `lsb-release` provides information about your Linux distribution. These packages are required dependencies for the Percona repository setup. Install the downloaded package with `apt` as root or with sudo:
-
-	
-
-	```shell
-	sudo apt install gnupg2 lsb-release ./percona-release_latest.generic_all.deb
-	```
-
-	??? example "Expected output"
-
-		```{.text .no-copy}
-		Reading package lists... Done
-		Building dependency tree... Done
-		Reading state information... Done
-		The following NEW packages will be installed:
-		  gnupg2 lsb-release percona-release
-		The following packages will be upgraded:
-		  (none)
-		0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
-		Need to get 1,245 kB of archives.
-		After this operation, 3,456 kB of additional disk space will be used.
-		Do you want to continue? [Y/n] y
-		Get:1 http://us.archive.ubuntu.com/ubuntu jammy/main amd64 gnupg2 amd64 2.2.27-3ubuntu2.1 [1,234 kB]
-		Get:2 http://us.archive.ubuntu.com/ubuntu jammy/main amd64 lsb-release all 11.1.0ubuntu4 [11.0 kB]
-		Get:3 ./percona-release_latest.generic_all.deb percona-release all 1.0-27.generic [15.2 kB]
-		Fetched 1,245 kB in 2s (622 kB/s)
-		Selecting previously unselected package gnupg2.
-		(Reading database ... 123456 files and directories currently installed.)
-		Preparing to unpack .../gnupg2_2.2.27-3ubuntu2.1_amd64.deb ...
-		Unpacking gnupg2 (2.2.27-3ubuntu2.1) ...
-		Selecting previously unselected package lsb-release.
-		Preparing to unpack .../lsb-release_11.1.0ubuntu4_all.deb ...
-		Unpacking lsb-release (11.1.0ubuntu4) ...
-		Selecting previously unselected package percona-release.
-		Preparing to unpack .../percona-release_latest.generic_all.deb ...
-		Unpacking percona-release (1.0-27.generic) ...
-		Setting up gnupg2 (2.2.27-3ubuntu2.1) ...
-		Setting up lsb-release (11.1.0ubuntu4) ...
-		Setting up percona-release (1.0-27.generic) ...
-		Processing triggers for man-db (2.10.2-1) ...
+		```shell
+		sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb
 		```
 
-	If this step fails:
+	5. The `percona-release setup {{pkg}} --scheme https` command disables all current Percona repositories on the system. The command then enables the release repositories matching Percona Server for MySQL {{vers}} for your distribution over HTTPS. See the [Percona Software Repositories :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/percona-release.html) reference. Omit `--scheme https` only when you require HTTP repository URLs, which is the `percona-release` default.
 
-	* Ensure the downloaded file exists: `ls -la percona-release_latest.generic_all.deb`
-
-	* Check if the file is corrupted by downloading again
-
-	* Verify you have sufficient disk space: `df -h`
-
-5. Refresh the local cache to update the package information:
-
-	```shell
-	sudo apt update
-	```
-
-	??? example "Expected output"
-
-		```{.text .no-copy}
-		Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
-		Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
-		Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
-		Get:4 http://security.ubuntu.com/ubuntu jammy-security InRelease [119 kB]
-		Get:5 https://repo.percona.com/apt jammy InRelease [15.2 kB]
-		Fetched 253 kB in 2s (126 kB/s)
-		Reading package lists... Done
-		Building dependency tree... Done
-		Reading state information... Done
-		All packages are up to date.
+		```shell
+		sudo percona-release setup {{pkg}} --scheme https
 		```
 
-	If this step fails:
+	6. The `percona-release enable {{pkg}} release --scheme https` command enables the Percona Server for MySQL release repository with HTTPS URLs. Run `apt update` afterward so APT loads package indexes for the Percona APT repository, including `percona-server-server` and related packages.
 
-	* The repository might not be properly configured
-
-	* Check repository status: `sudo apt update 2>&1 | grep -i percona`
-
-	* Try running the percona-release setup again
-
-6. Use `percona-release` to enable Percona Server for MySQL {{vers}}:
-
-	```shell
-	sudo percona-release enable-only {{pkg}} release
-	```
-
-	??? example "Expected output"
-
-		```{.text .no-copy}
-		* Enabling Percona Server for MySQL 8.4 LTS repository
-		* Running apt-get update...
-		Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
-		Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
-		Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
-		Get:4 http://security.ubuntu.com/ubuntu jammy-security InRelease [119 kB]
-		Get:5 https://repo.percona.com/apt jammy InRelease [15.2 kB]
-		Fetched 253 kB in 2s (126 kB/s)
-		Reading package lists... Done
-		Building dependency tree... Done
-		Reading state information... Done
-		All packages are up to date.
+		```shell
+		sudo percona-release enable {{pkg}} release --scheme https
+		sudo apt update
 		```
 
-	If this step fails:
+	7. Verify the repository configuration by inspecting the `.list` files under `/etc/apt/sources.list.d/`. The exact filename, such as `percona-original-release.list`, depends on the `percona-release` version.
 
-	* Check if percona-release is properly installed: `which percona-release`
+	8. The `sudo apt install -y percona-server-server` command installs the `percona-server-server` package. During installation, the package manager may prompt for configuration values such as the `root` password. Some builds use debconf or post-install configuration only. For password prompts and automation, see [Non-interactive installs and debconf](#non-interactive-installs-and-debconf). For account authentication defaults and removed plugins, see [Configure authentication](#configure-authentication).
 
-	* Verify the package name is correct for your version
-
-	* Check for any error messages in the output
-
-7. You can check the repository setup for the Percona original release list in `/etc/apt/sources.list.d/percona-original-release.list`. 
-
-8. Install the server package with the `percona-release` command:
-
-	```shell
-	sudo apt install percona-server-server
-	```
-
-	??? example "Expected output"
-
-		```{.text .no-copy}
-		Reading package lists... Done
-		Building dependency tree... Done
-		Reading state information... Done
-		The following NEW packages will be installed:
-		  percona-server-server
-		The following packages will be upgraded:
-		  (none)
-		0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
-		Need to get 45.2 MB of archives.
-		After this operation, 234 MB of additional disk space will be used.
-		Do you want to continue? [Y/n] y
-		Get:1 https://repo.percona.com/apt jammy/main amd64 percona-server-server amd64 8.4.5-5.jammy [45.2 MB]
-		Fetched 45.2 MB in 15s (3.01 MB/s)
-		Selecting previously unselected package percona-server-server.
-		(Reading database ... 123456 files and directories currently installed.)
-		Preparing to unpack .../percona-server-server_8.4.5-5.jammy_amd64.deb ...
-		Unpacking percona-server-server (8.4.5-5.jammy) ...
-		Setting up percona-server-server (8.4.5-5.jammy) ...
-		Processing triggers for man-db (2.10.2-1) ...
-		Processing triggers for systemd (249.11-0ubuntu3.12) ...
+		```shell
+		sudo apt install -y percona-server-server
 		```
 
-	If this step fails:
+### Configure authentication
 
-	* Check available packages: `apt search percona-server`
+The package manager may prompt for passwords or other options during installation. Adjust authentication after installation when the package skips prompts. Review the package manager output and [Non-interactive installs and debconf](#non-interactive-installs-and-debconf) when automating.
 
-	* Ensure the repository is properly configured
+!!! warning "Important change in {{vers}}"
 
-	* Check for package conflicts with existing MySQL installations
+	Percona Server for MySQL {{vers}} inherits MySQL 9.x behavior. The `mysql_native_password` plugin is removed. The `default_authentication_plugin` system variable is no longer used. Default authentication uses `caching_sha2_password`.
 
-	* Review error messages for specific issues
+	When migrating from a server that used native password authentication, update accounts and clients before deploying {{vers}}. See [Authentication methods](authentication-methods.md) and [Upgrade checklist for {{vers}}](upgrade-checklist-9.7.md).
+
+For new installations on {{vers}}, the server uses the `caching_sha2_password` plugin for password-based authentication. Ensure your client libraries and connectors support the `caching_sha2_password` plugin and TLS when required. The default `caching_sha2_password` configuration requires no additional server settings.
 
 See [Configuring Percona repositories with `percona-release` :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
 
 --8<--- "storage-engines.md"
 
-## Next Steps
+## Next steps
 
-After successful installation, see [Post-installation](post-installation.md) for detailed steps to configure and secure your Percona Server for MySQL installation.
+After installation completes, see [Post-installation](post-installation.md) for steps to configure and secure your Percona Server for MySQL installation.
 
-## Install Percona Toolkit UDFs (Optional)
+## Non-interactive installs and debconf
 
-Percona Server for MySQL includes user-defined functions (UDFs) from [Percona Toolkit :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/). These UDFs provide faster checksum calculations:
+Adding `-y` to `apt install` only skips APT confirmation prompts. The `percona-server-server` packages still run maintainer scripts that may ask debconf questions. Common prompts include the following:
 
-* `fnv_64`: Fast hash function
+- The MySQL `root` password
 
-* `fnv1a_64`: Alternative fast hash function  
+- Whether to reuse an existing data directory
 
-* `murmur_hash`: High-performance hash function
+- Lowercase table names
 
-User-Defined Functions (UDFs) are custom functions you can add to MySQL to extend its capabilities. These particular UDFs are useful for data integrity checks and performance monitoring.
+The exact prompts depend on the `percona-server-server` package version and the data already present on the disk.
 
-To install these functions after installation:
+### Lab baseline and validating debconf on your OS
+
+Debconf template names and valid answers depend on the Linux distribution, the release (for example, 22.04 compared with 24.04), and the exact `percona-server-server` package version. Template names do not depend on the Percona Server {{vers}} product line alone.
+
+Solution: Treat every preseed example in this section as illustrative until you confirm the keys on a disposable host that matches production.
+
+1. Pick a reference lab image that mirrors production. Match the `.list` repositories, the distribution release, and the architecture. The following examples were drafted against Ubuntu 22.04 LTS (Jammy) and Percona Server for MySQL {{vers}} packages from the Percona APT repository. On Debian, Ubuntu 24.04 LTS, or another SKU, keys can differ or additional questions can appear.
+
+2. On the lab host, or on a CI image built the same way, install the package version you plan to use in production, then capture the output:
+
+	```shell
+	lsb_release -a
+	dpkg-query -W percona-server-server
+	sudo debconf-show percona-server-server | tee debconf-percona-server-server.txt
+	```
+
+	Archive `debconf-percona-server-server.txt` next to your automation, such as Ansible or cloud-init. Run the capture again after any base-image or package upgrade.
+
+3. For automation, pin the `percona-server-server` version or document the build ID from `dpkg-query`. Pinning keeps preseed scripts tied to a known `debconf-show` result.
+
+To automate those prompts:
+
+1. Discover the questions your package version uses. On a lab host, install once interactively or inspect templates, then run:
+
+	```shell
+	sudo debconf-show percona-server-server
+	```
+
+	The package also ships template definitions at paths such as `/var/lib/dpkg/info/percona-server-server.templates`.
+
+	Verify the templates for each target. Preseed names and choices can differ by distribution, point release, and `percona-server-server` package version. Re-run `debconf-show` after upgrades or after a base-image change. For production automation, keep a checklist that maps distribution and package version to the saved `debconf-show` output. The checklist keeps scripts aligned with the package prompts.
+
+2. Preseed answers with `debconf-set-selections` before `apt install`. The templates shipped with many Percona Server for MySQL {{vers}} packages use the `percona-server-server/root-pass` and `percona-server-server/re-root-pass` names for password prompts. For example:
+
+	```shell
+	echo "percona-server-server percona-server-server/root-pass password <strong-password>" | sudo debconf-set-selections
+	echo "percona-server-server percona-server-server/re-root-pass password <strong-password>" | sudo debconf-set-selections
+	```
+
+	Other prompts, such as `percona-server-server/lowercase-table-names` or `percona-server-server/remove-data-dir`, appear only in some upgrade or edge-case paths. Use the `debconf-show` output to add matching lines. Do not commit real passwords to version control or broad shell history.
+
+3. Optional: set `DEBIAN_FRONTEND=noninteractive` for the `percona-server-server` install so debconf does not open a UI. Combine non-interactive installs with preseeding. Without defaults for required questions, the Debian package `configure` step can fail or leave the server in an unexpected state.
+
+	```shell
+	sudo DEBIAN_FRONTEND=noninteractive apt install -y percona-server-server
+	```
+
+#### Default authentication plugin
+
+When a distribution or package adds a debconf choice related to authentication, the prompt appears in `debconf-show` output for `percona-server-server`. On {{vers}}, native-password authentication is not available. Unattended installs must assume `caching_sha2_password` and client compatibility as described in [Configure authentication](#configure-authentication).
+
+### See also
+
+- [Telemetry](telemetry.md) — disable collection for package installs with `PERCONA_TELEMETRY_DISABLE=1` on the same `apt` command line
+
+- [Authentication methods](authentication-methods.md) — `caching_sha2_password` and related settings
+
+- [Post-installation](post-installation.md) — secure and configure the server after packages install
+
+- [Debian Wiki — debconf :octicons-link-external-16:](https://wiki.debian.org/debconf) — how debconf and preseeding work on Debian-derived systems
+
+## Unattended installations
+
+Use the same `apt` and `percona-release` sequence shown in [Install Percona Server for MySQL using APT](#install-percona-server-for-mysql-using-apt). Add `-y` to each `sudo apt install` line that needs non-interactive APT confirmations. Use non-interactive options for `percona-release` as shown in the following snippet.
+
+--8<-- "install-flag.md"
+
+## Install Percona Toolkit UDFs (optional)
+
+User-defined functions (UDFs) extend MySQL with custom functions. Percona Server for MySQL includes UDFs from [Percona Toolkit :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/) for data integrity checks and performance monitoring. These UDFs provide faster checksum calculations:
+
+| Function | Description |
+|---|---|
+| `fnv_64` | Fast 64-bit hash function |
+| `fnv1a_64` | Variant of `fnv_64` with improved distribution |
+| `murmur_hash` | High-performance non-cryptographic hash function |
+
+To install the Percona Toolkit UDFs after the Percona Server packages are installed:
 
 ```{.sql data-prompt="mysql>"}
 INSTALL COMPONENT 'file://component_percona_udf';
@@ -302,77 +233,18 @@ INSTALL COMPONENT 'file://component_percona_udf';
 	Query OK, 0 rows affected (0.01 sec)
 	```
 
-You can now use these functions in your SQL queries. For example: `SELECT fnv_64('test_string');`
+You can now use the UDFs in your SQL queries. For example: `SELECT fnv_64('test_string');`
 
-For detailed information about these functions, see [Percona Toolkit UDF functions](udf-percona-toolkit.md).
+For detailed information about the UDFs, see [Percona Toolkit UDF functions](udf-percona-toolkit.md).
 
-## Install the Percona testing repository (advanced users only)
+## Install the Percona testing repository using APT
 
-Do not use testing repositories in production environments. Testing builds are pre-release versions that may contain bugs or incomplete features.
-
-Percona offers pre-release builds from the testing repository for advanced users who want to:
-
-* Test new features before official release
-
-* Evaluate upcoming improvements
-
-* Provide feedback on development versions
-
-To enable the testing repository:
+Percona offers pre-release builds from the testing repository. As a superuser, run `percona-release` with the `testing` argument to enable the testing repository:
 
 ```shell
-sudo percona-release enable {{pkg}} testing
+sudo percona-release enable {{pkg}} testing --scheme https
 ```
 
-??? example "Expected output"
-
-	```{.text .no-copy}
-	* Enabling Percona Server for MySQL 8.4 LTS testing repository
-	* Running apt-get update...
-	Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
-	Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
-	Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
-	Get:4 http://security.ubuntu.com/ubuntu jammy-security InRelease [119 kB]
-	Get:5 https://repo.percona.com/apt jammy InRelease [15.2 kB]
-	Fetched 253 kB in 2s (126 kB/s)
-	Reading package lists... Done
-	Building dependency tree... Done
-	Reading state information... Done
-	All packages are up to date.
-	```
-
-Please be aware of the following limitations when using the testing repository:
-
-* Features may change without notice
-
-* Not all features from the final release may be included
-
-* May contain experimental or incomplete functionality
-
-* No production support for testing builds
-
-To disable the testing repository and return to stable releases:
-
-```shell
-sudo percona-release disable testing
-sudo apt update
-```
-
-??? example "Expected output"
-
-	```{.text .no-copy}
-	* Disabling Percona testing repository
-	* Running apt-get update...
-	Hit:1 http://us.archive.ubuntu.com/ubuntu jammy InRelease
-	Get:2 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
-	Hit:3 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease
-	Get:4 http://security.ubuntu.com/ubuntu jammy-security InRelease [119 kB]
-	Get:5 https://repo.percona.com/apt jammy InRelease [15.2 kB]
-	Fetched 253 kB in 2s (126 kB/s)
-	Reading package lists... Done
-	Building dependency tree... Done
-	Reading state information... Done
-	All packages are up to date.
-	```
+Do not run testing repository builds in production. The build may not contain all the features available in the final release and may change without notice.
 
 [Telemetry data]: telemetry.md

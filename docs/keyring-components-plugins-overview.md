@@ -8,7 +8,11 @@ Percona Server supports a keyring that enables internal server components to sto
 
 Percona Server supports the following keyring components:
 
+[Get Started with component keyring](quickstart-component-keyring.md){.md-button}
+
 [Use the keyring file component](use-keyring-file.md){.md-button}
+
+[Use the Percona encrypted keyring file component](use-percona-keyring-encrypted-file.md){.md-button}
 
 [Use the keyring vault component](use-keyring-vault-component.md){.md-button}
 

@@ -13,7 +13,7 @@ Using the `PERCONA_SEQUENCE_TABLE()` function provides the following:
 
 ## Version update
 
-Percona Server for MySQL 8.4 deprecated [`SEQUENCE_TABLE()`](sequence-table.md), and Percona may remove this function in a future release. We recommend that you use `PERCONA_SEQUENCE_TABLE()` instead.
+Percona Server for MySQL 8.4 deprecated `SEQUENCE_TABLE()`. Percona Server for MySQL 9.7 removes `SEQUENCE_TABLE()` in favor of `PERCONA_SEQUENCE_TABLE()`. Use `PERCONA_SEQUENCE_TABLE()` in all new and existing code.
 
 To maintain compatibility with existing third-party software, `SEQUENCE_TABLE` is no longer a reserved term and can be used as a regular identifier.
 
@@ -182,5 +182,3 @@ SELECT * FROM t1;
     ```
 
 Sequences are helpful for various purposes, such as populating tables and generating test data.
-
-[SEQUENCE_TABLE()]: sequence-table.md

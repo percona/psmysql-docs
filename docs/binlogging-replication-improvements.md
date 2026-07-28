@@ -2,6 +2,8 @@
 
 Due to continuous development, Percona Server for MySQL has incorporated a number of improvements related to replication and binary log handling. These improvements result in replication-specific behaviors that distinguish Percona Server for MySQL from standard MySQL.
 
+<!-- Clarify whether the following is valid for 9.7-->
+
 ## Statements with a `LIMIT` clause
 
 In MySQL 8.4, any UPDATE/DELETE/INSERT ... SELECT statements that include a LIMIT clause are indeed considered unsafe for statement-based replication. These statements will cause MySQL to automatically switch from statement-based logging to row-based logging if binlog_format is set to MIXED.
@@ -70,7 +72,7 @@ log regardless of the value of the binlog_skip_flush_command variable.
 any user (even by those with the `SUPER` privilege) are not written to the
 binary log regardless of the value of the binlog_skip_flush_commands variable.
 
-An attempt to run a `FLUSH` command without either [`SUPER`](https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html#priv_super :octicons-link-external-16:) or [`RELOAD`](https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html#priv_reload :octicons-link-external-16:)
+An attempt to run a `FLUSH` command without either [`SUPER`](https://dev.mysql.com/doc/refman/{{vers}}/en/privileges-provided.html#priv_super :octicons-link-external-16:) or [`RELOAD`](https://dev.mysql.com/doc/refman/{{vers}}/en/privileges-provided.html#priv_reload :octicons-link-external-16:)
 privileges results in the `ER_SPECIFIC_ACCESS_DENIED_ERROR` exception
 regardless of the value of the `binlog_skip_flush_commands` variable.
 

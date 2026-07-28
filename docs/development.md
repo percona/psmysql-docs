@@ -17,21 +17,6 @@ We change our software to implement new features and/or to fix bugs. Refactoring
 could be classed either as a new feature or a bug depending on the scope of
 work.
 
-<!--- Do we need the following info? --->
-
-New features and bugs are targeted to specific releases. A
-release is part of a series. For example, 2.4 is a series in Percona
-XtraBackup and 2.4.15, 2.4.16, and 2.4.17 are releases in this series.
-
-Code is proposed for merging in the form of pull requests on GitHub.
-
-For *Percona Server for MySQL*, we have several Git branches on which development occurs:
-5.5, 5.6, 5.7, and 8.0. As *Percona Server for MySQL* is not a traditional project, instead
-of being a set of patches against an existing product, these branches are not
-related. In other words, we do not merge from one release branch to another. To
-have your changes in several branches, you must propose branches to each release
-branch.
-
 ### Making a change to a project
 
 In this case, we are going to use `percona-xtrabackup` as an example. The

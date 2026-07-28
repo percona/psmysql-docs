@@ -1,20 +1,22 @@
 # Install Percona Server for MySQL and create a database on Ubuntu
 
-Use the Percona repositories to install using APT.
+Use the Percona repositories to install Percona Server for MySQL with APT.
 
-Quickstart path: Step 1 — Install. Next: [Work with a database](quickstart-database-script.md) (step 2).
+Quickstart path: Step 1, Install. Next: [Work with a database](quickstart-database-script.md) is step two.
+
+For step-by-step command explanations, HTTPS (`--scheme`) details, non-interactive installs, and debconf guidance, see [Use an APT repository to install Percona Server for MySQL](apt-repo.md).
 
 --8<-- "percona-release.md"
 
 ## Prerequisites
 
-* Either use `sudo` or run as root
+- Run commands as the root user or with `sudo`.
 
-* Stable Internet access
-
+- Confirm stable internet access.
 
 ## Installation steps
 
+To install the server, complete the following steps:
 {.power-number}
 
 1. Update the package index:
@@ -36,16 +38,16 @@ Quickstart path: Step 1 — Install. Next: [Work with a database](quickstart-dat
     sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb
     ```
 
-4. Set up the Percona Server for MySQL 8.4 repository:
+4. Configure the Percona Server for MySQL {{vers}} repository. This step prepares the repository configuration and is intentionally separate from step 5:
 
     ```shell
-    sudo percona-release setup {{pkg}}
+    sudo percona-release setup {{pkg}} --scheme https
     ```
 
 5. Enable the Percona Server for MySQL release repository:
 
     ```shell
-    sudo percona-release enable {{pkg}} release
+    sudo percona-release enable {{pkg}} release --scheme https
     sudo apt update
     ```
 
@@ -55,13 +57,13 @@ Quickstart path: Step 1 — Install. Next: [Work with a database](quickstart-dat
     sudo apt install -y percona-server-server
     ```
 
-    During installation, you will be prompted to:
+    During installation, the package manager prompts you to complete the following actions:
 
-    * Enter a root password (use `secret` for these examples, or choose your own)
+    - Enter a root password. Use `<strong-password>` as a placeholder for a value you choose.
 
-    * Confirm the password
+    - Confirm the password.
 
-    * Choose authentication method (Strong password encryption recommended)
+    The package manager may ask additional debconf questions depending on the package and distribution. On {{vers}}, password-based authentication defaults to `caching_sha2_password`. The `mysql_native_password` plugin is not available on MySQL 9.x. See [Authentication methods](authentication-methods.md).
 
 7. [Optional] Secure the installation:
 
@@ -99,7 +101,7 @@ Quickstart path: Step 1 — Install. Next: [Work with a database](quickstart-dat
 
 ## Work with a database
 
-The steps below walk you through creating a database and running basic queries. You can also open the [Work with a database](quickstart-database-script.md) script in its own page.
+The following steps create a database and run basic queries. You can also open the [Work with a database](quickstart-database-script.md) script on its own page.
 
 --8<-- "quickstart-database-script.md"
 
@@ -107,7 +109,7 @@ The steps below walk you through creating a database and running basic queries. 
 
 ## Troubleshooting
 
-* **Connection issues**
+* Connection issues
 
     * Check that the MySQL service is running:
 
@@ -128,7 +130,7 @@ The steps below walk you through creating a database and running basic queries. 
         Enter password:
         ```
 
-* **Permission errors**
+* Permission errors
 
     If MySQL reports that a user lacks permission to perform an action, grant the needed privilege. For example, to allow a user to create databases from the MySQL shell:
 
@@ -139,7 +141,7 @@ The steps below walk you through creating a database and running basic queries. 
 
     Replace `username` with your MySQL user name.
 
-* **Package installation issues**
+* Package installation issues
 
     Check the system log for errors during installation:
 
@@ -151,27 +153,27 @@ The steps below walk you through creating a database and running basic queries. 
 
 ## Security best practices
 
-* Strong Passwords: Utilize complex and unique passwords for all users, especially the root account.
+- Strong passwords: Use complex and unique passwords for all accounts, including the root account.
 
-* Minimize Permissions: Grant users only the privileges necessary for their tasks.
+- Minimize permissions: Grant each user only the privileges required for their tasks.
 
-* Disable Unnecessary Accounts: Remove test accounts and unused accounts.
+- Disable unnecessary accounts: Remove test accounts and unused accounts.
 
-* Regular Backups: Implement consistent backup routines to safeguard your data.
+- Regular backups: Run consistent backup routines to protect data.
 
-* Keep Software Updated: Maintain Percona Server and related packages updated with security patches.
+- Keep software updated: Apply security patches to Percona Server and related packages.
 
-* Monitor Server Activity: Employ tools, like [Percona Monitoring and Management :octicons-link-external-16:](https://docs.percona.com/percona-monitoring-and-management/3/quickstart/quickstart.html), and logs to monitor server activity for suspicious behavior.
+- Monitor server activity: Use tools such as [Percona Monitoring and Management :octicons-link-external-16:](https://docs.percona.com/percona-monitoring-and-management/3/quickstart/quickstart.html) and server logs to detect suspicious behavior.
 
 ## Additional resources
 
-* [Quickstart - Overview](quickstart-overview.md)
+- [Quickstart overview](quickstart-overview.md)
 
-* [Run Percona Server for MySQL with Docker](quickstart-docker.md)
+- [Run Percona Server for MySQL with Docker](quickstart-docker.md)
 
-* [Install Percona Server for MySQL on Oracle Linux](quickstart-yum.md)
+- [Install Percona Server for MySQL on Oracle Linux](quickstart-yum.md)
 
-* [Clean up your installation](quickstart-cleanup.md)
+- [Clean up your installation](quickstart-cleanup.md)
 
-* [Next steps](quickstart-next-steps.md)
+- [Next steps](quickstart-next-steps.md)
 

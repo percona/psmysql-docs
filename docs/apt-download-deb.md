@@ -2,6 +2,8 @@
 
 Download the packages from [Percona Product Downloads :octicons-link-external-16:](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
 
+<!-- Update the following instruction to be valid for 9.7-->
+
 The following example downloads Percona Server for MySQL {{release}} release packages for Ubuntu 22.04:
 
 ```shell

@@ -37,6 +37,8 @@ CLONE INSTANCE FROM `root@remote.server:13336` IDENTIFIED BY `user`;
 
 Replace the user name, host name, and port number with the settings from the donor server.
 
+<!-- Clarify whether the Limitations are valid for 9.7-->
+
 ## Limitations
 
 The MySQL 8.4 clone plugin enforces several functional and scope limitations that define which instances administrators clone and which data or metadata a clone operation includes.

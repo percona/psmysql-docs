@@ -12,6 +12,8 @@ When choosing key lengths, consider the following:
 
 * If performance is important and the functions are frequently used, use symmetric encryption. Symmetric encryption functions are faster than asymmetric encryption functions. Moreover, asymmetric encryption has restrictions on the maximum length of a message being encrypted. For example, for RSA the algorithm maximum message size is the key length in bytes (key length in bits / 8) minus 11.
 
+<!-- Rewrite the following instruction to be valid for 9.7-->
+
 ## Version updates
 
 Percona Server for MySQL 8.4.4 adds the following:

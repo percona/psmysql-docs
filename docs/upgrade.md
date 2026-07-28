@@ -4,6 +4,8 @@
 
 [Need expert guidance for your upgrade? Percona Support is ready to assist you every step of the way :octicons-link-external-16:](https://www.percona.com/services/support).
 
+<!-- Update this doc to be valid for 9.7-->
+
 ## Why upgrade to Percona Server for MySQL {{vers}} LTS
 
 Long‑Term Support (LTS) releases focus on stability, predictable security patches, and a clearly defined maintenance horizon—essential qualities for production databases. Moving from 8.0 to 8.4 isn’t just a simple version bump: new defaults, deprecated options, and behavior changes can affect performance and break existing scripts. Treat the upgrade as a small project: plan the steps, pick the method that matches your downtime window, and verify the result.
@@ -48,6 +50,10 @@ Review these documents to understand breaking changes, removed features, and com
 * [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md) - Understand configuration changes that may impact performance
 
 * [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md) - Review toolkit changes if you use Percona Toolkit
+
+Plan a migration to Percona Server for MySQL 9.7 LTS.
+
+See the [MySQL 9.7 technical migration overview](./whats-new-mysql-9.md) for breaking changes, compatibility, removed items, defaults, and tuning.
 
 ### Step 2: Complete pre-upgrade preparation
 
@@ -137,12 +143,10 @@ Review these upgrade-related documents:
 * [Downgrade options](./downgrade.md)
 
 * [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md)
-
 * [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md)
-
 * [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
-
 * [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md)
+* [MySQL 9.7 technical migration overview](./whats-new-mysql-9.md)
 
 ### Additional MySQL documentation
 

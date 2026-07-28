@@ -4,7 +4,7 @@ This document lists the additional `PERFORMANCE_SCHEMA` tables provided by Perco
 
 ### `performance_schema.account_failed_login_lock_status`
 
-The `performance_schema.account_failed_login_lock_status` table is available in Percona Server for MySQL 8.4.7-7 and later. The table exposes information about temporary account locking from the MySQL internal Access Control List (ACL) cache. 
+The `performance_schema.account_failed_login_lock_status` table exposes information about temporary account locking from the MySQL internal Access Control List (ACL) cache. 
 
 This table is read-only. Users need `SELECT` privilege on the `performance_schema` database or on this specific table to access its contents.
 

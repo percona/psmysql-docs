@@ -129,6 +129,8 @@ This operation creates the missing tables without reinstalling the component.
 
 ## Additional information
 
+<!-- Clarify whther this audit log info is valid for 9.7-->
+
 To upgrade from `audit_log_filter` plugin in Percona Server 8.4 to `component_audit_log_filter` component in Percona Server {{vers}}, do the [manual upgrade](upgrade-components.md).
 
 --8<--- "get-help-snip.md"
