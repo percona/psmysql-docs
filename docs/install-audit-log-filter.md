@@ -22,7 +22,7 @@ You can also point the component at another database with `audit_log_filter.data
 
 ### Install the component
 
-The script must run against the `mysql` database. Use either approach:
+By default, the script runs against the `mysql` database. Use either approach:
 
 * Option 1: Run the script from the command line with the `-D mysql` option:
 

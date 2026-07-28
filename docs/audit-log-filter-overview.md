@@ -40,7 +40,7 @@ You need `AUDIT_ADMIN` to administer the Audit Log Filter component.
 
 ## Privileges
 
-Define the privilege at server startup. If the component is not loaded, the server does not expose the Audit Log Filter privilege.
+Define the privilege at server startup.
 
 ### `AUDIT_ADMIN`
 
