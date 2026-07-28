@@ -10,19 +10,11 @@ The `plugin_dir` system variable defines the component library location. If need
 
 ### Database selection
 
-The script determines the target database using the following priority:
-
-* If the component is already loaded, the script uses the database name from the `audit_log_filter.database` variable
-
-* If the component is not loaded, but you pass the `-D db_name` option to the mysql client when running the script, it uses the specified `db_name`
-
-* If the component is not loaded and no `-D` option is provided, you must specify the `mysql` database when running the script
-
-You can also designate a different database with the `audit_log_filter.database` system variable. The database name cannot be NULL or exceed 64 characters. If the database name is invalid, the audit log filter tables are not found.
+By default, the script runs against the `mysql` database.
 
 ### Install the component
 
-To install the component using the script, you must specify the `mysql` database. You can do this in two ways:
+To install the component using the script, specify the `mysql` database. You can do this in two ways:
 
 * Option 1: Run the script from the command line with the `-D mysql` option:
 

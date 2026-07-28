@@ -10,7 +10,7 @@ The `AUDIT_ADMIN` privilege is required to enable users to manage the Audit Log 
 
 ## Privileges
 
-Define the privilege at runtime at the startup of the server. The associated Audit Log Filter privilege can be unavailable if the component is not enabled.
+Define the privilege at runtime at the startup of the server.
 
 ### `AUDIT_ADMIN`
 

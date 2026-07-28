@@ -19,12 +19,12 @@ You can combine compression and encryption, which adds both suffixes to the `aud
 
 The following table displays the possible ways a file can be named:
 
-| Default name            | Enabled feature                |
-| ----------------------- | ------------------------------ |
-| audit.log               | No compression or encryption   |
-| audit.log.gz            | Compression                    |
-| audit.log.pwd_id.enc    | Encryption                     |
-| audit.log.gz.pwd_id.enc | Compression, encryption        |
+| Default name                     | Enabled feature                |
+| -------------------------------- | ------------------------------ |
+| audit_filter.log                 | No compression or encryption   |
+| audit_filter.log.gz              | Compression                    |
+| audit_filter.log.pwd_id.enc      | Encryption                     |
+| audit_filter.log.gz.pwd_id.enc   | Compression, encryption        |
 
 ### Encryption ID format
 
