@@ -22,12 +22,12 @@ With both features, both suffixes appear (for example on `audit_filter.log`).
 
 Example names:
 
-| Default name            | Enabled feature                |
-| ----------------------- | ------------------------------ |
-| audit.log               | No compression or encryption   |
-| audit.log.gz            | Compression                    |
-| audit.log.pwd_id.enc    | Encryption                     |
-| audit.log.gz.pwd_id.enc | Compression and encryption        |
+| Default name                   | Enabled feature                |
+| ------------------------------ | ------------------------------ |
+| audit_filter.log               | No compression or encryption   |
+| audit_filter.log.gz            | Compression                    |
+| audit_filter.log.pwd_id.enc    | Encryption                     |
+| audit_filter.log.gz.pwd_id.enc | Compression and encryption     |
 
 ### Encryption ID format
 
