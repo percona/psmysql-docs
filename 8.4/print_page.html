@@ -14987,7 +14987,7 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
 <p>The component stores filter definitions and account assignments in the <code>mysql</code> system database. Set <a href="#audit-log-filter-variables-audit_log_filterdatabase"><code>audit_log_filter.database</code></a> at startup to use a different database.</p>
 <p>You need <code>AUDIT_ADMIN</code> to administer the Audit Log Filter component.</p>
 <h2 id="audit-log-filter-overview-privileges">Privileges<a class="headerlink" href="#audit-log-filter-overview-privileges" title="Permanent link">&para;</a></h2>
-<p>Define the privilege at server startup. If the component is not loaded, the server does not expose the Audit Log Filter privilege.</p>
+<p>Define the privilege at server startup.</p>
 <h3 id="audit-log-filter-overview-audit_admin"><code>AUDIT_ADMIN</code><a class="headerlink" href="#audit-log-filter-overview-audit_admin" title="Permanent link">&para;</a></h3>
 <p>The server defines <code>AUDIT_ADMIN</code> so grantees can configure the component.</p>
 <h3 id="audit-log-filter-overview-audit_abort_exempt"><code>AUDIT_ABORT_EXEMPT</code><a class="headerlink" href="#audit-log-filter-overview-audit_abort_exempt" title="Permanent link">&para;</a></h3>
@@ -15072,7 +15072,7 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
 </ul>
 <p>You can also point the component at another database with <code>audit_log_filter.database</code>. The name must be non-<code>NULL</code>, at most 64 characters, and valid—otherwise the server cannot open the audit log filter tables.</p>
 <h3 id="install-audit-log-filter-install-the-component">Install the component<a class="headerlink" href="#install-audit-log-filter-install-the-component" title="Permanent link">&para;</a></h3>
-<p>The script must run against the <code>mysql</code> database. Use either approach:</p>
+<p>By default, the script runs against the <code>mysql</code> database. Use either approach:</p>
 <ul>
 <li>
 <p>Option 1: Run the script from the command line with the <code>-D mysql</code> option:</p>
@@ -19692,19 +19692,19 @@ REDUCED mode: all events</p>
 </thead>
 <tbody>
 <tr>
-<td>audit.log</td>
+<td>audit_filter.log</td>
 <td>No compression or encryption</td>
 </tr>
 <tr>
-<td>audit.log.gz</td>
+<td>audit_filter.log.gz</td>
 <td>Compression</td>
 </tr>
 <tr>
-<td>audit.log.pwd_id.enc</td>
+<td>audit_filter.log.pwd_id.enc</td>
 <td>Encryption</td>
 </tr>
 <tr>
-<td>audit.log.gz.pwd_id.enc</td>
+<td>audit_filter.log.gz.pwd_id.enc</td>
 <td>Compression and encryption</td>
 </tr>
 </tbody>
