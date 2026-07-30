@@ -27,7 +27,7 @@ Package installation and service configuration require `sudo` access or root acc
 
 ### Package verification
 
-Percona signs all packages with GNU Privacy Guard (GPG) keys. The installation process installs the [Percona GPG key](https://www.percona.com/downloads/RPM-GPG-KEY-percona) and verifies signatures automatically. You can verify packages manually when required.
+Percona signs all packages with GNU Privacy Guard (GPG) keys. The installation process installs the [Percona GPG key](https://repo.percona.com/yum/PERCONA-PACKAGING-KEY) and verifies signatures automatically. You can verify packages manually when required.
 
 !!! note "Security note"
 
