@@ -167,7 +167,7 @@ The following MySQL documentation pages cover the upgrade process:
 
 * [Before You Begin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-before-you-begin.html)
 
-* [Percona Server for MySQL {{vers}} Release notes :octicons-link-external-16:](https://docs.percona.com/percona-server/latest/release-notes/release-notes_index.html)
+* [Percona Server for MySQL {{vers}} Release notes :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/release-notes/release-notes-index.html)
 
 * [Preparing your Installation for Upgrade :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-prerequisites.html)
 

@@ -20,7 +20,7 @@ Take the following actions:
 
 * [ ] Read the [MySQL {{vers}} Release Notes :octicons-link-external-16:](https://dev.mysql.com/doc/relnotes/mysql/{{vers}}/en/) for fixes and behavior changes.
 
-* [ ] Read the [Percona Server for MySQL {{vers}} Release notes :octicons-link-external-16:](https://docs.percona.com/percona-server/latest/release-notes/release-notes_index.html).
+* [ ] Read the [Percona Server for MySQL {{vers}} Release notes :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/release-notes/release-notes-index.html).
 
 * [ ] Read [Server and Status Variables and Options Added, Deprecated, or Removed in MySQL {{vers}} :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/added-deprecated-removed.html).
 
