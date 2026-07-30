@@ -4,7 +4,6 @@ This feature adds microsecond time resolution and additional statistics to the s
 
 You can use Percona-Toolkit’s [pt-query-digest :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/pt-query-digest.html) tool to aggregate similar queries together and report on those that consume the most execution time.
 
-
 ## System Variables
 
 ### `log_slow_filter`
@@ -398,10 +397,94 @@ Values:
 
 If the query did not use *InnoDB* tables, that information is written into the log instead of the above statistics.
 
+## Log output destination
+
+The `log_output` variable sets the destination for the slow query log and the general query log.
+
+### `log_output`
+
+| Option       | Description |
+|--------------|-------------|
+| Command-line | Yes         |
+| Config file  | Yes         |
+| Scope        | Global      |
+| Dynamic      | Yes         |
+| Data type    | Set         |
+| Default      | FILE        |
+
+Valid values:
+
+* `FILE` - write logs to files
+
+* `TABLE` - write logs to tables in the `mysql` database
+
+* `NONE` - disable log output
+
+* Comma-separated values such as `FILE,TABLE`
+
+With `FILE`, the server writes the slow query log to `slow_query_log_file`. With `TABLE`, the server writes the slow query log to the `mysql.slow_log` table.
+
+The default is `FILE`.
+
+`log_output` does not enable logging. Set `slow_query_log` or `general_log` separately.
+
+Set `log_output` in the configuration file, at server startup, or at runtime.
+
+Configuration file:
+
+```ini
+[mysqld]
+log_output = FILE
+```
+
+Runtime:
+
+```sql
+SET GLOBAL log_output = 'FILE';
+```
+
+Check the current value:
+
+```sql
+SELECT @@log_output;
+```
+
+## PMM Query Analytics
+
+[Percona Monitoring and Management (PMM) Query Analytics (QAN) :octicons-link-external-16:](https://docs.percona.com/percona-monitoring-and-management/3/use/qan/index.html) uses these data sources:
+
+* Slow query log file
+
+* Performance Schema
+
+QAN ignores these logs:
+
+* General query log
+
+* Slow log with [`log_output`](#log-output-destination) set to `TABLE`
+
+QAN reads the slow query log file when [`log_output`](#log-output-destination) includes `FILE`.
+
+### Prepared statements
+
+* Most client drivers send server-side prepared statements
+
+* Performance Schema shows placeholder parameters (`?`)
+
+* Performance Schema omits literal values
+
+* EXPLAIN may be unavailable for these queries
+
+* MySQL applies these limits upstream of PMM
+
+* PMM reports the data that MySQL exposes
+
+* The slow query log file records literal values
+
 ## Related reading
 
 
-* [Impact of logging on MySQL’s performance :octicons-link-external-16:](https://www.percona.com/blog/impact-of-logging-on-mysql%E2%80%99s-performance/)
+* [Impact of logging on MySQL’s performance :octicons-link-external-16:](https://www.percona.com/blog/impact-of-logging-on-mysqls-performance/)
 
 
 * [log_slow_filter Usage :octicons-link-external-16:](https://www.percona.com/blog/finding-what-created_tmp_disk_tables-with-log_slow_filter/)

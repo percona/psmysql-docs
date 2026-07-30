@@ -12,6 +12,10 @@ The following guides describe the installation process for using the official Pe
 
 [Install Percona Server for MySQL on Debian and Ubuntu](apt-repo.md){.md-button}        [Install Percona Server for MySQL on Red Hat Enterprise Linux](yum-repo.md){.md-button}
 
+Percona Server for MySQL 9.7 LTS supports installation through APT, DNF, and YUM packages.
+
+See the [MySQL 9.7 technical migration overview](whats-new-mysql-9.md) for breaking changes, compatibility, removed items, defaults, and tuning.
+
 ## Other installation methods
 
 [Install Percona Server for MySQL from Binaries](binary-tarball-install.md){.md-button} <br>       [Compile Percona Server for MySQL from Source](source-tarball.md){.md-button} <br>       [Run Percona Server for MySQL in a Docker container](docker.md){.md-button} 

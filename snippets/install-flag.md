@@ -3,6 +3,6 @@ The `-y` flag automatically confirms all actions without asking for user input. 
 
 The recommended syntax for using this flag with the `percona-release setup` is: 
 
-``` {.bash data-prompt="$"}
-$ percona-release setup -y ps-84-lts 
+``` shell
+percona-release setup -y ps-97-lts 
 ``` 

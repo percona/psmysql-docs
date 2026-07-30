@@ -46,7 +46,7 @@ Percona Monitoring and Management (PMM) monitors MySQL variants and provides met
 
 Percona XtraDB Cluster (PXC) is an open source, highly available clustering solution for MySQL based on Galera.
 
-[Percona XtraDB Cluster Quickstart overview :octicons-link-external-16:](https://docs.percona.com/percona-xtradb-cluster/{{vers}}/quickstart-overview.html)
+[Percona XtraDB Cluster Quickstart overview :octicons-link-external-16:](https://docs.percona.com/percona-xtradb-cluster/8.4/quickstart-overview.html)
 
 ### Advanced command-line tools
 
