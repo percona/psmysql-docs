@@ -1,6 +1,6 @@
 # Use the keyring vault component
 
-The `keyring_vault` component connects Percona Server to a [HashiCorp Vault :octicons-link-external-16:](https://www.hashicorp.com/products/vault/data-protection) server. The component stores and retrieves the encryption keys that protect data at rest.
+The `keyring_vault` component connects Percona Server to a [HashiCorp Vault :octicons-link-external-16:](https://www.hashicorp.com/en/products/vault) server. The component stores and retrieves the encryption keys that protect data at rest.
 
 --8<--- "keyring-components-installation.md"
 
@@ -157,7 +157,7 @@ The `keyring_aes` service supports server-side encryption at rest. The service a
 
 ## Operate the vault component
 
-The shared [Operate the keyring](#operate-the-keyring) section covers rotation, monitoring, and backup procedures that apply to every keyring component. The following notes describe behaviors that are specific to `keyring_vault`.
+The shared Operate the keyring section covers rotation, monitoring, and backup procedures that apply to every keyring component. The following notes describe behaviors that are specific to `keyring_vault`.
 
 ### Rotate the master key
 

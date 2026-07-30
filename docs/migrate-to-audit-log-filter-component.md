@@ -21,17 +21,17 @@ Two legacy sources exist. The target is `component_audit_log_filter` in both cas
 | Source | Recommended path |
 |---|---|
 | `audit_log` plugin (pre-8.4 installs, still available in {{vers}} as a deprecated plugin) | Upgrade to {{vers}}, install the component, translate `audit_log_*` variables to filter JSON, validate in parallel, then uninstall the plugin. |
-| `audit_log_filter` plugin (transitional, 8.0 and early 8.4 builds) | Upgrade to {{vers}} first, then transition to the component per [Upgrade from plugins to components → Transition after upgrade](upgrade-components.md#transition-timing). |
+| `audit_log_filter` plugin (transitional, 8.0 and early 8.4 builds) | Upgrade to {{vers}} first, then transition to the component per [Upgrade from plugins to components → Transition after upgrade](upgrade-components.md#transition-after-the-upgrade). |
 
 The following detailed mapping targets the `audit_log` plugin because the plugin's configuration model — global `audit_log_*` variables and policy presets — differs most from the component. If you are migrating from the `audit_log_filter` plugin, the filter JSON you already wrote continues to work unchanged; the migration reduces to a shorter path:
 
 1. Upgrade the server to {{vers}}.
 2. Uninstall the plugin.
 3. Run the component install script. See [Install the audit log filter](install-audit-log-filter.md). The script creates `mysql.audit_log_filter` and `mysql.audit_log_user` and registers the component.
-4. Re-apply each filter with [`audit_log_filter_set_filter()`](audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and re-assign accounts with [`audit_log_filter_set_user()`](audit-log-filter-variables.md#audit_log_filter_set_userusername-filter_name). When you exported the plugin's filter and user tables, those rows can be re-inserted directly.
+4. Re-apply each filter with [`audit_log_filter_set_filter()`](audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and re-assign accounts with [`audit_log_filter_set_user()`](audit-log-filter-variables.md). When you exported the plugin's filter and user tables, those rows can be re-inserted directly.
 5. Move non-filter settings (file path, format, rotation, syslog) from `audit_log_filter_*` plugin variables to the `audit_log_filter.*` component variables listed in the [variable mapping](#option-and-variable-mapping).
 
-See also [Upgrade from plugins to components → Transition after upgrade](upgrade-components.md#transition-timing).
+See also [Upgrade from plugins to components → Transition after upgrade](upgrade-components.md#transition-after-the-upgrade).
 
 ## What changes, at a glance
 
@@ -84,8 +84,8 @@ The following table maps plugin system variables (left) to component system vari
 | `audit_log_syslog_ident` | [`audit_log_filter.syslog_tag`](audit-log-filter-variables.md#audit_log_filtersyslog_tag) | Renamed. |
 | `audit_log_syslog_facility` | [`audit_log_filter.syslog_facility`](audit-log-filter-variables.md#audit_log_filtersyslog_facility) | — |
 | `audit_log_syslog_priority` | [`audit_log_filter.syslog_priority`](audit-log-filter-variables.md#audit_log_filtersyslog_priority) | — |
-| `audit_log_policy` | *(filter JSON)* | Translate to class selection — see [Translating `audit_log_policy`](#translating-audit_log_policy). |
-| `audit_log_include_accounts` / `audit_log_exclude_accounts` | *(filter JSON + `audit_log_filter_set_user()`)* | Per-account assignment replaces global lists — see [Translating include / exclude account lists](#translating-include--exclude-account-lists). |
+| `audit_log_policy` | *(filter JSON)* | Translate to class selection — see Translating `audit_log_policy`. |
+| `audit_log_include_accounts` / `audit_log_exclude_accounts` | *(filter JSON + `audit_log_filter_set_user()`)* | Per-account assignment replaces global lists — see [Translating include / exclude account lists](#translating-includeexclude-lists). |
 | `audit_log_include_commands` / `audit_log_exclude_commands` | *(filter JSON)* | Use `log` conditions that test `general_sql_command.str`. |
 | `audit_log_include_databases` / `audit_log_exclude_databases` | *(filter JSON)* | Use `log` conditions that test `table_database.str` in `table_access`. |
 
@@ -112,7 +112,7 @@ See [Write filter definitions](write-filter-definitions.md) and the sub-pages.
 | `QUERIES` | `{ "filter": { "class": [ { "name": "general" }, { "name": "table_access" } ] } }` |
 | `NONE` | Either do not assign a filter to the account, or bind an empty filter: `{ "filter": {} }` |
 
-Install any of these with [`audit_log_filter_set_filter()`](audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and assign them with [`audit_log_filter_set_user()`](audit-log-filter-variables.md#audit_log_filter_set_userusername-filter_name). For example:
+Install any of these with [`audit_log_filter_set_filter()`](audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and assign them with [`audit_log_filter_set_user()`](audit-log-filter-variables.md). For example:
 
 ```sql
 SELECT audit_log_filter_set_filter('log_all', '{ "filter": { "log": true } }');
@@ -294,7 +294,7 @@ Accounts that match neither `app@%` nor `admin@localhost`, and that have no expl
 
 * The component stores state in `mysql.audit_log_filter` and `mysql.audit_log_user`. Back up those tables before making bulk changes, and include the tables in standard `mysql` database backups.
 
-* Lifecycle events — `server_startup`, `server_shutdown`, and the `audit` class itself — are not valid filter targets. See [Definition fields reference](audit-log-filter-definition-fields.md#class-audit).
+* Lifecycle events — `server_startup`, `server_shutdown`, and the `audit` class itself — are not valid filter targets. See [Definition fields reference](audit-log-filter-definition-fields.md).
 
 * `audit_log_filter.event_mode` defaults to `REDUCED`. When you relied on plugin logging for classes beyond `connection`, `general`, `table_access`, and `message`, set `event_mode = FULL` to match the broader class set.
 

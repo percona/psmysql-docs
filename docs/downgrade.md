@@ -1,62 +1,83 @@
 # Downgrade Percona Server for MySQL
 
+**Topic type**: Concept
+
 --8<--- "get-help-snip.md"
 
-<!-- Clarify whether the following instruction is valid for 9.7-->
+[Need help planning a downgrade? Percona Support can assist :octicons-link-external-16:](https://www.percona.com/services/support).
 
-Downgrading to a 5.7 or earlier series is not supported.
+## Before you downgrade
 
-Between versions within the same Long-Term Support (LTS) series, you can downgrade from 8.4.y LTS to 8.4.x LTS using the following methods:
+Review the following prerequisites before starting a downgrade:
 
-* Performing an in-place upgrade
+* Understand the Percona Server for MySQL release model. Percona ships Long-Term Support (LTS) releases and bug-fix releases within each LTS series.
 
-* Creating a logical dump and loading it
+* Treat hot fixes as separate releases when you plan a downgrade.
 
-* Use MySQL Clone functionality
+* For a replication topology, perform a rolling downgrade. Apply a single-server method to each server in turn.
 
-* Set up replication between the versions
+* Take a verified backup before any downgrade attempt.
 
-Between one LTS or Bugfix series to the previous LTS or Bugfix series, such as moving from 8.4.x LTS to 8.0.y, you have two primary options:
+* Do not attempt to downgrade below 8.4. Earlier paths are not supported.
 
-* Create a logical dump of your data and load it into the older version
+For the underlying MySQL guidance, see [Downgrading MySQL :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/downgrading.html).
 
-* Set up replication between the versions. 
+## Identify a supported downgrade path
 
-!!! important "Important"
-    This downgrade path is only supported when no new server functionality has been applied to your data.
+The following table summarizes supported downgrade paths from {{vers}} LTS.
 
-Between an LTS or Bugfix series to an earlier Innovation series (after the previous LTS release), such as from 8.4.x LTS to 8.3.0 Innovation, you have the following options:
+| Downgrade path | Example | Supported methods | Notes |
+|---|---|---|---|
+| Within the same LTS series | {{vers}}.y LTS to {{vers}}.x LTS | In-place, logical dump and load, MySQL Clone, or replication | Same-LTS downgrades have the most flexibility. |
+| To the previous LTS series | {{vers}}.x LTS to 8.4.y | Logical dump and load, or replication | Use this path as a rollback only. The data must contain no features from the upgraded version. |
 
-* Create a logical dump of your data and load it into the older version
+!!! important "Rollback constraint"
 
-* Set up replication between the versions. 
+    Cross-series paths fit a rollback scenario only. If you have run any feature unique to {{vers}} against the data, do not use a cross-series downgrade. Restore from a pre-upgrade backup instead.
 
-!!! important "Important"
-    This downgrade path is only supported when no new server functionality has been applied to your data.
+## Choose a downgrade method
 
-We don't support downgrades with any 8.0.x release below 8.0.34.
-Releases in the range above 8.0.34 can be downgraded to any release within that range, including 8.0.34.
+The following methods support the paths in [Identify a supported downgrade path](#identify-a-supported-downgrade-path):
 
-## Downgrading risks
+* In-place: stop the server, replace binaries, and restart with the existing data directory. Available within the same LTS series only.
 
-Downgrading has the following risks:
+* Logical dump and load: export the data with `mysqldump` and load the dump into the older version.
+
+* MySQL Clone: clone data between servers within the same LTS series.
+
+* Replication: configure replication from {{vers}} to the older version, validate the replica, and cut traffic over.
+
+For cutover and validation guidance during a downgrade, see [Upgrade strategies](./upgrade-strategies.md).
+
+## Assess downgrade risks
+
+!!! warning "Data loss risk"
+
+    A failed downgrade can corrupt or destroy data. Create and verify a backup before any downgrade attempt. Restore the backup if the downgrade encounters issues.
+
+The following table lists the risks of downgrading.
 
 | Risk | Description |
 |---|---|
-| Data loss | If the downgrade process has issues, you may lose your data. It is crucial that you back up your data before attempting to downgrade. |
-| Incompatibility | If you use any feature or improvement in the latest version, downgrading could result in incompatibility issues. |
-| Performance | Downgrading may result in a loss of performance |
-| Security | Newer versions have security updates that are not available in the older versions, which could lead to exposure. |
+| Data loss | Data loss is possible if the downgrade encounters issues. Create a backup of your data before attempting a downgrade. |
+| Incompatibility | Features used in the upgraded version can cause incompatibility. |
+| Performance | Downgrading can reduce performance. |
+| Security | Older versions lack security updates available in upgraded versions, which can increase exposure. |
 
 ## Further reading
 
-* [Upgrade overview](./upgrade.md)
-* [Upgrade checklist for {{vers}}](./upgrade-checklist-8.4.md)
-* [Upgrade procedures for {{vers}}](./upgrade-procedures.md)
-* [Upgrade strategies](./upgrade-strategies.md)
+The following Percona Server for MySQL pages cover related topics:
+
 * [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md)
+
+* [Percona Toolkit updates for {{vers}}](./percona-toolkit-9.7-updates.md)
+
+* [Upgrade checklist for {{vers}}](./upgrade-checklist-9.7.md)
+
 * [Upgrade from plugins to components](./upgrade-components.md)
-* [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md)
-* [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md)
-* [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
-* [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md)
+
+* [Upgrade overview](./upgrade.md)
+
+* [Upgrade procedures for {{vers}}](./upgrade-procedures.md)
+
+* [Upgrade strategies](./upgrade-strategies.md)
