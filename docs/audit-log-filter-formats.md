@@ -1,24 +1,33 @@
 # Audit Log Filter file format overview
 
-When an auditable event occurs, the component writes a record to the log file.
+On each auditable event, the component appends a record to the log. After startup, the first record describes the server and the startup options. Later records cover connections, disconnections, executed SQL, and other audit events.
 
-After the component starts, the first record lists the description of the server and the options at startup. After the first record, the auditable events are connections, disconnections, SQL statements executed, and so on. Statements within stored procedures or triggers are not logged, only the top-level statements.
+[`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode) controls which server actions become audit records. The file format does not change that selection. See the variable reference for `REDUCED` versus `FULL` and for releases before the variable existed.
 
-If files are referenced by `LOAD_DATA`, the contents are not logged.
+When `LOAD_DATA` references files, the component does not log file contents.
 
-Set with the `audit_log_filter.format` system variable at startup. The available format types are the following;
+Set the format with `audit_log_filter.format` at startup. The available formats follow:
 
-| Format Type | Command | Description |
+| Format type | Command | Description |
 |---|---|---|
-| [XML (new style)](audit-log-filter-new.md) | `audit_log_filter.format=NEW` | The default format |
-| [XML (old style)](audit-log-filter-old.md) | `audit_log_filter.format=OLD` | The original version of the XML format |
-| [JSON](audit-log-filter-json.md) | `audit_log_filter.format=JSON` | Files written as a JSON array |
+| [JSONL](audit-log-filter-json.md) | `audit_log_filter.format=JSONL` | Default. One compact JSON object per line inside a wrapping array. See the JSON and JSONL topic. |
+| [JSON](audit-log-filter-json.md) | `audit_log_filter.format=JSON` | One top-level JSON array of events. |
+| [XML (new style)](audit-log-filter-new.md) | `audit_log_filter.format=NEW` | XML layout. |
 
-By default, the file contents in the new-style XML format are not compressed or encrypted.
+By default, JSONL logs are neither compressed nor encrypted.
 
-Changing the `audit_log_filter.format`, you should also change 
-the `audit_log_filter.file` name. For example, changing the `audit_log_filter.format` 
-to JSON, change the `audit_log_filter.file` to `audit.json`. If you don't change 
-the `audit_log_filter.file` name, then all audit log filter files have the same 
-base name and you won't be able to easily find when the format changed.
+When you change `audit_log_filter.format`, rename `audit_log_filter.file` as well. For example, use `audit.json` or `audit.jsonl` for JSON or JSONL. Reusing one base name obscures format changes across rotated files.
 
+## Additional reading
+
+* [Audit Log Filter overview](audit-log-filter-overview.md)
+
+* [Audit Log Filter format - JSON and JSONL](audit-log-filter-json.md)
+
+* [Audit Log Filter format - XML (new style)](audit-log-filter-new.md)
+
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md) — `audit_log_filter.format` and `audit_log_filter.file`
+
+* [Reading Audit Log Filter files](reading-audit-log-filter-files.md)
+
+* [Audit Log Filter compression and encryption](audit-log-filter-compression-encryption.md)

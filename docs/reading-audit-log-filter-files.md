@@ -1,28 +1,71 @@
 # Reading Audit Log Filter files
 
-The Audit Log Filter functions can provide a SQL interface to read JSON-format audit log files. The functions cannot read log files in other formats. Configuring the component for JSON logging lets the functions use the directory that contains the current audit log filter file and search in that location for readable files. The value of the `audit_log_filter.file` system variable provides the file location, base name, and the suffix and then searches for names that match the pattern.
+Audit Log Filter exposes a SQL API to read audit files in JSON or JSONL only. Layout and the JSONL option appear in [Audit Log Filter format - JSON and JSONL](audit-log-filter-json.md) and [Audit Log Filter file format overview](audit-log-filter-formats.md).
 
-If the file is renamed and no longer fits the pattern, the file is ignored.
+Set `audit_log_filter.format` to match. [`audit_log_filter.file`](audit-log-filter-variables.md#audit_log_filterfile) defines the path, base name, and suffix that readers use to locate files.
+
+When a file no longer matches the pattern, readers ignore the file.
 
 ## Functions used for reading the files
 
-The following functions read the files in the JSON-format:
+The following functions read JSON or JSONL audit files:
 
-* [`audit_log_read`](audit-log-filter-variables.md#audit_log_read) - reads audit log filter events
+* [`audit_log_read`](audit-log-filter-variables.md#audit_log_read) — returns audit events from the log.
 
-* [`audit_log_read_bookmark`](audit-log-filter-variables.md#audit_log_read_bookmark) - for the most recently read event, returns a bookmark. This bookmark can be passed to `audit_log_read()`.
+* [`audit_log_read_bookmark`](audit-log-filter-variables.md#audit_log_read_bookmark) — returns a bookmark for the last read position. Pass the bookmark into `audit_log_read()` to resume.
 
-Initialize a read sequence by using a bookmark or an argument that specifies the start position:
+Start a read with a bookmark or an explicit start position:
 
 ```sql
 SELECT audit_log_read(audit_log_read_bookmark());
 ```
 
-The following example continues reading from the current position:
+Continue from the current cursor:
 
 ```sql
 SELECT audit_log_read();
 ```
 
-Reading a file is closed when the session ends or calling `audit_log_read()` with another argument.
+The read sequence ends when the session ends or when you call `audit_log_read('null')`.
 
+## Common starting points
+
+The `audit_log_read()` argument is a JSON object. Pick one of the following starting forms.
+
+Start at a specific timestamp:
+
+```sql
+SELECT audit_log_read('{"start": {"timestamp": "2026-05-20 12:28:10"}}');
+```
+
+Start at a date (the time defaults to `00:00:00`):
+
+```sql
+SELECT audit_log_read('{"start": {"timestamp": "2026-05-20"}}');
+```
+
+Cap how many events the call returns with `max_array_length`:
+
+```sql
+SELECT audit_log_read('{"start": {"timestamp": "2026-05-20 12:28:10"}, "max_array_length": 3}');
+```
+
+Resume from an explicit bookmark. Pass both `timestamp` and `id` at the top level, with no `start` wrapper:
+
+```sql
+SELECT audit_log_read('{"timestamp": "2026-05-20 12:28:10", "id": 1561422}');
+```
+
+The `start` form and the bookmark form (`timestamp` + `id`) are mutually exclusive. See [`audit_log_read()`](audit-log-filter-variables.md#audit_log_read) for the full parameter reference, including constraints on re-seeding a read sequence in flight.
+
+## Additional reading
+
+* [Audit Log Filter format - JSON and JSONL](audit-log-filter-json.md)
+
+* [Audit Log Filter file format overview](audit-log-filter-formats.md)
+
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md)
+
+* [Manage the Audit Log Filter files](manage-audit-log-filter.md)
+
+* [Audit Log Filter overview](audit-log-filter-overview.md)
