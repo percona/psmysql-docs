@@ -375,7 +375,6 @@ row
 * [Secure Percona Server for MySQL with SELinux](selinux.md)
 * [SELECT statement](select.md)
 * [SELinux contexts and labels](selinux-contexts.md)
-* [SEQUENCE_TABLE(n) function](sequence-table.md)
 * [Show storage engines](show-engines.md)
 * [Slow query log](slow-extended.md)
 * [Slow query log rotation and expiration](slowlog-rotation.md)
