@@ -1,9 +1,9 @@
 # Understand version numbers
 
-A version number identifies the innovtion product release. The product contains the latest features, improvements, and bug fixes at the time of that release.
+A version number identifies the innovation product release. The product contains the latest features, improvements, and bug fixes at the time of that release.
 
-| 8.1.0 | -1 |
-|---|---|---|
+| 8.4.2 | -2 |
+|---|---|
 | Base version | Minor build version |
 
 Percona uses semantic version numbering, which follows the pattern of base version and build version. Percona assigns unique, non-negative integers in increasing order for each version release. The version number combines the base [MySQL {{vers}} :octicons-link-external-16:](https://dev.mysql.com/doc/relnotes/mysql/{{vers}}/en/) version number and the minor build version.
