@@ -83,5 +83,10 @@
 | Innodb_oldest_view_low_limit_trx_id | Numeric | Global |
 | Innodb_purge_trx_id | Numeric | Global |
 | Innodb_purge_undo_no | Numeric | Global |
+| Threadpool_average_hp_queue_wait_us | String | Global |
+| Threadpool_average_queue_wait_us | String | Global |
 | Threadpool_idle_threads | Numeric | Global |
+| Threadpool_requests_starved_in_queue | Numeric | Global |
+| Threadpool_requests_waiting_in_hp_queue | Numeric | Global |
+| Threadpool_requests_waiting_in_queue | Numeric | Global |
 | Threadpool_threads | Numeric | Global |
