@@ -1,170 +1,184 @@
-# Upgrade from 8.0 to {{vers}} overview
+# Upgrade from 8.4 to {{vers}} overview
+
+**Topic type**: Concept
 
 --8<--- "get-help-snip.md"
 
-[Need expert guidance for your upgrade? Percona Support is ready to assist you every step of the way :octicons-link-external-16:](https://www.percona.com/services/support).
+[Need expert guidance for your upgrade? Percona Support can assist :octicons-link-external-16:](https://www.percona.com/services/support).
 
-<!-- Update this doc to be valid for 9.7-->
+## Why upgrade to Percona Server for MySQL {{vers}}?
 
-## Why upgrade to Percona Server for MySQL {{vers}} LTS
+Moving from 8.4 Long-Term Support (LTS) to {{vers}} is more than a version bump. Updated defaults, deprecated options, and behavior changes can affect performance and break existing scripts. Treat the upgrade as a project. Plan the steps, select a method that fits your downtime window, and verify the result.
 
-Long‑Term Support (LTS) releases focus on stability, predictable security patches, and a clearly defined maintenance horizon—essential qualities for production databases. Moving from 8.0 to 8.4 isn’t just a simple version bump: new defaults, deprecated options, and behavior changes can affect performance and break existing scripts. Treat the upgrade as a small project: plan the steps, pick the method that matches your downtime window, and verify the result.
+## Identify the benefits of upgrading
 
-## Benefits of upgrading to Percona Server for MySQL 8.4
+The following table lists the main benefits.
 
-| Benefit              | What it means for you                                                                 |
-|-----------------------|----------------------------------------------------------------------------------------|
-| Security fixes        | Patches close known vulnerabilities, keeping your data safe from attacks.             |
-| New or enhanced features | Access to functionality that improves performance, reliability, and overall capability. |
-| Less manual effort    | Automation tools let you handle routine tasks without hands-on intervention.          |
-| Stay relevant         | The latest version helps you meet evolving customer expectations and deliver solutions more quickly. |
-| Lower operational cost | Improved efficiency, and scalability translate into cheaper day-to-day operations.     |
+| Benefit | What it means for you |
+|---|---|
+| Security fixes | Patches close known vulnerabilities and protect data from attacks. |
+| Additional features | Improved performance, reliability, and capability. |
+| Less manual effort | Automation handles routine tasks without hands-on intervention. |
+| Lower operational cost | Improved efficiency and scalability reduce day-to-day operations cost. |
 
-## Risks of staying on an older version
+## Assess the risks of staying on an older version
 
+The following table summarizes the risks.
 
-| Risk                    | Potential impact                                                                                                                 |
-|--------------------------|----------------------------------------------------------------------------------------------------------------------------------|
-| Security exposure        | Without the latest patches, attackers can breach, corrupt, or destroy data, harming reputation and causing financial loss.       |
-| Feature stagnation       | Missing new capabilities can lead to slower performance, lower productivity, and more frequent outages.                          |
-| Reduced support          | Older versions receive less vendor assistance, resulting in longer troubleshooting times and higher support expenses.            |
-| Compatibility problems   | New hardware, operating system releases, or third-party applications may not work with an outdated Percona Server version, eventually leaving the server unsupported. |
-| Unplanned upgrade pressure | Unexpected hardware or OS failures can force a rushed upgrade, increasing the chance of errors.                                |
+| Risk | Potential impact |
+|---|---|
+| Security exposure | Without recent patches, attackers can breach, corrupt, or destroy data. |
+| Feature stagnation | Missing capabilities slow performance and increase outage frequency. |
+| Reduced support | Older versions receive less vendor assistance, which lengthens troubleshooting. |
+| Compatibility problems | Hardware, operating system releases, or third-party applications may not work with an outdated server. |
+| Unplanned upgrade pressure | Hardware or operating system failures can force a rushed upgrade and increase error risk. |
 
-[Concerned about these risks? 
-Percona Support can help assess and mitigate them :octicons-link-external-16:](https://www.percona.com/services/support).
+[Concerned about these risks? Percona Support can help assess and mitigate them :octicons-link-external-16:](https://www.percona.com/services/support).
 
+## Understand what the upgrade process changes
 
-## Upgrade workflow
+A {{vers}} restart against an existing data directory runs an automatic two-phase upgrade. The phases run inside the server with no user action required. The split lets the server start with a current data dictionary even when other tasks remain.
 
-Follow this step-by-step workflow to plan and execute your upgrade from 8.0 to {{vers}}:
+| Phase | Scope | What the server does |
+|---|---|---|
+| Data dictionary upgrade | The data dictionary tables in the `mysql` schema, the Performance Schema, and the `INFORMATION_SCHEMA` | Creates dictionary tables with current definitions, copies metadata across, and atomically replaces the prior tables |
+| Server upgrade | The system tables in `mysql`, the `sys` schema, and all user schemas | Runs `CHECK TABLE ... FOR UPGRADE` on each table, repairs as needed, and stamps each table with the {{vers}} version number |
 
-### Step 1: Understand what's changing
+The data dictionary upgrade always runs first. The server tracks two versions in the data dictionary: the data dictionary version and the server (MySQL) version. The server upgrades any part that lags the {{vers}} expected versions.
 
-Review these documents to understand breaking changes, removed features, and compatibility issues:
+The `--upgrade` server option controls the automatic upgrade behavior at startup.
 
-* [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md) - Review behavioral changes, removed features, and removed variables that may affect your applications
+| Mode | Behavior |
+|---|---|
+| `AUTO` (default) | Run any out-of-date upgrade tasks across both phases |
+| `NONE` | Skip both phases. The server exits with an error if the data dictionary requires an upgrade |
+| `MINIMAL` | Run the data dictionary upgrade only. Group Replication cannot start after a MINIMAL upgrade because system tables remain stale |
+| `FORCE` | Run the data dictionary upgrade, then force the server upgrade across every schema. Use the mode to re-create missing system tables, such as help tables or time zone tables. Expect a longer startup |
 
-* [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md) - Verify third-party tool compatibility
+The server upgrade locks each table during processing. Plan a maintenance window that fits the largest tables in the schema. Time zone tables are not refreshed automatically. Reload the tables with `mysql_tzinfo_to_sql` if your applications depend on time zone names.
 
-* [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md) - Understand configuration changes that may impact performance
+For underlying MySQL guidance, see [What the MySQL Upgrade Process Upgrades :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-what-is-upgraded.html).
 
-* [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md) - Review toolkit changes if you use Percona Toolkit
+## Run the upgrade workflow
+
+The following steps describe the upgrade workflow from 8.4 to {{vers}}.
+
+### Step 1: Review what changed
+
+Review the following resources to understand behavior changes, removed features, and toolkit impacts:
+
+* [Percona Toolkit updates for {{vers}}](./percona-toolkit-9.7-updates.md) describes toolkit changes
+
+* [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md) confirms supported upgrade paths
+
+* [Keywords and Reserved Words in MySQL {{vers}} :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/keywords.html) lists reserved words that break unquoted identifiers
 
 ### Step 2: Complete pre-upgrade preparation
 
-Work through the pre-upgrade checks in the [upgrade checklist](./upgrade-checklist-8.4.md). This includes:
+Work through the pre-upgrade checks in the [upgrade checklist](./upgrade-checklist-9.7.md). The pre-upgrade checks cover the following topics:
 
-* Verifying authentication methods and client compatibility
+* Authentication methods and client compatibility
 
-* Updating replication scripts (MASTER/SLAVE → SOURCE/REPLICA syntax)
+* Backup and restore procedures
 
-* Identifying and addressing removed features or variables
+* Configuration defaults
 
-* Reviewing configuration defaults
+* Plugin-to-component transitions, if applicable
 
-* Testing backups and restore procedures
+* Removed features and variables
 
-* Planning plugin-to-component transitions (if applicable)
+* Replication script updates (`MASTER`/`SLAVE` to `SOURCE`/`REPLICA` syntax)
 
 ### Step 3: Choose your upgrade strategy
 
-Select the upgrade method that best fits your environment:
+Select an upgrade method that fits your environment:
 
-* [Upgrade strategies](./upgrade-strategies.md) - Overview of in-place, logical dump/restore, and side-by-side methods
+* [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md) confirms supported upgrade paths
 
-* [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md) - Verify your upgrade path is supported
+* [Upgrade strategies](./upgrade-strategies.md) covers in-place, logical dump and restore, side-by-side, MySQL Clone, and rolling-replication methods
 
-### Step 4: Execute the upgrade
+### Step 4: Run the upgrade
 
-Follow the step-by-step procedures for your chosen method:
-
-* [Upgrade procedures for {{vers}}](./upgrade-procedures.md) - Detailed procedures for repository-based or standalone package upgrades
+Follow the procedures in [Upgrade procedures for {{vers}}](./upgrade-procedures.md). The procedures cover repository-based and standalone package upgrades.
 
 ### Step 5: Validate the upgrade
 
-After completing the upgrade, complete the post-upgrade validation steps in the [upgrade checklist](./upgrade-checklist-8.4.md#post-upgrade-validation). These steps include:
+Complete the post-upgrade validation in the [upgrade checklist](./upgrade-checklist-9.7.md#post-upgrade-validation). The validation steps cover the following topics:
 
-* Verifying connectivity and authentication
+* Backup and recovery testing
 
-* Checking replication health (if applicable)
+* Connectivity and authentication
 
-* Re-creating spatial indexes
+* Logs and metrics
 
-* Validating performance baselines
+* Performance baselines
 
-* Reviewing logs and metrics
+* Replication health, if applicable
 
-* Testing backup and recovery
+* Spatial index re-creation
 
-### Additional reference materials
+## Reduce upgrade risk
 
-* [Upgrade from plugins to components](./upgrade-components.md) - Guide for migrating from plugins to components
+The following tools help reduce upgrade risk before you run the production upgrade:
 
-* [Downgrade options](./downgrade.md) - Information about downgrading if needed
+* A full dry-run workflow exercises every step. Create a backup, restore on {{vers}}, run smoke and load tests, validate, and practice rollback.
 
-### Tooling to de-risk your upgrade
+* [Percona XtraBackup :octicons-link-external-16:](https://www.percona.com/software/mysql-database/percona-xtrabackup) creates hot backups for restore testing.
 
-* [`pt-upgrade` :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/pt-upgrade.html) – compares query plans and execution behavior between Percona Server 8.0 and {{vers}}
+* [`pt-upgrade` :octicons-link-external-16:](https://docs.percona.com/percona-toolkit/pt-upgrade.html) compares query plans between Percona Server 8.4 and {{vers}}.
 
-* [Percona XtraBackup :octicons-link-external-16:](https://www.percona.com/software/mysql-database/percona-xtrabackup)  – creates hot backups and lets you test restores without downtime.
+These tools surface regressions early and confirm a reliable fallback plan.
 
-* A full dry-run workflow - backup → restore on 8.4 → run smoke/load tests → validate → practice rollback.
+## Test before production
 
-These purpose‑built tools let you spot regressions early and ensure a reliable fallback plan.
+Configure a sandbox and run the upgrade there first. The sandbox is essential for a successful migration.
 
-## Test environment is mandatory
+!!! warning "Data loss risk"
 
-Set up a sandbox and run the upgrade there first. This isolated environment is essential for a successful migration. If you ever need to revert to the previous version, note that there is no fully supported in-place [downgrade procedure](./downgrade.md) from Percona Server for MySQL 8.4 to an earlier major version. The most reliable rollback method is to restore a backup taken before the upgrade, or to use a logical dump/load or replication into the older version. Because binary compatibility may not be preserved when new features or data-format changes have been applied, the safest approach is to provision a fresh instance of the older version and reload your data, rather than expecting a simple “undo” of the upgrade.
+    Percona Server for MySQL {{vers}} does not provide a supported in-place downgrade to an earlier major version. Plan the rollback path before the upgrade. The most reliable rollback is to restore a backup taken before the upgrade. Logical dump and load, or replication into the older version, are also supported.
 
-We strongly advise upgrading to the latest LTS release (Percona Server for MySQL {{vers}}) to stay secure, performant, and fully supported.
+Operations in {{vers}} can change data formats, which breaks binary compatibility with older versions. The safest approach is to provision a fresh server on the older version and reload your data. Do not expect a one-step undo of the upgrade. See [Downgrade options](./downgrade.md) for more details.
 
+We recommend upgrading to the most recent LTS release for security, performance, and full support.
 
 [Need personalized support during your upgrade? Contact Percona Support for a detailed migration plan :octicons-link-external-16:](https://www.percona.com/services/support).
 
 ## Further reading
 
-Review these upgrade-related documents:
+The following Percona Server for MySQL pages cover upgrade-related topics:
 
-* [Upgrade checklist for {{vers}}](./upgrade-checklist-8.4.md)
+* [Downgrade options](./downgrade.md)
+
+* [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md)
+
+* [Percona Toolkit updates for {{vers}}](./percona-toolkit-9.7-updates.md)
+
+* [Upgrade checklist for {{vers}}](./upgrade-checklist-9.7.md)
+
+* [Upgrade from plugins to components](./upgrade-components.md)
 
 * [Upgrade procedures for {{vers}}](./upgrade-procedures.md)
 
 * [Upgrade strategies](./upgrade-strategies.md)
 
-* [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md)
-
-* [Upgrade from plugins to components](./upgrade-components.md)
-
-* [Downgrade options](./downgrade.md)
-
-* [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md)
-
-* [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md)
-
-* [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
-
-* [Percona Toolkit updates for {{vers}}](./percona-toolkit-8.4-updates.md)
-
 ### Additional MySQL documentation
 
-The following list summarizes a number of the changes in the 8.0 series and has useful guides that can help you perform a smooth upgrade. We strongly recommend reading this information:
-
-* [Upgrading MySQL :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading.html)
+The following MySQL documentation pages cover the upgrade process:
 
 * [Before You Begin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-before-you-begin.html)
 
-* [Upgrade Paths :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-paths.html)
-
-* [Changes in MySQL 8.0 :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-from-previous-series.html)
+* [Percona Server for MySQL {{vers}} Release notes :octicons-link-external-16:](release-notes/release-notes-index.md)
 
 * [Preparing your Installation for Upgrade :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-prerequisites.html)
 
-* [Percona Server for MySQL {{vers}} Release notes :octicons-link-external-16:](https://docs.percona.com/percona-server/latest/release-notes/release-notes_index.html)
+* [Rebuilding or Repairing Tables or Indexes :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/rebuilding-tables.html)
+
+* [Upgrade Paths :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-paths.html)
 
 * [Upgrade Troubleshooting :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-troubleshooting.html)
 
-* [Rebuilding or Repairing Tables or Indexes :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/rebuilding-tables.html)
+* [Upgrading MySQL :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading.html)
 
-Review other [Percona blogs :octicons-link-external-16:](https://www.percona.com/blog/) that contain upgrade information.
+* [What the MySQL Upgrade Process Upgrades :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-what-is-upgraded.html)
 
+For additional reading, review the [Percona blog :octicons-link-external-16:](https://www.percona.com/blog/) for upgrade information.

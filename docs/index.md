@@ -23,7 +23,9 @@ Start here to choose your installation path.
    * Check → Verify support on the [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql) page.
 
 4. Are you deploying on Kubernetes (a platform for running containerized applications)?
+
    * Yes → Use [Percona Operator for MySQL](https://docs.percona.com/percona-operator-for-mysql/ps/) (for Percona Server for MySQL) or [Percona Operator for MySQL based on Percona XtraDB Cluster (PXC)](https://docs.percona.com/percona-operator-for-mysql/pxc/) (for a clustered, high-availability setup). Operators automate deployment, scaling, backups, and failover on Kubernetes.
+   
    * No → Not sure? [Learn more about the differences](ps-or-pdps.md) to compare options.
 
 [Learn more about the differences →](ps-or-pdps.md)
@@ -62,9 +64,17 @@ Upgrade your Percona Server for MySQL installation with our comprehensive upgrad
 
 </div><div data-banner markdown>
 
-## :fontawesome-solid-gears: Audit Log Filter plugin { .title }
+### :material-information-outline: Planning for MySQL 9.7 LTS? { .title }
 
-Learn about the Audit Log Filter plugin that allows you to monitor, log, and block a connection or query actively executed on the selected server.
+Plan your migration to Percona Server for MySQL 9.7 LTS from APT, DNF, or YUM packages.
+
+See the [MySQL 9.7 technical migration overview](whats-new-mysql-9.md) for breaking changes, compatibility, removed items, defaults, and tuning.
+
+</div><div data-banner markdown>
+
+## :fontawesome-solid-gears: Audit Log Filter component { .title }
+
+Learn about the Audit Log Filter component that allows you to monitor, log, and block a connection or query actively executed on the selected server.
 
 [Audit Log Filter](audit-log-filter-overview.md){ .md-button}
 

@@ -2,42 +2,42 @@
 
 ## Compression
 
-You can enable compression for any [format](audit-log-filter-formats.md) by setting the `audit_log_filter.compression` system variable when the server starts.
+Enable compression for any [format](audit-log-filter-formats.md) with `audit_log_filter.compression` at server startup.
 
-The `audit_log_filter.compression` variable can be either of the following:
+Allowed values:
 
-* NONE (no compression) - the default value
-* GZIP - uses the GNU Zip compression
+* `NONE` — the default. No compression.
 
-If compression and encryption are enabled, the component applies compression before encryption. If you must manually recover a file with both settings, first decrypt the file and then uncompress the file.
+* `GZIP` — GNU zip compression.
+
+With both compression and encryption enabled, the component compresses first and then encrypts. To recover a file manually, decrypt first and then decompress.
 
 ## Encryption
 
-You can encrypt any audit log filter file in any [format](audit-log-filter-formats.md). The audit log filter component generates the initial password, but you can use user-defined passwords after that. The component stores the passwords in the keyring, so that feature must be enabled.
+Encrypt any audit log format. The component generates the first password. You can rotate to custom passwords afterward. Passwords live in the keyring. Enable a keyring first.
 
-Set the `audit_log_filter.encryption` system variable with the server starts. The allowed values are the following:
+Set `audit_log_filter.encryption` at startup. Values:
 
-* NONE - no encryption, the default value
-* AES - AES-256-CBC (Cipher Block Chaining) encryption
+* `NONE` — the default. No encryption.
 
-The AES uses the 256-bit key size.
+* `AES` — AES-256-CBC.
 
-The following audit log filter functions are used with encryption:
+AES uses a 256-bit key.
 
-| Function name     | Description          |
-| ----------------- | -------------------- |
-| audit_log_encryption_password_set() | Stores the password in the keyring. If encryption is enabled, the function also rotates the log file by renaming the current log file and creating a log file encrypted with the password.                                           |
-| audit_log_encryption_password_get() | Invoking this function without an argument returns the current encryption password. An argument that specifies the keyring ID of an archived password or current password returns that password by ID. |
+Encryption-related functions:
 
-The `audit_log_filter.password_history_keep_days` variable is used with encryption. If the variable is not zero (0), invoking `audit_log_encryption_password_set()` causes the expiration of archived audit log passwords.
+| Function name | Description |
+|---|---|
+| `audit_log_encryption_password_set()` | Stores a password in the keyring. With encryption on, the function also rotates the log: renames the current file and starts a new file encrypted with the new password. |
+| `audit_log_encryption_password_get()` | With no argument, returns the active password. With a keyring ID, returns the archived or current password by ID. |
 
-When the component starts with encryption enabled, the component checks if the keyring has an audit log filter encryption password. If no password is found, the component generates a random password and stores this password in the keyring. Use `audit_log_encryption_password_get()` to review this password.
+`audit_log_filter.password_history_keep_days` controls how long archived passwords stay available. When the value is non-zero, calling `audit_log_encryption_password_set()` can expire older keyring entries.
 
-If compression and encryption are enabled, the component applies compression before encryption. If you must manually recover a file with both settings, first decrypt the file and then uncompress the file.
+On startup with encryption enabled, the component generates a password and stores the password when none exists. Call `audit_log_encryption_password_get()` to inspect the password.
 
-## Manually uncompressing and decrypting audit log filter files
+## Manually uncompress and decrypt audit log filter files
 
-To decrypt an encrypted log file, use the openssl command. For example:
+Decrypt with OpenSSL. For example:
 
 ```bash
 openssl enc -d -aes-256-cbc -pass pass:password
@@ -46,20 +46,30 @@ openssl enc -d -aes-256-cbc -pass pass:password
     -out audit.timestamp.log
 ```
 
-To execute that command, you must obtain a password and iterations. To do this, use `audit_log_encryption_password_get()`. 
+You need the password and iteration count from `audit_log_encryption_password_get()`.
 
-This function gets the encryption password, and the iterations count and returns this data as a JSON-encoded string. For example, if the audit log file name is `audit.20190415T151322.log.20190414T223342-2.enc`, the password ID is `{randomly-generated-alphanumeric-string}` and the keyring ID is `audit-log-20190414T223342-2`. 
-
-Get the keyring password:
+The function returns JSON. For example, for file `audit.20190415T151322.log.20190414T223342-2.enc` with keyring ID `audit-log-20190414T223342-2`:
 
 ```sql
 SELECT audit_log_encryption_password_get('audit-log-20190414T223342-2');
 ```
-
-The return value of this function may look like the following:
 
 ??? example "Expected output"
 
     ```{.text .no-copy}
     {"password":"{randomly-generated-alphanumeric-string}","iterations":568977}
     ```
+
+## Additional reading
+
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md) — encryption and compression options
+
+* [Audit Log Filter security](audit-log-filter-security.md)
+
+* [Audit Log Filter file format overview](audit-log-filter-formats.md)
+
+* [Manage the Audit Log Filter files](manage-audit-log-filter.md)
+
+* [Keyring components and plugins overview](keyring-components-plugins-overview.md)
+
+* [Quickstart component keyring](quickstart-component-keyring.md)

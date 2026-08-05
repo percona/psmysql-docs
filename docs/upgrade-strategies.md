@@ -1,104 +1,175 @@
 # Upgrade strategies
 
-For critical production systems, consider engaging [Percona Support :octicons-link-external-16:](https://www.percona.com/services/support) to assist with your upgrade process. Our experts can help ensure a smooth transition and minimize potential risks during this sensitive operation.
+**Topic type**: Concept
+
+For critical production systems, consider engaging [Percona Support :octicons-link-external-16:](https://www.percona.com/services/support) to assist with your upgrade. Our experts can help you complete a smooth transition and minimize risk during this sensitive operation.
+
+The following strategies cover most {{vers}} upgrade scenarios. Combine the prep steps in [Upgrade procedures for {{vers}}](./upgrade-procedures.md) with the strategy that matches your environment.
+
+For underlying MySQL guidance, see [Upgrading or Downgrading a Replication Topology :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-upgrade.html).
 
 ## Downgrade options
 
-Review the [Downgrade options](downgrade.md) to ensure that your downgrade path is supported.
+Review the [Downgrade options](./downgrade.md) to confirm that your downgrade path is supported.
 
-## In-place upgrade
+## Choose an upgrade strategy
 
-Use the in-place upgrade strategy only as a last resort. This approach involves shutting down the server and replacing the server binaries or packages with new ones. The new server version then starts using the existing data directory. Configure the server to perform a slow shutdown by setting `innodb_fast_shutdown=0` before shutting down.
+Use the following table to choose the strategy that matches your downtime budget, risk tolerance, and infrastructure constraints.
 
-The benefits are:
+| Strategy | Downtime | Risk | Infrastructure cost | Best for |
+|---|---|---|---|---|
+| In-place | Short to moderate, equal to restart and metadata upgrade time | Higher, due to shared data directory and limited rollback | Low | Same-platform upgrades on a single host or where parallel hardware is unavailable |
+| Logical dump and restore | Moderate to high, scaled to data size | Moderate, with clean metadata at the cost of dump and load time | Low to moderate | Cross-platform moves, storage-engine consolidations, and clean rebuilds |
+| Side-by-side with cutover | Minimal, only at cutover | Lower, with a defined fallback until fail-forward | High, requires parallel hardware | Critical production systems with the smallest tolerable outage |
+| MySQL Clone | Minimal, only at cutover | Lower, with a fast physical snapshot | Moderate, requires a recipient server | Provisioning a {{vers}} replica from a same Long-Term Support (LTS) donor at scale |
+| Rolling upgrade in a replication topology | Per-node restart only | Lower, with replicas absorbing traffic | Low if replicas already exist | Existing replication topologies where the source remains available |
 
-* Lower infrastructure costs compared to creating a new environment, though nodes require testing.
+For supported upgrade paths and methods, see [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md).
 
-* Ability to complete an upgrade over weeks with cool-down periods between reader node upgrades.
+## Upgrade in place
 
-* Requires a failover of production traffic, and achieving minimal downtime demands robust high-availability tools.
+An in-place upgrade replaces binaries on the same host and restarts on the existing data directory. The strategy is the fastest binary swap and requires no parallel hardware.
 
-If you use XA transactions with InnoDB, running `XA RECOVER` before upgrading checks for uncommitted XA transactions. If results are returned, either commit or rollback the XA transactions by issuing an `XA COMMIT` or `XA ROLLBACK` statement.
+The procedure halts the server, replaces packages, and starts {{vers}} against the same data files. Configure a slow shutdown by setting `innodb_fast_shutdown=0` before stopping. A slow shutdown leaves InnoDB in a state that is safe across releases.
 
-## New environment with cut over
+Take the following actions before the upgrade:
 
-Upgrading with a new environment involves provisioning a duplicate environment with the same number of servers with the same hardware specs and same operating system as the current production nodes.
+* Verify a backup and test a restore.
 
-On the newly provided hardware, the target MySQL version will be installed. The new environment will be set up, and the production data will be recovered. Remember that you can use pt-config-diff to verify MySQL configurations. 
+* Complete the [upgrade checklist for {{vers}}](./upgrade-checklist-9.7.md).
 
-Replication from the current source to the newly built environment will be established.
-At cutover time, all writes on the current source will be halted, and the application traffic will need to be redirected to the new source. The cutover can be done using a Virtual IP address or manually redirecting the application itself. Once writes are being received on the new environment, you are in a fail forward situation, and the old environment can be torn down.
+* Run `XA RECOVER` against the source server. Commit or rollback any uncommitted XA transactions.
 
-The new environment strategy has the following pros and cons:
+The in-place strategy has the following trade-offs:
 
-* Additional infrastructure cost since a new environment must be built.
+* Downtime equals the restart and metadata upgrade time.
 
-* Ability to upgrade both the OS and the DBMS at the same time.
+* The rollback path is limited because the data directory remains in place.
 
-* Allows upgrade of hardware easily.
+* Infrastructure cost is lower than parallel-environment options.
 
-* Requires only a single cutover window.
+Rollback path: stop the server, restore the verified backup, then revert the binaries. Test the rollback in staging.
 
-## 8.0 → {{vers}} migration methods
+For step-by-step commands, see [Upgrade procedures for {{vers}}](./upgrade-procedures.md).
 
-Choose the approach that matches your downtime budget, risk tolerance, and rollback needs. Always rehearse in a non-production environment first.
+## Use logical dump and restore
 
-> **Note**: For a complete overview of supported upgrade paths and methods, see [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md).
+A logical upgrade exports Structured Query Language (SQL) from the source server. The export reloads into a fresh {{vers}} server. The path produces clean metadata at the cost of a longer maintenance window.
 
-### In-place upgrade (stop/replace/start)
+Take the following actions before the upgrade:
 
-Downtime: short to moderate
+* Size the maintenance window to your data volume. Test the dump and restore time on a representative sample.
 
-Risk: higher (shared data directory; fewer rollback options)
+* Provision capacity for parallel dump and restore on the target host.
 
-Use when: the environment is simple, downtime is acceptable, and you have strong backups and validation.
+* Run `mysqlcheck --check-upgrade` and resolve any reported issues.
 
-Prerequisites:
+The logical strategy has the following trade-offs:
 
-* Complete [Upgrade checklist](./upgrade-checklist-8.4.md) pre-upgrade checks
-* Set `innodb_fast_shutdown=0` for a clean shutdown
-* Verified backup and restore
+* Downtime is long and scales with data size.
 
-Rollback: restore backup and revert binaries.
+* The target is clean and inherits no carryover from the source data directory.
 
-### Logical dump and restore (clean rebuild)
+* The strategy supports cross-platform and cross-storage-engine moves.
 
-Downtime: moderate to high (data size dependent)
+Rollback path: keep the source server available until validation completes. Redirect traffic back to the source if the {{vers}} server fails validation.
 
-Risk: moderate (clean metadata; slower for large datasets)
+For step-by-step commands, see [Perform a logical upgrade with mysqldump](./upgrade-procedures.md#perform-a-logical-upgrade-with-mysqldump).
 
-Use when: you want a pristine {{vers}} instance and can accept longer downtime.
+## Run a side-by-side migration with controlled cutover
 
-Prerequisites:
+A side-by-side migration runs the source and {{vers}} environments in parallel and redirects traffic at a single cutover. The strategy provides the smallest outage and the cleanest rollback at the cost of parallel infrastructure.
 
-* Sufficient capacity for parallel dump/restore
-* Application maintenance window sized to data volume
+Take the following actions to build the parallel environment:
 
-Rollback: keep 8.0 online until validation completes; redirect traffic back if needed.
+* Match the production environment in server count, hardware specifications, and operating system.
 
-### Side-by-side with replication and controlled cutover
+* Install Percona Server for MySQL {{vers}} on the parallel hardware.
 
-Downtime: minimal (cutover only)
+* Recover the production data into the parallel environment. Verify configuration parity with `pt-config-diff`.
 
-Risk: lower (new environment; defined fallback until fail-forward)
+* Configure replication from the source to the parallel environment.
 
-Use when: you need the smallest outage and can provision a parallel environment.
+* Validate the workload on the parallel replicas. Rehearse failover.
 
-Prerequisites:
+Take the following actions at cutover:
 
-* Build a new {{vers}} environment; establish replication from 8.0
-* Validate workload on the replica(s) and rehearse failover
+* Halt writes on the source. Allow replicas to apply remaining transactions.
 
-Cutover: stop writes on 8.0, allow replica to catch up, redirect traffic (VIP/DNS), then promote {{vers}}.
+* Promote {{vers}} as the primary write target.
 
-Rollback: if issues arise before fail-forward, redirect traffic back to 8.0 and resume writes.
+* Redirect traffic with a Virtual IP (VIP) address or a Domain Name System (DNS) update.
+
+After traffic lands on {{vers}} and validation completes, decommission the source environment.
+
+The side-by-side strategy has the following trade-offs:
+
+* Infrastructure cost is highest during the migration window.
+
+* The strategy requires a single cutover window.
+
+* Database, hardware, and operating system upgrades can land in the same window.
+
+Rollback path: before fail-forward, redirect traffic back to the source. Resume writes on the source.
+
+## Use MySQL Clone for provisioning
+
+MySQL Clone provides a physical InnoDB snapshot from a donor server to a recipient. The recipient receives a fully functional data directory. Cloning is a fast way to provision a {{vers}} replica from a same-LTS donor.
+
+Cloning supports two operation modes:
+
+* Local clone: the donor and recipient run on the same host. The clone produces a directory copy on local storage.
+
+* Remote clone: the donor and recipient run on separate hosts. The clone transfers data over the network. The recipient receives schemas, tablespaces, and data-dictionary metadata from the donor.
+
+The clone operation also extracts replication coordinates from the donor and applies the coordinates on the recipient. The recipient can join replication without replaying the full transaction history. Cloning a large dataset is faster than synchronizing through replication alone.
+
+Take the following actions to use clone for upgrade provisioning:
+
+* Match the donor and recipient on the same LTS series. Cross-LTS clone is not supported.
+
+* Install the clone plugin on both donor and recipient.
+
+* Grant `BACKUP_ADMIN` on the donor and `CLONE_ADMIN` on the recipient.
+
+* Run the clone, start the recipient, and validate the data.
+
+For details, see [The Clone Plugin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/clone-plugin.html).
+
+## Run a rolling upgrade in a replication topology
+
+A rolling upgrade rolls each server in a replication topology through the procedure in turn. Replication continues during the rollout. Replicas absorb traffic while the source upgrades.
+
+Replication supports an older source paired with a later replica, but not the inverse. Upgrade replicas first and then upgrade the source. A replica at an earlier release cannot process transactions from a source at a later release.
+
+The procedure has the following stages.
+
+1. Upgrade replicas one at a time. For each replica, follow the [single-server procedure](./upgrade-procedures.md). Restart replication with `START REPLICA` after each upgrade.
+
+2. For multi-tier topologies, upgrade replicas farthest from the source first. Work bottom-up.
+
+3. After all replicas are on {{vers}}, switch over. Stop writes on the source. Wait for at least one replica to apply all transactions. Promote that replica as the source.
+
+4. Upgrade the previous source as a single server. Reinsert the upgraded server into the topology.
+
+Multi-source replication has a stricter constraint. A multi-source topology supports at most two MySQL versions concurrently. Plan the rollout to keep the active versions to two or fewer at any time.
+
+For the canonical procedure, see [Upgrading or Downgrading a Replication Topology :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-upgrade.html).
 
 ## Further reading
 
-* [Upgrade overview](./upgrade.md)
-* [Upgrade checklist for {{vers}}](./upgrade-checklist-9.7.md)
-* [Upgrade procedures for {{vers}}](./upgrade-procedures.md)
-* [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md)
-* [Upgrade from plugins to components](./upgrade-components.md)
+The following Percona Server for MySQL pages cover upgrade-related topics:
+
 * [Downgrade options](./downgrade.md)
+
+* [MySQL upgrade paths and supported methods](./mysql-upgrade-paths.md)
+
 * [Percona Toolkit updates for {{vers}}](./percona-toolkit-9.7-updates.md)
+
+* [Upgrade checklist for {{vers}}](./upgrade-checklist-9.7.md)
+
+* [Upgrade from plugins to components](./upgrade-components.md)
+
+* [Upgrade overview](./upgrade.md)
+
+* [Upgrade procedures for {{vers}}](./upgrade-procedures.md)

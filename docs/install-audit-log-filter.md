@@ -2,27 +2,19 @@
 
 ## Installation script
 
-The recommended way to install the component is to use the `audit_log_filter_linux_install.sql` script, located in the `share` directory, which creates the required tables before installing the component.
+Run `audit_log_filter_linux_install.sql` from the server `share` directory. The script creates the audit tables and then installs the component.
 
 ### Prerequisites
 
-The `plugin_dir` system variable defines the component library location. If needed, set the `plugin_dir` variable at server startup.
+`plugin_dir` locates the component library. Set the variable at startup when the default path is wrong.
 
 ### Database selection
 
-The script determines the target database using the following priority:
-
-* If the component is already loaded, the script uses the database name from the `audit_log_filter.database` variable
-
-* If the component is not loaded, but you pass the `-D db_name` option to the mysql client when running the script, it uses the specified `db_name`
-
-* If the component is not loaded and no `-D` option is provided, you must specify the `mysql` database when running the script
-
-You can also designate a different database with the `audit_log_filter.database` system variable. The database name cannot be NULL or exceed 64 characters. If the database name is invalid, the audit log filter tables are not found.
+By default, the script runs against the `mysql` database. To use a different database, set [`audit_log_filter.database`](audit-log-filter-variables.md#audit_log_filterdatabase) at server startup before running the install script.
 
 ### Install the component
 
-To install the component using the script, you must specify the `mysql` database. You can do this in two ways:
+Use either approach:
 
 * Option 1: Run the script from the command line with the `-D mysql` option:
 
@@ -30,18 +22,18 @@ To install the component using the script, you must specify the `mysql` database
     mysql -u root -p -D mysql < /path/to/mysql/share/audit_log_filter_linux_install.sql
     ```
 
-* Option 2: Connect to `mysql` database and run the script interactively:
+* Option 2: Connect to the `mysql` database and run the script interactively:
 
     ```sql
     use mysql;
     source /path/to/mysql/share/audit_log_filter_linux_install.sql;
     ```
 
-    Replace `/path/to/mysql/share/` with the actual path to your MySQL installation's share directory.
+    Replace `/path/to/mysql/share/` with the path to the server installation's `share` directory.
 
 ### Verify installation
 
-After running the script, verify that the required tables are created:
+Confirm the audit tables exist:
 
 ```sql
 show tables in mysql like 'aud%';
@@ -61,15 +53,17 @@ show tables in mysql like 'aud%';
 
 ## Alternative: INSTALL COMPONENT method
 
-You can also install the component using the `INSTALL COMPONENT` command, but this method does not create the required tables and will cause filter operations to fail.
+`INSTALL COMPONENT` loads the binary only. The statement does not create tables, so filter UDFs fail until you run the install script.
 
 ```mysql
-INSTALL COMPONENT 'file://audit_log_filter'
+INSTALL COMPONENT 'file://component_audit_log_filter';
 ```
+
+The URN must include the `component_` prefix. `file://audit_log_filter` fails to load the component.
 
 ### Verify component installation
 
-Check that the component is properly installed:
+Confirm the component row exists:
 
 ```sql
 select * from mysql.component;
@@ -89,7 +83,7 @@ select * from mysql.component;
 
 ### Test filter functionality
 
-Test that the audit log filter is working correctly:
+Exercise a filter UDF:
 
 ```sql
 SELECT audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}');
@@ -108,11 +102,11 @@ SELECT audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}');
 
 !!! note
 
-    This error occurs when the component is installed without the required tables. Using the SQL script prevents this issue.
+    The error appears when the component loads without the tables. Run `audit_log_filter_linux_install.sql` first.
 
 ### Fix missing tables
 
-If you have already installed the audit log component but are missing the required tables, you can run the `audit_log_filter_linux_install.sql` script to create the audit tables in the `mysql` database:
+When the component is installed but tables are missing, run the install script against `mysql`:
 
 ```shell
 mysql -u root -p -D mysql < /path/to/mysql/share/audit_log_filter_linux_install.sql
@@ -125,12 +119,24 @@ use mysql;
 source /path/to/mysql/share/audit_log_filter_linux_install.sql;
 ```
 
-This operation creates the missing tables without reinstalling the component.
+The script adds the tables and does not reinstall the component.
 
 ## Additional information
 
-<!-- Clarify whther this audit log info is valid for 9.7-->
+When you are replacing an existing audit plugin (the legacy `audit_log` plugin or the transitional `audit_log_filter` plugin) with the component, see [Migrate to the audit log filter component](migrate-to-audit-log-filter-component.md) for the variable mapping, policy translation, and a worked example. The general plugin-to-component framing appears in [Upgrade from plugins to components](upgrade-components.md).
 
-To upgrade from `audit_log_filter` plugin in Percona Server 8.4 to `component_audit_log_filter` component in Percona Server {{vers}}, do the [manual upgrade](upgrade-components.md).
+## Additional reading
+
+* [Audit Log Filter overview](audit-log-filter-overview.md)
+
+* [Audit Log Filter quickstart](audit-log-filter-quickstart.md)
+
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md)
+
+* [Uninstall Audit Log Filter](uninstall-audit-log-filter.md)
+
+* [Upgrade components](upgrade-components.md)
+
+* [Upgrade Percona Server for MySQL](upgrade.md)
 
 --8<--- "get-help-snip.md"

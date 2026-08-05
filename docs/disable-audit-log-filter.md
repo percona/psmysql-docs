@@ -1,19 +1,13 @@
 # Disable Audit Log Filter logging
 
-The `audit_log_filter.disable` system variable lets you disable or enable logging for all connections based on the value:
+The `audit_log_filter.disable` system variable turns audit logging on or off for all connections.
 
-| Value | Actions |
+| Value | Effect |
 |---|---|
-| `audit_log_filter.disable = true` |Disables logging. |
-| `audit_log_filter.disable = false` | Enables logging. |
+| `audit_log_filter.disable = true` | Stops audit logging. |
+| `audit_log_filter.disable = false` | Enables audit logging. |
 
-You can set the variable in the following ways:
-
-* Specify in the option file.
-
-* Include in the command-line startup string.
-
-* Use a SET statement during runtime.
+Set the variable in an option file, on the command line, or at runtime:
 
 ```sql
 SET GLOBAL audit_log_filter.disable = true;
@@ -21,7 +15,18 @@ SET GLOBAL audit_log_filter.disable = true;
 
 ## Privileges required
 
-Setting the value of `audit_log_filter.disable` at runtime requires the following:
+Runtime changes require both of the following privileges:
 
-* `AUDIT_ADMIN` privilege
-* `SYSTEM_VARIABLES_ADMIN` privilege
+* `AUDIT_ADMIN`
+
+* `SYSTEM_VARIABLES_ADMIN`
+
+## Additional reading
+
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md) — `audit_log_filter.disable`
+
+* [Audit Log Filter overview](audit-log-filter-overview.md)
+
+* [Uninstall Audit Log Filter](uninstall-audit-log-filter.md)
+
+* [Install the audit log filter](install-audit-log-filter.md)
