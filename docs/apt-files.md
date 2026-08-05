@@ -1,5 +1,6 @@
-# DEB repository package list - Percona Server for MySQL {{vers}} 
+# DEB repository package list - Percona Server for MySQL {{vers}}
 
+In Percona Server for MySQL 9.7.1-1 only, APT packaging was reorganized to align more closely with upstream MySQL. Several packages were split into separate components, which may affect upgrades and dependency resolution. The table below lists packages for earlier releases; see the [9.7.1-1 release notes](release-notes/9.7.1-1.md) for the updated package list.
 
 | Package Name | Description |
 |---------------|-------------|
