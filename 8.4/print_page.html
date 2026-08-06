@@ -25800,11 +25800,17 @@ packages for all Debian and Ubuntu releases.</p>
 <p><a href="#pam-plugin">PAM Authentication Plugin</a> is not built with the server by default. In order to build the Percona Server for MySQL with PAM plugin, an additional option <code>-DWITH_PAM=ON</code> should be used.</p>
 </div></section><section class="print-page" id="apt-download-deb" heading-number="7.4.4"><h1 id="apt-download-deb-install-percona-server-for-mysql-84-using-downloaded-deb-packages">Install Percona Server for MySQL 8.4 using downloaded DEB packages<a class="headerlink" href="#apt-download-deb-install-percona-server-for-mysql-84-using-downloaded-deb-packages" title="Permanent link">&para;</a></h1>
 <p>Download the packages from <a href="https://www.percona.com/downloads">Percona Product Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. If needed, <a href="#download-instructions">Instructions for the Percona Product Download</a> are available.</p>
-<p>The following example downloads Percona Server for MySQL 8.4.10-10 release packages for Ubuntu 22.04:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.0-1/binary/debian/jammy/x86_64/Percona-Server-8.4.0-1-r238b3c02-jammy-x86_64-bundle.tar
+<p class="power-number">The following example downloads <em>Percona Server for MySQL</em> 8.4.10-10 release <code>x86_64</code> packages for Ubuntu 22.04:</p>
+<ol>
+<li>
+<p>Use <code>wget</code> to download the tar file:</p>
+<p>The download filename includes a <code>&lt;revision-identifier&gt;</code> value. This value is <em>build-specific</em> and must be obtained from the <a href="https://www.percona.com/downloads">Percona Product Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required <code>&lt;revision identifier&gt;</code> under the <strong>Download all packages</strong> button. For more details, see the <a href="#download-instructions">Instructions for Percona Product Downloads</a>.</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.10-10/binary/debian/jammy/x86_64/Percona-Server-8.4.10-10-&lt;revision-identifier&gt;-jammy-x86_64-bundle.tar
 </code></pre></div>
+</li>
+<li>
 <p>Unpack the download to get the packages:</p>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-8.4.0-1-r71449379-buster-x86_64-bundle.tar
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-8.4.10-10-&lt;revision-identifier&gt;-jammy-x86_64-bundle.tar
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -25820,9 +25826,13 @@ percona-server-source_8.4.10-10-1.buster_amd64.deb
 percona-server-test_8.4.10-10-1.buster_amd64.deb
 </code></pre></div>
 </details>
+</li>
+<li>
 <p>Install Percona Server for MySQL using <code>dpkg</code>. Run this command as root or use the sudo command:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*.deb
 </code></pre></div>
+</li>
+</ol>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>When installing packages manually like this, you’ll need to resolve all the dependencies and install missing packages yourself. The following packages will need to be installed before you can manually install Percona Server: <code>mysql-common</code>, <code>libjemalloc1</code>, <code>libaio1</code>, and <code>libmecab2</code>.</p>
