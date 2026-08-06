@@ -42845,20 +42845,75 @@ INFORMATION_SCHEMA.SCHEMATA table:</p>
                         <h1>Replicate<a class='headerlink' href='#section-14' title='Permanent link'></a>
                         </h1>
                     <section class="print-page" id="group-replication-flow-control" heading-number="14.1"><h1 id="group-replication-flow-control-manage-group-replication-flow-control">Manage group replication flow control<a class="headerlink" href="#group-replication-flow-control-manage-group-replication-flow-control" title="Permanent link">&para;</a></h1>
-<p>In replication, flow control prevents one member from falling too far behind the cluster and avoids excessive buffering. A cluster is not required to keep members in sync together for replication. The pending transactions in the relay log only increase for the lagging replica. Each member sends statistics to the group.</p>
-<p>Flow control sets a threshold on the queue for transactions waiting in the certification queue or the transactions waiting in the applier queue. If the thresholds are exceeded, and during the duration that they are exceeded, flow control adjusts the writer members to the capacity of the delayed member. This action ensures that all members are in sync.</p>
-<p>Flow controls work asynchronously and depend on the following:</p>
+<p>Group Replication flow control signals the cluster to reduce queue growth on
+members that fall behind. Flow control does not prevent members from lagging
+behind the group. Flow control does not stop writes when queues remain above
+the configured limits.</p>
+<p>Each member reports statistics to the group. Flow control compares queue sizes
+against thresholds on the certification queue and the applier queue. When a
+threshold is exceeded, the group asks writer members to slow down so the
+delayed member can reduce its queues toward the limit. If the member cannot
+catch up, the cluster continues to run. Flow control never blocks the group
+indefinitely.</p>
+<p>For a deeper discussion of failover behavior when queues grow, see <a href="https://www.percona.com/blog/the-failover-brownout-rethinking-high-availability-in-mysql-group-replication/">The
+failover brownout: rethinking high availability in MySQL Group
+Replication</a>.</p>
+<h2 id="group-replication-flow-control-how-flow-control-behaves">How flow control behaves<a class="headerlink" href="#group-replication-flow-control-how-flow-control-behaves" title="Permanent link">&para;</a></h2>
+<p>Flow control runs asynchronously. The group monitors throughput and queue
+sizes on each member. When thresholds are exceeded, the group throttles
+writers to match the capacity of the slowest member.</p>
+<p>The cluster aims to bring the applier queue back under the configured limit.
+The cluster does not guarantee that result. Members can remain at different
+stages of applied data. Secondary members may and will hold a different view
+of applied data than the primary.</p>
+<h2 id="group-replication-flow-control-what-to-expect-when-members-lag">What to expect when members lag<a class="headerlink" href="#group-replication-flow-control-what-to-expect-when-members-lag" title="Permanent link">&para;</a></h2>
+<p>When flow control cannot keep queues under the limit, the following effects
+are common:</p>
 <ul>
-<li>Monitoring the throughput and queue sizes of each member</li>
-<li>Throttling members to avoid writing beyond the capacity available</li>
+<li>
+<p>The certification buffer grows on the primary and on secondary members.</p>
+</li>
+<li>
+<p>After failover, the group elects a new primary but keeps the new primary in
+  read-only mode until the applier queue is processed.</p>
+</li>
+<li>
+<p>Pending transactions accumulate in the relay log on lagging members.</p>
+</li>
 </ul>
-<p>The following system variables set flow control behavior for Group Replication:</p>
+<p>Plan capacity, monitoring, and failover testing with these limits in mind.
+Do not treat flow control as a substitute for right-sized hardware, parallel
+apply tuning, or application design.</p>
+<h2 id="group-replication-flow-control-tune-parallel-apply-with-flow-control">Tune parallel apply with flow control<a class="headerlink" href="#group-replication-flow-control-tune-parallel-apply-with-flow-control" title="Permanent link">&para;</a></h2>
+<p>Flow control works with the replication applier. The
+<a href="https://dev.mysql.com/doc/refman/8.4/en/replication-options-replica.html#sysvar_replica_parallel_workers"><code>replica_parallel_workers</code></a>
+variable controls how many applier threads process the relay log.</p>
+<p>Set <code>replica_parallel_workers</code> to approximately 2.5 times the number of CPU
+cores on the member. For example, a host with 8 cores can use
+<code>replica_parallel_workers = 20</code>. Parallel apply helps the member drain the
+applier queue more efficiently. The setting does not guarantee that flow
+control prevents lag.</p>
+<p>Review workload patterns, commit ordering requirements, and any known
+limitations before raising <code>replica_parallel_workers</code> in production.</p>
+<h2 id="group-replication-flow-control-configure-flow-control-variables">Configure flow control variables<a class="headerlink" href="#group-replication-flow-control-configure-flow-control-variables" title="Permanent link">&para;</a></h2>
+<p>The following system variables control flow control behavior for Group
+Replication:</p>
 <ul>
-<li><a href="https://dev.mysql.com/doc/refman/8.4/en/group-replication-options.html#sysvar_group_replication_flow_control_mode">group_replication_flow_control_mode <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
-<li><a href="https://dev.mysql.com/doc/refman/8.4/en/group-replication-system-variables.html#sysvar_group_replication_flow_control_certifier_threshold">group_replication_flow_control_certifier_threshold <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
-<li><a href="https://dev.mysql.com/doc/refman/8.4/en/group-replication-options.html#sysvar_group_replication_flow_control_applier_threshold">group_replication_flow_control_applier_threshold <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
+<li>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/group-replication-options.html#sysvar_group_replication_flow_control_mode">group_replication_flow_control_mode <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</li>
+<li>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/group-replication-options.html#sysvar_group_replication_flow_control_certifier_threshold">group_replication_flow_control_certifier_threshold <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</li>
+<li>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/group-replication-options.html#sysvar_group_replication_flow_control_applier_threshold">group_replication_flow_control_applier_threshold <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</li>
 </ul>
-<p>Flow control is enabled and disabled by selecting a value in the group_replication_flow_control_mode variable. Flow control can also be enabled on the certifier or applier level or both and sets the threshold level.</p></section><section class="print-page" id="group-replication-system-variables" heading-number="14.2"><h1 id="group-replication-system-variables-group-replication-system-variables">Group replication system variables<a class="headerlink" href="#group-replication-system-variables-group-replication-system-variables" title="Permanent link">&para;</a></h1>
+<p>Enable or disable flow control with
+<code>group_replication_flow_control_mode</code>. You can apply thresholds on the
+certifier queue, the applier queue, or both. Percona Server for MySQL also
+adds a <code>MAJORITY</code> mode. For details, see <a href="#group-replication-system-variables">Group replication system
+variables</a>.</p></section><section class="print-page" id="group-replication-system-variables" heading-number="14.2"><h1 id="group-replication-system-variables-group-replication-system-variables">Group replication system variables<a class="headerlink" href="#group-replication-system-variables-group-replication-system-variables" title="Permanent link">&para;</a></h1>
 <table>
 <thead>
 <tr>
@@ -50726,7 +50781,7 @@ Allowed range is from <code>1</code> to <code>2147483647</code>.</p>
 The default value is <code>16 KB</code>.
 The allowed range is from <code>1024</code> to <code>18446744073709551615</code> bytes.</p>
 <h4 id="myrocks-server-variables-version-changes">Version changes<a class="headerlink" href="#myrocks-server-variables-version-changes" title="Permanent link">&para;</a></h4>
-<p>In Percona Server for MySQL 8.4.7-7, the maximum value was changed to <code>4294967296</code> bytes (4 GiB).</p>
+<p>In Percona Server for MySQL 8.4.7-7, the maximum value remains <code>18446744073709551615</code> bytes.</p>
 <h3 id="myrocks-server-variables-rocksdb_block_size_deviation"><code>rocksdb_block_size_deviation</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_block_size_deviation" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -52456,12 +52511,105 @@ non-debug builds.</p>
 </tr>
 </tbody>
 </table>
-<p>The dafault value is:</p>
-<div class="highlight"><pre><span></span><code>block_based_table_factory= {cache_index_and_filter_blocks=1;filter_policy=bloomfilter:10:false;whole_key_filtering=1};level_compaction_dynamic_level_bytes=true;optimize_filters_for_hits=true;compaction_pri=kMinOverlappingRatio;compression=kLZ4Compression;bottommost_compression=kLZ4Compression;
+<p>The <code>rocksdb_default_cf_options</code> variable defines the settings for the default
+column family. MyRocks stores data in this column family unless a table or
+index uses a dedicated one.</p>
+<h4 id="myrocks-server-variables-how-the-option-works">How the option works<a class="headerlink" href="#myrocks-server-variables-how-the-option-works" title="Permanent link">&para;</a></h4>
+<p>MyRocks does not expose every RocksDB tuning knob as a separate MySQL
+variable. Instead, the server accepts a semicolon-separated list of parameters
+in RocksDB shorthand and passes them to the engine.</p>
+<p>These settings apply to every table that uses the default column family. For
+example, <code>write_buffer_size=64M;target_file_size_base=32M</code> configures memtable
+size and SST file size.</p>
+<p>On startup, the server applies this option to all existing column families.
+The option is read-only at runtime.</p>
+<h4 id="myrocks-server-variables-which-parameters-are-commonly-tuned">Which parameters are commonly tuned<a class="headerlink" href="#myrocks-server-variables-which-parameters-are-commonly-tuned" title="Permanent link">&para;</a></h4>
+<p>The following parameters control memory, compaction, and storage behavior:</p>
+<ul>
+<li>
+<p><code>block_based_table_factory</code> — Nested settings for blocks, including Bloom
+  filters, index types, and block cache behavior.</p>
+</li>
+<li>
+<p><code>compression_per_level</code> — Compression algorithm per level, such as LZ4 or
+  ZSTD, to balance CPU and disk space.</p>
+</li>
+<li>
+<p><code>level0_file_num_compaction_trigger</code> — Number of L0 (level 0) files that
+  trigger a compaction.</p>
+</li>
+<li>
+<p><code>max_bytes_for_level_base</code> — Total size limit for level 1 of the LSM
+  (Log-Structured Merge) tree. The level-1 limit influences how large
+  subsequent levels become.</p>
+</li>
+<li>
+<p><code>max_write_buffer_number</code> — Maximum number of memtables that can accumulate
+  in memory, with one active and the others waiting to flush. Raising
+  <code>max_write_buffer_number</code> helps absorb bursts of writes.</p>
+</li>
+<li>
+<p><code>target_file_size_base</code> — Target size for a single SST file at level 1.
+  Combined with level size limits, <code>target_file_size_base</code> affects how many
+  files exist per level.</p>
+</li>
+<li>
+<p><code>write_buffer_size</code> — Size of a single memtable. When the limit is reached,
+  MyRocks freezes the memtable and schedules a flush to an SST (Sorted String
+  Table) file.</p>
+</li>
+</ul>
+<h4 id="myrocks-server-variables-when-to-tune-the-option">When to tune the option<a class="headerlink" href="#myrocks-server-variables-when-to-tune-the-option" title="Permanent link">&para;</a></h4>
+<p>Adjusting the <code>rocksdb_default_cf_options</code> string for the hardware, such as
+SSD versus HDD, is the primary way to optimize MyRocks throughput. The string
+provides centralized control over compaction style, memory, and I/O
+(input/output) parallelism.</p>
+<p>The default varies by MyRocks version but balances LZ4 compression with
+moderate buffer sizes, such as 64 MB memtables. The default value is:</p>
+<div class="highlight"><pre><span></span><code>block_based_table_factory={cache_index_and_filter_blocks=1;filter_policy=bloomfilter:10:false;whole_key_filtering=1};level_compaction_dynamic_level_bytes=true;optimize_filters_for_hits=true;compaction_pri=kMinOverlappingRatio;compression=kLZ4Compression;bottommost_compression=kLZ4Compression;
 </code></pre></div>
-<p>Specifies the default column family options for MyRocks. On startup, the
-server applies this option to all existing column families. This option is
-read-only at runtime.</p>
+<h4 id="myrocks-server-variables-what-each-component-of-the-default-value-does">What each component of the default value does<a class="headerlink" href="#myrocks-server-variables-what-each-component-of-the-default-value-does" title="Permanent link">&para;</a></h4>
+<p>The default value combines four groups of settings:</p>
+<ol>
+<li>
+<p>Block-based table options control how data is laid out and cached inside
+   SST (Sorted String Table) files:</p>
+<ul>
+<li>
+<p><code>cache_index_and_filter_blocks=1</code> forces the index and Bloom filter
+  data into the RocksDB block cache instead of pinning them outside the
+  cache, for better control of total memory.</p>
+</li>
+<li>
+<p><code>filter_policy=bloomfilter:10:false</code> configures a Bloom filter with 10
+  bits per key. The <code>false</code> value refers to <code>use_block_based_builder</code> and
+  selects the modern, more efficient Full Filter format.</p>
+</li>
+<li>
+<p><code>whole_key_filtering=1</code> hashes the entire key in the Bloom filter for
+  the fastest performance on point lookups.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Compaction and layout settings shape how levels grow.
+   <code>level_compaction_dynamic_level_bytes=true</code> adjusts per-level byte limits
+   from the bottom level, reducing space amplification and making sizing more
+   self-tuning. <code>compaction_pri=kMinOverlappingRatio</code> prefers compactions that
+   free the most space relative to bytes written.</p>
+</li>
+<li>
+<p>Read optimization reduces CPU work on lookups.
+   <code>optimize_filters_for_hits=true</code> skips Bloom filter checks on the
+   bottommost level where hits are statistically more likely, saving CPU
+   (central processing unit) time.</p>
+</li>
+<li>
+<p>Compression settings reduce disk usage.
+   <code>compression=kLZ4Compression</code> and <code>bottommost_compression=kLZ4Compression</code>
+   use LZ4 for low CPU overhead and solid general-purpose compression.</p>
+</li>
+</ol>
 <h3 id="myrocks-server-variables-rocksdb_delayed_write_rate"><code>rocksdb_delayed_write_rate</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_delayed_write_rate" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -53327,24 +53475,74 @@ insensitive). Enabled by default.</p>
 </tr>
 </tbody>
 </table>
-<p>Specifies whether to sync on every transaction commit,
-similar to <a href="https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit">innodb_flush_log_at_trx_commit <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.
-Enabled by default, which ensures ACID compliance.</p>
-<p>Possible values:</p>
+<p>This variable controls whether the RocksDB Write-Ahead Log (WAL) is
+synchronized to disk on every transaction commit. The behavior is similar to
+<a href="https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit">innodb_flush_log_at_trx_commit <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<p>The default value is <code>1</code>, which ensures ACID compliance. Committed
+transactions remain durable after a crash. Less strict values improve
+performance at the cost of durability.</p>
+<h4 id="myrocks-server-variables-which-value-should-you-choose">Which value should you choose<a class="headerlink" href="#myrocks-server-variables-which-value-should-you-choose" title="Permanent link">&para;</a></h4>
+<p>The variable accepts the values <code>0</code>, <code>1</code>, or <code>2</code>. The following sections
+describe each value, the trade-offs, and the operational outcomes.</p>
+<h5 id="myrocks-server-variables-value-0-do-not-sync-on-commit">Value <code>0</code>: do not sync on commit<a class="headerlink" href="#myrocks-server-variables-value-0-do-not-sync-on-commit" title="Permanent link">&para;</a></h5>
+<p>Setting <code>0</code> does not flush or sync the WAL on commit. The setting removes
+commit-time I/O, so throughput is highest and commit latency is lowest. The
+trade-off is the weakest durability of the three values. After a crash,
+recently committed work may be missing or the database may be inconsistent.
+The risk window is wider than the roughly one-second window associated with
+<code>2</code> and far beyond what <code>1</code> allows.</p>
+<p>The setting produces the following outcomes:</p>
 <ul>
 <li>
-<p><code>0</code>: Do not sync on transaction commit.
-This provides better performance, but may lead to data inconsistency
-in case of a crash.</p>
+<p>Leaves the WAL unflushed and unsynced on transaction commit.</p>
 </li>
 <li>
-<p><code>1</code>: Sync on every transaction commit.
-This is set by default and recommended
-as it ensures data consistency,
-but reduces performance.</p>
+<p>Minimizes commit-time I/O relative to <code>1</code> and <code>2</code>.</p>
 </li>
 <li>
-<p><code>2</code>: Sync every second.</p>
+<p>Risks extensive data loss or inconsistency after a crash compared with
+  stricter settings.</p>
+</li>
+</ul>
+<h5 id="myrocks-server-variables-value-1-sync-on-every-commit-default">Value <code>1</code>: sync on every commit (default)<a class="headerlink" href="#myrocks-server-variables-value-1-sync-on-every-commit-default" title="Permanent link">&para;</a></h5>
+<p>Setting <code>1</code> requires every commit to wait until the WAL is durably on disk
+before the commit returns. The sync is typically a full sync such as <code>fsync</code>.
+Use this value when a successful commit must survive a crash. The setting
+provides the strongest durability and ACID guarantees of the three values.
+The trade-off is the most synchronous disk work per commit, so commit latency
+and sustained write throughput are lower than with <code>0</code> or <code>2</code> when commits
+are frequent or disk sync is slow.</p>
+<p>The setting produces the following outcomes:</p>
+<ul>
+<li>
+<p>Writes and syncs the WAL to disk at each transaction commit.</p>
+</li>
+<li>
+<p>Ensures full durability and ACID compliance for committed work.</p>
+</li>
+<li>
+<p>Incurs the highest per-commit I/O and the slowest commits of the three
+  values.</p>
+</li>
+</ul>
+<h5 id="myrocks-server-variables-value-2-sync-in-background-typically-once-per-second">Value <code>2</code>: sync in background, typically once per second<a class="headerlink" href="#myrocks-server-variables-value-2-sync-in-background-typically-once-per-second" title="Permanent link">&para;</a></h5>
+<p>Setting <code>2</code> writes the WAL on each commit, but the session does not wait for
+the durable sync. A background thread performs syncs on a schedule, for
+example about once per second. Individual commits return faster than with
+<code>1</code> because they skip the per-commit sync wait. The trade-off is the possible
+loss of up to one second of commits after a crash.</p>
+<p>The setting produces the following outcomes:</p>
+<ul>
+<li>
+<p>Records each commit in the WAL without blocking the commit on a full
+  durable sync.</p>
+</li>
+<li>
+<p>Balances performance and durability.</p>
+</li>
+<li>
+<p>Risks the loss of up to about one second of committed transactions after a
+  crash.</p>
 </li>
 </ul>
 <h3 id="myrocks-server-variables-rocksdb_flush_memtable_on_analyze"><code>rocksdb_flush_memtable_on_analyze</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_flush_memtable_on_analyze" title="Permanent link">&para;</a></h3>
@@ -53445,12 +53643,27 @@ This provides better accuracy, but may reduce performance.</p>
 </tr>
 <tr>
 <td>Default</td>
-<td>60000000</td>
+<td>60000000 (60 seconds)</td>
 </tr>
 </tbody>
 </table>
-<p>Specifies for how long the cached value of memtable statistics should
-be used instead of computing it every time during the query plan analysis.</p>
+<p>This variable controls how long, in microseconds, MyRocks caches memtable
+statistics for the query optimizer. The optimizer needs row-count estimates
+to plan queries. Data not yet flushed to disk requires scanning memtables for
+accurate statistics.</p>
+<h4 id="myrocks-server-variables-how-the-cache-works">How the cache works<a class="headerlink" href="#myrocks-server-variables-how-the-cache-works" title="Permanent link">&para;</a></h4>
+<p>To avoid the CPU cost of rescanning memtables for every query, MyRocks stores
+the statistics in a cache. This variable defines the expiration time for the
+cached value. The default is <code>60000000</code> microseconds, or 60 seconds.</p>
+<p>The cached value is reused on every query plan analysis until the timer
+expires.</p>
+<h4 id="myrocks-server-variables-when-to-raise-or-lower-the-value">When to raise or lower the value<a class="headerlink" href="#myrocks-server-variables-when-to-raise-or-lower-the-value" title="Permanent link">&para;</a></h4>
+<p>A higher value, such as several minutes, improves performance in
+high-query-rate environments by reducing how often statistics collection
+runs. The optimizer may use stale data if the table changes rapidly.</p>
+<p>A lower value, such as one second, gives the optimizer a near-real-time view
+of the data. The setting can yield better plans on volatile workloads, at
+the cost of more CPU use during query optimization.</p>
 <h3 id="myrocks-server-variables-rocksdb_force_flush_memtable_and_lzero_now"><code>rocksdb_force_flush_memtable_and_lzero_now</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_force_flush_memtable_and_lzero_now" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -54656,10 +54869,24 @@ Allowed range is up to <code>64</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>Specifies the maximum total size of WAL (write-ahead log) files,
-after which memtables are flushed.
-Default value is <code>2 GB</code>
-The allowed range is up to <code>9223372036854775807</code>.</p>
+<p>This variable limits the total disk space consumed by Write-Ahead Log (WAL)
+files across all column families. The limit helps prevent log files from
+exhausting disk capacity. When the combined size exceeds the threshold,
+MyRocks flushes memtables to SST (Sorted String Table) files.</p>
+<p>The default value is <code>2 GB</code>. The allowed range is up to
+<code>9223372036854775807</code>.</p>
+<h4 id="myrocks-server-variables-how-the-limit-works">How the limit works<a class="headerlink" href="#myrocks-server-variables-how-the-limit-works" title="Permanent link">&para;</a></h4>
+<p>When the combined size of all WAL files exceeds the threshold, RocksDB
+identifies the oldest logs. RocksDB then forces a flush of their associated
+memtables to SST files.</p>
+<p>After the data is in an SST file, RocksDB deletes or archives the
+corresponding WAL files. Total usage returns under the limit.</p>
+<h4 id="myrocks-server-variables-when-to-raise-or-lower-the-limit">When to raise or lower the limit<a class="headerlink" href="#myrocks-server-variables-when-to-raise-or-lower-the-limit" title="Permanent link">&para;</a></h4>
+<p>A higher limit improves write performance by allowing larger, less frequent
+flushes. Disk usage increases and recovery time after a crash lengthens,
+because more log data must be replayed.</p>
+<p>A lower limit keeps the disk footprint small and recovery fast. The setting
+may cause frequent forced flushes, which can throttle write throughput.</p>
 <h3 id="myrocks-server-variables-rocksdb_merge_buf_size"><code>rocksdb_merge_buf_size</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_merge_buf_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -55015,7 +55242,7 @@ deleting the partial index. </p>
 </tbody>
 </table>
 <p>If this variable is set to <code>ON</code>, the partial index materialization ignores the killed flag and continues materialization until completion. If queries are killed during materialization due to timeout, the work done so far is wasted, and the killed query will likely be retried later, hitting the same issue.</p>
-<p>The dafault value is <code>ON</code> which means this variable is enabled.</p>
+<p>The default value is <code>ON</code> which means this variable is enabled.</p>
 <h3 id="myrocks-server-variables-rocksdb_partial_index_sort_max_mem"><code>rocksdb_partial_index_sort_max_mem</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_partial_index_sort_max_mem" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -55047,7 +55274,38 @@ deleting the partial index. </p>
 </tr>
 </tbody>
 </table>
-<p>Maximum memory to use when sorting an unmaterialized group for partial indexes. The 0(zero) value is defined as no limit.</p>
+<p>This variable sets the memory threshold, in bytes, for MyRocks to perform an
+in-memory sort when a query is only partially satisfied by an index.</p>
+<h4 id="myrocks-server-variables-how-the-default-behaves">How the default behaves<a class="headerlink" href="#myrocks-server-variables-how-the-default-behaves" title="Permanent link">&para;</a></h4>
+<p>The default value is <code>0</code>, which removes the memory limit. MyRocks may use as
+much RAM (random-access memory) as needed to perform the sort in memory.</p>
+<p>The default produces the following effects:</p>
+<ul>
+<li>
+<p>Delivers maximum performance for partial index scans by avoiding slow
+  disk-based filesorts.</p>
+</li>
+<li>
+<p>Risks consuming all available system memory when a single large query, or
+  many concurrent queries, run at once. The condition can lead to an
+  out-of-memory (OOM) crash.</p>
+</li>
+</ul>
+<h4 id="myrocks-server-variables-when-to-set-a-memory-cap">When to set a memory cap<a class="headerlink" href="#myrocks-server-variables-when-to-set-a-memory-cap" title="Permanent link">&para;</a></h4>
+<p>A non-zero value, such as <code>16777216</code> for 16 MB, introduces a safety governor.</p>
+<p>The cap produces the following effects:</p>
+<ul>
+<li>
+<p>Enables MyRocks to use the optimized in-memory sort path only when the
+  result set fits within the defined memory budget.</p>
+</li>
+<li>
+<p>Forces a fallback to a standard filesort when a sort requires more than
+  the cap. The fallback avoids unbounded memory use and protects server
+  stability. Affected queries take longer to complete because sorting uses
+  disk or temporary files instead of memory.</p>
+</li>
+</ul>
 <h3 id="myrocks-server-variables-rocksdb_pause_background_work"><code>rocksdb_pause_background_work</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_pause_background_work" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -56750,8 +57008,42 @@ Disabled by default.</p>
 </tr>
 </tbody>
 </table>
-<p>If enabled, this variable uses HyperClockCache instead of default LRUCache for RocksDB.</p>
-<p>This variable is disabled (OFF) by default.</p>
+<p>This variable replaces the standard LRU (Least Recently Used) block cache
+with a lock-free HyperClockCache implementation. When enabled, MyRocks uses
+HyperClockCache instead of the default LRUCache for RocksDB. The default
+value is <code>OFF</code>.</p>
+<h4 id="myrocks-server-variables-key-benefits">Key benefits<a class="headerlink" href="#myrocks-server-variables-key-benefits" title="Permanent link">&para;</a></h4>
+<p>The HyperClockCache provides the following benefits:</p>
+<ul>
+<li>
+<p>High concurrency on many-core systems with 16 or more cores. The cache
+  reduces the global lock bottleneck found in traditional LRU caches.</p>
+</li>
+<li>
+<p>CPU efficiency through a clock algorithm rather than a linked list. The
+  algorithm avoids expensive memory writes and synchronization on every
+  cache hit.</p>
+</li>
+</ul>
+<h4 id="myrocks-server-variables-trade-offs">Trade-offs<a class="headerlink" href="#myrocks-server-variables-trade-offs" title="Permanent link">&para;</a></h4>
+<p>Enabling HyperClockCache produces the following trade-offs:</p>
+<ul>
+<li>
+<p>Memory overhead. The cache uses a fixed-size hash table, which has
+  slightly higher per-entry memory overhead than a standard LRU cache.</p>
+</li>
+<li>
+<p>Approximate LRU ordering. Eviction precision is lower than with a
+  traditional LRU cache, but faster to maintain.</p>
+</li>
+<li>
+<p>Throughput improvement. Heavy read or scan workloads can see
+  significantly higher throughput.</p>
+</li>
+</ul>
+<h4 id="myrocks-server-variables-when-to-enable-hyperclockcache">When to enable HyperClockCache<a class="headerlink" href="#myrocks-server-variables-when-to-enable-hyperclockcache" title="Permanent link">&para;</a></h4>
+<p>Enable HyperClockCache when CPU profiling shows high mutex contention within
+the RocksDB block cache, or when running on high core-count servers.</p>
 <h3 id="myrocks-server-variables-rocksdb_use_io_uring"><code>rocksdb_use_io_uring</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_use_io_uring" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -57110,10 +57402,31 @@ Allowed range is up to <code>9223372036854775807</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>Specifies whether the bloomfilter should use the whole key for filtering
-instead of just the prefix.
-Enabled by default.
-Make sure that lookups use the whole key for matching.</p>
+<p>The <code>rocksdb_whole_key_filtering</code> variable controls whether the Bloom filter
+stores a hash of the entire key or only the prefix. The option is part of
+RocksDB <code>BlockBasedTableOptions</code>. The default value is <code>ON</code>.</p>
+<p>When the variable is enabled, ensure that lookups use the whole key for
+matching.</p>
+<h4 id="myrocks-server-variables-how-the-filter-behaves">How the filter behaves<a class="headerlink" href="#myrocks-server-variables-how-the-filter-behaves" title="Permanent link">&para;</a></h4>
+<p>The two states produce the following behavior:</p>
+<ul>
+<li>
+<p>Enabled (default): MyRocks adds both the whole key and the prefix to the
+  Bloom filter. Storing both yields the most accurate filtering for point
+  lookups, such as <code>WHERE pk = 10</code>. The engine can skip SST (Sorted String
+  Table) files that do not contain the key.</p>
+</li>
+<li>
+<p>Disabled: MyRocks adds only the prefix to the Bloom filter. Because fewer
+  unique prefixes exist than unique keys, Bloom filters are smaller and save
+  significant memory.</p>
+</li>
+</ul>
+<h4 id="myrocks-server-variables-when-to-disable-whole-key-filtering">When to disable whole-key filtering<a class="headerlink" href="#myrocks-server-variables-when-to-disable-whole-key-filtering" title="Permanent link">&para;</a></h4>
+<p>Disabling whole-key filtering suits memory-constrained environments or
+workloads dominated by prefix scans. Point lookups see a higher
+false-positive rate. The database may read from disk because the prefix
+matched, even though the full key did not.</p>
 <h3 id="myrocks-server-variables-rocksdb_write_batch_flush_threshold"><code>rocksdb_write_batch_flush_threshold</code><a class="headerlink" href="#myrocks-server-variables-rocksdb_write_batch_flush_threshold" title="Permanent link">&para;</a></h3>
 <table>
 <thead>

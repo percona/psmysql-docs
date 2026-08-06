@@ -9,7 +9,10 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="In replication, flow control prevents one member from falling too far behind the cluster and avoids excessive buffering. A cluster is not required to keep members in sync together for replication. The pending transactions in the relay log only increase for the lagging replica. Each member sends statistics to the group.">
+        <meta name="description" content="Group Replication flow control signals the cluster to reduce queue growth on
+members that fall behind. Flow control does not prevent members from lagging
+behind the group. Flow control does not stop writes when queues remain above
+the configured limits.">
       
       
         <meta name="author" content="Percona LLC">
@@ -8038,6 +8041,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manage group replication flow control
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="group-replication-flow-control.html" class="md-nav__link md-nav__link--active">
         
   
@@ -8054,6 +8075,71 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-flow-control-behaves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How flow control behaves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-to-expect-when-members-lag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to expect when members lag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tune-parallel-apply-with-flow-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tune parallel apply with flow control
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-flow-control-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure flow control variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -10302,6 +10388,58 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-flow-control-behaves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How flow control behaves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-to-expect-when-members-lag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to expect when members lag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tune-parallel-apply-with-flow-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tune parallel apply with flow control
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-flow-control-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure flow control variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                     </div>
                   </div>
@@ -10331,20 +10469,75 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="manage-group-replication-flow-control">Manage group replication flow control<a class="headerlink" href="#manage-group-replication-flow-control" title="Permanent link">&para;</a></h1>
-<p>In replication, flow control prevents one member from falling too far behind the cluster and avoids excessive buffering. A cluster is not required to keep members in sync together for replication. The pending transactions in the relay log only increase for the lagging replica. Each member sends statistics to the group.</p>
-<p>Flow control sets a threshold on the queue for transactions waiting in the certification queue or the transactions waiting in the applier queue. If the thresholds are exceeded, and during the duration that they are exceeded, flow control adjusts the writer members to the capacity of the delayed member. This action ensures that all members are in sync.</p>
-<p>Flow controls work asynchronously and depend on the following:</p>
+<p>Group Replication flow control signals the cluster to reduce queue growth on
+members that fall behind. Flow control does not prevent members from lagging
+behind the group. Flow control does not stop writes when queues remain above
+the configured limits.</p>
+<p>Each member reports statistics to the group. Flow control compares queue sizes
+against thresholds on the certification queue and the applier queue. When a
+threshold is exceeded, the group asks writer members to slow down so the
+delayed member can reduce its queues toward the limit. If the member cannot
+catch up, the cluster continues to run. Flow control never blocks the group
+indefinitely.</p>
+<p>For a deeper discussion of failover behavior when queues grow, see <a href="https://www.percona.com/blog/the-failover-brownout-rethinking-high-availability-in-mysql-group-replication/">The
+failover brownout: rethinking high availability in MySQL Group
+Replication</a>.</p>
+<h2 id="how-flow-control-behaves">How flow control behaves<a class="headerlink" href="#how-flow-control-behaves" title="Permanent link">&para;</a></h2>
+<p>Flow control runs asynchronously. The group monitors throughput and queue
+sizes on each member. When thresholds are exceeded, the group throttles
+writers to match the capacity of the slowest member.</p>
+<p>The cluster aims to bring the applier queue back under the configured limit.
+The cluster does not guarantee that result. Members can remain at different
+stages of applied data. Secondary members may and will hold a different view
+of applied data than the primary.</p>
+<h2 id="what-to-expect-when-members-lag">What to expect when members lag<a class="headerlink" href="#what-to-expect-when-members-lag" title="Permanent link">&para;</a></h2>
+<p>When flow control cannot keep queues under the limit, the following effects
+are common:</p>
 <ul>
-<li>Monitoring the throughput and queue sizes of each member</li>
-<li>Throttling members to avoid writing beyond the capacity available</li>
+<li>
+<p>The certification buffer grows on the primary and on secondary members.</p>
+</li>
+<li>
+<p>After failover, the group elects a new primary but keeps the new primary in
+  read-only mode until the applier queue is processed.</p>
+</li>
+<li>
+<p>Pending transactions accumulate in the relay log on lagging members.</p>
+</li>
 </ul>
-<p>The following system variables set flow control behavior for Group Replication:</p>
+<p>Plan capacity, monitoring, and failover testing with these limits in mind.
+Do not treat flow control as a substitute for right-sized hardware, parallel
+apply tuning, or application design.</p>
+<h2 id="tune-parallel-apply-with-flow-control">Tune parallel apply with flow control<a class="headerlink" href="#tune-parallel-apply-with-flow-control" title="Permanent link">&para;</a></h2>
+<p>Flow control works with the replication applier. The
+<a href="https://dev.mysql.com/doc/refman/8.4/en/replication-options-replica.html#sysvar_replica_parallel_workers"><code>replica_parallel_workers</code></a>
+variable controls how many applier threads process the relay log.</p>
+<p>Set <code>replica_parallel_workers</code> to approximately 2.5 times the number of CPU
+cores on the member. For example, a host with 8 cores can use
+<code>replica_parallel_workers = 20</code>. Parallel apply helps the member drain the
+applier queue more efficiently. The setting does not guarantee that flow
+control prevents lag.</p>
+<p>Review workload patterns, commit ordering requirements, and any known
+limitations before raising <code>replica_parallel_workers</code> in production.</p>
+<h2 id="configure-flow-control-variables">Configure flow control variables<a class="headerlink" href="#configure-flow-control-variables" title="Permanent link">&para;</a></h2>
+<p>The following system variables control flow control behavior for Group
+Replication:</p>
 <ul>
-<li><a href="https://dev.mysql.com/doc/refman/8.4/en/group-replication-options.html#sysvar_group_replication_flow_control_mode">group_replication_flow_control_mode <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
-<li><a href="https://dev.mysql.com/doc/refman/8.4/en/group-replication-system-variables.html#sysvar_group_replication_flow_control_certifier_threshold">group_replication_flow_control_certifier_threshold <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
-<li><a href="https://dev.mysql.com/doc/refman/8.4/en/group-replication-options.html#sysvar_group_replication_flow_control_applier_threshold">group_replication_flow_control_applier_threshold <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
+<li>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/group-replication-options.html#sysvar_group_replication_flow_control_mode">group_replication_flow_control_mode <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</li>
+<li>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/group-replication-options.html#sysvar_group_replication_flow_control_certifier_threshold">group_replication_flow_control_certifier_threshold <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</li>
+<li>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/group-replication-options.html#sysvar_group_replication_flow_control_applier_threshold">group_replication_flow_control_applier_threshold <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</li>
 </ul>
-<p>Flow control is enabled and disabled by selecting a value in the group_replication_flow_control_mode variable. Flow control can also be enabled on the certifier or applier level or both and sets the threshold level.</p>
+<p>Enable or disable flow control with
+<code>group_replication_flow_control_mode</code>. You can apply thresholds on the
+certifier queue, the applier queue, or both. Percona Server for MySQL also
+adds a <code>MAJORITY</code> mode. For details, see <a href="group-replication-system-variables.html">Group replication system
+variables</a>.</p>
 
 
 
@@ -10367,7 +10560,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 17, 2026 15:51:22 UTC">July 17, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 6, 2026 14:35:58 UTC">August 6, 2026</span>
   </span>
 
     
