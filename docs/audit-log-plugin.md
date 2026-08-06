@@ -4,6 +4,8 @@
 
     The audit log plugin is deprecated in Percona Server for MySQL 8.4 and will be removed in a future release. This deprecation is due to the availability of the [audit log filter component](audit-log-filter-overview.md), which is the recommended replacement. Users should migrate to this component, which provides equivalent functionality with enhanced flexibility, performance, and filtering capabilities, ensuring continued support for auditing and compliance requirements.
 
+    See [Migrate to the audit log filter component](migrate-to-audit-log-filter-component.md) for a step-by-step mapping of `audit_log_*` system variables, `audit_log_policy`, and include/exclude lists to filter JSON and component variables.
+
     This deprecation affects all installations that rely on the audit log plugin for event logging, compliance auditing, or activity tracking. The plugin will continue to function, but no further development or maintenance is planned.
 
     The audit log plugin and the audit log filter component use different configuration variables and options.
@@ -12,7 +14,7 @@
 
     * Do not install both audit log plugin and audit log filter component simultaneously.
 
-    The audit‑log entries may look different from the 8.0 entries. The audit log plugin itself has not changed, but other server components have, and those changes affect the log output. For example, 8.4 logs a `SELECT $$` statement each time a client connects because the client now supports “dollar‑quoted” strings. This feature did not exist in 8.0.
+    The audit‑log entries may look different from the 8.0 entries. The audit log plugin itself has not changed, but other server components have, and those changes affect the log output. For example, 8.4 logs a `SELECT $$` statement each time a client connects because the client supports "dollar‑quoted" strings. This feature did not exist in 8.0.
 
     Percona does not plan to modify 8.4 audit logs to match the format or content of 8.0 logs.
 
@@ -40,7 +42,7 @@ This command checks for system variables whose names start with "audit."
 SHOW variables LIKE 'audit%';
 ```
 
-The empty result means that no such system variables exist or are currently defined.
+The empty result means that no such system variables exist or are defined.
 
 ??? example "Expected output"
 
@@ -372,7 +374,7 @@ The following are examples of the different filters.
         ```
 
     To switch from filtering by included user list to the excluded user list or back,
-    first set the currently active filtering variable to `NULL`:
+    first set the active filtering variable to `NULL`:
 
     ```sql
     SET GLOBAL audit_log_include_accounts = NULL;
@@ -553,7 +555,7 @@ The following are examples of the different filters.
         ```
 
     To switch the command type filtering type from included type list to the excluded list
-    or back, first reset the currently-active list to `NULL`:
+    or back, first reset the active list to `NULL`:
 
     ```sql
     SET GLOBAL audit_log_include_commands = NULL;
@@ -617,7 +619,7 @@ The following are examples of the different filters.
         ```
 
     To switch from filtering by included database list to the excluded one or back,
-    first set the currently active filtering variable to `NULL`:
+    first set the active filtering variable to `NULL`:
 
     ```sql
     SET GLOBAL audit_log_include_databases = NULL;
@@ -713,7 +715,7 @@ This variable is used to specify the list of users for which
 Filtering by user is applied. The value can be `NULL` or comma
 separated list of accounts in form `user@host` or `'user'@'host'` (if user
 or host contains comma). If this variable is set, then
-audit_log_include_accounts must be unset, and vice versa.
+`audit_log_include_accounts` must be unset, and the reverse also applies.
 
 ### `audit_log_exclude_commands`
 
@@ -727,7 +729,7 @@ audit_log_include_accounts must be unset, and vice versa.
 This variable is used to specify the list of commands for which
 Filtering by SQL command type is applied. The value can be `NULL` or
 comma separated list of commands. If this variable is set, then
-audit_log_include_commands must be unset, and vice versa.
+`audit_log_include_commands` must be unset, and the reverse also applies.
 
 ### `audit_log_exclude_databases`
 
@@ -738,7 +740,7 @@ audit_log_include_commands must be unset, and vice versa.
 | Dynamic:       | Yes                |
 | Data type      | String             |
 
-Use this variable to specify the databases to be filtered. The value can be NULL or a comma-separated list of databases if you set this variable, unset `audit_log_include_databases`, and vice versa.
+Use this variable to specify the databases to be filtered. The value can be `NULL` or a comma-separated list of databases. If you set this variable, you must unset `audit_log_include_databases`. The reverse also applies.
 
 
 ### `audit_log_format`
@@ -771,7 +773,7 @@ This variable is used to specify the list of users for which
 Filtering by user is applied. The value can be `NULL` or comma
 separated list of accounts in form `user@host` or `'user'@'host'` (if user
 or host contains comma). If this variable is set, then
-audit_log_exclude_accounts must be unset, and vice versa.
+`audit_log_exclude_accounts` must be unset, and the reverse also applies.
 
 ### `audit_log_include_commands`
 
@@ -785,7 +787,7 @@ audit_log_exclude_accounts must be unset, and vice versa.
 This variable is used to specify the list of commands for which
 Filtering by SQL command type is applied. The value can be `NULL` or
 comma separated list of commands. If this variable is set, then
-audit_log_exclude_commands must be unset, and vice versa.
+`audit_log_exclude_commands` must be unset, and the reverse also applies.
 
 ### `audit_log_include_databases`
 
@@ -934,3 +936,12 @@ manual](https://man7.org/linux/man-pages/man3/syslog.3.html).
 The number of times an audit log entry was either
 dropped or written directly to the file due to its size being bigger
 than audit_log_buffer_size variable.
+
+## Additional reading
+
+* [Audit Log Filter overview](audit-log-filter-overview.md) — recommended replacement component
+* [Migrate to the audit log filter component](migrate-to-audit-log-filter-component.md) — variable mapping and cutover procedure
+* [Install the audit log filter](install-audit-log-filter.md)
+* [Upgrade components](upgrade-components.md)
+* [Upgrade Percona Server for MySQL](upgrade.md)
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md)

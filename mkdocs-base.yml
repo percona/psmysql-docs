@@ -69,12 +69,14 @@ extra_css:
   - css/nocopy.css
   - css/mysql.css
   - css/rating.css
+  - css/kapa.css
 
 extra_javascript:
   - js/version-select.js
   - js/promptremover.js
   - js/consent.js
   - js/rating.js
+  - js/kapa.js
 
 markdown_extensions:
   attr_list: {}
@@ -176,6 +178,7 @@ nav:
   - ps-or-pdps.md
   - Release notes:
     - Release notes index: release-notes/release-notes-index.md
+    - release-notes/8.4.10-10.md
     - release-notes/8.4.8-8.md
     - release-notes/8.4.7-7.md
     - release-notes/8.4.6-6.md
@@ -188,24 +191,32 @@ nav:
   - Features:
     - adaptive-network-buffers.md
     - Audit Log Filter:
-      - audit-log-filter-overview.md
-      - install-audit-log-filter.md
-      - Formats: 
+      - Overview: audit-log-filter-overview.md
+      - Install: install-audit-log-filter.md
+      - Migrate from audit plugins: migrate-to-audit-log-filter-component.md
+      - Quickstart: audit-log-filter-quickstart.md
+      - Log file formats:
         - Overview: audit-log-filter-formats.md
-        - XML (New style): audit-log-filter-new.md
-        - XML (Old style): audit-log-filter-old.md
-        - JSON: audit-log-filter-json.md
-      - write-filter-definitions.md
-      - audit-log-filter-security.md
-      - audit-log-filter-compression-encryption.md
-      - reading-audit-log-filter-files.md
-      - manage-audit-log-filter.md
-      - filter-audit-log-filter-files.md
-      - audit-log-filter-restrictions.md
-      - audit-log-filter-naming.md
-      - disable-audit-log-filter.md
-      - audit-log-filter-variables.md
-      - uninstall-audit-log-filter.md
+        - XML (new style): audit-log-filter-new.md
+        - XML (old style): audit-log-filter-old.md
+        - JSON and JSONL: audit-log-filter-json.md
+      - Define filters:
+        - Write filter definitions: write-filter-definitions.md
+        - Block statements: block-statements-with-audit-filter.md
+        - Redact log fields: redact-audit-log-fields.md
+        - Definition fields reference: audit-log-filter-definition-fields.md
+      - Operate:
+        - Security: audit-log-filter-security.md
+        - Compression and encryption: audit-log-filter-compression-encryption.md
+        - Read log files: reading-audit-log-filter-files.md
+        - Filter existing log files: filter-audit-log-filter-files.md
+        - Manage log files: manage-audit-log-filter.md
+        - Log file naming: audit-log-filter-naming.md
+      - Reference:
+        - Functions, options, variables: audit-log-filter-variables.md
+        - Restrictions: audit-log-filter-restrictions.md
+      - Disable: disable-audit-log-filter.md
+      - Uninstall: uninstall-audit-log-filter.md
     - binlog-space.md
     - extended-select-into-outfile.md
     - innodb-expanded-fast-index-creation.md
@@ -240,8 +251,8 @@ nav:
     - Quickstart - Clean up your installation: quickstart-cleanup.md
     - Quickstart - Next steps: quickstart-next-steps.md
   - Install:
-   
     - Install Percona Server for MySQL from repositories: installation.md
+    - Profile-Guided Optimization (PGO) and non-PGO builds: pgo.md
     - Before you start: 
       - download-instructions.md
     - Use APT:
@@ -356,6 +367,9 @@ nav:
     - pam-plugin.md
     - ssl-improvement.md
     - fido-authentication-plugin.md
+    - OpenID Connect authentication:
+      - openid-connect-authentication.md
+      - quickstart-openid-connect.md
     - encryption-functions.md
     - UUID_VX component:
       - uuid-versions.md
@@ -367,6 +381,7 @@ nav:
         - quickstart-component-keyring.md
         - use-keyring-file.md
         - use-keyring-vault-component.md
+        - maintain-vault-connection.md
         - using-kmip.md
         - using-amz-kms.md
         - encrypt-file-per-table-tablespace.md
@@ -437,5 +452,5 @@ nav:
     - copyright-and-licensing-information.md
     - glossary.md
     - ai-docs.md
-  - Topic Index: index-keywords.md
+  - Topic Index: index-contents.md
 # - Version Selector: "../"

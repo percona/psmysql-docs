@@ -1,8 +1,12 @@
 # Audit Log Filter format - XML (old style)
 
-The old style XML format uses `<AUDIT>` tag as the root element and adds the `</AUDIT>` tag when the file closes. Each audited event is contained in an &lt;AUDIT_RECORD&gt; element. 
+!!! note "Deprecation notice"
 
-The order of the attributes within an &lt;AUDIT_RECORD&gt; can vary. Certain attributes are in every element. Other attributes are optional and depend on the type of audit record.
+    The OLD XML format (`audit_log_filter.format=OLD`) is deprecated and may be removed in a later version. Use [XML (new style)](audit-log-filter-new.md), [JSON, or JSONL](audit-log-filter-json.md) instead.
+
+OLD XML wraps records in `<AUDIT>` … `</AUDIT>`. Each event is one `<AUDIT_RECORD>` (attribute-style XML).
+
+Attribute order varies. Every record includes the attributes listed under [Required attributes](#required-attributes). Other attributes are optional by event type.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -69,176 +73,37 @@ The order of the attributes within an &lt;AUDIT_RECORD&gt; can vary. Certain att
 </AUDIT>
 ```
 
-The required attributes are the following:
+### Required attributes
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>HTML Table Generator</title> 
-	<style>
-		#demTable {
-			width:100%;
-			height:100%;
-			border:1px solid #b3adad;
-			border-collapse:collapse;
-			padding:5px;
-		}
-		#demTable th {
-			border:1px solid #b3adad;
-			padding:5px;
-			background: #f0f0f0;
-			color: #313030;
-		}
-		#demTable td {
-			border:1px solid #b3adad;
-			text-align:left;
-			padding:5px;
-			background: #ffffff;
-			color: #313030;
-		}
-	</style>
-</head>
-<body>
-	<table id="demTable">
-		<thead>
-			<tr>
-				<th><div style="class: fitwidth, color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Attribute Name</div></th>
-				<th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Description</div></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>&nbsp;NAME</td>
-				<td>&nbsp;The action that generated the audit record.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;RECORD_ID</td>
-				<td>&nbsp;The RECORD_ID consists of a sequence number and a timestamp value. The sequence number is initialized when the component opens the audit log filter file.</td>
-			</tr>
-			<tr>
-				<td>&nbsp;TIMESTAMP</td>
-				<td>&nbsp;Displays the date and time when the audit event happened.</td>
-			</tr>
-		</tbody>
-	</table>
-</body>
-</html>
+| Attribute | Description |
+| --- | --- |
+| `NAME` | Action that produced the record |
+| `RECORD_ID` | Sequence number and timestamp; sequence resets when the component opens the log file |
+| `TIMESTAMP` | Event date and time |
 
-The optional attributes are the following:
+### Optional attributes
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>HTML Table Generator</title> 
-	<style>
-		#demTable {
-			width:100%;
-			height:100%;
-			border:1px solid #b3adad;
-			border-collapse:collapse;
-			padding:5px;
-		}
-		#demTable th {
-			border:1px solid #b3adad;
-			padding:5px;
-			background: #f0f0f0;
-			color: #313030;
-		}
-		#demTable td {
-			border:1px solid #b3adad;
-			text-align:left;
-			padding:5px;
-			background: #ffffff;
-			color: #313030;
-		}
-	</style>
-</head>
-<body>
-	<table id="demTable">
-		<thead>
-			<tr>
-				<th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Attribute Name</div></th>
-				<th><div style="color: #333333;background-color: #f5f5f5;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 21px;white-space: pre;">Description</div></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><span style="font-family: -apple-system, &quot;system-ui&quot;, &quot;Segoe WPC&quot;, &quot;Segoe UI&quot;, system-ui, Ubuntu, &quot;Droid Sans&quot;, sans-serif; font-size: 14px; font-style: normal; font-weight: 400;">COMMAND_CLASS</span><br></td>
-				<td>Type of action performed</td>
-			</tr>
-			<tr>
-				<td>CONNECTION_ID</td>
-				<td>Client connection identifier</td>
-			</tr>
-			<tr>
-				<td>CONNECTION_TYPE</td>
-				<td>Connection security type</td>
-			</tr>
-			<tr>
-				<td>DB</td>
-				<td>Database name</td>
-			</tr>
-			<tr>
-				<td>HOST</td>
-				<td>Client's hostname</td>
-			</tr>
-			<tr>
-				<td>IP</td>
-				<td>Client's IP address</td>
-			</tr>
-			<tr>
-				<td>MYSQL_VERSION</td>
-				<td>Server version</td>
-			</tr>
-			<tr>
-				<td>OS_LOGIN</td>
-				<td>The user name used during an external authentication, for example, if the user is authenticated through an LDAP component. If the authentication component does not set a value or the user is authenticated using MySQL authentication, this value is empty.</td>
-			</tr>
-			<tr>
-				<td>OS_VERSION</td>
-				<td>Server's operating system</td>
-			</tr>
-			<tr>
-				<td>PRIV_USER</td>
-				<td>The user name used by the server when checking privileges. This name may be different than USER.</td>
-			</tr>
-			<tr>
-				<td>PROXY_USER</td>
-				<td>The proxy user. If a proxy is not used, the value is empty.</td>
-			</tr>
-			<tr>
-				<td>SERVER_ID</td>
-				<td>Server Identifier</td>
-			</tr>
-			<tr>
-				<td>SQLTEXT</td>
-				<td>SQL statement text</td>
-			</tr>
-			<tr>
-				<td>STARTUP_OPTIONS</td>
-				<td>Server startup options, either command line or config files</td>
-			</tr>
-			<tr>
-				<td>STATUS</td>
-				<td>Command's status - a 0 (zero) is a success, a non-zero is an error</td>
-			</tr>
-			<tr>
-				<td>STATUS_CODE</td>
-				<td><span style="font-style: normal; font-weight: 400;">A 0 (zero) is a success, a non-zero is an error</span><br></td>
-			</tr>
-			<tr>
-				<td>TABLE</td>
-				<td>Table name</td>
-			</tr>
-			<tr>
-				<td>USER</td>
-				<td>&nbsp;Client's user name - this name may be different than PRIV_USER.</td>
-			</tr>
-			<tr>
-				<td>VERSION</td>
-				<td>Format of audit log filter</td>
-			</tr>
-		</tbody>
-	</table>
-</body>
-</html>
+| Attribute | Description |
+| --- | --- |
+| `COMMAND_CLASS` | Action or command class |
+| `CONNECTION_ID` | Client connection ID |
+| `CONNECTION_TYPE` | Connection security / transport |
+| `DB` | Database name |
+| `HOST` | Client host name |
+| `IP` | Client IP address |
+| `OS_LOGIN` | External auth user (for example LDAP); empty for built-in auth |
+| `PRIV_USER` | Privilege check user (may differ from `USER`) |
+| `PROXY_USER` | Proxy user if used; otherwise empty |
+| `SERVER_ID` | Server ID |
+| `SQLTEXT` | SQL text |
+| `STATUS` | `0` success, non-zero error |
+| `TABLE` | Table name |
+| `USER` | Client user (may differ from `PRIV_USER`) |
+
+## Additional reading
+
+* [Audit Log Filter file format overview](audit-log-filter-formats.md)
+* [Audit Log Filter format - XML (new style)](audit-log-filter-new.md)
+* [Audit Log Filter format - JSON and JSONL](audit-log-filter-json.md)
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md)
+* [Audit Log Filter overview](audit-log-filter-overview.md)

@@ -2,38 +2,42 @@
 
 ## Name qualities
 
-The audit log filter file name has the following qualities:
+An audit log path has:
 
-* Optional directory name
-* Base name
-* Optional suffix
+* Optional directory prefix
 
-Using either [compression](audit-log-filter-compression-encryption.md) or [encryption](audit-log-filter-compression-encryption.md) adds the following suffixes:
+* Base file name
 
-* Compression adds the `.gz` suffix
-* Encryption adds the `pwd_id.enc` suffix
+* Optional suffix from compression or encryption
 
-The `pwd_id` represents the password used for encrypting the log files. The audit log filter component stores passwords in the keyring.
+[Compression](audit-log-filter-compression-encryption.md) or [encryption](audit-log-filter-compression-encryption.md) append suffixes:
 
-You can combine compression and encryption, which adds both suffixes to the `audit_filter.log` name.
+* Compression adds `.gz`
 
-The following table displays the possible ways a file can be named:
+* Encryption adds `.pwd_id.enc`
 
-| Default name            | Enabled feature                |
-| ----------------------- | ------------------------------ |
-| audit.log               | No compression or encryption   |
-| audit.log.gz            | Compression                    |
-| audit.log.pwd_id.enc    | Encryption                     |
-| audit.log.gz.pwd_id.enc | Compression, encryption        |
+`pwd_id` identifies the keyring entry for that password; the component stores keys in the keyring.
+
+With both features, both suffixes appear (for example on `audit_filter.log`).
+
+Example names:
+
+| Default name                   | Enabled feature                |
+| ------------------------------ | ------------------------------ |
+| audit_filter.log               | No compression or encryption   |
+| audit_filter.log.gz            | Compression                    |
+| audit_filter.log.pwd_id.enc    | Encryption                     |
+| audit_filter.log.gz.pwd_id.enc | Compression and encryption     |
 
 ### Encryption ID format
 
-The format for `pwd_id` is the following:
+Each `pwd_id` contains:
 
-* A UTC value in `YYYYMMDDThhmmss` format that represents when the password was created
-* A sequence number that starts at `1` and increases if passwords have the same timestamp value
+* UTC creation time as `YYYYMMDDThhmmss`
 
-The following are examples of pwd_id values:
+* A sequence starting at `1`, incremented when several passwords share one timestamp
+
+Examples:
 
 ```text
 20230417T082215-1
@@ -41,7 +45,7 @@ The following are examples of pwd_id values:
 20230301T061400-2
 ```
 
-The following example is a list of the audit log filter files with the `pwd_id`:
+Example encrypted file names:
 
 ```text
 audit_filter.log.20230417T082215-1.enc
@@ -49,13 +53,29 @@ audit_filter.log.20230301T061400-1.enc
 audit_filter.log.20230301T061400-2.enc
 ```
 
-The current password has the largest sequence number.
+The password with the highest sequence for a given timestamp is current.
+
+## Rotation sequence suffix
+
+Starting in Percona Server for MySQL 8.4.9-9, multiple rotations in the same second append `-N` so the server never overwrites a prior file:
+
+```text
+audit_filter.20250401T120000.log      -- first rotation at 12:00:00
+audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
+```
+
+Update parsers to accept the optional `-N` suffix.
 
 ## Renaming operations
 
-During initialization, the component checks if a file with that name exists. 
-If it does, the component renames the file. The component writes to an empty file.
+At startup, if the target path already has a file, the component renames it and opens a new empty file.
 
-During termination, the component renames the file.
+At shutdown, the component renames the active log file.
 
+## Additional reading
 
+* [Manage the Audit Log Filter files](manage-audit-log-filter.md)
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md) — `audit_log_filter.file`
+* [Audit Log Filter file format overview](audit-log-filter-formats.md)
+* [Reading Audit Log Filter files](reading-audit-log-filter-files.md)
+* [Audit Log Filter overview](audit-log-filter-overview.md)

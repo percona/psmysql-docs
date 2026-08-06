@@ -2,24 +2,30 @@
 
 ## Priority refill for the buffer pool free list
 
-In highly-concurrent I/O-bound workloads the following situation may happen:
+Under heavy concurrent I/O load, the buffer pool free list can fall behind
+demand.
 
-* Buffer pool free lists are used faster than they are refilled by the LRU cleaner thread.
+The following issues can occur:
 
-* Buffer pool free lists become empty and more and more query and utility (i.e., purge) threads stall, checking whether a buffer pool free list has became non-empty, sleeping, performing single-page LRU flushes.
+* Query and purge threads consume free pages faster than the Least Recently Used
+  (LRU) cleaner thread refills the free list
 
-* The number of buffer pool free list mutex waiters increases.
+* Empty free lists force query and purge threads to poll, sleep, or run
+  single-page LRU flushes
 
-* When the LRU manager thread (or a single page LRU flush by a query thread) finally produces a free page, it is starved from putting it on the buffer
-pool free list as it must acquire the buffer pool free list mutex too.
-However, being one thread in up to hundreds, the chances of a prompt
-acquisition are low.
+* Many waiting threads increase contention on the buffer pool free list mutex
 
-This is addressed by delegating all the LRU flushes to the to the LRU manager
-thread, never attempting to evict a page or perform a LRU single page flush by
-a query thread, and introducing a backoff algorithm to reduce buffer pool free
-list mutex pressure on empty buffer pool free lists. This is controlled through
-a new system variable innodb_empty_free_list_algorithm.
+* Mutex contention delays the return of freed pages to the free list
+
+Percona Server for MySQL addresses these issues with the following changes:
+
+* The LRU manager thread handles all LRU flushes
+
+* Query threads avoid page eviction and single-page LRU flushes
+
+* A backoff algorithm reduces mutex pressure on empty free lists
+
+Configure this behavior with `innodb_empty_free_list_algorithm`.
 
 ### `innodb_empty_free_list_algorithm`
 
@@ -29,42 +35,129 @@ a new system variable innodb_empty_free_list_algorithm.
 | Config file:   | Yes                |
 | Scope:         | Global             |
 | Dynamic:       | Yes                |
-| Data type:     | legacy, backoff    |
-| Default        | legacy             |
+| Data type:     | Enumeration        |
+| Default:       | legacy             |
 
-When `legacy` option is set, server will use the upstream algorithm and when
-the `backoff` is selected, Percona implementation will be used.
+#### Values
+
+| Value     | Description                                      |
+| --------- | ------------------------------------------------ |
+| `legacy`  | Uses the upstream algorithm. Default value       |
+| `backoff` | Uses the Percona Server for MySQL algorithm      |
+
+## Adaptive page cleaner flushing
+
+InnoDB page cleaners flush dirty buffer pool pages to disk. This frees redo log
+space.
+
+The adaptive flushing algorithm sets the flush rate from checkpoint age.
+Checkpoint age is the gap between the current Log Sequence Number (LSN) and the
+LSN of the last completed checkpoint. A larger checkpoint age triggers more
+aggressive flushing.
+
+Percona Server for MySQL uses a different age-factor formula than upstream
+MySQL. The `innodb_cleaner_lsn_age_factor` variable selects the formula.
+
+The default value is `high_checkpoint`. Flushing starts slower at low
+checkpoint ages. Flushing accelerates as checkpoint age grows. The server can
+keep more dirty pages in the buffer pool. Write throughput improves on sustained
+write-heavy workloads.
+
+The `legacy` value uses the upstream MySQL formula. Flushing starts earlier for
+a given checkpoint age. Use `legacy` when checkpoint age spikes cause flush
+storms or write pauses with `high_checkpoint`.
+
+Monitor checkpoint age with these status variables:
+
+* [`Innodb_checkpoint_age`](innodb-show-status.md#innodb_checkpoint_age)
+
+* `Innodb_checkpoint_max_age`
+
+You can also use the InnoDB Checkpoint Age graph in Percona Monitoring and
+Management (PMM). Keep checkpoint age high without flush storms or write pauses
+near the maximum checkpoint age.
+
+Adaptive flushing also uses these variables:
+
+* `innodb_adaptive_flushing`
+
+* `innodb_adaptive_flushing_lwm`
+
+* `innodb_io_capacity`
+
+* `innodb_io_capacity_max`
+
+See the following posts for more detail on variable interaction:
+
+* [Tuning MySQL/InnoDB Flushing for a Write-Intensive Workload :octicons-link-external-16:](https://www.percona.com/blog/tuning-mysql-innodb-flushing-for-a-write-intensive-workload/)
+
+* [InnoDB Flushing in Action for Percona Server for MySQL :octicons-link-external-16:](https://www.percona.com/blog/innodb-flushing-in-action-for-percona-server-for-mysql/)
+
+### `innodb_cleaner_lsn_age_factor`
+
+| Option         | Description              |
+| -------------- | ------------------------ |
+| Command-line:  | Yes                      |
+| Config file:   | Yes                      |
+| Scope:         | Global                   |
+| Dynamic:       | Yes                      |
+| Data type:     | Enumeration              |
+| Default:       | high_checkpoint          |
+
+#### Values
+
+| Value             | Description |
+| ----------------- | ----------- |
+| `high_checkpoint` | Uses the Percona Server for MySQL age-factor formula. Flushing pressure rises slowly at low checkpoint ages and faster at higher ages. The server keeps more dirty pages. Default value |
+| `legacy`          | Uses the upstream MySQL age-factor formula. Flushing starts earlier for a given checkpoint age. Use when checkpoint age spikes cause flush storms or write pauses with `high_checkpoint` |
+
+Change the value at runtime:
+
+```sql
+SET GLOBAL innodb_cleaner_lsn_age_factor = 'legacy';
+```
+
+Add a persistent setting in the option file:
+
+```ini
+[mysqld]
+innodb_cleaner_lsn_age_factor = high_checkpoint
+```
 
 ## Multi-threaded LRU flusher
 
-This feature has been removed in Percona Server for MySQL 8.3.0-1.
+Percona Server for MySQL removed this feature in version 8.3.0-1.
 
-Percona Server for MySQL features a true multi-threaded LRU flushing. In this scheme, each buffer pool instance has its own dedicated LRU manager thread that is
-tasked with performing LRU flushes and evictions to refill the free list of that
-buffer pool instance. Existing multi-threaded flusher no longer does any LRU
-flushing and is tasked with flush list flushing only.
+The following text describes the feature before removal.
 
-* All threads still synchronize on each coordinator thread iteration. If a
-particular flushing job is stuck on one of the worker threads, the rest will
-idle until the stuck one completes.
+Percona Server for MySQL used multi-threaded LRU flushing. Each buffer pool
+instance had a dedicated LRU manager thread. That thread ran LRU flushes and
+evictions to refill the instance free list. The multi-threaded flusher handled
+flush list flushing only.
 
-* The coordinator thread heuristics focus on flush list adaptive flushing
-without considering the state of free lists, which might be in need of urgent
-refill for a subset of buffer pool instances on a loaded server.
+The design had these limitations:
 
-* LRU flushing is serialized with flush list flushing for each buffer pool
-instance, introducing the risk that the right flushing mode will not happen
-for a particular instance because it is being flushed in the other mode.
+* A delayed worker thread blocked other worker threads during coordinator
+  synchronization
 
-The following InnoDB metrics are no longer accounted, as their semantics do
-not make sense under the current LRU flushing design:
-`buffer_LRU_batch_flush_avg_time_slot`, `buffer_LRU_batch_flush_avg_pass`,
-`buffer_LRU_batch_flush_avg_time_thread`,
-`buffer_LRU_batch_flush_avg_time_est`.
+* The coordinator thread omitted free list refill checks on loaded servers
 
-The need for InnoDB recovery thread writer threads is also removed,
-consequently all associated code is deleted.
+* Serial flushing prevented buffer pool instances from using the required flush
+  mode
 
+Percona Server for MySQL no longer reports these InnoDB metrics. The metrics do
+not match the LRU flushing design:
+
+* `buffer_LRU_batch_flush_avg_time_slot`
+
+* `buffer_LRU_batch_flush_avg_pass`
+
+* `buffer_LRU_batch_flush_avg_time_thread`
+
+* `buffer_LRU_batch_flush_avg_time_est`
+
+Percona Server for MySQL also removed InnoDB recovery writer threads and the
+related code.
 
 ### `innodb_sched_priority_master`
 
@@ -76,5 +169,4 @@ consequently all associated code is deleted.
 | Dynamic:       | Yes                |
 | Data type:     | Boolean            |
 
-This variable can be added to the configuration file.
-
+Add this variable to the configuration file.

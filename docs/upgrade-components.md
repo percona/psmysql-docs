@@ -81,4 +81,5 @@ The timing of the transition depends on the specific plugin:
 * [Use Keyring Vault component](./use-keyring-vault-component.md)
 * [Install Data Masking component](./install-data-masking-component.md)
 * [Audit Log Filter component overview](./audit-log-filter-overview.md)
+* [Migrate to the audit log filter component](./migrate-to-audit-log-filter-component.md)
 * [Manage Audit Log Filter](./manage-audit-log-filter.md)

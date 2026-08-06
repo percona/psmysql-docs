@@ -1,24 +1,30 @@
 # Audit Log Filter file format overview
 
-When an auditable event occurs, the component writes a record to the log file.
+On each auditable event, the component appends a record to the log. After startup, the first record describes the server and startup options; later records cover connections, disconnections, executed SQL, and more.
 
-After the component starts, the first record marks audit logging start. With `audit_log_filter.format=NEW`, from Percona Server for MySQL 8.4.8-8 onward on the {{vers}} line (this docs build: {{release}}), that record’s `<NAME>` is `Startup` and the record includes `SERVER_ID` and `COMMAND_CLASS` (among the mandatory elements). Later records cover connections, disconnections, SQL statements executed, and so on. Statements within stored procedures or triggers are not logged, only the top-level statements. See [XML (new style)](audit-log-filter-new.md) for the full field list.
+Which server actions become audit records depends on [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode), not on the file format. See that variable for `REDUCED` versus `FULL` and for releases before it existed.
 
-If files are referenced by `LOAD_DATA`, the contents are not logged.
+If `LOAD_DATA` references files, the component does not log file contents.
 
-Set with the `audit_log_filter.format` system variable at startup. The available format types are the following;
+Set format with [`audit_log_filter.format`](audit-log-filter-variables.md#audit_log_filterformat) at startup. Options:
 
 | Format Type | Command | Description |
 |---|---|---|
-| [XML (new style)](audit-log-filter-new.md) | `audit_log_filter.format=NEW` | The default format |
-| [XML (old style)](audit-log-filter-old.md) | `audit_log_filter.format=OLD` | The original version of the XML format |
-| [JSON](audit-log-filter-json.md) | `audit_log_filter.format=JSON` | Files written as a JSON array |
+| [XML (new style)](audit-log-filter-new.md) | `audit_log_filter.format=NEW` | New XML layout (default in Percona Server 8.4) |
+| [XML (old style)](audit-log-filter-old.md) | `audit_log_filter.format=OLD` | Legacy XML layout. Deprecated and may be removed in a later version. |
+| [JSON](audit-log-filter-json.md) | `audit_log_filter.format=JSON` | One top-level JSON array of events |
+| [JSONL](audit-log-filter-json.md) | `audit_log_filter.format=JSONL` | Added in 8.4.9-9. One compact JSON object per line inside a wrapping array (see the JSON/JSONL topic). |
 
-By default, the file contents in the new-style XML format are not compressed or encrypted.
+By default, new-style XML logs are neither compressed nor encrypted.
 
-Changing the `audit_log_filter.format`, you should also change 
-the `audit_log_filter.file` name. For example, changing the `audit_log_filter.format` 
-to JSON, change the `audit_log_filter.file` to `audit.json`. If you don't change 
-the `audit_log_filter.file` name, then all audit log filter files have the same 
-base name and you won't be able to easily find when the format changed.
+When you change `audit_log_filter.format`, rename `audit_log_filter.file` as well—for example use `audit.json` or `audit.jsonl` for JSON or JSONL. Reusing one base name obscures format changes across rotated files.
 
+## Additional reading
+
+* [Audit Log Filter overview](audit-log-filter-overview.md)
+* [Audit Log Filter format - XML (new style)](audit-log-filter-new.md)
+* [Audit Log Filter format - XML (old style)](audit-log-filter-old.md)
+* [Audit Log Filter format - JSON and JSONL](audit-log-filter-json.md)
+* [Audit log filter functions, options, and variables](audit-log-filter-variables.md) — `audit_log_filter.format`, `audit_log_filter.file`
+* [Reading Audit Log Filter files](reading-audit-log-filter-files.md)
+* [Audit Log Filter compression and encryption](audit-log-filter-compression-encryption.md)

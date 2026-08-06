@@ -27,4 +27,17 @@ An example of `/lib/plugin/component_keyring_file.cnf`:
     "path": "/var/lib/mysql-keyring/keyring_file", "read_only": false
 }
 ```
- 
+
+--8<--- "keyring-components-verification.md"
+
+## Related topics
+
+* [Keyring components overview](keyring-components-plugins-overview.md)
+
+* [Use the keyring vault component](use-keyring-vault-component.md)
+
+* [Use the Key Management Interoperability Protocol (KMIP)](using-kmip.md)
+
+* [Use the Amazon Key Management Service (AWS KMS)](using-amz-kms.md)
+
+* [Data at rest encryption](data-at-rest-encryption.md)
