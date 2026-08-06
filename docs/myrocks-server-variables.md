@@ -463,9 +463,13 @@ Allowed range is from `1` to `2147483647`.
 | Data type    | Numeric              |
 | Default      | 16 KB                |
 
-Specifies the size of the data block for reading RocksDB data files.
-The default value is `16 KB`.
-The allowed range is from `1024` to `4294967296` bytes (4 GiB).
+Specifies the size of the data blocks used for storing and reading RocksDB
+data files. Larger block sizes can improve compression efficiency and reduce
+metadata overhead. Larger block sizes can also increase memory use and read
+amplification.
+
+The default value is `16 KB`. The allowed range is from `1024` to
+`18446744073709551615` bytes.
 
 ### `rocksdb_block_size_deviation`
 
@@ -1327,15 +1331,98 @@ non-debug builds.
 | Scope        | Global                       |
 | Data type    | String                       |
 
-The dafault value is:
+This variable defines the default settings for the default column family.
+MyRocks stores data in the default column family unless a table or index uses
+a dedicated column family.
+
+#### How the option works
+
+MyRocks does not expose every RocksDB tuning knob as its own MySQL variable.
+Instead, MyRocks accepts a semicolon-separated list of parameters in RocksDB
+shorthand and passes the list to the engine. These settings apply to every
+table that uses the default column family.
+
+An example value is `write_buffer_size=64M;target_file_size_base=32M`.
+
+On startup, the server applies this option to all existing column families.
+The option is read-only at runtime.
+
+#### Commonly configured parameters
+
+The most commonly configured parameters include the following:
+
+* `write_buffer_size` — Size of a single memtable. When the buffer fills, the
+  memtable freezes and queues for flush to a Sorted String Table (SST) file.
+
+* `max_write_buffer_number` — Maximum number of memtables that can accumulate
+  in memory. One memtable stays active and others wait to flush. Raising the
+  value helps absorb bursts of writes.
+
+* `max_bytes_for_level_base` — Total size limit for level 1 of the
+  Log-Structured Merge (LSM) tree. The level-1 limit influences how large
+  subsequent levels become.
+
+* `target_file_size_base` — Target size for a single SST file at level 1.
+  Combined with level size limits, the value affects how many files exist per
+  level.
+
+* `compression_per_level` — Compression algorithm per level, such as LZ4 or
+  ZSTD. Use this option to balance central processing unit (CPU) and disk
+  space.
+
+* `block_based_table_factory` — Nested settings for blocks, including Bloom
+  filters, index types, and block cache behavior.
+
+* `level0_file_num_compaction_trigger` — Number of level 0 (L0) files that
+  trigger a compaction.
+
+#### Benefits of tuning
+
+The `rocksdb_default_cf_options` string centralizes control over compaction
+style, memory, and input/output (I/O) parallelism. Adjusting the string for
+the target hardware, such as SSD or HDD, is the primary way to optimize
+MyRocks throughput.
+
+The default varies by MyRocks version. The default generally balances LZ4
+compression with moderate buffer sizes, such as 64 MB memtables. The default
+value is:
 
 ```default
-block_based_table_factory= {cache_index_and_filter_blocks=1;filter_policy=bloomfilter:10:false;whole_key_filtering=1};level_compaction_dynamic_level_bytes=true;optimize_filters_for_hits=true;compaction_pri=kMinOverlappingRatio;compression=kLZ4Compression;bottommost_compression=kLZ4Compression;
+block_based_table_factory={cache_index_and_filter_blocks=1;filter_policy=bloomfilter:10:false;whole_key_filtering=1};level_compaction_dynamic_level_bytes=true;optimize_filters_for_hits=true;compaction_pri=kMinOverlappingRatio;compression=kLZ4Compression;bottommost_compression=kLZ4Compression;
 ```
 
-Specifies the default column family options for MyRocks. On startup, the
-server applies this option to all existing column families. This option is
-read-only at runtime.
+#### Breakdown of the main components
+
+The default value has the following main components:
+
+1. Block-based table options — These options control how data is laid out and
+   cached inside SST files. The block-based table options include the
+   following:
+
+    * `cache_index_and_filter_blocks=1` — Stores the index and Bloom filter
+      data in the RocksDB block cache instead of pinning the data outside the
+      cache. The setting provides better control of total memory.
+
+    * `filter_policy=bloomfilter:10:false` — Creates a Bloom filter with 10
+      bits per key. The `false` value refers to `use_block_based_builder`.
+      The setting uses the modern, more efficient Full Filter format.
+
+    * `whole_key_filtering=1` — Hashes the entire key in the Bloom filter.
+      The hash provides the fastest possible performance for point lookups.
+
+2. Compaction and layout — `level_compaction_dynamic_level_bytes=true` adjusts
+   per-level byte limits from the bottom level. The setting reduces space
+   amplification and makes sizing more self-tuning.
+   `compaction_pri=kMinOverlappingRatio` prefers compactions that free the
+   most space relative to bytes written.
+
+3. Read optimization — `optimize_filters_for_hits=true` skips Bloom filter
+   checks on the bottommost level where hits are statistically more likely.
+   The skip saves CPU time.
+
+4. Compression — `compression=kLZ4Compression` and
+   `bottommost_compression=kLZ4Compression` use LZ4 for low CPU overhead and
+   solid general-purpose compression.
 
 
 
@@ -1750,22 +1837,78 @@ This variable controls whether to write and check RocksDB file-level checksums. 
 | Data type    | Numeric                           |
 | Default      | 1                                 |
 
-Specifies whether to sync on every transaction commit,
-similar to [innodb_flush_log_at_trx_commit :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit).
-Enabled by default, which ensures ACID compliance.
+Specifies whether the RocksDB Write-Ahead Log (WAL) is synchronized to disk
+on every transaction commit. The variable is similar to
+[innodb_flush_log_at_trx_commit :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit).
 
-Possible values:
+The setting is enabled (`1`) by default, which ensures ACID compliance.
+Committed transactions remain durable even in the event of an unexpected
+server exit. Choosing less strict values can improve performance at the cost
+of durability.
 
-* `0`: Do not sync on transaction commit.
-This provides better performance, but may lead to data inconsistency
-in case of a crash.
+#### Possible values
 
-* `1`: Sync on every transaction commit.
-This is set by default and recommended
-as it ensures data consistency,
-but reduces performance.
+The variable accepts `0`, `1`, or `2`. The following sections describe each
+value.
 
-* `2`: Sync every second.
+##### Value `0` (do not sync on commit)
+
+Setting `0` does not flush or sync the WAL on commit. The setting incurs less
+commit-time input/output (I/O) than `1` or `2`. Commits achieve the highest
+throughput and lowest latency.
+
+The trade-off is the weakest durability. After an unexpected server exit,
+recently committed work may be missing. The database may also become
+inconsistent by a wider margin than the roughly one-second window associated
+with `2`. The loss can extend far beyond what `1` allows.
+
+Setting `0` produces the following outcomes:
+
+* The WAL stays unflushed and unsynced on transaction commit.
+
+* Commit-time I/O reaches the lowest level among the three values.
+
+* Data loss or inconsistency after an unexpected server exit can extend
+  beyond what stricter values allow.
+
+##### Value `1` (sync on every commit) [Default]
+
+Setting `1` makes every commit wait until the WAL is durably on disk before
+the commit returns. The durable write typically uses a full sync such as
+`fsync`. The setting provides the strongest durability and ACID guarantees
+of the three values.
+
+The trade-off is the most synchronous disk work per commit. Commit latency
+and sustained write throughput are often lower than with `0` or `2` when
+commits are frequent or when disk sync is slow.
+
+Setting `1` produces the following outcomes:
+
+* MyRocks writes and syncs the WAL to disk at each transaction commit.
+
+* Committed work has full durability and ACID compliance.
+
+* The setting incurs the highest per-commit I/O of the three values.
+
+##### Value `2` (sync in background, typically once per second)
+
+Setting `2` writes the WAL on each commit but does not wait for the durable
+sync. A background thread performs syncs on a schedule, such as about once
+per second.
+
+Individual commits return faster than with `1` because each commit skips the
+per-commit sync wait. The trade-off is possible loss of the last second of
+commits after an unexpected server exit.
+
+Setting `2` produces the following outcomes:
+
+* MyRocks records each commit in the WAL without blocking on a full durable
+  sync.
+
+* The setting balances performance and durability.
+
+* An unexpected server exit may cause the loss of up to one second of
+  committed transactions.
 
 
 
@@ -1815,10 +1958,32 @@ This provides better accuracy, but may reduce performance.
 | Dynamic      | Yes                                              |
 | Scope        | Global                                           |
 | Data type    | Numeric                                          |
-| Default      | 60000000                                         |
+| Default      | 60000000 (60 seconds)                            |
 
-Specifies for how long the cached value of memtable statistics should
-be used instead of computing it every time during the query plan analysis.
+This variable determines how long, in microseconds, MyRocks caches statistics
+gathered from the memtables for the query optimizer. The optimizer needs
+row-count estimates when evaluating a query. Data not yet flushed to disk
+requires scanning memtables for accurate statistics.
+
+#### How the cache works
+
+MyRocks stores the statistics in a cache to avoid the CPU cost of re-scanning
+memtables for every query. The variable defines the expiration of that cache.
+The default is `60000000` (60 seconds).
+
+The setting controls how long the cached value of memtable statistics applies.
+After the cache expires, MyRocks recomputes the statistics during query plan
+analysis.
+
+#### Key trade-offs
+
+A higher value, such as several minutes, improves performance in
+high-query-rate environments by reducing how often statistics collection runs.
+The optimizer may use stale data when the table is updated rapidly.
+
+A lower value, such as one second, gives the optimizer a near-real-time view
+of the data. The optimizer can yield better plans on volatile workloads, at
+the cost of more CPU use during query optimization.
 
 
 
@@ -2391,10 +2556,29 @@ Allowed range is up to `64`.
 | Data type    | Numeric                      |
 | Default      | 2 GB                         |
 
-Specifies the maximum total size of WAL (write-ahead log) files,
-after which memtables are flushed.
-Default value is `2 GB`
-The allowed range is up to `9223372036854775807`.
+This setting limits the total disk space consumed by WAL files across all
+column families. The limit helps prevent log files from exhausting disk
+capacity.
+
+Specifies the maximum total size of WAL files, after which memtables are
+flushed. The default value is `2 GB`. The allowed range is up to
+`9223372036854775807`.
+
+#### How the limit works
+
+When the combined size of all WAL files exceeds the threshold, RocksDB
+identifies the oldest logs and forces a flush of the associated memtables
+to SST files. After the data lands in an SST file, RocksDB deletes or
+archives the corresponding WAL files. Total usage drops below the limit.
+
+#### Key trade-offs
+
+A higher limit improves write performance by allowing larger, infrequent
+flushes. Disk use increases and recovery time after an unexpected server exit
+lengthens because more log data needs replaying.
+
+A lower limit keeps the disk footprint small and recovery fast. The lower
+limit can cause frequent forced flushes, which can throttle write throughput.
 
 
 
@@ -2585,7 +2769,7 @@ This variable is enabled (ON) by default.
 
 If this variable is set to `ON`, the partial index materialization ignores the killed flag and continues materialization until completion. If queries are killed during materialization due to timeout, the work done so far is wasted, and the killed query will likely be retried later, hitting the same issue.
 
-The dafault value is `ON` which means this variable is enabled.
+The default value is `ON` which means this variable is enabled.
 
 
 
@@ -2600,7 +2784,30 @@ The dafault value is `ON` which means this variable is enabled.
 | Data type    | Unsigned Integer         |
 | Default      | 0                        |
 
-Maximum memory to use when sorting an unmaterialized group for partial indexes. The 0(zero) value is defined as no limit.
+This variable sets the memory threshold, in bytes, for MyRocks to perform an
+in-memory sort when a query is only partially satisfied by an index.
+
+#### Default value of `0` (uncapped)
+
+When set to `0`, the memory limit is effectively removed. MyRocks may use as
+much memory as needed to perform the sort in-memory. The setting delivers
+maximum performance for partial index scans by avoiding slow disk-based
+filesorts.
+
+Without a cap, a large query or many concurrent queries can consume all
+available system memory. The lack of a cap can lead to an out-of-memory (OOM)
+crash.
+
+#### Why set a non-zero value
+
+Setting the variable to a non-zero value, such as `16777216` for 16 MB,
+introduces a safety governor. MyRocks uses the optimized in-memory sort path
+only when the result set fits within the defined memory budget.
+
+When a sort requires more than the cap, MyRocks falls back to a standard
+filesort. The fallback avoids unbounded memory use and protects overall server
+stability. Affected queries often take longer to complete because the sort
+uses disk or temporary files instead of staying entirely in memory.
 
 
 
@@ -3352,9 +3559,40 @@ Disabled by default.
 | Data type    | Boolean                   |
 | Default      | OFF                       |
 
-If enabled, this variable uses HyperClockCache instead of default LRUCache for RocksDB.
+This setting replaces the standard Least Recently Used (LRU) block cache with
+a lock-free HyperClockCache implementation.
 
-This variable is disabled (OFF) by default.
+When enabled, MyRocks uses HyperClockCache instead of the default LRUCache for
+RocksDB. The variable is disabled (`OFF`) by default.
+
+#### Key benefits
+
+HyperClockCache provides the following key benefits:
+
+* High concurrency — Intended for many-core systems with 16 or more cores.
+  Reduces the global lock bottleneck found in traditional LRU caches.
+
+* CPU efficiency — Uses a clock algorithm instead of a linked list, which
+  avoids expensive memory writes and synchronization on every cache hit.
+
+#### Trade-offs
+
+HyperClockCache has the following trade-offs:
+
+* Performance — Can offer significantly higher throughput under heavy read or
+  scan workloads.
+
+* Memory — Uses a fixed-size hash table, which can have slightly higher
+  per-entry memory overhead than a standard LRU cache.
+
+* Precision — Approximate LRU ordering is less precise but faster to
+  maintain.
+
+#### When to use
+
+Enable HyperClockCache when CPU profiling shows high mutex contention within
+the RocksDB block cache. The setting also benefits servers with high core
+counts.
 
 
 ### `rocksdb_use_io_uring`
@@ -3517,10 +3755,32 @@ Allowed range is up to `9223372036854775807`.
 | Data type    | Boolean                       |
 | Default      | ON                            |
 
-Specifies whether the bloomfilter should use the whole key for filtering
-instead of just the prefix.
-Enabled by default.
-Make sure that lookups use the whole key for matching.
+The `rocksdb_whole_key_filtering` variable determines whether the Bloom filter
+stores a hash of the entire key or only the prefix. The option is part of
+RocksDB `BlockBasedTableOptions` and is enabled (`ON`) by default in MyRocks.
+
+Lookups must use the whole key for matching when whole-key filtering is
+enabled.
+
+#### How the filter behaves
+
+The filter behaves as follows depending on the value:
+
+* Enabled (default) — Both the whole key and the prefix are added to the Bloom
+  filter. Storing both yields the most accurate filtering for point lookups,
+  such as `WHERE pk = 10`. The engine can skip SST files that definitely do
+  not contain the key.
+
+* Disabled — Only the prefix is stored in the Bloom filter. Bloom filters are
+  much smaller because the number of unique prefixes is usually lower than the
+  number of unique keys. The smaller filters save significant memory.
+
+#### The trade-off
+
+Disabling whole-key filtering suits memory-constrained environments or
+workloads dominated by prefix scans. Point lookups see a higher false-positive
+rate. The database may occasionally read from disk because the prefix matched
+even though the full key did not.
 
 
 ### `rocksdb_write_batch_flush_threshold`
