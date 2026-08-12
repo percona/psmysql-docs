@@ -1,8 +1,8 @@
 # DISTANCE() Function
 
-The `DISTANCE()` function calculates the distance between two `VECTOR` values. Use this function to compare vectors for similarity search and other vector-based operations.
+The `DISTANCE()` function computes the distance between two `VECTOR` values to enable similarity searches and other vector-based operations.
 
-A vector is an ordered list of numeric values, such as `[1, 2, 3]`. The distance between two vectors is a numeric value that indicates how different the vectors are.
+A vector is an ordered list of numeric values, such as `[1, 2, 3]`. The distance between two vectors is a numeric value that indicates how similar the vectors are.
 
 A distance metric defines how the function calculates this value. Different metrics compare properties such as vector values, direction, or magnitude. In general, a smaller distance indicates greater similarity.
 
@@ -21,7 +21,8 @@ Both functions require exactly three arguments.
 
 `DISTANCE()` accepts the following arguments:
 
-* `vector_a` and `vector_b` specify the vectors to compare. Both arguments must be `VECTOR` values or binary strings that represent float vectors. Other data types cause an error. The vectors must have the same number of dimensions. A dimension mismatch causes an error.
+* `vector_a` and `vector_b` specify the vectors to compare. Both arguments must be values of `VECTOR` data type or binary strings that represent float vectors. Other data types cause an error. The vectors must have the same dimension. A dimension mismatch causes an error.
+
 * `metric` specifies the distance metric. Use a constant string or hex literal that resolves to a supported metric. Metric names are case-insensitive. You cannot use a column reference or a computed expression, such as `CONCAT()`, for this argument.
 
 For a binary-string vector, the byte length must be a multiple of 4 because each vector element is a 4-byte single-precision floating-point value. An invalid byte length causes an error.
@@ -70,15 +71,13 @@ The result is a `DOUBLE` value:
 
 ??? example "Expected output"
 
-````
-```text
-+-------------------+
-| distance          |
-+-------------------+
-| 5.196152422706632 |
-+-------------------+
-```
-````
+    ```text
+    +-------------------+
+    | distance          |
+    +-------------------+
+    | 5.196152422706632 |
+    +-------------------+
+    ```
 
 ### Use another distance metric
 
