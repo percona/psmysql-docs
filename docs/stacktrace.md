@@ -19,6 +19,6 @@ Stack trace adds the following:
 |                                      | log may be large, rotated, or truncated.                         |
 
 !!! tip "Need Help Interpreting Stack Traces?"
-    [Percona Support :octicons-link-external-16:](https://www.percona.com/services/support) offers 
+    [Percona Support :octicons-link-external-16:](https://www.percona.com/services/expert-support/) offers 
     expert debugging and performance analysis to help you understand 
     complex stack trace diagnostics.

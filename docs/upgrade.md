@@ -4,7 +4,7 @@
 
 --8<--- "get-help-snip.md"
 
-[Need expert guidance for your upgrade? Percona Support can assist :octicons-link-external-16:](https://www.percona.com/services/support).
+[Need expert guidance for your upgrade? Percona Support can assist :octicons-link-external-16:](https://www.percona.com/services/expert-support/).
 
 ## Why upgrade to Percona Server for MySQL {{vers}}?
 
@@ -33,7 +33,7 @@ The following table summarizes the risks.
 | Compatibility problems | Hardware, operating system releases, or third-party applications may not work with an outdated server. |
 | Unplanned upgrade pressure | Hardware or operating system failures can force a rushed upgrade and increase error risk. |
 
-[Concerned about these risks? Percona Support can help assess and mitigate them :octicons-link-external-16:](https://www.percona.com/services/support).
+[Concerned about these risks? Percona Support can help assess and mitigate them :octicons-link-external-16:](https://www.percona.com/services/expert-support/).
 
 ## Understand what the upgrade process changes
 
@@ -141,7 +141,7 @@ Operations in {{vers}} can change data formats, which breaks binary compatibilit
 
 We recommend upgrading to the most recent LTS release for security, performance, and full support.
 
-[Need personalized support during your upgrade? Contact Percona Support for a detailed migration plan :octicons-link-external-16:](https://www.percona.com/services/support).
+[Need personalized support during your upgrade? Contact Percona Support for a detailed migration plan :octicons-link-external-16:](https://www.percona.com/services/expert-support/).
 
 ## Further reading
 

@@ -2,7 +2,7 @@
 
 **Topic type**: Task
 
-[Need help with plugin to component transitions? Percona Support can assist :octicons-link-external-16:](https://www.percona.com/services/support).
+[Need help with plugin to component transitions? Percona Support can assist :octicons-link-external-16:](https://www.percona.com/services/expert-support/).
 
 Percona Server for MySQL continues to shift several key features from plugins to components. The shift requires a manual transition during the upgrade. If a feature has both a plugin and a component, transition to the component before upgrading to {{vers}}.
 
