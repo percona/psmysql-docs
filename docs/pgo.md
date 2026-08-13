@@ -1,6 +1,6 @@
 # Profile-Guided Optimization (PGO) and non-PGO builds
 
-Starting with [Percona Server for MySQL {{release}}](release-notes/{{release}}.md), Percona publishes a mixture of Profile-Guided Optimization (PGO) and non-PGO builds. With PGO, the compiler uses profiling data from representative workloads to guide optimization, which can improve throughput and reduce latency for typical database workloads compared with non-PGO builds.
+Percona publishes a mixture of Profile-Guided Optimization (PGO) and non-PGO builds. With PGO, the compiler uses profiling data from representative workloads to guide optimization, which can improve throughput and reduce latency for typical database workloads compared with non-PGO builds.
 
 To install Percona Server for MySQL, see [Install Percona Server for MySQL from repositories](installation.md).
 
@@ -32,7 +32,7 @@ When both PGO and non-PGO builds are published for the same platform, prefer the
 
 In most cases, you do not choose PGO or non-PGO at install time. The build type depends on how Percona packages Percona Server for MySQL for your operating system, architecture, and installation method (APT, DNF/YUM, binary tarball, or Docker). Some platforms ship PGO-enabled packages; others ship non-PGO builds while PGO support is rolled out across the release matrix.
 
-See the [Percona downloads :octicons-link-external-16:](https://www.percona.com/downloads/Percona-Server-{{vers}}/) page and the [Percona Software and Platform Lifecycle :octicons-link-external-16:](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql) page for supported platforms for this release.
+See the [Percona downloads :octicons-link-external-16:](https://www.percona.com/downloads/) page and the [Percona Software and Platform Lifecycle :octicons-link-external-16:](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql) page for supported platforms for this release.
 
 ## Build from source
 

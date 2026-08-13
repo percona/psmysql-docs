@@ -2,7 +2,7 @@
 
 **Topic type**: Concept
 
-For critical production systems, consider engaging [Percona Support :octicons-link-external-16:](https://www.percona.com/services/support) to assist with your upgrade. Our experts can help you complete a smooth transition and minimize risk during this sensitive operation.
+For critical production systems, consider engaging [Percona Support :octicons-link-external-16:](https://www.percona.com/services/expert-support/) to assist with your upgrade. Our experts can help you complete a smooth transition and minimize risk during this sensitive operation.
 
 The following strategies cover most {{vers}} upgrade scenarios. Combine the prep steps in [Upgrade procedures for {{vers}}](./upgrade-procedures.md) with the strategy that matches your environment.
 

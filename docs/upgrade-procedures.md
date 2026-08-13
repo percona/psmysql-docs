@@ -2,13 +2,13 @@
 
 **Topic type**: Task
 
-[Need expert guidance for your Percona Server upgrade? Percona Support can help :octicons-link-external-16:](https://www.percona.com/services/support).
+[Need expert guidance for your Percona Server upgrade? Percona Support can help :octicons-link-external-16:](https://www.percona.com/services/expert-support/).
 
 Use the following procedures to upgrade Percona Server for MySQL. The procedures cover Percona repositories (recommended), standalone packages, and both in-place and logical paths. For underlying MySQL guidance, see [Upgrading MySQL Binary or Package-based Installations on Unix/Linux :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrade-binary-package.html).
 
 !!! warning "Critical"
 
-    Always test the upgrade in a non-production environment first. For detailed procedures or troubleshooting, contact our [Percona Support team :octicons-link-external-16:](https://www.percona.com/services/support).
+    Always test the upgrade in a non-production environment first. For detailed procedures or troubleshooting, contact our [Percona Support team :octicons-link-external-16:](https://www.percona.com/services/expert-support/).
 
 ## Choose an upgrade method
 

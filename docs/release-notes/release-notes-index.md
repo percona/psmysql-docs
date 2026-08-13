@@ -8,7 +8,7 @@ Percona Server for MySQL platform support evolves over time. Refer to the [Perco
 
 The documentation included in source and binary distributions may not be fully up-to-date with respect to release-note entries, because integration of the documentation occurs at release build time. For the most up-to-date release notes, refer to this online documentation.
 
-For help with using Percona Server for MySQL, visit the [Percona Community Forum](https://forums.percona.com/c/mysql-and-percona-server-for-mysql/) to discuss issues with other Percona users, or contact [Percona Support](https://www.percona.com/services/support) for paid expert assistance.
+For help with using Percona Server for MySQL, visit the [Percona Community Forum](https://forums.percona.com/c/mysql-mariadb/36) to discuss issues with other Percona users, or contact [Percona Support](https://www.percona.com/services/expert-support/) for paid expert assistance.
 
 ## Releases
 

@@ -17,6 +17,6 @@ cases it uses process based profiling.
 
 !!! note "Performance Profiling Challenges?"
     For advanced performance tuning and profiling strategies, 
-    [Percona Support :octicons-link-external-16:](https://www.percona.com/services/support) provides 
+    [Percona Support :octicons-link-external-16:](https://www.percona.com/services/expert-support/) provides 
     expert consultation to optimize your database performance.
 

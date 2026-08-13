@@ -10,7 +10,7 @@ Both options are enabled by default.
 
 !!! note "Need Additional Guidance?"
     If you encounter complex advisor recommendations or require expert 
-    interpretation, [Percona Support :octicons-link-external-16:](https://www.percona.com/services/support) 
+    interpretation, [Percona Support :octicons-link-external-16:](https://www.percona.com/services/expert-support/) 
     offers professional assistance to help you optimize your database 
     configuration and resolve any identified issues.
 

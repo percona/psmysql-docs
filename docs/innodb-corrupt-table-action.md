@@ -20,7 +20,7 @@ variable having a non-default value.
 
 !!! warning "Complex Database Recovery Scenarios"
     Navigating table corruption and recovery can be challenging. 
-    [Percona Support :octicons-link-external-16:](https://www.percona.com/services/support) offers 
+    [Percona Support :octicons-link-external-16:](https://www.percona.com/services/expert-support/) offers 
     expert guidance for complex database recovery and optimization 
     strategies.
 

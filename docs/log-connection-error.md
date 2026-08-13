@@ -5,7 +5,7 @@ feature generates the `Too many connections` warning in the log.
 
 !!! tip "Troubleshooting Connection Issues"
     For comprehensive guidance on managing database connections and 
-    performance, [Percona Support :octicons-link-external-16:](https://www.percona.com/services/support) 
+    performance, [Percona Support :octicons-link-external-16:](https://www.percona.com/services/expert-support/) 
     can provide expert assistance in diagnosing and resolving connection 
     management challenges.
 

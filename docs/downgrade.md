@@ -4,7 +4,7 @@
 
 --8<--- "get-help-snip.md"
 
-[Need help planning a downgrade? Percona Support can assist :octicons-link-external-16:](https://www.percona.com/services/support).
+[Need help planning a downgrade? Percona Support can assist :octicons-link-external-16:](https://www.percona.com/services/expert-support/).
 
 ## Before you downgrade
 
