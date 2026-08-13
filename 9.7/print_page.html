@@ -7183,8 +7183,6 @@
       
         
       
-        
-      
     
     
     
@@ -7296,34 +7294,6 @@
     
   
     Use the keyring file component
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="use-percona-keyring-encrypted-file.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Use the Percona encrypted keyring file component
   
 
     
@@ -12332,17 +12302,6 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-ellipsis">
       
         Use the keyring file component
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#use-percona-keyring-encrypted-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use the Percona encrypted keyring file component
       
     </span>
   </a>
@@ -40445,7 +40404,6 @@ layer, added to the buffer pool, and used to access the data. A buffer pool page
 <p>Percona Server supports the following keyring components:</p>
 <p><a class="md-button" href="#quickstart-component-keyring">Get Started with component keyring</a></p>
 <p><a class="md-button" href="#use-keyring-file">Use the keyring file component</a></p>
-<p><a class="md-button" href="#use-percona-keyring-encrypted-file">Use the Percona encrypted keyring file component</a></p>
 <p><a class="md-button" href="#use-keyring-vault-component">Use the keyring vault component</a></p>
 <p><a class="md-button" href="#using-amz-kms">Use the Key Management Interoperability Protocol (KMIP)</a></p>
 <p><a class="md-button" href="#using-kmip">Use the Amazon Key Management Service (AWS KMS)</a></p></section><section class="print-page" id="quickstart-component-keyring" heading-number="13.9.2.2"><h1 id="quickstart-component-keyring-get-started-with-component-keyring">Get Started with component keyring<a class="headerlink" href="#quickstart-component-keyring-get-started-with-component-keyring" title="Permanent link">&para;</a></h1>
@@ -40647,7 +40605,6 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 <li>For MySQL 8.4 and later, components are the supported keyring model; avoid mixing with legacy keyring plugins.</li>
 </ul></section><section class="print-page" id="use-keyring-file" heading-number="13.9.2.3"><h1 id="use-keyring-file-use-the-keyring-file-component">Use the keyring file component<a class="headerlink" href="#use-keyring-file-use-the-keyring-file-component" title="Permanent link">&para;</a></h1>
 <p>The <code>component_keyring_file</code> component stores encryption keys in a local file on the server filesystem. Percona Server for MySQL uses this component for <a href="#data-at-rest-encryption">data at rest encryption</a>, including InnoDB tablespace encryption and encrypted redo and undo logs. Other server features that need a keyring, such as the audit log filter component, can also use it.</p>
-<p>For a password-protected encrypted keyring file, see <a href="#use-percona-keyring-encrypted-file">Use the Percona encrypted keyring file component</a> (<code>component_percona_keyring_encrypted_file</code>).</p>
 <p>In Percona Server for MySQL 9.7, the supported keyring model is component-based. The legacy <code>keyring_file</code> plugin is not available.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -41043,612 +41000,11 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="#keyring-components-plugins-overview">Keyring components overview</a></p>
-<p><a href="#use-percona-keyring-encrypted-file">Use the Percona encrypted keyring file component</a></p>
 <p><a href="#quickstart-component-keyring">Get Started with component keyring</a></p>
 <p><a href="#data-at-rest-encryption">Data at Rest Encryption</a></p>
 <p><a href="#upgrade-components">Upgrade components</a></p>
 <p><a href="#rotate-master-key">Rotate the master encryption key</a></p>
-</div></section><section class="print-page" id="use-percona-keyring-encrypted-file" heading-number="13.9.2.4"><h1 id="use-percona-keyring-encrypted-file-use-the-percona-encrypted-keyring-file-component">Use the Percona encrypted keyring file component<a class="headerlink" href="#use-percona-keyring-encrypted-file-use-the-percona-encrypted-keyring-file-component" title="Permanent link">&para;</a></h1>
-<p>The <code>component_percona_keyring_encrypted_file</code> component stores encryption keys in a password-protected file on the server filesystem. The component is part of Percona Server for MySQL. After you load the keyring, you use the component for <a href="#data-at-rest-encryption">data at rest encryption</a> the same way as other keyring components.</p>
-<p>The <a href="#use-keyring-file">Use the keyring file component</a> page documents <code>component_keyring_file</code>. That component stores keyring data as plaintext JSON on disk. The <code>component_percona_keyring_encrypted_file</code> component encrypts the keyring file with a password that you provide.</p>
-<p>Percona Server includes a separate component with its own on-disk format. A keyring file from MySQL Enterprise <code>component_keyring_encrypted_file</code> does not work with <code>component_percona_keyring_encrypted_file</code>.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Load only one keyring at a time. Do not load <code>component_percona_keyring_encrypted_file</code> with <code>component_keyring_file</code>, legacy keyring plugins, or another keyring component.</p>
-<p>Plan a migration before you switch keyrings if encrypted data already exists on the server. See <a href="#upgrade-components">Upgrade components</a> and <a href="#use-percona-keyring-encrypted-file-migrate-keyring-data">Migrate keyring data</a>.</p>
-</div>
-<p>See <a href="#quickstart-component-keyring">Get Started with component keyring</a> for a walkthrough of the unencrypted file keyring.</p>
-<h2 id="use-percona-keyring-encrypted-file-version-changes">Version changes<a class="headerlink" href="#use-percona-keyring-encrypted-file-version-changes" title="Permanent link">&para;</a></h2>
-<p>Percona Server for MySQL 9.7 includes <code>component_percona_keyring_encrypted_file</code> from release 9.7.2.</p>
-<h2 id="use-percona-keyring-encrypted-file-choose-a-file-based-keyring-component">Choose a file-based keyring component<a class="headerlink" href="#use-percona-keyring-encrypted-file-choose-a-file-based-keyring-component" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>Keyring file on disk</th>
-<th>Password required</th>
-<th>Percona Server</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>component_keyring_file</code></td>
-<td>Plaintext JSON</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><code>component_percona_keyring_encrypted_file</code></td>
-<td>Encrypted (PBKDF2 + AES)</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
-<p>For key storage outside a local file, see these pages:</p>
-<ul>
-<li>
-<p><a href="#use-keyring-vault-component">Use the keyring vault component</a></p>
-</li>
-<li>
-<p><a href="#using-amz-kms">Use AWS KMS</a></p>
-</li>
-<li>
-<p><a href="#using-kmip">Use KMIP</a></p>
-</li>
-</ul>
-<h2 id="use-percona-keyring-encrypted-file-component-installation">Component installation<a class="headerlink" href="#use-percona-keyring-encrypted-file-component-installation" title="Permanent link">&para;</a></h2>
-<p>A keyring component loads at server startup from a manifest file. The component reads a JSON configuration file during initialization. Do not load a keyring component with <code>INSTALL COMPONENT</code>. InnoDB needs the keyring before the <code>mysql.component</code> table is available.</p>
-<h2 id="use-percona-keyring-encrypted-file-available-keyring-components">Available keyring components<a class="headerlink" href="#use-percona-keyring-encrypted-file-available-keyring-components" title="Permanent link">&para;</a></h2>
-<p>Percona Server provides the following keyring components:</p>
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>Backend</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>component_keyring_file</code></td>
-<td>Local file on disk</td>
-</tr>
-<tr>
-<td><code>component_keyring_kmip</code></td>
-<td>Key Management Interoperability Protocol (KMIP) server</td>
-</tr>
-<tr>
-<td><code>component_keyring_kms</code></td>
-<td>Cloud Key Management Service (KMS)</td>
-</tr>
-<tr>
-<td><code>component_keyring_vault</code></td>
-<td>HashiCorp Vault</td>
-</tr>
-</tbody>
-</table>
-<p>Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a <code>.cnf</code></p>
-<p>Create a global manifest file named <code>mysqld.my</code> in the directory that contains the <code>mysqld</code> binary. For multiple instances on one host, create a local manifest file with the same name in each data directory.</p>
-<p>If the manifest file does not exist, the server does not load the keyring component. During startup, the server reads the global manifest from the installation directory. The global manifest can list the component directly or point to a local manifest in the data directory.</p>
-<h2 id="use-percona-keyring-encrypted-file-manifest-files">Manifest files<a class="headerlink" href="#use-percona-keyring-encrypted-file-manifest-files" title="Permanent link">&para;</a></h2>
-<p>The manifest is a JavaScript Object Notation (JSON) object with the following fields:</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>components</code></td>
-<td>string</td>
-<td>Conditional</td>
-<td>URL-style locator for the component to load. The format is <code>file://&lt;component_name&gt;</code>. Required when the manifest declares the component directly.</td>
-</tr>
-<tr>
-<td><code>read_local_manifest</code></td>
-<td>boolean</td>
-<td>No</td>
-<td>When <code>true</code>, the global manifest delegates to the local manifest in the data directory. When <code>false</code> or absent, the global manifest declares the component directly.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="use-percona-keyring-encrypted-file-manifest-examples">Manifest examples<a class="headerlink" href="#use-percona-keyring-encrypted-file-manifest-examples" title="Permanent link">&para;</a></h3>
-<p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the components in <a href="#use-percona-keyring-encrypted-file-available-keyring-components">Available keyring components</a>.</p>
-<p>The following example shows a global manifest that loads a component directly:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://&lt;component_name&gt;&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>The following example shows a global manifest that delegates to the local manifest:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>The following example shows a local manifest:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://&lt;component_name&gt;&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="use-percona-keyring-encrypted-file-manifest-locations">Manifest locations<a class="headerlink" href="#use-percona-keyring-encrypted-file-manifest-locations" title="Permanent link">&para;</a></h3>
-<p>Percona Server reads two manifest files at startup:</p>
-<table>
-<thead>
-<tr>
-<th>Manifest</th>
-<th>Location</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Global manifest</td>
-<td>The directory that contains the <code>mysqld</code> binary</td>
-<td>Default manifest for the server installation</td>
-</tr>
-<tr>
-<td>Local manifest</td>
-<td>Data directory</td>
-<td>Per-instance override for hosts that run multiple instances with different keyring components</td>
-</tr>
-</tbody>
-</table>
-<p>Both files use the name <code>mysqld.my</code>. The global manifest declares the component directly or delegates to the local manifest.</p>
-<h3 id="use-percona-keyring-encrypted-file-why-the-manifest-is-the-only-supported-load-path">Why the manifest is the only supported load path<a class="headerlink" href="#use-percona-keyring-encrypted-file-why-the-manifest-is-the-only-supported-load-path" title="Permanent link">&para;</a></h3>
-<p>The keyring must load before <code>InnoDB</code> opens an encrypted page. Any mechanism that depends on the Structured Query Language (SQL) layer therefore loads the keyring too late.</p>
-<p>A <code>mysqld</code> startup proceeds in the following order:</p>
-<ol>
-<li>
-<p><code>mysqld</code> parses startup configuration and reads the manifest file from the server installation directory.</p>
-</li>
-<li>
-<p>The server loads each component named in the manifest.</p>
-</li>
-<li>
-<p><code>InnoDB</code> initializes, replays the redo log, and opens tablespaces.</p>
-</li>
-<li>
-<p>The SQL layer accepts connections.</p>
-</li>
-</ol>
-<p>The keyring must load between steps 1 and 3. The following table explains why each alternative mechanism fails to load the keyring within this window:</p>
-<table>
-<thead>
-<tr>
-<th>Mechanism</th>
-<th>Reason for failure</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="#install-component"><code>INSTALL COMPONENT</code></a></td>
-<td>The statement runs as SQL and cannot execute until step 4. The registration record lives in <code>mysql.component</code>, an <code>InnoDB</code> table that the server reads only after <code>InnoDB</code> initializes. The system tablespace cannot decrypt without the keyring, which creates a circular dependency. Crash recovery also runs before the SQL layer, so the encrypted redo log must remain readable without SQL.</td>
-</tr>
-<tr>
-<td><code>--early-plugin-load</code></td>
-<td>The flag applies to legacy keyring plugins, not components. Plugins and components load through separate subsystems. The flag cannot locate component entry points.</td>
-</tr>
-</tbody>
-</table>
-<p>A component registered through <code>INSTALL COMPONENT</code> on a running server does not persist across restarts. On the next restart, <code>InnoDB</code> cannot unwrap tablespace keys because no manifest file exists on disk. A missing or malformed <code>mysqld.my</code> therefore prevents startup for any instance with encrypted tablespaces.</p>
-<h2 id="use-percona-keyring-encrypted-file-install-a-keyring-component">Install a keyring component<a class="headerlink" href="#use-percona-keyring-encrypted-file-install-a-keyring-component" title="Permanent link">&para;</a></h2>
-<p>To install a keyring component:</p>
-<ol>
-<li>
-<p>Stop the <code>mysqld</code> process.</p>
-</li>
-<li>
-<p>Create the manifest file at the chosen location. Use one of the examples in <a href="#use-percona-keyring-encrypted-file-manifest-examples">Manifest examples</a> as a template.</p>
-</li>
-<li>
-<p>Create the configuration file in the same directory as the manifest that declares the component. The name of the configuration file matches the component name with a <code>.cnf</code> extension.</p>
-</li>
-<li>
-<p>Populate the configuration file with parameters for the chosen component. The required parameters depend on the component.</p>
-</li>
-<li>
-<p>Set the file ownership of the manifest file and the configuration file to the <code>mysql</code> user.</p>
-</li>
-<li>
-<p>Restrict read access on the configuration file to the <code>mysql</code> user. The configuration file may contain credentials.</p>
-</li>
-<li>
-<p>Start the <code>mysqld</code> process.</p>
-</li>
-</ol>
-<h2 id="use-percona-keyring-encrypted-file-verify-the-installation">Verify the installation<a class="headerlink" href="#use-percona-keyring-encrypted-file-verify-the-installation" title="Permanent link">&para;</a></h2>
-<p>Connect to the server and run the following query:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
-</code></pre></div>
-<p>The query returns one row per status field. The <code>Component_status</code> field reports <code>Active</code> when the component loaded. The <code>Component_status</code> field reports <code>Disabled</code> when the component failed to load. Inspect the server error log to identify the cause of any failure.</p>
-<h2 id="use-percona-keyring-encrypted-file-operate-the-keyring">Operate the keyring<a class="headerlink" href="#use-percona-keyring-encrypted-file-operate-the-keyring" title="Permanent link">&para;</a></h2>
-<h3 id="use-percona-keyring-encrypted-file-rotate-the-master-key">Rotate the master key<a class="headerlink" href="#use-percona-keyring-encrypted-file-rotate-the-master-key" title="Permanent link">&para;</a></h3>
-<p>The InnoDB master key wraps the tablespace keys that protect data on disk. Rotate the master key on a scheduled cadence. Scheduled rotation limits the volume of data wrapped by any single master key. See <a href="#data-at-rest-encryption">Data at Rest Encryption</a> for the role of the master key.</p>
-<p>Run the following statement to rotate the master key:</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">INNODB</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
-</code></pre></div>
-<p>The statement generates a master key and stores the key in the keyring. The server then wraps subsequent tablespace keys with the stored key.</p>
-<p>The rotation operation is fast. The server does not re-encrypt the tablespace data.</p>
-<p>Earlier master keys must remain in the keyring. Deleting an earlier master key prevents the server from reading data that was wrapped with that key.</p>
-<p>For required privileges and the full rotation procedure, see <a href="#rotate-master-key">Rotate the master encryption key</a>.</p>
-<h3 id="use-percona-keyring-encrypted-file-monitor-the-keyring">Monitor the keyring<a class="headerlink" href="#use-percona-keyring-encrypted-file-monitor-the-keyring" title="Permanent link">&para;</a></h3>
-<p>Use the query in <a href="#use-percona-keyring-encrypted-file-verify-the-installation">Verify the installation</a> to inspect the keyring at runtime. Configure alerts on <code>Component_status</code> transitions to <code>Disabled</code>. Watch the server error log for keyring-related errors. The server writes manifest parse errors, configuration parse errors, and backend connection errors to the error log.</p>
-<h3 id="use-percona-keyring-encrypted-file-back-up-and-restore">Back up and restore<a class="headerlink" href="#use-percona-keyring-encrypted-file-back-up-and-restore" title="Permanent link">&para;</a></h3>
-<p>A backup of an encrypted tablespace requires keyring access on the destination host. The destination host must read the same key material that encrypted the backup.</p>
-<p>The following table summarizes the keyring requirement for each backend:</p>
-<table>
-<thead>
-<tr>
-<th>Backend</th>
-<th>Backup requirement</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>component_keyring_file</code></td>
-<td>Copy the keyring file alongside the data backup. The destination host must read the same key material.</td>
-</tr>
-<tr>
-<td><code>component_keyring_vault</code></td>
-<td>Configure the destination host to authenticate with the same Vault server and access the same <code>secret_mount_point</code>.</td>
-</tr>
-<tr>
-<td><code>component_keyring_kmip</code></td>
-<td>Configure the destination host to authenticate with the same KMIP server and access the same key namespace.</td>
-</tr>
-<tr>
-<td><code>component_keyring_kms</code></td>
-<td>Configure the destination host with credentials and permissions for the same cloud KMS keys.</td>
-</tr>
-</tbody>
-</table>
-<p>Test a restore on a separate host before relying on the backup. A restore that runs on the original host can succeed even when the keyring configuration is incorrect.</p>
-<h2 id="use-percona-keyring-encrypted-file-replace-or-remove-a-keyring-component">Replace or remove a keyring component<a class="headerlink" href="#use-percona-keyring-encrypted-file-replace-or-remove-a-keyring-component" title="Permanent link">&para;</a></h2>
-<p>To replace a keyring component:</p>
-<ol>
-<li>
-<p>Stop the <code>mysqld</code> process.</p>
-</li>
-<li>
-<p>Edit the manifest file to reference the replacement component.</p>
-</li>
-<li>
-<p>Create the configuration file for the replacement component.</p>
-</li>
-<li>
-<p>Start the <code>mysqld</code> process.</p>
-</li>
-</ol>
-<p>To remove the keyring:</p>
-<ol>
-<li>
-<p>Confirm that no encrypted tablespaces exist on the server. A server with encrypted tablespaces cannot start without a keyring.</p>
-</li>
-<li>
-<p>Stop the <code>mysqld</code> process.</p>
-</li>
-<li>
-<p>Delete the manifest file.</p>
-</li>
-<li>
-<p>Start the <code>mysqld</code> process.</p>
-</li>
-</ol>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Configure exactly one keyring per server instance. Percona Server does not support multiple keyring plugins, multiple keyring components, or any combination of plugin and component. Such configurations risk data loss.</p>
-</div>
-<h2 id="use-percona-keyring-encrypted-file-manifest-file">Manifest file<a class="headerlink" href="#use-percona-keyring-encrypted-file-manifest-file" title="Permanent link">&para;</a></h2>
-<p>The manifest tells the server to load <code>component_percona_keyring_encrypted_file</code> at startup. Create a file named <code>mysqld.my</code> in JSON format.</p>
-<p>The server reads a global manifest from the directory that contains the <code>mysqld</code> binary. The path depends on your install method. Package installs on Linux often use <code>/usr/sbin/mysqld.my</code>. Tarball installs, containers, and custom builds may use another directory. Confirm the <code>mysqld</code> binary location before you create the manifest. You can place a local manifest in the data directory if multiple instances on one host need different keyring components.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="use-percona-keyring-encrypted-file-__tabbed_1_1" name="use-percona-keyring-encrypted-file-__tabbed_1" type="radio" /><input id="use-percona-keyring-encrypted-file-__tabbed_1_2" name="use-percona-keyring-encrypted-file-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="use-percona-keyring-encrypted-file-__tabbed_1_1">Global manifest only</label><label for="use-percona-keyring-encrypted-file-__tabbed_1_2">Global and local manifests</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://component_percona_keyring_encrypted_file&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-</div>
-<div class="tabbed-block">
-<p>Global manifest in the directory that contains the <code>mysqld</code> binary:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;read_local_manifest&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Local manifest in the data directory:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://component_percona_keyring_encrypted_file&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-</div>
-</div>
-</div>
-<p>Restart the server after you create or change a manifest.</p>
-<h2 id="use-percona-keyring-encrypted-file-configuration-file">Configuration file<a class="headerlink" href="#use-percona-keyring-encrypted-file-configuration-file" title="Permanent link">&para;</a></h2>
-<p>The component reads settings from a JSON configuration file named <code>component_percona_keyring_encrypted_file.cnf</code>. The global configuration file is in the plugin directory by default. Confirm the path with the following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">plugin_dir</span><span class="p">;</span>
-</code></pre></div>
-<p>Typical paths:</p>
-<ul>
-<li>
-<p><code>/usr/lib64/mysql/plugin</code> on RHEL-style systems</p>
-</li>
-<li>
-<p><code>/usr/lib/mysql/plugin</code> on Debian and Ubuntu</p>
-</li>
-</ul>
-<p>You can place a local configuration file in the data directory when you set <code>read_local_config</code> in the global file.</p>
-<p>The <code>component_percona_keyring_encrypted_file.cnf</code> file supports the following options. Option order in the JSON file does not matter. Place <code>read_local_config</code> only in the global configuration file in the plugin directory. Place <code>path</code>, <code>read_only</code>, and <code>password</code> or <code>password_file</code> in the global file or in the local file in the data directory, depending on <code>read_local_config</code>.</p>
-<ul>
-<li>
-<p><code>password</code>: Password for encryption and decryption of the keyring file. Specify <code>password</code> or <code>password_file</code>, not both. The password must not be empty.</p>
-</li>
-<li>
-<p><code>password_file</code>: Path to a file that contains the password. Specify <code>password_file</code> or <code>password</code>, not both. Use this option to keep secrets out of the component configuration file. See <a href="#use-percona-keyring-encrypted-file-file-permissions">File permissions</a>.</p>
-</li>
-<li>
-<p><code>path</code>: Full path to the keyring data file. The component creates this file on first use if the file does not exist. The directory must exist. Use a dedicated directory with restricted permissions. Do not use the data directory. See <a href="#use-percona-keyring-encrypted-file-file-permissions">File permissions</a>.</p>
-</li>
-<li>
-<p><code>read_local_config</code> [optional]: Use this option only in the global configuration file. The option controls whether the component reads configuration from a local file in the data directory. Allowed values are <code>true</code> or <code>false</code>. If you omit this option, the component uses only the global configuration file.</p>
-<p>If the global file includes <code>read_local_config</code> and other items, the component checks <code>read_local_config</code> first:</p>
-<ul>
-<li>
-<p><code>false</code>: The component uses the other items in the global file. The component ignores the local configuration file.</p>
-</li>
-<li>
-<p><code>true</code>: The component ignores the other items in the global file. The component reads the local configuration file.</p>
-</li>
-</ul>
-</li>
-<li>
-<p><code>read_only</code>: When <code>true</code>, the keyring rejects runtime changes. The keyring does not accept new keys or key removal. When <code>false</code>, the keyring accepts key changes. This option is mandatory.</p>
-</li>
-</ul>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="use-percona-keyring-encrypted-file-__tabbed_2_1" name="use-percona-keyring-encrypted-file-__tabbed_2" type="radio" /><input id="use-percona-keyring-encrypted-file-__tabbed_2_2" name="use-percona-keyring-encrypted-file-__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="use-percona-keyring-encrypted-file-__tabbed_2_1">Inline password</label><label for="use-percona-keyring-encrypted-file-__tabbed_2_2">Password file</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/lib/mysql-keyring/component_percona_keyring_encrypted_file&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;read_only&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-strong-password&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/lib/mysql-keyring/component_percona_keyring_encrypted_file&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;read_only&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;password_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/lib/mysql-keyring/keyring.password&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-</div>
-</div>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Protect the keyring file and password</p>
-<p>You need the encrypted keyring file at <code>path</code> and the correct password to access keys. See <a href="#use-percona-keyring-encrypted-file-file-permissions">File permissions</a>. Include the keyring file, password, and password file in backup and restore procedures.</p>
-<p>Encrypted tablespaces, redo logs, and undo logs become unrecoverable if the keyring file is lost, corrupted, or opened with the wrong password. Do not delete or edit the keyring file manually to rotate keys. Use <a href="#rotate-master-key">Rotate the master encryption key</a> to rotate keys.</p>
-</div>
-<h2 id="use-percona-keyring-encrypted-file-file-permissions">File permissions<a class="headerlink" href="#use-percona-keyring-encrypted-file-file-permissions" title="Permanent link">&para;</a></h2>
-<p>The MySQL server user needs read access to the manifest, configuration file, and password file. The user needs read and write access to the keyring directory. Set ownership and permissions before you restart the server.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:4"><input checked="checked" id="use-percona-keyring-encrypted-file-__tabbed_3_1" name="use-percona-keyring-encrypted-file-__tabbed_3" type="radio" /><input id="use-percona-keyring-encrypted-file-__tabbed_3_2" name="use-percona-keyring-encrypted-file-__tabbed_3" type="radio" /><input id="use-percona-keyring-encrypted-file-__tabbed_3_3" name="use-percona-keyring-encrypted-file-__tabbed_3" type="radio" /><input id="use-percona-keyring-encrypted-file-__tabbed_3_4" name="use-percona-keyring-encrypted-file-__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="use-percona-keyring-encrypted-file-__tabbed_3_1">Manifest</label><label for="use-percona-keyring-encrypted-file-__tabbed_3_2">Configuration file</label><label for="use-percona-keyring-encrypted-file-__tabbed_3_3">Keyring directory</label><label for="use-percona-keyring-encrypted-file-__tabbed_3_4">Password file</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chown<span class="w"> </span>root:root<span class="w"> </span>/usr/sbin/mysqld.my
-sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">644</span><span class="w"> </span>/usr/sbin/mysqld.my
-</code></pre></div>
-<p>Adjust the path if your manifest is not in <code>/usr/sbin</code>.</p>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/usr/lib64/mysql/plugin
-sudo<span class="w"> </span>chown<span class="w"> </span>root:root<span class="w"> </span>component_percona_keyring_encrypted_file.cnf
-sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</span><span class="w"> </span>component_percona_keyring_encrypted_file.cnf
-</code></pre></div>
-<p>Adjust the path for your <code>@@plugin_dir</code> value. If you use inline <code>password</code>, use mode <code>640</code> or tighter on the configuration file.</p>
-</div>
-<div class="tabbed-block">
-<p>The component creates the keyring data file at <code>path</code> on first use. Place <code>path</code> in a directory owned by the MySQL user with mode <code>750</code>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chown<span class="w"> </span>mysql:mysql<span class="w"> </span>/var/lib/mysql-keyring
-sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">750</span><span class="w"> </span>/var/lib/mysql-keyring
-</code></pre></div>
-</div>
-<div class="tabbed-block">
-<p>When you set <code>password_file</code>, the MySQL server user must be able to read the file:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chown<span class="w"> </span>mysql:mysql<span class="w"> </span>/var/lib/mysql-keyring/keyring.password
-sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/var/lib/mysql-keyring/keyring.password
-</code></pre></div>
-</div>
-</div>
-</div>
-<h2 id="use-percona-keyring-encrypted-file-on-disk-format">On-disk format<a class="headerlink" href="#use-percona-keyring-encrypted-file-on-disk-format" title="Permanent link">&para;</a></h2>
-<p>The keyring payload is JSON. The file on disk is encrypted. Each write uses the following steps:</p>
-<ul>
-<li>
-<p>PBKDF2-HMAC-SHA256 derives a 256-bit AES key from the password</p>
-</li>
-<li>
-<p>The component generates a random salt and initialization vector (IV)</p>
-</li>
-<li>
-<p>AES encrypts the JSON payload</p>
-</li>
-</ul>
-<p>The file starts with a version 1 header:</p>
-<div class="highlight"><pre><span></span><code>[version:1 byte][salt:32 bytes][iterations:4 bytes, big-endian][iv:16 bytes][ciphertext]
-</code></pre></div>
-<p>The default PBKDF2 iteration count is 600000. During writes, the component can create a <code>.backup</code> file next to the keyring data file for rollback.</p>
-<h2 id="use-percona-keyring-encrypted-file-verify-the-component-is-loaded">Verify the component is loaded<a class="headerlink" href="#use-percona-keyring-encrypted-file-verify-the-component-is-loaded" title="Permanent link">&para;</a></h2>
-<p>Restart the server. Run the following statement to confirm that the keyring is active:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
-</code></pre></div>
-<p>If the component loaded successfully, the result includes the following values:</p>
-<table>
-<thead>
-<tr>
-<th>STATUS_KEY</th>
-<th>Expected value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Component_name</td>
-<td><code>component_percona_keyring_encrypted_file</code></td>
-</tr>
-<tr>
-<td>Component_status</td>
-<td><code>Active</code></td>
-</tr>
-<tr>
-<td>Data_file</td>
-<td>The <code>path</code> value from the configuration file</td>
-</tr>
-<tr>
-<td>Read_only</td>
-<td><code>Yes</code> or <code>No</code>, matching the <code>read_only</code> setting</td>
-</tr>
-<tr>
-<td>Password</td>
-<td><code>&lt;SET&gt;</code> with inline <code>password</code>; <code>&lt;NONE&gt;</code> otherwise</td>
-</tr>
-<tr>
-<td>Password_file</td>
-<td>File path with <code>password_file</code>; <code>&lt;NONE&gt;</code> otherwise</td>
-</tr>
-</tbody>
-</table>
-<p>Example output:</p>
-<div class="highlight"><pre><span></span><code>+---------------------+---------------------------------------------------------------+
-| STATUS_KEY          | STATUS_VALUE                                                  |
-+---------------------+---------------------------------------------------------------+
-| Component_name      | component_percona_keyring_encrypted_file                      |
-| Author              | Percona                                                       |
-| Component_status    | Active                                                        |
-| Data_file           | /var/lib/mysql-keyring/component_percona_keyring_encrypted_file |
-| Read_only           | No                                                            |
-| Password            | &lt;SET&gt;                                                         |
-| Password_file       | &lt;NONE&gt;                                                        |
-+---------------------+---------------------------------------------------------------+
-</code></pre></div>
-<p>The <code>Active</code> status means the keyring is ready. The <code>Active</code> status does not mean data is encrypted. Enable encryption separately for tables, tablespaces, and logs. See <a href="#data-at-rest-encryption">Data at Rest Encryption</a>.</p>
-<p>If startup fails, check the error log with <code>SELECT @@log_error;</code>. Common causes:</p>
-<ul>
-<li>
-<p>Missing or empty password</p>
-</li>
-<li>
-<p>Both <code>password</code> and <code>password_file</code> are set</p>
-</li>
-<li>
-<p>The MySQL server user cannot read the password file</p>
-</li>
-<li>
-<p>JSON syntax errors in the manifest or configuration file</p>
-</li>
-<li>
-<p>Wrong password for an existing keyring file</p>
-</li>
-</ul>
-<h2 id="use-percona-keyring-encrypted-file-reload-the-keyring-configuration">Reload the keyring configuration<a class="headerlink" href="#use-percona-keyring-encrypted-file-reload-the-keyring-configuration" title="Permanent link">&para;</a></h2>
-<p>You can reload the keyring after you change the component configuration file. You do not need a full server restart. Run the following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">RELOAD</span><span class="w"> </span><span class="n">KEYRING</span><span class="p">;</span>
-</code></pre></div>
-<p>Reload succeeds when the updated configuration is valid and the password decrypts the existing keyring file. Reload fails when the password is wrong. After a failed reload, the component can report <code>Disabled</code> in <code>keyring_component_status</code>.</p>
-<h2 id="use-percona-keyring-encrypted-file-use-the-keyring-with-encryption">Use the keyring with encryption<a class="headerlink" href="#use-percona-keyring-encrypted-file-use-the-keyring-with-encryption" title="Permanent link">&para;</a></h2>
-<p>You can enable transparent data encryption (TDE) when <code>component_percona_keyring_encrypted_file</code> is active. TDE applies to the following objects:</p>
-<ul>
-<li>
-<p>Individual tables and schema defaults: <a href="#encrypt-file-per-table-tablespace">Encrypt file-per-table tablespace</a> and <a href="#encrypt-tablespaces">Encrypt schema or general tablespace</a></p>
-</li>
-<li>
-<p>System tablespace: <a href="#encrypt-system-tablespace">Encrypt system tablespace</a></p>
-</li>
-<li>
-<p>Redo and undo logs: <a href="#encrypt-logs">Log encryption</a></p>
-</li>
-<li>
-<p>Binary and relay logs: <a href="#encrypt-binary-relay-log-files">Encrypt binary log files and relay log files</a></p>
-</li>
-</ul>
-<p>See <a href="#verify-encryption">Verify encryption</a> to confirm encryption settings.</p>
-<h2 id="use-percona-keyring-encrypted-file-migrate-keyring-data">Migrate keyring data<a class="headerlink" href="#use-percona-keyring-encrypted-file-migrate-keyring-data" title="Permanent link">&para;</a></h2>
-<p>The <code>mysql_migrate_keyring</code> utility copies keys between <code>component_percona_keyring_encrypted_file</code> and <code>component_keyring_file</code>. Both components need valid configuration files in the configuration directory that you pass to the utility. See <a href="#use-keyring-file">Use the keyring file component</a> for <code>component_keyring_file</code> details.</p>
-<p>Follow these steps:</p>
-<ol>
-<li>
-<p>Stop the server.</p>
-</li>
-<li>
-<p>Create configuration files for the source and destination keyring components.</p>
-</li>
-<li>
-<p>Run <code>mysql_migrate_keyring</code>.</p>
-</li>
-<li>
-<p>Update the manifest to load the destination component.</p>
-</li>
-<li>
-<p>Start the server.</p>
-</li>
-<li>
-<p>Verify keys and encrypted data.</p>
-</li>
-</ol>
-<p>The following example migrates from the encrypted Percona keyring to the unencrypted file keyring:</p>
-<div class="highlight"><pre><span></span><code>mysql_migrate_keyring<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--component-dir<span class="o">=</span>/usr/lib64/mysql/plugin<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--source-keyring<span class="o">=</span>component_percona_keyring_encrypted_file<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--source-keyring-configuration-dir<span class="o">=</span>/var/lib/mysql<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--destination-keyring<span class="o">=</span>component_keyring_file<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--destination-keyring-configuration-dir<span class="o">=</span>/var/lib/mysql
-</code></pre></div>
-<p>To migrate in the other direction, swap the <code>--source-keyring</code> and <code>--destination-keyring</code> values. The destination encrypted keyring configuration must include <code>path</code>, <code>read_only</code>, and <code>password</code> or <code>password_file</code>. Keep the server stopped during migration. Update <code>mysqld.my</code> to reference the destination component before you restart.</p>
-<h2 id="use-percona-keyring-encrypted-file-operational-notes">Operational notes<a class="headerlink" href="#use-percona-keyring-encrypted-file-operational-notes" title="Permanent link">&para;</a></h2>
-<p>These notes apply after you load the component and use it for data at rest encryption. They cover backups, instance moves, clusters, key rotation, and compliance.</p>
-<ul>
-<li>
-<p>Backups: Include the encrypted keyring file, password, and encrypted data in the same backup plan. Restore fails for encrypted tablespaces or logs without the keyring file and password.</p>
-</li>
-<li>
-<p>Cloning and migration: Copy the keyring file when you move an instance to new hardware. Use the same password in the component configuration on the new host before you start the server.</p>
-</li>
-<li>
-<p>Percona XtraDB Cluster (PXC): The keyring file is not replicated. Copy the keyring file from the bootstrap node to other nodes. Each node must use the same password in the component configuration.</p>
-</li>
-<li>
-<p>Master key rotation: Run <code>ALTER INSTANCE ROTATE INNODB MASTER KEY</code> to rotate the InnoDB master key. See <a href="#rotate-master-key">Rotate the master encryption key</a>.</p>
-</li>
-<li>
-<p>Compliance: A password-protected local keyring file protects keys at rest on the host. A local keyring file is not a substitute for a dedicated key management system or a hardware security module (HSM) when regulations require one.</p>
-</li>
-</ul>
-<h2 id="use-percona-keyring-encrypted-file-uninstall-the-component">Uninstall the component<a class="headerlink" href="#use-percona-keyring-encrypted-file-uninstall-the-component" title="Permanent link">&para;</a></h2>
-<p>Follow these steps to stop use of the encrypted file keyring:</p>
-<ol>
-<li>
-<p>Remove or rename the manifest entry for <code>file://component_percona_keyring_encrypted_file</code> in <code>mysqld.my</code>.</p>
-</li>
-<li>
-<p>Remove or rename <code>component_percona_keyring_encrypted_file.cnf</code>.</p>
-</li>
-<li>
-<p>Restart the server.</p>
-</li>
-</ol>
-<p>Do not delete the keyring data file if encrypted data exists on the instance. You need the keyring data file and the correct password to decrypt encrypted tablespaces and logs.</p>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p><a href="#keyring-components-plugins-overview">Keyring components overview</a></p>
-<p><a href="#use-keyring-file">Use the keyring file component</a></p>
-<p><a href="#quickstart-component-keyring">Get Started with component keyring</a></p>
-<p><a href="#data-at-rest-encryption">Data at Rest Encryption</a></p>
-<p><a href="#upgrade-components">Upgrade components</a></p>
-<p><a href="#rotate-master-key">Rotate the master encryption key</a></p>
-</div></section><section class="print-page" id="use-keyring-vault-component" heading-number="13.9.2.5"><h1 id="use-keyring-vault-component-use-the-keyring-vault-component">Use the keyring vault component<a class="headerlink" href="#use-keyring-vault-component-use-the-keyring-vault-component" title="Permanent link">&para;</a></h1>
+</div></section><section class="print-page" id="use-keyring-vault-component" heading-number="13.9.2.4"><h1 id="use-keyring-vault-component-use-the-keyring-vault-component">Use the keyring vault component<a class="headerlink" href="#use-keyring-vault-component-use-the-keyring-vault-component" title="Permanent link">&para;</a></h1>
 <p>The <code>keyring_vault</code> component connects Percona Server to a <a href="https://www.hashicorp.com/en/products/vault">HashiCorp Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> server. The component stores and retrieves the encryption keys that protect data at rest.</p>
 <p>A keyring component loads at server startup from a manifest file. The component reads a JSON configuration file during initialization. Do not load a keyring component with <code>INSTALL COMPONENT</code>. InnoDB needs the keyring before the <code>mysql.component</code> table is available.</p>
 <h2 id="use-keyring-vault-component-available-keyring-components">Available keyring components<a class="headerlink" href="#use-keyring-vault-component-available-keyring-components" title="Permanent link">&para;</a></h2>
@@ -42179,7 +41535,7 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">600</sp
 <li>
 <p><a href="#rotate-master-key">Rotate the master encryption key</a> covers the full rotation procedure and required privileges.</p>
 </li>
-</ul></section><section class="print-page" id="maintain-vault-connection" heading-number="13.9.2.6"><h1 id="maintain-vault-connection-maintain-the-vault-connection">Maintain the Vault connection<a class="headerlink" href="#maintain-vault-connection-maintain-the-vault-connection" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="maintain-vault-connection" heading-number="13.9.2.5"><h1 id="maintain-vault-connection-maintain-the-vault-connection">Maintain the Vault connection<a class="headerlink" href="#maintain-vault-connection-maintain-the-vault-connection" title="Permanent link">&para;</a></h1>
 <p>Installation of the <a href="#use-keyring-vault-component">keyring vault component</a> is the first step. The most common production failure of <code>keyring_vault</code> is a lost connection to Vault, not a misconfigured component. Two conditions cause the loss:</p>
 <ul>
 <li>
@@ -42335,7 +41691,7 @@ vault<span class="w"> </span>token<span class="w"> </span>create<span class="w">
 <li>
 <p><a href="https://learn.hashicorp.com/vault/operations/production-hardening">Production Hardening <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </li>
-</ul></section><section class="print-page" id="using-kmip" heading-number="13.9.2.7"><h1 id="using-kmip-use-the-key-management-interoperability-protocol-kmip">Use the Key Management Interoperability Protocol (KMIP)<a class="headerlink" href="#using-kmip-use-the-key-management-interoperability-protocol-kmip" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="using-kmip" heading-number="13.9.2.6"><h1 id="using-kmip-use-the-key-management-interoperability-protocol-kmip">Use the Key Management Interoperability Protocol (KMIP)<a class="headerlink" href="#using-kmip-use-the-key-management-interoperability-protocol-kmip" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL supports the <a href="https://docs.oasis-open.org/kmip/kmip-spec/v2.0/os/kmip-spec-v2.0-os.html">OASIS Key Management Interoperability Protocol (KMIP) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. This implementation was tested with:
 - <a href="https://pykmip.readthedocs.io/en/latest/server.html">PyKMIP server <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
 - <a href="https://developer.hashicorp.com/vault/docs/secrets/kmip">HashiCorp Vault Enterprise KMIP Secrets Engine <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
@@ -42623,7 +41979,7 @@ vault<span class="w"> </span>token<span class="w"> </span>create<span class="w">
 <span class="p">}</span>
 </code></pre></div>
 </details>
-<p>For more information, see <a href="https://dev.mysql.com/doc/refman/9.7/en/keyring-component-installation.html">Keyring Component installation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p></section><section class="print-page" id="using-amz-kms" heading-number="13.9.2.8"><h1 id="using-amz-kms-use-the-amazon-key-management-service-aws-kms">Use the Amazon Key Management Service (AWS KMS)<a class="headerlink" href="#using-amz-kms-use-the-amazon-key-management-service-aws-kms" title="Permanent link">&para;</a></h1>
+<p>For more information, see <a href="https://dev.mysql.com/doc/refman/9.7/en/keyring-component-installation.html">Keyring Component installation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p></section><section class="print-page" id="using-amz-kms" heading-number="13.9.2.7"><h1 id="using-amz-kms-use-the-amazon-key-management-service-aws-kms">Use the Amazon Key Management Service (AWS KMS)<a class="headerlink" href="#using-amz-kms-use-the-amazon-key-management-service-aws-kms" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL supports the <a href="https://aws.amazon.com/kms/">Amazon Key Management Service (AWS KMS) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Percona Server generates the keyring keys. Amazon Web Services (AWS) encrypts the keyring data.</p>
 <p>The AWS KMS lets you create and manage cryptographic keys across AWS services. For more information, see the <a href="https://docs.aws.amazon.com/kms/">AWS Key Management Service Documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <h2 id="using-amz-kms-prerequisites">Prerequisites<a class="headerlink" href="#using-amz-kms-prerequisites" title="Permanent link">&para;</a></h2>
@@ -42949,14 +42305,14 @@ vault<span class="w"> </span>token<span class="w"> </span>create<span class="w">
 <li>
 <p><a href="#rotate-master-key">Rotate the master encryption key</a> covers the full rotation procedure and required privileges.</p>
 </li>
-</ul></section><section class="print-page" id="encrypt-file-per-table-tablespace" heading-number="13.9.2.9"><h1 id="encrypt-file-per-table-tablespace-encrypt-file-per-table-tablespace">Encrypt File-Per-Table Tablespace<a class="headerlink" href="#encrypt-file-per-table-tablespace-encrypt-file-per-table-tablespace" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="encrypt-file-per-table-tablespace" heading-number="13.9.2.8"><h1 id="encrypt-file-per-table-tablespace-encrypt-file-per-table-tablespace">Encrypt File-Per-Table Tablespace<a class="headerlink" href="#encrypt-file-per-table-tablespace-encrypt-file-per-table-tablespace" title="Permanent link">&para;</a></h1>
 <p>The file_per_table tablespace inherits the default schema encryption setting. Use the <code>ENCRYPTION</code> clause in the  in <code>CREATE TABLE</code> statement to explicitly set the encryption.</p>
 <p><div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
 To change the encryption setting for an existing file_per_table tablespace, add the <code>ENCRYPTION</code> clause. The <code>ALTER TABLE</code> statement without the <code>ENCRYPTION</code> clause does not change the encryption state.</p>
 <div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>If the <code>table_encryption_privilege_check</code> is enabled, the <code>TABLE_ENCRYPTION_ADMIN</code> privilige is required to change the file_per_table encryption setting from the default schema encryption. </p></section><section class="print-page" id="encrypt-tablespaces" heading-number="13.9.2.10"><h1 id="encrypt-tablespaces-encrypt-schema-or-general-tablespace">Encrypt schema or general tablespace<a class="headerlink" href="#encrypt-tablespaces-encrypt-schema-or-general-tablespace" title="Permanent link">&para;</a></h1>
+<p>If the <code>table_encryption_privilege_check</code> is enabled, the <code>TABLE_ENCRYPTION_ADMIN</code> privilige is required to change the file_per_table encryption setting from the default schema encryption. </p></section><section class="print-page" id="encrypt-tablespaces" heading-number="13.9.2.9"><h1 id="encrypt-tablespaces-encrypt-schema-or-general-tablespace">Encrypt schema or general tablespace<a class="headerlink" href="#encrypt-tablespaces-encrypt-schema-or-general-tablespace" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL uses the same encryption architecture as MySQL, a two-tier system consisting of a master key and tablespace keys. The master key can be changed, or rotated in the keyring, as needed. Each tablespace key, when
 decrypted, remains the same.</p>
 <p>The feature requires the keyring plugin.</p>
@@ -43087,21 +42443,21 @@ generates the following error:</p>
 general tablespace with an incompatible encryption setting and aborts the process.</p>
 <p>If you must move tables between incompatible tablespaces, create tables with the same structure in another tablespace and run <code>INSERT INTO SELECT</code> from each of the source tables into the destination tables.</p>
 <h2 id="encrypt-tablespaces-export-an-encrypted-general-tablespace">Export an encrypted general tablespace<a class="headerlink" href="#encrypt-tablespaces-export-an-encrypted-general-tablespace" title="Permanent link">&para;</a></h2>
-<p>You can only export encrypted file-per-table tablespaces</p></section><section class="print-page" id="encrypt-system-tablespace" heading-number="13.9.2.11"><h1 id="encrypt-system-tablespace-encrypt-system-tablespace">Encrypt system tablespace<a class="headerlink" href="#encrypt-system-tablespace-encrypt-system-tablespace" title="Permanent link">&para;</a></h1>
+<p>You can only export encrypted file-per-table tablespaces</p></section><section class="print-page" id="encrypt-system-tablespace" heading-number="13.9.2.10"><h1 id="encrypt-system-tablespace-encrypt-system-tablespace">Encrypt system tablespace<a class="headerlink" href="#encrypt-system-tablespace-encrypt-system-tablespace" title="Permanent link">&para;</a></h1>
 <p>By default, the system tablespace, which contains the system database and the data dictionary tables, is unencrypted. To change the encryption requires the <code>CREATE TABLESPACE</code> privilege on all tables in the instance.</p>
 <p>In an <code>ALTER TABLESPCE</code> statement, add the <code>ENCRYPTION</code> option with the tablespace name to enable encryption.</p>
 <p><div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
 Disable encryption by setting the <code>ENCRYPTION</code> option to &lsquo;N&rdquo;.</p>
 <div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="p">;</span>
-</code></pre></div></section><section class="print-page" id="encrypt-doublewrite-file-pages" heading-number="13.9.2.12"><h1 id="encrypt-doublewrite-file-pages-encrypt-doublewrite-file-pages">Encrypt doublewrite file pages<a class="headerlink" href="#encrypt-doublewrite-file-pages-encrypt-doublewrite-file-pages" title="Permanent link">&para;</a></h1>
+</code></pre></div></section><section class="print-page" id="encrypt-doublewrite-file-pages" heading-number="13.9.2.11"><h1 id="encrypt-doublewrite-file-pages-encrypt-doublewrite-file-pages">Encrypt doublewrite file pages<a class="headerlink" href="#encrypt-doublewrite-file-pages-encrypt-doublewrite-file-pages" title="Permanent link">&para;</a></h1>
 <p>InnoDB encrypts doublewrite file pages associated with encrypted tablespaces automatically. Doublewrite files can contain the following page types:</p>
 <ul>
 <li>Unencrypted</li>
 <li>Uncompressed</li>
 <li>Encrypted</li>
 <li>Compressed</li>
-</ul></section><section class="print-page" id="encrypt-temporary-files" heading-number="13.9.2.13"><h1 id="encrypt-temporary-files-encrypt-temporary-files">Encrypt temporary files<a class="headerlink" href="#encrypt-temporary-files-encrypt-temporary-files" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="encrypt-temporary-files" heading-number="13.9.2.12"><h1 id="encrypt-temporary-files-encrypt-temporary-files">Encrypt temporary files<a class="headerlink" href="#encrypt-temporary-files-encrypt-temporary-files" title="Permanent link">&para;</a></h1>
 <p>For InnoDB user-created temporary tables are created in a temporary tablespace
 file and use the <code>innodb_temp_tablespace_encrypt</code> variable.</p>
 <p>The <code>CREATE TEMPORARY TABLE</code> does not support the <code>ENCRYPTION</code> clause. The <code>TABLESPACE</code> clause cannot be set to <code>innodb_temporary</code>.</p>
@@ -43208,7 +42564,7 @@ allow encrypted tables and undo data to be decrypted.</p>
 </table>
 <p>When this variable is set to <code>ON</code>, the server encrypts the global temporary
 tablespace and has the .ibtmp1 file extension and the session temporary tablespace and has the .ibt file extension. </p>
-<p>The variable does not enforce the encryption of currently open temporary files and does not rebuild the system&rsquo;s temporary tablespace to encrypt data that has already been written.</p></section><section class="print-page" id="encrypt-logs" heading-number="13.9.2.14"><h1 id="encrypt-logs-log-encryption">Log encryption<a class="headerlink" href="#encrypt-logs-log-encryption" title="Permanent link">&para;</a></h1>
+<p>The variable does not enforce the encryption of currently open temporary files and does not rebuild the system&rsquo;s temporary tablespace to encrypt data that has already been written.</p></section><section class="print-page" id="encrypt-logs" heading-number="13.9.2.13"><h1 id="encrypt-logs-log-encryption">Log encryption<a class="headerlink" href="#encrypt-logs-log-encryption" title="Permanent link">&para;</a></h1>
 <p>Describes the redo log encryption and the undo log encryption.</p>
 <h2 id="encrypt-logs-redo-log-encryption">Redo Log encryption<a class="headerlink" href="#encrypt-logs-redo-log-encryption" title="Permanent link">&para;</a></h2>
 <p>Use the <code>innodb_redo_log_encrypt</code> option to enable or disable redo log data encryption. By default, the encryption of the redo log is disabled.</p>
@@ -43304,7 +42660,7 @@ tablespace and has the .ibtmp1 file extension and the session temporary tablespa
 </tr>
 </tbody>
 </table>
-<p>This system variable defines the encryption status for the undo log data. The default setting is <code>OFF</code>, which disables the encryption.</p></section><section class="print-page" id="rotate-master-key" heading-number="13.9.2.15"><h1 id="rotate-master-key-rotate-the-master-encryption-key">Rotate the master encryption key<a class="headerlink" href="#rotate-master-key-rotate-the-master-encryption-key" title="Permanent link">&para;</a></h1>
+<p>This system variable defines the encryption status for the undo log data. The default setting is <code>OFF</code>, which disables the encryption.</p></section><section class="print-page" id="rotate-master-key" heading-number="13.9.2.14"><h1 id="rotate-master-key-rotate-the-master-encryption-key">Rotate the master encryption key<a class="headerlink" href="#rotate-master-key-rotate-the-master-encryption-key" title="Permanent link">&para;</a></h1>
 <p>Rotate the master encryption key periodically and if the key has been compromised.</p>
 <p>Rotating the master encryption key changes that key and tablespace keys are re-encrypted and updated in the tablespace headers. The rotation only succeeds if all operations are successful. If the rotation is interrupted, the operation is rolled forward when the server restarts.</p>
 <p>The rotation operation does not affect tablespace data. To change a tablespace key, disable and then re-enable encryption for that tablespace.</p>
@@ -43314,7 +42670,7 @@ tablespace and has the .ibtmp1 file extension and the session temporary tablespa
 <div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">INNODB</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
 </code></pre></div>
 <p>The rotation operation must complete before any tablespace encryption operation
-can begin.</p></section><section class="print-page" id="verify-encryption" heading-number="13.9.2.16"><h1 id="verify-encryption-verify-the-encryption-for-tables-tablespaces-and-schemas">Verify the encryption for tables, tablespaces, and schemas<a class="headerlink" href="#verify-encryption-verify-the-encryption-for-tables-tablespaces-and-schemas" title="Permanent link">&para;</a></h1>
+can begin.</p></section><section class="print-page" id="verify-encryption" heading-number="13.9.2.15"><h1 id="verify-encryption-verify-the-encryption-for-tables-tablespaces-and-schemas">Verify the encryption for tables, tablespaces, and schemas<a class="headerlink" href="#verify-encryption-verify-the-encryption-for-tables-tablespaces-and-schemas" title="Permanent link">&para;</a></h1>
 <p>If a general tablespace contains tables, check the table information to see if
 the table is encrypted. When the general tablespace contains no tables, you
 may verify if the tablespace is encrypted or not.</p>
@@ -59596,11 +58952,6 @@ compared to the standard <em>MySQL</em> database server:</p>
 <td>Yes</td>
 </tr>
 <tr>
-<td><a href="#use-percona-keyring-encrypted-file">Storing Keyring in an Encrypted Local File</a></td>
-<td>Yes</td>
-<td>Enterprise Only</td>
-</tr>
-<tr>
 <td>Storing Keyring in Hashicorp Vault</td>
 <td>Yes</td>
 <td>Enterprise Only</td>
@@ -60714,31 +60065,29 @@ contributions and changes from MariaDB.</p>
 
 .print-site-enumerate-headings #use-keyring-file > h1:before { content: '13.9.2.3 ' }
 
-.print-site-enumerate-headings #use-percona-keyring-encrypted-file > h1:before { content: '13.9.2.4 ' }
+.print-site-enumerate-headings #use-keyring-vault-component > h1:before { content: '13.9.2.4 ' }
 
-.print-site-enumerate-headings #use-keyring-vault-component > h1:before { content: '13.9.2.5 ' }
+.print-site-enumerate-headings #maintain-vault-connection > h1:before { content: '13.9.2.5 ' }
 
-.print-site-enumerate-headings #maintain-vault-connection > h1:before { content: '13.9.2.6 ' }
+.print-site-enumerate-headings #using-kmip > h1:before { content: '13.9.2.6 ' }
 
-.print-site-enumerate-headings #using-kmip > h1:before { content: '13.9.2.7 ' }
+.print-site-enumerate-headings #using-amz-kms > h1:before { content: '13.9.2.7 ' }
 
-.print-site-enumerate-headings #using-amz-kms > h1:before { content: '13.9.2.8 ' }
+.print-site-enumerate-headings #encrypt-file-per-table-tablespace > h1:before { content: '13.9.2.8 ' }
 
-.print-site-enumerate-headings #encrypt-file-per-table-tablespace > h1:before { content: '13.9.2.9 ' }
+.print-site-enumerate-headings #encrypt-tablespaces > h1:before { content: '13.9.2.9 ' }
 
-.print-site-enumerate-headings #encrypt-tablespaces > h1:before { content: '13.9.2.10 ' }
+.print-site-enumerate-headings #encrypt-system-tablespace > h1:before { content: '13.9.2.10 ' }
 
-.print-site-enumerate-headings #encrypt-system-tablespace > h1:before { content: '13.9.2.11 ' }
+.print-site-enumerate-headings #encrypt-doublewrite-file-pages > h1:before { content: '13.9.2.11 ' }
 
-.print-site-enumerate-headings #encrypt-doublewrite-file-pages > h1:before { content: '13.9.2.12 ' }
+.print-site-enumerate-headings #encrypt-temporary-files > h1:before { content: '13.9.2.12 ' }
 
-.print-site-enumerate-headings #encrypt-temporary-files > h1:before { content: '13.9.2.13 ' }
+.print-site-enumerate-headings #encrypt-logs > h1:before { content: '13.9.2.13 ' }
 
-.print-site-enumerate-headings #encrypt-logs > h1:before { content: '13.9.2.14 ' }
+.print-site-enumerate-headings #rotate-master-key > h1:before { content: '13.9.2.14 ' }
 
-.print-site-enumerate-headings #rotate-master-key > h1:before { content: '13.9.2.15 ' }
-
-.print-site-enumerate-headings #verify-encryption > h1:before { content: '13.9.2.16 ' }
+.print-site-enumerate-headings #verify-encryption > h1:before { content: '13.9.2.15 ' }
 
 .print-site-enumerate-headings #section-14 > h1:before { content: '14 ' }
 .print-site-enumerate-headings #group-replication-flow-control > h1:before { content: '14.1 ' }
