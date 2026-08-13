@@ -6571,17 +6571,6 @@ individuals, groups, and organizations.">
 </li>
       
         <li class="md-nav__item">
-  <a href="#external-roles" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        External roles
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#prerequisites-for-authentication" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10133,17 +10122,6 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#external-roles" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        External roles
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#prerequisites-for-authentication" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10302,18 +10280,6 @@ individuals, groups, and organizations.</p>
 <p>If the LDAP server finds multiple matches or no match, authentication fails.</p>
 <p>If the password is correct, and the LDAP server finds a match, then LDAP authentication succeeds. The LDAP server returns the LDAP entry and the authentication plugin determines the authenticated user&rsquo;s name based on the entry. If the LDAP entry has no group attribute, the plugin returns the client user name as the authenticated name. If the LDAP entry has a group attribute, the plugin returns the group value as the authenticated name.</p>
 <p>The database server compares the client user name to the authenticated user name. If these names are the same, the database server uses the client user name to check for privileges. If the name differs, then the database server looks for an account that matches the authenticated name.</p>
-<h2 id="external-roles">External roles<a class="headerlink" href="#external-roles" title="Permanent link">&para;</a></h2>
-<p>The mechanism already keeps a container with external roles (ones granted on request of the authentication plugin). On connection, the server compares roles returned by the authentication plugin with existing external roles and:</p>
-<ul>
-<li>Grants returned roles not in the container (roles already in the container were granted previously),</li>
-<li>Revokes external roles that exist in the container but are not returned by the plugin,</li>
-<li>Updates the container so it is inline with the actually granted roles.</li>
-</ul>
-<div class="admonition admonition">
-<p class="admonition-title">note</p>
-<p>External role privileges are granted or revoked on the user&rsquo;s connection. Group membership is determined by the group attribute from LDAP.</p>
-</div>
-<p>Privileges are not revoked immediately when a user is removed from a group, because the MySQL server does not directly synchronize with the LDAP server.</p>
 <h2 id="prerequisites-for-authentication">Prerequisites for authentication<a class="headerlink" href="#prerequisites-for-authentication" title="Permanent link">&para;</a></h2>
 <p>The LDAP authentication plugins required the following:</p>
 <ul>
@@ -10533,7 +10499,7 @@ authentication_ldap_sasl_bind_base_dn=&#39;dc=percona, dc=com&#39;
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 22, 2026 10:39:20 UTC">July 22, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 13, 2026 15:38:26 UTC">August 13, 2026</span>
   </span>
 
     
