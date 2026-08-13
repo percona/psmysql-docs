@@ -34283,6 +34283,18 @@ individuals, groups, and organizations.</p>
 <p>If the LDAP server finds multiple matches or no match, authentication fails.</p>
 <p>If the password is correct, and the LDAP server finds a match, then LDAP authentication succeeds. The LDAP server returns the LDAP entry and the authentication plugin determines the authenticated user&rsquo;s name based on the entry. If the LDAP entry has no group attribute, the plugin returns the client user name as the authenticated name. If the LDAP entry has a group attribute, the plugin returns the group value as the authenticated name.</p>
 <p>The database server compares the client user name to the authenticated user name. If these names are the same, the database server uses the client user name to check for privileges. If the name differs, then the database server looks for an account that matches the authenticated name.</p>
+<h2 id="ldap-authentication-external-roles">External roles<a class="headerlink" href="#ldap-authentication-external-roles" title="Permanent link">&para;</a></h2>
+<p>The mechanism already keeps a container with external roles (ones granted on request of the authentication plugin). On connection, the server compares roles returned by the authentication plugin with existing external roles and:</p>
+<ul>
+<li>Grants returned roles not in the container (roles already in the container were granted previously),</li>
+<li>Revokes external roles that exist in the container but are not returned by the plugin,</li>
+<li>Updates the container so it is inline with the actually granted roles.</li>
+</ul>
+<div class="admonition admonition">
+<p class="admonition-title">note</p>
+<p>External role privileges are granted or revoked on the user&rsquo;s connection. Group membership is determined by the group attribute from LDAP.</p>
+</div>
+<p>Privileges are not revoked immediately when a user is removed from a group, because the MySQL server does not directly synchronize with the LDAP server.</p>
 <h2 id="ldap-authentication-prerequisites-for-authentication">Prerequisites for authentication<a class="headerlink" href="#ldap-authentication-prerequisites-for-authentication" title="Permanent link">&para;</a></h2>
 <p>The LDAP authentication plugins required the following:</p>
 <ul>
