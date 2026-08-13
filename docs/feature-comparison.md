@@ -77,7 +77,6 @@ compared to the standard *MySQL* database server:
 | Encryption Features | Percona Server for MySQL {{vers}} | MySQL {{vers}} |
 |---|---|---|
 | Storing Keyring in a File | Yes | Yes |
-| [Storing Keyring in an Encrypted Local File](use-percona-keyring-encrypted-file.md) | Yes | Enterprise Only |
 | Storing Keyring in Hashicorp Vault | Yes | Enterprise Only |
 | Encrypt InnoDB Data | Yes | Yes |
 | Encrypt InnoDB Logs | Yes | Yes |

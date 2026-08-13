@@ -12,8 +12,6 @@ Percona Server supports the following keyring components:
 
 [Use the keyring file component](use-keyring-file.md){.md-button}
 
-[Use the Percona encrypted keyring file component](use-percona-keyring-encrypted-file.md){.md-button}
-
 [Use the keyring vault component](use-keyring-vault-component.md){.md-button}
 
 [Use the Key Management Interoperability Protocol (KMIP)](using-amz-kms.md){.md-button}
