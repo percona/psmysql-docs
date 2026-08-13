@@ -250,6 +250,140 @@ ALTER INSTANCE RELOAD KEYRING;
 
 Reload succeeds when the updated configuration is valid and the password decrypts the existing keyring file. Reload fails when the password is wrong. After a failed reload, the component can report `Disabled` in `keyring_component_status`.
 
+## Change the keyring password
+
+The password in the `component_percona_keyring_encrypted_file` configuration encrypts the keyring data file. Changing `password` or the contents of `password_file` does not re-encrypt an existing keyring file with the new password.
+
+To change the password, migrate the keys temporarily from `component_percona_keyring_encrypted_file` to the unencrypted `component_keyring_file`, configure `component_percona_keyring_encrypted_file` with the new password, and migrate the keys back to a new encrypted keyring file.
+
+!!! warning
+
+    Stop the MySQL server before you start the migration and keep the server stopped until the migration is complete.
+
+    `component_keyring_file` stores the intermediate keyring data in an unencrypted file. Protect the file from unauthorized access and remove it after you successfully migrate the keys back to `component_percona_keyring_encrypted_file`.
+
+1. Before you stop the server, check the directory where the keyring component libraries are installed:
+
+    ```sql
+    SELECT @@plugin_dir;
+    ```
+
+    Use this directory as the value of `--component-dir` in the migration commands.
+
+2. Stop the MySQL server:
+
+    ```bash
+    sudo systemctl stop mysql
+    ```
+
+3. Configure `component_keyring_file` as the temporary destination for the first migration.
+
+    The `mysql_migrate_keyring` utility must be able to load the configuration for both the source and destination keyring components.
+
+    If the component uses a local configuration file, set `"read_local_config": true` in its global configuration file and place the local configuration file in the directory that you specify with `--source-keyring-configuration-dir` or `--destination-keyring-configuration-dir`.
+
+    Configure `component_keyring_file` to use a temporary keyring data file that does not already exist. For example:
+
+    ```json
+    {
+      "path": "/var/lib/mysql-keyring/keyring_file_plain",
+      "read_only": false
+    }
+    ```
+
+4. Migrate the keys from `component_percona_keyring_encrypted_file` to `component_keyring_file`:
+
+    ```bash
+    mysql_migrate_keyring \
+      --component-dir=<component_directory> \
+      --source-keyring=component_percona_keyring_encrypted_file \
+      --source-keyring-configuration-dir=<encrypted_keyring_configuration_directory> \
+      --destination-keyring=component_keyring_file \
+      --destination-keyring-configuration-dir=<keyring_file_configuration_directory>
+    ```
+
+    Replace:
+
+    * `<component_directory>` with the directory that contains the keyring component libraries.
+    * `<encrypted_keyring_configuration_directory>` with the directory that contains the local configuration for `component_percona_keyring_encrypted_file`.
+    * `<keyring_file_configuration_directory>` with the directory that contains the local configuration for `component_keyring_file`.
+
+    Verify that the migration completes successfully before you continue.
+
+5. Update the `component_percona_keyring_encrypted_file` configuration with the new password.
+
+    If you configure the password directly, replace the existing `password` value:
+
+    ```json
+    {
+      "path": "/var/lib/mysql-keyring/component_percona_keyring_encrypted_file",
+      "read_only": false,
+      "password": "new-strong-password"
+    }
+    ```
+
+    If you use `password_file`, replace the password stored in the file specified by `password_file`.
+
+    Keep the existing `path` value unless you also intend to change the location of the encrypted keyring data file.
+
+6. Move the existing encrypted keyring data file to a secure backup location.
+
+    The `path` configured for `component_percona_keyring_encrypted_file` must not contain the old encrypted keyring file when you migrate the keys back. The second migration creates a new encrypted keyring file at this location.
+
+    For example:
+
+    ```bash
+    sudo mv \
+      /var/lib/mysql-keyring/component_percona_keyring_encrypted_file \
+      /secure/backup/location/component_percona_keyring_encrypted_file.old
+    ```
+
+    !!! important
+
+        Verify that the migration to `component_keyring_file` completed successfully before you move the existing encrypted keyring file.
+
+        Keep the original encrypted keyring file and the old password until you verify that the migration with the new password succeeded and that the server can access the encrypted data.
+
+7. Migrate the keys from the temporary `component_keyring_file` back to `component_percona_keyring_encrypted_file`:
+
+    ```bash
+    mysql_migrate_keyring \
+      --verbose \
+      --component-dir=<component_directory> \
+      --source-keyring=component_keyring_file \
+      --source-keyring-configuration-dir=<keyring_file_configuration_directory> \
+      --destination-keyring=component_percona_keyring_encrypted_file \
+      --destination-keyring-configuration-dir=<encrypted_keyring_configuration_directory>
+    ```
+
+    The migration reads the keys from the temporary unencrypted keyring and creates a new encrypted keyring data file at the `path` configured for `component_percona_keyring_encrypted_file`. The component uses the new `password` or `password_file` value to encrypt the file.
+
+8. Remove the temporary unencrypted keyring data file after the migration completes successfully:
+
+    ```bash
+    sudo rm /var/lib/mysql-keyring/keyring_file_plain
+    ```
+
+9. Start the MySQL server:
+
+    ```bash
+    sudo systemctl start mysql
+    ```
+
+10. Verify that `component_percona_keyring_encrypted_file` is active:
+
+    ```sql
+    SELECT STATUS_KEY, STATUS_VALUE
+    FROM performance_schema.keyring_component_status
+    WHERE STATUS_KEY IN ('Component_name', 'Component_status');
+    ```
+
+    Verify that `Component_name` is `component_percona_keyring_encrypted_file` and `Component_status` is `Active`.
+
+    Verify that encrypted tables and other encrypted data that use keys from the keyring remain accessible.
+
+After you verify the new encrypted keyring and encrypted data, securely remove the backup of the old encrypted keyring file when you no longer need it.
+
 ## Use the keyring with encryption
 
 You can enable transparent data encryption (TDE) when `component_percona_keyring_encrypted_file` is active. TDE applies to the following objects:
