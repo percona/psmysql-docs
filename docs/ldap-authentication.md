@@ -44,20 +44,6 @@ If the password is correct, and the LDAP server finds a match, then LDAP authent
 
 The database server compares the client user name to the authenticated user name. If these names are the same, the database server uses the client user name to check for privileges. If the name differs, then the database server looks for an account that matches the authenticated name.
 
-## External roles
-
-The mechanism already keeps a container with external roles (ones granted on request of the authentication plugin). On connection, the server compares roles returned by the authentication plugin with existing external roles and:
-
-* Grants returned roles not in the container (roles already in the container were granted previously),
-* Revokes external roles that exist in the container but are not returned by the plugin,
-* Updates the container so it is inline with the actually granted roles.
-
-!!! admonition "note"
-
-    External role privileges are granted or revoked on the user's connection. Group membership is determined by the group attribute from LDAP.
-
-Privileges are not revoked immediately when a user is removed from a group, because the MySQL server does not directly synchronize with the LDAP server.
-
 ## Prerequisites for authentication
 
 The LDAP authentication plugins required the following:
