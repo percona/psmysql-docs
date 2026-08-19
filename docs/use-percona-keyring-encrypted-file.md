@@ -358,10 +358,13 @@ To change the password, migrate the keys temporarily from `component_percona_key
 
     The migration reads the keys from the temporary unencrypted keyring and creates a new encrypted keyring data file at the `path` configured for `component_percona_keyring_encrypted_file`. The component uses the new `password` or `password_file` value to encrypt the file.
 
-8. Remove the temporary unencrypted keyring data file after the migration completes successfully:
+8. Remove the temporary unencrypted keyring data file and clean up the temporary `component_keyring_file` configuration after the migration completes successfully.
+
+    Remove the configuration file only if you created it for this migration. If you modified an existing `component_keyring_file` configuration, restore its previous settings instead.
 
     ```bash
     sudo rm /var/lib/mysql-keyring/keyring_file_plain
+    sudo rm <keyring_file_configuration_directory>/component_keyring_file.cnf
     ```
 
 9. Start the MySQL server:
