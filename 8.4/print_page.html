@@ -27719,6 +27719,11 @@ Percona Support can help assess and mitigate them <span class="twemoji"><svg xml
 <td>16777216 (16 MiB)</td>
 </tr>
 <tr>
+<td><code>innodb_buffer_pool_populate</code></td>
+<td>ON</td>
+<td>N/A (new)</td>
+</tr>
+<tr>
 <td><code>innodb_numa_interleave</code></td>
 <td>ON</td>
 <td>OFF</td>
@@ -27740,7 +27745,8 @@ Percona Support can help assess and mitigate them <span class="twemoji"><svg xml
 <li>Higher <code>innodb_io_capacity</code> leverages SSD/NVMe for IO-bound workloads; legacy spinning disks may need a lower value.</li>
 <li>Larger <code>innodb_log_buffer_size</code> reduces redo flush frequency—helpful for write-heavy workloads.</li>
 <li><code>innodb_adaptive_hash_index</code> default OFF favors predictability; the adaptive hash index can become a contention source under concurrency.</li>
-<li><code>innodb_numa_interleave</code> defaults ON to reduce memory imbalance on multi-socket systems.</li>
+<li><code>innodb_buffer_pool_populate</code> defaults ON to enforce page faults on startup and avoid runtime stalls from page faults; disable it if you value fast startup more than runtime latency.</li>
+<li><code>innodb_numa_interleave</code> defaults ON to reduce memory imbalance on multi-socket systems. It only controls interleaved NUMA allocations and no longer affects whether page faults are enforced on startup.</li>
 <li><code>innodb_change_buffering</code> set to <code>none</code> reduces overhead for modern storage that handles random writes efficiently.</li>
 <li><code>innodb_doublewrite_pages</code> increased to 128 improves doublewrite performance on fast storage.</li>
 </ul>
