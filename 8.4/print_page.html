@@ -48187,7 +48187,44 @@ manager thread.</p>
 </tr>
 </tbody>
 </table>
-<p>Add this variable to the configuration file.</p></section><section class="print-page" id="aio-page-requests" heading-number="17.1.10"><h1 id="aio-page-requests-multiple-page-asynchronous-io-requests">Multiple page asynchronous I/O requests<a class="headerlink" href="#aio-page-requests-multiple-page-asynchronous-io-requests" title="Permanent link">&para;</a></h1>
+<p>Add this variable to the configuration file.</p>
+<h2 id="xtradb-performance-improvements-lazy-buffer-pool-latch-initialization">Lazy buffer pool latch initialization<a class="headerlink" href="#xtradb-performance-improvements-lazy-buffer-pool-latch-initialization" title="Permanent link">&para;</a></h2>
+<h3 id="xtradb-performance-improvements-innodb_buffer_pool_lazy_latch_init"><code>innodb_buffer_pool_lazy_latch_init</code><a class="headerlink" href="#xtradb-performance-improvements-innodb_buffer_pool_lazy_latch_init" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Config file:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Data type:</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default:</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>Enables speeding up MySQL startup time by deferring some initialization cost (latches used by individual blocks belonging to the buffer pool are not initialized on startup, but later on the first use of each page). By default: OFF.</p></section><section class="print-page" id="aio-page-requests" heading-number="17.1.10"><h1 id="aio-page-requests-multiple-page-asynchronous-io-requests">Multiple page asynchronous I/O requests<a class="headerlink" href="#aio-page-requests-multiple-page-asynchronous-io-requests" title="Permanent link">&para;</a></h1>
 <p>The I/O unit size in <em>InnoDB</em> is only one page, even if the server doing read ahead. A 16KB
 I/O unit size is too small for sequential reads, and less efficient than a larger I/O unit size. <em>InnoDB</em> uses Linux asynchronous I/O (<code>aio</code>) by default. By submitting multiple, consecutive 16KB read requests at the same time, Linux internally merges the requests and
 reads more efficiently. </p>
@@ -58535,6 +58572,13 @@ this document has been used as a source for writing this documentation</p>
 <td>Yes</td>
 <td>Global</td>
 <td>Yes</td>
+</tr>
+<tr>
+<td>innodb_buffer_pool_lazy_latch_init</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Global</td>
+<td>No</td>
 </tr>
 <tr>
 <td>innodb_empty_free_list_algorithm</td>
