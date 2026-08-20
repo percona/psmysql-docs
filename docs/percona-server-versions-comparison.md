@@ -2,62 +2,19 @@
 
 # List of features available in Percona Server for MySQL releases
 
-| Percona Server for MySQL 5.7                                              | Percona Server for MySQL 8.0                                              |
-|---------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| Improved Buffer Pool Scalability                                          | Improved Buffer Pool Scalability                                          |
-| Improved InnoDB I/O Scalability                                           | Improved InnoDB I/O Scalability                                           |
-| Multiple Adaptive Hash Search Partitions                                  | Multiple Adaptive Hash Search Partitions                                  |
-| Atomic write support for Fusion-io devices                                | Atomic write support for Fusion-io devices                                |
-| Query Cache Enhancements                                                  | Feature not implemented                                                   |
-| Improved NUMA support                                                     | Improved NUMA support                                                   |
-| Thread Pool                                                               | Thread Pool                                                               |
-| Suppress Warning Messages                                                 | Suppress Warning Messages                                                 |
-| Ability to change the database for mysqlbinlog                                | Ability to change the database for mysqlbinlog                                |
-| Fixed Size for the Read Ahead Area                                        | Fixed Size for the Read Ahead Area                                        |
-| Improved MEMORY Storage Engine                                            | Improved MEMORY Storage Engine                                            |
-| Restricting the number of binlog files                                    | Restricting the number of binlog files                                    |
-| Ignoring missing tables in mysqldump                                      | Ignoring missing tables in mysqldump                                      |
-| Too Many Connections Warning                                              | Too Many Connections Warning                                              |
-| Handle Corrupted Tables                                                   | Handle Corrupted Tables                                                   |
-| Lock-Free SHOW SLAVE STATUS                                               | Lock-Free SHOW REPLICA STATUS                                             |
-| Expanded Fast Index Creation                                              | Expanded Fast Index Creation                                              |
-| Percona Toolkit UDFs                                                      | Percona Toolkit UDFs                                                      |
-| Support for Fake Changes                                                  | Support for Fake Changes                                                  |
-| Kill Idle Transactions                                                    | Kill Idle Transactions                                                    |
-| XtraDB changed page tracking                                              | XtraDB changed page tracking                                              |
-| Enforcing Storage Engine                                                  | Replaced with upstream implementation                                     |
-| Utility user                                                              | Utility user                                                              |
-| Extending the secure-file-priv server option                              | Extending the secure-file-priv server option                              |
-| Expanded Program Option Modifiers                                         | Feature not implemented                                                   |
-| PAM Authentication Plugin                                                 | PAM Authentication Plugin                                                 |
-| Log Archiving for XtraDB                                                  | Log Archiving for XtraDB                                                  |
-| User Statistics                                                           | User Statistics                                                           |
-| Slow Query Log                                                            | Slow Query Log                                                            |
-| Count InnoDB Deadlocks                                                    | Count InnoDB Deadlocks                                                    |
-| Log All Client Commands (syslog)                                          | Log All Client Commands (syslog)                                          |
-| Response Time Distribution                                                | Feature not implemented                                                   |
-| Show Storage Engines                                                      | Show Storage Engines                                                      |
-| Show Lock Names                                                           | Show Lock Names                                                           |
-| Process List                                                              | Process List                                                              |
-| Misc. INFORMATION_SCHEMA Tables                                           | Misc. INFORMATION_SCHEMA Tables                                           |
-| Extended Show Engine InnoDB Status                                        | Extended Show Engine InnoDB Status                                        |
-| Thread Based Profiling                                                    | Thread Based Profiling                                                    |
-| XtraDB Performance Improvements for I/O-Bound Highly-Concurrent Workloads | XtraDB Performance Improvements for I/O-Bound Highly-Concurrent Workloads |
-| Page cleaner thread tuning                                                | Page cleaner thread tuning                                                |
-| Statement Timeout                                                         | Statement Timeout                                                         |
-| Extended SELECT INTO OUTFILE/DUMPFILE                                     | Extended SELECT INTO OUTFILE/DUMPFILE                                     |
-| Per-query variable statement                                              | Per-query variable statement                                              |
-| Extended mysqlbinlog                                                      | Extended mysqlbinlog                                                      |
-| Slow Query Log Rotation and Expiration                                    | Slow Query Log Rotation and Expiration                                    |
-| Metrics for scalability measurement                                       | Feature not implemented                                                   |
-| Audit Log                                                                 | Audit Log                                                                 |
-| Backup Locks                                                              | Backup Locks                                                              |
-| CSV engine mode for a standard-compliant quote and comma parsing            | CSV engine mode for a standard-compliant quote and comma parsing            |
-| Super read-only                                                           | Super read-only                                                           |
+The following table lists Percona features that differ between Percona Server for MySQL 8.4 and Percona Server for MySQL {{vers}}. Features with the same status in both versions are omitted. The {{vers}} column reflects the {{vers}} documentation set.
+
+For plugin transition steps, read [Upgrade from plugins to components](upgrade-components.md).
+
+| Feature | Percona Server for MySQL 8.4 | Percona Server for MySQL {{vers}} |
+|---|---|---|
+| [Audit Log Filter](audit-log-filter-overview.md) | `component_audit_log_filter`, `format=OLD` available | `component_audit_log_filter`, `format=OLD` removed, JSONL default output format |
+| [Audit log plugin](audit-log-plugin.md) | Deprecated plugin | Removed. Use `component_audit_log_filter` |
+| [Binary log user-defined functions](binlogging-replication-improvements.md) | `binlog_utils_udf` plugin | `component_binlog_utils_udf` |
+| [Data masking](data-masking-overview.md) | `data_masking` plugin and component | `component_masking_functions` |
+| [Keyring components](keyring-components-plugins-overview.md) | Keyring plugins and keyring components | Keyring components only, `keyring_file` plugin removed |
+| [Percona Toolkit UDFs](udf-percona-toolkit.md) | Plugin | `component_percona_udf` |
+| `SEQUENCE_TABLE()` function | Deprecated | Removed, replaced by [`PERCONA_SEQUENCE_TABLE(n)`](percona-sequence-table.md) |
+| [Thread pool](threadpool.md) | Percona Server for MySQL thread pool plugin | Percona Server for MySQL thread pool plugin in 9.7.1. MySQL thread pool plugin as of 9.7.2 |
 
 
-## Other reading
-
-* [What Is New in MySQL 5.7 :octicons-link-external-16:](https://dev.mysql.com/doc/refman/5.7/en/mysql-nutshell.html)
-
-* [What Is New in MySQL 8.0 :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.0/en/mysql-nutshell.html)
