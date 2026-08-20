@@ -180,3 +180,18 @@ innodb_lru_threads=ON
 | Data type:     | Boolean            |
 
 Add this variable to the configuration file.
+
+## Lazy buffer pool latch initialization
+
+### `innodb_buffer_pool_lazy_latch_init`
+
+| Option         | Description        |
+| -------------- | ------------------ |
+| Command-line:  | Yes                |
+| Config file:   | Yes                |
+| Scope:         | Global             |
+| Dynamic:       | No                 |
+| Data type:     | Boolean            |
+| Default:       | OFF                |
+
+Enables speeding up MySQL startup time by deferring some initialization cost (latches used by individual blocks belonging to the buffer pool are not initialized on startup, but later on the first use of each page). By default: OFF.
