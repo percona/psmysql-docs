@@ -10640,51 +10640,65 @@ near the maximum checkpoint age.</p>
 </tbody>
 </table>
 <p>Change the value at runtime:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">innodb_cleaner_lsn_age_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;legacy&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">innodb_cleaner_lsn_age_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'legacy'</span><span class="p">;</span>
 </code></pre></div>
 <p>Add a persistent setting in the option file:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">innodb_cleaner_lsn_age_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">high_checkpoint</span>
 </code></pre></div>
 <h2 id="multi-threaded-lru-flusher">Multi-threaded LRU flusher<a class="headerlink" href="#multi-threaded-lru-flusher" title="Permanent link">&para;</a></h2>
-<p>Percona Server for MySQL removed this feature in version 8.3.0-1.</p>
-<p>The following text describes the feature before removal.</p>
-<p>Percona Server for MySQL used multi-threaded LRU flushing. Each buffer pool
-instance had a dedicated LRU manager thread. That thread ran LRU flushes and
-evictions to refill the instance free list. The multi-threaded flusher handled
-flush list flushing only.</p>
-<p>The design had these limitations:</p>
-<ul>
-<li>
-<p>A delayed worker thread blocked other worker threads during coordinator
-  synchronization</p>
-</li>
-<li>
-<p>The coordinator thread omitted free list refill checks on loaded servers</p>
-</li>
-<li>
-<p>Serial flushing prevented buffer pool instances from using the required flush
-  mode</p>
-</li>
-</ul>
-<p>Percona Server for MySQL no longer reports these InnoDB metrics. The metrics do
-not match the LRU flushing design:</p>
-<ul>
-<li>
-<p><code>buffer_LRU_batch_flush_avg_time_slot</code></p>
-</li>
-<li>
-<p><code>buffer_LRU_batch_flush_avg_pass</code></p>
-</li>
-<li>
-<p><code>buffer_LRU_batch_flush_avg_time_thread</code></p>
-</li>
-<li>
-<p><code>buffer_LRU_batch_flush_avg_time_est</code></p>
-</li>
-</ul>
-<p>Percona Server for MySQL also removed InnoDB recovery writer threads and the
-related code.</p>
+<p>Percona Server for MySQL restores the InnoDB LRU threads from earlier releases.</p>
+<p>These threads flush pages by LRU.</p>
+<p>These threads also reclaim free pages and move the pages to the free list.</p>
+<p>Earlier releases always ran these threads.</p>
+<p>Earlier releases had no option to enable or disable the threads.</p>
+<p>The <code>innodb_lru_threads</code> variable enables or disables the threads.</p>
+<p>Disable the threads for low-concurrency setups.</p>
+<p>Enable the threads for high-concurrency setups.</p>
+<p>The default value is OFF.</p>
+<p>When <code>innodb_lru_threads</code> is ON, each buffer pool instance has a dedicated LRU
+manager thread.</p>
+<p>That thread flushes and evicts pages to refill the instance free list.</p>
+<p>When <code>innodb_lru_threads</code> is OFF, page cleaners flush pages by LRU.</p>
+<h3 id="innodb_lru_threads"><code>innodb_lru_threads</code><a class="headerlink" href="#innodb_lru_threads" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command-line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Config file:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Data type:</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>Default:</td>
+<td>OFF</td>
+</tr>
+</tbody>
+</table>
+<p>Add a persistent setting in the option file:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">innodb_lru_threads</span><span class="o">=</span><span class="s">ON</span>
+</code></pre></div>
 <h3 id="innodb_sched_priority_master"><code>innodb_sched_priority_master</code><a class="headerlink" href="#innodb_sched_priority_master" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -10739,7 +10753,7 @@ related code.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 17, 2026 14:50:10 UTC">July 17, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 20, 2026 13:36:37 UTC">August 20, 2026</span>
   </span>
 
     

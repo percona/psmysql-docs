@@ -10675,7 +10675,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <h2 id="install-the-oidc-plugin">Install the OIDC plugin<a class="headerlink" href="#install-the-oidc-plugin" title="Permanent link">&para;</a></h2>
 <p>Load the plugin during the current server session:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_openid_connect</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;auth_openid_connect.so&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_openid_connect</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_openid_connect.so'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10685,7 +10685,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Confirm the plugin loaded:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;auth_openid_connect&#39;</span><span class="p">;</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'auth_openid_connect'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10700,17 +10700,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>To load the plugin at server start instead, see <a href="openid-connect-authentication.html#install-the-plugin">Install the plugin</a>.</p>
 <h2 id="configure-trust-for-keycloak">Configure trust for Keycloak<a class="headerlink" href="#configure-trust-for-keycloak" title="Permanent link">&para;</a></h2>
 <p>Set the <code>auth_openid_connect_configuration</code> system variable to a JSON document that describes the Keycloak realm. The plugin fetches signing keys from the JWKS endpoint of the realm:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">auth_openid_connect_configuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;JSON://{</span>
-<span class="s1">  &quot;my-keycloak&quot;: {</span>
-<span class="s1">    &quot;issuer-name&quot;: &quot;https://keycloak.example.com/realms/master&quot;,</span>
-<span class="s1">    &quot;jwks-url&quot;: &quot;https://keycloak.example.com/realms/master/protocol/openid-connect/certs&quot;,</span>
-<span class="s1">    &quot;audiences&quot;: [&quot;mysql-oidc&quot;],</span>
-<span class="s1">    &quot;group-claim&quot;: &quot;groups&quot;,</span>
-<span class="s1">    &quot;group-role&quot;: [</span>
-<span class="s1">      { &quot;/accounting&quot;: &quot;accounting&quot; }</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">auth_openid_connect_configuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'JSON://{</span>
+<span class="s1">  "my-keycloak": {</span>
+<span class="s1">    "issuer-name": "https://keycloak.example.com/realms/master",</span>
+<span class="s1">    "jwks-url": "https://keycloak.example.com/realms/master/protocol/openid-connect/certs",</span>
+<span class="s1">    "audiences": ["mysql-oidc"],</span>
+<span class="s1">    "group-claim": "groups",</span>
+<span class="s1">    "group-role": [</span>
+<span class="s1">      { "/accounting": "accounting" }</span>
 <span class="s1">    ]</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">;</span>
+<span class="s1">}'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10742,9 +10742,9 @@ Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>Create the OIDC-authenticated user. Replace the <code>user</code> value with the <code>sub</code> claim that Keycloak issues for the account:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;alice&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span>
-<span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">&#39;auth_openid_connect&#39;</span>
-<span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;{&quot;identity_provider&quot;: &quot;my-keycloak&quot;, &quot;user&quot;: &quot;4c28d537-a635-4b6d-957f-58e3c8860bcc&quot;}&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'alice'</span><span class="o">@</span><span class="s1">'%'</span>
+<span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'auth_openid_connect'</span>
+<span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="s1">'{"identity_provider": "my-keycloak", "user": "4c28d537-a635-4b6d-957f-58e3c8860bcc"}'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10756,11 +10756,11 @@ Query OK, 0 rows affected (0.00 sec)
 <p>Run the following on the workstation. The script writes the ID token to <code>/run/user/1000/id_token.jwt</code>. Replace the placeholder password with the password for <code>alice</code>:</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>https://keycloak.example.com/realms/master/protocol/openid-connect/token<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;grant_type=password&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;client_id=mysql-oidc&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;scope=openid&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;username=alice&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;password=&lt;password&gt;&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'grant_type=password'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'client_id=mysql-oidc'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'scope=openid'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'username=alice'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'password=&lt;password&gt;'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.id_token<span class="w"> </span>&gt;<span class="w"> </span>/run/user/1000/id_token.jwt
 
 chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/run/user/1000/id_token.jwt
@@ -10813,7 +10813,7 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 <p><code>SET ROLE accounting</code> succeeds when the token contains <code>/accounting</code> in the <code>groups</code> claim. A user without the group sees <code>ERROR 3530 (HY000)</code>.</p>
 <h2 id="clean-up">Clean up<a class="headerlink" href="#clean-up" title="Permanent link">&para;</a></h2>
 <p>Remove the demo objects when you finish:</p>
-<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;alice&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'alice'</span><span class="o">@</span><span class="s1">'%'</span><span class="p">;</span>
 <span class="k">DROP</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">accounting</span><span class="p">;</span>
 <span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">oidc_demo</span><span class="p">;</span>
 </code></pre></div>

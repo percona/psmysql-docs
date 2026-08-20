@@ -10518,7 +10518,7 @@ The command <code>fixfiles -f relabel</code> is a directive used within the cont
 <p>It would be best to use <code>restorecon</code> when you restore the default SELinux context for files and directories, including those in a custom data directory. <code>restorecon</code> resets the SELinux context of specified files or directories to match the default context defined in the SELinux policy. It&rsquo;s typically used after file or directory modifications to ensure they have the correct SELinux context.</p>
 <h3 id="use-semanage">Use semanage<a class="headerlink" href="#use-semanage" title="Permanent link">&para;</a></h3>
 <p>The following command configures the SELinux context for a custom data directory in the server.</p>
-<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_db_t<span class="w"> </span><span class="s2">&quot;/path/to/custom/data(/.*)?&quot;</span>
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_db_t<span class="w"> </span><span class="s2">"/path/to/custom/data(/.*)?"</span>
 </code></pre></div>
 <p>Each part of the command is as follows:</p>
 <table>
@@ -10566,7 +10566,7 @@ The command <code>fixfiles -f relabel</code> is a directive used within the cont
 <h2 id="setting-custom-log-location">Setting Custom Log Location<a class="headerlink" href="#setting-custom-log-location" title="Permanent link">&para;</a></h2>
 <p>When setting a custom log location for the server, SELinux permissions may need adjustment to allow the server to write to the new directory.</p>
 <p>This command associates the <code>var_log_t</code> type with the custom log directory and contents.</p>
-<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>var_log_t<span class="w"> </span><span class="s2">&quot;/path/to/custom/logs(/.*)?&quot;</span>
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>var_log_t<span class="w"> </span><span class="s2">"/path/to/custom/logs(/.*)?"</span>
 </code></pre></div>
 <p>This command restores SELinux contexts recursively for the custom log directory, ensuring proper permissions for the server to write logs.</p>
 <div class="highlight"><pre><span></span><code>restorecon<span class="w"> </span>-Rv<span class="w"> </span>/path/to/custom/logs
@@ -10574,7 +10574,7 @@ The command <code>fixfiles -f relabel</code> is a directive used within the cont
 <h2 id="setting-secure_file_priv-directory">Setting secure_file_priv Directory<a class="headerlink" href="#setting-secure_file_priv-directory" title="Permanent link">&para;</a></h2>
 <p>When configuring the server&rsquo;s <code>secure_file_priv</code> directory, you must update the SELinux tags to allow the server to access this directory.</p>
 <p>This command associates the <code>mysqld_db_t</code> type with the <code>secure_file_priv</code> directory and its contents.</p>
-<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_db_t<span class="w"> </span><span class="s2">&quot;/path/to/secure_file_priv(/.*)?&quot;</span>
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_db_t<span class="w"> </span><span class="s2">"/path/to/secure_file_priv(/.*)?"</span>
 </code></pre></div>
 <p>This command restores SELinux contexts recursively for the <code>secure_file_priv</code> directory, ensuring proper permissions for the server file operations.</p>
 <div class="highlight"><pre><span></span><code>restorecon<span class="w"> </span>-Rv<span class="w"> </span>/path/to/secure_file_priv

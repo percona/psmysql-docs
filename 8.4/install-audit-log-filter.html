@@ -10526,7 +10526,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <h3 id="verify-the-audit-tables-exist">Verify the audit tables exist<a class="headerlink" href="#verify-the-audit-tables-exist" title="Permanent link">&para;</a></h3>
 <p>Confirm the audit tables exist:</p>
-<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;aud%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'aud%'</span><span class="p">;</span>
 </code></pre></div>
 <p>A clean install lists two rows for <code>audit_log_filter</code> and <code>audit_log_user</code>. Other tables matching <code>aud%</code> in the <code>mysql</code> schema can also appear in the output; the install is successful as long as both <code>audit_log_filter</code> and <code>audit_log_user</code> are present.</p>
 <details class="example">
@@ -10541,7 +10541,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </details>
 <h2 id="alternative-install-component-method">Alternative: INSTALL COMPONENT method<a class="headerlink" href="#alternative-install-component-method" title="Permanent link">&para;</a></h2>
 <p><code>INSTALL COMPONENT</code> loads the binary only—it does not create tables, so filter UDFs fail until you run the install script.</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSTALL</span><span class="w"> </span><span class="k">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_audit_log_filter&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSTALL</span><span class="w"> </span><span class="k">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_audit_log_filter'</span><span class="p">;</span>
 </code></pre></div>
 <p>The URN must include the <code>component_</code> prefix. <code>file://audit_log_filter</code> fails to load the component.</p>
 <h3 id="verify-the-component-is-registered">Verify the component is registered<a class="headerlink" href="#verify-the-component-is-registered" title="Permanent link">&para;</a></h3>
@@ -10561,12 +10561,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </details>
 <h3 id="detect-missing-tables">Detect missing tables<a class="headerlink" href="#detect-missing-tables" title="Permanent link">&para;</a></h3>
 <p>Exercise a filter UDF to confirm the audit tables exist. The call fails when the component loads without them:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_all&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{"filter": {"log": true}}'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output when tables are missing</summary>
 <div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------------------------------+
-| audit_log_filter_set_filter(&#39;log_all&#39;, &#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;) |
+| audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}') |
 +---------------------------------------------------------------------+
 | ERROR: Failed to check filtering rule name existence                |
 +---------------------------------------------------------------------+
@@ -10589,19 +10589,19 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="post-install-verification">Post-install verification<a class="headerlink" href="#post-install-verification" title="Permanent link">&para;</a></h2>
 <p>The following check applies to both install paths. Run it after the install script completes or after recovering from a missing-tables state.</p>
 <p>Define a catch-all filter and bind it to the default account pattern. Both calls are required. <code>audit_log_filter_set_filter()</code> stores the filter definition in <code>mysql.audit_log_filter</code>. <code>audit_log_filter_set_user()</code> assigns it to a login pattern in <code>mysql.audit_log_user</code>. A filter that is defined but unassigned never reaches a session.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_all&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;log_all&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{"filter": {"log": true}}'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'%'</span><span class="p">,</span><span class="w"> </span><span class="s1">'log_all'</span><span class="p">);</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_flush</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------------------------------+
-| audit_log_filter_set_filter(&#39;log_all&#39;, &#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;) |
+| audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}') |
 +---------------------------------------------------------------------+
 | OK                                                                  |
 +---------------------------------------------------------------------+
 +-------------------------------------+
-| audit_log_filter_set_user(&#39;%&#39;, &#39;log_all&#39;) |
+| audit_log_filter_set_user('%', 'log_all') |
 +-------------------------------------+
 | OK                                  |
 +-------------------------------------+

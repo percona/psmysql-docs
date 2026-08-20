@@ -10468,16 +10468,16 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <h3 id="start-at-a-timestamp">Start at a timestamp<a class="headerlink" href="#start-at-a-timestamp" title="Permanent link">&para;</a></h3>
 <p>Start a read at an explicit timestamp. When the timestamp omits a time part, the component assumes <code>00:00:00</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;start&quot;: {&quot;timestamp&quot;: &quot;2026-05-20 12:28:10&quot;}}&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;start&quot;: {&quot;timestamp&quot;: &quot;2026-05-20&quot;}}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"start": {"timestamp": "2026-05-20 12:28:10"}}'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"start": {"timestamp": "2026-05-20"}}'</span><span class="p">);</span>
 </code></pre></div>
 <h3 id="address-one-specific-event">Address one specific event<a class="headerlink" href="#address-one-specific-event" title="Permanent link">&para;</a></h3>
 <p>Pass a bookmark literal with <code>timestamp</code> and <code>id</code> and no <code>start</code> envelope:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;timestamp&quot;: &quot;2026-05-20 12:28:10&quot;, &quot;id&quot;: 1561422}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"timestamp": "2026-05-20 12:28:10", "id": 1561422}'</span><span class="p">);</span>
 </code></pre></div>
 <h3 id="limit-the-events-per-call">Limit the events per call<a class="headerlink" href="#limit-the-events-per-call" title="Permanent link">&para;</a></h3>
 <p>Cap how many events a single call returns by adding <code>max_array_length</code> to any positioning form:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;start&quot;: {&quot;timestamp&quot;: &quot;2026-05-20 12:28:10&quot;}, &quot;max_array_length&quot;: 3}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"start": {"timestamp": "2026-05-20 12:28:10"}, "max_array_length": 3}'</span><span class="p">);</span>
 </code></pre></div>
 <h3 id="continue-from-the-current-cursor">Continue from the current cursor<a class="headerlink" href="#continue-from-the-current-cursor" title="Permanent link">&para;</a></h3>
 <p>After a read sequence is open, continue advancing without supplying a new position:</p>
@@ -10485,7 +10485,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <h3 id="close-the-active-sequence">Close the active sequence<a class="headerlink" href="#close-the-active-sequence" title="Permanent link">&para;</a></h3>
 <p>Release the reader cursor before opening a new sequence at a different position:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;null&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'null'</span><span class="p">);</span>
 </code></pre></div>
 <p>A read sequence also ends when the session ends. A single call cannot combine the <code>start</code> envelope with a top-level <code>timestamp</code> or <code>id</code>. To reposition while a sequence is active, close it first with <code>'null'</code>.</p>
 <h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>

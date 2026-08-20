@@ -10953,7 +10953,7 @@ selinuxuser_mysql_connect_enabled
 SELINUX=enforcing
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/^SELINUX=.*/SELINUX=permissive/g&#39;</span><span class="w"> </span>/etc/selinux/config
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s/^SELINUX=.*/SELINUX=permissive/g'</span><span class="w"> </span>/etc/selinux/config
 
 cat<span class="w"> </span>/etc/selinux/config<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>^#
 </code></pre></div>
@@ -11062,7 +11062,7 @@ socket=/var/lib/mysqlcustom/mysql.sock
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Redirecting to /bin/systemctl restart mysqld.service
 Job for mysqld.service failed because the control process exited with error code.
-See &quot;systemctl status mysqld.service&quot; and &quot;journalctl -xe&quot; for details.
+See "systemctl status mysqld.service" and "journalctl -xe" for details.
 </code></pre></div>
 </details>
 <p>Check the journal log to see the error code.</p>
@@ -11137,7 +11137,7 @@ SELinux is preventing mysqld from getattr access to the file /var/lib/mysqlcusto
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Redirecting to /bin/systemctl start mysql.service
 Job for mysqld.service failed because the control process exited with error code.
-See &quot;systemctl status mysqld.service&quot; and &quot;journalctl -xe&quot; for details.
+See "systemctl status mysqld.service" and "journalctl -xe" for details.
 </code></pre></div>
 </details>
 <p>To view the error details, run:</p>
@@ -11166,7 +11166,7 @@ restorecon<span class="w"> </span>-v<span class="w"> </span>/logs
 <ol>
 <li>
 <p>Create a local policy:</p>
-<div class="highlight"><pre><span></span><code>ausearch<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;mysqld&#39;</span><span class="w"> </span>--raw<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>my-mysqld
+<div class="highlight"><pre><span></span><code>ausearch<span class="w"> </span>-c<span class="w"> </span><span class="s1">'mysqld'</span><span class="w"> </span>--raw<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>my-mysqld
 </code></pre></div>
 </li>
 <li>
@@ -11190,7 +11190,7 @@ allow mysqld_t var_lib_t:file getattr;
 </li>
 <li>
 <p>SELinux-generated events are converted to rules. A generated policy may contain rules for recent violations and include unrelated rules. Unrelated rules are generated from actions, such as changing the data directory location, that are not related to the logs directory. Add the <code>--start</code> parameter to use log events after a specific time to filter out the unwanted events. This parameter captures events when the time stamp is equal to the specified time or later. SELinux generates a policy for the current actions.</p>
-<div class="highlight"><pre><span></span><code>ausearch<span class="w"> </span>--start<span class="w"> </span><span class="m">10</span>:00:00<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;mysqld&#39;</span><span class="w"> </span>--raw<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>my-mysqld
+<div class="highlight"><pre><span></span><code>ausearch<span class="w"> </span>--start<span class="w"> </span><span class="m">10</span>:00:00<span class="w"> </span>-c<span class="w"> </span><span class="s1">'mysqld'</span><span class="w"> </span>--raw<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>my-mysqld
 </code></pre></div>
 </li>
 <li>
@@ -11261,7 +11261,7 @@ permissive_mysqld_t
 </li>
 <li>
 <p>Generate a local mysqld policy, using the time returned from step 4:</p>
-<div class="highlight"><pre><span></span><code>ausearch<span class="w"> </span>--start<span class="w"> </span>&lt;date-c<span class="w"> </span><span class="s1">&#39;mysqld&#39;</span><span class="w"> </span>--raw<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>my-mysqld
+<div class="highlight"><pre><span></span><code>ausearch<span class="w"> </span>--start<span class="w"> </span>&lt;date-c<span class="w"> </span><span class="s1">'mysqld'</span><span class="w"> </span>--raw<span class="w"> </span><span class="p">|</span><span class="w"> </span>audit2allow<span class="w"> </span>-M<span class="w"> </span>my-mysqld
 </code></pre></div>
 </li>
 <li>
@@ -11308,7 +11308,7 @@ allow mysqld_t default_t:file { append create open };
 <h2 id="set-secure_file_priv-directory">Set <code>secure_file_priv</code> directory<a class="headerlink" href="#set-secure_file_priv-directory" title="Permanent link">&para;</a></h2>
 <p>Update the SELinux tags for the <code>/var/lib/mysql-files/</code> directory, used for <code>SELECT ... INTO OUTFILE</code> or similar operations, if required. The server needs only read/write access to the destination directory.</p>
 <p>To set <code>secure_file_priv</code> to use this directory, run the following commands to set the context:</p>
-<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_db_t<span class="w"> </span><span class="s2">&quot;/var/lib/mysql-files/(/.*)?&quot;</span>
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_db_t<span class="w"> </span><span class="s2">"/var/lib/mysql-files/(/.*)?"</span>
 restorecon<span class="w"> </span>-Rv<span class="w"> </span>/var/lib/mysql-files
 </code></pre></div>
 <p>Edit the path for a different location, if needed.</p>

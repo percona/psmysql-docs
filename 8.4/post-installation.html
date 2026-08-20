@@ -10544,7 +10544,7 @@ Four sections define the permissions; file or directory, User, Group, and Others
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Enter password:
-mysql Ver 8.4.10-10 for debian-linux-gnu on x86_64 (Percona Server (GPL), Release &#39;10&#39;, Revision &#39;f446c04&#39;)
+mysql Ver 8.4.10-10 for debian-linux-gnu on x86_64 (Percona Server (GPL), Release '10', Revision 'f446c04')
 ...
 Server version      8.4.10-10
 Protocol version    10
@@ -10612,25 +10612,25 @@ Run the following command to prevent a service from starting at boot time:</p>
 <p>During an installation on Debian/Ubuntu, you are prompted to enter a root password. On Red Hat Enterprise Linux and derivatives, you update the root password after installation.</p>
 <p>Restart the server with the <code>--skip-grant-tables</code> option to allow access without a password. This option is insecure. This option also disables remote connections.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
-sudo<span class="w"> </span>systemctl<span class="w"> </span>set-environment<span class="w"> </span><span class="nv">MYSQLD_OPTS</span><span class="o">=</span><span class="s2">&quot;--skip-grant-tables&quot;</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>set-environment<span class="w"> </span><span class="nv">MYSQLD_OPTS</span><span class="o">=</span><span class="s2">"--skip-grant-tables"</span>
 sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld<span class="w"> </span>
 mysql
 </code></pre></div>
 <p>Reload the grant tables to be able to run the <code>ALTER USER</code> statement. Enter a password that satisfies the current policy.</p>
 <div class="highlight"><pre><span></span><code><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
-<span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;rootPassword_12&#39;</span><span class="p">;</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'root'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'rootPassword_12'</span><span class="p">;</span>
 <span class="n">exit</span>
 </code></pre></div>
 <p>If the command fails, with <code>ERROR 1524 (HY000): Plugin [plugin name] is not loaded.</code>, then check if the plugin is available.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span>
 <span class="w">       </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span>
-<span class="w">       </span><span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;validate%&#39;</span><span class="p">;</span>
+<span class="w">       </span><span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'validate%'</span><span class="p">;</span>
 </code></pre></div>
 <p>If the result is empty or shows <code>DISABLED</code>, the plugin is not available. Switch the MySQL user to use the default authentication plugin, <code>caching_sha2_password</code> or <code>mysql_native_password</code> for your installation.</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;rootPassword_12&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'root'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'rootPassword_12'</span><span class="p">;</span>
 </code></pre></div>
 <p>If, when adding the password, MySQL returns <code>ERROR 1819 (HY000) Your password does not satisfy the current policy</code>, run the following command to see policy requirement.</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;validate_password%&#39;</span><span class="p">;</span>
+<p><div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'validate_password%'</span><span class="p">;</span>
 </code></pre></div>
 Redo your password to satisfy the requirements.</p>
 <p>Stop the server, remove the <code>--skip-grant-tables</code> option, start the server, and log into the server with the updated password.</p>

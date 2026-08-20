@@ -10551,7 +10551,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code>+---------------------------------------------+
 | audit_log_encryption_password_get()         |
 +---------------------------------------------+
-| {&quot;password&quot;:&quot;passw0rd&quot;,&quot;iterations&quot;:5689}   |
+| {"password":"passw0rd","iterations":5689}   |
 +---------------------------------------------+
 </code></pre></div>
 </details>
@@ -10562,12 +10562,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h4 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">&para;</a></h4>
 <p><code>OK</code> on success; an error string on failure.</p>
 <h4 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_encryption_password_set</span><span class="p">(</span><span class="s1">&#39;passw0rd&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_encryption_password_set</span><span class="p">(</span><span class="s1">'passw0rd'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------------------+
-| audit_log_encryption_password_set(&#39;passw0rd&#39;)       |
+| audit_log_encryption_password_set('passw0rd')       |
 +-----------------------------------------------------+
 | OK                                                  |
 +-----------------------------------------------------+
@@ -10627,24 +10627,24 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------------------------------------+
 | audit_log_read(audit_log_read_bookmark())                                   |
 +------------------------------------------------------------------------------+
-| [{&quot;timestamp&quot;: &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10, &quot;class&quot;: &quot;connection&quot;}]        |
+| [{"timestamp": "2023-06-02 09:43:25", "id": 10, "class": "connection"}]        |
 +------------------------------------------------------------------------------+
 </code></pre></div>
 </details>
 <p>Start a new read sequence at an explicit timestamp:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;start&quot;: {&quot;timestamp&quot;: &quot;2026-05-20 12:28:10&quot;}}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"start": {"timestamp": "2026-05-20 12:28:10"}}'</span><span class="p">);</span>
 </code></pre></div>
 <p>Start a new read sequence at the beginning of a date. The component assumes a <code>00:00:00</code> time part when the timestamp omits one:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;start&quot;: {&quot;timestamp&quot;: &quot;2026-05-20&quot;}}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"start": {"timestamp": "2026-05-20"}}'</span><span class="p">);</span>
 </code></pre></div>
 <p>Cap the number of events returned in one call by combining <code>start</code> with <code>max_array_length</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;start&quot;: {&quot;timestamp&quot;: &quot;2026-05-20 12:28:10&quot;}, &quot;max_array_length&quot;: 3}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"start": {"timestamp": "2026-05-20 12:28:10"}, "max_array_length": 3}'</span><span class="p">);</span>
 </code></pre></div>
 <p>Address a single specific event by passing a bookmark literal with <code>timestamp</code> and <code>id</code> and no <code>start</code> envelope:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;timestamp&quot;: &quot;2026-05-20 12:28:10&quot;, &quot;id&quot;: 1561422}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"timestamp": "2026-05-20 12:28:10", "id": 1561422}'</span><span class="p">);</span>
 </code></pre></div>
 <p>Close the active read sequence so that the next call can open a new one at a different position:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;null&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'null'</span><span class="p">);</span>
 </code></pre></div>
 <h3 id="audit_log_read_bookmark">audit_log_read_bookmark()<a class="headerlink" href="#audit_log_read_bookmark" title="Permanent link">&para;</a></h3>
 <p>Returns a JSON bookmark for the latest event (JSON / JSONL only—other formats error).</p>
@@ -10663,7 +10663,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="no-copy highlight"><pre><span></span><code>+----------------------------------------------------+
 | audit_log_read_bookmark()                          |
 +----------------------------------------------------+
-| {&quot;timestamp&quot;: &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10}     |
+| {"timestamp": "2023-06-02 09:43:25", "id": 10}     |
 +----------------------------------------------------+
 </code></pre></div>
 </details>
@@ -10679,12 +10679,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
 <p>If the filter name does not exist, no error is generated. </p>
 <h4 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_filter</span><span class="p">(</span><span class="s1">&#39;filter-name&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_filter</span><span class="p">(</span><span class="s1">'filter-name'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------+
-| audit_log_filter_remove_filter(&#39;filter-name&#39;)  |
+| audit_log_filter_remove_filter('filter-name')  |
 +------------------------------------------------+
 | OK                                             |
 +------------------------------------------------+
@@ -10701,12 +10701,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
 <p>If the user_name has no filter assigned, no error is generated. </p>
 <h4 id="example_5">Example<a class="headerlink" href="#example_5" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_user</span><span class="p">(</span><span class="s1">&#39;user-name@localhost&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_user</span><span class="p">(</span><span class="s1">'user-name@localhost'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------------+
-| audit_log_filter_remove_user(&#39;user-name@localhost&#39;)  |
+| audit_log_filter_remove_user('user-name@localhost')  |
 +------------------------------------------------------+
 | OK                                                   |
 +------------------------------------------------------+
@@ -10726,7 +10726,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="audit_log_filter_set_filterfilter_name-definition">audit_log_filter_set_filter(filter_name, definition)<a class="headerlink" href="#audit_log_filter_set_filterfilter_name-definition" title="Permanent link">&para;</a></h3>
 <p>Writes JSON for <code>filter_name</code> to <code>mysql.audit_log_filter</code> (create or update). Each stored revision gets a new filter ID.</p>
 <p>From Percona Server for MySQL 8.4.9-9, validation runs at parse time—bad fields, unknown classes/subclasses, empty arrays, stray JSON keys, or broken <code>print</code> rules abort the call with a detailed error, for example:</p>
-<div class="highlight"><pre><span></span><code>ERROR: Incorrect rule definition: Unknown field name &quot;WRONG.str&quot; for class &quot;general&quot;
+<div class="highlight"><pre><span></span><code>ERROR: Incorrect rule definition: Unknown field name "WRONG.str" for class "general"
 </code></pre></div>
 <p>Before 8.4.9-9, the parser silently ignored unknown keys. Misspelling a structural key (for example <code>classes</code> instead of <code>class</code>) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.9-9 or later to catch these mistakes. For details, see <a href="filter-audit-log-filter-files.html#filter-definition-validation">Filter definition validation</a>.</p>
 <p>In REDUCED event mode, a filter definition that references disabled event classes or subclasses fails the same way (error returned, filter not stored).</p>
@@ -10746,13 +10746,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h4 id="returns_8">Returns<a class="headerlink" href="#returns_8" title="Permanent link">&para;</a></h4>
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
 <h4 id="example_7">Example<a class="headerlink" href="#example_7" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{ &quot;filter&quot;: { &quot;log&quot;: true } }&#39;</span><span class="p">;</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;filter-name&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">filter</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'{ "filter": { "log": true } }'</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'filter-name'</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">filter</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------+
-| audit_log_filter_set_filter(&#39;filter-name&#39;, @filter)  |
+| audit_log_filter_set_filter('filter-name', @filter)  |
 +-------------------------------------------------------------+
 | OK                                                          |
 +-------------------------------------------------------------+
@@ -10779,12 +10779,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h4 id="returns_9">Returns<a class="headerlink" href="#returns_9" title="Permanent link">&para;</a></h4>
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
 <h4 id="example_8">Example<a class="headerlink" href="#example_8" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;user-name@localhost&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;filter-name&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'user-name@localhost'</span><span class="p">,</span><span class="w"> </span><span class="s1">'filter-name'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------------+
-| audit_log_filter_set_user(&#39;user-name@localhost&#39;, &#39;filter-name&#39;)  |
+| audit_log_filter_set_user('user-name@localhost', 'filter-name')  |
 +-------------------------------------------------------------------+
 | OK                                                                |
 +-------------------------------------------------------------------+
@@ -11244,7 +11244,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="na">audit-log-filter.event-mode</span><span class="o">=</span><span class="s">FULL</span>
 </code></pre></div>
 <p>The runtime form is shown for reference only. See the <a href="#runtime-mode-switch">runtime mode switch</a> caveats before using it:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">event_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;FULL&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">event_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'FULL'</span><span class="p">;</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="k">GLOBAL</span><span class="p">.</span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">event_mode</span><span class="p">;</span>
 </code></pre></div>
 <p>In REDUCED mode, if you call <code>audit_log_filter_set_filter()</code> with a new filter definition that references disabled event classes or subclasses, the call fails: the server returns a descriptive error and does not store the filter. However, persisted filters created under FULL mode that reference disabled classes will still load after a restart or <code>audit_log_filter_flush()</code> — the disabled classes are silently skipped with a warning.</p>
@@ -12000,7 +12000,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>To read the current value in SQL as a single row:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">variable_value</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">global_status</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;audit_log_filter_events_written&#39;</span><span class="p">;</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'audit_log_filter_events_written'</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>

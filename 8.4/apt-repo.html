@@ -10643,8 +10643,8 @@ sudo<span class="w"> </span>apt<span class="w"> </span>update
 </li>
 <li>
 <p>Preseed answers with <code>debconf-set-selections</code> before <code>apt install</code>. For the templates shipped with many Percona Server for MySQL 8.4 packages, password prompts use the <code>percona-server-server/root-pass</code> and <code>percona-server-server/re-root-pass</code> names—for example:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;percona-server-server percona-server-server/root-pass password choose-a-strong-secret&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>debconf-set-selections
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;percona-server-server percona-server-server/re-root-pass password choose-a-strong-secret&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>debconf-set-selections
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"percona-server-server percona-server-server/root-pass password choose-a-strong-secret"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>debconf-set-selections
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"percona-server-server percona-server-server/re-root-pass password choose-a-strong-secret"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>debconf-set-selections
 </code></pre></div>
 <p>Other prompts (for example <code>percona-server-server/lowercase-table-names</code> or <code>percona-server-server/remove-data-dir</code>) appear only in some upgrade or edge-case paths—use <code>debconf-show</code> output to add matching lines. Do not commit real passwords to version control or broad shell history.</p>
 </li>
@@ -10694,7 +10694,7 @@ sudo<span class="w"> </span>apt<span class="w"> </span>update
 </ul>
 <p>User-Defined Functions (UDFs) are custom functions you can add to MySQL to extend MySQL capabilities. The Percona Toolkit UDFs are useful for data integrity checks and performance monitoring.</p>
 <p>To install the Percona Toolkit UDFs after installation:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_percona_udf&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>

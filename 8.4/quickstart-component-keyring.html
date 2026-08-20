@@ -10635,7 +10635,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>
 <p>Add the following JSON (check spelling and quotes):</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file://component_keyring_file&quot;</span>
+<span class="w">  </span><span class="nt">"components"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file://component_keyring_file"</span>
 <span class="p">}</span>
 </code></pre></div>
 </li>
@@ -10679,8 +10679,8 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">750</sp
 <li>
 <p>Add (adjust <code>path</code> if you used a different keyring directory):</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/lib/mysql-keyring/component_keyring_file&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;read_only&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/var/lib/mysql-keyring/component_keyring_file"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"read_only"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Use <code>"read_only": true</code> if you want to prevent runtime changes to the keyring. You can validate the component config file with <code>jq . component_keyring_file.cnf</code> before restarting.</p>
@@ -10724,17 +10724,17 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">myapp</span><span class="p">.</span><span class="n">sensitive_data</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
 <span class="w">  </span><span class="n">payload</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
-<span class="p">)</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<span class="p">)</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <p>Encrypt an existing table:</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">myapp</span><span class="p">.</span><span class="n">existing_table</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">myapp</span><span class="p">.</span><span class="n">existing_table</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <p>Set default encryption for a schema so new tables are encrypted by default:</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">myapp</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">myapp</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="system-tablespace">System tablespace<a class="headerlink" href="#system-tablespace" title="Permanent link">&para;</a></h3>
 <p>Encrypt the system tablespace (data dictionary, <code>mysql</code> system tablespace):</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <p>Requires the <code>CREATE TABLESPACE</code> privilege on the MySQL user you use (having OS sudo does not grant MySQL privileges).</p>
 <p>Encrypting the system tablespace can be a long-running, high-I/O operation. On a large instance it may take minutes or hours and can increase load or cause blocking. Do not assume it is safe to run on a heavily loaded production system without a maintenance window. Plan for a maintenance window and expect significant I/O. See <a href="encrypt-system-tablespace.html">Encrypt system tablespace</a>.</p>
@@ -10753,7 +10753,7 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 <p>Tables: List tables that have the encryption option set. Such tables show <code>ENCRYPTION="Y"</code> in <code>CREATE_OPTIONS</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLES</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%ENCRYPTION%&#39;</span><span class="p">;</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%ENCRYPTION%'</span><span class="p">;</span>
 </code></pre></div>
 <p>Tablespaces: Check whether a tablespace has the encryption flag set in <code>INNODB_TABLESPACES</code>. Bit 13 (value 8192) is set when the tablespace is marked encrypted:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">8192</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">encrypted</span>
@@ -10762,11 +10762,11 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 <p>Schemas: List schemas that have default encryption (new tables in schemas with default encryption are encrypted by default):</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">SCHEMA_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">DEFAULT_ENCRYPTION</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">SCHEMATA</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">DEFAULT_ENCRYPTION</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;YES&#39;</span><span class="p">;</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">DEFAULT_ENCRYPTION</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'YES'</span><span class="p">;</span>
 </code></pre></div>
 <p>Redo and undo logs: Confirm whether redo and undo log encryption is enabled:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;innodb_redo_log_encrypt&#39;</span><span class="p">;</span>
-<span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;innodb_undo_log_encrypt&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'innodb_redo_log_encrypt'</span><span class="p">;</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'innodb_undo_log_encrypt'</span><span class="p">;</span>
 </code></pre></div>
 <p>For more (binary logs, doublewrite, temporary files, and INNODB_TABLESPACES_ENCRYPTION), see <a href="verify-encryption.html">Verify encryption</a>.</p>
 <h2 id="clean-up">Clean up<a class="headerlink" href="#clean-up" title="Permanent link">&para;</a></h2>
@@ -10777,10 +10777,10 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 <span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">innodb_undo_log_encrypt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
 </code></pre></div>
 <p>Revert system tablespace encryption (only if you ran <code>ALTER TABLESPACE mysql ENCRYPTION='Y'</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'N'</span><span class="p">;</span>
 </code></pre></div>
 <p>Remove the example schema default and tables. If you created the <code>myapp</code> schema or the example tables used in this guide:</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">myapp</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">myapp</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'N'</span><span class="p">;</span>
 <span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">myapp</span><span class="p">.</span><span class="n">sensitive_data</span><span class="p">;</span>
 </code></pre></div>
 <p>If you encrypted a different existing table, revert it with <code>ALTER TABLE schema_name.table_name ENCRYPTION='N';</code>.</p>

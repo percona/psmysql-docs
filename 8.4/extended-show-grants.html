@@ -10414,18 +10414,18 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>Other privileges might be available to the account but are not displayed. For example:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Create named and anonymous users</span>
-<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;user1&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
-<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'user1'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">''</span><span class="o">@</span><span class="s1">'localhost'</span><span class="p">;</span>
 
 <span class="c1">-- Grant privilege to anonymous user</span>
-<span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">''</span><span class="o">@</span><span class="s1">'localhost'</span><span class="p">;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="c1">-- Check user1&#39;s grants</span>
-<span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="s1">&#39;user1&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Check user1's grants</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="s1">'user1'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>GRANT USAGE ON *.* TO &#39;user1&#39;@&#39;localhost&#39;
+<div class="no-copy highlight"><pre><span></span><code>GRANT USAGE ON *.* TO 'user1'@'localhost'
 </code></pre></div>
 </details>
 <p>Even though &lsquo;user1&rsquo;@&rsquo;localhost&rsquo; can use <code>SELECT on db.*</code>, this privilege does not appear in <code>SHOW GRANTS</code>.</p>
@@ -10450,14 +10450,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <p>If we create the following users:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">grantee</span><span class="o">@</span><span class="n">localhost</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;grantee1&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">grantee</span><span class="o">@</span><span class="n">localhost</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'grantee1'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.50 sec)
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">grantee</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;grantee2&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">grantee</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'grantee2'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10488,7 +10488,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="no-copy highlight"><pre><span></span><code>+----------------------------------------------------------------------------------------------------------------+
 | Grants for grantee@localhost                                                                                   |
 +----------------------------------------------------------------------------------------------------------------+
-| GRANT USAGE ON *.* TO &#39;grantee&#39;@&#39;localhost&#39; IDENTIFIED BY PASSWORD &#39;*9823FF338D44DAF02422CF24DD1F879FB4F6B232&#39; |
+| GRANT USAGE ON *.* TO 'grantee'@'localhost' IDENTIFIED BY PASSWORD '*9823FF338D44DAF02422CF24DD1F879FB4F6B232' |
 +----------------------------------------------------------------------------------------------------------------+
 1 row in set (0.04 sec)
 </code></pre></div>
@@ -10514,9 +10514,9 @@ the privileges for the <code>grantee</code> user:</li>
 <div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------------+
 | Grants for grantee@localhost                                      |
 +-------------------------------------------------------------------+
-| GRANT USAGE ON *.* TO &#39;grantee&#39;@&#39;localhost&#39; IDENTIFIED BY PASSWORD|
-| &#39;*9823FF338D44DAF02422CF24DD1F879FB4F6B232&#39;                       |
-| GRANT ALL PRIVILEGES ON `db2`.* TO &#39;grantee&#39;@&#39;%&#39; WITH GRANT OPTION|
+| GRANT USAGE ON *.* TO 'grantee'@'localhost' IDENTIFIED BY PASSWORD|
+| '*9823FF338D44DAF02422CF24DD1F879FB4F6B232'                       |
+| GRANT ALL PRIVILEGES ON `db2`.* TO 'grantee'@'%' WITH GRANT OPTION|
 +-------------------------------------------------------------------+
 2 rows in set (0.00 sec)
 </code></pre></div>

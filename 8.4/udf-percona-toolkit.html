@@ -10668,7 +10668,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Benchmark with your own data and workload when you choose; performance depends on key length, data patterns, and hardware.</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>The UDFs are shipped as a MySQL component (not as separate plugin files). After you install the Percona Server package, load the component. Full repository and package steps are in <a href="apt-repo.html#install-percona-toolkit-udfs-optional">Install Percona Toolkit UDFs (Optional)</a>. Then run:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_percona_udf&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10677,13 +10677,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </details>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>Hash a single value (for example, for a lookup key or checksum):</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">fnv_64</span><span class="p">(</span><span class="s1">&#39;test_string&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">fnv_64</span><span class="p">(</span><span class="s1">'test_string'</span><span class="p">);</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">murmur_hash</span><span class="p">(</span><span class="mi">12345</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+----------------------+
-| fnv_64(&#39;test_string&#39;) |
+| fnv_64('test_string') |
 +----------------------+
 |   13528473474361592478 |
 +----------------------+
@@ -10738,7 +10738,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="maintenance">Maintenance<a class="headerlink" href="#maintenance" title="Permanent link">&para;</a></h2>
 <h3 id="verify-the-component-is-loaded">Verify the component is loaded<a class="headerlink" href="#verify-the-component-is-loaded" title="Permanent link">&para;</a></h3>
 <p>Check that the component is registered:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;file://component_percona_udf&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10750,12 +10750,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>A single row means the component is installed and will load on restart. You can also confirm the functions exist by invoking one:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">fnv_64</span><span class="p">(</span><span class="s1">&#39;check&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">fnv_64</span><span class="p">(</span><span class="s1">'check'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+----------------+
-| fnv_64(&#39;check&#39;) |
+| fnv_64('check') |
 +----------------+
 | 123456789012345 |
 +----------------+
@@ -10764,7 +10764,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>If the component is not loaded, you get an error such as “Unknown function &lsquo;fnv_64&rsquo;”.</p>
 <h3 id="uninstall-the-component">Uninstall the component<a class="headerlink" href="#uninstall-the-component" title="Permanent link">&para;</a></h3>
 <p>To remove the UDFs, uninstall the component. Any views, stored procedures, or triggers that call these functions will become invalid after uninstall.</p>
-<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_percona_udf&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
