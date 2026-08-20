@@ -532,6 +532,8 @@
       
         
       
+        
+      
     
     
     
@@ -587,6 +589,34 @@
     
   
     Release notes index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/8.4.11-11.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona Server for MySQL 8.4.11-11 (2026-08-20)
   
 
     
@@ -10407,18 +10437,18 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>You can download the binary tarballs from the <code>Linux - Generic</code> <a href="https://www.percona.com/downloads/Percona-Server-8.4/LATEST/binary/tarball/">section <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> on the download page.</p>
 <p>Fetch and extract the correct binary tarball. For example, for Ubuntu 22.04:</p>
 <p>Download the tarball:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-8.4.10-10/binary/tarball/Percona-Server-8.4.10-10-Linux.x86_64.glibc2.35.tar.gz
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-8.4.11-11/binary/tarball/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>--2024-01-15 10:00:00--  https://downloads.percona.com/...
-Saving to: 'Percona-Server-8.4.10-10-Linux.x86_64.glibc2.35.tar.gz'
-Percona-Server-8.4.10-10-Linux.x86_64.glibc2.35.tar.gz   100%[=================&gt;]  xxx MB  xx.x MB/s    in xx s
-2024-01-15 10:00:xx (xx.x MB/s) - 'Percona-Server-8.4.10-10-Linux.x86_64.glibc2.35.tar.gz' saved [xxxxxx/xxxxxx]
+Saving to: 'Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz'
+Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz   100%[=================&gt;]  xxx MB  xx.x MB/s    in xx s
+2024-01-15 10:00:xx (xx.x MB/s) - 'Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz' saved [xxxxxx/xxxxxx]
 </code></pre></div>
 </details>
 <p>Extract the tarball:</p>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-xzf<span class="w"> </span>Percona-Server-8.4.10-10-Linux.x86_64.glibc2.35.tar.gz
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-xzf<span class="w"> </span>Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10426,7 +10456,7 @@ Percona-Server-8.4.10-10-Linux.x86_64.glibc2.35.tar.gz   100%[=================&
 </code></pre></div>
 </details>
 <p>Change into the extracted directory:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>Percona-Server-8.4.10-10-Linux.x86_64.glibc2.35
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10444,7 +10474,7 @@ Percona-Server-8.4.10-10-Linux.x86_64.glibc2.35.tar.gz   100%[=================&
 </li>
 </ol>
 <p>The server executable is <code>bin/mysqld</code> inside the extracted directory. Do not run it for normal operation until the data directory has been initialized.</p>
-<p>For step-by-step instructions (including creating a data directory, initializing it, starting the server, and optional boot-time setup), see <a href="post-installation.html">Post-installation</a>. If you did not install under <code>/usr/local/mysql</code>, use your extraction directory instead (for example, <code>cd /path/to/Percona-Server-8.4.10-10-Linux.x86_64.glibc2.35</code> then <code>bin/mysqld --initialize</code>).</p>
+<p>For step-by-step instructions (including creating a data directory, initializing it, starting the server, and optional boot-time setup), see <a href="post-installation.html">Post-installation</a>. If you did not install under <code>/usr/local/mysql</code>, use your extraction directory instead (for example, <code>cd /path/to/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35</code> then <code>bin/mysqld --initialize</code>).</p>
 
 
 
