@@ -10362,20 +10362,20 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 <li>
 <p>Create an admin user. Use a strong password and a specific <em>host</em> (the machine or network location the user can connect from; for example, <code>localhost</code> means the same machine only) instead of <code>%</code> (which means any host):</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;YourStrongPassword_12&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'admin'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'YourStrongPassword_12'</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li>
 <p>Grant only the privileges the admin needs. <em>Grant</em> means to assign a permission to a user. The following is a common set for an admin who manages users, replication, and backups but does not need full <code>SUPER</code> (a powerful built-in privilege) or global privileges on all databases (<code>*.*</code>):</p>
 <div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="p">,</span><span class="w"> </span><span class="n">RELOAD</span><span class="p">,</span><span class="w"> </span><span class="n">PROCESS</span><span class="p">,</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="n">CLIENT</span><span class="p">,</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="n">SLAVE</span><span class="p">,</span><span class="w"> </span><span class="n">BACKUP_ADMIN</span><span class="p">,</span>
-<span class="w">      </span><span class="k">SHOW</span><span class="w"> </span><span class="n">DATABASES</span><span class="p">,</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<span class="w">      </span><span class="k">SHOW</span><span class="w"> </span><span class="n">DATABASES</span><span class="p">,</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'admin'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="p">;</span>
 <span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
 </code></pre></div>
 <p><code>FLUSH PRIVILEGES</code> tells the server to reload the privilege tables so the new grants take effect immediately.</p>
 </li>
 <li>
 <p>Test the new user:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>admin<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW DATABASES;&quot;</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>admin<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW DATABASES;"</span>
 </code></pre></div>
 </li>
 <li>
@@ -10471,7 +10471,7 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">750</sp
 <li>Check that the backup directory is writable<br />
    As the MySQL user (or the backup user), test write access:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>touch<span class="w"> </span>/var/backups/mysql/.write_test<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>rm<span class="w"> </span>/var/backups/mysql/.write_test<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;OK: backup path is writable&quot;</span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>touch<span class="w"> </span>/var/backups/mysql/.write_test<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>rm<span class="w"> </span>/var/backups/mysql/.write_test<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"OK: backup path is writable"</span>
 </code></pre></div>
 <ol>
 <li>Document the path<br />

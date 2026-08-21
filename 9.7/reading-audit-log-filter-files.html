@@ -10142,16 +10142,16 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="common-starting-points">Common starting points<a class="headerlink" href="#common-starting-points" title="Permanent link">&para;</a></h2>
 <p>The <code>audit_log_read()</code> argument is a JSON object. Pick one of the following starting forms.</p>
 <p>Start at a specific timestamp:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;start&quot;: {&quot;timestamp&quot;: &quot;2026-05-20 12:28:10&quot;}}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"start": {"timestamp": "2026-05-20 12:28:10"}}'</span><span class="p">);</span>
 </code></pre></div>
 <p>Start at a date (the time defaults to <code>00:00:00</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;start&quot;: {&quot;timestamp&quot;: &quot;2026-05-20&quot;}}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"start": {"timestamp": "2026-05-20"}}'</span><span class="p">);</span>
 </code></pre></div>
 <p>Cap how many events the call returns with <code>max_array_length</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;start&quot;: {&quot;timestamp&quot;: &quot;2026-05-20 12:28:10&quot;}, &quot;max_array_length&quot;: 3}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"start": {"timestamp": "2026-05-20 12:28:10"}, "max_array_length": 3}'</span><span class="p">);</span>
 </code></pre></div>
 <p>Resume from an explicit bookmark. Pass both <code>timestamp</code> and <code>id</code> at the top level, with no <code>start</code> wrapper:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{&quot;timestamp&quot;: &quot;2026-05-20 12:28:10&quot;, &quot;id&quot;: 1561422}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"timestamp": "2026-05-20 12:28:10", "id": 1561422}'</span><span class="p">);</span>
 </code></pre></div>
 <p>The <code>start</code> form and the bookmark form (<code>timestamp</code> + <code>id</code>) are mutually exclusive. See <a href="audit-log-filter-variables.html#audit_log_read"><code>audit_log_read()</code></a> for the full parameter reference, including constraints on re-seeding a read sequence in flight.</p>
 <h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>

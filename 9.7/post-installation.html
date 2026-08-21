@@ -10215,7 +10215,7 @@ Four sections define the permissions; file or directory, User, Group, and Others
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Enter password:
-mysql Ver 9.7.1-1 for debian-linux-gnu on x86_64 (Percona Server (GPL), Release &#39;10&#39;, Revision &#39;f446c04&#39;)
+mysql Ver 9.7.1-1 for debian-linux-gnu on x86_64 (Percona Server (GPL), Release '10', Revision 'f446c04')
 ...
 Server version      9.7.1-1
 Protocol version    10
@@ -10285,7 +10285,7 @@ Run the following command to prevent a service from starting at boot time:</p>
 <li>
 <p>Restart the server with the <code>--skip-grant-tables</code> option enabled to allow access without a password. This option is insecure and disables remote connections.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
-sudo<span class="w"> </span>systemctl<span class="w"> </span>set-environment<span class="w"> </span><span class="nv">MYSQLD_OPTS</span><span class="o">=</span><span class="s2">&quot;--skip-grant-tables&quot;</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>set-environment<span class="w"> </span><span class="nv">MYSQLD_OPTS</span><span class="o">=</span><span class="s2">"--skip-grant-tables"</span>
 sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld<span class="w"> </span>
 mysql
 </code></pre></div>
@@ -10300,24 +10300,24 @@ mysql
 <p class="admonition-title">Note</p>
 <p>In MySQL 9.7 and later, <code>ALTER USER</code> automatically updates grant tables. Running <code>FLUSH PRIVILEGES</code> is not required unless you modify system tables directly.</p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'root'</span><span class="o">@</span><span class="s1">'localhost'</span>
 <span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span>
-<span class="k">BY</span><span class="w"> </span><span class="s1">&#39;rootPassword_12&#39;</span><span class="p">;</span>
+<span class="k">BY</span><span class="w"> </span><span class="s1">'rootPassword_12'</span><span class="p">;</span>
 </code></pre></div>
 <p>If the command returns <code>Query OK</code>, run <code>EXIT;</code></p>
 <div class="highlight"><pre><span></span><code><span class="n">EXIT</span><span class="p">;</span>
 </code></pre></div>
 <p>If the command fails with the <code>ERROR 1524 (HY000): Plugin 'mysql_native_password' is not loaded</code> error, the account is configured to use a removed <code>mysql_native_password</code> plugin (for example, after an upgrade from an older version).</p>
 <p>Check the current authentication plugin:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">User</span><span class="p">,</span><span class="w"> </span><span class="k">Host</span><span class="p">,</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">User</span><span class="p">,</span><span class="w"> </span><span class="k">Host</span><span class="p">,</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'root'</span><span class="p">;</span>
 </code></pre></div>
 <p>If the plugin is <code>mysql_native_password</code>, rerun the <code>ALTER USER</code> command to switch to the <code>caching_sha2_password</code> authentication plugin.</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'root'</span><span class="o">@</span><span class="s1">'localhost'</span>
 <span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span>
-<span class="k">BY</span><span class="w"> </span><span class="s1">&#39;rootPassword_12&#39;</span><span class="p">;</span>
+<span class="k">BY</span><span class="w"> </span><span class="s1">'rootPassword_12'</span><span class="p">;</span>
 </code></pre></div>
 <p>If MySQL returns the <code>ERROR 1819 (HY000): Your password does not satisfy the current policy</code> error, check the password policy requirements with:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;validate_password%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'validate_password%'</span><span class="p">;</span>
 </code></pre></div>
 <p>Then choose a password that satisfies the policy.</p>
 </li>

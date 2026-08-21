@@ -10334,7 +10334,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li><strong>Inventory the current configuration.</strong> On the plugin-enabled server, capture the legacy settings:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;audit_log_%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'audit_log_%'</span><span class="p">;</span>
 </code></pre></div>
 <p>Save the output. Translate each non-default value into a component variable, a filter JSON rule, or an <code>audit_log_filter_set_user()</code> call.</p>
 <ol>
@@ -10490,65 +10490,65 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Install any of these with <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and assign them with <a href="audit-log-filter-variables.html"><code>audit_log_filter_set_user()</code></a>. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_all&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{ &quot;filter&quot;: { &quot;log&quot;: true } }&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w">        </span><span class="s1">&#39;log_all&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{ "filter": { "log": true } }'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'%'</span><span class="p">,</span><span class="w">        </span><span class="s1">'log_all'</span><span class="p">);</span>
 </code></pre></div>
 <h2 id="translating-includeexclude-lists">Translating include/exclude lists<a class="headerlink" href="#translating-includeexclude-lists" title="Permanent link">&para;</a></h2>
 <p>The plugin filtered globally. The component filters per account through <code>audit_log_user</code> and per event through <code>log</code> conditions that compare event fields. Most migrations combine both.</p>
 <h3 id="accounts">Accounts<a class="headerlink" href="#accounts" title="Permanent link">&para;</a></h3>
 <p>Plugin:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;app@%,admin@localhost&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'app@%,admin@localhost'</span><span class="p">;</span>
 </code></pre></div>
 <p>Component — assign a logging filter to the two accounts and leave the default <code>%</code> with no filter (or an empty filter):</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_all&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{ &quot;filter&quot;: { &quot;log&quot;: true } }&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;app@%&#39;</span><span class="p">,</span><span class="w">          </span><span class="s1">&#39;log_all&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;admin@localhost&#39;</span><span class="p">,</span><span class="s1">&#39;log_all&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{ "filter": { "log": true } }'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'app@%'</span><span class="p">,</span><span class="w">          </span><span class="s1">'log_all'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'admin@localhost'</span><span class="p">,</span><span class="s1">'log_all'</span><span class="p">);</span>
 </code></pre></div>
 <p>Plugin exclude list, inverted:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;monitor@%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'monitor@%'</span><span class="p">;</span>
 </code></pre></div>
 <p>Component — keep the default <code>%</code> assigned to a logging filter and assign <code>monitor@%</code> to an empty filter (or leave it unassigned if <code>%</code> has no filter):</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;no_log&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{ &quot;filter&quot;: {} }&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;monitor@%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;no_log&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'no_log'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{ "filter": {} }'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'monitor@%'</span><span class="p">,</span><span class="w"> </span><span class="s1">'no_log'</span><span class="p">);</span>
 </code></pre></div>
 <h3 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h3>
 <p>Plugin:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;select,insert,update,delete&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'select,insert,update,delete'</span><span class="p">;</span>
 </code></pre></div>
 <p>Component — narrow the <code>general</code> class with a <code>log</code> condition that tests <code>general_sql_command.str</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_dml&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;general&quot;,</span>
-<span class="s1">      &quot;log&quot;: {</span>
-<span class="s1">        &quot;field&quot;: {</span>
-<span class="s1">          &quot;name&quot;: &quot;general_sql_command.str&quot;,</span>
-<span class="s1">          &quot;value&quot;: [&quot;select&quot;, &quot;insert&quot;, &quot;update&quot;, &quot;delete&quot;]</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_dml'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
+<span class="s1">  "filter": {</span>
+<span class="s1">    "class": {</span>
+<span class="s1">      "name": "general",</span>
+<span class="s1">      "log": {</span>
+<span class="s1">        "field": {</span>
+<span class="s1">          "name": "general_sql_command.str",</span>
+<span class="s1">          "value": ["select", "insert", "update", "delete"]</span>
 <span class="s1">        }</span>
 <span class="s1">      }</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">);</span>
+<span class="s1">}'</span><span class="p">);</span>
 </code></pre></div>
 <p>For exclusion, wrap the condition in <code>not</code>.</p>
 <h3 id="databases">Databases<a class="headerlink" href="#databases" title="Permanent link">&para;</a></h3>
 <p>Plugin:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;app,reports&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'app,reports'</span><span class="p">;</span>
 </code></pre></div>
 <p>Component — narrow <code>table_access</code> by <code>table_database.str</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_app_reports&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;table_access&quot;,</span>
-<span class="s1">      &quot;log&quot;: {</span>
-<span class="s1">        &quot;field&quot;: {</span>
-<span class="s1">          &quot;name&quot;: &quot;table_database.str&quot;,</span>
-<span class="s1">          &quot;value&quot;: [&quot;app&quot;, &quot;reports&quot;]</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_app_reports'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
+<span class="s1">  "filter": {</span>
+<span class="s1">    "class": {</span>
+<span class="s1">      "name": "table_access",</span>
+<span class="s1">      "log": {</span>
+<span class="s1">        "field": {</span>
+<span class="s1">          "name": "table_database.str",</span>
+<span class="s1">          "value": ["app", "reports"]</span>
 <span class="s1">        }</span>
 <span class="s1">      }</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">);</span>
+<span class="s1">}'</span><span class="p">);</span>
 </code></pre></div>
 <p>For a complete grammar reference (field names, logical operators, variables, functions), see <a href="write-filter-definitions.html">Write filter definitions</a> and <a href="audit-log-filter-definition-fields.html">Definition fields reference</a>.</p>
 <h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
@@ -10569,37 +10569,37 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="na">audit_log_filter.prune_seconds</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">2592000</span>
 </code></pre></div>
 <p>Then define the filter and assign accounts:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_all_except_set_option&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: [</span>
-<span class="s1">      { &quot;name&quot;: &quot;connection&quot; },</span>
-<span class="s1">      { &quot;name&quot;: &quot;table_access&quot; },</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all_except_set_option'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
+<span class="s1">  "filter": {</span>
+<span class="s1">    "class": [</span>
+<span class="s1">      { "name": "connection" },</span>
+<span class="s1">      { "name": "table_access" },</span>
 <span class="s1">      {</span>
-<span class="s1">        &quot;name&quot;: &quot;general&quot;,</span>
-<span class="s1">        &quot;log&quot;: {</span>
-<span class="s1">          &quot;not&quot;: {</span>
-<span class="s1">            &quot;field&quot;: { &quot;name&quot;: &quot;general_sql_command.str&quot;, &quot;value&quot;: &quot;set_option&quot; }</span>
+<span class="s1">        "name": "general",</span>
+<span class="s1">        "log": {</span>
+<span class="s1">          "not": {</span>
+<span class="s1">            "field": { "name": "general_sql_command.str", "value": "set_option" }</span>
 <span class="s1">          }</span>
 <span class="s1">        }</span>
 <span class="s1">      }</span>
 <span class="s1">    ]</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">);</span>
+<span class="s1">}'</span><span class="p">);</span>
 
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;app@%&#39;</span><span class="p">,</span><span class="w">           </span><span class="s1">&#39;log_all_except_set_option&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;admin@localhost&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;log_all_except_set_option&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'app@%'</span><span class="p">,</span><span class="w">           </span><span class="s1">'log_all_except_set_option'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'admin@localhost'</span><span class="p">,</span><span class="w"> </span><span class="s1">'log_all_except_set_option'</span><span class="p">);</span>
 </code></pre></div>
 <p>Accounts that match neither <code>app@%</code> nor <code>admin@localhost</code>, and that have no explicit assignment to the default <code>%</code> filter, are not audited. The setup reproduces the plugin&rsquo;s include-list behavior.</p>
 <h2 id="cutover-and-verification">Cutover and verification<a class="headerlink" href="#cutover-and-verification" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p>Confirm the component is live:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;file://component_audit_log_filter&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'file://component_audit_log_filter'</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li>
 <p>Log in as a subject account, run a representative statement, and read the new log:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">&#39;{}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{}'</span><span class="p">);</span>
 </code></pre></div>
 <p>See <a href="reading-audit-log-filter-files.html">Read log files</a>.</p>
 </li>

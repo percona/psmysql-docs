@@ -10253,7 +10253,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 <li>
 <p>Install the component:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_masking_functions&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_masking_functions'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10263,7 +10263,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 <li>
 <p>Grant <code>mysql.session</code> access to the dictionary table (required for <code>gen_dictionary</code> and <code>gen_blocklist</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'mysql.session'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10273,7 +10273,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 <li>
 <p>Grant dictionary management to your user (required for the <a href="#optional-dictionary-based-masking">dictionary-based masking</a> section below; skip if you will not try that section). Replace <code>&lt;user&gt;</code> and <code>&lt;host&gt;</code> with the MySQL user you connect as (for example, <code>root</code> and <code>localhost</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="n">MASKING_DICTIONARIES_ADMIN</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;&lt;user&gt;&#39;</span><span class="o">@</span><span class="s1">&#39;&lt;host&gt;&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="n">MASKING_DICTIONARIES_ADMIN</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'&lt;user&gt;'</span><span class="o">@</span><span class="s1">'&lt;host&gt;'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10301,9 +10301,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 <span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">contacts</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">ssn</span><span class="p">,</span><span class="w"> </span><span class="n">card_no</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="p">,</span><span class="w"> </span><span class="n">notes</span><span class="p">)</span>
 <span class="k">VALUES</span>
-<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Priya Sharma&#39;</span><span class="p">,</span><span class="w">  </span><span class="s1">&#39;123-45-6789&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;4111111111111111&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;priya.sharma@example.com&#39;</span><span class="p">,</span><span class="w">  </span><span class="s1">&#39;1-555-010-1234&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;VIP&#39;</span><span class="p">),</span>
-<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Yuki Tanaka&#39;</span><span class="p">,</span><span class="w">   </span><span class="s1">&#39;987-65-4321&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;5500000000000004&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;yuki.tanaka@example.com&#39;</span><span class="p">,</span><span class="w">    </span><span class="s1">&#39;1-555-010-5678&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Newsletter&#39;</span><span class="p">),</span>
-<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Fatima Hassan&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;111-22-3333&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;340000000000009&#39;</span><span class="p">,</span><span class="w">  </span><span class="s1">&#39;fatima.hassan@example.com&#39;</span><span class="p">,</span><span class="w">  </span><span class="s1">&#39;1-555-010-9012&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">'Priya Sharma'</span><span class="p">,</span><span class="w">  </span><span class="s1">'123-45-6789'</span><span class="p">,</span><span class="w"> </span><span class="s1">'4111111111111111'</span><span class="p">,</span><span class="w"> </span><span class="s1">'priya.sharma@example.com'</span><span class="p">,</span><span class="w">  </span><span class="s1">'1-555-010-1234'</span><span class="p">,</span><span class="w"> </span><span class="s1">'VIP'</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">'Yuki Tanaka'</span><span class="p">,</span><span class="w">   </span><span class="s1">'987-65-4321'</span><span class="p">,</span><span class="w"> </span><span class="s1">'5500000000000004'</span><span class="p">,</span><span class="w"> </span><span class="s1">'yuki.tanaka@example.com'</span><span class="p">,</span><span class="w">    </span><span class="s1">'1-555-010-5678'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Newsletter'</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">'Fatima Hassan'</span><span class="p">,</span><span class="w"> </span><span class="s1">'111-22-3333'</span><span class="p">,</span><span class="w"> </span><span class="s1">'340000000000009'</span><span class="p">,</span><span class="w">  </span><span class="s1">'fatima.hassan@example.com'</span><span class="p">,</span><span class="w">  </span><span class="s1">'1-555-010-9012'</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">);</span>
 
 <span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">contacts_intl</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">id</span><span class="w">          </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
@@ -10316,9 +10316,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 <span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">contacts_intl</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">country</span><span class="p">,</span><span class="w"> </span><span class="n">canada_sin</span><span class="p">,</span><span class="w"> </span><span class="n">uk_nin</span><span class="p">,</span><span class="w"> </span><span class="n">iban</span><span class="p">)</span>
 <span class="k">VALUES</span>
-<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Jean Lefebvre&#39;</span><span class="p">,</span><span class="w">   </span><span class="s1">&#39;Canada&#39;</span><span class="p">,</span><span class="w">  </span><span class="s1">&#39;506-948-819&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">),</span>
-<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Siobhan O&#39;&#39;Brien&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;UK&#39;</span><span class="p">,</span><span class="w">     </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;CT264683D&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">),</span>
-<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Hans Mueller&#39;</span><span class="p">,</span><span class="w">    </span><span class="s1">&#39;Germany&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;DE27 1002 02003 77495 4156&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">'Jean Lefebvre'</span><span class="p">,</span><span class="w">   </span><span class="s1">'Canada'</span><span class="p">,</span><span class="w">  </span><span class="s1">'506-948-819'</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">'Siobhan O''Brien'</span><span class="p">,</span><span class="w"> </span><span class="s1">'UK'</span><span class="p">,</span><span class="w">     </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="s1">'CT264683D'</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">'Hans Mueller'</span><span class="p">,</span><span class="w">    </span><span class="s1">'Germany'</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="s1">'DE27 1002 02003 77495 4156'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10392,7 +10392,7 @@ Query OK, 3 rows affected (0.00 sec)
 <p><a href="data-masking-function-list.html#gen_rnd_emailname_size-surname_size-domain"><code>gen_rnd_email()</code></a> and <a href="data-masking-function-list.html#gen_rnd_ssn"><code>gen_rnd_ssn()</code></a> return new values each time. They are useful for generating test data, not for masking existing values in place.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
 <span class="w">    </span><span class="n">id</span><span class="p">,</span>
-<span class="w">    </span><span class="n">gen_rnd_email</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test.example&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">generated_email</span><span class="p">,</span>
+<span class="w">    </span><span class="n">gen_rnd_email</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="s1">'test.example'</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">generated_email</span><span class="p">,</span>
 <span class="w">    </span><span class="n">gen_rnd_ssn</span><span class="p">()</span><span class="w">                         </span><span class="k">AS</span><span class="w"> </span><span class="n">generated_ssn</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">contacts</span><span class="p">;</span>
 </code></pre></div>
@@ -10419,7 +10419,7 @@ Query OK, 3 rows affected (0.00 sec)
 | name           | country | canada_sin  | uk_nin     | iban                         |
 +----------------+---------+-------------+----------------+------------------------------+
 | Jean Lefebvre  | Canada  | 506-948-819 | NULL       | NULL                         |
-| Siobhan O&#39;Brien| UK      | NULL        | CT264683D | NULL                         |
+| Siobhan O'Brien| UK      | NULL        | CT264683D | NULL                         |
 | Hans Mueller   | Germany | NULL        | NULL       | DE27 1002 02003 77495 4156   |
 +----------------+---------+-------------+----------------+------------------------------+
 3 rows in set (0.00 sec)
@@ -10439,7 +10439,7 @@ Query OK, 3 rows affected (0.00 sec)
 | name           | country | canada_sin_masked| uk_nin_masked | iban_masked                |
 +----------------+---------+------------------+---------------+----------------------------+
 | Jean Lefebvre  | Canada  | XXX-XXX-XXX      | NULL          | NULL                       |
-| Siobhan O&#39;Brien| UK      | NULL             | CT*******     | NULL                       |
+| Siobhan O'Brien| UK      | NULL             | CT*******     | NULL                       |
 | Hans Mueller   | Germany | NULL             | NULL          | DE** **** **** **** ****   |
 +----------------+---------+------------------+---------------+----------------------------+
 3 rows in set (0.00 sec)
@@ -10483,30 +10483,30 @@ Query OK, 0 rows affected (0.00 sec)
 <p>You need the <a href="#install-the-component-and-set-permissions">step 4 grant (MASKING_DICTIONARIES_ADMIN)</a> and the step 3 grant to <code>mysql.session</code> described in the <a href="install-data-masking-component.html">install guide</a>.</p>
 <p>Add a small dictionary with <a href="data-masking-function-list.html#masking_dictionary_term_adddictionary_name-term_name"><code>masking_dictionary_term_add</code></a>, then try <a href="data-masking-function-list.html#gen_dictionarydictionary_name"><code>gen_dictionary</code></a>. </p>
 <p>The role column is chosen at random from the dictionary; your output will vary and may not match the expected results.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionary_term_add</span><span class="p">(</span><span class="s1">&#39;roles&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Engineer&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionary_term_add</span><span class="p">(</span><span class="s1">&#39;roles&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Analyst&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionary_term_add</span><span class="p">(</span><span class="s1">&#39;roles&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Manager&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionary_term_add</span><span class="p">(</span><span class="s1">'roles'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Engineer'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionary_term_add</span><span class="p">(</span><span class="s1">'roles'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Analyst'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">masking_dictionary_term_add</span><span class="p">(</span><span class="s1">'roles'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Manager'</span><span class="p">);</span>
 
-<span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">gen_dictionary</span><span class="p">(</span><span class="s1">&#39;roles&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">role</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">contacts</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">gen_dictionary</span><span class="p">(</span><span class="s1">'roles'</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">role</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">contacts</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output (role column varies; your output may not match)</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------------+
-| masking_dictionary_term_add(&#39;roles&#39;, &#39;Engineer&#39;)|
+| masking_dictionary_term_add('roles', 'Engineer')|
 +-----------------------------------------------+
 |                                             1 |
 +-----------------------------------------------+
 1 row in set (0.00 sec)
 
 +----------------------------------------------+
-| masking_dictionary_term_add(&#39;roles&#39;, &#39;Analyst&#39;)|
+| masking_dictionary_term_add('roles', 'Analyst')|
 +----------------------------------------------+
 |                                            1 |
 +----------------------------------------------+
 1 row in set (0.00 sec)
 
 +----------------------------------------------+
-| masking_dictionary_term_add(&#39;roles&#39;, &#39;Manager&#39;) |
+| masking_dictionary_term_add('roles', 'Manager') |
 +----------------------------------------------+
 |                                            1 |
 +----------------------------------------------+

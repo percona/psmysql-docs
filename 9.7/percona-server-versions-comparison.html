@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="The following table lists Percona features that differ between Percona Server for MySQL 8.4 and Percona Server for MySQL 9.7. Features with the same status in both versions are omitted. The 9.7 column reflects the 9.7 documentation set.">
       
       
         <meta name="author" content="Percona LLC">
@@ -9384,24 +9384,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Percona server versions comparison
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="percona-server-versions-comparison.html" class="md-nav__link md-nav__link--active">
         
   
@@ -9418,38 +9400,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#other-reading" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Other reading
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -10023,25 +9973,6 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#other-reading" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Other reading
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                     </div>
                   </div>
@@ -10073,225 +10004,59 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <!--  do we need this doc? -->
 
 <h1 id="list-of-features-available-in-percona-server-for-mysql-releases">List of features available in Percona Server for MySQL releases<a class="headerlink" href="#list-of-features-available-in-percona-server-for-mysql-releases" title="Permanent link">&para;</a></h1>
+<p>The following table lists Percona features that differ between Percona Server for MySQL 8.4 and Percona Server for MySQL 9.7. Features with the same status in both versions are omitted. The 9.7 column reflects the 9.7 documentation set.</p>
+<p>For plugin transition steps, read <a href="upgrade-components.html">Upgrade from plugins to components</a>.</p>
 <table>
 <thead>
 <tr>
-<th>Percona Server for MySQL 5.7</th>
-<th>Percona Server for MySQL 8.0</th>
+<th>Feature</th>
+<th>Percona Server for MySQL 8.4</th>
+<th>Percona Server for MySQL 9.7</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Improved Buffer Pool Scalability</td>
-<td>Improved Buffer Pool Scalability</td>
+<td><a href="audit-log-filter-overview.html">Audit Log Filter</a></td>
+<td><code>component_audit_log_filter</code>, <code>format=OLD</code> available</td>
+<td><code>component_audit_log_filter</code>, <code>format=OLD</code> removed, JSONL default output format</td>
 </tr>
 <tr>
-<td>Improved InnoDB I/O Scalability</td>
-<td>Improved InnoDB I/O Scalability</td>
+<td><a href="audit-log-plugin.html">Audit log plugin</a></td>
+<td>Deprecated plugin</td>
+<td>Removed. Use <code>component_audit_log_filter</code></td>
 </tr>
 <tr>
-<td>Multiple Adaptive Hash Search Partitions</td>
-<td>Multiple Adaptive Hash Search Partitions</td>
+<td><a href="binlogging-replication-improvements.html">Binary log user-defined functions</a></td>
+<td><code>binlog_utils_udf</code> plugin</td>
+<td><code>component_binlog_utils_udf</code></td>
 </tr>
 <tr>
-<td>Atomic write support for Fusion-io devices</td>
-<td>Atomic write support for Fusion-io devices</td>
+<td><a href="data-masking-overview.html">Data masking</a></td>
+<td><code>data_masking</code> plugin and component</td>
+<td><code>component_masking_functions</code></td>
 </tr>
 <tr>
-<td>Query Cache Enhancements</td>
-<td>Feature not implemented</td>
+<td><a href="keyring-components-plugins-overview.html">Keyring components</a></td>
+<td>Keyring plugins and keyring components</td>
+<td>Keyring components only, <code>keyring_file</code> plugin removed</td>
 </tr>
 <tr>
-<td>Improved NUMA support</td>
-<td>Improved NUMA support</td>
+<td><a href="udf-percona-toolkit.html">Percona Toolkit UDFs</a></td>
+<td>Plugin</td>
+<td><code>component_percona_udf</code></td>
 </tr>
 <tr>
-<td>Thread Pool</td>
-<td>Thread Pool</td>
+<td><code>SEQUENCE_TABLE()</code> function</td>
+<td>Deprecated</td>
+<td>Removed, replaced by <a href="percona-sequence-table.html"><code>PERCONA_SEQUENCE_TABLE(n)</code></a></td>
 </tr>
 <tr>
-<td>Suppress Warning Messages</td>
-<td>Suppress Warning Messages</td>
-</tr>
-<tr>
-<td>Ability to change the database for mysqlbinlog</td>
-<td>Ability to change the database for mysqlbinlog</td>
-</tr>
-<tr>
-<td>Fixed Size for the Read Ahead Area</td>
-<td>Fixed Size for the Read Ahead Area</td>
-</tr>
-<tr>
-<td>Improved MEMORY Storage Engine</td>
-<td>Improved MEMORY Storage Engine</td>
-</tr>
-<tr>
-<td>Restricting the number of binlog files</td>
-<td>Restricting the number of binlog files</td>
-</tr>
-<tr>
-<td>Ignoring missing tables in mysqldump</td>
-<td>Ignoring missing tables in mysqldump</td>
-</tr>
-<tr>
-<td>Too Many Connections Warning</td>
-<td>Too Many Connections Warning</td>
-</tr>
-<tr>
-<td>Handle Corrupted Tables</td>
-<td>Handle Corrupted Tables</td>
-</tr>
-<tr>
-<td>Lock-Free SHOW SLAVE STATUS</td>
-<td>Lock-Free SHOW REPLICA STATUS</td>
-</tr>
-<tr>
-<td>Expanded Fast Index Creation</td>
-<td>Expanded Fast Index Creation</td>
-</tr>
-<tr>
-<td>Percona Toolkit UDFs</td>
-<td>Percona Toolkit UDFs</td>
-</tr>
-<tr>
-<td>Support for Fake Changes</td>
-<td>Support for Fake Changes</td>
-</tr>
-<tr>
-<td>Kill Idle Transactions</td>
-<td>Kill Idle Transactions</td>
-</tr>
-<tr>
-<td>XtraDB changed page tracking</td>
-<td>XtraDB changed page tracking</td>
-</tr>
-<tr>
-<td>Enforcing Storage Engine</td>
-<td>Replaced with upstream implementation</td>
-</tr>
-<tr>
-<td>Utility user</td>
-<td>Utility user</td>
-</tr>
-<tr>
-<td>Extending the secure-file-priv server option</td>
-<td>Extending the secure-file-priv server option</td>
-</tr>
-<tr>
-<td>Expanded Program Option Modifiers</td>
-<td>Feature not implemented</td>
-</tr>
-<tr>
-<td>PAM Authentication Plugin</td>
-<td>PAM Authentication Plugin</td>
-</tr>
-<tr>
-<td>Log Archiving for XtraDB</td>
-<td>Log Archiving for XtraDB</td>
-</tr>
-<tr>
-<td>User Statistics</td>
-<td>User Statistics</td>
-</tr>
-<tr>
-<td>Slow Query Log</td>
-<td>Slow Query Log</td>
-</tr>
-<tr>
-<td>Count InnoDB Deadlocks</td>
-<td>Count InnoDB Deadlocks</td>
-</tr>
-<tr>
-<td>Log All Client Commands (syslog)</td>
-<td>Log All Client Commands (syslog)</td>
-</tr>
-<tr>
-<td>Response Time Distribution</td>
-<td>Feature not implemented</td>
-</tr>
-<tr>
-<td>Show Storage Engines</td>
-<td>Show Storage Engines</td>
-</tr>
-<tr>
-<td>Show Lock Names</td>
-<td>Show Lock Names</td>
-</tr>
-<tr>
-<td>Process List</td>
-<td>Process List</td>
-</tr>
-<tr>
-<td>Misc. INFORMATION_SCHEMA Tables</td>
-<td>Misc. INFORMATION_SCHEMA Tables</td>
-</tr>
-<tr>
-<td>Extended Show Engine InnoDB Status</td>
-<td>Extended Show Engine InnoDB Status</td>
-</tr>
-<tr>
-<td>Thread Based Profiling</td>
-<td>Thread Based Profiling</td>
-</tr>
-<tr>
-<td>XtraDB Performance Improvements for I/O-Bound Highly-Concurrent Workloads</td>
-<td>XtraDB Performance Improvements for I/O-Bound Highly-Concurrent Workloads</td>
-</tr>
-<tr>
-<td>Page cleaner thread tuning</td>
-<td>Page cleaner thread tuning</td>
-</tr>
-<tr>
-<td>Statement Timeout</td>
-<td>Statement Timeout</td>
-</tr>
-<tr>
-<td>Extended SELECT INTO OUTFILE/DUMPFILE</td>
-<td>Extended SELECT INTO OUTFILE/DUMPFILE</td>
-</tr>
-<tr>
-<td>Per-query variable statement</td>
-<td>Per-query variable statement</td>
-</tr>
-<tr>
-<td>Extended mysqlbinlog</td>
-<td>Extended mysqlbinlog</td>
-</tr>
-<tr>
-<td>Slow Query Log Rotation and Expiration</td>
-<td>Slow Query Log Rotation and Expiration</td>
-</tr>
-<tr>
-<td>Metrics for scalability measurement</td>
-<td>Feature not implemented</td>
-</tr>
-<tr>
-<td>Audit Log</td>
-<td>Audit Log</td>
-</tr>
-<tr>
-<td>Backup Locks</td>
-<td>Backup Locks</td>
-</tr>
-<tr>
-<td>CSV engine mode for a standard-compliant quote and comma parsing</td>
-<td>CSV engine mode for a standard-compliant quote and comma parsing</td>
-</tr>
-<tr>
-<td>Super read-only</td>
-<td>Super read-only</td>
+<td><a href="threadpool.html">Thread pool</a></td>
+<td>Percona Server for MySQL thread pool plugin</td>
+<td>Percona Server for MySQL thread pool plugin in 9.7.1. MySQL thread pool plugin as of 9.7.2</td>
 </tr>
 </tbody>
 </table>
-<h2 id="other-reading">Other reading<a class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><a href="https://dev.mysql.com/doc/refman/5.7/en/mysql-nutshell.html">What Is New in MySQL 5.7 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
-</li>
-<li>
-<p><a href="https://dev.mysql.com/doc/refman/8.0/en/mysql-nutshell.html">What Is New in MySQL 8.0 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
-</li>
-</ul>
 
 
 
@@ -10314,7 +10079,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 19:10:16 UTC">December 22, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 21, 2026 15:40:14 UTC">August 21, 2026</span>
   </span>
 
     

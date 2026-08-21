@@ -10121,7 +10121,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ul>
 <li>Percona Server for MySQL with the data masking component available for your version.</li>
 <li>The <code>component_masking_functions</code> library must be present in the server plugin directory. The <code>plugin_dir</code> system variable defines that directory; the server resolves <code>file://component_masking_functions</code> in <code>INSTALL COMPONENT</code> relative to <code>plugin_dir</code>. To verify the library is available, check that the file exists in the directory reported by:
-  <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;plugin_dir&#39;</span><span class="p">;</span>
+  <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'plugin_dir'</span><span class="p">;</span>
 </code></pre></div>
   If the library is missing, <code>INSTALL COMPONENT</code> fails at load time; check the server error log and your installation package or deployment to ensure the component library is installed in the plugin directory.</li>
 </ul>
@@ -10147,7 +10147,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 <li>
 <p>Install the component and loadable functions.</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">&#39;file://component_masking_functions&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_masking_functions'</span><span class="p">;</span>
 </code></pre></div>
 <p>If the command fails, check the server error log and confirm the library is present in <code>plugin_dir</code> (see <a href="#prerequisites">Prerequisites</a>). The component is registered in <code>mysql.component</code> and is loaded again on server restart. On replicas or in high-availability setups, the instance may be in <code>read_only</code> or <code>super_read_only</code> mode; component loading in those states follows server behavior. If the component does not load on a replica (for example, because the library is missing or configuration differs), masking is not available on that instance until the cause is resolved.</p>
 <p>The dictionary-based functions (<code>gen_dictionary</code>, <code>gen_blocklist</code>) use the built-in <code>mysql.session</code> user for internal queries. Grant <code>mysql.session</code> the required privileges on the <code>masking_dictionaries</code> table as described in <a href="data-masking-function-list.html#permissions">Permissions</a> in the data masking function list. Granting these privileges allows the server to read and modify the dictionary table for masking; the table may contain lookup data. Rely on your normal access controls and hardening for the <code>mysql</code> schema and dictionary contents.</p>

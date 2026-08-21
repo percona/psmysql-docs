@@ -10621,7 +10621,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Run this statement to load the plugin during a session:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_openid_connect</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;auth_openid_connect.so&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_openid_connect</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_openid_connect.so'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10642,7 +10642,7 @@ plugin-load-add=auth_openid_connect.so
 <p>Run the <a href="https://dev.mysql.com/doc/refman/9.7/en/show-plugins.html"><code>SHOW PLUGINS</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> statement. You can also query <code>INFORMATION_SCHEMA.PLUGINS</code>. Confirm that the plugin loaded successfully:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;auth_openid_connect&#39;</span><span class="p">;</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'auth_openid_connect'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10658,7 +10658,7 @@ plugin-load-add=auth_openid_connect.so
 <h3 id="register-the-update_jwks-udf">Register the update_jwks() UDF<a class="headerlink" href="#register-the-update_jwks-udf" title="Permanent link">&para;</a></h3>
 <p>The plugin library also provides the <code>update_jwks()</code> user-defined function (UDF). Register the function once after the plugin loads. The UDF refreshes cached JWKS public keys at runtime. See <a href="#refresh-jwks-keys">Refresh JWKS keys</a> for details.</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">update_jwks</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">INTEGER</span>
-<span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;auth_openid_connect.so&#39;</span><span class="p">;</span>
+<span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_openid_connect.so'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10666,7 +10666,7 @@ plugin-load-add=auth_openid_connect.so
 </code></pre></div>
 </details>
 <p>Confirm the function is registered:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">func</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;update_jwks&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">func</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'update_jwks'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10825,36 +10825,36 @@ plugin-load-add=auth_openid_connect.so
 <p>The following JSON document configures two trusted IDPs. The first IDP resolves keys at runtime through a <code>jwks-url</code>. The second IDP uses static <code>keys</code> to verify token signatures.</p>
 <p>The <code>n</code> value is truncated. Replace <code>ptR4...QEASRw</code> with the full base64url-encoded RSA modulus from the IDP signing key.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;my-keycloak&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;issuer-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://keycloak.example.com/realms/master&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;jwks-url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://keycloak.example.com/realms/master/protocol/openid-connect/certs&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;audiences&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;mysql-oidc&quot;</span><span class="w"> </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;group-claim&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;groups&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;group-role&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;/accounting&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;accounting&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;/marketing&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;marketing&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="nt">"my-keycloak"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"issuer-name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://keycloak.example.com/realms/master"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"jwks-url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://keycloak.example.com/realms/master/protocol/openid-connect/certs"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"mysql-oidc"</span><span class="w"> </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"group-claim"</span><span class="p">:</span><span class="w"> </span><span class="s2">"groups"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"group-role"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">"/accounting"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accounting"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">"/marketing"</span><span class="p">:</span><span class="w"> </span><span class="s2">"marketing"</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;oidc-idp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;issuer-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://idp.example.com/realms/dummy&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;keys&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"oidc-idp"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"issuer-name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://idp.example.com/realms/dummy"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;kid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rsa-key-1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;kty&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RSA&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ptR4YxjdrF2RrYiY9XYH3KcXKzlS6b2foGAeHN9dViAs5y...QEASRw&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;e&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AQAB&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;use&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sig&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;alg&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RS256&quot;</span>
+<span class="w">        </span><span class="nt">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rsa-key-1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RSA"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"n"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ptR4YxjdrF2RrYiY9XYH3KcXKzlS6b2foGAeHN9dViAs5y...QEASRw"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"e"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AQAB"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;audiences&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">      </span><span class="s2">&quot;ee2811b9-10b8&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="s2">&quot;https://api.example.com&quot;</span>
+<span class="w">    </span><span class="nt">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">"ee2811b9-10b8"</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">"https://api.example.com"</span>
 <span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;group-claim&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;groups&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;group-role&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;acc&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;accounting&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;eng&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;engineering&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nt">"group-claim"</span><span class="p">:</span><span class="w"> </span><span class="s2">"groups"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"group-role"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">"acc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accounting"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">"eng"</span><span class="p">:</span><span class="w"> </span><span class="s2">"engineering"</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -10865,7 +10865,7 @@ plugin-load-add=auth_openid_connect.so
 <p>Save the example as <code>/etc/mysql/oidc/idps.json</code>. Add the variable to the <code>[mysqld]</code> section with the plugin load directive:</p>
 <div class="highlight"><pre><span></span><code>[mysqld]
 plugin-load-add=auth_openid_connect.so
-auth_openid_connect_configuration=&#39;FILE:///etc/mysql/oidc/idps.json&#39;
+auth_openid_connect_configuration='FILE:///etc/mysql/oidc/idps.json'
 </code></pre></div>
 <p>The <code>plugin-load-add</code> line matches the option in <a href="#install-the-plugin">Install the plugin</a>.</p>
 <p>The variable accepts the same prefixes: <code>FILE://</code> for an external file or <code>JSON://</code> for an inline document. Inline JSON in <code>my.cnf</code> requires careful quote escaping. Use the <code>FILE://</code> form for <code>my.cnf</code> deployments.</p>
@@ -10874,7 +10874,7 @@ auth_openid_connect_configuration=&#39;FILE:///etc/mysql/oidc/idps.json&#39;
 <h4 id="configure-from-a-file">Configure from a file<a class="headerlink" href="#configure-from-a-file" title="Permanent link">&para;</a></h4>
 <p>To set the variable in a running server, use <code>SET GLOBAL</code> with the <code>FILE://</code> prefix:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">auth_openid_connect_configuration</span><span class="w"> </span><span class="o">=</span>
-<span class="w">  </span><span class="s1">&#39;FILE:///etc/mysql/oidc/idps.json&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="s1">'FILE:///etc/mysql/oidc/idps.json'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10884,7 +10884,7 @@ auth_openid_connect_configuration=&#39;FILE:///etc/mysql/oidc/idps.json&#39;
 <h4 id="configure-inline">Configure inline<a class="headerlink" href="#configure-inline" title="Permanent link">&para;</a></h4>
 <p>To set the variable in a running server without an external file, use <code>SET GLOBAL</code> with the <code>JSON://</code> prefix:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">auth_openid_connect_configuration</span><span class="w"> </span><span class="o">=</span>
-<span class="w">  </span><span class="s1">&#39;JSON://{&quot;my-keycloak&quot;:{&quot;issuer-name&quot;:&quot;https://keycloak.example.com/realms/master&quot;,&quot;jwks-url&quot;:&quot;https://keycloak.example.com/realms/master/protocol/openid-connect/certs&quot;,&quot;audiences&quot;:[&quot;mysql-oidc&quot;]}}&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="s1">'JSON://{"my-keycloak":{"issuer-name":"https://keycloak.example.com/realms/master","jwks-url":"https://keycloak.example.com/realms/master/protocol/openid-connect/certs","audiences":["mysql-oidc"]}}'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10899,7 +10899,7 @@ auth_openid_connect_configuration=&#39;FILE:///etc/mysql/oidc/idps.json&#39;
 <p>Skip this step when you already set the variable in <a href="#configure-in-mycnf">my.cnf</a>. The <code>my.cnf</code> value loads on every server start. You do not need <code>SET PERSIST_ONLY</code>.</p>
 <p>Otherwise, persist the configuration with the following statement:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">auth_openid_connect_configuration</span><span class="w"> </span><span class="o">=</span>
-<span class="w">  </span><span class="s1">&#39;FILE:///etc/mysql/oidc/idps.json&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="s1">'FILE:///etc/mysql/oidc/idps.json'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10908,9 +10908,9 @@ auth_openid_connect_configuration=&#39;FILE:///etc/mysql/oidc/idps.json&#39;
 </details>
 <h2 id="create-an-individual-user-account">Create an individual user account<a class="headerlink" href="#create-an-individual-user-account" title="Permanent link">&para;</a></h2>
 <p>In direct authentication, one MySQL account maps to one user identity in the IDP. Encode the mapping as a JSON object in the <code>IDENTIFIED ... AS</code> clause:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;mysql_oidc_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span>
-<span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">&#39;auth_openid_connect&#39;</span>
-<span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;{&quot;identity_provider&quot;: &quot;my-keycloak&quot;, &quot;user&quot;: &quot;4c28d537-a635-4b6d-957f-58e3c8860bcc&quot;}&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'mysql_oidc_user'</span><span class="o">@</span><span class="s1">'%'</span>
+<span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'auth_openid_connect'</span>
+<span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="s1">'{"identity_provider": "my-keycloak", "user": "4c28d537-a635-4b6d-957f-58e3c8860bcc"}'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10941,11 +10941,11 @@ auth_openid_connect_configuration=&#39;FILE:///etc/mysql/oidc/idps.json&#39;
 </div>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>https://keycloak.example.com/realms/master/protocol/openid-connect/token<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;grant_type=password&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;client_id=mysql-oidc&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;scope=openid&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;username=alice&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;password=&lt;password&gt;&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'grant_type=password'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'client_id=mysql-oidc'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'scope=openid'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'username=alice'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'password=&lt;password&gt;'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.id_token<span class="w"> </span>&gt;<span class="w"> </span>/run/user/1000/id_token.jwt
 
 chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/run/user/1000/id_token.jwt
@@ -10956,7 +10956,7 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 <p>For Keycloak, the ID token <code>aud</code> claim equals the <code>client_id</code>. Set <code>audiences</code> in the plugin configuration to match.</p>
 <p>The Keycloak token request uses <code>client_id=mysql-oidc</code>. Set <code>"audiences": ["mysql-oidc"]</code> in the configuration.</p>
 <p>Public clients send only the <code>client_id</code>. Confidential clients also require <code>client_secret</code>:</p>
-<div class="highlight"><pre><span></span><code>-d<span class="w"> </span><span class="s1">&#39;client_secret=&lt;CLIENT_SECRET&gt;&#39;</span>
+<div class="highlight"><pre><span></span><code>-d<span class="w"> </span><span class="s1">'client_secret=&lt;CLIENT_SECRET&gt;'</span>
 </code></pre></div>
 <p>Retrieve the secret from the Keycloak admin console under Clients &gt; mysql-oidc &gt; Credentials.</p>
 </div>
@@ -11001,10 +11001,10 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 <h2 id="map-groups-to-mysql-roles">Map groups to MySQL roles<a class="headerlink" href="#map-groups-to-mysql-roles" title="Permanent link">&para;</a></h2>
 <p>When both <code>group-claim</code> and <code>group-role</code> are configured for an IDP, the plugin reads the named claim at connection time. The plugin associates each matching MySQL role with the connection. Activate the role with <a href="https://dev.mysql.com/doc/refman/9.7/en/set-role.html"><code>SET ROLE</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>The following configuration fragment maps two groups to two roles:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;group-claim&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;groups&quot;</span><span class="p">,</span>
-<span class="nt">&quot;group-role&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;acc&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;accounting&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;eng&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;engineering&quot;</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="nt">"group-claim"</span><span class="p">:</span><span class="w"> </span><span class="s2">"groups"</span><span class="p">,</span>
+<span class="nt">"group-role"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">"acc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accounting"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">"eng"</span><span class="p">:</span><span class="w"> </span><span class="s2">"engineering"</span><span class="w"> </span><span class="p">}</span>
 <span class="p">]</span>
 </code></pre></div>
 <p>When a token has the <code>groups</code> claim with the value <code>["acc", "hr"]</code>, the connection behaves as follows:</p>
@@ -11114,13 +11114,13 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 </li>
 </ol>
 <h4 id="step-1-create-handshake-accounts">Step 1. Create handshake accounts<a class="headerlink" href="#step-1-create-handshake-accounts" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;accounting&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span>
-<span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">&#39;auth_openid_connect&#39;</span>
-<span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;{&quot;identity_provider&quot;: &quot;my-keycloak&quot;, &quot;group&quot;: &quot;/accounting&quot;}&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'accounting'</span><span class="o">@</span><span class="s1">'%'</span>
+<span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'auth_openid_connect'</span>
+<span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="s1">'{"identity_provider": "my-keycloak", "group": "/accounting"}'</span><span class="p">;</span>
 
-<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;marketing&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span>
-<span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">&#39;auth_openid_connect&#39;</span>
-<span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;{&quot;identity_provider&quot;: &quot;my-keycloak&quot;, &quot;group&quot;: &quot;/marketing&quot;}&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'marketing'</span><span class="o">@</span><span class="s1">'%'</span>
+<span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'auth_openid_connect'</span>
+<span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="s1">'{"identity_provider": "my-keycloak", "group": "/marketing"}'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -11129,11 +11129,11 @@ Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 <h4 id="step-2-and-3-create-target-accounts-and-grant-proxy">Step 2 and 3. Create target accounts and grant PROXY<a class="headerlink" href="#step-2-and-3-create-target-accounts-and-grant-proxy" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;/accounting&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">&#39;mysql_no_login&#39;</span><span class="p">;</span>
-<span class="k">GRANT</span><span class="w"> </span><span class="n">PROXY</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s1">&#39;/accounting&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;accounting&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'/accounting'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'mysql_no_login'</span><span class="p">;</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="n">PROXY</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s1">'/accounting'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'accounting'</span><span class="o">@</span><span class="s1">'%'</span><span class="p">;</span>
 
-<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;/marketing&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">&#39;mysql_no_login&#39;</span><span class="p">;</span>
-<span class="k">GRANT</span><span class="w"> </span><span class="n">PROXY</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s1">&#39;/marketing&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;marketing&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'/marketing'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'mysql_no_login'</span><span class="p">;</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="n">PROXY</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s1">'/marketing'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'marketing'</span><span class="o">@</span><span class="s1">'%'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -11196,9 +11196,9 @@ Query OK, 0 rows affected (0.00 sec)
 </li>
 </ol>
 <h4 id="step-1-create-the-anonymous-handshake-account">Step 1. Create the anonymous handshake account<a class="headerlink" href="#step-1-create-the-anonymous-handshake-account" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="o">@</span><span class="s1">&#39;&#39;</span>
-<span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">&#39;auth_openid_connect&#39;</span>
-<span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;{&quot;identity_provider&quot;: &quot;my-keycloak&quot;}&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">''</span><span class="o">@</span><span class="s1">''</span>
+<span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'auth_openid_connect'</span>
+<span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="s1">'{"identity_provider": "my-keycloak"}'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -11206,11 +11206,11 @@ Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <h4 id="step-2-and-3-create-target-accounts-and-grant-proxy_1">Step 2 and 3. Create target accounts and grant PROXY<a class="headerlink" href="#step-2-and-3-create-target-accounts-and-grant-proxy_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;/accounting&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">&#39;mysql_no_login&#39;</span><span class="p">;</span>
-<span class="k">GRANT</span><span class="w"> </span><span class="n">PROXY</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s1">&#39;/accounting&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="o">@</span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'/accounting'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'mysql_no_login'</span><span class="p">;</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="n">PROXY</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s1">'/accounting'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">''</span><span class="o">@</span><span class="s1">''</span><span class="p">;</span>
 
-<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;/marketing&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">&#39;mysql_no_login&#39;</span><span class="p">;</span>
-<span class="k">GRANT</span><span class="w"> </span><span class="n">PROXY</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s1">&#39;/marketing&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="o">@</span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'/marketing'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'mysql_no_login'</span><span class="p">;</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="n">PROXY</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s1">'/marketing'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">''</span><span class="o">@</span><span class="s1">''</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -11272,12 +11272,12 @@ Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>Call the UDF with one string argument to refresh a single IDP:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">update_jwks</span><span class="p">(</span><span class="s1">&#39;my-keycloak&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">update_jwks</span><span class="p">(</span><span class="s1">'my-keycloak'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-----------------------------+
-| update_jwks(&#39;my-keycloak&#39;)  |
+| update_jwks('my-keycloak')  |
 +-----------------------------+
 |                           1 |
 +-----------------------------+
@@ -11320,7 +11320,7 @@ Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>The event scheduler must run for the event to fire. Check and enable the scheduler at runtime:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;event_scheduler&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'event_scheduler'</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">event_scheduler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
 </code></pre></div>
 <p>To enable the scheduler on every server start, set the variable in <code>my.cnf</code>:</p>
@@ -11345,8 +11345,8 @@ event_scheduler=ON
 </ul>
 <p>The variables must reach mysqld, not the interactive shell that the DBA uses. On systemd systems, set the variables in the service unit:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
-<span class="na">Environment</span><span class="o">=</span><span class="s">&quot;https_proxy=http://proxy.example.com:8080&quot;</span>
-<span class="na">Environment</span><span class="o">=</span><span class="s">&quot;no_proxy=keycloak.internal,.example.lan,127.0.0.1&quot;</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">"https_proxy=http://proxy.example.com:8080"</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">"no_proxy=keycloak.internal,.example.lan,127.0.0.1"</span>
 </code></pre></div>
 <p>After editing the unit, reload systemd and restart mysqld:</p>
 <div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>daemon-reload

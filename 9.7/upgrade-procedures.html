@@ -10368,7 +10368,7 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </li>
 <li>
 <p>Remove the <code>mysql</code>-prefixed packages.</p>
-<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;^mysql-&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rpm<span class="w"> </span>-e<span class="w"> </span>--nodeps
+<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">'^mysql-'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rpm<span class="w"> </span>-e<span class="w"> </span>--nodeps
 </code></pre></div>
 </li>
 <li>
@@ -10527,7 +10527,7 @@ percona-server-server-9.7.1-1.el9.x86_64
 </code></pre></div>
 <p>Use <code>--nodeps</code> because the Percona Server packages share dependencies. Without <code>--nodeps</code>, removing one package removes related packages.</p>
 <p>Run the following command to remove <code>mysql</code>-prefixed packages.</p>
-<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;^mysql-&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rpm<span class="w"> </span>-e<span class="w"> </span>--nodeps
+<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">'^mysql-'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rpm<span class="w"> </span>-e<span class="w"> </span>--nodeps
 </code></pre></div>
 </li>
 <li>
@@ -10611,7 +10611,7 @@ percona-server-shared-compat-9.7.1-1.el9.x86_64.rpm
 </li>
 <li>
 <p>Connect with the temporary password and reset the <code>root</code> account.</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="k">USER</span><span class="p">()</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;&lt;NEW_ROOT_PASSWORD&gt;&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="k">USER</span><span class="p">()</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;NEW_ROOT_PASSWORD&gt;'</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li>

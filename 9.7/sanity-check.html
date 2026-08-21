@@ -10271,34 +10271,34 @@ Try connecting without a password; the connection should fail:</p>
 <p>You want to see an access denied or password-related error, not a successful connection.</p>
 <p>1.2 No anonymous user<br />
 <em>Anonymous users</em> (accounts with an empty username that can connect without proper credentials) should not exist:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT user, host FROM mysql.user WHERE user = &#39;&#39;;&quot;</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT user, host FROM mysql.user WHERE user = '';"</span>
 </code></pre></div>
 <p>Expected: <em>empty result set</em> (no rows returned by the query).</p>
 <p>1.3 No remote root<br />
 The <code>root</code> user should not be allowed to connect from remote hosts—only from the same machine (<code>root@localhost</code> or similar):</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT user, host FROM mysql.user WHERE user = &#39;root&#39; AND host != &#39;localhost&#39;;&quot;</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT user, host FROM mysql.user WHERE user = 'root' AND host != 'localhost';"</span>
 </code></pre></div>
 <p>Expected: empty result set. If you use a specific hostname for root (e.g. <code>root@127.0.0.1</code>), that is fine; the important thing is no <code>root@'%'</code> (which would allow root from any host).</p>
 <p>1.4 Test database removed<br />
 The default <code>test</code> database (a sample database that is often removed for security) should not exist:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW DATABASES LIKE &#39;test&#39;;&quot;</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW DATABASES LIKE 'test';"</span>
 </code></pre></div>
 <p>Expected: empty result set.</p>
 <h2 id="2-least-privilege-admin-user">2. Least-privilege admin user<a class="headerlink" href="#2-least-privilege-admin-user" title="Permanent link">&para;</a></h2>
 <p>Goal: Confirm you have a dedicated admin user and that the account does not have full <code>SUPER</code> (a powerful built-in privilege) or global privileges on all databases (<code>*.*</code>) unless you intentionally grant them.</p>
 <p>2.1 List admin-like users<br />
 Adjust the user name if you used something other than <code>admin</code>:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT user, host FROM mysql.user WHERE user IN (&#39;admin&#39;,&#39;dba&#39;,&#39;mysqladmin&#39;) OR user NOT IN (&#39;root&#39;,&#39;mysql.session&#39;,&#39;mysql.sys&#39;,&#39;mysql.infoschema&#39;);&quot;</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT user, host FROM mysql.user WHERE user IN ('admin','dba','mysqladmin') OR user NOT IN ('root','mysql.session','mysql.sys','mysql.infoschema');"</span>
 </code></pre></div>
 <p>Use this to identify the account you use for day-to-day admin.</p>
 <p>2.2 Check that admin does not have SUPER<br />
 Replace <code>'admin'@'localhost'</code> with your admin user and <em>host</em> (the connection source; <code>localhost</code> means the same machine):</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW GRANTS FOR &#39;admin&#39;@&#39;localhost&#39;;&quot;</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW GRANTS FOR 'admin'@'localhost';"</span>
 </code></pre></div>
 <p>Expected: no line containing <code>SUPER</code> or <code>ALL PRIVILEGES ON *.*</code> unless you deliberately grant them. A limited set of <em>grants</em> (assigned privileges) such as <code>CREATE USER</code>, <code>RELOAD</code>, <code>PROCESS</code>, <code>REPLICATION CLIENT</code>, <code>BACKUP_ADMIN</code>, etc., is what we expect from the First five minutes.</p>
 <p>2.3 (Optional) Effective privileges<br />
 To see the full <em>effective</em> privilege set (the combined permissions a user actually has, including from roles), use <a href="extended-show-grants.html">SHOW EFFECTIVE GRANTS</a> if your server supports that statement:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW EFFECTIVE GRANTS FOR &#39;admin&#39;@&#39;localhost&#39;;&quot;</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW EFFECTIVE GRANTS FOR 'admin'@'localhost';"</span>
 </code></pre></div>
 <h2 id="3-oom-killer-guardrail">3. OOM-killer guardrail<a class="headerlink" href="#3-oom-killer-guardrail" title="Permanent link">&para;</a></h2>
 <p>Goal: Confirm that the MySQL systemd service has a lower <em>OOM score</em> (a value the kernel uses when choosing which process to terminate when the system is out of memory; lower means less likely to be killed) so the kernel is less likely to kill MySQL.</p>
@@ -10317,14 +10317,14 @@ systemctl<span class="w"> </span>show<span class="w"> </span>mysql<span class="w
 <p>Goal: Confirm the error log and slow query log are enabled and that paths are set so you can find them.</p>
 <p>4.1 Error log<br />
 Check that the <em>error log</em> (the file where the server records errors, warnings, and startup messages) is set and that the server is writing to that file:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@log_error;&quot;</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT @@log_error;"</span>
 </code></pre></div>
 <p>Expected: a non-empty path (e.g. <code>/var/log/mysql/error.log</code> or a path under the <em>datadir</em>—the directory where the server stores database files). Then check that the file exists and is recent:</p>
-<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-la<span class="w"> </span><span class="k">$(</span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-N<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@log_error;&quot;</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="k">)</span>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-la<span class="w"> </span><span class="k">$(</span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-N<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT @@log_error;"</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="k">)</span>
 </code></pre></div>
 <p>4.2 Slow query log<br />
 Check that the <em>slow query log</em> (the file that records SQL statements that run longer than the <code>long_query_time</code> threshold) is on and where that log is written:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@slow_query_log, @@slow_query_log_file, @@long_query_time;&quot;</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT @@slow_query_log, @@slow_query_log_file, @@long_query_time;"</span>
 </code></pre></div>
 <p>Expected: <code>slow_query_log = 1</code>, and <code>slow_query_log_file</code> set to a path you can monitor. Optionally confirm the file exists and is writable after the server has been running with slow log enabled.</p>
 <h2 id="5-backup-path">5. Backup path<a class="headerlink" href="#5-backup-path" title="Permanent link">&para;</a></h2>
@@ -10334,11 +10334,11 @@ Use the same path you configured in <a href="first-five-minutes.html#verify-the-
 <div class="highlight"><pre><span></span><code><span class="nv">BACKUP_DIR</span><span class="o">=</span>/var/backups/mysql
 </code></pre></div>
 <p>5.2 Directory exists<br />
-<div class="highlight"><pre><span></span><code><span class="nb">test</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BACKUP_DIR</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;OK: backup directory exists&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;FAIL: backup directory missing&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nb">test</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"OK: backup directory exists"</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"FAIL: backup directory missing"</span>
 </code></pre></div></p>
 <p>5.3 Writable by MySQL user<br />
 Replace <code>mysql</code> with the user that runs your backup tool if different:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>touch<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test&quot;</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;OK: backup path is writable&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;FAIL: backup path not writable by mysql&quot;</span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>touch<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test"</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"OK: backup path is writable"</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"FAIL: backup path not writable by mysql"</span>
 </code></pre></div>
 <h2 id="optional-run-checks-in-one-go">Optional: run checks in one go<a class="headerlink" href="#optional-run-checks-in-one-go" title="Permanent link">&para;</a></h2>
 <p>You can run a subset of these checks from the shell in one pass. The following assumes:</p>
@@ -10348,27 +10348,27 @@ Replace <code>mysql</code> with the user that runs your backup tool if different
 <li>Backup path is <code>/var/backups/mysql</code> (change if needed).</li>
 <li>You will enter the root password when prompted.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== 1. No anonymous user ===&quot;</span>
-mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT user, host FROM mysql.user WHERE user = &#39;&#39;;&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"=== 1. No anonymous user ==="</span>
+mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT user, host FROM mysql.user WHERE user = '';"</span>
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== 2. No remote root ===&quot;</span>
-mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT user, host FROM mysql.user WHERE user = &#39;root&#39; AND host != &#39;localhost&#39;;&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"=== 2. No remote root ==="</span>
+mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT user, host FROM mysql.user WHERE user = 'root' AND host != 'localhost';"</span>
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== 3. No test database ===&quot;</span>
-mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW DATABASES LIKE &#39;test&#39;;&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"=== 3. No test database ==="</span>
+mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW DATABASES LIKE 'test';"</span>
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== 4. Admin grants (no SUPER/ALL on *.*) ===&quot;</span>
-mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW GRANTS FOR &#39;admin&#39;@&#39;localhost&#39;;&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"=== 4. Admin grants (no SUPER/ALL on *.*) ==="</span>
+mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW GRANTS FOR 'admin'@'localhost';"</span>
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== 5. OOMScoreAdjust ===&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"=== 5. OOMScoreAdjust ==="</span>
 systemctl<span class="w"> </span>show<span class="w"> </span>mysqld<span class="w"> </span>-p<span class="w"> </span>OOMScoreAdjust
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== 6. Error log and slow query log ===&quot;</span>
-mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@log_error, @@slow_query_log, @@slow_query_log_file;&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"=== 6. Error log and slow query log ==="</span>
+mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT @@log_error, @@slow_query_log, @@slow_query_log_file;"</span>
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== 7. Backup path writable ===&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"=== 7. Backup path writable ==="</span>
 <span class="nv">BACKUP_DIR</span><span class="o">=</span>/var/backups/mysql
-<span class="nb">test</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BACKUP_DIR</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>touch<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test&quot;</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;OK: writable&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;FAIL or missing&quot;</span>
+<span class="nb">test</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>touch<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test"</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"OK: writable"</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"FAIL or missing"</span>
 </code></pre></div>
 <p>Interpret the output using the expected results described in each section above.</p>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>

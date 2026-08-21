@@ -10014,14 +10014,14 @@ may verify if the tablespace is encrypted or not.</p>
 <p>For single tablespaces, verify the ENCRYPTION option using
 INFORMATION_SCHEMA.TABLES and the CREATE OPTIONS settings.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">FROM</span>
-<span class="w">       </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLES</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%ENCRYPTION%&#39;</span><span class="p">;</span>
+<span class="w">       </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLES</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%ENCRYPTION%'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+----------------------+-------------------+------------------------------+
 | TABLE_SCHEMA         | TABLE_NAME        | CREATE_OPTIONS               |
 +----------------------+-------------------+------------------------------+
-|sample                | t1                | ENCRYPTION=&quot;Y&quot;               |
+|sample                | t1                | ENCRYPTION="Y"               |
 +----------------------+-------------------+------------------------------+
 </code></pre></div>
 </details>
@@ -10029,8 +10029,8 @@ INFORMATION_SCHEMA.TABLES and the CREATE OPTIONS settings.</p>
 13 set if the tablespace is encrypted. This bit can be checked with the <code>flag &amp;
 8192</code> expression in the following way:</p>
 <div class="highlight"><pre><span></span><code>SELECT space, name, flag, (flag &amp; 8192) != 0 AS encrypted FROM
-INFORMATION_SCHEMA.INNODB_TABLESPACES WHERE name in (&#39;foo&#39;, &#39;test/t2&#39;, &#39;bar&#39;,
-&#39;noencrypt&#39;);
+INFORMATION_SCHEMA.INNODB_TABLESPACES WHERE name in ('foo', 'test/t2', 'bar',
+'noencrypt');
 </code></pre></div>
 <p>The encrypted table metadata is contained in the
 INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION table. You must have the
@@ -10062,7 +10062,7 @@ INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION table. You must have the
 <p>To identify encryption-enabled schemas, query the
 INFORMATION_SCHEMA.SCHEMATA table:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">SCHEMA_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">DEFAULT_ENCRYPTION</span><span class="w"> </span><span class="k">FROM</span>
-<span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">SCHEMATA</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">DEFAULT_ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;YES&#39;</span><span class="p">;</span>
+<span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">SCHEMATA</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">DEFAULT_ENCRYPTION</span><span class="o">=</span><span class="s1">'YES'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>

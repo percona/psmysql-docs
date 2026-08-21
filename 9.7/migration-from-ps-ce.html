@@ -10483,47 +10483,47 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_VERSION</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span><span class="w"> </span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="s1">&#39;audit_log&#39;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="s1">&#39;authentication_pam&#39;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="s1">&#39;authentication_ldap_simple&#39;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="s1">&#39;authentication_ldap_sasl&#39;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="s1">&#39;ROCKSDB&#39;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="s1">&#39;ROCKSDB_TRX&#39;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="s1">&#39;ROCKSDB_LOCKS&#39;</span>
-<span class="p">)</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;ACTIVE&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="s1">'audit_log'</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s1">'authentication_pam'</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s1">'authentication_ldap_simple'</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s1">'authentication_ldap_sasl'</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s1">'ROCKSDB'</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s1">'ROCKSDB_TRX'</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s1">'ROCKSDB_LOCKS'</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'ACTIVE'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="identify-active-exclusive-components">Identify Active Exclusive Components<a class="headerlink" href="#identify-active-exclusive-components" title="Permanent link">&para;</a></h3>
 <p>Percona-exclusive components (such as the Audit Log Filter, Data Masking, and keyring components) are registered in <code>mysql.component</code>. The following query lists installed components whose URN matches known Percona-only components.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_id</span><span class="p">,</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%audit_log_filter%&#39;</span><span class="w"> </span>
-<span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%masking_functions%&#39;</span><span class="w"> </span>
-<span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%keyring_vault%&#39;</span><span class="w"> </span>
-<span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%keyring_kmip%&#39;</span><span class="w"> </span>
-<span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%keyring_kms%&#39;</span><span class="p">;</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%audit_log_filter%'</span><span class="w"> </span>
+<span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%masking_functions%'</span><span class="w"> </span>
+<span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%keyring_vault%'</span><span class="w"> </span>
+<span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%keyring_kmip%'</span><span class="w"> </span>
+<span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%keyring_kms%'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="check-for-myrocks-storage-engine-usage">Check for MyRocks Storage Engine Usage<a class="headerlink" href="#check-for-myrocks-storage-engine-usage" title="Permanent link">&para;</a></h3>
 <p>MyRocks is a high-risk one-way door, so you must check whether any user tables use the engine. Those tables must be converted to InnoDB before a logical dump.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLES</span><span class="w"> </span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;RocksDB&#39;</span><span class="w"> </span>
-<span class="k">AND</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;information_schema&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;sys&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;performance_schema&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mysql&#39;</span><span class="p">);</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'RocksDB'</span><span class="w"> </span>
+<span class="k">AND</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'information_schema'</span><span class="p">,</span><span class="w"> </span><span class="s1">'sys'</span><span class="p">,</span><span class="w"> </span><span class="s1">'performance_schema'</span><span class="p">,</span><span class="w"> </span><span class="s1">'mysql'</span><span class="p">);</span>
 </code></pre></div>
 <h3 id="identify-percona-specific-authentication">Identify Percona-Specific Authentication<a class="headerlink" href="#identify-percona-specific-authentication" title="Permanent link">&para;</a></h3>
 <p>MySQL CE will not recognize users that use Percona&rsquo;s PAM or LDAP plugins. You must find these users and change their authentication method to <code>caching_sha2_password</code> before migrating. MySQL 9.x removes the server-side <code>mysql_native_password</code> plugin; MySQL 8.4 disables it by default.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">user</span><span class="p">,</span><span class="w"> </span><span class="k">host</span><span class="p">,</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%pam%&#39;</span><span class="w"> </span>
-<span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%ldap%&#39;</span><span class="p">;</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%pam%'</span><span class="w"> </span>
+<span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%ldap%'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="verify-thread-pool-status">Verify Thread Pool Status<a class="headerlink" href="#verify-thread-pool-status" title="Permanent link">&para;</a></h3>
 <p>The thread pool code exists in Percona Server but is only a problem when actively configured. The following command shows whether the server is using Percona&rsquo;s scalable thread pool instead of the standard MySQL connection model.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;thread_handling&#39;</span><span class="p">;</span>
-<span class="c1">-- If the result is &#39;pool-of-threads&#39;, the Percona Thread Pool is active.</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'thread_handling'</span><span class="p">;</span>
+<span class="c1">-- If the result is 'pool-of-threads', the Percona Thread Pool is active.</span>
 </code></pre></div>
 <h3 id="check-for-data-masking-components">Check for Data Masking Components<a class="headerlink" href="#check-for-data-masking-components" title="Permanent link">&para;</a></h3>
 <p>If you need to confirm Data Masking separately from the general components query above, run:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%masking%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%masking%'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="pre-migration-sanitization-summary">Pre-Migration Sanitization Summary<a class="headerlink" href="#pre-migration-sanitization-summary" title="Permanent link">&para;</a></h3>
 <p>After you have identified these features, the reversion path typically involves the following actions:</p>

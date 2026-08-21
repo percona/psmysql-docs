@@ -10274,7 +10274,7 @@ file merges used in queries and backend processes.</p>
 <h2 id="use-encryption">Use ENCRYPTION<a class="headerlink" href="#use-encryption" title="Permanent link">&para;</a></h2>
 <p>If you do not set the default encryption setting, you can create general
 tablespaces with the <code>ENCRYPTION</code> setting.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">tablespace_name</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">tablespace_name</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <p>All tables contained in the tablespace are either encrypted or not encrypted.
 You cannot encrypt only some of the tables in a general tablespace. This
@@ -10283,11 +10283,11 @@ accept the <code>ENCRYPTION='Y/N'</code> option.</p>
 <p>The option is a tablespace attribute and is not allowed with the <code>CREATE TABLE</code> or <code>SHOW CREATE TABLE</code> statement except with file-per-table tablespaces.</p>
 <p>In an encrypted general tablespace, an attempt to create an unencrypted table
 generates the following error:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t3</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">)</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t3</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">)</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'N'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>ERROR 1478 (HY0000): InnoDB: Tablespace &#39;foo&#39; can contain only ENCRYPTED tables.
+<div class="no-copy highlight"><pre><span></span><code>ERROR 1478 (HY0000): InnoDB: Tablespace 'foo' can contain only ENCRYPTED tables.
 </code></pre></div>
 </details>
 <p>The server diagnoses an attempt to create or move tables, including partitioned ones, to a

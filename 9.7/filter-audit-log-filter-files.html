@@ -10452,39 +10452,39 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Field-value typing appears under <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and in the <a href="audit-log-filter-definition-fields.html#connection"><code>connection</code></a> section of <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>. Examples include JSON numbers for integer fields such as <code>status</code>, strings for <code>*.str</code> fields, and <code>"::tcp/ip"</code>-style symbolic constants for <code>connection_type</code>.</p>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <p>Start from a single-class filter that logs every <code>connection</code> event the component sees:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_connection&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: { &quot;name&quot;: &quot;connection&quot; }</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_connection'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
+<span class="s1">  "filter": {</span>
+<span class="s1">    "class": { "name": "connection" }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">);</span>
+<span class="s1">}'</span><span class="p">);</span>
 </code></pre></div>
 <p>Narrow to a single subclass by nesting <code>event</code> inside the class block (not as a sibling of <code>class</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_connect_only&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;connection&quot;,</span>
-<span class="s1">      &quot;event&quot;: { &quot;name&quot;: &quot;connect&quot; }</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_connect_only'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
+<span class="s1">  "filter": {</span>
+<span class="s1">    "class": {</span>
+<span class="s1">      "name": "connection",</span>
+<span class="s1">      "event": { "name": "connect" }</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">);</span>
+<span class="s1">}'</span><span class="p">);</span>
 </code></pre></div>
 <p>Narrow further by adding a <code>log</code> condition that tests event fields. The following example logs <code>connect</code> events from only two accounts, originating from one host:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_admin_connect&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;connection&quot;,</span>
-<span class="s1">      &quot;event&quot;: {</span>
-<span class="s1">        &quot;name&quot;: &quot;connect&quot;,</span>
-<span class="s1">        &quot;log&quot;: {</span>
-<span class="s1">          &quot;and&quot;: [</span>
-<span class="s1">            { &quot;field&quot;: { &quot;name&quot;: &quot;user.str&quot;, &quot;value&quot;: [&quot;admin&quot;, &quot;developer&quot;] } },</span>
-<span class="s1">            { &quot;field&quot;: { &quot;name&quot;: &quot;host.str&quot;, &quot;value&quot;: &quot;10.0.0.5&quot; } }</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_admin_connect'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
+<span class="s1">  "filter": {</span>
+<span class="s1">    "class": {</span>
+<span class="s1">      "name": "connection",</span>
+<span class="s1">      "event": {</span>
+<span class="s1">        "name": "connect",</span>
+<span class="s1">        "log": {</span>
+<span class="s1">          "and": [</span>
+<span class="s1">            { "field": { "name": "user.str", "value": ["admin", "developer"] } },</span>
+<span class="s1">            { "field": { "name": "host.str", "value": "10.0.0.5" } }</span>
 <span class="s1">          ]</span>
 <span class="s1">        }</span>
 <span class="s1">      }</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">);</span>
+<span class="s1">}'</span><span class="p">);</span>
 </code></pre></div>
 <p>For full authoring detail, see:</p>
 <ul>

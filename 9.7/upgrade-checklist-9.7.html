@@ -10188,8 +10188,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Identify partitioned tables on engines without native partitioning. Convert each table to InnoDB, or remove partitioning, before upgrading.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span>
 <span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLES</span>
-<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;innodb&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ndbcluster&#39;</span><span class="p">)</span>
-<span class="w">    </span><span class="k">AND</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%partitioned%&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'innodb'</span><span class="p">,</span><span class="w"> </span><span class="s1">'ndbcluster'</span><span class="p">)</span>
+<span class="w">    </span><span class="k">AND</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%partitioned%'</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li class="task-list-item">

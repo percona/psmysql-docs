@@ -10026,8 +10026,8 @@ create an index in its own column family using the <code>COMMENT</code> clause.<
 <p>The following example demonstrates how to place the <code>PRIMARY KEY</code> into the
 cf1 column family and the index <code>kb</code> — into the cf2 column family.</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
-<span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;cfname=cf1&#39;</span><span class="p">,</span>
-<span class="k">KEY</span><span class="w"> </span><span class="n">kb</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;cfname=cf2&#39;</span><span class="p">)</span>
+<span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">'cfname=cf1'</span><span class="p">,</span>
+<span class="k">KEY</span><span class="w"> </span><span class="n">kb</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">'cfname=cf2'</span><span class="p">)</span>
 <span class="n">ENGINE</span><span class="o">=</span><span class="n">ROCKSDB</span><span class="p">;</span>
 </code></pre></div>
 <p>The column family name is specified as the value of the cfname attribute at
@@ -10040,7 +10040,7 @@ column family.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The <code>cfname</code> attribute must be all lowercase. Place the equals sign (=) in front of the column family name without any whitespace on both sides of it.</p>
-<div class="highlight"><pre><span></span><code>COMMENT &#39;cfname=Foo; Creating the Foo family name&#39;
+<div class="highlight"><pre><span></span><code>COMMENT 'cfname=Foo; Creating the Foo family name'
 </code></pre></div>
 </div>
 <div class="admonition admonition">

@@ -10201,8 +10201,8 @@ log-error    = /var/log/mysql/error.log
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>...
-Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps audit[16013]: AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/sbin/mysqld&quot; name=&quot;/var/lib/mysqlcustom/binlog.index&quot; pid=16013 comm=&quot;mysqld&quot; requested_mask=&quot;c&quot; denied_mask=&quot;c&quot; fsuid=111 ouid=111
-Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(1607343428.022:36): apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/sbin/mysqld&quot; name=&quot;/var/lib/mysqlcustom/mysqld_tmp_file_case_insensitive_test.lower-test&quot; pid=16013 comm=&quot;mysqld&quot; requested_mask=&quot;c&quot; denied_mask=&quot;c&quot; fsuid=111 ouid=111
+Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps audit[16013]: AVC apparmor="DENIED" operation="mknod" profile="/usr/sbin/mysqld" name="/var/lib/mysqlcustom/binlog.index" pid=16013 comm="mysqld" requested_mask="c" denied_mask="c" fsuid=111 ouid=111
+Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(1607343428.022:36): apparmor="DENIED" operation="mknod" profile="/usr/sbin/mysqld" name="/var/lib/mysqlcustom/mysqld_tmp_file_case_insensitive_test.lower-test" pid=16013 comm="mysqld" requested_mask="c" denied_mask="c" fsuid=111 ouid=111
 ...
 </code></pre></div>
 </details>
@@ -10257,7 +10257,7 @@ drwxrwxrwx  2 root root 4096 Dec  7 13:09 mysql
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Job for mysql.service failed because the control process exited with error code.
-See &quot;systemctl status mysql.service&quot; and &quot;journalctl -xe&quot; for details.
+See "systemctl status mysql.service" and "journalctl -xe" for details.
 </code></pre></div>
 </details>
 <div class="highlight"><pre><span></span><code>journalctl<span class="w"> </span>-xe
@@ -10265,7 +10265,7 @@ See &quot;systemctl status mysql.service&quot; and &quot;journalctl -xe&quot; fo
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>...
-AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/sbin/mysqld&quot; name=&quot;/custom-log-dir/mysql/error.log&quot;
+AVC apparmor="DENIED" operation="mknod" profile="/usr/sbin/mysqld" name="/custom-log-dir/mysql/error.log"
 ...
 </code></pre></div>
 </details>
@@ -10290,7 +10290,7 @@ AVC apparmor=&quot;DENIED&quot; operation=&quot;mknod&quot; profile=&quot;/usr/s
 </code></pre></div>
 <h2 id="set-secure_file_priv-directory-location">Set <code>secure_file_priv</code> directory location<a class="headerlink" href="#set-secure_file_priv-directory-location" title="Permanent link">&para;</a></h2>
 <p>By default, secure_file_priv points to the following location:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysqlshow</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;secure_file_priv&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysqlshow</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'secure_file_priv'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10368,39 +10368,6 @@ Allow data dir access
 
     
     
-    
-      
-  <span class="md-source-file__fact">
-    
-      
-  <span class="md-icon" title="Contributors">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
-  </span>
-  <span>GitHub</span>
-
-    
-    <nav>
-      
-        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
-          
-          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
-        </a>
-      
-        <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
-          
-          <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
-        </a>
-      
-        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
-          
-          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
-        </a>
-      
-      
-      
-    </nav>
-  </span>
-
     
   </aside>
 
