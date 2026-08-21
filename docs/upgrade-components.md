@@ -15,7 +15,6 @@ The following table lists the affected plugins.
 | Plugin | Status before {{vers}} | {{vers}} state | Notes |
 |---|---|---|---|
 | `keyring_vault` | Available only as a plugin | `component_keyring_vault` | The plugin is replaced by the `component_keyring_vault` component. Convert the configuration from the `keyring_vault_config` system variable format to JavaScript Object Notation (JSON) manually. |
-| `audit_log` | Available only as a plugin | A deprecated plugin re-added in 8.4.7-7 | The recommended replacement is `component_audit_log_filter`. |
 | `audit_log_filter` | Available only as a plugin | `component_audit_log_filter` | The plugin has a corresponding component. Transition to the component after upgrading to {{vers}}. |
 | `data_masking` | Available as both a plugin and a component | `component_masking_functions` | Transition to `component_masking_functions` before upgrading to {{vers}}. |
 | `binlog_utils_udf` and `percona-udf` user-defined functions | Installed via a plugin. The plugin install requires `CREATE FUNCTION ... SONAME ...` for each function. | `component_binlog_utils_udf` and `component_percona_udf` | User-defined functions are available as components in {{vers}}. After `INSTALL COMPONENT`, all functions register automatically. |
