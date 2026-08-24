@@ -26,7 +26,7 @@ The detailed mapping in the following sections targets the `audit_log` plugin, b
 1. Upgrade the server to {{vers}}.
 2. Uninstall the plugin.
 3. Run the component install script (see [Install the audit log filter](install-audit-log-filter.md)) — this creates `mysql.audit_log_filter` and `mysql.audit_log_user` and registers the component.
-4. Re-apply each filter with [`audit_log_filter_set_filter()`](audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and re-assign accounts with [`audit_log_filter_set_user()`](audit-log-filter-variables.md#audit_log_filter_set_userusername-filter_name). If you exported the plugin's filter/user tables, those rows can be re-inserted directly.
+4. Re-apply each filter with [`audit_log_filter_set_filter()`](audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and re-assign accounts with `audit_log_filter_set_user()`. If you exported the plugin's filter/user tables, those rows can be re-inserted directly.
 5. Move non-filter settings (file path, format, rotation, syslog) from `audit_log_filter_*` plugin variables to the `audit_log_filter.*` component variables listed in the [variable mapping](#option-and-variable-mapping).
 
 See also [Upgrade from plugins to components → Transition after upgrade](upgrade-components.md#transition-timing).
@@ -278,7 +278,7 @@ Accounts that do not match `app@%` or `admin@localhost` — and that have no exp
 
 * Log content changes slightly even when you keep the same format. Some statements that the 8.0 plugin did not record appear in 8.4 logs because the server sends additional events. The plugin page calls out the `SELECT $$` example. Percona does not plan to backport format changes to match 8.0 output.
 * The component stores state in `mysql.audit_log_filter` and `mysql.audit_log_user`. Back up those tables before making bulk changes, and include them in your normal `mysql` database backups.
-* Lifecycle events (`server_startup`, `server_shutdown`, and the `audit` class itself) are not valid filter targets — see [Definition fields reference](audit-log-filter-definition-fields.md#class-audit).
+* Lifecycle events (`server_startup`, `server_shutdown`, and the `audit` class itself) are not valid filter targets — see [Definition fields reference](audit-log-filter-definition-fields.md#audit-log-filter-definition-fields).
 * `audit_log_filter.event_mode` defaults to `REDUCED`. If you relied on plugin logging for classes beyond `connection`, `general`, `table_access`, and `message`, set `event_mode = FULL` in `my.cnf` before you start the server. Changing the value on a running server creates a window where in-flight events are evaluated inconsistently against the new mode, and audit output during that window cannot be reconciled after the fact. If a restart is not possible, follow the `SET GLOBAL` with [`audit_log_filter_flush()`](audit-log-filter-variables.md#audit_log_filter_flush) inside a maintenance window. For the full caveat, see [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode).
 
 ## Additional reading

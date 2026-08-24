@@ -18,7 +18,7 @@ Available UDFs:
 | [audit_log_filter_remove_user(user_name)](#audit_log_filter_remove_useruser_name) |
 | [audit_log_rotate()](#audit_log_rotate) |
 | [audit_log_filter_set_filter(filter_name, definition)](#audit_log_filter_set_filterfilter_name-definition) |
-| [audit_log_filter_set_user(user_name, filter_name)](#audit_log_filter_set_useruser_name-filter_name)|
+| [audit_log_filter_set_user(user_name, filter_name)](#auditlogfiltersetuserusername-filtername)|
 
 ### audit_log_encryption_password_get(keyring_id)
 
