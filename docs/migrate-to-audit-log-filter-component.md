@@ -96,7 +96,7 @@ Component-only features that have no plugin counterpart include block-on-match (
 | `QUERIES` | `{ "filter": { "class": [ { "name": "general" }, { "name": "table_access" } ] } }` |
 | `NONE` | Either do not assign a filter to the account, or bind an empty filter: `{ "filter": {} }` |
 
-Install any of these with [`audit_log_filter_set_filter()`](audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and assign them with [`audit_log_filter_set_user()`](audit-log-filter-variables.md#audit_log_filter_set_userusername-filter_name). For example:
+Install any of these with [`audit_log_filter_set_filter()`](audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and assign them with [`audit_log_filter_set_user()`](audit-log-filter-variables.md). For example:
 
 ```sql
 SELECT audit_log_filter_set_filter('log_all', '{ "filter": { "log": true } }');
