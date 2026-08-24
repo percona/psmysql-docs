@@ -10666,7 +10666,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>Upgrade the server to 8.4.</li>
 <li>Uninstall the plugin.</li>
 <li>Run the component install script (see <a href="install-audit-log-filter.html">Install the audit log filter</a>) — this creates <code>mysql.audit_log_filter</code> and <code>mysql.audit_log_user</code> and registers the component.</li>
-<li>Re-apply each filter with <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and re-assign accounts with <a href="audit-log-filter-variables.html#audit_log_filter_set_userusername-filter_name"><code>audit_log_filter_set_user()</code></a>. If you exported the plugin&rsquo;s filter/user tables, those rows can be re-inserted directly.</li>
+<li>Re-apply each filter with <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and re-assign accounts with <code>audit_log_filter_set_user()</code>. If you exported the plugin&rsquo;s filter/user tables, those rows can be re-inserted directly.</li>
 <li>Move non-filter settings (file path, format, rotation, syslog) from <code>audit_log_filter_*</code> plugin variables to the <code>audit_log_filter.*</code> component variables listed in the <a href="#option-and-variable-mapping">variable mapping</a>.</li>
 </ol>
 <p>See also <a href="upgrade-components.html#transition-timing">Upgrade from plugins to components → Transition after upgrade</a>.</p>
@@ -10822,7 +10822,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<p>Install any of these with <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and assign them with <a href="audit-log-filter-variables.html#audit_log_filter_set_userusername-filter_name"><code>audit_log_filter_set_user()</code></a>. For example:</p>
+<p>Install any of these with <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and assign them with <a href="audit-log-filter-variables.html"><code>audit_log_filter_set_user()</code></a>. For example:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{ "filter": { "log": true } }'</span><span class="p">);</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'%'</span><span class="p">,</span><span class="w">        </span><span class="s1">'log_all'</span><span class="p">);</span>
 </code></pre></div>
@@ -10955,7 +10955,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ul>
 <li>Log content changes slightly even when you keep the same format. Some statements that the 8.0 plugin did not record appear in 8.4 logs because the server sends additional events. The plugin page calls out the <code>SELECT $$</code> example. Percona does not plan to backport format changes to match 8.0 output.</li>
 <li>The component stores state in <code>mysql.audit_log_filter</code> and <code>mysql.audit_log_user</code>. Back up those tables before making bulk changes, and include them in your normal <code>mysql</code> database backups.</li>
-<li>Lifecycle events (<code>server_startup</code>, <code>server_shutdown</code>, and the <code>audit</code> class itself) are not valid filter targets — see <a href="audit-log-filter-definition-fields.html#class-audit">Definition fields reference</a>.</li>
+<li>Lifecycle events (<code>server_startup</code>, <code>server_shutdown</code>, and the <code>audit</code> class itself) are not valid filter targets — see <a href="audit-log-filter-definition-fields.html#audit-log-filter-definition-fields">Definition fields reference</a>.</li>
 <li><code>audit_log_filter.event_mode</code> defaults to <code>REDUCED</code>. If you relied on plugin logging for classes beyond <code>connection</code>, <code>general</code>, <code>table_access</code>, and <code>message</code>, set <code>event_mode = FULL</code> in <code>my.cnf</code> before you start the server. Changing the value on a running server creates a window where in-flight events are evaluated inconsistently against the new mode, and audit output during that window cannot be reconciled after the fact. If a restart is not possible, follow the <code>SET GLOBAL</code> with <a href="audit-log-filter-variables.html#audit_log_filter_flush"><code>audit_log_filter_flush()</code></a> inside a maintenance window. For the full caveat, see <a href="audit-log-filter-variables.html#audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a>.</li>
 </ul>
 <h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
@@ -10989,7 +10989,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 21, 2026 21:58:55 UTC">July 21, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 24, 2026 17:46:24 UTC">August 24, 2026</span>
   </span>
 
     

@@ -15395,7 +15395,7 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
 <li>Upgrade the server to 8.4.</li>
 <li>Uninstall the plugin.</li>
 <li>Run the component install script (see <a href="#install-audit-log-filter">Install the audit log filter</a>) — this creates <code>mysql.audit_log_filter</code> and <code>mysql.audit_log_user</code> and registers the component.</li>
-<li>Re-apply each filter with <a href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and re-assign accounts with <a href="#audit-log-filter-variables-audit_log_filter_set_userusername-filter_name"><code>audit_log_filter_set_user()</code></a>. If you exported the plugin&rsquo;s filter/user tables, those rows can be re-inserted directly.</li>
+<li>Re-apply each filter with <a href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and re-assign accounts with <code>audit_log_filter_set_user()</code>. If you exported the plugin&rsquo;s filter/user tables, those rows can be re-inserted directly.</li>
 <li>Move non-filter settings (file path, format, rotation, syslog) from <code>audit_log_filter_*</code> plugin variables to the <code>audit_log_filter.*</code> component variables listed in the <a href="#migrate-to-audit-log-filter-component-option-and-variable-mapping">variable mapping</a>.</li>
 </ol>
 <p>See also <a href="#upgrade-components-transition-timing">Upgrade from plugins to components → Transition after upgrade</a>.</p>
@@ -15551,7 +15551,7 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
 </tr>
 </tbody>
 </table>
-<p>Install any of these with <a href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and assign them with <a href="#audit-log-filter-variables-audit_log_filter_set_userusername-filter_name"><code>audit_log_filter_set_user()</code></a>. For example:</p>
+<p>Install any of these with <a href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and assign them with <a href="#audit-log-filter-variables"><code>audit_log_filter_set_user()</code></a>. For example:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{ "filter": { "log": true } }'</span><span class="p">);</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'%'</span><span class="p">,</span><span class="w">        </span><span class="s1">'log_all'</span><span class="p">);</span>
 </code></pre></div>
@@ -15684,7 +15684,7 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
 <ul>
 <li>Log content changes slightly even when you keep the same format. Some statements that the 8.0 plugin did not record appear in 8.4 logs because the server sends additional events. The plugin page calls out the <code>SELECT $$</code> example. Percona does not plan to backport format changes to match 8.0 output.</li>
 <li>The component stores state in <code>mysql.audit_log_filter</code> and <code>mysql.audit_log_user</code>. Back up those tables before making bulk changes, and include them in your normal <code>mysql</code> database backups.</li>
-<li>Lifecycle events (<code>server_startup</code>, <code>server_shutdown</code>, and the <code>audit</code> class itself) are not valid filter targets — see <a href="#audit-log-filter-definition-fields-class-audit">Definition fields reference</a>.</li>
+<li>Lifecycle events (<code>server_startup</code>, <code>server_shutdown</code>, and the <code>audit</code> class itself) are not valid filter targets — see <a href="#audit-log-filter-definition-fields-audit-log-filter-definition-fields">Definition fields reference</a>.</li>
 <li><code>audit_log_filter.event_mode</code> defaults to <code>REDUCED</code>. If you relied on plugin logging for classes beyond <code>connection</code>, <code>general</code>, <code>table_access</code>, and <code>message</code>, set <code>event_mode = FULL</code> in <code>my.cnf</code> before you start the server. Changing the value on a running server creates a window where in-flight events are evaluated inconsistently against the new mode, and audit output during that window cannot be reconciled after the fact. If a restart is not possible, follow the <code>SET GLOBAL</code> with <a href="#audit-log-filter-variables-audit_log_filter_flush"><code>audit_log_filter_flush()</code></a> inside a maintenance window. For the full caveat, see <a href="#audit-log-filter-variables-audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a>.</li>
 </ul>
 <h2 id="migrate-to-audit-log-filter-component-additional-reading">Additional reading<a class="headerlink" href="#migrate-to-audit-log-filter-component-additional-reading" title="Permanent link">&para;</a></h2>
@@ -19963,7 +19963,7 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 <td><a href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition">audit_log_filter_set_filter(filter_name, definition)</a></td>
 </tr>
 <tr>
-<td><a href="#audit-log-filter-variables-audit_log_filter_set_useruser_name-filter_name">audit_log_filter_set_user(user_name, filter_name)</a></td>
+<td>audit_log_filter_set_user(user_name, filter_name)</td>
 </tr>
 </tbody>
 </table>
@@ -20156,7 +20156,7 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 <h3 id="audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition">audit_log_filter_set_filter(filter_name, definition)<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition" title="Permanent link">&para;</a></h3>
 <p>Writes JSON for <code>filter_name</code> to <code>mysql.audit_log_filter</code> (create or update). Each stored revision gets a new filter ID.</p>
 <p>From Percona Server for MySQL 8.4.9-9, validation runs at parse time—bad fields, unknown classes/subclasses, empty arrays, stray JSON keys, or broken <code>print</code> rules abort the call with a detailed error, for example:</p>
-<div class="highlight"><pre><span></span><code>ERROR: Incorrect rule definition: Unknown field name "WRONG.str" for class "general"
+<div class="no-copy highlight"><pre><span></span><code>ERROR: Incorrect rule definition: Unknown field name "WRONG.str" for class "general"
 </code></pre></div>
 <p>Before 8.4.9-9, the parser silently ignored unknown keys. Misspelling a structural key (for example <code>classes</code> instead of <code>class</code>) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.9-9 or later to catch these mistakes. For details, see <a href="#filter-audit-log-filter-files-filter-definition-validation">Filter definition validation</a>.</p>
 <p>In REDUCED event mode, a filter definition that references disabled event classes or subclasses fails the same way (error returned, filter not stored).</p>
@@ -40794,7 +40794,7 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 </tbody>
 </table>
 <h3 id="use-keyring-file-manifest-examples">Manifest examples<a class="headerlink" href="#use-keyring-file-manifest-examples" title="Permanent link">&para;</a></h3>
-<p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the components in <a href="#use-keyring-file-available-keyring-components">Available keyring components</a>.</p>
+<p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the available components.</p>
 <p>The following example shows a global manifest that loads a component directly:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"components"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file://&lt;component_name&gt;"</span>
@@ -41091,7 +41091,7 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 </tbody>
 </table>
 <h3 id="use-keyring-vault-component-manifest-examples">Manifest examples<a class="headerlink" href="#use-keyring-vault-component-manifest-examples" title="Permanent link">&para;</a></h3>
-<p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the components in <a href="#use-keyring-vault-component-available-keyring-components">Available keyring components</a>.</p>
+<p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the available components.</p>
 <p>The following example shows a global manifest that loads a component directly:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"components"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file://&lt;component_name&gt;"</span>
@@ -41849,7 +41849,7 @@ vault<span class="w"> </span>token<span class="w"> </span>create<span class="w">
 </tbody>
 </table>
 <h3 id="using-kmip-manifest-examples">Manifest examples<a class="headerlink" href="#using-kmip-manifest-examples" title="Permanent link">&para;</a></h3>
-<p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the components in <a href="#using-kmip-available-keyring-components">Available keyring components</a>.</p>
+<p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the available components.</p>
 <p>The following example shows a global manifest that loads a component directly:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"components"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file://&lt;component_name&gt;"</span>
@@ -42301,7 +42301,7 @@ vault<span class="w"> </span>token<span class="w"> </span>create<span class="w">
 </tbody>
 </table>
 <h3 id="using-amz-kms-manifest-examples">Manifest examples<a class="headerlink" href="#using-amz-kms-manifest-examples" title="Permanent link">&para;</a></h3>
-<p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the components in <a href="#using-amz-kms-available-keyring-components">Available keyring components</a>.</p>
+<p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the available components.</p>
 <p>The following example shows a global manifest that loads a component directly:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"components"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file://&lt;component_name&gt;"</span>
@@ -60560,7 +60560,6 @@ contributions and changes from MariaDB.</p>
 <li><a href="#extended-set-var">Extended SET VAR optimizer hint</a></li>
 <li><a href="#innodb-show-status">Extended show engine InnoDB status</a></li>
 <li><a href="#fido-authentication-plugin">FIDO authentication plugin</a></li>
-<li><a href="#pro-files.md">Files in packages built for Percona Server for MySQL Pro</a></li>
 <li><a href="#apt-files">Files in the DEB package built for Percona Server for MySQL 8.4</a></li>
 <li><a href="#yum-files">Files in the RPM package built for Percona Server for MySQL 8.4</a></li>
 <li><a href="#filter-audit-log-filter-files">Filter the Audit Log Filter logs</a></li>
@@ -60586,7 +60585,6 @@ contributions and changes from MariaDB.</p>
 <li><a href="#quickstart-yum">Install Percona Server for MySQL and create a database on Oracle Linux</a></li>
 <li><a href="#quickstart-apt">Install Percona Server for MySQL and create a database on Ubuntu</a></li>
 <li><a href="#source-tarball">Install Percona Server for MySQL from a source tarball</a></li>
-<li><a href="#install-pro.md">Install Percona Server for MySQL Pro</a></li>
 <li><a href="#yum-download-rpm">Install Percona Server for MySQL using downloaded RPM packages</a></li>
 <li><a href="#binary-tarball-install">Install Percona Server for MySQL 8.4 from a binary tarball</a></li>
 <li><a href="#apt-download-deb">Install Percona Server for MySQL 8.4 using downloaded DEB packages</a></li>
@@ -60627,7 +60625,6 @@ contributions and changes from MariaDB.</p>
 <li><a href="#myrocks-index">Percona MyRocks introduction</a></li>
 <li><a href="#download-instructions">Percona Product Download Instructions</a></li>
 <li><a href="#feature-comparison">Percona Server for MySQL feature comparison</a></li>
-<li><a href="#psmysql-pro.md">Percona Server for MySQL Pro</a></li>
 <li><a href="#index">Percona Server for MySQL 8.4 - Documentation</a></li>
 <li><a href="#percona-server-system-variables">Percona Server for MySQL 8.4 variables</a></li>
 <li><a href="#udf-percona-toolkit">Percona Toolkit UDFs</a></li>
@@ -60687,7 +60684,6 @@ contributions and changes from MariaDB.</p>
 <li><a href="#myrocks-added-features">Updated supported features</a></li>
 <li><a href="#upgrade">Upgrade from 8.0 to 8.4 overview</a></li>
 <li><a href="#upgrade-strategies">Upgrade strategies</a></li>
-<li><a href="#upgrade-pro.md">Upgrade to Percona Server for MySQL Pro</a></li>
 <li><a href="#upgrade-procedures">Upgrade procedures for 8.4</a></li>
 <li><a href="#upgrade-components">Upgrading from plugins to components</a></li>
 <li><a href="#apt-repo">Use an APT repository to install Percona Server for MySQL 8.4</a></li>
