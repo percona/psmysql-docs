@@ -12,6 +12,7 @@ A distance metric defines how the function calculates this value. Different metr
 
 ```sql
 DISTANCE(vector_a, vector_b, metric)
+
 VECTOR_DISTANCE(vector_a, vector_b, metric)
 ```
 
@@ -33,13 +34,25 @@ The `metric` argument cannot be `NULL`. An unsupported metric name causes an err
 
 The following distance metrics are supported:
 
-| Metric              | Description                                                                                                                                                                                                                                                                                                         |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `EUCLIDEAN`         | Measures the straight-line distance between two vectors (L2 distance). The result is non-negative. A value of `0` means the vectors are identical. Lower values indicate greater similarity.                                                                                                                        |
+| Metric | Description |
+| --- | --- |
+| `EUCLIDEAN` | Measures the straight-line distance between two vectors (L2 distance). The result is non-negative. A value of `0` means the vectors are identical. Lower values indicate greater similarity. |
 | `EUCLIDEAN_SQUARED` | Calculates the square of the Euclidean distance without the square root calculation. Use this metric when you need to rank vectors by distance but do not need the actual Euclidean distance. The result is non-negative. A value of `0` means the vectors are identical. Lower values indicate greater similarity. |
-| `COSINE`            | Measures the difference in direction between two vectors rather than their magnitude. For real-valued vectors, the result ranges from `0` to `2`. A value of `0` indicates the same direction, while `2` indicates opposite directions.                                                                             |
-| `DOT`               | Calculates the negative inner product (dot product). The dot product multiplies corresponding elements from the two vectors and adds the results. Lower returned values indicate greater similarity.                                                                                                                |
-| `MANHATTAN`         | Adds the absolute differences between corresponding vector elements (L1 distance). The result is non-negative. A value of `0` means the vectors are identical. Lower values indicate greater similarity.                                                                                                            |
+| `COSINE` | Calculates cosine distance as `1 - cosine similarity`. Cosine similarity ranges from `-1` to `1`, where `1` indicates the same direction, `0` indicates orthogonal vectors, and `-1` indicates opposite directions. Therefore, cosine distance ranges from `0` to `2`, where `0` indicates the same direction, `1` indicates orthogonal vectors, and `2` indicates opposite directions. |
+| `DOT` | Calculates the negative inner product (dot product). The dot product multiplies corresponding elements from the two vectors and adds the results. `DISTANCE()` multiplies the inner product by `-1` so that lower returned values represent more closely aligned vectors. |
+| `MANHATTAN` | Adds the absolute differences between corresponding vector elements (L1 distance). The result is non-negative. A value of `0` means the vectors are identical. Lower values indicate greater similarity. |
+
+The `COSINE` and `DOT` metrics transform their underlying similarity values into distance values so that a lower value consistently represents a closer match across all supported metrics. As a result, you can sort distance values in ascending order regardless of the selected metric:
+
+```sql
+SELECT id,
+       DISTANCE(embedding, TO_VECTOR('[0.1, 0.2, 0.3]'), 'COSINE') AS distance
+FROM products
+ORDER BY distance ASC
+LIMIT 5;
+```
+
+The query returns the five closest vectors without requiring a different sort direction for `COSINE` or `DOT`.
 
 ## Return value
 
@@ -109,7 +122,7 @@ SELECT id,
            'COSINE'
        ) AS distance
 FROM documents
-ORDER BY distance
+ORDER BY distance ASC
 LIMIT 5;
 ```
 
@@ -123,8 +136,36 @@ SELECT id,
            'COSINE'
        ) AS distance
 FROM documents
-ORDER BY distance
+ORDER BY distance ASC
 LIMIT 5;
+```
+
+### Calculate similarity values
+
+`DISTANCE()` returns distance-oriented values so that lower values consistently represent closer vectors. You can convert the result back to the underlying similarity value for the `COSINE` and `DOT` metrics.
+
+For `COSINE`, subtract the distance from `1` to calculate cosine similarity:
+
+```sql
+SELECT id,
+       1 - DISTANCE(
+           embedding,
+           TO_VECTOR('[0.1, 0.2, 0.3]'),
+           'COSINE'
+       ) AS similarity
+FROM documents;
+```
+
+For `DOT`, multiply the returned distance by `-1` to calculate the inner product:
+
+```sql
+SELECT id,
+       -1 * DISTANCE(
+           embedding,
+           TO_VECTOR('[0.1, 0.2, 0.3]'),
+           'DOT'
+       ) AS similarity
+FROM documents;
 ```
 
 ## See also
