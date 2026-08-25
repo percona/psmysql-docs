@@ -16,7 +16,7 @@ See [Get Started with component keyring](quickstart-component-keyring.md) for a 
 
 ## Version changes
 
-Percona Server for MySQL {{vers}} includes `component_percona_keyring_encrypted_file` from release 8.4.11-11
+Percona Server for MySQL {{vers}} includes `component_percona_keyring_encrypted_file` from release 8.4.11-11.
 
 ## Choose a file-based keyring component
 
@@ -28,9 +28,7 @@ Percona Server for MySQL {{vers}} includes `component_percona_keyring_encrypted_
 For key storage outside a local file, see these pages:
 
 * [Use the keyring vault component](use-keyring-vault-component.md)
-
 * [Use AWS KMS](using-amz-kms.md)
-
 * [Use KMIP](using-kmip.md)
 
 ## Component installation
@@ -83,7 +81,6 @@ SELECT @@plugin_dir;
 Typical paths:
 
 * `/usr/lib64/mysql/plugin` on RHEL-style systems
-
 * `/usr/lib/mysql/plugin` on Debian and Ubuntu
 
 You can place a local configuration file in the data directory when you set `read_local_config` in the global file.
@@ -94,7 +91,7 @@ The `component_percona_keyring_encrypted_file.cnf` file supports the following o
 
 * `password_file`: Path to a file that contains the password. Specify `password_file` or `password`, not both. Use this option to keep secrets out of the component configuration file. See [File permissions](#file-permissions).
 
-* `path`: Full path to the keyring data file. The component creates this file on first use if the file does not exist. The directory must exist. Use a dedicated directory with restricted permissions. Do not use the data directory. See [File permissions](#file-permissions).
+* `path`: Absolute path to the keyring data file. The component creates this file on first use if the file does not exist. The directory must exist. The path must not point to the MySQL data directory or to a location inside the data directory. Use a dedicated directory with restricted permissions. Relative paths are not supported. See [File permissions](#file-permissions).
 
 * `read_local_config` [optional]: Use this option only in the global configuration file. The option controls whether the component reads configuration from a local file in the data directory. Allowed values are `true` or `false`. If you omit this option, the component uses only the global configuration file.
 
@@ -157,7 +154,9 @@ The MySQL server user needs read access to the manifest, configuration file, and
 
 === "Keyring directory"
 
-    The component creates the keyring data file at `path` on first use. Place `path` in a directory owned by the MySQL user with mode `750`:
+    The component creates the keyring data file at `path` on first use. Use an absolute path to a dedicated directory outside the MySQL data directory. The directory must exist and the MySQL user must have read and write access.
+
+    For example:
 
     ```bash
     sudo chown mysql:mysql /var/lib/mysql-keyring
@@ -178,9 +177,7 @@ The MySQL server user needs read access to the manifest, configuration file, and
 The keyring payload is JSON. The file on disk is encrypted. Each write uses the following steps:
 
 * PBKDF2-HMAC-SHA256 derives a 256-bit AES key from the password
-
 * The component generates a random salt and initialization vector (IV)
-
 * AES encrypts the JSON payload
 
 The file starts with a version 1 header:
@@ -231,13 +228,9 @@ The `Active` status means the keyring is ready. The `Active` status does not mea
 If startup fails, check the error log with `SELECT @@log_error;`. Common causes:
 
 * Missing or empty password
-
 * Both `password` and `password_file` are set
-
 * The MySQL server user cannot read the password file
-
 * JSON syntax errors in the manifest or configuration file
-
 * Wrong password for an existing keyring file
 
 ## Reload the keyring configuration
@@ -282,7 +275,7 @@ To change the password, migrate the keys temporarily from `component_percona_key
 
     If the component uses a local configuration file, set `"read_local_config": true` in its global configuration file and place the local configuration file in the directory that you specify with `--source-keyring-configuration-dir` or `--destination-keyring-configuration-dir`.
 
-    Configure `component_keyring_file` to use a temporary keyring data file that does not already exist. For example:
+    Configure `component_keyring_file` to use a temporary keyring data file that does not already exist. Use an absolute path outside the MySQL data directory. For example:
 
     ```json
     {
@@ -392,11 +385,8 @@ After you verify the new encrypted keyring and encrypted data, securely remove t
 You can enable transparent data encryption (TDE) when `component_percona_keyring_encrypted_file` is active. TDE applies to the following objects:
 
 * Individual tables and schema defaults: [Encrypt file-per-table tablespace](encrypt-file-per-table-tablespace.md) and [Encrypt schema or general tablespace](encrypt-tablespaces.md)
-
 * System tablespace: [Encrypt system tablespace](encrypt-system-tablespace.md)
-
 * Redo and undo logs: [Log encryption](encrypt-logs.md)
-
 * Binary and relay logs: [Encrypt binary log files and relay log files](encrypt-binary-relay-log-files.md)
 
 See [Verify encryption](verify-encryption.md) to confirm encryption settings.
