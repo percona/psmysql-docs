@@ -3822,8 +3822,43 @@ limit reached`.
 | Data type    | Boolean                     |
 | Default      | OFF                         |
 
-Lets you temporarily disable writes to WAL files,
-which can be useful for bulk loading.
+!!! "warning"
+
+    This variable disables durability guarantees for write operations. Data loss can occur after a server exit.
+
+### Description
+
+The `rocksdb_write_disable_wal` variable controls whether MyRocks writes to the write-ahead log (WAL).
+When a user sets this variable to `1`, MyRocks skips the WAL for write operations.
+MyRocks stores the affected data only in the memtable.
+
+An unexpected server exit before a memtable flush removes all unflushed writes.
+The database loses transactions committed during the session, even transactions marked as successful.
+
+Replication consequences depend on `sql_log_bin`. If a user sets `sql_log_bin=0` together with `rocksdb_write_disable_wal=1`, the binary log skips the affected writes.
+A replica does not receive these writes and diverges from the source.
+
+If a user leaves `sql_log_bin` enabled, the binary log records the writes.
+The source loses the local data after a crash.
+The replica retains a copy of the same data.
+
+Data at risk includes:
+
+- Rows written during the session with `rocksdb_write_disable_wal=1`
+
+- Any row not yet flushed from the memtable to an SST file
+
+- Secondary index entries associated with unflushed rows
+
+### Safe bulk-loading workflow
+
+For bulk loading, use `rocksdb_bulk_load` instead of `rocksdb_write_disable_wal`. The `rocksdb_bulk_load` variable ingests SST files directly and avoids the durability risk of a disabled WAL.
+
+1. Create a target table with an empty structure. Secondary indexes require an empty table before the load.
+
+2. Order the source data by primary key. Sorted input allows sequential ingestion.
+
+3. Configure the session with the following statements:
 
 
 ### `rocksdb_write_ignore_missing_column_families`
