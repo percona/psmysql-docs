@@ -59431,12 +59431,16 @@ this document has been used as a source for writing this documentation</p>
 <p><em>Percona Server for MySQL</em> is trusted by thousands of enterprises to provide better performance and concurrency for their most demanding workloads. It delivers higher value to MySQL server users with optimized performance, greater performance scalability and availability, enhanced backups, and increased visibility.</p>
 <p>We provide these benefits by significantly enhancing <em>Percona Server for MySQL</em> as
 compared to the standard <em>MySQL</em> database server:</p>
+<div class="admonition note">
+<p class="admonition-title">MySQL Version Comparison</p>
+<p>This comparison table compares <em>Percona Server for MySQL 8.4</em> with <em>MySQL 8.4 Community Edition</em>. When a feature shows &ldquo;Enterprise-Only&rdquo; for MySQL, it means that feature is only available in <em>MySQL 8.4 Enterprise Edition</em>, not in the Community Edition. <em>Percona Server for MySQL</em> includes many Enterprise features at no cost.</p>
+</div>
 <table>
 <thead>
 <tr>
 <th>Features</th>
 <th>Percona Server for MySQL 8.4</th>
-<th>MySQL 8.4</th>
+<th>MySQL 8.4 Community Edition</th>
 </tr>
 </thead>
 <tbody>
@@ -59532,7 +59536,7 @@ compared to the standard <em>MySQL</em> database server:</p>
 <tr>
 <th>Improvements for Developers</th>
 <th>Percona Server for MySQL 8.4</th>
-<th>MySQL 8.4</th>
+<th>MySQL 8.4 Community Edition</th>
 </tr>
 </thead>
 <tbody>
@@ -59557,7 +59561,12 @@ compared to the standard <em>MySQL</em> database server:</p>
 <td>No</td>
 </tr>
 <tr>
-<td>Extra Hash/Digest Functions</td>
+<td><a href="#encryption-functions">Extra Hash/Digest Functions</a></td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="#uuid-versions">UUID_VX Component</a></td>
 <td>Yes</td>
 <td>No</td>
 </tr>
@@ -59568,7 +59577,7 @@ compared to the standard <em>MySQL</em> database server:</p>
 <tr>
 <th>Instrumentation and Troubleshooting Features</th>
 <th>Percona Server for MySQL 8.4</th>
-<th>MySQL 8.4</th>
+<th>MySQL 8.4 Community Edition</th>
 </tr>
 </thead>
 <tbody>
@@ -59588,32 +59597,32 @@ compared to the standard <em>MySQL</em> database server:</p>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Per-Table Performance Counters</td>
+<td><a href="#user-stats-information_schematable_statistics">Per-Table Performance Counters</a></td>
 <td>Yes</td>
 <td>No</td>
 </tr>
 <tr>
-<td>Per-Index Performance Counters</td>
+<td><a href="#user-stats-information_schemaindex_statistics">Per-Index Performance Counters</a></td>
 <td>Yes</td>
 <td>No</td>
 </tr>
 <tr>
-<td>Per-User Performance Counters</td>
+<td><a href="#user-stats-information_schemauser_statistics">Per-User Performance Counters</a></td>
 <td>Yes</td>
 <td>No</td>
 </tr>
 <tr>
-<td>Per-Client Performance Counters</td>
+<td><a href="#user-stats-information_schemaclient_statistics">Per-Client Performance Counters</a></td>
 <td>Yes</td>
 <td>No</td>
 </tr>
 <tr>
-<td>Per-Thread Performance Counters</td>
+<td><a href="#user-stats-information_schemathread_statistics">Per-Thread Performance Counters</a></td>
 <td>Yes</td>
 <td>No</td>
 </tr>
 <tr>
-<td>Global Query Response Time Statistics</td>
+<td><a href="#index-info-schema-tables-information_schemaquery_response_time">Global Query Response Time Statistics</a></td>
 <td>Yes</td>
 <td>No</td>
 </tr>
@@ -59623,12 +59632,12 @@ compared to the standard <em>MySQL</em> database server:</p>
 <td>No</td>
 </tr>
 <tr>
-<td>Undo Segment Information</td>
+<td><a href="#innodb-show-status">Undo Segment Information</a></td>
 <td>Yes</td>
 <td>No</td>
 </tr>
 <tr>
-<td>Temporary Tables Information</td>
+<td><a href="#misc-info-schema-tables-information_schematemporary_tables">Temporary Tables Information</a></td>
 <td>Yes</td>
 <td>No</td>
 </tr>
@@ -59649,7 +59658,7 @@ compared to the standard <em>MySQL</em> database server:</p>
 <tr>
 <th>Performance and Scalability Features</th>
 <th>Percona Server for MySQL 8.4</th>
-<th>MySQL 8.4</th>
+<th>MySQL 8.4 Community Edition</th>
 </tr>
 </thead>
 <tbody>
@@ -59669,7 +59678,7 @@ compared to the standard <em>MySQL</em> database server:</p>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Improved Scalability By Splitting Mutexes</td>
+<td><a href="#xtradb-performance-improvements">Improved Scalability By Splitting Mutexes</a></td>
 <td>Yes</td>
 <td>No</td>
 </tr>
@@ -59684,6 +59693,11 @@ compared to the standard <em>MySQL</em> database server:</p>
 <td>No</td>
 </tr>
 <tr>
+<td>Improved Binlog Transaction Dependency Tracking</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
 <td>Parallel Doublewrite Buffer</td>
 <td>Yes</td>
 <td>Yes</td>
@@ -59694,7 +59708,7 @@ compared to the standard <em>MySQL</em> database server:</p>
 <td>No</td>
 </tr>
 <tr>
-<td>Per-Column Compression for VARCHAR/BLOB and JSON</td>
+<td><a href="#compressed-columns">Per-Column Compression for VARCHAR/BLOB and JSON</a></td>
 <td>Yes</td>
 <td>No</td>
 </tr>
@@ -59710,7 +59724,7 @@ compared to the standard <em>MySQL</em> database server:</p>
 <tr>
 <th>Security Features</th>
 <th>Percona Server for MySQL 8.4</th>
-<th>MySQL 8.4</th>
+<th>MySQL 8.4 Community Edition</th>
 </tr>
 </thead>
 <tbody>
@@ -59734,6 +59748,11 @@ compared to the standard <em>MySQL</em> database server:</p>
 <td>Yes</td>
 <td>Enterprise-Only</td>
 </tr>
+<tr>
+<td><a href="#data-masking-overview">Data Masking Component</a></td>
+<td>Yes</td>
+<td>Enterprise-Only</td>
+</tr>
 </tbody>
 </table>
 <table>
@@ -59741,7 +59760,7 @@ compared to the standard <em>MySQL</em> database server:</p>
 <tr>
 <th>Encryption Features</th>
 <th>Percona Server for MySQL 8.4</th>
-<th>MySQL 8.4</th>
+<th>MySQL 8.4 Community Edition</th>
 </tr>
 </thead>
 <tbody>
@@ -59753,7 +59772,7 @@ compared to the standard <em>MySQL</em> database server:</p>
 <tr>
 <td>Storing Keyring in Hashicorp Vault</td>
 <td>Yes</td>
-<td>Enterprise Only</td>
+<td>Enterprise-Only</td>
 </tr>
 <tr>
 <td>Encrypt InnoDB Data</td>
@@ -59781,7 +59800,7 @@ compared to the standard <em>MySQL</em> database server:</p>
 <td>No</td>
 </tr>
 <tr>
-<td>Enforce Encryption</td>
+<td><a href="#encrypt-tablespaces-default_table_encryption">Enforce Encryption</a></td>
 <td>Yes</td>
 <td>No</td>
 </tr>
@@ -59792,7 +59811,7 @@ compared to the standard <em>MySQL</em> database server:</p>
 <tr>
 <th>Operational Improvements</th>
 <th>Percona Server for MySQL 8.4</th>
-<th>MySQL 8.4</th>
+<th>MySQL 8.4 Community Edition</th>
 </tr>
 </thead>
 <tbody>
@@ -59858,7 +59877,7 @@ compared to the standard <em>MySQL</em> database server:</p>
 <tr>
 <th>Features for Running Database as a Service (DBaaS)</th>
 <th>Percona Server for MySQL 8.4</th>
-<th>MySQL 8.4</th>
+<th>MySQL 8.4 Community Edition</th>
 </tr>
 </thead>
 <tbody>
