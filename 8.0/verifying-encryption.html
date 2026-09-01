@@ -10471,14 +10471,14 @@ may verify if the tablespace is encrypted or not.</p>
 <p>For single tablespaces, verify the ENCRYPTION option using
 INFORMATION_SCHEMA.TABLES and the CREATE OPTIONS settings.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>TABLE_SCHEMA,<span class="w"> </span>TABLE_NAME,<span class="w"> </span>CREATE_OPTIONS<span class="w"> </span>FROM
-<span class="w">       </span>INFORMATION_SCHEMA.TABLES<span class="w"> </span>WHERE<span class="w"> </span>CREATE_OPTIONS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;%ENCRYPTION%&#39;</span><span class="p">;</span>
+<span class="w">       </span>INFORMATION_SCHEMA.TABLES<span class="w"> </span>WHERE<span class="w"> </span>CREATE_OPTIONS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">'%ENCRYPTION%'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+----------------------+-------------------+------------------------------+
 | TABLE_SCHEMA         | TABLE_NAME        | CREATE_OPTIONS               |
 +----------------------+-------------------+------------------------------+
-|sample                | t1                | ENCRYPTION=&quot;Y&quot;               |
+|sample                | t1                | ENCRYPTION="Y"               |
 +----------------------+-------------------+------------------------------+
 </code></pre></div>
 </details>
@@ -10486,8 +10486,8 @@ INFORMATION_SCHEMA.TABLES and the CREATE OPTIONS settings.</p>
 13 set if the tablespace is encrypted. This bit can be checked with the <code>flag &amp;
 8192</code> expression in the following way:</p>
 <div class="highlight"><pre><span></span><code>SELECT space, name, flag, (flag &amp; 8192) != 0 AS encrypted FROM
-INFORMATION_SCHEMA.INNODB_TABLESPACES WHERE name in (&#39;foo&#39;, &#39;test/t2&#39;, &#39;bar&#39;,
-&#39;noencrypt&#39;);
+INFORMATION_SCHEMA.INNODB_TABLESPACES WHERE name in ('foo', 'test/t2', 'bar',
+'noencrypt');
 </code></pre></div>
 <p>The encrypted table metadata is contained in the
 INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION table. You must have the
@@ -10519,7 +10519,7 @@ INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION table. You must have the
 <p>To identify encryption-enabled schemas, query the
 INFORMATION_SCHEMA.SCHEMATA table:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>SCHEMA_NAME,<span class="w"> </span>DEFAULT_ENCRYPTION<span class="w"> </span>FROM
-INFORMATION_SCHEMA.SCHEMATA<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">DEFAULT_ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;YES&#39;</span><span class="p">;</span>
+INFORMATION_SCHEMA.SCHEMATA<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">DEFAULT_ENCRYPTION</span><span class="o">=</span><span class="s1">'YES'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>

@@ -10822,7 +10822,7 @@
 </li>
 </ul>
 <h2 id="install-the-uuid_vx-component">Install the UUID_VX component<a class="headerlink" href="#install-the-uuid_vx-component" title="Permanent link">&para;</a></h2>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_uuid_vx_udf&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">'file://component_uuid_vx_udf'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10912,34 +10912,34 @@
 </tbody>
 </table>
 <h3 id="examples-of-functions-for-all-uuid-versions">Examples of functions for all UUID versions<a class="headerlink" href="#examples-of-functions-for-all-uuid-versions" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>is_uuid_vx<span class="o">(</span><span class="s1">&#39;01900bf6-0eb0-715a-80f4-636367e07777&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>is_uuid_vx<span class="o">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+----------------------------------------------------+
-| is_uuid_vx(&#39;01900bf6-0eb0-715a-80f4-636367e07777&#39;) |
+| is_uuid_vx('01900bf6-0eb0-715a-80f4-636367e07777') |
 +----------------------------------------------------+
 |                                                  1 |
 +----------------------------------------------------+
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_vx_version<span class="o">(</span><span class="s1">&#39;01900bf6-0eb0-715a-80f4-636367e07777&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_vx_version<span class="o">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------------------+
-| uuid_vx_version(&#39;01900bf6-0eb0-715a-80f4-636367e07777&#39;) |
+| uuid_vx_version('01900bf6-0eb0-715a-80f4-636367e07777') |
 +---------------------------------------------------------+
 |                                                       7 |
 +---------------------------------------------------------+
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="w"> </span>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_vx_variant<span class="o">(</span><span class="s1">&#39;01900bf6-0eb0-715a-80f4-636367e07777&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="w"> </span>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_vx_variant<span class="o">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------------------+
-| uuid_vx_variant(&#39;01900bf6-0eb0-715a-80f4-636367e07777&#39;) |
+| uuid_vx_variant('01900bf6-0eb0-715a-80f4-636367e07777') |
 +---------------------------------------------------------+
 |                                                       1 |
 +---------------------------------------------------------+
@@ -11003,36 +11003,36 @@
 </code></pre></div>
 </details>
 <p>UUID version 3 takes one argument and uses the default UUID namespace as “URL”.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_v3<span class="o">(</span><span class="s1">&#39;http://example.com&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_v3<span class="o">(</span><span class="s1">'http://example.com'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
-| uuid_v3(&#39;http://example.com&#39;)        |
+| uuid_v3('http://example.com')        |
 +--------------------------------------+
 | d632b50c-7913-3137-ae9a-2d93f56e70d5 |
 +--------------------------------------+
 </code></pre></div>
 </details>
 <p>UUID version 3 takes one argument and uses an explicit UUID namespace “URL”.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_v3<span class="o">(</span><span class="s1">&#39;http://example.com&#39;</span>,<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_v3<span class="o">(</span><span class="s1">'http://example.com'</span>,<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
-| uuid_v3(&#39;http://example.com&#39;)        |
+| uuid_v3('http://example.com')        |
 +--------------------------------------+
 | d632b50c-7913-3137-ae9a-2d93f56e70d5 |
 +--------------------------------------+
 </code></pre></div>
 </details>
 <p>UUID version 3 takes one argument, with the explicit UUID namespace set to “DNS”.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_v3<span class="o">(</span><span class="s1">&#39;example.com&#39;</span>,0<span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_v3<span class="o">(</span><span class="s1">'example.com'</span>,0<span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
-| uuid_v3(&#39;example.com&#39;,0)             |
+| uuid_v3('example.com',0)             |
 +--------------------------------------+
 | 9073926b-929f-31c2-abc9-fad77ae3e8eb |
 +--------------------------------------+
@@ -11051,12 +11051,12 @@
 </code></pre></div>
 </details>
 <p>UUID version 5:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_v5<span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_v5<span class="o">(</span><span class="s2">"http://example.com"</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
-| uuid_v5(&quot;http://example.com&quot;)        |
+| uuid_v5("http://example.com")        |
 +--------------------------------------+
 | 8c9ddcb0-8084-5a7f-a988-1095ab18b5df |
 +--------------------------------------+
@@ -11128,42 +11128,42 @@
 </tbody>
 </table>
 <h3 id="timestamp-based-function-examples">Timestamp-based function examples<a class="headerlink" href="#timestamp-based-function-examples" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_vx_to_timestamp<span class="o">(</span><span class="s1">&#39;01900bf6-0eb0-715a-80f4-636367e07777&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_vx_to_timestamp<span class="o">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+--------------------------------------------------------------+
-| uuid_vx_to_timestamp(&#39;01900bf6-0eb0-715a-80f4-636367e07777&#39;) |
+| uuid_vx_to_timestamp('01900bf6-0eb0-715a-80f4-636367e07777') |
 +--------------------------------------------------------------+
 | 2024-06-12 10:19:53.392                                      |
 +--------------------------------------------------------------+
 1 row in set (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_vx_to_timestamp_tz<span class="o">(</span><span class="s1">&#39;01900bf6-0eb0-715a-80f4-636367e07777&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_vx_to_timestamp_tz<span class="o">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------------------------------+
-| uuid_vx_to_timestamp_tz(&#39;01900bf6-0eb0-715a-80f4-636367e07777&#39;) |
+| uuid_vx_to_timestamp_tz('01900bf6-0eb0-715a-80f4-636367e07777') |
 +-----------------------------------------------------------------+
 | Wed Jun 12 10:19:53 2024 GMT                                    |
 +-----------------------------------------------------------------+
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_vx_to_unixtime<span class="o">(</span><span class="s1">&#39;01900bf6-0eb0-715a-80f4-636367e07777&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>uuid_vx_to_unixtime<span class="o">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------+
-| uuid_vx_to_unixtime(&#39;01900bf6-0eb0-715a-80f4-636367e07777&#39;) |
+| uuid_vx_to_unixtime('01900bf6-0eb0-715a-80f4-636367e07777') |
 +-------------------------------------------------------------+
 |                                               1718187593392 |
 +-------------------------------------------------------------+
 </code></pre></div>
 </details>
 <h2 id="uninstall-the-uuid_vx-component">Uninstall the UUID_VX component<a class="headerlink" href="#uninstall-the-uuid_vx-component" title="Permanent link">&para;</a></h2>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">&#39;file://component_uuid_vx_udf&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s1">'file://component_uuid_vx_udf'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>

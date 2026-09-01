@@ -10646,24 +10646,24 @@ sensitive data with modified content.</p>
 
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <p>An example of <code>mask_inner</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_inner<span class="o">(</span><span class="s1">&#39;123456789&#39;</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_inner<span class="o">(</span><span class="s1">'123456789'</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-----------------------------------+
-| mask_inner(&#39;123456789&#39;, 1, 2)     |
+| mask_inner('123456789', 1, 2)     |
 +-----------------------------------+
 |1XXXXXX89                          |
 +-----------------------------------+
 </code></pre></div>
 </details>
 <p>An example of <code>mask_outer</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_outer<span class="o">(</span><span class="s1">&#39;123456789&#39;</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span><span class="w"> </span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_outer<span class="o">(</span><span class="s1">'123456789'</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span><span class="w"> </span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
-| mask_outer(&#39;123456789&#39;, 2, 2).     |
+| mask_outer('123456789', 2, 2).     |
 +------------------------------------+
 | XX34567XX                          |
 +------------------------------------+
@@ -10722,12 +10722,12 @@ of the string is replaced by “X”.</td>
 </code></pre></div>
 </details>
 <p>An example of <code>mask_ssn</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_ssn<span class="o">(</span><span class="s1">&#39;555-55-5555&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_ssn<span class="o">(</span><span class="s1">'555-55-5555'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-------------------------+
-| mask_ssn(&#39;555-55-5555&#39;) |
+| mask_ssn('555-55-5555') |
 +-------------------------+
 | XXX-XX-5555             |
 +-------------------------+
@@ -10893,48 +10893,48 @@ is not valid for any U.S. phone number.</td>
 
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <p>An example of <code>gen_blocklist()</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_blocklist<span class="o">(</span><span class="s1">&#39;apple&#39;</span>,<span class="w"> </span><span class="s1">&#39;fruit&#39;</span>,<span class="w"> </span><span class="s1">&#39;nut&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_blocklist<span class="o">(</span><span class="s1">'apple'</span>,<span class="w"> </span><span class="s1">'fruit'</span>,<span class="w"> </span><span class="s1">'nut'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------+
-| gen_blocklist(&#39;apple&#39;, &#39;fruit&#39;, &#39;nut&#39;)  |
+| gen_blocklist('apple', 'fruit', 'nut')  |
 +-----------------------------------------+
 | walnut                                  |
 +-----------------------------------------+
 </code></pre></div>
 </details>
 <p>An example of <code>gen_dictionary()</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_dictionary<span class="o">(</span><span class="s1">&#39;trees&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_dictionary<span class="o">(</span><span class="s1">'trees'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+--------------------------------------------------+
-| gen_dictionary(&#39;trees&#39;)                          |
+| gen_dictionary('trees')                          |
 +--------------------------------------------------+
 | Norway spruce                                    |
 +--------------------------------------------------+
 </code></pre></div>
 </details>
 <p>An example of <code>gen_dictionary_drop()</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_dictionary_drop<span class="o">(</span><span class="s1">&#39;mytestdict&#39;</span><span class="o">)</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_dictionary_drop<span class="o">(</span><span class="s1">'mytestdict'</span><span class="o">)</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-------------------------------------+
-| gen_dictionary_drop(&#39;mytestdict&#39;)   |
+| gen_dictionary_drop('mytestdict')   |
 +-------------------------------------+
 | Dictionary removed                  |
 +-------------------------------------+
 </code></pre></div>
 </details>
 <p>An example of <code>gen_dictionary_load(path, name)</code>:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_dictionary_load<span class="o">(</span><span class="s1">&#39;/usr/local/mysql/dict-files/testdict&#39;</span>,<span class="w"> </span><span class="s1">&#39;testdict&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_dictionary_load<span class="o">(</span><span class="s1">'/usr/local/mysql/dict-files/testdict'</span>,<span class="w"> </span><span class="s1">'testdict'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------------------------+
-| gen_dictionary_load(&#39;/usr/local/mysql/mysql/dict-files/testdict&#39;, &#39;testdict&#39;) |
+| gen_dictionary_load('/usr/local/mysql/mysql/dict-files/testdict', 'testdict') |
 +-------------------------------------------------------------------------------+
 | Dictionary load successfully                                                  |
 +-------------------------------------------------------------------------------+

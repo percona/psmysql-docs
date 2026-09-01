@@ -10667,7 +10667,7 @@
 <p>A plugin may not be supported in later releases of MySQL or Percona Server for MySQL since version changes may introduce incompatible changes.</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>This plugin requires manual installation because it isn’t installed by default.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>auth_pam<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">&#39;auth_pam.so&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSTALL<span class="w"> </span>PLUGIN<span class="w"> </span>auth_pam<span class="w"> </span>SONAME<span class="w"> </span><span class="s1">'auth_pam.so'</span><span class="p">;</span>
 </code></pre></div>
 <p>After the plugin has been installed it should be present in the plugins list. To check if the plugin has been correctly installed and active</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>PLUGINS<span class="p">;</span>
@@ -10695,7 +10695,7 @@ account    required     pam_unix.so audit
 </code></pre></div>
 <h2 id="creating-a-user">Creating a user<a class="headerlink" href="#creating-a-user" title="Permanent link">&para;</a></h2>
 <p>After the PAM plugin has been configured, users can be created with the PAM plugin as authentication method</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;newuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>auth_pam<span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'newuser'</span>@<span class="s1">'localhost'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>auth_pam<span class="p">;</span>
 </code></pre></div>
 <p>This will create a user <code>newuser</code> that can connect from <code>localhost</code> who will be authenticated using the PAM plugin. If the <code>pam_unix</code> method is being used user will need to exist on the system.</p>
 <h2 id="supplementary-groups-support">Supplementary groups support<a class="headerlink" href="#supplementary-groups-support" title="Permanent link">&para;</a></h2>

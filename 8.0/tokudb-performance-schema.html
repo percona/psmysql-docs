@@ -10466,7 +10466,7 @@
 <p>This integration can be used for profiling additional <em>TokuDB</em> operations.</p>
 <p><em>TokuDB</em> instruments available in Performance Schema can be seen in
 PERFORMANCE_SCHEMA.SETUP_INSTRUMENTS table:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_instruments</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="ss">&quot;%/fti/%&quot;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_instruments</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="ss">"%/fti/%"</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be the following:</p>
 <div class="highlight"><pre><span></span><code>+------------------------------------------------------------+---------+-------+
@@ -10559,7 +10559,7 @@ Performance Schema tables:</p>
 </blockquote>
 <p>For example, to get the information about <em>TokuDB</em> related events you can query
 PERFORMANCE_SCHEMA.events_waits_summary_global_by_event_name like:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">events_waits_summary_global_by_event_name</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">EVENT_NAME</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%fti%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">events_waits_summary_global_by_event_name</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">EVENT_NAME</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%fti%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be the following:</p>
 <div class="highlight"><pre><span></span><code>+-----------------------------------------+------------+----------------+----------------+----------------+----------------+

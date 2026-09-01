@@ -11108,10 +11108,10 @@
 <h2 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h2>
 <p>In Percona Server for MySQL 8.0.41, dictionary-related functions no longer run internal queries as the root user without a password. Following MySQL best practices, many admins disable the <code>root</code> user, which previously caused these functions to stop working. The server now uses the built-in <code>mysql.session</code> user to execute dictionary queries. </p>
 <p>However, for this to work, you need to grant the mysql.session user <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> privileges on the <code>masking_dictionaries</code> table.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>SELECT,<span class="w"> </span>INSERT,<span class="w"> </span>UPDATE,<span class="w"> </span>DELETE<span class="w"> </span>ON<span class="w"> </span>mysql.masking_dictionaries<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>SELECT,<span class="w"> </span>INSERT,<span class="w"> </span>UPDATE,<span class="w"> </span>DELETE<span class="w"> </span>ON<span class="w"> </span>mysql.masking_dictionaries<span class="w"> </span>TO<span class="w"> </span><span class="s1">'mysql.session'</span>@<span class="s1">'localhost'</span><span class="p">;</span>
 </code></pre></div>
 <p>If you change the value of the <code>masking_functions.masking_database</code> system variable to something other than <code>mysql</code>, make sure to update the <code>GRANT</code> query to match the new value.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>SELECT,<span class="w"> </span>INSERT,<span class="w"> </span>UPDATE,<span class="w"> </span>DELETE<span class="w"> </span>ON<span class="w"> </span>&lt;masking_functions.masking_database&gt;.masking_dictionaries<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;mysql.session&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>SELECT,<span class="w"> </span>INSERT,<span class="w"> </span>UPDATE,<span class="w"> </span>DELETE<span class="w"> </span>ON<span class="w"> </span>&lt;masking_functions.masking_database&gt;.masking_dictionaries<span class="w"> </span>TO<span class="w"> </span><span class="s1">'mysql.session'</span>@<span class="s1">'localhost'</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="data-masking-component-functions">Data masking component functions<a class="headerlink" href="#data-masking-component-functions" title="Permanent link">&para;</a></h2>
 <table>
@@ -11259,12 +11259,12 @@
 <p>A term, selected at random, from the dictionary listed in <code>to_dictionary_name</code> that replaces the selected term. If the selected <code>term</code> is not listed in the <code>from_dictionary_name</code> or a dictionary is missing, then the <code>term</code> is returned. If the <code>to_dictionary_name</code> does not exist, then returns NULL. The character set of the returned string is the same character set of the <code>term</code> parameter.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_blocklist<span class="o">(</span><span class="s1">&#39;apple&#39;</span>,<span class="w"> </span><span class="s1">&#39;fruit&#39;</span>,<span class="w"> </span><span class="s1">&#39;nut&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_blocklist<span class="o">(</span><span class="s1">'apple'</span>,<span class="w"> </span><span class="s1">'fruit'</span>,<span class="w"> </span><span class="s1">'nut'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------+
-| gen_blocklist(&#39;apple&#39;, &#39;fruit&#39;, &#39;nut&#39;)  |
+| gen_blocklist('apple', 'fruit', 'nut')  |
 +-----------------------------------------+
 | walnut                                  |
 +-----------------------------------------+
@@ -11296,12 +11296,12 @@
 <h3 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">&para;</a></h3>
 <p>A random term from the dictionary listed in <code>dictionary_name</code> in the <code>utf8mb4</code> character set. Returns NULL if the <code>dictionary_name</code> does not exist.</p>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_dictionary<span class="o">(</span><span class="s1">&#39;trees&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_dictionary<span class="o">(</span><span class="s1">'trees'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+--------------------------------------------------+
-| gen_dictionary(&#39;trees&#39;)                          |
+| gen_dictionary('trees')                          |
 +--------------------------------------------------+
 | Norway spruce                                    |
 +--------------------------------------------------+
@@ -11407,12 +11407,12 @@
 <h3 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">&para;</a></h3>
 <p>A generated email address as a string in the same character set as <code>domain</code>. If the <code>domain</code> value is not specified, then the string is in the <code>utf8mb4</code> character set. The <code>name</code> and <code>surname</code> are random lower-case letters (a - z).</p>
 <h3 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_email<span class="o">(</span><span class="nv">name_size</span><span class="o">=</span><span class="m">4</span>,<span class="w"> </span><span class="nv">surname_size</span><span class="o">=</span><span class="m">5</span>,<span class="w"> </span><span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;mydomain.edu&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>gen_rnd_email<span class="o">(</span><span class="nv">name_size</span><span class="o">=</span><span class="m">4</span>,<span class="w"> </span><span class="nv">surname_size</span><span class="o">=</span><span class="m">5</span>,<span class="w"> </span><span class="nv">domain</span><span class="o">=</span><span class="s1">'mydomain.edu'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-------------------------------------+
-| gen_rnd_email(4, 5, &#39;mydomain.edu&#39;) |
+| gen_rnd_email(4, 5, 'mydomain.edu') |
 +-------------------------------------+
 | qwer.asdfg@mydomain.edu             |
 +-------------------------------------+
@@ -11613,12 +11613,12 @@
 <p>An error is reported if  <code>str</code> length is an incorrect length.</p>
 <p>Returns a NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_11">Example<a class="headerlink" href="#example_11" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_canada_sin<span class="o">(</span><span class="s1">&#39;555-555-555&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_canada_sin<span class="o">(</span><span class="s1">'555-555-555'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+--------------------------------+
-| mask_canada_sin(&#39;555-555-555&#39;) |
+| mask_canada_sin('555-555-555') |
 +--------------------------------+
 | XXX-XXX-XXX                    |
 +--------------------------------+
@@ -11666,12 +11666,12 @@
 <p>An error is reported if the <code>str</code> length is incorrect.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_12">Example<a class="headerlink" href="#example_12" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_iban<span class="o">(</span><span class="s1">&#39;DE27 1002 02003 77495 4156&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_iban<span class="o">(</span><span class="s1">'DE27 1002 02003 77495 4156'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------+
-| mask_iban(&#39;DE27 1002 02003 77495 4156&#39;)     |
+| mask_iban('DE27 1002 02003 77495 4156')     |
 +---------------------------------------------+
 | DE** **** **** **** ****                    |
 +---------------------------------------------+
@@ -11724,12 +11724,12 @@
 <p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the character set of the <code>string</code> parameter.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_13">Example<a class="headerlink" href="#example_13" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_inner<span class="o">(</span><span class="s1">&#39;123456789&#39;</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_inner<span class="o">(</span><span class="s1">'123456789'</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-----------------------------------+
-| mask_inner(&#39;123456789&#39;, 1, 2)     |
+| mask_inner('123456789', 1, 2)     |
 +-----------------------------------+
 | 1XXXXXX89                          |
 +-----------------------------------+
@@ -11782,12 +11782,12 @@
 <p>A string with the selected characters masked by a specified <code>mask_char</code> or that parameter&rsquo;s default value in the same character set as <code>string</code>.</p>
 <p>Returns NULL if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_14">Example<a class="headerlink" href="#example_14" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_outer<span class="o">(</span><span class="s1">&#39;123456789&#39;</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span><span class="w"> </span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_outer<span class="o">(</span><span class="s1">'123456789'</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="p">;</span><span class="w"> </span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
-| mask_outer(&#39;123456789&#39;, 2, 2).     |
+| mask_outer('123456789', 2, 2).     |
 +------------------------------------+
 | XX34567XX                          |
 +------------------------------------+
@@ -11922,12 +11922,12 @@
 <p>Reports an error if the value of the <code>str</code> is an incorrect length.</p>
 <p>Returns a NULL value if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_17">Example<a class="headerlink" href="#example_17" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_ssn<span class="o">(</span><span class="s1">&#39;555-55-5555&#39;</span>,<span class="w"> </span><span class="s1">&#39;X&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_ssn<span class="o">(</span><span class="s1">'555-55-5555'</span>,<span class="w"> </span><span class="s1">'X'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-----------------------------+
-| mask_ssn(&#39;555-55-5555&#39;,&#39;X&#39;) |
+| mask_ssn('555-55-5555','X') |
 +-----------------------------+
 | XXX-XX-5555                 |
 +-----------------------------+
@@ -11967,12 +11967,12 @@
 <p>An error occurs if the <code>str</code> parameter is not the correct length. </p>
 <p>Returns a NULL value if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_18">Example<a class="headerlink" href="#example_18" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_uk_nin<span class="w"> </span><span class="o">(</span><span class="s1">&#39;CT 26 46 83 D&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_uk_nin<span class="w"> </span><span class="o">(</span><span class="s1">'CT 26 46 83 D'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------------+
-| mask_uk_nin(&#39;CT 26 46 83 D&#39;)       |
+| mask_uk_nin('CT 26 46 83 D')       |
 +------------------------------------+
 | CT ** ** ** *                      |
 +------------------------------------+
@@ -12012,12 +12012,12 @@
 <p>Returns an error if the length of <code>str</code> is incorrect.</p>
 <p>Returns <code>NULL</code> if you invoke this function with NULL as the primary argument.</p>
 <h3 id="example_19">Example<a class="headerlink" href="#example_19" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_uuid<span class="o">(</span><span class="s1">&#39;9a3b642c-06c6-11ee-be56-0242ac120002&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>mask_uuid<span class="o">(</span><span class="s1">'9a3b642c-06c6-11ee-be56-0242ac120002'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------+
-| mask_uuid(&#39;9a3b642c-06c6-11ee-be56-0242ac120002&#39;)     |
+| mask_uuid('9a3b642c-06c6-11ee-be56-0242ac120002')     |
 +-------------------------------------------------------+
 |********_****_****_****_************                   |
 +-------------------------------------------------------+
@@ -12066,12 +12066,12 @@
 <h3 id="returns_21">Returns<a class="headerlink" href="#returns_21" title="Permanent link">&para;</a></h3>
 <p>Returns a integer value of <code>1</code> (one) if the operation is successful. Returns the integer value of <code>0</code> (zero) for a failure.</p>
 <h3 id="example_21">Example<a class="headerlink" href="#example_21" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>masking_dictionary_remove<span class="o">(</span><span class="s1">&#39;trees&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>masking_dictionary_remove<span class="o">(</span><span class="s1">'trees'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------------------+
-| masking_dictionary_remove(&#39;trees&#39;)       |
+| masking_dictionary_remove('trees')       |
 +------------------------------------------+
 |                                        1 |
 +------------------------------------------+
@@ -12135,12 +12135,12 @@
 </details>
 <p>Modify the table with an <code>ALTER TABLE</code> statement, if needed.</p>
 <h3 id="example_22">Example<a class="headerlink" href="#example_22" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>masking_dictionary_term_add<span class="o">(</span><span class="s1">&#39;trees&#39;</span>,<span class="s1">&#39;pine&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>masking_dictionary_term_add<span class="o">(</span><span class="s1">'trees'</span>,<span class="s1">'pine'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------------+
-| masking_dictionary_term_add(&#39;trees&#39;, &#39;pine&#39;)  |
+| masking_dictionary_term_add('trees', 'pine')  |
 +-----------------------------------------------+
 |                                             1 |
 +-----------------------------------------------+
@@ -12207,12 +12207,12 @@
 </tbody>
 </table>
 <h3 id="example_23">Example<a class="headerlink" href="#example_23" title="Permanent link">&para;</a></h3>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>masking_dictionary_term_remove<span class="o">(</span><span class="s1">&#39;trees&#39;</span>,<span class="s1">&#39;pine&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>masking_dictionary_term_remove<span class="o">(</span><span class="s1">'trees'</span>,<span class="s1">'pine'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------+
-| masking_dictionary_term_remove(&#39;trees&#39;, &#39;pine&#39;)       |
+| masking_dictionary_term_remove('trees', 'pine')       |
 +-------------------------------------------------------+
 |                                                     1 |
 +-------------------------------------------------------+

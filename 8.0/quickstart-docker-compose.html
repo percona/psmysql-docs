@@ -10860,7 +10860,7 @@ $<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>my-pe
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_USER=${MYSQL_USER}</span><span class="w">                                                </span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_PASSWORD=${MYSQL_PASSWORD}</span><span class="w">                                        </span>
 <span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">                                                                     </span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;${MYSQL_PORT}:3306&quot;</span><span class="w">                                                    </span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"${MYSQL_PORT}:3306"</span><span class="w">                                                    </span>
 <span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">                                                                    </span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql_data:/var/lib/mysql</span><span class="w">  </span>
 
@@ -10941,7 +10941,7 @@ services:
     ports:
       - mode: ingress
         target: 3306
-        published: &quot;3306&quot;
+        published: "3306"
         protocol: tcp
     volumes:
       - type: volume
@@ -10983,7 +10983,7 @@ volumes:
    ✔ 4437564bc659 Pull complete                                               30.6s 
 [+] Running 3/3
  ✔ Network percona-mysql_default      Creat...                                 0.0s 
- ✔ Volume &quot;percona-mysql_mysql_data&quot;  C...                                     0.0s 
+ ✔ Volume "percona-mysql_mysql_data"  C...                                     0.0s 
  ✔ Container percona-mysql            Started                                  0.3s 
 </code></pre></div>
 </details>
@@ -11018,7 +11018,7 @@ Oracle is a registered trademark of Oracle Corporation and/or its
 affiliates. Other names may be trademarks of their respective
 owners.
 
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql&gt;
 </code></pre></div>
@@ -11079,7 +11079,7 @@ mysql&gt;
 <p><strong>Try this now:</strong> Copy and paste the code into your SQL editor and execute it.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>
 INSERT<span class="w"> </span>INTO<span class="w"> </span>employees<span class="w"> </span><span class="o">(</span>first_name,<span class="w"> </span>last_name,<span class="w"> </span>department,<span class="w"> </span>salary,<span class="w"> </span>hire_date<span class="o">)</span>
-VALUES<span class="w"> </span><span class="o">(</span><span class="s1">&#39;John&#39;</span>,<span class="w"> </span><span class="s1">&#39;Smith&#39;</span>,<span class="w"> </span><span class="s1">&#39;Engineering&#39;</span>,<span class="w"> </span><span class="m">75000</span>.00,<span class="w"> </span><span class="s1">&#39;2024-01-15&#39;</span><span class="o">)</span><span class="p">;</span>
+VALUES<span class="w"> </span><span class="o">(</span><span class="s1">'John'</span>,<span class="w"> </span><span class="s1">'Smith'</span>,<span class="w"> </span><span class="s1">'Engineering'</span>,<span class="w"> </span><span class="m">75000</span>.00,<span class="w"> </span><span class="s1">'2024-01-15'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -11129,9 +11129,9 @@ The query works by:</p>
 <p>The date format uses <code>YYYY-MM-DD</code> (Year-Month-Day), which is the standard SQL date format regardless of your country&rsquo;s date conventions.</p>
 <p><strong>Try it now:</strong> Copy and paste this code into your SQL editor and execute it to add these three employees simultaneously.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>employees<span class="w"> </span><span class="o">(</span>first_name,<span class="w"> </span>last_name,<span class="w"> </span>department,<span class="w"> </span>salary,<span class="w"> </span>hire_date<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span>
-<span class="w">  </span><span class="o">(</span><span class="s1">&#39;Sarah&#39;</span>,<span class="w"> </span><span class="s1">&#39;Johnson&#39;</span>,<span class="w"> </span><span class="s1">&#39;Marketing&#39;</span>,<span class="w"> </span><span class="m">65000</span>.00,<span class="w"> </span><span class="s1">&#39;2024-02-01&#39;</span><span class="o">)</span>,
-<span class="w">  </span><span class="o">(</span><span class="s1">&#39;Michael&#39;</span>,<span class="w"> </span><span class="s1">&#39;Brown&#39;</span>,<span class="w"> </span><span class="s1">&#39;Engineering&#39;</span>,<span class="w"> </span><span class="m">78000</span>.00,<span class="w"> </span><span class="s1">&#39;2024-01-20&#39;</span><span class="o">)</span>,
-<span class="w">  </span><span class="o">(</span><span class="s1">&#39;Lisa&#39;</span>,<span class="w"> </span><span class="s1">&#39;Davis&#39;</span>,<span class="w"> </span><span class="s1">&#39;HR&#39;</span>,<span class="w"> </span><span class="m">62000</span>.00,<span class="w"> </span><span class="s1">&#39;2024-03-10&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="w">  </span><span class="o">(</span><span class="s1">'Sarah'</span>,<span class="w"> </span><span class="s1">'Johnson'</span>,<span class="w"> </span><span class="s1">'Marketing'</span>,<span class="w"> </span><span class="m">65000</span>.00,<span class="w"> </span><span class="s1">'2024-02-01'</span><span class="o">)</span>,
+<span class="w">  </span><span class="o">(</span><span class="s1">'Michael'</span>,<span class="w"> </span><span class="s1">'Brown'</span>,<span class="w"> </span><span class="s1">'Engineering'</span>,<span class="w"> </span><span class="m">78000</span>.00,<span class="w"> </span><span class="s1">'2024-01-20'</span><span class="o">)</span>,
+<span class="w">  </span><span class="o">(</span><span class="s1">'Lisa'</span>,<span class="w"> </span><span class="s1">'Davis'</span>,<span class="w"> </span><span class="s1">'HR'</span>,<span class="w"> </span><span class="m">62000</span>.00,<span class="w"> </span><span class="s1">'2024-03-10'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -11156,7 +11156,7 @@ The query works by:</p>
 <p>SQL databases use the <code>YYYY-MM-DD</code> format regardless of your country&rsquo;s date format. This international standard avoids confusion between different formats (such as <code>MM/DD/YYYY</code> or <code>DD/MM/YYYY</code>).</p>
 <p><strong>Try it now:</strong> Copy and paste this code into your SQL editor and execute it to see immediate results. </p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>
-WHERE<span class="w"> </span>hire_date<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="s1">&#39;2024-02-01&#39;</span><span class="w"> </span>
+WHERE<span class="w"> </span>hire_date<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="s1">'2024-02-01'</span><span class="w"> </span>
 ORDER<span class="w"> </span>BY<span class="w"> </span>hire_date<span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -11262,7 +11262,7 @@ WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><
 <p><strong>Try this now:</strong> Copy and paste the code into your SQL editor and execute it.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>employees<span class="w"> </span>
 SET<span class="w"> </span><span class="nv">salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>salary<span class="w"> </span>*<span class="w"> </span><span class="m">1</span>.05<span class="w"> </span>
-WHERE<span class="w"> </span><span class="nv">department</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Engineering&#39;</span><span class="p">;</span>
+WHERE<span class="w"> </span><span class="nv">department</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Engineering'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -11286,7 +11286,7 @@ The <code>SELECT</code> statement retrieves specific details for employees in th
 </details>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>id,<span class="w"> </span>first_name,<span class="w"> </span>last_name,<span class="w"> </span>department,<span class="w"> </span>salary<span class="w"> </span>
 FROM<span class="w"> </span>employees<span class="w"> </span>
-WHERE<span class="w"> </span><span class="nv">department</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Engineering&#39;</span><span class="p">;</span>
+WHERE<span class="w"> </span><span class="nv">department</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Engineering'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>

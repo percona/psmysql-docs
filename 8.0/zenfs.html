@@ -10767,7 +10767,7 @@ sda<span class="w">                       </span><span class="m">247</span>.9G<s
 </li>
 <li>
 <p>Change the scheduler  to <code>mq_deadline</code> with a <code>udev</code> rule. Create <code>/etc/udev/rules.d/60-scheduler.rules</code> if the file does not exist, and add the following rule:</p>
-<div class="highlight"><pre><span></span><code>ACTION==&quot;add|change&quot;, KERNEL==&quot;&lt;short_block_device_name&gt;&quot;, ATTR{queue/scheduler}=&quot;mq-deadline&quot;
+<div class="highlight"><pre><span></span><code>ACTION=="add|change", KERNEL=="&lt;short_block_device_name&gt;", ATTR{queue/scheduler}="mq-deadline"
 </code></pre></div>
 </li>
 <li>
@@ -10897,7 +10897,7 @@ Space<span class="w"> </span>amplification:<span class="w"> </span><span class="
 <h2 id="backup-and-restore">Backup and restore<a class="headerlink" href="#backup-and-restore" title="Permanent link">&para;</a></h2>
 <p>Shut down the server and use the following command to backup a ZenFS file system, including metadata files, to a local filesystem. The <code>zenfs</code> backup and restore utility must have exclusive access to the ZenFS filesystem to take a consistent snapshot. The backup command only takes logical backups.</p>
 <p>The following command backs up everything from the root of the ZenFS drive:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>zenfs<span class="w"> </span>backup<span class="w"> </span>--zbd<span class="o">=</span><span class="si">${</span><span class="nv">NULLB</span><span class="si">}</span><span class="w"> </span>--path<span class="o">=</span><span class="s2">&quot;/home/user/bkp&quot;</span><span class="w"> </span>--backup_path<span class="o">=</span>/
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>zenfs<span class="w"> </span>backup<span class="w"> </span>--zbd<span class="o">=</span><span class="si">${</span><span class="nv">NULLB</span><span class="si">}</span><span class="w"> </span>--path<span class="o">=</span><span class="s2">"/home/user/bkp"</span><span class="w"> </span>--backup_path<span class="o">=</span>/
 </code></pre></div>
 <p>The options are the following:</p>
 <ul>
@@ -10973,7 +10973,7 @@ Space<span class="w"> </span>amplification:<span class="w"> </span><span class="
 </tbody>
 </table>
 <p>Use the following command to restore a backup into the root of the ZenFS drive:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>zenfs<span class="w"> </span>restore<span class="w"> </span>--zbd<span class="o">=</span><span class="si">${</span><span class="nv">NULLB</span><span class="si">}</span><span class="w"> </span>--path<span class="o">=</span><span class="s2">&quot;/home/user/bkp/&quot;</span><span class="w"> </span>--restore_path<span class="o">=</span>/
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>zenfs<span class="w"> </span>restore<span class="w"> </span>--zbd<span class="o">=</span><span class="si">${</span><span class="nv">NULLB</span><span class="si">}</span><span class="w"> </span>--path<span class="o">=</span><span class="s2">"/home/user/bkp/"</span><span class="w"> </span>--restore_path<span class="o">=</span>/
 </code></pre></div>
 <ul>
 <li>

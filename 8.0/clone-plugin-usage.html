@@ -10642,17 +10642,17 @@
 <p>The Clone Plugin significantly reduces the time needed to create full server instance copies compared to traditional backup and restore methods.</p>
 <h2 id="local-clone-on-the-same-server">Local clone on the same server<a class="headerlink" href="#local-clone-on-the-same-server" title="Permanent link">&para;</a></h2>
 <p>To clone data to a different directory on the same server:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CLONE<span class="w"> </span>LOCAL<span class="w"> </span>DATA<span class="w"> </span><span class="nv">DIRECTORY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/path/to/destination/directory&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CLONE<span class="w"> </span>LOCAL<span class="w"> </span>DATA<span class="w"> </span><span class="nv">DIRECTORY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'/path/to/destination/directory'</span><span class="p">;</span>
 </code></pre></div>
 <p>This command creates a full copy of all databases in the source directory.</p>
 <h2 id="remote-cloning-to-copy-data-between-servers">Remote cloning to copy data between servers<a class="headerlink" href="#remote-cloning-to-copy-data-between-servers" title="Permanent link">&para;</a></h2>
 <p>On the source server, create a user with the necessary privileges:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span>clone_user@<span class="s1">&#39;%&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>CLONE_ADMIN<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span>clone_user@<span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span>clone_user@<span class="s1">'%'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">'password'</span><span class="p">;</span>
+mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>CLONE_ADMIN<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span>clone_user@<span class="s1">'%'</span><span class="p">;</span>
 </code></pre></div>
 <p>On the target server, run the clone command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CLONE<span class="w"> </span>INSTANCE<span class="w"> </span>FROM<span class="w"> </span><span class="s1">&#39;clone_user&#39;</span>@<span class="s1">&#39;donor_host&#39;</span>:3306<span class="w"> </span>
-IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CLONE<span class="w"> </span>INSTANCE<span class="w"> </span>FROM<span class="w"> </span><span class="s1">'clone_user'</span>@<span class="s1">'donor_host'</span>:3306<span class="w"> </span>
+IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">'password'</span><span class="p">;</span>
 </code></pre></div>
 <p>The destination server will shut down, replace its data, and restart automatically.</p>
 <h2 id="monitor-clone-operations">Monitor clone operations<a class="headerlink" href="#monitor-clone-operations" title="Permanent link">&para;</a></h2>

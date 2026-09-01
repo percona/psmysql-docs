@@ -10588,63 +10588,63 @@
 </div>
 <h3 id="example-usage">Example usage<a class="headerlink" href="#example-usage" title="Permanent link">&para;</a></h3>
 <p>Extract all connection events:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>audit_filter.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[]|select(.class==&quot;connection&quot;)&#39;</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>audit_filter.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.[]|select(.class=="connection")'</span>
 </code></pre></div>
 <p>Find all events for a specific user:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>data/audit_filter.20251007T121752.log.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[] | select((.account.user // &quot;&quot;) | contains(&quot;root&quot;))&#39;</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>data/audit_filter.20251007T121752.log.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.[] | select((.account.user // "") | contains("root"))'</span>
 <span class="o">{</span>
-<span class="w">  </span><span class="s2">&quot;timestamp&quot;</span>:<span class="w"> </span><span class="s2">&quot;2025-10-07 11:15:27&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">4</span>,
-<span class="w">  </span><span class="s2">&quot;class&quot;</span>:<span class="w"> </span><span class="s2">&quot;general&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;event&quot;</span>:<span class="w"> </span><span class="s2">&quot;log&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;connection_id&quot;</span>:<span class="w"> </span><span class="m">11</span>,
-<span class="w">  </span><span class="s2">&quot;account&quot;</span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;user&quot;</span>:<span class="w"> </span><span class="s2">&quot;[root] @ localhost []&quot;</span>,
-<span class="w">    </span><span class="s2">&quot;host&quot;</span>:<span class="w"> </span><span class="s2">&quot;localhost&quot;</span>
+<span class="w">  </span><span class="s2">"timestamp"</span>:<span class="w"> </span><span class="s2">"2025-10-07 11:15:27"</span>,
+<span class="w">  </span><span class="s2">"id"</span>:<span class="w"> </span><span class="m">4</span>,
+<span class="w">  </span><span class="s2">"class"</span>:<span class="w"> </span><span class="s2">"general"</span>,
+<span class="w">  </span><span class="s2">"event"</span>:<span class="w"> </span><span class="s2">"log"</span>,
+<span class="w">  </span><span class="s2">"connection_id"</span>:<span class="w"> </span><span class="m">11</span>,
+<span class="w">  </span><span class="s2">"account"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">"user"</span>:<span class="w"> </span><span class="s2">"[root] @ localhost []"</span>,
+<span class="w">    </span><span class="s2">"host"</span>:<span class="w"> </span><span class="s2">"localhost"</span>
 <span class="w">  </span><span class="o">}</span>,
-<span class="w">  </span><span class="s2">&quot;login&quot;</span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;user&quot;</span>:<span class="w"> </span><span class="s2">&quot;[root] @ localhost []&quot;</span>,
-<span class="w">    </span><span class="s2">&quot;ip&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
-<span class="w">    </span><span class="s2">&quot;proxy&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">  </span><span class="s2">"login"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">"user"</span>:<span class="w"> </span><span class="s2">"[root] @ localhost []"</span>,
+<span class="w">    </span><span class="s2">"ip"</span>:<span class="w"> </span><span class="s2">""</span>,
+<span class="w">    </span><span class="s2">"proxy"</span>:<span class="w"> </span><span class="s2">""</span>
 <span class="w">  </span><span class="o">}</span>,
-<span class="w">  </span><span class="s2">&quot;general_data&quot;</span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;status&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="w">  </span><span class="s2">"general_data"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">"status"</span>:<span class="w"> </span><span class="m">0</span>
 <span class="w">  </span><span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div>
 <p>Filter events by SQL command type:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>data/audit_filter.20251007T121752.log.json<span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[]|select(.query_data.sql_command==&quot;select&quot;)&#39;</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>data/audit_filter.20251007T121752.log.json<span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.[]|select(.query_data.sql_command=="select")'</span>
 <span class="o">{</span>
-<span class="w">  </span><span class="s2">&quot;timestamp&quot;</span>:<span class="w"> </span><span class="s2">&quot;2025-10-07 11:15:27&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">10</span>,
-<span class="w">  </span><span class="s2">&quot;class&quot;</span>:<span class="w"> </span><span class="s2">&quot;query&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;event&quot;</span>:<span class="w"> </span><span class="s2">&quot;query_start&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;connection_id&quot;</span>:<span class="w"> </span><span class="m">11</span>,
-<span class="w">  </span><span class="s2">&quot;query_data&quot;</span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;query&quot;</span>:<span class="w"> </span><span class="s2">&quot;select @@version_comment limit 1&quot;</span>,
-<span class="w">    </span><span class="s2">&quot;status&quot;</span>:<span class="w"> </span><span class="m">0</span>,
-<span class="w">    </span><span class="s2">&quot;sql_command&quot;</span>:<span class="w"> </span><span class="s2">&quot;select&quot;</span>
+<span class="w">  </span><span class="s2">"timestamp"</span>:<span class="w"> </span><span class="s2">"2025-10-07 11:15:27"</span>,
+<span class="w">  </span><span class="s2">"id"</span>:<span class="w"> </span><span class="m">10</span>,
+<span class="w">  </span><span class="s2">"class"</span>:<span class="w"> </span><span class="s2">"query"</span>,
+<span class="w">  </span><span class="s2">"event"</span>:<span class="w"> </span><span class="s2">"query_start"</span>,
+<span class="w">  </span><span class="s2">"connection_id"</span>:<span class="w"> </span><span class="m">11</span>,
+<span class="w">  </span><span class="s2">"query_data"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">"query"</span>:<span class="w"> </span><span class="s2">"select @@version_comment limit 1"</span>,
+<span class="w">    </span><span class="s2">"status"</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">    </span><span class="s2">"sql_command"</span>:<span class="w"> </span><span class="s2">"select"</span>
 <span class="w">  </span><span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div>
 <p>Extract only INSERT operations on specific tables:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>data/audit_filter.20260109T131132.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[]|select(.class==&quot;table_access&quot; and .event==&quot;insert&quot; or (.table_access_data.table_database // &quot;&quot;)==&quot;test&quot;)&#39;</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>data/audit_filter.20260109T131132.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.[]|select(.class=="table_access" and .event=="insert" or (.table_access_data.table_database // "")=="test")'</span>
 <span class="o">{</span>
-<span class="w">  </span><span class="s2">&quot;timestamp&quot;</span>:<span class="w"> </span><span class="s2">&quot;2026-01-09 13:10:59&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">80</span>,
-<span class="w">  </span><span class="s2">&quot;class&quot;</span>:<span class="w"> </span><span class="s2">&quot;table_access&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;event&quot;</span>:<span class="w"> </span><span class="s2">&quot;insert&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;connection_id&quot;</span>:<span class="w"> </span><span class="m">12</span>,
-<span class="w">  </span><span class="s2">&quot;table_access_data&quot;</span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;db&quot;</span>:<span class="w"> </span><span class="s2">&quot;test&quot;</span>,
-<span class="w">    </span><span class="s2">&quot;table&quot;</span>:<span class="w"> </span><span class="s2">&quot;t1&quot;</span>,
-<span class="w">    </span><span class="s2">&quot;query&quot;</span>:<span class="w"> </span><span class="s2">&quot;INSERT INTO t1 VALUES (1)&quot;</span>,
-<span class="w">    </span><span class="s2">&quot;sql_command&quot;</span>:<span class="w"> </span><span class="s2">&quot;insert&quot;</span>
+<span class="w">  </span><span class="s2">"timestamp"</span>:<span class="w"> </span><span class="s2">"2026-01-09 13:10:59"</span>,
+<span class="w">  </span><span class="s2">"id"</span>:<span class="w"> </span><span class="m">80</span>,
+<span class="w">  </span><span class="s2">"class"</span>:<span class="w"> </span><span class="s2">"table_access"</span>,
+<span class="w">  </span><span class="s2">"event"</span>:<span class="w"> </span><span class="s2">"insert"</span>,
+<span class="w">  </span><span class="s2">"connection_id"</span>:<span class="w"> </span><span class="m">12</span>,
+<span class="w">  </span><span class="s2">"table_access_data"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">"db"</span>:<span class="w"> </span><span class="s2">"test"</span>,
+<span class="w">    </span><span class="s2">"table"</span>:<span class="w"> </span><span class="s2">"t1"</span>,
+<span class="w">    </span><span class="s2">"query"</span>:<span class="w"> </span><span class="s2">"INSERT INTO t1 VALUES (1)"</span>,
+<span class="w">    </span><span class="s2">"sql_command"</span>:<span class="w"> </span><span class="s2">"insert"</span>
 <span class="w">  </span><span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div>
 <p>Pretty-print the entire audit log:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>audit_filter.log.20251007T121752.log.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>less
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>audit_filter.log.20251007T121752.log.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>less
 </code></pre></div>
 <p>For more <code>jq</code> examples and syntax, see the <a href="https://stedolan.github.io/jq/manual/">jq documentation</a>.</p>
 

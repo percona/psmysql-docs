@@ -10626,7 +10626,7 @@
 <p>Replace <code>/path/to/mysql/share/</code> with the actual path to your MySQL installation&rsquo;s share directory.</p>
 <h3 id="verify-installation">Verify installation<a class="headerlink" href="#verify-installation" title="Permanent link">&para;</a></h3>
 <p>After you run the script, verify that the required tables are created:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;aud%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'aud%'</span><span class="p">;</span>
 </code></pre></div>
 <p>Expected output:</p>
 <div class="highlight"><pre><span></span><code>+------------------------+
@@ -10643,7 +10643,7 @@
 <p>Check that the plugin is properly installed:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_TYPE</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">PLUGINS</span><span class="w"> </span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;audit_log_filter&#39;</span><span class="p">;</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'audit_log_filter'</span><span class="p">;</span>
 </code></pre></div>
 <p>Expected output:</p>
 <div class="highlight"><pre><span></span><code>+-------------------+----------------+-------------+
@@ -10655,11 +10655,11 @@
 </code></pre></div>
 <h3 id="test-filter-functionality">Test filter functionality<a class="headerlink" href="#test-filter-functionality" title="Permanent link">&para;</a></h3>
 <p>Test that the audit log filter is working correctly:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;log_all&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{"filter": {"log": true}}'</span><span class="p">);</span>
 </code></pre></div>
 <p>Expected output:</p>
 <div class="highlight"><pre><span></span><code>+---------------------------------------------------------------------+
-| audit_log_filter_set_filter(&#39;log_all&#39;, &#39;{&quot;filter&quot;: {&quot;log&quot;: true}}&#39;) |
+| audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}') |
 +---------------------------------------------------------------------+
 | ERROR: Failed to check filtering rule name existence                |
 +---------------------------------------------------------------------+

@@ -10587,14 +10587,14 @@ all the effectively available privileges to the account, including
 those granted to a different account.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <p>If we create the following users:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span>grantee@localhost<span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;grantee1&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span>grantee@localhost<span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">'grantee1'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.50 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span>grantee<span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;grantee2&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span>grantee<span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">'grantee2'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10625,7 +10625,7 @@ those granted to a different account.</p>
 <div class="highlight"><pre><span></span><code>+----------------------------------------------------------------------------------------------------------------+
 | Grants for grantee@localhost                                                                                   |
 +----------------------------------------------------------------------------------------------------------------+
-| GRANT USAGE ON *.* TO &#39;grantee&#39;@&#39;localhost&#39; IDENTIFIED BY PASSWORD &#39;*9823FF338D44DAF02422CF24DD1F879FB4F6B232&#39; |
+| GRANT USAGE ON *.* TO 'grantee'@'localhost' IDENTIFIED BY PASSWORD '*9823FF338D44DAF02422CF24DD1F879FB4F6B232' |
 +----------------------------------------------------------------------------------------------------------------+
 1 row in set (0.04 sec)
 </code></pre></div>
@@ -10651,9 +10651,9 @@ the privileges for the <code>grantee</code> user:</li>
 <div class="highlight"><pre><span></span><code>+-------------------------------------------------------------------+
 | Grants for grantee@localhost                                      |
 +-------------------------------------------------------------------+
-| GRANT USAGE ON *.* TO &#39;grantee&#39;@&#39;localhost&#39; IDENTIFIED BY PASSWORD|
-| &#39;*9823FF338D44DAF02422CF24DD1F879FB4F6B232&#39;                       |
-| GRANT ALL PRIVILEGES ON `db2`.* TO &#39;grantee&#39;@&#39;%&#39; WITH GRANT OPTION|
+| GRANT USAGE ON *.* TO 'grantee'@'localhost' IDENTIFIED BY PASSWORD|
+| '*9823FF338D44DAF02422CF24DD1F879FB4F6B232'                       |
+| GRANT ALL PRIVILEGES ON `db2`.* TO 'grantee'@'%' WITH GRANT OPTION|
 +-------------------------------------------------------------------+
 2 rows in set (0.00 sec)
 </code></pre></div>

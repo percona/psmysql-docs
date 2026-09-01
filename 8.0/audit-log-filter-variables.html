@@ -11288,14 +11288,14 @@ exists.</p>
 <h4 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h4>
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
 <h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@filter<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{ &quot;filter&quot;: { &quot;log&quot;: true }}&#39;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>@filter<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'{ "filter": { "log": true }}'</span>
 </code></pre></div>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">&#39;filter-name&#39;</span>,<span class="w"> </span>@filter<span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_filter<span class="o">(</span><span class="s1">'filter-name'</span>,<span class="w"> </span>@filter<span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------+
-| audit_log_filter_set_filter(&#39;filter-name&#39;, @filter)  |
+| audit_log_filter_set_filter('filter-name', @filter)  |
 +-------------------------------------------------------------+
 | OK                                                          |
 +-------------------------------------------------------------+
@@ -11323,12 +11323,12 @@ affected as follows:</p>
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
 <p>If the filter name does not exist, no error is generated.</p>
 <h4 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_remove_filter<span class="o">(</span><span class="s1">&#39;filter-name&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_remove_filter<span class="o">(</span><span class="s1">'filter-name'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------+
-| audit_log_filter_remove_filter(&#39;filter-name&#39;)  |
+| audit_log_filter_remove_filter('filter-name')  |
 +------------------------------------------------+
 | OK                                             |
 +------------------------------------------------+
@@ -11363,12 +11363,12 @@ by any user account without a defined filter.</p>
 <h4 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">&para;</a></h4>
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
 <h4 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_user<span class="o">(</span><span class="s1">&#39;user-name@localhost&#39;</span>,<span class="w"> </span><span class="s1">&#39;filter-name&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_set_user<span class="o">(</span><span class="s1">'user-name@localhost'</span>,<span class="w"> </span><span class="s1">'filter-name'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------------+
-| audit_log_filter_set_user(&#39;user-name@localhost&#39;, &#39;filter-name&#39;)  |
+| audit_log_filter_set_user('user-name@localhost', 'filter-name')  |
 +-------------------------------------------------------------------+
 | OK                                                                |
 +-------------------------------------------------------------------+
@@ -11385,12 +11385,12 @@ for this user account use the default account filter or are not logged.</p>
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
 <p>If the user_name has no filter assigned, no error is generated.</p>
 <h4 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_remove_user<span class="o">(</span><span class="s1">&#39;user-name@localhost&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_filter_remove_user<span class="o">(</span><span class="s1">'user-name@localhost'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------------+
-| audit_log_filter_remove_user(&#39;user-name@localhost&#39;)  |
+| audit_log_filter_remove_user('user-name@localhost')  |
 +------------------------------------------------------+
 | OK                                                   |
 +------------------------------------------------------+
@@ -11496,9 +11496,9 @@ NULL value. Returns <code>NULL</code> and generates an error if the call fails.<
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------------------------------------+
 | audit_log_read()                                                             |
 +------------------------------------------------------------------------------+
-| [{&quot;timestamp&quot; : &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10, &quot;class&quot;:&quot;connection&quot;,      |
-|  &quot;connection_id&quot;: 1, &quot;user&quot;: &quot;root@localhost&quot;, &quot;host&quot;: &quot;localhost&quot;,         |
-|  &quot;command_class&quot;: &quot;select&quot;, &quot;sqltext&quot;: &quot;SELECT * FROM users&quot;}]             |
+| [{"timestamp" : "2023-06-02 09:43:25", "id": 10, "class":"connection",      |
+|  "connection_id": 1, "user": "root@localhost", "host": "localhost",         |
+|  "command_class": "select", "sqltext": "SELECT * FROM users"}]             |
 +------------------------------------------------------------------------------+
 </code></pre></div>
 </details>
@@ -11509,26 +11509,26 @@ NULL value. Returns <code>NULL</code> and generates an error if the call fails.<
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------------------------------------+
 | audit_log_read(audit_log_read_bookmark())                                   |
 +------------------------------------------------------------------------------+
-| [{&quot;timestamp&quot; : &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10, &quot;class&quot;:&quot;connection&quot;,      |
-|  &quot;connection_id&quot;: 1, &quot;user&quot;: &quot;root@localhost&quot;, &quot;host&quot;: &quot;localhost&quot;,         |
-|  &quot;command_class&quot;: &quot;select&quot;, &quot;sqltext&quot;: &quot;SELECT * FROM users&quot;}]             |
+| [{"timestamp" : "2023-06-02 09:43:25", "id": 10, "class":"connection",      |
+|  "connection_id": 1, "user": "root@localhost", "host": "localhost",         |
+|  "command_class": "select", "sqltext": "SELECT * FROM users"}]             |
 +------------------------------------------------------------------------------+
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">(</span><span class="s1">&#39;{&quot;timestamp&quot;: &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10}&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">(</span><span class="s1">'{"timestamp": "2023-06-02 09:43:25", "id": 10}'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------------------------------------------------------+
-| audit_log_read(&#39;{&quot;timestamp&quot;: &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10}&#39;)           |
+| audit_log_read('{"timestamp": "2023-06-02 09:43:25", "id": 10}')           |
 +------------------------------------------------------------------------------+
-| [{&quot;timestamp&quot; : &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10, &quot;class&quot;:&quot;connection&quot;,      |
-|  &quot;connection_id&quot;: 1, &quot;user&quot;: &quot;root@localhost&quot;, &quot;host&quot;: &quot;localhost&quot;,         |
-|  &quot;command_class&quot;: &quot;select&quot;, &quot;sqltext&quot;: &quot;SELECT * FROM users&quot;}]             |
+| [{"timestamp" : "2023-06-02 09:43:25", "id": 10, "class":"connection",      |
+|  "connection_id": 1, "user": "root@localhost", "host": "localhost",         |
+|  "command_class": "select", "sqltext": "SELECT * FROM users"}]             |
 +------------------------------------------------------------------------------+
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">(</span><span class="s1">&#39;{&quot;timestamp&quot;: &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10}&#39;</span>,<span class="w"> </span><span class="m">100</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_read<span class="o">(</span><span class="s1">'{"timestamp": "2023-06-02 09:43:25", "id": 10}'</span>,<span class="w"> </span><span class="m">100</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="audit_log_read_bookmark">audit_log_read_bookmark()<a class="headerlink" href="#audit_log_read_bookmark" title="Permanent link">&para;</a></h3>
 <p>This function provides a bookmark for the most recently written audit log event
@@ -11548,7 +11548,7 @@ as a JSON string. Generates an error if the format is not JSON.</p>
 <div class="no-copy highlight"><pre><span></span><code>+----------------------------------------------------+
 | audit_log_read_bookmark()                          |
 +----------------------------------------------------+
-| {&quot;timestamp&quot; : &quot;2023-06-02 09:43:25&quot;, &quot;id&quot;: 10 }   |
+| {"timestamp" : "2023-06-02 09:43:25", "id": 10 }   |
 +----------------------------------------------------+
 </code></pre></div>
 </details>
@@ -12148,11 +12148,11 @@ used by the keyring system to distinguish between different stored passwords.</p
 <div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------+
 | audit_log_encryption_password_get()         |
 +---------------------------------------------+
-| {&quot;password&quot;:&quot;passw0rd&quot;,&quot;iterations&quot;:5689}   |
+| {"password":"passw0rd","iterations":5689}   |
 +---------------------------------------------+
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_encryption_password_get<span class="o">(</span><span class="s1">&#39;current_key&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_encryption_password_get<span class="o">(</span><span class="s1">'current_key'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <h4 id="security-considerations">Security considerations<a class="headerlink" href="#security-considerations" title="Permanent link">&para;</a></h4>
 <p>This function returns sensitive encryption passwords. Ensure proper access controls
@@ -12168,12 +12168,12 @@ keyring.</p>
 <p>This function returns a string. An <code>OK</code> indicates a success. <code>ERROR</code> indicates
 a failure.</p>
 <h4 id="example_9">Example<a class="headerlink" href="#example_9" title="Permanent link">&para;</a></h4>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_encryption_password_set<span class="o">(</span><span class="s1">&#39;passw0rd&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>audit_log_encryption_password_set<span class="o">(</span><span class="s1">'passw0rd'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------------------+
-| audit_log_encryption_password_set(&#39;passw0rd&#39;)       |
+| audit_log_encryption_password_set('passw0rd')       |
 +-----------------------------------------------------+
 | OK                                                  |
 +-----------------------------------------------------+

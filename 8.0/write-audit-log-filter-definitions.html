@@ -10710,21 +10710,21 @@
 </ul>
 <h2 id="quick-start-5-minutes">Quick start (5 minutes)<a class="headerlink" href="#quick-start-5-minutes" title="Permanent link">&para;</a></h2>
 <h3 id="step-1-create-the-filter">Step 1: Create the filter<a class="headerlink" href="#step-1-create-the-filter" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">my_filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: [</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">my_filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'{</span>
+<span class="s1">  "filter": {</span>
+<span class="s1">    "class": [</span>
 <span class="s1">      {</span>
-<span class="s1">        &quot;name&quot;: &quot;connection&quot;,</span>
-<span class="s1">        &quot;log&quot;: true</span>
+<span class="s1">        "name": "connection",</span>
+<span class="s1">        "log": true</span>
 <span class="s1">      }</span>
 <span class="s1">    ]</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">;</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;user_connections&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">my_filter</span><span class="p">);</span>
+<span class="s1">}'</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'user_connections'</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">my_filter</span><span class="p">);</span>
 </code></pre></div>
 <h3 id="step-2-assign-to-users">Step 2: Assign to users<a class="headerlink" href="#step-2-assign-to-users" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;user1&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;user_connections&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;user2@localhost&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;user_connections&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'user1'</span><span class="o">@</span><span class="s1">'%'</span><span class="p">,</span><span class="w"> </span><span class="s1">'user_connections'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'user2@localhost'</span><span class="p">,</span><span class="w"> </span><span class="s1">'user_connections'</span><span class="p">);</span>
 </code></pre></div>
 <h3 id="step-3-test-your-filter">Step 3: Test your filter<a class="headerlink" href="#step-3-test-your-filter" title="Permanent link">&para;</a></h3>
 <p>Open a new connection as the filtered user:</p>
@@ -10752,11 +10752,11 @@
 <h2 id="json-filter-structure">JSON filter structure<a class="headerlink" href="#json-filter-structure" title="Permanent link">&para;</a></h2>
 <p>Every filter follows this pattern:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"connection"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"log"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">}</span>
@@ -10795,25 +10795,25 @@
 <h2 id="common-patterns">Common patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
 <p>Log everything (good for testing):
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"connection"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"general"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"table_access"</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
 <p>Track specific users only:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;insert&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"table_access1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"insert"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"update"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"delete"</span><span class="w"> </span><span class="p">}</span>
 <span class="w">        </span><span class="p">]</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
@@ -10822,14 +10822,14 @@
 </code></pre></div></p>
 <p>Monitor data changes only:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access2&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;insert&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"table_access2"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"insert"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"update"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"delete"</span><span class="w"> </span><span class="p">}</span>
 <span class="w">        </span><span class="p">]</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
@@ -10838,11 +10838,11 @@
 </code></pre></div></p>
 <p>Track specific operations:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_access3&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;insert&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"table_access3"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"insert"</span><span class="p">,</span><span class="w"> </span><span class="s2">"update"</span><span class="p">,</span><span class="w"> </span><span class="s2">"delete"</span><span class="p">]</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">}</span>
@@ -10852,7 +10852,7 @@
 <p>Check your setup:
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_filter</span><span class="p">;</span><span class="w">  </span><span class="c1">-- See all filters</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_user</span><span class="p">;</span><span class="w">    </span><span class="c1">-- See user assignments</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">plugins</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">plugin_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;audit_log_filter&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Check plugin status</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">plugins</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">plugin_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'audit_log_filter'</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Check plugin status</span>
 </code></pre></div></p>
 <p>Common issues and solutions:</p>
 <table>
@@ -10888,45 +10888,45 @@
 </table>
 <p>To verify your filter is working, you can create a simple test filter that logs general events (so you can test with SELECT statements):</p>
 <div class="highlight"><pre><span></span><code><span class="cm">/* 1️⃣ Create a filter set (you can name it anything) */</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_create</span><span class="p">(</span><span class="s1">&#39;test_filter&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_create</span><span class="p">(</span><span class="s1">'test_filter'</span><span class="p">);</span>
 
 <span class="cm">/* 2️⃣ Define a very simple filter that logs every general‑event */</span>
-<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">simple_json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;general&quot;,</span>
-<span class="s1">      &quot;log&quot;: true</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">simple_json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'{</span>
+<span class="s1">  "filter": {</span>
+<span class="s1">    "class": {</span>
+<span class="s1">      "name": "general",</span>
+<span class="s1">      "log": true</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">;</span>
+<span class="s1">}'</span><span class="p">;</span>
 
 <span class="cm">/* 3️⃣ Attach the JSON to the filter set */</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;test_filter&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">simple_json</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'test_filter'</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">simple_json</span><span class="p">);</span>
 
 <span class="cm">/* 4️⃣ Bind the filter set to a user (make sure the user exists) */</span>
-<span class="c1">-- Example user creation, if you don&#39;t already have it:</span>
-<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="s1">&#39;user1&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;My$tr0ngP@ssw0rd!&#39;</span><span class="p">;</span>
+<span class="c1">-- Example user creation, if you don't already have it:</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="s1">'user1'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'My$tr0ngP@ssw0rd!'</span><span class="p">;</span>
 <span class="c1">-- Now associate the filter:</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;user1&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test_filter&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'user1'</span><span class="o">@</span><span class="s1">'%'</span><span class="p">,</span><span class="w"> </span><span class="s1">'test_filter'</span><span class="p">);</span>
 </code></pre></div>
 <p>Then follow the testing steps in the <a href="#quick-start-5-minutes">Quick start (5 minutes)</a> section.</p>
 <h2 id="advanced-default-filters">Advanced: Default filters<a class="headerlink" href="#advanced-default-filters" title="Permanent link">&para;</a></h2>
 <p>Create a filter that applies to ALL users who don&rsquo;t have a specific filter:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">default_filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;filter&quot;: {</span>
-<span class="s1">    &quot;class&quot;: { &quot;name&quot;: &quot;general&quot; }</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">default_filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'{</span>
+<span class="s1">  "filter": {</span>
+<span class="s1">    "class": { "name": "general" }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span><span class="p">;</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;default_filter&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">default_filter</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;default_filter&#39;</span><span class="p">);</span>
+<span class="s1">}'</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'default_filter'</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">default_filter</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'%'</span><span class="p">,</span><span class="w"> </span><span class="s1">'default_filter'</span><span class="p">);</span>
 </code></pre></div>
 <p>This configuration creates a default filter that logs general events for any user not explicitly assigned a different filter.</p>
 <h2 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h2>
 <p>Core functions:
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;user@host&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;filter_name&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_filter</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_user</span><span class="p">(</span><span class="s1">&#39;user@host&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span><span class="w"> </span><span class="s1">'json'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'user@host'</span><span class="p">,</span><span class="w"> </span><span class="s1">'filter_name'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_filter</span><span class="p">(</span><span class="s1">'name'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_user</span><span class="p">(</span><span class="s1">'user@host'</span><span class="p">);</span>
 </code></pre></div></p>
 <p>Log management:
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">rotate_on_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1073741824</span><span class="p">;</span><span class="w">  </span><span class="c1">-- 1GB per file</span>
@@ -10948,28 +10948,28 @@
 <h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
 <h3 id="quick-setup-tldr">Quick setup (TL;DR)<a class="headerlink" href="#quick-setup-tldr" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1">-- 1. Create a filter</span>
-<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;{&quot;filter&quot;:{&quot;class&quot;:[{&quot;name&quot;:&quot;connection&quot;,&quot;log&quot;:true}]}}&#39;</span><span class="p">;</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;my_filter&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">filter</span><span class="p">);</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'{"filter":{"class":[{"name":"connection","log":true}]}}'</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'my_filter'</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">filter</span><span class="p">);</span>
 
 <span class="c1">-- 2. Assign to user</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;user1&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;my_filter&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'user1'</span><span class="o">@</span><span class="s1">'%'</span><span class="p">,</span><span class="w"> </span><span class="s1">'my_filter'</span><span class="p">);</span>
 
 <span class="c1">-- 3. Test the filter</span>
 <span class="c1">-- Connect as user1, run SELECT 1;, check /var/lib/mysql/audit_filter.log</span>
 </code></pre></div>
 <h3 id="all-commands">All commands<a class="headerlink" href="#all-commands" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Create/remove filters</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;json&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_filter</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span><span class="w"> </span><span class="s1">'json'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_filter</span><span class="p">(</span><span class="s1">'name'</span><span class="p">);</span>
 
 <span class="c1">-- Assign/remove users</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">&#39;user@host&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;filter_name&#39;</span><span class="p">);</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_user</span><span class="p">(</span><span class="s1">&#39;user@host&#39;</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'user@host'</span><span class="p">,</span><span class="w"> </span><span class="s1">'filter_name'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_user</span><span class="p">(</span><span class="s1">'user@host'</span><span class="p">);</span>
 
 <span class="c1">-- Check status</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_filter</span><span class="p">;</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_user</span><span class="p">;</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">plugins</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">plugin_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;audit_log&#39;</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">plugins</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">plugin_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'audit_log'</span><span class="p">;</span>
 
 <span class="c1">-- Log management</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">rotate_on_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1073741824</span><span class="p">;</span><span class="w">  </span><span class="c1">-- 1GB</span>
@@ -10978,13 +10978,13 @@
 </code></pre></div>
 <h3 id="common-json-patterns">Common JSON patterns<a class="headerlink" href="#common-json-patterns" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="mi">--</span><span class="w"> </span><span class="err">Log</span><span class="w"> </span><span class="err">every</span><span class="kc">t</span><span class="err">hi</span><span class="kc">n</span><span class="err">g</span>
-<span class="p">{</span><span class="w"> </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"log"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
 
 <span class="mi">--</span><span class="w"> </span><span class="err">Track</span><span class="w"> </span><span class="err">speci</span><span class="kc">f</span><span class="err">ic</span><span class="w"> </span><span class="err">opera</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span>
-<span class="p">{</span><span class="nt">&quot;filter&quot;</span><span class="p">:{</span><span class="nt">&quot;class&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;table_access&quot;</span><span class="p">,</span><span class="nt">&quot;event&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;insert&quot;</span><span class="p">},{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;update&quot;</span><span class="p">},{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;delete&quot;</span><span class="p">}]}]}}</span>
+<span class="p">{</span><span class="nt">"filter"</span><span class="p">:{</span><span class="nt">"class"</span><span class="p">:[{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"table_access"</span><span class="p">,</span><span class="nt">"event"</span><span class="p">:[{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"insert"</span><span class="p">},{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"update"</span><span class="p">},{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"delete"</span><span class="p">}]}]}}</span>
 
 <span class="mi">--</span><span class="w"> </span><span class="err">Log</span><span class="w"> </span><span class="err">co</span><span class="kc">nne</span><span class="err">c</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">eve</span><span class="kc">nts</span><span class="w"> </span><span class="err">o</span><span class="kc">nl</span><span class="err">y</span>
-<span class="p">{</span><span class="nt">&quot;filter&quot;</span><span class="p">:{</span><span class="nt">&quot;class&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;connection&quot;</span><span class="p">,</span><span class="nt">&quot;event&quot;</span><span class="p">:[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;connect&quot;</span><span class="p">},{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;disconnect&quot;</span><span class="p">}]}]}}</span>
+<span class="p">{</span><span class="nt">"filter"</span><span class="p">:{</span><span class="nt">"class"</span><span class="p">:[{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"connection"</span><span class="p">,</span><span class="nt">"event"</span><span class="p">:[{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"connect"</span><span class="p">},{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"disconnect"</span><span class="p">}]}]}}</span>
 </code></pre></div>
 <h2 id="related-topics">Related topics<a class="headerlink" href="#related-topics" title="Permanent link">&para;</a></h2>
 <ul>

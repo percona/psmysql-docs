@@ -10681,7 +10681,7 @@ exist, be writable and owned by the same user under which <em>MySQL</em>
 server is running (usually <code>mysql</code>) and empty.</p>
 <p>Once this directory is created, the backup can be run using the
 following command:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">tokudb_backup_dir</span><span class="o">=</span><span class="s1">&#39;/path_to_empty_directory&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">tokudb_backup_dir</span><span class="o">=</span><span class="s1">'/path_to_empty_directory'</span><span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -10719,7 +10719,7 @@ $<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span>
 <h3 id="excluding-source-files">Excluding Source Files<a class="headerlink" href="#excluding-source-files" title="Permanent link">&para;</a></h3>
 <p>You can exclude certain files and directories based on a regular expression set in the tokudb_backup_exclude session variable. If the source file name matches the excluded regular expression, then the source file is excluded from backup.</p>
 <p>For example, to exclude all <code>lost+found</code> directories from backup, use the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_backup_exclude</span><span class="o">=</span><span class="s1">&#39;/lost\\+found($|/)&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_backup_exclude</span><span class="o">=</span><span class="s1">'/lost\\+found($|/)'</span><span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -10732,7 +10732,7 @@ $<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span>
 <h3 id="restricting-backup-target">Restricting Backup Target<a class="headerlink" href="#restricting-backup-target" title="Permanent link">&para;</a></h3>
 <p>You can restrict the location of the destination directory where the backups can be located using the tokudb_backup_allowed_prefix system-level variable. Attempts to backup to a location outside of the specified directory or its children will result in an error.</p>
 <p>The default is <code>null</code>, backups have no restricted locations. This read-only variable can be set in the <code>my.cnf</code> configuration file and displayed with the <code>SHOW VARIABLES</code> command:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;tokudb_backup_allowed_prefix&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'tokudb_backup_allowed_prefix'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be:</p>
 <div class="highlight"><pre><span></span><code>+------------------------------+-----------+
@@ -10743,10 +10743,10 @@ $<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span>
 </code></pre></div>
 <h3 id="reporting-errors">Reporting Errors<a class="headerlink" href="#reporting-errors" title="Permanent link">&para;</a></h3>
 <p><em>Percona TokuBackup</em> uses two variables to capture errors. They are tokudb_backup_last_error and tokudb_backup_last_error_string. When <em>TokuBackup</em> encounters an error, these will report on the error number and the error string respectively. For example, the following output shows these parameters following an attempted backup to a directory that was not empty:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_backup_dir</span><span class="o">=</span><span class="s1">&#39;/tmp/backupdir&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">tokudb_backup_dir</span><span class="o">=</span><span class="s1">'/tmp/backupdir'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be:</p>
-<div class="highlight"><pre><span></span><code>ERROR 1231 (42000): Variable &#39;tokudb_backup_dir&#39; can&#39;t be set to the value of &#39;/tmp/backupdir&#39;
+<div class="highlight"><pre><span></span><code>ERROR 1231 (42000): Variable 'tokudb_backup_dir' can't be set to the value of '/tmp/backupdir'
 
 mysql&gt; SELECT @@tokudb_backup_last_error;
 +----------------------------+
@@ -10761,7 +10761,7 @@ mysql&gt; SELECT @@tokudb_backup_last_error;
 <div class="highlight"><pre><span></span><code>+---------------------------------------------------+
 | @@tokudb_backup_last_error_string                 |
 +---------------------------------------------------+
-| tokudb backup couldn&#39;t create needed directories. |
+| tokudb backup couldn't create needed directories. |
 +---------------------------------------------------+
 </code></pre></div>
 <h3 id="using-tokudb-hot-backup-for-replication">Using TokuDB Hot Backup for Replication<a class="headerlink" href="#using-tokudb-hot-backup-for-replication" title="Permanent link">&para;</a></h3>
@@ -10826,10 +10826,10 @@ timestamp to the backup directory name.</p>
 <p>A sample Bash script has this information:</p>
 <div class="highlight"><pre><span></span><code>#!/bin/bash
 
-tm=$(date &quot;+%Y-%m-%d-%H-%M-%S&quot;);
+tm=$(date "+%Y-%m-%d-%H-%M-%S");
 backup_dir=$PWD/backup/$tm;
 mkdir -p $backup_dir;
-bin/mysql -uroot -e &quot;set tokudb_backup_dir=&#39;$backup_dir&#39;&quot;
+bin/mysql -uroot -e "set tokudb_backup_dir='$backup_dir'"
 </code></pre></div>
 <h2 id="limitations-and-known-issues">Limitations and known issues<a class="headerlink" href="#limitations-and-known-issues" title="Permanent link">&para;</a></h2>
 <ul>

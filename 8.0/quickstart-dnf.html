@@ -10910,7 +10910,7 @@ Complete!
 </li>
 <li>
 <p>Percona Server for MySQL generates a temporary password during installation. You must have the service running to access the log.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/log/mysqld.log
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10927,7 +10927,7 @@ Enter<span class="w"> </span>password:
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 8
-Server version: 8.0.46 Percona Server (GPL), Release &#39;27&#39;, Revision &#39;2f8eeab2&#39;$
+Server version: 8.0.46 Percona Server (GPL), Release '27', Revision '2f8eeab2'$
 
 Copyright (c) 2009-2026 Percona LLC and/or its affiliates
 Copyright (c) 2000, 2026, Oracle and/or its affiliates.
@@ -10936,7 +10936,7 @@ Oracle is a registered trademark of Oracle Corporation and/or its
 affiliates. Other names may be trademarks of their respective
 owners.
 
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql&gt;
 </code></pre></div>
@@ -10944,7 +10944,7 @@ mysql&gt;
 </li>
 <li>
 <p>The temporary password must be replaced. Run the ALTER USER command tochange the password for the root user. Remember or save the new password. You will need it to log into the server in the next step.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;[your password]&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">'root'</span>@<span class="s1">'localhost'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">'[your password]'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10971,7 +10971,7 @@ Enter<span class="w"> </span>password:
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 8
-Server version: 8.0.46 Percona Server (GPL), Release &#39;27&#39;, Revision &#39;2f8eeab2&#39;$
+Server version: 8.0.46 Percona Server (GPL), Release '27', Revision '2f8eeab2'$
 
 Copyright (c) 2009-2026 Percona LLC and/or its affiliates
 Copyright (c) 2000, 2026, Oracle and/or its affiliates.
@@ -10980,7 +10980,7 @@ Oracle is a registered trademark of Oracle Corporation and/or its
 affiliates. Other names may be trademarks of their respective
 owners.
 
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql&gt;
 </code></pre></div>
@@ -11033,16 +11033,16 @@ mysql&gt;
 <p>Insert data into the table using the <code>INSERT INTO</code> SQL statement. This statement adds multiple records into a table in one statement.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
 VALUES
-<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Erasmus Richardson&quot;</span>,<span class="s2">&quot;posuere.cubilia.curae@outlook.net&quot;</span>,<span class="s2">&quot;England&quot;</span><span class="o">)</span>,
-<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Jenna French&quot;</span>,<span class="s2">&quot;rhoncus.donec@hotmail.couk&quot;</span>,<span class="s2">&quot;Canada&quot;</span><span class="o">)</span>,
-<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Alfred Dejesus&quot;</span>,<span class="s2">&quot;interdum@aol.org&quot;</span>,<span class="s2">&quot;Austria&quot;</span><span class="o">)</span>,
-<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Hamilton Puckett&quot;</span>,<span class="s2">&quot;dapibus.quam@outlook.com&quot;</span>,<span class="s2">&quot;Canada&quot;</span><span class="o">)</span>,
-<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Michal Brzezinski&quot;</span>,<span class="s2">&quot;magna@icloud.pl&quot;</span>,<span class="s2">&quot;Poland&quot;</span><span class="o">)</span>,
-<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Zofia Lis&quot;</span>,<span class="s2">&quot;zofial00@hotmail.pl&quot;</span>,<span class="s2">&quot;Poland&quot;</span><span class="o">)</span>,
-<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Aisha Yakubu&quot;</span>,<span class="s2">&quot;ayakubu80@outlook.com&quot;</span>,<span class="s2">&quot;Nigeria&quot;</span><span class="o">)</span>,
-<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Miguel Cardenas&quot;</span>,<span class="s2">&quot;euismod@yahoo.com&quot;</span>,<span class="s2">&quot;Peru&quot;</span><span class="o">)</span>,
-<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Luke Jansen&quot;</span>,<span class="s2">&quot;nibh@hotmail.edu&quot;</span>,<span class="s2">&quot;Netherlands&quot;</span><span class="o">)</span>,
-<span class="w">    </span><span class="o">(</span><span class="s2">&quot;Roger Pettersen&quot;</span>,<span class="s2">&quot;nunc@protonmail.no&quot;</span>,<span class="s2">&quot;Norway&quot;</span><span class="o">)</span><span class="p">;</span>
+<span class="w">    </span><span class="o">(</span><span class="s2">"Erasmus Richardson"</span>,<span class="s2">"posuere.cubilia.curae@outlook.net"</span>,<span class="s2">"England"</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">"Jenna French"</span>,<span class="s2">"rhoncus.donec@hotmail.couk"</span>,<span class="s2">"Canada"</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">"Alfred Dejesus"</span>,<span class="s2">"interdum@aol.org"</span>,<span class="s2">"Austria"</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">"Hamilton Puckett"</span>,<span class="s2">"dapibus.quam@outlook.com"</span>,<span class="s2">"Canada"</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">"Michal Brzezinski"</span>,<span class="s2">"magna@icloud.pl"</span>,<span class="s2">"Poland"</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">"Zofia Lis"</span>,<span class="s2">"zofial00@hotmail.pl"</span>,<span class="s2">"Poland"</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">"Aisha Yakubu"</span>,<span class="s2">"ayakubu80@outlook.com"</span>,<span class="s2">"Nigeria"</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">"Miguel Cardenas"</span>,<span class="s2">"euismod@yahoo.com"</span>,<span class="s2">"Peru"</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">"Luke Jansen"</span>,<span class="s2">"nibh@hotmail.edu"</span>,<span class="s2">"Netherlands"</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">(</span><span class="s2">"Roger Pettersen"</span>,<span class="s2">"nunc@protonmail.no"</span>,<span class="s2">"Norway"</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -11052,7 +11052,7 @@ Records: 10  Duplicates: 0  Warnings: 0
 </details>
 <h2 id="run-a-select-query">Run a SELECT query<a class="headerlink" href="#run-a-select-query" title="Permanent link">&para;</a></h2>
 <p>SELECT queries retrieve data from one or more tables based on specified criteria. They are the most common type of query and can be used for various purposes, such as displaying, filtering, sorting, aggregating, or joining data. SELECT queries do not modify the data in the database but can affect performance if they involve large or complex datasets.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;SELECT<span class="w"> </span>id,<span class="w"> </span>name,<span class="w"> </span>email,<span class="w"> </span>country<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Poland&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;SELECT<span class="w"> </span>id,<span class="w"> </span>name,<span class="w"> </span>email,<span class="w"> </span>country<span class="w"> </span>FROM<span class="w"> </span>employees<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Poland'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -11069,7 +11069,7 @@ Records: 10  Duplicates: 0  Warnings: 0
 <p>UPDATE queries modify existing data in a table. They are used to change or correct the information stored in the database. UPDATE queries can update one or more columns and rows simultaneously, depending on the specified conditions. They may also fail if they violate any constraints or rules defined on the table.</p>
 <div class="highlight"><pre><span></span><code>An example of an UPDATE query and then run a [SELECT](#run-a-select-query) with a WHERE clause to verify the update.
 </code></pre></div>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>employees<span class="w"> </span>SET<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Zofia Niemec&#39;</span><span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>employees<span class="w"> </span>SET<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Zofia Niemec'</span><span class="w"> </span>WHERE<span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -11094,7 +11094,7 @@ Rows matched: 1  Changed: 1  Warnings: 0
 <p>Insert a row into a table and then run a <a href="#run-a-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span><span class="sb">`</span>employees<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="sb">`</span>name<span class="sb">`</span>,<span class="sb">`</span>email<span class="sb">`</span>,<span class="sb">`</span>country<span class="sb">`</span><span class="o">)</span>
 VALUES
-<span class="o">(</span><span class="s2">&quot;Kenzo Sasaki&quot;</span>,<span class="s2">&quot;KenSasaki@outlook.com&quot;</span>,<span class="s2">&quot;Japan&quot;</span><span class="o">)</span><span class="p">;</span>
+<span class="o">(</span><span class="s2">"Kenzo Sasaki"</span>,<span class="s2">"KenSasaki@outlook.com"</span>,<span class="s2">"Japan"</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -11239,13 +11239,13 @@ Success.
 
 
 Normally, root should only be allowed to connect from
-&#39;localhost&#39;. This ensures that someone cannot guess at
+'localhost'. This ensures that someone cannot guess at
 the root password from the network.
 
 Disallow root login remotely? (Press y|Y for Yes, any other key for No) :
 Success.
 
-By default, MySQL comes with a database named &#39;test&#39; that
+By default, MySQL comes with a database named 'test' that
 anyone can access. This is also intended only for testing,
 and should be removed before moving into a production
 environment.
