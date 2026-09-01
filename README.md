@@ -1,6 +1,6 @@
 ## Percona Server for MySQL
 
-![PS logo](docs/_static/Percona_Logo_Color.png)
+![PS logo](docs/_static/Percona_Color_Dark.svg)
 
 Percona Server for MySQL is a free, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior performance, scalability, and instrumentation.
 
