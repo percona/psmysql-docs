@@ -185,6 +185,7 @@
 - [Use the Amazon Key Management Service (AWS KMS)](using-amz-kms.md)
 - [Use the Key Management Interoperability Protocol (KMIP)](using-kmip.md)
 - [Use the keyring file component](use-keyring-file.md)
+- [Use the Percona encrypted keyring file component](use-percona-keyring-encrypted-file.md)
 - [Use the keyring vault component](use-keyring-vault-component.md)
 - [User statistics](user-stats.md)
 - [Using LDAP authentication plugins](ldap-authentication.md)
