@@ -18,7 +18,7 @@ Available UDFs:
 | [audit_log_filter_remove_user(user_name)](#audit_log_filter_remove_useruser_name) |
 | [audit_log_rotate()](#audit_log_rotate) |
 | [audit_log_filter_set_filter(filter_name, definition)](#audit_log_filter_set_filterfilter_name-definition) |
-| [audit_log_filter_set_user(user_name, filter_name)](#audit_log_filter_set_useruser_name-filter_name)|
+| audit_log_filter_set_user(user_name, filter_name)|
 
 ### audit_log_encryption_password_get(keyring_id)
 
@@ -242,7 +242,6 @@ This function returns either an `OK` for success or an error message for failure
 
 If the filter name does not exist, no error is generated. 
 
-
 #### Example
 
 ```sql
@@ -272,7 +271,6 @@ This function requires the `AUDIT_ADMIN` privilege.
 #### Parameters
 
 `user_name` - a selected user name in either the `user_name`@`host_name` format or `%`.
-
 
 #### Returns
 
@@ -325,7 +323,7 @@ Writes JSON for `filter_name` to `mysql.audit_log_filter` (create or update). Ea
 
 From Percona Server for MySQL 8.4.9-9, validation runs at parse time—bad fields, unknown classes/subclasses, empty arrays, stray JSON keys, or broken `print` rules abort the call with a detailed error, for example:
 
-```
+```{.text .no-copy}
 ERROR: Incorrect rule definition: Unknown field name "WRONG.str" for class "general"
 ```
 

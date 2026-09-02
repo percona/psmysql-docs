@@ -14,10 +14,12 @@
 | have_snapshot_cloning | Yes | No | Global | No |
 | innodb_cleaner_lsn_age_factor | Yes | Yes | Global | Yes |
 | innodb_corrupt_table_action | Yes | Yes | Global | Yes |
+| innodb_buffer_pool_lazy_latch_init | Yes | Yes | Global | No |
 | innodb_empty_free_list_algorithm | Yes | Yes | Global | Yes |
 | innodb_encrypt_online_alter_logs | Yes | Yes | Global | Yes |
 | innodb_encrypt_tables | Yes | Yes | Global | Yes |
 | innodb_kill_idle_transaction | Yes | Yes | Global | Yes |
+| innodb_lru_threads | Yes | Yes | Global | No |
 | innodb_max_bitmap_file_size | Yes | Yes | Global | Yes |
 | innodb_max_changed_pages | Yes | Yes | Global | Yes |
 | innodb_print_lock_wait_timeout_info | Yes | Yes | Global | Yes |

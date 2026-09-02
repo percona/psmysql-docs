@@ -126,38 +126,48 @@ innodb_cleaner_lsn_age_factor = high_checkpoint
 
 ## Multi-threaded LRU flusher
 
-Percona Server for MySQL removed this feature in version 8.3.0-1.
+Percona Server for MySQL restores the InnoDB LRU threads from earlier releases.
 
-The following text describes the feature before removal.
+These threads flush pages by LRU.
 
-Percona Server for MySQL used multi-threaded LRU flushing. Each buffer pool
-instance had a dedicated LRU manager thread. That thread ran LRU flushes and
-evictions to refill the instance free list. The multi-threaded flusher handled
-flush list flushing only.
+These threads also reclaim free pages and move the pages to the free list.
 
-The design had these limitations:
+Earlier releases always ran these threads.
 
-* A delayed worker thread blocked other worker threads during coordinator
-  synchronization
+Earlier releases had no option to enable or disable the threads.
 
-* The coordinator thread omitted free list refill checks on loaded servers
+The `innodb_lru_threads` variable enables or disables the threads.
 
-* Serial flushing prevented buffer pool instances from using the required flush
-  mode
+Disable the threads for low-concurrency setups.
 
-Percona Server for MySQL no longer reports these InnoDB metrics. The metrics do
-not match the LRU flushing design:
+Enable the threads for high-concurrency setups.
 
-* `buffer_LRU_batch_flush_avg_time_slot`
+The default value is OFF.
 
-* `buffer_LRU_batch_flush_avg_pass`
+When `innodb_lru_threads` is ON, each buffer pool instance has a dedicated LRU
+manager thread.
 
-* `buffer_LRU_batch_flush_avg_time_thread`
+That thread flushes and evicts pages to refill the instance free list.
 
-* `buffer_LRU_batch_flush_avg_time_est`
+When `innodb_lru_threads` is OFF, page cleaners flush pages by LRU.
 
-Percona Server for MySQL also removed InnoDB recovery writer threads and the
-related code.
+### `innodb_lru_threads`
+
+| Option         | Description        |
+| -------------- | ------------------ |
+| Command-line:  | Yes                |
+| Config file:   | Yes                |
+| Scope:         | Global             |
+| Dynamic:       | No                 |
+| Data type:     | Boolean            |
+| Default:       | OFF                |
+
+Add a persistent setting in the option file:
+
+```ini
+[mysqld]
+innodb_lru_threads=ON
+```
 
 ### `innodb_sched_priority_master`
 
@@ -170,3 +180,18 @@ related code.
 | Data type:     | Boolean            |
 
 Add this variable to the configuration file.
+
+## Lazy buffer pool latch initialization
+
+### `innodb_buffer_pool_lazy_latch_init`
+
+| Option         | Description        |
+| -------------- | ------------------ |
+| Command-line:  | Yes                |
+| Config file:   | Yes                |
+| Scope:         | Global             |
+| Dynamic:       | No                 |
+| Data type:     | Boolean            |
+| Default:       | OFF                |
+
+Enables speeding up MySQL startup time by deferring some initialization cost (latches used by individual blocks belonging to the buffer pool are not initialized on startup, but later on the first use of each page). By default: OFF.

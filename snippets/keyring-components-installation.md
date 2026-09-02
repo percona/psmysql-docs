@@ -29,7 +29,7 @@ The manifest is a JavaScript Object Notation (JSON) object with the following fi
 
 ### Manifest examples
 
-Replace `<component_name>` in the following examples with one of the components in [Available keyring components](#available-keyring-components).
+Replace `<component_name>` in the following examples with one of the available components.
 
 The following example shows a global manifest that loads a component directly:
 
