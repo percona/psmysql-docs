@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="In Percona Server for MySQL 9.7.1-1 only, APT packaging was reorganized to align more closely with upstream MySQL. Several packages were split into separate components, which may affect upgrades and dependency resolution. The table below lists packages for earlier releases; see the 9.7.1-1 release notes for the updated package list.">
+        <meta name="description" content="Documentation">
       
       
         <meta name="author" content="Percona LLC">
@@ -10004,7 +10004,6 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="deb-repository-package-list-percona-server-for-mysql-97">DEB repository package list - Percona Server for MySQL 9.7<a class="headerlink" href="#deb-repository-package-list-percona-server-for-mysql-97" title="Permanent link">&para;</a></h1>
-<p>In Percona Server for MySQL 9.7.1-1 only, APT packaging was reorganized to align more closely with upstream MySQL. Several packages were split into separate components, which may affect upgrades and dependency resolution. The table below lists packages for earlier releases; see the <a href="release-notes/9.7.1-1.html">9.7.1-1 release notes</a> for the updated package list.</p>
 <table>
 <thead>
 <tr>
@@ -10014,36 +10013,56 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </thead>
 <tbody>
 <tr>
-<td>libperconaserverclient22</td>
+<td>libperconaserverclient24</td>
 <td>The shared client library used by Percona Server and MySQL client programs. Applications that connect to MySQL servers dynamically link to this library.</td>
 </tr>
 <tr>
-<td>libperconaserverclient22-dev</td>
-<td>Development headers and static libraries for building software that links against libperconaserverclient22. Needed when compiling client applications using the MySQL C API.</td>
+<td>libperconaserverclient24-dev</td>
+<td>Development headers and static libraries for building software that links against libperconaserverclient24. Needed when compiling client applications using the MySQL C API.</td>
+</tr>
+<tr>
+<td>percona-client</td>
+<td>Transitional metapackage that depends on percona-server-client, kept for compatibility with scripts and dependency chains that reference the older package name.</td>
 </tr>
 <tr>
 <td>percona-mysql-router</td>
 <td>A lightweight middleware that routes connections between applications and backend MySQL or Percona Server instances. Used in high availability and cluster setups.</td>
 </tr>
 <tr>
+<td>percona-server</td>
+<td>Metapackage that depends on percona-server-server, provided for compatibility with earlier installation instructions and dependency chains.</td>
+</tr>
+<tr>
+<td>percona-server-client-core</td>
+<td>The core client-side binaries and libraries required to connect to a Percona Server instance.</td>
+</tr>
+<tr>
+<td>percona-server-client-plugins</td>
+<td>Client-side authentication and connection plugins (for example, caching_sha2_password support) used by the client utilities.</td>
+</tr>
+<tr>
 <td>percona-server-client</td>
-<td>The command-line client utilities, including mysql, mysqldump, and related tools for interacting with a Percona Server instance.</td>
+<td>The command-line client utilities, including mysql, mysqldump, and related tools for interacting with a Percona Server instance. Depends on percona-server-client-core and percona-server-client-plugins.</td>
 </tr>
 <tr>
 <td>percona-server-common</td>
 <td>Common configuration files, character sets, and data shared among multiple Percona Server packages. Installed automatically as a dependency.</td>
 </tr>
 <tr>
-<td>percona-server-dbg</td>
-<td>Debug symbols for the Percona Server binaries. Useful for developers or support teams when diagnosing crashes or profiling performance.</td>
+<td>percona-server-js</td>
+<td>Support for server-side JavaScript stored programs in Percona Server.</td>
 </tr>
 <tr>
 <td>percona-server-rocksdb</td>
 <td>The RocksDB storage engine plugin for Percona Server, providing high-performance key-value storage optimized for fast writes.</td>
 </tr>
 <tr>
+<td>percona-server-server-core</td>
+<td>The core Percona Server daemon (mysqld) binaries required to run the database server.</td>
+</tr>
+<tr>
 <td>percona-server-server</td>
-<td>The main Percona Server daemon (mysqld) and supporting files. This is the actual database server that runs and manages data.</td>
+<td>The main Percona Server daemon and supporting files, including systemd service configuration. Now depends on percona-server-server-core.</td>
 </tr>
 <tr>
 <td>percona-server-source</td>
@@ -10055,7 +10074,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 <tr>
 <td>percona-telemetry-agent</td>
-<td>A lightweight agent that collects anonymous usage and performance data to help Percona improve the product. Optional; can be disabled if desired.</td>
+<td>A lightweight agent that collects anonymous usage and performance data to help Percona improve the product. Installed as a mandatory dependency of Percona Server packages; can be disabled after installation.</td>
+</tr>
+<tr>
+<td>percona-testsuite</td>
+<td>Metapackage that depends on percona-server-test, provided for compatibility with earlier installation instructions and dependency chains.</td>
 </tr>
 </tbody>
 </table>
@@ -10081,7 +10104,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 5, 2026 15:11:50 UTC">August 5, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 8, 2026 13:53:22 UTC">September 8, 2026</span>
   </span>
 
     
@@ -10109,9 +10132,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
     <nav>
       
-        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
+        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
           
-          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
+          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
         </a>
       
         <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
@@ -10119,9 +10142,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
           <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
         </a>
       
-        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
+        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
           
-          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
+          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
         </a>
       
       
