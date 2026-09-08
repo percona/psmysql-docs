@@ -4,7 +4,7 @@ Percona Server for MySQL defines additional reserved keywords that are not inclu
 
 Reserved keywords have a special meaning in SQL syntax and cannot be used as unquoted identifiers. To use a reserved keyword as an identifier, enclose it in backticks (`).
 
-The following table lists the reserved keywords specific to Percona Server for MySQL and the version in which each keyword became reserved:
+The following table lists the reserved keywords specific to Percona Server for MySQL and the version in which each keyword became reserved. A blank Version added entry indicates that the keyword is reserved in all Percona Server for MySQL 9.7 releases.
 
 | Reserved keyword         | Version added |
 | ------------------------ | ------------- |
