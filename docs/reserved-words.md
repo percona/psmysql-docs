@@ -11,7 +11,8 @@ The following reserved keywords are specific to Percona Server for MySQL:
 * `COMPRESSION_DICTIONARY`
 * `EFFECTIVE`
 * `INDEX_STATISTICS`
-* `SEQUENCE_TABLE`
+* `SEQUENCE_TABLE` (Deprecated)
+* `PERCONA_SEQUENCE_TABLE`
 * `TABLE_STATISTICS`
 * `THREAD_STATISTICS`
 * `USER_STATISTICS`
