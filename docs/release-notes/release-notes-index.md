@@ -12,4 +12,6 @@ For help with using Percona Server for MySQL, visit the [Percona Community Forum
 
 ## Releases
 
+* [Percona Server for MySQL 9.7.2-2 (2026-09-09)](9.7.2-2.md)
+
 * [Percona Server for MySQL 9.7.1-1 (2026-08-05)](9.7.1-1.md)
