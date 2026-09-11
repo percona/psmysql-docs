@@ -17,6 +17,8 @@ Percona Server for MySQL 8.4 deprecated `SEQUENCE_TABLE()`. Percona Server for M
 
 To maintain compatibility with existing third-party software, `SEQUENCE_TABLE` is no longer a reserved term and can be used as a regular identifier.
 
+Conversely, `PERCONA_SEQUENCE_TABLE` is a reserved word. If you have existing tables, columns, or aliases named percona_sequence_table, quote them with backticks (for example, `percona_sequence_table`) or rename them before upgrading. See [Reserved words](reserved-words.md) for the full list.
+
 ## Table functions
 
 The function is an inline table-valued function. This function creates a temporary table with multiple rows. You can use this function within a single SELECT statement. Oracle MySQL Server only has the `JSON_TABLE` table function. The Percona Server for MySQL has the `JSON_TABLE` and `PERCONA_SEQUENCE_TABLE()` table functions. A single SELECT statement generates a multi-row result set. In contrast, a scalar function (like [EXP(x) :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.4/en/mathematical-functions.html#function_exp) or [LOWER(str) :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.4/en/string-functions.html#function_lower) always returns a single value of a specific data type.
