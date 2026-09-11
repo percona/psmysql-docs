@@ -2,6 +2,8 @@
 
 The `component_keyring_file` component stores encryption keys in a local file on the server filesystem. Percona Server for MySQL uses this component for [data at rest encryption](data-at-rest-encryption.md), including InnoDB tablespace encryption and encrypted redo and undo logs. Other server features that need a keyring, such as the audit log filter component, can also use it.
 
+For a password-protected encrypted keyring file, see [Use the Percona encrypted keyring file component](use-percona-keyring-encrypted-file.md) (`component_percona_keyring_encrypted_file`).
+
 In Percona Server for MySQL {{vers}}, the supported keyring model is component-based. The legacy `keyring_file` plugin is not available.
 
 !!! important
@@ -166,6 +168,8 @@ Do not delete the keyring data file if any data on the instance was encrypted wi
 !!! admonition "See also"
 
     [Keyring components overview](keyring-components-plugins-overview.md)
+
+    [Use the Percona encrypted keyring file component](use-percona-keyring-encrypted-file.md)
 
     [Get Started with component keyring](quickstart-component-keyring.md)
 
