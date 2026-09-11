@@ -229,13 +229,13 @@ Also, all variables can exist in one or both of the following scopes:
 
 | Option       | Description                               |
 |--------------|-------------------------------------------|
-| Command-line | --rocksdb-access-hint-on-compaction-start |
+| Command-line | `--rocksdb-access-hint-on-compaction-start` |
 | Dynamic      | No                                        |
 | Scope        | Global                                    |
 | Data type    | String or numeric                         |
 | Default      | NORMAL or 1                               |
 
-**[Removed: 8.4.5-5]** As of Percona Server for MySQL 8.4.5-5, the `rocksdb-access-hint-on-compaction-start` variable has been removed.
+**[Removed: 8.4.5-5]** As of Percona Server for MySQL 8.4.5-5, `rocksdb_access_hint_on_compaction_start` has been removed. RocksDB no longer provides this option.
 
 Specifies the file access pattern once a compaction is started,
 applied to all input files of a compaction.
@@ -256,7 +256,7 @@ Possible values are:
 
 | Option       | Description                     |
 |--------------|---------------------------------|
-| Command-line | --rocksdb-advise-random-on-open |
+| Command-line | `--rocksdb-advise-random-on-open` |
 | Dynamic      | No                              |
 | Scope        | Global                          |
 | Data type    | Boolean                         |
@@ -274,7 +274,7 @@ Enabled by default.
 
 | Option                            | Description                                                                           |
 |-----------------------------------|---------------------------------------------------------------------------------------|
-| Command-line                      | --rocksdb-allow-concurrent-memtable-write                                               |
+| Command-line                      | `--rocksdb-allow-concurrent-memtable-write` |
 | Dynamic                           | No                                                                                    |
 | Scope                             | Global                                                                                |
 | Data type                         | Boolean                                                                               |
@@ -282,12 +282,16 @@ Enabled by default.
 
 Specifies whether to allow multiple writers to update memtables in parallel. Disabled by default.
 
+!!! note
+
+    Not all memtables support concurrent writes.
+
 
 ### `rocksdb_allow_mmap_reads`
 
 | Option       | Description                |
 |--------------|----------------------------|
-| Command-line | --rocksdb-allow-mmap-reads |
+| Command-line | `--rocksdb-allow-mmap-reads` |
 | Dynamic      | No                         |
 | Scope        | Global                     |
 | Data type    | Boolean                    |
@@ -295,7 +299,7 @@ Specifies whether to allow multiple writers to update memtables in parallel. Dis
 
 Specifies whether to allow the OS to map a data file into memory for reads.
 Disabled by default.
-If you enable this, make sure that rocksdb_use_direct_reads is disabled.
+If you enable this, make sure that [`rocksdb_use_direct_reads`](#rocksdb_use_direct_reads) is disabled.
 
 
 
@@ -304,7 +308,7 @@ If you enable this, make sure that rocksdb_use_direct_reads is disabled.
 
 | Option       | Description                 |
 |--------------|-----------------------------|
-| Command-line | --rocksdb-allow-mmap-writes |
+| Command-line | `--rocksdb-allow-mmap-writes` |
 | Dynamic      | No                          |
 | Scope        | Global                      |
 | Data type    | Boolean                     |
@@ -320,7 +324,7 @@ Disabled by default.
 
 | Option       | Description                               |
 |--------------|-------------------------------------------|
-| Command-line | --rocksdb_allow_to_start_after_corruption |
+| Command-line | `--rocksdb-allow-to-start-after-corruption` |
 | Dynamic      | No                                        |
 | Scope        | Global                                    |
 | Data type    | Boolean                                   |
@@ -335,10 +339,6 @@ then mysqld exits on startup with an error message. The restart failure will
 continue until the problem is solved or until mysqld is started with this
 variable turned on in the command line.
 
-!!! note
-
-    Not all memtables support concurrent writes.
-
 
 
 
@@ -346,7 +346,7 @@ variable turned on in the command line.
 
 | Option       | Description                            |
 |--------------|----------------------------------------|
-| Command-line | --rocksdb-allow-unsafe-alter           |
+| Command-line | `--rocksdb-allow-unsafe-alter` |
 | Dynamic      | No                                     |
 | Scope        | Global                                 |
 | Data type    | Boolean                                |
@@ -361,7 +361,7 @@ Enables crash unsafe INPLACE ADD|DROP partition.
 
 | Option       | Description                            |
 |--------------|----------------------------------------|
-| Command-line | --rocksdb-alter-column-default-inplace |
+| Command-line | `--rocksdb-alter-column-default-inplace` |
 | Dynamic      | Yes                                    |
 | Scope        | Global                                 |
 | Data type    | Boolean                                |
@@ -376,7 +376,7 @@ Allows an inplace alter for the `ALTER COLUMN` default operation.
 
 | Option       | Description                            |
 |--------------|----------------------------------------|
-| Command-line | --rocksdb_alter_table_comment_inplace  |
+| Command-line | `--rocksdb-alter-table-comment-inplace` |
 | Dynamic      | Yes                                    |
 | Scope        | Global                                 |
 | Data type    | Boolean                                |
@@ -393,18 +393,15 @@ This variable is disabled (OFF) by default.
 
 | Option       | Description                           |
 |--------------|---------------------------------------|
-| Command-line | --rocksdb-base-background-compactions |
+| Command-line | `--rocksdb-base-background-compactions` |
 | Dynamic      | No                                    |
 | Scope        | Global                                |
 | Data type    | Numeric                               |
 | Default      | 1                                     |
 
-Specifies the suggested number of concurrent background compaction jobs,
-submitted to the default LOW priority thread pool in RocksDB. The default is `1`.
-The allowed range of values is from `-1` to `64`. The maximum value depends on the
-[rocksdb_max_background_compactions](#rocksdb_max_background_compactions) variable. This variable was
-replaced with [rocksdb_max_background_jobs](#rocksdb_max_background_jobs), which automatically
-decides how many threads to allocate toward flush/compaction.
+**[Removed]** `rocksdb_base_background_compactions` has been removed. It was replaced by [`rocksdb_max_background_jobs`](#rocksdb_max_background_jobs), which decides how many threads to allocate toward flush and compaction.
+
+This variable set the suggested number of concurrent background compaction jobs submitted to the default LOW priority thread pool in RocksDB. The default was `1`. The allowed range was from `-1` to `64`. The maximum depended on [`rocksdb_max_background_compactions`](#rocksdb_max_background_compactions).
 
 
 
@@ -413,7 +410,7 @@ decides how many threads to allocate toward flush/compaction.
 
 | Option       | Description                        |
 |--------------|------------------------------------|
-| Command-line | --rocksdb-blind-delete-primary-key |
+| Command-line | `--rocksdb-blind-delete-primary-key` |
 | Dynamic      | Yes                                |
 | Scope        | Global, Session                    |
 | Data type    | Boolean                            |
@@ -434,7 +431,7 @@ Skips verifying if rows exists before executing deletes. The following condition
 
 | Option       | Description                        |
 |--------------|------------------------------------|
-| Command-line | --rocksdb-block-cache-numshardbits |
+| Command-line | `--rocksdb-block-cache-numshardbits` |
 | Dynamic      | No                                 |
 | Scope        | Global                             |
 | Data type    | Numeric                            |
@@ -453,7 +450,7 @@ The minimum value is `-1` and the maximum value is `8`.
 
 | Option       | Description                |
 |--------------|----------------------------|
-| Command-line | --rocksdb-block-cache-size |
+| Command-line | `--rocksdb-block-cache-size` |
 | Dynamic      | Yes                         |
 | Scope        | Global                     |
 | Data type    | Numeric                    |
@@ -474,7 +471,7 @@ The maximum value is `9223372036854775807`.
 
 | Option       | Description                      |
 |--------------|----------------------------------|
-| Command-line | --rocksdb-block-restart-interval |
+| Command-line | `--rocksdb-block-restart-interval` |
 | Dynamic      | No                               |
 | Scope        | Global                           |
 | Data type    | Numeric                          |
@@ -491,14 +488,14 @@ Allowed range is from `1` to `2147483647`.
 
 | Option       | Description          |
 |--------------|----------------------|
-| Command-line | --rocksdb-block-size |
+| Command-line | `--rocksdb-block-size` |
 | Dynamic      | No                   |
 | Scope        | Global               |
 | Data type    | Numeric              |
-| Default      | 16 KB                |
+| Default      | 16384                |
 
 Specifies the size of the data block for reading RocksDB data files.
-The default value is `16 KB`.
+The default value is `16384` bytes (16 KB).
 The allowed range is from `1024` to `18446744073709551615` bytes.
 
 #### Version changes
@@ -512,18 +509,18 @@ In Percona Server for MySQL 8.4.7-7, the maximum value remains `1844674407370955
 
 | Option       | Description                    |
 |--------------|--------------------------------|
-| Command-line | --rocksdb-block-size-deviation |
+| Command-line | `--rocksdb-block-size-deviation` |
 | Dynamic      | No                             |
 | Scope        | Global                         |
 | Data type    | Numeric                        |
 | Default      | 10                             |
 
 Specifies the threshold for free space allowed in a data block
-(see rocksdb_block_size).
+(see [`rocksdb_block_size`](#rocksdb_block_size)).
 If there is less space remaining,
 close the block (and write to new block).
 Default value is `10`, meaning that the block is not closed
-until there is less than 10 bits of free space remaining.
+until less than 10 percent of the block is free.
 
 Allowed range is from `1` to `2147483647`.
 
@@ -534,20 +531,57 @@ Allowed range is from `1` to `2147483647`.
 
 | Option       | Description         |
 |--------------|---------------------|
-| Command-line | --rocksdb-bulk-load |
+| Command-line | `--rocksdb-bulk-load` |
 | Dynamic      | Yes                 |
 | Scope        | Global, Session     |
 | Data type    | Boolean             |
 | Default      | OFF                 |
 
-Specifies whether to use bulk load:
-MyRocks will ignore checking keys for uniqueness
-or acquiring locks during transactions.
-Disabled by default.
-Enable this only if you are certain that there are no row conflicts,
-for example, when setting up a new MyRocks instance from a MySQL dump.
+Enables bulk-load mode for `INSERT` operations.
 
-When the `rocksdb_bulk_load` variable is enabled, it behaves as if the variable `rocksdb_commit_in_the_middle` is enabled, even if the variable `rocksdb_commit_in_the_middle` is disabled.
+Bulk-load mode does the following:
+
+* Skips unique key checks
+
+* Skips row locks
+
+* Uses the implicit-commit behavior of [`rocksdb_commit_in_the_middle`](#rocksdb_commit_in_the_middle), even when [`rocksdb_commit_in_the_middle`](#rocksdb_commit_in_the_middle) is `OFF`
+
+Enable this mode only when the input has no conflicting rows. A typical case is a load from a MySQL dump into an empty table.
+
+To check unique keys during bulk load, see [`rocksdb_bulk_load_enable_unique_key_check`](#rocksdb_bulk_load_enable_unique_key_check).
+
+When [`rocksdb_enable_bulk_load_api`](#rocksdb_enable_bulk_load_api) is `ON`, MyRocks writes keys to Sorted String Table (SST) files with `SstFileWriter`. MyRocks then ingests those SST files into the bottommost RocksDB level. The SST ingest path skips the memtable and compaction.
+
+When [`rocksdb_enable_bulk_load_api`](#rocksdb_enable_bulk_load_api) is `OFF`, MyRocks writes through the memtable.
+
+Tables with a hidden primary key do not use the SST ingest path.
+
+#### Overlap rules
+
+* Keys in the bulk load must not overlap existing keys in the table
+
+* Load into an empty table to meet this rule
+
+* You can load more data later if the new key range does not overlap existing data
+
+#### Visibility rules
+
+* Rows stay invisible until MyRocks ingests the SST file
+
+* MyRocks ingests the current SST file when you set `rocksdb_bulk_load` to `OFF`
+
+* MyRocks also ingests the current SST file when the session starts a bulk load on a different table
+
+* Do not interleave `INSERT` statements across two or more tables in one bulk-load session
+
+A `SELECT` on a table during bulk load can return only older rows. The most recent inserted rows can be missing until ingest completes.
+
+Out-of-order inserts fail when unsorted input is not allowed. Some rows can be ingested and some can be missing. Truncate the table, fix the key order, and load again.
+
+Secondary keys use the memtable path unless [`rocksdb_bulk_load_allow_sk`](#rocksdb_bulk_load_allow_sk) is `ON`.
+
+For load procedures, see [Data loading](myrocks-data-loading.md).
 
 
 
@@ -556,14 +590,39 @@ When the `rocksdb_bulk_load` variable is enabled, it behaves as if the variable 
 
 | Option       | Description                  |
 |--------------|------------------------------|
-| Command-line | --rocksdb-bulk-load-allow-sk |
+| Command-line | `--rocksdb-bulk-load-allow-sk` |
 | Dynamic      | Yes                          |
 | Scope        | Global, Session              |
 | Data type    | Boolean                      |
 | Default      | OFF                          |
 
-Enabling this variable allows secondary keys to be added using the bulk loading
-feature. This variable can be enabled or disabled only when the rocksdb_bulk_load is `OFF`.
+Allows bulk load of secondary keys. Change this variable only when [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `OFF`.
+
+Secondary-key bulk load also requires [`rocksdb_enable_bulk_load_api`](#rocksdb_enable_bulk_load_api) to be `ON`. Secondary-key bulk load applies to inserts. Updates do not use this path.
+
+When this variable is `OFF`:
+
+* Bulk load applies to the primary key only
+
+* Secondary keys use the memtable, write-ahead log (WAL), flush, and compaction path
+
+When this variable is `ON`:
+
+* MyRocks writes secondary keys to temporary files under [`rocksdb_tmpdir`](#rocksdb_tmpdir)
+
+* MyRocks sorts those keys
+
+* MyRocks ingests the sorted keys when the bulk load ends
+
+A bulk load for a table ends in either of the following cases:
+
+* The session sets [`rocksdb_bulk_load`](#rocksdb_bulk_load) to `OFF`
+
+* The session starts a bulk load on a different table
+
+Keep the table empty when the table has secondary indexes. RocksDB ingest requires key ranges that do not overlap existing data.
+
+For load procedures, see [Data loading](myrocks-data-loading.md).
 
 
 
@@ -572,15 +631,29 @@ feature. This variable can be enabled or disabled only when the rocksdb_bulk_loa
 
 | Option       | Description                        |
 |--------------|------------------------------------|
-| Command-line | --rocksdb-bulk-load-allow-unsorted |
+| Command-line | `--rocksdb-bulk-load-allow-unsorted` |
 | Dynamic      | Yes                                |
 | Scope        | Global, Session                    |
 | Data type    | Boolean                            |
 | Default      | OFF                                |
 
-By default, the bulk loader requires its input to be sorted in the primary
-key order. If enabled, unsorted inputs are allowed too, which are then
-sorted by the bulkloader itself, at a performance penalty.
+Allows unsorted input during bulk load. Change this variable only when [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `OFF`.
+
+When this variable is `OFF`, bulk load requires input in primary key order. Reverse order is allowed. MyRocks caches reverse-order rows in chunks and rewrites those rows in the expected order.
+
+When this variable is `ON`:
+
+* Unsorted input is allowed
+
+* MyRocks writes rows to temporary files
+
+* MyRocks sorts the rows by primary key
+
+* MyRocks then writes sorted SST files
+
+The extra sort step has a performance cost. Primary-key writes go to temporary files first.
+
+For load procedures, see [Data loading](myrocks-data-loading.md).
 
 
 
@@ -589,6 +662,7 @@ sorted by the bulkloader itself, at a performance penalty.
 
 | Option         | Description                                                                |
 |-----------------|----------------------------------------------------------------------------|
+| Command-line | `--rocksdb-bulk-load-compression-parallel-threads` |
 | Dynamic      | Yes                                                                        |
 | Scope        | Global, Session                                                            |
 | Data type    | Numeric                                                                    |
@@ -607,6 +681,7 @@ Specifies the number of parallel worker threads used to compress SST data blocks
 
 | Option         | Description                                                              |
 |-----------------|--------------------------------------------------------------------------|
+| Command-line | `--rocksdb-bulk-load-enable-unique-key-check` |
 | Dynamic      | Yes                                                                      |
 | Scope        | Global, Session                                                          |
 | Data type    | Bool                                                                     |
@@ -625,21 +700,17 @@ This setting can only be changed when bulk loading is disabled.
 
 | Option       | Description                |
 |--------------|----------------------------|
-| Command-line | --rocksdb_bulk_load_fail_if_not_bottommost_level |
+| Command-line | `--rocksdb-bulk-load-fail-if-not-bottommost-level` |
 | Dynamic      | Yes                         |
 | Scope        | Global, Session             |
 | Data type    | Boolean                     |
 | Default      | OFF                         |
 
-When this variable is enabled, the bulk load fails if an sst file created during bulk load cannot be placed to the bottommost level in the rocksdb. 
-
-This variable can be enabled or disabled only when the [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `OFF`.
-
-This variable is disabled (OFF) by default.
+Fails the bulk load if an SST file cannot go to the bottommost RocksDB level. Change this variable only when [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `OFF`.
 
 !!! warning
 
-    When `rocksdb_bulk_load_fail_if_not_bottommost_level` is disabled, it may cause severe performance impact.
+    If this variable is `OFF`, ingest that misses the bottommost level can reduce performance.
 
 
 
@@ -648,9 +719,9 @@ This variable is disabled (OFF) by default.
 
 | Option       | Description         |
 |--------------|---------------------|
-| Command-line | --rocksdb-bulk-load-partial-index |
+| Command-line | `--rocksdb-bulk-load-partial-index` |
 | Dynamic      | Yes                 |
-| Scope        | Local               |
+| Scope        | Global, Session     |
 | Data type    | Boolean             |
 | Default      | ON                  |
 
@@ -663,7 +734,7 @@ Materializes partial index during bulk load instead of leaving the index empty.
 
 | Option       | Description              |
 |--------------|--------------------------|
-| Command-line | --rocksdb-bulk-load-size |
+| Command-line | `--rocksdb-bulk-load-size` |
 | Dynamic      | Yes                      |
 | Scope        | Global, Session          |
 | Data type    | Numeric                  |
@@ -671,7 +742,7 @@ Materializes partial index during bulk load instead of leaving the index empty.
 
 Specifies the number of keys to accumulate
 before committing them to the storage engine when bulk load is enabled
-(see rocksdb_bulk_load).
+(see [`rocksdb_bulk_load`](#rocksdb_bulk_load)).
 Default value is `1000`,
 which means that a batch can contain up to 1000 records
 before they are implicitly committed.
@@ -684,15 +755,15 @@ Allowed range is from `1` to `1073741824`.
 
 | Option       | Description         |
 |--------------|---------------------|
-| Command-line | --rocksdb_bulk_load_use_sst_partitioner |
+| Command-line | `--rocksdb-bulk-load-use-sst-partitioner` |
 | Dynamic      | Yes                 |
 | Scope        | Global, Session     |
 | Data type    | Boolean             |
 | Default      | OFF                 |
 
-If enabled, this variable uses sst partitioner to split sst files to ensure bulk load sst files can be ingested to bottommost level.
+Uses an SST partitioner to split SST files. Split files can ingest at the bottommost level. Change this variable only when [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `OFF`.
 
-This variable is disabled (OFF) by default.
+If another bulk-load transaction already uses the same index, the bulk load fails.
 
 
 
@@ -701,7 +772,7 @@ This variable is disabled (OFF) by default.
 
 | Option       | Description              |
 |--------------|--------------------------|
-| Command-line | --rocksdb-bytes-per-sync |
+| Command-line | `--rocksdb-bytes-per-sync` |
 | Dynamic      | Yes                      |
 | Scope        | Global                   |
 | Data type    | Numeric                  |
@@ -720,7 +791,7 @@ Allowed range is up to `18446744073709551615`.
 
 | Option       | Description          |
 |--------------|----------------------|
-| Command-line | --rocksdb-cache-dump |
+| Command-line | `--rocksdb-cache-dump` |
 | Dynamic      | No                   |
 | Scope        | Global               |
 | Data type    | Boolean              |
@@ -735,7 +806,7 @@ Includes RocksDB block cache content in core dump. This variable is enabled by d
 
 | Option | Description |
 |---|---|
-| Command-line | --rocksdb-cache-high-pri-pool-ratio |
+| Command-line | `--rocksdb-cache-high-pri-pool-ratio` |
 | Dynamic | No |
 | Scope | Global |
 | Data type | Double |
@@ -750,7 +821,7 @@ This variable specifies the size of the block cache high-pri pool. The default v
 
 | Option       | Description                             |
 |--------------|-----------------------------------------|
-| Command-line | --rocksdb-cache-index-and-filter-blocks |
+| Command-line | `--rocksdb-cache-index-and-filter-blocks` |
 | Dynamic      | No                                      |
 | Scope        | Global                                  |
 | Data type    | Boolean                                 |
@@ -768,7 +839,7 @@ If you disable this feature, RocksDB allocates additional memory to maintain the
 
 | Option | Description |
 |---|---|
-| Command-line | --rocksdb-cache-index-and-filter-with-high-priority |
+| Command-line | `--rocksdb-cache-index-and-filter-with-high-priority` |
 | Dynamic | No |
 | Scope | Global |
 | Data type | Boolean |
@@ -786,7 +857,7 @@ If you disable this feature, RocksDB allocates additional memory to maintain the
 
 | Option       | Description                             |
 |--------------|-----------------------------------------|
-| Command-line | --rocksdb-cancel-manual-compactions     |
+| Command-line | `--rocksdb-cancel-manual-compactions` |
 | Dynamic      | Yes                                     |
 | Scope        | Global                                  |
 | Data type    | Boolean                                 |
@@ -801,7 +872,7 @@ Cancels all ongoing manual compactions.
 
 | Option       | Description                             |
 |--------------|-----------------------------------------|
-| Command-line | --rocksdb_charge_memory                 |
+| Command-line | `--rocksdb-charge-memory` |
 | Dynamic      | No                                      |
 | Scope        | Global                                  |
 | Data type    | Boolean                                 |
@@ -820,7 +891,7 @@ This variable is disabled (OFF) by default.
 
 | Option       | Description             |
 |--------------|-------------------------|
-| Command-line | --rocksdb-check-iterate-bounds |
+| Command-line | `--rocksdb-check-iterate-bounds` |
 | Dynamic      | Yes                     |
 | Scope        | Global, Session         |
 | Data type    | Boolean                 |
@@ -836,7 +907,7 @@ This variable enables checking the upper and lower bounds of the RocksDB iterato
 
 | Option       | Description             |
 |--------------|-------------------------|
-| Command-line | --rocksdb-checksums-pct |
+| Command-line | `--rocksdb-checksums-pct` |
 | Dynamic      | Yes                     |
 | Scope        | Global, Session         |
 | Data type    | Numeric                 |
@@ -853,7 +924,7 @@ Allowed range is from `0` to `100`.
 
 | Option       | Description                      |
 |--------------|----------------------------------|
-| Command-line | --rocksdb-collect-sst-properties |
+| Command-line | `--rocksdb-collect-sst-properties` |
 | Dynamic      | No                               |
 | Scope        | Global                           |
 | Data type    | Boolean                          |
@@ -870,7 +941,7 @@ Enabled by default.
 
 | Option       | Description                      |
 |--------------|----------------------------------|
-| Command-line | --rocksdb_column_default_value_as_expression |
+| Command-line | `--rocksdb-column-default-value-as-expression` |
 | Dynamic      | Yes                               |
 | Scope        | Global                           |
 | Data type    | Boolean                          |
@@ -887,21 +958,25 @@ This variable is enabled (ON) by default.
 
 | Option       | Description                    |
 |--------------|--------------------------------|
-| Command-line | --rocksdb-commit-in-the-middle |
+| Command-line | `--rocksdb-commit-in-the-middle` |
 | Dynamic      | Yes                            |
-| Scope        | Global                         |
+| Scope        | Global, Session                |
 | Data type    | Boolean                        |
 | Default      | OFF                            |
 
-Specifies whether to commit rows implicitly
-when a batch contains more than the value of
-rocksdb_bulk_load_size.
+Commits rows implicitly when the batch reaches [`rocksdb_bulk_load_size`](#rocksdb_bulk_load_size).
 
-This option should only be enabled at the time of data import because it may cause locking errors.
+The implicit commit applies to bulk load, `INSERT`, `UPDATE`, and `DELETE`.
 
+Enable this variable only during data import. Implicit commits can cause locking errors.
 
-This variable is disabled by default.
-When the rocksdb_bulk_load variable is enabled, it behaves as if the variable rocksdb_commit_in_the_middle is enabled, even if the variable rocksdb_commit_in_the_middle is disabled.
+If a statement fails after an implicit commit, MyRocks does not roll back the committed rows. Truncate the table and load the data again.
+
+When [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `ON`, MyRocks uses this implicit-commit behavior even if `rocksdb_commit_in_the_middle` is `OFF`.
+
+This behavior is skipped when [`rocksdb_write_policy`](#rocksdb_write_policy) is `write_unprepared`.
+
+For load procedures, see [Data loading](myrocks-data-loading.md).
 
 
 
@@ -910,7 +985,7 @@ When the rocksdb_bulk_load variable is enabled, it behaves as if the variable ro
 
 | Option       | Description                              |
 |--------------|------------------------------------------|
-| Command-line | --rocksdb-commit-time-batch-for-recovery |
+| Command-line | `--rocksdb-commit-time-batch-for-recovery` |
 | Dynamic      | Yes                                      |
 | Scope        | Global, Session                          |
 | Data type    | Boolean                                  |
@@ -930,7 +1005,7 @@ not.
 
 | Option       | Description          |
 |--------------|----------------------|
-| Command-line | --rocksdb-compact-cf |
+| Command-line | `--rocksdb-compact-cf` |
 | Dynamic      | Yes                  |
 | Scope        | Global               |
 | Data type    | String               |
@@ -945,7 +1020,7 @@ Specifies the name of the column family to compact.
 
 | Option       | Description          |
 |--------------|----------------------|
-| Command-line | --rocksdb-compact-lzero-now |
+| Command-line | `--rocksdb-compact-lzero-now` |
 | Dynamic      | Yes                  |
 | Scope        | Global               |
 | Data type    | Boolean              |
@@ -962,7 +1037,7 @@ This variable acts as a trigger. Set the variable to `ON`, `rocksdb-compact-lzer
 
 | Option       | Description                         |
 |--------------|-------------------------------------|
-| Command-line | --rocksdb-compaction-readahead-size |
+| Command-line | `--rocksdb-compaction-readahead-size` |
 | Dynamic      | Yes                                 |
 | Scope        | Global                              |
 | Data type    | Numeric                             |
@@ -970,14 +1045,14 @@ This variable acts as a trigger. Set the variable to `ON`, `rocksdb-compact-lzer
 
 Specifies the size of reads to perform ahead of compaction.
 The default value is now `2097152`.
-Set this to at least 2 megabytes (`16777216`)
+Set this to at least 2 megabytes (`2097152`)
 when using MyRocks with spinning disks
 to ensure sequential reads instead of random.
 Maximum allowed value is `18446744073709551615`.
 
 !!! note
 
-    If you set this variable to a non-zero value, rocksdb_new_table_reader_for_compaction_inputs is enabled.
+    If you set this variable to a non-zero value, [`rocksdb_new_table_reader_for_compaction_inputs`](#rocksdb_new_table_reader_for_compaction_inputs) is enabled.
 
 
 
@@ -986,7 +1061,7 @@ Maximum allowed value is `18446744073709551615`.
 
 | Option       | Description                             |
 |--------------|-----------------------------------------|
-| Command-line | --rocksdb-compaction-sequential-deletes |
+| Command-line | `--rocksdb-compaction-sequential-deletes` |
 | Dynamic      | Yes                                     |
 | Scope        | Global                                  |
 | Data type    | Numeric                                 |
@@ -1004,7 +1079,7 @@ Maximum allowed value is `2000000` (two million delete markers).
     numbers of delete markers, which increases latency of queries.  This
     compaction feature will reduce latency, but may also increase the MyRocks
     write rate.  Use this variable together with
-    rocksdb_compaction_sequential_deletes_file_size to only perform
+    [`rocksdb_compaction_sequential_deletes_file_size`](#rocksdb_compaction_sequential_deletes_file_size) to only perform
     compaction on large files.
 
 
@@ -1014,13 +1089,13 @@ Maximum allowed value is `2000000` (two million delete markers).
 
 | Option       | Description                                      |
 |--------------|--------------------------------------------------|
-| Command-line | --rocksdb-compaction-sequential-deletes-count-sd |
+| Command-line | `--rocksdb-compaction-sequential-deletes-count-sd` |
 | Dynamic      | Yes                                              |
 | Scope        | Global                                           |
 | Data type    | Boolean                                          |
 | Default      | ON                                              |
 
-Specifies whether to count single deletes as delete markers recognized by `rocksdb_compaction_sequential_deletes`.
+Specifies whether to count single deletes as delete markers recognized by [`rocksdb_compaction_sequential_deletes`](#rocksdb_compaction_sequential_deletes).
 
 The default value is `ON` which means the variable is enabled.
 
@@ -1031,14 +1106,14 @@ The default value is `ON` which means the variable is enabled.
 
 | Option       | Description                                       |
 |--------------|---------------------------------------------------|
-| Command-line | --rocksdb-compaction-sequential-deletes-file-size |
+| Command-line | `--rocksdb-compaction-sequential-deletes-file-size` |
 | Dynamic      | Yes                                               |
 | Scope        | Global                                            |
 | Data type    | Numeric                                           |
 | Default      | 0                                                 |
 
 Specifies the minimum file size required to trigger compaction on it
-by rocksdb_compaction_sequential_deletes.
+by [`rocksdb_compaction_sequential_deletes`](#rocksdb_compaction_sequential_deletes).
 Default value is `0`,
 meaning that compaction is triggered regardless of file size.
 Allowed range is from `-1` to `9223372036854775807`.
@@ -1050,13 +1125,13 @@ Allowed range is from `-1` to `9223372036854775807`.
 
 | Option       | Description                                    |
 |--------------|------------------------------------------------|
-| Command-line | --rocksdb-compaction-sequential-deletes-window |
+| Command-line | `--rocksdb-compaction-sequential-deletes-window` |
 | Dynamic      | Yes                                            |
 | Scope        | Global                                         |
 | Data type    | Numeric                                        |
 | Default      | 150000                                              |
 
-Specifies the size of the window for counting delete markers by `rocksdb_compaction_sequential_deletes`. Default value is `150000`.
+Specifies the size of the window for counting delete markers by [`rocksdb_compaction_sequential_deletes`](#rocksdb_compaction_sequential_deletes). Default value is `150000`.
 
 Allowed range is up to `2000000` (two million).
 
@@ -1067,15 +1142,15 @@ Allowed range is up to `2000000` (two million).
 
 | Option       | Description                  |
 |--------------|------------------------------|
-| Command-line | --rocksdb-concurrent_prepare |
+| Command-line | `--rocksdb-concurrent-prepare` |
 | Dynamic      | No                           |
 | Scope        | Global                       |
 | Data type    | Boolean                      |
 | Default      | ON                           |
 
-When enabled this variable allows/encourages threads that are using
-two-phase commit to `prepare` in parallel. This variable was
-renamed in upstream to rocksdb_two_write_queues.
+**[Deprecated]** `rocksdb_concurrent_prepare` is deprecated and may be removed in a future release. Use [`rocksdb_two_write_queues`](#rocksdb_two_write_queues).
+
+When enabled, this variable allows threads that use two-phase commit to prepare in parallel. It sets the same RocksDB option as [`rocksdb_two_write_queues`](#rocksdb_two_write_queues).
 
 
 
@@ -1084,7 +1159,7 @@ renamed in upstream to rocksdb_two_write_queues.
 
 | Option       | Description                  |
 |--------------|------------------------------|
-| Command-line | --rocksdb_converter_record_cached_length |
+| Command-line | `--rocksdb-converter-record-cached-length` |
 | Dynamic      | Yes                           |
 | Scope        | Global                        |
 | Data type    | Numeric                       |
@@ -1106,7 +1181,7 @@ The default value is `0`(zero) that means there is no limit.
 
 | Option       | Description                    |
 |--------------|--------------------------------|
-| Command-line | --rocksdb_corrupt_data_action  |
+| Command-line | `--rocksdb-corrupt-data-action` |
 | Dynamic      | Yes                            |
 | Scope        | Global                         |
 | Data type    | enum { ERROR = 0, ABORT_SERVER, WARNING }; |
@@ -1131,7 +1206,7 @@ The default value is `ERROR` that means the query fails with the error `HA_ERR_R
 
 | Option       | Description                 |
 |--------------|-----------------------------|
-| Command-line | --rocksdb-create-checkpoint |
+| Command-line | `--rocksdb-create-checkpoint` |
 | Dynamic      | Yes                         |
 | Scope        | Global                      |
 | Data type    | String                      |
@@ -1147,7 +1222,7 @@ Empty by default.
 
 | Option       | Description                 |
 |--------------|-----------------------------|
-| Command-line | --rocksdb-create-if-missing |
+| Command-line | `--rocksdb-create-if-missing` |
 | Dynamic      | No                          |
 | Scope        | Global                      |
 | Data type    | Boolean                     |
@@ -1163,7 +1238,7 @@ Enabled by default.
 
 | Option       | Description                              |
 |--------------|------------------------------------------|
-| Command-line | --rocksdb-create-missing-column-families |
+| Command-line | `--rocksdb-create-missing-column-families` |
 | Dynamic      | No                                       |
 | Scope        | Global                                   |
 | Data type    | Boolean                                  |
@@ -1180,7 +1255,7 @@ Disabled by default.
 
 | Option       | Description                              |
 |--------------|------------------------------------------|
-| Command-line | --rocksdb-create-temporary-checkpoint    |
+| Command-line | `--rocksdb-create-temporary-checkpoint` |
 | Dynamic      | Yes                                      |
 | Scope        | Session                                  |
 | Data type    | String                                   |
@@ -1198,7 +1273,7 @@ use or other misuse can have serious side effects to the server instance.
 
 | Option       | Description                              |
 |--------------|------------------------------------------|
-| Command-line | --rocksdb-datadir                        |
+| Command-line | `--rocksdb-datadir` |
 | Dynamic      | No                                       |
 | Scope        | Global                                   |
 | Data type    | String                                   |
@@ -1214,7 +1289,7 @@ By default, it is created in the current working directory.
 
 | Option       | Description                    |
 |--------------|--------------------------------|
-| Command-line | --rocksdb-db-write-buffer-size |
+| Command-line | `--rocksdb-db-write-buffer-size` |
 | Dynamic      | No                             |
 | Scope        | Global                         |
 | Data type    | Numeric                        |
@@ -1233,7 +1308,7 @@ The allowed range is up to `18446744073709551615`.
 
 | Option       | Description               |
 |--------------|---------------------------|
-| Command-line | --rocksdb-deadlock-detect |
+| Command-line | `--rocksdb-deadlock-detect` |
 | Dynamic      | Yes                       |
 | Scope        | Global, Session           |
 | Data type    | Boolean                   |
@@ -1249,7 +1324,7 @@ Disabled by default.
 
 | Option       | Description                     |
 |--------------|---------------------------------|
-| Command-line | --rocksdb-deadlock-detect-depth |
+| Command-line | `--rocksdb-deadlock-detect-depth` |
 | Dynamic      | Yes                             |
 | Scope        | Global, Session                 |
 | Data type    | Numeric                         |
@@ -1265,17 +1340,15 @@ through before assuming deadlock.
 
 | Option | Description |
 |---|---|
-| Command-line | --rocksdb-debug-cardinality-multiplier |
+| Command-line | `--rocksdb-debug-cardinality-multiplier` |
 | Dynamic | Yes |
 | Scope | Global |
 | Data type | UINT |
 | Default | 2 |
 
-The cardinality multiplier used in tests. The minimum value is 0. The maximum value is 2147483647 (INT_MAX).
+The cardinality multiplier used in tests. The minimum value is `1`. The maximum value is `2147483647` (`INT_MAX`).
 
-#### Version changes
-
-In Percona Server for MySQL 8.4.7-7, the minimum value was changed to `1`.
+Prior to Percona Server for MySQL 8.4.7-7, the minimum value was `0`.
 
 
 
@@ -1284,7 +1357,7 @@ In Percona Server for MySQL 8.4.7-7, the minimum value was changed to `1`.
 
 | Option | Description |
 |---|---|
-| Command-line | --rocksdb-debug-manual-compaction-delay |
+| Command-line | `--rocksdb-debug-manual-compaction-delay` |
 | Dynamic | Yes |
 | Scope | Global |
 | Data type | UINT |
@@ -1292,7 +1365,7 @@ In Percona Server for MySQL 8.4.7-7, the minimum value was changed to `1`.
 
 Only use this variable when debugging.
 
-This variable specifies a sleep, in seconds, to simulate long-running compactions. The minimum value is 0. The maximum value is 4292967295 (UINT_MAX).
+This variable specifies a sleep, in seconds, to simulate long-running compactions. The minimum value is 0. The maximum value is 4294967295 (UINT_MAX).
 
 
 
@@ -1301,7 +1374,7 @@ This variable specifies a sleep, in seconds, to simulate long-running compaction
 
 | Option       | Description                                   |
 |--------------|-----------------------------------------------|
-| Command-line | --rocksdb-debug-optimizer-no-zero-cardinality |
+| Command-line | `--rocksdb-debug-optimizer-no-zero-cardinality` |
 | Dynamic      | Yes                                           |
 | Scope        | Global                                        |
 | Data type    | Boolean                                       |
@@ -1316,7 +1389,7 @@ by always overriding it with some value.
 
 | Option                                        | Description                                                                           |
 |-----------------------------------------------|---------------------------------------------------------------------------------------|
-| Command-line                                  | --rocksdb-debug-skip-bloom-filter-check-on-iterator-bounds                                |
+| Command-line                                  | `--rocksdb-debug-skip-bloom-filter-check-on-iterator-bounds` |
 | Dynamic                                       | Yes                                                                                   |
 | Scope                                         | Global                                                                                |
 | Data type                                     | Boolean                                                                               |
@@ -1331,7 +1404,7 @@ Allows setting iterator bounds in RocksDB even when the query range conditions w
 
 | Option       | Description                   |
 |--------------|-------------------------------|
-| Command-line | --rocksdb-debug-ttl-ignore-pk |
+| Command-line | `--rocksdb-debug-ttl-ignore-pk` |
 | Dynamic      | Yes                           |
 | Scope        | Global                        |
 | Data type    | Boolean                       |
@@ -1347,7 +1420,7 @@ on Primary Key TTL data. This variable is a no-op in non-debug builds.
 
 | Option       | Description                        |
 |--------------|------------------------------------|
-| Command-line | --rocksdb_debug-ttl-read-filter-ts |
+| Command-line | `--rocksdb-debug-ttl-read-filter-ts` |
 | Dynamic      | Yes                                |
 | Scope        | Global                             |
 | Data type    | Numeric                            |
@@ -1365,7 +1438,7 @@ This variable is a no-op in non-debug builds.
 
 | Option       | Description                |
 |--------------|----------------------------|
-| Command-line | --rocksdb-debug-ttl-rec-ts |
+| Command-line | `--rocksdb-debug-ttl-rec-ts` |
 | Dynamic      | Yes                        |
 | Scope        | Global                     |
 | Data type    | Numeric                    |
@@ -1385,14 +1458,14 @@ This variable is a no-op in non-debug builds.
 
 | Option       | Description                   |
 |--------------|-------------------------------|
-| Command-line | --rocksdb-debug-ttl-snapshot-ts |
+| Command-line | `--rocksdb-debug-ttl-snapshot-ts` |
 | Dynamic      | Yes                           |
 | Scope        | Global                        |
 | Data type    | Numeric                       |
 | Default      | 0                             |
 
 For debugging purposes only. Sets the snapshot during
-compaction to `now()` + rocksdb_debug_set_ttl_snapshot_ts.
+compaction to `now()` + rocksdb_debug_ttl_snapshot_ts.
 
 The value can be +/- to simulate a snapshot in the past vs a
 snapshot created in the  future . A value of `0` denotes
@@ -1406,10 +1479,11 @@ non-debug builds.
 
 | Option       | Description                  |
 |--------------|------------------------------|
-| Command-line | --rocksdb-default-cf-options |
+| Command-line | `--rocksdb-default-cf-options` |
 | Dynamic      | No                           |
 | Scope        | Global                       |
 | Data type    | String                       |
+| Default      | `block_based_table_factory={cache_index_and_filter_blocks=1;filter_policy=bloomfilter:10:false;whole_key_filtering=1};level_compaction_dynamic_level_bytes=true;optimize_filters_for_hits=true;compaction_pri=kMinOverlappingRatio;compression=kLZ4Compression;bottommost_compression=kLZ4Compression;` |
 
 The `rocksdb_default_cf_options` variable defines the settings for the default
 column family. MyRocks stores data in this column family unless a table or
@@ -1464,12 +1538,7 @@ SSD versus HDD, is the primary way to optimize MyRocks throughput. The string
 provides centralized control over compaction style, memory, and I/O
 (input/output) parallelism.
 
-The default varies by MyRocks version but balances LZ4 compression with
-moderate buffer sizes, such as 64 MB memtables. The default value is:
-
-```default
-block_based_table_factory={cache_index_and_filter_blocks=1;filter_policy=bloomfilter:10:false;whole_key_filtering=1};level_compaction_dynamic_level_bytes=true;optimize_filters_for_hits=true;compaction_pri=kMinOverlappingRatio;compression=kLZ4Compression;bottommost_compression=kLZ4Compression;
-```
+The default value is in the table above.
 
 #### What each component of the default value does
 
@@ -1511,7 +1580,7 @@ The default value combines four groups of settings:
 
 | Option       | Description                  |
 |--------------|------------------------------|
-| Command-line | --rocksdb-delayed-write-rate |
+| Command-line | `--rocksdb-delayed-write-rate` |
 | Dynamic      | Yes                          |
 | Scope        | Global                       |
 | Data type    | Numeric                      |
@@ -1529,7 +1598,7 @@ Allowed range is from `0` to `18446744073709551615`.
 
 | Option       | Description         |
 |--------------|---------------------|
-| Command-line | --rocksdb-delete-cf |
+| Command-line | `--rocksdb-delete-cf` |
 | Dynamic      | Yes                 |
 | Scope        | Global              |
 | Data type    | String              |
@@ -1550,7 +1619,7 @@ SET @@global.ROCKSDB_DELETE_CF = 'cf_primary_key';
 
 | Option       | Description                                   |
 |--------------|-----------------------------------------------|
-| Command-line | --rocksdb-delete-obsolete-files-period-micros |
+| Command-line | `--rocksdb-delete-obsolete-files-period-micros` |
 | Dynamic      | No                                            |
 | Scope        | Global                                        |
 | Data type    | Numeric                                       |
@@ -1568,7 +1637,7 @@ Allowed range is up to `9223372036854775807`.
 
 | Option       | Description                                   |
 |--------------|-----------------------------------------------|
-| Command-line | --rocksdb-disable-file-deletions              |
+| Command-line | `--rocksdb-disable-file-deletions` |
 | Dynamic      | Yes                                           |
 | Scope        | Session                                       |
 | Data type    | Boolean                                       |
@@ -1588,7 +1657,7 @@ use or other misuse can have serious side effects to the server instance.
 
 | Option       | Description                                   |
 |--------------|-----------------------------------------------|
-| Command-line | --rocksdb_disable_instant_ddl                 |
+| Command-line | `--rocksdb-disable-instant-ddl` |
 | Dynamic      | Yes                                           |
 | Scope        | Global                                       |
 | Data type    | Boolean                                       |
@@ -1607,19 +1676,35 @@ Prior to Percona Server for MySQL 8.4.5-5, this variable was enabled (`ON`) by d
 
 | Option       | Description                    |
 |--------------|--------------------------------|
-| Command-line | --rocksdb-enable-bulk-load-api |
+| Command-line | `--rocksdb-enable-bulk-load-api` |
 | Dynamic      | No                             |
 | Scope        | Global                         |
 | Data type    | Boolean                        |
 | Default      | ON                             |
 
-Specifies whether to use the `SSTFileWriter` feature for bulk loading,
-This feature bypasses the memtable,
-but requires keys to be inserted into the table
-in either ascending or descending order.
-Enabled by default.
-If disabled, bulk loading uses the normal write path via the memtable
-and does not require keys to be inserted in any order.
+Enables `SstFileWriter` for bulk load. This variable is read-only. Set this variable at server start.
+
+When this variable is `ON` and [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `ON`:
+
+* MyRocks writes the primary key to SST files and ingests those files
+
+* The SST ingest path skips the memtable
+
+* Keys must be in ascending or descending order unless [`rocksdb_bulk_load_allow_unsorted`](#rocksdb_bulk_load_allow_unsorted) is `ON`
+
+* Tables with a hidden primary key skip the SST ingest path
+
+When this variable is `OFF` and [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `ON`:
+
+* MyRocks uses the memtable write path
+
+* Key order is not required on that path
+
+* Secondary-key bulk load is not available
+
+Unique checks stay skipped while [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `ON`, on both paths.
+
+For load procedures, see [Data loading](myrocks-data-loading.md).
 
 
 
@@ -1628,7 +1713,7 @@ and does not require keys to be inserted in any order.
 
 | Option       | Description                                 |
 |--------------|---------------------------------------------|
-| Command-line | --rocksdb_enable_delete_range_for_drop_index|
+| Command-line | `--rocksdb-enable-delete-range-for-drop-index` |
 | Dynamic      | Yes                                         |
 | Scope        | Global                                      |
 | Data type    | Boolean                                     |
@@ -1645,7 +1730,7 @@ This option is disabled (OFF) by default.
 
 | Option       | Description                                 |
 |--------------|---------------------------------------------|
-| Command-line | --rocksdb-enable-insert-with-update-caching |
+| Command-line | `--rocksdb-enable-insert-with-update-caching` |
 | Dynamic      | Yes                                         |
 | Scope        | Global                                      |
 | Data type    | Boolean                                     |
@@ -1659,7 +1744,7 @@ Specifies whether to enable optimization where the read is cached from a failed 
 
 | Option                      | Description                                                                           |
 |-----------------------------|---------------------------------------------------------------------------------------|
-| Command-line                | --rocksdb-enable-instant-ddl                                                          |
+| Command-line                | `--rocksdb-enable-instant-ddl` |
 | Dynamic                     | Yes                                                                                   |
 | Scope                       | Global                                                                                |
 | Data type                   | Boolean                                                                               |
@@ -1675,7 +1760,7 @@ to `OFF`, no DDL operations can be executed as instant.
 
 | Option                                   | Description                                                                           |
 |------------------------------------------|---------------------------------------------------------------------------------------|
-| Command-line                             | --rocksdb-enable-instant-ddl-for-append-column                                        |
+| Command-line                             | `--rocksdb-enable-instant-ddl-for-append-column` |
 | Dynamic                                  | Yes                                                                                   |
 | Scope                                    | Global                                                                                |
 | Data type                                | Boolean                                                                               |
@@ -1691,7 +1776,7 @@ operations.
 
 | Option                                        | Description                                                                           |
 |-----------------------------------------------|---------------------------------------------------------------------------------------|
-| Command-line                                  | --rocksdb-enable-instant-ddl-for-column-default-changes                               |
+| Command-line                                  | `--rocksdb-enable-instant-ddl-for-column-default-changes` |
 | Dynamic                                       | Yes                                                                                   |
 | Scope                                         | Global                                                                                |
 | Data type                                     | Boolean                                                                               |
@@ -1707,7 +1792,7 @@ operations.
 
 | Option                                       | Description                                                                           |
 |----------------------------------------------|---------------------------------------------------------------------------------------|
-| Command-line                                 | --rocksdb-enable-instant-ddl-for-drop-index-changes                                   |
+| Command-line                                 | `--rocksdb-enable-instant-ddl-for-drop-index-changes` |
 | Dynamic                                      | Yes                                                                                   |
 | Scope                                        | Global                                                                                |
 | Data type                                    | Boolean                                                                               |
@@ -1722,7 +1807,7 @@ Enables Instant DDL for dropping indexes during `ALTER TABLE` operations.
 
 | Option                                         | Description                                                                           |
 |------------------------------------------------|---------------------------------------------------------------------------------------|
-| Command-line                                   | --rocksdb-enable-instant-ddl-for-table-comment-changes                                |
+| Command-line                                   | `--rocksdb-enable-instant-ddl-for-table-comment-changes` |
 | Dynamic                                        | Yes                                                                                   |
 | Scope                                          | Global                                                                                |
 | Data type                                      | Boolean                                                                               |
@@ -1738,9 +1823,9 @@ operations.
 
 | Option       | Description                     |
 |--------------|---------------------------------|
-| Command-line | --rocksdb-enable-iterate-bounds |
+| Command-line | `--rocksdb-enable-iterate-bounds` |
 | Dynamic      | Yes                             |
-| Scope        | Global, Local                   |
+| Scope        | Global, Session                 |
 | Data type    | Boolean                         |
 | Default      | ON                              |
 
@@ -1751,69 +1836,63 @@ Enables the rocksdb iterator upper bounds and lower bounds in read options.
 
 ### `rocksdb_enable_pipelined_write`
 
-| Option       | Description                      |
-|--------------|----------------------------------|
-| Command-line | --rocksdb-enable-pipelined-write |
-| Dynamic      | No                               |
-| Scope        | Global                           |
-| Data type    | Boolean                          |
-| Default      | OFF                              |
+| Option       | Description                        |
+|--------------|------------------------------------|
+| Command-line | `--rocksdb-enable-pipelined-write` |
+| Dynamic      | No                                 |
+| Scope        | Global                             |
+| Data type    | Boolean                            |
+| Default      | OFF                                |
 
-DBOptions::enable_pipelined_write for RocksDB.
+This variable sets RocksDB `DBOptions::enable_pipelined_write`.
 
-If `enable_pipelined_write` is `ON`, a separate write thread is maintained for WAL write and memtable write. A write thread first enters the WAL writer queue and then the memtable writer queue. A pending thread on the WAL writer queue only waits for the previous WAL write operations but does not wait for memtable write operations. Enabling the feature may improve write throughput and reduce latency of the prepare phase of a two-phase commit.
+RocksDB normally uses one writer queue. The thread at the head of the queue leads the batch group and writes both the write-ahead log (WAL) and the memtable. When this variable is `ON`, RocksDB uses one queue for WAL writes and another queue for memtable writes. A writer enters the WAL queue first and the memtable queue second. A thread waiting on the WAL queue waits only for earlier WAL writes. This can raise write throughput and shorten the prepare phase of a two-phase commit.
 
-
-
+The option is incompatible with [`rocksdb_two_write_queues`](#rocksdb_two_write_queues). That variable defaults to `ON`. [`rocksdb_concurrent_prepare`](#rocksdb_concurrent_prepare) is a deprecated name for the same RocksDB option and also defaults to `ON`. If pipelined writes are `ON` while that option is `ON`, each write fails with `NotSupported` and the message `pipelined_writes is not compatible with concurrent prepares`. Set `rocksdb_two_write_queues` to `OFF` at startup to use pipelined writes. These variables are read-only.
 
 ### `rocksdb_enable_remove_orphaned_dropped_cfs`
 
-| Option       | Description                                  |
-|--------------|----------------------------------------------|
-| Command-line | --rocksdb-enable-remove-orphaned-dropped-cfs |
-| Dynamic      | Yes                                          |
-| Scope        | Global                                       |
-| Data type    | Boolean                                      |
-| Default      | ON                                         |
+| Option       | Description                                    |
+|--------------|------------------------------------------------|
+| Command-line | `--rocksdb-enable-remove-orphaned-dropped-cfs` |
+| Dynamic      | Yes                                            |
+| Scope        | Global                                         |
+| Data type    | Boolean                                        |
+| Default      | ON                                             |
 
-Enables the removal of dropped column families (cfs) from metadata if the cfs do not exist in the cf manager.
+Added in Percona Server for MySQL 8.0.20-11.
 
-The default value is `ON`.
-
-
-
+MyRocks runs this check while it initializes the data dictionary at startup. It compares column families marked as dropped in the data dictionary with the column families loaded by the column family manager. If a dropped column family is missing from the manager, the server logs a warning. When this variable is `ON`, MyRocks also deletes that column family's drop record from the data dictionary. When it is `OFF`, the warning is logged and the record stays in the data dictionary.
 
 ### `rocksdb_enable_thread_tracking`
 
-| Option       | Description                      |
-|--------------|----------------------------------|
-| Command-line | --rocksdb-enable-thread-tracking |
-| Dynamic      | No                               |
-| Scope        | Global                           |
-| Data type    | Boolean                          |
-| Default      | OFF                              |
+| Option       | Description                        |
+|--------------|------------------------------------|
+| Command-line | `--rocksdb-enable-thread-tracking` |
+| Dynamic      | No                                 |
+| Scope        | Global                             |
+| Data type    | Boolean                            |
+| Default      | ON                                 |
 
-Specifies whether to enable tracking the status of threads
-accessing the database.
-Disabled by default.
-If enabled, thread status will be available via `GetThreadList()`.
+This variable sets RocksDB `DBOptions::enable_thread_tracking`.
 
-
-
+When it is `ON`, `SHOW ENGINE ROCKSDB STATUS` includes a `BG_THREADS` row for each RocksDB background thread. The status text lists the thread type, column family, operation, stage, elapsed time, operation properties, and state. User threads are omitted. When it is `OFF`, that section is empty. A build compiled without RocksDB thread status has no list to show.
 
 ### `rocksdb_enable_ttl`
 
 | Option       | Description          |
 |--------------|----------------------|
-| Command-line | --rocksdb-enable-ttl |
-| Dynamic      | No                   |
+| Command-line | `--rocksdb-enable-ttl` |
+| Dynamic      | Yes                  |
 | Scope        | Global               |
 | Data type    | Boolean              |
 | Default      | ON                   |
 
-Specifies whether to keep expired TTL records during compaction.
-Enabled by default.
-If disabled, expired TTL records will be dropped during compaction.
+Enables dropping expired TTL records during compaction. The default is `ON`.
+
+When this variable is `OFF`, compaction keeps expired TTL records.
+
+Queries hide expired rows through [`rocksdb_enable_ttl_read_filtering`](#rocksdb_enable_ttl_read_filtering). That filter can hide a row before compaction deletes it. Compaction deletes the row only when this variable is `ON`.
 
 
 
@@ -1822,17 +1901,15 @@ If disabled, expired TTL records will be dropped during compaction.
 
 | Option       | Description                         |
 |--------------|-------------------------------------|
-| Command-line | --rocksdb-enable-ttl-read-filtering |
+| Command-line | `--rocksdb-enable-ttl-read-filtering` |
 | Dynamic      | Yes                                 |
 | Scope        | Global                              |
 | Data type    | Boolean                             |
 | Default      | ON                                  |
 
-For tables with TTL, expired records are skipped/filtered
-out during processing and in query results. Disabling
-this will allow these records to be seen, but as a result
-rows may disappear in the middle of transactions as they
-are dropped during compaction. **Use with caution.**
+For tables with TTL, expired records are skipped during processing and omitted from query results. Set this to `OFF` to make those records visible.
+
+Compaction deletes expired rows only when [`rocksdb_enable_ttl`](#rocksdb_enable_ttl) is `ON`. A row that is still visible can disappear mid-transaction when that compaction runs. **Use with caution.**
 
 
 
@@ -1840,25 +1917,22 @@ are dropped during compaction. **Use with caution.**
 
 | Option                            | Description                                                                           |
 |-----------------------------------|---------------------------------------------------------------------------------------|
-| Command-line                      | --rocksdb-enable-udt-in-mem                                                             |
-| Dynamic                           | Yes                                                                                   |
+| Command-line                      | `--rocksdb-enable-udt-in-mem` |
+| Dynamic                           | No                                                                                    |
 | Scope                             | Global                                                                                |
 | Data type                         | Boolean                                                                               |
 | Default                           | OFF                                                                                   |
 
-Added in Percona Server for MySQL 8.4.5-5.
+Added in Percona Server for MySQL 8.4.5-5. The variable is read-only.
 
-**[Not yet implemented.]**
-
-Enables the user-defined timestamp in memtable feature to support Hybrid
-Logical Clock (HLC) snapshot reads in MyRocks.
+The variable is registered in Percona Server for MySQL 8.4 and 9.7. No server code reads it. Setting it does not enable user-defined timestamps in the memtable, and it does not enable hybrid logical clock (HLC) snapshot reads.
 
 
 ### `rocksdb_enable_write_thread_adaptive_yield`
 
 | Option       | Description                                  |
 |--------------|----------------------------------------------|
-| Command-line | --rocksdb-enable-write-thread-adaptive-yield |
+| Command-line | `--rocksdb-enable-write-thread-adaptive-yield` |
 | Dynamic      | No                                           |
 | Scope        | Global                                       |
 | Data type    | Boolean                                      |
@@ -1877,7 +1951,7 @@ Enable it to increase throughput for concurrent workloads.
 
 | Option       | Description               |
 |--------------|---------------------------|
-| Command-line | --rocksdb-error-if-exists |
+| Command-line | `--rocksdb-error-if-exists` |
 | Dynamic      | No                        |
 | Scope        | Global                    |
 | Data type    | Boolean                   |
@@ -1891,33 +1965,29 @@ Disabled by default.
 
 ### `rocksdb_error_on_suboptimal_collation`
 
-| Option       | Description                             |
-|--------------|-----------------------------------------|
-| Command-line | --rocksdb-error-on-suboptimal-collation |
-| Dynamic      | No                                      |
-| Scope        | Global                                  |
-| Data type    | Boolean                                 |
-| Default      | ON                                      |
+| Option       | Description                               |
+|--------------|-------------------------------------------|
+| Command-line | `--rocksdb-error-on-suboptimal-collation` |
+| Dynamic      | No                                        |
+| Scope        | Global                                    |
+| Data type    | Boolean                                   |
+| Default      | OFF                                       |
 
-Specifies whether to report an error instead of a warning if an index is
-created on a char field where the table has a sub-optimal collation (case
-insensitive). Enabled by default.
+The variable is read-only. It was meant to raise an error, instead of a warning, when an index is created on a character column that uses a non-binary collation. A case-insensitive collation is one example. A binary collation, such as `utf8mb4_bin`, uses a byte-wise order that matches RocksDB key order.
 
-
-
+That check was [`rocksdb_strict_collation_check`](#rocksdb_strict_collation_check). [`rocksdb_strict_collation_exceptions`](#rocksdb_strict_collation_exceptions) listed tables excluded from the check. Both variables were removed in Percona Server for MySQL 8.4.5-5. No 8.4 server code reads this variable. Index creation ignores it.
 
 ### `rocksdb_file_checksums`
 
-**[Changed in 8.4.5-5]** The `rocksdb_file_checksums` variable's default value changed from `OFF` to `CHECKSUMS_OFF`, and its data type changed to `Enum= CHECKSUMS_OFF, CHECKSUMS_WRITE_ONLY, CHECKSUMS_WRITE_AND_VERIFY`.
+**[Changed in 8.4.5-5]** The `rocksdb_file_checksums` variable's default value changed from `OFF` to `CHECKSUMS_OFF`, and its data type changed to `Enum: CHECKSUMS_OFF, CHECKSUMS_WRITE_ONLY, CHECKSUMS_WRITE_AND_VERIFY`.
 
-| Option        | Description                                                                                                                               |
-|---------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| Command-line  | --rocksdb-file-checksums                                                                                                                  |
-| Dynamic       | No                                                                                                                                        |
-| Scope         | Global                                                                                                                                    |
-| Data type     | Enum= CHECKSUMS_OFF, CHECKSUMS_WRITE_ONLY, CHECKSUMS_WRITE_AND_VERIFY                                                                       |
-| Default       | CHECKSUMS_OFF (Prior to 8.4.5-5, the default was OFF)                                                                                      |
-
+| Option       | Description                                                           |
+|--------------|-----------------------------------------------------------------------|
+| Command-line | `--rocksdb-file-checksums`                                            |
+| Dynamic      | No                                                                    |
+| Scope        | Global                                                                |
+| Data type    | Enum: CHECKSUMS_OFF, CHECKSUMS_WRITE_ONLY, CHECKSUMS_WRITE_AND_VERIFY |
+| Default      | CHECKSUMS_OFF (Prior to 8.4.5-5, the default was OFF)                 |
 
 This variable controls whether to write and check RocksDB file-level checksums. The possible values are:
 
@@ -1927,88 +1997,33 @@ This variable controls whether to write and check RocksDB file-level checksums. 
 
 * `CHECKSUMS_WRITE_AND_VERIFY`: Writes checksums and verifies them when the database is opened.
 
-Prior to Percona Server for MySQL 8.4.5-5, the default value was `OFF`, and the data type was a Boolean (where `OFF` equated to disabled).
-
-
-
+Prior to Percona Server for MySQL 8.4.5-5, the data type was Boolean. `OFF` meant checksums were disabled.
 
 ### `rocksdb_flush_log_at_trx_commit`
 
 | Option       | Description                       |
 |--------------|-----------------------------------|
-| Command-line | --rocksdb-flush-log-at-trx-commit |
+| Command-line | `--rocksdb-flush-log-at-trx-commit` |
 | Dynamic      | Yes                               |
 | Scope        | Global, Session                   |
 | Data type    | Numeric                           |
 | Default      | 1                                 |
 
-This variable controls whether the RocksDB Write-Ahead Log (WAL) is
-synchronized to disk on every transaction commit. The behavior is similar to
-[innodb_flush_log_at_trx_commit :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit).
+Controls when MyRocks writes and syncs the RocksDB write-ahead log (WAL) at commit. The behavior is similar to [innodb_flush_log_at_trx_commit :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit). The default is `1`.
 
-The default value is `1`, which ensures ACID compliance. Committed
-transactions remain durable after a crash. Less strict values improve
-performance at the cost of durability.
+[`rocksdb_manual_wal_flush`](#rocksdb_manual_wal_flush) defaults to `ON`, so RocksDB does not flush the WAL by itself. MyRocks calls `FlushWAL` on commit and from a background thread about once a second. [`rocksdb_use_fsync`](#rocksdb_use_fsync) selects `fsync` for those syncs. When it is `OFF` (the default), RocksDB uses `fdatasync`.
 
-#### Which value should you choose
+| Value | On commit | mysqld crash | OS crash or power loss |
+| --- | --- | --- | --- |
+| `0` | Does not write or sync the WAL. | Commits since the last background sync can be lost. The commit path never wrote them. | The same commits can be lost. They were not in the OS cache. |
+| `1` | Writes and syncs the WAL before the commit returns. | Committed transactions remain. | Committed transactions remain. |
+| `2` | Writes the WAL into the OS cache and does not sync. | Committed transactions usually remain, because the OS still has the WAL. | Commits since the last background sync, up to about one second, can be lost. |
 
-The variable accepts the values `0`, `1`, or `2`. The following sections
-describe each value, the trade-offs, and the operational outcomes.
+A missing WAL tail drops recent commits. It does not by itself make the remaining data inconsistent. If a WAL entry is truncated or corrupt, [`rocksdb_wal_recovery_mode`](#rocksdb_wal_recovery_mode) controls whether startup truncates the log, refuses to start, or skips entries.
 
-##### Value `0`: do not sync on commit
+[`rocksdb_write_disable_wal`](#rocksdb_write_disable_wal) skips the WAL. The server rejects that setting when this variable is `1`.
 
-Setting `0` does not flush or sync the WAL on commit. The setting removes
-commit-time I/O, so throughput is highest and commit latency is lowest. The
-trade-off is the weakest durability of the three values. After a crash,
-recently committed work may be missing or the database may be inconsistent.
-The risk window is wider than the roughly one-second window associated with
-`2` and far beyond what `1` allows.
-
-The setting produces the following outcomes:
-
-* Leaves the WAL unflushed and unsynced on transaction commit.
-
-* Minimizes commit-time I/O relative to `1` and `2`.
-
-* Risks extensive data loss or inconsistency after a crash compared with
-  stricter settings.
-
-##### Value `1`: sync on every commit (default)
-
-Setting `1` requires every commit to wait until the WAL is durably on disk
-before the commit returns. The sync is typically a full sync such as `fsync`.
-Use this value when a successful commit must survive a crash. The setting
-provides the strongest durability and ACID guarantees of the three values.
-The trade-off is the most synchronous disk work per commit, so commit latency
-and sustained write throughput are lower than with `0` or `2` when commits
-are frequent or disk sync is slow.
-
-The setting produces the following outcomes:
-
-* Writes and syncs the WAL to disk at each transaction commit.
-
-* Ensures full durability and ACID compliance for committed work.
-
-* Incurs the highest per-commit I/O and the slowest commits of the three
-  values.
-
-##### Value `2`: sync in background, typically once per second
-
-Setting `2` writes the WAL on each commit, but the session does not wait for
-the durable sync. A background thread performs syncs on a schedule, for
-example about once per second. Individual commits return faster than with
-`1` because they skip the per-commit sync wait. The trade-off is the possible
-loss of up to one second of commits after a crash.
-
-The setting produces the following outcomes:
-
-* Records each commit in the WAL without blocking the commit on a full
-  durable sync.
-
-* Balances performance and durability.
-
-* Risks the loss of up to about one second of committed transactions after a
-  crash.
+The binary log is separate. Use [sync_binlog :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#sysvar_sync_binlog) `= 1` with this variable set to `1` when both logs must survive the same crash. Another `sync_binlog` value can leave a committed transaction in one log and not the other.
 
 
 
@@ -2017,7 +2032,7 @@ The setting produces the following outcomes:
 
 | Option       | Description                         |
 |--------------|-------------------------------------|
-| Command-line | --rocksdb-flush-memtable-on-analyze |
+| Command-line | `--rocksdb-flush-memtable-on-analyze` |
 | Dynamic      | Yes                                 |
 | Scope        | Global, Session                     |
 | Data type    | Boolean                             |
@@ -2035,7 +2050,7 @@ by including data in the memtable for calculating stats.
 
 | Option       | Description                            |
 |--------------|----------------------------------------|
-| Command-line | --rocksdb-force-compute-memtable-stats |
+| Command-line | `--rocksdb-force-compute-memtable-stats` |
 | Dynamic      | Yes                                    |
 | Scope        | Global                                 |
 | Data type    | Boolean                                |
@@ -2052,80 +2067,57 @@ This provides better accuracy, but may reduce performance.
 
 ### `rocksdb_force_compute_memtable_stats_cachetime`
 
-| Option       | Description                                      |
-|--------------|--------------------------------------------------|
-| Command-line | --rocksdb-force-compute-memtable-stats-cachetime |
-| Dynamic      | Yes                                              |
-| Scope        | Global                                           |
-| Data type    | Numeric                                          |
-| Default      | 60000000 (60 seconds)                            |
+| Option       | Description                                        |
+|--------------|----------------------------------------------------|
+| Command-line | `--rocksdb-force-compute-memtable-stats-cachetime` |
+| Dynamic      | Yes                                                |
+| Scope        | Global                                             |
+| Data type    | Numeric                                            |
+| Default      | 60000000 (60 seconds)                              |
 
-This variable controls how long, in microseconds, MyRocks caches memtable
-statistics for the query optimizer. The optimizer needs row-count estimates
-to plan queries. Data not yet flushed to disk requires scanning memtables for
-accurate statistics.
+This variable sets how long, in microseconds, MyRocks caches memtable row estimates for the query optimizer. `0` makes MyRocks recompute the estimate on every use.
 
-#### How the cache works
+MyRocks reads this value when it estimates rows still in the memtable. That estimate runs when [`rocksdb_force_compute_memtable_stats`](#rocksdb_force_compute_memtable_stats) is `ON`. It also runs when the stored row count is `0`. MyRocks uses this cache time only for that estimate.
 
-To avoid the CPU cost of rescanning memtables for every query, MyRocks stores
-the statistics in a cache. This variable defines the expiration time for the
-cached value. The default is `60000000` microseconds, or 60 seconds.
-
-The cached value is reused on every query plan analysis until the timer
-expires.
-
-#### When to raise or lower the value
-
-A higher value, such as several minutes, improves performance in
-high-query-rate environments by reducing how often statistics collection
-runs. The optimizer may use stale data if the table changes rapidly.
-
-A lower value, such as one second, gives the optimizer a near-real-time view
-of the data. The setting can yield better plans on volatile workloads, at
-the cost of more CPU use during query optimization.
-
-
-
+The cached estimate is reused until the interval expires. A longer interval reduces how often statistics collection runs. The optimizer can then use a stale count if the table changes quickly. A shorter interval tracks recent writes more closely and uses more CPU during query optimization.
 
 ### `rocksdb_force_flush_memtable_and_lzero_now`
 
-| Option       | Description                                  |
-|--------------|----------------------------------------------|
-| Command-line | --rocksdb-force-flush-memtable-and-lzero-now |
-| Dynamic      | Yes                                          |
-| Scope        | Global                                       |
-| Data type    | Boolean                                      |
-| Default      | OFF                                          |
+| Option       | Description                                    |
+|--------------|------------------------------------------------|
+| Command-line | `--rocksdb-force-flush-memtable-and-lzero-now` |
+| Dynamic      | Yes                                            |
+| Scope        | Global                                         |
+| Data type    | Boolean                                        |
+| Default      | OFF                                            |
 
-Works similar to `rocksdb_force_flush_memtable_now` but also flushes all L0 files.
+This variable is a trigger and stays `OFF`, the same way [`rocksdb_compact_lzero_now`](#rocksdb_compact_lzero_now) does. Set it to `ON` to flush every memtable, wait one second, and then compact all Level 0 (L0) files. Setting it to `OFF` does nothing.
 
-
-
+It works similarly to [`rocksdb_force_flush_memtable_now`](#rocksdb_force_flush_memtable_now), and then it compacts L0 the same way [`rocksdb_compact_lzero_now`](#rocksdb_compact_lzero_now) does. Writes are blocked until the memtable flush finishes.
 
 ### `rocksdb_force_flush_memtable_now`
 
-| Option       | Description                        |
-|--------------|------------------------------------|
-| Command-line | --rocksdb-force-flush-memtable-now |
-| Dynamic      | Yes                                |
-| Scope        | Global                             |
-| Data type    | Boolean                            |
-| Default      | OFF                                |
+| Option       | Description                          |
+|--------------|--------------------------------------|
+| Command-line | `--rocksdb-force-flush-memtable-now` |
+| Dynamic      | Yes                                  |
+| Scope        | Global                               |
+| Data type    | Boolean                              |
+| Default      | OFF                                  |
 
-Forces MyRocks to immediately flush all memtables out to data files.
+This variable is a trigger and stays `OFF`, the same way [`rocksdb_compact_lzero_now`](#rocksdb_compact_lzero_now) does. Set it to `ON` to flush every memtable to data files. Setting it to `OFF` does nothing.
+
+[`rocksdb_force_flush_memtable_and_lzero_now`](#rocksdb_force_flush_memtable_and_lzero_now) does this flush and then compacts all Level 0 files.
 
 !!! warning
 
-    Use with caution! Write requests will be blocked until all memtables are flushed.
-
-
-
+    Use with caution. Write requests are blocked until all memtables are flushed.
 
 ### `rocksdb_force_index_records_in_range`
 
 | Option       | Description                            |
 |--------------|----------------------------------------|
-| Command-line | --rocksdb-force-index-records-in-range |
+| Command-line | `--rocksdb-force-index-records-in-range` |
 | Dynamic      | Yes                                    |
 | Scope        | Global, Session                        |
 | Data type    | Numeric                                |
@@ -2142,32 +2134,33 @@ Set to `0` if you do not want to override the returned value.
 
 ### `rocksdb_hash_index_allow_collision`
 
-| Option       | Description                          |
-|--------------|--------------------------------------|
-| Command-line | --rocksdb-hash-index-allow-collision |
-| Dynamic      | No                                   |
-| Scope        | Global                               |
-| Data type    | Boolean                              |
-| Default      | ON                                   |
+| Option       | Description                            |
+|--------------|----------------------------------------|
+| Command-line | `--rocksdb-hash-index-allow-collision` |
+| Dynamic      | No                                     |
+| Scope        | Global                                 |
+| Data type    | Boolean                                |
+| Default      | ON                                     |
 
-Specifies whether hash collisions are allowed.
-Enabled by default, which uses less memory.
-If disabled, full prefix is stored to prevent hash collisions.
+**[Removed]** `rocksdb_hash_index_allow_collision` was removed in MyRocks 7.0.1-1, shipped with Percona Server for MySQL 8.0.29-21. It is not registered in 8.4.
 
-
-
+It applied only when [`rocksdb_index_type`](#rocksdb_index_type) was `kHashSearch`. `ON` allowed prefix hash collisions and used less memory. `OFF` stored the full prefix so those hashes did not collide. RocksDB deleted the option. Current builds behave as if collisions are allowed.
 
 ### `rocksdb_ignore_unknown_options`
 
 | Option       | Description |
 |--------------|-------------|
-| Command-line |             |
+| Command-line | `--rocksdb-ignore-unknown-options` |
 | Dynamic      | No          |
 | Scope        | Global      |
 | Data type    | Boolean     |
 | Default      | ON          |
 
-When enabled, it allows RocksDB to receive unknown options and not exit.
+Controls whether startup ignores unrecognized entries in the RocksDB OPTIONS file in the data directory. MyRocks passes this value to `LoadLatestOptions` and to the compatibility check against that file.
+
+The default is `ON`. An option name this build does not recognize, including a typo in the OPTIONS file, is skipped and the server still starts. The skipped setting is not applied. `OFF` makes startup fail when the file contains an unrecognized option.
+
+This variable does not apply to [`rocksdb_default_cf_options`](#rocksdb_default_cf_options) or [`rocksdb_override_cf_options`](#rocksdb_override_cf_options). Those strings reject unknown options.
 
 
 
@@ -2176,7 +2169,7 @@ When enabled, it allows RocksDB to receive unknown options and not exit.
 
 | Option       | Description          |
 |--------------|----------------------|
-| Command-line | --rocksdb-index-type |
+| Command-line | `--rocksdb-index-type` |
 | Dynamic      | No                   |
 | Scope        | Global               |
 | Data type    | Enum                 |
@@ -2195,7 +2188,7 @@ Specifies the type of indexing used by MyRocks:
 
 | Option       | Description              |
 |--------------|--------------------------|
-| Command-line | --rocksdb-info-log-level |
+| Command-line | `--rocksdb-info-log-level` |
 | Dynamic      | Yes                      |
 | Scope        | Global                   |
 | Data type    | Enum                     |
@@ -2221,7 +2214,7 @@ log messages)
 
 | Option                                | Description                                                                           |
 |---------------------------------------|---------------------------------------------------------------------------------------|
-| Command-line                          | --rocksdb-invalid-create-option-action                                                |
+| Command-line                          | `--rocksdb-invalid-create-option-action` |
 | Dynamic                               | Yes                                                                                   |
 | Scope                                 | Global                                                                                |
 | Data type                             | Enum: LOG, PUSH_WARNING, PUSH_ERROR                                                   |
@@ -2238,7 +2231,7 @@ give users a warning, or fail the query.
 
 | Option                      | Description                                                                           |
 |-----------------------------|---------------------------------------------------------------------------------------|
-| Command-line                | --rocksdb-io-error-action                                                           |
+| Command-line                | `--rocksdb-io-error-action` |
 | Dynamic                     | Yes                                                                                   |
 | Scope                       | Global                                                                                |
 | Data type                   | Enum: ABORT_SERVER, IGNORE_ERROR                                                      |
@@ -2255,7 +2248,7 @@ MyRocks aborts the server and refuses to start. Setting this option to
 
 | Option       | Description                   |
 |--------------|-------------------------------|
-| Command-line | --rocksdb-is-fd-close-on-exec |
+| Command-line | `--rocksdb-is-fd-close-on-exec` |
 | Dynamic      | No                            |
 | Scope        | Global                        |
 | Data type    | Boolean                       |
@@ -2271,7 +2264,7 @@ Enabled by default.
 
 | Option       | Description                 |
 |--------------|-----------------------------|
-| Command-line | --rocksdb-keep-log-file-num |
+| Command-line | `--rocksdb-keep-log-file-num` |
 | Dynamic      | No                          |
 | Scope        | Global                      |
 | Data type    | Numeric                     |
@@ -2288,7 +2281,7 @@ Allowed range is from `1` to `18446744073709551615`.
 
 | Option       | Description            |
 |--------------|------------------------|
-| Command-line | --rocksdb-large-prefix |
+| Command-line | `--rocksdb-large-prefix` |
 | Dynamic      | Yes                    |
 | Scope        | Global                 |
 | Data type    | Boolean                |
@@ -2305,7 +2298,7 @@ When enabled, this option allows index key prefixes longer than 767 bytes (up to
 
 | Option       | Description                 |
 |--------------|-----------------------------|
-| Command-line | --rocksdb-lock-scanned-rows |
+| Command-line | `--rocksdb-lock-scanned-rows` |
 | Dynamic      | Yes                         |
 | Scope        | Global, Session             |
 | Data type    | Boolean                     |
@@ -2322,7 +2315,7 @@ Disabled by default.
 
 | Option       | Description                 |
 |--------------|-----------------------------|
-| Command-line | --rocksdb-lock-wait-timeout |
+| Command-line | `--rocksdb-lock-wait-timeout` |
 | Dynamic      | Yes                         |
 | Scope        | Global, Session             |
 | Data type    | Numeric                     |
@@ -2340,7 +2333,7 @@ Allowed range is up to `1073741824`.
 
 | Option       | Description                     |
 |--------------|---------------------------------|
-| Command-line | --rocksdb-log-file-time-to-roll |
+| Command-line | `--rocksdb-log-file-time-to-roll` |
 | Dynamic      | No                              |
 | Scope        | Global                          |
 | Data type    | Numeric                         |
@@ -2357,7 +2350,7 @@ Allowed range is up to `18446744073709551615`.
 
 | Option       | Description                           |
 |--------------|---------------------------------------|
-| Command-line | --rocksdb-manifest-preallocation-size |
+| Command-line | `--rocksdb-manifest-preallocation-size` |
 | Dynamic      | No                                    |
 | Scope        | Global                                |
 | Data type    | Numeric                               |
@@ -2380,7 +2373,7 @@ Allowed range is up to `18446744073709551615`.
 
 | Option       | Description                                  |
 |--------------|----------------------------------------------|
-| Command-line | --rocksdb-manual-compaction-bottommost-level |
+| Command-line | `--rocksdb-manual-compaction-bottommost-level` |
 | Dynamic      | Yes                                          |
 | Scope        | Local                                        |
 | Data type    | Enum                                         |
@@ -2400,7 +2393,7 @@ Option for bottommost level compaction during manual compaction:
 
 | Option        | Description                         |
 | ------------- | ----------------------------------- |
-| Command-line  | --rocksdb-manual-compaction-threads |
+| Command-line  | `--rocksdb-manual-compaction-threads` |
 | Dynamic       | Yes                                 |
 | Scope         | Local                               |
 | Data type     | INT                                 |
@@ -2415,7 +2408,7 @@ The variable defines the number of RocksDB threads to run for a manual compactio
 
 | Option       | Description                |
 |--------------|----------------------------|
-| Command-line | --rocksdb-manual-wal-flush |
+| Command-line | `--rocksdb-manual-wal-flush` |
 | Dynamic      | No                         |
 | Scope        | Global                     |
 | Data type    | Boolean                    |
@@ -2431,7 +2424,7 @@ rely on the application to do the flushing.
 
 | Option       | Description     |
 |--------------|-----------------|
-| Command-line |                 |
+| Command-line | `--rocksdb-master-skip-tx-api` |
 | Dynamic      | Yes             |
 | Scope        | Global, Session |
 | Data type    | Boolean         |
@@ -2450,7 +2443,7 @@ When enabled, uses the WriteBatch API, which is faster. The session does not hol
 
 | Option       | Description                          |
 |--------------|--------------------------------------|
-| Command-line | --rocksdb-max-background-compactions |
+| Command-line | `--rocksdb-max-background-compactions` |
 | Dynamic      | Yes                                  |
 | Scope        | Global                               |
 | Data type    | Numeric                              |
@@ -2459,7 +2452,7 @@ When enabled, uses the WriteBatch API, which is faster. The session does not hol
 Sets DBOptions:: max_background_compactions for RocksDB.
 The default value is `-1` The allowed range is `-1` to `64`.
 This variable was replaced
-by rocksdb_max_background_jobs, which automatically decides how
+by [`rocksdb_max_background_jobs`](#rocksdb_max_background_jobs), which automatically decides how
 many threads to allocate towards flush/compaction.
 
 
@@ -2469,7 +2462,7 @@ many threads to allocate towards flush/compaction.
 
 | Option       | Description                      |
 |--------------|----------------------------------|
-| Command-line | --rocksdb-max-background-flushes |
+| Command-line | `--rocksdb-max-background-flushes` |
 | Dynamic      | No                               |
 | Scope        | Global                           |
 | Data type    | Numeric                          |
@@ -2478,7 +2471,7 @@ many threads to allocate towards flush/compaction.
 Sets DBOptions:: max_background_flushes for RocksDB.
 The default value is `-1`. The allowed range is `-1` to `64`.
 This variable has been replaced
-by rocksdb_max_background_jobs, which automatically decides how
+by [`rocksdb_max_background_jobs`](#rocksdb_max_background_jobs), which automatically decides how
 many threads to allocate towards flush/compaction.
 
 
@@ -2488,15 +2481,15 @@ many threads to allocate towards flush/compaction.
 
 | Option       | Description                   |
 |--------------|-------------------------------|
-| Command-line | --rocksdb-max-background-jobs |
+| Command-line | `--rocksdb-max-background-jobs` |
 | Dynamic      | Yes                           |
 | Scope        | Global                        |
 | Data type    | Numeric                       |
 | Default      | 2                             |
 
-This variable replaced rocksdb_base_background_compactions,
-rocksdb_max_background_compactions, and
-rocksdb_max_background_flushes variables. This variable specifies the maximum number of background jobs. It automatically decides
+This variable replaced [`rocksdb_base_background_compactions`](#rocksdb_base_background_compactions),
+[`rocksdb_max_background_compactions`](#rocksdb_max_background_compactions), and
+[`rocksdb_max_background_flushes`](#rocksdb_max_background_flushes) variables. This variable specifies the maximum number of background jobs. It automatically decides
 how many threads to allocate towards flush/compaction. It was implemented to
 reduce the number of (confusing) options users and can tweak and push the
 responsibility down to RocksDB level.
@@ -2508,12 +2501,12 @@ responsibility down to RocksDB level.
 
 | Option       | Description                                     |
 |--------------|-------------------------------------------------|
-| Command-line | --rocksdb_max_bottom_pri_background_compactions |
+| Command-line | `--rocksdb-max-bottom-pri-background-compactions` |
 | Dynamic      | No                                              |
 | Data type    | Unsigned integer                                |
 | Default      | 0                                               |
 
-Creates a specified number of threads, sets a lower CPU priority, and letting compactions use them. The maximum compaction concurrency is capped by `rocksdb_max_background_compactions` or `rocksdb_max_background_jobs`
+Creates a specified number of threads, sets a lower CPU priority, and letting compactions use them. The maximum compaction concurrency is capped by [`rocksdb_max_background_compactions`](#rocksdb_max_background_compactions) or [`rocksdb_max_background_jobs`](#rocksdb_max_background_jobs)
 
 The minimum value is `0` and the maximum value is `64`.
 
@@ -2524,7 +2517,7 @@ The minimum value is `0` and the maximum value is `64`.
 
 | Option       | Description                                     |
 |--------------|-------------------------------------------------|
-| Command-line | --rocksdb-max-compaction-history                |
+| Command-line | `--rocksdb-max-compaction-history` |
 | Dynamic      | Yes                                             |
 | Scope        | Global                                          |
 | Data type    | Unsigned integer                                |
@@ -2541,7 +2534,7 @@ Tracks the history for at most `rockdb_mx_compaction_history` completed compacti
 
 | Option       | Description                                     |
 |--------------|-------------------------------------------------|
-| Command-line | --rocksdb-max-file-opening-threads              |
+| Command-line | `--rocksdb-max-file-opening-threads` |
 | Dynamic      | No                                              |
 | Scope        | Global                                          |
 | Data type    | Numeric                                         |
@@ -2561,7 +2554,7 @@ In Percona Server for MySQL 8.4.7-7, the maximum value was changed to `262144`.
 
 | Option       | Description                    |
 |--------------|--------------------------------|
-| Command-line | --rocksdb-max-latest-deadlocks |
+| Command-line | `--rocksdb-max-latest-deadlocks` |
 | Dynamic      | Yes                            |
 | Scope        | Global                         |
 | Data type    | Numeric                        |
@@ -2576,7 +2569,7 @@ Specifies the maximum number of recent deadlocks to store.
 
 | Option       | Description                 |
 |--------------|-----------------------------|
-| Command-line | --rocksdb-max-log-file-size |
+| Command-line | `--rocksdb-max-log-file-size` |
 | Dynamic      | No                          |
 | Scope        | Global                      |
 | Data type    | Numeric                     |
@@ -2587,7 +2580,7 @@ after which the log is rotated.
 Default value is `0`, meaning that only one log file is used.
 Allowed range is up to `18446744073709551615`.
 
-Also see rocksdb_log_file_time_to_roll.
+Also see [`rocksdb_log_file_time_to_roll`](#rocksdb_log_file_time_to_roll).
 
 
 
@@ -2596,7 +2589,7 @@ Also see rocksdb_log_file_time_to_roll.
 
 | Option       | Description                      |
 |--------------|----------------------------------|
-| Command-line | --rocksdb-manifest-log-file-size |
+| Command-line | `--rocksdb-manifest-log-file-size` |
 | Dynamic      | No                               |
 | Scope        | Global                           |
 | Data type    | Numeric                          |
@@ -2614,7 +2607,7 @@ only one manifest file is used.
 
 | Option       | Description                      |
 | ------------ | -------------------------------- |
-| Command-line | --rocksdb-max-manual-compactions |
+| Command-line | `--rocksdb-max-manual-compactions` |
 | Dynamic      | Yes                              |
 | Scope        | Global                           |
 | Data type    | UINT                             |
@@ -2629,7 +2622,7 @@ The variable defines the maximum number of pending plus ongoing manual compactio
 
 | Option       | Description              |
 |--------------|--------------------------|
-| Command-line | --rocksdb-max-open-files |
+| Command-line | `--rocksdb-max-open-files` |
 | Dynamic      | No                       |
 | Scope        | Global                   |
 | Data type    | Numeric                  |
@@ -2655,7 +2648,7 @@ Finally, `-1` means no limit, i.e. an infinite number of file handles.
 
 | Option       | Description             |
 |--------------|-------------------------|
-| Command-line | --rocksdb-max-row-locks |
+| Command-line | `--rocksdb-max-row-locks` |
 | Dynamic      | Yes                     |
 | Scope        | Global                  |
 | Data type    | Numeric                 |
@@ -2673,7 +2666,7 @@ transactions never fail due to row locks.
 
 | Option       | Description                  |
 |--------------|------------------------------|
-| Command-line | --rocksdb-max-subcompactions |
+| Command-line | `--rocksdb-max-subcompactions` |
 | Dynamic      | No                           |
 | Scope        | Global                       |
 | Data type    | Numeric                      |
@@ -2690,7 +2683,7 @@ Allowed range is up to `64`.
 
 | Option       | Description                  |
 |--------------|------------------------------|
-| Command-line | --rocksdb-max-total-wal-size |
+| Command-line | `--rocksdb-max-total-wal-size` |
 | Dynamic      | No                           |
 | Scope        | Global                       |
 | Data type    | Numeric                      |
@@ -2729,7 +2722,7 @@ may cause frequent forced flushes, which can throttle write throughput.
 
 | Option       | Description              |
 |--------------|--------------------------|
-| Command-line | --rocksdb-merge-buf-size |
+| Command-line | `--rocksdb-merge-buf-size` |
 | Dynamic      | Yes                      |
 | Scope        | Global                   |
 | Data type    | Numeric                  |
@@ -2750,7 +2743,7 @@ Allowed range is from `100` to `18446744073709551615`.
 
 | Option       | Description                       |
 |--------------|-----------------------------------|
-| Command-line | --rocksdb-merge-combine-read-size |
+| Command-line | `--rocksdb-merge-combine-read-size` |
 | Dynamic      | Yes                               |
 | Scope        | Global                            |
 | Data type    | Numeric                           |
@@ -2758,7 +2751,7 @@ Allowed range is from `100` to `18446744073709551615`.
 
 Specifies the size (in bytes) of the merge-combine buffer
 used for the merge-sort algorithm
-as described in rocksdb_merge_buf_size.
+as described in [`rocksdb_merge_buf_size`](#rocksdb_merge_buf_size).
 Default size is 1 GB (`1073741824`).
 Allowed range is from `100` to `18446744073709551615`.
 
@@ -2769,7 +2762,7 @@ Allowed range is from `100` to `18446744073709551615`.
 
 | Option       | Description                               |
 |--------------|-------------------------------------------|
-| Command-line | --rocksdb_merge_tmp_file_removal_delay_ms |
+| Command-line | `--rocksdb-merge-tmp-file-removal-delay-ms` |
 | Dynamic      | Yes                                       |
 | Scope        | Global, Session                           |
 | Data type    | Numeric                                   |
@@ -2788,7 +2781,7 @@ rate limit the delay in milliseconds.
 
 | Option       | Description                                      |
 |--------------|--------------------------------------------------|
-| Command-line | --rocksdb-new-table-reader-for-compaction-inputs |
+| Command-line | `--rocksdb-new-table-reader-for-compaction-inputs` |
 | Dynamic      | No                                               |
 | Scope        | Global                                           |
 | Data type    | Boolean                                          |
@@ -2808,7 +2801,7 @@ input files without impacting table readers used for user queries.
 
 | Option       | Description              |
 |--------------|--------------------------|
-| Command-line | --rocksdb-no-block-cache |
+| Command-line | `--rocksdb-no-block-cache` |
 | Dynamic      | No                       |
 | Scope        | Global                   |
 | Data type    | Boolean                  |
@@ -2825,7 +2818,7 @@ meaning that using the block cache is allowed.
 
 | Option       | Description                       |
 |--------------|-----------------------------------|
-| Command-line | --rocksdb-no-create-column-family |
+| Command-line | `--rocksdb-no-create-column-family` |
 | Dynamic      | No                                |
 | Scope        | Global                            |
 | Data type    | Boolean                           |
@@ -2849,7 +2842,7 @@ the specified column family does not exist and cannot be created.
 
 | Option       | Description                   |
 |--------------|-------------------------------|
-| Command-line | --rocksdb-override-cf-options |
+| Command-line | `--rocksdb-override-cf-options` |
 | Dynamic      | No                            |
 | Scope        | Global                        |
 | Data type    | String                        |
@@ -2865,7 +2858,7 @@ Empty by default.
 
 | Option       | Description               |
 |--------------|---------------------------|
-| Command-line | --rocksdb-paranoid-checks |
+| Command-line | `--rocksdb-paranoid-checks` |
 | Dynamic      | No                        |
 | Scope        | Global                    |
 | Data type    | Boolean                   |
@@ -2882,7 +2875,7 @@ Enabled by default.
 
 | Option       | Description                  |
 |--------------|------------------------------|
-| Command-line | --rocksdb_partial_index_blind_delete |
+| Command-line | `--rocksdb-partial-index-blind-delete` |
 | Dynamic      | Yes                          |
 | Scope        | Global                       |
 | Data type    | Boolean                      |
@@ -2903,7 +2896,7 @@ This variable is enabled (ON) by default.
 
 | Option       | Description               |
 |--------------|---------------------------|
-| Command-line | --rocksdb-partial-index-ignore-killed |
+| Command-line | `--rocksdb-partial-index-ignore-killed` |
 | Dynamic      | Yes                       |
 | Scope        | Global                    |
 | Data type    | Boolean                   |
@@ -2920,7 +2913,7 @@ The default value is `ON` which means this variable is enabled.
 
 | Option       | Description               |
 |--------------|---------------------------|
-| Command-line | --rocksdb-partial-index-sort-max-mem |
+| Command-line | `--rocksdb-partial-index-sort-max-mem` |
 | Dynamic      | Yes                      |
 | Scope        | Local                    |
 | Data type    | Unsigned Integer         |
@@ -2964,7 +2957,7 @@ The cap produces the following effects:
 
 | Option       | Description                     |
 |--------------|---------------------------------|
-| Command-line | --rocksdb-pause-background-work |
+| Command-line | `--rocksdb-pause-background-work` |
 | Dynamic      | Yes                             |
 | Scope        | Global                          |
 | Data type    | Boolean                         |
@@ -2977,7 +2970,7 @@ for the MyRocks MTR test suites.
 
 !!! warning
 
-    If someone were to set a rocksdb_force_flush_memtable_now to
+    If someone were to set a [`rocksdb_force_flush_memtable_now`](#rocksdb_force_flush_memtable_now) to
     `1` while rocksdb_pause_background_work is set to `1`,
     the client that issued the `rocksdb_force_flush_memtable_now=1` will be
     blocked indefinitely until rocksdb_pause_background_work
@@ -2990,7 +2983,7 @@ for the MyRocks MTR test suites.
 
 | Option       | Description                  |
 |--------------|------------------------------|
-| Command-line | --rocksdb-perf-context-level |
+| Command-line | `--rocksdb-perf-context-level` |
 | Dynamic      | Yes                          |
 | Scope        | Global, Session              |
 | Data type    | Numeric                      |
@@ -3015,14 +3008,14 @@ The allowed range is up to `5`.
 
 | Option       | Description                     |
 |--------------|---------------------------------|
-| Command-line | --rocksdb-persistent-cache-path |
+| Command-line | `--rocksdb-persistent-cache-path` |
 | Dynamic      | No                              |
 | Scope        | Global                          |
 | Data type    | String                          |
 | Default      |                                 |
 
 Specifies the path to the persistent cache.
-Set this together with rocksdb_persistent_cache_size_mb.
+Set this together with [`rocksdb_persistent_cache_size_mb`](#rocksdb_persistent_cache_size_mb).
 
 
 
@@ -3031,7 +3024,7 @@ Set this together with rocksdb_persistent_cache_size_mb.
 
 | Option       | Description                        |
 |--------------|------------------------------------|
-| Command-line | --rocksdb-persistent-cache-size-mb |
+| Command-line | `--rocksdb-persistent-cache-size-mb` |
 | Dynamic      | No                                 |
 | Scope        | Global                             |
 | Data type    | Numeric                            |
@@ -3040,7 +3033,7 @@ Set this together with rocksdb_persistent_cache_size_mb.
 Specifies the size of the persisten cache in megabytes.
 Default is `0` (persistent cache disabled).
 Allowed range is up to `18446744073709551615`.
-Set this together with rocksdb_persistent_cache_path.
+Set this together with [`rocksdb_persistent_cache_path`](#rocksdb_persistent_cache_path).
 
 
 
@@ -3049,14 +3042,14 @@ Set this together with rocksdb_persistent_cache_path.
 
 | Option       | Description                                       |
 |--------------|---------------------------------------------------|
-| Command-line | --rocksdb-pin-l0-filter-and-index-blocks-in-cache |
+| Command-line | `--rocksdb-pin-l0-filter-and-index-blocks-in-cache` |
 | Dynamic      | No                                                |
 | Scope        | Global                                            |
 | Data type    | Boolean                                           |
 | Default      | ON                                                |
 
 Specifies whether MyRocks pins the filter and index blocks in the cache
-if rocksdb_cache_index_and_filter_blocks is enabled.
+if [`rocksdb_cache_index_and_filter_blocks`](#rocksdb_cache_index_and_filter_blocks) is enabled.
 Enabled by default.
 
 
@@ -3066,7 +3059,7 @@ Enabled by default.
 
 | Option       | Description                               |
 |--------------|-------------------------------------------|
-| Command-line | --rocksdb-print-snapshot-conflict-queries |
+| Command-line | `--rocksdb-print-snapshot-conflict-queries` |
 | Dynamic      | Yes                                       |
 | Scope        | Global                                    |
 | Data type    | Boolean                                   |
@@ -3083,7 +3076,7 @@ Disabled by default.
 
 | Option       | Description                               |
 |--------------|-------------------------------------------|
-| Command-line | --rocksdb_protection_bytes_per_key        |
+| Command-line | `--rocksdb-protection-bytes-per-key` |
 | Dynamic      | Yes                                       |
 | Scope        | Global, Session                           |
 | Data type    | Numeric                                   |
@@ -3102,7 +3095,7 @@ The maximum value is `ULONG_MAX (0xFFFFFFFF)`.
 
 | Option       | Description                          |
 |--------------|--------------------------------------|
-| Command-line | --rocksdb-rate-limiter-bytes-per-sec |
+| Command-line | `--rocksdb-rate-limiter-bytes-per-sec` |
 | Dynamic      | Yes                                  |
 | Scope        | Global                               |
 | Data type    | Numeric                              |
@@ -3120,7 +3113,7 @@ Allowed range is up to `9223372036854775807`.
 
 | Option       | Description             |
 |--------------|-------------------------|
-| Command-line | --rocksdb-read-free-rpl |
+| Command-line | `--rocksdb-read-free-rpl` |
 | Dynamic      | Yes                     |
 | Scope        | Global                  |
 | Data type    | Enum                    |
@@ -3143,13 +3136,13 @@ The options are the following:
 
 | Option       | Description                    |
 |--------------|--------------------------------|
-| Command-line | --rocksdb-read-free-rpl-tables |
+| Command-line | `--rocksdb-read-free-rpl-tables` |
 | Dynamic      | Yes                            |
 | Scope        | Global, Session                |
 | Data type    | String                         |
 | Default      |                                |
 
-We recommend that you use `rocksdb_read_free_rpl` instead of this variable.
+We recommend that you use [`rocksdb_read_free_rpl`](#rocksdb_read_free_rpl) instead of this variable.
 
 This variable lists tables (as a regular expression)
 that should use read-free replication on the replica
@@ -3163,7 +3156,7 @@ Empty by default.
 
 | Option       | Description                |
 |--------------|----------------------------|
-| Command-line | --rocksdb-records-in-range |
+| Command-line | `--rocksdb-records-in-range` |
 | Dynamic      | Yes                        |
 | Scope        | Global, Session            |
 | Data type    | Numeric                    |
@@ -3180,7 +3173,7 @@ Allowed range is up to `2147483647`.
 
 | Option       | Description           |
 |--------------|-----------------------|
-| Command-line | --rocksdb-reset-stats |
+| Command-line | `--rocksdb-reset-stats` |
 | Dynamic      | Yes                   |
 | Scope        | Global                |
 | Data type    | Boolean               |
@@ -3196,7 +3189,7 @@ Resets MyRocks internal statistics dynamically
 
 | Option       | Description                   |
 |--------------|-------------------------------|
-| Command-line | --rocksdb-rollback-on-timeout |
+| Command-line | `--rocksdb-rollback-on-timeout` |
 | Dynamic      | Yes                           |
 | Scope        | Global                        |
 | Data type    | Boolean                       |
@@ -3211,7 +3204,7 @@ By default, only the last statement on a transaction is rolled back. If `--rocks
 
 | Option       | Description               |
 |--------------|---------------------------|
-| Command-line | --rocksdb-rpl-skip-tx-api |
+| Command-line | `--rocksdb-rpl-skip-tx-api` |
 | Dynamic      | No                        |
 | Scope        | Global                    |
 | Data type    | Boolean                   |
@@ -3232,7 +3225,7 @@ operating in super read only mode.
 
 | Option       | Description                             |
 |--------------|-----------------------------------------|
-| Command-line | --rocksdb-seconds-between-stat-computes |
+| Command-line | `--rocksdb-seconds-between-stat-computes` |
 | Dynamic      | Yes                                     |
 | Scope        | Global                                  |
 | Data type    | Numeric                                 |
@@ -3251,7 +3244,7 @@ Allowed is from `0` to `4294967295`.
 
 | Option       | Description                        |
 |--------------|------------------------------------|
-| Command-line | --rocksdb-signal-drop-index-thread |
+| Command-line | `--rocksdb-signal-drop-index-thread` |
 | Dynamic      | Yes                                |
 | Scope        | Global                             |
 | Data type    | Boolean                            |
@@ -3266,7 +3259,7 @@ Signals the MyRocks drop index thread to wake up.
 
 | Option       | Description              |
 |--------------|--------------------------|
-| Command-line | --rocksdb-sim-cache-size |
+| Command-line | `--rocksdb-sim-cache-size` |
 | Dynamic      | No                       |
 | Scope        | Global                   |
 | Data type    | Numeric                  |
@@ -3282,7 +3275,7 @@ with a specific cache size without changing the real block cache.
 
 | Option       | Description                         |
 |--------------|-------------------------------------|
-| Command-line | --rocksdb-skip-bloom-filter-on_read |
+| Command-line | `--rocksdb-skip-bloom-filter-on-read` |
 | Dynamic      | Yes                                 |
 | Scope        | Global, Session                     |
 | Data type    | Boolean                             |
@@ -3298,7 +3291,7 @@ Disabled by default (bloom filters are not skipped).
 
 | Option       | Description               |
 |--------------|---------------------------|
-| Command-line | --rocksdb-skip-fill-cache |
+| Command-line | `--rocksdb-skip-fill-cache` |
 | Dynamic      | Yes                       |
 | Scope        | Global, Session           |
 | Data type    | Boolean                   |
@@ -3314,7 +3307,7 @@ Disabled by default (caching is not skipped).
 
 | Option       | Description                             |
 |--------------|-----------------------------------------|
-| Command-line | rocksdb_skip_locks_if_skip_unique_check |
+| Command-line | `--rocksdb-skip-locks-if-skip-unique-check` |
 | Dynamic      | Yes                                     |
 | Scope        | Global                                  |
 | Data type    | Boolean                                 |
@@ -3329,7 +3322,7 @@ Skip row locking when unique checks are disabled.
 
 | Option       | Description                          |
 |--------------|--------------------------------------|
-| Command-line | --rocksdb-sst-mgr-rate-bytes-per-sec |
+| Command-line | `--rocksdb-sst-mgr-rate-bytes-per-sec` |
 | Dynamic      | Yes                                  |
 | Scope        | Global, Session                      |
 | Data type    | Numeric                              |
@@ -3346,7 +3339,7 @@ Allowed range is from `0` to `18446744073709551615`.
 
 | Option       | Description                     |
 |--------------|---------------------------------|
-| Command-line | --rocksdb-stats-dump-period-sec |
+| Command-line | `--rocksdb-stats-dump-period-sec` |
 | Dynamic      | No                              |
 | Scope        | Global                          |
 | Data type    | Numeric                         |
@@ -3364,7 +3357,7 @@ Allowed range is up to `2147483647`.
 
 | Option       | Description           |
 |--------------|-----------------------|
-| Command-line | --rocksdb-stats-level |
+| Command-line | `--rocksdb-stats-level` |
 | Dynamic      | Yes                   |
 | Scope        | Global                |
 | Data type    | Numeric               |
@@ -3379,7 +3372,7 @@ Controls the RocksDB statistics level. The default value is “0” (kExceptHist
 
 | Option       | Description                 |
 |--------------|-----------------------------|
-| Command-line | --rocksdb-stats-recalc-rate |
+| Command-line | `--rocksdb-stats-recalc-rate` |
 | Dynamic      | No                          |
 | Scope        | Global                      |
 | Data type    | Numeric                     |
@@ -3395,7 +3388,7 @@ Default value is `0`. Allowed range is up to `4294967295`.
 
 | Option       | Description                         |
 |--------------|-------------------------------------|
-| Command-line | --rocksdb-store-row-debug-checksums |
+| Command-line | `--rocksdb-store-row-debug-checksums` |
 | Dynamic      | Yes                                 |
 | Scope        | Global                              |
 | Data type    | Boolean                             |
@@ -3411,7 +3404,7 @@ Disabled by default.
 
 | Option       | Description                      |
 |--------------|----------------------------------|
-| Command-line | --rocksdb-strict-collation-check |
+| Command-line | `--rocksdb-strict-collation-check` |
 | Dynamic      | Yes                              |
 | Scope        | Global                           |
 | Data type    | Boolean                          |
@@ -3430,7 +3423,7 @@ Enabled by default.
 
 | Option       | Description                           |
 |--------------|---------------------------------------|
-| Command-line | --rocksdb-strict-collation-exceptions |
+| Command-line | `--rocksdb-strict-collation-exceptions` |
 | Dynamic      | Yes                                   |
 | Scope        | Global                                |
 | Data type    | String                                |
@@ -3440,7 +3433,7 @@ Enabled by default.
 
 Lists tables (as a regular expression) that should be excluded
 from verifying case-sensitive collation
-enforced by rocksdb_strict_collation_check.
+enforced by [`rocksdb_strict_collation_check`](#rocksdb_strict_collation_check).
 Empty by default.
 
 
@@ -3450,7 +3443,7 @@ Empty by default.
 
 | Option       | Description                        |
 |--------------|------------------------------------|
-| Command-line | --rocksdb-table-cache-numshardbits |
+| Command-line | `--rocksdb-table-cache-numshardbits` |
 | Dynamic      | No                                 |
 | Scope        | Global                             |
 | Data type    | Numeric                            |
@@ -3467,7 +3460,7 @@ The allowed range is from `0` to `19`.
 
 | Option       | Description                                        |
 |--------------|----------------------------------------------------|
-| Command-line | --rocksdb-table-stats-background-thread-nice-value |
+| Command-line | `--rocksdb-table-stats-background-thread-nice-value` |
 | Dynamic      | Yes                                                |
 | Scope        | Global                                             |
 | Data type    | Numeric                                            |
@@ -3484,7 +3477,7 @@ The maximum = 19 (THREAD_PRIO_MAX)
 
 | Option       | Description                                |
 |--------------|--------------------------------------------|
-| Command-line | --rocksdb-table-stats-max-num-rows-scanned |
+| Command-line | `--rocksdb-table-stats-max-num-rows-scanned` |
 | Dynamic      | Yes                                        |
 | Scope        | Global                                     |
 | Data type    | Numeric                                    |
@@ -3502,7 +3495,7 @@ The maximum is `18,446,744,073,709,551,615`.
 
 | Option       | Description                                  |
 |--------------|----------------------------------------------|
-| Command-line | --rocksdb-table-stats-recalc-threshold-count |
+| Command-line | `--rocksdb-table-stats-recalc-threshold-count` |
 | Dynamic      | Yes                                          |
 | Scope        | Global                                       |
 | Data type    | Numeric                                      |
@@ -3520,7 +3513,7 @@ The maximum is `18,446,744,073,709,551,615`.
 
 | Option       | Description                                |
 |--------------|--------------------------------------------|
-| Command-line | --rocksdb-table-stats-recalc-threshold-pct |
+| Command-line | `--rocksdb-table-stats-recalc-threshold-pct` |
 | Dynamic      | Yes                                        |
 | Scope        | Global                                     |
 | Data type    | Numeric                                    |
@@ -3539,7 +3532,7 @@ The maximum value is `100` (RDB_TBL_STATS_RECALC_THRESHOLD_PCT_MAX).
 
 | Option       | Description                        |
 |--------------|------------------------------------|
-| Command-line | --rocksdb-table-stats-sampling-pct |
+| Command-line | `--rocksdb-table-stats-sampling-pct` |
 | Dynamic      | Yes                                |
 | Scope        | Global                             |
 | Data type    | Numeric                            |
@@ -3556,7 +3549,7 @@ Allowed range is from `0` to `100`.
 
 | Option                            | Description                                                                           |
 |-----------------------------------|---------------------------------------------------------------------------------------|
-| Command-line                      | --rocksdb-table-stats-skip-system-cf                                                  |
+| Command-line                      | `--rocksdb-table-stats-skip-system-cf` |
 | Dynamic                           | Yes                                                                                   |
 | Scope                             | Global                                                                                |
 | Data type                         | Boolean                                                                               |
@@ -3572,7 +3565,7 @@ family.
 
 | Option       | Description                          |
 |--------------|--------------------------------------|
-| Command-line | --rocksdb-table-stats-use-table-scan |
+| Command-line | `--rocksdb-table-stats-use-table-scan` |
 | Dynamic      | Yes                                  |
 | Scope        | Global                               |
 | Data type    | Boolean                              |
@@ -3587,7 +3580,7 @@ Enables table-scan-based index calculations. The default value is `OFF`.
 
 | Option       | Description      |
 |--------------|------------------|
-| Command-line | --rocksdb-tmpdir |
+| Command-line | `--rocksdb-tmpdir` |
 | Dynamic      | Yes              |
 | Scope        | Global, Session  |
 | Data type    | String           |
@@ -3602,7 +3595,7 @@ Specifies the path to the directory for temporary files during DDL operations.
 
 | Option       | Description                        |
 |--------------|------------------------------------|
-| Command-line | --rocksdb-trace-block-cache-access |
+| Command-line | `--rocksdb-trace-block-cache-access` |
 | Dynamic      | Yes                                |
 | Scope        | Global                             |
 | Data type    | String                             |
@@ -3617,13 +3610,13 @@ Defines the block cache trace option string. The format is sampling frequency: m
 
 | Option       | Description             |
 |--------------|-------------------------|
-| Command-line | --rocksdb-trace-queries |
+| Command-line | `--rocksdb-trace-queries` |
 | Dynamic      | Yes                     |
 | Scope        | Global                  |
 | Data type    | String                  |
 | Default      | &quot;&quot;            |
 
-This variable is a trace option string. The format is sampling_frequency:max_trace_file_size:trace_file_name. The sampling_frequency and max_trace_file_size are positive integers. The queries are saved to the rocksdb_datadir/queries_traces/trace_file_name.
+This variable is a trace option string. The format is sampling_frequency:max_trace_file_size:trace_file_name. The sampling_frequency and max_trace_file_size are positive integers. The queries are saved to the [`rocksdb_datadir`](#rocksdb_datadir)/queries_traces/trace_file_name.
 
 
 
@@ -3632,7 +3625,7 @@ This variable is a trace option string. The format is sampling_frequency:max_tra
 
 | Option       | Description             |
 |--------------|-------------------------|
-| Command-line | --rocksdb-trace-sst-api |
+| Command-line | `--rocksdb-trace-sst-api` |
 | Dynamic      | Yes                     |
 | Scope        | Global                  |
 | Data type    | Boolean                 |
@@ -3649,7 +3642,7 @@ Disabled by default.
 
 | Option       | Description                                 |
 |--------------|---------------------------------------------|
-| Command-line | --rocksdb-track-and-verify-wals-in-manifest |
+| Command-line | `--rocksdb-track-and-verify-wals-in-manifest` |
 | Dynamic      | No                                          |
 | Scope        | Global                                      |
 | Data type    | Boolean                                     |
@@ -3664,7 +3657,7 @@ DBOptions::track_and_verify_wals_in_manifest for RocksDB.
 
 | Option       | Description                                 |
 |--------------|---------------------------------------------|
-| Command-line | --rocksdb-track-and-verify-wals-in-manifest |
+| Command-line | `--rocksdb-two-write-queues` |
 | Dynamic      | No                                          |
 | Scope        | Global                                      |
 | Data type    | Boolean                                     |
@@ -3680,7 +3673,7 @@ two-phase commit to `prepare` in parallel.
 
 | Option       | Description                 |
 |--------------|-----------------------------|
-| Command-line | --rocksdb-unsafe-for-binlog |
+| Command-line | `--rocksdb-unsafe-for-binlog` |
 | Dynamic      | Yes                         |
 | Scope        | Global, Session             |
 | Data type    | Boolean                     |
@@ -3697,7 +3690,7 @@ Disabled by default.
 
 | Option       | Description                 |
 |--------------|-----------------------------|
-| Command-line | --rocksdb-update-cf-options |
+| Command-line | `--rocksdb-update-cf-options` |
 | Dynamic      | No                          |
 | Scope        | Global                      |
 | Data type    | String                      |
@@ -3713,7 +3706,7 @@ Empty by default.
 
 | Option       | Description                  |
 |--------------|------------------------------|
-| Command-line | --rocksdb-use-adaptive-mutex |
+| Command-line | `--rocksdb-use-adaptive-mutex` |
 | Dynamic      | No                           |
 | Scope        | Global                       |
 | Data type    | Boolean                      |
@@ -3729,7 +3722,7 @@ resorting to the kernel. Disabled by default.
 
 | Option       | Description                 |
 |--------------|-----------------------------|
-| Command-line | --rocksdb-use-default-sk-cf |
+| Command-line | `--rocksdb-use-default-sk-cf` |
 | Dynamic      | No                          |
 | Scope        | Global                      |
 | Data type    | Boolean                     |
@@ -3744,7 +3737,7 @@ Use `default_sk` column family for secondary keys.
 
 | Option       | Description                                      |
 |--------------|--------------------------------------------------|
-| Command-line | --rocksdb-use-direct-io-for-flush-and-compaction |
+| Command-line | `--rocksdb-use-direct-io-for-flush-and-compaction` |
 | Dynamic      | No                                               |
 | Scope        | Global                                           |
 | Data type    | Boolean                                          |
@@ -3761,7 +3754,7 @@ Disabled by default.
 
 | Option       | Description                |
 |--------------|----------------------------|
-| Command-line | --rocksdb-use-direct-reads |
+| Command-line | `--rocksdb-use-direct-reads` |
 | Dynamic      | No                         |
 | Scope        | Global                     |
 | Data type    | Boolean                    |
@@ -3771,7 +3764,7 @@ Specifies whether to read data files directly,
 without caches or buffers.
 Disabled by default.
 If you enable this,
-make sure that rocksdb_allow_mmap_reads is disabled.
+make sure that [`rocksdb_allow_mmap_reads`](#rocksdb_allow_mmap_reads) is disabled.
 
 
 
@@ -3780,7 +3773,7 @@ make sure that rocksdb_allow_mmap_reads is disabled.
 
 | Option       | Description         |
 |--------------|---------------------|
-| Command-line | --rocksdb-use-fsync |
+| Command-line | `--rocksdb-use-fsync` |
 | Dynamic      | No                  |
 | Scope        | Global              |
 | Data type    | Boolean             |
@@ -3797,7 +3790,7 @@ Disabled by default.
 
 | Option       | Description               |
 |--------------|---------------------------|
-| Command-line | --rocksdb_use_hyper_clock_cache |
+| Command-line | `--rocksdb-use-hyper-clock-cache` |
 | Dynamic      | No                        |
 | Scope        | Global                    |
 | Data type    | Boolean                   |
@@ -3843,7 +3836,7 @@ the RocksDB block cache, or when running on high core-count servers.
 
 | Option                  | Description                                                                           |
 |-------------------------|---------------------------------------------------------------------------------------|
-| Command-line            | --rocksdb-use-io-uring                                                                |
+| Command-line            | `--rocksdb-use-io-uring` |
 | Dynamic                 | Yes                                                                                   |
 | Scope                   | Global                                                                                |
 | Data type               | Boolean                                                                               |
@@ -3858,7 +3851,7 @@ Enables the use of `io_uring` for RocksDB.
 
 | Option       | Description         |
 |--------------|---------------------|
-| Command-line | --rocksdb_use_write_buffer_manager |
+| Command-line | `--rocksdb-use-write-buffer-manager` |
 | Dynamic      | No                   |
 | Scope        | Global               |
 | Data type    | Boolean              |
@@ -3875,7 +3868,7 @@ Allows to turn on the write buffer manager (WriteBufferManager) from `cnf` files
 
 | Option       | Description               |
 |--------------|---------------------------|
-| Command-line | --rocksdb-validate-tables |
+| Command-line | `--rocksdb-validate-tables` |
 | Dynamic      | No                        |
 | Scope        | Global                    |
 | Data type    | Numeric                   |
@@ -3899,7 +3892,7 @@ Specifies whether to verify that MySQL data dictionary is equal to the MyRocks d
 
 | Option       | Description                          |
 |--------------|--------------------------------------|
-| Command-line | --rocksdb-verify-row-debug-checksums |
+| Command-line | `--rocksdb-verify-row-debug-checksums` |
 | Dynamic      | Yes                                  |
 | Scope        | Global, Session                      |
 | Data type    | Boolean                              |
@@ -3915,7 +3908,7 @@ Disabled by default.
 
 | Option       | Description                  |
 |--------------|------------------------------|
-| Command-line | --rocksdb-wal-bytes-per-sync |
+| Command-line | `--rocksdb-wal-bytes-per-sync` |
 | Dynamic      | Yes                          |
 | Scope        | Global                       |
 | Data type    | Numeric                      |
@@ -3934,7 +3927,7 @@ Allowed range is up to `18446744073709551615`.
 
 | Option       | Description       |
 |--------------|-------------------|
-| Command-line | --rocksdb-wal-dir |
+| Command-line | `--rocksdb-wal-dir` |
 | Dynamic      | No                |
 | Scope        | Global            |
 | Data type    | String            |
@@ -3949,7 +3942,7 @@ Specifies the path to the directory where MyRocks stores WAL files.
 
 | Option       | Description                 |
 |--------------|-----------------------------|
-| Command-line | --rocksdb-wal-recovery-mode |
+| Command-line | `--rocksdb-wal-recovery-mode` |
 | Dynamic      | Yes                         |
 | Scope        | Global                      |
 | Data type    | Numeric                     |
@@ -3975,7 +3968,7 @@ The following are the options:
 
 | Option       | Description                 |
 |--------------|-----------------------------|
-| Command-line | --rocksdb-wal-size-limit-mb |
+| Command-line | `--rocksdb-wal-size-limit-mb` |
 | Dynamic      | No                          |
 | Scope        | Global                      |
 | Data type    | Numeric                     |
@@ -3993,7 +3986,7 @@ Allowed range is up to `9223372036854775807`.
 
 | Option       | Description               |
 |--------------|---------------------------|
-| Command-line | --rocksdb-wal-ttl-seconds |
+| Command-line | `--rocksdb-wal-ttl-seconds` |
 | Dynamic      | No                        |
 | Scope        | Global                    |
 | Data type    | Numeric                   |
@@ -4010,7 +4003,7 @@ Allowed range is up to `9223372036854775807`.
 
 | Option       | Description                   |
 |--------------|-------------------------------|
-| Command-line | --rocksdb-whole-key-filtering |
+| Command-line | `--rocksdb-whole-key-filtering` |
 | Dynamic      | No                            |
 | Scope        | Global                        |
 | Data type    | Boolean                       |
@@ -4050,7 +4043,7 @@ matched, even though the full key did not.
 
 | Option       | Description                           |
 |--------------|---------------------------------------|
-| Command-line | --rocksdb-write-batch-flush-threshold |
+| Command-line | `--rocksdb-write-batch-flush-threshold` |
 | Dynamic      | Yes                                   |
 | Scope        | Local                                 |
 | Data type    | Integer                               |
@@ -4065,7 +4058,7 @@ This variable specifies the maximum size of the write batch in bytes before flus
 
 | Option       | Description                     |
 |--------------|---------------------------------|
-| Command-line | --rocksdb-write-batch-max-bytes |
+| Command-line | `--rocksdb-write-batch-max-bytes` |
 | Dynamic      | Yes                             |
 | Scope        | Global                          |
 | Data type    | Numeric                         |
@@ -4083,7 +4076,7 @@ limit reached`.
 
 | Option       | Description                 |
 |--------------|-----------------------------|
-| Command-line | --rocksdb-write-disable-wal |
+| Command-line | `--rocksdb-write-disable-wal` |
 | Dynamic      | Yes                         |
 | Scope        | Global, Session             |
 | Data type    | Boolean                     |
@@ -4099,7 +4092,7 @@ which can be useful for bulk loading.
 
 | Option       | Description                                    |
 |--------------|------------------------------------------------|
-| Command-line | --rocksdb-write-ignore-missing-column-families |
+| Command-line | `--rocksdb-write-ignore-missing-column-families` |
 | Dynamic      | Yes                                            |
 | Scope        | Global, Session                                |
 | Data type    | Boolean                                        |
@@ -4115,7 +4108,7 @@ Disabled by default (writes to non-existent column families are not ignored).
 
 | Option       | Description            |
 |--------------|------------------------|
-| Command-line | --rocksdb-write-policy |
+| Command-line | `--rocksdb-write-policy` |
 | Dynamic      | No                     |
 | Scope        | Global                 |
 | Data type    | String                 |

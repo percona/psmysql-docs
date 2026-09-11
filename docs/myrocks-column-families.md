@@ -74,5 +74,11 @@ Note that the options `|opt.dcfo|` and `|opt.ocfo|` are read-only at runtime.
 At runtime, use the the `|opt.update-cf-options|` option to update some column
 family attributes.
 
+## Manual compaction
+
+Compact a column family with [`rocksdb_compact_cf`](myrocks-server-variables.md#rocksdb_compact_cf). Cancel a compaction for that session with Ctrl+C or `KILL`. Cancel all pending and running manual compactions with [`rocksdb_cancel_manual_compactions`](myrocks-server-variables.md#rocksdb_cancel_manual_compactions).
+
+For the full procedure, see [Cancel manual compaction](myrocks-added-features.md#cancel-manual-compaction).
+
 <!-- RocksDB options: Each is defined with and without the rocksdb
 prefix. Some have the abbreviated syntax -->
