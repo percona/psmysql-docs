@@ -1,4 +1,4 @@
-# Gap locks detection
+# MyRocks Gap locks detection
 
 The [Gap locks :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-locking.html#innodb-gap-locks) detection is based on a Facebook *MySQL* patch.
 
@@ -10,6 +10,9 @@ on the effected rows.
 
 ??? example "Error message"
 
+
     ```{.text .no-copy}
     ERROR HY000: Using Gap Lock without full unique key in multi-table or multi-statement transactions is not allowed. You need to either rewrite queries to use all unique key columns in WHERE equal conditions, or rewrite to single-table, single-statement transaction.
     ```
+
+

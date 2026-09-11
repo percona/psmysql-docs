@@ -38,6 +38,8 @@ engines, if your workload uses fast storage, such as SSD:
 
 [Percona MyRocks Installation Guide](install-myrocks.md)
 
+[MyRocks supported features](myrocks-added-features.md)
+
 [MyRocks Limitations](myrocks-limitations.md)
 
 [Differences between Percona MyRocks and Facebook MyRocks](myrocks-differences.md)
