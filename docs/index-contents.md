@@ -182,6 +182,7 @@
 - [Upgrade strategies](upgrade-strategies.md)
 - [Upgrade procedures for {{vers}}](upgrade-procedures.md)
 - [Upgrading from plugins to components](upgrade-components.md)
+- [Use the Percona encrypted keyring file component](use-percona-keyring-encrypted-file.md)
 - [Use an APT repository to install Percona Server for MySQL {{vers}}](apt-repo.md)
 - [Use Docker Compose and named volumes](docker-compose.md)
 - [Use Percona Monitoring and Management (PMM) Advisors](advisors.md)
