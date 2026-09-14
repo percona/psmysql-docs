@@ -17,7 +17,7 @@ Percona Server for MySQL 8.4 deprecated `SEQUENCE_TABLE()`. Percona Server for M
 
 To maintain compatibility with existing third-party software, `SEQUENCE_TABLE` is no longer a reserved term and can be used as a regular identifier.
 
-Conversely, `PERCONA_SEQUENCE_TABLE` is a reserved word. If you have existing tables, columns, or aliases named percona_sequence_table, quote them with backticks (for example, `percona_sequence_table`) or rename them before upgrading. See [Reserved words](reserved-words.md) for the full list.
+`PERCONA_SEQUENCE_TABLE` is a reserved word. If you have existing tables, columns, or aliases named percona_sequence_table, quote them with backticks (for example, `percona_sequence_table`) or rename them before upgrading. See [Reserved words](reserved-words.md) for the full list.
 
 ## Table functions
 
