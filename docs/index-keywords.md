@@ -274,6 +274,7 @@
 * [Post-installation](post-installation.md)
 * [Prefix index queries optimization](prefix-index-queries-optimization.md)
 * [Process list](process-list.md)
+* [The ps-admin script](ps-admin.md)
 
 **Keywords:**
 
