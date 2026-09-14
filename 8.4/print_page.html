@@ -5966,6 +5966,8 @@
       
         
       
+        
+      
     
     
     
@@ -6393,6 +6395,34 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="ps-admin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ps-admin script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
       
@@ -6408,10 +6438,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_6" >
         
           
-          <label class="md-nav__link" for="__nav_11_5" id="__nav_11_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_11_6" id="__nav_11_6_label" tabindex="0">
             
   
   
@@ -6429,8 +6459,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -12428,7 +12458,18 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
         
           <li class="md-nav__item">
-  <a href="#section-11-5" class="md-nav__link">
+  <a href="#ps-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The ps-admin script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-11-6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Manage components
@@ -33724,11 +33765,294 @@ ls<span class="w"> </span>-lrth
 <h2 id="clone-plugin-local-cloning-and-tablespaces">Local cloning and tablespaces<a class="headerlink" href="#clone-plugin-local-cloning-and-tablespaces" title="Permanent link">&para;</a></h2>
 <ul>
 <li>During local cloning, the clone plugin does not support general tablespaces that use an absolute path, because cloning those tablespaces would create a conflicting file that uses the same absolute path on the destination host.</li>
-</ul></section>
-                    <section class='print-page md-section' id='section-11-5' heading-number='11.5'>
-                        <h1>Manage components<a class='headerlink' href='#section-11-5' title='Permanent link'></a>
+</ul></section><section class="print-page" id="ps-admin" heading-number="11.5"><h1 id="ps-admin-the-ps-admin-script">The ps-admin script<a class="headerlink" href="#ps-admin-the-ps-admin-script" title="Permanent link">&para;</a></h1>
+<p>The <code>ps-admin</code> script is an administrative helper in Percona Server for MySQL 8.4.</p>
+<p>The script enables or disables optional plugins and the MyRocks storage engine on a running server.</p>
+<p>The script connects with administrator credentials and runs the required <code>INSTALL PLUGIN</code> or <code>UNINSTALL PLUGIN</code> statements.</p>
+<h2 id="ps-admin-requirements">Requirements<a class="headerlink" href="#ps-admin-requirements" title="Permanent link">&para;</a></h2>
+<p>Meet the following requirements before you run <code>ps-admin</code>:</p>
+<ul>
+<li>
+<p>Install and start Percona Server for MySQL 8.4.</p>
+</li>
+<li>
+<p>Keep the <code>mysql</code> client in the same directory as <code>ps-admin</code>.</p>
+</li>
+<li>
+<p>Grant the MySQL user privilege to install or uninstall plugins.</p>
+</li>
+<li>
+<p>Confirm that the plugin shared library exists in the server plugin directory.</p>
+</li>
+</ul>
+<p>Run <code>ps-admin</code> as the operating system <code>root</code> user or with <code>sudo</code>.</p>
+<p>Install the <code>percona-server-rocksdb</code> package before you enable MyRocks.</p>
+<h2 id="ps-admin-command-syntax">Command syntax<a class="headerlink" href="#ps-admin-command-syntax" title="Permanent link">&para;</a></h2>
+<p>The following syntax is the general form of the command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>&lt;ACTION&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;MYSQL_ADMIN_USER&gt;<span class="w"> </span>-p<span class="o">[</span>&lt;MYSQL_ADMIN_PASSWORD&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>-S<span class="w"> </span>&lt;SOCKET&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-h<span class="w"> </span>&lt;HOST&gt;<span class="w"> </span>-P<span class="w"> </span>&lt;PORT&gt;<span class="o">]</span>
+</code></pre></div>
+<p>Replace <code>&lt;ACTION&gt;</code> with one enable option or one disable option.</p>
+<p>Specify at least one <code>--enable-*</code> option or one <code>--disable-*</code> option.</p>
+<p>Use only <code>--enable-rocksdb</code> or only <code>--disable-rocksdb</code> for MyRocks. Apply the same rule to each plugin.</p>
+<p>Print the option list with the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ps-admin<span class="w"> </span>--help
+</code></pre></div>
+<h2 id="ps-admin-connection-options">Connection options<a class="headerlink" href="#ps-admin-connection-options" title="Permanent link">&para;</a></h2>
+<p>The following table lists options that control the MySQL connection:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Short option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--user=&lt;USER_NAME&gt;</code></td>
+<td><code>-u</code></td>
+<td>MySQL administrator user name. The default value is <code>root</code>.</td>
+</tr>
+<tr>
+<td><code>--password[=&lt;PASSWORD&gt;]</code></td>
+<td><code>-p</code></td>
+<td>MySQL administrator password. An empty <code>-p</code> value prompts for the password.</td>
+</tr>
+<tr>
+<td><code>--socket=&lt;PATH&gt;</code></td>
+<td><code>-S</code></td>
+<td>Unix socket file for the connection</td>
+</tr>
+<tr>
+<td><code>--host=&lt;HOST_NAME&gt;</code></td>
+<td><code>-h</code></td>
+<td>Host name for a TCP connection</td>
+</tr>
+<tr>
+<td><code>--port=&lt;PORT_NUM&gt;</code></td>
+<td><code>-P</code></td>
+<td>Port number for a TCP connection</td>
+</tr>
+<tr>
+<td><code>--config-file=&lt;FILE&gt;</code></td>
+<td><code>-c</code></td>
+<td>File that provides credentials and options</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ps-admin-plugin-and-engine-options">Plugin and engine options<a class="headerlink" href="#ps-admin-plugin-and-engine-options" title="Permanent link">&para;</a></h2>
+<p>The following table lists options that enable or disable plugins and MyRocks:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Short option</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--enable-rocksdb</code></td>
+<td><code>-k</code></td>
+<td>Enable the MyRocks (<code>ROCKSDB</code>) storage engine</td>
+</tr>
+<tr>
+<td><code>--disable-rocksdb</code></td>
+<td><code>-o</code></td>
+<td>Disable the MyRocks storage engine</td>
+</tr>
+<tr>
+<td><code>--enable-pam</code></td>
+<td><code>-i</code></td>
+<td>Enable the Pluggable Authentication Modules (PAM) plugin (<code>auth_pam</code>)</td>
+</tr>
+<tr>
+<td><code>--disable-pam</code></td>
+<td><code>-n</code></td>
+<td>Disable the PAM plugin</td>
+</tr>
+<tr>
+<td><code>--enable-pam-compat</code></td>
+<td><code>-j</code></td>
+<td>Enable the Oracle-compatible PAM plugin (<code>auth_pam_compat</code>)</td>
+</tr>
+<tr>
+<td><code>--disable-pam-compat</code></td>
+<td><code>-K</code></td>
+<td>Disable the Oracle-compatible PAM plugin</td>
+</tr>
+<tr>
+<td><code>--enable-audit</code></td>
+<td><code>-a</code></td>
+<td>Enable the Audit Log plugin (<code>audit_log</code>)</td>
+</tr>
+<tr>
+<td><code>--disable-audit</code></td>
+<td><code>-w</code></td>
+<td>Disable the Audit Log plugin</td>
+</tr>
+<tr>
+<td><code>--enable-mysqlx</code></td>
+<td><code>-x</code></td>
+<td>Enable the MySQL X plugin (<code>mysqlx</code>)</td>
+</tr>
+<tr>
+<td><code>--disable-mysqlx</code></td>
+<td><code>-g</code></td>
+<td>Disable the MySQL X plugin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ps-admin-enable-myrocks">Enable MyRocks<a class="headerlink" href="#ps-admin-enable-myrocks" title="Permanent link">&para;</a></h2>
+<p>Install the MyRocks package first. For package steps, see <a href="#install-myrocks">Percona MyRocks installation guide</a>.</p>
+<p>Enable MyRocks with the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<p>The script searches for <code>ha_rocksdb.so</code> in the following locations:</p>
+<ul>
+<li>
+<p><code>../lib/plugin</code> relative to the <code>ps-admin</code> directory</p>
+</li>
+<li>
+<p><code>/usr/lib64/mysql/plugin</code></p>
+</li>
+<li>
+<p><code>/usr/lib/mysql/plugin</code></p>
+</li>
+</ul>
+<p>The script then installs the MyRocks plugins on the running server.</p>
+<p>Verify the engine with the following statement:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINES</span><span class="p">;</span>
+</code></pre></div>
+<p>The <code>ROCKSDB</code> row must show <code>YES</code> in the <code>Support</code> column.</p>
+<p>InnoDB remains the default storage engine after the enable command. To create tables on MyRocks, set <code>default-storage-engine=rocksdb</code> in the <code>[mysqld]</code> section of <code>my.cnf</code>, or add <code>ENGINE=RocksDB</code> to each <code>CREATE TABLE</code> statement.</p>
+<p>For more detail, see <a href="#install-myrocks">Percona MyRocks installation guide</a>.</p>
+<h2 id="ps-admin-enable-the-pam-authentication-plugin">Enable the PAM authentication plugin<a class="headerlink" href="#ps-admin-enable-the-pam-authentication-plugin" title="Permanent link">&para;</a></h2>
+<p>Enable the full PAM plugin with the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-pam<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<p>The script runs the following statement:</p>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_pam</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_pam.so'</span><span class="p">;</span>
+</code></pre></div>
+<p>Enable the Oracle-compatible PAM plugin with the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-pam-compat<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<p>The script runs the following statement:</p>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_pam_compat</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_pam_compat.so'</span><span class="p">;</span>
+</code></pre></div>
+<p>Configure the PAM stack after the plugin is active. For PAM files, user accounts, and client requirements, see <a href="#pam-plugin">PAM authentication plugin</a>.</p>
+<h2 id="ps-admin-enable-the-audit-log-plugin">Enable the Audit Log plugin<a class="headerlink" href="#ps-admin-enable-the-audit-log-plugin" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Deprecation notice</p>
+<p>The Audit Log plugin is deprecated in Percona Server for MySQL 8.4. Use the <a href="#audit-log-filter-overview">Audit Log Filter component</a> as the replacement. Do not install the Audit Log plugin and the Audit Log Filter component on the same server.</p>
+</div>
+<p>Enable the Audit Log plugin with the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-audit<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<p>The script runs the following statement:</p>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">audit_log</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'audit_log.so'</span><span class="p">;</span>
+</code></pre></div>
+<p>For plugin variables and log format, see <a href="#audit-log-plugin">Audit log plugin</a>.</p>
+<h2 id="ps-admin-enable-the-mysql-x-plugin">Enable the MySQL X plugin<a class="headerlink" href="#ps-admin-enable-the-mysql-x-plugin" title="Permanent link">&para;</a></h2>
+<p>The MySQL X plugin provides X Protocol support.</p>
+<p>Enable the MySQL X plugin with the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-mysqlx<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<p>The script runs the following statement:</p>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">mysqlx</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'mysqlx.so'</span><span class="p">;</span>
+</code></pre></div>
+<p>For X Protocol and plugin options, see the <a href="https://dev.mysql.com/doc/refman/8.4/en/x-plugin.html">X Plugin <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> documentation.</p>
+<h2 id="ps-admin-disable-a-plugin-or-engine">Disable a plugin or engine<a class="headerlink" href="#ps-admin-disable-a-plugin-or-engine" title="Permanent link">&para;</a></h2>
+<p>Disable MyRocks with the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<p>Convert MyRocks tables to another engine before you disable MyRocks if you still need the data.</p>
+<p>Disable other plugins with the matching <code>--disable-*</code> option.</p>
+<p>The following examples disable each supported plugin:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-pam<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-pam-compat<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-audit<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-mysqlx<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<h2 id="ps-admin-verify-plugin-status">Verify plugin status<a class="headerlink" href="#ps-admin-verify-plugin-status" title="Permanent link">&para;</a></h2>
+<p>The script checks <code>INFORMATION_SCHEMA.PLUGINS</code> before each change.</p>
+<p>Confirm the result with the following statement:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_TYPE</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="s1">'ROCKSDB'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'auth_pam'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'auth_pam_compat'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'audit_log'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'mysqlx'</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>The <code>PLUGIN_STATUS</code> value is <code>ACTIVE</code> after a successful enable operation.</p>
+<p>An empty result after a disable operation means the plugin is not loaded.</p>
+<h2 id="ps-admin-connection-examples">Connection examples<a class="headerlink" href="#ps-admin-connection-examples" title="Permanent link">&para;</a></h2>
+<p>Prompt for the password on a local socket:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-pam<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-S<span class="w"> </span>/var/run/mysqld/mysqld.sock
+</code></pre></div>
+<p>Connect over TCP:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">3306</span>
+</code></pre></div>
+<h2 id="ps-admin-troubleshoot">Troubleshoot<a class="headerlink" href="#ps-admin-troubleshoot" title="Permanent link">&para;</a></h2>
+<p>Use the following actions after a script error:</p>
+<ul>
+<li>
+<p>Check the user name, password, host, port, or socket after a plugin list failure.</p>
+</li>
+<li>
+<p>Install the MyRocks package after a missing <code>ha_rocksdb.so</code> library message.</p>
+</li>
+<li>
+<p>Uninstall leftover MyRocks plugins by hand after a partial install, then run <code>--enable-rocksdb</code> again.</p>
+</li>
+<li>
+<p>Verify the plugin library path and MySQL plugin privileges after an install failure.</p>
+</li>
+</ul>
+<p>Review the server error log after an install or uninstall failure.</p>
+<h2 id="ps-admin-other-reading">Other reading<a class="headerlink" href="#ps-admin-other-reading" title="Permanent link">&para;</a></h2>
+<p>The following topics describe the features that <code>ps-admin</code> enables or disables:</p>
+<ul>
+<li>
+<p><a href="#install-myrocks">Percona MyRocks installation guide</a></p>
+</li>
+<li>
+<p><a href="#show-engines">Show storage engines</a></p>
+</li>
+<li>
+<p><a href="#pam-plugin">PAM authentication plugin</a></p>
+</li>
+<li>
+<p><a href="#authentication-methods">Authentication methods</a></p>
+</li>
+<li>
+<p><a href="#audit-log-plugin">Audit log plugin</a></p>
+</li>
+<li>
+<p><a href="#audit-log-filter-overview">Audit Log Filter overview</a></p>
+</li>
+<li>
+<p><a href="#migrate-to-audit-log-filter-component">Migrate to the audit log filter component</a></p>
+</li>
+<li>
+<p><a href="#post-installation">Post-installation</a></p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The MySQL X plugin (<code>--enable-mysqlx</code> and <code>--disable-mysqlx</code>) is omitted from this list. Percona Server for MySQL has no dedicated MySQL X plugin.</p>
+</div></section>
+                    <section class='print-page md-section' id='section-11-6' heading-number='11.6'>
+                        <h1>Manage components<a class='headerlink' href='#section-11-6' title='Permanent link'></a>
                         </h1>
-                    <section class="print-page" id="install-component" heading-number="11.5.1"><h1 id="install-component-install-component">INSTALL COMPONENT<a class="headerlink" href="#install-component-install-component" title="Permanent link">&para;</a></h1>
+                    <section class="print-page" id="install-component" heading-number="11.6.1"><h1 id="install-component-install-component">INSTALL COMPONENT<a class="headerlink" href="#install-component-install-component" title="Permanent link">&para;</a></h1>
 <p>The <code>INSTALL COMPONENT</code> does the following:</p>
 <ul>
 <li>Installs the component</li>
@@ -33739,7 +34063,7 @@ ls<span class="w"> </span>-lrth
 <h2 id="install-component-example">Example<a class="headerlink" href="#install-component-example" title="Permanent link">&para;</a></h2>
 <p>The following is an example of the <code>INSTALL COMPONENT</code> statement.</p>
 <div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://componentA'</span><span class="p">;</span>
-</code></pre></div></section><section class="print-page" id="uninstall-component" heading-number="11.5.2"><h1 id="uninstall-component-uninstall-component">UNINSTALL COMPONENT<a class="headerlink" href="#uninstall-component-uninstall-component" title="Permanent link">&para;</a></h1>
+</code></pre></div></section><section class="print-page" id="uninstall-component" heading-number="11.6.2"><h1 id="uninstall-component-uninstall-component">UNINSTALL COMPONENT<a class="headerlink" href="#uninstall-component-uninstall-component" title="Permanent link">&para;</a></h1>
 <p>The <code>UNINSTALL COMPONENT</code> does the following:</p>
 <ul>
 <li>Deactivates the component</li>
@@ -60714,6 +61038,7 @@ contributions and changes from MariaDB.</p>
 <li><a href="#prefix-index-queries-optimization">Prefix index queries optimization</a></li>
 <li><a href="#process-list">Process list</a></li>
 <li><a href="#procfs-plugin">The ProcFS plugin</a></li>
+<li><a href="#ps-admin">The ps-admin script</a></li>
 <li><a href="#quickstart-docker">Quickstart - Run Percona Server for MySQL container images with Docker</a></li>
 <li><a href="#reading-audit-log-filter-files">Reading Audit Log Filter files</a></li>
 <li><a href="#restrict-dynamic-log-locations">Restrict dynamic log file locations</a></li>
@@ -61113,10 +61438,12 @@ contributions and changes from MariaDB.</p>
 
 .print-site-enumerate-headings #clone-plugin > h1:before { content: '11.4 ' }
 
-.print-site-enumerate-headings #section-11-5 > h1:before { content: '11.5 ' }
-.print-site-enumerate-headings #install-component > h1:before { content: '11.5.1 ' }
+.print-site-enumerate-headings #ps-admin > h1:before { content: '11.5 ' }
 
-.print-site-enumerate-headings #uninstall-component > h1:before { content: '11.5.2 ' }
+.print-site-enumerate-headings #section-11-6 > h1:before { content: '11.6 ' }
+.print-site-enumerate-headings #install-component > h1:before { content: '11.6.1 ' }
+
+.print-site-enumerate-headings #uninstall-component > h1:before { content: '11.6.2 ' }
 
 .print-site-enumerate-headings #section-12 > h1:before { content: '12 ' }
 .print-site-enumerate-headings #backup-restore-overview > h1:before { content: '12.1 ' }

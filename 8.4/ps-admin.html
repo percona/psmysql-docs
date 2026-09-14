@@ -9,23 +9,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="InnoDB page fragmentation is caused by random insertion or deletion from a
-secondary index. This means that the physical ordering of the index pages on
-the disk is not same as the index ordering of the records on the pages. As a
-consequence this means that some pages take a lot more space and that queries
-which require a full table scan can take a long time to finish.">
+        <meta name="description" content="The ps-admin script is an administrative helper in Percona Server for MySQL 8.4.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/8.4/innodb-fragmentation-count.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/8.4/ps-admin.html">
       
       
-        <link rel="prev" href="query-limit-records.html">
+        <link rel="prev" href="clone-plugin.html">
       
       
-        <link rel="next" href="myrocks-index.html">
+        <link rel="next" href="install-component.html">
       
       
         
@@ -36,7 +32,7 @@ which require a full table scan can take a long time to finish.">
     
     
       
-        <title>InnoDB page fragmentation counters - Percona Server for MySQL</title>
+        <title>The ps-admin script - Percona Server for MySQL</title>
       
     
     
@@ -106,7 +102,7 @@ which require a full table scan can take a long time to finish.">
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - InnoDB page fragmentation counters" />
+                 <meta property="og:title" content="Percona Server for MySQL - The ps-admin script" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
               
@@ -129,7 +125,7 @@ which require a full table scan can take a long time to finish.">
     <div data-md-component="skip">
       
         
-        <a href="#innodb-page-fragmentation-counters" class="md-skip">
+        <a href="#the-ps-admin-script" class="md-skip">
           Skip to content
         </a>
       
@@ -258,7 +254,7 @@ which require a full table scan can take a long time to finish.">
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              InnoDB page fragmentation counters
+              The ps-admin script
             
           </span>
         </div>
@@ -5953,8 +5949,10 @@ which require a full table scan can take a long time to finish.">
       
   
   
+    
   
   
+  
     
     
       
@@ -5974,11 +5972,11 @@ which require a full table scan can take a long time to finish.">
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
         
           
           <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
@@ -5999,7 +5997,7 @@ which require a full table scan can take a long time to finish.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_11">
             <span class="md-nav__icon md-icon"></span>
             
@@ -6395,10 +6393,37 @@ which require a full table scan can take a long time to finish.">
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="ps-admin.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ps-admin script
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="ps-admin.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -6414,6 +6439,171 @@ which require a full table scan can take a long time to finish.">
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command syntax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connection-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connection options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugin-and-engine-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugin and engine options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-myrocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable MyRocks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-the-pam-authentication-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable the PAM authentication plugin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-the-audit-log-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable the Audit Log plugin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-the-mysql-x-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable the MySQL X plugin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disable-a-plugin-or-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disable a plugin or engine
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-plugin-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify plugin status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connection-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connection examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshoot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshoot
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -8770,10 +8960,8 @@ which require a full table scan can take a long time to finish.">
       
   
   
-    
   
   
-  
     
     
       
@@ -8785,11 +8973,11 @@ which require a full table scan can take a long time to finish.">
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
         
           
           <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
@@ -8810,7 +8998,7 @@ which require a full table scan can take a long time to finish.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_17">
             <span class="md-nav__icon md-icon"></span>
             
@@ -8825,10 +9013,8 @@ which require a full table scan can take a long time to finish.">
                 
   
   
-    
   
   
-  
     
     
       
@@ -8862,11 +9048,11 @@ which require a full table scan can take a long time to finish.">
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17_1" >
         
           
           <label class="md-nav__link" for="__nav_17_1" id="__nav_17_1_label" tabindex="0">
@@ -8887,7 +9073,7 @@ which require a full table scan can take a long time to finish.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_17_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_17_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_17_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -9238,37 +9424,10 @@ which require a full table scan can take a long time to finish.">
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    InnoDB page fragmentation counters
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="innodb-fragmentation-count.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="innodb-fragmentation-count.html" class="md-nav__link">
         
   
   
@@ -9284,50 +9443,6 @@ which require a full table scan can take a long time to finish.">
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#status-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Status variables
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-reading" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related reading
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -10413,7 +10528,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
                       <div data-banner="data-banner" class="edit-contrib-banner">
   <div class="banner-content">
     <!-- Edit link centered -->
-    <a href="https://github.com/percona/psmysql-docs/edit/8.4/docs/innodb-fragmentation-count.md" title="Edit this page on GitHub" class="edit-page-link">
+    <a href="https://github.com/percona/psmysql-docs/edit/8.4/docs/ps-admin.md" title="Edit this page on GitHub" class="edit-page-link">
       <span class="edit-page-icon">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
@@ -10466,10 +10581,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#status-variables" class="md-nav__link">
+  <a href="#requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Status variables
+        Requirements
       
     </span>
   </a>
@@ -10477,10 +10592,131 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
-  <a href="#related-reading" class="md-nav__link">
+  <a href="#command-syntax" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Related reading
+        Command syntax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connection-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connection options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugin-and-engine-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugin and engine options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-myrocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable MyRocks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-the-pam-authentication-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable the PAM authentication plugin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-the-audit-log-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable the Audit Log plugin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-the-mysql-x-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable the MySQL X plugin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disable-a-plugin-or-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disable a plugin or engine
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-plugin-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify plugin status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connection-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connection examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshoot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshoot
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other reading
       
     </span>
   </a>
@@ -10510,140 +10746,297 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/8.4/docs/innodb-fragmentation-count.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/8.4/docs/ps-admin.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="innodb-page-fragmentation-counters">InnoDB page fragmentation counters<a class="headerlink" href="#innodb-page-fragmentation-counters" title="Permanent link">&para;</a></h1>
-<p><em>InnoDB</em> page fragmentation is caused by random insertion or deletion from a
-secondary index. This means that the physical ordering of the index pages on
-the disk is not same as the index ordering of the records on the pages. As a
-consequence this means that some pages take a lot more space and that queries
-which require a full table scan can take a long time to finish.</p>
-<p>To provide more information about the <em>InnoDB</em> page fragmentation 
-<em>Percona Server for MySQL</em> now provides the following counters as status variables:
-Innodb_scan_pages_contiguous,
-Innodb_scan_pages_disjointed, Innodb_scan_data_size,
-Innodb_scan_deleted_recs_size, and
-Innodb_scan_pages_total_seek_distance.</p>
-<h2 id="status-variables">Status variables<a class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
-<h3 id="innodb_scan_pages_contiguous"><code>Innodb_scan_pages_contiguous</code><a class="headerlink" href="#innodb_scan_pages_contiguous" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Scope</td>
-<td>Session</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Numeric</td>
-</tr>
-</tbody>
-</table>
-<p>This variable shows the number of contiguous page reads inside a query.</p>
-<h3 id="innodb_scan_pages_disjointed"><code>Innodb_scan_pages_disjointed</code><a class="headerlink" href="#innodb_scan_pages_disjointed" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Scope</td>
-<td>Session</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Numeric</td>
-</tr>
-</tbody>
-</table>
-<p>This variable shows the number of disjointed page reads inside a query.</p>
-<h3 id="innodb_scan_data_size"><code>Innodb_scan_data_size</code><a class="headerlink" href="#innodb_scan_data_size" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Scope</td>
-<td>Session</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Numeric</td>
-</tr>
-</tbody>
-</table>
-<p>This variable shows the size of data in all <em>InnoDB</em> pages read inside a
-query (in bytes) - calculated as the sum of <code>page_get_data_size(page)</code> for
-every page scanned.</p>
-<h3 id="innodb_scan_deleted_recs_size"><code>Innodb_scan_deleted_recs_size</code><a class="headerlink" href="#innodb_scan_deleted_recs_size" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Scope</td>
-<td>Session</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Numeric</td>
-</tr>
-</tbody>
-</table>
-<p>This variable shows the size of deleted records (marked as <code>deleted</code> in
-<code>page_delete_rec_list_end()</code>) in all <em>InnoDB</em> pages read inside a query
-(in bytes) - calculated as the sum of <code>page_header_get_field(page,
-PAGE_GARBAGE)</code> for every page scanned.</p>
-<h3 id="innodb_scan_pages_total_seek_distance"><code>Innodb_scan_pages_total_seek_distance</code><a class="headerlink" href="#innodb_scan_pages_total_seek_distance" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Scope</td>
-<td>Session</td>
-</tr>
-<tr>
-<td>Data type</td>
-<td>Numeric</td>
-</tr>
-</tbody>
-</table>
-<p>This variable shows the total seek distance when moving between pages.</p>
-<h2 id="related-reading">Related reading<a class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
+<h1 id="the-ps-admin-script">The ps-admin script<a class="headerlink" href="#the-ps-admin-script" title="Permanent link">&para;</a></h1>
+<p>The <code>ps-admin</code> script is an administrative helper in Percona Server for MySQL 8.4.</p>
+<p>The script enables or disables optional plugins and the MyRocks storage engine on a running server.</p>
+<p>The script connects with administrator credentials and runs the required <code>INSTALL PLUGIN</code> or <code>UNINSTALL PLUGIN</code> statements.</p>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<p>Meet the following requirements before you run <code>ps-admin</code>:</p>
 <ul>
 <li>
-<p><a href="https://www.percona.com/blog/2009/11/05/innodb-look-after-fragmentation/">InnoDB: look after fragmentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+<p>Install and start Percona Server for MySQL 8.4.</p>
 </li>
 <li>
-<p><a href="https://dev.mysql.com/doc/refman/8.4/en/innodb-file-defragmenting.html">Defragmenting a Table <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+<p>Keep the <code>mysql</code> client in the same directory as <code>ps-admin</code>.</p>
+</li>
+<li>
+<p>Grant the MySQL user privilege to install or uninstall plugins.</p>
+</li>
+<li>
+<p>Confirm that the plugin shared library exists in the server plugin directory.</p>
 </li>
 </ul>
+<p>Run <code>ps-admin</code> as the operating system <code>root</code> user or with <code>sudo</code>.</p>
+<p>Install the <code>percona-server-rocksdb</code> package before you enable MyRocks.</p>
+<h2 id="command-syntax">Command syntax<a class="headerlink" href="#command-syntax" title="Permanent link">&para;</a></h2>
+<p>The following syntax is the general form of the command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>&lt;ACTION&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;MYSQL_ADMIN_USER&gt;<span class="w"> </span>-p<span class="o">[</span>&lt;MYSQL_ADMIN_PASSWORD&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>-S<span class="w"> </span>&lt;SOCKET&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-h<span class="w"> </span>&lt;HOST&gt;<span class="w"> </span>-P<span class="w"> </span>&lt;PORT&gt;<span class="o">]</span>
+</code></pre></div>
+<p>Replace <code>&lt;ACTION&gt;</code> with one enable option or one disable option.</p>
+<p>Specify at least one <code>--enable-*</code> option or one <code>--disable-*</code> option.</p>
+<p>Use only <code>--enable-rocksdb</code> or only <code>--disable-rocksdb</code> for MyRocks. Apply the same rule to each plugin.</p>
+<p>Print the option list with the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ps-admin<span class="w"> </span>--help
+</code></pre></div>
+<h2 id="connection-options">Connection options<a class="headerlink" href="#connection-options" title="Permanent link">&para;</a></h2>
+<p>The following table lists options that control the MySQL connection:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Short option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--user=&lt;USER_NAME&gt;</code></td>
+<td><code>-u</code></td>
+<td>MySQL administrator user name. The default value is <code>root</code>.</td>
+</tr>
+<tr>
+<td><code>--password[=&lt;PASSWORD&gt;]</code></td>
+<td><code>-p</code></td>
+<td>MySQL administrator password. An empty <code>-p</code> value prompts for the password.</td>
+</tr>
+<tr>
+<td><code>--socket=&lt;PATH&gt;</code></td>
+<td><code>-S</code></td>
+<td>Unix socket file for the connection</td>
+</tr>
+<tr>
+<td><code>--host=&lt;HOST_NAME&gt;</code></td>
+<td><code>-h</code></td>
+<td>Host name for a TCP connection</td>
+</tr>
+<tr>
+<td><code>--port=&lt;PORT_NUM&gt;</code></td>
+<td><code>-P</code></td>
+<td>Port number for a TCP connection</td>
+</tr>
+<tr>
+<td><code>--config-file=&lt;FILE&gt;</code></td>
+<td><code>-c</code></td>
+<td>File that provides credentials and options</td>
+</tr>
+</tbody>
+</table>
+<h2 id="plugin-and-engine-options">Plugin and engine options<a class="headerlink" href="#plugin-and-engine-options" title="Permanent link">&para;</a></h2>
+<p>The following table lists options that enable or disable plugins and MyRocks:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Short option</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--enable-rocksdb</code></td>
+<td><code>-k</code></td>
+<td>Enable the MyRocks (<code>ROCKSDB</code>) storage engine</td>
+</tr>
+<tr>
+<td><code>--disable-rocksdb</code></td>
+<td><code>-o</code></td>
+<td>Disable the MyRocks storage engine</td>
+</tr>
+<tr>
+<td><code>--enable-pam</code></td>
+<td><code>-i</code></td>
+<td>Enable the Pluggable Authentication Modules (PAM) plugin (<code>auth_pam</code>)</td>
+</tr>
+<tr>
+<td><code>--disable-pam</code></td>
+<td><code>-n</code></td>
+<td>Disable the PAM plugin</td>
+</tr>
+<tr>
+<td><code>--enable-pam-compat</code></td>
+<td><code>-j</code></td>
+<td>Enable the Oracle-compatible PAM plugin (<code>auth_pam_compat</code>)</td>
+</tr>
+<tr>
+<td><code>--disable-pam-compat</code></td>
+<td><code>-K</code></td>
+<td>Disable the Oracle-compatible PAM plugin</td>
+</tr>
+<tr>
+<td><code>--enable-audit</code></td>
+<td><code>-a</code></td>
+<td>Enable the Audit Log plugin (<code>audit_log</code>)</td>
+</tr>
+<tr>
+<td><code>--disable-audit</code></td>
+<td><code>-w</code></td>
+<td>Disable the Audit Log plugin</td>
+</tr>
+<tr>
+<td><code>--enable-mysqlx</code></td>
+<td><code>-x</code></td>
+<td>Enable the MySQL X plugin (<code>mysqlx</code>)</td>
+</tr>
+<tr>
+<td><code>--disable-mysqlx</code></td>
+<td><code>-g</code></td>
+<td>Disable the MySQL X plugin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="enable-myrocks">Enable MyRocks<a class="headerlink" href="#enable-myrocks" title="Permanent link">&para;</a></h2>
+<p>Install the MyRocks package first. For package steps, see <a href="install-myrocks.html">Percona MyRocks installation guide</a>.</p>
+<p>Enable MyRocks with the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<p>The script searches for <code>ha_rocksdb.so</code> in the following locations:</p>
+<ul>
+<li>
+<p><code>../lib/plugin</code> relative to the <code>ps-admin</code> directory</p>
+</li>
+<li>
+<p><code>/usr/lib64/mysql/plugin</code></p>
+</li>
+<li>
+<p><code>/usr/lib/mysql/plugin</code></p>
+</li>
+</ul>
+<p>The script then installs the MyRocks plugins on the running server.</p>
+<p>Verify the engine with the following statement:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINES</span><span class="p">;</span>
+</code></pre></div>
+<p>The <code>ROCKSDB</code> row must show <code>YES</code> in the <code>Support</code> column.</p>
+<p>InnoDB remains the default storage engine after the enable command. To create tables on MyRocks, set <code>default-storage-engine=rocksdb</code> in the <code>[mysqld]</code> section of <code>my.cnf</code>, or add <code>ENGINE=RocksDB</code> to each <code>CREATE TABLE</code> statement.</p>
+<p>For more detail, see <a href="install-myrocks.html">Percona MyRocks installation guide</a>.</p>
+<h2 id="enable-the-pam-authentication-plugin">Enable the PAM authentication plugin<a class="headerlink" href="#enable-the-pam-authentication-plugin" title="Permanent link">&para;</a></h2>
+<p>Enable the full PAM plugin with the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-pam<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<p>The script runs the following statement:</p>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_pam</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_pam.so'</span><span class="p">;</span>
+</code></pre></div>
+<p>Enable the Oracle-compatible PAM plugin with the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-pam-compat<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<p>The script runs the following statement:</p>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_pam_compat</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_pam_compat.so'</span><span class="p">;</span>
+</code></pre></div>
+<p>Configure the PAM stack after the plugin is active. For PAM files, user accounts, and client requirements, see <a href="pam-plugin.html">PAM authentication plugin</a>.</p>
+<h2 id="enable-the-audit-log-plugin">Enable the Audit Log plugin<a class="headerlink" href="#enable-the-audit-log-plugin" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Deprecation notice</p>
+<p>The Audit Log plugin is deprecated in Percona Server for MySQL 8.4. Use the <a href="audit-log-filter-overview.html">Audit Log Filter component</a> as the replacement. Do not install the Audit Log plugin and the Audit Log Filter component on the same server.</p>
+</div>
+<p>Enable the Audit Log plugin with the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-audit<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<p>The script runs the following statement:</p>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">audit_log</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'audit_log.so'</span><span class="p">;</span>
+</code></pre></div>
+<p>For plugin variables and log format, see <a href="audit-log-plugin.html">Audit log plugin</a>.</p>
+<h2 id="enable-the-mysql-x-plugin">Enable the MySQL X plugin<a class="headerlink" href="#enable-the-mysql-x-plugin" title="Permanent link">&para;</a></h2>
+<p>The MySQL X plugin provides X Protocol support.</p>
+<p>Enable the MySQL X plugin with the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-mysqlx<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<p>The script runs the following statement:</p>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">mysqlx</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'mysqlx.so'</span><span class="p">;</span>
+</code></pre></div>
+<p>For X Protocol and plugin options, see the <a href="https://dev.mysql.com/doc/refman/8.4/en/x-plugin.html">X Plugin <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> documentation.</p>
+<h2 id="disable-a-plugin-or-engine">Disable a plugin or engine<a class="headerlink" href="#disable-a-plugin-or-engine" title="Permanent link">&para;</a></h2>
+<p>Disable MyRocks with the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<p>Convert MyRocks tables to another engine before you disable MyRocks if you still need the data.</p>
+<p>Disable other plugins with the matching <code>--disable-*</code> option.</p>
+<p>The following examples disable each supported plugin:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-pam<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-pam-compat<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-audit<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-mysqlx<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<h2 id="verify-plugin-status">Verify plugin status<a class="headerlink" href="#verify-plugin-status" title="Permanent link">&para;</a></h2>
+<p>The script checks <code>INFORMATION_SCHEMA.PLUGINS</code> before each change.</p>
+<p>Confirm the result with the following statement:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_TYPE</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="s1">'ROCKSDB'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'auth_pam'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'auth_pam_compat'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'audit_log'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'mysqlx'</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>The <code>PLUGIN_STATUS</code> value is <code>ACTIVE</code> after a successful enable operation.</p>
+<p>An empty result after a disable operation means the plugin is not loaded.</p>
+<h2 id="connection-examples">Connection examples<a class="headerlink" href="#connection-examples" title="Permanent link">&para;</a></h2>
+<p>Prompt for the password on a local socket:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-pam<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-S<span class="w"> </span>/var/run/mysqld/mysqld.sock
+</code></pre></div>
+<p>Connect over TCP:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">3306</span>
+</code></pre></div>
+<h2 id="troubleshoot">Troubleshoot<a class="headerlink" href="#troubleshoot" title="Permanent link">&para;</a></h2>
+<p>Use the following actions after a script error:</p>
+<ul>
+<li>
+<p>Check the user name, password, host, port, or socket after a plugin list failure.</p>
+</li>
+<li>
+<p>Install the MyRocks package after a missing <code>ha_rocksdb.so</code> library message.</p>
+</li>
+<li>
+<p>Uninstall leftover MyRocks plugins by hand after a partial install, then run <code>--enable-rocksdb</code> again.</p>
+</li>
+<li>
+<p>Verify the plugin library path and MySQL plugin privileges after an install failure.</p>
+</li>
+</ul>
+<p>Review the server error log after an install or uninstall failure.</p>
+<h2 id="other-reading">Other reading<a class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
+<p>The following topics describe the features that <code>ps-admin</code> enables or disables:</p>
+<ul>
+<li>
+<p><a href="install-myrocks.html">Percona MyRocks installation guide</a></p>
+</li>
+<li>
+<p><a href="show-engines.html">Show storage engines</a></p>
+</li>
+<li>
+<p><a href="pam-plugin.html">PAM authentication plugin</a></p>
+</li>
+<li>
+<p><a href="authentication-methods.html">Authentication methods</a></p>
+</li>
+<li>
+<p><a href="audit-log-plugin.html">Audit log plugin</a></p>
+</li>
+<li>
+<p><a href="audit-log-filter-overview.html">Audit Log Filter overview</a></p>
+</li>
+<li>
+<p><a href="migrate-to-audit-log-filter-component.html">Migrate to the audit log filter component</a></p>
+</li>
+<li>
+<p><a href="post-installation.html">Post-installation</a></p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The MySQL X plugin (<code>--enable-mysqlx</code> and <code>--disable-mysqlx</code>) is omitted from this list. Percona Server for MySQL has no dedicated MySQL X plugin.</p>
+</div>
 
 
 
@@ -10666,7 +11059,7 @@ PAGE_GARBAGE)</code> for every page scanned.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 22, 2025 19:10:16 UTC">December 22, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 14, 2026 19:11:30 UTC">September 14, 2026</span>
   </span>
 
     
@@ -10676,7 +11069,7 @@ PAGE_GARBAGE)</code> for every page scanned.</p>
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 22, 2022 12:09:29 UTC">September 22, 2022</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 14, 2026 19:11:30 UTC">September 14, 2026</span>
   </span>
 
     
