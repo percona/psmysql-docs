@@ -131,6 +131,7 @@
 - [Prefix index queries optimization](prefix-index-queries-optimization.md)
 - [Process list](process-list.md)
 - [The ProcFS plugin](procfs-plugin.md)
+- [The ps-admin script](ps-admin.md)
 - [Quickstart - Run Percona Server for MySQL container images with Docker](quickstart-docker.md)
 - [Reading Audit Log Filter files](reading-audit-log-filter-files.md)
 - [Restrict dynamic log file locations](restrict-dynamic-log-locations.md)
