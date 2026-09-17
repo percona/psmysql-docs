@@ -70,11 +70,7 @@ $ sudo ps-admin --enable-rocksdb -u root -pPassw0rd
 
 !!! note
 
-    When you use the `ps-admin` script to enable Percona MyRocks, it performs the following:
-
-    * Disables Transparent huge pages
-    
-    * Installs and enables the RocksDB plugin
+    When you use the `ps-admin` script to enable Percona MyRocks, the script locates `ha_rocksdb.so` and installs the RocksDB engine plugin and the related MyRocks information schema plugins. For command options and troubleshooting, see [The ps-admin script](ps-admin.md).
 
 If the script returns no errors,
 Percona MyRocks should be successfully enabled on the server.
