@@ -65,6 +65,7 @@ Complete these checks before starting the upgrade process.
 **Action**:
 
 - [ ] Compare your overrides to {{vers}} defaults; remove obsolete settings and re-evaluate IO/log parameters.
+- [ ] If `innodb_numa_interleave=OFF`, set `innodb_buffer_pool_populate=OFF` in 8.4.11 to keep 8.4.10 pre-faulting behavior. See [NUMA interleave and buffer pool populate](./8.4-defaults-and-tuning.md#numa-interleave-and-buffer-pool-populate).
 - [ ] See: [Defaults and tuning guidance for {{vers}}](./8.4-defaults-and-tuning.md)
 
 ### Spatial indexes
