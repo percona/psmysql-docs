@@ -10563,7 +10563,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Improves InnoDB performance for workloads limited by Least Recently Used (LRU) flush speed. The improvements reduce LRU list mutex contention, restore dedicated LRU manager threads, optimize LRU scanning, and allow single-page flushing to proceed while an LRU batch flush is running.</p>
 </li>
 <li>
-<p>Improves InnoDB buffer pool initialization on NUMA-enabled systems by using multi-threaded memory allocation. The improvement reduces initialization time and can shorten server startup for instances with large buffer pools.</p>
+<p>Improves InnoDB buffer pool initialization on NUMA-enabled systems by using multi-threaded memory allocation. The improvement reduces initialization time and can shorten server startup for instances with large buffer pools. Starting in 8.4.11, <code>innodb_numa_interleave</code> controls only interleaved NUMA allocations. Pre-faulting buffer pool pages on startup is controlled by <code>innodb_buffer_pool_populate</code>. Both default to <code>ON</code>, so default behavior matches 8.4.10. If you set <code>innodb_numa_interleave=OFF</code> to skip pre-faulting in 8.4.10, also set <code>innodb_buffer_pool_populate=OFF</code> in 8.4.11. See <a href="../8.4-defaults-and-tuning.html#numa-interleave-and-buffer-pool-populate">Defaults and tuning guidance for 8.4</a>.</p>
 </li>
 <li>
 <p>Improves InnoDB performance for highly concurrent range-select workloads by reducing <code>BUF_BLOCK_MUTEX</code> contention when multiple threads access the same buffer pool page. The improvement increases throughput for read workloads that repeatedly access the same hot pages.</p>
@@ -10617,7 +10617,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://perconadev.atlassian.net/browse/PS-11447">PS-11447</a>: Improves InnoDB flushing performance by allowing a single-page flush to run while a Least Recently Used (LRU) batch flush is in progress. The number of concurrent single-page flushes is limited to one per buffer pool instance.</p>
 </li>
 <li>
-<p><a href="https://perconadev.atlassian.net/browse/PS-10595">PS-10595</a>: Improves InnoDB buffer pool initialization on NUMA-enabled systems by using multi-threaded memory allocation, reducing startup time for instances with large buffer pools.</p>
+<p><a href="https://perconadev.atlassian.net/browse/PS-10595">PS-10595</a>: Improves InnoDB buffer pool initialization on NUMA-enabled systems by using multi-threaded memory allocation, reducing startup time for instances with large buffer pools. <code>innodb_numa_interleave</code> no longer controls startup pre-faulting; use <code>innodb_buffer_pool_populate</code>. See <a href="../8.4-defaults-and-tuning.html#numa-interleave-and-buffer-pool-populate">Defaults and tuning guidance for 8.4</a>.</p>
 </li>
 <li>
 <p><a href="https://perconadev.atlassian.net/browse/PS-11120">PS-11120</a>: Improves InnoDB performance for highly concurrent range-select workloads by reducing <code>BUF_BLOCK_MUTEX</code> contention when multiple threads access the same buffer pool page.</p>
@@ -10699,7 +10699,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 11, 2026 10:39:50 UTC">September 11, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 25, 2026 10:18:50 UTC">September 25, 2026</span>
   </span>
 
     

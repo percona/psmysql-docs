@@ -4344,6 +4344,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#numa-interleave-and-buffer-pool-populate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NUMA interleave and buffer pool populate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#practical-evaluation-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10474,6 +10485,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
+  <a href="#numa-interleave-and-buffer-pool-populate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NUMA interleave and buffer pool populate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#practical-evaluation-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10599,8 +10621,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>Higher <code>innodb_io_capacity</code> leverages SSD/NVMe for IO-bound workloads; legacy spinning disks may need a lower value.</li>
 <li>Larger <code>innodb_log_buffer_size</code> reduces redo flush frequency—helpful for write-heavy workloads.</li>
 <li><code>innodb_adaptive_hash_index</code> default OFF favors predictability; the adaptive hash index can become a contention source under concurrency.</li>
-<li><code>innodb_buffer_pool_populate</code> defaults ON to enforce page faults on startup and avoid runtime stalls from page faults; disable it if you value fast startup more than runtime latency.</li>
-<li><code>innodb_numa_interleave</code> defaults ON to reduce memory imbalance on multi-socket systems. It only controls interleaved NUMA allocations and no longer affects whether page faults are enforced on startup.</li>
+<li><code>innodb_buffer_pool_populate</code> defaults ON to enforce page faults on startup and avoid runtime stalls from page faults; disable it if you value fast startup more than runtime latency. See <a href="#numa-interleave-and-buffer-pool-populate">NUMA interleave and buffer pool populate</a>.</li>
+<li><code>innodb_numa_interleave</code> defaults ON to reduce memory imbalance on multi-socket systems. From 8.4.11, it only controls interleaved NUMA allocations and no longer affects whether page faults are enforced on startup.</li>
 <li><code>innodb_change_buffering</code> set to <code>none</code> reduces overhead for modern storage that handles random writes efficiently.</li>
 <li><code>innodb_doublewrite_pages</code> increased to 128 improves doublewrite performance on fast storage.</li>
 </ul>
@@ -10611,8 +10633,30 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>Re-evaluate IO settings (<code>innodb_io_capacity</code>, flush method) based on storage type and observed latency.</li>
 <li>Confirm redo/undo settings and log buffer meet current write patterns.</li>
 <li>Validate parallel read threads relative to CPU topology and workload.</li>
+<li>If <code>innodb_numa_interleave</code> is set to <code>OFF</code>, review <code>innodb_buffer_pool_populate</code>. In 8.4.10, disabling NUMA interleave also skipped startup pre-faulting. In 8.4.11, you must set <code>innodb_buffer_pool_populate=OFF</code> to keep that behavior.</li>
 <li>Generate a fresh config for 8.4 when possible; only reapply carefully justified overrides.</li>
 </ul>
+<h2 id="numa-interleave-and-buffer-pool-populate">NUMA interleave and buffer pool populate<a class="headerlink" href="#numa-interleave-and-buffer-pool-populate" title="Permanent link">&para;</a></h2>
+<p>In 8.4.10, <code>innodb_numa_interleave</code> controlled both interleaved NUMA allocation and whether buffer pool pages were pre-faulted on startup.</p>
+<p>In 8.4.11, those behaviors are separate:</p>
+<ul>
+<li><code>innodb_numa_interleave</code> controls only interleaved NUMA allocations.</li>
+<li><code>innodb_buffer_pool_populate</code> controls whether pages are pre-faulted on startup.</li>
+</ul>
+<p>Both default to <code>ON</code>. With the defaults, startup behavior matches 8.4.10 when <code>innodb_numa_interleave</code> was <code>ON</code>. There is no behavior change unless you override one of the variables.</p>
+<p>If <code>my.cnf</code> disables NUMA interleave, 8.4.11 still pre-faults pages because <code>innodb_buffer_pool_populate</code> remains <code>ON</code>. To compare 8.4.10 and 8.4.11 fairly, also disable populate so neither version pre-faults pages:</p>
+<p>8.4.10:</p>
+<div class="highlight"><pre><span></span><code><span class="na">innodb_buffer_pool_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">4G</span>
+<span class="na">innodb_numa_interleave</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">OFF</span>
+<span class="na">innodb_buffer_pool_load_at_startup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ON</span>
+</code></pre></div>
+<p>Equivalent 8.4.11 configuration (no pre-faulted pages, matching 8.4.10 with NUMA interleave off):</p>
+<div class="highlight"><pre><span></span><code><span class="na">innodb_buffer_pool_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">4G</span>
+<span class="na">innodb_numa_interleave</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">OFF</span>
+<span class="na">innodb_buffer_pool_populate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">OFF</span>
+<span class="na">innodb_buffer_pool_load_at_startup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ON</span>
+</code></pre></div>
+<p>Without <code>MAP_POPULATE</code> (<code>innodb_buffer_pool_populate=OFF</code> in 8.4.11, or <code>innodb_numa_interleave=OFF</code> in 8.4.10), <code>mmap</code> raises only virtual size (VSZ). Resident set size (RSS) grows as pages are first touched.</p>
 <h2 id="practical-evaluation-steps">Practical evaluation steps<a class="headerlink" href="#practical-evaluation-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Benchmark with your workload: establish a baseline on 8.0, then restore to 8.4 and run the same tests.</li>
@@ -10654,7 +10698,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 20, 2026 13:44:20 UTC">August 20, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 25, 2026 10:18:50 UTC">September 25, 2026</span>
   </span>
 
     
@@ -10664,7 +10708,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 20, 2026 13:44:20 UTC">August 20, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 25, 2026 10:18:50 UTC">September 25, 2026</span>
   </span>
 
     

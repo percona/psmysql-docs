@@ -14015,7 +14015,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Improves InnoDB performance for workloads limited by Least Recently Used (LRU) flush speed. The improvements reduce LRU list mutex contention, restore dedicated LRU manager threads, optimize LRU scanning, and allow single-page flushing to proceed while an LRU batch flush is running.</p>
 </li>
 <li>
-<p>Improves InnoDB buffer pool initialization on NUMA-enabled systems by using multi-threaded memory allocation. The improvement reduces initialization time and can shorten server startup for instances with large buffer pools.</p>
+<p>Improves InnoDB buffer pool initialization on NUMA-enabled systems by using multi-threaded memory allocation. The improvement reduces initialization time and can shorten server startup for instances with large buffer pools. Starting in 8.4.11, <code>innodb_numa_interleave</code> controls only interleaved NUMA allocations. Pre-faulting buffer pool pages on startup is controlled by <code>innodb_buffer_pool_populate</code>. Both default to <code>ON</code>, so default behavior matches 8.4.10. If you set <code>innodb_numa_interleave=OFF</code> to skip pre-faulting in 8.4.10, also set <code>innodb_buffer_pool_populate=OFF</code> in 8.4.11. See <a href="#8.4-defaults-and-tuning-numa-interleave-and-buffer-pool-populate">Defaults and tuning guidance for 8.4</a>.</p>
 </li>
 <li>
 <p>Improves InnoDB performance for highly concurrent range-select workloads by reducing <code>BUF_BLOCK_MUTEX</code> contention when multiple threads access the same buffer pool page. The improvement increases throughput for read workloads that repeatedly access the same hot pages.</p>
@@ -14069,7 +14069,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://perconadev.atlassian.net/browse/PS-11447">PS-11447</a>: Improves InnoDB flushing performance by allowing a single-page flush to run while a Least Recently Used (LRU) batch flush is in progress. The number of concurrent single-page flushes is limited to one per buffer pool instance.</p>
 </li>
 <li>
-<p><a href="https://perconadev.atlassian.net/browse/PS-10595">PS-10595</a>: Improves InnoDB buffer pool initialization on NUMA-enabled systems by using multi-threaded memory allocation, reducing startup time for instances with large buffer pools.</p>
+<p><a href="https://perconadev.atlassian.net/browse/PS-10595">PS-10595</a>: Improves InnoDB buffer pool initialization on NUMA-enabled systems by using multi-threaded memory allocation, reducing startup time for instances with large buffer pools. <code>innodb_numa_interleave</code> no longer controls startup pre-faulting; use <code>innodb_buffer_pool_populate</code>. See <a href="#8.4-defaults-and-tuning-numa-interleave-and-buffer-pool-populate">Defaults and tuning guidance for 8.4</a>.</p>
 </li>
 <li>
 <p><a href="https://perconadev.atlassian.net/browse/PS-11120">PS-11120</a>: Improves InnoDB performance for highly concurrent range-select workloads by reducing <code>BUF_BLOCK_MUTEX</code> contention when multiple threads access the same buffer pool page.</p>
@@ -27971,8 +27971,8 @@ Percona Support can help assess and mitigate them <span class="twemoji"><svg xml
 <li>Higher <code>innodb_io_capacity</code> leverages SSD/NVMe for IO-bound workloads; legacy spinning disks may need a lower value.</li>
 <li>Larger <code>innodb_log_buffer_size</code> reduces redo flush frequency—helpful for write-heavy workloads.</li>
 <li><code>innodb_adaptive_hash_index</code> default OFF favors predictability; the adaptive hash index can become a contention source under concurrency.</li>
-<li><code>innodb_buffer_pool_populate</code> defaults ON to enforce page faults on startup and avoid runtime stalls from page faults; disable it if you value fast startup more than runtime latency.</li>
-<li><code>innodb_numa_interleave</code> defaults ON to reduce memory imbalance on multi-socket systems. It only controls interleaved NUMA allocations and no longer affects whether page faults are enforced on startup.</li>
+<li><code>innodb_buffer_pool_populate</code> defaults ON to enforce page faults on startup and avoid runtime stalls from page faults; disable it if you value fast startup more than runtime latency. See <a href="#8.4-defaults-and-tuning-numa-interleave-and-buffer-pool-populate">NUMA interleave and buffer pool populate</a>.</li>
+<li><code>innodb_numa_interleave</code> defaults ON to reduce memory imbalance on multi-socket systems. From 8.4.11, it only controls interleaved NUMA allocations and no longer affects whether page faults are enforced on startup.</li>
 <li><code>innodb_change_buffering</code> set to <code>none</code> reduces overhead for modern storage that handles random writes efficiently.</li>
 <li><code>innodb_doublewrite_pages</code> increased to 128 improves doublewrite performance on fast storage.</li>
 </ul>
@@ -27983,8 +27983,30 @@ Percona Support can help assess and mitigate them <span class="twemoji"><svg xml
 <li>Re-evaluate IO settings (<code>innodb_io_capacity</code>, flush method) based on storage type and observed latency.</li>
 <li>Confirm redo/undo settings and log buffer meet current write patterns.</li>
 <li>Validate parallel read threads relative to CPU topology and workload.</li>
+<li>If <code>innodb_numa_interleave</code> is set to <code>OFF</code>, review <code>innodb_buffer_pool_populate</code>. In 8.4.10, disabling NUMA interleave also skipped startup pre-faulting. In 8.4.11, you must set <code>innodb_buffer_pool_populate=OFF</code> to keep that behavior.</li>
 <li>Generate a fresh config for 8.4 when possible; only reapply carefully justified overrides.</li>
 </ul>
+<h2 id="8.4-defaults-and-tuning-numa-interleave-and-buffer-pool-populate">NUMA interleave and buffer pool populate<a class="headerlink" href="#8.4-defaults-and-tuning-numa-interleave-and-buffer-pool-populate" title="Permanent link">&para;</a></h2>
+<p>In 8.4.10, <code>innodb_numa_interleave</code> controlled both interleaved NUMA allocation and whether buffer pool pages were pre-faulted on startup.</p>
+<p>In 8.4.11, those behaviors are separate:</p>
+<ul>
+<li><code>innodb_numa_interleave</code> controls only interleaved NUMA allocations.</li>
+<li><code>innodb_buffer_pool_populate</code> controls whether pages are pre-faulted on startup.</li>
+</ul>
+<p>Both default to <code>ON</code>. With the defaults, startup behavior matches 8.4.10 when <code>innodb_numa_interleave</code> was <code>ON</code>. There is no behavior change unless you override one of the variables.</p>
+<p>If <code>my.cnf</code> disables NUMA interleave, 8.4.11 still pre-faults pages because <code>innodb_buffer_pool_populate</code> remains <code>ON</code>. To compare 8.4.10 and 8.4.11 fairly, also disable populate so neither version pre-faults pages:</p>
+<p>8.4.10:</p>
+<div class="highlight"><pre><span></span><code><span class="na">innodb_buffer_pool_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">4G</span>
+<span class="na">innodb_numa_interleave</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">OFF</span>
+<span class="na">innodb_buffer_pool_load_at_startup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ON</span>
+</code></pre></div>
+<p>Equivalent 8.4.11 configuration (no pre-faulted pages, matching 8.4.10 with NUMA interleave off):</p>
+<div class="highlight"><pre><span></span><code><span class="na">innodb_buffer_pool_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">4G</span>
+<span class="na">innodb_numa_interleave</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">OFF</span>
+<span class="na">innodb_buffer_pool_populate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">OFF</span>
+<span class="na">innodb_buffer_pool_load_at_startup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ON</span>
+</code></pre></div>
+<p>Without <code>MAP_POPULATE</code> (<code>innodb_buffer_pool_populate=OFF</code> in 8.4.11, or <code>innodb_numa_interleave=OFF</code> in 8.4.10), <code>mmap</code> raises only virtual size (VSZ). Resident set size (RSS) grows as pages are first touched.</p>
 <h2 id="8.4-defaults-and-tuning-practical-evaluation-steps">Practical evaluation steps<a class="headerlink" href="#8.4-defaults-and-tuning-practical-evaluation-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Benchmark with your workload: establish a baseline on 8.0, then restore to 8.4 and run the same tests.</li>
@@ -28091,6 +28113,7 @@ Percona Support can help assess and mitigate them <span class="twemoji"><svg xml
 <p><strong>Action</strong>:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Compare your overrides to 8.4 defaults; remove obsolete settings and re-evaluate IO/log parameters.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> If <code>innodb_numa_interleave=OFF</code>, set <code>innodb_buffer_pool_populate=OFF</code> in 8.4.11 to keep 8.4.10 pre-faulting behavior. See <a href="#8.4-defaults-and-tuning-numa-interleave-and-buffer-pool-populate">NUMA interleave and buffer pool populate</a>.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See: <a href="#8.4-defaults-and-tuning">Defaults and tuning guidance for 8.4</a></li>
 </ul>
 <h3 id="upgrade-checklist-8.4-spatial-indexes">Spatial indexes<a class="headerlink" href="#upgrade-checklist-8.4-spatial-indexes" title="Permanent link">&para;</a></h3>
