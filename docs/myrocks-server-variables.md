@@ -540,14 +540,51 @@ Allowed range is from `1` to `2147483647`.
 | Data type    | Boolean             |
 | Default      | OFF                 |
 
-Specifies whether to use bulk load:
-MyRocks will ignore checking keys for uniqueness
-or acquiring locks during transactions.
-Disabled by default.
-Enable this only if you are certain that there are no row conflicts,
-for example, when setting up a new MyRocks instance from a MySQL dump.
+Enables bulk-load mode for `INSERT` operations.
 
-When the `rocksdb_bulk_load` variable is enabled, it behaves as if the variable `rocksdb_commit_in_the_middle` is enabled, even if the variable `rocksdb_commit_in_the_middle` is disabled.
+Bulk-load mode does the following:
+
+* Skips unique key checks
+
+* Skips row locks
+
+* Uses the implicit-commit behavior of [`rocksdb_commit_in_the_middle`](#rocksdb_commit_in_the_middle), even when `rocksdb_commit_in_the_middle` is `OFF`
+
+Enable this mode only when the input has no conflicting rows. A typical case is a load from a MySQL dump into an empty table.
+
+To check unique keys during bulk load, see [`rocksdb_bulk_load_enable_unique_key_check`](#rocksdb_bulk_load_enable_unique_key_check).
+
+When [`rocksdb_enable_bulk_load_api`](#rocksdb_enable_bulk_load_api) is `ON`, MyRocks writes keys to Sorted String Table (SST) files with `SstFileWriter`. MyRocks then ingests those SST files into the bottommost RocksDB level. The SST ingest path skips the memtable and compaction.
+
+When [`rocksdb_enable_bulk_load_api`](#rocksdb_enable_bulk_load_api) is `OFF`, MyRocks writes through the memtable.
+
+Tables with a hidden primary key do not use the SST ingest path.
+
+#### Overlap rules
+
+* Keys in the bulk load must not overlap existing keys in the table
+
+* Load into an empty table to meet this rule
+
+* You can load more data later if the new key range does not overlap existing data
+
+#### Visibility rules
+
+* Rows stay invisible until MyRocks ingests the SST file
+
+* MyRocks ingests the current SST file when you set `rocksdb_bulk_load` to `OFF`
+
+* MyRocks also ingests the current SST file when the session starts a bulk load on a different table
+
+* Do not interleave `INSERT` statements across two or more tables in one bulk-load session
+
+A `SELECT` on a table during bulk load can return only older rows. The most recent inserted rows can be missing until ingest completes.
+
+Out-of-order inserts fail when unsorted input is not allowed. Some rows can be ingested and some can be missing. Truncate the table, fix the key order, and load again.
+
+Secondary keys use the memtable path unless [`rocksdb_bulk_load_allow_sk`](#rocksdb_bulk_load_allow_sk) is `ON`.
+
+For load procedures, see [Data loading](myrocks-data-loading.md).
 
 
 
@@ -562,8 +599,33 @@ When the `rocksdb_bulk_load` variable is enabled, it behaves as if the variable 
 | Data type    | Boolean                      |
 | Default      | OFF                          |
 
-Enabling this variable allows secondary keys to be added using the bulk loading
-feature. This variable can be enabled or disabled only when the rocksdb_bulk_load is `OFF`.
+Allows bulk load of secondary keys. Change this variable only when [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `OFF`.
+
+Secondary-key bulk load also requires [`rocksdb_enable_bulk_load_api`](#rocksdb_enable_bulk_load_api) to be `ON`. Secondary-key bulk load applies to inserts. Updates do not use this path.
+
+When this variable is `OFF`:
+
+* Bulk load applies to the primary key only
+
+* Secondary keys use the memtable, write-ahead log (WAL), flush, and compaction path
+
+When this variable is `ON`:
+
+* MyRocks writes secondary keys to temporary files under `rocksdb_tmpdir`
+
+* MyRocks sorts those keys
+
+* MyRocks ingests the sorted keys when the bulk load ends
+
+A bulk load for a table ends in either of the following cases:
+
+* The session sets `rocksdb_bulk_load` to `OFF`
+
+* The session starts a bulk load on a different table
+
+Keep the table empty when the table has secondary indexes. RocksDB ingest requires key ranges that do not overlap existing data.
+
+For load procedures, see [Data loading](myrocks-data-loading.md).
 
 
 
@@ -578,9 +640,23 @@ feature. This variable can be enabled or disabled only when the rocksdb_bulk_loa
 | Data type    | Boolean                            |
 | Default      | OFF                                |
 
-By default, the bulk loader requires its input to be sorted in the primary
-key order. If enabled, unsorted inputs are allowed too, which are then
-sorted by the bulkloader itself, at a performance penalty.
+Allows unsorted input during bulk load. Change this variable only when [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `OFF`.
+
+When this variable is `OFF`, bulk load requires input in primary key order. Reverse order is allowed. MyRocks caches reverse-order rows in chunks and rewrites those rows in the expected order.
+
+When this variable is `ON`:
+
+* Unsorted input is allowed
+
+* MyRocks writes rows to temporary files
+
+* MyRocks sorts the rows by primary key
+
+* MyRocks then writes sorted SST files
+
+The extra sort step has a performance cost. Primary-key writes go to temporary files first.
+
+For load procedures, see [Data loading](myrocks-data-loading.md).
 
 
 
@@ -625,21 +701,17 @@ This setting can only be changed when bulk loading is disabled.
 
 | Option       | Description                |
 |--------------|----------------------------|
-| Command-line | --rocksdb_bulk_load_fail_if_not_bottommost_level |
+| Command-line | --rocksdb-bulk-load-fail-if-not-bottommost-level |
 | Dynamic      | Yes                         |
 | Scope        | Global, Session             |
 | Data type    | Boolean                     |
 | Default      | OFF                         |
 
-When this variable is enabled, the bulk load fails if an sst file created during bulk load cannot be placed to the bottommost level in the rocksdb. 
-
-This variable can be enabled or disabled only when the [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `OFF`.
-
-This variable is disabled (OFF) by default.
+Fails the bulk load if an SST file cannot go to the bottommost RocksDB level. Change this variable only when [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `OFF`.
 
 !!! warning
 
-    When `rocksdb_bulk_load_fail_if_not_bottommost_level` is disabled, it may cause severe performance impact.
+    If this variable is `OFF`, ingest that misses the bottommost level can reduce performance.
 
 
 
@@ -684,15 +756,15 @@ Allowed range is from `1` to `1073741824`.
 
 | Option       | Description         |
 |--------------|---------------------|
-| Command-line | --rocksdb_bulk_load_use_sst_partitioner |
+| Command-line | --rocksdb-bulk-load-use-sst-partitioner |
 | Dynamic      | Yes                 |
 | Scope        | Global, Session     |
 | Data type    | Boolean             |
 | Default      | OFF                 |
 
-If enabled, this variable uses sst partitioner to split sst files to ensure bulk load sst files can be ingested to bottommost level.
+Uses an SST partitioner to split SST files. Split files can ingest at the bottommost level. Change this variable only when [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `OFF`.
 
-This variable is disabled (OFF) by default.
+If another bulk-load transaction already uses the same index, the bulk load fails.
 
 
 
@@ -889,19 +961,23 @@ This variable is enabled (ON) by default.
 |--------------|--------------------------------|
 | Command-line | --rocksdb-commit-in-the-middle |
 | Dynamic      | Yes                            |
-| Scope        | Global                         |
+| Scope        | Global, Session                |
 | Data type    | Boolean                        |
 | Default      | OFF                            |
 
-Specifies whether to commit rows implicitly
-when a batch contains more than the value of
-rocksdb_bulk_load_size.
+Commits rows implicitly when the batch reaches [`rocksdb_bulk_load_size`](#rocksdb_bulk_load_size).
 
-This option should only be enabled at the time of data import because it may cause locking errors.
+The implicit commit applies to bulk load, `INSERT`, `UPDATE`, and `DELETE`.
 
+Enable this variable only during data import. Implicit commits can cause locking errors.
 
-This variable is disabled by default.
-When the rocksdb_bulk_load variable is enabled, it behaves as if the variable rocksdb_commit_in_the_middle is enabled, even if the variable rocksdb_commit_in_the_middle is disabled.
+If a statement fails after an implicit commit, MyRocks does not roll back the committed rows. Truncate the table and load the data again.
+
+When [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `ON`, MyRocks uses this implicit-commit behavior even if `rocksdb_commit_in_the_middle` is `OFF`.
+
+This behavior is skipped when [`rocksdb_write_policy`](#rocksdb_write_policy) is `write_unprepared`.
+
+For load procedures, see [Data loading](myrocks-data-loading.md).
 
 
 
@@ -1613,13 +1689,29 @@ Prior to Percona Server for MySQL 8.4.5-5, this variable was enabled (`ON`) by d
 | Data type    | Boolean                        |
 | Default      | ON                             |
 
-Specifies whether to use the `SSTFileWriter` feature for bulk loading,
-This feature bypasses the memtable,
-but requires keys to be inserted into the table
-in either ascending or descending order.
-Enabled by default.
-If disabled, bulk loading uses the normal write path via the memtable
-and does not require keys to be inserted in any order.
+Enables `SstFileWriter` for bulk load. This variable is read-only. Set this variable at server start.
+
+When this variable is `ON` and [`rocksdb_bulk_load`](#rocksdb_bulk_load) is `ON`:
+
+* MyRocks writes the primary key to SST files and ingests those files
+
+* The SST ingest path skips the memtable
+
+* Keys must be in ascending or descending order unless [`rocksdb_bulk_load_allow_unsorted`](#rocksdb_bulk_load_allow_unsorted) is `ON`
+
+* Tables with a hidden primary key skip the SST ingest path
+
+When this variable is `OFF` and `rocksdb_bulk_load` is `ON`:
+
+* MyRocks uses the memtable write path
+
+* Key order is not required on that path
+
+* Secondary-key bulk load is not available
+
+Unique checks stay skipped while `rocksdb_bulk_load` is `ON`, on both paths.
+
+For load procedures, see [Data loading](myrocks-data-loading.md).
 
 
 
