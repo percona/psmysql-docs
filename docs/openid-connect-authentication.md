@@ -28,7 +28,7 @@ The plugin provides the following capabilities:
 
 * Support the signature algorithms listed in [Supported signature algorithms](#supported-signature-algorithms).
 
-Proxy support is a Percona-specific addition. The upstream MySQL OIDC plugin does not include this capability.
+Proxy support is a Percona-specific addition. The MySQL OIDC plugin does not include this capability.
 
 The server-side plugin pairs with the `authentication_openid_connect_client` client-side plugin distributed with Percona Server for MySQL.
 
@@ -99,6 +99,13 @@ The plugin selects the authentication mode from the fields present in the accoun
 | `identity_provider`, `user`          | Direct authentication | The handshake account (no proxying)               |
 | `identity_provider`, `group`         | Named-group proxying  | The literal value of `group`                      |
 | `identity_provider` only             | Anonymous proxying    | The first entry in the token's `groups` claim     |
+| `identity_provider`, `user`, `group` | Direct authentication | The handshake account. The `group` field is ignored. |
+
+!!! note "Do not combine `user` and `group`"
+
+    When the `IDENTIFIED ... AS` JSON contains both `user` and `group`, the combination is ambiguous in intent. The plugin treats the account as direct authentication: it verifies the `sub` claim against `user` and does not proxy. The `group` field is ignored for mode selection and is not used as a membership check. Group-to-role mapping from `group-claim` still applies if that mapping is configured.
+
+    Specify either `user` (direct authentication) or `group` (named-group proxying), not both.
 
 The `sub` claim is verified against `user` only in direct authentication. Proxy modes verify group membership instead.
 
@@ -388,6 +395,8 @@ The clause requires two fields:
 
 * `user` must match the `sub` claim in the Identity tokens that the IDP issues for this user.
 
+Do not add a `group` field to this JSON. When `user` and `group` appear together, the plugin ignores `group` and keeps direct authentication. See [How does OpenID Connect authentication work?](#how-does-openid-connect-authentication-work).
+
 For Keycloak, the `sub` claim contains the user UUID. For other providers, the claim may contain an email address or another stable identifier.
 
 The server validates the JSON at connection time, not at user creation. The connection fails when either field is missing. The connection also fails when the configuration does not contain the referenced IDP.
@@ -551,7 +560,7 @@ The two subsections that follow show end-to-end examples for both proxy modes. B
 
 In named-group proxying, the connecting MySQL user names the IDP group for the session. Named-group proxying suits users who belong to multiple groups and need to choose between them per session.
 
-Create one MySQL account per group. The `group` field in the `AS` JSON pins the account to one IDP group:
+Create one MySQL account per group. The `group` field in the `AS` JSON pins the account to one IDP group. Do not include a `user` field in the same JSON. If both fields are present, the plugin ignores `group` and uses direct authentication instead of proxying:
 
 ```sql
 CREATE USER 'accounting'@'%'
