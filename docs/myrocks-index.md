@@ -46,6 +46,8 @@ engines, if your workload uses fast storage, such as SSD:
 
 [MyRocks Server Variables](myrocks-server-variables.md)
 
+[Size MyRocks background jobs](myrocks-background-jobs.md)
+
 [MyRocks Information Schema Tables](myrocks-information-schema-tables.md)
 
 [Performance Schema MyRocks changes](performance-schema-myrocks-changes.md)
