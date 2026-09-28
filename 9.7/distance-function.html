@@ -9,17 +9,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL extends the SET_VAR introduced in MySQL 9.7
-effectively replacing the SET STATEMENT ... FOR statement. SET_VAR is an
-optimizer hint that can be applied to session variables.">
+        <meta name="description" content="The DISTANCE() function computes the distance between two VECTOR values to enable similarity searches and other vector-based operations.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/9.7/extended-set-var.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/9.7/distance-function.html">
       
       
+        <link rel="prev" href="vector.html">
+      
+      
+        <link rel="next" href="sql-conventions.html">
       
       
         
@@ -30,7 +32,7 @@ optimizer hint that can be applied to session variables.">
     
     
       
-        <title>Extended SET VAR optimizer hint - Percona Server for MySQL</title>
+        <title>DISTANCE() Function - Percona Server for MySQL</title>
       
     
     
@@ -100,7 +102,7 @@ optimizer hint that can be applied to session variables.">
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Extended SET VAR optimizer hint" />
+                 <meta property="og:title" content="Percona Server for MySQL - DISTANCE() Function" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
               
@@ -123,7 +125,7 @@ optimizer hint that can be applied to session variables.">
     <div data-md-component="skip">
       
         
-        <a href="#extended-set-var-optimizer-hint" class="md-skip">
+        <a href="#distance-function" class="md-skip">
           Skip to content
         </a>
       
@@ -220,7 +222,7 @@ optimizer hint that can be applied to session variables.">
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Extended SET VAR optimizer hint
+              DISTANCE() Function
             
           </span>
         </div>
@@ -4841,8 +4843,10 @@ optimizer hint that can be applied to session variables.">
       
   
   
+    
   
   
+  
     
     
       
@@ -4856,11 +4860,11 @@ optimizer hint that can be applied to session variables.">
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
           <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
@@ -4881,7 +4885,7 @@ optimizer hint that can be applied to session variables.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5163,8 +5167,10 @@ optimizer hint that can be applied to session variables.">
                 
   
   
+    
   
   
+  
     
     
       
@@ -5194,11 +5200,11 @@ optimizer hint that can be applied to session variables.">
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2" checked>
         
           
           <label class="md-nav__link" for="__nav_10_2" id="__nav_10_2_label" tabindex="0">
@@ -5219,7 +5225,7 @@ optimizer hint that can be applied to session variables.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_10_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5290,8 +5296,10 @@ optimizer hint that can be applied to session variables.">
                 
   
   
+    
   
   
+  
     
     
       
@@ -5303,11 +5311,11 @@ optimizer hint that can be applied to session variables.">
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2_3" checked>
         
           
           <label class="md-nav__link" for="__nav_10_2_3" id="__nav_10_2_3_label" tabindex="0">
@@ -5328,7 +5336,7 @@ optimizer hint that can be applied to session variables.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_2_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_2_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_10_2_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5371,10 +5379,37 @@ optimizer hint that can be applied to session variables.">
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="distance-function.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DISTANCE() Function
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="distance-function.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -5390,6 +5425,94 @@ optimizer hint that can be applied to session variables.">
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arguments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-distance-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported distance metrics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Return value
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -10091,7 +10214,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
                       <div data-banner="data-banner" class="edit-contrib-banner">
   <div class="banner-content">
     <!-- Edit link centered -->
-    <a href="https://github.com/percona/psmysql-docs/edit/9.7/docs/extended-set-var.md" title="Edit this page on GitHub" class="edit-page-link">
+    <a href="https://github.com/percona/psmysql-docs/edit/9.7/docs/distance-function.md" title="Edit this page on GitHub" class="edit-page-link">
       <span class="edit-page-icon">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
@@ -10136,6 +10259,80 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arguments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-distance-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported distance metrics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Return value
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                     </div>
                   </div>
@@ -10157,52 +10354,159 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/9.7/docs/extended-set-var.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/9.7/docs/distance-function.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="extended-set-var-optimizer-hint">Extended SET VAR optimizer hint<a class="headerlink" href="#extended-set-var-optimizer-hint" title="Permanent link">&para;</a></h1>
-<p>Percona Server for MySQL extends the <code>SET_VAR</code> introduced in MySQL 9.7
-effectively replacing the <code>SET STATEMENT ... FOR</code> statement. <code>SET_VAR</code> is an
-optimizer hint that can be applied to session variables.</p>
-<p>Percona Server for MySQL 9.7 extends the <code>SET_VAR</code> hint to support the
-following:</p>
+<h1 id="distance-function">DISTANCE() Function<a class="headerlink" href="#distance-function" title="Permanent link">&para;</a></h1>
+<p>The <code>DISTANCE()</code> function computes the distance between two <code>VECTOR</code> values to enable similarity searches and other vector-based operations.</p>
+<p>A vector is an ordered list of numeric values, such as <code>[1, 2, 3]</code>. The distance between two vectors is a numeric value that indicates how similar the vectors are.</p>
+<p>A distance metric defines how the function calculates this value. Different metrics compare properties such as vector values, direction, or magnitude. In general, a smaller distance indicates greater similarity.</p>
+<p><code>VECTOR_DISTANCE()</code> is a synonym for <code>DISTANCE()</code> and provides compatibility with MySQL 9.x syntax. Both functions accept the same arguments and return the same result.</p>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">DISTANCE</span><span class="p">(</span><span class="n">vector_a</span><span class="p">,</span><span class="w"> </span><span class="n">vector_b</span><span class="p">,</span><span class="w"> </span><span class="n">metric</span><span class="p">)</span>
+
+<span class="n">VECTOR_DISTANCE</span><span class="p">(</span><span class="n">vector_a</span><span class="p">,</span><span class="w"> </span><span class="n">vector_b</span><span class="p">,</span><span class="w"> </span><span class="n">metric</span><span class="p">)</span>
+</code></pre></div>
+<p>Both functions require exactly three arguments.</p>
+<h2 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h2>
+<p><code>DISTANCE()</code> accepts the following arguments:</p>
 <ul>
 <li>
-<p>The <code>OPTIMIZE TABLE</code> statement</p>
+<p><code>vector_a</code> and <code>vector_b</code> specify the vectors to compare. Both arguments must be values of <code>VECTOR</code> data type or binary strings that represent float vectors. Other data types cause an error. The vectors must have the same dimension. A dimension mismatch causes an error.</p>
 </li>
 <li>
-<p>MyISAM session variables</p>
-</li>
-<li>
-<p>Plugin or Storage Engine variables</p>
-</li>
-<li>
-<p>InnoDB Session variables</p>
-</li>
-<li>
-<p>The <code>ALTER TABLE</code> statement</p>
-</li>
-<li>
-<p><code>CALL stored_proc()</code> statement</p>
-</li>
-<li>
-<p>The <code>ANALYZE TABLE</code> statement</p>
-</li>
-<li>
-<p>The <code>CHECK TABLE</code> statement</p>
-</li>
-<li>
-<p>The <code>LOAD INDEX</code> statement (used for MyISAM)</p>
-</li>
-<li>
-<p>The <code>CREATE TABLE</code> statement</p>
+<p><code>metric</code> specifies the distance metric. Use a constant string or hex literal that resolves to a supported metric. Metric names are case-insensitive. You cannot use a column reference or a computed expression, such as <code>CONCAT()</code>, for this argument.</p>
 </li>
 </ul>
-<p>Percona Server for MySQL also supports setting the following variables by using <code>SET_VAR</code>:</p>
+<p>For a binary-string vector, the byte length must be a multiple of 4 because each vector element is a 4-byte single-precision floating-point value. An invalid byte length causes an error.</p>
+<p>The <code>metric</code> argument cannot be <code>NULL</code>. An unsupported metric name causes an error.</p>
+<h2 id="supported-distance-metrics">Supported distance metrics<a class="headerlink" href="#supported-distance-metrics" title="Permanent link">&para;</a></h2>
+<p>The following distance metrics are supported:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EUCLIDEAN</code></td>
+<td>Measures the straight-line distance between two vectors (L2 distance). The result is non-negative. A value of <code>0</code> means the vectors are identical. Lower values indicate greater similarity.</td>
+</tr>
+<tr>
+<td><code>EUCLIDEAN_SQUARED</code></td>
+<td>Calculates the square of the Euclidean distance without the square root calculation. Use this metric when you need to rank vectors by distance but do not need the actual Euclidean distance. The result is non-negative. A value of <code>0</code> means the vectors are identical. Lower values indicate greater similarity.</td>
+</tr>
+<tr>
+<td><code>COSINE</code></td>
+<td>Calculates cosine distance as <code>1 - cosine similarity</code>. Cosine similarity ranges from <code>-1</code> to <code>1</code>, where <code>1</code> indicates the same direction, <code>0</code> indicates orthogonal vectors, and <code>-1</code> indicates opposite directions. Therefore, cosine distance ranges from <code>0</code> to <code>2</code>, where <code>0</code> indicates the same direction, <code>1</code> indicates orthogonal vectors, and <code>2</code> indicates opposite directions.</td>
+</tr>
+<tr>
+<td><code>DOT</code></td>
+<td>Calculates the negative inner product (dot product). The dot product multiplies corresponding elements from the two vectors and adds the results. <code>DISTANCE()</code> multiplies the inner product by <code>-1</code> so that lower returned values represent more closely aligned vectors.</td>
+</tr>
+<tr>
+<td><code>MANHATTAN</code></td>
+<td>Adds the absolute differences between corresponding vector elements (L1 distance). The result is non-negative. A value of <code>0</code> means the vectors are identical. Lower values indicate greater similarity.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>COSINE</code> and <code>DOT</code> metrics transform their underlying similarity values into distance values so that a lower value consistently represents a closer match across all supported metrics. As a result, you can sort distance values in ascending order regardless of the selected metric:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<span class="w">       </span><span class="n">DISTANCE</span><span class="p">(</span><span class="n">embedding</span><span class="p">,</span><span class="w"> </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.1, 0.2, 0.3]'</span><span class="p">),</span><span class="w"> </span><span class="s1">'COSINE'</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">products</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="k">ASC</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div>
+<p>The query returns the five closest vectors without requiring a different sort direction for <code>COSINE</code> or <code>DOT</code>.</p>
+<h2 id="return-value">Return value<a class="headerlink" href="#return-value" title="Permanent link">&para;</a></h2>
+<p><code>DISTANCE()</code> returns a <code>DOUBLE</code> value that represents the result of the selected distance metric. <code>DOUBLE</code> is a floating-point numeric data type that can represent fractional values, for example, <code>5.196152</code>.</p>
+<p>If either input vector is <code>NULL</code>, <code>DISTANCE()</code> returns <code>NULL</code>.</p>
+<p>With the <code>COSINE</code> metric, <code>DISTANCE()</code> returns <code>NULL</code> if either vector has a zero L2 norm (magnitude), such as <code>[0, 0, 0]</code>. Cosine distance is undefined for a zero vector.</p>
+<p>The result is nullable regardless of whether the input columns allow <code>NULL</code>. When you use <code>DISTANCE()</code> with <code>CREATE TABLE ... SELECT</code>, MySQL creates the result column with the <code>DOUBLE</code> data type.</p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h3 id="calculate-the-distance-between-two-vectors">Calculate the distance between two vectors<a class="headerlink" href="#calculate-the-distance-between-two-vectors" title="Permanent link">&para;</a></h3>
+<p><code>TO_VECTOR()</code> converts the string representation of a vector to a <code>VECTOR</code> value.</p>
+<p>The following example calculates the Euclidean distance between two vectors:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
+<span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[1, 2, 3]'</span><span class="p">),</span>
+<span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[4, 5, 6]'</span><span class="p">),</span>
+<span class="w">    </span><span class="s1">'EUCLIDEAN'</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span><span class="p">;</span>
+</code></pre></div>
+<p>The result is a <code>DOUBLE</code> value:</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+-------------------+
+| distance          |
++-------------------+
+| 5.196152422706632 |
++-------------------+
+</code></pre></div>
+</details>
+<h3 id="use-another-distance-metric">Use another distance metric<a class="headerlink" href="#use-another-distance-metric" title="Permanent link">&para;</a></h3>
+<p>Specify a different metric in the third argument to change how <code>DISTANCE()</code> compares the vectors.</p>
+<p>The following example calculates the cosine distance:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
+<span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[1, 2, 3]'</span><span class="p">),</span>
+<span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[4, 5, 6]'</span><span class="p">),</span>
+<span class="w">    </span><span class="s1">'COSINE'</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="find-similar-vectors">Find similar vectors<a class="headerlink" href="#find-similar-vectors" title="Permanent link">&para;</a></h3>
+<p>Assume that the <code>documents</code> table contains an <code>embedding</code> column defined as <code>VECTOR(3)</code>.</p>
+<p>Use <code>DISTANCE()</code> in an <code>ORDER BY</code> clause to rank stored vectors by their distance from a query vector. Sorting by distance in ascending order places the closest vectors first.</p>
+<p>The following query uses cosine distance to return the five closest vectors:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<span class="w">       </span><span class="n">DISTANCE</span><span class="p">(</span>
+<span class="w">           </span><span class="n">embedding</span><span class="p">,</span>
+<span class="w">           </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.1, 0.2, 0.3]'</span><span class="p">),</span>
+<span class="w">           </span><span class="s1">'COSINE'</span>
+<span class="w">       </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">documents</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="k">ASC</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div>
+<p><code>VECTOR_DISTANCE()</code> produces the same result:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<span class="w">       </span><span class="n">VECTOR_DISTANCE</span><span class="p">(</span>
+<span class="w">           </span><span class="n">embedding</span><span class="p">,</span>
+<span class="w">           </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.1, 0.2, 0.3]'</span><span class="p">),</span>
+<span class="w">           </span><span class="s1">'COSINE'</span>
+<span class="w">       </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">documents</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="k">ASC</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="calculate-similarity-values">Calculate similarity values<a class="headerlink" href="#calculate-similarity-values" title="Permanent link">&para;</a></h3>
+<p><code>DISTANCE()</code> returns distance-oriented values so that lower values consistently represent closer vectors. You can convert the result back to the underlying similarity value for the <code>COSINE</code> and <code>DOT</code> metrics.</p>
+<p>For <code>COSINE</code>, subtract the distance from <code>1</code> to calculate cosine similarity:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<span class="w">       </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
+<span class="w">           </span><span class="n">embedding</span><span class="p">,</span>
+<span class="w">           </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.1, 0.2, 0.3]'</span><span class="p">),</span>
+<span class="w">           </span><span class="s1">'COSINE'</span>
+<span class="w">       </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">similarity</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">documents</span><span class="p">;</span>
+</code></pre></div>
+<p>For <code>DOT</code>, multiply the returned distance by <code>-1</code> to calculate the inner product:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<span class="w">       </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
+<span class="w">           </span><span class="n">embedding</span><span class="p">,</span>
+<span class="w">           </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.1, 0.2, 0.3]'</span><span class="p">),</span>
+<span class="w">           </span><span class="s1">'DOT'</span>
+<span class="w">       </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">similarity</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">documents</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="vector.html">The VECTOR Type</a></li>
+</ul>
 
 
 
@@ -10225,7 +10529,7 @@ following:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 26, 2023 13:54:36 UTC">October 26, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 28, 2026 13:19:54 UTC">September 28, 2026</span>
   </span>
 
     
@@ -10235,11 +10539,39 @@ following:</p>
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 22, 2022 12:09:29 UTC">September 22, 2022</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 28, 2026 13:19:54 UTC">September 28, 2026</span>
   </span>
 
     
     
+    
+      
+  <span class="md-source-file__fact">
+    
+      
+  <span class="md-icon" title="Contributors">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+  </span>
+  <span>GitHub</span>
+
+    
+    <nav>
+      
+        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
+          
+          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
+        </a>
+      
+        <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
+          
+          <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
+      
+      
+      
+    </nav>
+  </span>
+
     
   </aside>
 
