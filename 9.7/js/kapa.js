@@ -1,3 +1,8 @@
+// "Ask Percona AI" button for Percona Server docs.
+// The Kapa widget itself (with all its data-* config) is loaded from
+// main.html as a markup <script data-osano="ESSENTIAL">, so Osano doesn't
+// block it. This file only creates the button and opens the widget via
+// Kapa's JS API, so it works no matter which one loads first.
 (function () {
     function createAIButton() {
         if (document.getElementById("ask-percona-ai")) {
@@ -20,79 +25,18 @@
             <span class="percona-text">Ask Percona AI</span>
         `;
 
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            if (window.Kapa && typeof window.Kapa.open === "function") {
+                window.Kapa.open();
+            } else {
+                console.warn("Kapa widget not loaded yet (blocked or still loading).");
+            }
+        });
+
         // Place button AFTER search component
         search.parentNode.insertBefore(button, search.nextSibling);
     }
 
-    function loadKapa() {
-        // Prevent duplicate loading
-        if (document.getElementById("kapa-widget-script")) {
-            return;
-        }
-
-        const script = document.createElement("script");
-
-        script.id = "kapa-widget-script";
-
-        script.src = "https://widget.kapa.ai/kapa-widget.bundle.js";
-
-        script.async = true;
-
-        // REQUIRED CONFIG
-        script.setAttribute(
-            "data-website-id",
-            "0e0d55cf-6370-4a6d-a987-96670a7fe935"
-        );
-
-        script.setAttribute(
-            "data-modal-override-open-selector",
-            "#ask-percona-ai"
-        );
-
-        script.setAttribute(
-            "data-button-hide",
-            "true"
-        );
-
-        script.setAttribute(
-            "data-project-name",
-            "Percona"
-        );
-
-        script.setAttribute(
-            "data-modal-title",
-            "Percona AI Assistant"
-        );
-
-        script.setAttribute(
-            "font-size",
-            "0.875rem"
-        );
-
-        // MODAL CONTENT
-        script.setAttribute(
-            "data-modal-disclaimer",
-            "The **Percona AI Assistant** helps you find simple, clear answers to your Percona questions using [official documentation](https://docs.percona.com/), resolved [forum posts](https://forums.percona.com/) and [blog posts](https://www.percona.com/blog/). Note, do not enter personal or confidential information. Before using Percona AI assistant, read the [Legal Notice](https://docs.percona.com/percona-server/9.7/legal-notice.html)."
-        );
-
-        script.setAttribute(
-            "data-modal-example-questions",
-            "How do I get started quickly with Percona Server?, How do I install Percona Server?, How do I upgrade Percona Server?, How should I use the Audit Log Filter plugin?"
-        );
-
-        script.setAttribute(
-            "data-project-logo",
-            "https://docs.percona.com/percona-server/9.7/_static/percona-logomark-one-color-dark.png"
-        );
-
-        document.head.appendChild(script);
-    }
-
     createAIButton();
-    loadKapa();
-
-    document.addEventListener("navigation.instant", () => {
-        createAIButton();
-        loadKapa();
-    });
 })();
