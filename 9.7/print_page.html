@@ -7862,6 +7862,8 @@
       
         
       
+        
+      
     
     
     
@@ -8085,6 +8087,34 @@
     
   
     Additional PERFORMANCE_SCHEMA tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="thread-states.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thread states for DROP TABLE operations
   
 
     
@@ -12603,6 +12633,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-ellipsis">
       
         Additional PERFORMANCE_SCHEMA tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread states for DROP TABLE operations
       
     </span>
   </a>
@@ -45993,7 +46034,67 @@ keyword is followed by a number other than zero:</p>
 <td>Number of days for which account is locked due to failed login lock tracking. -1 means that account is locked &ldquo;forever&rdquo; (until server restart/FLUSH PRIVILEGES or specific account unlock). NULL if tracking is not enabled for account</td>
 </tr>
 </tbody>
-</table></section></section>
+</table></section><section class="print-page" id="thread-states" heading-number="15.8"><h1 id="thread-states-thread-states-for-drop-table-operations">Thread states for DROP TABLE operations<a class="headerlink" href="#thread-states-thread-states-for-drop-table-operations" title="Permanent link">&para;</a></h1>
+<p>Percona Server for MySQL 9.7.2-2 adds two performance schema stages for <code>DROP TABLE</code> operations. The stages mark the start and the end of a table drop. Use the stages to check whether a session actively runs a table drop. The stages help diagnose long-running or blocked <code>DROP TABLE</code> statements.</p>
+<h2 id="thread-states-stages">Stages<a class="headerlink" href="#thread-states-stages" title="Permanent link">&para;</a></h2>
+<p>The following table lists the two stages:</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stage/sql/dropping table</code></td>
+<td>The thread starts the drop operation. Percona Server for MySQL sets this stage at the start of <code>drop_base_table()</code> for base tables and at the start of <code>drop_temporary_table()</code> for temporary tables.</td>
+</tr>
+<tr>
+<td><code>stage/sql/after drop</code></td>
+<td>The thread completes the drop routine and returns.</td>
+</tr>
+</tbody>
+</table>
+<p>A <code>DROP TABLE</code> statement completes fast. The two stages stay visible for a short time only. Query the stage history in Performance Schema to capture the stages. Do not rely only on <code>SHOW PROCESSLIST</code>.</p>
+<h2 id="thread-states-stage-history-example">Stage history example<a class="headerlink" href="#thread-states-stage-history-example" title="Permanent link">&para;</a></h2>
+<p>Truncate the stage history, run a <code>DROP TABLE</code> statement, and query the recorded stage events:</p>
+<div class="highlight"><pre><span></span><code><span class="k">TRUNCATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">events_stages_history_long</span><span class="p">;</span>
+
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="n">t1</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">EVENT_NAME</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">events_stages_history_long</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">EVENT_ID</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>EVENT_NAME
+stage/sql/starting
+stage/sql/checking permissions
+stage/sql/dropping table
+stage/sql/after drop
+stage/sql/waiting for handler commit
+stage/sql/query end
+stage/sql/closing tables
+stage/sql/freeing items
+stage/sql/cleaning up
+</code></pre></div>
+</details>
+<p>The <code>INFORMATION_SCHEMA.PROFILING</code> table shows the same stages without the <code>stage/sql/</code> prefix: <code>dropping table</code> and <code>after drop</code>. Percona deprecated <code>INFORMATION_SCHEMA.PROFILING</code>. Use Performance Schema instead.</p>
+<h2 id="thread-states-notes">Notes<a class="headerlink" href="#thread-states-notes" title="Permanent link">&para;</a></h2>
+<p>The following notes apply to the two stages:</p>
+<ul>
+<li>
+<p>The stages apply to base tables and temporary tables</p>
+</li>
+<li>
+<p>The stage names use lowercase, plain English text, consistent with existing stage names such as <code>creating table</code> and <code>After create</code></p>
+</li>
+<li>
+<p>If <code>performance_schema.threads</code> or <code>SHOW PROCESSLIST</code> does not show the stages, the drop operation likely completed before the sample. Query <code>events_stages_history_long</code> for a reliable trace</p>
+</li>
+</ul></section></section>
                     <section class='print-page md-section' id='section-16' heading-number='16'>
                         <h1>Troubleshoot<a class='headerlink' href='#section-16' title='Permanent link'></a>
                         </h1>
@@ -60037,6 +60138,8 @@ contributions and changes from MariaDB.</p>
 .print-site-enumerate-headings #misc-info-schema-tables > h1:before { content: '15.6 ' }
 
 .print-site-enumerate-headings #additional-performance-schema-tables > h1:before { content: '15.7 ' }
+
+.print-site-enumerate-headings #thread-states > h1:before { content: '15.8 ' }
 
 .print-site-enumerate-headings #section-16 > h1:before { content: '16 ' }
 .print-site-enumerate-headings #troubleshoot-overview > h1:before { content: '16.1 ' }

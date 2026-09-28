@@ -9,19 +9,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL defines additional reserved keywords that are not included in the MySQL reserved keyword list. When you use Percona Server for MySQL, consider these keywords reserved in addition to the MySQL reserved keywords .">
+        <meta name="description" content="Percona Server for MySQL 9.7.2-2 adds two performance schema stages for DROP TABLE operations. The stages mark the start and the end of a table drop. Use the stages to check whether a session actively runs a table drop. The stages help diagnose long-running or blocked DROP TABLE statements.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-server/9.7/reserved-words.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-server/9.7/thread-states.html">
       
       
-        <link rel="prev" href="myrocks-data-loading.html">
+        <link rel="prev" href="additional-performance-schema-tables.html">
       
       
-        <link rel="next" href="percona-server-system-variables.html">
+        <link rel="next" href="troubleshoot-overview.html">
       
       
         
@@ -32,7 +32,7 @@
     
     
       
-        <title>Reserved keywords - Percona Server for MySQL</title>
+        <title>Thread states for DROP TABLE operations - Percona Server for MySQL</title>
       
     
     
@@ -102,7 +102,7 @@
                  
                  
                  <meta property="og:type" content="website" />
-                 <meta property="og:title" content="Percona Server for MySQL - Reserved keywords" />
+                 <meta property="og:title" content="Percona Server for MySQL - Thread states for DROP TABLE operations" />
                  <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
                  <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
               
@@ -125,7 +125,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#reserved-keywords" class="md-skip">
+        <a href="#thread-states-for-drop-table-operations" class="md-skip">
           Skip to content
         </a>
       
@@ -222,7 +222,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Reserved keywords
+              Thread states for DROP TABLE operations
             
           </span>
         </div>
@@ -7841,8 +7841,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -7866,11 +7868,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" checked>
         
           
           <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
@@ -7891,7 +7893,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_15">
             <span class="md-nav__icon md-icon"></span>
             
@@ -8102,10 +8104,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="thread-states.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thread states for DROP TABLE operations
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="thread-states.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -8121,6 +8150,61 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-history-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage history example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -9267,10 +9351,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -9304,11 +9386,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
         
           
           <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
@@ -9329,7 +9411,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_18">
             <span class="md-nav__icon md-icon"></span>
             
@@ -9344,19 +9426,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="reserved-words.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="reserved-words.html" class="md-nav__link">
         
   
   
@@ -9372,7 +9445,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -9956,7 +10028,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
                       <div data-banner="data-banner" class="edit-contrib-banner">
   <div class="banner-content">
     <!-- Edit link centered -->
-    <a href="https://github.com/percona/psmysql-docs/edit/9.7/docs/reserved-words.md" title="Edit this page on GitHub" class="edit-page-link">
+    <a href="https://github.com/percona/psmysql-docs/edit/9.7/docs/thread-states.md" title="Edit this page on GitHub" class="edit-page-link">
       <span class="edit-page-icon">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
@@ -10001,6 +10073,47 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-history-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage history example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                     </div>
                   </div>
@@ -10022,59 +10135,74 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
       
     
-    <a href="https://github.com/percona/psmysql-docs/raw/9.7/docs/reserved-words.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/psmysql-docs/raw/9.7/docs/thread-states.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="reserved-keywords">Reserved keywords<a class="headerlink" href="#reserved-keywords" title="Permanent link">&para;</a></h1>
-<p>Percona Server for MySQL defines additional reserved keywords that are not included in the MySQL reserved keyword list. When you use Percona Server for MySQL, consider these keywords reserved in addition to the <a href="https://dev.mysql.com/doc/refman/9.7/en/keywords.html">MySQL reserved keywords <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<p>Reserved keywords have a special meaning in SQL syntax and cannot be used as unquoted identifiers. To use a reserved keyword as an identifier, enclose it in backticks (`).</p>
-<p>The following table lists the reserved keywords specific to Percona Server for MySQL and the version in which each keyword became reserved. A blank Version added entry indicates that the keyword is reserved in all Percona Server for MySQL 9.7 releases.</p>
+<h1 id="thread-states-for-drop-table-operations">Thread states for DROP TABLE operations<a class="headerlink" href="#thread-states-for-drop-table-operations" title="Permanent link">&para;</a></h1>
+<p>Percona Server for MySQL 9.7.2-2 adds two performance schema stages for <code>DROP TABLE</code> operations. The stages mark the start and the end of a table drop. Use the stages to check whether a session actively runs a table drop. The stages help diagnose long-running or blocked <code>DROP TABLE</code> statements.</p>
+<h2 id="stages">Stages<a class="headerlink" href="#stages" title="Permanent link">&para;</a></h2>
+<p>The following table lists the two stages:</p>
 <table>
 <thead>
 <tr>
-<th>Reserved keyword</th>
-<th>Version added</th>
+<th>Stage</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>CLIENT_STATISTICS</code></td>
-<td></td>
+<td><code>stage/sql/dropping table</code></td>
+<td>The thread starts the drop operation. Percona Server for MySQL sets this stage at the start of <code>drop_base_table()</code> for base tables and at the start of <code>drop_temporary_table()</code> for temporary tables.</td>
 </tr>
 <tr>
-<td><code>COMPRESSION_DICTIONARY</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>EFFECTIVE</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>INDEX_STATISTICS</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>PERCONA_SEQUENCE_TABLE</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>TABLE_STATISTICS</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>THREAD_STATISTICS</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>USER_STATISTICS</code></td>
-<td></td>
+<td><code>stage/sql/after drop</code></td>
+<td>The thread completes the drop routine and returns.</td>
 </tr>
 </tbody>
 </table>
+<p>A <code>DROP TABLE</code> statement completes fast. The two stages stay visible for a short time only. Query the stage history in Performance Schema to capture the stages. Do not rely only on <code>SHOW PROCESSLIST</code>.</p>
+<h2 id="stage-history-example">Stage history example<a class="headerlink" href="#stage-history-example" title="Permanent link">&para;</a></h2>
+<p>Truncate the stage history, run a <code>DROP TABLE</code> statement, and query the recorded stage events:</p>
+<div class="highlight"><pre><span></span><code><span class="k">TRUNCATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">events_stages_history_long</span><span class="p">;</span>
+
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="n">t1</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">EVENT_NAME</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">events_stages_history_long</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">EVENT_ID</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>EVENT_NAME
+stage/sql/starting
+stage/sql/checking permissions
+stage/sql/dropping table
+stage/sql/after drop
+stage/sql/waiting for handler commit
+stage/sql/query end
+stage/sql/closing tables
+stage/sql/freeing items
+stage/sql/cleaning up
+</code></pre></div>
+</details>
+<p>The <code>INFORMATION_SCHEMA.PROFILING</code> table shows the same stages without the <code>stage/sql/</code> prefix: <code>dropping table</code> and <code>after drop</code>. Percona deprecated <code>INFORMATION_SCHEMA.PROFILING</code>. Use Performance Schema instead.</p>
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<p>The following notes apply to the two stages:</p>
+<ul>
+<li>
+<p>The stages apply to base tables and temporary tables</p>
+</li>
+<li>
+<p>The stage names use lowercase, plain English text, consistent with existing stage names such as <code>creating table</code> and <code>After create</code></p>
+</li>
+<li>
+<p>If <code>performance_schema.threads</code> or <code>SHOW PROCESSLIST</code> does not show the stages, the drop operation likely completed before the sample. Query <code>events_stages_history_long</code> for a reliable trace</p>
+</li>
+</ul>
 
 
 
@@ -10097,7 +10225,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 10, 2026 14:33:28 UTC">September 10, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 28, 2026 13:19:17 UTC">September 28, 2026</span>
   </span>
 
     
@@ -10107,7 +10235,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 10, 2026 14:33:28 UTC">September 10, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 28, 2026 13:19:17 UTC">September 28, 2026</span>
   </span>
 
     
