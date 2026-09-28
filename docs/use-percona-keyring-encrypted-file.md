@@ -16,7 +16,7 @@ See [Get Started with component keyring](quickstart-component-keyring.md) for a 
 
 ## Version changes
 
-Percona Server for MySQL {{vers}} includes `component_percona_keyring_encrypted_file` from release 9.7.4-4.
+Percona Server for MySQL {{vers}} includes `component_percona_keyring_encrypted_file` from release 9.7.3-3.
 
 ## Choose a file-based keyring component
 
