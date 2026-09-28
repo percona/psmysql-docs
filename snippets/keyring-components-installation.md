@@ -1,26 +1,24 @@
 
-Install a keyring component through a manifest file. During startup, the server reads the manifest. Each component reads a corresponding configuration file during initialization.
+A keyring component loads at server startup from a manifest file. The component reads a JSON configuration file during initialization. Do not load a keyring component with `INSTALL COMPONENT`. InnoDB needs the keyring before the `mysql.component` table is available.
 
-Do not load keyring components with either of the following methods:
 
-| Method | Why it fails |
+## Available keyring components
+
+Percona Server provides the following keyring components:
+
+| Component | Backend |
 |---|---|
-| `--early-plugin-load` option | Loads plugins only, not components |
-| `INSTALL COMPONENT` statement | Registers components in the `mysql.component` table, which the server loads after `InnoDB` initialization |
+| `component_keyring_file` | Local file on disk |
+| `component_keyring_kmip` | Key Management Interoperability Protocol (KMIP) server |
+| `component_keyring_kms` | Cloud Key Management Service (KMS) |
+| `component_keyring_vault` | HashiCorp Vault |
 
-Components that `InnoDB` requires at startup must load earlier.
+Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a `.cnf`
 
-Create a global manifest file named `mysqld.my` in the installation directory. Optionally, create a local manifest file with the same name in a data directory.
+Create a global manifest file named `mysqld.my` in the directory that contains the `mysqld` binary. For multiple instances on one host, create a local manifest file with the same name in each data directory.
 
-To install a keyring component, complete the following steps:
-
-1. Write a manifest in valid JSON format
-
-Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a `.cnf` extension. For example, `component_keyring_vault` reads `component_keyring_vault.cnf`.
-
+If the manifest file does not exist, the server does not load the keyring component. During startup, the server reads the global manifest from the installation directory. The global manifest can list the component directly or point to a local manifest in the data directory.
 ## Manifest files
-
-### Manifest fields
 
 The manifest is a JavaScript Object Notation (JSON) object with the following fields:
 
@@ -123,7 +121,7 @@ The query returns one row per status field. The `Component_status` field reports
 
 ### Rotate the master key
 
-The InnoDB master key wraps the tablespace keys that protect data on disk. Rotate the master key on a scheduled cadence to limit the volume of data wrapped by any single master key.
+The InnoDB master key wraps the tablespace keys that protect data on disk. Rotate the master key on a scheduled cadence. Scheduled rotation limits the volume of data wrapped by any single master key. See [Data at Rest Encryption](data-at-rest-encryption.md) for the role of the master key.
 
 Run the following statement to rotate the master key:
 
