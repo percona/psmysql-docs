@@ -69,8 +69,9 @@ SELECT DISTANCE(
 FROM documents;
 ```
 
-Different distance metrics compare vectors in different ways. For details about supported metrics, arguments, and return values, see [DISTANCE() Function](distance-function.md).
+Different distance metrics compare vectors in different ways. The [DISTANCE() quickstart](quickstart-distance.md) runs every supported metric against the same stored vector and the same query vector. For arguments, return values, and metric definitions, see [DISTANCE() Function](distance-function.md).
 
 ## See also
 
+* [Get started with DISTANCE()](quickstart-distance.md)
 * [DISTANCE() Function](distance-function.md)

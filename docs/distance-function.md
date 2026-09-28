@@ -42,6 +42,10 @@ The following distance metrics are supported:
 | `DOT` | Calculates the negative inner product (dot product). The dot product multiplies corresponding elements from the two vectors and adds the results. `DISTANCE()` multiplies the inner product by `-1` so that lower returned values represent more closely aligned vectors. |
 | `MANHATTAN` | Adds the absolute differences between corresponding vector elements (L1 distance). The result is non-negative. A value of `0` means the vectors are identical. Lower values indicate greater similarity. |
 
+!!! note "Percona Server extensions"
+
+    `EUCLIDEAN_SQUARED` and `MANHATTAN` are Percona Server extensions. The [MySQL 9.7 vector functions :octicons-link-external-16:](https://dev.mysql.com/doc/refman/9.7/en/vector-functions.html#function_distance) documentation lists `COSINE`, `DOT`, and `EUCLIDEAN` as the supported `DISTANCE()` metrics.
+
 The `COSINE` and `DOT` metrics transform their underlying similarity values into distance values so that a lower value consistently represents a closer match across all supported metrics. As a result, you can sort distance values in ascending order regardless of the selected metric:
 
 ```sql
@@ -170,4 +174,5 @@ FROM documents;
 
 ## See also
 
+* [Get started with DISTANCE()](quickstart-distance.md)
 * [The VECTOR Type](vector.md)
