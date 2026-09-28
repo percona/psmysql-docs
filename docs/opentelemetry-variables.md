@@ -28,10 +28,28 @@ Use the following variables to turn each telemetry signal on or off:
 
 | Variable | Default | Change method | Description |
 |---|---|---|---|
-| `telemetry.otel_log_level` | `ERROR` | Dynamic | Sets the log level for the telemetry component's internal diagnostic output. The variable accepts `SILENT`, `ERROR`, `WARNING`, `INFO`, and `DEBUG`. |
+| `telemetry.otel_log_level` | `info` | Dynamic | Sets the threshold for OpenTelemetry diagnostic messages in the server error log. The server displays `silent`, `error`, `warning`, `info`, or `debug`. |
 | `telemetry.otel_resource_attributes` | *(empty)* | Startup | Attaches resource metadata to all exported signals. Use comma-separated `key=value` pairs. |
 | `telemetry.resource_provider` | *(none)* | Startup | Names a component that supplies OpenTelemetry resource data. The data depends on the provider implementation. |
 | `telemetry.secret_provider` | *(none)* | Startup | Names a component that decodes secrets for exporter HTTP headers. The secret format depends on the provider implementation. |
+
+## Diagnostic messages
+
+`telemetry.otel_log_level` filters diagnostic messages from the OpenTelemetry component before they reach the server error log. `SHOW GLOBAL VARIABLES` displays the value in lowercase. The default is `info`.
+
+From `error` through `debug`, each value keeps that severity and every more severe message:
+
+| Value | Messages accepted |
+| --- | --- |
+| `silent` | No OpenTelemetry diagnostic messages |
+| `error` | Errors |
+| `warning` | Errors and warnings |
+| `info` | Errors, warnings, and notes |
+| `debug` | Errors, warnings, notes, and debug detail |
+
+The component writes errors at error priority and warnings at warning priority. It writes notes and debug detail at information priority. Note text starts with `[OTEL]`. Debug detail starts with `[OTEL DEBUG]`.
+
+The error log then applies [`log_error_verbosity` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_log_error_verbosity). The default is `2`, which keeps errors and warnings and drops notes. With that verbosity, the default `info` level records errors and warnings. Set `log_error_verbosity` to `3` to keep notes and `[OTEL DEBUG]` lines.
 
 ## Endpoint and protocol variables
 
@@ -90,10 +108,10 @@ Each signal type uses a separate batch processor. Trace spans use the Batch Span
 | Variable | Default | Change method | Description |
 |---|---|---|---|
 | `telemetry.metrics_reader_frequency_1` | `10` seconds | Startup | Collects meters with a `FREQUENCY` value less than or equal to 10 seconds. Reader one is required. |
-| `telemetry.metrics_reader_frequency_2` | `10` seconds | Startup | Collects meters above the reader one threshold and at or below the reader two threshold. A value of `0` disables this reader. |
-| `telemetry.metrics_reader_frequency_3` | `10` seconds | Startup | Collects meters above the reader two threshold. A value of `0` disables this reader. |
+| `telemetry.metrics_reader_frequency_2` | `60` seconds | Startup | Collects meters above the reader one threshold and at or below 60 seconds. A value of `0` disables this reader. |
+| `telemetry.metrics_reader_frequency_3` | `0` | Startup | Collects meters above the reader two threshold when this reader is enabled. The default `0` disables this reader. |
 
-The configured value sets both the meter threshold and the collection interval. See [Configure metric reader frequencies](configure-opentelemetry.md#configure-metric-reader-frequencies) for an example.
+The configured value sets both the meter threshold and the collection interval. With the defaults, reader one collects every 10 seconds and reader two every 60 seconds. Reader three is disabled. A meter whose `FREQUENCY` is above every enabled reader is collected by the highest enabled reader. See [Configure metric reader frequencies](configure-opentelemetry.md#configure-metric-reader-frequencies) for an example.
 
 ## Status variables
 

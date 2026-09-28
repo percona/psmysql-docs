@@ -203,16 +203,67 @@ The server does not collect a meter when its `ENABLED` value is `NO`. Global met
 
 The server creates `control`, `session`, and `stmt` spans. The `telemetry.trace_enabled` variable controls trace collection.
 
+### Trace format
+
+A trace groups spans that share one trace identifier. Each span is one server operation, with its own span identifier, start time, and end time.
+
+The component exports these span names:
+
+| Span name | When the span ends | Interval the span records |
+| --------- | ------------------ | ------------------------- |
+| `control` | Telemetry configuration changes | The change to signal collection |
+| `session` | The client session disconnects | From the connection through disconnect |
+| `stmt` | Statement execution ends | From the start of execution through completion |
+
+Every exported span carries the same record fields:
+
+| Field | Meaning |
+| ----- | ------- |
+| Trace identifier | Groups this span with the rest of the trace |
+| Span identifier | Identifies this span |
+| Parent span identifier | Identifies the parent span when the client supplied trace context. Absent when this span starts the trace |
+| Name | `control`, `session`, or `stmt` |
+| Kind | `Internal`. The span describes work inside the server |
+| Start time and end time | Absolute start and end of the operation |
+| Status | Result status and status message from the span |
+| Attributes | The key-value fields in the tables below |
+
+A statement span can take its parent from the `traceparent` query attribute. Clients and connectors use that attribute to pass [W3C trace context :octicons-link-external-16:](https://www.w3.org/TR/trace-context/). The statement span then continues the caller's trace. A session span records the connection. The component emits it when the session ends, with the start time set to the connection time.
+
+Session attributes come from `performance_schema.session_connect_attrs`. Each connect attribute becomes a string attribute named `mysql.session_attr.` plus the attribute name. The `mysql` client commonly records `program_name`, `_client_name`, `_client_version`, `_os`, `_platform`, and `_pid`. The set depends on the client.
+
+`mysql.processlist_id` and `mysql.thread_id` are integers. `mysql.user`, `mysql.host`, `mysql.group`, and the `mysql.session_attr.*` values are strings.
+
+The following record is an illustration of a `session` span. The identifiers and account values are examples:
+
+```text
+name: session
+kind: Internal
+trace_id: 7c2e19aa04b64d0f9a11c0e5d8b34210
+span_id: 51ac08e4b77d19c2
+parent_span_id:
+start_time: 2026-04-02T15:04:11.120Z
+end_time: 2026-04-02T15:06:40.884Z
+mysql.processlist_id: 42
+mysql.thread_id: 88
+mysql.user: app
+mysql.host: app-01
+mysql.group: USR_default
+mysql.session_attr.program_name: mysql
+mysql.session_attr._client_name: libmysql
+mysql.session_attr._os: Linux
+```
+
 ### Control span
 
-The `control` span records a telemetry lifecycle or configuration event.
+The `control` span records a telemetry lifecycle or configuration event. The span name is `control`.
 
-| Attribute         | Description                                           |
-| ----------------- | ----------------------------------------------------- |
-| `trace_enabled`   | Trace collection state                                |
-| `metrics_enabled` | Metric collection state                               |
-| `logs_enabled`    | Log collection state                                  |
-| `details`         | Additional information about the configuration change |
+| Attribute               | Description                                           |
+| ----------------------- | ----------------------------------------------------- |
+| `mysql.traces_enabled`  | Trace collection state                                |
+| `mysql.metrics_enabled` | Metric collection state                               |
+| `mysql.logs_enabled`    | Log collection state                                  |
+| `mysql.details`         | Additional information about the configuration change |
 
 The telemetry component creates this span when the telemetry configuration changes.
 
@@ -220,7 +271,7 @@ Trace collection must be active for the span to reach the trace pipeline.
 
 ### Session span
 
-The `session` span represents a client session.
+The `session` span represents a client session. The span name is `session`.
 
 | Attribute                             | Description                                  |
 | ------------------------------------- | -------------------------------------------- |
@@ -237,7 +288,7 @@ The server emits the completed span when the session ends.
 
 ### Statement span
 
-The `stmt` span represents a server statement event. The server completes the span when statement execution ends.
+The `stmt` span represents a server statement event. The span name is `stmt`. The server completes the span when statement execution ends.
 
 #### Statement identity attributes
 
@@ -359,6 +410,17 @@ The server processes a log record as follows:
 5. The OTLP exporter sends the batch to the configured logs endpoint.
 
 Global log collection must be enabled. A logger with the `none` level does not create exportable records.
+
+### Telemetry logging interface
+
+`component_telemetry` exports instrumented log events to the OTLP logs endpoint. The server moves those events through two services. Together they are the telemetry logging interface.
+
+| Service | Role |
+| ------- | ---- |
+| `mysql_server_telemetry_logs_client` | Registers loggers, checks whether a severity will be emitted, and emits a record with optional attributes |
+| `mysql_server_telemetry_logs` | Delivers each emitted record to one callback. The callback receives the logger name, severity, message, timestamp, and attributes |
+
+`component_telemetry` registers that callback and sends the accepted records to the logs endpoint. The delivery service keeps a single callback and rejects another callback while the first one is registered.
 
 ## Resource attributes
 

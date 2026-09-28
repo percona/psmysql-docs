@@ -28,9 +28,9 @@ For the OpenTelemetry definitions, see [Push metric exporter](https://openteleme
 
 * Metrics: Counters and gauges track query execution (`Com_*` counters), thread activity, memory usage, and storage engine statistics. These metrics follow the OpenTelemetry data model. For the model, see the [OpenTelemetry observability primer](https://opentelemetry.io/docs/concepts/observability-primer/) and the [OpenTelemetry metrics data model](https://opentelemetry.io/docs/specs/otel/metrics/data-model/). For the metrics that Percona Server for MySQL exports, see [OpenTelemetry data reference](opentelemetry-data-reference.md).
 
-* Traces: Spans follow the query execution lifecycle. A trace groups related spans together. Traces help database administrators find bottlenecks across microservices and database operations.
+* Traces: Spans follow the query execution lifecycle. A trace groups related spans together. The component exports `control`, `session`, and `stmt` spans. See [Trace format](opentelemetry-data-reference.md#trace-format).
 
-* Logs: Error log, slow query log, and general query log records stream as OTLP log records. Centralized log aggregation engines can collect these records.
+* Logs: Error log, slow query log, and general query log records stream as OTLP log records. Centralized log aggregation engines can collect these records. `component_telemetry` is the exporter included with the server. See [Telemetry logging interface](opentelemetry-data-reference.md#telemetry-logging-interface).
 
 Native OpenTelemetry support unifies observability across the application stack and the database stack. Teams do not need custom sidecar agents. TLS and token-based authentication secure telemetry data in transit.
 

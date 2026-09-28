@@ -125,7 +125,7 @@ The component assigns each meter to a metric reader. The meter's `FREQUENCY` val
 | `telemetry.metrics_reader_frequency_2` | `FREQUENCY` is greater than reader one and less than or equal to reader two | Reader two value |
 | `telemetry.metrics_reader_frequency_3` | `FREQUENCY` is greater than reader two | Reader three value |
 
-Reader one is required. Readers two and three are optional. A value of `0` disables an optional reader.
+Reader one is required. Readers two and three are optional. A value of `0` disables an optional reader. The defaults are 10 seconds, 60 seconds, and `0`. When reader three is disabled, a meter whose `FREQUENCY` is above reader two is collected by reader two.
 
 For example, configure the readers with intervals of 10, 60, and 300 seconds:
 
@@ -235,13 +235,13 @@ SET PERSIST_ONLY telemetry.otel_exporter_otlp_traces_compression = 'gzip';
 
 ### Understand the emitted spans
 
-The component emits the following span types:
+The component emits the following span types. For the span record, parent trace context, and session-attribute names, see [Trace format](opentelemetry-data-reference.md#trace-format).
 
-| Span type      | Description                                                 | Example attributes                                                                                                          |
-| -------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Control span   | Reports changes to telemetry signal collection              | `trace_enabled`, `metrics_enabled`, `logs_enabled`                                                                          |
-| Session span   | Records a client session when the session ends              | `mysql.processlist_id`, `mysql.thread_id`, `mysql.user`, `mysql.host`, `mysql.group`, `mysql.session_attr.<ATTRIBUTE_NAME>` |
-| Statement span | Records a statement or protocol command when execution ends | `mysql.event_name`, `mysql.lock_time`, `mysql.sql_text`, `mysql.digest_text`, `mysql.current_schema`                        |
+| Span name | Span type      | Description                                                 | Example attributes                                                                                                          |
+| --------- | -------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `control` | Control span   | Reports changes to telemetry signal collection              | `mysql.traces_enabled`, `mysql.metrics_enabled`, `mysql.logs_enabled`, `mysql.details`                                      |
+| `session` | Session span   | Records a client session when the session ends              | `mysql.processlist_id`, `mysql.thread_id`, `mysql.user`, `mysql.host`, `mysql.group`, `mysql.session_attr.<ATTRIBUTE_NAME>` |
+| `stmt`    | Statement span | Records a statement or protocol command when execution ends | `mysql.event_name`, `mysql.lock_time`, `mysql.sql_text`, `mysql.digest_text`, `mysql.current_schema`                        |
 
 Statement spans can also include error details, affected-row counts, and resource-use measurements.
 
@@ -249,7 +249,7 @@ Statement spans can also include error details, affected-row counts, and resourc
 
 ## Configure logs
 
-Log telemetry exports instrumented server log records in OTLP format.
+Log telemetry exports instrumented server log records in OTLP format. `component_telemetry` is the exporter included with Percona Server for MySQL. See [Telemetry logging interface](opentelemetry-data-reference.md#telemetry-logging-interface).
 
 Percona Server for MySQL provides logger instruments for the following logs:
 
@@ -438,15 +438,9 @@ Confirm that the collector receives data at each configured endpoint:
 
 Check the collector logs when the collector does not receive an enabled signal.
 
-Configure `telemetry.otel_log_level` to control diagnostics in the Percona Server for MySQL error log.
+`telemetry.otel_log_level` filters OpenTelemetry diagnostic messages in the server error log. The default displayed value is `info`. With the default [`log_error_verbosity` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_log_error_verbosity) of `2`, that level records errors and warnings. Notes and debug detail require `log_error_verbosity` of `3`. See [Diagnostic messages](opentelemetry-variables.md#diagnostic-messages).
 
-The variable accepts `SILENT`, `ERROR`, `WARNING`, `INFO`, and `DEBUG`:
-
-```sql
-SET GLOBAL telemetry.otel_log_level = 'INFO';
-```
-
-`telemetry.otel_log_level` is dynamic. Use `DEBUG` only for troubleshooting. The `DEBUG` level can produce substantial output.
+`telemetry.otel_log_level` is dynamic. Use `debug` only while troubleshooting. The `debug` level can produce substantial output.
 
 ## Related reading
 

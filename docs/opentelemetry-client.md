@@ -70,7 +70,7 @@ trace=ON
 otel-exporter-otlp-traces-endpoint=http://otel-collector.example.com:4318/v1/traces
 otel-exporter-otlp-traces-protocol=http/protobuf
 otel-resource-attributes=service.name=mysql-client,service.namespace=lab
-otel-log-level=ERROR
+otel-log-level=silent
 otel-exporter-otlp-traces-compression=none
 otel-exporter-otlp-traces-headers=authorization=Bearer <TOKEN>
 ```
@@ -108,7 +108,7 @@ The following table lists the client telemetry options. The table uses the comma
 | `--telemetry_client` | `OFF` | Loads the client telemetry plugin. Use `telemetry-client` under `[mysql]`. |
 | `--otel-trace` | `ON` | Collects client traces after the plugin loads. Use `trace` under `[telemetry_client]`. |
 | `--otel-help` | `OFF` | Prints help for client telemetry options. Use `help` under `[telemetry_client]`. |
-| `--otel_log_level` | `ERROR` | Sets the diagnostic level for client telemetry messages. Valid values are `SILENT`, `ERROR`, `WARNING`, `INFO`, and `DEBUG`. |
+| `--otel_log_level` | `silent` | Filters OpenTelemetry diagnostic lines on standard error. Valid values are `silent`, `error`, `warning`, `info`, and `debug`. |
 | `--otel_resource_attributes` | *(empty)* | Adds resource attributes as comma-separated `key=value` pairs. |
 | `--otel_exporter_otlp_traces_endpoint` | `http://localhost:4318/v1/traces` | Sets the OTLP/HTTP URL for trace export. |
 | `--otel_exporter_otlp_traces_protocol` | `http/protobuf` | Sets the OTLP encoding to `http/protobuf` or `http/json`. |
@@ -118,6 +118,20 @@ The following table lists the client telemetry options. The table uses the comma
 | `--otel_bsp_schedule_delay` | `5000` | Sets the delay between consecutive span exports, in milliseconds. |
 | `--otel_bsp_max_queue_size` | `2048` | Sets the maximum number of spans in the export queue. |
 | `--otel_bsp_max_export_batch_size` | `512` | Sets the maximum number of spans in one export batch. |
+
+With the default `silent`, the plugin writes no OpenTelemetry diagnostic lines. Any other value prints error diagnostics to standard error:
+
+```text
+telemetry_client: [OTEL] <file>:<line> <message>
+```
+
+`warning`, `info`, and `debug` print those same error diagnostics.
+
+When the plugin starts trace export, it also writes the exporter endpoint to standard error. That line is written at every log level, including `silent`:
+
+```text
+telemetry_client: Using OTLP HTTP exporter to endpoint <url>
+```
 
 These certificate options exist in the client but have no effect:
 

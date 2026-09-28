@@ -68,26 +68,30 @@ The server exporters support `http/protobuf` and `http/json`. The endpoints norm
 
 ## Enable diagnostic messages
 
-Increase the OpenTelemetry diagnostic level while you reproduce a problem:
+OpenTelemetry diagnostic messages are written to the server error log. The default `telemetry.otel_log_level` is `info`. The default `log_error_verbosity` is `2`, so the error log keeps errors and warnings and drops notes, including `[OTEL DEBUG]` lines.
+
+To record notes and debug detail while you reproduce a problem, raise both settings:
 
 ```sql
-SET GLOBAL telemetry.otel_log_level = 'DEBUG';
+SET GLOBAL log_error_verbosity = 3;
+SET GLOBAL telemetry.otel_log_level = 'debug';
 
 SHOW GLOBAL VARIABLES LIKE 'telemetry.otel_log_level';
+SHOW GLOBAL VARIABLES LIKE 'log_error_verbosity';
 ```
 
-The result must show `DEBUG`.
+The results must show `debug` and `3`.
 
-Search the server error log for relevant messages:
+Search the server error log for relevant messages. Diagnostic lines from the OpenTelemetry library start with `[OTEL]` or `[OTEL DEBUG]`.
 
 ```bash
-rg -i 'component_telemetry|opentelemetry|telemetry|otlp|export|http|tls|certificate' <ERROR_LOG>
+rg -i '\[OTEL|component_telemetry|opentelemetry|telemetry|otlp|export|http|tls|certificate' <ERROR_LOG>
 ```
 
 On a system that writes the error log to the system journal, use this command:
 
 ```bash
-journalctl -u <MYSQL_SERVICE> -b | rg -i 'opentelemetry|telemetry|otlp|export|http|tls|certificate'
+journalctl -u <MYSQL_SERVICE> -b | rg -i '\[OTEL|opentelemetry|telemetry|otlp|export|http|tls|certificate'
 ```
 
 Message text can differ by server build and OpenTelemetry library version. Look for these message patterns:
@@ -104,13 +108,14 @@ Message text can differ by server build and OpenTelemetry library version. Look 
 | HTTP `429`                                                   | Collector or backend rate limit                       |
 | HTTP `503`                                                   | Collector or backend unavailable                      |
 
-Restore the normal diagnostic level after testing:
+Restore the defaults after testing:
 
 ```sql
-SET GLOBAL telemetry.otel_log_level = 'ERROR';
+SET GLOBAL telemetry.otel_log_level = 'info';
+SET GLOBAL log_error_verbosity = 2;
 ```
 
-The `DEBUG` level can produce substantial error-log output.
+The `debug` level can produce substantial error-log output.
 
 ## Confirm that the collector receives data
 
@@ -767,7 +772,7 @@ WHERE Variable_name IN (
 
 - Use less verbose logger levels.
 
-- Set `telemetry.otel_log_level` to `ERROR` after troubleshooting.
+- Return `telemetry.otel_log_level` to `info` after troubleshooting. Return `log_error_verbosity` to `2` unless the server already used another value.
 
 - Disable query text when SQL text is not required.
 
