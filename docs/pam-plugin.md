@@ -27,10 +27,32 @@ A plugin may not be supported in later releases of MySQL or Percona Server for M
   
 ## Installation
 
-This plugin requires manual installation because it isn’t installed by default.
+This plugin requires manual installation because the plugin is not installed by default.
+
+You can install the plugin with SQL, or with the `ps-admin` script. For script options, see [The ps-admin script](ps-admin.md).
+
+Install the full PAM plugin (`auth_pam`) with SQL:
 
 ```sql
 INSTALL PLUGIN auth_pam SONAME 'auth_pam.so';
+```
+
+Or run the following command:
+
+```shell
+$ sudo ps-admin --enable-pam -u root -p
+```
+
+Install the Oracle-compatible PAM plugin (`auth_pam_compat`) with SQL:
+
+```sql
+INSTALL PLUGIN auth_pam_compat SONAME 'auth_pam_compat.so';
+```
+
+Or run the following command:
+
+```shell
+$ sudo ps-admin --enable-pam-compat -u root -p
 ```
 
 After the plugin has been installed it should be present in the plugins list. To check if the plugin has been correctly installed and active
