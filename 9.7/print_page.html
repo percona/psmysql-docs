@@ -2376,6 +2376,8 @@
       
         
       
+        
+      
     
     
     
@@ -2459,6 +2461,34 @@
     
   
     DISTANCE() Function
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart-distance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started with DISTANCE()
   
 
     
@@ -10904,6 +10934,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-ellipsis">
       
         DISTANCE() Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quickstart-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Get started with DISTANCE()
       
     </span>
   </a>
@@ -23332,9 +23373,10 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 <span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">documents</span><span class="p">;</span>
 </code></pre></div>
-<p>Different distance metrics compare vectors in different ways. For details about supported metrics, arguments, and return values, see <a href="#distance-function">DISTANCE() Function</a>.</p>
+<p>Different distance metrics compare vectors in different ways. The <a href="#quickstart-distance">DISTANCE() quickstart</a> runs every supported metric against the same stored vector and the same query vector. For arguments, return values, and metric definitions, see <a href="#distance-function">DISTANCE() Function</a>.</p>
 <h2 id="vector-see-also">See also<a class="headerlink" href="#vector-see-also" title="Permanent link">&para;</a></h2>
 <ul>
+<li><a href="#quickstart-distance">Get started with DISTANCE()</a></li>
 <li><a href="#distance-function">DISTANCE() Function</a></li>
 </ul></section><section class="print-page" id="distance-function" heading-number="5.17.2"><h1 id="distance-function-distance-function">DISTANCE() Function<a class="headerlink" href="#distance-function-distance-function" title="Permanent link">&para;</a></h1>
 <p>The <code>DISTANCE()</code> function computes the distance between two <code>VECTOR</code> values to enable similarity searches and other vector-based operations.</p>
@@ -23391,6 +23433,10 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Percona Server extensions</p>
+<p><code>EUCLIDEAN_SQUARED</code> and <code>MANHATTAN</code> are Percona Server extensions. The <a href="https://dev.mysql.com/doc/refman/9.7/en/vector-functions.html#function_distance">MySQL 9.7 vector functions <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> documentation lists <code>COSINE</code>, <code>DOT</code>, and <code>EUCLIDEAN</code> as the supported <code>DISTANCE()</code> metrics.</p>
+</div>
 <p>The <code>COSINE</code> and <code>DOT</code> metrics transform their underlying similarity values into distance values so that a lower value consistently represents a closer match across all supported metrics. As a result, you can sort distance values in ascending order regardless of the selected metric:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
 <span class="w">       </span><span class="n">DISTANCE</span><span class="p">(</span><span class="n">embedding</span><span class="p">,</span><span class="w"> </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.1, 0.2, 0.3]'</span><span class="p">),</span><span class="w"> </span><span class="s1">'COSINE'</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span>
@@ -23480,6 +23526,197 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </code></pre></div>
 <h2 id="distance-function-see-also">See also<a class="headerlink" href="#distance-function-see-also" title="Permanent link">&para;</a></h2>
 <ul>
+<li><a href="#quickstart-distance">Get started with DISTANCE()</a></li>
+<li><a href="#vector">The VECTOR Type</a></li>
+</ul></section><section class="print-page" id="quickstart-distance" heading-number="5.17.3"><h1 id="quickstart-distance-get-started-with-distance">Get started with DISTANCE()<a class="headerlink" href="#quickstart-distance-get-started-with-distance" title="Permanent link">&para;</a></h1>
+<p>This quickstart compares one stored vector with one query vector using every distance metric that <code>DISTANCE()</code> supports. The metric examples share one table and the same two unit-length vectors, <code>[0.3333333333, 0.6666666667, 0.6666666667]</code> and <code>[0.2857142857, 0.4285714286, 0.8571428571]</code>, so the metric is what changes the result.</p>
+<p>The supported metrics are:</p>
+<ul>
+<li><a href="#quickstart-distance-euclidean-distance"><code>EUCLIDEAN</code></a></li>
+<li><a href="#quickstart-distance-euclidean-squared-distance"><code>EUCLIDEAN_SQUARED</code></a></li>
+<li><a href="#quickstart-distance-cosine-distance"><code>COSINE</code></a></li>
+<li><a href="#quickstart-distance-dot-distance"><code>DOT</code></a></li>
+<li><a href="#quickstart-distance-manhattan-distance"><code>MANHATTAN</code></a></li>
+</ul>
+<p>You need access to a Percona Server for MySQL 9.7 server and an account that can create a database and tables. For arguments and return values, see <a href="#distance-function">DISTANCE() Function</a>.</p>
+<h2 id="quickstart-distance-create-the-sample-database-and-table">Create the sample database and table<a class="headerlink" href="#quickstart-distance-create-the-sample-database-and-table" title="Permanent link">&para;</a></h2>
+<p>The following statements create and select a dedicated <code>distance_quickstart</code> database so that the examples do not modify a table in your current database. If that database already exists, either <a href="#quickstart-distance-clean-up">remove it</a> or use another database name.</p>
+<p><code>TO_VECTOR()</code> converts the string representation of a vector to a <code>VECTOR</code> value. The statements also create a <code>documents</code> table and store <code>[0.3333333333, 0.6666666667, 0.6666666667]</code> in the <code>embedding</code> column:</p>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">testdb</span><span class="p">;</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">testdb</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8mb4_0900_ai_ci</span><span class="p">;</span>
+
+<span class="n">USE</span><span class="w"> </span><span class="n">testdb</span><span class="p">;</span>
+
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">documents</span><span class="p">;</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">documents</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">content</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+<span class="w">    </span><span class="n">embedding</span><span class="w"> </span><span class="n">VECTOR</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">documents</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">,</span><span class="w"> </span><span class="n">embedding</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">'Example document'</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.3333333333, 0.6666666667, 0.6666666667]'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>Each example below compares that stored embedding with <code>[0.2857142857, 0.4285714286, 0.8571428571]</code>.</p>
+<h2 id="quickstart-distance-euclidean-distance">Euclidean distance<a class="headerlink" href="#quickstart-distance-euclidean-distance" title="Permanent link">&para;</a></h2>
+<p><code>EUCLIDEAN</code> measures the straight-line distance between the vectors.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
+<span class="w">    </span><span class="n">embedding</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.2857142857, 0.4285714286, 0.8571428571]'</span><span class="p">),</span>
+<span class="w">    </span><span class="s1">'EUCLIDEAN'</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">documents</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+--------------------+
+| distance           |
++--------------------+
+| 0.3086067045227826 |
++--------------------+
+1 row in set (0.003 sec)
+</code></pre></div>
+</details>
+<p>The calculation is <code>sqrt((1/3 - 2/7)^2 + (2/3 - 3/7)^2 + (2/3 - 6/7)^2) = sqrt((1/21)^2 + (5/21)^2 + (-4/21)^2) = sqrt(42/441) = sqrt(2/21) ≈ 0.3086067</code>.</p>
+<h2 id="quickstart-distance-euclidean-squared-distance">Euclidean squared distance<a class="headerlink" href="#quickstart-distance-euclidean-squared-distance" title="Permanent link">&para;</a></h2>
+<p><code>EUCLIDEAN_SQUARED</code> returns the square of the Euclidean distance. This metric is a Percona Server extension.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
+<span class="w">    </span><span class="n">embedding</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.2857142857, 0.4285714286, 0.8571428571]'</span><span class="p">),</span>
+<span class="w">    </span><span class="s1">'EUCLIDEAN_SQUARED'</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">documents</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+---------------------+
+| distance            |
++---------------------+
+| 0.09523809807641204 |
++---------------------+
+1 row in set (0.003 sec)
+</code></pre></div>
+</details>
+<p>The calculation is <code>(1/21)^2 + (5/21)^2 + (4/21)^2 = 42/441 = 2/21 ≈ 0.0952381</code>.</p>
+<h2 id="quickstart-distance-cosine-distance">Cosine distance<a class="headerlink" href="#quickstart-distance-cosine-distance" title="Permanent link">&para;</a></h2>
+<p><code>COSINE</code> returns <code>1 - cosine similarity</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
+<span class="w">    </span><span class="n">embedding</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.2857142857, 0.4285714286, 0.8571428571]'</span><span class="p">),</span>
+<span class="w">    </span><span class="s1">'COSINE'</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">documents</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+---------------------+
+| distance            |
++---------------------+
+| 0.04761904701083697 |
++---------------------+
+1 row in set (0.001 sec)
+</code></pre></div>
+</details>
+<p>Because both vectors are already unit length, cosine similarity here is the raw inner product: <code>(1/3)(2/7) + (2/3)(3/7) + (2/3)(6/7) = 2/21 + 6/21 + 12/21 = 20/21 ≈ 0.952381</code>. Cosine distance is <code>1 - 20/21 = 1/21 ≈ 0.047619</code>.</p>
+<p>For unit-length vectors, Euclidean distance is a monotonic function of cosine similarity, so <code>EUCLIDEAN</code> and <code>COSINE</code> typically rank matches the same way, which is why embeddings are often normalized before a metric is chosen.</p>
+<h2 id="quickstart-distance-dot-distance">DOT distance<a class="headerlink" href="#quickstart-distance-dot-distance" title="Permanent link">&para;</a></h2>
+<p>For <code>DOT</code>, <code>DISTANCE()</code> returns the negative inner product, so a smaller value means the vectors are more closely aligned.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
+<span class="w">    </span><span class="n">embedding</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.2857142857, 0.4285714286, 0.8571428571]'</span><span class="p">),</span>
+<span class="w">    </span><span class="s1">'DOT'</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">documents</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+---------------------+
+| distance            |
++---------------------+
+| -0.9523809935365408 |
++---------------------+
+1 row in set (0.001 sec)
+</code></pre></div>
+</details>
+<p>The inner product is <code>20/21 ≈ 0.952381</code>, and DISTANCE() returns its negative: <code>-0.952381</code>.</p>
+<h2 id="quickstart-distance-manhattan-distance">Manhattan distance<a class="headerlink" href="#quickstart-distance-manhattan-distance" title="Permanent link">&para;</a></h2>
+<p><code>MANHATTAN</code> adds the absolute difference between corresponding elements. This metric is a Percona Server extension.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
+<span class="w">    </span><span class="n">embedding</span><span class="p">,</span>
+<span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.2857142857, 0.4285714286, 0.8571428571]'</span><span class="p">),</span>
+<span class="w">    </span><span class="s1">'MANHATTAN'</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">documents</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+--------------------+
+| distance           |
++--------------------+
+| 0.4761904776096344 |
++--------------------+
+1 row in set (0.001 sec)
+</code></pre></div>
+</details>
+<p>The calculation is <code>|1/21| + |5/21| + |4/21| = 10/21 ≈ 0.476190</code>.</p>
+<h2 id="quickstart-distance-find-the-closest-vectors">Find the closest vectors<a class="headerlink" href="#quickstart-distance-find-the-closest-vectors" title="Permanent link">&para;</a></h2>
+<p>In a similarity search, a table contains multiple embeddings. Add three more documents to the sample table:</p>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">documents</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">,</span><span class="w"> </span><span class="n">embedding</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">'Nearby document'</span><span class="p">,</span><span class="w"> </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.25, 0.375, 0.5]'</span><span class="p">)),</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s1">'Opposite document'</span><span class="p">,</span><span class="w"> </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[-0.125, -0.25, -0.375]'</span><span class="p">)),</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="s1">'Exact query vector'</span><span class="p">,</span><span class="w"> </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.5, 0.625, 0.75]'</span><span class="p">));</span>
+</code></pre></div>
+<p>Use <code>DISTANCE()</code> in the <code>ORDER BY</code> clause and sort in ascending order. <code>LIMIT 3</code> returns the three closest vectors:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<span class="w">       </span><span class="n">content</span><span class="p">,</span>
+<span class="w">       </span><span class="k">CAST</span><span class="p">(</span>
+<span class="w">           </span><span class="n">DISTANCE</span><span class="p">(</span>
+<span class="w">               </span><span class="n">embedding</span><span class="p">,</span>
+<span class="w">               </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.5, 0.625, 0.75]'</span><span class="p">),</span>
+<span class="w">               </span><span class="s1">'COSINE'</span>
+<span class="w">           </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span>
+<span class="w">       </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">documents</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="k">ASC</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+----+--------------------+----------+
+| id | content            | distance |
++----+--------------------+----------+
+|  4 | Exact query vector | 0.000000 |
+|  2 | Nearby document    | 0.005388 |
+|  1 | Example document   | 0.012342 |
++----+--------------------+----------+
+3 rows in set (0.003 sec)
+</code></pre></div>
+</details>
+<p>Lower distance values represent closer matches. The exact query vector ranks first because its cosine distance is <code>0</code>.</p>
+<h2 id="quickstart-distance-handle-invalid-input">Handle invalid input<a class="headerlink" href="#quickstart-distance-handle-invalid-input" title="Permanent link">&para;</a></h2>
+<p>Keep the following behaviors in mind when you build queries:</p>
+<ul>
+<li>Vectors with different dimensions cause an error.</li>
+<li>If either vector is <code>NULL</code>, <code>DISTANCE()</code> returns <code>NULL</code>.</li>
+<li>For <code>COSINE</code>, a zero vector such as <code>[0, 0, 0]</code> returns <code>NULL</code> because cosine distance is undefined for a zero vector.</li>
+<li>An unsupported or misspelled metric name causes an error.</li>
+<li>Metric names are case-insensitive, so <code>cosine</code> and <code>COSINE</code> are equivalent.</li>
+</ul>
+<p>For complete argument and return-value details, see <a href="#distance-function">DISTANCE() Function</a>.</p>
+<h2 id="quickstart-distance-clean-up">Clean up<a class="headerlink" href="#quickstart-distance-clean-up" title="Permanent link">&para;</a></h2>
+<p>When you finish the quickstart, optionally remove the sample database and all of its contents:</p>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">testdb</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="quickstart-distance-see-also">See also<a class="headerlink" href="#quickstart-distance-see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#distance-function">DISTANCE() Function</a></li>
 <li><a href="#vector">The VECTOR Type</a></li>
 </ul></section></section></section>
                     <section class='print-page md-section' id='section-6' heading-number='6'>
@@ -60710,6 +60947,8 @@ contributions and changes from MariaDB.</p>
 .print-site-enumerate-headings #vector > h1:before { content: '5.17.1 ' }
 
 .print-site-enumerate-headings #distance-function > h1:before { content: '5.17.2 ' }
+
+.print-site-enumerate-headings #quickstart-distance > h1:before { content: '5.17.3 ' }
 
 .print-site-enumerate-headings #section-6 > h1:before { content: '6 ' }
 .print-site-enumerate-headings #quickstart-overview > h1:before { content: '6.1 ' }
