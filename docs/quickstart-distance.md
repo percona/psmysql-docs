@@ -1,6 +1,6 @@
 # Get started with DISTANCE()
 
-This quickstart compares one stored vector with one query vector using every distance metric that `DISTANCE()` supports. The metric examples share one table and the same two unit-length vectors, `[0.3333333333, 0.6666666667, 0.6666666667]` and `[0.2857142857, 0.4285714286, 0.8571428571]`, so the metric is what changes the result.
+This quickstart compares one stored vector with one query vector using every distance metric that `DISTANCE()` supports. The metric examples share one table and the same two unit-length vectors, `[0.3333333333, 0.6666666667, 0.6666666667]` and `[0.2857142857, 0.4285714286, 0.8571428571]`, so the metric is what changes the result. Later sections use the same table to rank several vectors and to show how the function handles invalid input.
 
 The supported metrics are:
 
@@ -10,12 +10,13 @@ The supported metrics are:
 * [`DOT`](#dot-distance)
 * [`MANHATTAN`](#manhattan-distance)
 
-You need access to a Percona Server for MySQL {{vers}} server and an account that can create a database and tables. For arguments and return values, see [DISTANCE() Function](distance-function.md).
+You need access to a Percona Server for MySQL {{vers}} server and an account that can create a database and tables. 
 
+For arguments and return values, see [DISTANCE() Function](distance-function.md).
 
 ## Create the sample database and table
 
-The following statements create and select a dedicated `distance_quickstart` database so that the examples do not modify a table in your current database. If that database already exists, either [remove it](#clean-up) or use another database name.
+The following statements create and select a dedicated `testdb` database so that the examples do not modify a table in your current database. If that database already exists, either [remove it](#clean-up) or use another database name. The first statement drops `testdb` if the database already exists, including everything in that database.
 
 `TO_VECTOR()` converts the string representation of a vector to a `VECTOR` value. The statements also create a `documents` table and store `[0.3333333333, 0.6666666667, 0.6666666667]` in the `embedding` column:
 
@@ -26,8 +27,6 @@ DROP DATABASE IF EXISTS testdb;
 CREATE DATABASE testdb CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 
 USE testdb;
-
-DROP TABLE IF EXISTS documents;
 
 CREATE TABLE documents (
     id INT PRIMARY KEY,
@@ -44,6 +43,10 @@ VALUES (
 ```
 
 Each example below compares that stored embedding with `[0.2857142857, 0.4285714286, 0.8571428571]`.
+
+!!! note "Precision of the results"
+
+    A `VECTOR` stores each element as a single-precision (4-byte) float, and `DISTANCE()` returns a `DOUBLE`. Results can therefore differ from exact arithmetic in the seventh or eighth significant digit. The calculation shown under each output gives the exact value, and the digits you see after the seventh decimal place may differ from the output shown here.
 
 ## Euclidean distance
 
@@ -73,7 +76,7 @@ The calculation is `sqrt((1/3 - 2/7)^2 + (2/3 - 3/7)^2 + (2/3 - 6/7)^2) = sqrt((
 
 ## Euclidean squared distance
 
-`EUCLIDEAN_SQUARED` returns the square of the Euclidean distance. This metric is a Percona Server extension.
+`EUCLIDEAN_SQUARED` returns the square of the Euclidean distance. Use this metric when you only need to rank vectors, because the metric skips the square root.
 
 ```sql
 SELECT DISTANCE(
@@ -95,7 +98,8 @@ FROM documents;
     1 row in set (0.003 sec)
     ```
 
-The calculation is `(1/21)^2 + (5/21)^2 + (4/21)^2 = 42/441 = 2/21 ≈ 0.0952381`.
+The calculation is `(1/21)^2 + (5/21)^2 + (-4/21)^2 = 42/441 = 2/21 ≈ 0.0952381`. The result ranges from `0` (same direction) through `1` (orthogonal) to `2` (opposite directions).
+
 
 ## Cosine distance
 
@@ -123,7 +127,7 @@ FROM documents;
 
 Because both vectors are already unit length, cosine similarity here is the raw inner product: `(1/3)(2/7) + (2/3)(3/7) + (2/3)(6/7) = 2/21 + 6/21 + 12/21 = 20/21 ≈ 0.952381`. Cosine distance is `1 - 20/21 = 1/21 ≈ 0.047619`.
 
-For unit-length vectors, Euclidean distance is a monotonic function of cosine similarity, so `EUCLIDEAN` and `COSINE` typically rank matches the same way, which is why embeddings are often normalized before a metric is chosen.
+For unit-length vectors, Euclidean distance is a monotonic function of cosine similarity, so both metrics produce the same ranking. For vectors of different lengths, they can differ.
 
 ## DOT distance
 
@@ -179,7 +183,7 @@ The calculation is `|1/21| + |5/21| + |4/21| = 10/21 ≈ 0.476190`.
 
 ## Find the closest vectors
 
-In a similarity search, a table contains multiple embeddings. Add three more documents to the sample table:
+A similarity search compares a query vector against many stored embeddings. Add three more documents to the sample table:
 
 ```sql
 INSERT INTO documents (id, content, embedding)
@@ -220,6 +224,45 @@ LIMIT 3;
     ```
 
 Lower distance values represent closer matches. The exact query vector ranks first because its cosine distance is `0`.
+
+### Compare rankings across metrics
+
+The metric can change which document ranks second. Run the same search with `EUCLIDEAN`:
+
+```sql
+SELECT id,
+       content,
+       CAST(
+           DISTANCE(
+               embedding,
+               TO_VECTOR('[0.5, 0.625, 0.75]'),
+               'EUCLIDEAN'
+           ) AS DECIMAL(8, 6)
+       ) AS distance
+FROM documents
+ORDER BY DISTANCE(
+             embedding,
+             TO_VECTOR('[0.5, 0.625, 0.75]'),
+             'EUCLIDEAN'
+         ) ASC
+LIMIT 3;
+```
+
+??? example "Expected output"
+
+    ```text
+    +----+--------------------+----------+
+    | id | content            | distance |
+    +----+--------------------+----------+
+    |  4 | Exact query vector | 0.000000 |
+    |  1 | Example document   | 0.190941 |
+    |  2 | Nearby document    | 0.433013 |
+    +----+--------------------+----------+
+    3 rows in set (0.003 sec)
+    ```
+
+With `COSINE`, document 2 ranks ahead of document 1. With `EUCLIDEAN`, the order is reversed. Document 2 points in almost exactly the same direction as the query vector but is much shorter, so cosine distance treats it as very close while Euclidean distance does not. The stored vectors here are not unit length, so the two metrics are not equivalent. Choose the metric that matches how your embedding model was trained, and normalize your vectors if you want direction alone to decide the ranking.
+
 
 ## Handle invalid input
 
