@@ -10,7 +10,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="This quickstart compares one stored vector with one query vector using every distance metric that DISTANCE() supports. The metric examples share one table and the same two unit-length vectors, [0.3333333333, 0.6666666667, 0.6666666667] and [0.2857142857, 0.4285714286, 0.8571428571], so the metric is what changes the result.">
+        <meta name="description" content="This quickstart compares one stored vector with one query vector using every distance metric that DISTANCE() supports. The metric examples share one table and the same two unit-length vectors, [0.3333333333, 0.6666666667, 0.6666666667] and [0.2857142857, 0.4285714286, 0.8571428571], so the metric is what changes the result. Later sections use the same table to rank several vectors and to show how the function handles invalid input.">
       
       
         <meta name="author" content="Percona LLC">
@@ -10528,7 +10528,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="get-started-with-distance">Get started with DISTANCE()<a class="headerlink" href="#get-started-with-distance" title="Permanent link">&para;</a></h1>
-<p>This quickstart compares one stored vector with one query vector using every distance metric that <code>DISTANCE()</code> supports. The metric examples share one table and the same two unit-length vectors, <code>[0.3333333333, 0.6666666667, 0.6666666667]</code> and <code>[0.2857142857, 0.4285714286, 0.8571428571]</code>, so the metric is what changes the result.</p>
+<p>This quickstart compares one stored vector with one query vector using every distance metric that <code>DISTANCE()</code> supports. The metric examples share one table and the same two unit-length vectors, <code>[0.3333333333, 0.6666666667, 0.6666666667]</code> and <code>[0.2857142857, 0.4285714286, 0.8571428571]</code>, so the metric is what changes the result. Later sections use the same table to rank several vectors and to show how the function handles invalid input.</p>
 <p>The supported metrics are:</p>
 <ul>
 <li><a href="#euclidean-distance"><code>EUCLIDEAN</code></a></li>
@@ -10537,17 +10537,16 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li><a href="#dot-distance"><code>DOT</code></a></li>
 <li><a href="#manhattan-distance"><code>MANHATTAN</code></a></li>
 </ul>
-<p>You need access to a Percona Server for MySQL 9.7 server and an account that can create a database and tables. For arguments and return values, see <a href="distance-function.html">DISTANCE() Function</a>.</p>
+<p>You need access to a Percona Server for MySQL 9.7 server and an account that can create a database and tables. </p>
+<p>For arguments and return values, see <a href="distance-function.html">DISTANCE() Function</a>.</p>
 <h2 id="create-the-sample-database-and-table">Create the sample database and table<a class="headerlink" href="#create-the-sample-database-and-table" title="Permanent link">&para;</a></h2>
-<p>The following statements create and select a dedicated <code>distance_quickstart</code> database so that the examples do not modify a table in your current database. If that database already exists, either <a href="#clean-up">remove it</a> or use another database name.</p>
+<p>The following statements create and select a dedicated <code>testdb</code> database so that the examples do not modify a table in your current database. If that database already exists, either <a href="#clean-up">remove it</a> or use another database name. The first statement drops <code>testdb</code> if the database already exists, including everything in that database.</p>
 <p><code>TO_VECTOR()</code> converts the string representation of a vector to a <code>VECTOR</code> value. The statements also create a <code>documents</code> table and store <code>[0.3333333333, 0.6666666667, 0.6666666667]</code> in the <code>embedding</code> column:</p>
 <div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">testdb</span><span class="p">;</span>
 
 <span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">testdb</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8mb4_0900_ai_ci</span><span class="p">;</span>
 
 <span class="n">USE</span><span class="w"> </span><span class="n">testdb</span><span class="p">;</span>
-
-<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">documents</span><span class="p">;</span>
 
 <span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">documents</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
@@ -10563,6 +10562,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="p">);</span>
 </code></pre></div>
 <p>Each example below compares that stored embedding with <code>[0.2857142857, 0.4285714286, 0.8571428571]</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Precision of the results</p>
+<p>A <code>VECTOR</code> stores each element as a single-precision (4-byte) float, and <code>DISTANCE()</code> returns a <code>DOUBLE</code>. Results can therefore differ from exact arithmetic in the seventh or eighth significant digit. The calculation shown under each output gives the exact value, and the digits you see after the seventh decimal place may differ from the output shown here.</p>
+</div>
 <h2 id="euclidean-distance">Euclidean distance<a class="headerlink" href="#euclidean-distance" title="Permanent link">&para;</a></h2>
 <p><code>EUCLIDEAN</code> measures the straight-line distance between the vectors.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
@@ -10584,7 +10587,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </details>
 <p>The calculation is <code>sqrt((1/3 - 2/7)^2 + (2/3 - 3/7)^2 + (2/3 - 6/7)^2) = sqrt((1/21)^2 + (5/21)^2 + (-4/21)^2) = sqrt(42/441) = sqrt(2/21) ≈ 0.3086067</code>.</p>
 <h2 id="euclidean-squared-distance">Euclidean squared distance<a class="headerlink" href="#euclidean-squared-distance" title="Permanent link">&para;</a></h2>
-<p><code>EUCLIDEAN_SQUARED</code> returns the square of the Euclidean distance. This metric is a Percona Server extension.</p>
+<p><code>EUCLIDEAN_SQUARED</code> returns the square of the Euclidean distance. Use this metric when you only need to rank vectors, because the metric skips the square root.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
 <span class="w">    </span><span class="n">embedding</span><span class="p">,</span>
 <span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.2857142857, 0.4285714286, 0.8571428571]'</span><span class="p">),</span>
@@ -10602,7 +10605,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 1 row in set (0.003 sec)
 </code></pre></div>
 </details>
-<p>The calculation is <code>(1/21)^2 + (5/21)^2 + (4/21)^2 = 42/441 = 2/21 ≈ 0.0952381</code>.</p>
+<p>The calculation is <code>(1/21)^2 + (5/21)^2 + (-4/21)^2 = 42/441 = 2/21 ≈ 0.0952381</code>. The result ranges from <code>0</code> (same direction) through <code>1</code> (orthogonal) to <code>2</code> (opposite directions).</p>
 <h2 id="cosine-distance">Cosine distance<a class="headerlink" href="#cosine-distance" title="Permanent link">&para;</a></h2>
 <p><code>COSINE</code> returns <code>1 - cosine similarity</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
@@ -10623,7 +10626,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>Because both vectors are already unit length, cosine similarity here is the raw inner product: <code>(1/3)(2/7) + (2/3)(3/7) + (2/3)(6/7) = 2/21 + 6/21 + 12/21 = 20/21 ≈ 0.952381</code>. Cosine distance is <code>1 - 20/21 = 1/21 ≈ 0.047619</code>.</p>
-<p>For unit-length vectors, Euclidean distance is a monotonic function of cosine similarity, so <code>EUCLIDEAN</code> and <code>COSINE</code> typically rank matches the same way, which is why embeddings are often normalized before a metric is chosen.</p>
+<p>For unit-length vectors, Euclidean distance is a monotonic function of cosine similarity, so both metrics produce the same ranking. For vectors of different lengths, they can differ.</p>
 <h2 id="dot-distance">DOT distance<a class="headerlink" href="#dot-distance" title="Permanent link">&para;</a></h2>
 <p>For <code>DOT</code>, <code>DISTANCE()</code> returns the negative inner product, so a smaller value means the vectors are more closely aligned.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
@@ -10665,7 +10668,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </details>
 <p>The calculation is <code>|1/21| + |5/21| + |4/21| = 10/21 ≈ 0.476190</code>.</p>
 <h2 id="find-the-closest-vectors">Find the closest vectors<a class="headerlink" href="#find-the-closest-vectors" title="Permanent link">&para;</a></h2>
-<p>In a similarity search, a table contains multiple embeddings. Add three more documents to the sample table:</p>
+<p>A similarity search compares a query vector against many stored embeddings. Add three more documents to the sample table:</p>
 <div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">documents</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">,</span><span class="w"> </span><span class="n">embedding</span><span class="p">)</span>
 <span class="k">VALUES</span>
 <span class="w">    </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">'Nearby document'</span><span class="p">,</span><span class="w"> </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.25, 0.375, 0.5]'</span><span class="p">)),</span>
@@ -10699,6 +10702,38 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>Lower distance values represent closer matches. The exact query vector ranks first because its cosine distance is <code>0</code>.</p>
+<h3 id="compare-rankings-across-metrics">Compare rankings across metrics<a class="headerlink" href="#compare-rankings-across-metrics" title="Permanent link">&para;</a></h3>
+<p>The metric can change which document ranks second. Run the same search with <code>EUCLIDEAN</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<span class="w">       </span><span class="n">content</span><span class="p">,</span>
+<span class="w">       </span><span class="k">CAST</span><span class="p">(</span>
+<span class="w">           </span><span class="n">DISTANCE</span><span class="p">(</span>
+<span class="w">               </span><span class="n">embedding</span><span class="p">,</span>
+<span class="w">               </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.5, 0.625, 0.75]'</span><span class="p">),</span>
+<span class="w">               </span><span class="s1">'EUCLIDEAN'</span>
+<span class="w">           </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span>
+<span class="w">       </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">documents</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
+<span class="w">             </span><span class="n">embedding</span><span class="p">,</span>
+<span class="w">             </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.5, 0.625, 0.75]'</span><span class="p">),</span>
+<span class="w">             </span><span class="s1">'EUCLIDEAN'</span>
+<span class="w">         </span><span class="p">)</span><span class="w"> </span><span class="k">ASC</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+----+--------------------+----------+
+| id | content            | distance |
++----+--------------------+----------+
+|  4 | Exact query vector | 0.000000 |
+|  1 | Example document   | 0.190941 |
+|  2 | Nearby document    | 0.433013 |
++----+--------------------+----------+
+3 rows in set (0.003 sec)
+</code></pre></div>
+</details>
+<p>With <code>COSINE</code>, document 2 ranks ahead of document 1. With <code>EUCLIDEAN</code>, the order is reversed. Document 2 points in almost exactly the same direction as the query vector but is much shorter, so cosine distance treats it as very close while Euclidean distance does not. The stored vectors here are not unit length, so the two metrics are not equivalent. Choose the metric that matches how your embedding model was trained, and normalize your vectors if you want direction alone to decide the ranking.</p>
 <h2 id="handle-invalid-input">Handle invalid input<a class="headerlink" href="#handle-invalid-input" title="Permanent link">&para;</a></h2>
 <p>Keep the following behaviors in mind when you build queries:</p>
 <ul>
@@ -10740,7 +10775,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 29, 2026 12:33:14 UTC">September 29, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 29, 2026 14:24:30 UTC">September 29, 2026</span>
   </span>
 
     
