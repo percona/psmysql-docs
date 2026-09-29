@@ -26,7 +26,7 @@
       
       
       <link rel="icon" href="../_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -4202,6 +4202,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-60.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona Server for MySQL 5.7.44-60 (2026-09-29)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-59.html" class="md-nav__link">
         
   
@@ -6407,7 +6435,7 @@
 <p>This is not a bug. Any application relying on a specific order without an <code>ORDER BY</code> clause may deliver unexpected results. A specific order without <code>ORDER BY</code> is a side effect of a storage engine and query optimizer implementation which may and will change between minor MySQL releases.</p>
 <h3 id="indexing">Indexing<a class="headerlink" href="#indexing" title="Permanent link">&para;</a></h3>
 <p>It is currently impossible to use indexes on <code>BLOB</code> columns due to some limitations of the <em>Dynamic Row Format</em>. Trying to create such an index will fail with the following error:</p>
-<div class="highlight"><pre><span></span><code>BLOB column &#39;&lt;name&gt;&#39; can&#39;t be used in key specification with the used table type.
+<div class="highlight"><pre><span></span><code>BLOB column '&lt;name&gt;' can't be used in key specification with the used table type.
 </code></pre></div>
 <h2 id="restrictions">Restrictions<a class="headerlink" href="#restrictions" title="Permanent link">&para;</a></h2>
 <p>For performance reasons, a mixed solution is implemented: the fixed format is used at the beginning of the row, while the dynamic one is used for the rest of it.</p>
@@ -6478,7 +6506,7 @@
 <div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="n">f3</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="n">f4</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
 <span class="w">                        </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="p">))</span><span class="w"> </span><span class="n">KEY_BLOCK_SIZE</span><span class="o">=</span><span class="mi">124</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">HEAP</span><span class="w"> </span><span class="n">ROW_FORMAT</span><span class="o">=</span><span class="k">DYNAMIC</span><span class="p">;</span>
 
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;t1&#39;</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'t1'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be simmilar to the following: </p>
 <div class="highlight"><pre><span></span><code>Name  Engine  Version Row_format      Rows    Avg_row_length  Data_length     Max_data_length Index_length    Data_free       Auto_increment  Create_time     Update_time     Check_time      Collation       Checksum        Create_options  Comment
@@ -6488,7 +6516,7 @@ t1    MEMORY  10      Dynamic 0       X       0       X       0       0       NU
 <div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="n">f3</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="n">f4</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
 <span class="w">                        </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="p">))</span><span class="w"> </span><span class="n">KEY_BLOCK_SIZE</span><span class="o">=</span><span class="mi">124</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">HEAP</span><span class="w"> </span><span class="n">ROW_FORMAT</span><span class="o">=</span><span class="k">DYNAMIC</span><span class="p">;</span>
 
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;t1&#39;</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'t1'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be simmilar to the following: </p>
 <div class="highlight"><pre><span></span><code>Name  Engine  Version Row_format      Rows    Avg_row_length  Data_length     Max_data_length Index_length    Data_free       Auto_increment  Create_time     Update_time     Check_time      Collation       Checksum        Create_options  Comment
@@ -6626,7 +6654,7 @@ t1    MEMORY  10      Fixed   0       X       0       X       0       0       NU
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       

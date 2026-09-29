@@ -26,7 +26,7 @@
       
       
       <link rel="icon" href="../_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -4234,6 +4234,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-60.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona Server for MySQL 5.7.44-60 (2026-09-29)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-59.html" class="md-nav__link">
         
   
@@ -6464,7 +6492,7 @@
 <p><code>LOCK TABLES FOR BACKUP</code> has no effect on <code>SELECT</code> queries for all mentioned storage engines. Against InnoDB, Blackhole and Federated tables, the <code>LOCK TABLES FOR BACKUP</code> is not applicable to the <code>INSERT</code>, <code>REPLACE</code>, <code>UPDATE</code>, <code>DELETE</code> statements: Blackhole tables obviously have no relevance to backups, and Federated tables are ignored by both logical and physical backup tools.</p>
 <p>Unlike <code>FLUSH TABLES WITH READ LOCK</code>, <code>LOCK TABLES FOR BACKUP</code> does not flush tables, i.e. storage engines are not forced to close tables and tables are not expelled from the table cache. As a result, <code>LOCK TABLES FOR BACKUP</code> only waits for conflicting statements to complete (i.e. DDL and updates to non-transactional tables). It never waits for SELECTs, or UPDATEs to InnoDB tables to complete, for example.</p>
 <p>If an “unsafe” statement is executed in the same connection that is holding a <code>LOCK TABLES FOR BACKUP</code> lock, it fails with the following error:</p>
-<div class="highlight"><pre><span></span><code>ERROR 1880 (HY000): Can&#39;t execute the query because you have a conflicting backup lock
+<div class="highlight"><pre><span></span><code>ERROR 1880 (HY000): Can't execute the query because you have a conflicting backup lock
 
 UNLOCK TABLES releases the lock acquired by LOCK TABLES FOR BACKUP.
 </code></pre></div>
@@ -6736,7 +6764,7 @@ UNLOCK BINLOG
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       

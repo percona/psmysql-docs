@@ -26,7 +26,7 @@
       
       
       <link rel="icon" href="../_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -4080,6 +4080,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-60.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona Server for MySQL 5.7.44-60 (2026-09-29)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-59.html" class="md-nav__link">
         
   
@@ -6153,12 +6181,12 @@
 <p>In Oracle MySQL <code>SHOW GRANTS</code> displays only the privileges granted explicitly to the named account. Other privileges might be available to the account, but they are not displayed. For example, if an anonymous account exists, the named account might be able to use its privileges, but <code>SHOW GRANTS</code> will not display them. In <em>Percona Server for MySQL</em> <code>SHOW GRANTS</code> command was extended to display all the effectively available privileges to the account.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <p>If we create the following users:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">grantee</span><span class="o">@</span><span class="n">localhost</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;grantee1&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">grantee</span><span class="o">@</span><span class="n">localhost</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'grantee1'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.50 sec)
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">grantee</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;grantee2&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">grantee</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'grantee2'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output should be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.09 sec)
@@ -6182,7 +6210,7 @@
 <div class="highlight"><pre><span></span><code>+----------------------------------------------------------------------------------------------------------------+
 | Grants for grantee@localhost                                                                                   |
 +----------------------------------------------------------------------------------------------------------------+
-| GRANT USAGE ON *.* TO &#39;grantee&#39;@&#39;localhost&#39; IDENTIFIED BY PASSWORD &#39;*9823FF338D44DAF02422CF24DD1F879FB4F6B232&#39; |
+| GRANT USAGE ON *.* TO 'grantee'@'localhost' IDENTIFIED BY PASSWORD '*9823FF338D44DAF02422CF24DD1F879FB4F6B232' |
 +----------------------------------------------------------------------------------------------------------------+
 1 row in set (0.04 sec)
 </code></pre></div>
@@ -6203,8 +6231,8 @@
 <div class="highlight"><pre><span></span><code>+----------------------------------------------------------------------------------------------------------------+
 | Grants for grantee@localhost                                                                                   |
 +----------------------------------------------------------------------------------------------------------------+
-| GRANT USAGE ON *.* TO &#39;grantee&#39;@&#39;localhost&#39; IDENTIFIED BY PASSWORD &#39;*9823FF338D44DAF02422CF24DD1F879FB4F6B232&#39; |
-| GRANT ALL PRIVILEGES ON `db2`.* TO &#39;grantee&#39;@&#39;%&#39; WITH GRANT OPTION                                             |
+| GRANT USAGE ON *.* TO 'grantee'@'localhost' IDENTIFIED BY PASSWORD '*9823FF338D44DAF02422CF24DD1F879FB4F6B232' |
+| GRANT ALL PRIVILEGES ON `db2`.* TO 'grantee'@'%' WITH GRANT OPTION                                             |
 +----------------------------------------------------------------------------------------------------------------+
 2 rows in set (0.00 sec)
 </code></pre></div>
@@ -6287,7 +6315,7 @@ Feature ported from <em>Percona Server for MySQL</em> 5.6</li>
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       

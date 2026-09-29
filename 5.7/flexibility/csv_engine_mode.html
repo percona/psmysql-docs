@@ -26,7 +26,7 @@
       
       
       <link rel="icon" href="../_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -4102,6 +4102,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-60.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona Server for MySQL 5.7.44-60 (2026-09-29)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-59.html" class="md-nav__link">
         
   
@@ -6206,16 +6234,16 @@
 <span class="p">;</span>
 </code></pre></div>
 <p>Following example shows the difference in parsing for default and <code>IETF_QUOTES</code> csv_quotes.</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">albums</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Great Artist&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;Old Album&quot;</span><span class="p">),</span>
-<span class="p">(</span><span class="ss">&quot;Great Artist&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;Old Album \&quot;</span><span class="n">Limited</span><span class="w"> </span><span class="n">Edition</span><span class="err">\</span><span class="ss">&quot;&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">albums</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="ss">"Great Artist"</span><span class="p">,</span><span class="w"> </span><span class="ss">"Old Album"</span><span class="p">),</span>
+<span class="p">(</span><span class="ss">"Great Artist"</span><span class="p">,</span><span class="w"> </span><span class="ss">"Old Album \"</span><span class="n">Limited</span><span class="w"> </span><span class="n">Edition</span><span class="err">\</span><span class="ss">""</span><span class="p">);</span>
 </code></pre></div>
 <p>If the variable csv_mode is set to empty value (default) parsed data will look like:</p>
-<div class="highlight"><pre><span></span><code><span class="ss">&quot;Great Artist&quot;</span><span class="p">,</span><span class="ss">&quot;Old Album&quot;</span>
-<span class="ss">&quot;Great Artist&quot;</span><span class="p">,</span><span class="ss">&quot;\&quot;</span><span class="n">Limited</span><span class="w"> </span><span class="n">Edition</span><span class="err">\</span><span class="ss">&quot;,Old Album&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="ss">"Great Artist"</span><span class="p">,</span><span class="ss">"Old Album"</span>
+<span class="ss">"Great Artist"</span><span class="p">,</span><span class="ss">"\"</span><span class="n">Limited</span><span class="w"> </span><span class="n">Edition</span><span class="err">\</span><span class="ss">",Old Album"</span>
 </code></pre></div>
 <p>If the variable csv_mode is set to <code>IETF_QUOTES</code> parsed data will look like as described in <a href="http://en.wikipedia.org/wiki/Comma-separated_values#Basic_rules_and_examples">CSV rules</a>:</p>
-<div class="highlight"><pre><span></span><code>&quot;Great Artist&quot;,&quot;Old Album&quot;
-&quot;Great Artist&quot;,&quot;&quot;&quot;Limited Edition&quot;&quot;,Old Album&quot;
+<div class="highlight"><pre><span></span><code>"Great Artist","Old Album"
+"Great Artist","""Limited Edition"",Old Album"
 </code></pre></div>
 <p>Parsing the CSV file which has the proper quotes (shown in the previous example) can show different results:</p>
 <p>With csv_mode set to empty value, parsed data will look like:</p>
@@ -6226,12 +6254,12 @@ The output could be similar to the following:</p>
 | artist       | album              |
 +--------------+--------------------+
 | Great Artist | Old Album          |
-| Great Artist | &quot;&quot;Limited Edition&quot; |
+| Great Artist | ""Limited Edition" |
 +--------------+--------------------+
 2 rows in set (0.02 sec)
 </code></pre></div>
 <p>With csv_mode set to <code>IETF_QUOTES</code> parsed data will look like:</p>
-<p><div class="highlight"><pre><span></span><code>mysql&gt; SET csv_mode = &#39;IETF_QUOTES&#39;;
+<p><div class="highlight"><pre><span></span><code>mysql&gt; SET csv_mode = 'IETF_QUOTES';
 </code></pre></div>
 The output could be similar to the following:</p>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
@@ -6243,7 +6271,7 @@ The output could be similar to the following:</p>
 | artist       | album                       |
 +--------------+-----------------------------+
 | Great Artist | Old Album                   |
-| Great Artist | &quot;Limited Edition&quot;,Old Album |
+| Great Artist | "Limited Edition",Old Album |
 +--------------+-----------------------------+
 </code></pre></div>
 <h2 id="version-specific-information">Version Specific Information<a class="headerlink" href="#version-specific-information" title="Permanent link">&para;</a></h2>
@@ -6363,7 +6391,7 @@ The output could be similar to the following:</p>
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       

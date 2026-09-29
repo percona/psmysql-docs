@@ -27,7 +27,7 @@ If unauthorized users access the data files, they cannot read the contents. Perc
       
       
       <link rel="icon" href="../_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -35,7 +35,7 @@ If unauthorized users access the data files, they cannot read the contents. Perc
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -4053,6 +4053,34 @@ If unauthorized users access the data files, they cannot read the contents. Perc
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-60.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona Server for MySQL 5.7.44-60 (2026-09-29)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-59.html" class="md-nav__link">
         
   
@@ -6235,7 +6263,7 @@ server to store key and secure encryption keys.</p>
 <p>Load the plugin at server startup with the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-options.html#option_mysqld_early-plugin-load">early-plugin-load Option</a>
 to enable the keyring. To make encrypted table recovery more efficient,load the plugin with the configuration file.</p>
 <p>Run the following command to load the keyring_file plugin:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysqld<span class="w"> </span>--early-plugin-load<span class="o">=</span><span class="s2">&quot;keyring_file=keyring_file.so&quot;</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysqld<span class="w"> </span>--early-plugin-load<span class="o">=</span><span class="s2">"keyring_file=keyring_file.so"</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -6246,13 +6274,13 @@ to enable the keyring. To make encrypted table recovery more efficient,load the 
 privileges.</p>
 <p>The following statements loads the keyring_vault plugin and the keyring_vault_config. The second statement provides the location to the keyring_vault configuration file.</p>
 <div class="highlight"><pre><span></span><code>[mysqld]
-early-plugin-load=&quot;keyring_vault=keyring_vault.so&quot;
-loose-keyring_vault_config=&quot;/home/mysql/keyring_vault.conf&quot;
+early-plugin-load="keyring_vault=keyring_vault.so"
+loose-keyring_vault_config="/home/mysql/keyring_vault.conf"
 </code></pre></div>
 <p>Add the following statements to my.cnf:</p>
 <div class="highlight"><pre><span></span><code>[mysqld]
-early-plugin-load=&quot;keyring_vault=keyring_vault.so&quot;
-loose-keyring_value_config=&quot;/home/mysql/keyring_vault.conf&quot;
+early-plugin-load="keyring_vault=keyring_vault.so"
+loose-keyring_value_config="/home/mysql/keyring_vault.conf"
 </code></pre></div>
 <p>Restart the server.</p>
 <div class="admonition note">
@@ -6313,7 +6341,7 @@ communicates with the Vault server to retrieve the key type and data.</p>
 <h2 id="verifying-the-keyring-plugin-is-active">Verifying the Keyring Plugin is Active<a class="headerlink" href="#verifying-the-keyring-plugin-is-active" title="Permanent link">&para;</a></h2>
 <p>To verify the keyring plugin is active, run the <a href="https://dev.mysql.com/doc/refman/8.0/en/show-plugins.html">SHOW PLUGINS</a> statement or
 run a query on the INFORMATION_SCHEMA.PLUGINS table. You can also query the PLUGINS view.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">plugin_name</span><span class="p">,</span><span class="w"> </span><span class="n">plugin_status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">plugin_name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;keyring%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">plugin_name</span><span class="p">,</span><span class="w"> </span><span class="n">plugin_status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">plugin_name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'keyring%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be the following:</p>
 <div class="highlight"><pre><span></span><code>+---------------+----------------+
@@ -6324,10 +6352,10 @@ run a query on the INFORMATION_SCHEMA.PLUGINS table. You can also query the PLUG
 </code></pre></div>
 <h2 id="encrypting-a-file-per-table-tablespace">Encrypting a File-Per-Table Tablespace<a class="headerlink" href="#encrypting-a-file-per-table-tablespace" title="Permanent link">&para;</a></h2>
 <p>The <a href="https://dev.mysql.com/doc/refman/5.7/en/create-tablespace.html">CREATE TABLESPACE</a> statement is extended to allow the <code>ENCRYPTION=['Y/N']</code> option to encrypt a File-per-Table tablespace.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">tablespace_name</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">tablespace_name</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <p>To enable encryption to an existing tablespace, add the <code>ENCRYPTION</code> option to the <code>ALTER TABLE</code> statement.</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">myexample</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">myexample</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <p>You must add the <code>ENCRYPTION</code> option to <a href="https://dev.mysql.com/doc/refman/5.7/en/alter-table.html">ALTER TABLE</a> to change the table encryption state. Without the <code>ENCRYPTION</code> option, an encrypted table remains encrypted or an unencrypted table remains unencrypted.</p>
 <p>To change the tablespace key, run the <a href="https://dev.mysql.com/doc/refman/5.7/en/optimize-table.html">optimize table</a> command.</p>
@@ -6368,14 +6396,14 @@ run a query on the INFORMATION_SCHEMA.PLUGINS table. You can also query the PLUG
 </tbody>
 </table>
 <p>The <a href="https://dev.mysql.com/doc/refman/5.7/en/create-tablespace.html">CREATE TABLESPACE</a> statement is extended to allow the <code>ENCRYPTION=['Y/N']</code> option.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">tablespace_name</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">tablespace_name</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <p>To encrypt an existing table, add the ENCRYPTION option in the <code>ALTER TABLE</code> statement.</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <p>You can also disable encryption for a table, set the
 encryption to N.</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'N'</span><span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -6391,7 +6419,7 @@ encryption to N.</p>
 <p><strong>NOTE</strong>: These actions do not encrypt all binlogs in a replication schema. You must enable <code>encrypt-binlog</code> on each of the replica servers, even if they do not produce binlog files. Enabling encryption on replica servers enable relay log encryption.</p>
 <p>You can rotate the encryption key used by <em>Percona Server for MySQL</em> by running the
 following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">rotate_system_key</span><span class="p">(</span><span class="ss">&quot;percona_binlog&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">rotate_system_key</span><span class="p">(</span><span class="ss">"percona_binlog"</span><span class="p">);</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -6411,21 +6439,21 @@ encrypt-tmp-files=ON
 <p>For single tablespaces, verify the ENCRYPTION option using
 INFORMATION_SCHEMA.TABLES and the CREATE OPTIONS settings.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">FROM</span>
-<span class="w">       </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLES</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%ENCRYPTION%&#39;</span><span class="p">;</span>
+<span class="w">       </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLES</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%ENCRYPTION%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output could be the following:</p>
 <div class="highlight"><pre><span></span><code>+----------------------+-------------------+------------------------------+
 | TABLE_SCHEMA         | TABLE_NAME        | CREATE_OPTIONS               |
 +----------------------+-------------------+------------------------------+
-|sample                | t1                | ENCRYPTION=&quot;Y&quot;               |
+|sample                | t1                | ENCRYPTION="Y"               |
 +----------------------+-------------------+------------------------------+
 </code></pre></div>
 <p>A <code>flag</code> field in the <code>INFORMATION_SCHEMA.INNODB_TABLESPACES</code> has the bit
 number 13 set if the tablespace is encrypted. This bit can be checked with the
 <code>flag &amp; 8192</code> expression with the following method:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">space</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">flag</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">8192</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">encrypted</span><span class="w"> </span><span class="k">FROM</span>
-<span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">INNODB_TABLESPACES</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test/t2&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">,</span>
-<span class="s1">&#39;noencrypt&#39;</span><span class="p">);</span>
+<span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">INNODB_TABLESPACES</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span><span class="w"> </span><span class="s1">'test/t2'</span><span class="p">,</span><span class="w"> </span><span class="s1">'bar'</span><span class="p">,</span>
+<span class="s1">'noencrypt'</span><span class="p">);</span>
 </code></pre></div>
 <p>The output could be the following:</p>
 <div class="highlight"><pre><span></span><code>  +-------+-----------+-------+-----------+
@@ -6457,7 +6485,7 @@ server must be started with the <code>--bootstrap</code> option.</p>
 <p>If the variable innodb_sys_tablespace_encrypt is set to ON and the
 server has been started in the bootstrap mode, you may create an encrypted table
 as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="o">=</span><span class="n">innodb_system</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="o">=</span><span class="n">innodb_system</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -6954,7 +6982,7 @@ innodb_online_encryption_threads variable to a value greater than
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       

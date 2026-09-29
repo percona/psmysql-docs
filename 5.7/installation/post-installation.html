@@ -26,7 +26,7 @@
       
       
       <link rel="icon" href="../_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -4129,6 +4129,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-60.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona Server for MySQL 5.7.44-60 (2026-09-29)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-59.html" class="md-nav__link">
         
   
@@ -6368,7 +6396,7 @@ To
 reset the password, you must start MySQL with the <code>--skip-grant-tables</code> 
 option and update the <code>user</code> table.</p>
 <p>The initial password is located using the following command:</p>
-<p><div class="highlight"><pre><span></span><code>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
+<p><div class="highlight"><pre><span></span><code>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/log/mysqld.log
 </code></pre></div>
 Follow this procedure to reset the root password:</p>
 <ol>
@@ -6380,8 +6408,8 @@ Follow this procedure to reset the root password:</p>
 <li>
 <p>Set <code>--skip-grant-tables</code> as an environment option. This method lets 
    you specify the option without modifying configuration files.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>set-environment<span class="w"> </span><span class="nv">MYSQLD_OPTS</span><span class="o">=</span><span class="s2">&quot;--skip-grant-tables </span>
-<span class="s2">--skip-networking&quot;</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>set-environment<span class="w"> </span><span class="nv">MYSQLD_OPTS</span><span class="o">=</span><span class="s2">"--skip-grant-tables </span>
+<span class="s2">--skip-networking"</span>
 </code></pre></div>
 </li>
 <li>
@@ -6397,7 +6425,7 @@ Follow this procedure to reset the root password:</p>
 <li>
 <p>Change the root password.</p>
 <div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;NewPassword&#39;</span><span class="p">);</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'root'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="s1">'NewPassword'</span><span class="p">);</span>
 <span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
 <span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">exit</span>
 </code></pre></div>
@@ -6427,8 +6455,8 @@ Follow this procedure to reset the root password:</p>
 <p class="admonition-title">Note</p>
 <p>if you have trouble logging in after following the steps, repeat the procedure but, instead of using the <code>ALTER USER</code> statement, modify the <code>user</code> table.</p>
 <div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">authentication_string</span><span class="o">=</span><span class="n">PASSWORD</span>
-<span class="p">(</span><span class="s1">&#39;NewPassword&#39;</span><span class="p">),</span><span class="w"> </span><span class="n">password_expired</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="w"> </span>
-<span class="k">WHERE</span><span class="w"> </span><span class="k">User</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">Host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<span class="p">(</span><span class="s1">'NewPassword'</span><span class="p">),</span><span class="w"> </span><span class="n">password_expired</span><span class="o">=</span><span class="s1">'N'</span><span class="w"> </span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">User</span><span class="o">=</span><span class="s1">'root'</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">Host</span><span class="o">=</span><span class="s1">'localhost'</span><span class="p">;</span>
 <span class="n">mysql</span><span class="o">&gt;</span><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
 </code></pre></div>
 </div>
@@ -6483,7 +6511,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> <
 The output should be similar to the following:
 <div class="highlight"><pre><span></span><code>Enter password:
 
-mysql Ver 8.0.19-10 for debian-linux-gnu on x86_64 (Percona Server (GPL), Release &#39;10&#39;, Revision &#39;f446c04&#39;)
+mysql Ver 8.0.19-10 for debian-linux-gnu on x86_64 (Percona Server (GPL), Release '10', Revision 'f446c04')
 ...
 Server version      8.0.19-10
 Protocol version    10
@@ -6624,7 +6652,7 @@ populates the tables from the <code>zoneinfo</code> directory data available in 
     
 <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
 
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       
