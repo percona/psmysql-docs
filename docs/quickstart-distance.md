@@ -240,11 +240,7 @@ SELECT id,
            ) AS DECIMAL(8, 6)
        ) AS distance
 FROM documents
-ORDER BY DISTANCE(
-             embedding,
-             TO_VECTOR('[0.5, 0.625, 0.75]'),
-             'EUCLIDEAN'
-         ) ASC
+ORDER BY DISTANCE ASC
 LIMIT 3;
 ```
 
@@ -261,7 +257,11 @@ LIMIT 3;
     3 rows in set (0.003 sec)
     ```
 
-With `COSINE`, document 2 ranks ahead of document 1. With `EUCLIDEAN`, the order is reversed. Document 2 points in almost exactly the same direction as the query vector but is much shorter, so cosine distance treats it as very close while Euclidean distance does not. The stored vectors here are not unit length, so the two metrics are not equivalent. Choose the metric that matches how your embedding model was trained, and normalize your vectors if you want direction alone to decide the ranking.
+With `COSINE`, 'Nearby document' ranks ahead of 'Example document'. With `EUCLIDEAN`, the order is reversed.
+
+'Nearby document' points in nearly the same direction as the query vector but has a shorter length. Cosine distance ignores length, so 'Nearby document' ranks as close. Euclidean distance accounts for length, so 'Nearby document' ranks as distant. 
+
+The stored vectors do not have unit length. The two metrics are therefore not equivalent. Choose the metric that matches the training method of the embedding model. Normalize vectors to unit length to make direction alone determine the ranking.
 
 
 ## Handle invalid input
@@ -269,10 +269,14 @@ With `COSINE`, document 2 ranks ahead of document 1. With `EUCLIDEAN`, the order
 Keep the following behaviors in mind when you build queries:
 
 * Vectors with different dimensions cause an error.
-* If either vector is `NULL`, `DISTANCE()` returns `NULL`.
-* For `COSINE`, a zero vector such as `[0, 0, 0]` returns `NULL` because cosine distance is undefined for a zero vector.
+
+* A NULL argument makes DISTANCE() return NULL.
+
+* A zero vector such as [0, 0, 0] makes the COSINE metric return NULL. Cosine distance is undefined for a zero vector.
+
 * An unsupported or misspelled metric name causes an error.
-* Metric names are case-insensitive, so `cosine` and `COSINE` are equivalent.
+
+* Metric names are case-insensitive. The names cosine and COSINE produce the same result.
 
 For complete argument and return-value details, see [DISTANCE() Function](distance-function.md).
 
