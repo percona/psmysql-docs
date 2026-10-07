@@ -13,7 +13,7 @@ Set format with [`audit_log_filter.format`](audit-log-filter-variables.md#audit_
 | [XML (new style)](audit-log-filter-new.md) | `audit_log_filter.format=NEW` | New XML layout (default in Percona Server 8.4) |
 | [XML (old style)](audit-log-filter-old.md) | `audit_log_filter.format=OLD` | Legacy XML layout. Deprecated and may be removed in a later version. |
 | [JSON](audit-log-filter-json.md) | `audit_log_filter.format=JSON` | One top-level JSON array of events |
-| [JSONL](audit-log-filter-json.md) | `audit_log_filter.format=JSONL` | Added in 8.4.9-9. One compact JSON object per line inside a wrapping array (see the JSON/JSONL topic). |
+| [JSONL](audit-log-filter-json.md) | `audit_log_filter.format=JSONL` | Added in 8.4.9-9. One compact JSON object per line inside a wrapping array. This layout is not standard JSON Lines. See [Standard JSONL and Percona JSONL](audit-log-filter-json.md#standard-jsonl-and-percona-jsonl). |
 
 By default, new-style XML logs are neither compressed nor encrypted.
 
