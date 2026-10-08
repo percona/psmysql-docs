@@ -35,6 +35,7 @@
 - [Compile Percona Server for MySQL from source](compile-percona-server.md)
 - [Compressed columns with dictionaries](compressed-columns.md)
 - [Configure AppArmor](configure-apparmor.md)
+- [Configure OpenTelemetry](configure-opentelemetry.md)
 - [Copyright and licensing information](copyright-and-licensing-information.md)
 - [Create a table](create-table.md)
 - [Data at Rest Encryption](data-at-rest-encryption.md)
@@ -84,6 +85,7 @@
 - [InnoDB full-text search improvements](innodb-fts-improvements.md)
 - [InnoDB page fragmentation counters](innodb-fragmentation-count.md)
 - [INSERT statement](insert.md)
+- [Install and manage the OpenTelemetry component](opentelemetry-lifecycle.md)
 - [INSTALL COMPONENT](install-component.md)
 - [Install js_lang component](install-js-lang.md)
 - [Install Percona Server for MySQL](installation.md)
@@ -133,7 +135,14 @@
 - [MySQL Clone plugin](clone-plugin.md)
 - [MySQL upgrade paths and supported methods](mysql-upgrade-paths.md)
 - [Next steps](quickstart-next-steps.md)
+
+- [OpenTelemetry client plugin](opentelemetry-client.md)
+- [OpenTelemetry component overview](opentelemetry-overview.md)
+- [OpenTelemetry data reference](opentelemetry-data-reference.md)
+- [OpenTelemetry variable reference](opentelemetry-variables.md)
+
 - [OpenID Connect authentication](openid-connect-authentication.md)
+
 - [Overview](quickstart-overview.md)
 - [PAM authentication plugin](pam-plugin.md)
 - [Percona MyRocks installation guide](install-myrocks.md)
@@ -154,6 +163,7 @@
 - [Profile-Guided Optimization (PGO) and non-PGO builds](pgo.md)
 - [The ps-admin script](ps-admin.md)
 - [Quickstart - Run Percona Server for MySQL container images with Docker](quickstart-docker.md)
+- [Quickstart: test OpenTelemetry locally](quickstart-opentelemetry.md)
 - [Reading Audit Log Filter files](reading-audit-log-filter-files.md)
 - [Redact audit log fields](redact-audit-log-fields.md)
 - [Reserved keywords](reserved-words.md)
@@ -190,7 +200,10 @@
 - [Trigger updates](trigger-updates.md)
 - [Triggers](triggers.md)
 - [Troubleshoot AppArmor profiles](troubleshoot-apparmor.md)
-- [Troubleshoot js_lang procedures and functions](js-lang-troubleshoot.md)
+
+- [Troubleshoot JS procedures and functions](js-lang-troubleshoot.md)
+- [Troubleshoot OpenTelemetry](troubleshoot-opentelemetry.md)
+
 - [Troubleshoot SELinux issues](troubleshoot-selinux.md)
 - [Troubleshoot SQL code](troubleshooting-sql.md)
 - [Troubleshooting overview](troubleshoot-overview.md)
