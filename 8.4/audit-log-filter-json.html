@@ -1414,6 +1414,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#standard-jsonl-and-percona-jsonl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standard JSONL and Percona JSONL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#version-changes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10486,6 +10497,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#standard-jsonl-and-percona-jsonl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standard JSONL and Percona JSONL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#version-changes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10571,7 +10593,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 <h1 id="audit-log-filter-format-json-and-jsonl">Audit Log Filter format - JSON and JSONL<a class="headerlink" href="#audit-log-filter-format-json-and-jsonl" title="Permanent link">&para;</a></h1>
 <p>JSON and JSONL emit the same key-value pairs per event. Required keys appear in every record; optional keys depend on event type and settings. Key order is not guaranteed; long values may be truncated.</p>
-<p>Only file layout differs:</p>
+<p>Only the file layout differs:</p>
 <table>
 <thead>
 <tr>
@@ -10593,14 +10615,118 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<p>JSONL arrived in Percona Server for MySQL 8.4.9-9. Unlike plain <a href="https://jsonlines.org/">JSON Lines</a>, Percona JSONL keeps a wrapping JSON array and commas between lines, so the file stays valid JSON while remaining line-friendly for <code>grep</code>, <code>jq</code>, <code>wc -l</code>, streams, and aggregators.</p>
+<p>Percona Server for MySQL 8.4.9-9 introduced JSONL. JSONL is the usual shorthand for JSON Lines: one complete JSON value on each line, with nothing wrapping the file. Percona Server uses that name because each event is one line, and writes a different layout: a JSON array of compact event objects, one object per line, with commas between them. <a href="#standard-jsonl-and-percona-jsonl">Standard JSONL and Percona JSONL</a> covers how that layout differs from JSON Lines, why Percona JSONL exists, and when to choose Percona JSONL instead of JSON.</p>
 <p>Compression and encryption behave like JSON. <code>audit_log_read()</code> and <code>audit_log_read_bookmark()</code> read both formats.</p>
-<p>JSON and JSONL alone expose some statistics (for example query timing and size)—use them to flag outliers in workload analysis.</p>
+<p>JSON and JSONL alone expose some statistics (for example, query timing and size)—use them to flag outliers in workload analysis.</p>
+<h2 id="standard-jsonl-and-percona-jsonl">Standard JSONL and Percona JSONL<a class="headerlink" href="#standard-jsonl-and-percona-jsonl" title="Permanent link">&para;</a></h2>
+<h3 id="what-standard-jsonl-represents">What standard JSONL represents<a class="headerlink" href="#what-standard-jsonl-represents" title="Permanent link">&para;</a></h3>
+<p>Standard JSONL (<a href="https://jsonlines.org/">JSON Lines</a>, also called newline-delimited JSON) stores a sequence of independent records:</p>
+<ul>
+<li>Each line is one complete JSON value. The specification permits any JSON value, including scalars and arrays, not only objects.</li>
+<li>A newline separates lines. Nothing else does.</li>
+<li>The file has no opening <code>[</code>, no closing <code>]</code>, and no commas between records.</li>
+<li>A file containing multiple records is not one JSON document. A reader parses and handles each line independently.</li>
+</ul>
+<p>That layout fits data that arrives as a stream of separate records: large exports, application logs, event feeds, and bulk loads. A process can append one line, split the file on newlines, or hand each line to a worker without reading the rest of the file.</p>
+<h3 id="how-percona-jsonl-differs">How Percona JSONL differs<a class="headerlink" href="#how-percona-jsonl-differs" title="Permanent link">&para;</a></h3>
+<p>Percona JSONL uses a JSON array containing one compact event object per line, with commas between objects. The array is a valid JSON document only after the writer closes the file, either at shutdown or on rotation. The active file has no closing <code>]</code>. If the server stops without closing the file, for example after a crash, that file never receives the closing <code>]</code> and is not valid JSON. </p>
+<p><code>audit_log_read()</code> supports both JSON and JSONL, but a general-purpose JSON parser needs the complete array. Line tools can inspect the event records, but <code>wc -l</code> counts the wrapper lines: a completed file that is neither compressed nor encrypted and contains N events has N+2 lines, so <code>wc -l</code> is not directly an event count.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Standard JSONL</th>
+<th>Percona JSONL (<code>format=JSONL</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Valid JSON document</td>
+<td>A one-record file can itself be a valid JSON document. Multiple top-level records cannot.</td>
+<td>Only after the writer closes the file, at shutdown or on rotation. The active file has no closing bracket.</td>
+</tr>
+<tr>
+<td>Wrapper</td>
+<td>None</td>
+<td><code>[</code> and <code>]</code></td>
+</tr>
+<tr>
+<td>Between events</td>
+<td>Newline only</td>
+<td>Comma, then newline. The last event in a completed file has no comma.</td>
+</tr>
+<tr>
+<td>Event layout</td>
+<td>One JSON value per line, including a scalar or an array, not only an object</td>
+<td>One compact JSON object per line</td>
+</tr>
+<tr>
+<td>A middle line parses on its own</td>
+<td>Yes</td>
+<td>No. The line ends with a comma, and the <code>[</code> and <code>]</code> lines are not events.</td>
+</tr>
+<tr>
+<td>Typical reader</td>
+<td>A JSONL parser, one line at a time</td>
+<td>A JSON parser, or a line tool that removes the comma and the wrapper</td>
+</tr>
+</tbody>
+</table>
+<p>A strict JSON Lines parser cannot read a Percona JSONL file directly because the wrapper lines and comma-terminated event lines are not standalone JSON values. To convert a completed, uncompressed, and unencrypted file into standard JSON Lines, use the following command. It reads the complete array into memory, so use a line-oriented conversion or a streaming JSON parser for very large files. Do not use this command on the active file or as a live tailing pipeline.</p>
+<div class="highlight"><pre><span></span><code>jq<span class="w"> </span>-c<span class="w"> </span><span class="s1">'.[]'</span><span class="w"> </span>audit.jsonl
+</code></pre></div>
+<p>To parse one event line in place, delete a trailing comma first, and skip the <code>[</code> and <code>]</code> lines. The <a href="#jsonl-example">JSONL example</a> shows the layout.</p>
+<h3 id="why-percona-jsonl-exists">Why Percona JSONL exists<a class="headerlink" href="#why-percona-jsonl-exists" title="Permanent link">&para;</a></h3>
+<p>Pretty-printed JSON is easy to open in an editor, and each event spans many lines. That layout is a poor fit for a large log or for a pipeline that handles one event at a time. Line tools cut a single event into pieces; the file is larger, and a consumer has to reassemble the lines before the tool can parse.</p>
+<p>Percona JSONL keeps the JSON array, so existing JSON consumers can read a file after the writer closes it, including on rotation, and places each event on one line, so the file can be followed, filtered, counted, and shipped like a log. JSONL is the line-delimited format, with the same event fields as JSON. See <a href="migrate-to-audit-log-filter-component.html">Migrate from audit plugins</a>.</p>
+<p>The benefit is both properties at once: a closed file is valid JSON, and each audit event is one line.</p>
+<h3 id="when-to-choose-jsonl">When to choose JSONL<a class="headerlink" href="#when-to-choose-jsonl" title="Permanent link">&para;</a></h3>
+<p>Choose JSONL when another system reads the log, or when you work with the file as a stream of events. Choose JSON when a person reads the file. The event fields are the same either way.</p>
+<p>Prefer JSONL over JSON in these situations:</p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Why JSONL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Large data sets</td>
+<td>Compact lines take less space than pretty-printed objects, so rotation, copy, and retention cost less. A job can split the file into line ranges and process each range on its own.</td>
+</tr>
+<tr>
+<td>Streaming records</td>
+<td>On GNU/Linux, <code>tail -F</code> follows the log pathname across rotation. For ingestion, use a rotation-aware consumer that handles the array wrapper and commas. The newest event has no terminating newline until the next event is written or the file closes, so a line-oriented consumer may delay that event.</td>
+</tr>
+<tr>
+<td>Logs and events</td>
+<td>Audit data is a sequence of events. Collectors and SIEMs ingest that sequence more easily when each event is one line. <code>jq -c '.[]'</code> is an offline conversion of a completed plaintext file.</td>
+</tr>
+<tr>
+<td>Bulk ingestion</td>
+<td>A loader reads the array, or reads line by line after removing the wrapper and commas, and writes each event to a warehouse, an object store, or a search index.</td>
+</tr>
+<tr>
+<td>Independent records</td>
+<td>A worker takes one line, strips a trailing comma, and parses that object. It does not load the rest of the file, and a bad line stays on that line.</td>
+</tr>
+</tbody>
+</table>
+<p>Prefer JSON when people inspect the file directly. Pretty-printing makes nested objects such as <code>connection_data</code> and <code>startup_data</code> easier to scan.</p>
+<p>Use JSONL if you are in any of these roles:</p>
+<ul>
+<li>You run a log pipeline (Filebeat, Fluent Bit, Vector, Logstash, or a similar shipper) that forwards audit events.</li>
+<li>You load audit events into a SIEM or a data lake for security or compliance.</li>
+<li>You grep or tail the audit file on the server.</li>
+<li>You used the audit log plugin&rsquo;s CSV format for line-delimited ingest.</li>
+</ul>
+<p>Compression, encryption, and the SQL readers are the same for JSON and JSONL. Changing <code>audit_log_filter.format</code> requires a restart. Give JSONL its own <a href="audit-log-filter-variables.html#audit_log_filterfile"><code>audit_log_filter.file</code></a> name, for example, <code>audit.jsonl</code>. See <a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a>.</p>
 <h2 id="version-changes">Version changes<a class="headerlink" href="#version-changes" title="Permanent link">&para;</a></h2>
 <h3 id="percona-server-for-mysql-849-9">Percona Server for MySQL 8.4.9-9<a class="headerlink" href="#percona-server-for-mysql-849-9" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>Component startup and shutdown events include <code>event</code>, <code>connection_id</code>, <code>account</code>, <code>login</code>, and a <code>startup_data</code> object. The <code>startup_data</code> object holds <code>server_id</code>, <code>os_version</code>, <code>mysql_version</code>, and <code>args</code> (command-line arguments). Earlier releases exposed only <code>server_id</code> at the top level for those records.</p>
+<p>Component startup and shutdown events include the <code>event</code>, <code>connection_id</code>, <code>account</code>, <code>login</code>, and <code>startup_data</code> fields. The <code>startup_data</code> object holds <code>server_id</code>, <code>os_version</code>, <code>mysql_version</code>, and <code>args</code> (command-line arguments). Earlier releases exposed only <code>server_id</code> at the top level for those records.</p>
 </li>
 <li>
 <p>Lifecycle <code>event</code> values changed from the internal names <code>audit</code> / <code>noaudit</code> to <code>startup</code> / <code>shutdown</code>.</p>
@@ -10609,11 +10735,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>On connection events, <code>connection_attributes</code> are nested inside the <code>connection_data</code> object.</p>
 </li>
 <li>
-<p>Message events: the <code>message_attributes</code> key is replaced by <code>map</code>; message events also include <code>account</code> and <code>login</code>.</p>
+<p>Message events: the <code>message_attributes</code> key is replaced by the <code>map</code> key; message events also include <code>account</code> and <code>login</code>.</p>
 </li>
 </ul>
 <h2 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
-<p>Field sets match between JSON and JSONL; only wrapping differs. See the preceding table for details.</p>
+<p>Field sets match between JSON and JSONL. Only the file layout differs. See <a href="#how-percona-jsonl-differs">How Percona JSONL differs</a>.</p>
 <p>Every event object includes at least:</p>
 <ul>
 <li><code>timestamp</code></li>
@@ -10766,10 +10892,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="jsonl-example">JSONL example<a class="headerlink" href="#jsonl-example" title="Permanent link">&para;</a></h2>
 <p>In the JSONL format each event is a single compact JSON object on its own line, separated by commas inside a wrapping JSON array. The same events from the preceding JSON example look like this:</p>
 <div class="highlight"><pre><span></span><code><span class="p">[</span>
-<span class="p">{</span><span class="nt">"timestamp"</span><span class="p">:</span><span class="s2">"2026-04-03 10:43:52"</span><span class="p">,</span><span class="nt">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"class"</span><span class="p">:</span><span class="s2">"audit"</span><span class="p">,</span><span class="nt">"event"</span><span class="p">:</span><span class="s2">"startup"</span><span class="p">,</span><span class="nt">"connection_id"</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span><span class="nt">"account"</span><span class="p">:{</span><span class="nt">"user"</span><span class="p">:</span><span class="s2">"root"</span><span class="p">,</span><span class="nt">"host"</span><span class="p">:</span><span class="s2">"localhost"</span><span class="p">},</span><span class="nt">"login"</span><span class="p">:{</span><span class="nt">"user"</span><span class="p">:</span><span class="s2">"root"</span><span class="p">,</span><span class="nt">"os"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"ip"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"proxy"</span><span class="p">:</span><span class="s2">""</span><span class="p">},</span><span class="nt">"startup_data"</span><span class="p">:{</span><span class="nt">"server_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"os_version"</span><span class="p">:</span><span class="s2">"x86_64-Linux"</span><span class="p">,</span><span class="nt">"mysql_version"</span><span class="p">:</span><span class="s2">"8.4.9-9"</span><span class="p">,</span><span class="nt">"args"</span><span class="p">:[</span><span class="s2">"/usr/sbin/mysqld"</span><span class="p">,</span><span class="s2">"--defaults-file=/etc/my.cnf"</span><span class="p">,</span><span class="s2">"--basedir=/usr"</span><span class="p">,</span><span class="s2">"--user=mysql"</span><span class="p">,</span><span class="s2">"--datadir=/var/lib/mysql"</span><span class="p">,</span><span class="s2">"--socket=/var/run/mysqld/mysqld.sock"</span><span class="p">,</span><span class="s2">"--port=3306"</span><span class="p">]}},</span>
-<span class="p">{</span><span class="nt">"timestamp"</span><span class="p">:</span><span class="s2">"2026-04-03 10:43:53"</span><span class="p">,</span><span class="nt">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"class"</span><span class="p">:</span><span class="s2">"connection"</span><span class="p">,</span><span class="nt">"event"</span><span class="p">:</span><span class="s2">"connect"</span><span class="p">,</span><span class="nt">"connection_id"</span><span class="p">:</span><span class="mi">39</span><span class="p">,</span><span class="nt">"account"</span><span class="p">:{</span><span class="nt">"user"</span><span class="p">:</span><span class="s2">"root"</span><span class="p">,</span><span class="nt">"host"</span><span class="p">:</span><span class="s2">"localhost"</span><span class="p">},</span><span class="nt">"login"</span><span class="p">:{</span><span class="nt">"user"</span><span class="p">:</span><span class="s2">"root"</span><span class="p">,</span><span class="nt">"os"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"ip"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"proxy"</span><span class="p">:</span><span class="s2">""</span><span class="p">},</span><span class="nt">"connection_data"</span><span class="p">:{</span><span class="nt">"connection_type"</span><span class="p">:</span><span class="s2">"socket"</span><span class="p">,</span><span class="nt">"status"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"db"</span><span class="p">:</span><span class="s2">"test"</span><span class="p">,</span><span class="nt">"connection_attributes"</span><span class="p">:{</span><span class="nt">"_pid"</span><span class="p">:</span><span class="s2">"824388"</span><span class="p">,</span><span class="nt">"_platform"</span><span class="p">:</span><span class="s2">"x86_64"</span><span class="p">,</span><span class="nt">"_client_version"</span><span class="p">:</span><span class="s2">"8.0.45"</span><span class="p">,</span><span class="nt">"_os"</span><span class="p">:</span><span class="s2">"Linux"</span><span class="p">,</span><span class="nt">"_client_name"</span><span class="p">:</span><span class="s2">"libmysql"</span><span class="p">}}},</span>
-<span class="p">{</span><span class="nt">"timestamp"</span><span class="p">:</span><span class="s2">"2026-04-03 10:43:53"</span><span class="p">,</span><span class="nt">"id"</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span><span class="nt">"class"</span><span class="p">:</span><span class="s2">"table_access"</span><span class="p">,</span><span class="nt">"event"</span><span class="p">:</span><span class="s2">"read"</span><span class="p">,</span><span class="nt">"connection_id"</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span><span class="nt">"account"</span><span class="p">:{</span><span class="nt">"user"</span><span class="p">:</span><span class="s2">"root"</span><span class="p">,</span><span class="nt">"host"</span><span class="p">:</span><span class="s2">"localhost"</span><span class="p">},</span><span class="nt">"login"</span><span class="p">:{</span><span class="nt">"user"</span><span class="p">:</span><span class="s2">"root"</span><span class="p">,</span><span class="nt">"os"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"ip"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"proxy"</span><span class="p">:</span><span class="s2">""</span><span class="p">},</span><span class="nt">"table_access_data"</span><span class="p">:{</span><span class="nt">"db"</span><span class="p">:</span><span class="s2">"test"</span><span class="p">,</span><span class="nt">"table"</span><span class="p">:</span><span class="s2">"sbtest2"</span><span class="p">,</span><span class="nt">"query"</span><span class="p">:</span><span class="s2">"SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099"</span><span class="p">,</span><span class="nt">"sql_command"</span><span class="p">:</span><span class="s2">"select"</span><span class="p">}},</span>
-<span class="p">{</span><span class="nt">"timestamp"</span><span class="p">:</span><span class="s2">"2026-04-03 10:43:53"</span><span class="p">,</span><span class="nt">"id"</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span><span class="nt">"class"</span><span class="p">:</span><span class="s2">"general"</span><span class="p">,</span><span class="nt">"event"</span><span class="p">:</span><span class="s2">"status"</span><span class="p">,</span><span class="nt">"connection_id"</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span><span class="nt">"account"</span><span class="p">:{</span><span class="nt">"user"</span><span class="p">:</span><span class="s2">"root"</span><span class="p">,</span><span class="nt">"host"</span><span class="p">:</span><span class="s2">"localhost"</span><span class="p">},</span><span class="nt">"login"</span><span class="p">:{</span><span class="nt">"user"</span><span class="p">:</span><span class="s2">"root"</span><span class="p">,</span><span class="nt">"os"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"ip"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"proxy"</span><span class="p">:</span><span class="s2">""</span><span class="p">},</span><span class="nt">"general_data"</span><span class="p">:{</span><span class="nt">"command"</span><span class="p">:</span><span class="s2">"Query"</span><span class="p">,</span><span class="nt">"sql_command"</span><span class="p">:</span><span class="s2">"select"</span><span class="p">,</span><span class="nt">"query"</span><span class="p">:</span><span class="s2">"SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099"</span><span class="p">,</span><span class="nt">"status"</span><span class="p">:</span><span class="mi">0</span><span class="p">}}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-04-03 10:43:52"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"audit"</span><span class="p">,</span><span class="w"> </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"startup"</span><span class="p">,</span><span class="w"> </span><span class="nt">"connection_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"localhost"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"ip"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"startup_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"server_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"os_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"x86_64-Linux"</span><span class="p">,</span><span class="w"> </span><span class="nt">"mysql_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8.4.9-9"</span><span class="p">,</span><span class="w"> </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"/usr/sbin/mysqld"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--defaults-file=/etc/my.cnf"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--basedir=/usr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--user=mysql"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--datadir=/var/lib/mysql"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--socket=/var/run/mysqld/mysqld.sock"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port=3306"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-04-03 10:43:53"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"connection"</span><span class="p">,</span><span class="w"> </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"connect"</span><span class="p">,</span><span class="w"> </span><span class="nt">"connection_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">39</span><span class="p">,</span><span class="w"> </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"localhost"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"ip"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"connection_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"connection_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"socket"</span><span class="p">,</span><span class="w"> </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"db"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w"> </span><span class="nt">"connection_attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"_pid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"824388"</span><span class="p">,</span><span class="w"> </span><span class="nt">"_platform"</span><span class="p">:</span><span class="w"> </span><span class="s2">"x86_64"</span><span class="p">,</span><span class="w"> </span><span class="nt">"_client_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8.0.45"</span><span class="p">,</span><span class="w"> </span><span class="nt">"_os"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Linux"</span><span class="p">,</span><span class="w"> </span><span class="nt">"_client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"libmysql"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-04-03 10:43:53"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"table_access"</span><span class="p">,</span><span class="w"> </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"read"</span><span class="p">,</span><span class="w"> </span><span class="nt">"connection_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"localhost"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"ip"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"table_access_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"db"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w"> </span><span class="nt">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sbtest2"</span><span class="p">,</span><span class="w"> </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099"</span><span class="p">,</span><span class="w"> </span><span class="nt">"sql_command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"select"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-04-03 10:43:53"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"general"</span><span class="p">,</span><span class="w"> </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"status"</span><span class="p">,</span><span class="w"> </span><span class="nt">"connection_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"localhost"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"ip"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"general_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Query"</span><span class="p">,</span><span class="w"> </span><span class="nt">"sql_command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"select"</span><span class="p">,</span><span class="w"> </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099"</span><span class="p">,</span><span class="w"> </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
 <span class="p">]</span>
 </code></pre></div>
 <h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
@@ -10803,7 +10929,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 21, 2026 21:58:55 UTC">July 21, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 9, 2026 10:45:31 UTC">October 9, 2026</span>
   </span>
 
     
