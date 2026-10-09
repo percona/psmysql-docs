@@ -26,6 +26,134 @@ These operations does not require a full table rebuild. However, operations that
 
 **Note:** Dropping a partition permanently deletes any data stored in it unless that data is reassigned to another partition.
 
+`INPLACE` `ADD PARTITION` and `DROP PARTITION` require [`rocksdb_allow_unsafe_alter`](myrocks-server-variables.md#rocksdb_allow_unsafe_alter) set to `ON`. MyRocks does not support `INPLACE` `ADD PARTITION` for `HASH` partitions.
+
+With `ALGORITHM=INPLACE`, the server deletes rows in the dropped partition. With `ALGORITHM=COPY`, the server can move compatible rows into another partition.
+
+### Recover mismatched partition metadata
+
+An `INPLACE` `ADD PARTITION` or `DROP PARTITION` under [`rocksdb_allow_unsafe_alter`](myrocks-server-variables.md#rocksdb_allow_unsafe_alter) is crash-unsafe. A stop before the operation completes can leave the MySQL data dictionary and the MyRocks data dictionary in a mismatched state. Use the following procedure to recover.
+
+MyRocks does not support atomic DDL. An `INPLACE` partition alter updates storage-engine objects and data-dictionary metadata in separate stages. A stop before every stage completes can leave incomplete DDL and inconsistent metadata.
+
+The incomplete DDL can produce the following outcomes:
+
+* Schema mismatch between the MySQL data dictionary and the MyRocks data dictionary
+
+* Orphan partition objects in MyRocks that the MySQL data dictionary does not list
+
+* Partition entries in the MySQL data dictionary that lack matching MyRocks objects
+
+* Startup failure when [`rocksdb_validate_tables`](myrocks-server-variables.md#rocksdb_validate_tables) equals `1`
+
+* Partial `ADD PARTITION` or `DROP PARTITION` results that require repair or restore
+
+!!! warning
+
+    The following actions can make recoverable data inaccessible.
+
+    * Do not repeat the interrupted `ALTER TABLE` statement.
+
+    * Do not edit the MyRocks data dictionary by hand.
+
+    * Do not delete RocksDB files.
+
+    * Do not run another partition operation against the affected table.
+
+#### Step 1: Preserve the current state
+
+1. Stop the server.
+
+2. Preserve a copy or storage snapshot of the complete MySQL data directory and [`rocksdb_datadir`](myrocks-server-variables.md#rocksdb_datadir).
+
+3. Retain the error log and binary logs.
+
+#### Step 2: Select a recovery source
+
+Recover from a known-consistent source. Use the first branch that applies:
+
+| Source | Action |
+|--------|--------|
+| Healthy replica | If a healthy replica holds matching table and MyRocks metadata, use that replica as the recovery source. Rebuild the damaged server from that replica. |
+| Verified backup | If no healthy replica is available, restore a backup taken before the interrupted `ALTER TABLE`. Apply binary logs only to a verified consistent position. Do not replay the interrupted unsafe statement. |
+| No replica and no backup | If neither source exists, contact Percona Support or an experienced MyRocks administrator. Do not change the instance before that contact. |
+
+#### Step 3: Diagnose a startup mismatch
+
+Complete this step only when validation reports a mismatch and the server cannot start.
+
+1. Run diagnostics on a copy of the damaged instance.
+
+2. Start that copy in an isolated, read-only environment with the following configuration:
+
+    ```ini
+    [mysqld]
+    rocksdb_validate_tables=2
+    ```
+
+    !!! note
+
+        `rocksdb_validate_tables=2` allows startup despite validation errors. This setting does not repair the mismatch.
+
+3. Compare the partition definitions held by MySQL and MyRocks:
+
+    ```sql
+    SELECT PARTITION_NAME
+      FROM INFORMATION_SCHEMA.PARTITIONS
+     WHERE TABLE_SCHEMA = 'database_name'
+       AND TABLE_NAME = 'table_name'
+       AND PARTITION_NAME IS NOT NULL
+     ORDER BY PARTITION_NAME;
+
+    SELECT DISTINCT PARTITION_NAME
+      FROM INFORMATION_SCHEMA.ROCKSDB_DDL
+     WHERE TABLE_SCHEMA = 'database_name'
+       AND TABLE_NAME = 'table_name'
+       AND PARTITION_NAME IS NOT NULL
+     ORDER BY PARTITION_NAME;
+    ```
+
+#### Step 4: Choose a recovery path
+
+Select the branch that matches the query results:
+
+| Condition | Action |
+|-----------|--------|
+| Every expected partition is accessible and the table reads completely | Perform a logical salvage. Complete the following logical salvage steps. |
+| An expected partition is missing or cannot be read | Restore from a backup or healthy replica. Do not create an empty replacement partition to force a metadata match. The interrupted operation may have deleted or orphaned data for that partition. |
+
+Complete the following logical salvage steps on a copy or separate recovery instance:
+
+1. Export the table schema and rows.
+
+2. Create a new table or clean instance with the intended partition definition.
+
+3. Load the exported rows.
+
+4. Validate row counts, partition placement, and application-level checksums before replacement of the damaged table or instance.
+
+!!! note
+
+    Do not repair the internal MyRocks entries directly.
+
+#### Step 5: Return the server to service
+
+1. Remove `rocksdb_validate_tables=2` or restore the default value of `1`.
+
+2. Set `rocksdb_allow_unsafe_alter=OFF`.
+
+3. Restart the server.
+
+4. Confirm that startup validation succeeds.
+
+5. Confirm that both partition queries return matching names.
+
+6. Confirm that all partitions are readable.
+
+7. Confirm that replication is consistent.
+
+For a `ROCKSDB_CORRUPTED` marker file, see [`rocksdb_allow_to_start_after_corruption`](myrocks-server-variables.md#rocksdb_allow_to_start_after_corruption).
+
 ### Instant DDL support    
 
 MyRocks provides limited Instant DDL support that is disabled by default, and you can activate the specific instant operations you need by setting the appropriate configuration variables.
