@@ -117,22 +117,22 @@ The Percona repositories handle dependencies automatically and reduce upgrade co
         sudo systemctl stop mysql
         ```
 
-    3. Check your installed packages.
+    3. Check your installed Percona packages. Percona Server for MySQL 8.x and later packages use lowercase names (`percona-server-*`). Do not remove these packages; the following steps upgrade them in place.
 
         ```shell
-        rpm -qa | grep Percona-Server
+        rpm -qa | grep -i percona-server
         ```
 
-    4. Remove the packages without dependencies. The command does not prompt for confirmation.
+    4. Check for `mysql`-prefixed packages from another vendor.
 
         ```shell
-        rpm -qa | grep Percona-Server | xargs rpm -e --nodeps
+        rpm -qa | grep '^mysql-'
         ```
 
-    5. Remove the `mysql`-prefixed packages.
+    5. If the previous step lists packages, remove them without dependencies. The command does not prompt for confirmation. If the list is empty, skip this step.
 
         ```shell
-        rpm -qa | grep '^mysql-' | xargs rpm -e --nodeps
+        rpm -qa | grep '^mysql-' | xargs -r rpm -e --nodeps
         ```
 
     6. Install the `percona-server-server` package.
@@ -141,6 +141,18 @@ The Percona repositories handle dependencies automatically and reduce upgrade co
         sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
         sudo percona-release setup {{pkg}}
         sudo yum install percona-server-server
+        ```
+
+        Installing `percona-server-server` upgrades only the server package. Upgrade the remaining Percona packages so that the client, shared libraries, and ICU data files match the server. This command also installs new dependencies, such as `percona-server-client-plugins`.
+
+        ```shell
+        sudo dnf upgrade 'percona-*'
+        ```
+
+        Confirm that every `percona-server-*` package shows the new version.
+
+        ```shell
+        rpm -qa | grep -i percona-server
         ```
 
     7. Install the storage engine packages.
