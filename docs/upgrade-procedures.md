@@ -87,27 +87,26 @@ Find the instructions on how to enable the repositories in the following documen
     3. Check your installed packages:
 
         ```shell
-        rpm -qa | grep Percona-Server
+        rpm -qa | grep -i percona-server
         ```
 
-    4. Remove only the packages without dependencies and leave dependent packages. The command does not prompt for confirmation:
-
-        ```shell
-        rpm -qa | grep Percona-Server | xargs rpm -e --nodeps
-        ```
-
-    5. Remove the mysql-related packages:
-
-        ```shell
-        rpm -qa | grep '^mysql-' | xargs rpm -e --nodeps
-        ```
-
-    6. Install the `percona-server-server` package:
+    4. Enable the Percona Server for MySQL {{vers}} repository. The `percona-release setup` command disables the repository of the previous series:
 
         ```shell
         sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
         sudo percona-release setup {{pkg}}
-        sudo yum install percona-server-server
+        ```
+
+    5. Upgrade all installed Percona packages together. Running `yum install percona-server-server` upgrades only the server package and leaves the client, shared libraries, and ICU data files on the old version:
+
+        ```shell
+        sudo dnf upgrade 'percona-*'
+        ```
+
+    6. Verify that every package listed by the following command shows the {{vers}} version:
+
+        ```shell
+        rpm -qa | grep -i percona-server
         ```
 
     7. Install the storage engine packages.
