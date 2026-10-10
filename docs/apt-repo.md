@@ -33,7 +33,7 @@ sudo apt install curl
 curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 sudo apt install gnupg2 lsb-release ./percona-release_latest.generic_all.deb
 sudo apt update
-sudo percona-release --scheme https setup ps80
+sudo percona-release setup ps80 --scheme https
 sudo apt install percona-server-server
 ```
 
@@ -83,7 +83,7 @@ The following sections provide detailed explanations for each step:
 6. This command line instruction uses `percona-release` command, a tool provided by Percona, to set up a specific Percona Server version. 
 
 	```{.bash}
-	sudo percona-release setup ps80
+	sudo percona-release setup ps80 --scheme https
 	```
 
 7. You can check the repository setup for the Percona original release list in `/etc/apt/sources.list.d/percona-original-release.list`. The APT system uses this file to know where to find updates and new packages for Percona software.
