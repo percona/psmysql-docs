@@ -44,10 +44,10 @@ Note: Red Hat Enterprise Linux 7 reached End of Life (EOL) on June 30, 2024. Thi
 
 === "Install on Red Hat 8 or later"
 
-     RHEL 8 and other EL8 systems enable the MySQL module by default, which hides the Percona-provided packages. The first command disables this module. The second command uses `yum` to install the Percona repository from the Percona website. The third command uses the `percona-release` script to set up the `ps-80` release series of Percona Server. The fourth command installs Percona Server for MySQL.
+     RHEL 8 and other EL8 systems enable the MySQL module by default, which hides the Percona-provided packages. The first command disables this module; on RHEL 9 and its derivatives, this step is not needed. The second command uses `yum` to install the Percona repository from the Percona website. The third command uses the `percona-release` script to set up the `ps-80` release series of Percona Server. The fourth command installs Percona Server for MySQL.
 
     ```{.bash}
-    sudo yum module disable mysql
+    sudo yum module disable mysql -y
     sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
     sudo percona-release setup ps-80
     sudo yum install percona-server-server
