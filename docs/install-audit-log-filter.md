@@ -29,7 +29,7 @@ Use either approach:
     source /path/to/mysql/share/audit_log_filter_linux_install.sql;
     ```
 
-    Replace `/path/to/mysql/share/` with the path to the server installation's `share` directory.
+    Replace `/path/to/mysql/share/` with the path to the server installation's `share` directory. For package installations, the script is in `/usr/share/mysql/` on Debian and Ubuntu, and in `/usr/share/percona-server/` on RHEL-based distributions.
 
 ### Verify installation
 

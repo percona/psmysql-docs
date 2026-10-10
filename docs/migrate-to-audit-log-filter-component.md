@@ -12,7 +12,7 @@ Before you start, read:
 
 !!! note
 
-    The component and the plugin use different system variables and a different on-disk format. Do not enable both at the same time, and do not set `audit_log_*` plugin variables on a server running the component. See the [deprecation notice](audit-log-plugin.md) on the plugin page.
+    The component and the plugin use different system variables and a different on-disk format. Do not enable both at the same time, and do not set `audit_log_*` plugin variables on a server running the component. See the [removal notice](audit-log-plugin.md) on the plugin page.
 
 ## Which source are you migrating from?
 
@@ -20,7 +20,7 @@ Two legacy sources exist. The target is `component_audit_log_filter` in both cas
 
 | Source | Recommended path |
 |---|---|
-| `audit_log` plugin (pre-8.4 installs, still available in {{vers}} as a deprecated plugin) | Upgrade to {{vers}}, install the component, translate `audit_log_*` variables to filter JSON, validate in parallel, then uninstall the plugin. |
+| `audit_log` plugin (deprecated in 8.4, removed in {{vers}}) | On 8.4, before upgrading: install the component, translate `audit_log_*` variables to filter JSON, validate, uninstall the plugin, and remove the plugin options from `my.cnf`. Then upgrade to {{vers}}. |
 | `audit_log_filter` plugin (transitional, 8.0 and early 8.4 builds) | Upgrade to {{vers}} first, then transition to the component per [Upgrade from plugins to components → Transition after upgrade](upgrade-components.md#transition-after-the-upgrade). |
 
 The following detailed mapping targets the `audit_log` plugin because the plugin's configuration model — global `audit_log_*` variables and policy presets — differs most from the component. If you are migrating from the `audit_log_filter` plugin, the filter JSON you already wrote continues to work unchanged; the migration reduces to a shorter path:
@@ -47,6 +47,16 @@ See also [Upgrade from plugins to components → Transition after upgrade](upgra
 
 ## Migration steps
 
+!!! warning "Migrate from the `audit_log` plugin before upgrading to {{vers}}"
+
+    The `audit_log` plugin is removed in {{vers}}. The plugin library `audit_log.so` is not built or packaged. Complete the following migration steps on the 8.4 server before upgrading. Otherwise, the upgrade fails in one of the following ways:
+
+    * If `my.cnf` still contains `plugin-load-add=audit_log.so` or plugin options such as `audit_log_format`, the {{vers}} server aborts at startup with `unknown variable 'audit_log_format=JSON'`. The server aborts after the data dictionary upgrade has completed, so the 8.4 server can no longer start on that data directory.
+
+    * If the plugin was installed with `INSTALL PLUGIN` and no plugin options are set, {{vers}} starts, logs `Couldn't load plugin named 'audit_log'` at every startup, and runs without auditing.
+
+    If you already upgraded with the plugin registered, `UNINSTALL PLUGIN audit_log` fails on {{vers}} with `ERROR 1305`. Remove the registration with `DELETE FROM mysql.plugin WHERE name='audit_log';` and then install the component.
+
 1. **Inventory the current configuration.** On the plugin-enabled server, capture the legacy settings:
 
    ```sql
@@ -55,7 +65,7 @@ See also [Upgrade from plugins to components → Transition after upgrade](upgra
 
    Save the output. Translate each non-default value into a component variable, a filter JSON rule, or an `audit_log_filter_set_user()` call.
 
-2. **Upgrade the server to {{vers}}** by following [Upgrade procedures](upgrade-procedures.md). The `audit_log` plugin remains loadable in {{vers}}, so the old log keeps flowing during the transition.
+2. **Stay on 8.4.** The `audit_log` plugin is not available in {{vers}}, so complete steps 3 through 7 on the 8.4 server. 8.4 includes `component_audit_log_filter`.
 
 3. **Install the component** per [Install the audit log filter](install-audit-log-filter.md). The install script creates `mysql.audit_log_filter` and `mysql.audit_log_user`, then runs `INSTALL COMPONENT`.
 
@@ -63,9 +73,11 @@ See also [Upgrade from plugins to components → Transition after upgrade](upgra
 
 5. **Run in parallel (optional, recommended).** Load both the plugin and the component. Verify that the events you care about appear in the component's log. Compare record types, SQL text, and redactions.
 
-6. **Cut over.** Uninstall the plugin (`UNINSTALL PLUGIN audit_log;`), remove `audit_log_*` entries from `my.cnf`, and leave the component as the sole audit writer. When you also had the transitional `audit_log_filter` plugin loaded, uninstall that plugin as well.
+6. **Cut over.** Uninstall the plugin (`UNINSTALL PLUGIN audit_log;`), remove `plugin-load-add=audit_log.so` and the plugin's `audit_log_*` entries from `my.cnf`, and leave the component as the sole audit writer. Keep the component's `audit_log_filter.*` variables. When you also had the transitional `audit_log_filter` plugin loaded, uninstall that plugin as well.
 
 7. **Verify.** Log in as a subject account, execute a representative statement, and read the new log with [`audit_log_read()`](audit-log-filter-variables.md#audit_log_read) or by opening the file.
+
+8. **Upgrade the server to {{vers}}** by following [Upgrade procedures](upgrade-procedures.md).
 
 ## Option and variable mapping
 
@@ -223,7 +235,7 @@ audit_log_rotate_on_size = 104857600
 audit_log_rotations      = 10
 ```
 
-After upgrading to {{vers}} and running `audit_log_filter_linux_install.sql`, replace it with:
+After running `audit_log_filter_linux_install.sql`, replace it with the following settings. Remove every plugin option, including `plugin-load-add = audit_log.so`, before you upgrade to {{vers}}:
 
 ```ini
 [mysqld]
@@ -310,4 +322,4 @@ Accounts that match neither `app@%` nor `admin@localhost`, and that have no expl
 
 * [Functions, options, and variables](audit-log-filter-variables.md)
 
-* [Audit log plugin](audit-log-plugin.md) — legacy reference, with the deprecation notice
+* [Audit log plugin](audit-log-plugin.md) — legacy reference, with the removal notice
