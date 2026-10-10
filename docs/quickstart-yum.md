@@ -24,11 +24,13 @@ Quickstart path: Step 1 — Install. Next: [Work with a database](quickstart-dat
 
 2. Set up the repository for Percona Server for MySQL 8.4:
 
-    [Optional] On Red Hat 8 systems (including Rocky Linux and AlmaLinux), disable the distribution's MySQL module first:
+    On RHEL 8 and compatible systems (Oracle Linux, Rocky Linux, AlmaLinux 8), you must disable the distribution's MySQL module first. Otherwise, its default stream hides the Percona packages, and the installation fails with `All matches were filtered out by modular filtering`:
 
     ```shell
     sudo dnf module disable mysql -y
     ```
+
+    You do not need this command on EL9. On EL10, skip it: modules no longer exist there, and the command fails with `Unable to resolve argument mysql`.
 
     Then run:
 
