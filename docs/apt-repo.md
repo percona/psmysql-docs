@@ -31,13 +31,12 @@ sudo apt update
 sudo apt install -y curl
 curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb
-sudo percona-release setup {{pkg}} --scheme https
-sudo percona-release enable {{pkg}} release --scheme https
+sudo percona-release enable-only {{pkg}} release --scheme https
 sudo apt update
 sudo apt install -y percona-server-server
 ```
 
-The command sequence matches [Install Percona Server for MySQL and create a database on Ubuntu](quickstart-apt.md). The quickstart covers installation steps one through six and includes `--scheme https` on `percona-release setup` and `enable`. The repository identifier for {{vers}} is `{{pkg}}`.
+The command sequence matches [Install Percona Server for MySQL and create a database on Ubuntu](quickstart-apt.md). The quickstart covers installation steps one through six and includes `--scheme https` on `percona-release enable-only`. The repository identifier for {{vers}} is `{{pkg}}`.
 
 For another Percona Server for MySQL series, use the name shown by `sudo percona-release list`, or consult the [MySQL software repositories :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/mysql.html) reference. Published names can change as Percona adds new series.
 
@@ -91,17 +90,21 @@ When the package manager prompts during installation, follow the steps in [Confi
 		sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb
 		```
 
-	5. The `percona-release setup {{pkg}} --scheme https` command disables all current Percona repositories on the system. The command then enables the release repositories matching Percona Server for MySQL {{vers}} for your distribution over HTTPS. See the [Percona Software Repositories :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/percona-release.html) reference. Omit `--scheme https` only when you require HTTP repository URLs, which is the `percona-release` default.
+	5. The `percona-release enable-only {{pkg}} release --scheme https` command disables all current Percona repositories on the system and enables only the Percona Server for MySQL {{vers}} release repository over HTTPS. See the [Percona Software Repositories :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/percona-release.html) reference. Omit `--scheme https` only when you require HTTP repository URLs, which is the `percona-release` default.
+
+		!!! note
+
+			Do not use `percona-release setup {{pkg}}` for {{vers}}. With `percona-release` 1.0-34, `setup {{pkg}}` disables all Percona repositories but does not enable the {{vers}} repository, and still exits successfully.
 
 		```shell
-		sudo percona-release setup {{pkg}} --scheme https
+		sudo percona-release enable-only {{pkg}} release --scheme https
 		```
 
-	6. The `percona-release enable {{pkg}} release --scheme https` command enables the Percona Server for MySQL release repository with HTTPS URLs. Run `apt update` afterward so APT loads package indexes for the Percona APT repository, including `percona-server-server` and related packages.
+	6. Run `apt update` so APT loads package indexes for the Percona APT repository, including `percona-server-server` and related packages. Check that `apt-cache policy percona-server-server` shows a {{vers}} candidate version.
 
 		```shell
-		sudo percona-release enable {{pkg}} release --scheme https
 		sudo apt update
+		apt-cache policy percona-server-server
 		```
 
 	7. Verify the repository configuration by inspecting the `.list` files under `/etc/apt/sources.list.d/`. The exact filename, such as `percona-original-release.list`, depends on the `percona-release` version.
