@@ -75,15 +75,15 @@ The Percona repositories handle dependencies automatically and reduce upgrade co
 
     3. Modify the database configuration file, `my.cnf`, as needed. For example, remove deprecated variables and update settings for {{vers}}.
 
-    4. Install Percona Server for MySQL.
+    4. Install Percona Server for MySQL. The `percona-release enable-only` command disables the repository of the previous version and enables the {{vers}} repository. Before you run `apt install`, check that `apt-cache policy percona-server-server` shows a {{vers}} candidate version.
 
         ```shell
         sudo apt update
         sudo apt install curl
         curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
         sudo apt install gnupg2 lsb-release ./percona-release_latest.generic_all.deb
+        sudo percona-release enable-only {{pkg}} release
         sudo apt update
-        sudo percona-release setup {{pkg}}
         sudo apt install percona-server-server
         ```
 
@@ -135,11 +135,11 @@ The Percona repositories handle dependencies automatically and reduce upgrade co
         rpm -qa | grep '^mysql-' | xargs rpm -e --nodeps
         ```
 
-    6. Install the `percona-server-server` package.
+    6. Install the `percona-server-server` package. The `percona-release enable-only` command disables the repository of the previous version and enables the {{vers}} repository. Before you run `yum install`, check that `sudo dnf repolist | grep {{pkg}}` lists the `{{pkg}}-release-<arch>` repository.
 
         ```shell
         sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-        sudo percona-release setup {{pkg}}
+        sudo percona-release enable-only {{pkg}} release
         sudo yum install percona-server-server
         ```
 

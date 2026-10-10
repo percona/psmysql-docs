@@ -38,16 +38,15 @@ To install the server, complete the following steps:
     sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb
     ```
 
-4. Configure the Percona Server for MySQL {{vers}} repository. This step prepares the repository configuration and is intentionally separate from step 5:
+4. Enable only the Percona Server for MySQL {{vers}} release repository. This command disables any other Percona repositories:
 
     ```shell
-    sudo percona-release setup {{pkg}} --scheme https
+    sudo percona-release enable-only {{pkg}} release --scheme https
     ```
 
-5. Enable the Percona Server for MySQL release repository:
+5. Update the package index:
 
     ```shell
-    sudo percona-release enable {{pkg}} release --scheme https
     sudo apt update
     ```
 
