@@ -105,4 +105,4 @@ Rules inside the filter's JSON apply after load. For example, `log` conditions t
 
 * [Upgrade components](upgrade-components.md) — general plugin-to-component transition procedure
 
-* [Audit log plugin](audit-log-plugin.md) — deprecated plugin reference
+* [Audit log plugin](audit-log-plugin.md) — legacy plugin reference (removed in {{vers}})

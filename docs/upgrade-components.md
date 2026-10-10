@@ -15,6 +15,7 @@ The following table lists the affected plugins.
 | Plugin | Status before {{vers}} | {{vers}} state | Notes |
 |---|---|---|---|
 | `keyring_vault` | Available only as a plugin | `component_keyring_vault` | The plugin is replaced by the `component_keyring_vault` component. Convert the configuration from the `keyring_vault_config` system variable format to JavaScript Object Notation (JSON) manually. |
+| `audit_log` | Deprecated plugin in 8.4 | Removed. `audit_log.so` is not built or packaged. Replacement: `component_audit_log_filter` | Migrate to `component_audit_log_filter` on 8.4 before upgrading. Then run `UNINSTALL PLUGIN audit_log;` and remove `plugin-load-add=audit_log.so` and the plugin's `audit_log_*` options, such as `audit_log_format` and `audit_log_policy`, from `my.cnf`. If the options remain, {{vers}} aborts at startup. If only the plugin registration remains, {{vers}} starts without auditing. See [Migrate to the audit log filter component](migrate-to-audit-log-filter-component.md). |
 | `audit_log_filter` | Available only as a plugin | `component_audit_log_filter` | The plugin has a corresponding component. Transition to the component after upgrading to {{vers}}. |
 | `data_masking` | Available as both a plugin and a component | `component_masking_functions` | Transition to `component_masking_functions` before upgrading to {{vers}}. |
 | `binlog_utils_udf` and `percona-udf` user-defined functions | Installed via a plugin. The plugin install requires `CREATE FUNCTION ... SONAME ...` for each function. | `component_binlog_utils_udf` and `component_percona_udf` | User-defined functions are available as components in {{vers}}. After `INSTALL COMPONENT`, all functions register automatically. |
@@ -121,6 +122,8 @@ The transition timing depends on the plugin. The following sub-sections describe
 #### Transition before the upgrade
 
 Transition to the component before upgrading to {{vers}} when your release exposes both forms. The `data_masking` plugin and the `component_masking_functions` component fit this case.
+
+The `audit_log` plugin also requires a transition before the upgrade, because {{vers}} does not include the plugin. Migrate to `component_audit_log_filter` on 8.4, as described in [Migrate to the audit log filter component](migrate-to-audit-log-filter-component.md).
 
 #### Transition after the upgrade
 

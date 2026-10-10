@@ -125,6 +125,20 @@ Take the following actions:
 
 * [ ] See [Authentication methods](./authentication-methods.md).
 
+### Migrate from the `audit_log` plugin
+
+Impact: The `audit_log` plugin is removed in {{vers}}. The plugin library `audit_log.so` is not built or packaged. If `my.cnf` still loads the plugin or sets its `audit_log_*` options, the {{vers}} server aborts at startup after the data dictionary upgrade has completed. If the plugin is registered with `INSTALL PLUGIN` but has no options, the {{vers}} server starts without auditing. The upgrade checker does not report this problem.
+
+Take the following actions:
+
+* [ ] Check whether the plugin is active on the 8.4 server: `SELECT PLUGIN_NAME, PLUGIN_STATUS FROM INFORMATION_SCHEMA.PLUGINS WHERE PLUGIN_NAME = 'audit_log';`.
+
+* [ ] Migrate to `component_audit_log_filter` on 8.4 before upgrading. See [Migrate to the audit log filter component](./migrate-to-audit-log-filter-component.md).
+
+* [ ] Run `UNINSTALL PLUGIN audit_log;` on 8.4.
+
+* [ ] Remove `plugin-load-add=audit_log.so` and the plugin's `audit_log_*` options, such as `audit_log_format` and `audit_log_policy`, from `my.cnf`. Keep the component's `audit_log_filter.*` variables.
+
 ### Update replication syntax and operational scripts
 
 Impact: `MASTER` and `SLAVE` syntax is removed and causes syntax errors. Use `SOURCE` and `REPLICA` commands.
