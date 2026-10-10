@@ -35,11 +35,17 @@ Percona signs all packages with GNU Privacy Guard (GPG) keys. The installation p
 
 ## Limitations
 
-RHEL 8 and later systems enable the MySQL module by default. The module hides the Percona-provided packages. Disable the module to make the Percona packages visible.
+On RHEL 8 and derivatives (Oracle Linux 8, Rocky Linux 8, AlmaLinux 8), the AppStream `mysql` module hides the Percona-provided packages. This happens even when the module stream is only the default stream (`[d]`) and is not explicitly enabled (`[e]`). Disable the module before you install.
 
 !!! important "Checking the MySQL module"
 
-    RHEL 8 and later systems enable the MySQL module by default. The module can hide or conflict with Percona packages. The first installation step in the following section checks whether the module is enabled. An `[e]` marker indicates that you must disable the module before proceeding. A `[d]` marker indicates the default stream and allows you to proceed.
+    The need to disable the `mysql` module depends on the major version of your operating system:
+
+    | Operating system | `sudo dnf -y module disable mysql` |
+    |---|---|
+    | RHEL 8 and derivatives | Required. Without it, `dnf install percona-server-server` fails with `All matches were filtered out by modular filtering`. |
+    | RHEL 9 and derivatives | Not needed. The default `mysql` stream does not hide Percona packages. Running the command is harmless. |
+    | RHEL 10 and derivatives | Skip this step. RHEL 10 has no `mysql` module, and the command fails with `missing groups or modules: mysql`. |
 
 ## Install using DNF (RHEL 8 and later)
 
@@ -50,43 +56,56 @@ RHEL 8 and later systems enable the MySQL module by default. The module hides th
 All commands in this guide use `sudo` for privilege elevation. Follow these steps:
 {.power-number}
 
-1. Verify whether the MySQL module is enabled on your system:
+1. On RHEL 8 and RHEL 9 and their derivatives, check the MySQL module on your system. On RHEL 10, skip this step and step 2.
 
 	```shell
 	sudo dnf module list mysql
 	```
 
-	??? example "Expected output"
+	??? example "Expected output on Rocky Linux 8"
 
 		```{.text .no-copy}
-		Rocky Linux 9 - BaseOS                     2.2 MB/s | 2.6 MB     00:01
-		Rocky Linux 9 - AppStream                  3.7 MB/s | 8.2 MB     00:02
-		Rocky Linux 9 - Extras                      35 kB/s |  18 kB     00:00
-		Rocky Linux 9 - AppStream
+		Name  Stream  Profiles           Summary
+		mysql 8.0 [d] client, server [d] MySQL Module
+		mysql 8.4     client, server [d] MySQL Module
+
+		Hint: [d]efault, [e]nabled, [x]disabled, [i]nstalled
+		```
+
+	??? example "Expected output on Rocky Linux 9"
+
+		```{.text .no-copy}
 		Name       Stream      Profiles                            Summary
 		mysql      8.4         api, client, filter, server [d]     MySQL Module
 
 		Hint: [d]efault, [e]nabled, [x]disabled, [i]nstalled
 		```
 
-	The `[d]` marker next to the server profile indicates the default stream. A module is enabled only when an `[e]` marker is present. An `[e]` marker indicates that the module is active.
+	The `[d]` marker next to the stream indicates the default stream. On RHEL 8, a default stream hides the Percona packages in the same way as an enabled (`[e]`) stream.
 
-2. Disable the MySQL module if step 1 lists the module as `[e]`-enabled. The MySQL module conflicts with Percona packages. Run the following command:
+2. On RHEL 8 and derivatives, disable the MySQL module. This step is required on RHEL 8 even if step 1 shows only the `[d]` marker. On RHEL 9 the step is not needed. On RHEL 10 skip the step because the command fails.
 
 	```shell
-	sudo dnf module disable mysql
+	sudo dnf -y module disable mysql
 	```
 
-	??? example "Expected output"
+	??? example "Expected output on Rocky Linux 8"
 
 		```{.text .no-copy}
-		Last metadata expiration check: 0:33:11 ago on Fri Aug 29 14:37:35 2025.
 		Dependencies resolved.
-		Nothing to do.
+		================================================================================
+		 Package           Architecture     Version             Repository         Size
+		================================================================================
+		Disabling modules:
+		 mysql
+
+		Transaction Summary
+		================================================================================
+
 		Complete!
 		```
 
-	The `dnf module disable` command disables the MySQL module. When the module is not enabled, the command returns `Nothing to do`. This output is expected. Proceed with the installation.
+	After the command completes, `sudo dnf module list mysql` shows the `[x]` (disabled) marker for the `mysql` streams.
 
 3. Install the Percona repository package:
 
