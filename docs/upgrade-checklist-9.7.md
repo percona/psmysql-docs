@@ -157,6 +157,22 @@ Take the following actions:
 
 * [ ] Audit `my.cnf` for removed startup options and system variables. Update or delete the entries.
 
+### Remove unsupported options from the configuration file
+
+Impact: The {{vers}} server upgrades the data dictionary before it rejects unknown options. An option that {{vers}} does not support aborts the first start with `[ERROR] [MY-000067] [Server] unknown variable '<option>'` after the data directory has already been upgraded. The 8.4 server can no longer start on that data directory. Only a restore from backup returns you to 8.4. The upgrade checker does not read `my.cnf` unless you pass the configuration file path.
+
+Take the following actions:
+
+* [ ] Remove options that {{vers}} no longer supports from `my.cnf`. Examples include `mysql_native_password=ON` (or `--mysql-native-password`), `plugin-load-add=audit_log.so`, and the `audit_log_*` options of the removed `audit_log` plugin.
+
+* [ ] Before the first start of {{vers}}, validate the configuration with the {{vers}} `mysqld` binary. The check reports unknown options and exits without starting the server or modifying the data directory. A valid configuration returns exit status `0`.
+
+    ```shell
+    sudo mysqld --validate-config --user=mysql
+    ```
+
+* [ ] On Debian and Ubuntu, installing the {{vers}} packages starts the server immediately. Run the validation on a staging host that runs {{vers}}, with a copy of the production configuration file, before you upgrade production. To check a specific file, add `--defaults-file=<path>` as the first option.
+
 ### Resolve schema constraint violations
 
 Impact: `AUTO_INCREMENT` is not allowed on `FLOAT` or `DOUBLE` columns.
