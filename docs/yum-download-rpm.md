@@ -75,14 +75,12 @@ The following example downloads *Percona Server for MySQL* {{release}} release p
 	$ sudo dnf module disable mysql
 	```
 
-6. The following command uses superuser privileges to install RPM packages in the current directory using the `rpm` command. The `rpm` command uses the following options:
-
-    * `i` - install
-
-    * `v` - verbose, describe the process in detail
-
-    * `h` - display hash marks (`#`) to display installation progress
+6. The following command uses superuser privileges to install the server packages from the current directory with `dnf localinstall`. Unlike `rpm -ivh`, `dnf` installs the missing dependencies (for example, `libaio` and `libatomic`) from the distribution repositories. `sudo rpm -ivh *.rpm` stops with `Failed dependencies` errors.
 
     ```{.bash data-prompt="$"}
-    $ sudo rpm -ivh *.rpm
+    $ sudo dnf localinstall ./percona-server-server-{{release}}.1.el8.x86_64.rpm ./percona-server-client-{{release}}.1.el8.x86_64.rpm ./percona-server-shared-{{release}}.1.el8.x86_64.rpm ./percona-server-shared-compat-{{release}}.1.el8.x86_64.rpm ./percona-icu-data-files-{{release}}.1.el8.x86_64.rpm
     ```
+
+    !!! note
+
+        The `percona-server-server` package depends on `percona-telemetry-agent`, which is not in the bundle. If the Percona repositories are not configured on the host, `dnf` fails with `nothing provides percona-telemetry-agent`. In that case, download the `percona-telemetry-agent` RPM for your RHEL version from `https://repo.percona.com/telemetry/yum/release/<RHEL version>/RPMS/x86_64/` into the same directory, and add it to the `dnf localinstall` command.
