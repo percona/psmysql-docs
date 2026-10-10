@@ -15,6 +15,18 @@ Before beginning the upgrade process:
     sudo systemctl stop mysql
     ```
 
+!!! warning "Remove removed options before the first start of {{vers}}"
+
+    The server upgrades the data dictionary first and validates the configuration afterwards. If `my.cnf` still contains an option that was removed in {{vers}} (for example, `default_authentication_plugin` or `transaction_write_set_extraction`), the first start aborts with `unknown variable ...` after the data directory has already been upgraded. The previous version can no longer start it, and only a restore from the backup goes back.
+
+    Validate the configuration with the {{vers}} `mysqld` binary before the first start:
+
+    ```shell
+    sudo mysqld --validate-config --user=mysql
+    ```
+
+    The command does not touch the data directory. It reports `unknown variable` and exits with a non-zero code if an option is not supported. The DEB packages start the server during `apt install`, so on Debian and Ubuntu, validate the configuration on a staging host with {{vers}} installed. See the [upgrade checklist](./upgrade-checklist-8.4.md#configuration-file).
+
 !!! warning "Critical"
 
     Always test the upgrade process in a non-production environment first. For detailed upgrade procedures or if you encounter any issues during this process, our [Percona Support team :octicons-link-external-16:](https://www.percona.com/services/support) is available to assist you.
@@ -120,7 +132,13 @@ Find the instructions on how to enable the repositories in the following documen
 
     8. Modify your configuration file, `my.cnf`, as needed (for example, remove deprecated variables, update settings for {{vers}}). If you were using plugins that have been replaced by components in {{vers}}, plan the transition to components. See [Upgrade from plugins to components](./upgrade-components.md) for details.
 
-    9. The mysqld binary automatically runs the upgrade process if needed. To find more information, see [MySQL Upgrade Process :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-what-is-upgraded.html).
+    9. Validate the configuration with the new `mysqld` binary before you start the server. If the command reports `unknown variable`, remove that option from the configuration file and run the command again:
+
+        ```shell
+        sudo mysqld --validate-config --user=mysql
+        ```
+
+        The mysqld binary automatically runs the upgrade process if needed. To find more information, see [MySQL Upgrade Process :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-what-is-upgraded.html).
 
     10. Restart the server:
 
