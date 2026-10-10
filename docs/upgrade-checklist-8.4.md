@@ -101,6 +101,7 @@ Complete these checks before starting the upgrade process.
 **Action**:
 
 - [ ] If a component exists in 8.0 (for example, data masking), transition in 8.0 before upgrading.
+- [ ] If the 8.0 server uses the `keyring_file` plugin, migrate the keys to `component_keyring_file` in 8.0 before upgrading. {{vers}} does not include the plugin. With encrypted tables, the first {{vers}} start aborts with `Encryption can't find master key` after the upgrade has started. See [Migrate from the keyring_file plugin to component_keyring_file](./upgrade-components.md#migrate-from-the-keyring_file-plugin-to-component_keyring_file).
 - [ ] Plan configuration changes from plugin variables/`--early-plugin-load` to component manifests/config files.
 - [ ] See: [Upgrade from plugins to components](./upgrade-components.md)
 
