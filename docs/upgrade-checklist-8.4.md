@@ -40,6 +40,29 @@ Complete these checks before starting the upgrade process.
 - [ ] Remove dependencies on built-in memcached variables/APIs.
 - [ ] See: [Breaking and incompatible changes in {{vers}}](./8.4-breaking-changes.md)
 
+### Configuration file
+
+**Impact**: The server upgrades the data dictionary first and validates the configuration afterwards. If the configuration file still contains an option that was removed in {{vers}}, the first start of {{vers}} aborts with `[ERROR] [MY-000067] [Server] unknown variable ...` **after** the data directory has already been upgraded. The 8.0 server can no longer start this data directory; to go back, you must restore the backup.
+
+**Action**:
+
+- [ ] Before the first start of {{vers}}, remove the options that no longer exist from the configuration file, for example, `default_authentication_plugin`, `expire_logs_days`, `transaction_write_set_extraction`, `binlog_transaction_dependency_tracking`, `master_info_repository`, and `log_bin_use_v1_row_events`. See [Compatibility and removed items in {{vers}}](./8.4-compatibility-and-removed-items.md).
+- [ ] Validate the configuration with the {{vers}} `mysqld` binary before the first start. The command checks the options without touching the data directory. It prints `unknown variable` and exits with a non-zero code if an option is not supported:
+
+    ```shell
+    sudo mysqld --validate-config --user=mysql
+    ```
+
+    The RPM packages do not start the server, so you can run the command after you install the {{vers}} packages and before you start the server. The DEB packages start the server during `apt install`, so validate the configuration on a staging host with {{vers}} installed first.
+
+- [ ] If you run the MySQL Shell upgrade checker, pass your configuration file with `--config-path`. Without this option, the checker does not check the configuration file:
+
+    ```shell
+    mysqlsh -- util check-for-server-upgrade root@localhost:3306 --target-version={{tag}} --config-path=/etc/my.cnf
+    ```
+
+    On Debian and Ubuntu, the server configuration is in `/etc/mysql/mysql.conf.d/mysqld.cnf`.
+
 ### Reserved keywords in identifiers
 
 **Impact**: New reserved words (for example, `MANUAL`, `PARALLEL`, `QUALIFY`, `TABLESAMPLE`) can break schemas and queries.
